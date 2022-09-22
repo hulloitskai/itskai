@@ -1,0 +1,87 @@
+# The behavior of RuboCop can be controlled via the .rubocop.yml
+# configuration file. It makes it possible to enable/disable
+# certain cops (checks) and to alter their behavior if they accept
+# any parameters. The file can be placed either in your home
+# directory or in some project directory.
+#
+# RuboCop will start looking for the configuration file in the directory
+# where the inspected file is and continue its way up to the root directory.
+#
+# See https://docs.rubocop.org/rubocop/configuration
+
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-sorbet
+
+inherit_from:
+  - node_modules/@prettier/plugin-ruby/rubocop.yml
+
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - .devcontainer/**/*
+    - .husky/**/*
+    - db/schema.rb
+    - bin/**/*
+    - log/**/*
+    - node_modules/**/*
+    - public/**/*
+    - tmp/**/*
+    - sorbet/rbi/dsl/**/*
+    - sorbet/rbi/gems/**/*
+    - sorbet/rbi/sorbet-typed/**/*
+    - storage/**/*
+    - vendor/**/*
+    - config.ru
+    - Gemfile
+    - Rakefile
+  Include:
+    - "**/*.rb"
+    - "**/*.rbi"
+    - "**/*.gemfile"
+    - "**/*.gemspec"
+    - "**/*.rake"
+    - "**/*.ru"
+    - "**/Gemfile"
+    - "**/Rakefile"
+
+Lint/Void:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 80
+  AllowedPatterns: ["# rubocop:disable"]
+
+Naming/InclusiveLanguage:
+  Enabled: false
+
+Style/ClassMethodsDefinitions:
+  Enabled: false
+Style/AndOr:
+  EnforcedStyle: conditionals
+Style/CommandLiteral:
+  EnforcedStyle: backticks
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+Style/Documentation:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/ParallelAssignment:
+  Enabled: false
+
+Sorbet/FalseSigil:
+  Enabled: false
+Sorbet/ValidSigil:
+  MinimumStrictness: "ignore"
+
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+Rails/HasAndBelongsToMany:
+  Enabled: false
+Rails/I18nLocaleTexts:
+  Enabled: false

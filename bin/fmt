@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# == Dependencies ==
+system("yarn", "install") || abort("Failed to install Node dependencies")
+
+# == Format ==
+require "optparse"
+
+options = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: bin/fmt [--fix]"
+  opts.on(
+    "--fix",
+    "Auto-format unformatted files",
+  ) { |check| options[:check] = check }
+end.parse!
+
+targets = ARGV.dup
+targets << "." if targets.empty?
+mode = options[:fix] ? "--write" : "--check"
+
+puts "== Prettier =="
+system("yarn", "prettier", mode, *targets)

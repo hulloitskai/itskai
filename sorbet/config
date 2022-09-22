@@ -1,0 +1,12 @@
+--enable-experimental-requires-ancestor
+--dir
+.
+--ignore=/.husky
+--ignore=/bin
+--ignore=/log
+--ignore=/tmp
+--ignore=/public
+--ignore=/storage
+--ignore=/sorbet/rbi/sorbet-typed
+--ignore=/vendor/bundle
+--ignore=/node_modules

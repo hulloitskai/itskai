@@ -1,0 +1,17 @@
+app/assets/builds/
+bin/
+db/schema.rb
+log/
+node_modules/
+public/assets/
+sorbet/rbi/dsl/
+sorbet/rbi/gems/
+sorbet/rbi/annotations/
+storage/
+tmp/
+vendor/
+package-lock.json
+yarn.lock
+*generated*
+Gemfile
+Gemfile.lock

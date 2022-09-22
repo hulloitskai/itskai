@@ -1,0 +1,19 @@
+# See https://github.com/Shopify/tapioca
+
+gem:
+  doc: true
+  exclude:
+    - pry-doc
+    - pry-rails
+    - pry-rescue
+    - pry-stack_explorer
+    - rails-pg-extras
+    - rbi
+    - rubocop-rails
+    - rubocop-shopify
+    - rubocop-sorbet
+    - spoom
+    - tapioca
+    - web-console
+    - yard
+    - yard-sorbet

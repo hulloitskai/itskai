@@ -1,0 +1,77 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# == Dependencies ==
+system("yarn", "install") || abort("Failed to install Node dependencies")
+
+# == Lint ==
+require "optparse"
+
+options = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: bin/lint [--fix] <targets...>"
+  opts.on(
+    "--fix",
+    "Auto-fix code offences without correcting them",
+  ) { |check| options[:check] = check }
+end.parse!
+
+def scoped(&block)
+  yield
+end
+
+def targets(*exts)
+  if ARGV.empty?
+    return []
+  end
+  targets = []
+  ARGV.each do |target|
+    if File.directory?(target)
+      filenames = Dir.glob(File.join(target, "**/*")).filter do |filename|
+        exts.include?(File.extname(filename))
+      end
+      targets += filenames
+    elsif exts.include?(File.extname(target))
+      targets << target
+    end
+  end
+  targets
+end
+
+puts "== rubocop =="
+scoped do
+  args = []
+  args << "--auto-correct" if options[:fix]
+  system(
+    "bundle",
+    "exec",
+    "rubocop",
+    "--force-exclusion",
+    *args,
+    *targets(".rb", ".rbi"),
+  )
+end
+
+  puts "\n== eslint =="
+scoped do
+  args = %w[--ext .js,.ts]
+  args << "--fix" if options[:fix]
+  targets = targets(".js", ".ts")
+  targets << "." if targets.empty?
+  system(
+    "yarn",
+    "eslint",
+    "--quiet",
+    "--no-error-on-unmatched-pattern",
+    "--report-unused-disable-directives",
+    *args,
+    *targets,
+  )
+end
+
+puts "\n== tsc =="
+system("yarn", "tsc", "--noEmit", *targets(".ts"))
+
+puts "\n== srb =="
+system("bundle", "exec", "srb", "tc", *targets(".rb", ".rbi"))
