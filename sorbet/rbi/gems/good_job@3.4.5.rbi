@@ -32,7 +32,7 @@ class ActiveJob::QueueAdapters::GoodJobAdapter < ::GoodJob::Adapter; end
 #
 # +GoodJob+ is the top-level namespace and exposes configuration attributes.
 #
-# source://good_job//lib/good_job/engine.rb#2
+# source://good_job//lib/good_job/version.rb#2
 module GoodJob
   include ::GoodJob::Dependencies
   extend ::GoodJob::Dependencies::ClassMethods
@@ -539,8 +539,6 @@ class GoodJob::ApplicationController < ::ActionController::Base
 end
 
 module GoodJob::ApplicationController::HelperMethods
-  include ::Loaf::OptionsValidator
-  include ::Loaf::ViewExtensions
   include ::Turbo::DriveHelper
   include ::Turbo::FramesHelper
   include ::Turbo::IncludesHelper
@@ -548,7 +546,7 @@ module GoodJob::ApplicationController::HelperMethods
   include ::Turbo::Streams::ActionHelper
   include ::ActionText::ContentHelper
   include ::ActionText::TagHelper
-  include ::Hotwire::Livereload::LivereloadTagsHelper
+  include ::Webpacker::Helper
   include ::ActionController::Base::HelperMethods
   include ::GoodJob::ApplicationHelper
 end
@@ -602,8 +600,6 @@ class GoodJob::AssetsController < ::ActionController::Base
 end
 
 module GoodJob::AssetsController::HelperMethods
-  include ::Loaf::OptionsValidator
-  include ::Loaf::ViewExtensions
   include ::Turbo::DriveHelper
   include ::Turbo::FramesHelper
   include ::Turbo::IncludesHelper
@@ -611,7 +607,7 @@ module GoodJob::AssetsController::HelperMethods
   include ::Turbo::Streams::ActionHelper
   include ::ActionText::ContentHelper
   include ::ActionText::TagHelper
-  include ::Hotwire::Livereload::LivereloadTagsHelper
+  include ::Webpacker::Helper
   include ::ActionController::Base::HelperMethods
   include ::GoodJob::ApplicationHelper
 end
@@ -665,9 +661,6 @@ GoodJob::BaseFilter::EMPTY = T.let(T.unsafe(nil), String)
 class GoodJob::BaseRecord < ::ActiveRecord::Base
   include ::GoodJob::BaseRecord::GeneratedAttributeMethods
   include ::GoodJob::BaseRecord::GeneratedAssociationMethods
-  include ::Kaminari::ActiveRecordModelExtension
-  include ::Kaminari::ConfigurationMethods
-  extend ::Kaminari::ConfigurationMethods::ClassMethods
 
   class << self
     # source://activemodel/7.0.4/lib/active_model/validations.rb#52
@@ -678,9 +671,6 @@ class GoodJob::BaseRecord < ::ActiveRecord::Base
 
     def migrated?; end
     def migration_pending_warning!; end
-
-    # source://kaminari-activerecord/1.2.2/lib/kaminari/activerecord/active_record_model_extension.rb#15
-    def page(num = T.unsafe(nil)); end
   end
 end
 

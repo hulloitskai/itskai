@@ -1,8 +1,6 @@
 # typed: strict
 # frozen_string_literal: true
 
-require "responders_ext"
-
 class ApplicationResponder < ActionController::Responder
   extend T::Sig
 

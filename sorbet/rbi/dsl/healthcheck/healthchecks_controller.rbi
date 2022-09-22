@@ -12,8 +12,6 @@ class Healthcheck::HealthchecksController
   def helpers; end
 
   module HelperMethods
-    include ::Loaf::OptionsValidator
-    include ::Loaf::ViewExtensions
     include ::Turbo::DriveHelper
     include ::Turbo::FramesHelper
     include ::Turbo::IncludesHelper
@@ -21,17 +19,12 @@ class Healthcheck::HealthchecksController
     include ::Turbo::Streams::ActionHelper
     include ::ActionText::ContentHelper
     include ::ActionText::TagHelper
-    include ::Hotwire::Livereload::LivereloadTagsHelper
+    include ::Webpacker::Helper
     include ::ActionController::Base::HelperMethods
-    include ::AdminHelper
     include ::ApplicationHelper
-    include ::DeviseHelper
-    include ::HostsHelper
-    include ::MetaTagsHelper
-    include ::TenantHelper
-    include ::TurboHelper
-    include ::LocalTimeHelper
-    include ::PreviewHelper
+    include ::ReactOnRails::Utils::Required
+    include ::ReactOnRails::Helper
+    include ::ReactOnRailsHelper
   end
 
   class HelperProxy < ::ActionView::Base

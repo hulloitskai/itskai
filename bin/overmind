@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Install overmind.
+if ! command -v overmind &> /dev/null; then
+  if ! command -v brew &> /dev/null; then
+    echo "Please install overmind to continue!"
+    echo "See: https://github.com/DarthSim/overmind"
+    exit 1
+  fi
+
+  echo "Install overmind..."
+  brew install overmind
+fi
+
+OVERMIND_SKIP_ENV=1 OVERMIND_PORT=3000 overmind $@ -s tmp/sockets/overmind.sock

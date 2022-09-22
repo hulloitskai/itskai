@@ -47,62 +47,97 @@
 #
 #   >> RestClient.put 'http://rest-test.heroku.com/resource', :foo => 'baz'
 #   => "PUT http://rest-test.heroku.com/resource with a 7 byte payload, content type application/x-www-form-urlencoded {\"foo\"=>\"baz\"}"
+#
+# source://rest-client//lib/restclient/version.rb#1
 module RestClient
   class << self
     # Add a Proc to be called before each request in executed.
     # The proc parameters will be the http request and the request params.
     #
     # @raise [ArgumentError]
+    #
+    # source://rest-client//lib/restclient.rb#169
     def add_before_execution_proc(&proc); end
 
+    # source://rest-client//lib/restclient.rb#179
     def before_execution_procs; end
 
     # Create a log that respond to << like a logger
     # param can be 'stdout', 'stderr', a string (then we will log to that file) or a logger (then we return it)
+    #
+    # source://rest-client//lib/restclient.rb#122
     def create_log(param); end
 
+    # source://rest-client//lib/restclient.rb#81
     def delete(url, headers = T.unsafe(nil), &block); end
+
+    # source://rest-client//lib/restclient.rb#65
     def get(url, headers = T.unsafe(nil), &block); end
+
+    # source://rest-client//lib/restclient.rb#85
     def head(url, headers = T.unsafe(nil), &block); end
+
+    # source://rest-client//lib/restclient.rb#161
     def log; end
 
     # Setup the log for RestClient calls.
     # Value should be a logger but can can be stdout, stderr, or a filename.
     # You can also configure logging by the environment variable RESTCLIENT_LOG.
+    #
+    # source://rest-client//lib/restclient.rb#116
     def log=(log); end
 
+    # source://rest-client//lib/restclient.rb#89
     def options(url, headers = T.unsafe(nil), &block); end
+
+    # source://rest-client//lib/restclient.rb#73
     def patch(url, payload, headers = T.unsafe(nil), &block); end
+
+    # source://rest-client//lib/restclient.rb#69
     def post(url, payload, headers = T.unsafe(nil), &block); end
 
     # A global proxy URL to use for all requests. This can be overridden on a
     # per-request basis by passing `:proxy` to RestClient::Request.
+    #
+    # source://rest-client//lib/restclient.rb#95
     def proxy; end
 
+    # source://rest-client//lib/restclient.rb#99
     def proxy=(value); end
 
     # Return whether RestClient.proxy was set explicitly. We use this to
     # differentiate between no value being set and a value explicitly set to nil.
     #
     # @return [Boolean]
+    #
+    # source://rest-client//lib/restclient.rb#109
     def proxy_set?; end
 
+    # source://rest-client//lib/restclient.rb#77
     def put(url, payload, headers = T.unsafe(nil), &block); end
 
     # Reset the procs to be called before each request is executed.
+    #
+    # source://rest-client//lib/restclient.rb#175
     def reset_before_execution_procs; end
 
+    # source://rest-client//lib/restclient/version.rb#5
     def version; end
   end
 end
 
+# source://rest-client//lib/restclient/abstract_response.rb#6
 module RestClient::AbstractResponse
   # HTTP status code
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#30
   def code; end
 
   # Cookie jar extracted from response headers.
   #
   # @return [HTTP::CookieJar]
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#92
   def cookie_jar; end
 
   # Hash of cookies extracted from response headers.
@@ -113,50 +148,77 @@ module RestClient::AbstractResponse
   #
   # @return [Hash]
   # @see #cookie_jar
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#78
   def cookies; end
 
+  # source://rest-client//lib/restclient/abstract_response.rb#138
   def description; end
 
   # Returns the value of attribute duration.
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#8
   def duration; end
 
   # Returns the value of attribute end_time.
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#8
   def end_time; end
 
   # Follow a redirection response, but change the HTTP method to GET and drop
   # the payload from the original request.
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#150
   def follow_get_redirection(&block); end
 
   # Follow a redirection response by making a new HTTP request to the
   # redirection target.
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#144
   def follow_redirection(&block); end
 
   # A hash of the headers, beautified with symbols and underscores.
   # e.g. "Content-type" will become :content_type.
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#40
   def headers; end
 
+  # source://rest-client//lib/restclient/abstract_response.rb#34
   def history; end
 
   # @raise [NotImplementedError]
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#10
   def inspect; end
 
   # Logger from the request, potentially nil.
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#15
   def log; end
 
+  # source://rest-client//lib/restclient/abstract_response.rb#19
   def log_response; end
 
   # Returns the value of attribute net_http_res.
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#8
   def net_http_res; end
 
   # The raw headers.
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#45
   def raw_headers; end
 
   # Returns the value of attribute request.
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#8
   def request; end
 
   # @param net_http_res [Net::HTTPResponse]
   # @param request [RestClient::Request]
   # @param start_time [Time]
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#52
   def response_set_vars(net_http_res, request, start_time); end
 
   # Return the default behavior corresponding to the response code:
@@ -168,11 +230,16 @@ module RestClient::AbstractResponse
   #   303: redirect, changing method to GET, if there is a Location header
   #
   # For all other responses, raise a response exception
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#113
   def return!(&block); end
 
   # Returns the value of attribute start_time.
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#8
   def start_time; end
 
+  # source://rest-client//lib/restclient/abstract_response.rb#133
   def to_i; end
 
   private
@@ -182,11 +249,16 @@ module RestClient::AbstractResponse
   # @param new_args [Hash] Start with this hash of arguments for the
   #   redirection request. The hash will be mutated, so be sure to dup any
   #   existing hash that should not be modified.
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#202
   def _follow_redirection(new_args, &block); end
 
+  # source://rest-client//lib/restclient/abstract_response.rb#236
   def check_max_redirects; end
 
   # @raise [klass]
+  #
+  # source://rest-client//lib/restclient/abstract_response.rb#242
   def exception_with_response; end
 
   class << self
@@ -210,43 +282,63 @@ module RestClient::AbstractResponse
     #
     # @param headers [Hash]
     # @return [Hash]
+    #
+    # source://rest-client//lib/restclient/abstract_response.rb#179
     def beautify_headers(headers); end
   end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::Accepted < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::AlreadyReported < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::BadGateway < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::BadRequest < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::BandwidthLimitExceeded < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::BlockedByWindowsParentalControls < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::Conflict < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::Continue < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::Created < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
@@ -256,61 +348,97 @@ end
 # response via e.response.
 # For example, the entire result body (which is
 # probably an HTML error page) is e.response.
+#
+# source://rest-client//lib/restclient/exceptions.rb#109
 class RestClient::Exception < ::RuntimeError
   # @return [Exception] a new instance of Exception
+  #
+  # source://rest-client//lib/restclient/exceptions.rb#114
   def initialize(response = T.unsafe(nil), initial_response_code = T.unsafe(nil)); end
 
+  # source://rest-client//lib/restclient/exceptions.rb#145
   def default_message; end
+
+  # source://rest-client//lib/restclient/exceptions.rb#133
   def http_body; end
+
+  # source://rest-client//lib/restclient/exceptions.rb#120
   def http_code; end
+
+  # source://rest-client//lib/restclient/exceptions.rb#129
   def http_headers; end
+
+  # source://rest-client//lib/restclient/exceptions.rb#141
   def message; end
 
   # Sets the attribute message
   #
   # @param value the value to set the attribute message to.
+  #
+  # source://rest-client//lib/restclient/exceptions.rb#112
   def message=(_arg0); end
 
   # Returns the value of attribute original_exception.
+  #
+  # source://rest-client//lib/restclient/exceptions.rb#111
   def original_exception; end
 
   # Sets the attribute original_exception
   #
   # @param value the value to set the attribute original_exception to.
+  #
+  # source://rest-client//lib/restclient/exceptions.rb#111
   def original_exception=(_arg0); end
 
   # Returns the value of attribute response.
+  #
+  # source://rest-client//lib/restclient/exceptions.rb#110
   def response; end
 
   # Sets the attribute response
   #
   # @param value the value to set the attribute response to.
+  #
+  # source://rest-client//lib/restclient/exceptions.rb#110
   def response=(_arg0); end
 
+  # source://rest-client//lib/restclient/exceptions.rb#137
   def to_s; end
 end
 
 # Compatibility
+#
+# source://rest-client//lib/restclient/exceptions.rb#151
 class RestClient::ExceptionWithResponse < ::RestClient::Exception; end
 
 # RestClient exception classes. TODO: move all exceptions into this module.
 #
 # We will a create an exception for each status code, see
 # http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+#
+# source://rest-client//lib/restclient/exceptions.rb#171
 module RestClient::Exceptions; end
 
 # Map http status codes to the corresponding exception class
+#
+# source://rest-client//lib/restclient/exceptions.rb#173
 RestClient::Exceptions::EXCEPTIONS_MAP = T.let(T.unsafe(nil), Hash)
 
 # Timeout when connecting to a server. Typically wraps Net::OpenTimeout (in
 # ruby 2.0 or greater).
+#
+# source://rest-client//lib/restclient/exceptions.rb#212
 class RestClient::Exceptions::OpenTimeout < ::RestClient::Exceptions::Timeout
+  # source://rest-client//lib/restclient/exceptions.rb#213
   def default_message; end
 end
 
 # Timeout when reading from a server. Typically wraps Net::ReadTimeout (in
 # ruby 2.0 or greater).
+#
+# source://rest-client//lib/restclient/exceptions.rb#220
 class RestClient::Exceptions::ReadTimeout < ::RestClient::Exceptions::Timeout
+  # source://rest-client//lib/restclient/exceptions.rb#221
   def default_message; end
 end
 
@@ -318,116 +446,174 @@ end
 #
 # NB: Previous releases of rest-client would raise RequestTimeout both for
 # HTTP 408 responses and for actual connection timeouts.
+#
+# source://rest-client//lib/restclient/exceptions.rb#202
 class RestClient::Exceptions::Timeout < ::RestClient::RequestTimeout
   # @return [Timeout] a new instance of Timeout
+  #
+  # source://rest-client//lib/restclient/exceptions.rb#203
   def initialize(message = T.unsafe(nil), original_exception = T.unsafe(nil)); end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::ExpectationFailed < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::FailedDependency < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::Forbidden < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::Found < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::GatewayTimeout < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::Gone < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::HTTPVersionNotSupported < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::IMUsed < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::ImATeapot < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::InsufficientStorage < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::InternalServerError < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::LengthRequired < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::Locked < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::LoopDetected < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::MethodNotAllowed < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::MovedPermanently < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::MultiStatus < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::MultipleChoices < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::NetworkAuthenticationRequired < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::NoContent < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::NonAuthoritativeInformation < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::NotAcceptable < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::NotExtended < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::NotFound < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::NotImplemented < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::NotModified < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::OK < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
@@ -440,6 +626,8 @@ end
 #
 # @see RestClient::Utils.encode_query_string
 # @see RestClient::Utils.flatten_params
+#
+# source://rest-client//lib/restclient/params_array.rb#13
 class RestClient::ParamsArray
   include ::Enumerable
 
@@ -455,64 +643,111 @@ class RestClient::ParamsArray
   #   {key => value}. They may also be single element arrays to represent a
   #   key with no value.
   # @return [ParamsArray] a new instance of ParamsArray
+  #
+  # source://rest-client//lib/restclient/params_array.rb#31
   def initialize(array); end
 
+  # source://rest-client//lib/restclient/params_array.rb#35
   def each(*args, &blk); end
 
   # @return [Boolean]
+  #
+  # source://rest-client//lib/restclient/params_array.rb#39
   def empty?; end
 
   private
 
+  # source://rest-client//lib/restclient/params_array.rb#45
   def process_input(array); end
 
   # A pair may be:
   # - A single element hash, e.g. {foo: 'bar'}
   # - A two element array, e.g. ['foo', 'bar']
   # - A one element array, e.g. ['foo']
+  #
+  # source://rest-client//lib/restclient/params_array.rb#54
   def process_pair(pair); end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::PartialContent < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/payload.rb#13
 module RestClient::Payload
   extend ::RestClient::Payload
 
   # @return [Boolean]
+  #
+  # source://rest-client//lib/restclient/payload.rb#48
   def _has_file?(obj); end
 
+  # source://rest-client//lib/restclient/payload.rb#16
   def generate(params); end
 
   # @return [Boolean]
+  #
+  # source://rest-client//lib/restclient/payload.rb#41
   def has_file?(params); end
 end
 
+# source://rest-client//lib/restclient/payload.rb#59
 class RestClient::Payload::Base
   # @return [Base] a new instance of Base
+  #
+  # source://rest-client//lib/restclient/payload.rb#60
   def initialize(params); end
 
+  # source://rest-client//lib/restclient/payload.rb#64
   def build_stream(params); end
+
+  # source://rest-client//lib/restclient/payload.rb#89
   def close; end
 
   # @return [Boolean]
+  #
+  # source://rest-client//lib/restclient/payload.rb#93
   def closed?; end
 
+  # source://rest-client//lib/restclient/payload.rb#79
   def headers; end
+
+  # source://rest-client//lib/restclient/payload.rb#83
   def length; end
+
+  # source://rest-client//lib/restclient/payload.rb#69
   def read(*args); end
+
+  # source://rest-client//lib/restclient/payload.rb#101
   def short_inspect; end
+
+  # source://rest-client//lib/restclient/payload.rb#83
   def size; end
+
+  # source://rest-client//lib/restclient/payload.rb#73
   def to_s; end
+
+  # source://rest-client//lib/restclient/payload.rb#97
   def to_s_inspect; end
 end
 
+# source://rest-client//lib/restclient/payload.rb#141
 class RestClient::Payload::Multipart < ::RestClient::Payload::Base
+  # source://rest-client//lib/restclient/payload.rb#201
   def boundary; end
+
+  # source://rest-client//lib/restclient/payload.rb#144
   def build_stream(params); end
+
+  # source://rest-client//lib/restclient/payload.rb#229
   def close; end
+
+  # source://rest-client//lib/restclient/payload.rb#181
   def create_file_field(s, k, v); end
+
+  # source://rest-client//lib/restclient/payload.rb#174
   def create_regular_field(s, k, v); end
 
   # for Multipart do not escape the keys
@@ -521,83 +756,125 @@ class RestClient::Payload::Multipart < ::RestClient::Payload::Base
   # practice no major browser that I'm aware of uses percent encoding.
   #
   # https://github.com/rest-client/rest-client/pull/403#issuecomment-156976930
+  #
+  # source://rest-client//lib/restclient/payload.rb#221
   def handle_key(key); end
 
+  # source://rest-client//lib/restclient/payload.rb#225
   def headers; end
+
+  # source://rest-client//lib/restclient/payload.rb#196
   def mime_for(path); end
 end
 
+# source://rest-client//lib/restclient/payload.rb#142
 RestClient::Payload::Multipart::EOL = T.let(T.unsafe(nil), String)
 
+# source://rest-client//lib/restclient/payload.rb#111
 class RestClient::Payload::Streamed < ::RestClient::Payload::Base
+  # source://rest-client//lib/restclient/payload.rb#112
   def build_stream(params = T.unsafe(nil)); end
 
   # TODO (breaks compatibility): ought to use mime_for() to autodetect the
   # Content-Type for stream objects that have a filename.
+  #
+  # source://rest-client//lib/restclient/payload.rb#116
   def length; end
 
+  # source://rest-client//lib/restclient/payload.rb#116
   def size; end
 end
 
+# source://rest-client//lib/restclient/payload.rb#130
 class RestClient::Payload::UrlEncoded < ::RestClient::Payload::Base
+  # source://rest-client//lib/restclient/payload.rb#131
   def build_stream(params = T.unsafe(nil)); end
+
+  # source://rest-client//lib/restclient/payload.rb#136
   def headers; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::PayloadTooLarge < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::PaymentRequired < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::PermanentRedirect < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/platform.rb#4
 module RestClient::Platform
   class << self
+    # source://rest-client//lib/restclient/platform.rb#32
     def architecture; end
+
+    # source://rest-client//lib/restclient/platform.rb#45
     def default_user_agent; end
 
     # Return true if we are running on jruby.
     #
     # @return [Boolean]
+    #
+    # source://rest-client//lib/restclient/platform.rb#27
     def jruby?; end
 
     # Return true if we are running on a darwin-based Ruby platform. This will
     # be false for jruby even on OS X.
     #
     # @return [Boolean]
+    #
+    # source://rest-client//lib/restclient/platform.rb#9
     def mac_mri?; end
 
+    # source://rest-client//lib/restclient/platform.rb#36
     def ruby_agent_version; end
 
     # Return true if we are running on Windows.
     #
     # @return [Boolean]
+    #
+    # source://rest-client//lib/restclient/platform.rb#17
     def windows?; end
   end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::PreconditionFailed < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::PreconditionRequired < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::Processing < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::ProxyAuthenticationRequired < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::RangeNotSatisfiable < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
@@ -611,6 +888,8 @@ end
 # In addition, if you do not use the response as a string, you can access
 # a Tempfile object at res.file, which contains the path to the raw
 # downloaded request body.
+#
+# source://rest-client//lib/restclient/raw_response.rb#12
 class RestClient::RawResponse
   include ::RestClient::AbstractResponse
 
@@ -619,26 +898,40 @@ class RestClient::RawResponse
   # @param request [RestClient::Request]
   # @param start_time [Time]
   # @return [RawResponse] a new instance of RawResponse
+  #
+  # source://rest-client//lib/restclient/raw_response.rb#26
   def initialize(tempfile, net_http_res, request, start_time = T.unsafe(nil)); end
 
+  # source://rest-client//lib/restclient/raw_response.rb#39
   def body; end
 
   # Returns the value of attribute end_time.
+  #
+  # source://rest-client//lib/restclient/raw_response.rb#16
   def end_time; end
 
   # Returns the value of attribute file.
+  #
+  # source://rest-client//lib/restclient/raw_response.rb#16
   def file; end
 
+  # source://rest-client//lib/restclient/raw_response.rb#18
   def inspect; end
 
   # Returns the value of attribute request.
+  #
+  # source://rest-client//lib/restclient/raw_response.rb#16
   def request; end
 
+  # source://rest-client//lib/restclient/raw_response.rb#44
   def size; end
 
   # Returns the value of attribute start_time.
+  #
+  # source://rest-client//lib/restclient/raw_response.rb#16
   def start_time; end
 
+  # source://rest-client//lib/restclient/raw_response.rb#35
   def to_s; end
 end
 
@@ -680,14 +973,22 @@ end
 # * :before_execution_proc a Proc to call before executing the request. This
 #      proc, like procs from RestClient.before_execution_procs, will be
 #      called with the HTTP request and request params.
+#
+# source://rest-client//lib/restclient/request.rb#52
 class RestClient::Request
   # @return [Request] a new instance of Request
+  #
+  # source://rest-client//lib/restclient/request.rb#73
   def initialize(args); end
 
   # Returns the value of attribute args.
+  #
+  # source://rest-client//lib/restclient/request.rb#54
   def args; end
 
   # @return [HTTP::CookieJar]
+  #
+  # source://rest-client//lib/restclient/request.rb#251
   def cookie_jar; end
 
   # Render a hash of key => value pairs for cookies in the Request#cookie_jar
@@ -697,24 +998,35 @@ class RestClient::Request
   #
   # @return [Hash]
   # @see Request#cookie_jar
+  #
+  # source://rest-client//lib/restclient/request.rb#240
   def cookies; end
 
   # Default headers set by RestClient. In addition to these headers, servers
   # will receive headers set by Net::HTTP, such as Accept-Encoding and Host.
   #
   # @return [Hash<Symbol, String>]
+  #
+  # source://rest-client//lib/restclient/request.rb#586
   def default_headers; end
 
+  # source://rest-client//lib/restclient/request.rb#160
   def execute(&block); end
 
   # Returns the value of attribute headers.
+  #
+  # source://rest-client//lib/restclient/request.rb#54
   def headers; end
 
+  # source://rest-client//lib/restclient/request.rb#69
   def inspect; end
 
   # Default to the global logger if there's not a request-specific one
+  #
+  # source://rest-client//lib/restclient/request.rb#536
   def log; end
 
+  # source://rest-client//lib/restclient/request.rb#540
   def log_request; end
 
   # Render a Cookie HTTP request header from the contents of the @cookie_jar,
@@ -722,6 +1034,8 @@ class RestClient::Request
   #
   # @return [String, nil]
   # @see Request#cookie_jar
+  #
+  # source://rest-client//lib/restclient/request.rb#262
   def make_cookie_header; end
 
   # Generate headers for use by a request. Header keys will be stringified
@@ -742,16 +1056,27 @@ class RestClient::Request
   #
   # @param user_headers [Hash] User-provided headers to include
   # @return [Hash<String, String>] A hash of HTTP headers => values
+  #
+  # source://rest-client//lib/restclient/request.rb#388
   def make_headers(user_headers); end
 
   # Returns the value of attribute max_redirects.
+  #
+  # source://rest-client//lib/restclient/request.rb#54
   def max_redirects; end
 
   # Returns the value of attribute method.
+  #
+  # source://rest-client//lib/restclient/request.rb#54
   def method; end
 
+  # source://rest-client//lib/restclient/request.rb#468
   def net_http_do_request(http, req, body = T.unsafe(nil), &block); end
+
+  # source://rest-client//lib/restclient/request.rb#448
   def net_http_object(hostname, port); end
+
+  # source://rest-client//lib/restclient/request.rb#464
   def net_http_request_class(method); end
 
   # Normalize a URL by adding a protocol if none is present.
@@ -762,15 +1087,23 @@ class RestClient::Request
   #
   # @param url [String] A URL string.
   # @return [String]
+  #
+  # source://rest-client//lib/restclient/request.rb#487
   def normalize_url(url); end
 
   # Returns the value of attribute open_timeout.
+  #
+  # source://rest-client//lib/restclient/request.rb#54
   def open_timeout; end
 
   # Returns the value of attribute password.
+  #
+  # source://rest-client//lib/restclient/request.rb#54
   def password; end
 
   # Returns the value of attribute payload.
+  #
+  # source://rest-client//lib/restclient/request.rb#54
   def payload; end
 
   # Process cookies passed as hash or as HTTP::CookieJar. For backwards
@@ -820,6 +1153,8 @@ class RestClient::Request
   #   will be used as another potential source for the :cookies key.
   #   These args will not be mutated.
   # @return [HTTP::CookieJar] A cookie jar containing the parsed cookies.
+  #
+  # source://rest-client//lib/restclient/request.rb#319
   def process_cookie_args!(uri, headers, args); end
 
   # Extract the query parameters and append them to the url
@@ -834,12 +1169,18 @@ class RestClient::Request
   # @param headers [Hash] An options/headers hash to process. Mutation
   #   warning: the params key may be removed if present!
   # @return [String] resulting url with query string
+  #
+  # source://rest-client//lib/restclient/request.rb#200
   def process_url_params(url, headers); end
 
   # Returns the value of attribute processed_headers.
+  #
+  # source://rest-client//lib/restclient/request.rb#54
   def processed_headers; end
 
   # Returns the value of attribute proxy.
+  #
+  # source://rest-client//lib/restclient/request.rb#54
   def proxy; end
 
   # The proxy URI for this request. If `:proxy` was provided on this request,
@@ -848,35 +1189,66 @@ class RestClient::Request
   # Return false if a proxy was explicitly set and is falsy.
   #
   # @return [URI, false, nil]
+  #
+  # source://rest-client//lib/restclient/request.rb#430
   def proxy_uri; end
 
   # Returns the value of attribute raw_response.
+  #
+  # source://rest-client//lib/restclient/request.rb#54
   def raw_response; end
 
   # Returns the value of attribute read_timeout.
+  #
+  # source://rest-client//lib/restclient/request.rb#54
   def read_timeout; end
 
+  # source://rest-client//lib/restclient/request.rb#521
   def redacted_uri; end
+
+  # source://rest-client//lib/restclient/request.rb#531
   def redacted_url; end
 
   # An array of previous redirection responses
+  #
+  # source://rest-client//lib/restclient/request.rb#60
   def redirection_history; end
 
   # An array of previous redirection responses
+  #
+  # source://rest-client//lib/restclient/request.rb#60
   def redirection_history=(_arg0); end
 
+  # source://rest-client//lib/restclient/request.rb#173
   def ssl_ca_file; end
+
+  # source://rest-client//lib/restclient/request.rb#173
   def ssl_ca_path; end
+
+  # source://rest-client//lib/restclient/request.rb#173
   def ssl_cert_store; end
+
+  # source://rest-client//lib/restclient/request.rb#173
   def ssl_ciphers; end
+
+  # source://rest-client//lib/restclient/request.rb#173
   def ssl_client_cert; end
+
+  # source://rest-client//lib/restclient/request.rb#173
   def ssl_client_key; end
 
   # Returns the value of attribute ssl_opts.
+  #
+  # source://rest-client//lib/restclient/request.rb#54
   def ssl_opts; end
 
+  # source://rest-client//lib/restclient/request.rb#173
   def ssl_verify_callback; end
+
+  # source://rest-client//lib/restclient/request.rb#173
   def ssl_verify_callback_warnings; end
+
+  # source://rest-client//lib/restclient/request.rb#173
   def ssl_version; end
 
   # Return a hash of headers whose keys are capitalized strings
@@ -885,27 +1257,40 @@ class RestClient::Request
   # are already Strings. Leaving this behavior as is for now for
   # backwards compatibility.
   # https://github.com/rest-client/rest-client/issues/599
+  #
+  # source://rest-client//lib/restclient/request.rb#558
   def stringify_headers(headers); end
 
   # Returns the value of attribute uri.
+  #
+  # source://rest-client//lib/restclient/request.rb#54
   def uri; end
 
   # Returns the value of attribute url.
+  #
+  # source://rest-client//lib/restclient/request.rb#54
   def url; end
 
   # Return true if the request URI will use HTTPS.
   #
   # @return [Boolean]
+  #
+  # source://rest-client//lib/restclient/request.rb#182
   def use_ssl?; end
 
   # Returns the value of attribute user.
+  #
+  # source://rest-client//lib/restclient/request.rb#54
   def user; end
 
   # SSL-related options
+  #
+  # source://rest-client//lib/restclient/request.rb#169
   def verify_ssl; end
 
   private
 
+  # source://rest-client//lib/restclient/request.rb#788
   def fetch_body_to_tempfile(http_response); end
 
   # Given a MIME type or file extension, return either a MIME type or, if
@@ -922,6 +1307,8 @@ class RestClient::Request
   #
   # @param ext [String]
   # @return [String]
+  #
+  # source://rest-client//lib/restclient/request.rb#861
   def maybe_convert_extension(ext); end
 
   # Parse a method and return a normalized string version.
@@ -933,6 +1320,8 @@ class RestClient::Request
   # @raise [ArgumentError]
   # @return [String]
   # @see net_http_request_class
+  #
+  # source://rest-client//lib/restclient/request.rb#646
   def normalize_method(method); end
 
   # Parse the `@url` string into a URI object and save it as
@@ -942,16 +1331,26 @@ class RestClient::Request
   # @param url [String] A URL string.
   # @raise URI::InvalidURIError on invalid URIs
   # @return [URI]
+  #
+  # source://rest-client//lib/restclient/request.rb#605
   def parse_url_with_auth!(url); end
 
+  # source://rest-client//lib/restclient/request.rb#841
   def parser; end
+
+  # source://rest-client//lib/restclient/request.rb#621
   def print_verify_callback_warnings; end
 
   # @param res The Net::HTTP response object
   # @param start_time [Time] Time of request start
+  #
+  # source://rest-client//lib/restclient/request.rb#821
   def process_result(res, start_time, tempfile = T.unsafe(nil), &block); end
 
+  # source://rest-client//lib/restclient/request.rb#782
   def setup_credentials(req); end
+
+  # source://rest-client//lib/restclient/request.rb#651
   def transmit(uri, req, payload, &block); end
 
   class << self
@@ -963,33 +1362,53 @@ class RestClient::Request
     # RestClient::Windows::RootCerts to look up the CAs trusted by the system.
     #
     # @return [OpenSSL::X509::Store]
+    #
+    # source://rest-client//lib/restclient/request.rb#501
     def default_ssl_cert_store; end
 
+    # source://rest-client//lib/restclient/request.rb#62
     def execute(args, &block); end
   end
 end
 
+# source://rest-client//lib/restclient/request.rb#66
 RestClient::Request::SSLOptionList = T.let(T.unsafe(nil), Array)
+
+# source://rest-client//lib/restclient/exceptions.rb#189
 RestClient::RequestEntityTooLarge = RestClient::PayloadTooLarge
 
 # The request failed with an error code not managed by the code
+#
+# source://rest-client//lib/restclient/exceptions.rb#155
 class RestClient::RequestFailed < ::RestClient::ExceptionWithResponse
+  # source://rest-client//lib/restclient/exceptions.rb#157
   def default_message; end
+
+  # source://rest-client//lib/restclient/exceptions.rb#161
   def to_s; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::RequestHeaderFieldsTooLarge < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::RequestTimeout < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#189
 RestClient::RequestURITooLong = RestClient::URITooLong
+
+# source://rest-client//lib/restclient/exceptions.rb#189
 RestClient::RequestedRangeNotSatisfiable = RestClient::RangeNotSatisfiable
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::ResetContent < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
@@ -1026,8 +1445,12 @@ end
 #
 #   site = RestClient::Resource.new('http://example.com', :user => 'adam', :password => 'mypasswd')
 #   site['posts/1/comments'].post 'Good article.', :content_type => 'text/plain'
+#
+# source://rest-client//lib/restclient/resource.rb#36
 class RestClient::Resource
   # @return [Resource] a new instance of Resource
+  #
+  # source://rest-client//lib/restclient/resource.rb#39
   def initialize(url, options = T.unsafe(nil), backwards_compatibility = T.unsafe(nil), &block); end
 
   # Construct a subresource, preserving authentication.
@@ -1055,38 +1478,74 @@ class RestClient::Resource
   #   first_post = posts['1']
   #   comments = first_post['comments']
   #   comments.post 'Hello', :content_type => 'text/plain'
+  #
+  # source://rest-client//lib/restclient/resource.rb#160
   def [](suburl, &new_block); end
 
   # Returns the value of attribute block.
+  #
+  # source://rest-client//lib/restclient/resource.rb#37
   def block; end
 
+  # source://rest-client//lib/restclient/resource.rb#168
   def concat_urls(url, suburl); end
+
+  # source://rest-client//lib/restclient/resource.rb#97
   def delete(additional_headers = T.unsafe(nil), &block); end
+
+  # source://rest-client//lib/restclient/resource.rb#49
   def get(additional_headers = T.unsafe(nil), &block); end
+
+  # source://rest-client//lib/restclient/resource.rb#58
   def head(additional_headers = T.unsafe(nil), &block); end
+
+  # source://rest-client//lib/restclient/resource.rb#118
   def headers; end
+
+  # source://rest-client//lib/restclient/resource.rb#130
   def log; end
+
+  # source://rest-client//lib/restclient/resource.rb#126
   def open_timeout; end
 
   # Returns the value of attribute options.
+  #
+  # source://rest-client//lib/restclient/resource.rb#37
   def options; end
 
+  # source://rest-client//lib/restclient/resource.rb#114
   def password; end
+
+  # source://rest-client//lib/restclient/resource.rb#87
   def patch(payload, additional_headers = T.unsafe(nil), &block); end
+
+  # source://rest-client//lib/restclient/resource.rb#67
   def post(payload, additional_headers = T.unsafe(nil), &block); end
+
+  # source://rest-client//lib/restclient/resource.rb#77
   def put(payload, additional_headers = T.unsafe(nil), &block); end
+
+  # source://rest-client//lib/restclient/resource.rb#122
   def read_timeout; end
+
+  # source://rest-client//lib/restclient/resource.rb#106
   def to_s; end
 
   # Returns the value of attribute url.
+  #
+  # source://rest-client//lib/restclient/resource.rb#37
   def url; end
 
+  # source://rest-client//lib/restclient/resource.rb#110
   def user; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#189
 RestClient::ResourceNotFound = RestClient::NotFound
 
 # A Response from RestClient, you can access the response body, the code or the headers.
+#
+# source://rest-client//lib/restclient/response.rb#5
 class RestClient::Response < ::String
   include ::RestClient::AbstractResponse
 
@@ -1096,22 +1555,30 @@ class RestClient::Response < ::String
   # directly as strings, so it will be necessary to call `.body`.
   #
   # @return [String]
+  #
+  # source://rest-client//lib/restclient/response.rb#16
   def body; end
 
+  # source://rest-client//lib/restclient/response.rb#37
   def inspect; end
 
   # Convert the HTTP response body to a pure String object.
   #
   # @return [String]
+  #
+  # source://rest-client//lib/restclient/response.rb#26
   def to_s; end
 
   # Convert the HTTP response body to a pure String object.
   #
   # @return [String]
+  #
+  # source://rest-client//lib/restclient/response.rb#33
   def to_str; end
 
   private
 
+  # source://rest-client//lib/restclient/response.rb#81
   def body_truncated(length); end
 
   class << self
@@ -1123,20 +1590,29 @@ class RestClient::Response < ::String
     # @param net_http_res [Net::HTTPResponse]
     # @param request [RestClient::Request]
     # @param start_time [Time]
+    #
+    # source://rest-client//lib/restclient/response.rb#49
     def create(body, net_http_res, request, start_time = T.unsafe(nil)); end
 
     # Set the String encoding according to the 'Content-Type: charset' header,
     # if possible.
+    #
+    # source://rest-client//lib/restclient/response.rb#60
     def fix_encoding(response); end
   end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::RetryWith < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#238
 class RestClient::SSLCertificateNotVerified < ::RestClient::Exception
   # @return [SSLCertificateNotVerified] a new instance of SSLCertificateNotVerified
+  #
+  # source://rest-client//lib/restclient/exceptions.rb#239
   def initialize(message = T.unsafe(nil)); end
 end
 
@@ -1152,75 +1628,112 @@ end
 #      request
 #
 # @see http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
+#
+# source://rest-client//lib/restclient/exceptions.rb#17
 RestClient::STATUSES = T.let(T.unsafe(nil), Hash)
 
+# source://rest-client//lib/restclient/exceptions.rb#87
 RestClient::STATUSES_COMPATIBILITY = T.let(T.unsafe(nil), Hash)
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::SeeOther < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
 # The server broke the connection prior to the request completing.  Usually
 # this means it crashed, or sometimes that your network connection was
 # severed before it could complete.
+#
+# source://rest-client//lib/restclient/exceptions.rb#231
 class RestClient::ServerBrokeConnection < ::RestClient::Exception
   # @return [ServerBrokeConnection] a new instance of ServerBrokeConnection
+  #
+  # source://rest-client//lib/restclient/exceptions.rb#232
   def initialize(message = T.unsafe(nil)); end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::ServiceUnavailable < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::SwitchProxy < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::SwitchingProtocols < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::TemporaryRedirect < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::TooManyConnectionsFromThisIP < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::TooManyRequests < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::URITooLong < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::Unauthorized < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::UnorderedCollection < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::UnprocessableEntity < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::UnsupportedMediaType < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::UpgradeRequired < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::UseProxy < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
 # Various utility methods
+#
+# source://rest-client//lib/restclient/utils.rb#5
 module RestClient::Utils
   class << self
     # Parse semi-colon separated, potentially quoted header string iteratively.
@@ -1229,6 +1742,8 @@ module RestClient::Utils
     #   2.0, which is not supported by HTTP::Accept.
     # @private
     # @todo remove this method when dropping support for Ruby 2.0
+    #
+    # source://rest-client//lib/restclient/utils.rb#75
     def _cgi_parseparam(s); end
 
     # Parse a Content-Type like header.
@@ -1237,6 +1752,8 @@ module RestClient::Utils
     #
     # @param line [String]
     # @return [Array(String, Hash)]
+    #
+    # source://rest-client//lib/restclient/utils.rb#56
     def cgi_parse_header(line); end
 
     # Parse a Content-Type like header.
@@ -1252,6 +1769,8 @@ module RestClient::Utils
     # @param line [String]
     # @return [Array(String, Hash)]
     # @todo remove this method when dropping support for Ruby 2.0
+    #
+    # source://rest-client//lib/restclient/utils.rb#112
     def deprecated_cgi_parse_header(line); end
 
     # Serialize a ruby object into HTTP query string parameters.
@@ -1309,6 +1828,8 @@ module RestClient::Utils
     # @see http://php.net/manual/en/function.http-build-query.php http_build_query in PHP
     # @see See also Rack::Utils.build_nested_query in Rack
     # @since 2.0.0
+    #
+    # source://rest-client//lib/restclient/utils.rb#206
     def encode_query_string(object); end
 
     # Encode string for safe transport by URI or form encoding. This uses a CGI
@@ -1320,6 +1841,8 @@ module RestClient::Utils
     # http://stackoverflow.com/questions/25085992/
     #
     # @see URI.encode_www_form_component
+    #
+    # source://rest-client//lib/restclient/utils.rb#270
     def escape(string); end
 
     # Transform deeply nested param containers into a flat array of [key,
@@ -1334,6 +1857,8 @@ module RestClient::Utils
     # @param object [Hash, ParamsArray] The container to flatten
     # @param uri_escape [Boolean] Whether to URI escape keys and values
     # @param parent_key [String] Should not be passed (used for recursion)
+    #
+    # source://rest-client//lib/restclient/utils.rb#225
     def flatten_params(object, uri_escape = T.unsafe(nil), parent_key = T.unsafe(nil)); end
 
     # Return encoding from an HTTP header hash.
@@ -1351,15 +1876,23 @@ module RestClient::Utils
     # @param headers [Hash<Symbol,String>]
     # @return [String, nil] Return the string encoding or nil if no header is
     #   found.
+    #
+    # source://rest-client//lib/restclient/utils.rb#25
     def get_encoding_from_headers(headers); end
   end
 end
 
+# source://rest-client//lib/restclient/version.rb#3
 RestClient::VERSION = T.let(T.unsafe(nil), String)
+
+# source://rest-client//lib/restclient/version.rb#2
 RestClient::VERSION_INFO = T.let(T.unsafe(nil), Array)
 
+# source://rest-client//lib/restclient/exceptions.rb#178
 class RestClient::VariantAlsoNegotiates < ::RestClient::RequestFailed
+  # source://rest-client//lib/restclient/exceptions.rb#179
   def default_message; end
 end
 
+# source://rest-client//lib/restclient/windows.rb#2
 module RestClient::Windows; end

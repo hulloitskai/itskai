@@ -31,10 +31,24 @@ gem "bootsnap", require: false
 # gem "sassc-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2"
+gem "ruby-vips", "~> 2.1", require: false
+
+# Use S3 as the backend for Active Storage
+gem "aws-sdk-core", require: false
+gem "aws-sdk-s3", "~> 1.113", require: false
+
+# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem "turbo-rails"
 
 # Use Responders to DRY up controller responders
 gem "responders", github: "heartcombo/responders"
+
+# Use Good Job as the backend for Active Job
+gem "good_job", "~> 3.1"
+
+# Use Mailgun to send emails.
+gem "mailgun-ruby", "~> 1.2"
 
 # Bundle javascript with Webpack
 gem "shakapacker", "= 6.5"
@@ -65,6 +79,9 @@ gem "dotenv", "~> 2.7", require: false
 
 # Parse and manipulate URIs
 gem "addressable", "~> 2.8"
+
+# Handle soft deletions with Discard
+gem "discard", "~> 1.2"
 
 # Typecheck code at runtime
 gem "sorbet-runtime", "~> 0.5.10417"

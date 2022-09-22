@@ -5092,9 +5092,6 @@ module ActiveModel::Validations::ClassMethods
   # source://activemodel//lib/active_model/validations.rb#85
   def validates_each(*attr_names, &block); end
 
-  # source://validate_url/1.0.15/lib/validate_url.rb#85
-  def validates_url(*attr_names); end
-
   # Passes the record off to the class or classes specified and allows them
   # to add errors based on more complex conditions.
   #
@@ -5286,8 +5283,6 @@ class ActiveModel::Validations::ConfirmationValidator < ::ActiveModel::EachValid
   # source://activemodel//lib/active_model/validations/confirmation.rb#21
   def setup!(klass); end
 end
-
-ActiveModel::Validations::EmailValidator = EmailValidator
 
 # source://activemodel//lib/active_model/validations/exclusion.rb#7
 class ActiveModel::Validations::ExclusionValidator < ::ActiveModel::EachValidator

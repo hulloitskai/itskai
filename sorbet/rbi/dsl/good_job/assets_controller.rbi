@@ -9,8 +9,6 @@ class GoodJob::AssetsController
   def helpers; end
 
   module HelperMethods
-    include ::Loaf::OptionsValidator
-    include ::Loaf::ViewExtensions
     include ::Turbo::DriveHelper
     include ::Turbo::FramesHelper
     include ::Turbo::IncludesHelper
@@ -18,7 +16,7 @@ class GoodJob::AssetsController
     include ::Turbo::Streams::ActionHelper
     include ::ActionText::ContentHelper
     include ::ActionText::TagHelper
-    include ::Hotwire::Livereload::LivereloadTagsHelper
+    include ::Webpacker::Helper
     include ::ActionController::Base::HelperMethods
     include ::GoodJob::ApplicationHelper
   end

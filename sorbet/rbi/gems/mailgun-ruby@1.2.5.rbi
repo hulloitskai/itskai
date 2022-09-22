@@ -37,7 +37,7 @@ module Mail
     # source://mail/2.7.1/lib/mail/mail.rb#151
     def first(*args, &block); end
 
-    # source://actionmailbox/7.0.3.1/lib/action_mailbox/mail_ext/from_source.rb#4
+    # source://actionmailbox/7.0.4/lib/action_mailbox/mail_ext/from_source.rb#4
     def from_source(source); end
 
     # source://mail/2.7.1/lib/mail/mail.rb#233
@@ -152,7 +152,7 @@ class Mail::Message
   # source://mail/2.7.1/lib/mail/message.rb#519
   def bcc=(val); end
 
-  # source://actionmailbox/7.0.3.1/lib/action_mailbox/mail_ext/addresses.rb#21
+  # source://actionmailbox/7.0.4/lib/action_mailbox/mail_ext/addresses.rb#21
   def bcc_addresses; end
 
   # source://mail/2.7.1/lib/mail/message.rb#1313
@@ -182,7 +182,7 @@ class Mail::Message
   # source://mail/2.7.1/lib/mail/message.rb#560
   def cc=(val); end
 
-  # source://actionmailbox/7.0.3.1/lib/action_mailbox/mail_ext/addresses.rb#17
+  # source://actionmailbox/7.0.4/lib/action_mailbox/mail_ext/addresses.rb#17
   def cc_addresses; end
 
   # source://mail/2.7.1/lib/mail/message.rb#1307
@@ -317,7 +317,7 @@ class Mail::Message
   # source://mail/2.7.1/lib/mail/message.rb#677
   def from=(val); end
 
-  # source://actionmailbox/7.0.3.1/lib/action_mailbox/mail_ext/addresses.rb#5
+  # source://actionmailbox/7.0.4/lib/action_mailbox/mail_ext/addresses.rb#5
   def from_address; end
 
   # source://mail/2.7.1/lib/mail/message.rb#1295
@@ -511,10 +511,10 @@ class Mail::Message
   # source://mail/2.7.1/lib/mail/message.rb#758
   def received=(val); end
 
-  # source://actionmailbox/7.0.3.1/lib/action_mailbox/mail_ext/recipients.rb#5
+  # source://actionmailbox/7.0.4/lib/action_mailbox/mail_ext/recipients.rb#5
   def recipients; end
 
-  # source://actionmailbox/7.0.3.1/lib/action_mailbox/mail_ext/addresses.rb#9
+  # source://actionmailbox/7.0.4/lib/action_mailbox/mail_ext/addresses.rb#9
   def recipients_addresses; end
 
   # source://mail/2.7.1/lib/mail/message.rb#762
@@ -637,7 +637,7 @@ class Mail::Message
   # source://mail/2.7.1/lib/mail/message.rb#1200
   def to=(val); end
 
-  # source://actionmailbox/7.0.3.1/lib/action_mailbox/mail_ext/addresses.rb#13
+  # source://actionmailbox/7.0.4/lib/action_mailbox/mail_ext/addresses.rb#13
   def to_addresses; end
 
   # source://mail/2.7.1/lib/mail/message.rb#1301
@@ -661,7 +661,7 @@ class Mail::Message
   # source://mail/2.7.1/lib/mail/message.rb#1837
   def without_attachments!; end
 
-  # source://actionmailbox/7.0.3.1/lib/action_mailbox/mail_ext/addresses.rb#25
+  # source://actionmailbox/7.0.4/lib/action_mailbox/mail_ext/addresses.rb#25
   def x_original_to_addresses; end
 
   private

@@ -9,30 +9,10 @@ class ActiveRecord::InternalMetadata
   extend CommonRelationMethods
   extend GeneratedRelationMethods
 
-  sig { params(method_name: T.untyped, mode: T.nilable(Symbol), refresh: T::Boolean).returns(T.untyped) }
-  def reindex(method_name = nil, mode: nil, refresh: false); end
-
-  sig { returns(T::Hash[String, T.untyped]) }
-  def search_data; end
-
-  sig { returns(T::Boolean) }
-  def should_index?; end
-
-  sig { params(options: T.untyped).returns(Searchkick::Relation) }
-  def similar(**options); end
-
   private
 
   sig { returns(NilClass) }
   def to_ary; end
-
-  class << self
-    sig { params(term: String, options: T.untyped, block: T.untyped).returns(Searchkick::Relation) }
-    def search(term = "*", **options, &block); end
-
-    sig { params(name: T.untyped).returns(Searchkick::Index) }
-    def search_index(name: nil); end
-  end
 
   module CommonRelationMethods
     sig do
@@ -382,9 +362,6 @@ class ActiveRecord::InternalMetadata
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def references(*args, &blk); end
-
-    sig { params(method_name: T.untyped, options: T.untyped).returns(T::Boolean) }
-    def reindex(method_name = nil, **options); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def reorder(*args, &blk); end
@@ -761,9 +738,6 @@ class ActiveRecord::InternalMetadata
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def references(*args, &blk); end
-
-    sig { params(method_name: T.untyped, options: T.untyped).returns(T::Boolean) }
-    def reindex(method_name = nil, **options); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def reorder(*args, &blk); end

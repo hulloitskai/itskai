@@ -4,9 +4,6 @@
 # Add time helpers.
 require "active_support/core_ext/integer/time"
 
-# Automatically reload view components.
-require "view_component/engine"
-
 Rails.application.configure do
   # == URLs ==
   config.before_configuration do

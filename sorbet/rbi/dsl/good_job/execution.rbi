@@ -10,30 +10,10 @@ class GoodJob::Execution
   extend CommonRelationMethods
   extend GeneratedRelationMethods
 
-  sig { params(method_name: T.untyped, mode: T.nilable(Symbol), refresh: T::Boolean).returns(T.untyped) }
-  def reindex(method_name = nil, mode: nil, refresh: false); end
-
-  sig { returns(T::Hash[String, T.untyped]) }
-  def search_data; end
-
-  sig { returns(T::Boolean) }
-  def should_index?; end
-
-  sig { params(options: T.untyped).returns(Searchkick::Relation) }
-  def similar(**options); end
-
   private
 
   sig { returns(NilClass) }
   def to_ary; end
-
-  class << self
-    sig { params(term: String, options: T.untyped, block: T.untyped).returns(Searchkick::Relation) }
-    def search(term = "*", **options, &block); end
-
-    sig { params(name: T.untyped).returns(Searchkick::Index) }
-    def search_index(name: nil); end
-  end
 
   module CommonRelationMethods
     sig do
@@ -458,9 +438,6 @@ class GoodJob::Execution
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def references(*args, &blk); end
 
-    sig { params(method_name: T.untyped, options: T.untyped).returns(T::Boolean) }
-    def reindex(method_name = nil, **options); end
-
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def reorder(*args, &blk); end
 
@@ -661,16 +638,16 @@ class GoodJob::Execution
     sig { void }
     def created_at_will_change!; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def cron_at; end
 
-    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { params(value: T.nilable(::Time)).returns(T.nilable(::Time)) }
     def cron_at=(value); end
 
     sig { returns(T::Boolean) }
     def cron_at?; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def cron_at_before_last_save; end
 
     sig { returns(T.untyped) }
@@ -679,28 +656,28 @@ class GoodJob::Execution
     sig { returns(T::Boolean) }
     def cron_at_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
     def cron_at_change; end
 
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
     def cron_at_change_to_be_saved; end
 
     sig { returns(T::Boolean) }
     def cron_at_changed?; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def cron_at_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
     def cron_at_previous_change; end
 
     sig { returns(T::Boolean) }
     def cron_at_previously_changed?; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def cron_at_previously_was; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def cron_at_was; end
 
     sig { void }
@@ -796,16 +773,16 @@ class GoodJob::Execution
     sig { void }
     def error_will_change!; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def finished_at; end
 
-    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { params(value: T.nilable(::Time)).returns(T.nilable(::Time)) }
     def finished_at=(value); end
 
     sig { returns(T::Boolean) }
     def finished_at?; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def finished_at_before_last_save; end
 
     sig { returns(T.untyped) }
@@ -814,28 +791,28 @@ class GoodJob::Execution
     sig { returns(T::Boolean) }
     def finished_at_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
     def finished_at_change; end
 
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
     def finished_at_change_to_be_saved; end
 
     sig { returns(T::Boolean) }
     def finished_at_changed?; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def finished_at_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
     def finished_at_previous_change; end
 
     sig { returns(T::Boolean) }
     def finished_at_previously_changed?; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def finished_at_previously_was; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def finished_at_was; end
 
     sig { void }
@@ -886,16 +863,16 @@ class GoodJob::Execution
     sig { void }
     def id_will_change!; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def performed_at; end
 
-    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { params(value: T.nilable(::Time)).returns(T.nilable(::Time)) }
     def performed_at=(value); end
 
     sig { returns(T::Boolean) }
     def performed_at?; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def performed_at_before_last_save; end
 
     sig { returns(T.untyped) }
@@ -904,28 +881,28 @@ class GoodJob::Execution
     sig { returns(T::Boolean) }
     def performed_at_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
     def performed_at_change; end
 
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
     def performed_at_change_to_be_saved; end
 
     sig { returns(T::Boolean) }
     def performed_at_changed?; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def performed_at_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
     def performed_at_previous_change; end
 
     sig { returns(T::Boolean) }
     def performed_at_previously_changed?; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def performed_at_previously_was; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def performed_at_was; end
 
     sig { void }
@@ -1129,7 +1106,7 @@ class GoodJob::Execution
     sig { returns(T::Boolean) }
     def saved_change_to_created_at?; end
 
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
     def saved_change_to_cron_at; end
 
     sig { returns(T::Boolean) }
@@ -1147,7 +1124,7 @@ class GoodJob::Execution
     sig { returns(T::Boolean) }
     def saved_change_to_error?; end
 
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
     def saved_change_to_finished_at; end
 
     sig { returns(T::Boolean) }
@@ -1159,7 +1136,7 @@ class GoodJob::Execution
     sig { returns(T::Boolean) }
     def saved_change_to_id?; end
 
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
     def saved_change_to_performed_at; end
 
     sig { returns(T::Boolean) }
@@ -1183,7 +1160,7 @@ class GoodJob::Execution
     sig { returns(T::Boolean) }
     def saved_change_to_retried_good_job_id?; end
 
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
     def saved_change_to_scheduled_at; end
 
     sig { returns(T::Boolean) }
@@ -1201,16 +1178,16 @@ class GoodJob::Execution
     sig { returns(T::Boolean) }
     def saved_change_to_updated_at?; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def scheduled_at; end
 
-    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { params(value: T.nilable(::Time)).returns(T.nilable(::Time)) }
     def scheduled_at=(value); end
 
     sig { returns(T::Boolean) }
     def scheduled_at?; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def scheduled_at_before_last_save; end
 
     sig { returns(T.untyped) }
@@ -1219,28 +1196,28 @@ class GoodJob::Execution
     sig { returns(T::Boolean) }
     def scheduled_at_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
     def scheduled_at_change; end
 
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
     def scheduled_at_change_to_be_saved; end
 
     sig { returns(T::Boolean) }
     def scheduled_at_changed?; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def scheduled_at_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
     def scheduled_at_previous_change; end
 
     sig { returns(T::Boolean) }
     def scheduled_at_previously_changed?; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def scheduled_at_previously_was; end
 
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    sig { returns(T.nilable(::Time)) }
     def scheduled_at_was; end
 
     sig { void }
@@ -1529,9 +1506,6 @@ class GoodJob::Execution
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def references(*args, &blk); end
-
-    sig { params(method_name: T.untyped, options: T.untyped).returns(T::Boolean) }
-    def reindex(method_name = nil, **options); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def reorder(*args, &blk); end
