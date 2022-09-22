@@ -50,6 +50,9 @@ gem "good_job", "~> 3.1"
 # Use Mailgun to send emails.
 gem "mailgun-ruby", "~> 1.2"
 
+# Perform HTTP requests with HTTParty
+gem "httparty", "~> 0.20.0"
+
 # Bundle javascript with Webpack
 gem "shakapacker", "= 6.5"
 
@@ -88,6 +91,10 @@ gem "sorbet-runtime", "~> 0.5.10417"
 
 # Use Enumerize to enumerate attributes
 gem "enumerize", "~> 2.5"
+
+# Use Action Policy to authorize actions
+gem "action_policy", "~> 0.6.3"
+gem "action_policy-graphql", "~> 0.5.3"
 
 group :development, :test do
   # Auto-detect and warn about N+1 queries

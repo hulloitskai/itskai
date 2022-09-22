@@ -184,7 +184,7 @@ Healthcheck::Configuration::SETTINGS = T.let(T.unsafe(nil), Array)
 # source://rails-healthcheck//lib/healthcheck/engine.rb#6
 class Healthcheck::Engine < ::Rails::Engine
   class << self
-    # source://activesupport/7.0.3.1/lib/active_support/callbacks.rb#68
+    # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
     def __callbacks; end
   end
 end
@@ -238,29 +238,27 @@ class Healthcheck::HealthchecksController < ::ActionController::Base
 
   private
 
-  # source://actionview/7.0.3.1/lib/action_view/layouts.rb#328
+  # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
   def _layout_from_proc; end
 
   class << self
-    # source://actionpack/7.0.3.1/lib/action_dispatch/routing/route_set.rb#564
+    # source://actionpack/7.0.4/lib/action_dispatch/routing/route_set.rb#564
     def _routes; end
 
-    # source://actionpack/7.0.3.1/lib/action_controller/metal/params_wrapper.rb#185
+    # source://actionpack/7.0.4/lib/action_controller/metal/params_wrapper.rb#185
     def _wrapper_options; end
 
-    # source://actionpack/7.0.3.1/lib/action_controller/metal/helpers.rb#63
+    # source://actionpack/7.0.4/lib/action_controller/metal/helpers.rb#63
     def helpers_path; end
 
-    # source://actionpack/7.0.3.1/lib/action_controller/metal.rb#210
+    # source://actionpack/7.0.4/lib/action_controller/metal.rb#210
     def middleware_stack; end
   end
 end
 
 module Healthcheck::HealthchecksController::HelperMethods
-  include ::Loaf::OptionsValidator
-  include ::Loaf::ViewExtensions
   include ::Turbo::DriveHelper
   include ::Turbo::FramesHelper
   include ::Turbo::IncludesHelper
@@ -268,16 +266,12 @@ module Healthcheck::HealthchecksController::HelperMethods
   include ::Turbo::Streams::ActionHelper
   include ::ActionText::ContentHelper
   include ::ActionText::TagHelper
-  include ::Hotwire::Livereload::LivereloadTagsHelper
+  include ::Webpacker::Helper
   include ::ActionController::Base::HelperMethods
-  include ::AdminHelper
   include ::ApplicationHelper
-  include ::HostsHelper
-  include ::MetaTagsHelper
-  include ::TenantHelper
-  include ::LocalTimeHelper
-  include ::DeviseHelper
-  include ::PreviewHelper
+  include ::ReactOnRails::Utils::Required
+  include ::ReactOnRails::Helper
+  include ::ReactOnRailsHelper
 end
 
 # source://rails-healthcheck//lib/healthcheck/response/base.rb#4

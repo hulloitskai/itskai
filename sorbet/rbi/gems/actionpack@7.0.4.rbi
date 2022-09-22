@@ -1233,7 +1233,6 @@ class ActionController::API < ::ActionController::Metal
   include ::AbstractController::Logger
   include ::ActiveSupport::Benchmarkable
   include ::ActionController::Redirecting
-  include ::ActionView::Rendering
   include ::ActionController::ApiRendering
   include ::ActionController::Rendering
   include ::ActionController::Renderers
@@ -1251,16 +1250,11 @@ class ActionController::API < ::ActionController::Metal
   include ::ActionController::Rescue
   include ::ActionController::Instrumentation
   include ::ActionController::ParamsWrapper
-  include ::Searchkick::ControllerRuntime
   include ::ActionController::RespondWith
-  include ::DeviseInvitable::Controllers::Helpers
   include ::ActionDispatch::Routing::RouteSet::MountedHelpers
   include ::ActiveRecord::Railties::ControllerRuntime
-  include ::Devise::Controllers::SignInOut
-  include ::Devise::Controllers::StoreLocation
   extend ::ActionView::ViewPaths::ClassMethods
   extend ::AbstractController::UrlFor::ClassMethods
-  extend ::ActionView::Rendering::ClassMethods
   extend ::ActionController::Rendering::ClassMethods
   extend ::ActionController::Renderers::ClassMethods
   extend ::ActionController::ConditionalGet::ClassMethods
@@ -1271,7 +1265,6 @@ class ActionController::API < ::ActionController::Metal
   extend ::ActiveSupport::Rescuable::ClassMethods
   extend ::ActionController::Instrumentation::ClassMethods
   extend ::ActionController::ParamsWrapper::ClassMethods
-  extend ::Searchkick::ControllerRuntime::ClassMethods
   extend ::ActionController::RespondWith::ClassMethods
   extend ::ActionController::Railties::Helpers
   extend ::ActiveRecord::Railties::ControllerRuntime::ClassMethods
@@ -1281,15 +1274,6 @@ class ActionController::API < ::ActionController::Metal
 
   # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
   def __callbacks?; end
-
-  # source://actionpack//lib/abstract_controller/helpers.rb#11
-  def _helper_methods; end
-
-  # source://actionpack//lib/abstract_controller/helpers.rb#11
-  def _helper_methods=(_arg0); end
-
-  # source://actionpack//lib/abstract_controller/helpers.rb#11
-  def _helper_methods?; end
 
   # source://activesupport/7.0.4/lib/active_support/callbacks.rb#940
   def _process_action_callbacks; end
@@ -1332,24 +1316,6 @@ class ActionController::API < ::ActionController::Metal
 
   # source://actionpack//lib/action_controller/metal/conditional_get.rb#13
   def etaggers?; end
-
-  # source://actionpack//lib/action_controller/metal/helpers.rb#63
-  def helpers_path; end
-
-  # source://actionpack//lib/action_controller/metal/helpers.rb#63
-  def helpers_path=(_arg0); end
-
-  # source://actionpack//lib/action_controller/metal/helpers.rb#63
-  def helpers_path?; end
-
-  # source://actionpack//lib/action_controller/metal/helpers.rb#64
-  def include_all_helpers; end
-
-  # source://actionpack//lib/action_controller/metal/helpers.rb#64
-  def include_all_helpers=(_arg0); end
-
-  # source://actionpack//lib/action_controller/metal/helpers.rb#64
-  def include_all_helpers?; end
 
   # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
   def logger; end
@@ -1400,18 +1366,6 @@ class ActionController::API < ::ActionController::Metal
     # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
     def __callbacks?; end
 
-    # source://actionpack//lib/abstract_controller/helpers.rb#11
-    def _helper_methods; end
-
-    # source://actionpack//lib/abstract_controller/helpers.rb#11
-    def _helper_methods=(value); end
-
-    # source://actionpack//lib/abstract_controller/helpers.rb#11
-    def _helper_methods?; end
-
-    # source://actionpack//lib/abstract_controller/helpers.rb#15
-    def _helpers; end
-
     # source://activesupport/7.0.4/lib/active_support/callbacks.rb#932
     def _process_action_callbacks; end
 
@@ -1453,24 +1407,6 @@ class ActionController::API < ::ActionController::Metal
 
     # source://actionpack//lib/action_controller/metal/conditional_get.rb#13
     def etaggers?; end
-
-    # source://actionpack//lib/action_controller/metal/helpers.rb#63
-    def helpers_path; end
-
-    # source://actionpack//lib/action_controller/metal/helpers.rb#63
-    def helpers_path=(value); end
-
-    # source://actionpack//lib/action_controller/metal/helpers.rb#63
-    def helpers_path?; end
-
-    # source://actionpack//lib/action_controller/metal/helpers.rb#64
-    def include_all_helpers; end
-
-    # source://actionpack//lib/action_controller/metal/helpers.rb#64
-    def include_all_helpers=(value); end
-
-    # source://actionpack//lib/action_controller/metal/helpers.rb#64
-    def include_all_helpers?; end
 
     # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
     def logger; end
@@ -1541,12 +1477,8 @@ class ActionController::ActionControllerError < ::StandardError; end
 # source://actionpack//lib/action_controller/api/api_rendering.rb#4
 module ActionController::ApiRendering
   extend ::ActiveSupport::Concern
-  include ::ActionView::ViewPaths
-  include ::ActionView::Rendering
   include ::ActionController::Rendering
 
-  mixes_in_class_methods ::ActionView::ViewPaths::ClassMethods
-  mixes_in_class_methods ::ActionView::Rendering::ClassMethods
   mixes_in_class_methods ::ActionController::Rendering::ClassMethods
 
   # source://actionpack//lib/action_controller/api/api_rendering.rb#11
@@ -1774,17 +1706,19 @@ class ActionController::Base < ::ActionController::Metal
   include ::ActionController::Rescue
   include ::ActionController::Instrumentation
   include ::ActionController::ParamsWrapper
-  include ::Searchkick::ControllerRuntime
+  include ::Turbo::Native::Navigation
+  include ::Turbo::Frames::FrameRequest
+  include ::Turbo::Streams::TurboStreamsTagBuilder
   include ::ActionController::RespondWith
-  include ::DeviseInvitable::Controllers::Helpers
-  include ::Devise::Controllers::SignInOut
-  include ::Devise::Controllers::StoreLocation
+  include ::ActionDispatch::Routing::RouteSet::MountedHelpers
+  include ::ActiveRecord::Railties::ControllerRuntime
   include ::ActionPolicy::Behaviours::PolicyFor
   include ::ActionPolicy::Behaviours::Scoping
   include ::ActionPolicy::Behaviour
   include ::ActionPolicy::Behaviours::ThreadMemoized
   include ::ActionPolicy::Behaviours::Memoized
   include ::ActionPolicy::Behaviours::Namespaced
+  include ::ActionPolicy::Controller
   include ::ActionPolicy::Behaviours::ThreadMemoized::InstanceMethods
   include ::ActionPolicy::Behaviours::Memoized::InstanceMethods
   include ::ActionPolicy::Behaviours::Namespaced::InstanceMethods
@@ -1815,9 +1749,11 @@ class ActionController::Base < ::ActionController::Metal
   extend ::ActionController::Instrumentation::ClassMethods
   extend ::ActionController::ParamsWrapper::ClassMethods
   extend ::Responders::ControllerMethod
-  extend ::Searchkick::ControllerRuntime::ClassMethods
   extend ::ActionController::RespondWith::ClassMethods
+  extend ::ActionController::Railties::Helpers
+  extend ::ActiveRecord::Railties::ControllerRuntime::ClassMethods
   extend ::ActionPolicy::Behaviour::ClassMethods
+  extend ::ActionPolicy::Controller::ClassMethods
 
   # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
   def __callbacks; end
@@ -2064,10 +2000,6 @@ class ActionController::Base < ::ActionController::Metal
 
   # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
   def stylesheets_dir=(value); end
-
-  def template; end
-  def template=(_arg0); end
-  def template_path; end
 
   # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
   def urlsafe_csrf_tokens; end
@@ -2399,7 +2331,6 @@ end
 
 # source://actionpack//lib/action_controller/base.rb#0
 module ActionController::Base::HelperMethods
-  include ::Loaf::OptionsValidator
   include ::Turbo::DriveHelper
   include ::Turbo::FramesHelper
   include ::Turbo::IncludesHelper
@@ -2407,9 +2338,7 @@ module ActionController::Base::HelperMethods
   include ::Turbo::Streams::ActionHelper
   include ::ActionText::ContentHelper
   include ::ActionText::TagHelper
-
-  # source://loaf/0.10.0-27b508c813f0dd32ce15c8b01f5a94550ee1ebc0/lib/loaf/controller_extensions.rb#13
-  def _breadcrumbs(*args, **_arg1, &block); end
+  include ::Webpacker::Helper
 
   # source://actionpack//lib/action_controller/metal/flash.rb#39
   def alert(*args, **_arg1, &block); end
@@ -2432,12 +2361,6 @@ module ActionController::Base::HelperMethods
   # source://actionpack//lib/action_controller/metal/cookies.rb#8
   def cookies(*args, **_arg1, &block); end
 
-  # source://devise/4.8.1/lib/devise/controllers/helpers.rb#136
-  def current_user(*args, **_arg1, &block); end
-
-  # source://devise/4.8.1/lib/devise/controllers/helpers.rb#13
-  def devise_controller?(*args, **_arg1, &block); end
-
   # source://actionpack//lib/action_controller/metal/request_forgery_protection.rb#106
   def form_authenticity_token(*args, **_arg1, &block); end
 
@@ -2447,20 +2370,8 @@ module ActionController::Base::HelperMethods
   # source://actionpack//lib/action_controller/metal/request_forgery_protection.rb#107
   def protect_against_forgery?(*args, **_arg1, &block); end
 
-  # source://devise/4.8.1/lib/devise/controllers/helpers.rb#13
-  def signed_in?(*args, **_arg1, &block); end
-
-  # source://devise/4.8.1/lib/devise/controllers/helpers.rb#136
-  def user_session(*args, **_arg1, &block); end
-
-  # source://devise/4.8.1/lib/devise/controllers/helpers.rb#136
-  def user_signed_in?(*args, **_arg1, &block); end
-
   # source://actionpack//lib/abstract_controller/caching.rb#43
   def view_cache_dependencies(*args, **_arg1, &block); end
-
-  # source://devise/4.8.1/lib/devise/controllers/helpers.rb#13
-  def warden(*args, **_arg1, &block); end
 end
 
 # source://actionpack//lib/action_controller/base.rb#206
@@ -15685,62 +15596,6 @@ class ActionDispatch::Routing::Mapper
   # source://actionpack//lib/action_dispatch/routing/mapper.rb#2279
   def initialize(set); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#363
-  def as(scope); end
-
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#290
-  def authenticate(scope = T.unsafe(nil), block = T.unsafe(nil)); end
-
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#314
-  def authenticated(scope = T.unsafe(nil), block = T.unsafe(nil)); end
-
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#226
-  def devise_for(*resources); end
-
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#363
-  def devise_scope(scope); end
-
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#331
-  def unauthenticated(scope = T.unsafe(nil)); end
-
-  protected
-
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#477
-  def constraints_for(method_to_apply, scope = T.unsafe(nil), block = T.unsafe(nil)); end
-
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#390
-  def devise_confirmation(mapping, controllers); end
-
-  # source://devise_invitable/2.0.6/lib/devise_invitable/routes.rb#6
-  def devise_invitation(mapping, controllers); end
-
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#421
-  def devise_omniauth_callback(mapping, controllers); end
-
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#385
-  def devise_password(mapping, controllers); end
-
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#402
-  def devise_registration(mapping, controllers); end
-
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#377
-  def devise_session(mapping, controllers); end
-
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#395
-  def devise_unlock(mapping, controllers); end
-
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#509
-  def raise_no_devise_method_error!(klass); end
-
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#499
-  def raise_no_secret_key; end
-
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#488
-  def set_omniauth_path_prefix!(path_prefix); end
-
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#461
-  def with_devise_exclusive_scope(new_path, new_as, options); end
-
   class << self
     # source://actionpack//lib/action_dispatch/routing/mapper.rb#381
     def normalize_name(name); end
@@ -17775,7 +17630,7 @@ class ActionDispatch::Routing::RouteSet
   # source://actionpack//lib/action_dispatch/routing/route_set.rb#760
   def extra_keys(options, recall = T.unsafe(nil)); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#8
+  # source://actionpack//lib/action_dispatch/routing/route_set.rb#433
   def finalize!; end
 
   # source://actionpack//lib/action_dispatch/routing/route_set.rb#792
@@ -18109,28 +17964,10 @@ module ActionDispatch::Routing::RouteSet::MountedHelpers
   mixes_in_class_methods GeneratedClassMethods
 
   # source://actionpack//lib/action_dispatch/routing/route_set.rb#468
-  def _good_job; end
-
-  # source://actionpack//lib/action_dispatch/routing/route_set.rb#468
-  def _lookbook; end
-
-  # source://actionpack//lib/action_dispatch/routing/route_set.rb#468
   def _main_app; end
-
-  # source://actionpack//lib/action_dispatch/routing/route_set.rb#468
-  def _rails_pg_extras_web; end
-
-  # source://actionpack//lib/action_dispatch/routing/route_set.rb#474
-  def good_job; end
-
-  # source://actionpack//lib/action_dispatch/routing/route_set.rb#474
-  def lookbook; end
 
   # source://actionpack//lib/action_dispatch/routing/route_set.rb#474
   def main_app; end
-
-  # source://actionpack//lib/action_dispatch/routing/route_set.rb#474
-  def rails_pg_extras_web; end
 
   module GeneratedClassMethods
     def default_url_options; end
@@ -18330,15 +18167,6 @@ class ActionDispatch::Routing::RouteWrapper < ::SimpleDelegator
   # source://actionpack//lib/action_dispatch/routing/inspector.rb#41
   def action; end
 
-  # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#238
-  def assets_prefix; end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#238
-  def assets_prefix=(_arg0); end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#238
-  def assets_prefix?; end
-
   # source://actionpack//lib/action_dispatch/routing/inspector.rb#13
   def constraints; end
 
@@ -18355,7 +18183,7 @@ class ActionDispatch::Routing::RouteWrapper < ::SimpleDelegator
 
   # @return [Boolean]
   #
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/route_wrapper.rb#9
+  # source://actionpack//lib/action_dispatch/routing/inspector.rb#45
   def internal?; end
 
   # source://actionpack//lib/action_dispatch/routing/inspector.rb#25
@@ -18369,17 +18197,6 @@ class ActionDispatch::Routing::RouteWrapper < ::SimpleDelegator
 
   # source://actionpack//lib/action_dispatch/routing/inspector.rb#29
   def reqs; end
-
-  class << self
-    # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#238
-    def assets_prefix; end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#238
-    def assets_prefix=(value); end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#238
-    def assets_prefix?; end
-  end
 end
 
 # This class is just used for displaying route information when someone
@@ -19687,6 +19504,11 @@ ActionPack::VERSION::STRING = T.let(T.unsafe(nil), String)
 
 # source://actionpack//lib/action_pack/gem_version.rb#12
 ActionPack::VERSION::TINY = T.let(T.unsafe(nil), Integer)
+
+module ActionView::RoutingUrlFor
+  include ::ActionDispatch::Routing::PolymorphicRoutes
+  include ::ActionDispatch::Routing::UrlFor
+end
 
 # source://actionpack//lib/action_dispatch/http/mime_type.rb#5
 module Mime

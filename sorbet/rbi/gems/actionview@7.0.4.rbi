@@ -9,8 +9,6 @@ class ActionController::Base < ::ActionController::Metal
   include ::ActionController::Head
   include ::AbstractController::Caching::ConfigMethods
   include ::ActionController::BasicImplicitRender
-  include ::Devise::Controllers::SignInOut
-  include ::Devise::Controllers::StoreLocation
   include ::ActionPolicy::Behaviours::PolicyFor
   include ::ActionPolicy::Behaviours::Scoping
   include ::ActionPolicy::Behaviour
@@ -267,10 +265,6 @@ class ActionController::Base < ::ActionController::Metal
 
   # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
   def stylesheets_dir=(value); end
-
-  def template; end
-  def template=(_arg0); end
-  def template_path; end
 
   # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
   def urlsafe_csrf_tokens; end
@@ -941,8 +935,8 @@ class ActionView::Base
   include ::ActionView::Helpers::NumberHelper
   include ::ActionView::Helpers::RenderingHelper
   include ::ActionView::Helpers
-  include ::Kaminari::Helpers::UrlHelper
-  include ::Sprockets::Rails::Utils
+  include ::ActionCable::Helpers::ActionCableHelper
+  include ::Webpacker::Helper
   extend ::ActionView::Helpers::UrlHelper::ClassMethods
   extend ::ActionView::Helpers::SanitizeHelper::ClassMethods
 
@@ -971,42 +965,6 @@ class ActionView::Base
   # source://actionview//lib/action_view/base.rb#163
   def annotate_rendered_view_with_filenames=(val); end
 
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#48
-  def assets_environment; end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def assets_environment=(_arg0); end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def assets_environment?; end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def assets_manifest; end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def assets_manifest=(_arg0); end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def assets_manifest?; end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def assets_precompile; end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def assets_precompile=(_arg0); end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def assets_precompile?; end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def assets_prefix; end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def assets_prefix=(_arg0); end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def assets_prefix?; end
-
   # source://actionview//lib/action_view/base.rb#207
   def assign(new_assigns); end
 
@@ -1022,15 +980,6 @@ class ActionView::Base
   # source://actionview//lib/action_view/base.rb#160
   def automatically_disable_submit_tag=(val); end
 
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def check_precompiled_asset; end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def check_precompiled_asset=(_arg0); end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def check_precompiled_asset?; end
-
   # @raise [NotImplementedError]
   #
   # source://actionview//lib/action_view/base.rb#249
@@ -1041,15 +990,6 @@ class ActionView::Base
 
   # source://activesupport/7.0.4/lib/active_support/core_ext/module/attr_internal.rb#33
   def config=(_arg0); end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def debug_assets; end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def debug_assets=(_arg0); end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def debug_assets?; end
 
   # source://actionview//lib/action_view/helpers/translation_helper.rb#18
   def debug_missing_translation; end
@@ -1062,15 +1002,6 @@ class ActionView::Base
 
   # source://actionview//lib/action_view/base.rb#157
   def default_formats=(val); end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def digest_assets; end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def digest_assets=(_arg0); end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def digest_assets?; end
 
   # source://actionview//lib/action_view/base.rb#145
   def field_error_proc; end
@@ -1107,15 +1038,6 @@ class ActionView::Base
   # source://actionview//lib/action_view/base.rb#202
   def lookup_context; end
 
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def precompiled_asset_checker; end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def precompiled_asset_checker=(_arg0); end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def precompiled_asset_checker?; end
-
   # source://actionview//lib/action_view/base.rb#154
   def prefix_partial_path_with_controller_namespace; end
 
@@ -1125,29 +1047,11 @@ class ActionView::Base
   # source://actionview//lib/action_view/base.rb#154
   def prefix_partial_path_with_controller_namespace?; end
 
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def resolve_assets_with; end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def resolve_assets_with=(_arg0); end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def resolve_assets_with?; end
-
   # source://actionview//lib/action_view/base.rb#149
   def streaming_completion_on_exception; end
 
   # source://actionview//lib/action_view/base.rb#149
   def streaming_completion_on_exception=(val); end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def unknown_asset_fallback; end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def unknown_asset_fallback=(_arg0); end
-
-  # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-  def unknown_asset_fallback?; end
 
   # source://actionview//lib/action_view/base.rb#205
   def view_paths(*_arg0, **_arg1, &_arg2); end
@@ -1176,42 +1080,6 @@ class ActionView::Base
     # source://actionview//lib/action_view/base.rb#163
     def annotate_rendered_view_with_filenames=(val); end
 
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def assets_environment; end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def assets_environment=(value); end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def assets_environment?; end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def assets_manifest; end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def assets_manifest=(value); end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def assets_manifest?; end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def assets_precompile; end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def assets_precompile=(value); end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def assets_precompile?; end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def assets_prefix; end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def assets_prefix=(value); end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def assets_prefix?; end
-
     # source://actionview//lib/action_view/base.rb#160
     def automatically_disable_submit_tag; end
 
@@ -1228,24 +1096,6 @@ class ActionView::Base
     #
     # source://actionview//lib/action_view/base.rb#197
     def changed?(other); end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def check_precompiled_asset; end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def check_precompiled_asset=(value); end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def check_precompiled_asset?; end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def debug_assets; end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def debug_assets=(value); end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def debug_assets?; end
 
     # source://actionview//lib/action_view/helpers/translation_helper.rb#18
     def debug_missing_translation; end
@@ -1264,15 +1114,6 @@ class ActionView::Base
 
     # source://actionview//lib/action_view/base.rb#157
     def default_formats=(val); end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def digest_assets; end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def digest_assets=(value); end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def digest_assets?; end
 
     # :stopdoc:
     #
@@ -1297,15 +1138,6 @@ class ActionView::Base
     # source://actionview//lib/action_view/base.rb#166
     def logger?; end
 
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def precompiled_asset_checker; end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def precompiled_asset_checker=(value); end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def precompiled_asset_checker?; end
-
     # source://actionview//lib/action_view/base.rb#154
     def prefix_partial_path_with_controller_namespace; end
 
@@ -1315,29 +1147,11 @@ class ActionView::Base
     # source://actionview//lib/action_view/base.rb#154
     def prefix_partial_path_with_controller_namespace?; end
 
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def resolve_assets_with; end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def resolve_assets_with=(value); end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def resolve_assets_with?; end
-
     # source://actionview//lib/action_view/base.rb#149
     def streaming_completion_on_exception; end
 
     # source://actionview//lib/action_view/base.rb#149
     def streaming_completion_on_exception=(val); end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def unknown_asset_fallback; end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def unknown_asset_fallback=(value); end
-
-    # source://sprockets-rails/3.4.2/lib/sprockets/rails/helper.rb#44
-    def unknown_asset_fallback?; end
 
     # source://actionview//lib/action_view/base.rb#221
     def with_context(context, assigns = T.unsafe(nil), controller = T.unsafe(nil)); end
@@ -12110,8 +11924,8 @@ class ActionView::LogSubscriber < ::ActiveSupport::LogSubscriber
   # source://actionview//lib/action_view/log_subscriber.rb#35
   def render_layout(event); end
 
-  # source://kaminari-actionview/1.2.2/lib/kaminari/actionview/action_view_extension.rb#13
-  def render_partial(*_arg0); end
+  # source://actionview//lib/action_view/log_subscriber.rb#25
+  def render_partial(event); end
 
   # source://actionview//lib/action_view/log_subscriber.rb#17
   def render_template(event); end
@@ -15096,10 +14910,6 @@ class ActionView::TemplateRenderer < ::ActionView::AbstractRenderer
   # source://actionview//lib/action_view/renderer/template_renderer.rb#5
   def render(context, options); end
 
-  # Renders the given template. A string representing the layout can be
-  # supplied as well.
-  def render_template(view, template, layout_name, locals); end
-
   private
 
   # Determine the template to be rendered using the given options.
@@ -15113,6 +14923,12 @@ class ActionView::TemplateRenderer < ::ActionView::AbstractRenderer
   #
   # source://actionview//lib/action_view/renderer/template_renderer.rb#87
   def find_layout(layout, keys, formats); end
+
+  # Renders the given template. A string representing the layout can be
+  # supplied as well.
+  #
+  # source://actionview//lib/action_view/renderer/template_renderer.rb#58
+  def render_template(view, template, layout_name, locals); end
 
   # source://actionview//lib/action_view/renderer/template_renderer.rb#70
   def render_with_layout(view, template, path, locals); end
@@ -15537,8 +15353,6 @@ end
 
 # source://actionview//lib/action_view/test_case.rb#0
 module ActionView::TestCase::TestController::HelperMethods
-  include ::Loaf::OptionsValidator
-  include ::Loaf::ViewExtensions
   include ::Turbo::DriveHelper
   include ::Turbo::FramesHelper
   include ::Turbo::IncludesHelper
@@ -15546,17 +15360,12 @@ module ActionView::TestCase::TestController::HelperMethods
   include ::Turbo::Streams::ActionHelper
   include ::ActionText::ContentHelper
   include ::ActionText::TagHelper
-  include ::Hotwire::Livereload::LivereloadTagsHelper
+  include ::Webpacker::Helper
   include ::ActionController::Base::HelperMethods
-  include ::AdminHelper
   include ::ApplicationHelper
-  include ::DeviseHelper
-  include ::HostsHelper
-  include ::MetaTagsHelper
-  include ::TenantHelper
-  include ::TurboHelper
-  include ::LocalTimeHelper
-  include ::PreviewHelper
+  include ::ReactOnRails::Utils::Required
+  include ::ReactOnRails::Helper
+  include ::ReactOnRailsHelper
 end
 
 # source://actionview//lib/action_view/unbound_template.rb#6

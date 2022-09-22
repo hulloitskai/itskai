@@ -513,11 +513,10 @@ module ActionText::Attachments::TrixConversion
 
   mixes_in_class_methods ::ActionText::Attachments::TrixConversion::ClassMethods
 
+  # source://actiontext//lib/action_text/attachments/trix_conversion.rb#22
   def to_trix_attachment(content = T.unsafe(nil)); end
 
   private
-
-  def trix_attachable_url; end
 
   # source://actiontext//lib/action_text/attachments/trix_conversion.rb#29
   def trix_attachment_content; end
@@ -947,9 +946,6 @@ end
 class ActionText::Record < ::ActiveRecord::Base
   include ::ActionText::Record::GeneratedAttributeMethods
   include ::ActionText::Record::GeneratedAssociationMethods
-  include ::Kaminari::ActiveRecordModelExtension
-  include ::Kaminari::ConfigurationMethods
-  extend ::Kaminari::ConfigurationMethods::ClassMethods
 
   class << self
     # source://activemodel/7.0.4/lib/active_model/validations.rb#52
@@ -957,9 +953,6 @@ class ActionText::Record < ::ActiveRecord::Base
 
     # source://activerecord/7.0.4/lib/active_record/enum.rb#116
     def defined_enums; end
-
-    # source://kaminari-activerecord/1.2.2/lib/kaminari/activerecord/active_record_model_extension.rb#15
-    def page(num = T.unsafe(nil)); end
   end
 end
 

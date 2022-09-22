@@ -707,9 +707,6 @@ end
 class ActionMailbox::Record < ::ActiveRecord::Base
   include ::ActionMailbox::Record::GeneratedAttributeMethods
   include ::ActionMailbox::Record::GeneratedAssociationMethods
-  include ::Kaminari::ActiveRecordModelExtension
-  include ::Kaminari::ConfigurationMethods
-  extend ::Kaminari::ConfigurationMethods::ClassMethods
 
   class << self
     # source://activemodel/7.0.4/lib/active_model/validations.rb#52
@@ -717,9 +714,6 @@ class ActionMailbox::Record < ::ActiveRecord::Base
 
     # source://activerecord/7.0.4/lib/active_record/enum.rb#116
     def defined_enums; end
-
-    # source://kaminari-activerecord/1.2.2/lib/kaminari/activerecord/active_record_model_extension.rb#15
-    def page(num = T.unsafe(nil)); end
   end
 end
 
@@ -1914,8 +1908,6 @@ class Rails::Conductor::BaseController < ::ActionController::Base
 end
 
 module Rails::Conductor::BaseController::HelperMethods
-  include ::Loaf::OptionsValidator
-  include ::Loaf::ViewExtensions
   include ::Turbo::DriveHelper
   include ::Turbo::FramesHelper
   include ::Turbo::IncludesHelper
@@ -1923,15 +1915,10 @@ module Rails::Conductor::BaseController::HelperMethods
   include ::Turbo::Streams::ActionHelper
   include ::ActionText::ContentHelper
   include ::ActionText::TagHelper
-  include ::Hotwire::Livereload::LivereloadTagsHelper
+  include ::Webpacker::Helper
   include ::ActionController::Base::HelperMethods
-  include ::AdminHelper
   include ::ApplicationHelper
-  include ::DeviseHelper
-  include ::HostsHelper
-  include ::MetaTagsHelper
-  include ::TenantHelper
-  include ::TurboHelper
-  include ::LocalTimeHelper
-  include ::PreviewHelper
+  include ::ReactOnRails::Utils::Required
+  include ::ReactOnRails::Helper
+  include ::ReactOnRailsHelper
 end

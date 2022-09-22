@@ -1,4 +1,4 @@
-# typed: strong
+# typed: ignore
 
 class ActionController::Base
   include Devise::Controllers::Helpers

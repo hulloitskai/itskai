@@ -1,4 +1,4 @@
-# typed: strict
+# typed: ignore
 
 module FriendlyId
   mixes_in_class_methods FriendlyId::Base

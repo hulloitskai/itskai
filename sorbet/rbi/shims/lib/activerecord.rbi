@@ -53,7 +53,7 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
           T
             .proc
             .params(
-              t: ActiveRecord::ConnectionAdapters::PostGIS::TableDefinition,
+              t: ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition,
             )
             .void,
         ),
@@ -101,7 +101,7 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
           T
             .proc
             .params(
-              t: ActiveRecord::ConnectionAdapters::PostGIS::TableDefinition,
+              t: ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition,
             )
             .void,
         ),
@@ -123,7 +123,7 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
           T
             .proc
             .params(
-              t: ActiveRecord::ConnectionAdapters::PostGIS::TableDefinition,
+              t: ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition,
             )
             .void,
         ),
@@ -149,7 +149,7 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
           T
             .proc
             .params(
-              t: ActiveRecord::ConnectionAdapters::PostGIS::TableDefinition,
+              t: ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition,
             )
             .void,
         ),

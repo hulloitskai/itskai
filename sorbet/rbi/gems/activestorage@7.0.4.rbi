@@ -8,7 +8,6 @@ class ActiveRecord::Base
   include ::ActiveModel::ForbiddenAttributesProtection
   include ::ActiveModel::AttributeAssignment
   include ::ActiveModel::Serialization
-  extend ::ActiveRecordExtended::RelationPatch::QueryDelegation
 
   # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
   def __callbacks; end
@@ -919,9 +918,6 @@ class ActiveRecord::Base
     def _inheritance_column=(value); end
   end
 end
-
-# source://orm_adapter/0.5.0/lib/orm_adapter/adapters/active_record.rb#81
-ActiveRecord::Base::OrmAdapter = OrmAdapter::ActiveRecord
 
 # source://activestorage//lib/active_storage/gem_version.rb#3
 module ActiveStorage
@@ -2752,9 +2748,6 @@ end
 class ActiveStorage::Record < ::ActiveRecord::Base
   include ::ActiveStorage::Record::GeneratedAttributeMethods
   include ::ActiveStorage::Record::GeneratedAssociationMethods
-  include ::Kaminari::ActiveRecordModelExtension
-  include ::Kaminari::ConfigurationMethods
-  extend ::Kaminari::ConfigurationMethods::ClassMethods
 
   class << self
     # source://activemodel/7.0.4/lib/active_model/validations.rb#52
@@ -2762,9 +2755,6 @@ class ActiveStorage::Record < ::ActiveRecord::Base
 
     # source://activerecord/7.0.4/lib/active_record/enum.rb#116
     def defined_enums; end
-
-    # source://kaminari-activerecord/1.2.2/lib/kaminari/activerecord/active_record_model_extension.rb#15
-    def page(num = T.unsafe(nil)); end
   end
 end
 
