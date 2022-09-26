@@ -10,8 +10,11 @@ if ! command -v overmind &> /dev/null; then
     exit 1
   fi
 
-  echo "Install overmind..."
+  echo "Installing overmind..."
   brew install overmind
 fi
 
-OVERMIND_SKIP_ENV=1 OVERMIND_PORT=3000 overmind $@ -s tmp/sockets/overmind.sock
+export OVERMIND_SKIP_ENV=1 
+export OVERMIND_PORT=3000 
+
+overmind $@ -s tmp/sockets/overmind.sock

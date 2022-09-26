@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ItskaiMe</title>
+    <title>It's Kai</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <%# == Security == %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application" %>
+    <%# == Packs == %>
+    <%= javascript_pack_tag %>
+    <%= stylesheet_pack_tag %>
   </head>
 
   <body>

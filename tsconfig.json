@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    // == Paths ==
+    "baseUrl": ".",
+    "paths": {
+      "app": ["app"]
+    },
+
+    // == JavaScript ==
+    "allowJs": true,
+    "checkJs": false,
+
+    // == JSX ==
+    "jsx": "preserve",
+
+    // == Emit ==
+    "noEmit": true,
+
+    // == Types ==
+    "strict": true,
+    "typeRoots": ["./node_modules/@types", "./app/javascript/typings"],
+
+    // == Completeness ==
+    "skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+  },
+  "include": ["app/**/*"]
+}
