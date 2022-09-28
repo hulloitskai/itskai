@@ -1,14 +1,13 @@
-import React from "react";
-import type { FC, PropsWithChildren } from "react";
+import React, { FC, PropsWithChildren } from "react";
 
 import { MantineProvider as _MantineProvider } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
 import { NotificationsProvider } from "@mantine/notifications";
-import { theme } from "~helpers/mantine";
+import { theme } from "~views/shared/helpers/mantine";
 
 export type MantineProviderProps = PropsWithChildren;
 
-const MantineProvider: FC<MantineProviderProps> = ({ children }) => {
+export const MantineProvider: FC<MantineProviderProps> = ({ children }) => {
   return (
     <_MantineProvider
       withNormalizeCSS

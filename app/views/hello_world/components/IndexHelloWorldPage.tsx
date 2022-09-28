@@ -1,23 +1,8 @@
-import React, { useCallback } from "react";
-import type { FC } from "react";
+import React, { FC } from "react";
 
-import {
-  Button,
-  Container,
-  Stack,
-  Text,
-  TextInput,
-  Title,
-} from "@mantine/core";
+import { Text } from "@mantine/core";
 import { closeAllModals, openModal } from "@mantine/modals";
 import { useForm } from "@mantine/form";
-
-import PencilSquareIcon from "~icons/heroicons/pencil-square-20-solid";
-
-import What from "~components/What";
-import Layout from "~components/Layout";
-import InputIcon from "~components/InputIcon";
-import AnotherComponent from "~components/AnotherComponent";
 
 type IndexHelloWorldPageProps = {
   readonly name: string;
@@ -49,14 +34,13 @@ const IndexHelloWorldPage: FC<IndexHelloWorldPageProps> = ({ name }) => {
             placeholder="Some Input"
             icon={
               <InputIcon>
-                <PencilSquareIcon />
+                <IconHeroPencilSquare20Solid />
               </InputIcon>
             }
             {...getInputProps("name")}
           />
           <Button onClick={showModal}>Open Modal</Button>
           <AnotherComponent />
-          <What />
         </Stack>
       </Container>
     </Layout>

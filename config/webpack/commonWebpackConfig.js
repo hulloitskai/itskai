@@ -5,18 +5,49 @@
 const { webpackConfig, merge } = require("shakapacker");
 const { resolve } = require("path");
 
-const UnpluginIconsPlugin = require("unplugin-icons/webpack");
+const AutoImportPlugin = require("unplugin-auto-import/webpack");
+const IconsPlugin = require("unplugin-icons/webpack");
+const IconsResolver = require("unplugin-icons/resolver");
 
 const customConfig = {
   resolve: {
     extensions: [".css", ".ts", ".tsx"],
     alias: {
-      "~components": resolve(process.cwd(), "app/views/components"),
-      "~helpers": resolve(process.cwd(), "app/views/helpers"),
+      "~views": resolve(process.cwd(), "app/views"),
     },
   },
   plugins: [
-    UnpluginIconsPlugin({
+    AutoImportPlugin({
+      dts: resolve(process.cwd(), "typings/auto-imports.d.ts"),
+      includes: [/\.[tj]sx?$/],
+      resolvers: [
+        IconsResolver({
+          prefix: "Icon",
+          enabledCollections: ["heroicons"],
+          alias: {
+            hero: "heroicons",
+          },
+          extension: "jsx",
+        }),
+      ],
+      imports: [
+        "react",
+        {
+          "@mantine/core": [
+            "Box",
+            "Button",
+            "Container",
+            "Group",
+            "Stack",
+            "Text",
+            "TextInput",
+            "Title",
+          ],
+        },
+      ],
+      dirs: [resolve(process.cwd(), "app/views/shared/**")],
+    }),
+    IconsPlugin({
       compiler: "jsx",
       jsx: "react",
     }),

@@ -1,4 +1,4 @@
 import ReactOnRails from 'react-on-rails';
-import AnotherComponent from '../../views/components/AnotherComponent.tsx';
+import AnotherComponent from '../../views/shared/components/AnotherComponent.tsx';
 
 ReactOnRails.register({AnotherComponent});

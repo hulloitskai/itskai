@@ -3,8 +3,7 @@
     // == Paths ==
     "baseUrl": ".",
     "paths": {
-      "~components/*": ["app/views/components/*"],
-      "~helpers/*": ["app/views/helpers/*"]
+      "~views/*": ["app/views/*"]
     },
 
     // == JavaScript ==
@@ -26,5 +25,5 @@
     "skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": ["app/**/*"]
+  "include": ["app/**/*", "typings/**/*"]
 }
