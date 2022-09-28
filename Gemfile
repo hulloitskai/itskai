@@ -54,7 +54,7 @@ gem "mailgun-ruby", "~> 1.2"
 gem "httparty", "~> 0.20.0"
 
 # Bundle javascript with Webpack
-gem "shakapacker", "= 6.5"
+gem "shakapacker", "= 6.5.1"
 
 # Render React components in Rails templates
 gem "react_on_rails", "= 13.1"

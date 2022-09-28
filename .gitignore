@@ -5,6 +5,7 @@
 # == Rails ==
 /public/assets
 /public/sitemap*.xml.gz
+/public/packs
 
 # Ignore compiled assets.
 /app/assets/builds/*

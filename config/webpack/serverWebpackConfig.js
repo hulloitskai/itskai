@@ -2,9 +2,12 @@
 // https://github.com/shakacode/react_on_rails_demo_ssr_hmr/blob/master/config/webpack/serverWebpackConfig.js
 
 const { config } = require("shakapacker");
-const commonWebpackConfig = require("./commonWebpackConfig");
+const {
+  optimize: { LimitChunkCountPlugin },
+} = require("webpack");
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
-const webpack = require("webpack");
+const commonWebpackConfig = require("./commonWebpackConfig");
 
 const configureServer = () => {
   // We need to use "merge" because the clientConfigObject, EVEN after running
@@ -13,17 +16,26 @@ const configureServer = () => {
   // Using webpack-merge into an empty object avoids this issue.
   const serverWebpackConfig = commonWebpackConfig();
 
+  // Don't resolving browser-specific modules
+  serverWebpackConfig.resolve.aliasFields = ["main"];
+  serverWebpackConfig.resolve.conditionNames = ["require", "default"];
+
+  // Polyfill NodeJS core modules
+  serverWebpackConfig.plugins.push(
+    new NodePolyfillPlugin({
+      excludeAliases: ["console"],
+    }),
+  );
+
   // We just want the single server bundle entry
   const serverEntry = {
-    server: serverWebpackConfig.entry["server"],
+    "server-bundle": serverWebpackConfig.entry["server-bundle"],
   };
-
-  if (!serverEntry["server"]) {
+  if (!serverEntry["server-bundle"]) {
     throw new Error(
-      "Create a pack with the file name 'server.ts' containing all the server rendering files",
+      "Create a pack with the file name 'server-bundle.js' containing all the server rendering files",
     );
   }
-
   serverWebpackConfig.entry = serverEntry;
 
   // Remove the mini-css-extract-plugin from the style loaders because
@@ -43,13 +55,13 @@ const configureServer = () => {
     minimize: false,
   };
   serverWebpackConfig.plugins.unshift(
-    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
+    new LimitChunkCountPlugin({ maxChunks: 1 }),
   );
 
   // Custom output for the server that matches the config in
   // config/initializers/react_on_rails.rb
   serverWebpackConfig.output = {
-    filename: "server.js",
+    filename: "server-bundle.js",
     globalObject: "this",
     // If using the React on Rails Pro node server renderer, uncomment the next line
     // libraryTarget: 'commonjs2',

@@ -3,10 +3,42 @@
 
 // Common configuration applying to client and server configuration
 const { webpackConfig, merge } = require("shakapacker");
+const { resolve } = require("path");
+
+const UnpluginIconsPlugin = require("unplugin-icons/webpack");
 
 const customConfig = {
   resolve: {
     extensions: [".css", ".ts", ".tsx"],
+    alias: {
+      "~components": resolve(process.cwd(), "app/views/components"),
+      "~helpers": resolve(process.cwd(), "app/views/helpers"),
+    },
+  },
+  plugins: [
+    UnpluginIconsPlugin({
+      compiler: "jsx",
+      jsx: "react",
+    }),
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.jsx$/,
+        include: /_virtual_/,
+        use: {
+          loader: "swc-loader",
+          options: {
+            jsc: {
+              parser: {
+                syntax: "ecmascript",
+                jsx: true,
+              },
+            },
+          },
+        },
+      },
+    ],
   },
 };
 

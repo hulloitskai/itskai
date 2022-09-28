@@ -3,7 +3,8 @@
     // == Paths ==
     "baseUrl": ".",
     "paths": {
-      "app": ["app"]
+      "~components/*": ["app/views/components/*"],
+      "~helpers/*": ["app/views/helpers/*"]
     },
 
     // == JavaScript ==
@@ -11,14 +12,15 @@
     "checkJs": false,
 
     // == JSX ==
-    "jsx": "preserve",
+    "jsx": "react",
+    "esModuleInterop": true,
 
     // == Emit ==
     "noEmit": true,
 
     // == Types ==
     "strict": true,
-    "typeRoots": ["./node_modules/@types", "./app/javascript/typings"],
+    "types": ["unplugin-icons/types/react"],
 
     // == Completeness ==
     "skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,

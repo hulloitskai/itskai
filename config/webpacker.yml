@@ -1,13 +1,15 @@
 # Note: You must restart bin/webpacker-dev-server for changes to take effect
 
 default: &default
-  source_path: app/javascript
+  source_path: app
   source_entry_path: packs
   public_root_path: public
   public_output_path: packs
+  nested_entries: true
   cache_path: tmp/webpacker
   webpack_compile_output: true
   webpack_loader: swc
+  extensions: [".jsx"]
 
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']

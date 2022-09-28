@@ -1,4 +1,6 @@
 app/assets/builds/
+app/packs/server-bundle-generated.js
+app/packs/generated
 bin/
 db/schema.rb
 log/

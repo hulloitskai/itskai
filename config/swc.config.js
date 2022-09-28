@@ -1,9 +1,14 @@
+const { env } = require("shakapacker");
+
 const customConfig = {
   options: {
     jsc: {
-      baseUrl: ".",
-      paths: {
-        app: ["app"],
+      transform: {
+        react: {
+          useBuiltins: true,
+          development: env.isDevelopment,
+          refresh: env.isDevelopment && env.runningWebpackDevServer,
+        },
       },
     },
     env: {
