@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+bin/yarn graphql-codegen --config config/graphql-codegen.config.ts

@@ -12,6 +12,10 @@ gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
+# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+gem "sprockets", "~> 4.0", require: false
+gem "sprockets-rails", "~> 3.4"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
@@ -96,6 +100,12 @@ gem "enumerize", "~> 2.5"
 gem "action_policy", "~> 0.6.3"
 gem "action_policy-graphql", "~> 0.5.3"
 
+# Expose a GraphQL API
+gem "graphql", "~> 2.0"
+gem "graphql-persisted_queries", "~> 1.5"
+gem "graphql-rails_logger"
+gem "graphiql-rails"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"
@@ -142,3 +152,4 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+

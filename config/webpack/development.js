@@ -12,7 +12,6 @@ const developmentEnvOnly = (clientWebpackConfig, serverWebpackConfig) => {
     // Note, when this is run, we're building the server and client bundles in separate processes.
     // Thus, this plugin is not applied to the server bundle.
 
-    // eslint-disable-next-line global-require
     const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
     clientWebpackConfig.plugins.push(
       new ReactRefreshWebpackPlugin({

@@ -10,9 +10,16 @@ Rails.application.configure do
     config.enable_cron = true
     config.cron = {
       cleanup_storage: {
-        cron: "0 0-23/6 * * *",
         class: "CleanupStorageJob",
         description: "Schedule purging of unattached ActiveStorage blobs.",
+        cron: "0 0-23/6 * * *",
+      },
+      trigger_test_subscriptions: {
+        class: "TriggerTestSubscriptionsJob",
+        description:
+          "Triggers an update for all subscriptions to `testSubscription' " \
+            "field.",
+        cron: "*/2 * * * * *",
       },
     }
 

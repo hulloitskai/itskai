@@ -1,8 +1,0 @@
-<% component_hash = react_component_hash(
-  "IndexHelloWorldPage",
-  props: @hello_world_props,
-) %>
-<% content_for :styles do %>
-  <%== component_hash["stylesHtml"] %>
-<% end %>
-<%== component_hash["componentHtml"] %>

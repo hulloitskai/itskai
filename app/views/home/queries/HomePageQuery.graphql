@@ -1,0 +1,3 @@
+query HomePageQuery($name: String!) {
+  testField(echo: $name)
+}

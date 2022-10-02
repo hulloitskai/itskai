@@ -1,0 +1,13 @@
+mutation TestMutation($input: TestMutationInput!) {
+  testMutation(input: $input) {
+    model {
+      id
+      name
+      birthday
+    }
+    errors {
+      field
+      message
+    }
+  }
+}

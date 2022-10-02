@@ -4,9 +4,11 @@
     <title>It's Kai</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <%# == Security == %>
+    <%# == Meta == %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= action_cable_meta_tag %>
+    <meta name="graphql-url" content="<%= graphql_path %>">
 
     <%# == Packs == %>
     <%= javascript_pack_tag %>

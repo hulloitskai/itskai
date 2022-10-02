@@ -19,7 +19,6 @@ const customConfig = {
   plugins: [
     AutoImportPlugin({
       dts: resolve(process.cwd(), "typings/auto-imports.d.ts"),
-      includes: [/\.[tj]sx?$/],
       resolvers: [
         IconsResolver({
           prefix: "Icon",
@@ -33,19 +32,29 @@ const customConfig = {
       imports: [
         "react",
         {
+          "@apollo/client": ["useQuery", "useSubscription", "useMutation"],
           "@mantine/core": [
             "Box",
             "Button",
             "Container",
+            "Divider",
             "Group",
+            "Space",
             "Stack",
             "Text",
             "TextInput",
             "Title",
           ],
+          "@mantine/form": ["useForm"],
+          "~views/shared/components": ["withProviders"],
+          "~views/shared/helpers": [
+            "resolve",
+            "formatError",
+            "usePreloadedQuery",
+          ],
+          lodash: ["first"],
         },
       ],
-      dirs: [resolve(process.cwd(), "app/views/shared/**")],
     }),
     IconsPlugin({
       compiler: "jsx",

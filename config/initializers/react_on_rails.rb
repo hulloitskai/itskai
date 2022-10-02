@@ -1,7 +1,10 @@
+# typed: strict
 # frozen_string_literal: true
 
 # See https://github.com/shakacode/react_on_rails/blob/master/docs/basics/configuration.md
 # for many more options.
+
+require "react_on_rails_ext"
 
 ReactOnRails.configure do |config|
   # This configures the script to run to build the production assets by webpack.

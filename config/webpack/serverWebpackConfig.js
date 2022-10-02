@@ -3,6 +3,7 @@
 
 const { config } = require("shakapacker");
 const {
+  NormalModuleReplacementPlugin,
   optimize: { LimitChunkCountPlugin },
 } = require("webpack");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
@@ -13,21 +14,22 @@ const configureServer = () => {
   // We need to use "merge" because the clientConfigObject, EVEN after running
   // toWebpackConfig() is a mutable GLOBAL. Thus any changes, like modifying the
   // entry value will result in changing the client config!
+  //
   // Using webpack-merge into an empty object avoids this issue.
   const serverWebpackConfig = commonWebpackConfig();
 
-  // Don't resolving browser-specific modules
+  // Don't resolving browser-specific modules.
   serverWebpackConfig.resolve.aliasFields = ["main"];
   serverWebpackConfig.resolve.conditionNames = ["require", "default"];
 
-  // Polyfill NodeJS core modules
+  // Polyfill NodeJS core modules.
   serverWebpackConfig.plugins.push(
     new NodePolyfillPlugin({
       excludeAliases: ["console"],
     }),
   );
 
-  // We just want the single server bundle entry
+  // We just want the single server bundle entry!
   const serverEntry = {
     "server-bundle": serverWebpackConfig.entry["server-bundle"],
   };
@@ -40,6 +42,7 @@ const configureServer = () => {
 
   // Remove the mini-css-extract-plugin from the style loaders because
   // the client build will handle exporting CSS.
+  //
   // replace file-loader with null-loader
   serverWebpackConfig.module.rules.forEach(loader => {
     if (loader.use && loader.use.filter) {
@@ -50,12 +53,22 @@ const configureServer = () => {
     }
   });
 
-  // No splitting of chunks for a server bundle
+  // No splitting of chunks for a server bundle.
   serverWebpackConfig.optimization = {
     minimize: false,
   };
   serverWebpackConfig.plugins.unshift(
     new LimitChunkCountPlugin({ maxChunks: 1 }),
+  );
+
+  // Ignore client-only code in server bundle.
+  serverWebpackConfig.plugins.push(
+    new NormalModuleReplacementPlugin(/\.client(\.(j|t)sx?)?$/, resource => {
+      resource.request = resource.request.replace(
+        /\.client(\.(j|t)sx?)?$/,
+        ".server$1",
+      );
+    }),
   );
 
   // Custom output for the server that matches the config in

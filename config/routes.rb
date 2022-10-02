@@ -6,8 +6,26 @@ Rails.application.routes.draw do
   # == Healthcheck ==
   Healthcheck.routes(self)
 
+  # == API ==
+  scope :api do
+    mount GraphiQL::Rails::Engine, at: :/, graphql_path: "/api/graphql"
+    scope :graphql, controller: :graphql do
+      post :/, action: :execute, as: :graphql
+    end
+  end
+
+  # == Good Job ==
+  mount GoodJob::Engine, at: "/good_job"
+
+  # authenticate :user, lambda(&:admin?) do
+  #   mount GoodJob::Engine, at: "/good_job"
+  # end
+  # scope controller: "high_voltage/pages", action: "show", id: "401" do
+  #   get "/good_job"
+  # end
+
   # Defines the root path route ("/")
   # root "articles#index"
 
-  root "hello_world#index"
+  root "home#show"
 end

@@ -7,19 +7,17 @@ import { theme } from "~views/shared/helpers/mantine";
 
 export type MantineProviderProps = PropsWithChildren;
 
-export const MantineProvider: FC<MantineProviderProps> = ({ children }) => {
-  return (
-    <_MantineProvider
-      withNormalizeCSS
-      withGlobalStyles
-      withCSSVariables
-      {...{ theme }}
-    >
-      <ModalsProvider>
-        <NotificationsProvider>{children}</NotificationsProvider>
-      </ModalsProvider>
-    </_MantineProvider>
-  );
-};
+const MantineProvider: FC<MantineProviderProps> = ({ children }) => (
+  <_MantineProvider
+    withNormalizeCSS
+    withGlobalStyles
+    withCSSVariables
+    {...{ theme }}
+  >
+    <ModalsProvider>
+      <NotificationsProvider>{children}</NotificationsProvider>
+    </ModalsProvider>
+  </_MantineProvider>
+);
 
 export default MantineProvider;

@@ -18,7 +18,7 @@ module ItsKai
     end
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults(7.0)
 
     # == Code Loading ==
     # See: https://edgeguides.rubyonrails.org/autoloading_and_reloading_constants.html#load_path
