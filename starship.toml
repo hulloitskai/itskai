@@ -1,0 +1,180 @@
+command_timeout = 1000
+
+[aws]
+disabled = true
+symbol = "aws "
+
+[battery]
+full_symbol = "🔋 "
+charging_symbol = "🔋 "
+discharging_symbol = "🪫 "
+empty_symbol = "🪫 "
+unknown_symbol = "🔋 "
+
+[character]
+success_symbol = "[>](bold green)"
+error_symbol = "[x](bold red)"
+vicmd_symbol = "[<](bold green)"
+
+[cobol]
+symbol = "cobol "
+format = "via [$symbol]($style)"
+
+[conda]
+symbol = "conda "
+
+[crystal]
+symbol = "cr "
+format = "via [$symbol]($style)"
+
+[cmake]
+symbol = "cmake "
+format = "via [$symbol]($style)"
+
+[dart]
+symbol = "dart "
+format = "via [$symbol]($style)"
+
+[deno]
+symbol = "deno "
+format = "via [$symbol]($style)"
+
+[dotnet]
+symbol = ".NET "
+format = "[$symbol(🎯 $tfm )]($style)"
+
+[directory]
+read_only = " ro"
+
+[docker_context]
+disabled = true
+symbol = "docker "
+
+[elixir]
+symbol = "exs "
+format = 'via [$symbol]($style)'
+
+[elm]
+symbol = "elm "
+format = 'via [$symbol]($style)'
+
+[erlang]
+format = 'via [$symbol]($style)'
+
+[gcloud]
+disabled = true
+
+[git_branch]
+symbol = "git "
+
+[git_commit]
+tag_symbol = " tag "
+
+[git_status]
+ahead = ">"
+behind = "<"
+diverged = "<>"
+renamed = "r"
+deleted = "x"
+
+[golang]
+symbol = "go "
+format = 'via [$symbol]($style)'
+
+[helm]
+format = 'via [$symbol]($style)'
+
+[hg_branch]
+symbol = "hg "
+
+[java]
+symbol = "java "
+
+[julia]
+symbol = "jl "
+format = 'via [$symbol]($style)'
+
+[kotlin]
+symbol = "kt "
+format = 'via [$symbol]($style)'
+
+[kubernetes]
+symbol = "k8s "
+disabled = false
+
+[lua]
+format = 'via [$symbol]($style)'
+
+[nodejs]
+symbol = "js "
+format = 'via [$symbol]($style)'
+
+[memory_usage]
+symbol = "memory "
+
+[nim]
+symbol = "nim "
+format = 'via [$symbol]($style)'
+
+[nix_shell]
+symbol = "nix "
+
+[ocaml]
+symbol = "ml "
+format = 'via [$symbol(\($switch_indicator$switch_name\) )]($style)'
+
+[package]
+symbol = "pkg "
+
+[perl]
+symbol = "pl "
+format = 'via [$symbol]($style)'
+
+[php]
+symbol = "php "
+format = 'via [$symbol]($style)'
+
+[pulumi]
+symbol = "pulumi "
+format = 'via [$symbol$stack]($style)'
+
+[purescript]
+symbol = "purs "
+format = 'via [$symbol]($style)'
+
+[python]
+symbol = "py "
+format = 'via [$symbol]($style)'
+
+[red]
+format = 'via [$symbol]($style)'
+
+[rlang]
+format = 'via [$symbol]($style)'
+
+[ruby]
+symbol = "rb "
+format = 'via [$symbol]($style)'
+
+[rust]
+symbol = "rs "
+format = 'via [$symbol]($style)'
+
+[scala]
+symbol = "sc "
+
+[sudo]
+symbol = "sudo "
+
+[swift]
+symbol = "swift "
+format = 'via [$symbol]($style)'
+
+[vagrant]
+format = 'via [$symbol]($style)'
+
+[vlang]
+format = 'via [$symbol]($style)'
+
+[zig]
+format = 'via [$symbol]($style)'

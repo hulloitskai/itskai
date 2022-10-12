@@ -1,0 +1,11 @@
+# Library dependencies:
+libvips
+mupdf
+
+# Program dependencies:
+nginx
+tmux
+
+# Utils:
+zsh
+vim
