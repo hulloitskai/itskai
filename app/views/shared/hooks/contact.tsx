@@ -14,7 +14,7 @@ export const useContactMe = (
     ContactEmailQueryDocument,
     {
       onCompleted: ({ email }) => {
-        open(contactUrl(email, options));
+        location.href = contactUrl(email, options);
       },
       onError,
     },
