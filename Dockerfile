@@ -98,7 +98,7 @@ RUN bin/rails assets:precompile RAILS_SECRET_KEY_BASE=dummy
 EXPOSE 3000
 
 # Configure healthcheck.
-HEALTHCHECK --interval=10s --timeout=1s --start-period=15s --retries=3 CMD curl -f http://${HOST}:${PORT}/internal/status || exit 1
+HEALTHCHECK --interval=10s --timeout=1s --start-period=15s --retries=3 CMD curl -f http://${HOST}:${PORT}/healthcheck || exit 1
 
 # Configure entrypoint.
 ENTRYPOINT [ "/app/bin/run" ]
