@@ -1,20 +1,14 @@
-# fly.toml file generated for itskai on 2022-10-12T14:06:29-04:00
-
 app = "itskai"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
-[build]
-  [build.args]
-    BUILD_COMMAND = "bin/rails assets:precompile"
-    SERVER_COMMAND = "bin/run"
-
 [deploy]
-  release_command = "bin/rails db:migrate"
+  release_command = "bin/release"
 
 [env]
   RAILS_ENV = "production"
+  RAILS_STORAGE_SERVICE = "test"
   RAILS_LOG_TO_STDOUT = "true"
   RAILS_SERVE_STATIC_FILES = "false"
 
@@ -28,6 +22,7 @@ processes = []
   processes = ["app"]
   protocol = "tcp"
   script_checks = []
+
   [services.concurrency]
     hard_limit = 25
     soft_limit = 20
