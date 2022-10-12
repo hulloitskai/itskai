@@ -7,12 +7,14 @@ module Types
     extend T::Helpers
 
     # == Relay ==
-    # Add `node` and `nodes` fields.
+    # Add 'node' and 'nodes' fields.
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
     # == Fields ==
-    field :test_field, resolver: Queries::TestField
+    field :contact_email, resolver: Queries::ContactEmail
+    field :resume, resolver: Queries::Resume
+    field :test_echo, resolver: Queries::TestEcho
 
     # field :viewer,
     #       Types::UserType,

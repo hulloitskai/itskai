@@ -8,7 +8,6 @@ const TestFeed: FC = () => {
     variables: {},
   });
   const { testSubscription: value } = data ?? {};
-  console.log(value);
   return (
     <Stack spacing="xs">
       <Title order={4}>Test Feed</Title>

@@ -10,6 +10,7 @@
 # See https://docs.rubocop.org/rubocop/configuration
 
 require:
+  - rubocop-graphql
   - rubocop-performance
   - rubocop-rails
   - rubocop-sorbet
@@ -84,4 +85,11 @@ Rails/LexicallyScopedActionFilter:
 Rails/HasAndBelongsToMany:
   Enabled: false
 Rails/I18nLocaleTexts:
+  Enabled: false
+
+GraphQL/ArgumentDescription:
+  Enabled: false
+GraphQL/FieldDescription:
+  Enabled: false
+GraphQL/ObjectDescription:
   Enabled: false

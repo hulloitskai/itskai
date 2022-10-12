@@ -1,0 +1,3 @@
+query TestPageQuery($name: String!) {
+  testEcho(text: $name)
+}

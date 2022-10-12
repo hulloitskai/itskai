@@ -1,11 +1,7 @@
 import React, { FC } from "react";
+import { AnchorProps, Text } from "@mantine/core";
 
-import { Code, Text } from "@mantine/core";
-import { closeAllModals, openModal } from "@mantine/modals";
-import { showNotification } from "@mantine/notifications";
-
-import TestForm from "~views/shared/components/TestForm";
-import TestFeed from "~views/shared/components/TestFeed";
+import { useContactMe } from "~views/shared/hooks/contact";
 
 import {
   HomePageQuery,
@@ -17,86 +13,100 @@ type HomePageProps = {
   readonly variables: HomePageQueryVariables;
 };
 
-type HomePageFormValues = {
-  readonly name: string;
-};
-
-const HomePage: FC<HomePageProps> = ({ data, variables }) => {
-  // == Form ==
-  const { values, getInputProps } = useForm<HomePageFormValues>({
-    initialValues: resolve<HomePageFormValues>(() => {
-      const { name } = variables;
-      return { name };
-    }),
-  });
-
-  const { name } = values;
-  const nameDescription = useMemo(() => {
-    return `Your name is: ${name}`;
-  }, [name]);
-
-  // == Callbacks ==
-  const showModal = useCallback(() => {
-    openModal({
-      title: <Title order={3}>I Am A Modal!</Title>,
-      children: <HomePageModalContent {...{ name }} />,
-    });
-  }, [name]);
-  const showAlert = useCallback(() => {
-    showNotification({
-      color: "yellow",
-      icon: <IconHeroExclamationCircle20Solid />,
-      title: "I hate Visual Programming",
-      message: "Miss me with that visual programming shit.",
-    });
-  }, []);
-
-  // == Render ==
+const HomePage: FC<HomePageProps> = () => {
   return (
-    <Container size="xs" my="xl">
-      <Stack spacing="xl">
-        <Title>My Home Page</Title>
-        <Stack spacing="xs">
-          <Title order={4}>Test Component Data</Title>
-          <Code block>{JSON.stringify(data)}</Code>
-          <TextInput
-            icon={<IconHeroPencilSquare20Solid />}
-            label="Name"
-            description={nameDescription}
-            placeholder="Some Input"
-            {...getInputProps("name")}
-          />
-          <Group spacing="xs" grow>
-            <Button
-              leftIcon={<IconHeroArrowTopRightOnSquare20Solid />}
-              onClick={showModal}
-            >
-              Open Modal
-            </Button>
-            <Button leftIcon={<IconHeroBellAlert20Solid />} onClick={showAlert}>
-              Notify Me
-            </Button>
-          </Group>
-        </Stack>
-        <Divider />
-        <TestForm />
-        <Divider />
-        <TestFeed />
+    <AppLayout spacing="xl">
+      <Space h="xl" />
+      <Stack spacing={0} align="center">
+        <Title size={48}>Hullo!</Title>
+        <Text color="dark.3" sx={{ alignSelf: "center" }}>
+          I&apos;m{" "}
+          <Text color="dark" weight={600} span>
+            Kai
+          </Text>
+          ! Welcome to my little corner of the internet :)
+        </Text>
       </Stack>
-    </Container>
+      <Alert
+        color="indigo"
+        icon={<IconHeroExclamationCircle20Solid />}
+        title="Kai is currently looking for work!"
+        styles={({ spacing, colors }) => ({
+          icon: {
+            marginRight: spacing.xs,
+          },
+          title: {
+            marginBottom: 0,
+          },
+          message: {
+            color: colors.dark[3],
+          },
+        })}
+      >
+        My{" "}
+        <Anchor href="/work" target="_blank" color="indigo">
+          portfolio
+        </Anchor>{" "}
+        is a work-in-progress, but in the meantime you can{" "}
+        <Anchor href="/resume" color="indigo">
+          check out my resume
+        </Anchor>{" "}
+        :)
+      </Alert>
+      <Divider />
+      <Container size="sm">
+        <Stack spacing={8}>
+          <Text color="dark.3">
+            This website is still very much in construction! And so here are
+            some design goals I am keeping in mind as I build it:
+          </Text>
+          <List
+            withPadding
+            styles={({ colors, fn }) => ({
+              item: {
+                color: colors.dark[fn.primaryShade()],
+              },
+            })}
+          >
+            <List.Item>
+              To create a space where I can share my thoughts, feelings, and
+              ideas.
+            </List.Item>
+            <List.Item>
+              To make it easy for others to collaborate with me on the things I
+              care about.
+            </List.Item>
+            <List.Item>
+              To encourage others to interact with me and do fun things together
+              with me in The Real World™!
+            </List.Item>
+          </List>
+          <Text color="dark.3">
+            Is there something you wanted to chat with me about? Please reach
+            out! You can <ContactLink color="indigo" /> or{" "}
+            <Anchor
+              href="http://calendly.com/hulloitskai/hangout"
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              color="indigo"
+            >
+              schedule a hangout with me
+            </Anchor>{" "}
+            :)
+          </Text>
+        </Stack>
+      </Container>
+    </AppLayout>
   );
 };
 
-type HomePageModalContentProps = {
-  readonly name: string;
+const ContactLink: FC<AnchorProps> = ({ ...otherProps }) => {
+  const [contactMe] = useContactMe();
+  return (
+    <Anchor component="button" onClick={contactMe} {...otherProps}>
+      email me
+    </Anchor>
+  );
 };
 
-const HomePageModalContent: FC<HomePageModalContentProps> = ({ name }) => (
-  <Stack spacing="xs">
-    <Text>I&apos;m magic! And, your name is:</Text>
-    <TextInput value={name} readOnly />
-    <Button onClick={() => closeAllModals()}>Uh-huh.</Button>
-  </Stack>
-);
-
-export default withProviders(HomePage);
+export default wrapPage(HomePage);

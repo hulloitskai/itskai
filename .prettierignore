@@ -1,3 +1,4 @@
+app/graphql/schema.graphql
 app/assets/builds/
 app/packs/server-bundle-generated.js
 app/packs/generated

@@ -60,9 +60,6 @@
     },
     "[ruby]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[haml]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
   }
 }

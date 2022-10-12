@@ -1,0 +1,136 @@
+basics:
+  name: Kai Xie
+  summary: |-
+    I'm a generalist software engineer, amateur systems designer, a creative and a tinkerer/hacker.
+    I like to build things that make people smile!
+  profiles:
+    - network: GitHub
+      username: hulloitskai
+      url: https://github.com/hulloitskai
+work:
+  - name: Playces
+    position: Chief Technology Officer
+    url: https://playces.in
+    startDate: 2019-04
+    endDate: 2022-10
+    # summary: >-
+    #   I co-founded Playces, where I worked with a team to build a future where
+    #   great travel experiences are easy to find, and easy to book.
+    highlights:
+      - >-
+        Designed and built flexible tools to modernize independent tourism
+        businesses, enabling them to take bookings and payments online, automate
+        manual processes, and reach more customers.
+      - >-
+        Provided technology services that gave partner businesses more efficient
+        processes, observability into under-utilized resources, and the
+        operational agility to really grow; our customer champion increased
+        bookings by 250%, tripled the number of experiences offered, and
+        increased revenue per booking by 40% after switching from AirBnB & Fare
+        Harbor to Playces.
+      - >-
+        Configured and maintained critical infrastructure, including our
+        Kubernetes cluster, databases, continuous integration systems, error
+        reporting tools, performance monitoring tools, analytics,
+        authentication services, and search clusters.
+  - name: Universe
+    position: Software Developer Intern
+    url: http://universe.com
+    startDate: 2019-01
+    endDate: 2019-04
+    highlights:
+      - >-
+        Developed & maintained tooling for managing the infrastructure
+        of a microservices-based system.
+      - >-
+        Wrote an internal tool (designed to be open-sourced later) for
+        orchestrating on-demand staging environments on Kubernetes, as a part of
+        our code review and quality assurance process.
+      - >-
+        Researched and implemented  optimizations to half the amount of time it
+        took to launch a staging stack, reducing wait times in our quality
+        assurance workflow and cloud computing bills.
+  - name: ConsenSys
+    position: Software Developer Intern
+    url: https://consensys.net
+    startDate: 2018-04
+    endDate: 2018-08
+    highlights:
+      - >-
+        Developed a team management webapp using React, MongoDB, and Neo4J to
+        support the operation of decentralized organizations like ConsenSys.
+      - >-
+        Worked with relationship-heavy data sets using graph databases, and
+        architected a scalable data-heavy applications using Redux and
+        websockets.
+      - >-
+        Developed software in a fast-paced startup-like environment, with quick
+        iteration cycles and continuous feedback.
+education:
+  - institution: University of Waterloo
+    url: https://uwaterloo.ca
+    area: Computer Science
+    studyType: Bachelor
+    startDate: 2017-09
+    endDate: 2019-04
+  - institution: Wilfrid Laurier University
+    url: https://wlu.ca
+    area: Business Administration
+    studyType: Bachelor
+    startDate: 2017-09
+    endDate: 2018-04
+skills:
+  - name: Front-End Web Development
+    level: Expertise
+    keywords:
+      - HTML
+      - CSS
+      - JavaScript
+      - React
+      - GraphQL
+      - JSON
+      - Mapbox
+      - SSR
+      - SEO
+  - name: Back-End Web Development
+    level: Expertise
+    keywords:
+      - Golang
+      - NodeJS
+      - NextJS
+      - Ruby On Rails
+      - SQL, NoSQL, Graph Databases
+      - ETL
+      - Caching
+      - Performance
+      - Parallellism
+      - APIs, Integrations
+      - Webhooks
+      - Text & Geo Search
+      - Security, Permissions, XSS Prevention
+  - name: DevOps, Infra
+    level: Expertise
+    keywords:
+      - Golang
+      - Kubernetes, CRDs, Operators, GitOps
+      - Docker
+      - Containerization
+      - CI & CD
+      - Terraform
+      - AWS
+      - GCP
+      - DigitalOcean
+      - ElasticSearch
+      - Postgres
+      - Redis
+      - Site Reliability
+      - Security & Hardening
+  - name: Design, UX, UI
+    level: Proficiency
+    keywords:
+      - Figma
+      - Sketch
+      - Design Systems
+      - Animations
+      - Human-Centered Design
+      - User Interviewing

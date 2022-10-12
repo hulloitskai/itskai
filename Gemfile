@@ -106,6 +106,9 @@ gem "graphql-persisted_queries", "~> 1.5"
 gem "graphql-rails_logger"
 gem "graphiql-rails"
 
+# Parse YAML files with Psych
+gem "psych", "~> 4.0"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"
@@ -122,6 +125,7 @@ group :development do
 
   # Use Rubocop to lint code
   gem "rubocop", "~> 1.32", require: false
+  gem "rubocop-graphql", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-shopify", require: false

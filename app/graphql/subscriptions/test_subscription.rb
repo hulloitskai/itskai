@@ -5,14 +5,17 @@ module Subscriptions
   class TestSubscription < BaseSubscription
     extend T::Sig
 
-    @value = T.let(1, Integer)
+    @count = T.let(0, Integer)
 
     class << self
       extend T::Sig
 
       sig { returns(Integer) }
+      attr_reader :count
+
+      sig { returns(Integer) }
       def increment!
-        @value += 1
+        @count += 1
       end
     end
 
@@ -23,12 +26,14 @@ module Subscriptions
     # == Callbacks ==
     sig { returns(Integer) }
     def subscribe
-      self.class.increment!
+      self.class.increment!.tap do
+        Schema.subscriptions.trigger(:test_subscription, {}, nil)
+      end
     end
 
     sig { returns(Integer) }
     def update
-      self.class.increment!
+      self.class.count
     end
   end
 end

@@ -6,6 +6,9 @@ directive @oneOf on INPUT_OBJECT
 """An ISO 8601-encoded datetime"""
 scalar DateTime
 
+"""Represents untyped JSON"""
+scalar JSON
+
 type Mutation {
   testMutation(
     """Parameters for TestMutation"""
@@ -14,7 +17,11 @@ type Mutation {
 }
 
 type Query {
-  testField(echo: String): String!
+  contactEmail: String!
+
+  """Kai's JSON Resume (https://jsonresume.org/)"""
+  resume: JSON!
+  testEcho(text: String): String!
 }
 
 type Subscription {

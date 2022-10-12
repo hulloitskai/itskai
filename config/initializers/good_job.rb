@@ -14,13 +14,6 @@ Rails.application.configure do
         description: "Schedule purging of unattached ActiveStorage blobs.",
         cron: "0 0-23/6 * * *",
       },
-      trigger_test_subscriptions: {
-        class: "TriggerTestSubscriptionsJob",
-        description:
-          "Triggers an update for all subscriptions to `testSubscription' " \
-            "field.",
-        cron: "*/2 * * * * *",
-      },
     }
 
     # == Errors ==

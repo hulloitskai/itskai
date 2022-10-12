@@ -3,20 +3,20 @@ import React, { createElement, FC, PropsWithChildren } from "react";
 import ApolloProvider from "./ApolloProvider";
 import MantineProvider from "./MantineProvider";
 
-export type ProviderProps = PropsWithChildren;
+export type AppProviderProps = PropsWithChildren;
 
-const Providers: FC<ProviderProps> = ({ children }) => (
+const AppProviders: FC<AppProviderProps> = ({ children }) => (
   <MantineProvider>
     <ApolloProvider>{children}</ApolloProvider>
   </MantineProvider>
 );
 
-export default Providers;
+export default AppProviders;
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export const withProviders = <P extends {}>(component: FC<P>): FC<P> => {
+export const withAppProviders = <P extends {}>(component: FC<P>): FC<P> => {
   const wrappedComponent = (props: P) => (
-    <Providers>{createElement(component, props)}</Providers>
+    <AppProviders>{createElement(component, props)}</AppProviders>
   );
   wrappedComponent.displayName = component.displayName;
   return wrappedComponent;

@@ -1,0 +1,97 @@
+name: application
+
+on: ["push", "pull_request"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+      - name: Set up Docker registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate tags
+        id: generate-tags
+        uses: hulloitskai/generate-docker-tags-action@v0.2.1
+        with:
+          repo: ghcr.io/hulloitskai/itskai-app
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ steps.generate-tags.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: BUILDKIT_CONTEXT_KEEP_GIT_DIR=true
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1.2
+          bundler-cache: true
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: "yarn"
+          cache-dependency-path: "**/yarn.lock"
+      - name: Install dependencies
+        run: bundle install
+      - name: Check formatting
+        run: bin/fmt
+      - name: Check lints
+        run: bin/lint
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Set up Ruby
+  #       uses: ruby/setup-ruby@v1
+  #       with:
+  #         ruby-version: 3.1.2
+  #         bundler-cache: true
+  #     - name: Set up Node
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: "16"
+  #         cache: "yarn"
+  #         cache-dependency-path: "**/yarn.lock"
+  #     - name: Install dependencies
+  #       run: bundle install
+  #     - name: Compile assets
+  #       run: bundle exec rails assets:precompile
+  #     - name: Locate files
+  #       id: locate_files
+  #       run: |
+  #         cd public
+  #         echo "::set-output name=minified_file::$(echo assets/application*.js)"
+  #         echo "::set-output name=source_map::$(echo assets/application*.map)"
+  #     - name: Upload sourcemap
+  #       uses: honeybadger-io/github-upload-sourcemap-action@master
+  #       with:
+  #         api_key: ${{ secrets.HONEYBADGER_CLIENT_API_KEY }}
+  #         minified_url: https://itskai.me/${{ steps.locate_files.outputs.minified_file }}
+  #         minified_file: public/${{ steps.locate_files.outputs.minified_file }}
+  #         source_map: public/${{ steps.locate_files.outputs.source_map }}
+  #     - name: Notify server deploy
+  #       uses: honeybadger-io/github-notify-deploy-action@v1
+  #       with:
+  #         api_key: ${{ secrets.HONEYBADGER_SERVER_API_KEY }}
+  #     - name: Notify client deploy
+  #       uses: honeybadger-io/github-notify-deploy-action@v1
+  #       with:
+  #         api_key: ${{ secrets.HONEYBADGER_CLIENT_API_KEY }}

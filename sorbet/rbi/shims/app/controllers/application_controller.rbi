@@ -1,5 +1,6 @@
 # typed: strong
 
+# prettier-ignore
 class ApplicationController
   # sig { returns(T.nilable(User)) }
   # def current_user; end

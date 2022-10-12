@@ -48,7 +48,8 @@ class ApplicationController < ActionController::Base
       )
     if File.exist?(query_file)
       document = GraphQL.parse_file(query_file)
-      props["data"] = Schema.execute(document: document, variables: variables)
+      results = Schema.execute(document: document, variables: variables)
+      props.merge!(results.to_h)
       props["variables"] = variables
     end
     @component_name = T.let(@component_name, T.nilable(String))
