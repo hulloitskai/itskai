@@ -42,6 +42,6 @@ processes = []
     restart_limit = 0
     timeout = "2s"
 
-[[statics]]
-  guest_path = "/app/public"
-  url_prefix = "/"
+# [[statics]]
+#   guest_path = "/app/public"
+#   url_prefix = "/"
