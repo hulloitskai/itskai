@@ -10,7 +10,6 @@ processes = []
   RAILS_ENV = "production"
   RAILS_STORAGE_SERVICE = "test"
   RAILS_LOG_TO_STDOUT = "true"
-  RAILS_SERVE_STATIC_FILES = "false"
 
 [experimental]
   allowed_public_ports = []
