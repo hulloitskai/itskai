@@ -101,5 +101,5 @@ EXPOSE 3000
 # Configure healthcheck.
 HEALTHCHECK --interval=10s --timeout=1s --start-period=15s --retries=3 CMD curl -f http://127.0.0.1:3000/healthcheck || exit 1
 
-# Configure entrypoint.
-ENTRYPOINT [ "/app/bin/run" ]
+# Configure command.
+CMD [ "/app/bin/run" ]
