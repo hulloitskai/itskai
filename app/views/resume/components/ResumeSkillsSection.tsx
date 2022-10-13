@@ -10,7 +10,7 @@ export type ResumeSkillsSectionProps = {
 const ResumeSkillsSection: FC<ResumeSkillsSectionProps> = ({ info }) => {
   const { name, level, keywords } = info;
   const badgeColor = useMemo<MantineColor>(
-    () => ({ Expertise: "blue", Proficiency: "teal" }[level] || "gray"),
+    () => ({ Expertise: "violet", Proficiency: "teal" }[level] || "gray"),
     [level],
   );
   return (
@@ -19,7 +19,7 @@ const ResumeSkillsSection: FC<ResumeSkillsSectionProps> = ({ info }) => {
         <Title order={3} size="h6" color="dark.4">
           {name}
         </Title>
-        <Badge size="xs" color={badgeColor} variant="dot">
+        <Badge size="xs" color={badgeColor} variant="dot" radius="sm">
           {level}
         </Badge>
       </Group>
