@@ -46,6 +46,7 @@ const customConfig = {
             "Badge",
             "Box",
             "Button",
+            "Card",
             "Center",
             "Chip",
             "Container",

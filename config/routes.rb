@@ -15,7 +15,13 @@ Rails.application.routes.draw do
   end
 
   # == Good Job ==
-  mount GoodJob::Engine, at: "/good_job"
+  mount GoodJob::Engine, at: "/good_job" if Rails.env.development?
+
+  # == Pages ==
+  root "home#show"
+  get :test, to: "test#show"
+  get :work, to: "work#show"
+  get :resume, to: "resume#show"
 
   # authenticate :user, lambda(&:admin?) do
   #   mount GoodJob::Engine, at: "/good_job"
@@ -26,10 +32,4 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-
-  # == Pages ==
-  root "home#show"
-  get :test, to: "test#show"
-  get :work, to: "work#show"
-  get :resume, to: "resume#show"
 end

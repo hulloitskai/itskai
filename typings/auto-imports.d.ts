@@ -7,6 +7,7 @@ declare global {
   const Badge: typeof import('@mantine/core')['Badge']
   const Box: typeof import('@mantine/core')['Box']
   const Button: typeof import('@mantine/core')['Button']
+  const Card: typeof import('@mantine/core')['Card']
   const Center: typeof import('@mantine/core')['Center']
   const Chip: typeof import('@mantine/core')['Chip']
   const Container: typeof import('@mantine/core')['Container']
