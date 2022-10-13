@@ -56,7 +56,14 @@ const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({ info }) => {
           </Text>
         </Group>
       )}
-      <List size="sm">
+      <List
+        size="sm"
+        styles={{
+          item: {
+            lineHeight: 1.45,
+          },
+        }}
+      >
         {highlights.map((highlight, index) => (
           <List.Item key={index}>{highlight}</List.Item>
         ))}

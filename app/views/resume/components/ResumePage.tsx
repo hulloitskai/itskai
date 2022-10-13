@@ -61,7 +61,14 @@ const ResumePage: FC<ResumePageProps> = ({ data, printable }) => {
               </Anchor>
             )}
           </Group>
-          <Text size="sm" color="dark" sx={{ whiteSpace: "pre-line" }}>
+          <Text
+            size="sm"
+            color="dark"
+            sx={{
+              whiteSpace: "pre-line",
+              lineHeight: 1.45,
+            }}
+          >
             {basics.summary}
           </Text>
         </Box>
@@ -77,6 +84,16 @@ const ResumePage: FC<ResumePageProps> = ({ data, printable }) => {
         </Box>
         <Box>
           <Title order={2} size="h4" mb={-1}>
+            Skills
+          </Title>
+          <Stack spacing={4}>
+            {skills.map((info, index) => (
+              <ResumeSkillsSection key={index} {...{ info }} />
+            ))}
+          </Stack>
+        </Box>
+        <Box>
+          <Title order={2} size="h4" mb={-1}>
             Education
           </Title>
           <Group spacing="xs" grow>
@@ -84,16 +101,22 @@ const ResumePage: FC<ResumePageProps> = ({ data, printable }) => {
               <ResumeEducationSection key={index} {...{ info }} />
             ))}
           </Group>
-        </Box>
-        <Box>
-          <Title order={2} size="h4" mb={-1}>
-            Skills
-          </Title>
-          <Stack spacing={6}>
-            {skills.map((info, index) => (
-              <ResumeSkillsSection key={index} {...{ info }} />
-            ))}
-          </Stack>
+          <Alert
+            color="yellow"
+            mt={8}
+            styles={({ colors, fn }) => ({
+              root: {
+                padding: "2px 8px",
+              },
+              message: {
+                fontWeight: 500,
+                color: fn.darken(colors.yellow[9], 0.2),
+              },
+            })}
+          >
+            *I dropped out of school to build a startup halfway through my
+            second year ✌️
+          </Alert>
         </Box>
       </ResumeLayout>
       {!printable && <DownloadResumePDFButton />}

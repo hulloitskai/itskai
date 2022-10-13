@@ -63,9 +63,6 @@ work:
         Worked with relationship-heavy data sets using graph databases, and
         architected a scalable data-heavy applications using Redux and
         websockets.
-      - >-
-        Developed software in a fast-paced startup-like environment, with quick
-        iteration cycles and continuous feedback.
 education:
   - institution: University of Waterloo
     url: https://uwaterloo.ca
@@ -81,7 +78,6 @@ education:
     endDate: 2018-04
 skills:
   - name: Front-End Web Development
-    level: Expertise
     keywords:
       - HTML
       - CSS
@@ -95,7 +91,6 @@ skills:
       - PWA
       - Realtime, Live
   - name: Back-End Web Development
-    level: Expertise
     keywords:
       - Golang
       - NodeJS
@@ -111,7 +106,6 @@ skills:
       - Text & Geo Search
       - Security, Permissions, XSS Prevention
   - name: DevOps, Infra
-    level: Expertise
     keywords:
       - Golang
       - Kubernetes, CRDs, Operators, GitOps
@@ -127,8 +121,16 @@ skills:
       - Redis
       - Site Reliability
       - Security & Hardening
+  - name: Mobile
+    keywords:
+      - React Native
+      - Expo
+      - Flutter
+      - Swift
+      - Java & Kotlin
+      - XCode
+      - Android Studio
   - name: Design, UX, UI
-    level: Proficiency
     keywords:
       - Figma
       - Sketch

@@ -21,8 +21,13 @@ const ResumeExperienceSection: FC<ResumeExperienceSectionProps> = ({
       </Group>
       <Text size="sm" weight={600} color="dark" mb={-2}>
         {studyType} of {area}{" "}
-        <Text size="xs" weight={400} color="dimmed" span>
-          (incomplete)
+        <Text
+          size="xs"
+          weight={400}
+          span
+          sx={({ colors, fn }) => ({ color: fn.darken(colors.yellow[9], 0.2) })}
+        >
+          (*incomplete)
         </Text>
       </Text>
       <Text
