@@ -7,7 +7,7 @@ export type AppLayoutProps = StackProps;
 
 const AppLayout: FC<AppLayoutProps> = ({ children, ...otherProps }) => (
   <AppShell header={<AppHeader />}>
-    <Container size="sm" p={0}>
+    <Container size="sm" p={0} mb="xl">
       <Stack {...otherProps}>{children}</Stack>
     </Container>
   </AppShell>

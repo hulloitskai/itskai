@@ -1,7 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import { Affix } from "@mantine/core";
 
-const DownloadResumePDFButton = () => {
+const DownloadResumePDFButton: FC = () => {
   const mounted = useMounted();
   return (
     <Affix position={{ bottom: 20, right: 20 }}>
