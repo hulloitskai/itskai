@@ -3,4 +3,4 @@ pg: docker compose logs -f --no-log-prefix postgres
 mc: docker compose logs -f --no-log-prefix mailcatcher
 wp-client: HMR=true bin/webpacker-dev-server
 wp-server: HMR=true SERVER_BUNDLE_ONLY=yes bin/webpacker --watch
-rails: bundle exec rails server
+rails: bin/rails server

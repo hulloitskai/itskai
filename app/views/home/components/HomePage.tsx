@@ -3,15 +3,8 @@ import { AnchorProps, Text } from "@mantine/core";
 
 import { useContactMe } from "~views/shared/hooks/contact";
 
-import {
-  HomePageQuery,
-  HomePageQueryVariables,
-} from "~views/shared/helpers/apollo-generated";
-
-type HomePageProps = {
-  readonly data: HomePageQuery;
-  readonly variables: HomePageQueryVariables;
-};
+// eslint-disable-next-line
+type HomePageProps = {};
 
 const HomePage: FC<HomePageProps> = () => (
   <AppLayout spacing="xl">

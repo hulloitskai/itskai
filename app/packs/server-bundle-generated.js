@@ -1,7 +1,9 @@
 import ReactOnRails from 'react-on-rails';
 
 import HomePage from '../views/home/components/HomePage.tsx';
+import DownloadResumePDFButton from '../views/resume/components/DownloadResumePDFButton.tsx';
 import ResumeEducationSection from '../views/resume/components/ResumeEducationSection.tsx';
+import ResumeLayout from '../views/resume/components/ResumeLayout.tsx';
 import ResumePage from '../views/resume/components/ResumePage.tsx';
 import ResumeSkillsSection from '../views/resume/components/ResumeSkillsSection.tsx';
 import ResumeWorkSection from '../views/resume/components/ResumeWorkSection.tsx';
@@ -19,7 +21,9 @@ import TestPage from '../views/test/components/TestPage.tsx';
 import WorkPage from '../views/work/components/WorkPage.tsx';
 
 ReactOnRails.register({HomePage,
+DownloadResumePDFButton,
 ResumeEducationSection,
+ResumeLayout,
 ResumePage,
 ResumeSkillsSection,
 ResumeWorkSection,

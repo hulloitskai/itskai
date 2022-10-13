@@ -1,3 +1,0 @@
-query HomePageQuery($name: String!) {
-  testEcho(text: $name)
-}

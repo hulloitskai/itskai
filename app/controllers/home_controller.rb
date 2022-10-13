@@ -6,6 +6,6 @@ class HomeController < ApplicationController
 
   sig { void }
   def show
-    render(component: "HomePage", variables: { name: "Bob Jones?" })
+    render(component: "HomePage")
   end
 end
