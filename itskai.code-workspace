@@ -11,6 +11,9 @@
       "Gemfile.lock": "plaintext",
       "Aptfile": "plaintext"
     },
+    "files.exclude": {
+      "app/packs/generated/**/*.jsx": true
+    },
 
     // == Ruby ==
     "ruby.useLanguageServer": false,

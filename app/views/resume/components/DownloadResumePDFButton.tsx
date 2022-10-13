@@ -10,8 +10,13 @@ const DownloadResumePDFButton: FC = () => {
           <Button
             component="a"
             href="/resume.pdf"
-            color="pink"
             leftIcon={<IconHeroDocumentSolid />}
+            variant="gradient"
+            gradient={{
+              from: "indigo",
+              to: "pink",
+              deg: 45,
+            }}
             {...{ style }}
           >
             I want a PDF!

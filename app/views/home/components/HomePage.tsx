@@ -75,6 +75,7 @@ const HomePage: FC<HomePageProps> = () => (
         </List>
         <Text color="dark.3">
           Is there something you wanted to chat with me about? Please reach out!
+          <br />
           You can <ContactLink color="indigo" /> or{" "}
           <Anchor
             href="http://calendly.com/hulloitskai/hangout"

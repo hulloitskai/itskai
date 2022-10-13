@@ -59,7 +59,7 @@ const ContactButton: FC = () => {
       {...{ loading }}
       onClick={contactMe}
     >
-      Email Kai!
+      Email me!
     </Button>
   );
 };
