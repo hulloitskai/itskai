@@ -35,6 +35,9 @@ const WorkPage: FC<WorkPageProps> = () => (
             <Text weight={600}>This Website!</Text>
             <Button
               component="a"
+              href="https://github.com/hulloitskai/itskai.me"
+              target="_blank"
+              rel="noopener noreferrer nofollow"
               variant="outline"
               leftIcon={<IconFeatherGithub />}
               size="xs"
