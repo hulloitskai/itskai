@@ -27,7 +27,7 @@ FileUtils.chdir APP_ROOT do
   system! "bin/yarn"
 
   puts "\n== Installing githooks =="
-  system! "yarn husky install"
+  system! "bin/yarn husky install"
 
   # puts "\n== Copying sample files =="
   # unless File.exist?("config/database.yml")
