@@ -13,8 +13,7 @@ class ResumeController < ApplicationController
       end
       format.json do
         result = Schema.execute("query { resume }")
-        data = result["data"]
-        render(json: JSON.pretty_generate(data))
+        render(json: JSON.pretty_generate(result["data"]["resume"]))
       end
     end
   end
