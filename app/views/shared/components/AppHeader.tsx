@@ -26,7 +26,7 @@ const AppHeader: FC = () => (
         },
       })}
     >
-      It&apos;s Kai
+      It&apos;s Kai!
     </Button>
     <Button
       component="a"

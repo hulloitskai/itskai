@@ -36,11 +36,11 @@ const HomePage: FC<HomePageProps> = () => (
       })}
     >
       My{" "}
-      <Anchor href="/work" target="_blank" color="indigo">
+      <Anchor href="/work" target="_blank" weight={500} color="indigo">
         portfolio
       </Anchor>{" "}
       is a work-in-progress, but in the meantime you can{" "}
-      <Anchor href="/resume" color="indigo">
+      <Anchor href="/resume" weight={500} color="indigo">
         check out my resume
       </Anchor>{" "}
       :)
@@ -80,6 +80,7 @@ const HomePage: FC<HomePageProps> = () => (
             href="http://calendly.com/hulloitskai/hangout"
             target="_blank"
             rel="noopener noreferrer nofollow"
+            weight={500}
             color="indigo"
           >
             schedule a hangout with me
@@ -94,7 +95,7 @@ const HomePage: FC<HomePageProps> = () => (
 const ContactLink: FC<AnchorProps> = ({ ...otherProps }) => {
   const [contactMe] = useContactMe();
   return (
-    <Anchor component="button" onClick={contactMe} {...otherProps}>
+    <Anchor component="button" weight={500} onClick={contactMe} {...otherProps}>
       email me
     </Anchor>
   );

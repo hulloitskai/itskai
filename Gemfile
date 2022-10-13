@@ -109,6 +109,9 @@ gem "graphiql-rails"
 # Parse YAML files with Psych
 gem "psych", "~> 4.0"
 
+# Manage meta tags
+gem "meta-tags", "~> 2.16"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"
