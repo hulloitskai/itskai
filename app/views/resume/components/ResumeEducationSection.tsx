@@ -19,42 +19,31 @@ const ResumeExperienceSection: FC<ResumeExperienceSectionProps> = ({
         </Title>
         <WebsiteBadge color="indigo" {...{ url }} />
       </Group>
-      <Text size="sm" weight={600} color="dark" mb={-2}>
-        {studyType} of {area}{" "}
+      <Text size="sm" weight={600} color="dark" mb={-3}>
+        {studyType} of {area}
         <Text
-          size="xs"
           weight={400}
           span
-          sx={({ colors, fn }) => ({ color: fn.darken(colors.yellow[9], 0.2) })}
+          sx={({ colors, fn }) => ({ color: fn.darken(colors.yellow[8], 0.1) })}
         >
-          (*incomplete)
+          *
         </Text>
       </Text>
-      <Text
-        size="sm"
-        color="dark"
-        sx={() => ({
-          display: "inline-flex",
-          alignItems: "center",
-          columnGap: 4,
-        })}
+      <Badge
+        color="gray"
+        variant="outline"
+        radius="sm"
+        px={6}
+        styles={{
+          inner: {
+            display: "inline-flex",
+            alignItems: "center",
+            columnGap: 6,
+          },
+        }}
       >
-        <Badge
-          color="gray"
-          variant="outline"
-          radius="sm"
-          px={6}
-          styles={{
-            inner: {
-              display: "inline-flex",
-              alignItems: "center",
-              columnGap: 6,
-            },
-          }}
-        >
-          {startDate} <IconHeroArrowLongRight20Solid /> {endDate}
-        </Badge>
-      </Text>
+        {startDate} <IconHeroArrowLongRight20Solid /> {endDate}
+      </Badge>
     </Box>
   );
 };

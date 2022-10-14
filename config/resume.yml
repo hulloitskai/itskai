@@ -13,26 +13,24 @@ work:
     url: https://playces.in
     startDate: 2019-04
     endDate: 2022-10
-    # summary: >-
-    #   I co-founded Playces, where I worked with a team to build a future where
-    #   great travel experiences are easy to find, and easy to book.
     highlights:
       - >-
-        Designed and built flexible tools to modernize independent tourism
-        businesses, enabling them to take bookings and payments online, automate
-        manual processes, and reach more customers.
+        Designed and built a platform in Ruby on Rails and React to modernize
+        independent tourism businesses, enabling them to display availability
+        and receive bookings online, accept payments and send invoices (Stripe),
+        automate manual processes (booking questions, automatic emails, built-in
+        CRM, operations dashboard) and reach more customers (travel communities
+        with social feed and media embeds).
       - >-
-        Provided technology services that gave partner businesses more efficient
-        processes, observability into under-utilized resources, and the
-        operational agility to really grow; our customer champion increased
-        bookings by 250%, tripled the number of experiences offered, and
-        increased revenue per booking by 40% after switching from AirBnB & Fare
-        Harbor to Playces.
+        Helped our partners gain observability into under-utilized
+        resources and the operational agility to really grow; one customer
+        champion increased bookings by 250%, tripled the number of experiences
+        offered, and increased revenue per booking by 40% after switching from
+        AirBnB & Fare Harbor to Playces.
       - >-
-        Configured and maintained critical infrastructure, including our
-        Kubernetes cluster, databases, continuous integration systems, error
-        reporting tools, performance monitoring tools, analytics,
-        authentication services, and search clusters.
+        Researched, designed, built, deployed, and iterated on our
+        product and technology stack (Postgres, ElasticSearch, Kubernetes,
+        HubSpot, Mailgun, Sentry, etc.) as the sole engineering/product person.
   - name: Universe
     position: Software Developer Intern
     url: http://universe.com
@@ -40,16 +38,22 @@ work:
     endDate: 2019-04
     highlights:
       - >-
-        Developed & maintained tooling for managing the infrastructure
-        of a microservices-based system.
-      - >-
-        Wrote an internal tool (designed to be open-sourced later) for
-        orchestrating on-demand staging environments on Kubernetes, as a part of
-        our code review and quality assurance process.
+        Write a CLI tool in Go for orchestrating on-demand staging environments
+        for our microservices stack on Kubernetes, which powered our code review
+        and QA flows. Investigated the operational limitations
+        of the existing Rundeck-based systems and used these insights to design
+        a spiritual successor.
       - >-
         Researched and implemented  optimizations to half the amount of time it
-        took to launch a staging stack, reducing wait times in our quality
-        assurance workflow and cloud computing bills.
+        took to launch a staging stack, reducing both wait times in our QA
+        workflow, as well as our GCP bills.
+      - >-
+        Supported product development by troubleshooting unexpected deployment
+        failures
+      - >-
+        Investigated security concerns and implemented solutions to mitigate
+        kthem.
+
   - name: ConsenSys
     position: Software Developer Intern
     url: https://consensys.net

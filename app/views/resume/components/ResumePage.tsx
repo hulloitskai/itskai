@@ -101,22 +101,22 @@ const ResumePage: FC<ResumePageProps> = ({ data, printable }) => {
               <ResumeEducationSection key={index} {...{ info }} />
             ))}
           </Group>
-          <Alert
-            color="yellow"
-            mt={8}
-            styles={({ colors, fn }) => ({
-              root: {
-                padding: "2px 8px",
-              },
-              message: {
-                fontWeight: 500,
-                color: fn.darken(colors.yellow[9], 0.2),
-              },
-            })}
-          >
-            *I dropped out of school to build a startup halfway through my
-            second year ✌️
-          </Alert>
+          <Text size="xs" weight={500} color="gray.7" mt={4}>
+            <Text
+              span
+              sx={({ colors, fn }) => ({
+                color: fn.darken(colors.yellow[8], 0.1),
+              })}
+            >
+              *
+            </Text>
+            I dropped out of school to build a startup halfway through my second
+            year ✌️ (see experience:{" "}
+            <Text weight={700} span>
+              Playces
+            </Text>
+            )
+          </Text>
         </Box>
       </ResumeLayout>
       {!printable && <DownloadResumePDFButton />}

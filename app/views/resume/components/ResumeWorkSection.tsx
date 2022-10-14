@@ -22,31 +22,21 @@ const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({ info }) => {
         <Text size="sm" weight={600} color="dark">
           {position}
         </Text>
-        <Text
-          size="sm"
-          color="dark"
-          sx={() => ({
-            display: "inline-flex",
-            alignItems: "center",
-            columnGap: 4,
-          })}
+        <Badge
+          color="gray"
+          variant="outline"
+          radius="sm"
+          px={6}
+          styles={{
+            inner: {
+              display: "inline-flex",
+              alignItems: "center",
+              columnGap: 6,
+            },
+          }}
         >
-          <Badge
-            color="gray"
-            variant="outline"
-            radius="sm"
-            px={6}
-            styles={{
-              inner: {
-                display: "inline-flex",
-                alignItems: "center",
-                columnGap: 6,
-              },
-            }}
-          >
-            {startDate} <IconHeroArrowLongRight20Solid /> {endDate}
-          </Badge>
-        </Text>
+          {startDate} <IconHeroArrowLongRight20Solid /> {endDate}
+        </Badge>
       </Group>
       {!!summary && (
         <Group spacing="xs" my={4}>
