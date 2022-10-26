@@ -52,7 +52,7 @@ work:
         failures
       - >-
         Investigated security concerns and implemented solutions to mitigate
-        kthem.
+        them.
 
   - name: ConsenSys
     position: Software Developer Intern
