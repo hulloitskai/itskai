@@ -17,6 +17,7 @@ declare global {
   const IconFeatherGithub: typeof import('~icons/feather/github.jsx')['default']
   const IconHeroArrowLongRight20Solid: typeof import('~icons/heroicons/arrow-long-right20-solid.jsx')['default']
   const IconHeroArrowTopRightOnSquare20Solid: typeof import('~icons/heroicons/arrow-top-right-on-square20-solid.jsx')['default']
+  const IconHeroAtSymbol20Solid: typeof import('~icons/heroicons/at-symbol20-solid.jsx')['default']
   const IconHeroBellAlert20Solid: typeof import('~icons/heroicons/bell-alert20-solid.jsx')['default']
   const IconHeroDocument20Solid: typeof import('~icons/heroicons/document20-solid.jsx')['default']
   const IconHeroDocumentSolid: typeof import('~icons/heroicons/document-solid.jsx')['default']

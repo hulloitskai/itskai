@@ -7,6 +7,7 @@ basics:
     - network: GitHub
       username: hulloitskai
       url: https://github.com/hulloitskai
+  email: hello@itskai.me
 work:
   - name: Playces
     position: Chief Technology Officer
@@ -22,11 +23,11 @@ work:
         CRM, operations dashboard) and reach more customers (travel communities
         with social feed and media embeds).
       - >-
-        Helped our partners gain observability into under-utilized
-        resources and the operational agility to really grow; one customer
-        champion increased bookings by 250%, tripled the number of experiences
-        offered, and increased revenue per booking by 40% after switching from
-        AirBnB & Fare Harbor to Playces.
+        Gave our partners observability into under-utilized resources and the
+        operational agility to really grow; one customer champion increased
+        bookings by 250%, tripled the number of experiences offered, and
+        increased revenue per booking by 40% after switching from AirBnB & Fare
+        Harbor to Playces.
       - >-
         Researched, designed, built, deployed, and iterated on our
         product and technology stack (Postgres, ElasticSearch, Kubernetes,
@@ -69,13 +70,11 @@ work:
         websockets.
 education:
   - institution: University of Waterloo
-    url: https://uwaterloo.ca
     area: Computer Science
     studyType: Bachelor
     startDate: 2017-09
     endDate: 2019-04
   - institution: Wilfrid Laurier University
-    url: https://wlu.ca
     area: Business Administration
     studyType: Bachelor
     startDate: 2017-09

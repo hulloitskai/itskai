@@ -10,14 +10,13 @@ export type ResumeExperienceSectionProps = {
 const ResumeExperienceSection: FC<ResumeExperienceSectionProps> = ({
   info,
 }) => {
-  const { institution, url, area, studyType, startDate, endDate } = info;
+  const { institution, area, studyType, startDate, endDate } = info;
   return (
     <Box>
       <Group spacing={8} mb={-4}>
         <Title order={3} size="h5" color="indigo">
           {institution}
         </Title>
-        <WebsiteBadge color="indigo" {...{ url }} />
       </Group>
       <Text size="sm" weight={600} color="dark" mb={-3}>
         {studyType} of {area}

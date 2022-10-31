@@ -26,40 +26,68 @@ const ResumePage: FC<ResumePageProps> = ({ data, printable }) => {
     education: any[];
     skills: any[];
   };
-  const { profiles } = basics;
+  const { email, profiles } = basics;
   const githubProfile = profiles.find(
     x => x.network.toLowerCase() === "github",
   );
+  const splitEmail = useMemo(() => {
+    return email.replace("@", " [at] ");
+  }, [email]);
   return (
     <>
       <ResumeLayout {...{ printable }}>
         <Box>
           <Group spacing="xs" position="apart">
             <Title size="h2">{basics.name}</Title>
-            {githubProfile && (
-              <Anchor
-                href={githubProfile.url}
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-              >
-                <Badge
-                  leftSection={
-                    <Center>
-                      <IconFeatherGithub />
-                    </Center>
-                  }
-                  color="dark "
-                  variant="outline"
-                  px={6}
-                  sx={({ fontFamilyMonospace }) => ({
-                    cursor: "pointer",
+            <Group spacing="xs" align="center">
+              <Badge
+                leftSection={
+                  <Center>
+                    <IconHeroEnvelope20Solid />
+                  </Center>
+                }
+                color="dark"
+                variant="outline"
+                styles={({ fontFamilyMonospace }) => ({
+                  inner: {
                     fontFamily: fontFamilyMonospace,
-                  })}
+                    textTransform: "none",
+                  },
+                })}
+              >
+                {splitEmail}
+              </Badge>
+              {githubProfile && (
+                <Anchor
+                  href={githubProfile.url}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
                 >
-                  github.com/{githubProfile.username}
-                </Badge>
-              </Anchor>
-            )}
+                  <Badge
+                    leftSection={
+                      <Center>
+                        <IconFeatherGithub />
+                      </Center>
+                    }
+                    color="dark "
+                    variant="outline"
+                    px={6}
+                    sx={({ fontFamilyMonospace }) => ({
+                      fontFamily: fontFamilyMonospace,
+                    })}
+                    styles={({ fontFamilyMonospace }) => ({
+                      root: { cursor: "pointer" },
+                      inner: {
+                        fontFamily: fontFamilyMonospace,
+                        textTransform: "none",
+                      },
+                    })}
+                  >
+                    github.com/{githubProfile.username}
+                  </Badge>
+                </Anchor>
+              )}
+            </Group>
           </Group>
           <Text
             size="sm"
