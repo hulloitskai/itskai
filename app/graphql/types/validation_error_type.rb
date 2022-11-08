@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Types
-  class ValidationErrorType < Types::BaseObject
+  class ValidationErrorType < BaseObject
     extend T::Sig
 
     field :field, String

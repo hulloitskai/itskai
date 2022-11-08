@@ -644,8 +644,6 @@ class BetterErrors::StackFrame
   def initialize(filename, line, name, frame_binding = T.unsafe(nil)); end
 
   # @return [Boolean]
-  #
-  # source://better_errors//lib/better_errors/stack_frame.rb#21
   def application?; end
 
   # source://better_errors//lib/better_errors/stack_frame.rb#27

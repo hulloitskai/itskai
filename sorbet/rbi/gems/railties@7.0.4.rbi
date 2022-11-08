@@ -1395,8 +1395,6 @@ class Rails::ApplicationController < ::ActionController::Base
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
-
   # source://railties//lib/rails/application_controller.rb#25
   def disable_content_security_policy_nonce!; end
 
@@ -1430,23 +1428,6 @@ class Rails::ApplicationController < ::ActionController::Base
     # source://actionpack/7.0.4/lib/action_controller/metal.rb#210
     def middleware_stack; end
   end
-end
-
-# source://railties//lib/rails/application_controller.rb#0
-module Rails::ApplicationController::HelperMethods
-  include ::Turbo::DriveHelper
-  include ::Turbo::FramesHelper
-  include ::Turbo::IncludesHelper
-  include ::Turbo::StreamsHelper
-  include ::Turbo::Streams::ActionHelper
-  include ::ActionText::ContentHelper
-  include ::ActionText::TagHelper
-  include ::Webpacker::Helper
-  include ::ActionController::Base::HelperMethods
-  include ::ApplicationHelper
-  include ::ReactOnRails::Utils::Required
-  include ::ReactOnRails::Helper
-  include ::ReactOnRailsHelper
 end
 
 # source://railties//lib/rails/autoloaders.rb#4
@@ -2619,20 +2600,11 @@ end
 
 # source://railties//lib/rails/mailers_controller.rb#0
 module Rails::MailersController::HelperMethods
-  include ::Turbo::DriveHelper
-  include ::Turbo::FramesHelper
-  include ::Turbo::IncludesHelper
-  include ::Turbo::StreamsHelper
-  include ::Turbo::Streams::ActionHelper
   include ::ActionText::ContentHelper
   include ::ActionText::TagHelper
-  include ::Webpacker::Helper
+  include ::InertiaRails::Helper
+  include ::ViteRails::TagHelpers
   include ::ActionController::Base::HelperMethods
-  include ::ApplicationHelper
-  include ::ReactOnRails::Utils::Required
-  include ::ReactOnRails::Helper
-  include ::ReactOnRailsHelper
-  include ::Rails::ApplicationController::HelperMethods
 
   # source://railties//lib/rails/mailers_controller.rb#12
   def locale_query(*args, **_arg1, &block); end

@@ -3,27 +3,37 @@
     // == Paths ==
     "baseUrl": ".",
     "paths": {
-      "~views/*": ["app/views/*"]
+      "~/*": ["app/*"]
     },
+
+    // == Language ==
+    "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
 
     // == JavaScript ==
     "allowJs": true,
     "checkJs": false,
-
-    // == JSX ==
-    "jsx": "react",
-    "esModuleInterop": true,
 
     // == Emit ==
     "noEmit": true,
 
     // == Types ==
     "strict": true,
-    "types": ["unplugin-icons/types/react"],
+    "types": ["vite/client", "unplugin-icons/types/react"],
 
     // == Completeness ==
     "skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+
+    // == Plugins ==
+    "plugins": [
+      {
+        "name": "vite-plugin-iso-import"
+      }
+    ]
   },
   "include": ["app/**/*", "typings/**/*"]
 }

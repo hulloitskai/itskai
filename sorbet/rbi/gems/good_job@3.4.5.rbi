@@ -514,7 +514,6 @@ class GoodJob::ApplicationController < ::ActionController::Base
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
   def current_locale; end
   def default_url_options(options = T.unsafe(nil)); end
   def good_job_available_locales; end
@@ -539,14 +538,10 @@ class GoodJob::ApplicationController < ::ActionController::Base
 end
 
 module GoodJob::ApplicationController::HelperMethods
-  include ::Turbo::DriveHelper
-  include ::Turbo::FramesHelper
-  include ::Turbo::IncludesHelper
-  include ::Turbo::StreamsHelper
-  include ::Turbo::Streams::ActionHelper
   include ::ActionText::ContentHelper
   include ::ActionText::TagHelper
-  include ::Webpacker::Helper
+  include ::InertiaRails::Helper
+  include ::ViteRails::TagHelpers
   include ::ActionController::Base::HelperMethods
   include ::GoodJob::ApplicationHelper
 end
@@ -577,8 +572,6 @@ class GoodJob::AssetsController < ::ActionController::Base
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
-
   class << self
     # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
     def __callbacks; end
@@ -600,14 +593,10 @@ class GoodJob::AssetsController < ::ActionController::Base
 end
 
 module GoodJob::AssetsController::HelperMethods
-  include ::Turbo::DriveHelper
-  include ::Turbo::FramesHelper
-  include ::Turbo::IncludesHelper
-  include ::Turbo::StreamsHelper
-  include ::Turbo::Streams::ActionHelper
   include ::ActionText::ContentHelper
   include ::ActionText::TagHelper
-  include ::Webpacker::Helper
+  include ::InertiaRails::Helper
+  include ::ViteRails::TagHelpers
   include ::ActionController::Base::HelperMethods
   include ::GoodJob::ApplicationHelper
 end
@@ -1081,7 +1070,6 @@ class GoodJob::CronEntriesController < ::GoodJob::ApplicationController
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
   def check_settings_migration!; end
 
   class << self
@@ -1922,7 +1910,6 @@ class GoodJob::JobsController < ::GoodJob::ApplicationController
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
   def redirect_on_error(exception); end
 
   class << self
@@ -2701,8 +2688,6 @@ class GoodJob::ProcessesController < ::GoodJob::ApplicationController
 
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
-
-  def _layout_from_proc; end
 
   class << self
     # source://actionpack/7.0.4/lib/action_controller/metal/params_wrapper.rb#185

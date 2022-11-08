@@ -62,6 +62,6 @@ class GraphQL::RailsLogger::Subscriber < ActionController::LogSubscriber
   def pretty(data)
     return "" if data.blank?
     data = JSON.parse(data) if data.is_a?(String)
-    PP.pp(data, "")
+    PP.pp(data, +"")
   end
 end

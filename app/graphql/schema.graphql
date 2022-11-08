@@ -24,7 +24,12 @@ type Query {
   testEcho(text: String): String!
 }
 
+type SpotifyTrack {
+  name: String
+}
+
 type Subscription {
+  currentlyPlaying: SpotifyTrack
   testSubscription: Int!
 }
 

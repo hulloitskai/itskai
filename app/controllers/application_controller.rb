@@ -4,61 +4,17 @@
 class ApplicationController < ActionController::Base
   extend T::Sig
 
-  # == Responder ==
-  self.responder = ApplicationResponder
-  respond_to :html, :json
-
   # == Exceptions ==
   # rescue_from ActionPolicy::Unauthorized, with: :show_unauthorized
 
   # == Filters ==
-  before_action :verify_requested_format!
   before_action :debug_action
   around_action :prepare_action
 
-  # == Rendering ==
-  sig { override.params(args: T.untyped, kwargs: T.untyped).void }
-  def render(*args, **kwargs)
-    if kwargs.include?(:component)
-      name = T.let(kwargs.fetch(:component), String)
-      _render_component(name, **kwargs.slice(:props, :variables))
-    else
-      super
-    end
-  end
+  # == Queries ==
+  include Queries
 
   private
-
-  # == Helpers ==
-  sig do
-    params(
-      name: String,
-      props: T::Hash[String, T.untyped],
-      variables: T::Hash[String, T.untyped],
-    ).void
-  end
-  def _render_component(name, props: {}, variables: {})
-    query_name = "#{name}Query"
-    query_file =
-      Rails.root.join(
-        "app/views",
-        controller_path,
-        "queries",
-        "#{query_name}.graphql",
-      )
-    if File.exist?(query_file)
-      document = GraphQL.parse_file(query_file)
-      results = Schema.execute(document: document, variables: variables)
-      props.merge!(results.to_h)
-      props["variables"] = variables
-    end
-    @component_name = T.let(@component_name, T.nilable(String))
-    @component_name = name
-    @component_props =
-      T.let(@component_props, T.nilable(T::Hash[String, T.untyped]))
-    @component_props = props
-    render("layouts/component")
-  end
 
   # == Exceptions ==
   # sig { params(exception: Exception).void }

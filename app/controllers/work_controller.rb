@@ -6,6 +6,6 @@ class WorkController < ApplicationController
 
   sig { void }
   def show
-    render(component: "WorkPage")
+    render inertia: "WorkPage"
   end
 end

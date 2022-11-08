@@ -1,16 +1,17 @@
 import { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
-  schema: "http://localhost:3000/api/graphql",
-  documents: ["app/views/**/*.graphql"],
+  documents: ["app/queries/*.graphql"],
   generates: {
-    "./app/views/shared/helpers/apollo-generated.ts": {
+    "./app/queries/index.ts": {
+      schema: "app/graphql/schema.graphql",
       config: {
         omitOperationSuffix: true,
       },
       plugins: ["typescript", "typescript-operations", "typed-document-node"],
     },
     "./app/graphql/schema.graphql": {
+      schema: "http://localhost:3000/api/graphql",
       plugins: ["schema-ast"],
     },
   },

@@ -7,5 +7,3 @@
 task :routes do
   system("bundle exec rails routes")
 end
-
-# rubocop:enable Rails/RakeEnvironment

@@ -75,8 +75,7 @@ COPY ./ ./
 
 # Install application dependencies.
 RUN bundle config set --local without 'development test' \
-    && bundle install \
-    && bin/yarn install --production
+    && bundle install
 
 # Install Starship.
 COPY starship.toml /root/.config/starship.toml

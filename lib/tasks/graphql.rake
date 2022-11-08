@@ -1,6 +1,6 @@
+# rubocop:disable Rails/RakeEnvironment
 # typed: false
 # frozen_string_literal: true
-# rubocop:disable Rails/RakeEnvironment
 
 namespace :graphql do
   task :generate do
@@ -8,5 +8,3 @@ namespace :graphql do
     system(path.to_s) || abort("Failed to run GraphQL code generator!")
   end
 end
-
-# rubocop:enable Rails/RakeEnvironment

@@ -10,5 +10,3 @@ task :kill do
     File.delete(pidfile)
   end
 end
-
-# rubocop:enable Rails/RakeEnvironment

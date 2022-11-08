@@ -1,3 +1,1 @@
-//= link graphiql/rails/application.css
-//= link graphiql/rails/application.js
-//= link mailer.css
+// See: https://guides.rubyonrails.org/asset_pipeline.html#manifest-files-and-directives

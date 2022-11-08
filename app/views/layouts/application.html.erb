@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-
     <%# == Favicon == %>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -15,25 +13,18 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= action_cable_meta_tag %>
-    <%= display_meta_tags(
-      reverse: true,
-      site: "It's Kai!",
-      description: "Welcome to my little corner of the internet :)",
-      og: {
-        title: :title,
-        site_name: :site,
-        description: :description,
-        # image: image_url("logo.png", skip_pipeline: true),
-      },
-    ) %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="graphql-url" content="<%= graphql_path %>">
 
-    <%# == Packs == %>
-    <%= javascript_pack_tag %>
-    <%= stylesheet_pack_tag %>
+    <%# == Scripts == %>
+    <%= vite_client_tag %>
+    <%= vite_react_refresh_tag %>
+    <%= vite_typescript_tag 'application' %>
 
-    <%# == Styles == %>
-    <%= yield :styles %>
+    <%# == Inertia == %>
+    <% InertiaRails.html_headers.each do |header| %>
+      <%== header %>
+    <% end %>
   </head>
 
   <body>

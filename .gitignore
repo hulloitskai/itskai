@@ -2,6 +2,10 @@
 .env
 
 
+# == Vite Ruby ==
+/public/dist*
+
+
 # == Rails ==
 /public/assets
 /public/sitemap*.xml.gz

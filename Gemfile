@@ -7,13 +7,12 @@ ruby "3.1.2"
 gem "rails", "~> 7.0.3", ">= 7.0.3.1"
 
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.2"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
+gem "puma", "~> 6.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets", "~> 4.0", require: false
 gem "sprockets-rails", "~> 3.4"
 
 # Use Redis adapter to run Action Cable in production
@@ -26,13 +25,10 @@ gem "sprockets-rails", "~> 3.4"
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
-
-# Use Sass to process CSS
-# gem "sassc-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
@@ -42,26 +38,17 @@ gem "ruby-vips", "~> 2.1", require: false
 gem "aws-sdk-core", require: false
 gem "aws-sdk-s3", "~> 1.113", require: false
 
-# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails"
-
-# Use Responders to DRY up controller responders
-gem "responders", github: "heartcombo/responders"
-
 # Use Good Job as the backend for Active Job
 gem "good_job", "~> 3.1"
 
 # Use Mailgun to send emails.
 gem "mailgun-ruby", "~> 1.2"
 
+# Use ShortUUID to shorten UUIDs for use in URLs
+gem "shortuuid", "~> 0.6.0"
+
 # Perform HTTP requests with HTTParty
 gem "httparty", "~> 0.20.0"
-
-# Bundle javascript with Webpack
-gem "shakapacker", "= 6.5.1"
-
-# Render React components in Rails templates
-gem "react_on_rails", "= 13.1"
 
 # Use Honeybadger for error reporting
 gem "honeybadger", "~> 4.12"
@@ -69,11 +56,13 @@ gem "binding_of_caller"
 
 # Show a healthcheck route
 gem "rails-healthcheck"
+
+# Silence logs from certain actions
 gem "silencer", "~> 2.0.0", require: false
 
 # Debug code and inspect values at runtime
 # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-gem "debug", platforms: %i[ mri mingw x64_mingw ]
+gem "debug", platforms: %i[mri mingw x64_mingw]
 gem "pry"
 gem "pry-rails"
 gem "pry-doc", require: false
@@ -106,11 +95,20 @@ gem "graphql-persisted_queries", "~> 1.5"
 gem "graphql-rails_logger"
 gem "graphiql-rails"
 
+# Serve and bundle frontend with Vite
+gem "vite_rails", "~> 3.0"
+
+# Use Inertia framework for server-driven SPAs
+gem "inertia_rails", "~> 3.0"
+
+# Use Premailer to inline CSS into email templates
+gem "premailer-rails", "~> 1.11"
+
 # Parse YAML files with Psych
 gem "psych", "~> 4.0"
 
-# Manage meta tags
-gem "meta-tags", "~> 2.16"
+# Use RSpotify to read currently playing data from Spotify
+gem "rspotify", "~> 2.11"
 
 group :development, :test do
   # Auto-detect and warn about N+1 queries
@@ -143,8 +141,11 @@ group :development do
   gem "memory_profiler"
   gem "stackprof"
 
+  # Display better error pages during development
+  gem "better_errors"
+
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
+  gem "spring"
 
   # Annotate models and routes
   gem "annotate", require: false
@@ -156,4 +157,3 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-

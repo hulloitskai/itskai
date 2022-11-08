@@ -50,6 +50,8 @@ AllCops:
     - "**/Gemfile"
     - "**/Rakefile"
 
+Lint/MissingCopEnableDirective:
+  Enabled: false
 Lint/Void:
   Enabled: false
 

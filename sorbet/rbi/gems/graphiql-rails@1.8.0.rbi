@@ -141,8 +141,6 @@ class GraphiQL::Rails::EditorsController < ::ActionController::Base
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
-
   class << self
     # source://actionpack/7.0.4/lib/abstract_controller/helpers.rb#11
     def _helper_methods; end
@@ -162,14 +160,10 @@ class GraphiQL::Rails::EditorsController < ::ActionController::Base
 end
 
 module GraphiQL::Rails::EditorsController::HelperMethods
-  include ::Turbo::DriveHelper
-  include ::Turbo::FramesHelper
-  include ::Turbo::IncludesHelper
-  include ::Turbo::StreamsHelper
-  include ::Turbo::Streams::ActionHelper
   include ::ActionText::ContentHelper
   include ::ActionText::TagHelper
-  include ::Webpacker::Helper
+  include ::InertiaRails::Helper
+  include ::ViteRails::TagHelpers
   include ::ActionController::Base::HelperMethods
 
   def graphql_endpoint_path(*args, **_arg1, &block); end

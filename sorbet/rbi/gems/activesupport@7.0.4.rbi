@@ -3193,24 +3193,6 @@ module ActiveSupport::Dependencies::RequireDependency
   def require_dependency(filename); end
 end
 
-# source://activesupport//lib/active_support/core_ext/numeric/deprecated_conversions.rb#4
-module ActiveSupport::DeprecatedNumericWithFormat
-  # source://activesupport//lib/active_support/core_ext/numeric/deprecated_conversions.rb#5
-  def to_s(format = T.unsafe(nil), options = T.unsafe(nil)); end
-end
-
-# source://activesupport//lib/active_support/core_ext/range/deprecated_conversions.rb#4
-module ActiveSupport::DeprecatedRangeWithFormat
-  # source://activesupport//lib/active_support/deprecation/method_wrappers.rb#63
-  def to_default_s(*args, **_arg1, &block); end
-
-  # source://activesupport//lib/active_support/core_ext/range/deprecated_conversions.rb#6
-  def to_s(format = T.unsafe(nil)); end
-end
-
-# source://activesupport//lib/active_support/core_ext/range/deprecated_conversions.rb#5
-ActiveSupport::DeprecatedRangeWithFormat::NOT_SET = T.let(T.unsafe(nil), Object)
-
 # \Deprecation specifies the API used by Rails to deprecate methods, instance
 # variables, objects, and constants.
 #
@@ -10344,7 +10326,6 @@ class ActiveSupport::TestCase < ::Minitest::Test
   include ::ActiveSupport::Testing::TimeHelpers
   include ::ActiveSupport::Testing::FileFixtures
   include ::ActiveSupport::Executor::TestHelper
-  include ::Turbo::TestAssertions
   extend ::ActiveSupport::Callbacks::ClassMethods
   extend ::ActiveSupport::DescendantsTracker
   extend ::ActiveSupport::Testing::SetupAndTeardown::ClassMethods
@@ -10412,12 +10393,6 @@ class ActiveSupport::TestCase < ::Minitest::Test
   #
   # source://minitest/5.16.3/lib/minitest/assertions.rb#396
   def assert_raise(*exp); end
-
-  # source://turbo-rails/1.1.1/lib/turbo/test_assertions.rb#7
-  def dom_class(*_arg0, **_arg1, &_arg2); end
-
-  # source://turbo-rails/1.1.1/lib/turbo/test_assertions.rb#7
-  def dom_id(*_arg0, **_arg1, &_arg2); end
 
   # source://activesupport//lib/active_support/testing/file_fixtures.rb#20
   def file_fixture_path; end
@@ -13002,9 +12977,6 @@ class Array
   # source://activesupport//lib/active_support/core_ext/object/to_query.rb#50
   def to_query(key); end
 
-  # source://activesupport//lib/active_support/core_ext/array/deprecated_conversions.rb#5
-  # def to_s(format = T.unsafe(nil)); end
-
   # Converts the array to a comma-separated sentence where the last element is
   # joined by the connector word.
   #
@@ -13191,14 +13163,10 @@ class Array
   end
 end
 
-# source://activesupport//lib/active_support/core_ext/array/deprecated_conversions.rb#4
-Array::NOT_SET = T.let(T.unsafe(nil), Object)
-
 # source://activesupport//lib/active_support/core_ext/object/json.rb#118
 class BigDecimal < ::Numeric
   include ::ActiveSupport::BigDecimalWithDefaultFormat
   include ::ActiveSupport::NumericWithFormat
-  include ::ActiveSupport::DeprecatedNumericWithFormat
 
   # A BigDecimal would be naturally represented as a JSON number. Most libraries,
   # however, parse non-integer JSON numbers directly as floats. Clients using
@@ -13213,8 +13181,8 @@ class BigDecimal < ::Numeric
   # source://activesupport//lib/active_support/core_ext/object/json.rb#128
   def as_json(options = T.unsafe(nil)); end
 
-  # source://activesupport//lib/active_support/core_ext/numeric/deprecated_conversions.rb#5
-  # def to_s(format = T.unsafe(nil), options = T.unsafe(nil)); end
+  # source://activesupport//lib/active_support/core_ext/big_decimal/conversions.rb#8
+  def to_s(format = T.unsafe(nil)); end
 end
 
 BigDecimal::EXCEPTION_NaN = T.let(T.unsafe(nil), Integer)
@@ -13529,9 +13497,6 @@ class Date
   # source://activesupport//lib/active_support/core_ext/date/conversions.rb#47
   def to_fs(format = T.unsafe(nil)); end
 
-  # source://activesupport//lib/active_support/core_ext/date/deprecated_conversions.rb#7
-  # def to_s(format = T.unsafe(nil)); end
-
   # Converts a Date instance to a Time, where the time is set to the beginning of the day.
   # The timezone can be either +:local+ or +:utc+ (default +:local+).
   #
@@ -13613,9 +13578,6 @@ end
 
 # source://activesupport//lib/active_support/core_ext/date/conversions.rb#9
 Date::DATE_FORMATS = T.let(T.unsafe(nil), Hash)
-
-# source://activesupport//lib/active_support/core_ext/date/deprecated_conversions.rb#6
-Date::NOT_SET = T.let(T.unsafe(nil), Object)
 
 # source://date/3.2.2/date.rb#7
 Date::VERSION = T.let(T.unsafe(nil), String)
@@ -14455,9 +14417,6 @@ class DateTime < ::Date
   # source://activesupport//lib/active_support/core_ext/date_time/conversions.rb#84
   def to_i; end
 
-  # source://activesupport//lib/active_support/core_ext/date_time/deprecated_conversions.rb#7
-  # def to_s(format = T.unsafe(nil)); end
-
   # Either return an instance of +Time+ with the same UTC offset
   # as +self+ or an instance of +Time+ representing the same time
   # in the local system timezone depending on the setting of
@@ -14519,9 +14478,6 @@ class DateTime < ::Date
     def current; end
   end
 end
-
-# source://activesupport//lib/active_support/core_ext/date_time/deprecated_conversions.rb#6
-DateTime::NOT_SET = T.let(T.unsafe(nil), Object)
 
 # source://activesupport//lib/active_support/core_ext/object/try.rb#117
 class Delegator < ::BasicObject
@@ -15050,16 +15006,12 @@ end
 # source://activesupport//lib/active_support/core_ext/object/json.rb#110
 class Float < ::Numeric
   include ::ActiveSupport::NumericWithFormat
-  include ::ActiveSupport::DeprecatedNumericWithFormat
 
   # Encoding Infinity or NaN to JSON should return "null". The default returns
   # "Infinity" or "NaN" which are not valid JSON.
   #
   # source://activesupport//lib/active_support/core_ext/object/json.rb#113
   def as_json(options = T.unsafe(nil)); end
-
-  # source://activesupport//lib/active_support/core_ext/numeric/deprecated_conversions.rb#5
-  # def to_s(format = T.unsafe(nil), options = T.unsafe(nil)); end
 end
 
 # source://activesupport//lib/active_support/core_ext/hash/deep_merge.rb#3
@@ -15738,7 +15690,6 @@ IPAddr::VERSION = T.let(T.unsafe(nil), String)
 # source://activesupport//lib/active_support/core_ext/integer/time.rb#6
 class Integer < ::Numeric
   include ::ActiveSupport::NumericWithFormat
-  include ::ActiveSupport::DeprecatedNumericWithFormat
 
   # Returns a Duration instance matching the number of months provided.
   #
@@ -15790,9 +15741,6 @@ class Integer < ::Numeric
   #
   # source://activesupport//lib/active_support/core_ext/integer/inflections.rb#15
   def ordinalize; end
-
-  # source://activesupport//lib/active_support/core_ext/numeric/deprecated_conversions.rb#5
-  # def to_s(format = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Returns a Duration instance matching the number of years provided.
   #
@@ -17667,7 +17615,6 @@ end
 # source://activesupport//lib/active_support/core_ext/object/json.rb#151
 class Range
   include ::ActiveSupport::RangeWithFormat
-  include ::ActiveSupport::DeprecatedRangeWithFormat
   include ::ActiveSupport::CompareWithRange
   include ::ActiveSupport::EachTimeWithZone
   include ::Enumerable
@@ -17701,9 +17648,6 @@ class Range
   #
   # source://activesupport//lib/active_support/core_ext/enumerable.rb#287
   def sum(identity = T.unsafe(nil)); end
-
-  # source://activesupport//lib/active_support/core_ext/range/deprecated_conversions.rb#6
-  # def to_s(format = T.unsafe(nil)); end
 end
 
 # source://activesupport//lib/active_support/core_ext/object/json.rb#133
@@ -18875,9 +18819,6 @@ class Time
   # source://activesupport//lib/active_support/core_ext/time/conversions.rb#53
   def to_fs(format = T.unsafe(nil)); end
 
-  # source://activesupport//lib/active_support/core_ext/time/deprecated_conversions.rb#7
-  # def to_s(format = T.unsafe(nil)); end
-
   # Either return +self+ or the time in the local system timezone depending
   # on the setting of +ActiveSupport.to_time_preserves_timezone+.
   #
@@ -19029,9 +18970,6 @@ Time::COMMON_YEAR_DAYS_IN_MONTH = T.let(T.unsafe(nil), Array)
 
 # source://activesupport//lib/active_support/core_ext/time/conversions.rb#8
 Time::DATE_FORMATS = T.let(T.unsafe(nil), Hash)
-
-# source://activesupport//lib/active_support/core_ext/time/deprecated_conversions.rb#6
-Time::NOT_SET = T.let(T.unsafe(nil), Object)
 
 # source://activesupport//lib/active_support/core_ext/object/blank.rb#72
 class TrueClass

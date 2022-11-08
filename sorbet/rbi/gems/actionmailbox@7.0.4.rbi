@@ -277,7 +277,6 @@ class ActionMailbox::BaseController < ::ActionController::Base
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
   def authenticate_by_password; end
   def ensure_configured; end
   def ingress_name; end
@@ -536,7 +535,6 @@ class ActionMailbox::Ingresses::Mailgun::InboundEmailsController < ::ActionMailb
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
   def authenticate; end
   def authenticated?; end
   def key; end
@@ -584,7 +582,6 @@ class ActionMailbox::Ingresses::Mandrill::InboundEmailsController < ::ActionMail
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
   def authenticate; end
   def authenticated?; end
   def events; end
@@ -630,8 +627,6 @@ class ActionMailbox::Ingresses::Postmark::InboundEmailsController < ::ActionMail
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
-
   class << self
     # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
     def __callbacks; end
@@ -657,7 +652,6 @@ class ActionMailbox::Ingresses::Relay::InboundEmailsController < ::ActionMailbox
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
   def require_valid_rfc822_message; end
 
   class << self
@@ -685,7 +679,6 @@ class ActionMailbox::Ingresses::Sendgrid::InboundEmailsController < ::ActionMail
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
   def envelope; end
   def mail; end
 
@@ -1880,7 +1873,6 @@ class Rails::Conductor::BaseController < ::ActionController::Base
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
   def ensure_development_env; end
 
   class << self
@@ -1905,20 +1897,4 @@ class Rails::Conductor::BaseController < ::ActionController::Base
     # source://actionpack/7.0.4/lib/action_controller/metal.rb#210
     def middleware_stack; end
   end
-end
-
-module Rails::Conductor::BaseController::HelperMethods
-  include ::Turbo::DriveHelper
-  include ::Turbo::FramesHelper
-  include ::Turbo::IncludesHelper
-  include ::Turbo::StreamsHelper
-  include ::Turbo::Streams::ActionHelper
-  include ::ActionText::ContentHelper
-  include ::ActionText::TagHelper
-  include ::Webpacker::Helper
-  include ::ActionController::Base::HelperMethods
-  include ::ApplicationHelper
-  include ::ReactOnRails::Utils::Required
-  include ::ReactOnRails::Helper
-  include ::ReactOnRailsHelper
 end

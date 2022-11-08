@@ -1,0 +1,38 @@
+{
+  "files.associations": {
+    "Procfile.dev": "procfile",
+    "Gemfile.lock": "plaintext",
+    "Aptfile": "plaintext"
+  },
+  "files.exclude": {
+    "app/packs/generated/**/*.jsx": true
+  },
+
+  // == Ruby ==
+  "ruby.useLanguageServer": false,
+  "ruby.intellisense": false,
+  "ruby.format": false,
+
+  // == Formatting ==
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[ruby]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

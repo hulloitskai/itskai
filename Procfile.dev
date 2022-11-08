@@ -1,6 +1,5 @@
 docker: docker compose up postgres mailcatcher > /dev/null
-pg: docker compose logs -f --no-log-prefix postgres
-mc: docker compose logs -f --no-log-prefix mailcatcher
-wp-client: HMR=true bin/webpacker-dev-server
-wp-server: HMR=true SERVER_BUNDLE_ONLY=yes bin/webpacker --watch
+postgres: docker compose logs -f --no-log-prefix postgres
+mailcatcher: docker compose logs -f --no-log-prefix mailcatcher
+vite: bin/vite dev
 rails: bin/rails server

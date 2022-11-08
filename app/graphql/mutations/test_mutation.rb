@@ -11,8 +11,8 @@ module Mutations
     field :errors, [Types::ValidationErrorType]
     field :model, Types::TestModelType
 
-    argument :name, String, required: true
-    argument :birthday, Types::DateTimeType, required: false
+    argument :birthday, Types::DateType, required: false
+    argument :name, String
 
     sig { override.params(attributes: T.untyped).returns(Payload) }
     def resolve(**attributes)

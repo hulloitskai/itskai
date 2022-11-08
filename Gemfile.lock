@@ -1,11 +1,3 @@
-GIT
-  remote: https://github.com/heartcombo/responders.git
-  revision: 161f205b649489d740821425560eecd355fa02be
-  specs:
-    responders (3.0.1)
-      actionpack (>= 5.2)
-      railties (>= 5.2)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -102,6 +94,10 @@ GEM
       aws-sigv4 (~> 1.4)
     aws-sigv4 (1.5.1)
       aws-eventstream (~> 1, >= 1.0.2)
+    better_errors (2.9.1)
+      coderay (>= 1.0.0)
+      erubi (>= 1.0.0)
+      rack (>= 0.9.0)
     bindex (0.8.1)
     binding_of_caller (1.0.0)
       debug_inspector (>= 0.0.1)
@@ -124,8 +120,9 @@ GEM
     childprocess (4.1.0)
     coderay (1.1.3)
     concurrent-ruby (1.1.10)
-    connection_pool (2.3.0)
     crass (1.0.6)
+    css_parser (1.12.0)
+      addressable
     debug (1.6.2)
       irb (>= 1.3.6)
       reline (>= 0.3.1)
@@ -137,12 +134,16 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.8.1)
+    dry-cli (0.7.0)
     enumerize (2.5.0)
       activesupport (>= 3.2)
     erubi (1.11.0)
     et-orbi (1.2.7)
       tzinfo
-    execjs (2.8.1)
+    faraday (2.6.0)
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-net_http (3.0.1)
     ffi (1.15.5)
     fugit (1.7.0)
       et-orbi (~> 1, >= 1.2.7)
@@ -168,8 +169,9 @@ GEM
       activesupport (> 5.0)
       railties (> 5.0)
       rouge (~> 3.0)
+    hashie (5.0.0)
     honeybadger (4.12.2)
-    http-accept (1.7.0)
+    htmlentities (4.3.4)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
     httparty (0.20.0)
@@ -180,11 +182,14 @@ GEM
     image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
+    inertia_rails (3.0.0)
+      rails (>= 5)
     io-console (0.5.11)
     irb (1.4.1)
       reline (>= 0.3.0)
     jmespath (1.6.1)
     json (2.6.2)
+    jwt (2.5.0)
     language_server-protocol (3.17.0.1)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -199,8 +204,6 @@ GEM
     marcel (1.0.2)
     matrix (0.4.2)
     memory_profiler (1.0.0)
-    meta-tags (2.18.0)
-      actionpack (>= 3.2.0, < 7.1)
     method_source (1.0.0)
     mime-types (3.4.1)
       mime-types-data (~> 3.2015)
@@ -232,11 +235,32 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
+    oauth2 (2.0.9)
+      faraday (>= 0.17.3, < 3.0)
+      jwt (>= 1.0, < 3.0)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 4)
+      snaky_hash (~> 2.0)
+      version_gem (~> 1.1)
+    omniauth (2.1.0)
+      hashie (>= 3.4.6)
+      rack (>= 2.2.3)
+      rack-protection
+    omniauth-oauth2 (1.8.0)
+      oauth2 (>= 1.4, < 3)
+      omniauth (~> 2.0)
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
     pg (1.4.3)
-    prettier_print (0.1.0)
+    premailer (1.17.0)
+      addressable
+      css_parser (>= 1.12.0)
+      htmlentities (>= 4.0.0)
+    premailer-rails (1.11.1)
+      actionmailer (>= 3)
+      premailer (~> 1.7, >= 1.7.9)
+    prettier_print (1.0.2)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -253,13 +277,15 @@ GEM
     psych (4.0.6)
       stringio
     public_suffix (5.0.0)
-    puma (5.6.5)
+    puma (6.0.0)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.6.0)
     rack (2.2.4)
     rack-mini-profiler (3.0.0)
       rack (>= 1.2.0)
+    rack-protection (3.0.2)
+      rack
     rack-proxy (0.7.4)
       rack
     rack-test (2.0.2)
@@ -303,22 +329,19 @@ GEM
       parser (>= 2.6.4.0)
       sorbet-runtime (>= 0.5.9204)
       unparser
-    react_on_rails (13.1.0)
-      addressable
-      connection_pool
-      execjs (~> 2.5)
-      rails (>= 5.2)
-      rainbow (~> 3.0)
     regexp_parser (2.5.0)
     reline (0.3.1)
       io-console (~> 0.5)
-    rest-client (2.1.0)
-      http-accept (>= 1.7.0, < 2.0)
+    rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rexml (3.2.5)
     rouge (3.30.0)
+    rspotify (2.11.1)
+      addressable (~> 2.8.0)
+      omniauth-oauth2 (>= 1.6)
+      rest-client (~> 2.0.2)
     rubocop (1.36.0)
       json (~> 2.3)
       parallel (~> 1.10)
@@ -344,27 +367,26 @@ GEM
       rubocop (~> 1.35)
     rubocop-sorbet (0.6.11)
       rubocop (>= 0.90.0)
-    ruby-lsp (0.3.3)
+    ruby-lsp (0.3.5)
       language_server-protocol (~> 3.17.0)
       sorbet-runtime
-      syntax_tree (>= 3.4)
+      syntax_tree (>= 4.0.2)
     ruby-next-core (0.15.2)
     ruby-progressbar (1.11.0)
     ruby-vips (2.1.4)
       ffi (~> 1.12)
+    ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     selenium-webdriver (4.4.0)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    semantic_range (3.0.0)
-    shakapacker (6.5.1)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
+    shortuuid (0.6.0)
     silencer (2.0.0)
+    snaky_hash (2.0.1)
+      hashie
+      version_gem (~> 1.1, >= 1.1.1)
     sorbet (0.5.10451)
       sorbet-static (= 0.5.10451)
     sorbet-runtime (0.5.10451)
@@ -378,6 +400,7 @@ GEM
       sorbet (>= 0.5.9204)
       sorbet-runtime (>= 0.5.9204)
       thor (>= 0.19.2)
+    spring (4.0.0)
     sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -388,8 +411,8 @@ GEM
     stackprof (0.2.21)
     stringio (3.0.2)
     strscan (3.0.4)
-    syntax_tree (3.6.0)
-      prettier_print
+    syntax_tree (4.3.0)
+      prettier_print (>= 1.0.2)
     tapioca (0.10.1)
       bundler (>= 1.17.3)
       netrc (>= 0.11.0)
@@ -402,10 +425,6 @@ GEM
       yard-sorbet
     thor (1.2.1)
     timeout (0.3.0)
-    turbo-rails (1.1.1)
-      actionpack (>= 6.0.0)
-      activejob (>= 6.0.0)
-      railties (>= 6.0.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
@@ -416,6 +435,14 @@ GEM
     unparser (0.6.5)
       diff-lcs (~> 1.3)
       parser (>= 3.1.0)
+    version_gem (1.1.1)
+    vite_rails (3.0.12)
+      railties (>= 5.1, < 8)
+      vite_ruby (~> 3.0, >= 3.2.2)
+    vite_ruby (3.2.10)
+      dry-cli (~> 0.7.0)
+      rack-proxy (~> 0.6, >= 0.6.1)
+      zeitwerk (~> 2.2)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -452,6 +479,7 @@ DEPENDENCIES
   annotate
   aws-sdk-core
   aws-sdk-s3 (~> 1.113)
+  better_errors
   binding_of_caller
   bootsnap
   break
@@ -469,23 +497,23 @@ DEPENDENCIES
   honeybadger (~> 4.12)
   httparty (~> 0.20.0)
   image_processing (~> 1.2)
+  inertia_rails (~> 3.0)
   listen (~> 3.7)
   mailgun-ruby (~> 1.2)
   memory_profiler
-  meta-tags (~> 2.16)
-  pg (~> 1.1)
+  pg (~> 1.2)
+  premailer-rails (~> 1.11)
   pry
   pry-doc
   pry-rails
   pry-sorbet
   pry-stack_explorer
   psych (~> 4.0)
-  puma (~> 5.0)
+  puma (~> 6.0)
   rack-mini-profiler
   rails (~> 7.0.3, >= 7.0.3.1)
   rails-healthcheck
-  react_on_rails (= 13.1)
-  responders!
+  rspotify (~> 2.11)
   rubocop (~> 1.32)
   rubocop-graphql
   rubocop-performance
@@ -495,17 +523,17 @@ DEPENDENCIES
   ruby-lsp
   ruby-vips (~> 2.1)
   selenium-webdriver
-  shakapacker (= 6.5.1)
+  shortuuid (~> 0.6.0)
   silencer (~> 2.0.0)
   sorbet (~> 0.5.10262)
   sorbet-runtime (~> 0.5.10417)
   spoom
-  sprockets (~> 4.0)
+  spring
   sprockets-rails (~> 3.4)
   stackprof
   tapioca (~> 0.10.0)
-  turbo-rails
   tzinfo-data
+  vite_rails (~> 3.0)
   web-console
   webdrivers
 

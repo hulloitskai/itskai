@@ -33,7 +33,6 @@ module ItsKai
     # config.eager_load_paths << Rails.root.join("extras")
 
     # == Generators ==
-    config.app_generators.scaffold_controller(:responders_controller)
     config.generators do |g|
       # Generate Active Record model and migration with UUID primary keys.
       g.orm(:active_record, primary_key_type: :uuid)
@@ -77,8 +76,5 @@ module ItsKai
     # == Action Mailer ==
     config.action_mailer.perform_deliveries =
       ENV.fetch("RAILS_MAILER_PERFORM_DELIVERIES", "true").truthy?
-
-    # == Responders ==
-    config.responders.redirect_status = :see_other
   end
 end

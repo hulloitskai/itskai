@@ -1,0 +1,98 @@
+import { FC } from "react";
+
+import { Code, Text } from "@mantine/core";
+import { closeAllModals, openModal } from "@mantine/modals";
+import { showNotification } from "@mantine/notifications";
+
+import TestForm from "~/components/TestForm";
+import TestFeed from "~/components/TestFeed";
+
+import ExclamationCircleIcon from "~icons/heroicons/exclamation-circle-20-solid";
+import PencilSquareIcon from "~icons/heroicons/pencil-square-20-solid";
+import BellAlertIcon from "~icons/heroicons/bell-alert-20-solid";
+import ArrowTopRightOnSquareIcon from "~icons/heroicons/arrow-top-right-on-square-20-solid";
+
+import { TestPageQuery } from "~/queries";
+
+type TestPageProps = {
+  readonly data: TestPageQuery;
+  readonly name: string;
+};
+
+type TestPageFormValues = {
+  readonly name: string;
+};
+
+const TestPage: FC<TestPageProps> = ({ data, name: initialName }) => {
+  // == Form ==
+  const { values, getInputProps } = useForm<TestPageFormValues>({
+    initialValues: resolve<TestPageFormValues>(() => {
+      return { name: initialName };
+    }),
+  });
+
+  const { name } = values;
+  const nameDescription = useMemo(() => {
+    return `Your name is: ${name}`;
+  }, [name]);
+
+  // == Callbacks ==
+  const showModal = useCallback(() => {
+    openModal({
+      title: <Title order={3}>I Am A Modal!</Title>,
+      children: <TestPageModalContent {...{ name }} />,
+    });
+  }, [name]);
+  const showAlert = useCallback(() => {
+    showNotification({
+      color: "yellow",
+      icon: <ExclamationCircleIcon />,
+      title: "I hate Visual Programming",
+      message: "Miss me with that visual programming shit.",
+    });
+  }, []);
+
+  // == Render ==
+  return (
+    <Stack spacing="xl">
+      <Title>Test Page</Title>
+      <Stack spacing="xs">
+        <Title order={4}>Test Component Data</Title>
+        <Code block>{JSON.stringify(data, undefined, 2)}</Code>
+        <TextInput
+          icon={<PencilSquareIcon />}
+          label="Name"
+          description={nameDescription}
+          placeholder="Some Input"
+          {...getInputProps("name")}
+        />
+        <Group spacing="xs" grow>
+          <Button leftIcon={<ArrowTopRightOnSquareIcon />} onClick={showModal}>
+            Open Modal
+          </Button>
+          <Button leftIcon={<BellAlertIcon />} onClick={showAlert}>
+            Notify Me
+          </Button>
+        </Group>
+      </Stack>
+      <Divider />
+      <TestForm />
+      <Divider />
+      <TestFeed />
+    </Stack>
+  );
+};
+
+type TestPageModalContentProps = {
+  readonly name: string;
+};
+
+const TestPageModalContent: FC<TestPageModalContentProps> = ({ name }) => (
+  <Stack spacing="xs">
+    <Text>I&apos;m magic! And, your name is:</Text>
+    <TextInput value={name} readOnly />
+    <Button onClick={() => closeAllModals()}>Uh-huh.</Button>
+  </Stack>
+);
+
+export default TestPage;

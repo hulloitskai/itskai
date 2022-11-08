@@ -3,7 +3,7 @@
 
 module Queries
   class Resume < BaseQuery
-    extend T::Sig
+    # extend T::Sig
     extend T::Helpers
 
     RESUME_PATH = Rails.root.join("config/resume.yml")

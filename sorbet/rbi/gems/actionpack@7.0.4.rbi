@@ -716,9 +716,6 @@ module AbstractController::Collector
   def ttf(*args, **_arg1, &block); end
 
   # source://actionpack//lib/abstract_controller/collector.rb#10
-  def turbo_stream(*args, **_arg1, &block); end
-
-  # source://actionpack//lib/abstract_controller/collector.rb#10
   def url_encoded_form(*args, **_arg1, &block); end
 
   # source://actionpack//lib/abstract_controller/collector.rb#10
@@ -1250,7 +1247,6 @@ class ActionController::API < ::ActionController::Metal
   include ::ActionController::Rescue
   include ::ActionController::Instrumentation
   include ::ActionController::ParamsWrapper
-  include ::ActionController::RespondWith
   include ::ActionDispatch::Routing::RouteSet::MountedHelpers
   include ::ActiveRecord::Railties::ControllerRuntime
   extend ::ActionView::ViewPaths::ClassMethods
@@ -1265,7 +1261,6 @@ class ActionController::API < ::ActionController::Metal
   extend ::ActiveSupport::Rescuable::ClassMethods
   extend ::ActionController::Instrumentation::ClassMethods
   extend ::ActionController::ParamsWrapper::ClassMethods
-  extend ::ActionController::RespondWith::ClassMethods
   extend ::ActionController::Railties::Helpers
   extend ::ActiveRecord::Railties::ControllerRuntime::ClassMethods
 
@@ -1323,15 +1318,6 @@ class ActionController::API < ::ActionController::Metal
   # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
   def logger=(value); end
 
-  # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-  def mimes_for_respond_to; end
-
-  # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-  def mimes_for_respond_to=(_arg0); end
-
-  # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-  def mimes_for_respond_to?; end
-
   # source://actionpack//lib/action_controller/metal/redirecting.rb#13
   def raise_on_open_redirects; end
 
@@ -1346,15 +1332,6 @@ class ActionController::API < ::ActionController::Metal
 
   # source://activesupport/7.0.4/lib/active_support/rescuable.rb#13
   def rescue_handlers?; end
-
-  # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-  def responder; end
-
-  # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-  def responder=(_arg0); end
-
-  # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-  def responder?; end
 
   class << self
     # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
@@ -1417,15 +1394,6 @@ class ActionController::API < ::ActionController::Metal
     # source://actionpack//lib/action_controller/metal.rb#210
     def middleware_stack; end
 
-    # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-    def mimes_for_respond_to; end
-
-    # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-    def mimes_for_respond_to=(value); end
-
-    # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-    def mimes_for_respond_to?; end
-
     # source://actionpack//lib/action_controller/metal/redirecting.rb#13
     def raise_on_open_redirects; end
 
@@ -1440,15 +1408,6 @@ class ActionController::API < ::ActionController::Metal
 
     # source://activesupport/7.0.4/lib/active_support/rescuable.rb#13
     def rescue_handlers?; end
-
-    # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-    def responder; end
-
-    # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-    def responder=(value); end
-
-    # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-    def responder?; end
 
     # Shortcut helper that returns all the ActionController::API modules except
     # the ones passed as arguments:
@@ -1706,10 +1665,7 @@ class ActionController::Base < ::ActionController::Metal
   include ::ActionController::Rescue
   include ::ActionController::Instrumentation
   include ::ActionController::ParamsWrapper
-  include ::Turbo::Native::Navigation
-  include ::Turbo::Frames::FrameRequest
-  include ::Turbo::Streams::TurboStreamsTagBuilder
-  include ::ActionController::RespondWith
+  include ::InertiaRails::Controller
   include ::ActionDispatch::Routing::RouteSet::MountedHelpers
   include ::ActiveRecord::Railties::ControllerRuntime
   include ::ActionPolicy::Behaviours::PolicyFor
@@ -1748,8 +1704,7 @@ class ActionController::Base < ::ActionController::Metal
   extend ::ActiveSupport::Rescuable::ClassMethods
   extend ::ActionController::Instrumentation::ClassMethods
   extend ::ActionController::ParamsWrapper::ClassMethods
-  extend ::Responders::ControllerMethod
-  extend ::ActionController::RespondWith::ClassMethods
+  extend ::InertiaRails::Controller::ClassMethods
   extend ::ActionController::Railties::Helpers
   extend ::ActiveRecord::Railties::ControllerRuntime::ClassMethods
   extend ::ActionPolicy::Behaviour::ClassMethods
@@ -1935,15 +1890,6 @@ class ActionController::Base < ::ActionController::Metal
   # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
   def logger=(value); end
 
-  # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-  def mimes_for_respond_to; end
-
-  # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-  def mimes_for_respond_to=(_arg0); end
-
-  # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-  def mimes_for_respond_to?; end
-
   # source://actionpack//lib/action_controller/metal/flash.rb#36
   def notice; end
 
@@ -1986,15 +1932,6 @@ class ActionController::Base < ::ActionController::Metal
   # source://activesupport/7.0.4/lib/active_support/rescuable.rb#13
   def rescue_handlers?; end
 
-  # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-  def responder; end
-
-  # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-  def responder=(_arg0); end
-
-  # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-  def responder?; end
-
   # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
   def stylesheets_dir; end
 
@@ -2016,8 +1953,6 @@ class ActionController::Base < ::ActionController::Metal
 
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
-
-  def _layout_from_proc; end
 
   # source://actionpack//lib/action_controller/base.rb#266
   def _protected_ivars; end
@@ -2242,15 +2177,6 @@ class ActionController::Base < ::ActionController::Metal
     # source://actionpack//lib/action_controller/metal.rb#210
     def middleware_stack; end
 
-    # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-    def mimes_for_respond_to; end
-
-    # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-    def mimes_for_respond_to=(value); end
-
-    # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-    def mimes_for_respond_to?; end
-
     # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
     def per_form_csrf_tokens; end
 
@@ -2290,15 +2216,6 @@ class ActionController::Base < ::ActionController::Metal
     # source://activesupport/7.0.4/lib/active_support/rescuable.rb#13
     def rescue_handlers?; end
 
-    # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-    def responder; end
-
-    # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-    def responder=(value); end
-
-    # source://responders/3.0.1-161f205b649489d740821425560eecd355fa02be/lib/action_controller/respond_with.rb#11
-    def responder?; end
-
     # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
     def stylesheets_dir; end
 
@@ -2331,14 +2248,10 @@ end
 
 # source://actionpack//lib/action_controller/base.rb#0
 module ActionController::Base::HelperMethods
-  include ::Turbo::DriveHelper
-  include ::Turbo::FramesHelper
-  include ::Turbo::IncludesHelper
-  include ::Turbo::StreamsHelper
-  include ::Turbo::Streams::ActionHelper
   include ::ActionText::ContentHelper
   include ::ActionText::TagHelper
-  include ::Webpacker::Helper
+  include ::InertiaRails::Helper
+  include ::ViteRails::TagHelpers
 
   # source://actionpack//lib/action_controller/metal/flash.rb#39
   def alert(*args, **_arg1, &block); end
@@ -6526,14 +6439,14 @@ module ActionController::Renderers
   # source://actionpack//lib/action_controller/metal/renderers.rb#144
   def _render_to_body_with_renderer(options); end
 
+  # source://inertia_rails/3.0.0/lib/inertia_rails.rb#9
+  def _render_with_renderer_inertia(component, options); end
+
   # source://actionpack//lib/action_controller/metal/renderers.rb#170
   def _render_with_renderer_js(js, options); end
 
   # source://actionpack//lib/action_controller/metal/renderers.rb#155
   def _render_with_renderer_json(json, options); end
-
-  # source://turbo-rails/1.1.1/lib/turbo/engine.rb#56
-  def _render_with_renderer_turbo_stream(turbo_streams_html, options); end
 
   # source://actionpack//lib/action_controller/metal/renderers.rb#175
   def _render_with_renderer_xml(xml, options); end
@@ -9293,6 +9206,9 @@ class ActionDispatch::DebugExceptions
   # source://honeybadger/4.12.2/lib/honeybadger/plugins/rails.rb#16
   def render_exception(arg, exception); end
 
+  # source://inertia_rails/3.0.0/lib/patches/debug_exceptions/patch-5-1.rb#11
+  def render_for_browser_request(request, wrapper); end
+
   private
 
   # @return [Boolean]
@@ -9325,9 +9241,6 @@ class ActionDispatch::DebugExceptions
 
   # source://actionpack//lib/action_dispatch/middleware/debug_exceptions.rb#90
   def render_for_api_request(content_type, wrapper); end
-
-  # source://actionpack//lib/action_dispatch/middleware/debug_exceptions.rb#76
-  def render_for_browser_request(request, wrapper); end
 
   # source://actionpack//lib/action_dispatch/middleware/debug_exceptions.rb#170
   def routes_inspector(exception); end
@@ -13943,6 +13856,12 @@ class ActionDispatch::Request
   # source://actionpack//lib/action_dispatch/http/mime_negotiation.rb#18
   def ignore_accept_header=(val); end
 
+  # source://inertia_rails/3.0.0/lib/patches/request.rb#2
+  def inertia?; end
+
+  # source://inertia_rails/3.0.0/lib/patches/request.rb#6
+  def inertia_partial?; end
+
   # source://actionpack//lib/action_dispatch/http/request.rb#428
   def inspect; end
 
@@ -14676,12 +14595,6 @@ class ActionDispatch::RequestEncoder::IdentityEncoder
 
   # source://actionpack//lib/action_dispatch/testing/request_encoder.rb#9
   def response_parser; end
-end
-
-# source://actionpack//lib/action_dispatch/testing/integration.rb#0
-class ActionDispatch::RequestEncoder::TurboStreamEncoder < ::ActionDispatch::RequestEncoder::IdentityEncoder
-  # source://turbo-rails/1.1.1/lib/turbo/engine.rb#82
-  def accept_header; end
 end
 
 # Makes a unique request id available to the +action_dispatch.request_id+ env variable (which is then accessible
@@ -15595,6 +15508,9 @@ class ActionDispatch::Routing::Mapper
   #
   # source://actionpack//lib/action_dispatch/routing/mapper.rb#2279
   def initialize(set); end
+
+  # source://inertia_rails/3.0.0/lib/patches/mapper.rb#2
+  def inertia(args, &block); end
 
   class << self
     # source://actionpack//lib/action_dispatch/routing/mapper.rb#381
@@ -17964,7 +17880,19 @@ module ActionDispatch::Routing::RouteSet::MountedHelpers
   mixes_in_class_methods GeneratedClassMethods
 
   # source://actionpack//lib/action_dispatch/routing/route_set.rb#468
+  def _good_job; end
+
+  # source://actionpack//lib/action_dispatch/routing/route_set.rb#468
+  def _graphiql_rails; end
+
+  # source://actionpack//lib/action_dispatch/routing/route_set.rb#468
   def _main_app; end
+
+  # source://actionpack//lib/action_dispatch/routing/route_set.rb#474
+  def good_job; end
+
+  # source://actionpack//lib/action_dispatch/routing/route_set.rb#474
+  def graphiql_rails; end
 
   # source://actionpack//lib/action_dispatch/routing/route_set.rb#474
   def main_app; end
@@ -18167,6 +18095,15 @@ class ActionDispatch::Routing::RouteWrapper < ::SimpleDelegator
   # source://actionpack//lib/action_dispatch/routing/inspector.rb#41
   def action; end
 
+  # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#238
+  def assets_prefix; end
+
+  # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#238
+  def assets_prefix=(_arg0); end
+
+  # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#238
+  def assets_prefix?; end
+
   # source://actionpack//lib/action_dispatch/routing/inspector.rb#13
   def constraints; end
 
@@ -18183,7 +18120,7 @@ class ActionDispatch::Routing::RouteWrapper < ::SimpleDelegator
 
   # @return [Boolean]
   #
-  # source://actionpack//lib/action_dispatch/routing/inspector.rb#45
+  # source://sprockets-rails/3.4.2/lib/sprockets/rails/route_wrapper.rb#9
   def internal?; end
 
   # source://actionpack//lib/action_dispatch/routing/inspector.rb#25
@@ -18197,6 +18134,17 @@ class ActionDispatch::Routing::RouteWrapper < ::SimpleDelegator
 
   # source://actionpack//lib/action_dispatch/routing/inspector.rb#29
   def reqs; end
+
+  class << self
+    # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#238
+    def assets_prefix; end
+
+    # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#238
+    def assets_prefix=(value); end
+
+    # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#238
+    def assets_prefix?; end
+  end
 end
 
 # This class is just used for displaying route information when someone

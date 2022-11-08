@@ -1,11 +1,10 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
   extend T::Sig
 
-  sig { void }
   def show
-    render(component: "HomePage")
+    render(inertia: "HomePage")
   end
 end

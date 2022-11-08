@@ -9,10 +9,19 @@ module GeneratedPathHelpersModule
   include ::ActionDispatch::Routing::PolymorphicRoutes
 
   sig { params(args: T.untyped).returns(String) }
+  def api_status_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def edit_rails_conductor_inbound_email_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def healthcheck_path(*args); end
+  def good_job_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def graphiql_rails_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def graphql_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_path(*args); end
@@ -96,14 +105,17 @@ module GeneratedPathHelpersModule
   def rails_storage_redirect_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def turbo_recede_historical_location_path(*args); end
+  def resume_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def turbo_refresh_historical_location_path(*args); end
+  def root_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def turbo_resume_historical_location_path(*args); end
+  def test_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def update_rails_disk_service_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def work_path(*args); end
 end

@@ -6,6 +6,8 @@ class TestController < ApplicationController
 
   sig { void }
   def show
-    render(component: "TestPage", variables: { name: "Bob Jones?" })
+    name = "Big Papa"
+    data = query!("TestPageQuery", { name: name })
+    render(inertia: "TestPage", props: { name: name, data: data })
   end
 end
