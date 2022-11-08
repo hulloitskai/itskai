@@ -7,7 +7,7 @@ import { TestMutationDocument } from "~/queries";
 
 type TestFormValues = {
   readonly name: string;
-  readonly birthday: string;
+  readonly birthday: string | null;
 };
 
 const TestForm: FC = () => {
@@ -24,7 +24,7 @@ const TestForm: FC = () => {
   const { getInputProps, onSubmit } = useForm<TestFormValues>({
     initialValues: {
       name: "",
-      birthday: "",
+      birthday: null,
     },
   });
   return (
