@@ -1,14 +1,12 @@
-import { FC } from "react";
+import type { FC } from "react";
+import type { PageComponent } from "~/helpers/inertia";
 import { AnchorProps, Text } from "@mantine/core";
 
 import { useContactMe } from "~/helpers/contact";
 
 import ExclamationCircleIcon from "~icons/heroicons/exclamation-circle-20-solid";
 
-// eslint-disable-next-line
-type HomePageProps = {};
-
-const HomePage: PageComponent<HomePageProps> = () => {
+const HomePage: PageComponent = () => {
   const theme = useMantineTheme();
   return (
     <Stack spacing="xl">
@@ -102,6 +100,8 @@ const HomePage: PageComponent<HomePageProps> = () => {
   );
 };
 
+export default HomePage;
+
 const ContactLink: FC<AnchorProps> = ({ ...otherProps }) => {
   const [contactMe] = useContactMe();
   return (
@@ -110,5 +110,3 @@ const ContactLink: FC<AnchorProps> = ({ ...otherProps }) => {
     </Anchor>
   );
 };
-
-export default HomePage;

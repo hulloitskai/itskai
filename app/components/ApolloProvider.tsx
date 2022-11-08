@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from "react";
+import type { FC, PropsWithChildren } from "react";
 
 import { ApolloProvider as _ApolloProvider } from "@apollo/client";
 import { createApolloClient } from "~/helpers/apollo";

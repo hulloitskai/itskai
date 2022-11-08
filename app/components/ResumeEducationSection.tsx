@@ -1,4 +1,4 @@
-import { FC } from "react";
+import type { FC } from "react";
 import { Text } from "@mantine/core";
 
 import ArrowRightIcon from "~icons/heroicons/arrow-long-right-20-solid";

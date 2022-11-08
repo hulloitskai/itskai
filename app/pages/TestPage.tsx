@@ -1,4 +1,5 @@
-import { FC } from "react";
+import type { FC } from "react";
+import type { PageComponent } from "~/helpers/inertia";
 
 import { Code, Text } from "@mantine/core";
 import { closeAllModals, openModal } from "@mantine/modals";
@@ -23,7 +24,10 @@ type TestPageFormValues = {
   readonly name: string;
 };
 
-const TestPage: FC<TestPageProps> = ({ data, name: initialName }) => {
+const TestPage: PageComponent<TestPageProps> = ({
+  data,
+  name: initialName,
+}) => {
   // == Form ==
   const { values, getInputProps } = useForm<TestPageFormValues>({
     initialValues: resolve<TestPageFormValues>(() => {
@@ -83,6 +87,8 @@ const TestPage: FC<TestPageProps> = ({ data, name: initialName }) => {
   );
 };
 
+export default TestPage;
+
 type TestPageModalContentProps = {
   readonly name: string;
 };
@@ -94,5 +100,3 @@ const TestPageModalContent: FC<TestPageModalContentProps> = ({ name }) => (
     <Button onClick={() => closeAllModals()}>Uh-huh.</Button>
   </Stack>
 );
-
-export default TestPage;

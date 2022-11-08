@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from "react";
+import type { FC, PropsWithChildren } from "react";
 
 import { MantineProvider as _MantineProvider } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";

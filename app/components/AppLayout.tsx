@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, ReactElement } from "react";
+import type { FC, PropsWithChildren, ReactElement } from "react";
 import { AppShell } from "@mantine/core";
 
 import AppHeader from "./AppHeader";

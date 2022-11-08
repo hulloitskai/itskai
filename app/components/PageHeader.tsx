@@ -1,4 +1,4 @@
-import { FC } from "react";
+import type { FC } from "react";
 import { CSSObject, Text } from "@mantine/core";
 
 export type PageHeaderProps = {

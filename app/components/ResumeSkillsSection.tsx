@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import type { FC } from "react";
 
 export type ResumeSkillsSectionProps = {
   readonly info: Record<string, string> & {

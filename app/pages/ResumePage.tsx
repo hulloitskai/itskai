@@ -1,10 +1,11 @@
+import type { PageComponent } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
 import ResumeLayout from "~/components/ResumeLayout";
 import ResumeEducationSection from "~/components/ResumeEducationSection";
 import ResumeSkillsSection from "~/components/ResumeSkillsSection";
 import ResumeWorkSection from "~/components/ResumeWorkSection";
-import ResumePdfDownloadButton from "~/components/ResumePDFDownloadButton";
+import ResumePDFDownloadButton from "~/components/ResumePDFDownloadButton";
 
 import EnvelopeIcon from "~icons/heroicons/envelope-20-solid";
 import GithubIcon from "~icons/feather/github";
@@ -146,7 +147,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({ data, printable }) => {
           </Text>
         </Box>
       </ResumeLayout>
-      {!printable && <ResumePdfDownloadButton />}
+      {!printable && <ResumePDFDownloadButton />}
     </>
   );
 };

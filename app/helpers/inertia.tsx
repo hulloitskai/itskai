@@ -1,9 +1,13 @@
-import type { ReactElement } from "react";
+import type { ReactElement, ComponentType } from "react";
 import type { PageProps } from "@inertiajs/inertia";
 import type { SetupOptions } from "@inertiajs/inertia-react";
 
 import AppProviders from "~/components/AppProviders";
 import { withAppLayout } from "~/components/AppLayout";
+
+export type PageComponent<P = {}> = ComponentType<P> & {
+  layout?: ((page: ReactElement) => ReactElement) | null;
+};
 
 export const pagesFromFiles = <T,>(
   files: Record<string, T>,

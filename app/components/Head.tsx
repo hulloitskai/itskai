@@ -1,4 +1,5 @@
-import { FC, PropsWithChildren } from "react";
+import type { FC, PropsWithChildren } from "react";
+
 import { InertiaHeadProps } from "@inertiajs/inertia-react";
 import { Head as _Head } from "@inertiajs/inertia-react";
 

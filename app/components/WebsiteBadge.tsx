@@ -1,4 +1,4 @@
-import { FC } from "react";
+import type { FC } from "react";
 import { BadgeProps } from "@mantine/core";
 
 import LinkIcon from "~icons/heroicons/link-20-solid";

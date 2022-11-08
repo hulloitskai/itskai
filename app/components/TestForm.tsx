@@ -1,5 +1,4 @@
-import { FC } from "react";
-
+import type { FC } from "react";
 import { DatePicker } from "@mantine/dates";
 import { showNotification } from "@mantine/notifications";
 

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import type { FC } from "react";
 import { Code, LoadingOverlay } from "@mantine/core";
 
 import { TestFeedSubscriptionDocument } from "~/queries";

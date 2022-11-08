@@ -1,9 +1,9 @@
-import { FC } from "react";
+import type { FC } from "react";
 import { Text } from "@mantine/core";
 
-import ArrowRightIcon from "~icons/heroicons/arrow-long-right-20-solid";
+import WebsiteBadge from "./WebsiteBadge";
 
-import WebsiteBadge from "~/components/WebsiteBadge";
+import ArrowRightIcon from "~icons/heroicons/arrow-long-right-20-solid";
 
 export type ResumeWorkSectionProps = {
   readonly info: Record<string, string> & {

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import type { FC } from "react";
 import { useContactMe } from "~/helpers/contact";
 
 import EnvelopeIcon from "~icons/heroicons/envelope-20-solid";
