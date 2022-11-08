@@ -1,4 +1,4 @@
-import { FC } from "react";
+import type { FC } from "react";
 import { Header } from "@mantine/core";
 
 const AppHeader: FC = () => (

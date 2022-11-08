@@ -26,7 +26,7 @@ const HomePage: PageComponent = () => {
       <Alert
         color="indigo"
         icon={<ExclamationCircleIcon />}
-        title="Kai is currently looking for work!"
+        title="I'm currently looking for work!"
         styles={({ spacing, colors }) => ({
           icon: {
             marginRight: spacing.xs,
@@ -62,6 +62,7 @@ const HomePage: PageComponent = () => {
             styles={({ colors, fn }) => ({
               item: {
                 color: colors.dark[fn.primaryShade()],
+                fontWeight: 500,
               },
             })}
           >
@@ -75,7 +76,7 @@ const HomePage: PageComponent = () => {
             </List.Item>
             <List.Item>
               To encourage others to interact with me and do fun things together
-              with me in The Real World™!
+              with me in The Real World!
             </List.Item>
           </List>
           <Text color="dark.3">
