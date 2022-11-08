@@ -166,7 +166,7 @@ module GraphiQL::Rails::EditorsController::HelperMethods
   include ::ViteRails::TagHelpers
   include ::ActionController::Base::HelperMethods
 
-  def graphql_endpoint_path(*args, **_arg1, &block); end
+  # def graphql_endpoint_path(*args, **_arg1, &block); end
 end
 
 # source://graphiql-rails//lib/graphiql/rails/engine.rb#3

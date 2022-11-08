@@ -13,6 +13,17 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= action_cable_meta_tag %>
+    <%= display_meta_tags(
+      reverse: true,
+      site: "It's Kai!",
+      description: "Welcome to my little corner of the internet :)",
+      og: {
+        title: :title,
+        site_name: :site,
+        description: :description,
+        image: image_url("logo.png", skip_pipeline: true),
+      },
+    ) %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="graphql-url" content="<%= graphql_path %>">
 

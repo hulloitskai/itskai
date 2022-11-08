@@ -1668,6 +1668,7 @@ class ActionController::Base < ::ActionController::Metal
   include ::InertiaRails::Controller
   include ::ActionDispatch::Routing::RouteSet::MountedHelpers
   include ::ActiveRecord::Railties::ControllerRuntime
+  include ::MetaTags::ControllerHelper
   include ::ActionPolicy::Behaviours::PolicyFor
   include ::ActionPolicy::Behaviours::Scoping
   include ::ActionPolicy::Behaviour

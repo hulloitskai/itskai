@@ -897,6 +897,7 @@ class ActionView::Base
   include ::ActionView::Helpers::NumberHelper
   include ::ActionView::Helpers::RenderingHelper
   include ::ActionView::Helpers
+  include ::MetaTags::ViewHelper
   include ::ActionCable::Helpers::ActionCableHelper
   include ::ViteRails::TagHelpers
   include ::Sprockets::Rails::Utils
