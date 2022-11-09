@@ -3,6 +3,7 @@
     "sourceCodeDir": "app",
     "watchAdditionalPaths": [],
     "ssrBuildEnabled": true,
+    "ssrEntrypoint": "~/ssr/application.{js,jsx,ts,tsx}",
     "ssrOutputDir": "dist"
   },
   "development": {
