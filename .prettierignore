@@ -1,8 +1,6 @@
 app/graphql/schema.graphql
-app/assets/builds/
-app/packs/server-bundle-generated.js
-app/packs/generated
-app/views/shared/helpers/-generated.ts
+app/queries
+app/routes
 bin/
 db/schema.rb
 log/

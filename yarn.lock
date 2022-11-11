@@ -1319,6 +1319,11 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@js-from-routes/inertia@^1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@js-from-routes/inertia/-/inertia-1.10.2.tgz#d1098717272c3a7bff0d20d402c0ce0b6cb2f16e"
+  integrity sha512-4Lv016v6ir7Ayp8ZsWzlMZfOEHaajd53ZwiueUzrtzkkZ5+HmUW9AmtEK29jom4qmBLVksVyreQL6BjxdEx6/w==
+
 "@mantine/core@^5.7.1":
   version "5.7.1"
   resolved "https://registry.yarnpkg.com/@mantine/core/-/core-5.7.1.tgz#2fdbff0c0034a46d9f68bde560ce547e2f83e248"

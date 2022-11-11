@@ -116,6 +116,9 @@ gem "rspotify", "~> 2.11"
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"
+
+  # Generate JavaScript path helpers
+  gem "js_from_routes", "~> 2.0"
 end
 
 group :development do

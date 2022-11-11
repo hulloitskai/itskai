@@ -8,7 +8,10 @@ Rails.application.routes.draw do
 
   # == API ==
   scope :api do
-    mount GraphiQL::Rails::Engine, at: :/, graphql_path: "/api/graphql"
+    mount GraphiQL::Rails::Engine,
+          at: :/,
+          as: :graphiql,
+          graphql_path: "/api/graphql"
     scope :graphql, controller: :graphql do
       post :/, action: :execute, as: :graphql
     end

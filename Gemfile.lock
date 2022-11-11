@@ -188,6 +188,8 @@ GEM
     irb (1.4.1)
       reline (>= 0.3.0)
     jmespath (1.6.1)
+    js_from_routes (2.0.6)
+      railties (>= 5.1, < 8)
     json (2.6.2)
     jwt (2.5.0)
     language_server-protocol (3.17.0.1)
@@ -500,6 +502,7 @@ DEPENDENCIES
   httparty (~> 0.20.0)
   image_processing (~> 1.2)
   inertia_rails (~> 3.0)
+  js_from_routes (~> 2.0)
   listen (~> 3.7)
   mailgun-ruby (~> 1.2)
   memory_profiler
