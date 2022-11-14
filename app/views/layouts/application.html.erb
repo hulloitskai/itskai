@@ -29,8 +29,10 @@
 
     <%# == Scripts == %>
     <%= vite_client_tag %>
-    <%= vite_react_refresh_tag %>
-    <%= vite_typescript_tag 'application' %>
+    <% if local_assigns.include?(:page) %>
+      <%= vite_react_refresh_tag %>
+      <%= vite_typescript_tag 'application' %>
+    <% end %>
 
     <%# == Inertia == %>
     <% InertiaRails.html_headers.each do |header| %>

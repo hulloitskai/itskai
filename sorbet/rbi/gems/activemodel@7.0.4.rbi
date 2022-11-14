@@ -4336,6 +4336,9 @@ ActiveModel::VERSION::MAJOR = T.let(T.unsafe(nil), Integer)
 # source://activemodel//lib/active_model/gem_version.rb#11
 ActiveModel::VERSION::MINOR = T.let(T.unsafe(nil), Integer)
 
+# source://activemodel//lib/active_model/gem_version.rb#13
+ActiveModel::VERSION::PRE = T.let(T.unsafe(nil), T.untyped)
+
 # source://activemodel//lib/active_model/gem_version.rb#15
 ActiveModel::VERSION::STRING = T.let(T.unsafe(nil), String)
 

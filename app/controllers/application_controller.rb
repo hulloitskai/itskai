@@ -11,8 +11,15 @@ class ApplicationController < ActionController::Base
   before_action :debug_action
   around_action :prepare_action
 
-  # == Queries ==
-  include Queries
+  # == Modules ==
+  include GraphQL::Querying
+
+  # == Inertia ==
+  inertia_share do
+    T.bind(self, ApplicationController)
+    flash = self.flash.to_h.presence
+    { flash: flash }.compact
+  end
 
   private
 

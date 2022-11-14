@@ -29,14 +29,11 @@ export default defineConfig({
       jsx: "react",
     }),
     graphqlCodegenPlugin({
-      configFilePathOverride: join(
-        __dirname,
-        "config/graphql-codegen.config.ts",
-      ),
-      configOverride: {
+      config: {
+        schema: "app/graphql/schema.graphql",
+        documents: ["app/queries/*.graphql"],
         generates: {
           "./app/queries/index.ts": {
-            schema: "app/graphql/schema.graphql",
             config: {
               omitOperationSuffix: true,
             },

@@ -227,6 +227,8 @@ class GoodJob::Job
     sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
     def execution_ids=(ids); end
 
+    # This method is created by ActiveRecord on the `GoodJob::Job` class because it declared `has_many :executions`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
     sig { returns(::GoodJob::Execution::PrivateCollectionProxy) }
     def executions; end
 

@@ -6,6 +6,6 @@ module ActionMailer::Parameterized::ClassMethods
 end
 
 class ActionMailer::Base
-  sig { params(headers: T.untyped).returns(Mail::Message) }
+  sig { params(headers: T.untyped, block: T.untyped).returns(Mail::Message) }
   def mail(headers = nil, &block); end
 end

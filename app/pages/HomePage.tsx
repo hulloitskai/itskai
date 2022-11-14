@@ -1,8 +1,7 @@
-import type { FC } from "react";
 import type { PageComponent } from "~/helpers/inertia";
-import { AnchorProps, Text } from "@mantine/core";
+import { Text } from "@mantine/core";
 
-import { useContactMe } from "~/helpers/contact";
+import HomeContactLink from "~/components/HomeContactLink";
 
 import ExclamationCircleIcon from "~icons/heroicons/exclamation-circle-20-solid";
 
@@ -83,7 +82,7 @@ const HomePage: PageComponent = () => {
             Is there something you wanted to chat with me about? Please reach
             out!
             <br />
-            You can <ContactLink color="indigo" /> or{" "}
+            You can <HomeContactLink color="indigo" /> or{" "}
             <Anchor
               href="http://calendly.com/hulloitskai/hangout"
               target="_blank"
@@ -102,12 +101,3 @@ const HomePage: PageComponent = () => {
 };
 
 export default HomePage;
-
-const ContactLink: FC<AnchorProps> = ({ ...otherProps }) => {
-  const [contactMe] = useContactMe();
-  return (
-    <Anchor component="button" weight={500} onClick={contactMe} {...otherProps}>
-      email me
-    </Anchor>
-  );
-};

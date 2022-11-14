@@ -6,7 +6,8 @@
 class Schema < GraphQL::Schema
   extend T::Sig
 
-  # == Modules ==
+  # == Plugins ==
+  use GraphQL::Queries
   use GraphQL::Subscriptions::ActionCableSubscriptions, broadcast: true
   use GraphQL::PersistedQueries, compiled_queries: true
   use GraphQL::Dataloader
@@ -23,16 +24,7 @@ class Schema < GraphQL::Schema
   mutation Types::MutationType
   subscription Types::SubscriptionType
 
-  # GraphQL-Ruby calls this when something goes wrong while running a query.
-  sig { params(err: T.untyped, context: T.untyped).returns(T.untyped) }
-  def self.type_error(err, context)
-    # if err.is_a?(GraphQL::InvalidNullError)
-    #   # report to your bug tracker here
-    #   return nil
-    # end
-    super
-  end
-
+  # == Resolvers ==
   # Resolve unions and interfaces.
   #
   # TODO: Implement this method to return the correct GraphQL object type for
@@ -65,5 +57,16 @@ class Schema < GraphQL::Schema
   end
   def self.object_from_id(id, query_ctx)
     GlobalID::Locator.locate(id)
+  end
+
+  # == Callbacks ==
+  # GraphQL-Ruby calls this when something goes wrong while running a query.
+  sig { params(err: T.untyped, context: T.untyped).returns(T.untyped) }
+  def self.type_error(err, context)
+    # if err.is_a?(GraphQL::InvalidNullError)
+    #   # report to your bug tracker here
+    #   return nil
+    # end
+    super
   end
 end

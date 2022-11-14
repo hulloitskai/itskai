@@ -3,8 +3,8 @@ import { Header } from "@mantine/core";
 
 const AppHeader: FC = () => (
   <Header
-    p="xs"
-    height={36}
+    height={38}
+    p={8}
     sx={{
       display: "flex",
       alignItems: "center",

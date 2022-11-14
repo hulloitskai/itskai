@@ -13,3 +13,14 @@ class BetterErrors::StackFrame
 
   prepend Extension
 end
+
+class BetterErrors::Middleware
+  private
+
+  def text?(env)
+    (
+      env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest" &&
+        env["HTTP_X_INERTIA"] != "true"
+    ) || !env["HTTP_ACCEPT"].to_s.include?("html")
+  end
+end

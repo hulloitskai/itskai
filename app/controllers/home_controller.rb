@@ -5,6 +5,7 @@ class HomeController < ApplicationController
   extend T::Sig
 
   def show
-    render(inertia: "HomePage")
+    data = query!("HomePageQuery")
+    render(inertia: "HomePage", props: { data: data })
   end
 end

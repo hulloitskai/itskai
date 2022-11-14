@@ -10,6 +10,7 @@
     "dbaeumer.vscode-eslint",
     "editorconfig.editorconfig",
     "benspaulding.procfile",
-    "koichisasada.vscode-rdbg"
+    "koichisasada.vscode-rdbg",
+    "itarato.byesig"
   ]
 }

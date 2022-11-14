@@ -6,6 +6,21 @@ Rails.application.routes.draw do
   # == Healthcheck ==
   Healthcheck.routes(self)
 
+  # == Devise ==
+  devise_for :users,
+             path: :account,
+             skip: :registrations,
+             controllers: {
+               sessions: "users/sessions",
+               omniauth_callbacks: "users/omniauth_callbacks",
+             }
+  devise_scope :user do
+    scope :account, module: "users" do
+      post :/, to: "registrations#create", as: :user_registration
+      get :sign_up, to: "registrations#new", as: :new_user_registration
+    end
+  end
+
   # == API ==
   scope :api do
     mount GraphiQL::Rails::Engine,
@@ -13,6 +28,7 @@ Rails.application.routes.draw do
           as: :graphiql,
           graphql_path: "/api/graphql"
     scope :graphql, controller: :graphql do
+      get :/, to: redirect("/api")
       post :/, action: :execute, as: :graphql
     end
   end

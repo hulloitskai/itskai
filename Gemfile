@@ -83,7 +83,7 @@ gem "discard", "~> 1.2"
 gem "meta-tags", "~> 2.16"
 
 # Typecheck code at runtime
-gem "sorbet-runtime", "~> 0.5.10417"
+gem "sorbet-runtime", "~> 0.5.10554"
 
 # Use Enumerize to enumerate attributes
 gem "enumerize", "~> 2.5"
@@ -110,6 +110,14 @@ gem "premailer-rails", "~> 1.11"
 # Parse YAML files with Psych
 gem "psych", "~> 4.0"
 
+# Authenticate users with Devise
+gem "devise", "~> 4.8"
+
+# Use OmniAuth to authenticate with external providers (i.e. Spotify)
+gem "omniauth", "~> 2.1"
+gem "omniauth-rails_csrf_protection", "~> 1.0"
+gem "omniauth-spotify", "~> 0.0.13"
+
 # Use RSpotify to read currently playing data from Spotify
 gem "rspotify", "~> 2.11"
 
@@ -126,9 +134,9 @@ group :development do
   gem "listen", "~> 3.7"
 
   # Typecheck code
-  gem "sorbet", "~> 0.5.10262", require: false
+  gem "sorbet", "~> 0.5.10554", require: false
   gem "spoom", require: false
-  gem "tapioca", "~> 0.10.0", require: false
+  gem "tapioca", "~> 0.10.3", require: false
 
   # Use Rubocop to lint code
   gem "rubocop", "~> 1.32", require: false

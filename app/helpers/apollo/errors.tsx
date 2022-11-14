@@ -1,5 +1,4 @@
 import type { ApolloError, ServerError } from "@apollo/client";
-import { showNotification } from "@mantine/notifications";
 
 import ExclamationTriangleIcon from "~icons/heroicons/exclamation-triangle-20-solid";
 

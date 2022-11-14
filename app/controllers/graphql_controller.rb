@@ -1,11 +1,14 @@
 # typed: strict
 # frozen_string_literal: true
 
-class GraphqlController < ApplicationController
+class GraphQLController < ApplicationController
   extend T::Sig
 
   # == Configuration ==
   protect_from_forgery with: :null_session, only: :execute
+
+  # == Modules ==
+  include GraphQL::Helpers
 
   # == Actions ==
   sig { void }
@@ -21,12 +24,7 @@ class GraphqlController < ApplicationController
 
     variables = prepare_variables(params[:variables])
     extensions = prepare_extensions(params[:extensions])
-    context = {
-      controller: self,
-      extensions: extensions,
-      # current_user: current_user,
-      csrf_token: form_authenticity_token,
-    }
+    context = { extensions: extensions, current_user: current_user }
 
     result =
       Schema.execute(
@@ -42,45 +40,6 @@ class GraphqlController < ApplicationController
   end
 
   private
-
-  # Handle variables in form data, JSON body, or a blank value.
-  sig { params(variables_param: T.untyped).returns(T::Hash[String, T.untyped]) }
-  def prepare_variables(variables_param)
-    ensure_hash(variables_param) do
-      raise ArgumentError, "Unexpected variables parameter: #{variables_param}"
-    end
-  end
-
-  # Handle extensions in form data, JSON body, or a blank value.
-  sig do
-    params(extensions_param: T.untyped).returns(T::Hash[String, T.untyped])
-  end
-  def prepare_extensions(extensions_param)
-    ensure_hash(extensions_param) do
-      raise ArgumentError,
-            "Unexpected extensions parameter: #{extensions_param}"
-    end
-  end
-
-  sig do
-    params(param: T.untyped, block: T.proc.void)
-      .returns(T::Hash[String, T.untyped])
-  end
-  def ensure_hash(param, &block)
-    case param
-    when String
-      param.present? ? JSON.parse(param) || {} : {}
-    when Hash
-      param
-    when ActionController::Parameters
-      # GraphQL-Ruby will validate name and type of incoming extensions.
-      param.to_unsafe_hash
-    when nil
-      {}
-    else
-      yield
-    end
-  end
 
   sig { params(e: StandardError).returns(T.untyped) }
   def handle_error_in_development(e)

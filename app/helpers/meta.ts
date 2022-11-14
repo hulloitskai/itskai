@@ -15,3 +15,5 @@ export const requireMeta = (name: string): string => {
   invariant(content, `missing meta content for '${name}'`);
   return content;
 };
+
+export const csrfToken = (): string => requireMeta("csrf-token");

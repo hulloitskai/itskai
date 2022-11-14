@@ -27,7 +27,7 @@ module Subscriptions
     sig { returns(Integer) }
     def subscribe
       self.class.increment!.tap do
-        Schema.subscriptions.trigger(:test_subscription, {}, nil)
+        Schema.subscriptions!.trigger(:test_subscription, {}, nil)
       end
     end
 

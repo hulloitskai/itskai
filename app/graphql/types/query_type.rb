@@ -15,9 +15,8 @@ module Types
     field :contact_email, resolver: Queries::ContactEmail
     field :resume, resolver: Queries::Resume
     field :test_echo, resolver: Queries::TestEcho
-
-    # field :viewer,
-    #       Types::UserType,
-    #       description: "The currently authenticated user."
+    field :viewer,
+          resolver: Queries::Viewer,
+          description: "The currently authenticated user."
   end
 end

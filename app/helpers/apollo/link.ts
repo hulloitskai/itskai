@@ -7,7 +7,6 @@ import { getOperationDefinition } from "@apollo/client/utilities";
 import ActionCableLink from "graphql-ruby-client/subscriptions/ActionCableLink";
 
 import { cable } from "~/helpers/cable";
-import { requireMeta } from "~/helpers/meta";
 
 export const createApolloLink = (): ApolloLink => {
   return from([new RetryLink(), createCsrfLink(), createTerminatingLink()]);
@@ -42,7 +41,7 @@ const createCsrfLink = (): ApolloLink => {
   return setContext(async (operation, { headers }) => ({
     headers: {
       ...headers,
-      ["X-CSRF-Token"]: requireMeta("csrf-token"),
+      ["X-CSRF-Token"]: csrfToken(),
     },
   }));
 };

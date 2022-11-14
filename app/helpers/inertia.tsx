@@ -1,11 +1,16 @@
 import type { ReactElement, ComponentType } from "react";
-import type { PageProps } from "@inertiajs/inertia";
-import type { SetupOptions } from "@inertiajs/inertia-react";
+import type { Page, PageProps, Errors } from "@inertiajs/inertia";
+import { SetupOptions } from "@inertiajs/inertia-react";
 
-import AppProviders from "~/components/AppProviders";
-import { withAppLayout } from "~/components/AppLayout";
+import AppContainer from "~/components/AppContainer";
 
-export type PageComponent<P = {}> = ComponentType<P> & {
+export type SharedProps = {
+  readonly flash?: Record<string, string>;
+};
+
+export type PageComponent<P = {}> = ComponentType<
+  P & { readonly errors?: Errors } & SharedProps
+> & {
   layout?: ((page: ReactElement) => ReactElement) | null;
 };
 
@@ -28,7 +33,18 @@ export const setupPage = (page: PageComponent): PageComponent => {
 export type SetupAppOptions = Omit<SetupOptions<null, PageProps>, "el">;
 
 export const setupApp = ({ App, props }: SetupAppOptions): ReactElement => (
-  <AppProviders>
+  <AppContainer>
     <App {...props} />
-  </AppProviders>
+  </AppContainer>
 );
+
+export const usePageProps = (): PageProps & SharedProps => {
+  const { props } = usePage<Page<SharedProps>>();
+  return omit(props, "errors") as PageProps & SharedProps;
+};
+
+export const usePageErrors = (): Errors => {
+  const { props } = usePage();
+  const { errors } = props;
+  return errors;
+};

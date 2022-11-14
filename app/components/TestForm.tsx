@@ -1,10 +1,9 @@
 import type { FC } from "react";
 import { DatePicker } from "@mantine/dates";
-import { showNotification } from "@mantine/notifications";
 
 import { TestMutationDocument } from "~/queries";
 
-type TestFormValues = {
+export type TestFormValues = {
   readonly name: string;
   readonly birthday: string | null;
 };

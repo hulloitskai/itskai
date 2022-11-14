@@ -38,7 +38,7 @@ class CurrentlyPlayingWorker
 
     sig { void }
     def update_subscriptions
-      Schema.subscriptions.trigger(:currently_playing, {}, @current_track)
+      Schema.subscriptions!.trigger(:currently_playing, {}, @current_track)
     end
   end
 end

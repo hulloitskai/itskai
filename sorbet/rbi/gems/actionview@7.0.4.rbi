@@ -9,6 +9,8 @@ class ActionController::Base < ::ActionController::Metal
   include ::ActionController::Head
   include ::AbstractController::Caching::ConfigMethods
   include ::ActionController::BasicImplicitRender
+  include ::Devise::Controllers::SignInOut
+  include ::Devise::Controllers::StoreLocation
   include ::ActionPolicy::Behaviours::PolicyFor
   include ::ActionPolicy::Behaviours::Scoping
   include ::ActionPolicy::Behaviour
@@ -200,6 +202,15 @@ class ActionController::Base < ::ActionController::Metal
   # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
   def logger=(value); end
 
+  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  def mimes_for_respond_to; end
+
+  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  def mimes_for_respond_to=(_arg0); end
+
+  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  def mimes_for_respond_to?; end
+
   # source://actionpack/7.0.4/lib/action_controller/metal/flash.rb#36
   def notice; end
 
@@ -241,6 +252,15 @@ class ActionController::Base < ::ActionController::Metal
 
   # source://activesupport/7.0.4/lib/active_support/rescuable.rb#13
   def rescue_handlers?; end
+
+  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  def responder; end
+
+  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  def responder=(_arg0); end
+
+  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  def responder?; end
 
   # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
   def stylesheets_dir; end
@@ -487,6 +507,15 @@ class ActionController::Base < ::ActionController::Metal
     # source://actionpack/7.0.4/lib/action_controller/metal.rb#210
     def middleware_stack; end
 
+    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    def mimes_for_respond_to; end
+
+    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    def mimes_for_respond_to=(value); end
+
+    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    def mimes_for_respond_to?; end
+
     # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
     def per_form_csrf_tokens; end
 
@@ -525,6 +554,15 @@ class ActionController::Base < ::ActionController::Metal
 
     # source://activesupport/7.0.4/lib/active_support/rescuable.rb#13
     def rescue_handlers?; end
+
+    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    def responder; end
+
+    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    def responder=(value); end
+
+    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    def responder?; end
 
     # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
     def stylesheets_dir; end
@@ -900,6 +938,7 @@ class ActionView::Base
   include ::MetaTags::ViewHelper
   include ::ActionCable::Helpers::ActionCableHelper
   include ::ViteRails::TagHelpers
+  include ::Devise::Controllers::UrlHelpers
   include ::Sprockets::Rails::Utils
   include ::Sprockets::Rails::Helper
   extend ::ActionView::Helpers::UrlHelper::ClassMethods
@@ -15494,6 +15533,16 @@ class ActionView::TestCase::TestController < ::ActionController::Base
   end
 end
 
+# source://actionview//lib/action_view/test_case.rb#0
+module ActionView::TestCase::TestController::HelperMethods
+  include ::ActionText::ContentHelper
+  include ::ActionText::TagHelper
+  include ::InertiaRails::Helper
+  include ::ViteRails::TagHelpers
+  include ::ActionController::Base::HelperMethods
+  include ::DeviseHelper
+end
+
 # source://actionview//lib/action_view/unbound_template.rb#6
 class ActionView::UnboundTemplate
   # @return [UnboundTemplate] a new instance of UnboundTemplate
@@ -15543,6 +15592,9 @@ ActionView::VERSION::MAJOR = T.let(T.unsafe(nil), Integer)
 
 # source://actionview//lib/action_view/gem_version.rb#11
 ActionView::VERSION::MINOR = T.let(T.unsafe(nil), Integer)
+
+# source://actionview//lib/action_view/gem_version.rb#13
+ActionView::VERSION::PRE = T.let(T.unsafe(nil), T.untyped)
 
 # source://actionview//lib/action_view/gem_version.rb#15
 ActionView::VERSION::STRING = T.let(T.unsafe(nil), String)

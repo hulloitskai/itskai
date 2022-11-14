@@ -3,9 +3,8 @@
 
 module Types
   class TestModelType < BaseObject
-    global_id_field :id
-
     field :birthday, DateType
+    field :id, ID, null: false
     field :name, String, null: false
   end
 end

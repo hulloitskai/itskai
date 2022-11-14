@@ -1,0 +1,4 @@
+fragment AppFooterViewerFragment on User {
+  id
+  name
+}

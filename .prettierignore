@@ -1,5 +1,5 @@
 app/graphql/schema.graphql
-app/queries
+app/queries/*.ts
 app/routes
 bin/
 db/schema.rb

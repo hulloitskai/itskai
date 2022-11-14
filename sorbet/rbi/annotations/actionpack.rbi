@@ -4,18 +4,6 @@
 # This file was pulled from a central RBI files repository.
 # Please run `bin/tapioca annotations` to update it.
 
-module AbstractController::Helpers
-  mixes_in_class_methods ::AbstractController::Helpers::ClassMethods
-end
-
-module AbstractController::UrlFor
-  mixes_in_class_methods ::AbstractController::UrlFor::ClassMethods
-end
-
-class ActionController::Base < ::ActionController::Metal
-  include ::ActiveSupport::Rescuable
-end
-
 class ActionController::API
   MODULES = T.let(T.unsafe(nil), T::Array[T.untyped])
 end
@@ -23,10 +11,6 @@ end
 module ActionController::Flash::ClassMethods
   sig { params(types: Symbol).void }
   def add_flash_types(*types); end
-end
-
-module ActionController::Helpers
-  mixes_in_class_methods ::ActionController::Helpers::ClassMethods
 end
 
 module ActionController::Helpers::ClassMethods
@@ -45,24 +29,13 @@ class ActionController::Metal < AbstractController::Base
   def response; end
 end
 
-# module ActionController::MimeResponds
-#   sig do
-#     params(
-#       mimes: T.nilable(Symbol),
-#       block:
-#         T.nilable(
-#           T.proc.params(arg0: ActionController::MimeResponds::Collector).void,
-#         ),
-#     ).void
-#   end
-#   def respond_to(*mimes, &block); end
-# end
+module ActionController::MimeResponds
+  sig { params(mimes: T.nilable(Symbol), block: T.nilable(T.proc.params(arg0: ActionController::MimeResponds::Collector).void)).void }
+  def respond_to(*mimes, &block); end
+end
 
 class ActionController::Parameters
-  sig do
-    params(other: T.any(String, ActionController::Parameters))
-      .returns(T::Boolean)
-  end
+  sig { params(other: T.any(String, ActionController::Parameters)).returns(T::Boolean) }
   def ==(other); end
 
   sig { params(key: T.any(String, Symbol), value: T.untyped).void }
@@ -77,9 +50,7 @@ class ActionController::Parameters
   sig { returns(T.untyped) }
   def deep_dup; end
 
-  sig do
-    params(key: T.any(String, Symbol), block: T.untyped).returns(T.untyped)
-  end
+  sig { params(key: T.any(String, Symbol), block: T.untyped).returns(T.untyped) }
   def delete(key, &block); end
 
   sig { params(keys: T.any(String, Symbol)).returns(T.untyped) }
@@ -92,16 +63,14 @@ class ActionController::Parameters
   sig { params(block: T.untyped).returns(T.untyped) }
   def each(&block); end
 
-  sig do
-    params(keys: T.any(String, Symbol)).returns(ActionController::Parameters)
-  end
+  sig { params(keys: T.any(String, Symbol)).returns(ActionController::Parameters) }
   def except(*keys); end
 
   sig { params(keys: T.any(String, Symbol)).returns(T.untyped) }
   def extract!(*keys); end
 
-  # sig { params(key: T.any(String, Symbol), args: T.untyped).returns(T.untyped) }
-  # def fetch(key, *args); end
+  sig { params(key: T.any(String, Symbol), args: T.untyped).returns(T.untyped) }
+  def fetch(key, *args); end
 
   sig { returns(String) }
   def inspect; end
@@ -138,37 +107,14 @@ class ActionController::Parameters
   sig { params(block: T.untyped).returns(T.untyped) }
   def reject(&block); end
 
-  sig do
-    params(key: T.any(String, Symbol))
-      .returns(T.nilable(T.any(String, Numeric, ActionController::Parameters)))
-  end
+  sig { params(key: T.any(String, Symbol)).returns(T.nilable(T.any(String, Numeric, ActionController::Parameters))) }
   def [](key); end
 
-  sig do
-    params(key: T.any(String, Symbol, T::Array[T.any(String, Symbol)]))
-      .returns(
-        T.any(
-          String,
-          Numeric,
-          T::Array[T.untyped],
-          ActionController::Parameters,
-        ),
-      )
-  end
+  sig { params(key: T.any(String, Symbol, T::Array[T.any(String, Symbol)])).returns(T.any(String, Numeric, T::Array[T.untyped], ActionController::Parameters)) }
   def require(key); end
 
   # required is an alias of require
-  sig do
-    params(key: T.any(String, Symbol, T::Array[T.any(String, Symbol)]))
-      .returns(
-        T.any(
-          String,
-          Numeric,
-          T::Array[T.untyped],
-          ActionController::Parameters,
-        ),
-      )
-  end
+  sig { params(key: T.any(String, Symbol, T::Array[T.any(String, Symbol)])).returns(T.any(String, Numeric, T::Array[T.untyped], ActionController::Parameters)) }
   def required(key); end
 
   sig { params(other_hash: T.untyped).returns(ActionController::Parameters) }
@@ -185,15 +131,11 @@ class ActionController::Parameters
   sig { params(other_hash: T.untyped).returns(ActionController::Parameters) }
   def with_defaults(other_hash); end
 
-  sig do
-    params(block: T.untyped).returns(T.nilable(ActionController::Parameters))
-  end
+  sig { params(block: T.untyped).returns(T.nilable(ActionController::Parameters)) }
   def select!(&block); end
 
   # keep_if is an alias of select!
-  sig do
-    params(block: T.untyped).returns(T.nilable(ActionController::Parameters))
-  end
+  sig { params(block: T.untyped).returns(T.nilable(ActionController::Parameters)) }
   def keep_if(&block); end
 
   sig { params(block: T.untyped).returns(ActionController::Parameters) }
@@ -217,14 +159,10 @@ class ActionController::Parameters
   sig { params(obj: T::Boolean).void }
   def self.permit_all_parameters=(obj); end
 
-  sig do
-    params(keys: T.any(String, Symbol)).returns(ActionController::Parameters)
-  end
+  sig { params(keys: T.any(String, Symbol)).returns(ActionController::Parameters) }
   def slice!(*keys); end
 
-  sig do
-    params(keys: T.any(String, Symbol)).returns(ActionController::Parameters)
-  end
+  sig { params(keys: T.any(String, Symbol)).returns(ActionController::Parameters) }
   def slice(*keys); end
 
   sig { returns(ActiveSupport::HashWithIndifferentAccess) }
@@ -263,14 +201,6 @@ class ActionController::Parameters
   def values_at(*keys); end
 end
 
-module ActionController::Renderers
-  mixes_in_class_methods ::ActionController::Renderers::ClassMethods
-end
-
-module ActionController::Rendering
-  mixes_in_class_methods ::ActionController::Rendering::ClassMethods
-end
-
 module ActionController::RequestForgeryProtection
   sig { returns(T::Boolean) }
   def protect_against_forgery?; end
@@ -290,8 +220,6 @@ module ActionController::StrongParameters
 end
 
 module ActionDispatch::Http::Parameters
-  mixes_in_class_methods ::ActionDispatch::Http::Parameters::ClassMethods
-
   sig { returns(ActionController::Parameters) }
   def parameters; end
 

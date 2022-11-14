@@ -3,9 +3,9 @@ import type { FC, PropsWithChildren } from "react";
 import ApolloProvider from "./ApolloProvider";
 import MantineProvider from "./MantineProvider";
 
-export type AppProviderProps = PropsWithChildren;
+export type AppProvidersProps = PropsWithChildren;
 
-const AppProviders: FC<AppProviderProps> = ({ children }) => (
+const AppProviders: FC<AppProvidersProps> = ({ children }) => (
   <MantineProvider>
     <ApolloProvider>{children}</ApolloProvider>
   </MantineProvider>

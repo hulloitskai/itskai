@@ -1,10 +1,32 @@
-# typed: false
+# typed: strict
 # frozen_string_literal: true
+
+require "graphql/queries"
+
+class GraphQL::Schema
+  class << self
+    extend T::Sig
+
+    sig { returns(T.nilable(GraphQL::Queries)) }
+    attr_accessor :queries
+
+    sig { returns(GraphQL::Queries) }
+    def queries!
+      T.must(queries)
+    end
+
+    sig { returns(GraphQL::Subscriptions) }
+    def subscriptions!
+      T.must(subscriptions)
+    end
+  end
+end
 
 class GraphQL::RailsLogger::Subscriber < ActionController::LogSubscriber
   extend T::Sig
 
   # Change log formatting to omit initial newline.
+  sig { params(event: T.untyped).void }
   def start_processing(event)
     return unless logger.info?
 

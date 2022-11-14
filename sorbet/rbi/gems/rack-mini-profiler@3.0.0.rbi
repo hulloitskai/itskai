@@ -8,13 +8,13 @@
 class PG::Connection
   include ::PG::Constants
 
-  # source://pg/1.4.2/lib/pg/connection.rb#486
+  # source://pg/1.4.3/lib/pg/connection.rb#497
   def async_cancel; end
 
   def async_describe_portal(_arg0); end
   def async_describe_prepared(_arg0); end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#459
+  # source://pg/1.4.3/lib/pg/connection.rb#470
   def async_encrypt_password(password, username, algorithm = T.unsafe(nil)); end
 
   # source://rack-mini-profiler//lib/patches/db/pg.rb#109
@@ -25,49 +25,49 @@ class PG::Connection
   def async_exec_without_profiling(*_arg0); end
   def async_flush; end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#338
+  # source://pg/1.4.3/lib/pg/connection.rb#338
   def async_get_copy_data(async = T.unsafe(nil), decoder = T.unsafe(nil)); end
 
   def async_get_last_result; end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#315
+  # source://pg/1.4.3/lib/pg/connection.rb#315
   def async_get_result; end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#386
+  # source://pg/1.4.3/lib/pg/connection.rb#386
   def async_isnonblocking; end
 
   def async_prepare(*_arg0); end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#410
+  # source://pg/1.4.3/lib/pg/connection.rb#410
   def async_put_copy_data(buffer, encoder = T.unsafe(nil)); end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#430
+  # source://pg/1.4.3/lib/pg/connection.rb#440
   def async_put_copy_end(*args); end
 
   def async_query(*_arg0); end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#471
+  # source://pg/1.4.3/lib/pg/connection.rb#482
   def async_reset; end
 
   def async_set_client_encoding(_arg0); end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#372
+  # source://pg/1.4.3/lib/pg/connection.rb#372
   def async_setnonblocking(enabled); end
 
   def backend_key; end
   def backend_pid; end
   def block(*_arg0); end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#486
+  # source://pg/1.4.3/lib/pg/connection.rb#497
   def cancel; end
 
   def client_encoding=(_arg0); end
   def close; end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#253
+  # source://pg/1.4.3/lib/pg/connection.rb#253
   def conndefaults; end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#269
+  # source://pg/1.4.3/lib/pg/connection.rb#269
   def conndefaults_hash; end
 
   def connect_poll; end
@@ -75,12 +75,12 @@ class PG::Connection
   def connection_used_password; end
   def conninfo; end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#277
+  # source://pg/1.4.3/lib/pg/connection.rb#277
   def conninfo_hash; end
 
   def consume_input; end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#164
+  # source://pg/1.4.3/lib/pg/connection.rb#164
   def copy_data(sql, coder = T.unsafe(nil)); end
 
   def db; end
@@ -92,7 +92,7 @@ class PG::Connection
   def encoder_for_put_copy_data; end
   def encoder_for_put_copy_data=(_arg0); end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#459
+  # source://pg/1.4.3/lib/pg/connection.rb#470
   def encrypt_password(password, username, algorithm = T.unsafe(nil)); end
 
   def enter_pipeline_mode; end
@@ -125,12 +125,12 @@ class PG::Connection
   def flush; end
   def get_client_encoding; end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#338
+  # source://pg/1.4.3/lib/pg/connection.rb#338
   def get_copy_data(async = T.unsafe(nil), decoder = T.unsafe(nil)); end
 
   def get_last_result; end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#315
+  # source://pg/1.4.3/lib/pg/connection.rb#315
   def get_result; end
 
   def host; end
@@ -139,7 +139,7 @@ class PG::Connection
   def internal_encoding=(_arg0); end
   def is_busy; end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#386
+  # source://pg/1.4.3/lib/pg/connection.rb#386
   def isnonblocking; end
 
   def lo_close(_arg0); end
@@ -170,7 +170,7 @@ class PG::Connection
   def lowrite(_arg0, _arg1); end
   def make_empty_pgresult(_arg0); end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#386
+  # source://pg/1.4.3/lib/pg/connection.rb#386
   def nonblocking?; end
 
   def notifies; end
@@ -188,10 +188,10 @@ class PG::Connection
   def prepare_without_profiling(*_arg0); end
   def protocol_version; end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#410
+  # source://pg/1.4.3/lib/pg/connection.rb#410
   def put_copy_data(buffer, encoder = T.unsafe(nil)); end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#430
+  # source://pg/1.4.3/lib/pg/connection.rb#440
   def put_copy_end(*args); end
 
   # source://rack-mini-profiler//lib/patches/db/pg.rb#55
@@ -199,7 +199,7 @@ class PG::Connection
 
   def quote_ident(_arg0); end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#471
+  # source://pg/1.4.3/lib/pg/connection.rb#482
   def reset; end
 
   def reset_poll; end
@@ -224,7 +224,7 @@ class PG::Connection
   def set_notice_receiver; end
   def set_single_row_mode; end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#372
+  # source://pg/1.4.3/lib/pg/connection.rb#372
   def setnonblocking(enabled); end
 
   def socket; end
@@ -232,7 +232,7 @@ class PG::Connection
   def ssl_attribute(_arg0); end
   def ssl_attribute_names; end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#294
+  # source://pg/1.4.3/lib/pg/connection.rb#294
   def ssl_attributes; end
 
   def ssl_in_use?; end
@@ -257,7 +257,7 @@ class PG::Connection
   def sync_setnonblocking(_arg0); end
   def trace(_arg0); end
 
-  # source://pg/1.4.2/lib/pg/connection.rb#237
+  # source://pg/1.4.3/lib/pg/connection.rb#237
   def transaction; end
 
   def transaction_status; end
@@ -273,33 +273,33 @@ class PG::Connection
 
   private
 
-  # source://pg/1.4.2/lib/pg/connection.rb#541
+  # source://pg/1.4.3/lib/pg/connection.rb#552
   def async_connect_or_reset(poll_meth); end
 
   def flush_data=(_arg0); end
 
   class << self
-    # source://pg/1.4.2/lib/pg/connection.rb#864
+    # source://pg/1.4.3/lib/pg/connection.rb#875
     def async_api=(enable); end
 
-    # source://pg/1.4.2/lib/pg/connection.rb#660
+    # source://pg/1.4.3/lib/pg/connection.rb#671
     def async_connect(*args); end
 
-    # source://pg/1.4.2/lib/pg/connection.rb#789
+    # source://pg/1.4.3/lib/pg/connection.rb#800
     def async_ping(*args); end
 
-    # source://pg/1.4.2/lib/pg/connection.rb#841
+    # source://pg/1.4.3/lib/pg/connection.rb#852
     def async_send_api=(enable); end
 
     def conndefaults; end
 
-    # source://pg/1.4.2/lib/pg/connection.rb#261
+    # source://pg/1.4.3/lib/pg/connection.rb#261
     def conndefaults_hash; end
 
-    # source://pg/1.4.2/lib/pg/connection.rb#660
+    # source://pg/1.4.3/lib/pg/connection.rb#671
     def connect(*args); end
 
-    # source://pg/1.4.2/lib/pg/connection.rb#45
+    # source://pg/1.4.3/lib/pg/connection.rb#45
     def connect_hash_to_string(hash); end
 
     def connect_start(*_arg0); end
@@ -310,27 +310,27 @@ class PG::Connection
     def escape_string(_arg0); end
     def isthreadsafe; end
 
-    # source://pg/1.4.2/lib/pg/connection.rb#660
+    # source://pg/1.4.3/lib/pg/connection.rb#671
     def new(*args); end
 
-    # source://pg/1.4.2/lib/pg/connection.rb#660
+    # source://pg/1.4.3/lib/pg/connection.rb#671
     def open(*args); end
 
-    # source://pg/1.4.2/lib/pg/connection.rb#61
+    # source://pg/1.4.3/lib/pg/connection.rb#61
     def parse_connect_args(*args); end
 
-    # source://pg/1.4.2/lib/pg/connection.rb#789
+    # source://pg/1.4.3/lib/pg/connection.rb#800
     def ping(*args); end
 
-    # source://pg/1.4.2/lib/pg/connection.rb#38
+    # source://pg/1.4.3/lib/pg/connection.rb#38
     def quote_connstr(value); end
 
     def quote_ident(_arg0); end
 
-    # source://pg/1.4.2/lib/pg/connection.rb#660
+    # source://pg/1.4.3/lib/pg/connection.rb#671
     def setdb(*args); end
 
-    # source://pg/1.4.2/lib/pg/connection.rb#660
+    # source://pg/1.4.3/lib/pg/connection.rb#671
     def setdblogin(*args); end
 
     def sync_connect(*_arg0); end
@@ -339,18 +339,18 @@ class PG::Connection
 
     private
 
-    # source://pg/1.4.2/lib/pg/connection.rb#743
+    # source://pg/1.4.3/lib/pg/connection.rb#754
     def connect_internal(opts, errors = T.unsafe(nil)); end
 
-    # source://pg/1.4.2/lib/pg/connection.rb#678
+    # source://pg/1.4.3/lib/pg/connection.rb#689
     def connect_to_hosts(*args); end
 
-    # source://pg/1.4.2/lib/pg/connection.rb#764
+    # source://pg/1.4.3/lib/pg/connection.rb#775
     def host_is_named_pipe?(host_string); end
   end
 end
 
-# source://pg/1.4.2/lib/pg/connection.rb#34
+# source://pg/1.4.3/lib/pg/connection.rb#34
 PG::Connection::CONNECT_ARGUMENT_ORDER = T.let(T.unsafe(nil), Array)
 
 # PG patches, keep in mind exec and async_exec have a exec{|r| } semantics that is yet to be implemented
@@ -382,7 +382,7 @@ class PG::Result
   def field_name_type; end
   def field_name_type=(_arg0); end
 
-  # source://pg/1.4.2/lib/pg/result.rb#26
+  # source://pg/1.4.3/lib/pg/result.rb#26
   def field_names_as(type); end
 
   def field_values(_arg0); end
@@ -398,10 +398,10 @@ class PG::Result
   def getlength(_arg0, _arg1); end
   def getvalue(_arg0, _arg1); end
 
-  # source://pg/1.4.2/lib/pg/result.rb#32
+  # source://pg/1.4.3/lib/pg/result.rb#32
   def inspect; end
 
-  # source://pg/1.4.2/lib/pg/result.rb#16
+  # source://pg/1.4.3/lib/pg/result.rb#16
   def map_types!(type_map); end
 
   # source://rack-mini-profiler//lib/patches/db/pg.rb#22
@@ -856,6 +856,9 @@ class Rack::MiniProfiler::ClientSettings
   # source://rack-mini-profiler//lib/mini_profiler/client_settings.rb#58
   def write!(headers); end
 end
+
+# source://rack-mini-profiler//lib/mini_profiler/client_settings.rb#9
+Rack::MiniProfiler::ClientSettings::BACKTRACE_DEFAULT = T.let(T.unsafe(nil), T.untyped)
 
 # source://rack-mini-profiler//lib/mini_profiler/client_settings.rb#10
 Rack::MiniProfiler::ClientSettings::BACKTRACE_FULL = T.let(T.unsafe(nil), Integer)
@@ -2296,6 +2299,8 @@ module Rack::MiniProfilerRailsMethods
   def should_move?(child, node); end
 end
 
+# For backwards compatibility with 1.1.0 and below
+#
 # source://rack-test/2.0.2/lib/rack/test.rb#413
 Rack::MockSession = Rack::Test::Session
 

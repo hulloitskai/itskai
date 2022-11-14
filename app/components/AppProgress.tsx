@@ -6,8 +6,6 @@ import {
   completeNavigationProgress,
 } from "@mantine/nprogress";
 
-import { Inertia } from "@inertiajs/inertia";
-
 const AppProgress: FC = () => {
   const onStart = useCallback(() => startNavigationProgress(), []);
   const onFinish = useCallback(() => completeNavigationProgress(), []);

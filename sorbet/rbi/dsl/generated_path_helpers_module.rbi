@@ -12,13 +12,19 @@ module GeneratedPathHelpersModule
   def api_status_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def destroy_user_session_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def edit_rails_conductor_inbound_email_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_user_password_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def good_job_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def graphiql_rails_path(*args); end
+  def graphiql_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def graphql_path(*args); end
@@ -28,6 +34,18 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_source_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_user_confirmation_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_user_password_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_user_registration_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_user_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_path(*args); end
@@ -115,6 +133,18 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def update_rails_disk_service_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def user_confirmation_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def user_password_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def user_registration_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def user_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def work_path(*args); end

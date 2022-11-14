@@ -2,8 +2,6 @@ import type { FC } from "react";
 import type { PageComponent } from "~/helpers/inertia";
 
 import { Code, Text } from "@mantine/core";
-import { closeAllModals, openModal } from "@mantine/modals";
-import { showNotification } from "@mantine/notifications";
 
 import TestForm from "~/components/TestForm";
 import TestFeed from "~/components/TestFeed";

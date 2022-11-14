@@ -7835,6 +7835,7 @@ class ActiveRecord::Base
   extend ::ActiveRecord::SignedId::ClassMethods
   extend ::ActiveRecord::Suppressor::ClassMethods
   extend ::ActiveRecord::Encryption::EncryptableRecord::ClassMethods
+  extend ::OrmAdapter::ToAdapter
 
   # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
   def __callbacks; end
@@ -8751,6 +8752,9 @@ module ActiveRecord::Base::GeneratedAssociationMethods; end
 
 # source://activerecord//lib/active_record/base.rb#0
 module ActiveRecord::Base::GeneratedAttributeMethods; end
+
+# source://orm_adapter/0.5.0/lib/orm_adapter/adapters/active_record.rb#81
+ActiveRecord::Base::OrmAdapter = OrmAdapter::ActiveRecord
 
 # source://activerecord//lib/active_record/relation/batches/batch_enumerator.rb#4
 module ActiveRecord::Batches
@@ -30390,6 +30394,7 @@ class ActiveRecord::RecordNotUnique < ::ActiveRecord::WrappedDatabaseException; 
 # source://activerecord//lib/active_record/reflection.rb#7
 module ActiveRecord::Reflection
   extend ::ActiveSupport::Concern
+  extend ::ActiveStorage::Reflection::ReflectionExtension
   include GeneratedInstanceMethods
 
   mixes_in_class_methods GeneratedClassMethods
@@ -36006,6 +36011,9 @@ ActiveRecord::VERSION::MAJOR = T.let(T.unsafe(nil), Integer)
 
 # source://activerecord//lib/active_record/gem_version.rb#11
 ActiveRecord::VERSION::MINOR = T.let(T.unsafe(nil), Integer)
+
+# source://activerecord//lib/active_record/gem_version.rb#13
+ActiveRecord::VERSION::PRE = T.let(T.unsafe(nil), T.untyped)
 
 # source://activerecord//lib/active_record/gem_version.rb#15
 ActiveRecord::VERSION::STRING = T.let(T.unsafe(nil), String)
