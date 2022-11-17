@@ -212,7 +212,6 @@ GEM
       rest-client (>= 2.0.2)
     marcel (1.0.2)
     matrix (0.4.2)
-    memory_profiler (1.0.0)
     meta-tags (2.18.0)
       actionpack (>= 3.2.0, < 7.1)
     method_source (1.0.0)
@@ -299,8 +298,6 @@ GEM
     raabro (1.4.0)
     racc (1.6.0)
     rack (2.2.4)
-    rack-mini-profiler (3.0.0)
-      rack (>= 1.2.0)
     rack-protection (3.0.2)
       rack
     rack-proxy (0.7.4)
@@ -428,7 +425,6 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    stackprof (0.2.21)
     stringio (3.0.2)
     strscan (3.0.4)
     syntax_tree (4.3.0)
@@ -523,7 +519,6 @@ DEPENDENCIES
   js_from_routes (~> 2.0)
   listen (~> 3.7)
   mailgun-ruby (~> 1.2)
-  memory_profiler
   meta-tags (~> 2.16)
   omniauth (~> 2.1)
   omniauth-rails_csrf_protection (~> 1.0)
@@ -537,7 +532,6 @@ DEPENDENCIES
   pry-stack_explorer
   psych (~> 4.0)
   puma (~> 6.0)
-  rack-mini-profiler
   rails (~> 7.0.3, >= 7.0.3.1)
   rails-healthcheck
   rspotify (~> 2.11)
@@ -557,7 +551,6 @@ DEPENDENCIES
   spoom
   spring
   sprockets-rails (~> 3.4)
-  stackprof
   tapioca (~> 0.10.3)
   tzinfo-data
   vite_rails (~> 3.0)
