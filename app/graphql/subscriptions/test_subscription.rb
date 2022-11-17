@@ -26,14 +26,9 @@ module Subscriptions
     # == Callbacks ==
     sig { returns(Integer) }
     def subscribe
-      self.class.increment!.tap do
-        Schema.subscriptions!.trigger(:test_subscription, {}, nil)
+      self.class.increment!.tap do |count|
+        Schema.subscriptions!.trigger(:test_subscription, {}, count)
       end
-    end
-
-    sig { returns(Integer) }
-    def update
-      self.class.count
     end
   end
 end

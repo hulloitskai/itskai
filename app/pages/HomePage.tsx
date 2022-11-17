@@ -5,6 +5,12 @@ import HomeContactLink from "~/components/HomeContactLink";
 
 import ExclamationCircleIcon from "~icons/heroicons/exclamation-circle-20-solid";
 
+import type { HomePageQuery } from "~/queries";
+
+export type HomePageProps = {
+  readonly data: HomePageQuery;
+};
+
 const HomePage: PageComponent = () => {
   const theme = useMantineTheme();
   return (
@@ -99,5 +105,9 @@ const HomePage: PageComponent = () => {
     </Stack>
   );
 };
+
+HomePage.layout = layoutWithData<HomePageProps>((page, { viewer }) => (
+  <AppLayout {...{ viewer }}>{page}</AppLayout>
+));
 
 export default HomePage;

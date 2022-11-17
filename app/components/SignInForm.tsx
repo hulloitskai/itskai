@@ -11,6 +11,7 @@ export type SignInFormProps = {
 };
 
 const SignInForm: FC<SignInFormProps> = ({ errors }) => {
+  const router = useRouter();
   const { getInputProps, onSubmit, setErrors } = useForm<SignInFormValues>({
     initialValues: {
       email: "",
@@ -26,19 +27,24 @@ const SignInForm: FC<SignInFormProps> = ({ errors }) => {
     <form
       onSubmit={onSubmit(({ email, password }) => {
         const data = {
-          authenticity_token: csrfToken(),
           user: {
             email,
             password,
           },
         };
-        Inertia.post("/account/sign_in", data as any, {});
+        router.post("/account/sign_in", data);
       })}
     >
       <Stack spacing="xs">
-        <TextInput label="Email" required {...getInputProps("email")} />
+        <TextInput
+          label="Email"
+          placeholder="friend@example.com"
+          required
+          {...getInputProps("email")}
+        />
         <PasswordInput
           label="Password"
+          placeholder="potato-123"
           required
           {...getInputProps("password")}
         />

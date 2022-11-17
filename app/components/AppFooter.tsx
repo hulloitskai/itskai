@@ -1,20 +1,17 @@
 import type { FC } from "react";
-import { Footer, Image, Text, Tooltip } from "@mantine/core";
+import { Footer, Image, Text } from "@mantine/core";
 
 import logoPath from "~/assets/images/logo.png";
 
-import { AppFooterViewerFragment } from "~/queries";
+import type { Maybe } from "~/queries";
+import type { AppViewerFragment } from "~/queries";
+import AppIdentityBadge from "./AppIdentityBadge";
 
-const AppFooter: FC = () => {
-  const { data } = usePageProps();
-  const viewer = useMemo(() => {
-    if (typeof data === "object" && data) {
-      const viewer = (data as Record<string, any>)["viewer"];
-      if (viewer) {
-        return viewer as AppFooterViewerFragment;
-      }
-    }
-  }, [data]);
+export type AppFooterProps = {
+  readonly viewer: Maybe<AppViewerFragment>;
+};
+
+const AppFooter: FC<AppFooterProps> = ({ viewer }) => {
   return (
     <Footer
       height={32}
@@ -27,13 +24,7 @@ const AppFooter: FC = () => {
     >
       <Group w="100%" position="apart" spacing={0}>
         <Center>
-          {viewer && (
-            <Tooltip label="You're signed in!" withArrow>
-              <Badge variant="dot" color="indigo">
-                {viewer.name}
-              </Badge>
-            </Tooltip>
-          )}
+          <AppIdentityBadge {...{ viewer }} />
         </Center>
         <Group spacing={0}>
           <Text size="xs" weight={500} color="dark.3">

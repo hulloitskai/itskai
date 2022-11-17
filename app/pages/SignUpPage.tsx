@@ -3,6 +3,12 @@ import { Text } from "@mantine/core";
 
 import SignUpForm from "~/components/SignUpForm";
 
+import type { SignUpPageQuery } from "~/queries";
+
+export type SignUpPageProps = {
+  readonly data: SignUpPageQuery;
+};
+
 const SignUpPage: PageComponent = ({ errors }) => {
   return (
     <Card w={380} radius="md" withBorder>
@@ -22,6 +28,8 @@ const SignUpPage: PageComponent = ({ errors }) => {
   );
 };
 
-SignUpPage.layout = withCenterLayout;
+SignUpPage.layout = layoutWithData<SignUpPageProps>((page, { viewer }) => (
+  <CenterLayout {...{ viewer }}>{page}</CenterLayout>
+));
 
 export default SignUpPage;

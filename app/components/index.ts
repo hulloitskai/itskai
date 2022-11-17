@@ -1,4 +1,4 @@
 export { default as Head } from "./Head";
 export { default as PageHeader } from "./PageHeader";
-export { withAppLayout } from "./AppLayout";
-export { withCenterLayout } from "./CenterLayout";
+export { default as AppLayout } from "./AppLayout";
+export { default as CenterLayout } from "./CenterLayout";

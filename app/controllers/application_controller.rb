@@ -18,7 +18,13 @@ class ApplicationController < ActionController::Base
   inertia_share do
     T.bind(self, ApplicationController)
     flash = self.flash.to_h.presence
-    { flash: flash }.compact
+    {
+      csrf: {
+        param: request_forgery_protection_token,
+        token: form_authenticity_token,
+      },
+      flash: flash,
+    }.compact
   end
 
   private

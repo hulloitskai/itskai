@@ -1,4 +1,4 @@
-import { FC } from "react";
+import type { PageComponent } from "~/helpers/inertia";
 import { Highlight, Text } from "@mantine/core";
 
 import ResumeButton from "~/components/ResumeButton";
@@ -7,10 +7,13 @@ import WorkContactButton from "~/components/WorkContactButton";
 import WrenchScrewdriverIcon from "~icons/heroicons/wrench-screwdriver-20-solid";
 import GithubIcon from "~icons/feather/github";
 
-// eslint-disable-next-line
-type WorkPageProps = {};
+import type { WorkPageQuery } from "~/queries";
 
-const WorkPage: FC<WorkPageProps> = () => (
+type WorkPageProps = {
+  readonly data: WorkPageQuery;
+};
+
+const WorkPage: PageComponent<WorkPageProps> = () => (
   <Stack spacing="xl">
     <Stack>
       <PageHeader
@@ -133,5 +136,9 @@ const WorkPage: FC<WorkPageProps> = () => (
     </Box>
   </Stack>
 );
+
+WorkPage.layout = layoutWithData<WorkPageProps>((page, { viewer }) => (
+  <AppLayout {...{ viewer }}>{page}</AppLayout>
+));
 
 export default WorkPage;

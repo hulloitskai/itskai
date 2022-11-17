@@ -56,6 +56,9 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # == Debugging ==
+  config.middleware.insert_before(Rack::Sendfile, ActionDispatch::DebugLocks)
+
   # == Active Storage ==
   # Store uploaded files on the local file system (see config/storage.yml for
   # options).

@@ -1,24 +1,25 @@
-import type { FC, PropsWithChildren, ReactElement } from "react";
+import type { FC, PropsWithChildren } from "react";
 import { AppShell } from "@mantine/core";
 
 import AppHeader from "./AppHeader";
 import AppFooter from "./AppFooter";
 import AppFlash from "./AppFlash";
 
-export type CenterLayoutProps = PropsWithChildren;
+import type { Maybe } from "~/queries";
+import type { AppViewerFragment } from "~/queries";
 
-const CenterLayout: FC<CenterLayoutProps> = ({ children }) => (
+export type CenterLayoutProps = PropsWithChildren<{
+  readonly viewer: Maybe<AppViewerFragment>;
+}>;
+
+const CenterLayout: FC<CenterLayoutProps> = ({ viewer, children }) => (
   <>
     <AppShell header={<AppHeader />}>
       <Center h="100%">{children}</Center>
     </AppShell>
-    <AppFooter />
+    <AppFooter {...{ viewer }} />
     <AppFlash />
   </>
 );
 
 export default CenterLayout;
-
-export const withCenterLayout = (page: ReactElement): ReactElement => {
-  return <CenterLayout>{page}</CenterLayout>;
-};

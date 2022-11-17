@@ -152,6 +152,4 @@ const ResumePage: PageComponent<ResumePageProps> = ({ data, printable }) => {
   );
 };
 
-ResumePage.layout = null;
-
 export default ResumePage;

@@ -13,6 +13,7 @@ export type SignUpFormProps = {
 };
 
 const SignUpForm: FC<SignUpFormProps> = ({ errors }) => {
+  const router = useRouter();
   const { getInputProps, onSubmit, setErrors } = useForm<SignUpFormValues>({
     initialValues: {
       name: "",
@@ -30,7 +31,6 @@ const SignUpForm: FC<SignUpFormProps> = ({ errors }) => {
     <form
       onSubmit={onSubmit(({ name, email, password, passwordConfirmation }) => {
         const data = {
-          authenticity_token: csrfToken(),
           user: {
             name,
             email,
@@ -38,19 +38,31 @@ const SignUpForm: FC<SignUpFormProps> = ({ errors }) => {
             password_confirmation: passwordConfirmation,
           },
         };
-        Inertia.post("/account", data as any);
+        router.post("/account", data);
       })}
     >
       <Stack spacing="xs">
-        <TextInput label="Name" required {...getInputProps("name")} />
-        <TextInput label="Email" required {...getInputProps("email")} />
+        <TextInput
+          label="Name"
+          placeholder="A Friend"
+          required
+          {...getInputProps("name")}
+        />
+        <TextInput
+          label="Email"
+          placeholder="friend@example.com"
+          required
+          {...getInputProps("email")}
+        />
         <PasswordInput
           label="Password"
+          placeholder="potato-123"
           required
           {...getInputProps("password")}
         />
         <PasswordInput
           label="Password Confirmation"
+          placeholder="potato-123"
           required
           {...getInputProps("passwordConfirmation")}
         />

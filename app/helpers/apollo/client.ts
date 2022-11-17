@@ -3,7 +3,13 @@ import type { NormalizedCacheObject, ApolloLink } from "@apollo/client";
 
 import { createApolloLink } from "./link?client";
 
-export const createApolloClient = (): ApolloClient<NormalizedCacheObject> => {
+export type ApolloClientOptions = {
+  readonly csrfToken: string;
+};
+
+export const createApolloClient = ({
+  csrfToken,
+}: ApolloClientOptions): ApolloClient<NormalizedCacheObject> => {
   let link: ApolloLink | undefined = undefined;
   if (import.meta.env.SSR) {
     link = new HttpLink({
@@ -13,7 +19,7 @@ export const createApolloClient = (): ApolloClient<NormalizedCacheObject> => {
         }),
     });
   } else {
-    link = createApolloLink();
+    link = createApolloLink({ csrfToken });
   }
   return new ApolloClient({
     ssrMode: typeof window === "undefined",

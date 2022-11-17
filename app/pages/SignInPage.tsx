@@ -3,6 +3,12 @@ import { Text } from "@mantine/core";
 
 import SignInForm from "~/components/SignInForm";
 
+import { SignInPageQuery } from "~/queries";
+
+export type SignInPageProps = {
+  readonly data: SignInPageQuery;
+};
+
 const SignInPage: PageComponent = ({ errors }) => {
   return (
     <Card w={380} radius="md" withBorder>
@@ -22,6 +28,8 @@ const SignInPage: PageComponent = ({ errors }) => {
   );
 };
 
-SignInPage.layout = withCenterLayout;
+SignInPage.layout = layoutWithData<SignInPageProps>((page, { viewer }) => (
+  <CenterLayout {...{ viewer }}>{page}</CenterLayout>
+));
 
 export default SignInPage;

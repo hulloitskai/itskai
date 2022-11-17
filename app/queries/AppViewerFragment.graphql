@@ -1,0 +1,4 @@
+fragment AppViewerFragment on User {
+  id
+  name
+}

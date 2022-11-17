@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import { renderToString, renderToStaticMarkup } from "react-dom/server";
 import { createStylesServer, ServerStyles } from "@mantine/ssr";
 
-import { setupPage, setupApp, pagesFromFiles } from "~/helpers/inertia";
+import { setupApp, pagesFromFiles } from "~/helpers/inertia";
 import type { PageProps } from "@inertiajs/inertia";
 import { createInertiaApp } from "@inertiajs/inertia-react";
 import type { InertiaAppOptionsForSSR } from "@inertiajs/inertia-react";
@@ -34,11 +34,11 @@ createServer(async page => {
       return content;
     },
     resolve: async name => {
-      const page = pages[name] as PageComponent;
+      const page = pages[name] as PageComponent | undefined;
       if (!page) {
         throw new Error(`missing page '${name}'`);
       }
-      return setupPage(page) as any;
+      return page as any;
     },
     setup: setupApp,
   } as InertiaAppOptionsForSSR<PageProps>);

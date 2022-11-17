@@ -39,7 +39,7 @@ gem "aws-sdk-core", require: false
 gem "aws-sdk-s3", "~> 1.113", require: false
 
 # Use Good Job as the backend for Active Job
-gem "good_job", "~> 3.1"
+gem "good_job", "~> 3.6"
 
 # Use Mailgun to send emails.
 gem "mailgun-ruby", "~> 1.2"
@@ -94,7 +94,7 @@ gem "action_policy-graphql", "~> 0.5.3"
 
 # Expose a GraphQL API
 gem "graphql", "~> 2.0"
-gem "graphql-persisted_queries", "~> 1.5"
+gem "graphql-persisted_queries", "~> 1.6"
 gem "graphql-rails_logger"
 gem "graphiql-rails"
 
@@ -151,9 +151,9 @@ group :development do
   gem "web-console"
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  gem "rack-mini-profiler"
-  gem "memory_profiler"
-  gem "stackprof"
+  # gem "rack-mini-profiler"
+  # gem "memory_profiler"
+  # gem "stackprof"
 
   # Display better error pages during development
   gem "better_errors"

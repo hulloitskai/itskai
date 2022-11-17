@@ -1,0 +1,47 @@
+import { Inertia, VisitOptions } from "@inertiajs/inertia";
+
+import { useCSRFToken } from "~/helpers/csrf";
+
+export type RouterOptions = {
+  readonly csrfToken: string;
+};
+
+export class Router {
+  csrfToken: string;
+
+  constructor({ csrfToken }: RouterOptions) {
+    this.csrfToken = csrfToken;
+  }
+
+  visit(url: string | URL, options?: VisitOptions): void {
+    Inertia.visit(url, options);
+  }
+
+  post(
+    url: URL | string,
+    data?: any,
+    options?: Exclude<VisitOptions, "method" | "data">,
+  ): void {
+    Inertia.post(url, data, this.optionsWithCSRFToken(options));
+  }
+
+  delete(url: URL | string, options?: Exclude<VisitOptions, "method">): void {
+    Inertia.delete(url, this.optionsWithCSRFToken(options));
+  }
+
+  private optionsWithCSRFToken(options?: VisitOptions): VisitOptions {
+    const { headers: otherHeaders, ...otherOptions } = options || {};
+    return {
+      headers: {
+        "X-CSRF-Token": this.csrfToken,
+        ...otherHeaders,
+      },
+      ...otherOptions,
+    };
+  }
+}
+
+export const useRouter = (): Router => {
+  const csrfToken = useCSRFToken();
+  return new Router({ csrfToken });
+};

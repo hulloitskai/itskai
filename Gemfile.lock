@@ -152,12 +152,12 @@ GEM
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.1)
     ffi (1.15.5)
-    fugit (1.7.0)
+    fugit (1.7.2)
       et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
     globalid (1.0.0)
       activesupport (>= 5.0)
-    good_job (3.4.5)
+    good_job (3.6.0)
       activejob (>= 6.0.0)
       activerecord (>= 6.0.0)
       concurrent-ruby (>= 1.0.2)
@@ -168,9 +168,9 @@ GEM
     graphiql-rails (1.8.0)
       railties
       sprockets-rails
-    graphql (2.0.14)
-    graphql-persisted_queries (1.5.1)
-      graphql (>= 1.10)
+    graphql (2.0.15)
+    graphql-persisted_queries (1.6.0)
+      graphql (>= 1.12)
     graphql-rails_logger (1.2.3)
       actionpack (> 5.0)
       activesupport (> 5.0)
@@ -240,11 +240,11 @@ GEM
       timeout
     netrc (0.11.0)
     nio4r (2.5.8)
-    nokogiri (1.13.8-arm64-darwin)
+    nokogiri (1.13.9-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.8-x86_64-darwin)
+    nokogiri (1.13.9-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.8-x86_64-linux)
+    nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
@@ -485,7 +485,7 @@ GEM
     yard-sorbet (0.7.0)
       sorbet-runtime (>= 0.5)
       yard (>= 0.9)
-    zeitwerk (2.6.0)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   arm64-darwin-21
@@ -511,10 +511,10 @@ DEPENDENCIES
   discard (~> 1.2)
   dotenv (~> 2.7)
   enumerize (~> 2.5)
-  good_job (~> 3.1)
+  good_job (~> 3.6)
   graphiql-rails
   graphql (~> 2.0)
-  graphql-persisted_queries (~> 1.5)
+  graphql-persisted_queries (~> 1.6)
   graphql-rails_logger
   honeybadger (~> 4.12)
   httparty (~> 0.20.0)

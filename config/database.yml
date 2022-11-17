@@ -27,7 +27,7 @@ default: &default
 development:
   <<: *default
   database: <%= ENV.fetch("POSTGRES_DATABASE", "itskai_development") %>
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5).to_i + 3 + ENV.fetch("GOOD_JOB_MAX_THREADS", 5).to_i %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5).to_i + 3 + ENV.fetch("GOOD_JOB_MAX_THREADS", 2).to_i %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -86,4 +86,4 @@ test:
 production:
   <<: *default
   database: <%= ENV.fetch("POSTGRES_DATABASE", "itskai_production") %>
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5).to_i + 3 + ENV.fetch("GOOD_JOB_MAX_THREADS", 5).to_i %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5).to_i + 3 + ENV.fetch("GOOD_JOB_MAX_THREADS", 2).to_i %>

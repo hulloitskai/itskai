@@ -8,8 +8,18 @@ import ActionCableLink from "graphql-ruby-client/subscriptions/ActionCableLink";
 
 import { cable } from "~/helpers/cable";
 
-export const createApolloLink = (): ApolloLink => {
-  return from([new RetryLink(), createCsrfLink(), createTerminatingLink()]);
+export type ApolloLinkOptions = {
+  readonly csrfToken: string;
+};
+
+export const createApolloLink = ({
+  csrfToken,
+}: ApolloLinkOptions): ApolloLink => {
+  return from([
+    new RetryLink(),
+    createCSRFLink(csrfToken),
+    createTerminatingLink(),
+  ]);
 };
 
 const createTerminatingLink = (): ApolloLink => {
@@ -25,7 +35,7 @@ const createHttpLink = () => {
 export const createSubscriptionsLink = (link: ApolloLink): ApolloLink => {
   const cableLink = new ActionCableLink({
     cable,
-    channelName: "GraphqlChannel",
+    channelName: "GraphQLChannel",
   });
   return split(
     ({ query }) => {
@@ -37,11 +47,11 @@ export const createSubscriptionsLink = (link: ApolloLink): ApolloLink => {
   );
 };
 
-const createCsrfLink = (): ApolloLink => {
+const createCSRFLink = (token: string): ApolloLink => {
   return setContext(async (operation, { headers }) => ({
     headers: {
       ...headers,
-      ["X-CSRF-Token"]: csrfToken(),
+      ["X-CSRF-Token"]: token,
     },
   }));
 };

@@ -1,13 +1,15 @@
-import type { FC, PropsWithChildren } from "react";
+import type { FC } from "react";
 
 import ApolloProvider from "./ApolloProvider";
 import MantineProvider from "./MantineProvider";
 
-export type AppProvidersProps = PropsWithChildren;
+import type { ProviderProps } from "~/helpers/inertia";
 
-const AppProviders: FC<AppProvidersProps> = ({ children }) => (
+export type AppProvidersProps = ProviderProps;
+
+const AppProviders: FC<AppProvidersProps> = ({ page, children }) => (
   <MantineProvider>
-    <ApolloProvider>{children}</ApolloProvider>
+    <ApolloProvider {...{ page }}>{children}</ApolloProvider>
   </MantineProvider>
 );
 

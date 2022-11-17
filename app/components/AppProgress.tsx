@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { Inertia } from "@inertiajs/inertia";
 
 import { NavigationProgress } from "@mantine/nprogress";
 import {

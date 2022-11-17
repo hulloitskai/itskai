@@ -85,6 +85,10 @@ const TestPage: PageComponent<TestPageProps> = ({
   );
 };
 
+TestPage.layout = layoutWithData<TestPageProps>((page, { viewer }) => (
+  <AppLayout {...{ viewer }}>{page}</AppLayout>
+));
+
 export default TestPage;
 
 type TestPageModalContentProps = {

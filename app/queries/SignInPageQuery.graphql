@@ -1,4 +1,4 @@
-query HomePageQuery {
+query SignInPageQuery {
   viewer {
     id
     ...AppViewerFragment

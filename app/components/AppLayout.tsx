@@ -1,26 +1,27 @@
-import type { FC, PropsWithChildren, ReactElement } from "react";
+import type { FC, PropsWithChildren } from "react";
 import { AppShell } from "@mantine/core";
 
 import AppHeader from "./AppHeader";
 import AppFooter from "./AppFooter";
 import AppFlash from "./AppFlash";
 
-export type AppLayoutProps = PropsWithChildren;
+import type { Maybe } from "~/queries";
+import type { AppViewerFragment } from "~/queries";
 
-const AppLayout: FC<AppLayoutProps> = ({ children }) => (
+export type AppLayoutProps = PropsWithChildren<{
+  readonly viewer: Maybe<AppViewerFragment>;
+}>;
+
+const AppLayout: FC<AppLayoutProps> = ({ viewer, children }) => (
   <>
     <AppShell header={<AppHeader />}>
       <Container size="sm" p={0} mb="xl">
         {children}
       </Container>
     </AppShell>
-    <AppFooter />
+    <AppFooter {...{ viewer }} />
     <AppFlash />
   </>
 );
 
 export default AppLayout;
-
-export const withAppLayout = (page: ReactElement): ReactElement => {
-  return <AppLayout>{page}</AppLayout>;
-};

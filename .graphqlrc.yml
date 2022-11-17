@@ -1,2 +1,2 @@
 schema: app/graphql/schema.graphql
-documents: app/views/**/*.graphql
+documents: app/queries/*.graphql

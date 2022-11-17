@@ -10,7 +10,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /account/sign_up
   sig { override.void }
   def new
-    render(inertia: "SignUpPage")
+    data = query!("SignUpPageQuery")
+    render(inertia: "SignUpPage", props: { data: data })
   end
 
   # POST /account

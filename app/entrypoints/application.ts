@@ -1,8 +1,8 @@
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/inertia-react";
 
-import { setupPage, setupApp, pagesFromFiles } from "~/helpers/inertia";
 import type { PageComponent } from "~/helpers/inertia";
+import { setupApp, pagesFromFiles } from "~/helpers/inertia";
 
 const pages = resolve(() => {
   const files = import.meta.glob("~/pages/*.tsx", {
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!page) {
         throw new Error(`missing default export for page '${name}'`);
       }
-      return setupPage(page) as any;
+      return page as any;
     },
     setup: ({ el, App, props }) => {
       const app = setupApp({ App, props });

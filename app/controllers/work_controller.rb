@@ -6,6 +6,7 @@ class WorkController < ApplicationController
 
   sig { void }
   def show
-    render(inertia: "WorkPage")
+    data = query!("WorkPageQuery")
+    render(inertia: "WorkPage", props: { data: data })
   end
 end

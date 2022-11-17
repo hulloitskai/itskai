@@ -1,12 +1,14 @@
-import type { FC, PropsWithChildren } from "react";
+import type { FC } from "react";
 
 import AppProviders from "./AppProviders";
 import AppProgress from "./AppProgress";
 
-export type AppContainerProps = PropsWithChildren;
+import type { ProviderProps } from "~/helpers/inertia";
 
-const AppContainer: FC<AppContainerProps> = ({ children }) => (
-  <AppProviders>
+export type AppContainerProps = ProviderProps;
+
+const AppContainer: FC<AppContainerProps> = ({ page, children }) => (
+  <AppProviders {...{ page }}>
     {children}
     <AppProgress />
   </AppProviders>

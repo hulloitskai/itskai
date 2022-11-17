@@ -9,17 +9,23 @@ class GraphQL::Queries
   def self.use(defn, options = {})
     schema =
       T.let(defn.is_a?(Class) ? defn : defn.target, T.class_of(GraphQL::Schema))
-    schema.queries = new(**options)
+    schema.queries = new
   end
 
   sig { void }
   def initialize
-    @queries = T.let({}, T::Hash[String, GraphQL::Language::Nodes::Document])
+    @queries =
+      T.let(nil, T.nilable(T::Hash[String, GraphQL::Language::Nodes::Document]))
   end
 
   sig { params(name: String, kwargs: T.untyped).returns(Result) }
   def execute(name, **kwargs)
-    document = @queries.fetch(name) { load_query(name) }
+    document =
+      if @queries
+        @queries.fetch(name) { "missing preloaded query '#{name}'" }
+      else
+        load_query(name)
+      end
     result = Schema.execute(document: document, **kwargs)
     data, errors = result["data"], result["errors"]
     Result.new(data: data, errors: errors)
@@ -27,7 +33,7 @@ class GraphQL::Queries
 
   sig { void }
   def preload
-    @queries.clear
+    @queries = {}
     Dir
       .foreach(Rails.root.join("app/queries"))
       .filter_map do |filename|
@@ -106,6 +112,7 @@ class GraphQL::Queries::FragmentVisitor < GraphQL::Language::Visitor
   end
   def on_fragment_definition(node, parent)
     @fragment_definitions << node
+    super
   end
 
   sig do
@@ -116,5 +123,6 @@ class GraphQL::Queries::FragmentVisitor < GraphQL::Language::Visitor
   end
   def on_fragment_spread(node, parent)
     @fragment_names << node.name
+    super
   end
 end
