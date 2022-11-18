@@ -15,12 +15,15 @@ class BetterErrors::StackFrame
 end
 
 class BetterErrors::Middleware
+  extend T::Sig
+
   private
 
+  sig { params(env: T::Hash[String, T.untyped]).returns(T::Boolean) }
   def text?(env)
     (
       env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest" &&
         env["HTTP_X_INERTIA"] != "true"
-    ) || !env["HTTP_ACCEPT"].to_s.include?("html")
+    ) || env["HTTP_ACCEPT"].exclude?("html")
   end
 end

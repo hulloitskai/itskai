@@ -14,12 +14,12 @@ export type AppLayoutProps = PropsWithChildren<{
 
 const AppLayout: FC<AppLayoutProps> = ({ viewer, children }) => (
   <>
-    <AppShell header={<AppHeader />}>
+    <AppShell header={<AppHeader {...{ viewer }} />}>
       <Container size="sm" p={0} mb="xl">
         {children}
       </Container>
     </AppShell>
-    <AppFooter {...{ viewer }} />
+    <AppFooter />
     <AppFlash />
   </>
 );

@@ -23,6 +23,12 @@ const SignInPage: PageComponent = ({ errors }) => {
           </Text>
         </Stack>
         <SignInForm {...{ errors }} />
+        <Text size="xs" color="gray">
+          Don&apos;t have an account?{" "}
+          <Anchor component={Link} href="/account/sign_up" color="indigo">
+            Sign up instead.
+          </Anchor>
+        </Text>
       </Stack>
     </Card>
   );

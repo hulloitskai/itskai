@@ -14,10 +14,10 @@ export type CenterLayoutProps = PropsWithChildren<{
 
 const CenterLayout: FC<CenterLayoutProps> = ({ viewer, children }) => (
   <>
-    <AppShell header={<AppHeader />}>
+    <AppShell header={<AppHeader {...{ viewer }} />}>
       <Center h="100%">{children}</Center>
     </AppShell>
-    <AppFooter {...{ viewer }} />
+    <AppFooter />
     <AppFlash />
   </>
 );

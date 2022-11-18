@@ -1,7 +1,15 @@
 import type { FC } from "react";
 import { Header } from "@mantine/core";
 
-const AppHeader: FC = () => (
+import type { Maybe } from "~/queries";
+import type { AppViewerFragment } from "~/queries";
+import AppIdentityBadge from "./AppIdentityBadge";
+
+export type AppHeaderProps = {
+  readonly viewer: Maybe<AppViewerFragment>;
+};
+
+const AppHeader: FC<AppHeaderProps> = ({ viewer }) => (
   <Header
     height={38}
     p={8}
@@ -27,18 +35,7 @@ const AppHeader: FC = () => (
     >
       It&apos;s Kai!
     </Button>
-    <Button
-      component={Link}
-      href="/work"
-      compact
-      size="xs"
-      radius="lg"
-      variant="gradient"
-      gradient={{ from: "indigo", to: "pink", deg: 45 }}
-      sx={{ fontWeight: 700, textTransform: "uppercase" }}
-    >
-      Let&apos;s work together!
-    </Button>
+    <AppIdentityBadge {...{ viewer }} />
   </Header>
 );
 
