@@ -6,8 +6,9 @@ module Queries
     extend T::Sig
     extend T::Helpers
 
-    # == Helpers ==
-    include ResolverHelpers
+    # == Modules ==
+    include ActionPolicy::GraphQL::Behaviour
+    include Resolver
 
     # == Configuration ==
     argument_class Types::BaseArgument

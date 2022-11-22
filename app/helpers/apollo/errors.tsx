@@ -1,7 +1,5 @@
 import type { ApolloError, ServerError } from "@apollo/client";
 
-import ExclamationTriangleIcon from "~icons/heroicons/exclamation-triangle-20-solid";
-
 export const formatApolloError = (error: ApolloError): string => {
   const { graphQLErrors, networkError, message } = error;
   const graphQLError = first(graphQLErrors);
@@ -22,12 +20,7 @@ export const useApolloErrorCallback = (
   return useCallback(
     error => {
       const message = formatApolloError(error);
-      showNotification({
-        color: "red",
-        icon: <ExclamationTriangleIcon />,
-        title,
-        message,
-      });
+      showAlert({ title, message });
     },
     [showNotification, title],
   );

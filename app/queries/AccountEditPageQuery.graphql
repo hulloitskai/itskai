@@ -1,0 +1,11 @@
+query AccountEditPageQuery {
+  viewer {
+    id
+    ...AppViewerFragment
+    ...AccountEditViewerFragment
+  }
+  icloudCredentials {
+    id
+    ...AccountEditICloudCredentialsFragment
+  }
+}

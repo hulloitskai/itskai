@@ -60,6 +60,14 @@ gem "rails-healthcheck"
 # Silence logs from certain actions
 gem "silencer", "~> 2.0.0", require: false
 
+# Validate emails, phone numbers, dates, arrays, and more
+gem "can_has_validations", "~> 1.6"
+gem "email_validator", "~> 2.2"
+gem "phonelib", "~> 0.6.55"
+gem "validate_url", "~> 1.0"
+gem "date_validator", "~> 0.12.0"
+gem "active_storage_validations", "~> 0.9.6"
+
 # Debug code and inspect values at runtime
 # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
 gem "debug", platforms: %i[mri mingw x64_mingw]
@@ -110,6 +118,9 @@ gem "premailer-rails", "~> 1.11"
 # Parse YAML files with Psych
 gem "psych", "~> 4.0"
 
+# Parse front matter from text files.
+gem "front_matter_parser", "~> 1.0"
+
 # Authenticate users with Devise
 gem "devise", "~> 4.8"
 
@@ -120,6 +131,15 @@ gem "omniauth-spotify", "~> 0.0.13"
 
 # Use RSpotify to read currently playing data from Spotify
 gem "rspotify", "~> 2.11"
+
+# Call Python from Ruby
+gem "pycall", "~> 1.4"
+
+# Print objects with text wrappers for debugging
+gem "wrapped_print"
+
+# Enable additional operators and utilities for Active Record with PostgreSQL
+gem "active_record_extended", "~> 2.1"
 
 group :development, :test do
   # Auto-detect and warn about N+1 queries

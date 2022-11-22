@@ -16,7 +16,7 @@ class Schema < GraphQL::Schema
   # By default, limit the maximum number of returned items in connections to 50.
   default_max_page_size 50
 
-  # Stop validating after 100 errors.
+  # Stop validation after 100 errors.
   validate_max_errors 100
 
   # == Types ==
@@ -26,16 +26,23 @@ class Schema < GraphQL::Schema
 
   # == Resolvers ==
   # Resolve unions and interfaces.
-  #
-  # TODO: Implement this method to return the correct GraphQL object type for
-  # `obj`.
   T::Sig::WithoutRuntime.sig do
     override
-      .params(abstract_type: T.untyped, obj: T.untyped, ctx: T.untyped)
-      .returns(T.noreturn)
+      .params(
+        abstract_type: T.untyped,
+        object: T.untyped,
+        context: GraphQL::Query::Context,
+      )
+      .returns(String)
   end
-  def self.resolve_type(abstract_type, obj, ctx)
-    raise(GraphQL::RequiredImplementationMissingError)
+  def self.resolve_type(abstract_type, object, context)
+    if object.is_a?(ApplicationRecord)
+      model_name = T.let(object.model_name.to_s, String)
+      type = "::Types::#{model_name}Type".safe_constantize
+      type or raise "Unexpected record type: #{model_name}"
+    else
+      raise GraphQL::RequiredImplementationMissingError
+    end
   end
 
   # Return a string UUID for `object`.
@@ -43,30 +50,33 @@ class Schema < GraphQL::Schema
     params(
         object: T.all(::Object, GlobalID::Identification),
         type_definition: T.untyped,
-        query_ctx: T.untyped,
+        context: GraphQL::Query::Context,
       )
       .returns(String)
   end
-  def self.id_from_object(object, type_definition, query_ctx)
-    object.to_gid_param
+  def self.id_from_object(object, type_definition, context)
+    object.to_gid.to_s
   end
 
   # Given a string UUID, find the object.
   sig do
-    params(id: String, query_ctx: GraphQL::Query::Context).returns(T.untyped)
+    params(id: String, context: GraphQL::Query::Context).returns(T.untyped)
   end
-  def self.object_from_id(id, query_ctx)
+  def self.object_from_id(id, context)
     GlobalID::Locator.locate(id)
   end
 
   # == Callbacks ==
   # GraphQL-Ruby calls this when something goes wrong while running a query.
-  sig { params(err: T.untyped, context: T.untyped).returns(T.untyped) }
-  def self.type_error(err, context)
+  sig do
+    params(error: Exception, context: GraphQL::Query::Context)
+      .returns(T.untyped)
+  end
+  def self.type_error(error, context)
+    raise error
     # if err.is_a?(GraphQL::InvalidNullError)
     #   # report to your bug tracker here
     #   return nil
     # end
-    super
   end
 end

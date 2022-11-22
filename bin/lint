@@ -2,9 +2,12 @@
 # frozen_string_literal: true
 
 # == Dependencies ==
-system("yarn", "install") || abort("Failed to install Node dependencies")
+system("bundle", "install", "--quiet") ||
+  abort("Failed to install Ruby dependencies")
+system("yarn", "install", "--silent") ||
+  abort("Failed to install Node dependencies")
 
-# == Lint ==
+# == Command ==
 require "optparse"
 
 options = {}
@@ -21,24 +24,6 @@ def scoped(&block)
   yield
 end
 
-def targets(*exts)
-  if ARGV.empty?
-    return []
-  end
-  targets = []
-  ARGV.each do |target|
-    if File.directory?(target)
-      filenames = Dir.glob(File.join(target, "**/*")).filter do |filename|
-        exts.include?(File.extname(filename))
-      end
-      targets += filenames
-    elsif exts.include?(File.extname(target))
-      targets << target
-    end
-  end
-  targets
-end
-
 puts "== rubocop =="
 scoped do
   args = []
@@ -47,31 +32,26 @@ scoped do
     "bundle",
     "exec",
     "rubocop",
-    "--force-exclusion",
     *args,
-    *targets(".rb", ".rbi"),
   )
 end
 
-  puts "\n== eslint =="
+puts "\n== eslint =="
 scoped do
-  args = %w[--ext .js,.ts]
+  args = %w[--ext .js,.jsx,.ts,.tsx]
   args << "--fix" if options[:fix]
-  targets = targets(".js", ".ts")
-  targets << "." if targets.empty?
+  args << "."
   system(
     "yarn",
+    "--silent",
     "eslint",
-    "--quiet",
-    "--no-error-on-unmatched-pattern",
-    "--report-unused-disable-directives",
+    "--cache",
     *args,
-    *targets,
-  )
+  ) && puts("No problems or warnings")
 end
 
 puts "\n== tsc =="
-system("yarn", "tsc", "--noEmit", *targets(".ts"))
+system("yarn", "--silent", "tsc", "--noEmit") && puts("No errors found")
 
 puts "\n== srb =="
-system("bundle", "exec", "srb", "tc", *targets(".rb", ".rbi"))
+system("bundle", "exec", "srb", "tc")

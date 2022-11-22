@@ -1,0 +1,11 @@
+fragment ObsidianGraphNoteFragment on ObsidianNote {
+  id
+  name
+  aliases
+  references {
+    id
+  }
+  referencedBy {
+    id
+  }
+}

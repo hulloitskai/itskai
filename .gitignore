@@ -6,6 +6,12 @@
 /public/dist*
 
 
+# == Python ==
+__pycache__/
+*.py[cod]
+*$py.class
+
+
 # == Rails ==
 /public/assets
 /public/sitemap*.xml.gz

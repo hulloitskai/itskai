@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Types
-  class SubscriptionType < Types::BaseObject
+  class SubscriptionType < BaseObject
     field :currently_playing, subscription: Subscriptions::CurrentlyPlaying
     field :test_subscription, subscription: Subscriptions::TestSubscription
   end

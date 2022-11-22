@@ -12,6 +12,9 @@ module GeneratedPathHelpersModule
   def api_status_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def cancel_user_registration_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def destroy_user_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -19,6 +22,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def edit_user_password_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_user_registration_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def good_job_path(*args); end

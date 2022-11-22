@@ -17,6 +17,8 @@ export type { LayoutWithDataFn } from "./layout";
 
 export type { ProviderProps } from "./provider";
 
+export { useBaggedErrors } from "./errors";
+
 // export const setupPage = (page: PageComponent): PageComponent => {
 //   if (page.layout === undefined) {
 //     page.layout = withAppLayout;

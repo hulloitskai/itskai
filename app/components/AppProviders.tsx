@@ -8,9 +8,9 @@ import type { ProviderProps } from "~/helpers/inertia";
 export type AppProvidersProps = ProviderProps;
 
 const AppProviders: FC<AppProvidersProps> = ({ page, children }) => (
-  <MantineProvider>
-    <ApolloProvider {...{ page }}>{children}</ApolloProvider>
-  </MantineProvider>
+  <ApolloProvider {...{ page }}>
+    <MantineProvider>{children} </MantineProvider>
+  </ApolloProvider>
 );
 
 export default AppProviders;

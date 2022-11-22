@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_17_152502) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_23_154641) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -83,6 +83,47 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_17_152502) do
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
   end
 
+  create_table "icloud_credentials", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "password", null: false
+    t.text "cookies"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "session"
+    t.string "email", null: false
+  end
+
+  create_table "obsidian_ghost_notes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_obsidian_ghost_notes_on_name", unique: true
+  end
+
+  create_table "obsidian_notes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "aliases", default: [], null: false, array: true
+    t.string "tags", default: [], null: false, array: true
+    t.text "content", null: false
+    t.datetime "modified_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "analyzed_at", precision: nil
+    t.index ["aliases"], name: "index_obsidian_notes_on_aliases"
+    t.index ["analyzed_at"], name: "index_obsidian_notes_on_analyzed_at"
+    t.index ["modified_at"], name: "index_obsidian_notes_on_modified_at"
+    t.index ["name"], name: "index_obsidian_notes_on_name", unique: true
+    t.index ["tags"], name: "index_obsidian_notes_on_tags"
+  end
+
+  create_table "obsidian_relations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "from_id", null: false
+    t.uuid "to_id", null: false
+    t.string "to_type", default: "nil", null: false
+    t.index ["from_id", "to_id"], name: "index_obsidian_relations_uniqueness", unique: true
+    t.index ["from_id"], name: "index_obsidian_relations_on_from_id"
+    t.index ["to_id"], name: "index_obsidian_relations_on_to_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", null: false
     t.string "encrypted_password", null: false
@@ -107,4 +148,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_17_152502) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "obsidian_relations", "obsidian_notes", column: "from_id"
 end

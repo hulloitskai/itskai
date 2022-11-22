@@ -12,17 +12,18 @@
     "moduleResolution": "node",
     "jsx": "react-jsx",
     "esModuleInterop": true,
+    "isolatedModules": true,
+    "useDefineForClassFields": true,
 
     // == JavaScript ==
     "allowJs": true,
-    "checkJs": false,
 
     // == Emit ==
     "noEmit": true,
 
     // == Types ==
     "strict": true,
-    "types": ["vite/client", "unplugin-icons/types/react"],
+    "alwaysStrict": true,
 
     // == Completeness ==
     "skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,

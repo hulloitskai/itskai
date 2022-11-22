@@ -2,24 +2,25 @@
 # frozen_string_literal: true
 
 # == Dependencies ==
-system("yarn", "install") || abort("Failed to install Node dependencies")
+system("bundle", "install", "--quiet") ||
+  abort("Failed to install Ruby dependencies")
+system("yarn", "install", "--silent") ||
+  abort("Failed to install Node dependencies")
 
-# == Format ==
+# == Command ==
 require "optparse"
 
 options = {}
 
 OptionParser.new do |opts|
-  opts.banner = "Usage: bin/fmt [--fix]"
+  opts.banner = "Usage: bin/fmt [--fix] <targets...>"
   opts.on(
     "--fix",
     "Auto-format unformatted files",
   ) { |check| options[:check] = check }
 end.parse!
 
-targets = ARGV.dup
-targets << "." if targets.empty?
 mode = options[:fix] ? "--write" : "--check"
 
-puts "== Prettier =="
-system("yarn", "prettier", mode, *targets)
+puts "== prettier =="
+system("yarn", "--silent", "prettier", mode, ".")

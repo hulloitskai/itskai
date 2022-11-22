@@ -11,7 +11,7 @@ module Queries
     sig { returns(String) }
     def resolve
       email = ENV["KAI_CONTACT_EMAIL"]
-      raise GraphQL::ExecutionError, "missing contact email" if email.blank?
+      raise GraphQL::ExecutionError, "Missing contact email" if email.blank?
       email
     end
   end

@@ -9,12 +9,27 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module ItsKai
+module Kai
   class Application < Rails::Application
-    # Apply patches.
+    # Load libraries.
     config.before_configuration do
+      # == Core Extensions ==
       require "core_ext"
+
+      # == Rails Extensions ==
       require "rails_ext"
+
+      # == Library Extensions ==
+      require "better_errors_ext"
+      require "bullet_ext"
+      require "devise_ext"
+      require "email_validator_ext"
+      require "graphql_ext"
+      require "premailer_ext"
+
+      # == Libraries ==
+      require "icloud"
+      require "obsidian"
     end
 
     # Initialize configuration defaults for originally generated Rails version.

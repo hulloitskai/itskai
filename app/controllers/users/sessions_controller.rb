@@ -6,8 +6,8 @@ class Users::SessionsController < Devise::SessionsController
   # GET /account/sign_in
   sig { override.void }
   def new
-    data = query!("SignInPageQuery")
-    render(inertia: "SignInPage", props: { data: data })
+    data = query!("AccountSignInPageQuery")
+    render(inertia: "AccountSignInPage", props: { data: data })
   end
 
   # POST /account/sign_in

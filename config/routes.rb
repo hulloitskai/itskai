@@ -9,17 +9,11 @@ Rails.application.routes.draw do
   # == Devise ==
   devise_for :users,
              path: :account,
-             skip: :registrations,
              controllers: {
                sessions: "users/sessions",
+               registrations: "users/registrations",
                omniauth_callbacks: "users/omniauth_callbacks",
              }
-  devise_scope :user do
-    scope :account, module: "users" do
-      post :/, to: "registrations#create", as: :user_registration
-      get :sign_up, to: "registrations#new", as: :new_user_registration
-    end
-  end
 
   # == API ==
   scope :api do

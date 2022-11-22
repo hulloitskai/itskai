@@ -21,7 +21,7 @@ class ApplicationRecord < ActiveRecord::Base
                 missing_columns.map { |name| "`#{name}'" }.to_sentence
               "columns #{missing_columns_sentence}"
             end
-          raise "missing #{subject} on #{model_name}"
+          raise "Missing #{subject} on #{model_name}"
         end
       end
     end

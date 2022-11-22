@@ -13,24 +13,33 @@ class ApplicationPolicy < ActionPolicy::Base
   # Read more about authorization context: https://actionpolicy.evilmartians.io/#/authorization_context
   authorize :user, optional: true
 
-  # Define scope matchers.
-  scope_matcher :active_record_relation,
-                ->(target) { target < ActiveRecord::Base }
+  # Define common aliases.
+  alias_rule :delete?, to: :edit?
 
-  # # Always permit admins.
-  # # pre_check :allow_admins!
+  # Always permit owner.
+  pre_check :allow_owner!
 
-  # private
+  # == Default Rules ==
+  sig { returns(T::Boolean) }
+  def index?
+    false
+  end
 
-  # sig { void }
-  # def allow_admins!
-  #   allow! if user&.admin?
-  # end
+  sig { returns(T::Boolean) }
+  def show?
+    true
+  end
 
-  # sig { returns(User) }
-  # def authenticate!
-  #   user = self.user
-  #   deny! if user.nil?
-  #   T.must(user)
-  # end
+  private
+
+  # == Helpers ==
+  sig { void }
+  def allow_owner!
+    allow! if user&.owner?
+  end
+
+  sig { returns(User) }
+  def authenticate!
+    user or deny!
+  end
 end

@@ -1,0 +1,6 @@
+query AccountSignInPageQuery {
+  viewer {
+    id
+    ...AppViewerFragment
+  }
+}

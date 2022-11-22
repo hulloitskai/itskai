@@ -14,69 +14,147 @@ class GraphQL::Queries
 
   sig { void }
   def initialize
-    @queries =
-      T.let(nil, T.nilable(T::Hash[String, GraphQL::Language::Nodes::Document]))
+    @queries = T.let({}, T::Hash[String, ParsedQuery])
+    @fragments = T.let({}, T::Hash[String, ParsedFragment])
   end
 
+  # == Methods ==
   sig { params(name: String, kwargs: T.untyped).returns(Result) }
   def execute(name, **kwargs)
-    document =
-      if @queries
-        @queries.fetch(name) { "missing preloaded query '#{name}'" }
-      else
-        load_query(name)
-      end
+    document = build_query_document(name)
     result = Schema.execute(document: document, **kwargs)
     data, errors = result["data"], result["errors"]
     Result.new(data: data, errors: errors)
   end
 
   sig { void }
-  def preload
-    @queries = {}
-    Dir
-      .foreach(Rails.root.join("app/queries"))
-      .filter_map do |filename|
-        if File.extname(filename) == ".graphql"
-          name = File.basename(filename, ".graphql")
-          name if name.end_with?("Query", "Mutation", "Subscription")
-        end
+  def load
+    @queries.clear
+    @fragments.clear
+    filenames = Dir.glob(Rails.root.join("app/queries/**/*.graphql").to_s)
+    load_files(*T.unsafe(filenames))
+  end
+
+  sig { void }
+  def listen
+    require "listen"
+    @listener = T.let(@listener, T.nilable(Listen::Listener))
+    @listener =
+      Listen.to(
+        Rails.root.join("app/queries"),
+        only: /\.graphql$/,
+      ) do |modified, added, removed|
+        reload(modified: modified, removed: removed, added: added)
       end
-      .each { |name| @queries[name] = load_query(name) }
+    @listener.start
+    at_exit { @listener&.stop }
   end
 
   private
 
+  sig do
+    params(
+      modified: T::Array[String],
+      added: T::Array[String],
+      removed: T::Array[String],
+    ).void
+  end
+  def reload(modified:, added:, removed:)
+    next_files = (modified + added).to_set
+    prev_files = (modified + removed).to_set
+    [@queries, @fragments].each do |collection|
+      collection.reject! { |_, definition| definition.filename.in?(prev_files) }
+    end
+    load_files(*T.unsafe(next_files))
+  end
+
+  sig { params(filenames: String).void }
+  def load_files(*filenames)
+    filenames.each do |filename|
+      document = GraphQL.parse_file(filename)
+      definitions = resolve_document_definitions(document)
+      definitions.each do |definition|
+        fragment_references = resolve_fragment_references(definition)
+        case definition
+        when GraphQL::Language::Nodes::OperationDefinition
+          @queries[definition.name] =
+            ParsedQuery.new(
+              definition: definition,
+              fragment_references: fragment_references,
+              filename: filename,
+            )
+        when GraphQL::Language::Nodes::FragmentDefinition
+          @fragments[definition.name] =
+            ParsedFragment.new(
+              definition: definition,
+              fragment_references: fragment_references,
+              filename: filename,
+            )
+        else
+          T.absurd(definition)
+        end
+      end
+    end
+  end
+
+  sig { params(name: String).returns(ParsedQuery) }
+  def query!(name)
+    @queries.fetch(name) { raise "Missing query '#{name}'" }
+  end
+
+  sig { params(name: String).returns(ParsedFragment) }
+  def fragment!(name)
+    @fragments.fetch(name) { raise "Missing fragment '#{name}'" }
+  end
+
   sig { params(name: String).returns(GraphQL::Language::Nodes::Document) }
-  def load_document(name)
-    filename = Rails.root.join("app/queries", "#{name}.graphql")
-    GraphQL.parse_file(filename)
+  def build_query_document(name)
+    query = query!(name)
+    fragment_references = build_fragment_references(query)
+    GraphQL::Language::Nodes::Document.new(
+      definitions: [
+        query.definition,
+        *fragment_references.map do |reference|
+          fragment!(reference).definition
+        end,
+      ],
+    )
+  end
+
+  sig { params(definition: ParsedDefinition).returns(T::Set[String]) }
+  def build_fragment_references(definition)
+    references = definition.fragment_references.dup
+    definition.fragment_references.each do |reference|
+      fragment = fragment!(reference)
+      references.merge(build_fragment_references(fragment))
+    end
+    references
   end
 
   sig do
     params(document: GraphQL::Language::Nodes::Document)
-      .returns(T::Array[GraphQL::Language::Nodes::FragmentDefinition])
+      .returns(
+        T::Array[
+          T.any(
+            GraphQL::Language::Nodes::OperationDefinition,
+            GraphQL::Language::Nodes::FragmentDefinition,
+          )
+        ],
+      )
   end
-  def load_fragment_definitions(document)
-    visitor = FragmentVisitor.new(document)
+  def resolve_document_definitions(document)
+    visitor = DefinitionsVisitor.new(document)
     visitor.visit
-    fragments = visitor.fragment_definitions
-    visitor.fragment_names.each do |name|
-      fragments.concat(load_fragment_definitions(load_document(name)))
-    end
-    fragments
+    visitor.definitions
   end
 
-  sig { params(name: String).returns(GraphQL::Language::Nodes::Document) }
-  def load_query(name)
-    document = load_document(name)
-    operation_definition =
-      T.let(
-        document.definitions.first,
-        GraphQL::Language::Nodes::OperationDefinition,
-      )
-    fragment_definitions = load_fragment_definitions(document)
-    document.merge(definitions: [operation_definition, *fragment_definitions])
+  sig do
+    params(node: GraphQL::Language::Nodes::AbstractNode).returns(T::Set[String])
+  end
+  def resolve_fragment_references(node)
+    visitor = FragmentReferencesVisitor.new(node)
+    visitor.visit
+    visitor.references
   end
 end
 
@@ -87,33 +165,58 @@ class GraphQL::Queries::Result < T::Struct
   const :errors, T.nilable(T::Array[JSONObject])
 end
 
-class GraphQL::Queries::FragmentVisitor < GraphQL::Language::Visitor
+class GraphQL::Queries::DefinitionsVisitor < GraphQL::Language::Visitor
   extend T::Sig
 
-  sig { params(document: GraphQL::Language::Nodes::Document).void }
-  def initialize(document)
+  Nodes = GraphQL::Language::Nodes
+  Definition =
+    T.type_alias do
+      T.any(Nodes::OperationDefinition, Nodes::FragmentDefinition)
+    end
+
+  sig { params(node: GraphQL::Language::Nodes::AbstractNode).void }
+  def initialize(node)
     super
-    @fragment_definitions =
-      T.let([], T::Array[GraphQL::Language::Nodes::FragmentDefinition])
-    @fragment_names = T.let([], T::Array[String])
+    @definitions = T.let([], T::Array[Definition])
   end
 
-  sig { returns(T::Array[GraphQL::Language::Nodes::FragmentDefinition]) }
-  attr_reader :fragment_definitions
-
-  sig { returns(T::Array[String]) }
-  attr_reader :fragment_names
+  sig { returns(T::Array[Definition]) }
+  attr_reader :definitions
 
   sig do
     override.params(
-      node: GraphQL::Language::Nodes::FragmentDefinition,
-      parent: GraphQL::Language::Nodes::AbstractNode,
+      node: Nodes::OperationDefinition,
+      parent: Nodes::AbstractNode,
+    ).void
+  end
+  def on_operation_definition(node, parent)
+    @definitions << node
+    super
+  end
+
+  sig do
+    override.params(
+      node: Nodes::FragmentDefinition,
+      parent: Nodes::AbstractNode,
     ).void
   end
   def on_fragment_definition(node, parent)
-    @fragment_definitions << node
+    @definitions << node
     super
   end
+end
+
+class GraphQL::Queries::FragmentReferencesVisitor < GraphQL::Language::Visitor
+  extend T::Sig
+
+  sig { params(node: GraphQL::Language::Nodes::AbstractNode).void }
+  def initialize(node)
+    super
+    @references = T.let(Set.new, T::Set[String])
+  end
+
+  sig { returns(T::Set[String]) }
+  attr_reader :references
 
   sig do
     override.params(
@@ -122,7 +225,33 @@ class GraphQL::Queries::FragmentVisitor < GraphQL::Language::Visitor
     ).void
   end
   def on_fragment_spread(node, parent)
-    @fragment_names << node.name
+    @references << node.name
     super
   end
+end
+
+module GraphQL::Queries::ParsedDefinition
+  extend T::Sig
+  extend T::Helpers
+
+  interface!
+
+  sig { abstract.returns(T::Set[String]) }
+  def fragment_references; end
+end
+
+class GraphQL::Queries::ParsedQuery < T::Struct
+  include GraphQL::Queries::ParsedDefinition
+
+  const :definition, GraphQL::Language::Nodes::OperationDefinition
+  const :fragment_references, T::Set[String]
+  const :filename, String
+end
+
+class GraphQL::Queries::ParsedFragment < T::Struct
+  include GraphQL::Queries::ParsedDefinition
+
+  const :definition, GraphQL::Language::Nodes::FragmentDefinition
+  const :fragment_references, T::Set[String]
+  const :filename, String
 end

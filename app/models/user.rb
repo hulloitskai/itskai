@@ -34,6 +34,39 @@ class User < ApplicationRecord
   # == Concerns ==
   include Identifiable
   include Named
+
+  # == Validations ==
+  validates :name, presence: true, length: { maximum: 64 }
+  validates :email,
+            presence: true,
+            length: {
+              maximum: 100,
+            },
+            email: true,
+            uniqueness: {
+              case_sensitive: false,
+            }
+
+  # == Owner ==
+  sig { returns(String) }
+  def self.owner_email
+    ENV.fetch("KAI_LOGIN_EMAIL")
+  end
+
+  sig { returns(T.nilable(User)) }
+  def self.owner
+    User.find_by(email: owner_email)
+  end
+
+  sig { returns(User) }
+  def self.owner!
+    owner or raise ActiveRecord::RecordNotFound
+  end
+
+  sig { returns(T::Boolean) }
+  def owner?
+    email == User.owner_email
+  end
 end
 
 # == Devise ==
@@ -49,8 +82,15 @@ class User
          :omniauthable,
          reconfirmable: true
 
-  # == OmniAuth ==
+  # == Configuration ==
+  self.filter_attributes += %i[
+    encrypted_password
+    reset_password_token
+    confirmation_token
+    invitation_token
+  ]
 
+  # == OmniAuth ==
   sig { params(auth: OmniAuth::AuthHash).returns(User) }
   def self.from_omniauth(auth)
     # rubocop:disable Layout/LineLength
@@ -94,14 +134,6 @@ class User
     # user
     # rubocop:enable Layout/LineLength
   end
-
-  # == Configuration ==
-  self.filter_attributes += %i[
-    encrypted_password
-    reset_password_token
-    confirmation_token
-    invitation_token
-  ]
 end
 
 # == Kai ==

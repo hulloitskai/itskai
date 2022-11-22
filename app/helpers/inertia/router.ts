@@ -25,8 +25,30 @@ export class Router {
     Inertia.post(url, data, this.optionsWithCSRFToken(options));
   }
 
+  put(
+    url: URL | string,
+    data?: any,
+    options?: Exclude<VisitOptions, "method" | "data">,
+  ): void {
+    Inertia.put(url, data, this.optionsWithCSRFToken(options));
+  }
+
+  patch(
+    url: URL | string,
+    data?: any,
+    options?: Exclude<VisitOptions, "method" | "data">,
+  ): void {
+    Inertia.patch(url, data, this.optionsWithCSRFToken(options));
+  }
+
   delete(url: URL | string, options?: Exclude<VisitOptions, "method">): void {
     Inertia.delete(url, this.optionsWithCSRFToken(options));
+  }
+
+  reload(
+    options?: Exclude<VisitOptions, "preserveScroll" | "preserveState">,
+  ): void {
+    Inertia.reload(this.optionsWithCSRFToken(options));
   }
 
   private optionsWithCSRFToken(options?: VisitOptions): VisitOptions {

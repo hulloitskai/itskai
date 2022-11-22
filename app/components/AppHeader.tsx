@@ -3,7 +3,7 @@ import { Header } from "@mantine/core";
 
 import type { Maybe } from "~/queries";
 import type { AppViewerFragment } from "~/queries";
-import AppIdentityBadge from "./AppIdentityBadge";
+import AppMenu from "./AppMenu";
 
 export type AppHeaderProps = {
   readonly viewer: Maybe<AppViewerFragment>;
@@ -35,7 +35,7 @@ const AppHeader: FC<AppHeaderProps> = ({ viewer }) => (
     >
       It&apos;s Kai!
     </Button>
-    <AppIdentityBadge {...{ viewer }} />
+    <AppMenu {...{ viewer }} />
   </Header>
 );
 

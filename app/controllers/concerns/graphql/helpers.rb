@@ -12,7 +12,7 @@ module GraphQL::Helpers
   def prepare_variables(variables_param)
     prepare_hash(variables_param)
   rescue ArgumentError
-    raise "unexpected variables parameter: #{variables_param}"
+    raise "Unexpected variables parameter: #{variables_param}"
   end
 
   # Handle extensions in form data, JSON body, or a blank value.
@@ -22,7 +22,7 @@ module GraphQL::Helpers
   def prepare_extensions(extensions_param)
     prepare_hash(extensions_param)
   rescue ArgumentError
-    raise "unexpected extensions parameter: #{extensions_param}"
+    raise "Unexpected extensions parameter: #{extensions_param}"
   end
 
   sig { params(value: T.untyped).returns(T::Hash[String, T.untyped]) }

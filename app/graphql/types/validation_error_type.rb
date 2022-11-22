@@ -5,12 +5,12 @@ module Types
   class ValidationErrorType < BaseObject
     extend T::Sig
 
-    field :field, String
-    field :message, String
+    field :field, String, null: false
+    field :message, String, null: false
 
     sig { returns(String) }
     def field
-      object.attribute.camelize
+      object.attribute.to_s.camelize(:lower)
     end
 
     sig { returns(String) }

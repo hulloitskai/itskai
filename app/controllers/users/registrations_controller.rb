@@ -4,14 +4,13 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # == Filters ==
   before_action :configure_sign_up_params, only: :create
-  before_action :configure_account_update_params, only: :update
 
   # == Actions ==
   # GET /account/sign_up
   sig { override.void }
   def new
-    data = query!("SignUpPageQuery")
-    render(inertia: "SignUpPage", props: { data: data })
+    data = query!("AccountSignUpPageQuery")
+    render(inertia: "AccountSignUpPage", props: { data: data })
   end
 
   # POST /account
@@ -38,30 +37,41 @@ class Users::RegistrationsController < Devise::RegistrationsController
       redirect_to(
         new_registration_path(resource_name),
         inertia: {
-          errors:
-            resource
-              .errors
-              .group_by_attribute
-              .transform_keys! { |key| key.to_s.camelize(:lower) }
-              .transform_values! do |errors|
-                errors = T.let(errors, T::Array[ActiveModel::Error])
-                error = T.must(errors.first)
-                error.full_message + "."
-              end,
+          errors: inertia_errors,
         },
       )
     end
   end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  sig { void }
+  def edit
+    data = query!("AccountEditPageQuery")
+    render(inertia: "AccountEditPage", props: { data: data })
+  end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  sig { void }
+  def update
+    self.resource =
+      resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+    resource_updated = update_resource(resource, account_update_params)
+    if resource_updated
+      if sign_in_after_change_password?
+        bypass_sign_in(resource, scope: resource_name)
+      end
+      redirect_to(after_update_path_for(resource))
+    else
+      clean_up_passwords(resource)
+      set_minimum_password_length
+      redirect_to(
+        edit_registration_path(resource_name),
+        inertia: {
+          errors: inertia_errors,
+        },
+      )
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -80,25 +90,49 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   sig do
-    params(resource: User, params: T::Hash[T.untyped, T.untyped])
+    override
+      .params(resource: User, params: T::Hash[T.untyped, T.untyped])
       .returns(T::Boolean)
   end
   def update_resource(resource, params)
     if params[:password].present?
       resource.update_with_password(params)
     else
-      resource.update_without_password(
-        params.excluding("password_confirmation", "current_password"),
-      )
+      attributes = params.excluding("password_confirmation", "current_password")
+      if params["email"] == resource["email"]
+        attributes["unconfirmed_email"] = ""
+      end
+      resource.update_without_password(attributes)
     end
   end
 
-  sig { params(resource: User).returns(Symbol) }
+  sig { params(resource: User).returns(String) }
   def after_update_path_for(resource)
-    :user_registration
+    if sign_in_after_change_password?
+      edit_registration_path(resource)
+    else
+      new_session_path(resource_name)
+    end
   end
 
   private
+
+  # == Helpers ==
+  sig { returns(T::Hash[String, T.untyped]) }
+  def inertia_errors
+    error_bag = T.let(request.headers["X-Inertia-Error-Bag"], T.nilable(String))
+    errors =
+      resource
+        .errors
+        .group_by_attribute
+        .transform_keys! { |key| key.to_s.camelize(:lower) }
+        .transform_values! do |errors|
+          errors = T.let(errors, T::Array[ActiveModel::Error])
+          error = T.must(errors.first)
+          error.full_message + "."
+        end
+    error_bag.present? ? { error_bag => errors } : errors
+  end
 
   # == Filters ==
   # If you have extra params to permit, append them to the sanitizer.
@@ -108,8 +142,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # If you have extra params to permit, append them to the sanitizer.
-  sig { void }
-  def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: %i[name])
-  end
+  # sig { void }
+  # def configure_account_update_params
+  #   devise_parameter_sanitizer.permit(:account_update, keys: %i[])
+  # end
 end

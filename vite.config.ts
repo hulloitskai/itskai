@@ -35,8 +35,10 @@ export default defineConfig({
         generates: {
           "./app/queries/index.ts": {
             config: {
-              avoidOptionals: true,
               omitOperationSuffix: true,
+              avoidOptionals: {
+                field: true,
+              },
             },
             plugins: [
               "typescript",

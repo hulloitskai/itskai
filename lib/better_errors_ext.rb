@@ -1,6 +1,11 @@
 # typed: false
 # frozen_string_literal: true
 
+return unless defined?(BetterErrors)
+
+# Force open links in new tab.
+ENV["BETTER_ERRORS_INSIDE_FRAME"] = "1"
+
 class BetterErrors::StackFrame
   module Extension
     def application?

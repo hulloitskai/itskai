@@ -82,6 +82,8 @@ Sorbet/FalseSigil:
 Sorbet/ValidSigil:
   MinimumStrictness: "ignore"
 
+Rails/Delegate:
+  Enabled: false
 Rails/LexicallyScopedActionFilter:
   Enabled: false
 Rails/HasAndBelongsToMany:

@@ -1,4 +1,0 @@
-{
-  "*.{rb,rbi,js,jsx,ts,tsx,css,md,html,json,yaml,yml}": "bin/fmt",
-  "*.{rb,rbi,js,jsx,ts,tsx}": "bin/lint"
-}

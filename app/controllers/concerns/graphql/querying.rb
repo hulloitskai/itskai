@@ -33,7 +33,6 @@ module GraphQL::Querying
       error = T.must(errors.first)
       raise error.fetch("message")
     end
-    raise "missing data" if data.blank?
-    data
+    data or raise "No data from query"
   end
 end

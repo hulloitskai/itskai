@@ -31,7 +31,7 @@ class SpotifyService
       user.try! do |user|
         player = T.let(user.player, RSpotify::Player)
         player.currently_playing.tap do |track|
-          puts "currently playing! #{track}"
+          # puts "currently playing! #{track}"
         end
       end
     end

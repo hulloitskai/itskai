@@ -1,11 +1,10 @@
 # typed: strict
 # frozen_string_literal: true
 
-require "graphql_ext"
-
-# Preload queries unless code-reloading is enabled.
+# Load queries and listen to changes.
 Rails.application.configure do
-  config.to_prepare { Schema.queries!.preload } if config.cache_classes
+  config.to_prepare { Schema.queries!.load }
+  config.after_initialize { Schema.queries!.listen } if Rails.env.development?
 end
 
 # Don't show noisy introspection query in logs.

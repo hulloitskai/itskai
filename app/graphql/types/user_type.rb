@@ -2,15 +2,14 @@
 # frozen_string_literal: true
 
 module Types
-  class UserType < Types::BaseObject
+  class UserType < BaseObject
     # == Interfaces ==
     implements GraphQL::Types::Relay::Node
 
-    # == ID ==
-    global_id_field :id
-
     # == Fields ==
     field :email, String, null: false
+    field :is_owner, Boolean, null: false, method: :owner?
     field :name, String, null: false
+    field :unconfirmed_email, String
   end
 end

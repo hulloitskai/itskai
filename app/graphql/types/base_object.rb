@@ -6,8 +6,11 @@ module Types
     extend T::Sig
     extend T::Helpers
 
-    include ResolverHelpers
+    # == Modules ==
+    include ActionPolicy::GraphQL::Behaviour
+    include Resolver
 
+    # == Configuration ==
     field_class Types::BaseField
     connection_type_class Types::BaseConnection
     edge_type_class Types::BaseEdge

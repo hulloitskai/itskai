@@ -1,6 +1,7 @@
 # Declare arguments, with default values.
 ARG DISTRO_NAME=bullseye
 ARG RUBY_VERSION=3.1.2
+ARG PYTHON_VERSION=3
 ARG NODE_VERSION=16
 ARG YARN_VERSION=1.22.17
 ARG POSTGRES_VERSION=14
@@ -14,6 +15,7 @@ FROM ruby:$RUBY_VERSION-slim-$DISTRO_NAME
 # See: https://github.com/moby/moby/issues/34129
 ARG DISTRO_NAME
 ARG RUBY_VERSION
+ARG PYTHON_VERSION
 ARG NODE_VERSION
 ARG YARN_VERSION
 ARG POSTGRES_VERSION
@@ -33,6 +35,15 @@ RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN apt-get update -qq \
     && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
     && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends libpq-dev postgresql-client-$POSTGRES_VERSION \
+    && apt-get clean \
+    && rm -rf /var/cache/apt/archives/* \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && truncate -s 0 /var/log/*log
+
+# Install Python and Pip.
+RUN apt-get update -qq \
+    && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends python${PYTHON_VERSION}-dev python${PYTHON_VERSION}-pip \
     && apt-get clean \
     && rm -rf /var/cache/apt/archives/* \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
@@ -75,7 +86,8 @@ COPY ./ ./
 
 # Install application dependencies.
 RUN bundle config set --local without 'development test' \
-    && bundle install
+    && bundle install \
+    && pip install -r requirements.txt
 
 # Install Starship.
 COPY starship.toml /root/.config/starship.toml
@@ -90,6 +102,10 @@ RUN echo >> ~/.zshrc \
 
 # Configure environment.
 ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true
+ENV NODE_ENV=$RAILS_ENV
+
+# Debug python.
+RUN PYCALL_DEBUG_FIND_LIBPYTHON=1 ruby -rpycall -ePyCall.builtins
 
 # Precompile assets.
 RUN bin/rails assets:precompile RAILS_SECRET_KEY_BASE=dummy

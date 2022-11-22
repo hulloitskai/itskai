@@ -12,11 +12,11 @@ class CurrentlyPlayingWorker
 
     sig { void }
     def run
-      puts "running!"
+      # puts "running!"
       @running_thread ||=
         Thread.new do
           loop do
-            puts "updating!"
+            # puts "updating!"
             update
             sleep(2)
           end

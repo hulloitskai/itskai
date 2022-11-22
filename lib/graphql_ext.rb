@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-require "graphql/queries"
+require_relative "graphql/queries"
 
 class GraphQL::Schema
   class << self
