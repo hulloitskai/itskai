@@ -50,7 +50,12 @@ class User < ApplicationRecord
   # == Owner ==
   sig { returns(String) }
   def self.owner_email
-    ENV.fetch("OWNER_LOGIN_EMAIL")
+    unless defined?(@owner_email)
+      @owner_email = T.let(@owner_email, T.nilable(String))
+      @owner_email = ENV.fetch("OWNER_LOGIN_EMAIL")
+      raise "Owner login email must not be blank" if @owner_email.blank?
+    end
+    T.must(@owner_email)
   end
 
   sig { returns(T.nilable(User)) }

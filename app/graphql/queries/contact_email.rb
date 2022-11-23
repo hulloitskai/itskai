@@ -10,9 +10,11 @@ module Queries
 
     sig { returns(String) }
     def resolve
-      email = ENV["OWNER_CONTACT_EMAIL"]
-      raise GraphQL::ExecutionError, "Missing contact email" if email.blank?
-      email
+      unless defined?(@email)
+        @email = T.let(@email, T.nilable(String))
+        @email = ENV["OWNER_CONTACT_EMAIL"].presence
+      end
+      @email or raise GraphQL::ExecutionError, "Missing contact email"
     end
   end
 end
