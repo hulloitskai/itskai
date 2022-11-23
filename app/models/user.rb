@@ -50,7 +50,7 @@ class User < ApplicationRecord
   # == Owner ==
   sig { returns(String) }
   def self.owner_email
-    ENV.fetch("KAI_LOGIN_EMAIL")
+    ENV.fetch("OWNER_LOGIN_EMAIL")
   end
 
   sig { returns(T.nilable(User)) }
@@ -133,19 +133,5 @@ class User
     # end
     # user
     # rubocop:enable Layout/LineLength
-  end
-end
-
-# == Kai ==
-class User
-  sig { returns(T.nilable(User)) }
-  def self.kai
-    email = ENV.fetch("KAI_LOGIN_EMAIL")
-    find_by(email: email)
-  end
-
-  sig { returns(User) }
-  def self.kai!
-    T.must(kai)
   end
 end
