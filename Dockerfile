@@ -104,9 +104,6 @@ RUN echo >> ~/.zshrc \
 ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true
 ENV NODE_ENV=$RAILS_ENV
 
-# Debug python.
-RUN PYCALL_DEBUG_FIND_LIBPYTHON=1 ruby -rpycall -ePyCall.builtins
-
 # Precompile assets.
 RUN bin/rails assets:precompile RAILS_SECRET_KEY_BASE=dummy
 
