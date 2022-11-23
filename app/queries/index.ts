@@ -39,6 +39,7 @@ export type ICloudCredentials = Node & {
   __typename?: 'ICloudCredentials';
   cookies: Maybe<Scalars['String']>;
   email: Scalars['String'];
+  /** ID of the object. */
   id: Scalars['ID'];
   password: Scalars['String'];
   session: Maybe<Scalars['JSON']>;
@@ -110,16 +111,35 @@ export type Node = {
   id: Scalars['ID'];
 };
 
-export type ObsidianNote = Node & {
+/** An object with an ID. */
+export type ObsidianEntry = {
+  createdAt: Scalars['DateTime'];
+  /** ID of the object. */
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type ObsidianGhostNote = Node & ObsidianEntry & {
+  __typename?: 'ObsidianGhostNote';
+  createdAt: Scalars['DateTime'];
+  /** ID of the object. */
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+};
+
+export type ObsidianNote = Node & ObsidianEntry & {
   __typename?: 'ObsidianNote';
   aliases: Array<Scalars['String']>;
   content: Scalars['String'];
   createdAt: Scalars['DateTime'];
+  /** ID of the object. */
   id: Scalars['ID'];
   modifiedAt: Scalars['DateTime'];
   name: Scalars['String'];
   referencedBy: Array<ObsidianNote>;
-  references: Array<ObsidianNote>;
+  references: Array<ObsidianEntry>;
   tags: Array<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
@@ -168,7 +188,7 @@ export type Query = {
   nodes: Array<Maybe<Node>>;
   obsidianNote: Maybe<ObsidianNote>;
   obsidianNoteByName: Maybe<ObsidianNote>;
-  obsidianNotes: Maybe<ObsidianNoteConnection>;
+  obsidianNotes: ObsidianNoteConnection;
   /** Kai's JSON Resume (https://jsonresume.org/) */
   resume: Scalars['JSON'];
   testEcho: Scalars['String'];
@@ -247,6 +267,7 @@ export type TestMutationPayload = {
 export type User = Node & {
   __typename?: 'User';
   email: Scalars['String'];
+  /** ID of the object. */
   id: Scalars['ID'];
   isOwner: Scalars['Boolean'];
   name: Scalars['String'];
@@ -321,7 +342,7 @@ export type ICloudCredentialsVerifySecurityCodeMutationVariables = Exact<{
 
 export type ICloudCredentialsVerifySecurityCodeMutation = { __typename?: 'Mutation', payload: { __typename?: 'ICloudCredentialsVerifySecurityCodePayload', icloudCredentials: { __typename?: 'ICloudCredentials', id: string } } };
 
-export type ObsidianGraphNoteFragment = { __typename?: 'ObsidianNote', id: string, name: string, aliases: Array<string>, references: Array<{ __typename?: 'ObsidianNote', id: string }>, referencedBy: Array<{ __typename?: 'ObsidianNote', id: string }> };
+export type ObsidianGraphNoteFragment = { __typename?: 'ObsidianNote', id: string, name: string, aliases: Array<string>, references: Array<{ __typename?: 'ObsidianGhostNote', id: string } | { __typename?: 'ObsidianNote', id: string }>, referencedBy: Array<{ __typename?: 'ObsidianNote', id: string }> };
 
 export type ResumePageQueryVariables = Exact<{ [key: string]: never; }>;
 
