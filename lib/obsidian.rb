@@ -49,7 +49,12 @@ module Obsidian
 
     sig { params(note: ObsidianNote, force: T::Boolean).returns(TrueClass) }
     def synchronize_note(note, force: false)
-      update_without_saving(note, force: force) ? note.save! : note.destroy!
+      if update_without_saving(note, force: force)
+        note.save!
+      else
+        note.destroy!
+        true
+      end
     end
 
     private
