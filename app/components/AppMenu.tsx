@@ -31,7 +31,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer }) => {
   );
   return viewer ? (
     <Menu
-      // trigger="hover"
+      trigger="hover"
       position="bottom-end"
       offset={4}
       width={160}
