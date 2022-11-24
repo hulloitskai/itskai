@@ -40,6 +40,11 @@ const AccountPasswordForm: FC<AccountPasswordFormProps> = ({ errors }) => {
           };
           router.put("/account", data, {
             errorBag: "AccountPasswordForm",
+            onSuccess: () => {
+              showNotice({
+                message: "You've updated your account password.",
+              });
+            },
             onFinish: () => {
               reset();
             },

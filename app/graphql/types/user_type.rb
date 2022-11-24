@@ -4,7 +4,7 @@
 module Types
   class UserType < BaseObject
     # == Interfaces ==
-    implements GraphQL::Types::Relay::Node
+    implements IdentifiableType
 
     # == Fields ==
     field :email, String, null: false

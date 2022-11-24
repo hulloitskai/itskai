@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   get :resume, to: "resume#show"
 
   # == Third-Party ==
-  authenticate :user, ->(user) { Rails.env.development? || user.owner? } do
+  authenticate :user, ->(user) { user.owner? } do
     mount GoodJob::Engine, at: "/good_job"
   end
 end

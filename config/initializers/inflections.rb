@@ -14,7 +14,12 @@
 # end
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
+  # == Acronyms ==
+  inflect.acronym("GlobalID")
   inflect.acronym("GraphQL")
   inflect.acronym("ICloud")
+  inflect.acronym("ShortID")
+
+  # == Others ==
   inflect.uncountable("credentials")
 end

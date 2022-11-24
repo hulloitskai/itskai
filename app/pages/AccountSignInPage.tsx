@@ -1,4 +1,4 @@
-import { PageComponent, useBaggedErrors } from "~/helpers/inertia";
+import { PageComponent } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
 import AccountSignInForm from "~/components/AccountSignInForm";
@@ -9,8 +9,7 @@ export type AccountSignInPageProps = {
   readonly data: AccountSignInPageQuery;
 };
 
-const AccountSignInPage: PageComponent = ({ errors }) => {
-  const signInFormErrors = useBaggedErrors(errors, "AccountSignInForm");
+const AccountSignInPage: PageComponent = () => {
   return (
     <Card w={380} radius="md" withBorder>
       <Stack spacing="xs">
@@ -23,7 +22,7 @@ const AccountSignInPage: PageComponent = ({ errors }) => {
             </Text>
           </Text>
         </Stack>
-        <AccountSignInForm errors={signInFormErrors} />
+        <AccountSignInForm />
         <Text size="xs" color="gray">
           Don&apos;t have an account?{" "}
           <Anchor component={Link} href="/account/sign_up" color="indigo">

@@ -8,7 +8,7 @@ module Types
     orphan_types Types::ObsidianStubType
 
     # == Interfaces ==
-    include GraphQL::Types::Relay::Node
+    implements IdentifiableType
 
     # == Fields ==
     field :created_at, DateTimeType, null: false

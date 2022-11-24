@@ -4,7 +4,7 @@
 module Types
   class ICloudCredentialsType < BaseObject
     # == Interfaces ==
-    implements GraphQL::Types::Relay::Node
+    implements IdentifiableType
 
     # == Fields ==
     field :cookies, String

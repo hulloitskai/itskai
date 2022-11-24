@@ -75,6 +75,16 @@ class ObsidianNote < ApplicationRecord
   end
 
   # == Analysis ==
+  sig { params(force: T::Boolean).void }
+  def self.analyze(force: false)
+    ObsidianNoteAnalysisJob.perform_now(force: force)
+  end
+
+  sig { params(force: T::Boolean).void }
+  def self.analyze_later(force: false)
+    ObsidianNoteAnalysisJob.perform_later(force: force)
+  end
+
   sig { returns(T::Boolean) }
   def analyzed?
     analyzed_at?
