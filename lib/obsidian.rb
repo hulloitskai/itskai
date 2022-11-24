@@ -98,9 +98,9 @@ module Obsidian
       end
     end
 
-    sig { params(note: ObsidianNote, force: T::Boolean).returns(T::Boolean) }
-    def update_quietly(note, force: false)
-      update_without_saving(note)
+    sig { params(note: ObsidianNote, options: T.untyped).returns(T::Boolean) }
+    def update_quietly(note, **options)
+      update_without_saving(note, **options)
       valid = note.validate
       unless valid
         logger.warn(

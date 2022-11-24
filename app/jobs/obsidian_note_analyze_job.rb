@@ -47,13 +47,14 @@ class ObsidianNoteAnalyzeJob < ApplicationJob
   sig { params(note: ObsidianNote).void }
   def analyze_blurb(note)
     return if note.blurb.present?
-    doc = T.let(Markly.parse(note.content), Markly::Node)
-    blurb_node = T.let(doc.first, Markly::Node)
-    return unless blurb_node.type == :paragraph
-    blurb = T.let(blurb_node.to_plaintext, String)
-    blurb.strip!
-    blurb.gsub!(/\[\[([^\[\]]+\|)?([^\[\]]+)\]\]/, '\2')
-    blurb.tr!("\n", " ")
-    note.blurb = blurb
+    root = T.let(Markly.parse(note.content), Markly::Node)
+    node = T.let(root.first, T.nilable(Markly::Node))
+    if node.present? && node.type == :paragraph
+      text = T.let(node.to_plaintext, String)
+      text.strip!
+      text.gsub!(/\[\[([^\[\]]+\|)?([^\[\]]+)\]\]/, '\2')
+      text.tr!("\n", " ")
+      note.blurb = text
+    end
   end
 end
