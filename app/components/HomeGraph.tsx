@@ -51,7 +51,7 @@ const HomeGraph: FC<HomeGraphProps> = ({ sx, ...otherProps }) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
   const onError = useApolloErrorCallback("Failed to load Obsidian entries");
-  const { data } = useQuery(HomeGraphQueryDocument, {
+  const { data, loading } = useQuery(HomeGraphQueryDocument, {
     variables: {},
     onError,
   });
@@ -80,6 +80,7 @@ const HomeGraph: FC<HomeGraphProps> = ({ sx, ...otherProps }) => {
         ref={containerRef}
         sx={[
           ({ colors, fontSizes, fn }) => ({
+            position: "relative",
             ".node": {
               transitionProperty: "fill-opacity",
               transitionTimingFunction: "ease-in-out",
@@ -161,6 +162,7 @@ const HomeGraph: FC<HomeGraphProps> = ({ sx, ...otherProps }) => {
         ]}
         {...otherProps}
       >
+        <LoadingOverlay visible={loading} loaderProps={{ size: "md" }} />
         <svg ref={svgRef} style={{ width: "100%", height: "100%" }} />
       </Box>
       <Affix position={{ bottom: 20, right: 20 }}>

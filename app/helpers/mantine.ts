@@ -11,6 +11,18 @@ export const theme: MantineThemeOverride = {
     }),
   },
   components: {
+    Loader: {
+      defaultProps: {
+        color: "indigo",
+      },
+    },
+    LoadingOverlay: {
+      defaultProps: {
+        loaderProps: {
+          size: "sm",
+        },
+      },
+    },
     ThemeIcon: {
       defaultProps: {
         variant: "default",
