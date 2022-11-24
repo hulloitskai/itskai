@@ -5,7 +5,6 @@ import type { Widen } from "~/helpers/utils";
 
 import { drag } from "d3-drag";
 import type { D3DragEvent } from "d3-drag";
-
 import {
   forceCenter,
   forceCollide,
@@ -17,7 +16,6 @@ import type {
   SimulationNodeDatum as BaseNode,
   SimulationLinkDatum as BaseLink,
 } from "d3-force";
-
 import { select } from "d3-selection";
 
 import { HomeGraphEntryFragment, HomeGraphQueryDocument } from "~/queries";
@@ -32,8 +30,8 @@ type Node = BaseNode &
 type Link = BaseLink<Node>;
 type DragEvent = D3DragEvent<HTMLElement, Node, Node>;
 
-const NODE_RADIUS_BASE = 3;
-const NODE_RADIUS_MULTIPLIER = 0.4;
+const NODE_RADIUS_BASE = 3.5;
+const NODE_RADIUS_MULTIPLIER = 0.3;
 const LINK_FORCE = 0.02;
 const BODY_FORCE = -250;
 const BODY_FORCE_MAX_DISTANCE = 200;
