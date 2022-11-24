@@ -47,10 +47,9 @@ module Obsidian
       notes
     end
 
-    sig { params(note: ObsidianNote, force: T::Boolean).returns(T::Boolean) }
+    sig { params(note: ObsidianNote, force: T::Boolean).returns(TrueClass) }
     def synchronize_note(note, force: false)
-      update_without_saving(note, force: force)
-      note.save!
+      update_without_saving(note, force: force) ? note.save! : note.destroy!
     end
 
     private
@@ -71,7 +70,7 @@ module Obsidian
         end
     end
 
-    sig { params(note: ObsidianNote, force: T::Boolean).void }
+    sig { params(note: ObsidianNote, force: T::Boolean).returns(T::Boolean) }
     def update_without_saving(note, force: false)
       node = root!.get(note.name + ".md") or return false
       modified_at = node.modified_at
@@ -87,17 +86,19 @@ module Obsidian
         data = parse_with_front_matter(node)
         content = T.let(data.content, String)
         front_matter = T.let(data.front_matter, T::Hash[String, T.untyped])
+        return false if front_matter["hidden"] == true
         note.modified_at = modified_at
         note.content = content
         note.blurb = front_matter["blurb"]
         note.aliases = parse_aliases(front_matter)
         note.tags = parse_tags(front_matter)
       end
+      true
     end
 
     sig { params(note: ObsidianNote, force: T::Boolean).returns(T::Boolean) }
     def update_quietly(note, force: false)
-      update_without_saving(note)
+      update_without_saving(note) or return false
       note.validate.tap do |valid|
         unless valid
           logger.warn(
