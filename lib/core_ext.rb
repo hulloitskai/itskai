@@ -18,6 +18,30 @@ class Object
   end
 end
 
+class TrueClass
+  T::Sig::WithoutRuntime.sig { returns(TrueClass) }
+  def truthy?
+    true
+  end
+
+  T::Sig::WithoutRuntime.sig { returns(FalseClass) }
+  def falsy?
+    false
+  end
+end
+
+class FalseClass
+  T::Sig::WithoutRuntime.sig { returns(FalseClass) }
+  def truthy?
+    false
+  end
+
+  T::Sig::WithoutRuntime.sig { returns(TrueClass) }
+  def falsy?
+    true
+  end
+end
+
 class String
   T::Sig::WithoutRuntime.sig { returns(T::Boolean) }
   def truthy?
@@ -65,12 +89,12 @@ class Float
 end
 
 class NilClass
-  T::Sig::WithoutRuntime.sig { returns(T::Boolean) }
+  T::Sig::WithoutRuntime.sig { returns(FalseClass) }
   def truthy?
     false
   end
 
-  T::Sig::WithoutRuntime.sig { returns(T::Boolean) }
+  T::Sig::WithoutRuntime.sig { returns(FalseClass) }
   def falsy?
     false
   end

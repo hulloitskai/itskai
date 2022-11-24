@@ -704,6 +704,51 @@ class ObsidianNote
     sig { void }
     def created_at_will_change!; end
 
+    sig { returns(T::Boolean) }
+    def hidden; end
+
+    sig { params(value: T::Boolean).returns(T::Boolean) }
+    def hidden=(value); end
+
+    sig { returns(T::Boolean) }
+    def hidden?; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def hidden_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def hidden_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def hidden_came_from_user?; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def hidden_change; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def hidden_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def hidden_changed?; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def hidden_in_database; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def hidden_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def hidden_previously_changed?; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def hidden_previously_was; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def hidden_was; end
+
+    sig { void }
+    def hidden_will_change!; end
+
     sig { returns(T.nilable(::String)) }
     def id; end
 
@@ -855,6 +900,9 @@ class ObsidianNote
     def restore_created_at!; end
 
     sig { void }
+    def restore_hidden!; end
+
+    sig { void }
     def restore_id!; end
 
     sig { void }
@@ -898,6 +946,12 @@ class ObsidianNote
 
     sig { returns(T::Boolean) }
     def saved_change_to_created_at?; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def saved_change_to_hidden; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_hidden?; end
 
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_id; end
@@ -1033,6 +1087,9 @@ class ObsidianNote
 
     sig { returns(T::Boolean) }
     def will_save_change_to_created_at?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_hidden?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_id?; end

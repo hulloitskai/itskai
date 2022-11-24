@@ -141,6 +141,9 @@ gem "wrapped_print"
 # Enable additional operators and utilities for Active Record with PostgreSQL
 gem "active_record_extended", "~> 2.1"
 
+# Parse Markdown with Markly.
+gem "markly", "~> 0.7.0"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"

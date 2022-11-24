@@ -10,6 +10,7 @@
 #  analyzed_at :datetime
 #  blurb       :string
 #  content     :text             not null
+#  hidden      :boolean          default(FALSE), not null
 #  modified_at :datetime         not null
 #  name        :string           not null
 #  tags        :string           default([]), not null, is an Array
@@ -60,7 +61,7 @@ class ObsidianNote < ApplicationRecord
   # == Synchronization ==
   sig { params(force: T::Boolean).void }
   def self.synchronize(force: false)
-    Obsidian.synchronize_notes(force: force)
+    ObsidianNoteSynchronizationJob.perform_now(force: force)
   end
 
   sig { params(force: T::Boolean).void }
@@ -86,25 +87,7 @@ class ObsidianNote < ApplicationRecord
 
   sig { void }
   def analyze
-    links = T.cast(content.scan(/\[\[[^\[\]]+\]\]/), T::Array[String])
-    links.map! do |link|
-      link.delete_prefix!("[[")
-      link.delete_suffix!("]]")
-      link.split("|").first
-    end
-    links.uniq!
-    references = ObsidianNote.where(name: links).select(:id, :name)
-    referenced_names = references.map(&:name)
-    unresolved_reference_names = links - referenced_names
-    unresolved_references =
-      unresolved_reference_names.map do |name|
-        ObsidianStub.find_or_initialize_by(name: name)
-      end
-    update!(
-      references: references,
-      unresolved_references: unresolved_references,
-      analyzed_at: Time.current,
-    )
+    ObsidianNoteAnalyzeJob.perform_now(self)
   end
 
   sig { void }

@@ -4,6 +4,8 @@
 require_relative "obsidian/railtie"
 
 module Obsidian
+  FrontMatter = T.type_alias { T::Hash[String, T.untyped] }
+
   # == Configuration ==
   include ActiveSupport::Configurable
   config_accessor :vault_root
@@ -49,12 +51,8 @@ module Obsidian
 
     sig { params(note: ObsidianNote, force: T::Boolean).returns(TrueClass) }
     def synchronize_note(note, force: false)
-      if update_without_saving(note, force: force)
-        note.save!
-      else
-        note.destroy!
-        true
-      end
+      update_without_saving(note, force: force)
+      note.save!
     end
 
     private
@@ -75,7 +73,7 @@ module Obsidian
         end
     end
 
-    sig { params(note: ObsidianNote, force: T::Boolean).returns(T::Boolean) }
+    sig { params(note: ObsidianNote, force: T::Boolean).void }
     def update_without_saving(note, force: false)
       node = root!.get(note.name + ".md") or return false
       modified_at = node.modified_at
@@ -91,27 +89,26 @@ module Obsidian
         data = parse_with_front_matter(node)
         content = T.let(data.content, String)
         front_matter = T.let(data.front_matter, T::Hash[String, T.untyped])
-        return false if front_matter["hidden"] == true
+        note.hidden = front_matter["hidden"].truthy?
         note.modified_at = modified_at
         note.content = content
-        note.blurb = front_matter["blurb"]
+        note.blurb = front_matter["blurb"].presence
         note.aliases = parse_aliases(front_matter)
         note.tags = parse_tags(front_matter)
       end
-      true
     end
 
     sig { params(note: ObsidianNote, force: T::Boolean).returns(T::Boolean) }
     def update_quietly(note, force: false)
-      update_without_saving(note) or return false
-      note.validate.tap do |valid|
-        unless valid
-          logger.warn(
-            "Failed to update note '#{note.name}': " +
-              note.errors.full_messages.to_sentence,
-          )
-        end
+      update_without_saving(note)
+      valid = note.validate
+      unless valid
+        logger.warn(
+          "Failed to update note '#{note.name}': " +
+            note.errors.full_messages.to_sentence,
+        )
       end
+      valid
     rescue => error
       scoped do
         message = error.message
@@ -141,23 +138,19 @@ module Obsidian
       @parser.call(node.read)
     end
 
-    sig do
-      params(front_matter: T::Hash[String, T.untyped]).returns(T::Array[String])
-    end
+    sig { params(front_matter: FrontMatter).returns(T::Array[String]) }
     def parse_tags(front_matter)
       parse_frontmatter_list(front_matter["tags"])
     end
 
-    sig do
-      params(front_matter: T::Hash[String, T.untyped]).returns(T::Array[String])
-    end
+    sig { params(front_matter: FrontMatter).returns(T::Array[String]) }
     def parse_aliases(front_matter)
       parse_frontmatter_list(front_matter["aliases"])
     end
 
     sig { params(value: T.untyped).returns(T::Array[String]) }
     def parse_frontmatter_list(value)
-      case value
+      case value.presence
       when String
         value.split(",").map(&:strip)
       when Array

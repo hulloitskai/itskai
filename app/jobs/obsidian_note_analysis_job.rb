@@ -5,7 +5,11 @@ class ObsidianNoteAnalysisJob < ApplicationJob
   extend T::Sig
 
   # == Configuration ==
-  good_job_control_concurrency_with enqueue_limit: 1, perform_limit: 1
+  good_job_control_concurrency_with(
+    enqueue_limit: 1,
+    perform_limit: 1,
+    key: name,
+  )
 
   sig { void }
   def perform
