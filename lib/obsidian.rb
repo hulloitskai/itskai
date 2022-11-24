@@ -117,7 +117,9 @@ module Obsidian
             message = "An unknown iCloud API error occurred"
           end
         end
-        logger.error("Failed to update note '#{note.name}': #{message}")
+        message = "Failed to update note '#{note.name}': #{message}"
+        logger.error(message)
+        Honeybadger.notify(message, backtrace: error.backtrace)
       end
       false
     end
