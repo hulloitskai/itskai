@@ -18,7 +18,7 @@ module ICloud
     sig { void }
     def initialize
       @client = T.let(@client, T.nilable(ICloud::Client))
-      ICloudCredentials.first!.try! do |credentials|
+      ICloudCredentials.first.try! do |credentials|
         credentials = T.let(credentials, ICloudCredentials)
         authenticate(credentials: credentials)
       end
