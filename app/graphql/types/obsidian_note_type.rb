@@ -10,7 +10,7 @@ module Types
     # == Fields ==
     field :aliases, [String], null: false
     field :blurb, String
-    field :content, String, null: false, authorize: { to: :read? }
+    field :content, String, null: true
     field :modified_at, DateTimeType, null: false
     field :references, [ObsidianEntryType], null: false
     field :tags, [String], null: false
@@ -24,6 +24,11 @@ module Types
       references =
         T.let(references, T::Array[T.all(ApplicationRecord, ObsidianEntry)])
       references.sort_by!(&:name)
+    end
+
+    sig { returns(T.nilable(String)) }
+    def content
+      object.content if allowed_to?(:read?, object)
     end
   end
 end
