@@ -147,20 +147,17 @@ module Obsidian
       parse_frontmatter_list(front_matter["aliases"])
     end
 
-    sig do
-      params(text: T.nilable(T.any(String, T::Array[String])))
-        .returns(T::Array[String])
-    end
-    def parse_frontmatter_list(text)
-      case text
+    sig { params(value: T.untyped).returns(T::Array[String]) }
+    def parse_frontmatter_list(value)
+      case value
       when String
-        text.split(",").map(&:strip)
+        value.split(",").map(&:strip)
       when Array
-        text.compact
+        value.compact.map(&:to_s)
       when nil
         []
       else
-        T.absurd(text)
+        [value.to_s]
       end
     end
   end
