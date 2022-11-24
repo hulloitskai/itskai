@@ -3,14 +3,14 @@ import invariant from "tiny-invariant";
 import type { FC } from "react";
 
 import { AccountEmailFormQueryDocument } from "~/queries";
-import type { AccountEditViewerFragment } from "~/queries";
+import type { AccountEditPageViewerFragment } from "~/queries";
 
 export type AccountEmailFormValues = {
   readonly email: string;
 };
 
 export type AccountEmailFormProps = {
-  readonly viewer: AccountEditViewerFragment;
+  readonly viewer: AccountEditPageViewerFragment;
   readonly errors?: Record<string, string>;
 };
 

@@ -5,7 +5,10 @@ import {
   ICloudCredentialsUpdateMutationDocument,
   ICloudCredentialsVerifySecurityCodeMutationDocument,
 } from "~/queries";
-import type { Maybe, AccountEditICloudCredentialsFragment } from "~/queries";
+import type {
+  Maybe,
+  AccountEditPageICloudCredentialsFragment,
+} from "~/queries";
 
 export type ICloudCredentialsFormValues = {
   readonly email: string;
@@ -13,7 +16,7 @@ export type ICloudCredentialsFormValues = {
 };
 
 export type ICloudCredentialsFormProps = {
-  readonly icloudCredentials: Maybe<AccountEditICloudCredentialsFragment>;
+  readonly icloudCredentials: Maybe<AccountEditPageICloudCredentialsFragment>;
 };
 
 const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
@@ -167,7 +170,7 @@ const VerifySecurityCodeModalContent: FC = () => {
 };
 
 type SessionInformationModalContentProps = {
-  readonly icloudCredentials: AccountEditICloudCredentialsFragment;
+  readonly icloudCredentials: AccountEditPageICloudCredentialsFragment;
 };
 
 const SessionInformationModalContent: FC<

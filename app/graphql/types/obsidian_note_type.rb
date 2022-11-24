@@ -9,9 +9,9 @@ module Types
 
     # == Fields ==
     field :aliases, [String], null: false
-    field :content, String, null: false
+    field :blurb, String
+    field :content, String, null: false, authorize: { to: :read? }
     field :modified_at, DateTimeType, null: false
-    field :referenced_by, [ObsidianNoteType], null: false
     field :references, [ObsidianEntryType], null: false
     field :tags, [String], null: false
 
@@ -20,7 +20,7 @@ module Types
     def references
       references = authorized_scope(object.references)
       unresolved_references = authorized_scope(object.unresolved_references)
-      references = references.to_a + unresolved_references.to_a
+      references = references.to_a.concat(unresolved_references.to_a)
       references =
         T.let(references, T::Array[T.all(ApplicationRecord, ObsidianEntry)])
       references.sort_by!(&:name)

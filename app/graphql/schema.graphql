@@ -99,20 +99,13 @@ interface ObsidianEntry {
   """ID of the object."""
   id: ID!
   name: String!
-  updatedAt: DateTime!
-}
-
-type ObsidianGhostNote implements Node & ObsidianEntry {
-  createdAt: DateTime!
-
-  """ID of the object."""
-  id: ID!
-  name: String!
+  referencedBy: [ObsidianNote!]!
   updatedAt: DateTime!
 }
 
 type ObsidianNote implements Node & ObsidianEntry {
   aliases: [String!]!
+  blurb: String
   content: String!
   createdAt: DateTime!
 
@@ -146,6 +139,16 @@ type ObsidianNoteEdge {
 
   """The item at the end of the edge."""
   node: ObsidianNote
+}
+
+type ObsidianStub implements Node & ObsidianEntry {
+  createdAt: DateTime!
+
+  """ID of the object."""
+  id: ID!
+  name: String!
+  referencedBy: [ObsidianNote!]!
+  updatedAt: DateTime!
 }
 
 """Information about pagination in a connection."""
@@ -195,6 +198,7 @@ type Query {
     """Returns the last _n_ elements from the list."""
     last: Int
   ): ObsidianNoteConnection!
+  recentObsidianEntries: [ObsidianEntry!]!
 
   """Kai's JSON Resume (https://jsonresume.org/)"""
   resume: JSON!

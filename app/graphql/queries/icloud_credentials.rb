@@ -10,7 +10,10 @@ module Queries
 
     sig { returns(T.nilable(::ICloudCredentials)) }
     def resolve
-      ::ICloudCredentials.first
+      ::ICloudCredentials.first.try! do |credentials|
+        credentials = T.let(credentials, ::ICloudCredentials)
+        credentials if allowed_to?(:show?, credentials)
+      end
     end
   end
 end

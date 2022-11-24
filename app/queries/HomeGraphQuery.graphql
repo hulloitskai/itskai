@@ -1,0 +1,6 @@
+query HomeGraphQuery {
+  entries: recentObsidianEntries {
+    id
+    ...HomeGraphEntryFragment
+  }
+}

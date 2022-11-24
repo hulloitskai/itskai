@@ -25,8 +25,8 @@ module Obsidian
       end
     end
 
-    sig { returns(T::Array[ObsidianNote]) }
-    def synchronize
+    sig { params(force: T::Boolean).returns(T::Array[ObsidianNote]) }
+    def synchronize_notes(force: false)
       notes = ObsidianNote.all.to_a
       notes = T.let(notes, T::Array[ObsidianNote])
       notes_by_name = notes.index_by(&:name)
@@ -38,9 +38,7 @@ module Obsidian
       added_note_names.each do |name|
         notes_by_name[name] = ObsidianNote.new(name: name)
       end
-      notes_by_name.filter! do |_, note|
-        update_note!(note).tap { |keep| removed_notes << note unless keep }
-      end
+      notes_by_name.filter! { |_, note| update_quietly(note, force: force) }
       notes = notes_by_name.values
       ActiveRecord::Base.transaction do
         notes.each(&:save!)
@@ -49,27 +47,33 @@ module Obsidian
       notes
     end
 
+    sig { params(note: ObsidianNote, force: T::Boolean).returns(T::Boolean) }
+    def synchronize_note(note, force: false)
+      update_without_saving(note, force: force)
+      note.save!
+    end
+
     private
 
     # == Helpers ==
     sig { returns(T.nilable(ICloud::Drive::Node)) }
     def root
       @root = T.let(@root, T.nilable(ICloud::Drive::Node))
-      @root ||=
-        scoped do
-          ICloud.drive.get(Obsidian.vault_root) if ICloud.authenticated?
-        end
+      @root ||= ICloud.drive.get(Obsidian.vault_root) if ICloud.authenticated?
     end
 
     sig { returns(ICloud::Drive::Node) }
     def root!
-      T.must(root)
+      @root ||=
+        scoped do
+          root = ICloud.drive.get(Obsidian.vault_root)
+          root or raise "Missing vault root"
+        end
     end
 
-    sig { params(note: ObsidianNote).returns(T::Boolean) }
-    def update_note!(note)
-      root = root!
-      node = root.get(note.name + ".md") or return false
+    sig { params(note: ObsidianNote, force: T::Boolean).void }
+    def update_without_saving(note, force: false)
+      node = root!.get(note.name + ".md") or return false
       modified_at = node.modified_at
       if modified_at.nil?
         modified_at = Time.current
@@ -78,16 +82,22 @@ module Obsidian
             "defaulting to current time",
         )
       end
-      if !note.modified_at? || note.modified_at < modified_at
+      if force || !note.modified_at? || note.modified_at < modified_at
         logger.info("Updating note '#{note.name}'")
         data = parse_with_front_matter(node)
         content = T.let(data.content, String)
         front_matter = T.let(data.front_matter, T::Hash[String, T.untyped])
         note.modified_at = modified_at
         note.content = content
+        note.blurb = front_matter["blurb"]
         note.aliases = parse_aliases(front_matter)
         note.tags = parse_tags(front_matter)
       end
+    end
+
+    sig { params(note: ObsidianNote, force: T::Boolean).returns(T::Boolean) }
+    def update_quietly(note, force: false)
+      update_without_saving(note)
       note.validate.tap do |valid|
         unless valid
           logger.warn(
@@ -97,14 +107,17 @@ module Obsidian
         end
       end
     rescue => error
-      message = error.message
-      if error.is_a?(PyCall::PyError)
-        type, message = error.type.__name__, error.value.to_s
-        if type == "PyiCloudAPIResponseException" && message.ends_with?("(500)")
-          message = "An unknown iCloud API error occurred"
+      scoped do
+        message = error.message
+        if error.is_a?(PyCall::PyError)
+          type, message = error.type.__name__, error.value.to_s
+          if type == "PyiCloudAPIResponseException" &&
+               message.ends_with?("(500)")
+            message = "An unknown iCloud API error occurred"
+          end
         end
+        logger.error("Failed to update note '#{note.name}': #{message}")
       end
-      logger.error("Failed to update note '#{note.name}': #{message}")
       false
     end
 
@@ -124,16 +137,31 @@ module Obsidian
       params(front_matter: T::Hash[String, T.untyped]).returns(T::Array[String])
     end
     def parse_tags(front_matter)
-      tags = front_matter.fetch("tags") { [] }
-      Array.wrap(tags)
+      parse_frontmatter_list(front_matter["tags"])
     end
 
     sig do
       params(front_matter: T::Hash[String, T.untyped]).returns(T::Array[String])
     end
     def parse_aliases(front_matter)
-      aliases = front_matter.fetch("aliases") { [] }
-      Array.wrap(aliases)
+      parse_frontmatter_list(front_matter["aliases"])
+    end
+
+    sig do
+      params(text: T.nilable(T.any(String, T::Array[String])))
+        .returns(T::Array[String])
+    end
+    def parse_frontmatter_list(text)
+      case text
+      when String
+        text.split(",").map(&:strip)
+      when Array
+        text.compact
+      when nil
+        []
+      else
+        T.absurd(text)
+      end
     end
   end
 

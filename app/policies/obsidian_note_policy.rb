@@ -12,5 +12,7 @@ class ObsidianNotePolicy < ApplicationPolicy
     false
   end
 
+  alias_rule :read?, to: :edit?
+
   relation_scope { |relation| relation }
 end

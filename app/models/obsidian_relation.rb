@@ -27,5 +27,5 @@ class ObsidianRelation < ApplicationRecord
   belongs_to :to, polymorphic: true
 
   # == Validations ==
-  validates :to_type, inclusion: { in: %w[ObsidianNote ObsidianGhostNote] }
+  validates :to_type, inclusion: { in: %w[ObsidianNote ObsidianStub] }
 end

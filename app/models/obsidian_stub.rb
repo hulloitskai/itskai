@@ -3,7 +3,7 @@
 
 # == Schema Information
 #
-# Table name: obsidian_ghost_notes
+# Table name: obsidian_stubs
 #
 #  id         :uuid             not null, primary key
 #  name       :string           not null
@@ -12,10 +12,10 @@
 #
 # Indexes
 #
-#  index_obsidian_ghost_notes_on_name  (name) UNIQUE
+#  index_obsidian_stubs_on_name  (name) UNIQUE
 #
 
-class ObsidianGhostNote < ApplicationRecord
+class ObsidianStub < ApplicationRecord
   # == Associations ==
   has_many :incoming_relations,
            class_name: "ObsidianRelation",

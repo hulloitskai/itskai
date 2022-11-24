@@ -8,6 +8,7 @@
 #  id          :uuid             not null, primary key
 #  aliases     :string           default([]), not null, is an Array
 #  analyzed_at :datetime
+#  blurb       :string
 #  content     :text             not null
 #  modified_at :datetime         not null
 #  name        :string           not null
@@ -38,7 +39,7 @@ class ObsidianNote < ApplicationRecord
   has_many :unresolved_references,
            through: :outgoing_relations,
            source: :to,
-           source_type: "ObsidianGhostNote"
+           source_type: "ObsidianStub"
 
   has_many :incoming_relations,
            class_name: "ObsidianRelation",
@@ -57,14 +58,19 @@ class ObsidianNote < ApplicationRecord
   after_commit :analyze_later, on: %i[create update], if: :analysis_required?
 
   # == Synchronization ==
-  sig { void }
-  def self.synchronize
-    Obsidian.synchronize
+  sig { params(force: T::Boolean).void }
+  def self.synchronize(force: false)
+    Obsidian.synchronize_notes(force: force)
   end
 
-  sig { void }
-  def self.synchronize_later
-    ObsidianNoteSynchronizationJob.perform_later
+  sig { params(force: T::Boolean).void }
+  def self.synchronize_later(force: false)
+    ObsidianNoteSynchronizationJob.perform_later(force: force)
+  end
+
+  sig { params(force: T::Boolean).void }
+  def synchronize(force: false)
+    Obsidian.synchronize_note(self, force: force)
   end
 
   # == Analysis ==
@@ -92,7 +98,7 @@ class ObsidianNote < ApplicationRecord
     unresolved_reference_names = links - referenced_names
     unresolved_references =
       unresolved_reference_names.map do |name|
-        ObsidianGhostNote.find_or_initialize_by(name: name)
+        ObsidianStub.find_or_initialize_by(name: name)
       end
     update!(
       references: references,

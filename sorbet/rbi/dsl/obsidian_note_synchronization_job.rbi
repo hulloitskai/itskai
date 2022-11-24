@@ -6,10 +6,10 @@
 
 class ObsidianNoteSynchronizationJob
   class << self
-    sig { returns(T.any(ObsidianNoteSynchronizationJob, FalseClass)) }
-    def perform_later; end
+    sig { params(force: T::Boolean).returns(T.any(ObsidianNoteSynchronizationJob, FalseClass)) }
+    def perform_later(force: T.unsafe(nil)); end
 
-    sig { void }
-    def perform_now; end
+    sig { params(force: T::Boolean).void }
+    def perform_now(force: T.unsafe(nil)); end
   end
 end

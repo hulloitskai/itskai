@@ -14,7 +14,12 @@ module Queries
 
     sig { params(name: String).returns(T.nilable(::ObsidianNote)) }
     def resolve(name:)
-      ::ObsidianNote.find_by(name: name)
+      ::ObsidianNote
+        .find_by(name: name)
+        .try! do |note|
+          note = T.let(note, ::ObsidianNote)
+          note if allowed_to?(:show?, note)
+        end
     end
   end
 end

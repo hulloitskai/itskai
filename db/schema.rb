@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_23_154641) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_24_053436) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -92,13 +92,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_154641) do
     t.string "email", null: false
   end
 
-  create_table "obsidian_ghost_notes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_obsidian_ghost_notes_on_name", unique: true
-  end
-
   create_table "obsidian_notes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "aliases", default: [], null: false, array: true
@@ -108,6 +101,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_154641) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "analyzed_at", precision: nil
+    t.string "blurb"
     t.index ["aliases"], name: "index_obsidian_notes_on_aliases"
     t.index ["analyzed_at"], name: "index_obsidian_notes_on_analyzed_at"
     t.index ["modified_at"], name: "index_obsidian_notes_on_modified_at"
@@ -122,6 +116,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_23_154641) do
     t.index ["from_id", "to_id"], name: "index_obsidian_relations_uniqueness", unique: true
     t.index ["from_id"], name: "index_obsidian_relations_on_from_id"
     t.index ["to_id"], name: "index_obsidian_relations_on_to_id"
+  end
+
+  create_table "obsidian_stubs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_obsidian_stubs_on_name", unique: true
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

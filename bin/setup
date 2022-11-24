@@ -24,10 +24,11 @@ FileUtils.chdir APP_ROOT do
   system("bundle check") || system!("bundle install")
 
   # Install JavaScript dependencies
-  system! "bin/yarn"
+  system!("bin/yarn --silent install") &&
+    puts("Node dependencies are installed")
 
   puts "\n== Installing githooks =="
-  system! "bin/yarn husky install"
+  system! "bin/yarn --silent husky install"
 
   # puts "\n== Copying sample files =="
   # unless File.exist?("config/database.yml")
@@ -42,8 +43,8 @@ FileUtils.chdir APP_ROOT do
   system! "bin/rails db:prepare"
 
   puts "\n== Removing old logs and tempfiles =="
-  system! "bin/rails log:clear tmp:clear"
+  system!("bin/rails log:clear tmp:clear") && print("Files removed")
 
   puts "\n== Restarting application server =="
-  system! "bin/rails restart"
+  system!("bin/rails restart") && print("Server restarted")
 end

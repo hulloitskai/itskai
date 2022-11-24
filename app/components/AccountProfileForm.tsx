@@ -1,14 +1,14 @@
 import type { FC } from "react";
 
 import { AccountUpdateMutationDocument } from "~/queries";
-import type { AccountEditViewerFragment } from "~/queries";
+import type { AccountEditPageViewerFragment } from "~/queries";
 
 export type AccountProfileFormValues = {
   readonly name: string;
 };
 
 export type AccountProfileFormProps = {
-  readonly viewer: AccountEditViewerFragment;
+  readonly viewer: AccountEditPageViewerFragment;
 };
 
 const AccountProfileForm: FC<AccountProfileFormProps> = ({ viewer }) => {

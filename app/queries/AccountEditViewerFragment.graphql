@@ -1,5 +1,0 @@
-fragment AccountEditViewerFragment on User {
-  name
-  email
-  unconfirmedEmail
-}

@@ -10,7 +10,8 @@ module Queries
 
     sig { returns(T.nilable(ActiveRecord::Relation)) }
     def resolve
-      ::ObsidianNote.order(modified_at: :desc)
+      notes = authorized_scope(::ObsidianNote.all)
+      notes.order(modified_at: :desc)
     end
   end
 end

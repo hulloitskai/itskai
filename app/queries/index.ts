@@ -12,9 +12,9 @@ export type Scalars = {
   Int: number;
   Float: number;
   /** An ISO 8601-encoded date */
-  Date: any;
+  Date: string;
   /** An ISO 8601-encoded datetime */
-  DateTime: any;
+  DateTime: string;
   /** Represents untyped JSON */
   JSON: any;
 };
@@ -117,21 +117,14 @@ export type ObsidianEntry = {
   /** ID of the object. */
   id: Scalars['ID'];
   name: Scalars['String'];
-  updatedAt: Scalars['DateTime'];
-};
-
-export type ObsidianGhostNote = Node & ObsidianEntry & {
-  __typename?: 'ObsidianGhostNote';
-  createdAt: Scalars['DateTime'];
-  /** ID of the object. */
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  referencedBy: Array<ObsidianNote>;
   updatedAt: Scalars['DateTime'];
 };
 
 export type ObsidianNote = Node & ObsidianEntry & {
   __typename?: 'ObsidianNote';
   aliases: Array<Scalars['String']>;
+  blurb: Maybe<Scalars['String']>;
   content: Scalars['String'];
   createdAt: Scalars['DateTime'];
   /** ID of the object. */
@@ -165,6 +158,16 @@ export type ObsidianNoteEdge = {
   node: Maybe<ObsidianNote>;
 };
 
+export type ObsidianStub = Node & ObsidianEntry & {
+  __typename?: 'ObsidianStub';
+  createdAt: Scalars['DateTime'];
+  /** ID of the object. */
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  referencedBy: Array<ObsidianNote>;
+  updatedAt: Scalars['DateTime'];
+};
+
 /** Information about pagination in a connection. */
 export type PageInfo = {
   __typename?: 'PageInfo';
@@ -189,6 +192,7 @@ export type Query = {
   obsidianNote: Maybe<ObsidianNote>;
   obsidianNoteByName: Maybe<ObsidianNote>;
   obsidianNotes: ObsidianNoteConnection;
+  recentObsidianEntries: Array<ObsidianEntry>;
   /** Kai's JSON Resume (https://jsonresume.org/) */
   resume: Scalars['JSON'];
   testEcho: Scalars['String'];
@@ -280,14 +284,14 @@ export type ValidationError = {
   message: Scalars['String'];
 };
 
-export type AccountEditICloudCredentialsFragment = { __typename?: 'ICloudCredentials', email: string, password: string, session: any | null, cookies: string | null };
+export type AccountEditPageICloudCredentialsFragment = { __typename?: 'ICloudCredentials', email: string, password: string, session: any | null, cookies: string | null };
 
 export type AccountEditPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type AccountEditPageQuery = { __typename?: 'Query', viewer: { __typename?: 'User', id: string, isOwner: boolean, name: string, email: string, unconfirmedEmail: string | null } | null, icloudCredentials: { __typename?: 'ICloudCredentials', id: string, email: string, password: string, session: any | null, cookies: string | null } | null };
 
-export type AccountEditViewerFragment = { __typename?: 'User', name: string, email: string, unconfirmedEmail: string | null };
+export type AccountEditPageViewerFragment = { __typename?: 'User', name: string, email: string, unconfirmedEmail: string | null };
 
 export type AccountEmailFormQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -323,6 +327,17 @@ export type CurrentlyPlayingSubscriptionVariables = Exact<{ [key: string]: never
 
 export type CurrentlyPlayingSubscription = { __typename?: 'Subscription', currentlyPlaying: { __typename?: 'SpotifyTrack', name: string | null } | null };
 
+type HomeGraphEntryFragment_ObsidianNote_ = { __typename?: 'ObsidianNote', modifiedAt: string, aliases: Array<string>, tags: Array<string>, blurb: string | null, id: string, name: string, type: 'ObsidianNote', references: Array<{ __typename?: 'ObsidianNote', id: string } | { __typename?: 'ObsidianStub', id: string }>, referencedBy: Array<{ __typename?: 'ObsidianNote', id: string }> };
+
+type HomeGraphEntryFragment_ObsidianStub_ = { __typename?: 'ObsidianStub', id: string, name: string, type: 'ObsidianStub', referencedBy: Array<{ __typename?: 'ObsidianNote', id: string }> };
+
+export type HomeGraphEntryFragment = HomeGraphEntryFragment_ObsidianNote_ | HomeGraphEntryFragment_ObsidianStub_;
+
+export type HomeGraphQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HomeGraphQuery = { __typename?: 'Query', entries: Array<{ __typename?: 'ObsidianNote', id: string, modifiedAt: string, aliases: Array<string>, tags: Array<string>, blurb: string | null, name: string, type: 'ObsidianNote', references: Array<{ __typename?: 'ObsidianNote', id: string } | { __typename?: 'ObsidianStub', id: string }>, referencedBy: Array<{ __typename?: 'ObsidianNote', id: string }> } | { __typename?: 'ObsidianStub', id: string, name: string, type: 'ObsidianStub', referencedBy: Array<{ __typename?: 'ObsidianNote', id: string }> }> };
+
 export type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -342,8 +357,6 @@ export type ICloudCredentialsVerifySecurityCodeMutationVariables = Exact<{
 
 export type ICloudCredentialsVerifySecurityCodeMutation = { __typename?: 'Mutation', payload: { __typename?: 'ICloudCredentialsVerifySecurityCodePayload', icloudCredentials: { __typename?: 'ICloudCredentials', id: string } } };
 
-export type ObsidianGraphNoteFragment = { __typename?: 'ObsidianNote', id: string, name: string, aliases: Array<string>, references: Array<{ __typename?: 'ObsidianGhostNote', id: string } | { __typename?: 'ObsidianNote', id: string }>, referencedBy: Array<{ __typename?: 'ObsidianNote', id: string }> };
-
 export type ResumePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -359,7 +372,7 @@ export type TestMutationVariables = Exact<{
 }>;
 
 
-export type TestMutation = { __typename?: 'Mutation', testMutation: { __typename?: 'TestMutationPayload', model: { __typename?: 'TestModel', id: string, name: string, birthday: any | null } | null, errors: Array<{ __typename?: 'ValidationError', field: string, message: string }> | null } };
+export type TestMutation = { __typename?: 'Mutation', testMutation: { __typename?: 'TestMutationPayload', model: { __typename?: 'TestModel', id: string, name: string, birthday: string | null } | null, errors: Array<{ __typename?: 'ValidationError', field: string, message: string }> | null } };
 
 export type TestPageQueryVariables = Exact<{
   name: Scalars['String'];
@@ -373,17 +386,18 @@ export type WorkPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type WorkPageQuery = { __typename?: 'Query', viewer: { __typename?: 'User', id: string, isOwner: boolean, name: string } | null };
 
-export const AccountEditICloudCredentialsFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountEditICloudCredentialsFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ICloudCredentials"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"password"}},{"kind":"Field","name":{"kind":"Name","value":"session"}},{"kind":"Field","name":{"kind":"Name","value":"cookies"}}]}}]} as unknown as DocumentNode<AccountEditICloudCredentialsFragment, unknown>;
-export const AccountEditViewerFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountEditViewerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"unconfirmedEmail"}}]}}]} as unknown as DocumentNode<AccountEditViewerFragment, unknown>;
+export const AccountEditPageICloudCredentialsFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountEditPageICloudCredentialsFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ICloudCredentials"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"password"}},{"kind":"Field","name":{"kind":"Name","value":"session"}},{"kind":"Field","name":{"kind":"Name","value":"cookies"}}]}}]} as unknown as DocumentNode<AccountEditPageICloudCredentialsFragment, unknown>;
+export const AccountEditPageViewerFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountEditPageViewerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"unconfirmedEmail"}}]}}]} as unknown as DocumentNode<AccountEditPageViewerFragment, unknown>;
 export const AppViewerFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AppViewerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isOwner"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]} as unknown as DocumentNode<AppViewerFragment, unknown>;
-export const ObsidianGraphNoteFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ObsidianGraphNoteFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ObsidianNote"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"aliases"}},{"kind":"Field","name":{"kind":"Name","value":"references"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"referencedBy"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<ObsidianGraphNoteFragment, unknown>;
-export const AccountEditPageQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AccountEditPageQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AppViewerFragment"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountEditViewerFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"icloudCredentials"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountEditICloudCredentialsFragment"}}]}}]}},...AppViewerFragment.definitions,...AccountEditViewerFragment.definitions,...AccountEditICloudCredentialsFragment.definitions]} as unknown as DocumentNode<AccountEditPageQuery, AccountEditPageQueryVariables>;
+export const HomeGraphEntryFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HomeGraphEntryFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ObsidianEntry"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"type"},"name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"referencedBy"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ObsidianNote"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"modifiedAt"}},{"kind":"Field","name":{"kind":"Name","value":"aliases"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}},{"kind":"Field","name":{"kind":"Name","value":"references"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"blurb"}}]}}]}}]} as unknown as DocumentNode<HomeGraphEntryFragment, unknown>;
+export const AccountEditPageQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AccountEditPageQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AppViewerFragment"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountEditPageViewerFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"icloudCredentials"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountEditPageICloudCredentialsFragment"}}]}}]}},...AppViewerFragment.definitions,...AccountEditPageViewerFragment.definitions,...AccountEditPageICloudCredentialsFragment.definitions]} as unknown as DocumentNode<AccountEditPageQuery, AccountEditPageQueryVariables>;
 export const AccountEmailFormQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AccountEmailFormQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"unconfirmedEmail"}}]}}]}}]} as unknown as DocumentNode<AccountEmailFormQuery, AccountEmailFormQueryVariables>;
 export const AccountSignInPageQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AccountSignInPageQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AppViewerFragment"}}]}}]}},...AppViewerFragment.definitions]} as unknown as DocumentNode<AccountSignInPageQuery, AccountSignInPageQueryVariables>;
 export const AccountSignUpPageQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AccountSignUpPageQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AppViewerFragment"}}]}}]}},...AppViewerFragment.definitions]} as unknown as DocumentNode<AccountSignUpPageQuery, AccountSignUpPageQueryVariables>;
 export const AccountUpdateMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AccountUpdateMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AccountUpdateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"payload"},"name":{"kind":"Name","value":"accountUpdate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"errors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"field"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<AccountUpdateMutation, AccountUpdateMutationVariables>;
 export const ContactEmailQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ContactEmailQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"email"},"name":{"kind":"Name","value":"contactEmail"}}]}}]} as unknown as DocumentNode<ContactEmailQuery, ContactEmailQueryVariables>;
 export const CurrentlyPlayingSubscriptionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"CurrentlyPlayingSubscription"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"currentlyPlaying"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<CurrentlyPlayingSubscription, CurrentlyPlayingSubscriptionVariables>;
+export const HomeGraphQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"HomeGraphQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"entries"},"name":{"kind":"Name","value":"recentObsidianEntries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"HomeGraphEntryFragment"}}]}}]}},...HomeGraphEntryFragment.definitions]} as unknown as DocumentNode<HomeGraphQuery, HomeGraphQueryVariables>;
 export const HomePageQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"HomePageQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AppViewerFragment"}}]}}]}},...AppViewerFragment.definitions]} as unknown as DocumentNode<HomePageQuery, HomePageQueryVariables>;
 export const ICloudCredentialsUpdateMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ICloudCredentialsUpdateMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ICloudCredentialsUpdateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"payload"},"name":{"kind":"Name","value":"icloudCredentialsUpdate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"icloudCredentials"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"errors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"field"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<ICloudCredentialsUpdateMutation, ICloudCredentialsUpdateMutationVariables>;
 export const ICloudCredentialsVerifySecurityCodeMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ICloudCredentialsVerifySecurityCodeMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ICloudCredentialsVerifySecurityCodeInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"payload"},"name":{"kind":"Name","value":"icloudCredentialsVerifySecurityCode"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"icloudCredentials"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<ICloudCredentialsVerifySecurityCodeMutation, ICloudCredentialsVerifySecurityCodeMutationVariables>;

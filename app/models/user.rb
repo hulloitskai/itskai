@@ -84,7 +84,7 @@ class User
          :validatable,
          :confirmable,
          :trackable,
-         :omniauthable,
+         #  :omniauthable,
          reconfirmable: true
 
   # == Configuration ==

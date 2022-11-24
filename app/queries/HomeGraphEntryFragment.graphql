@@ -1,0 +1,17 @@
+fragment HomeGraphEntryFragment on ObsidianEntry {
+  id
+  type: __typename
+  name
+  referencedBy {
+    id
+  }
+  ... on ObsidianNote {
+    modifiedAt
+    aliases
+    tags
+    references {
+      id
+    }
+    blurb
+  }
+}

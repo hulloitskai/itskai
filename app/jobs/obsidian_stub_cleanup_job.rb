@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-class ObsidianGhostNoteCleanupJob < ApplicationJob
+class ObsidianStubCleanupJob < ApplicationJob
   extend T::Sig
 
   # == Configuration ==
@@ -9,6 +9,6 @@ class ObsidianGhostNoteCleanupJob < ApplicationJob
 
   sig { void }
   def perform
-    ObsidianGhostNote.where.missing(:incoming_relations).find_each(&:destroy!)
+    ObsidianStub.where.missing(:incoming_relations).find_each(&:destroy!)
   end
 end

@@ -12,6 +12,7 @@ export const imports: Array<ImportsMap | PresetName> = [
     ],
     "@inertiajs/inertia-react": ["Link", "usePage"],
     "@mantine/core": [
+      "packSx",
       "useMantineTheme",
       "useMantineColorScheme",
       "Alert",
@@ -37,11 +38,7 @@ export const imports: Array<ImportsMap | PresetName> = [
       "Transition",
     ],
     "@mantine/form": ["useForm"],
-    "@mantine/hooks": [
-      "useDocumentVisibility",
-      "useMediaQuery",
-      "useElementSize",
-    ],
+    "@mantine/hooks": ["useElementSize", "useMediaQuery"],
     "@mantine/notifications": ["showNotification"],
     "@mantine/modals": ["openModal", "closeAllModals"],
     "lodash-es": ["first", "mapKeys", "omit", "pick", "isEmpty"],

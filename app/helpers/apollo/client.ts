@@ -3,6 +3,9 @@ import type { NormalizedCacheObject, ApolloLink } from "@apollo/client";
 
 import { createApolloLink } from "./link?client";
 
+import introspection from "./introspection";
+const { possibleTypes } = introspection;
+
 export type ApolloClientOptions = {
   readonly csrfToken: string;
 };
@@ -24,7 +27,7 @@ export const createApolloClient = ({
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link,
-    cache: new InMemoryCache({}),
+    cache: new InMemoryCache({ possibleTypes }),
     defaultOptions: {
       watchQuery: {
         // The first time a browser-side `watchQuery` is run, attempt to load

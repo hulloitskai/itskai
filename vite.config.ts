@@ -39,12 +39,19 @@ export default defineConfig({
               avoidOptionals: {
                 field: true,
               },
+              scalars: {
+                DateTime: "string",
+                Date: "string",
+              },
             },
             plugins: [
               "typescript",
               "typescript-operations",
               "typed-document-node",
             ],
+          },
+          "./app/helpers/apollo/introspection.ts": {
+            plugins: ["fragment-matcher"],
           },
         },
         silent: true,

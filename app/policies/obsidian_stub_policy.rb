@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-class ObsidianGhostNotePolicy < ApplicationPolicy
+class ObsidianStubPolicy < ApplicationPolicy
   sig { override.returns(T::Boolean) }
   def index?
     true
