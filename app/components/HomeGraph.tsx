@@ -223,7 +223,7 @@ const EntryInfoCard: FC<EntryInfoCardProps> = ({ entry, ...otherProps }) => {
             <ClockIcon width={12} height={12} />
           </Box>
           <Text size="xs" color="dimmed" sx={{ lineHeight: 1.4 }}>
-            Modified {modifiedAgo}
+            Updated {modifiedAgo}
           </Text>
         </Group>
       )}

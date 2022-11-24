@@ -78,7 +78,7 @@ const HomePage: PageComponent = () => {
           <Divider sx={({ colors }) => ({ borderColor: colors.gray[3] })} />
           <Box>
             <Title order={2} size="h3">
-              Recent Notes
+              Recent Perusings
             </Title>
             <Text color="gray.6">
               This is a graph of some of the things that I have been thinking
