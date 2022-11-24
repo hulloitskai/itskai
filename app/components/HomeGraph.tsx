@@ -30,7 +30,8 @@ type Node = BaseNode &
 type Link = BaseLink<Node>;
 type DragEvent = D3DragEvent<HTMLElement, Node, Node>;
 
-const NODE_RADIUS_BASE = 3.5;
+const NODE_RADIUS_MIN_SIZE = 3.5;
+const NODE_RADIUS_MAX_SIZE = 30;
 const NODE_RADIUS_MULTIPLIER = 0.3;
 const LINK_FORCE = 0.02;
 const BODY_FORCE = -250;
@@ -252,7 +253,8 @@ const nodeRadius = (entry: HomeGraphEntryFragment): number => {
     default:
       throw new Error(`Unknown entry type: ${JSON.stringify(entry)}`);
   }
-  return NODE_RADIUS_BASE + references * NODE_RADIUS_MULTIPLIER;
+  const size = NODE_RADIUS_MIN_SIZE + references * NODE_RADIUS_MULTIPLIER;
+  return Math.min(size, NODE_RADIUS_MAX_SIZE);
 };
 
 const nodeLinks = (node: Node, validNodeIds: Set<string>): Link[] => {
