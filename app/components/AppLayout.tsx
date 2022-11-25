@@ -30,7 +30,7 @@ const AppLayout: FC<AppLayoutProps> = ({
       );
     }
     return children;
-  }, [withContainer]);
+  }, [withContainer, children]);
   return (
     <>
       <AppShell
