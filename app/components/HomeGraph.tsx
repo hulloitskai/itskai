@@ -1,16 +1,17 @@
 import type { FC, RefObject } from "react";
 import { Affix, Text } from "@mantine/core";
 import type { BoxProps, CardProps } from "@mantine/core";
-import type { Widen } from "~/helpers/utils";
 
 import { drag } from "d3-drag";
 import type { D3DragEvent } from "d3-drag";
 import {
+  forceSimulation,
   forceCenter,
   forceCollide,
   forceLink,
   forceManyBody,
-  forceSimulation,
+  forceX,
+  forceY,
 } from "d3-force";
 import type {
   SimulationNodeDatum as BaseNode,
@@ -18,24 +19,24 @@ import type {
 } from "d3-force";
 import { select } from "d3-selection";
 
-import { HomeGraphEntryFragment, HomeGraphQueryDocument } from "~/queries";
+import { HomeGraphNoteFragment, HomeGraphQueryDocument } from "~/queries";
 
 import ClockIcon from "~icons/heroicons/clock-20-solid";
 
 type Node = BaseNode &
-  HomeGraphEntryFragment & {
+  HomeGraphNoteFragment & {
     radius: number;
     isDragging?: boolean;
   };
 type Link = BaseLink<Node>;
 type DragEvent = D3DragEvent<HTMLElement, Node, Node>;
 
-const NODE_RADIUS_MIN_SIZE = 3.5;
+const NODE_RADIUS_MIN_SIZE = 4;
 const NODE_RADIUS_MAX_SIZE = 30;
 const NODE_RADIUS_MULTIPLIER = 0.3;
 const LINK_FORCE = 0.02;
-const BODY_FORCE = -250;
-const BODY_FORCE_MAX_DISTANCE = 200;
+const BODY_FORCE = -350;
+const BODY_FORCE_MAX_DISTANCE = 250;
 const TAG_COLORS: Record<string, string> = {
   person: "pink",
   day: "gray",
@@ -54,25 +55,25 @@ const HomeGraph: FC<HomeGraphProps> = ({ sx, ...otherProps }) => {
     variables: {},
     onError,
   });
-  const { entries } = data ?? {};
+  const { notes } = data?.notesConnection ?? {};
 
-  const [focusedEntry, setFocusedEntry] =
-    useState<HomeGraphEntryFragment | null>(null);
+  const [focusedNote, setFocusedNote] = useState<HomeGraphNoteFragment | null>(
+    null,
+  );
   if (!import.meta.env.SSR) {
     useLayoutEffect(() => {
-      if (svgRef.current && entries && width && height) {
+      if (svgRef.current && notes && width && height) {
         return render({
-          entries,
+          notes,
           svgRef,
           width,
           height,
-          onFocus: setFocusedEntry,
-          onBlur: () => setFocusedEntry(null),
+          onFocus: setFocusedNote,
+          onBlur: () => setFocusedNote(null),
         });
       }
-    }, [entries, svgRef.current]);
+    }, [notes, svgRef.current]);
   }
-
   return (
     <>
       <Box
@@ -165,11 +166,11 @@ const HomeGraph: FC<HomeGraphProps> = ({ sx, ...otherProps }) => {
         <svg ref={svgRef} style={{ width: "100%", height: "100%" }} />
       </Box>
       <Affix position={{ bottom: 20, right: 20 }}>
-        <Transition transition="slide-up" mounted={!!focusedEntry}>
+        <Transition transition="slide-up" mounted={!!focusedNote}>
           {style => (
             <>
-              {focusedEntry && (
-                <EntryInfoCard entry={focusedEntry} {...{ style }} />
+              {focusedNote && (
+                <NoteInfoCard note={focusedNote} {...{ style }} />
               )}
             </>
           )}
@@ -181,21 +182,14 @@ const HomeGraph: FC<HomeGraphProps> = ({ sx, ...otherProps }) => {
 
 export default HomeGraph;
 
-type EntryInfoCardProps = Omit<CardProps, "children"> & {
-  readonly entry: HomeGraphEntryFragment;
+type NoteInfoCardProps = Omit<CardProps, "children"> & {
+  readonly note: HomeGraphNoteFragment;
 };
 
-const EntryInfoCard: FC<EntryInfoCardProps> = ({ entry, ...otherProps }) => {
-  const {
-    name,
-    modifiedAt: modifiedAtISO,
-    tags = [],
-    blurb,
-  } = entry as Widen<HomeGraphEntryFragment>;
+const NoteInfoCard: FC<NoteInfoCardProps> = ({ note, ...otherProps }) => {
+  const { name, modifiedAt: modifiedAtISO, tags = [], blurb } = note;
   const modifiedAgo = useMemo(() => {
-    if (modifiedAtISO) {
-      return DateTime.fromISO(modifiedAtISO).toRelativeCalendar();
-    }
+    return DateTime.fromISO(modifiedAtISO).toRelativeCalendar();
   }, [modifiedAtISO]);
   const tag = useMemo(() => first(tags), [tags]);
   return (
@@ -241,48 +235,30 @@ const EntryInfoCard: FC<EntryInfoCardProps> = ({ entry, ...otherProps }) => {
     </Card>
   );
 };
-const nodeRadius = (entry: HomeGraphEntryFragment): number => {
-  let references = 0;
-  switch (entry.type) {
-    case "ObsidianNote":
-      references = entry.references.length + entry.referencedBy.length;
-      break;
-    case "ObsidianStub":
-      references = entry.referencedBy.length;
-      break;
-    default:
-      throw new Error(`Unknown entry type: ${JSON.stringify(entry)}`);
-  }
+const nodeRadius = (note: HomeGraphNoteFragment): number => {
+  const references = note.references.length + note.referencedBy.length;
   const size = NODE_RADIUS_MIN_SIZE + references * NODE_RADIUS_MULTIPLIER;
   return Math.min(size, NODE_RADIUS_MAX_SIZE);
 };
 
 const nodeLinks = (node: Node, validNodeIds: Set<string>): Link[] => {
-  switch (node.type) {
-    case "ObsidianNote": {
-      const { id: source } = node;
-      return node.references
-        .filter(({ id }) => validNodeIds.has(id))
-        .map(({ id: target }) => ({ source, target }));
-    }
-    case "ObsidianStub":
-      return [];
-    default:
-      throw new Error(`Unknown node type: ${JSON.stringify(node)}`);
-  }
+  const { id: source } = node;
+  return node.references
+    .filter(({ id }) => validNodeIds.has(id))
+    .map(({ id: target }) => ({ source, target }));
 };
 
 type RenderOptions = {
-  readonly entries: ReadonlyArray<HomeGraphEntryFragment>;
+  readonly notes: ReadonlyArray<HomeGraphNoteFragment>;
   readonly svgRef: RefObject<SVGSVGElement | null>;
   readonly width: number;
   readonly height: number;
-  readonly onFocus: (entry: HomeGraphEntryFragment) => void;
-  readonly onBlur: (entry: HomeGraphEntryFragment) => void;
+  readonly onFocus: (entry: HomeGraphNoteFragment) => void;
+  readonly onBlur: (entry: HomeGraphNoteFragment) => void;
 };
 
 const render = ({
-  entries,
+  notes,
   svgRef,
   width,
   height,
@@ -292,7 +268,7 @@ const render = ({
   let isDragging = false;
 
   // Construct nodes and links
-  const nodes = entries.map<Node>(entry => ({
+  const nodes = notes.map<Node>(entry => ({
     ...entry,
     radius: nodeRadius(entry),
   }));
@@ -329,14 +305,7 @@ const render = ({
     .selectAll(".node")
     .data(nodes)
     .join("g")
-    .attr("class", node => {
-      switch (node.type) {
-        case "ObsidianNote":
-          return ["node", ...node.tags].join(" ");
-        case "ObsidianStub":
-          return "node";
-      }
-    });
+    .attr("class", node => ["node", ...node.tags].join(" "));
 
   // Draw node circles
   nodeGroups
@@ -376,14 +345,8 @@ const render = ({
   nodeGroups
     .append("text")
     .text(node => {
-      switch (node.type) {
-        case "ObsidianNote": {
-          const { name, aliases } = node;
-          return first(aliases) || name;
-        }
-        case "ObsidianStub":
-          return node.name;
-      }
+      const { name, aliases } = node;
+      return first(aliases) || name;
     })
     .attr("text-anchor", "middle")
     .attr("dy", ({ radius }) => radius + 15);
@@ -407,7 +370,9 @@ const render = ({
       "charge",
       forceManyBody().strength(BODY_FORCE).distanceMax(BODY_FORCE_MAX_DISTANCE),
     )
-    .force("center", forceCenter(width / 2, height / 2).strength(1.5))
+    .force("center", forceCenter(width / 2, height / 2))
+    .force("gravity.x", forceX(width / 2))
+    .force("gravity.y", forceY(height / 2))
     .on("tick", () => {
       nodeGroups.attr("transform", ({ x, y }) => `translate(${x}, ${y})`);
       linkLines

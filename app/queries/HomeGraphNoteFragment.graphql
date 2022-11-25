@@ -1,0 +1,14 @@
+fragment HomeGraphNoteFragment on ObsidianNote {
+  id
+  modifiedAt
+  name
+  aliases
+  tags
+  blurb
+  referencedBy {
+    id
+  }
+  references {
+    id
+  }
+}

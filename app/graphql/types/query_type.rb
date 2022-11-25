@@ -28,6 +28,5 @@ module Types
     field :obsidian_note, resolver: Queries::ObsidianNote
     field :obsidian_note_by_name, resolver: Queries::ObsidianNoteByName
     field :obsidian_notes, resolver: Queries::ObsidianNotes
-    field :recent_obsidian_entries, resolver: Queries::RecentObsidianEntries
   end
 end

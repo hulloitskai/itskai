@@ -1,6 +1,8 @@
 query HomeGraphQuery {
-  entries: recentObsidianEntries {
-    id
-    ...HomeGraphEntryFragment
+  notesConnection: obsidianNotes(first: 40) {
+    notes: nodes {
+      id
+      ...HomeGraphNoteFragment
+    }
   }
 }
