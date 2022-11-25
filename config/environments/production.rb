@@ -8,7 +8,7 @@ Rails.application.configure do
   config.before_configuration do
     routes.default_url_options = {
       protocol: "https",
-      host: "playces.in",
+      host: "itskai.me",
       port: nil,
     }
   end
