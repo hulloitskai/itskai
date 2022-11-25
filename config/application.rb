@@ -90,6 +90,6 @@ module Kai
 
     # == Action Mailer ==
     config.action_mailer.perform_deliveries =
-      ENV.fetch("RAILS_MAILER_PERFORM_DELIVERIES", "true").truthy?
+      ENV.fetch("RAILS_MAILER_PERFORM_DELIVERIES", true).truthy?
   end
 end

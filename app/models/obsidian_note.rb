@@ -60,12 +60,12 @@ class ObsidianNote < ApplicationRecord
 
   # == Synchronization ==
   sig { params(force: T::Boolean).void }
-  def self.synchronize(force: false)
+  def self.synchronize_all(force: false)
     ObsidianNoteSynchronizationJob.perform_now(force: force)
   end
 
   sig { params(force: T::Boolean).void }
-  def self.synchronize_later(force: false)
+  def self.synchronize_all_later(force: false)
     ObsidianNoteSynchronizationJob.perform_later(force: force)
   end
 
@@ -76,23 +76,13 @@ class ObsidianNote < ApplicationRecord
 
   # == Analysis ==
   sig { params(force: T::Boolean).void }
-  def self.analyze(force: false)
+  def self.analyze_all(force: false)
     ObsidianNoteAnalysisJob.perform_now(force: force)
   end
 
   sig { params(force: T::Boolean).void }
-  def self.analyze_later(force: false)
+  def self.analyze_all_later(force: false)
     ObsidianNoteAnalysisJob.perform_later(force: force)
-  end
-
-  sig { returns(T::Boolean) }
-  def analyzed?
-    analyzed_at?
-  end
-
-  sig { returns(T::Boolean) }
-  def analysis_required?
-    !analyzed? || T.must(analyzed_at) < modified_at
   end
 
   sig { void }
@@ -103,5 +93,15 @@ class ObsidianNote < ApplicationRecord
   sig { void }
   def analyze_later
     ObsidianNoteAnalyzeJob.perform_later(self)
+  end
+
+  sig { returns(T::Boolean) }
+  def analyzed?
+    analyzed_at?
+  end
+
+  sig { returns(T::Boolean) }
+  def analysis_required?
+    !analyzed? || T.must(analyzed_at) < modified_at
   end
 end

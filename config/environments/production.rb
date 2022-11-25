@@ -55,7 +55,7 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for
   # options).
   config.active_storage.service =
-    ENV.fetch("RAILS_STORAGE_SERVICE", "amazon").to_sym
+    ENV.fetch("RAILS_STORAGE_SERVICE", :amazon).to_sym
 
   # == Action Cable ==
   # Mount Action Cable outside main process or domain.
@@ -75,7 +75,7 @@ Rails.application.configure do
 
   # == Action Mailer ==
   config.action_mailer.delivery_method =
-    ENV.fetch("RAILS_MAILER", "mailgun").to_sym
+    ENV.fetch("RAILS_MAILER", :mailjet_api).to_sym
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
@@ -84,7 +84,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # == Action Mailbox ==
-  config.action_mailbox.ingress = ENV.fetch("RAILS_MAILBOX", "mailgun").to_sym
+  # config.action_mailbox.ingress = ENV.fetch("RAILS_MAILBOX", :mailgun).to_sym
 
   # == Active Support ==
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
@@ -121,5 +121,5 @@ Rails.application.configure do
 
   # == Good Job ==
   config.good_job.execution_mode =
-    ENV.fetch("GOOD_JOB_EXECUTION_MODE", "async").to_sym
+    ENV.fetch("GOOD_JOB_EXECUTION_MODE", :async).to_sym
 end

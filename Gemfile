@@ -41,8 +41,8 @@ gem "aws-sdk-s3", "~> 1.113", require: false
 # Use Good Job as the backend for Active Job
 gem "good_job", "~> 3.6"
 
-# Use Mailgun to send emails.
-gem "mailgun-ruby", "~> 1.2"
+# Use Mailjet to send emails.
+gem "mailjet", "~> 1.7"
 
 # Use ShortUUID to shorten UUIDs for use in URLs
 gem "shortuuid", "~> 0.6.0"

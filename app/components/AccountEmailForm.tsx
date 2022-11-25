@@ -44,6 +44,7 @@ const AccountEmailForm: FC<AccountEmailFormProps> = ({ viewer, errors }) => {
             } = await client.query({
               query: AccountEmailFormQueryDocument,
               variables: {},
+              fetchPolicy: "network-only",
             });
             invariant(viewer, "missing viewer");
             const { email, unconfirmedEmail } = viewer;
