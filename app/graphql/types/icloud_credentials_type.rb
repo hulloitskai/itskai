@@ -4,7 +4,7 @@
 module Types
   class ICloudCredentialsType < BaseObject
     # == Interfaces ==
-    implements GraphQL::Types::Relay::Node
+    implements NodeType
     implements IdentifiableType
 
     # == Fields ==

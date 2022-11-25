@@ -9,7 +9,7 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Kai
+module ItsKai
   class Application < Rails::Application
     # Load libraries.
     config.before_configuration do

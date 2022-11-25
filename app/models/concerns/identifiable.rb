@@ -40,6 +40,8 @@ module Identifiable
     extend T::Sig
     extend T::Helpers
 
+    requires_ancestor { T.class_of(ApplicationRecord) }
+
     # == Finders ==
     sig { params(args: T.untyped).returns(T.untyped) }
     def find(*args)

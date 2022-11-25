@@ -12,9 +12,9 @@ module Resolver
   sig { abstract.returns(GraphQL::Query::Context) }
   def context; end
 
-  sig { returns(Kai::Application) }
+  sig { returns(ItsKai::Application) }
   def app
-    T.cast(Rails.application, Kai::Application)
+    T.cast(Rails.application, ItsKai::Application)
   end
 
   # sig { returns(T.nilable(GraphQLController)) }

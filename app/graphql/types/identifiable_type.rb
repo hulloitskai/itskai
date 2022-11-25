@@ -7,7 +7,7 @@ module Types
     include Types::BaseInterface
 
     # == Interfaces ==
-    implements GraphQL::Types::Relay::Node
+    implements NodeType
 
     # == Fields ==
     field :short_id,

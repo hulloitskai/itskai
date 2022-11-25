@@ -4,7 +4,7 @@
 module Types
   class ObsidianNoteType < BaseObject
     # == Interfaces ==
-    implements GraphQL::Types::Relay::Node
+    implements NodeType
     implements IdentifiableType
     implements ObsidianEntryType
 
