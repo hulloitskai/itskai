@@ -21,10 +21,10 @@ module Bootsnap
     # source://bootsnap//lib/bootsnap.rb#34
     def _instrument(event, path); end
 
-    # source://bootsnap//lib/bootsnap.rb#118
+    # source://bootsnap//lib/bootsnap.rb#122
     def absolute_path?(path); end
 
-    # source://bootsnap//lib/bootsnap.rb#67
+    # source://bootsnap//lib/bootsnap.rb#70
     def default_setup; end
 
     # source://bootsnap//lib/bootsnap.rb#27
@@ -48,9 +48,9 @@ module Bootsnap
     def rb_get_path(_arg0); end
 
     # source://bootsnap//lib/bootsnap.rb#38
-    def setup(cache_dir:, development_mode: T.unsafe(nil), load_path_cache: T.unsafe(nil), ignore_directories: T.unsafe(nil), compile_cache_iseq: T.unsafe(nil), compile_cache_yaml: T.unsafe(nil), compile_cache_json: T.unsafe(nil)); end
+    def setup(cache_dir:, development_mode: T.unsafe(nil), load_path_cache: T.unsafe(nil), ignore_directories: T.unsafe(nil), readonly: T.unsafe(nil), compile_cache_iseq: T.unsafe(nil), compile_cache_yaml: T.unsafe(nil), compile_cache_json: T.unsafe(nil)); end
 
-    # source://bootsnap//lib/bootsnap.rb#63
+    # source://bootsnap//lib/bootsnap.rb#66
     def unload_cache!; end
   end
 end
@@ -60,15 +60,15 @@ module Bootsnap::CompileCache
   class << self
     # @raise [PermissionError]
     #
-    # source://bootsnap//lib/bootsnap/compile_cache.rb#42
+    # source://bootsnap//lib/bootsnap/compile_cache.rb#46
     def permission_error(path); end
 
     # source://bootsnap//lib/bootsnap/compile_cache.rb#13
-    def setup(cache_dir:, iseq:, yaml:, json:); end
+    def setup(cache_dir:, iseq:, yaml:, json:, readonly: T.unsafe(nil)); end
 
     # @return [Boolean]
     #
-    # source://bootsnap//lib/bootsnap/compile_cache.rb#51
+    # source://bootsnap//lib/bootsnap/compile_cache.rb#55
     def supported?; end
   end
 end
@@ -194,12 +194,14 @@ module Bootsnap::CompileCache::Native
   def coverage_running?; end
   def fetch(_arg0, _arg1, _arg2, _arg3); end
   def precompile(_arg0, _arg1, _arg2); end
+  def readonly=(_arg0); end
 
   class << self
     def compile_option_crc32=(_arg0); end
     def coverage_running?; end
     def fetch(_arg0, _arg1, _arg2, _arg3); end
     def precompile(_arg0, _arg1, _arg2); end
+    def readonly=(_arg0); end
   end
 end
 
@@ -413,7 +415,7 @@ module Bootsnap::LoadPathCache
     def loaded_features_index; end
 
     # source://bootsnap//lib/bootsnap/load_path_cache.rb#31
-    def setup(cache_path:, development_mode:, ignore_directories:); end
+    def setup(cache_path:, development_mode:, ignore_directories:, readonly: T.unsafe(nil)); end
 
     # @return [Boolean]
     #
@@ -871,44 +873,44 @@ class Bootsnap::LoadPathCache::Store
   # @return [Store] a new instance of Store
   #
   # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#16
-  def initialize(store_path); end
+  def initialize(store_path, readonly: T.unsafe(nil)); end
 
   # @raise [SetOutsideTransactionNotAllowed]
   #
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#27
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#28
   def fetch(key); end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#23
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#24
   def get(key); end
 
   # @raise [SetOutsideTransactionNotAllowed]
   #
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#39
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#40
   def set(key, value); end
 
   # @raise [NestedTransactionError]
   #
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#48
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#49
   def transaction; end
 
   private
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#65
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#66
   def commit_transaction; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#111
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#112
   def default_data; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#94
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#95
   def dump_data; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#72
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#73
   def load_data; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#60
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#61
   def mark_for_mutation!; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#115
+  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#116
   def mkdir_p(path); end
 end
 

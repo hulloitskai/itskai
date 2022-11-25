@@ -217,6 +217,9 @@ class Webdrivers::Chromedriver < ::Webdrivers::Common
 
     private
 
+    # source://webdrivers//lib/webdrivers/chromedriver.rb#100
+    def apple_filename(driver_version); end
+
     # @return [Boolean]
     #
     # source://webdrivers//lib/webdrivers/chromedriver.rb#90
@@ -227,7 +230,7 @@ class Webdrivers::Chromedriver < ::Webdrivers::Common
     # @example
     #   73.0.3683.75 (major.minor.build.patch) -> 73.0.3683 (major.minor.build)
     #
-    # source://webdrivers//lib/webdrivers/chromedriver.rb#134
+    # source://webdrivers//lib/webdrivers/chromedriver.rb#141
     def browser_build_version; end
 
     # Returns major.minor.build version from the currently installed Chrome version
@@ -235,7 +238,7 @@ class Webdrivers::Chromedriver < ::Webdrivers::Common
     # @example
     #   73.0.3683.75 (major.minor.build.patch) -> 73.0.3683 (major.minor.build)
     #
-    # source://webdrivers//lib/webdrivers/chromedriver.rb#134
+    # source://webdrivers//lib/webdrivers/chromedriver.rb#141
     def chrome_build_version; end
 
     # Returns major.minor.build version from the currently installed chromedriver version
@@ -243,13 +246,13 @@ class Webdrivers::Chromedriver < ::Webdrivers::Common
     # @example
     #   73.0.3683.68 (major.minor.build.patch) -> 73.0.3683 (major.minor.build)
     #
-    # source://webdrivers//lib/webdrivers/chromedriver.rb#121
+    # source://webdrivers//lib/webdrivers/chromedriver.rb#128
     def current_build_version; end
 
-    # source://webdrivers//lib/webdrivers/chromedriver.rb#100
+    # source://webdrivers//lib/webdrivers/chromedriver.rb#108
     def direct_url(driver_version); end
 
-    # source://webdrivers//lib/webdrivers/chromedriver.rb#104
+    # source://webdrivers//lib/webdrivers/chromedriver.rb#112
     def driver_filename(driver_version); end
 
     # source://webdrivers//lib/webdrivers/chromedriver.rb#86
@@ -263,7 +266,7 @@ class Webdrivers::Chromedriver < ::Webdrivers::Common
     #
     # @return [Boolean]
     #
-    # source://webdrivers//lib/webdrivers/chromedriver.rb#141
+    # source://webdrivers//lib/webdrivers/chromedriver.rb#148
     def sufficient_binary?; end
   end
 end

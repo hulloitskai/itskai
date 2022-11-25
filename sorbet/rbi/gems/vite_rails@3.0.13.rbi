@@ -90,7 +90,7 @@ module ViteRails::TagHelpers
 
   # Public: Renders an <img> tag for the specified Vite asset.
   #
-  # source://vite_rails//lib/vite_rails/tag_helpers.rb#61
+  # source://vite_rails//lib/vite_rails/tag_helpers.rb#68
   def vite_image_tag(name, **options); end
 
   # Public: Renders a <script> tag for the specified Vite entrypoints.
@@ -105,24 +105,24 @@ module ViteRails::TagHelpers
 
   # Public: Renders a <link> tag for the specified Vite entrypoints.
   #
-  # source://vite_rails//lib/vite_rails/tag_helpers.rb#55
+  # source://vite_rails//lib/vite_rails/tag_helpers.rb#59
   def vite_stylesheet_tag(*names, **options); end
 
   # Public: Renders a <script> tag for the specified Vite entrypoints.
   #
-  # source://vite_rails//lib/vite_rails/tag_helpers.rb#50
+  # source://vite_rails//lib/vite_rails/tag_helpers.rb#54
   def vite_typescript_tag(*names, **options); end
 
   private
 
   # Internal: Returns the current manifest loaded by Vite Ruby.
   #
-  # source://vite_rails//lib/vite_rails/tag_helpers.rb#74
+  # source://vite_rails//lib/vite_rails/tag_helpers.rb#81
   def vite_manifest; end
 
   # Internal: Renders a modulepreload link tag.
   #
-  # source://vite_rails//lib/vite_rails/tag_helpers.rb#79
+  # source://vite_rails//lib/vite_rails/tag_helpers.rb#86
   def vite_preload_tag(*sources, crossorigin:, **options); end
 end
 

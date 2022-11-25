@@ -14,7 +14,7 @@ module Capybara
     # @param html [String] The raw html
     # @return [Nokogiri::HTML::Document] HTML document
     #
-    # source://capybara//lib/capybara.rb#388
+    # source://capybara//lib/capybara.rb#389
     def HTML(html); end
 
     # Add a new selector to Capybara. Selectors can be used by various methods in Capybara
@@ -43,7 +43,7 @@ module Capybara
     # @param name [Symbol] The name of the selector to add
     # @yield A block executed in the context of the new {Capybara::Selector}
     #
-    # source://capybara//lib/capybara.rb#181
+    # source://capybara//lib/capybara.rb#182
     def add_selector(name, **options, &block); end
 
     # source://forwardable/1.3.2/forwardable.rb#229
@@ -113,6 +113,7 @@ module Capybara
     # - **automatic_reload** (Boolean = `true`) - Whether to automatically reload elements as Capybara is waiting.
     # - **default_max_wait_time** (Numeric = `2`) - The maximum number of seconds to wait for asynchronous processes to finish.
     # - **default_normalize_ws** (Boolean = `false`) - Whether text predicates and matchers use normalize whitespace behavior.
+    # - **default_retry_interval** (Numeric = `0.01`) - The number of seconds to delay the next check in asynchronous processes.
     # - **default_selector** (`:css`, `:xpath` = `:css`) - Methods which take a selector use the given type by default. See also {Capybara::Selector}.
     # - **default_set_options** (Hash = `{}`) - The default options passed to {Capybara::Node::Element#set Element#set}.
     # - **enable_aria_label** (Boolean = `false`) - Whether fields, links, and buttons will match against `aria-label` attribute.
@@ -135,7 +136,7 @@ module Capybara
     #   and {configure raise_server_errors} is `true`.
     # - **test_id** (Symbol, String, `nil` = `nil`) - Optional attribute to match locator against with built-in selectors along with id.
     # - **threadsafe** (Boolean = `false`) - Whether sessions can be configured individually.
-    # - **w3c_click_offset** (Boolean = 'false') - Whether click offsets should be from element center (true) or top left (false)
+    # - **w3c_click_offset** (Boolean = 'true') - Whether click offsets should be from element center (true) or top left (false)
     #
     # #### DSL Options
     #
@@ -146,22 +147,22 @@ module Capybara
     #
     # @yield [config]
     #
-    # source://capybara//lib/capybara.rb#113
+    # source://capybara//lib/capybara.rb#114
     def configure; end
 
     # @return [Symbol] The name of the driver currently in use
     #
-    # source://capybara//lib/capybara.rb#260
+    # source://capybara//lib/capybara.rb#261
     def current_driver; end
 
-    # source://capybara//lib/capybara.rb#269
+    # source://capybara//lib/capybara.rb#270
     def current_driver=(name); end
 
     # The current {Capybara::Session} based on what is set as {app} and {current_driver}.
     #
     # @return [Capybara::Session] The currently used session
     #
-    # source://capybara//lib/capybara.rb#315
+    # source://capybara//lib/capybara.rb#316
     def current_session; end
 
     # See {Capybara.configure}
@@ -192,6 +193,12 @@ module Capybara
     # source://forwardable/1.3.2/forwardable.rb#229
     def default_normalize_ws=(*args, **_arg1, &block); end
 
+    # source://forwardable/1.3.2/forwardable.rb#229
+    def default_retry_interval(*args, **_arg1, &block); end
+
+    # source://forwardable/1.3.2/forwardable.rb#229
+    def default_retry_interval=(*args, **_arg1, &block); end
+
     # See {Capybara.configure}
     #
     # source://forwardable/1.3.2/forwardable.rb#229
@@ -212,7 +219,7 @@ module Capybara
     # source://forwardable/1.3.2/forwardable.rb#229
     def disable_animation=(*args, **_arg1, &block); end
 
-    # source://capybara//lib/capybara.rb#203
+    # source://capybara//lib/capybara.rb#204
     def drivers; end
 
     # source://forwardable/1.3.2/forwardable.rb#229
@@ -261,7 +268,7 @@ module Capybara
 
     # @return [Symbol] The name of the driver currently in use
     #
-    # source://capybara//lib/capybara.rb#260
+    # source://capybara//lib/capybara.rb#261
     def mode; end
 
     # Modify a selector previously created by {Capybara.add_selector}.
@@ -275,7 +282,7 @@ module Capybara
     # @param name [Symbol] The name of the selector to modify
     # @yield A block executed in the context of the existing {Capybara::Selector}
     #
-    # source://capybara//lib/capybara.rb#199
+    # source://capybara//lib/capybara.rb#200
     def modify_selector(name, &block); end
 
     # source://forwardable/1.3.2/forwardable.rb#229
@@ -301,7 +308,7 @@ module Capybara
     # @yieldparam app [<Rack>] The rack application that this driver runs against. May be nil.
     # @yieldreturn [Capybara::Driver::Base] A Capybara driver instance
     #
-    # source://capybara//lib/capybara.rb#130
+    # source://capybara//lib/capybara.rb#131
     def register_driver(name, &block); end
 
     # Register a new server for Capybara.
@@ -317,19 +324,19 @@ module Capybara
     # @yieldparam port The port number the server should listen on
     # @yieldparam host The host/ip to bind to
     #
-    # source://capybara//lib/capybara.rb#149
+    # source://capybara//lib/capybara.rb#150
     def register_server(name, &block); end
 
     # Reset sessions, cleaning out the pool of sessions. This will remove any session information such
     # as cookies.
     #
-    # source://capybara//lib/capybara.rb#324
+    # source://capybara//lib/capybara.rb#325
     def reset!; end
 
     # Reset sessions, cleaning out the pool of sessions. This will remove any session information such
     # as cookies.
     #
-    # source://capybara//lib/capybara.rb#324
+    # source://capybara//lib/capybara.rb#325
     def reset_sessions!; end
 
     # See {Capybara.configure}
@@ -347,7 +354,7 @@ module Capybara
     # @param app [Rack Application] The rack application to run
     # @param port [Integer] The port to run the application on
     #
-    # source://capybara//lib/capybara.rb#252
+    # source://capybara//lib/capybara.rb#253
     def run_default_server(app, port); end
 
     # source://forwardable/1.3.2/forwardable.rb#229
@@ -388,20 +395,20 @@ module Capybara
     # source://forwardable/1.3.2/forwardable.rb#229
     def server_port=(*args, **_arg1, &block); end
 
-    # source://capybara//lib/capybara.rb#207
+    # source://capybara//lib/capybara.rb#208
     def servers; end
 
     # The current session name.
     #
     # @return [Symbol] The name of the currently used session.
     #
-    # source://capybara//lib/capybara.rb#336
+    # source://capybara//lib/capybara.rb#337
     def session_name; end
 
-    # source://capybara//lib/capybara.rb#344
+    # source://capybara//lib/capybara.rb#345
     def session_name=(name); end
 
-    # source://capybara//lib/capybara.rb#408
+    # source://capybara//lib/capybara.rb#409
     def session_options; end
 
     # Wraps the given string, which should contain an HTML document or fragment
@@ -430,7 +437,7 @@ module Capybara
     # @param html [String] An html fragment or document
     # @return [Capybara::Node::Simple] A node which has Capybara's finders and matchers
     #
-    # source://capybara//lib/capybara.rb#239
+    # source://capybara//lib/capybara.rb#240
     def string(html); end
 
     # source://forwardable/1.3.2/forwardable.rb#229
@@ -449,7 +456,7 @@ module Capybara
 
     # Use the default driver as the current driver
     #
-    # source://capybara//lib/capybara.rb#281
+    # source://capybara//lib/capybara.rb#282
     def use_default_driver; end
 
     # See {Capybara.configure}
@@ -462,17 +469,17 @@ module Capybara
 
     # Yield a block using a specific driver
     #
-    # source://capybara//lib/capybara.rb#289
+    # source://capybara//lib/capybara.rb#290
     def using_driver(driver); end
 
     # Yield a block using a specific session name or {Capybara::Session} instance.
     #
-    # source://capybara//lib/capybara.rb#356
+    # source://capybara//lib/capybara.rb#357
     def using_session(name_or_session, &block); end
 
     # Yield a block using a specific wait time
     #
-    # source://capybara//lib/capybara.rb#301
+    # source://capybara//lib/capybara.rb#302
     def using_wait_time(seconds); end
 
     # source://forwardable/1.3.2/forwardable.rb#229
@@ -489,16 +496,16 @@ module Capybara
 
     private
 
-    # source://capybara//lib/capybara.rb#414
+    # source://capybara//lib/capybara.rb#415
     def config; end
 
-    # source://capybara//lib/capybara.rb#418
+    # source://capybara//lib/capybara.rb#419
     def session_pool; end
 
-    # source://capybara//lib/capybara.rb#424
+    # source://capybara//lib/capybara.rb#425
     def specified_session; end
 
-    # source://capybara//lib/capybara.rb#432
+    # source://capybara//lib/capybara.rb#433
     def specified_session=(session); end
   end
 end
@@ -595,6 +602,12 @@ class Capybara::Config
 
   # source://forwardable/1.3.2/forwardable.rb#229
   def default_normalize_ws=(*args, **_arg1, &block); end
+
+  # source://forwardable/1.3.2/forwardable.rb#229
+  def default_retry_interval(*args, **_arg1, &block); end
+
+  # source://forwardable/1.3.2/forwardable.rb#229
+  def default_retry_interval=(*args, **_arg1, &block); end
 
   # source://forwardable/1.3.2/forwardable.rb#229
   def default_selector(*args, **_arg1, &block); end
@@ -837,6 +850,9 @@ module Capybara::DSL
   def choose(*_arg0, **_arg1, &_arg2); end
 
   # source://capybara//lib/capybara/dsl.rb#51
+  def click(*_arg0, **_arg1, &_arg2); end
+
+  # source://capybara//lib/capybara/dsl.rb#51
   def click_button(*_arg0, **_arg1, &_arg2); end
 
   # source://capybara//lib/capybara/dsl.rb#51
@@ -868,6 +884,12 @@ module Capybara::DSL
 
   # source://capybara//lib/capybara/dsl.rb#51
   def dismiss_prompt(*_arg0, **_arg1, &_arg2); end
+
+  # source://capybara//lib/capybara/dsl.rb#51
+  def double_click(*_arg0, **_arg1, &_arg2); end
+
+  # source://capybara//lib/capybara/dsl.rb#51
+  def evaluate_async_script(*_arg0, **_arg1, &_arg2); end
 
   # source://capybara//lib/capybara/dsl.rb#51
   def evaluate_script(*_arg0, **_arg1, &_arg2); end
@@ -1026,6 +1048,9 @@ module Capybara::DSL
   def response_headers(*_arg0, **_arg1, &_arg2); end
 
   # source://capybara//lib/capybara/dsl.rb#51
+  def right_click(*_arg0, **_arg1, &_arg2); end
+
+  # source://capybara//lib/capybara/dsl.rb#51
   def save_and_open_page(*_arg0, **_arg1, &_arg2); end
 
   # source://capybara//lib/capybara/dsl.rb#51
@@ -1124,7 +1149,7 @@ module Capybara::DSL
   end
 end
 
-# source://capybara//lib/capybara.rb#445
+# source://capybara//lib/capybara.rb#446
 module Capybara::Driver; end
 
 # source://capybara//lib/capybara/driver/base.rb#3
@@ -1577,7 +1602,7 @@ module Capybara::Helpers
 
   # @api private
   #
-  # source://capybara//lib/capybara/helpers.rb#94
+  # source://capybara//lib/capybara/helpers.rb#98
   def timer(expire_in:); end
 
   # Escapes any characters that would have special meaning in a regexp
@@ -1643,7 +1668,7 @@ module Capybara::Helpers
 
     # @api private
     #
-    # source://capybara//lib/capybara/helpers.rb#94
+    # source://capybara//lib/capybara/helpers.rb#98
     def timer(expire_in:); end
 
     # Escapes any characters that would have special meaning in a regexp
@@ -1667,31 +1692,31 @@ end
 
 # @api private
 #
-# source://capybara//lib/capybara/helpers.rb#98
+# source://capybara//lib/capybara/helpers.rb#102
 class Capybara::Helpers::Timer
   # @api private
   # @return [Timer] a new instance of Timer
   #
-  # source://capybara//lib/capybara/helpers.rb#99
+  # source://capybara//lib/capybara/helpers.rb#103
   def initialize(expire_in); end
 
   # @api private
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/helpers.rb#104
+  # source://capybara//lib/capybara/helpers.rb#108
   def expired?; end
 
   # @api private
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/helpers.rb#112
+  # source://capybara//lib/capybara/helpers.rb#116
   def stalled?; end
 
   private
 
   # @api private
   #
-  # source://capybara//lib/capybara/helpers.rb#118
+  # source://capybara//lib/capybara/helpers.rb#122
   def current; end
 end
 
@@ -2254,12 +2279,12 @@ class Capybara::Node::Base
 
   # @api private
   #
-  # source://capybara//lib/capybara/node/base.rb#105
+  # source://capybara//lib/capybara/node/base.rb#106
   def find_css(css, **options); end
 
   # @api private
   #
-  # source://capybara//lib/capybara/node/base.rb#114
+  # source://capybara//lib/capybara/node/base.rb#115
   def find_xpath(xpath, **options); end
 
   # Returns the value of attribute query_scope.
@@ -2279,7 +2304,7 @@ class Capybara::Node::Base
 
   # @api private
   #
-  # source://capybara//lib/capybara/node/base.rb#123
+  # source://capybara//lib/capybara/node/base.rb#124
   def session_options; end
 
   # This method is Capybara's primary defence against asynchronicity
@@ -2317,17 +2342,17 @@ class Capybara::Node::Base
   # source://capybara//lib/capybara/node/base.rb#76
   def synchronize(seconds = T.unsafe(nil), errors: T.unsafe(nil)); end
 
-  # source://capybara//lib/capybara/node/base.rb#127
+  # source://capybara//lib/capybara/node/base.rb#128
   def to_capybara_node; end
 
   protected
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/node/base.rb#133
+  # source://capybara//lib/capybara/node/base.rb#134
   def catch_error?(error, errors = T.unsafe(nil)); end
 
-  # source://capybara//lib/capybara/node/base.rb#138
+  # source://capybara//lib/capybara/node/base.rb#139
   def driver; end
 end
 
@@ -4302,7 +4327,7 @@ class Capybara::Queries::SelectorQuery < ::Capybara::Queries::BaseQuery
 
   # @api private
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#611
+  # source://capybara//lib/capybara/queries/selector_query.rb#613
   def builder(expr); end
 
   # @api private
@@ -4312,7 +4337,7 @@ class Capybara::Queries::SelectorQuery < ::Capybara::Queries::BaseQuery
 
   # @api private
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#607
+  # source://capybara//lib/capybara/queries/selector_query.rb#609
   def default_visibility; end
 
   # @api private
@@ -4432,7 +4457,7 @@ class Capybara::Queries::SelectorQuery < ::Capybara::Queries::BaseQuery
   # @api private
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#588
+  # source://capybara//lib/capybara/queries/selector_query.rb#590
   def matches_text_exactly?(node, value); end
 
   # @api private
@@ -4443,13 +4468,13 @@ class Capybara::Queries::SelectorQuery < ::Capybara::Queries::BaseQuery
 
   # @api private
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#597
+  # source://capybara//lib/capybara/queries/selector_query.rb#599
   def matches_text_regexp(node, regexp); end
 
   # @api private
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#603
+  # source://capybara//lib/capybara/queries/selector_query.rb#605
   def matches_text_regexp?(node, regexp); end
 
   # @api private
@@ -4476,7 +4501,7 @@ class Capybara::Queries::SelectorQuery < ::Capybara::Queries::BaseQuery
 
   # @api private
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#593
+  # source://capybara//lib/capybara/queries/selector_query.rb#595
   def normalize_ws; end
 
   # @api private
@@ -4486,12 +4511,12 @@ class Capybara::Queries::SelectorQuery < ::Capybara::Queries::BaseQuery
 
   # @api private
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#615
+  # source://capybara//lib/capybara/queries/selector_query.rb#617
   def position_cache(key); end
 
   # @api private
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#619
+  # source://capybara//lib/capybara/queries/selector_query.rb#621
   def rect_cache(key); end
 
   # @api private
@@ -4574,81 +4599,81 @@ end
 
 # @api private
 #
-# source://capybara//lib/capybara/queries/selector_query.rb#623
+# source://capybara//lib/capybara/queries/selector_query.rb#625
 class Capybara::Queries::SelectorQuery::Rectangle
   # @api private
   # @return [Rectangle] a new instance of Rectangle
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#626
+  # source://capybara//lib/capybara/queries/selector_query.rb#628
   def initialize(position); end
 
   # @api private
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#650
+  # source://capybara//lib/capybara/queries/selector_query.rb#652
   def above?(other); end
 
   # @api private
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#654
+  # source://capybara//lib/capybara/queries/selector_query.rb#656
   def below?(other); end
 
   # @api private
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#624
+  # source://capybara//lib/capybara/queries/selector_query.rb#626
   def bottom; end
 
   # @api private
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#635
+  # source://capybara//lib/capybara/queries/selector_query.rb#637
   def distance(other); end
 
   # @api private
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#624
+  # source://capybara//lib/capybara/queries/selector_query.rb#626
   def left; end
 
   # @api private
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#658
+  # source://capybara//lib/capybara/queries/selector_query.rb#660
   def left_of?(other); end
 
   # @api private
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#666
+  # source://capybara//lib/capybara/queries/selector_query.rb#668
   def near?(other); end
 
   # @api private
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#624
+  # source://capybara//lib/capybara/queries/selector_query.rb#626
   def right; end
 
   # @api private
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#662
+  # source://capybara//lib/capybara/queries/selector_query.rb#664
   def right_of?(other); end
 
   # @api private
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#624
+  # source://capybara//lib/capybara/queries/selector_query.rb#626
   def top; end
 
   protected
 
   # @api private
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#672
+  # source://capybara//lib/capybara/queries/selector_query.rb#674
   def line_segments; end
 
   private
 
   # @api private
   #
-  # source://capybara//lib/capybara/queries/selector_query.rb#683
+  # source://capybara//lib/capybara/queries/selector_query.rb#685
   def distance_segment_segment(l1p1, l1p2, l2p1, l2p2); end
 end
 
@@ -4842,7 +4867,7 @@ class Capybara::Queries::TitleQuery < ::Capybara::Queries::BaseQuery
   def valid_keys; end
 end
 
-# source://capybara//lib/capybara.rb#446
+# source://capybara//lib/capybara.rb#447
 module Capybara::RackTest; end
 
 # source://capybara//lib/capybara/rack_test/browser.rb#3
@@ -4857,7 +4882,7 @@ class Capybara::RackTest::Browser
   # source://capybara//lib/capybara/rack_test/browser.rb#14
   def app; end
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#77
+  # source://capybara//lib/capybara/rack_test/browser.rb#83
   def build_uri(path); end
 
   # Returns the value of attribute current_host.
@@ -4872,10 +4897,10 @@ class Capybara::RackTest::Browser
   # source://capybara//lib/capybara/rack_test/browser.rb#7
   def current_host=(_arg0); end
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#93
+  # source://capybara//lib/capybara/rack_test/browser.rb#99
   def current_url; end
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#110
+  # source://capybara//lib/capybara/rack_test/browser.rb#116
   def dom; end
 
   # Returns the value of attribute driver.
@@ -4883,47 +4908,47 @@ class Capybara::RackTest::Browser
   # source://capybara//lib/capybara/rack_test/browser.rb#6
   def driver; end
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#114
+  # source://capybara//lib/capybara/rack_test/browser.rb#120
   def find(format, selector); end
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#41
+  # source://capybara//lib/capybara/rack_test/browser.rb#47
   def follow(method, path, **attributes); end
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#122
+  # source://capybara//lib/capybara/rack_test/browser.rb#128
   def html; end
 
   # @raise [Rack::Test::Error]
   #
-  # source://capybara//lib/capybara/rack_test/browser.rb#132
+  # source://capybara//lib/capybara/rack_test/browser.rb#138
   def last_request; end
 
   # @raise [Rack::Test::Error]
   #
-  # source://capybara//lib/capybara/rack_test/browser.rb#138
+  # source://capybara//lib/capybara/rack_test/browser.rb#144
   def last_response; end
 
   # source://capybara//lib/capybara/rack_test/browser.rb#18
   def options; end
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#67
+  # source://capybara//lib/capybara/rack_test/browser.rb#73
   def process(method, path, attributes = T.unsafe(nil), env = T.unsafe(nil)); end
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#47
+  # source://capybara//lib/capybara/rack_test/browser.rb#53
   def process_and_follow_redirects(method, path, attributes = T.unsafe(nil), env = T.unsafe(nil)); end
 
   # source://capybara//lib/capybara/rack_test/browser.rb#29
   def refresh; end
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#106
+  # source://capybara//lib/capybara/rack_test/browser.rb#112
   def reset_cache!; end
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#101
+  # source://capybara//lib/capybara/rack_test/browser.rb#107
   def reset_host!; end
 
   # source://capybara//lib/capybara/rack_test/browser.rb#34
-  def submit(method, path, attributes); end
+  def submit(method, path, attributes, content_type: T.unsafe(nil)); end
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#128
+  # source://capybara//lib/capybara/rack_test/browser.rb#134
   def title; end
 
   # source://capybara//lib/capybara/rack_test/browser.rb#22
@@ -4931,36 +4956,35 @@ class Capybara::RackTest::Browser
 
   protected
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#146
+  # source://capybara//lib/capybara/rack_test/browser.rb#152
   def base_href; end
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#150
+  # source://capybara//lib/capybara/rack_test/browser.rb#156
   def base_relative_uri_for(uri); end
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#165
+  # source://capybara//lib/capybara/rack_test/browser.rb#171
   def build_rack_mock_session; end
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#170
+  # source://capybara//lib/capybara/rack_test/browser.rb#176
   def request_path; end
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#176
+  # source://capybara//lib/capybara/rack_test/browser.rb#182
   def safe_last_request; end
 
   private
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/rack_test/browser.rb#184
+  # source://capybara//lib/capybara/rack_test/browser.rb#190
   def fragment_or_script?(path); end
 
-  # source://capybara//lib/capybara/rack_test/browser.rb#188
+  # source://capybara//lib/capybara/rack_test/browser.rb#194
   def referer_url; end
 end
 
 # source://capybara//lib/capybara/rack_test/css_handlers.rb#3
 class Capybara::RackTest::CSSHandlers < ::BasicObject
   include ::Kernel
-  include ::DEBUGGER__::TrapInterceptor
 
   # source://capybara//lib/capybara/rack_test/css_handlers.rb#6
   def disabled(list); end
@@ -5075,41 +5099,41 @@ class Capybara::RackTest::Errors::StaleElementReferenceError < ::StandardError; 
 class Capybara::RackTest::Form < ::Capybara::RackTest::Node
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/rack_test/form.rb#46
+  # source://capybara//lib/capybara/rack_test/form.rb#60
   def multipart?; end
 
-  # source://capybara//lib/capybara/rack_test/form.rb#21
+  # source://capybara//lib/capybara/rack_test/form.rb#23
   def params(button); end
 
-  # source://capybara//lib/capybara/rack_test/form.rb#40
+  # source://capybara//lib/capybara/rack_test/form.rb#54
   def submit(button); end
 
   private
 
-  # source://capybara//lib/capybara/rack_test/form.rb#79
+  # source://capybara//lib/capybara/rack_test/form.rb#93
   def add_input_param(field, params); end
 
-  # source://capybara//lib/capybara/rack_test/form.rb#109
+  # source://capybara//lib/capybara/rack_test/form.rb#126
   def add_select_param(field, params); end
 
-  # source://capybara//lib/capybara/rack_test/form.rb#120
+  # source://capybara//lib/capybara/rack_test/form.rb#141
   def add_textarea_param(field, params); end
 
-  # source://capybara//lib/capybara/rack_test/form.rb#100
+  # source://capybara//lib/capybara/rack_test/form.rb#117
   def file_to_upload(filename); end
 
-  # source://capybara//lib/capybara/rack_test/form.rb#71
+  # source://capybara//lib/capybara/rack_test/form.rb#85
   def make_params; end
 
-  # source://capybara//lib/capybara/rack_test/form.rb#62
+  # source://capybara//lib/capybara/rack_test/form.rb#76
   def merge_param!(params, key, value); end
 
-  # source://capybara//lib/capybara/rack_test/form.rb#58
+  # source://capybara//lib/capybara/rack_test/form.rb#72
   def request_method; end
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/rack_test/form.rb#124
+  # source://capybara//lib/capybara/rack_test/form.rb#146
   def submitter?(el); end
 end
 
@@ -5125,6 +5149,9 @@ class Capybara::RackTest::Form::NilUploadedFile < ::Rack::Test::UploadedFile
   # source://capybara//lib/capybara/rack_test/form.rb#9
   def initialize; end
 
+  # source://capybara//lib/capybara/rack_test/form.rb#19
+  def append_to(_); end
+
   # source://capybara//lib/capybara/rack_test/form.rb#15
   def content_type; end
 
@@ -5137,13 +5164,16 @@ class Capybara::RackTest::Form::NilUploadedFile < ::Rack::Test::UploadedFile
   # source://capybara//lib/capybara/rack_test/form.rb#18
   def read; end
 
+  # source://capybara//lib/capybara/rack_test/form.rb#20
+  def set_encoding(_); end
+
   # source://capybara//lib/capybara/rack_test/form.rb#17
   def size; end
 end
 
-# source://capybara//lib/capybara/rack_test/form.rb#52
+# source://capybara//lib/capybara/rack_test/form.rb#66
 class Capybara::RackTest::Form::ParamsHash < ::Hash
-  # source://capybara//lib/capybara/rack_test/form.rb#53
+  # source://capybara//lib/capybara/rack_test/form.rb#67
   def to_params_hash; end
 end
 
@@ -5390,87 +5420,90 @@ Capybara::RackTest::Node::OPTION_OWNER_XPATH = T.let(T.unsafe(nil), String)
 # source://capybara//lib/capybara.rb#24
 class Capybara::ReadOnlyElementError < ::Capybara::CapybaraError; end
 
-# source://capybara//lib/capybara/session/config.rb#119
+# source://capybara//lib/capybara/session/config.rb#121
 class Capybara::ReadOnlySessionConfig < ::SimpleDelegator
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def always_include_port=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def app_host=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def asset_host=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def automatic_label_click=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def automatic_reload=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def default_host=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def default_max_wait_time=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def default_normalize_ws=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
+  def default_retry_interval=(_); end
+
+  # source://capybara//lib/capybara/session/config.rb#123
   def default_selector=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def default_set_options=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def disable_animation=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def enable_aria_label=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def enable_aria_role=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def exact=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def exact_text=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def ignore_hidden_elements=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def match=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def predicates_wait=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def raise_server_errors=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def run_server=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def save_path=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def server_errors=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def server_host=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def server_port=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def test_id=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def visible_text_only=(_); end
 
-  # source://capybara//lib/capybara/session/config.rb#121
+  # source://capybara//lib/capybara/session/config.rb#123
   def w3c_click_offset=(_); end
 end
 
@@ -6118,7 +6151,7 @@ class Capybara::Selector::Definition
   # source://capybara//lib/capybara/selector/definition.rb#232
   def supports_exact?; end
 
-  # Set the default visibility mode that shouble be used if no visibile option is passed when using the selector.
+  # Set the default visibility mode that should be used if no visible option is passed when using the selector.
   # If not specified will default to the behavior indicated by Capybara.ignore_hidden_elements
   #
   # @param default_visibility [Symbol] Only find elements with the specified visibility:
@@ -6201,7 +6234,7 @@ class Capybara::Selector::FilterSet
 
   private
 
-  # source://capybara//lib/capybara/selector/filter_set.rb#111
+  # source://capybara//lib/capybara/selector/filter_set.rb#110
   def add_filter(name, filter_class, *types, matcher: T.unsafe(nil), **options, &block); end
 
   # source://capybara//lib/capybara/selector/filter_set.rb#103
@@ -6359,7 +6392,7 @@ class Capybara::Selector::RegexpDisassembler
 
   # @api private
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#84
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#81
   def collapse(strs); end
 
   # @api private
@@ -6369,7 +6402,7 @@ class Capybara::Selector::RegexpDisassembler
 
   # @api private
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#90
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#87
   def extract_strings(expression, alternation: T.unsafe(nil)); end
 
   # @api private
@@ -6390,17 +6423,17 @@ end
 
 # @api private
 #
-# source://capybara//lib/capybara/selector/regexp_disassembler.rb#95
+# source://capybara//lib/capybara/selector/regexp_disassembler.rb#92
 class Capybara::Selector::RegexpDisassembler::Expression
   # @api private
   # @return [Expression] a new instance of Expression
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#96
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#93
   def initialize(exp); end
 
   # @api private
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#100
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#97
   def extract_strings(process_alternatives); end
 
   protected
@@ -6408,99 +6441,99 @@ class Capybara::Selector::RegexpDisassembler::Expression
   # @api private
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#116
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#113
   def alternation?; end
 
   # @api private
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#159
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#156
   def alternative_strings; end
 
   # @api private
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#164
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#161
   def ignore?; end
 
   # @api private
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#120
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#117
   def optional?; end
 
   # @api private
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#151
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#148
   def optional_strings; end
 
   # @api private
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#155
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#152
   def repeated_strings(process_alternatives); end
 
   # @api private
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#128
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#125
   def strings(process_alternatives); end
 
   # @api private
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#124
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#121
   def terminal?; end
 
   # @api private
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#140
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#137
   def terminal_strings; end
 
   private
 
   # @api private
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#203
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#200
   def alternatives; end
 
   # @api private
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#207
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#204
   def each; end
 
   # @api private
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#183
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#180
   def fixed_repeat?; end
 
   # @api private
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#171
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#168
   def indeterminate?; end
 
   # @api private
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#179
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#176
   def max_repeat; end
 
   # @api private
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#175
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#172
   def min_repeat; end
 
   # @api private
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#197
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#194
   def options_set(strs); end
 
   # @api private
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#191
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#188
   def repeat_set(str); end
 
   # @api private
   #
-  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#187
+  # source://capybara//lib/capybara/selector/regexp_disassembler.rb#184
   def type; end
 end
 
@@ -6542,7 +6575,7 @@ class Capybara::Selector::XPathBuilder
   def regexp_to_xpath_conditions(regexp); end
 end
 
-# source://capybara//lib/capybara.rb#447
+# source://capybara//lib/capybara.rb#448
 module Capybara::Selenium; end
 
 # source://capybara//lib/capybara/selenium/patches/logs.rb#5
@@ -6702,7 +6735,7 @@ class Capybara::Selenium::Driver < ::Capybara::Driver::Base
   # source://capybara//lib/capybara/selenium/driver.rb#134
   def needs_server?; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#329
+  # source://capybara//lib/capybara/selenium/driver.rb#332
   def no_such_window_error; end
 
   # source://capybara//lib/capybara/selenium/driver.rb#256
@@ -6756,89 +6789,89 @@ class Capybara::Selenium::Driver < ::Capybara::Driver::Base
 
   private
 
-  # source://capybara//lib/capybara/selenium/driver.rb#539
+  # source://capybara//lib/capybara/selenium/driver.rb#542
   def accept_unhandled_reset_alert; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#500
+  # source://capybara//lib/capybara/selenium/driver.rb#503
   def bridge; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#496
+  # source://capybara//lib/capybara/selenium/driver.rb#499
   def build_node(native_node, initial_cache = T.unsafe(nil)); end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#347
+  # source://capybara//lib/capybara/selenium/driver.rb#350
   def clear_browser_state; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#356
+  # source://capybara//lib/capybara/selenium/driver.rb#359
   def clear_browser_state_errors; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#392
+  # source://capybara//lib/capybara/selenium/driver.rb#395
   def clear_local_storage; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#378
+  # source://capybara//lib/capybara/selenium/driver.rb#381
   def clear_session_storage; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#371
+  # source://capybara//lib/capybara/selenium/driver.rb#374
   def clear_storage; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#367
+  # source://capybara//lib/capybara/selenium/driver.rb#370
   def delete_all_cookies; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#492
+  # source://capybara//lib/capybara/selenium/driver.rb#495
   def find_context; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#430
+  # source://capybara//lib/capybara/selenium/driver.rb#433
   def find_modal(text: T.unsafe(nil), **options); end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#453
+  # source://capybara//lib/capybara/selenium/driver.rb#456
   def find_modal_errors; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#414
+  # source://capybara//lib/capybara/selenium/driver.rb#417
   def modal_error; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#343
+  # source://capybara//lib/capybara/selenium/driver.rb#346
   def native_active_element; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#339
+  # source://capybara//lib/capybara/selenium/driver.rb#342
   def native_args(args); end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#406
+  # source://capybara//lib/capybara/selenium/driver.rb#409
   def navigate_with_accept(url); end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#521
+  # source://capybara//lib/capybara/selenium/driver.rb#524
   def reset_browser_state; end
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selenium/driver.rb#335
+  # source://capybara//lib/capybara/selenium/driver.rb#338
   def selenium_4?; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#511
+  # source://capybara//lib/capybara/selenium/driver.rb#514
   def setup_exit_handler; end
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selenium/driver.rb#467
+  # source://capybara//lib/capybara/selenium/driver.rb#470
   def silenced_unknown_error_message?(msg); end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#471
+  # source://capybara//lib/capybara/selenium/driver.rb#474
   def silenced_unknown_error_messages; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#504
+  # source://capybara//lib/capybara/selenium/driver.rb#507
   def specialize_driver; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#360
+  # source://capybara//lib/capybara/selenium/driver.rb#363
   def unhandled_alert_errors; end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#475
+  # source://capybara//lib/capybara/selenium/driver.rb#478
   def unwrap_script_result(arg); end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#526
+  # source://capybara//lib/capybara/selenium/driver.rb#529
   def wait_for_empty_page(timer); end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#457
+  # source://capybara//lib/capybara/selenium/driver.rb#460
   def with_legacy_error(errors, legacy_error); end
 
-  # source://capybara//lib/capybara/selenium/driver.rb#418
+  # source://capybara//lib/capybara/selenium/driver.rb#421
   def within_given_window(handle); end
 
   class << self
@@ -7204,15 +7237,15 @@ class Capybara::Selenium::Node < ::Capybara::Driver::Node
   include ::Capybara::Selenium::Find
   include ::Capybara::Selenium::Scroll
 
-  # source://capybara//lib/capybara/selenium/node.rb#25
+  # source://capybara//lib/capybara/selenium/node.rb#27
   def [](name); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#16
+  # source://capybara//lib/capybara/selenium/node.rb#18
   def all_text; end
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#193
+  # source://capybara//lib/capybara/selenium/node.rb#194
   def checked?; end
 
   # source://capybara//lib/capybara/selenium/node.rb#108
@@ -7220,52 +7253,52 @@ class Capybara::Selenium::Node < ::Capybara::Driver::Node
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#203
+  # source://capybara//lib/capybara/selenium/node.rb#204
   def content_editable?; end
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#196
+  # source://capybara//lib/capybara/selenium/node.rb#197
   def disabled?; end
 
   # @raise [ArgumentError]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#152
+  # source://capybara//lib/capybara/selenium/node.rb#148
   def double_click(keys = T.unsafe(nil), **options); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#169
+  # source://capybara//lib/capybara/selenium/node.rb#165
   def drag_to(element, drop_modifiers: T.unsafe(nil), **_arg2); end
 
   # @raise [NotImplementedError]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#182
+  # source://capybara//lib/capybara/selenium/node.rb#178
   def drop(*_); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#165
+  # source://capybara//lib/capybara/selenium/node.rb#161
   def hover; end
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#192
+  # source://capybara//lib/capybara/selenium/node.rb#193
   def multiple?; end
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#211
+  # source://capybara//lib/capybara/selenium/node.rb#212
   def obscured?(x: T.unsafe(nil), y: T.unsafe(nil)); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#207
+  # source://capybara//lib/capybara/selenium/node.rb#208
   def path; end
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#191
+  # source://capybara//lib/capybara/selenium/node.rb#192
   def readonly?; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#218
+  # source://capybara//lib/capybara/selenium/node.rb#219
   def rect; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#135
+  # source://capybara//lib/capybara/selenium/node.rb#131
   def right_click(keys = T.unsafe(nil), **options); end
 
   # source://capybara//lib/capybara/selenium/node.rb#98
@@ -7273,10 +7306,10 @@ class Capybara::Selenium::Node < ::Capybara::Driver::Node
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#193
+  # source://capybara//lib/capybara/selenium/node.rb#194
   def selected?; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#161
+  # source://capybara//lib/capybara/selenium/node.rb#157
   def send_keys(*args); end
 
   # Set the value of the form element to the given value.
@@ -7289,13 +7322,13 @@ class Capybara::Selenium::Node < ::Capybara::Driver::Node
   # source://capybara//lib/capybara/selenium/node.rb#61
   def set(value, **options); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#222
+  # source://capybara//lib/capybara/selenium/node.rb#223
   def shadow_root; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#39
+  # source://capybara//lib/capybara/selenium/node.rb#41
   def style(styles); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#186
+  # source://capybara//lib/capybara/selenium/node.rb#182
   def tag_name; end
 
   # @raise [Capybara::UnselectNotAllowed]
@@ -7303,159 +7336,169 @@ class Capybara::Selenium::Node < ::Capybara::Driver::Node
   # source://capybara//lib/capybara/selenium/node.rb#102
   def unselect_option; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#31
+  # source://capybara//lib/capybara/selenium/node.rb#33
   def value; end
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#190
+  # source://capybara//lib/capybara/selenium/node.rb#191
   def visible?; end
 
+  # @raise [NotImplementedError]
+  #
   # source://capybara//lib/capybara/selenium/node.rb#12
   def visible_text; end
 
   protected
 
-  # source://capybara//lib/capybara/selenium/node.rb#231
+  # source://capybara//lib/capybara/selenium/node.rb#232
   def scroll_if_needed; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#238
+  # source://capybara//lib/capybara/selenium/node.rb#239
   def scroll_to_center; end
 
   private
 
-  # source://capybara//lib/capybara/selenium/node.rb#416
+  # source://capybara//lib/capybara/selenium/node.rb#485
+  def action_pause(action, duration); end
+
+  # source://capybara//lib/capybara/selenium/node.rb#417
   def action_with_modifiers(click_options); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#487
+  # source://capybara//lib/capybara/selenium/node.rb#520
   def attrs(*attr_names); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#300
+  # source://capybara//lib/capybara/selenium/node.rb#301
   def auto_rapid_set_length; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#269
+  # source://capybara//lib/capybara/selenium/node.rb#270
   def boolean_attr(val); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#447
+  # source://capybara//lib/capybara/selenium/node.rb#468
   def bridge; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#443
+  # source://capybara//lib/capybara/selenium/node.rb#464
   def browser; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#451
+  # source://capybara//lib/capybara/selenium/node.rb#472
   def browser_action; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#483
+  # source://capybara//lib/capybara/selenium/node.rb#516
   def build_node(native_node, initial_cache = T.unsafe(nil)); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#455
+  # source://capybara//lib/capybara/selenium/node.rb#476
   def capabilities; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#475
+  # source://capybara//lib/capybara/selenium/node.rb#508
   def each_key(keys, &block); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#479
+  # source://capybara//lib/capybara/selenium/node.rb#512
   def find_context; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#433
+  # source://capybara//lib/capybara/selenium/node.rb#454
   def modifiers_down(actions, keys); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#438
+  # source://capybara//lib/capybara/selenium/node.rb#459
   def modifiers_up(actions, keys); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#499
+  # source://capybara//lib/capybara/selenium/node.rb#532
   def native_id; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#464
+  # source://capybara//lib/capybara/selenium/node.rb#497
   def normalize_keys(keys); end
 
   # @raise [ArgumentError]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#304
+  # source://capybara//lib/capybara/selenium/node.rb#305
   def perform_with_options(click_options, &block); end
 
   # a reference to the select node if this is an option node
   #
-  # source://capybara//lib/capybara/selenium/node.rb#274
+  # source://capybara//lib/capybara/selenium/node.rb#275
   def select_node; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#342
+  # source://capybara//lib/capybara/selenium/node.rb#343
   def set_color(value); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#392
+  # source://capybara//lib/capybara/selenium/node.rb#393
   def set_content_editable(value); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#318
+  # source://capybara//lib/capybara/selenium/node.rb#319
   def set_date(value); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#334
+  # source://capybara//lib/capybara/selenium/node.rb#335
   def set_datetime_local(value); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#364
+  # source://capybara//lib/capybara/selenium/node.rb#365
   def set_file(value); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#346
+  # source://capybara//lib/capybara/selenium/node.rb#347
   def set_range(value); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#278
+  # source://capybara//lib/capybara/selenium/node.rb#279
   def set_text(value, clear: T.unsafe(nil), rapid: T.unsafe(nil), **_unused); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#326
+  # source://capybara//lib/capybara/selenium/node.rb#327
   def set_time(value); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#255
+  # @return [Boolean]
+  #
+  # source://capybara//lib/capybara/selenium/node.rb#538
+  def shadow_root?; end
+
+  # source://capybara//lib/capybara/selenium/node.rb#256
   def sibling_index(parent, node, selector); end
 
-  # source://capybara//lib/capybara/selenium/node.rb#350
+  # source://capybara//lib/capybara/selenium/node.rb#351
   def update_value_js(value); end
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#459
+  # source://capybara//lib/capybara/selenium/node.rb#480
   def w3c?; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#374
+  # source://capybara//lib/capybara/selenium/node.rb#375
   def with_file_detector; end
 end
 
 # ClickOptions encapsulates click option logic
 #
-# source://capybara//lib/capybara/selenium/node.rb#599
+# source://capybara//lib/capybara/selenium/node.rb#636
 class Capybara::Selenium::Node::ClickOptions
   # @return [ClickOptions] a new instance of ClickOptions
   #
-  # source://capybara//lib/capybara/selenium/node.rb#602
+  # source://capybara//lib/capybara/selenium/node.rb#639
   def initialize(keys, options); end
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#615
+  # source://capybara//lib/capybara/selenium/node.rb#652
   def center_offset?; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#611
+  # source://capybara//lib/capybara/selenium/node.rb#648
   def coords; end
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#607
+  # source://capybara//lib/capybara/selenium/node.rb#644
   def coords?; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#623
+  # source://capybara//lib/capybara/selenium/node.rb#660
   def delay; end
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#619
+  # source://capybara//lib/capybara/selenium/node.rb#656
   def empty?; end
 
   # Returns the value of attribute keys.
   #
-  # source://capybara//lib/capybara/selenium/node.rb#600
+  # source://capybara//lib/capybara/selenium/node.rb#637
   def keys; end
 
   # Returns the value of attribute options.
   #
-  # source://capybara//lib/capybara/selenium/node.rb#600
+  # source://capybara//lib/capybara/selenium/node.rb#637
   def options; end
 end
 
@@ -7480,7 +7523,7 @@ module Capybara::Selenium::Node::FileInputClickEmulation
   def visible_file_field?; end
 end
 
-# source://capybara//lib/capybara/selenium/node.rb#505
+# source://capybara//lib/capybara/selenium/node.rb#542
 Capybara::Selenium::Node::GET_XPATH_SCRIPT = T.let(T.unsafe(nil), String)
 
 # source://capybara//lib/capybara/selenium/extensions/html5_drag.rb#4
@@ -7502,22 +7545,22 @@ module Capybara::Selenium::Node::Html5Drag
   def perform_legacy_drag(element, drop_modifiers); end
 end
 
-# source://capybara//lib/capybara/selenium/extensions/html5_drag.rb#88
+# source://capybara//lib/capybara/selenium/extensions/html5_drag.rb#86
 Capybara::Selenium::Node::Html5Drag::ATTACH_FILE = T.let(T.unsafe(nil), String)
 
-# source://capybara//lib/capybara/selenium/extensions/html5_drag.rb#67
+# source://capybara//lib/capybara/selenium/extensions/html5_drag.rb#65
 Capybara::Selenium::Node::Html5Drag::DROP_FILE = T.let(T.unsafe(nil), String)
 
-# source://capybara//lib/capybara/selenium/extensions/html5_drag.rb#51
+# source://capybara//lib/capybara/selenium/extensions/html5_drag.rb#49
 Capybara::Selenium::Node::Html5Drag::DROP_STRING = T.let(T.unsafe(nil), String)
 
-# source://capybara//lib/capybara/selenium/extensions/html5_drag.rb#119
+# source://capybara//lib/capybara/selenium/extensions/html5_drag.rb#117
 Capybara::Selenium::Node::Html5Drag::HTML5_DRAG_DROP_SCRIPT = T.let(T.unsafe(nil), String)
 
-# source://capybara//lib/capybara/selenium/extensions/html5_drag.rb#106
+# source://capybara//lib/capybara/selenium/extensions/html5_drag.rb#104
 Capybara::Selenium::Node::Html5Drag::LEGACY_DRAG_CHECK = T.let(T.unsafe(nil), String)
 
-# source://capybara//lib/capybara/selenium/extensions/html5_drag.rb#99
+# source://capybara//lib/capybara/selenium/extensions/html5_drag.rb#97
 Capybara::Selenium::Node::Html5Drag::MOUSEDOWN_TRACKER = T.let(T.unsafe(nil), String)
 
 # @api private
@@ -7552,46 +7595,46 @@ class Capybara::Selenium::Node::ModifierKeysStack
   def push; end
 end
 
-# source://capybara//lib/capybara/selenium/node.rb#537
+# source://capybara//lib/capybara/selenium/node.rb#574
 Capybara::Selenium::Node::OBSCURED_OR_OFFSET_SCRIPT = T.let(T.unsafe(nil), String)
 
-# source://capybara//lib/capybara/selenium/node.rb#554
+# source://capybara//lib/capybara/selenium/node.rb#591
 Capybara::Selenium::Node::RAPID_APPEND_TEXT = T.let(T.unsafe(nil), String)
 
 # SettableValue encapsulates time/date field formatting
 #
-# source://capybara//lib/capybara/selenium/node.rb#565
+# source://capybara//lib/capybara/selenium/node.rb#602
 class Capybara::Selenium::Node::SettableValue
   # @return [SettableValue] a new instance of SettableValue
   #
-  # source://capybara//lib/capybara/selenium/node.rb#568
+  # source://capybara//lib/capybara/selenium/node.rb#605
   def initialize(value); end
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#576
+  # source://capybara//lib/capybara/selenium/node.rb#613
   def dateable?; end
 
   # @return [Boolean]
   #
-  # source://capybara//lib/capybara/selenium/node.rb#584
+  # source://capybara//lib/capybara/selenium/node.rb#621
   def timeable?; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#580
+  # source://capybara//lib/capybara/selenium/node.rb#617
   def to_date_str; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#592
+  # source://capybara//lib/capybara/selenium/node.rb#629
   def to_datetime_str; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#572
+  # source://capybara//lib/capybara/selenium/node.rb#609
   def to_s; end
 
-  # source://capybara//lib/capybara/selenium/node.rb#588
+  # source://capybara//lib/capybara/selenium/node.rb#625
   def to_time_str; end
 
   # Returns the value of attribute value.
   #
-  # source://capybara//lib/capybara/selenium/node.rb#566
+  # source://capybara//lib/capybara/selenium/node.rb#603
   def value; end
 end
 
@@ -7766,7 +7809,7 @@ class Capybara::Server::AnimationDisabler
   private
 
   # source://capybara//lib/capybara/server/animation_disabler.rb#51
-  def directive_nonces; end
+  def directive_nonces(headers); end
 
   # Returns the value of attribute disable_css_markup.
   #
@@ -7781,7 +7824,7 @@ class Capybara::Server::AnimationDisabler
   # @return [Boolean]
   #
   # source://capybara//lib/capybara/server/animation_disabler.rb#42
-  def html_content?; end
+  def html_content?(headers); end
 
   # source://capybara//lib/capybara/server/animation_disabler.rb#46
   def insert_disable(html, nonces); end
@@ -7915,7 +7958,7 @@ class Capybara::Session
 
   # @return [Session] a new instance of Session
   #
-  # source://capybara//lib/capybara/session.rb#77
+  # source://capybara//lib/capybara/session.rb#78
   def initialize(mode, app = T.unsafe(nil)); end
 
   # Execute the block, accepting a alert.
@@ -7931,7 +7974,7 @@ class Capybara::Session
   # @raise [Capybara::ModalNotFound] if modal dialog hasn't been found
   # @return [String] the message shown in the modal
   #
-  # source://capybara//lib/capybara/session.rb#656
+  # source://capybara//lib/capybara/session.rb#658
   def accept_alert(text = T.unsafe(nil), **options, &blk); end
 
   # Execute the block, accepting a confirm.
@@ -7947,7 +7990,7 @@ class Capybara::Session
   # @raise [Capybara::ModalNotFound] if modal dialog hasn't been found
   # @return [String] the message shown in the modal
   #
-  # source://capybara//lib/capybara/session.rb#666
+  # source://capybara//lib/capybara/session.rb#668
   def accept_confirm(text = T.unsafe(nil), **options, &blk); end
 
   # Execute the block, accepting a prompt, optionally responding to the prompt.
@@ -7965,63 +8008,63 @@ class Capybara::Session
   # @raise [Capybara::ModalNotFound] if modal dialog hasn't been found
   # @return [String] the message shown in the modal
   #
-  # source://capybara//lib/capybara/session.rb#687
+  # source://capybara//lib/capybara/session.rb#689
   def accept_prompt(text = T.unsafe(nil), **options, &blk); end
 
   # Returns the element with focus.
   #
   # Not supported by Rack Test
   #
-  # source://capybara//lib/capybara/session.rb#320
+  # source://capybara//lib/capybara/session.rb#322
   def active_element; end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def all(*_arg0, **_arg1, &_arg2); end
 
   # Returns the value of attribute app.
   #
-  # source://capybara//lib/capybara/session.rb#74
+  # source://capybara//lib/capybara/session.rb#75
   def app; end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def assert_all_of_selectors(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def assert_any_of_selectors(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def assert_no_selector(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def assert_no_text(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#778
+  # source://capybara//lib/capybara/session.rb#780
   def assert_no_title(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def assert_none_of_selectors(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def assert_selector(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def assert_text(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#778
+  # source://capybara//lib/capybara/session.rb#780
   def assert_title(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def attach_file(*_arg0, **_arg1, &_arg2); end
 
   # @return [String] A snapshot of the DOM of the current document, as it looks right now (potentially modified by JavaScript).
   #
-  # source://capybara//lib/capybara/session.rb#194
+  # source://capybara//lib/capybara/session.rb#196
   def body; end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def check(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def choose(*_arg0, **_arg1, &_arg2); end
 
   # Reset the session (i.e. remove cookies and navigate to blank page).
@@ -8040,22 +8083,25 @@ class Capybara::Session
   # * monkeypatch this method
   # * use Ruby's `prepend` method
   #
-  # source://capybara//lib/capybara/session.rb#128
+  # source://capybara//lib/capybara/session.rb#129
   def cleanup!; end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
+  def click(*_arg0, **_arg1, &_arg2); end
+
+  # source://capybara//lib/capybara/session.rb#771
   def click_button(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def click_link(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def click_link_or_button(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def click_on(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#826
+  # source://capybara//lib/capybara/session.rb#828
   def config; end
 
   # Accepts a block to set the configuration options if {Capybara.configure threadsafe} is `true`. Note that some options only have an effect
@@ -8063,30 +8109,30 @@ class Capybara::Session
   #
   # @yield [config]
   #
-  # source://capybara//lib/capybara/session.rb#816
+  # source://capybara//lib/capybara/session.rb#818
   def configure; end
 
   # @return [String] Host of the current page
   #
-  # source://capybara//lib/capybara/session.rb#219
+  # source://capybara//lib/capybara/session.rb#221
   def current_host; end
 
   # @return [String] Path of the current page, without any domain information
   #
-  # source://capybara//lib/capybara/session.rb#204
+  # source://capybara//lib/capybara/session.rb#206
   def current_path; end
 
-  # source://capybara//lib/capybara/session.rb#788
+  # source://capybara//lib/capybara/session.rb#790
   def current_scope; end
 
   # @return [String] Fully qualified URL of the current page
   #
-  # source://capybara//lib/capybara/session.rb#228
+  # source://capybara//lib/capybara/session.rb#230
   def current_url; end
 
   # @return [Capybara::Window] current window
   #
-  # source://capybara//lib/capybara/session.rb#457
+  # source://capybara//lib/capybara/session.rb#459
   def current_window; end
 
   # Execute the block, dismissing a confirm.
@@ -8102,7 +8148,7 @@ class Capybara::Session
   # @raise [Capybara::ModalNotFound] if modal dialog hasn't been found
   # @return [String] the message shown in the modal
   #
-  # source://capybara//lib/capybara/session.rb#676
+  # source://capybara//lib/capybara/session.rb#678
   def dismiss_confirm(text = T.unsafe(nil), **options, &blk); end
 
   # Execute the block, dismissing a prompt.
@@ -8118,13 +8164,16 @@ class Capybara::Session
   # @raise [Capybara::ModalNotFound] if modal dialog hasn't been found
   # @return [String] the message shown in the modal
   #
-  # source://capybara//lib/capybara/session.rb#697
+  # source://capybara//lib/capybara/session.rb#699
   def dismiss_prompt(text = T.unsafe(nil), **options, &blk); end
 
-  # source://capybara//lib/capybara/session.rb#763
+  # source://capybara//lib/capybara/session.rb#765
   def document; end
 
-  # source://capybara//lib/capybara/session.rb#98
+  # source://capybara//lib/capybara/session.rb#771
+  def double_click(*_arg0, **_arg1, &_arg2); end
+
+  # source://capybara//lib/capybara/session.rb#99
   def driver; end
 
   # Evaluate the given JavaScript and obtain the result from a callback function which will be passed as the last argument to the script.
@@ -8133,7 +8182,7 @@ class Capybara::Session
   # @param args Optional arguments that will be passed to the script
   # @return [Object] The result of the evaluated JavaScript (may be driver specific)
   #
-  # source://capybara//lib/capybara/session.rb#630
+  # source://capybara//lib/capybara/session.rb#632
   def evaluate_async_script(script, *args); end
 
   # Evaluate the given JavaScript and return the result. Be careful when using this with
@@ -8144,7 +8193,7 @@ class Capybara::Session
   # @param args Optional arguments that will be passed to the script
   # @return [Object] The result of the evaluated JavaScript (may be driver specific)
   #
-  # source://capybara//lib/capybara/session.rb#616
+  # source://capybara//lib/capybara/session.rb#618
   def evaluate_script(script, *args); end
 
   # Execute the given script, not returning a result. This is useful for scripts that return
@@ -8154,132 +8203,132 @@ class Capybara::Session
   # @param script [String] A string of JavaScript to execute
   # @param args Optional arguments that will be passed to the script. Driver support for this is optional and types of objects supported may differ between drivers
   #
-  # source://capybara//lib/capybara/session.rb#601
+  # source://capybara//lib/capybara/session.rb#603
   def execute_script(script, *args); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def fill_in(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def find(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def find_all(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def find_button(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def find_by_id(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def find_field(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def find_link(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def first(*_arg0, **_arg1, &_arg2); end
 
   # Move back a single entry in the browser's history.
   #
-  # source://capybara//lib/capybara/session.rb#294
+  # source://capybara//lib/capybara/session.rb#296
   def go_back; end
 
   # Move forward a single entry in the browser's history.
   #
-  # source://capybara//lib/capybara/session.rb#302
+  # source://capybara//lib/capybara/session.rb#304
   def go_forward; end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_button?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_checked_field?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_content?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_css?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_field?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_link?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_no_button?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_no_checked_field?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_no_content?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_no_css?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_no_field?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_no_link?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_no_select?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_no_selector?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_no_table?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_no_text?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#778
+  # source://capybara//lib/capybara/session.rb#780
   def has_no_title?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_no_unchecked_field?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_no_xpath?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_select?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_selector?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_table?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_text?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#778
+  # source://capybara//lib/capybara/session.rb#780
   def has_title?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_unchecked_field?(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def has_xpath?(*_arg0, **_arg1, &_arg2); end
 
   # @return [String] A snapshot of the DOM of the current document, as it looks right now (potentially modified by JavaScript).
   #
-  # source://capybara//lib/capybara/session.rb#194
+  # source://capybara//lib/capybara/session.rb#196
   def html; end
 
-  # source://capybara//lib/capybara/session.rb#784
+  # source://capybara//lib/capybara/session.rb#786
   def inspect; end
 
   # Returns the value of attribute mode.
   #
-  # source://capybara//lib/capybara/session.rb#74
+  # source://capybara//lib/capybara/session.rb#75
   def mode; end
 
   # Open a new window.
@@ -8288,28 +8337,28 @@ class Capybara::Session
   #
   # @return [Capybara::Window] window that has been opened
   #
-  # source://capybara//lib/capybara/session.rb#481
+  # source://capybara//lib/capybara/session.rb#483
   def open_new_window(kind = T.unsafe(nil)); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def query(*_arg0, **_arg1, &_arg2); end
 
   # Disconnect from the current driver. A new driver will be instantiated on the next interaction.
   #
-  # source://capybara//lib/capybara/session.rb#143
+  # source://capybara//lib/capybara/session.rb#146
   def quit; end
 
   # Raise errors encountered in the server.
   #
-  # source://capybara//lib/capybara/session.rb#154
+  # source://capybara//lib/capybara/session.rb#157
   def raise_server_error!; end
 
   # Refresh the page.
   #
-  # source://capybara//lib/capybara/session.rb#285
+  # source://capybara//lib/capybara/session.rb#287
   def refresh; end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def refute_selector(*_arg0, **_arg1, &_arg2); end
 
   # Reset the session (i.e. remove cookies and navigate to blank page).
@@ -8328,7 +8377,7 @@ class Capybara::Session
   # * monkeypatch this method
   # * use Ruby's `prepend` method
   #
-  # source://capybara//lib/capybara/session.rb#128
+  # source://capybara//lib/capybara/session.rb#129
   def reset!; end
 
   # Reset the session (i.e. remove cookies and navigate to blank page).
@@ -8347,15 +8396,18 @@ class Capybara::Session
   # * monkeypatch this method
   # * use Ruby's `prepend` method
   #
-  # source://capybara//lib/capybara/session.rb#128
+  # source://capybara//lib/capybara/session.rb#129
   def reset_session!; end
 
   # Returns a hash of response headers. Not supported by all drivers (e.g. Selenium).
   #
   # @return [Hash<String, String>] A hash of response headers.
   #
-  # source://capybara//lib/capybara/session.rb#176
+  # source://capybara//lib/capybara/session.rb#178
   def response_headers; end
+
+  # source://capybara//lib/capybara/session.rb#771
+  def right_click(*_arg0, **_arg1, &_arg2); end
 
   # Save a snapshot of the page and open it in a browser for inspection.
   #
@@ -8365,7 +8417,7 @@ class Capybara::Session
   #
   # @param path [String] the path to where it should be saved
   #
-  # source://capybara//lib/capybara/session.rb#729
+  # source://capybara//lib/capybara/session.rb#731
   def save_and_open_page(path = T.unsafe(nil)); end
 
   # Save a screenshot of the page and open it for inspection.
@@ -8377,7 +8429,7 @@ class Capybara::Session
   # @param path [String] the path to where it should be saved
   # @param options [Hash] a customizable set of options
   #
-  # source://capybara//lib/capybara/session.rb#759
+  # source://capybara//lib/capybara/session.rb#761
   def save_and_open_screenshot(path = T.unsafe(nil), **options); end
 
   # Save a snapshot of the page. If {Capybara.configure asset_host} is set it will inject `base` tag
@@ -8390,7 +8442,7 @@ class Capybara::Session
   # @param path [String] the path to where it should be saved
   # @return [String] the path to which the file was saved
   #
-  # source://capybara//lib/capybara/session.rb#713
+  # source://capybara//lib/capybara/session.rb#715
   def save_page(path = T.unsafe(nil)); end
 
   # Save a screenshot of page.
@@ -8403,39 +8455,39 @@ class Capybara::Session
   # @param options [Hash] a customizable set of options
   # @return [String] the path to which the file was saved
   #
-  # source://capybara//lib/capybara/session.rb#744
+  # source://capybara//lib/capybara/session.rb#746
   def save_screenshot(path = T.unsafe(nil), **options); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def scroll_by(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def scroll_to(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def select(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#310
+  # source://capybara//lib/capybara/session.rb#312
   def send_keys(*args, **kw_args); end
 
   # Returns the value of attribute server.
   #
-  # source://capybara//lib/capybara/session.rb#74
+  # source://capybara//lib/capybara/session.rb#75
   def server; end
 
-  # source://capybara//lib/capybara/session.rb#834
+  # source://capybara//lib/capybara/session.rb#836
   def server_url; end
 
   # @return [String] A snapshot of the DOM of the current document, as it looks right now (potentially modified by JavaScript).
   #
-  # source://capybara//lib/capybara/session.rb#194
+  # source://capybara//lib/capybara/session.rb#196
   def source; end
 
   # Returns the current HTTP status code as an integer. Not supported by all drivers (e.g. Selenium).
   #
   # @return [Integer] Current HTTP status code
   #
-  # source://capybara//lib/capybara/session.rb#186
+  # source://capybara//lib/capybara/session.rb#188
   def status_code; end
 
   # Switch to the given frame.
@@ -8447,7 +8499,7 @@ class Capybara::Session
   # @overload switch_to_frame
   # @overload switch_to_frame
   #
-  # source://capybara//lib/capybara/session.rb#405
+  # source://capybara//lib/capybara/session.rb#407
   def switch_to_frame(frame); end
 
   # Switch to the given window.
@@ -8459,36 +8511,36 @@ class Capybara::Session
   # @raise [ArgumentError] if both or neither arguments were provided
   # @return [Capybara::Window] window that has been switched to
   #
-  # source://capybara//lib/capybara/session.rb#509
+  # source://capybara//lib/capybara/session.rb#511
   def switch_to_window(window = T.unsafe(nil), **options, &window_locator); end
 
   # Returns the value of attribute synchronized.
   #
-  # source://capybara//lib/capybara/session.rb#75
+  # source://capybara//lib/capybara/session.rb#76
   def synchronized; end
 
   # Sets the attribute synchronized
   #
   # @param value the value to set the attribute synchronized to.
   #
-  # source://capybara//lib/capybara/session.rb#75
+  # source://capybara//lib/capybara/session.rb#76
   def synchronized=(_arg0); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def text(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#778
+  # source://capybara//lib/capybara/session.rb#780
   def title(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def uncheck(*_arg0, **_arg1, &_arg2); end
 
-  # source://capybara//lib/capybara/session.rb#769
+  # source://capybara//lib/capybara/session.rb#771
   def unselect(*_arg0, **_arg1, &_arg2); end
 
   # Yield a block using a specific maximum wait time.
   #
-  # source://capybara//lib/capybara/session.rb#797
+  # source://capybara//lib/capybara/session.rb#799
   def using_wait_time(seconds, &block); end
 
   # Navigate to the given URL. The URL can either be a relative URL or an absolute URL
@@ -8515,7 +8567,7 @@ class Capybara::Session
   #
   # @param visit_uri [#to_s] The URL to navigate to. The parameter will be cast to a String.
   #
-  # source://capybara//lib/capybara/session.rb#258
+  # source://capybara//lib/capybara/session.rb#260
   def visit(visit_uri); end
 
   # Get the window that has been opened by the passed block.
@@ -8525,7 +8577,7 @@ class Capybara::Session
   #
   # @overload window_opened_by
   #
-  # source://capybara//lib/capybara/session.rb#578
+  # source://capybara//lib/capybara/session.rb#580
   def window_opened_by(**options); end
 
   # Get all opened windows.
@@ -8534,7 +8586,7 @@ class Capybara::Session
   #
   # @return [Array<Capybara::Window>] an array of all windows
   #
-  # source://capybara//lib/capybara/session.rb#468
+  # source://capybara//lib/capybara/session.rb#470
   def windows; end
 
   # Executes the given block within the context of a node. {#within} takes the
@@ -8566,7 +8618,7 @@ class Capybara::Session
   # @overload within
   # @raise [Capybara::ElementNotFound] If the scope can't be found before time expires
   #
-  # source://capybara//lib/capybara/session.rb#359
+  # source://capybara//lib/capybara/session.rb#361
   def within(*args, **kw_args); end
 
   # Executes the given block within the context of a node. {#within} takes the
@@ -8598,14 +8650,14 @@ class Capybara::Session
   # @overload within
   # @raise [Capybara::ElementNotFound] If the scope can't be found before time expires
   #
-  # source://capybara//lib/capybara/session.rb#359
+  # source://capybara//lib/capybara/session.rb#361
   def within_element(*args, **kw_args); end
 
   # Execute the given block within the a specific fieldset given the id or legend of that fieldset.
   #
   # @param locator [String] Id or legend of the fieldset
   #
-  # source://capybara//lib/capybara/session.rb#376
+  # source://capybara//lib/capybara/session.rb#378
   def within_fieldset(locator, &block); end
 
   # Execute the given block within the given iframe using given frame, frame name/id or index.
@@ -8615,14 +8667,14 @@ class Capybara::Session
   # @overload within_frame
   # @overload within_frame
   #
-  # source://capybara//lib/capybara/session.rb#445
+  # source://capybara//lib/capybara/session.rb#447
   def within_frame(*args, **kw_args); end
 
   # Execute the given block within the a specific table given the id or caption of that table.
   #
   # @param locator [String] Id or caption of the table
   #
-  # source://capybara//lib/capybara/session.rb#386
+  # source://capybara//lib/capybara/session.rb#388
   def within_table(locator, &block); end
 
   # This method does the following:
@@ -8636,80 +8688,80 @@ class Capybara::Session
   # @raise [Capybara::ScopeError] if this method is invoked inside {#within_frame} method
   # @return value returned by the block
   #
-  # source://capybara//lib/capybara/session.rb#542
+  # source://capybara//lib/capybara/session.rb#544
   def within_window(window_or_proc); end
 
   private
 
-  # source://capybara//lib/capybara/session.rb#899
+  # source://capybara//lib/capybara/session.rb#901
   def _find_frame(*args, **kw_args); end
 
   # @raise [Capybara::ScopeError]
   #
-  # source://capybara//lib/capybara/session.rb#915
+  # source://capybara//lib/capybara/session.rb#917
   def _switch_to_window(window = T.unsafe(nil), **options, &window_locator); end
 
   # @raise [Capybara::WindowError]
   #
-  # source://capybara//lib/capybara/session.rb#935
+  # source://capybara//lib/capybara/session.rb#937
   def _switch_to_window_by_locator; end
 
-  # source://capybara//lib/capybara/session.rb#846
+  # source://capybara//lib/capybara/session.rb#848
   def accept_modal(type, text_or_options, options, &blk); end
 
-  # source://capybara//lib/capybara/session.rb#895
+  # source://capybara//lib/capybara/session.rb#897
   def adjust_server_port(uri); end
 
-  # source://capybara//lib/capybara/session.rb#873
+  # source://capybara//lib/capybara/session.rb#875
   def default_fn(extension); end
 
-  # source://capybara//lib/capybara/session.rb#850
+  # source://capybara//lib/capybara/session.rb#852
   def dismiss_modal(type, text_or_options, options, &blk); end
 
-  # source://capybara//lib/capybara/session.rb#842
+  # source://capybara//lib/capybara/session.rb#844
   def driver_args(args); end
 
-  # source://capybara//lib/capybara/session.rb#882
+  # source://capybara//lib/capybara/session.rb#884
   def element_script_result(arg); end
 
-  # source://capybara//lib/capybara/session.rb#854
+  # source://capybara//lib/capybara/session.rb#856
   def modal_options(text = T.unsafe(nil), **options); end
 
-  # source://capybara//lib/capybara/session.rb#860
+  # source://capybara//lib/capybara/session.rb#862
   def open_file(path); end
 
-  # source://capybara//lib/capybara/session.rb#867
+  # source://capybara//lib/capybara/session.rb#869
   def prepare_path(path, extension); end
 
-  # source://capybara//lib/capybara/session.rb#878
+  # source://capybara//lib/capybara/session.rb#880
   def scopes; end
 
-  # source://capybara//lib/capybara/session.rb#943
+  # source://capybara//lib/capybara/session.rb#945
   def synchronize_windows(options, &block); end
 
   class << self
     # @return [Boolean]
     #
-    # source://capybara//lib/capybara/session.rb#822
+    # source://capybara//lib/capybara/session.rb#824
     def instance_created?; end
   end
 end
 
 # @api private
 #
-# source://capybara//lib/capybara/session.rb#56
+# source://capybara//lib/capybara/session.rb#57
 Capybara::Session::DOCUMENT_METHODS = T.let(T.unsafe(nil), Array)
 
-# source://capybara//lib/capybara/session.rb#72
+# source://capybara//lib/capybara/session.rb#73
 Capybara::Session::DSL_METHODS = T.let(T.unsafe(nil), Array)
 
-# source://capybara//lib/capybara/session.rb#69
+# source://capybara//lib/capybara/session.rb#70
 Capybara::Session::MODAL_METHODS = T.let(T.unsafe(nil), Array)
 
 # source://capybara//lib/capybara/session.rb#41
 Capybara::Session::NODE_METHODS = T.let(T.unsafe(nil), Array)
 
-# source://capybara//lib/capybara/session.rb#59
+# source://capybara//lib/capybara/session.rb#60
 Capybara::Session::SESSION_METHODS = T.let(T.unsafe(nil), Array)
 
 # source://capybara//lib/capybara/session/config.rb#6
@@ -8727,7 +8779,7 @@ class Capybara::SessionConfig
   # source://capybara//lib/capybara/session/config.rb#13
   def app_host; end
 
-  # source://capybara//lib/capybara/session/config.rb#83
+  # source://capybara//lib/capybara/session/config.rb#85
   def app_host=(url); end
 
   # See {Capybara.configure}
@@ -8759,7 +8811,7 @@ class Capybara::SessionConfig
   # source://capybara//lib/capybara/session/config.rb#13
   def default_host; end
 
-  # source://capybara//lib/capybara/session/config.rb#92
+  # source://capybara//lib/capybara/session/config.rb#94
   def default_host=(url); end
 
   # See {Capybara.configure}
@@ -8777,6 +8829,14 @@ class Capybara::SessionConfig
 
   # source://capybara//lib/capybara/session/config.rb#13
   def default_normalize_ws=(_arg0); end
+
+  # See {Capybara.configure}
+  #
+  # source://capybara//lib/capybara/session/config.rb#13
+  def default_retry_interval; end
+
+  # source://capybara//lib/capybara/session/config.rb#13
+  def default_retry_interval=(_arg0); end
 
   # See {Capybara.configure}
   #
@@ -8883,12 +8943,12 @@ class Capybara::SessionConfig
   # source://capybara//lib/capybara/session/config.rb#13
   def server_errors; end
 
-  # source://capybara//lib/capybara/session/config.rb#78
+  # source://capybara//lib/capybara/session/config.rb#80
   def server_errors=(errors); end
 
   # @return [String] The IP address bound by default server
   #
-  # source://capybara//lib/capybara/session/config.rb#73
+  # source://capybara//lib/capybara/session/config.rb#75
   def server_host; end
 
   # source://capybara//lib/capybara/session/config.rb#13
@@ -8913,7 +8973,7 @@ class Capybara::SessionConfig
   #
   # @param id [String, Symbol, nil] Name of the attribute to use as the test id
   #
-  # source://capybara//lib/capybara/session/config.rb#109
+  # source://capybara//lib/capybara/session/config.rb#111
   def test_id=(id); end
 
   # See {Capybara.configure}
@@ -8934,7 +8994,7 @@ class Capybara::SessionConfig
 
   private
 
-  # source://capybara//lib/capybara/session/config.rb#113
+  # source://capybara//lib/capybara/session/config.rb#115
   def initialize_copy(other); end
 end
 

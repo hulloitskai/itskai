@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   get :work, to: "work#show"
   get :resume, to: "resume#show"
 
-  # == Third-Party ==
+  # == Internal ==
   authenticate :user, ->(user) { user.owner? } do
     mount GoodJob::Engine, at: "/good_job"
   end

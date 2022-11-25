@@ -578,25 +578,22 @@ class RuboCop::Cop::GraphQL::ObjectDescription < ::RuboCop::Cop::Base
   include ::RuboCop::GraphQL::DescriptionMethod
 
   # source://rubocop-graphql//lib/rubocop/cop/graphql/object_description.rb#30
-  def has_i18n_description?(param0 = T.unsafe(nil)); end
-
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/object_description.rb#35
   def interface?(param0 = T.unsafe(nil)); end
 
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/object_description.rb#39
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/object_description.rb#34
   def on_class(node); end
 
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/object_description.rb#45
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/object_description.rb#40
   def on_module(node); end
 
   private
 
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/object_description.rb#60
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/object_description.rb#54
   def child_nodes(node); end
 
   # @return [Boolean]
   #
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/object_description.rb#55
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/object_description.rb#50
   def has_description?(node); end
 end
 
@@ -768,7 +765,102 @@ end
 # source://rubocop-graphql//lib/rubocop/cop/graphql/resolver_method_length.rb#14
 RuboCop::Cop::GraphQL::ResolverMethodLength::MSG = T.let(T.unsafe(nil), String)
 
-# Arguments should either be listed explicitly or **rest should be in the resolve signature.
+# This cop checks if each argument has an unnecessary camelize.
+#
+#  # bad
+#
+#   class UserType < BaseType
+#     argument :filter, String, required: false, camelize: false
+#   end
+#
+#  # bad
+#
+#   class UserType < BaseType
+#     field :name, String, "Name of the user", null: true do
+#       argument :filter, String, required: false, camelize: true
+#     end
+#   end
+#
+# @example
+#   # good
+#
+#   class UserType < BaseType
+#   field :name, String, "Name of the user", null: true do
+#   argument :filter, String, required: false, camelize: false
+#   end
+#   end
+#
+#   # good
+#
+#   class UserType < BaseType
+#   argument :filter, String, required: false, camelize: false
+#   end
+#
+# source://rubocop-graphql//lib/rubocop/cop/graphql/unnecessary_argument_camelize.rb#37
+class RuboCop::Cop::GraphQL::UnnecessaryArgumentCamelize < ::RuboCop::Cop::Base
+  include ::RuboCop::GraphQL::NodePattern
+
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unnecessary_argument_camelize.rb#42
+  def on_send(node); end
+end
+
+# source://rubocop-graphql//lib/rubocop/cop/graphql/unnecessary_argument_camelize.rb#40
+RuboCop::Cop::GraphQL::UnnecessaryArgumentCamelize::MSG = T.let(T.unsafe(nil), String)
+
+# This cop checks if a field has an unnecessary alias.
+#
+# @example
+#   # good
+#
+#   class UserType < BaseType
+#   field :name, String, "Name of the user", null: true, alias: :real_name
+#   end
+#
+#   # bad
+#
+#   class UserType < BaseType
+#   field :name, "Name of the user" String, null: true, alias: :name
+#   end
+#
+# source://rubocop-graphql//lib/rubocop/cop/graphql/unnecessary_field_alias.rb#21
+class RuboCop::Cop::GraphQL::UnnecessaryFieldAlias < ::RuboCop::Cop::Base
+  include ::RuboCop::GraphQL::NodePattern
+
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unnecessary_field_alias.rb#26
+  def on_send(node); end
+end
+
+# source://rubocop-graphql//lib/rubocop/cop/graphql/unnecessary_field_alias.rb#24
+RuboCop::Cop::GraphQL::UnnecessaryFieldAlias::MSG = T.let(T.unsafe(nil), String)
+
+# This cop checks if each field has an unnecessary camelize.
+#
+# @example
+#   # good
+#
+#   class UserType < BaseType
+#   field :name, String, "Name of the user", null: true
+#   end
+#
+#   # bad
+#
+#   class UserType < BaseType
+#   field :name, "Name of the user", String, null: true, camelize: true
+#   end
+#
+# source://rubocop-graphql//lib/rubocop/cop/graphql/unnecessary_field_camelize.rb#21
+class RuboCop::Cop::GraphQL::UnnecessaryFieldCamelize < ::RuboCop::Cop::Base
+  include ::RuboCop::GraphQL::NodePattern
+
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unnecessary_field_camelize.rb#26
+  def on_send(node); end
+end
+
+# source://rubocop-graphql//lib/rubocop/cop/graphql/unnecessary_field_camelize.rb#24
+RuboCop::Cop::GraphQL::UnnecessaryFieldCamelize::MSG = T.let(T.unsafe(nil), String)
+
+# Arguments should either be listed explicitly or **rest should be in the resolve signature
+# (and similar methods, such as #authorized?).
 #
 # @example
 #   # good
@@ -779,6 +871,7 @@ RuboCop::Cop::GraphQL::ResolverMethodLength::MSG = T.let(T.unsafe(nil), String)
 #   argument :post_id, String, loads: Types::PostType, as: :article
 #   argument :comment_ids, String, loads: Types::CommentType
 #
+#   def authorized?(arg1:, user:, article:, comments:); end
 #   def resolve(arg1:, user:, article:, comments:); end
 #   end
 #
@@ -811,6 +904,7 @@ RuboCop::Cop::GraphQL::ResolverMethodLength::MSG = T.let(T.unsafe(nil), String)
 #   argument :arg1, String, required: true
 #   argument :arg2, String, required: true
 #
+#   def authorized?; end
 #   def resolve(arg1:); end
 #   end
 #
@@ -825,73 +919,73 @@ RuboCop::Cop::GraphQL::ResolverMethodLength::MSG = T.let(T.unsafe(nil), String)
 #   def resolve; end
 #   end
 #
-# source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#63
+# source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#66
 class RuboCop::Cop::GraphQL::UnusedArgument < ::RuboCop::Cop::Base
   extend ::RuboCop::Cop::AutoCorrector
 
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#179
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#183
   def argument_declaration?(param0 = T.unsafe(nil)); end
 
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#68
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#71
   def on_class(node); end
 
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#184
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#188
   def resolve_method_definition(param0); end
 
   private
 
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#142
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#146
   def arg_end(node); end
 
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#159
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#163
   def arg_name(declared_arg); end
 
   # @return [Boolean]
   #
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#174
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#178
   def block_or_lambda?(node); end
 
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#81
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#84
   def find_declared_arg_nodes(node); end
 
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#93
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#96
   def find_resolve_method_node(node); end
 
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#101
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#104
   def find_unresolved_args(method_node, declared_arg_nodes); end
 
   # @return [Boolean]
   #
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#114
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#117
   def ignore_arguments_type?(resolve_method_node); end
 
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#146
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#150
   def inferred_arg_name(name_as_string); end
 
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#138
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#142
   def method_name(node); end
 
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#120
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#123
   def register_offense(node, unresolved_args); end
 
   # @return [Boolean]
   #
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#170
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#174
   def scope_changing_syntax?(node); end
 
   # @return [Boolean]
   #
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#166
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#170
   def scoped_node?(node); end
 end
 
-# source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#66
+# source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#69
 RuboCop::Cop::GraphQL::UnusedArgument::MSG = T.let(T.unsafe(nil), String)
 
-# source://rubocop/1.36.0/lib/rubocop/cop/mixin/allowed_methods.rb#38
+# source://rubocop/1.39.0/lib/rubocop/cop/mixin/allowed_methods.rb#38
 RuboCop::Cop::IgnoredMethods = RuboCop::Cop::AllowedMethods
 
-# source://rubocop/1.36.0/lib/rubocop/cop/mixin/allowed_pattern.rb#54
+# source://rubocop/1.39.0/lib/rubocop/cop/mixin/allowed_pattern.rb#54
 RuboCop::Cop::IgnoredPattern = RuboCop::Cop::AllowedPattern
 
 # RuboCop GraphQL project namespace
@@ -961,25 +1055,31 @@ class RuboCop::GraphQL::Argument::Kwargs
 
   # @return [Kwargs] a new instance of Kwargs
   #
-  # source://rubocop-graphql//lib/rubocop/graphql/argument/kwargs.rb#34
+  # source://rubocop-graphql//lib/rubocop/graphql/argument/kwargs.rb#39
   def initialize(argument_node); end
 
   # source://rubocop-graphql//lib/rubocop/graphql/argument/kwargs.rb#10
   def argument_kwargs(param0 = T.unsafe(nil)); end
 
-  # source://rubocop-graphql//lib/rubocop/graphql/argument/kwargs.rb#46
+  # source://rubocop-graphql//lib/rubocop/graphql/argument/kwargs.rb#55
   def as; end
 
   # source://rubocop-graphql//lib/rubocop/graphql/argument/kwargs.rb#30
   def as_kwarg?(param0 = T.unsafe(nil)); end
 
-  # source://rubocop-graphql//lib/rubocop/graphql/argument/kwargs.rb#38
+  # source://rubocop-graphql//lib/rubocop/graphql/argument/kwargs.rb#47
+  def camelize; end
+
+  # source://rubocop-graphql//lib/rubocop/graphql/argument/kwargs.rb#35
+  def camelize_kwarg?(param0 = T.unsafe(nil)); end
+
+  # source://rubocop-graphql//lib/rubocop/graphql/argument/kwargs.rb#43
   def description; end
 
   # source://rubocop-graphql//lib/rubocop/graphql/argument/kwargs.rb#20
   def description_kwarg?(param0 = T.unsafe(nil)); end
 
-  # source://rubocop-graphql//lib/rubocop/graphql/argument/kwargs.rb#42
+  # source://rubocop-graphql//lib/rubocop/graphql/argument/kwargs.rb#51
   def loads; end
 
   # source://rubocop-graphql//lib/rubocop/graphql/argument/kwargs.rb#25
@@ -1148,40 +1248,52 @@ class RuboCop::GraphQL::Field::Kwargs
 
   # @return [Kwargs] a new instance of Kwargs
   #
-  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#44
+  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#54
   def initialize(field_node); end
 
-  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#60
+  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#66
+  def alias; end
+
+  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#30
+  def alias_kwarg(param0 = T.unsafe(nil)); end
+
+  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#70
+  def camelize; end
+
+  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#50
+  def camelize_kwarg?(param0 = T.unsafe(nil)); end
+
+  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#78
   def description; end
 
-  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#35
+  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#40
   def description_kwarg?(param0 = T.unsafe(nil)); end
 
   # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#10
   def field_kwargs(param0 = T.unsafe(nil)); end
 
-  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#56
+  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#74
   def hash_key; end
 
-  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#30
+  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#35
   def hash_key_kwarg?(param0 = T.unsafe(nil)); end
 
-  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#52
+  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#62
   def method; end
 
   # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#25
   def method_kwarg?(param0 = T.unsafe(nil)); end
 
-  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#48
+  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#58
   def resolver; end
 
   # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#20
   def resolver_kwarg?(param0 = T.unsafe(nil)); end
 
-  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#64
+  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#82
   def resolver_method_name; end
 
-  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#40
+  # source://rubocop-graphql//lib/rubocop/graphql/field/kwargs.rb#45
   def resolver_method_option(param0 = T.unsafe(nil)); end
 end
 
@@ -1303,13 +1415,13 @@ end
 # source://rubocop-graphql//lib/rubocop/graphql/version.rb#3
 RuboCop::GraphQL::VERSION = T.let(T.unsafe(nil), String)
 
-# source://rubocop/1.36.0/lib/rubocop/ast_aliases.rb#5
+# source://rubocop/1.39.0/lib/rubocop/ast_aliases.rb#5
 RuboCop::NodePattern = RuboCop::AST::NodePattern
 
-# source://rubocop/1.36.0/lib/rubocop/ast_aliases.rb#6
+# source://rubocop/1.39.0/lib/rubocop/ast_aliases.rb#6
 RuboCop::ProcessedSource = RuboCop::AST::ProcessedSource
 
-# source://rubocop/1.36.0/lib/rubocop/ast_aliases.rb#7
+# source://rubocop/1.39.0/lib/rubocop/ast_aliases.rb#7
 RuboCop::Token = RuboCop::AST::Token
 
 # source://rubocop-graphql//lib/refinements/underscore_string.rb#3

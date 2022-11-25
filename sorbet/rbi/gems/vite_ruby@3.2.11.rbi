@@ -261,7 +261,7 @@ end
 
 # source://vite_ruby//lib/vite_ruby/cli/build.rb#3
 class ViteRuby::CLI::Build < ::ViteRuby::CLI::Vite
-  # source://vite_rails/3.0.12/lib/vite_rails/cli.rb#9
+  # source://vite_rails/3.0.13/lib/vite_rails/cli.rb#9
   def call(**options); end
 end
 
@@ -400,12 +400,12 @@ class ViteRuby::CLI::Install < ::Dry::CLI::Command
 
   # Internal: Create a sample JS file and attempt to inject it in an HTML template.
   #
-  # source://vite_rails/3.0.12/lib/vite_rails/cli.rb#60
+  # source://vite_rails/3.0.13/lib/vite_rails/cli.rb#60
   def install_sample_files; end
 
   # Internal: Setup for a plain Rack application.
   #
-  # source://vite_rails/3.0.12/lib/vite_rails/cli.rb#28
+  # source://vite_rails/3.0.13/lib/vite_rails/cli.rb#28
   def setup_app_files; end
 
   protected
@@ -698,6 +698,8 @@ end
 #
 # source://vite_ruby//lib/vite_ruby/config.rb#7
 class ViteRuby::Config
+  extend ::ViteRails::Config
+
   # @return [Config] a new instance of Config
   #
   # source://vite_ruby//lib/vite_ruby/config.rb#101
@@ -859,7 +861,7 @@ class ViteRuby::Config
 
     # Internal: Default values for a Ruby application.
     #
-    # source://vite_rails/3.0.12/lib/vite_rails/config.rb#7
+    # source://vite_rails/3.0.13/lib/vite_rails/config.rb#7
     def config_defaults; end
 
     # Internal: Extracts the configuration options provided as env vars.

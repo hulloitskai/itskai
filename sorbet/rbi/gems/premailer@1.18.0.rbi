@@ -267,7 +267,7 @@ module Premailer::Adapter::Nokogiri
   #
   # @return [::Nokogiri::XML] a document.
   #
-  # source://premailer//lib/premailer/adapter/nokogiri.rb#210
+  # source://premailer//lib/premailer/adapter/nokogiri.rb#214
   def load_html(input); end
 
   # Merge CSS into the HTML document.
@@ -283,14 +283,14 @@ module Premailer::Adapter::Nokogiri
   #
   # @return [String] a plain text.
   #
-  # source://premailer//lib/premailer/adapter/nokogiri.rb#186
+  # source://premailer//lib/premailer/adapter/nokogiri.rb#190
   def to_plain_text; end
 
   # Gets the original HTML as a string.
   #
   # @return [String] HTML.
   #
-  # source://premailer//lib/premailer/adapter/nokogiri.rb#199
+  # source://premailer//lib/premailer/adapter/nokogiri.rb#203
   def to_s; end
 
   # Create a <tt>style</tt> element with un-mergable rules (e.g. <tt>:hover</tt>)
@@ -300,7 +300,7 @@ module Premailer::Adapter::Nokogiri
   #
   # @return [::Nokogiri::XML] a document.
   #
-  # source://premailer//lib/premailer/adapter/nokogiri.rb#162
+  # source://premailer//lib/premailer/adapter/nokogiri.rb#166
   def write_unmergable_css_rules(doc, unmergable_rules); end
 end
 

@@ -339,24 +339,24 @@ end
 class Selenium::WebDriver::Chrome::Driver < ::Selenium::WebDriver::Driver
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/chrome/driver.rb#46
+  # source://selenium-webdriver//lib/selenium/webdriver/chrome/driver.rb#47
   def browser; end
 
   private
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/chrome/driver.rb#63
+  # source://selenium-webdriver//lib/selenium/webdriver/chrome/driver.rb#64
   def devtools_address; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/chrome/driver.rb#52
+  # source://selenium-webdriver//lib/selenium/webdriver/chrome/driver.rb#53
   def devtools_url; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/chrome/driver.rb#59
+  # source://selenium-webdriver//lib/selenium/webdriver/chrome/driver.rb#60
   def devtools_version; end
 end
 
@@ -2124,7 +2124,7 @@ class Selenium::WebDriver::Element
   # if it exists. If it does not, then the value of the attribute with the given name is returned.
   # If neither exists, null is returned.
   #
-  # The "style" attribute is converted as best can be to a text representation with a trailing semi-colon.
+  # The "style" attribute is converted as best can be to a text representation with a trailing semicolon.
   #
   # The following are deemed to be "boolean" attributes, and will return either "true" or "false":
   #
@@ -2182,7 +2182,7 @@ class Selenium::WebDriver::Element
   # if it exists. If it does not, then the value of the attribute with the given name is returned.
   # If neither exists, null is returned.
   #
-  # The "style" attribute is converted as best can be to a text representation with a trailing semi-colon.
+  # The "style" attribute is converted as best can be to a text representation with a trailing semicolon.
   #
   # The following are deemed to be "boolean" attributes, and will return either "true" or "false":
   #
@@ -2668,8 +2668,14 @@ end
 # source://selenium-webdriver//lib/selenium/webdriver/firefox.rb#38
 Selenium::WebDriver::Firefox::DEFAULT_ASSUME_UNTRUSTED_ISSUER = T.let(T.unsafe(nil), TrueClass)
 
+# source://selenium-webdriver//lib/selenium/webdriver/firefox.rb#39
+Selenium::WebDriver::Firefox::DEFAULT_LOAD_NO_FOCUS_LIB = T.let(T.unsafe(nil), FalseClass)
+
 # source://selenium-webdriver//lib/selenium/webdriver/firefox.rb#36
 Selenium::WebDriver::Firefox::DEFAULT_PORT = T.let(T.unsafe(nil), Integer)
+
+# source://selenium-webdriver//lib/selenium/webdriver/firefox.rb#37
+Selenium::WebDriver::Firefox::DEFAULT_SECURE_SSL = T.let(T.unsafe(nil), FalseClass)
 
 # Mozilla Automation Team asked to only support 85
 # until WebDriver Bidi is available.
@@ -2766,19 +2772,19 @@ module Selenium::WebDriver::Firefox::Features
   # source://selenium-webdriver//lib/selenium/webdriver/firefox/features.rb#33
   def commands(command); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/features.rb#57
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/features.rb#61
   def context; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/features.rb#53
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/features.rb#57
   def context=(context); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/features.rb#49
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/features.rb#53
   def full_screenshot; end
 
   # source://selenium-webdriver//lib/selenium/webdriver/firefox/features.rb#37
   def install_addon(path, temporary); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/features.rb#45
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/features.rb#49
   def uninstall_addon(id); end
 end
 
@@ -2811,7 +2817,7 @@ class Selenium::WebDriver::Firefox::Options < ::Selenium::WebDriver::Options
   #   options.add_argument('--host=127.0.0.1')
   # @param arg [String] The command-line argument to add
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#82
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#83
   def add_argument(arg); end
 
   # Add a preference that is only applied to the user profile in use.
@@ -2822,7 +2828,7 @@ class Selenium::WebDriver::Firefox::Options < ::Selenium::WebDriver::Options
   # @param name [String] Key of the preference
   # @param value [Boolean, String, Integer] Value of the preference
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#97
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#98
   def add_preference(name, value); end
 
   # Returns the value of attribute debugger_address.
@@ -2846,7 +2852,7 @@ class Selenium::WebDriver::Firefox::Options < ::Selenium::WebDriver::Options
   # @param intent_arguments [Array] Arguments to launch the intent with.
   # @see https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities/firefoxOptions#android
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#152
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#153
   def enable_android(package: T.unsafe(nil), serial_number: T.unsafe(nil), activity: T.unsafe(nil), intent_arguments: T.unsafe(nil)); end
 
   # Run Firefox in headless mode.
@@ -2855,13 +2861,13 @@ class Selenium::WebDriver::Firefox::Options < ::Selenium::WebDriver::Options
   #   options = Selenium::WebDriver::Firefox::Options.new
   #   options.headless!
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#109
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#110
   def headless!; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#132
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#133
   def log_level; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#136
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#137
   def log_level=(level); end
 
   # NOTE: special handling of 'profile' to validate when set instead of when used
@@ -2880,20 +2886,20 @@ class Selenium::WebDriver::Firefox::Options < ::Selenium::WebDriver::Options
   #   options.profile = 'myprofile'
   # @param profile [Profile, String] Profile to be used
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#128
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#129
   def profile=(profile); end
 
   private
 
   # @return [Boolean]
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#179
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#180
   def camelize?(key); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#161
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#162
   def process_browser_options(browser_options); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#168
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#169
   def process_profile(profile); end
 end
 
@@ -3081,6 +3087,9 @@ Selenium::WebDriver::Firefox::Service::EXECUTABLE = T.let(T.unsafe(nil), String)
 
 # source://selenium-webdriver//lib/selenium/webdriver/firefox/service.rb#26
 Selenium::WebDriver::Firefox::Service::MISSING_TEXT = T.let(T.unsafe(nil), String)
+
+# source://selenium-webdriver//lib/selenium/webdriver/firefox/service.rb#31
+Selenium::WebDriver::Firefox::Service::SHUTDOWN_SUPPORTED = T.let(T.unsafe(nil), FalseClass)
 
 # @api private
 #
@@ -4288,12 +4297,12 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#144
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#143
   def assert_executable(path); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#138
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#137
   def assert_file(path); end
 
   # @api private
@@ -4313,7 +4322,7 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#119
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#118
   def cygwin_path(path, **opts); end
 
   # @api private
@@ -4323,17 +4332,17 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#152
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#151
   def exit_hook; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#158
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#157
   def find_binary(*binary_names); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#178
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#177
   def find_in_program_files(*binary_names); end
 
   # @api private
@@ -4343,12 +4352,12 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#219
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#218
   def interfaces; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#203
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#202
   def ip; end
 
   # @api private
@@ -4363,7 +4372,7 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#195
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#194
   def localhost; end
 
   # @api private
@@ -4373,12 +4382,12 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#134
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#133
   def make_writable(file); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#111
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#110
   def null_device; end
 
   # @api private
@@ -4393,7 +4402,7 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#126
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#125
   def unix_path(path); end
 
   # @api private
@@ -4403,12 +4412,12 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#130
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#129
   def windows_path(path); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#115
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#114
   def wrap_in_quotes_if_necessary(str); end
 
   # @api private
@@ -4420,13 +4429,13 @@ module Selenium::WebDriver::Platform
     # @api private
     # @raise [Error::WebDriverError]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#144
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#143
     def assert_executable(path); end
 
     # @api private
     # @raise [Error::WebDriverError]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#138
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#137
     def assert_file(path); end
 
     # @api private
@@ -4447,7 +4456,7 @@ module Selenium::WebDriver::Platform
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#119
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#118
     def cygwin_path(path, **opts); end
 
     # @api private
@@ -4457,17 +4466,17 @@ module Selenium::WebDriver::Platform
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#152
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#151
     def exit_hook; end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#158
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#157
     def find_binary(*binary_names); end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#178
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#177
     def find_in_program_files(*binary_names); end
 
     # @api private
@@ -4477,12 +4486,12 @@ module Selenium::WebDriver::Platform
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#219
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#218
     def interfaces; end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#203
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#202
     def ip; end
 
     # @api private
@@ -4500,7 +4509,7 @@ module Selenium::WebDriver::Platform
     # @api private
     # @raise [Error::WebDriverError]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#195
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#194
     def localhost; end
 
     # @api private
@@ -4511,12 +4520,12 @@ module Selenium::WebDriver::Platform
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#134
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#133
     def make_writable(file); end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#111
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#110
     def null_device; end
 
     # @api private
@@ -4531,7 +4540,7 @@ module Selenium::WebDriver::Platform
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#126
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#125
     def unix_path(path); end
 
     # @api private
@@ -4542,12 +4551,12 @@ module Selenium::WebDriver::Platform
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#130
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#129
     def windows_path(path); end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#115
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#114
     def wrap_in_quotes_if_necessary(str); end
 
     # @api private
@@ -6064,6 +6073,9 @@ Selenium::WebDriver::Safari::Service::EXECUTABLE = T.let(T.unsafe(nil), String)
 # source://selenium-webdriver//lib/selenium/webdriver/safari/service.rb#26
 Selenium::WebDriver::Safari::Service::MISSING_TEXT = T.let(T.unsafe(nil), String)
 
+# source://selenium-webdriver//lib/selenium/webdriver/safari/service.rb#30
+Selenium::WebDriver::Safari::Service::SHUTDOWN_SUPPORTED = T.let(T.unsafe(nil), FalseClass)
+
 # source://selenium-webdriver//lib/selenium/webdriver/common/search_context.rb#22
 module Selenium::WebDriver::SearchContext
   # Find the first element matching the given arguments
@@ -6099,6 +6111,42 @@ end
 #
 # source://selenium-webdriver//lib/selenium/webdriver/common/search_context.rb#24
 Selenium::WebDriver::SearchContext::FINDERS = T.let(T.unsafe(nil), Hash)
+
+# Wrapper for getting information from the Selenium Manager binaries.
+# This implementation is still in beta, and may change.
+#
+# @api private
+#
+# source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#27
+class Selenium::WebDriver::SeleniumManager
+  class << self
+    # @api private
+    # @param driver_name [String] which driver to use.
+    # @return [String] the path to the correct driver.
+    #
+    # source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#33
+    def driver_path(driver_name); end
+
+    private
+
+    # @api private
+    # @return [String] the path to the correct selenium manager
+    #
+    # source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#51
+    def binary; end
+
+    # @api private
+    # @raise [Error::WebDriverError]
+    #
+    # source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#71
+    def run(command); end
+  end
+end
+
+# @api private
+#
+# source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#28
+Selenium::WebDriver::SeleniumManager::BIN_PATH = T.let(T.unsafe(nil), String)
 
 # Base class implementing default behavior of service object,
 # responsible for storing a service manager configuration.
@@ -6144,19 +6192,19 @@ class Selenium::WebDriver::Service
   # source://selenium-webdriver//lib/selenium/webdriver/common/service.rb#60
   def port; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/service.rb#88
+  # source://selenium-webdriver//lib/selenium/webdriver/common/service.rb#86
   def shutdown_supported; end
 
   protected
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/service.rb#94
+  # source://selenium-webdriver//lib/selenium/webdriver/common/service.rb#92
   def extract_service_args(driver_opts); end
 
   private
 
   # @raise [Error::WebDriverError]
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/service.rb#100
+  # source://selenium-webdriver//lib/selenium/webdriver/common/service.rb#98
   def binary_path(path = T.unsafe(nil)); end
 
   class << self
@@ -6853,19 +6901,19 @@ class Selenium::WebDriver::Support::Select
   # source://selenium-webdriver//lib/selenium/webdriver/support/select.rb#197
   def deselect_by_value(value); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/support/select.rb#221
+  # source://selenium-webdriver//lib/selenium/webdriver/support/select.rb#223
   def deselect_option(option); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/support/select.rb#233
+  # source://selenium-webdriver//lib/selenium/webdriver/support/select.rb#235
   def deselect_options(opts); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/support/select.rb#260
+  # source://selenium-webdriver//lib/selenium/webdriver/support/select.rb#262
   def find_by_index(index); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/support/select.rb#241
+  # source://selenium-webdriver//lib/selenium/webdriver/support/select.rb#243
   def find_by_text(text); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/support/select.rb#264
+  # source://selenium-webdriver//lib/selenium/webdriver/support/select.rb#266
   def find_by_value(value); end
 
   # @raise [Error::NoSuchElementError]
@@ -6883,10 +6931,12 @@ class Selenium::WebDriver::Support::Select
   # source://selenium-webdriver//lib/selenium/webdriver/support/select.rb#179
   def select_by_value(value); end
 
+  # @raise [Error::UnsupportedOperationError]
+  #
   # source://selenium-webdriver//lib/selenium/webdriver/support/select.rb#217
   def select_option(option); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/support/select.rb#225
+  # source://selenium-webdriver//lib/selenium/webdriver/support/select.rb#227
   def select_options(opts); end
 end
 

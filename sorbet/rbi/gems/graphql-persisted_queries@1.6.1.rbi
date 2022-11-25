@@ -77,18 +77,13 @@ module GraphQL::PersistedQueries::CompiledQueries; end
 # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/instrumentation.rb#7
 module GraphQL::PersistedQueries::CompiledQueries::Instrumentation
   class << self
-    # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/instrumentation.rb#26
+    # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/instrumentation.rb#20
     def after_query(*_arg0); end
 
     # Actions to perform before the query resolution
     #
     # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/instrumentation.rb#10
     def before_query(query); end
-
-    private
-
-    # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/instrumentation.rb#30
-    def resolver_for(query); end
   end
 end
 
@@ -108,30 +103,27 @@ end
 # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/query_patch.rb#7
 module GraphQL::PersistedQueries::CompiledQueries::QueryPatch
   # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/query_patch.rb#8
-  def fulfill_document(document); end
-
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/query_patch.rb#12
-  def not_loaded_document!; end
-
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/query_patch.rb#16
   def persisted_query_not_found!; end
 
   # @return [Boolean]
   #
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/query_patch.rb#20
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/query_patch.rb#12
   def persisted_query_not_found?; end
 
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/query_patch.rb#24
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/query_patch.rb#16
   def prepare_ast; end
+
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/query_patch.rb#32
+  def try_load_document!; end
 
   private
 
   # @return [Boolean]
   #
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/query_patch.rb#42
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/query_patch.rb#46
   def not_found_error?(error); end
 
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/query_patch.rb#38
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/query_patch.rb#42
   def resolver; end
 end
 
@@ -680,7 +672,7 @@ class GraphQL::Query
   # source://forwardable/1.3.2/forwardable.rb#229
   def possible_types(*args, **_arg1, &block); end
 
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/query_patch.rb#24
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/query_patch.rb#16
   def prepare_ast; end
 
   # source://graphql/2.0.15/lib/graphql/query.rb#28

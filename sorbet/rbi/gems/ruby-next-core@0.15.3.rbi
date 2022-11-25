@@ -6,7 +6,7 @@
 
 class NoMatchingPatternError < ::StandardError; end
 
-# source://rubocop/1.36.0/lib/rubocop/ast_aliases.rb#6
+# source://rubocop/1.39.0/lib/rubocop/ast_aliases.rb#6
 RuboCop::ProcessedSource = RuboCop::AST::ProcessedSource
 
 # Add binding argument to all self-less eval's

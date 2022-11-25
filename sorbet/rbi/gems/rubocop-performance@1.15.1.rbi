@@ -10,10 +10,10 @@ module RuboCop; end
 # source://rubocop-performance//lib/rubocop/cop/mixin/regexp_metacharacter.rb#4
 module RuboCop::Cop; end
 
-# source://rubocop/1.36.0/lib/rubocop/cop/mixin/allowed_methods.rb#38
+# source://rubocop/1.39.0/lib/rubocop/cop/mixin/allowed_methods.rb#38
 RuboCop::Cop::IgnoredMethods = RuboCop::Cop::AllowedMethods
 
-# source://rubocop/1.36.0/lib/rubocop/cop/mixin/allowed_pattern.rb#54
+# source://rubocop/1.39.0/lib/rubocop/cop/mixin/allowed_pattern.rb#54
 RuboCop::Cop::IgnoredPattern = RuboCop::Cop::AllowedPattern
 
 # source://rubocop-performance//lib/rubocop/cop/performance/ancestors_include.rb#5
@@ -760,10 +760,25 @@ class RuboCop::Cop::Performance::Count < ::RuboCop::Cop::Base
 
   # @return [Boolean]
   #
-  # source://rubocop-performance//lib/rubocop/cop/performance/count.rb#90
+  # source://rubocop-performance//lib/rubocop/cop/performance/count.rb#89
   def eligible_node?(node); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/count.rb#94
+  # source://rubocop-performance//lib/rubocop/cop/performance/count.rb#132
+  def negate_block_pass_as_inline_block(node); end
+
+  # source://rubocop-performance//lib/rubocop/cop/performance/count.rb#111
+  def negate_block_pass_reject(corrector, node); end
+
+  # source://rubocop-performance//lib/rubocop/cop/performance/count.rb#118
+  def negate_block_reject(corrector, node); end
+
+  # source://rubocop-performance//lib/rubocop/cop/performance/count.rb#128
+  def negate_expression(node); end
+
+  # source://rubocop-performance//lib/rubocop/cop/performance/count.rb#103
+  def negate_reject(corrector, node); end
+
+  # source://rubocop-performance//lib/rubocop/cop/performance/count.rb#93
   def source_starting_at(node); end
 end
 
@@ -1394,21 +1409,26 @@ class RuboCop::Cop::Performance::MapCompact < ::RuboCop::Cop::Base
 
   private
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/map_compact.rb#89
+  # source://rubocop-performance//lib/rubocop/cop/performance/map_compact.rb#93
   def compact_method_with_final_newline_range(compact_method_range); end
 
   # @return [Boolean]
   #
-  # source://rubocop-performance//lib/rubocop/cop/performance/map_compact.rb#85
+  # source://rubocop-performance//lib/rubocop/cop/performance/map_compact.rb#89
   def invoke_method_after_map_compact_on_same_line?(compact_node, chained_method); end
 
   # @return [Boolean]
   #
-  # source://rubocop-performance//lib/rubocop/cop/performance/map_compact.rb#81
+  # source://rubocop-performance//lib/rubocop/cop/performance/map_compact.rb#85
   def map_method_and_compact_method_on_same_line?(map_node, compact_node); end
 
   # source://rubocop-performance//lib/rubocop/cop/performance/map_compact.rb#67
   def remove_compact_method(corrector, map_node, compact_node, chained_method); end
+
+  # @return [Boolean]
+  #
+  # source://rubocop-performance//lib/rubocop/cop/performance/map_compact.rb#81
+  def use_dot?(node); end
 end
 
 # source://rubocop-performance//lib/rubocop/cop/performance/map_compact.rb#35
@@ -2951,7 +2971,7 @@ module RuboCop::Cop::SortBlock
   def sort_range(send, node); end
 end
 
-# source://rubocop/1.36.0/lib/rubocop/ast_aliases.rb#5
+# source://rubocop/1.39.0/lib/rubocop/ast_aliases.rb#5
 RuboCop::NodePattern = RuboCop::AST::NodePattern
 
 # RuboCop Performance project namespace
@@ -2992,8 +3012,8 @@ end
 # source://rubocop-performance//lib/rubocop/performance/version.rb#7
 RuboCop::Performance::Version::STRING = T.let(T.unsafe(nil), String)
 
-# source://rubocop/1.36.0/lib/rubocop/ast_aliases.rb#6
+# source://rubocop/1.39.0/lib/rubocop/ast_aliases.rb#6
 RuboCop::ProcessedSource = RuboCop::AST::ProcessedSource
 
-# source://rubocop/1.36.0/lib/rubocop/ast_aliases.rb#7
+# source://rubocop/1.39.0/lib/rubocop/ast_aliases.rb#7
 RuboCop::Token = RuboCop::AST::Token
