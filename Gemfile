@@ -167,6 +167,7 @@ group :development do
   gem "rubocop-shopify", require: false
   gem "rubocop-sorbet", require: false
   gem "ruby-lsp", require: false
+  gem "parser", "~> 3.1.2.1", require: false
 
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
