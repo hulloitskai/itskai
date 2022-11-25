@@ -30,12 +30,13 @@ module Obsidian
     sig { params(force: T::Boolean).returns(T::Array[ObsidianNote]) }
     def synchronize_notes(force: false)
       notes = ObsidianNote.all.to_a
-      notes = T.let(notes, T::Array[ObsidianNote])
       notes_by_name = notes.index_by(&:name)
-      notes_by_name = T.let(notes_by_name, T::Hash[String, ObsidianNote])
       removed_note_names = (notes_by_name.keys - note_names)
-      removed_notes = T.unsafe(notes_by_name).fetch_values(*removed_note_names)
-      removed_notes = T.let(removed_notes, T::Array[ObsidianNote])
+      removed_notes =
+        T.let(
+          T.unsafe(notes_by_name).fetch_values(*removed_note_names),
+          T::Array[ObsidianNote],
+        )
       added_note_names = (note_names - notes_by_name.keys)
       added_note_names.each do |name|
         notes_by_name[name] = ObsidianNote.new(name: name)
@@ -87,8 +88,7 @@ module Obsidian
       if force || !note.modified_at? || note.modified_at < modified_at
         logger.info("Updating note '#{note.name}'")
         data = parse_with_front_matter(node)
-        content = T.let(data.content, String)
-        front_matter = T.let(data.front_matter, T::Hash[String, T.untyped])
+        content, front_matter = data.content, data.front_matter
         note.hidden = front_matter["hidden"].truthy?
         note.modified_at = modified_at
         note.content = content

@@ -1,34 +1,37 @@
 # typed: strong
 
-module ActiveRecord
-  class Base
-    sig do
-      params(_arg0: T.untyped, _arg1: T.untyped, _arg2: T.untyped)
-        .returns(ActiveModel::Name)
-    end
-    def model_name(*_arg0, **_arg1, &_arg2); end
+class ActiveRecord::Base
+  sig do
+    params(_arg0: T.untyped, _arg1: T.untyped, _arg2: T.untyped)
+      .returns(ActiveModel::Name)
   end
+  def model_name(*_arg0, **_arg1, &_arg2); end
+end
 
-  module Transactions
-    sig { params(_arg0: T.untyped).returns(T::Boolean) }
-    def save(**_arg0); end
+class ActiveRecord::Relation
+  sig { returns(T::Array[ActiveRecord::Base]) }
+  def to_a; end
+end
 
-    sig { params(_arg0: T.untyped).returns(TrueClass) }
-    def save!(**_arg0); end
-  end
+module ActiveRecord::Transactions
+  sig { params(_arg0: T.untyped).returns(T::Boolean) }
+  def save(**_arg0); end
 
-  module Serialization
-    sig { params(options: T.untyped).returns(T::Hash[String, T.untyped]) }
-    def serializable_hash(options = T.unsafe(nil)); end
-  end
+  sig { params(_arg0: T.untyped).returns(TrueClass) }
+  def save!(**_arg0); end
+end
 
-  module Suppressor
-    sig { params(_arg0: T.untyped).returns(T::Boolean) }
-    def save(**_arg0); end
+module ActiveRecord::Serialization
+  sig { params(options: T.untyped).returns(T::Hash[String, T.untyped]) }
+  def serializable_hash(options = T.unsafe(nil)); end
+end
 
-    sig { params(_arg0: T.untyped).returns(TrueClass) }
-    def save!(**_arg0); end
-  end
+module ActiveRecord::Suppressor
+  sig { params(_arg0: T.untyped).returns(T::Boolean) }
+  def save(**_arg0); end
+
+  sig { params(_arg0: T.untyped).returns(TrueClass) }
+  def save!(**_arg0); end
 end
 
 # Method definitions are documented here:

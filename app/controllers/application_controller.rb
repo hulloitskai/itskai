@@ -39,10 +39,10 @@ class ApplicationController < ActionController::Base
   # == Filters ==
   sig { void }
   def set_honeybadger_context
-    # current_user.try! do |user|
-    #   user = T.let(user, User)
-    #   Honeybadger.context(user_id: user.id, user_email: user.email)
-    # end
+    current_user.try! do |user|
+      user = T.let(user, User)
+      Honeybadger.context(user_id: user.id, user_email: user.email)
+    end
   end
 
   sig { void }
@@ -60,34 +60,3 @@ class ApplicationController < ActionController::Base
     yield
   end
 end
-
-# == Devise ==
-#class ApplicationController
-#  extend T::Sig
-#
-#  # == Filters ==
-#  before_action :store_user_location!, if: :storable_location?
-#
-#  # == Helpers ==
-#  include DeviseHelper
-#  include AdminHelper
-#
-#  private
-#
-#  # == Helpers ==
-#  # - The request method is not GET (non idempotent).
-#  # - The request is handled by a Devise controller such as
-#  #   Devise::SessionsController as that could cause an infinite redirect loop.
-#  # - The request is an Ajax request as this can lead to very unexpected
-#  #   behaviour.
-#  sig { returns(T::Boolean) }
-#  def storable_location?
-#    request.get? && is_navigational_format? && !turbo_frame_request? &&
-#      !request.xhr? && !devise_controller?
-#  end
-#
-#  sig { void }
-#  def store_user_location!
-#    store_location_for(:user, request.fullpath)
-#  end
-#end

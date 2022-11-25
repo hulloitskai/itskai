@@ -120,14 +120,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # == Helpers ==
   sig { returns(T::Hash[String, T.untyped]) }
   def inertia_errors
-    error_bag = T.let(request.headers["X-Inertia-Error-Bag"], T.nilable(String))
+    error_bag = request.headers["X-Inertia-Error-Bag"]
     errors =
       resource
         .errors
         .group_by_attribute
         .transform_keys! { |key| key.to_s.camelize(:lower) }
         .transform_values! do |errors|
-          errors = T.let(errors, T::Array[ActiveModel::Error])
           error = T.must(errors.first)
           error.full_message + "."
         end

@@ -6,11 +6,7 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # == URLs ==
   config.before_configuration do
-    routes.default_url_options = {
-      protocol: "https",
-      host: "itskai.me",
-      port: nil,
-    }
+    routes.default_url_options = { protocol: "https", host: "itskai.me" }
   end
 
   # == Code Loading ==

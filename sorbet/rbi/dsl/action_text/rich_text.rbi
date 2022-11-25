@@ -601,6 +601,9 @@ class ActionText::RichText
     Elem = type_member { { fixed: ::ActionText::RichText } }
 
     sig { returns(T::Array[::ActionText::RichText]) }
+    def to_a; end
+
+    sig { returns(T::Array[::ActionText::RichText]) }
     def to_ary; end
   end
 
@@ -692,6 +695,9 @@ class ActionText::RichText
     def target; end
 
     sig { returns(T::Array[::ActionText::RichText]) }
+    def to_a; end
+
+    sig { returns(T::Array[::ActionText::RichText]) }
     def to_ary; end
   end
 
@@ -700,6 +706,9 @@ class ActionText::RichText
     include GeneratedRelationMethods
 
     Elem = type_member { { fixed: ::ActionText::RichText } }
+
+    sig { returns(T::Array[::ActionText::RichText]) }
+    def to_a; end
 
     sig { returns(T::Array[::ActionText::RichText]) }
     def to_ary; end

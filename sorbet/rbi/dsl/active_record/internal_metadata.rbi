@@ -780,6 +780,9 @@ class ActiveRecord::InternalMetadata
     Elem = type_member { { fixed: ::ActiveRecord::InternalMetadata } }
 
     sig { returns(T::Array[::ActiveRecord::InternalMetadata]) }
+    def to_a; end
+
+    sig { returns(T::Array[::ActiveRecord::InternalMetadata]) }
     def to_ary; end
   end
 
@@ -871,6 +874,9 @@ class ActiveRecord::InternalMetadata
     def target; end
 
     sig { returns(T::Array[::ActiveRecord::InternalMetadata]) }
+    def to_a; end
+
+    sig { returns(T::Array[::ActiveRecord::InternalMetadata]) }
     def to_ary; end
   end
 
@@ -879,6 +885,9 @@ class ActiveRecord::InternalMetadata
     include GeneratedRelationMethods
 
     Elem = type_member { { fixed: ::ActiveRecord::InternalMetadata } }
+
+    sig { returns(T::Array[::ActiveRecord::InternalMetadata]) }
+    def to_a; end
 
     sig { returns(T::Array[::ActiveRecord::InternalMetadata]) }
     def to_ary; end

@@ -609,6 +609,9 @@ class ActiveRecord::SchemaMigration
     Elem = type_member { { fixed: ::ActiveRecord::SchemaMigration } }
 
     sig { returns(T::Array[::ActiveRecord::SchemaMigration]) }
+    def to_a; end
+
+    sig { returns(T::Array[::ActiveRecord::SchemaMigration]) }
     def to_ary; end
   end
 
@@ -700,6 +703,9 @@ class ActiveRecord::SchemaMigration
     def target; end
 
     sig { returns(T::Array[::ActiveRecord::SchemaMigration]) }
+    def to_a; end
+
+    sig { returns(T::Array[::ActiveRecord::SchemaMigration]) }
     def to_ary; end
   end
 
@@ -708,6 +714,9 @@ class ActiveRecord::SchemaMigration
     include GeneratedRelationMethods
 
     Elem = type_member { { fixed: ::ActiveRecord::SchemaMigration } }
+
+    sig { returns(T::Array[::ActiveRecord::SchemaMigration]) }
+    def to_a; end
 
     sig { returns(T::Array[::ActiveRecord::SchemaMigration]) }
     def to_ary; end

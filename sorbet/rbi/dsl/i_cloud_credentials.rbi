@@ -947,6 +947,9 @@ class ICloudCredentials
     Elem = type_member { { fixed: ::ICloudCredentials } }
 
     sig { returns(T::Array[::ICloudCredentials]) }
+    def to_a; end
+
+    sig { returns(T::Array[::ICloudCredentials]) }
     def to_ary; end
   end
 
@@ -1038,6 +1041,9 @@ class ICloudCredentials
     def target; end
 
     sig { returns(T::Array[::ICloudCredentials]) }
+    def to_a; end
+
+    sig { returns(T::Array[::ICloudCredentials]) }
     def to_ary; end
   end
 
@@ -1046,6 +1052,9 @@ class ICloudCredentials
     include GeneratedRelationMethods
 
     Elem = type_member { { fixed: ::ICloudCredentials } }
+
+    sig { returns(T::Array[::ICloudCredentials]) }
+    def to_a; end
 
     sig { returns(T::Array[::ICloudCredentials]) }
     def to_ary; end

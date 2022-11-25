@@ -807,6 +807,9 @@ class ObsidianStub
     Elem = type_member { { fixed: ::ObsidianStub } }
 
     sig { returns(T::Array[::ObsidianStub]) }
+    def to_a; end
+
+    sig { returns(T::Array[::ObsidianStub]) }
     def to_ary; end
   end
 
@@ -898,6 +901,9 @@ class ObsidianStub
     def target; end
 
     sig { returns(T::Array[::ObsidianStub]) }
+    def to_a; end
+
+    sig { returns(T::Array[::ObsidianStub]) }
     def to_ary; end
   end
 
@@ -906,6 +912,9 @@ class ObsidianStub
     include GeneratedRelationMethods
 
     Elem = type_member { { fixed: ::ObsidianStub } }
+
+    sig { returns(T::Array[::ObsidianStub]) }
+    def to_a; end
 
     sig { returns(T::Array[::ObsidianStub]) }
     def to_ary; end

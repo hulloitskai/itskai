@@ -63,7 +63,7 @@ module ICloud
       cookies, session = credentials.cookies, credentials.session
       if [cookies, session].all?(&:present?)
         cookies = T.must(cookies)
-        session = T.let(credentials.session, T::Hash[String, T.untyped])
+        session = credentials.session
         File.write(cookies_filename!, cookies)
         File.write(session_filename!, session.to_json)
       else

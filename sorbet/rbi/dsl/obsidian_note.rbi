@@ -1248,6 +1248,9 @@ class ObsidianNote
     Elem = type_member { { fixed: ::ObsidianNote } }
 
     sig { returns(T::Array[::ObsidianNote]) }
+    def to_a; end
+
+    sig { returns(T::Array[::ObsidianNote]) }
     def to_ary; end
   end
 
@@ -1339,6 +1342,9 @@ class ObsidianNote
     def target; end
 
     sig { returns(T::Array[::ObsidianNote]) }
+    def to_a; end
+
+    sig { returns(T::Array[::ObsidianNote]) }
     def to_ary; end
   end
 
@@ -1347,6 +1353,9 @@ class ObsidianNote
     include GeneratedRelationMethods
 
     Elem = type_member { { fixed: ::ObsidianNote } }
+
+    sig { returns(T::Array[::ObsidianNote]) }
+    def to_a; end
 
     sig { returns(T::Array[::ObsidianNote]) }
     def to_ary; end

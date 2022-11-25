@@ -47,7 +47,8 @@ class ObsidianNoteAnalyzeJob < ApplicationJob
   sig { params(note: ObsidianNote).void }
   def analyze_blurb(note)
     return if note.blurb.present?
-    root = T.let(Markly.parse(note.content), Markly::Node)
+    return if note.content.blank?
+    root = Markly.parse(note.content)
     node = T.let(root.first, T.nilable(Markly::Node))
     if node.present? && node.type == :paragraph
       text = T.let(node.to_plaintext, String)

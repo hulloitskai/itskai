@@ -23,4 +23,18 @@ class ICloudCredentials < ApplicationRecord
 
   # == Validations ==
   validates :email, :password, presence: true
+
+  # == Attributes ==
+  sig { returns(T::Hash[String, T.untyped]) }
+  def session
+    super
+  end
+
+  sig do
+    params(value: T::Hash[String, T.untyped])
+      .returns(T::Hash[String, T.untyped])
+  end
+  def setters=(value)
+    super
+  end
 end

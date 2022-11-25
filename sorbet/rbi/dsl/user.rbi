@@ -1529,6 +1529,9 @@ class User
     Elem = type_member { { fixed: ::User } }
 
     sig { returns(T::Array[::User]) }
+    def to_a; end
+
+    sig { returns(T::Array[::User]) }
     def to_ary; end
   end
 
@@ -1620,6 +1623,9 @@ class User
     def target; end
 
     sig { returns(T::Array[::User]) }
+    def to_a; end
+
+    sig { returns(T::Array[::User]) }
     def to_ary; end
   end
 
@@ -1628,6 +1634,9 @@ class User
     include GeneratedRelationMethods
 
     Elem = type_member { { fixed: ::User } }
+
+    sig { returns(T::Array[::User]) }
+    def to_a; end
 
     sig { returns(T::Array[::User]) }
     def to_ary; end

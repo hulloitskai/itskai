@@ -812,6 +812,9 @@ class GoodJob::Process
     Elem = type_member { { fixed: ::GoodJob::Process } }
 
     sig { returns(T::Array[::GoodJob::Process]) }
+    def to_a; end
+
+    sig { returns(T::Array[::GoodJob::Process]) }
     def to_ary; end
   end
 
@@ -903,6 +906,9 @@ class GoodJob::Process
     def target; end
 
     sig { returns(T::Array[::GoodJob::Process]) }
+    def to_a; end
+
+    sig { returns(T::Array[::GoodJob::Process]) }
     def to_ary; end
   end
 
@@ -911,6 +917,9 @@ class GoodJob::Process
     include GeneratedRelationMethods
 
     Elem = type_member { { fixed: ::GoodJob::Process } }
+
+    sig { returns(T::Array[::GoodJob::Process]) }
+    def to_a; end
 
     sig { returns(T::Array[::GoodJob::Process]) }
     def to_ary; end

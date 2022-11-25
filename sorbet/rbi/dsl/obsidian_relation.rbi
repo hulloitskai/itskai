@@ -806,6 +806,9 @@ class ObsidianRelation
     Elem = type_member { { fixed: ::ObsidianRelation } }
 
     sig { returns(T::Array[::ObsidianRelation]) }
+    def to_a; end
+
+    sig { returns(T::Array[::ObsidianRelation]) }
     def to_ary; end
   end
 
@@ -897,6 +900,9 @@ class ObsidianRelation
     def target; end
 
     sig { returns(T::Array[::ObsidianRelation]) }
+    def to_a; end
+
+    sig { returns(T::Array[::ObsidianRelation]) }
     def to_ary; end
   end
 
@@ -905,6 +911,9 @@ class ObsidianRelation
     include GeneratedRelationMethods
 
     Elem = type_member { { fixed: ::ObsidianRelation } }
+
+    sig { returns(T::Array[::ObsidianRelation]) }
+    def to_a; end
 
     sig { returns(T::Array[::ObsidianRelation]) }
     def to_ary; end

@@ -37,9 +37,9 @@ class Schema < GraphQL::Schema
   end
   def self.resolve_type(abstract_type, object, context)
     if object.is_a?(ApplicationRecord)
-      model_name = T.let(object.model_name.to_s, String)
-      type = "::Types::#{model_name}Type".safe_constantize
-      type or raise "Unexpected record type: #{model_name}"
+      name = object.model_name.to_s
+      type = "::Types::#{name}Type".safe_constantize
+      type or raise "Unexpected record type: #{name}"
     else
       raise GraphQL::RequiredImplementationMissingError
     end

@@ -1560,6 +1560,9 @@ class GoodJob::Execution
     Elem = type_member { { fixed: ::GoodJob::Execution } }
 
     sig { returns(T::Array[::GoodJob::Execution]) }
+    def to_a; end
+
+    sig { returns(T::Array[::GoodJob::Execution]) }
     def to_ary; end
   end
 
@@ -1651,6 +1654,9 @@ class GoodJob::Execution
     def target; end
 
     sig { returns(T::Array[::GoodJob::Execution]) }
+    def to_a; end
+
+    sig { returns(T::Array[::GoodJob::Execution]) }
     def to_ary; end
   end
 
@@ -1659,6 +1665,9 @@ class GoodJob::Execution
     include GeneratedRelationMethods
 
     Elem = type_member { { fixed: ::GoodJob::Execution } }
+
+    sig { returns(T::Array[::GoodJob::Execution]) }
+    def to_a; end
 
     sig { returns(T::Array[::GoodJob::Execution]) }
     def to_ary; end

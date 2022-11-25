@@ -21,9 +21,11 @@ module Types
     def references
       references = authorized_scope(object.references)
       unresolved_references = authorized_scope(object.unresolved_references)
-      references = references.to_a.concat(unresolved_references.to_a)
       references =
-        T.let(references, T::Array[T.all(ApplicationRecord, ObsidianEntry)])
+        T.cast(
+          references.to_a.concat(unresolved_references.to_a),
+          T::Array[T.all(ApplicationRecord, ObsidianEntry)],
+        )
       references.sort_by!(&:name)
     end
 

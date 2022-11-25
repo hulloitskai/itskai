@@ -821,6 +821,9 @@ class GoodJob::Setting
     Elem = type_member { { fixed: ::GoodJob::Setting } }
 
     sig { returns(T::Array[::GoodJob::Setting]) }
+    def to_a; end
+
+    sig { returns(T::Array[::GoodJob::Setting]) }
     def to_ary; end
   end
 
@@ -912,6 +915,9 @@ class GoodJob::Setting
     def target; end
 
     sig { returns(T::Array[::GoodJob::Setting]) }
+    def to_a; end
+
+    sig { returns(T::Array[::GoodJob::Setting]) }
     def to_ary; end
   end
 
@@ -920,6 +926,9 @@ class GoodJob::Setting
     include GeneratedRelationMethods
 
     Elem = type_member { { fixed: ::GoodJob::Setting } }
+
+    sig { returns(T::Array[::GoodJob::Setting]) }
+    def to_a; end
 
     sig { returns(T::Array[::GoodJob::Setting]) }
     def to_ary; end
