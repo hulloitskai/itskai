@@ -21,21 +21,16 @@ module Bootsnap
     # source://bootsnap//lib/bootsnap.rb#34
     def _instrument(event, path); end
 
-    # source://bootsnap//lib/bootsnap.rb#136
+    # source://bootsnap//lib/bootsnap.rb#118
     def absolute_path?(path); end
 
-    # source://bootsnap//lib/bootsnap.rb#90
+    # source://bootsnap//lib/bootsnap.rb#67
     def default_setup; end
 
     # source://bootsnap//lib/bootsnap.rb#27
     def instrumentation=(callback); end
 
     def instrumentation_enabled=(_arg0); end
-
-    # @return [Boolean]
-    #
-    # source://bootsnap//lib/bootsnap.rb#83
-    def iseq_cache_supported?; end
 
     # source://bootsnap//lib/bootsnap.rb#14
     def log!; end
@@ -53,7 +48,10 @@ module Bootsnap
     def rb_get_path(_arg0); end
 
     # source://bootsnap//lib/bootsnap.rb#38
-    def setup(cache_dir:, development_mode: T.unsafe(nil), load_path_cache: T.unsafe(nil), autoload_paths_cache: T.unsafe(nil), disable_trace: T.unsafe(nil), compile_cache_iseq: T.unsafe(nil), compile_cache_yaml: T.unsafe(nil), compile_cache_json: T.unsafe(nil)); end
+    def setup(cache_dir:, development_mode: T.unsafe(nil), load_path_cache: T.unsafe(nil), ignore_directories: T.unsafe(nil), compile_cache_iseq: T.unsafe(nil), compile_cache_yaml: T.unsafe(nil), compile_cache_json: T.unsafe(nil)); end
+
+    # source://bootsnap//lib/bootsnap.rb#63
+    def unload_cache!; end
   end
 end
 
@@ -415,14 +413,14 @@ module Bootsnap::LoadPathCache
     def loaded_features_index; end
 
     # source://bootsnap//lib/bootsnap/load_path_cache.rb#31
-    def setup(cache_path:, development_mode:); end
+    def setup(cache_path:, development_mode:, ignore_directories:); end
 
     # @return [Boolean]
     #
     # source://bootsnap//lib/bootsnap/load_path_cache.rb#56
     def supported?; end
 
-    # source://bootsnap//lib/bootsnap/load_path_cache.rb#47
+    # source://bootsnap//lib/bootsnap/load_path_cache.rb#48
     def unload!; end
   end
 end
@@ -619,6 +617,13 @@ end
 
 # source://bootsnap//lib/bootsnap/load_path_cache.rb#16
 Bootsnap::LoadPathCache::DLEXT = T.let(T.unsafe(nil), String)
+
+# This is nil on linux and darwin, but I think it's '.o' on some other
+# platform.  I'm not really sure which, but it seems better to replicate
+# ruby's semantics as faithfully as possible.
+#
+# source://bootsnap//lib/bootsnap/load_path_cache.rb#20
+Bootsnap::LoadPathCache::DLEXT2 = T.let(T.unsafe(nil), T.untyped)
 
 # source://bootsnap//lib/bootsnap/load_path_cache.rb#11
 Bootsnap::LoadPathCache::DL_EXTENSIONS = T.let(T.unsafe(nil), Array)
@@ -823,13 +828,25 @@ Bootsnap::LoadPathCache::Path::VOLATILE = T.let(T.unsafe(nil), Symbol)
 # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#7
 module Bootsnap::LoadPathCache::PathScanner
   class << self
-    # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#19
+    # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#23
     def call(path); end
 
-    # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#63
+    # Returns the value of attribute ignored_directories.
+    #
+    # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#21
+    def ignored_directories; end
+
+    # Sets the attribute ignored_directories
+    #
+    # @param value the value to set the attribute ignored_directories to.
+    #
+    # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#21
+    def ignored_directories=(_arg0); end
+
+    # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#69
     def os_path(path); end
 
-    # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#45
+    # source://bootsnap//lib/bootsnap/load_path_cache/path_scanner.rb#49
     def walk(absolute_dir_path, relative_dir_path, &block); end
   end
 end
@@ -920,6 +937,11 @@ module Kernel
 
   # source://bootsnap//lib/bootsnap/load_path_cache/core_ext/kernel_require.rb#8
   def zeitwerk_original_require(path); end
+
+  class << self
+    # source://bootsnap//lib/bootsnap/load_path_cache/core_ext/kernel_require.rb#8
+    def zeitwerk_original_require(path); end
+  end
 end
 
 module Psych

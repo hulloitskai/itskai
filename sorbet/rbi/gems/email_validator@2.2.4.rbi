@@ -8,7 +8,7 @@
 #
 # source://email_validator//lib/email_validator.rb#5
 class EmailValidator < ::ActiveModel::EachValidator
-  # source://email_validator//lib/email_validator.rb#160
+  # source://email_validator//lib/email_validator.rb#161
   def validate_each(record, attribute, value); end
 
   class << self
@@ -17,14 +17,14 @@ class EmailValidator < ::ActiveModel::EachValidator
 
     # @return [Boolean]
     #
-    # source://email_validator//lib/email_validator.rb#33
+    # source://email_validator//lib/email_validator.rb#35
     def invalid?(value, options = T.unsafe(nil)); end
 
     # Refs:
     #  https://tools.ietf.org/html/rfc2822 : 3.2. Lexical Tokens, 3.4.1. Addr-spec specification
     #  https://tools.ietf.org/html/rfc5321 : 4.1.2.  Command Argument Syntax
     #
-    # source://email_validator//lib/email_validator.rb#40
+    # source://email_validator//lib/email_validator.rb#42
     def regexp(options = T.unsafe(nil)); end
 
     # @return [Boolean]
@@ -34,61 +34,58 @@ class EmailValidator < ::ActiveModel::EachValidator
 
     protected
 
-    # source://email_validator//lib/email_validator.rb#91
+    # source://email_validator//lib/email_validator.rb#93
     def address_literal; end
 
-    # source://email_validator//lib/email_validator.rb#74
+    # source://email_validator//lib/email_validator.rb#76
     def alnum; end
 
-    # source://email_validator//lib/email_validator.rb#78
+    # source://email_validator//lib/email_validator.rb#80
     def alnumhy; end
 
-    # source://email_validator//lib/email_validator.rb#70
+    # source://email_validator//lib/email_validator.rb#72
     def alpha; end
 
-    # source://email_validator//lib/email_validator.rb#130
+    # source://email_validator//lib/email_validator.rb#127
     def atom_char; end
 
     # splitting this up into separate regex pattern for performance; let's not
     # try the "contains" pattern unless we have to
     #
-    # source://email_validator//lib/email_validator.rb#103
+    # source://email_validator//lib/email_validator.rb#104
     def domain_label_pattern; end
 
-    # source://email_validator//lib/email_validator.rb#122
+    # source://email_validator//lib/email_validator.rb#123
     def domain_part_is_correct_length; end
 
-    # source://email_validator//lib/email_validator.rb#141
+    # source://email_validator//lib/email_validator.rb#138
     def domain_part_pattern(options); end
 
-    # source://email_validator//lib/email_validator.rb#147
+    # source://email_validator//lib/email_validator.rb#144
     def fqdn_pattern; end
 
-    # source://email_validator//lib/email_validator.rb#95
+    # source://email_validator//lib/email_validator.rb#97
     def host_label_pattern; end
 
-    # source://email_validator//lib/email_validator.rb#82
+    # source://email_validator//lib/email_validator.rb#84
     def ipv4; end
 
-    # source://email_validator//lib/email_validator.rb#86
+    # source://email_validator//lib/email_validator.rb#88
     def ipv6; end
 
-    # source://email_validator//lib/email_validator.rb#126
-    def label_contains_no_more_than_one_consecutive_hyphen; end
-
-    # source://email_validator//lib/email_validator.rb#118
+    # source://email_validator//lib/email_validator.rb#119
     def label_is_correct_length; end
 
-    # source://email_validator//lib/email_validator.rb#136
+    # source://email_validator//lib/email_validator.rb#133
     def local_part_pattern; end
 
-    # source://email_validator//lib/email_validator.rb#57
+    # source://email_validator//lib/email_validator.rb#59
     def loose_regexp(options = T.unsafe(nil)); end
 
-    # source://email_validator//lib/email_validator.rb#66
+    # source://email_validator//lib/email_validator.rb#68
     def rfc_regexp(options = T.unsafe(nil)); end
 
-    # source://email_validator//lib/email_validator.rb#62
+    # source://email_validator//lib/email_validator.rb#64
     def strict_regexp(options = T.unsafe(nil)); end
 
     # While, techincally, TLDs can be numeric-only, this is not allowed by ICANN
@@ -99,13 +96,16 @@ class EmailValidator < ::ActiveModel::EachValidator
     #
     #      -- https://newgtlds.icann.org/en/applicants/agb/guidebook-full-04jun12-en.pdf
     #
-    # source://email_validator//lib/email_validator.rb#114
+    # source://email_validator//lib/email_validator.rb#115
     def tld_label_pattern; end
 
     private
 
-    # source://email_validator//lib/email_validator.rb#153
+    # source://email_validator//lib/email_validator.rb#150
     def parse_options(options); end
+
+    # source://email_validator//lib/email_validator.rb#156
+    def regexp_safe_domain(options); end
   end
 end
 

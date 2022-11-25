@@ -7,33 +7,33 @@
 # source://aws-partitions//lib/aws-partitions/endpoint_provider.rb#3
 module Aws
   class << self
-    # source://aws-sdk-core/3.149.0/lib/aws-sdk-core.rb#129
+    # source://aws-sdk-core/3.168.1/lib/aws-sdk-core.rb#133
     def config; end
 
-    # source://aws-sdk-core/3.149.0/lib/aws-sdk-core.rb#132
+    # source://aws-sdk-core/3.168.1/lib/aws-sdk-core.rb#136
     def config=(config); end
 
-    # source://aws-sdk-core/3.149.0/lib/aws-sdk-core.rb#191
+    # source://aws-sdk-core/3.168.1/lib/aws-sdk-core.rb#195
     def eager_autoload!(*args); end
 
-    # source://aws-sdk-core/3.149.0/lib/aws-sdk-core.rb#184
+    # source://aws-sdk-core/3.168.1/lib/aws-sdk-core.rb#188
     def empty_connection_pools!; end
 
-    # source://aws-sdk-core/3.149.0/lib/aws-sdk-core.rb#141
+    # source://aws-sdk-core/3.168.1/lib/aws-sdk-core.rb#145
     def partition(partition_name); end
 
-    # source://aws-sdk-core/3.149.0/lib/aws-sdk-core.rb#146
+    # source://aws-sdk-core/3.168.1/lib/aws-sdk-core.rb#150
     def partitions; end
 
-    # source://aws-sdk-core/3.149.0/lib/aws-sdk-core.rb#122
+    # source://aws-sdk-core/3.168.1/lib/aws-sdk-core.rb#126
     def shared_config; end
 
-    # source://aws-sdk-core/3.149.0/lib/aws-sdk-core.rb#161
+    # source://aws-sdk-core/3.168.1/lib/aws-sdk-core.rb#165
     def use_bundled_cert!; end
   end
 end
 
-# source://aws-sdk-core/3.149.0/lib/aws-sdk-core.rb#115
+# source://aws-sdk-core/3.168.1/lib/aws-sdk-core.rb#119
 Aws::CORE_GEM_VERSION = T.let(T.unsafe(nil), String)
 
 # A {Partition} is a group of AWS {Region} and {Service} objects. You
@@ -165,25 +165,37 @@ module Aws::Partitions
 
     # @api private For internal use only.
     #
-    # source://aws-partitions//lib/aws-partitions.rb#199
+    # source://aws-partitions//lib/aws-partitions.rb#205
     def clear; end
+
+    # @api private
+    # @return [Hash]
+    #
+    # source://aws-partitions//lib/aws-partitions.rb#232
+    def default_metadata; end
 
     # @api private
     # @return [PartitionList]
     #
-    # source://aws-partitions//lib/aws-partitions.rb#206
+    # source://aws-partitions//lib/aws-partitions.rb#212
     def default_partition_list; end
 
     # @api private
     # @return [Hash]
     #
-    # source://aws-partitions//lib/aws-partitions.rb#212
+    # source://aws-partitions//lib/aws-partitions.rb#222
     def defaults; end
 
     # @return [Enumerable<Partition>]
     #
     # source://aws-partitions//lib/aws-partitions.rb#136
     def each(&block); end
+
+    # @api private For Internal use only
+    # @param partition [Hash] metadata
+    #
+    # source://aws-partitions//lib/aws-partitions.rb#200
+    def merge_metadata(partition_metadata); end
 
     # Return the partition with the given name. A partition describes
     # the services and regions available in that partition.
@@ -236,7 +248,7 @@ module Aws::Partitions
     # @return [Hash<String,String>] Returns a map of service module names
     #   to their id as used in the endpoints.json document.
     #
-    # source://aws-partitions//lib/aws-partitions.rb#223
+    # source://aws-partitions//lib/aws-partitions.rb#243
     def service_ids; end
   end
 end
@@ -420,51 +432,61 @@ class Aws::Partitions::Partition
   # source://aws-partitions//lib/aws-partitions/partition.rb#10
   def initialize(options = T.unsafe(nil)); end
 
+  # @return [Metadata] The metadata for the partition.
+  #
+  # source://aws-partitions//lib/aws-partitions/partition.rb#25
+  def metadata; end
+
   # @return [String] The partition name, e.g. "aws", "aws-cn", "aws-us-gov".
   #
-  # source://aws-partitions//lib/aws-partitions/partition.rb#17
+  # source://aws-partitions//lib/aws-partitions/partition.rb#19
   def name; end
 
   # @param region_name [String] The name of the region, e.g. "us-east-1".
   # @raise [ArgumentError] Raises `ArgumentError` for unknown region name.
   # @return [Region]
   #
-  # source://aws-partitions//lib/aws-partitions/partition.rb#22
+  # source://aws-partitions//lib/aws-partitions/partition.rb#30
   def region(region_name); end
 
   # @param region_name [String] The name of the region, e.g. "us-east-1".
   # @return [Boolean] true if the region is in the partition.
   #
-  # source://aws-partitions//lib/aws-partitions/partition.rb#39
+  # source://aws-partitions//lib/aws-partitions/partition.rb#47
   def region?(region_name); end
+
+  # @return [String] The regex representing the region format.
+  #
+  # source://aws-partitions//lib/aws-partitions/partition.rb#22
+  def region_regex; end
 
   # @return [Array<Region>]
   #
-  # source://aws-partitions//lib/aws-partitions/partition.rb#33
+  # source://aws-partitions//lib/aws-partitions/partition.rb#41
   def regions; end
 
   # @param service_name [String] The service module name.
   # @raise [ArgumentError] Raises `ArgumentError` for unknown service name.
   # @return [Service]
   #
-  # source://aws-partitions//lib/aws-partitions/partition.rb#46
+  # source://aws-partitions//lib/aws-partitions/partition.rb#54
   def service(service_name); end
 
   # @param service_name [String] The service module name.
   # @return [Boolean] true if the service is in the partition.
   #
-  # source://aws-partitions//lib/aws-partitions/partition.rb#63
+  # source://aws-partitions//lib/aws-partitions/partition.rb#71
   def service?(service_name); end
 
   # @return [Array<Service>]
   #
-  # source://aws-partitions//lib/aws-partitions/partition.rb#57
+  # source://aws-partitions//lib/aws-partitions/partition.rb#65
   def services; end
 
   class << self
     # @api private
     #
-    # source://aws-partitions//lib/aws-partitions/partition.rb#69
+    # source://aws-partitions//lib/aws-partitions/partition.rb#77
     def build(partition); end
 
     private
@@ -472,13 +494,13 @@ class Aws::Partitions::Partition
     # @param partition [Hash]
     # @return [Hash<String,Region>]
     #
-    # source://aws-partitions//lib/aws-partitions/partition.rb#81
+    # source://aws-partitions//lib/aws-partitions/partition.rb#90
     def build_regions(partition); end
 
     # @param partition [Hash]
     # @return [Hash<String,Service>]
     #
-    # source://aws-partitions//lib/aws-partitions/partition.rb#94
+    # source://aws-partitions//lib/aws-partitions/partition.rb#102
     def build_services(partition); end
   end
 end
@@ -502,13 +524,19 @@ class Aws::Partitions::PartitionList
   #
   # @api private
   #
-  # source://aws-partitions//lib/aws-partitions/partition_list.rb#47
+  # source://aws-partitions//lib/aws-partitions/partition_list.rb#80
   def clear; end
 
   # @return [Enumerator<Partition>]
   #
   # source://aws-partitions//lib/aws-partitions/partition_list.rb#14
   def each(&block); end
+
+  # @api private
+  # @param partition [Partition]
+  #
+  # source://aws-partitions//lib/aws-partitions/partition_list.rb#47
+  def merge_metadata(partitions_metadata); end
 
   # @param partition_name [String]
   # @return [Partition]
@@ -521,10 +549,15 @@ class Aws::Partitions::PartitionList
   # source://aws-partitions//lib/aws-partitions/partition_list.rb#31
   def partitions; end
 
+  private
+
+  # source://aws-partitions//lib/aws-partitions/partition_list.rb#86
+  def build_metadata_regions(partition_name, metadata_regions, existing = T.unsafe(nil)); end
+
   class << self
     # @api private
     #
-    # source://aws-partitions//lib/aws-partitions/partition_list.rb#54
+    # source://aws-partitions//lib/aws-partitions/partition_list.rb#104
     def build(partitions); end
   end
 end

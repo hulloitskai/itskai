@@ -54,13 +54,13 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @overload initialize
   # @return [Client] a new instance of Client
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#358
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#375
   def initialize(*args); end
 
   # @api private
   # @param params [{}]
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#8215
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#8232
   def build_request(operation_name, params = T.unsafe(nil)); end
 
   # Cancels the deletion of a KMS key. When this operation succeeds, the
@@ -116,7 +116,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::CancelKeyDeletionResponse#key_id #key_id} => String
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/CancelKeyDeletion AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#436
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#453
   def cancel_key_deletion(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Connects or reconnects a [custom key store][1] to its associated
@@ -209,7 +209,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/ConnectCustomKeyStore AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#539
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#556
   def connect_custom_key_store(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Creates a friendly name for a KMS key.
@@ -294,7 +294,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/CreateAlias AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#669
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#686
   def create_alias(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Creates a [custom key store][1] that is associated with an [CloudHSM
@@ -383,7 +383,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::CreateCustomKeyStoreResponse#custom_key_store_id #custom_key_store_id} => String
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/CreateCustomKeyStore AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#799
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#816
   def create_custom_key_store(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Adds a grant to a KMS key.
@@ -502,7 +502,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::CreateGrantResponse#grant_id #grant_id} => String
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/CreateGrant AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#1057
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#1074
   def create_grant(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Creates a unique customer managed [KMS key][1] in your Amazon Web
@@ -975,7 +975,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::CreateKeyResponse#key_metadata #key_metadata} => Types::KeyMetadata
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/CreateKey AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#1835
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#1852
   def create_key(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Decrypts ciphertext that was encrypted by a KMS key using any of the
@@ -1108,7 +1108,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::DecryptResponse#encryption_algorithm #encryption_algorithm} => String
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/Decrypt AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#2053
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#2070
   def decrypt(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Deletes the specified alias.
@@ -1173,7 +1173,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/DeleteAlias AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#2127
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#2144
   def delete_alias(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Deletes a [custom key store][1]. This operation does not delete the
@@ -1256,7 +1256,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/DeleteCustomKeyStore AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#2219
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#2236
   def delete_custom_key_store(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Deletes key material that you previously imported. This operation
@@ -1311,7 +1311,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/DeleteImportedKeyMaterial AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#2295
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#2312
   def delete_imported_key_material(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Gets information about [custom key stores][1] in the account and
@@ -1438,7 +1438,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::DescribeCustomKeyStoresResponse#truncated #truncated} => Boolean
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/DescribeCustomKeyStores AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#2454
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#2471
   def describe_custom_key_stores(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Provides detailed information about a KMS key. You can run
@@ -1695,7 +1695,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::DescribeKeyResponse#key_metadata #key_metadata} => Types::KeyMetadata
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/DescribeKey AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#2763
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#2780
   def describe_key(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Sets the state of a KMS key to disabled. This change temporarily
@@ -1740,7 +1740,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/DisableKey AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#2828
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#2845
   def disable_key(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Disables [automatic rotation of the key material][1] of the specified
@@ -1813,7 +1813,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/DisableKeyRotation AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#2931
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#2948
   def disable_key_rotation(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Disconnects the [custom key store][1] from its associated CloudHSM
@@ -1889,7 +1889,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/DisconnectCustomKeyStore AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#3017
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#3034
   def disconnect_custom_key_store(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Sets the key state of a KMS key to enabled. This allows you to use the
@@ -1930,7 +1930,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/EnableKey AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#3078
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#3095
   def enable_key(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Enables [automatic rotation of the key material][1] of the specified
@@ -2016,7 +2016,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/EnableKeyRotation AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#3197
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#3214
   def enable_key_rotation(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Encrypts plaintext of up to 4,096 bytes using a KMS key. You can use a
@@ -2151,7 +2151,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::EncryptResponse#encryption_algorithm #encryption_algorithm} => String
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/Encrypt AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#3407
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#3424
   def encrypt(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Returns a unique symmetric data key for use outside of KMS. This
@@ -2302,7 +2302,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::GenerateDataKeyResponse#key_id #key_id} => String
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/GenerateDataKey AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#3634
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#3651
   def generate_data_key(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Returns a unique asymmetric data key pair for use outside of KMS. This
@@ -2435,7 +2435,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::GenerateDataKeyPairResponse#key_pair_spec #key_pair_spec} => String
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/GenerateDataKeyPair AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#3837
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#3854
   def generate_data_key_pair(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Returns a unique asymmetric data key pair for use outside of KMS. This
@@ -2554,7 +2554,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::GenerateDataKeyPairWithoutPlaintextResponse#key_pair_spec #key_pair_spec} => String
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/GenerateDataKeyPairWithoutPlaintext AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#4026
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#4043
   def generate_data_key_pair_without_plaintext(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Returns a unique symmetric data key for use outside of KMS. This
@@ -2671,7 +2671,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::GenerateDataKeyWithoutPlaintextResponse#key_id #key_id} => String
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/GenerateDataKeyWithoutPlaintext AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#4212
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#4229
   def generate_data_key_without_plaintext(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Generates a hash-based message authentication code (HMAC) for a
@@ -2758,7 +2758,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::GenerateMacResponse#key_id #key_id} => String
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/GenerateMac AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#4341
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#4358
   def generate_mac(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Returns a random byte string that is cryptographically secure.
@@ -2822,7 +2822,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::GenerateRandomResponse#plaintext #plaintext} => String
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/GenerateRandom AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#4422
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#4439
   def generate_random(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Gets a key policy attached to the specified KMS key.
@@ -2869,7 +2869,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::GetKeyPolicyResponse#policy #policy} => String
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/GetKeyPolicy AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#4493
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#4510
   def get_key_policy(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Gets a Boolean value that indicates whether [automatic rotation of the
@@ -2974,7 +2974,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::GetKeyRotationStatusResponse#key_rotation_enabled #key_rotation_enabled} => Boolean
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/GetKeyRotationStatus AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#4620
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#4637
   def get_key_rotation_status(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Returns the items you need to import key material into a symmetric
@@ -3066,7 +3066,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::GetParametersForImportResponse#parameters_valid_to #parameters_valid_to} => Time
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/GetParametersForImport AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#4746
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#4763
   def get_parameters_for_import(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Returns the public key of an asymmetric KMS key. Unlike the private
@@ -3186,7 +3186,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::GetPublicKeyResponse#signing_algorithms #signing_algorithms} => Array&lt;String&gt;
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/GetPublicKey AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#4906
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#4923
   def get_public_key(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Imports key material into an existing symmetric encryption KMS key
@@ -3292,7 +3292,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/ImportKeyMaterial AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#5058
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#5075
   def import_key_material(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Gets a list of aliases in the caller's Amazon Web Services account
@@ -3421,7 +3421,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::ListAliasesResponse#truncated #truncated} => Boolean
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/ListAliases AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#5223
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#5240
   def list_aliases(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Gets a list of all grants for the specified KMS key.
@@ -3574,7 +3574,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::ListGrantsResponse#truncated #truncated} => Boolean
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/ListGrants AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#5416
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#5433
   def list_grants(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Gets the names of the key policies that are attached to a KMS key.
@@ -3639,7 +3639,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::ListKeyPoliciesResponse#truncated #truncated} => Boolean
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/ListKeyPolicies AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#5516
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#5533
   def list_key_policies(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Gets a list of all KMS keys in the caller's Amazon Web Services
@@ -3731,7 +3731,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::ListKeysResponse#truncated #truncated} => Boolean
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/ListKeys AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#5627
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#5644
   def list_keys(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Returns all tags on the specified KMS key.
@@ -3816,7 +3816,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::ListResourceTagsResponse#truncated #truncated} => Boolean
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/ListResourceTags AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#5747
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#5764
   def list_resource_tags(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Returns information about all grants in the Amazon Web Services
@@ -3923,7 +3923,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::ListGrantsResponse#truncated #truncated} => Boolean
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/ListRetirableGrants AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#5888
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#5905
   def list_retirable_grants(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Attaches a key policy to the specified KMS key.
@@ -3976,7 +3976,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/PutKeyPolicy AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#6027
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#6044
   def put_key_policy(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Decrypts ciphertext and then reencrypts it entirely within KMS. You
@@ -4139,7 +4139,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::ReEncryptResponse#destination_encryption_algorithm #destination_encryption_algorithm} => String
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/ReEncrypt AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#6328
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#6345
   def re_encrypt(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Replicates a multi-Region key into the specified Region. This
@@ -4355,7 +4355,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::ReplicateKeyResponse#replica_tags #replica_tags} => Array&lt;Types::Tag&gt;
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/ReplicateKey AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#6717
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#6734
   def replicate_key(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Deletes a grant. Typically, you retire a grant when you no longer need
@@ -4422,7 +4422,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/RetireGrant AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#6816
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#6833
   def retire_grant(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Deletes the specified grant. You revoke a grant to terminate the
@@ -4486,7 +4486,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/RevokeGrant AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#6905
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#6922
   def revoke_grant(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Schedules the deletion of a KMS key. By default, KMS applies a waiting
@@ -4589,7 +4589,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::ScheduleKeyDeletionResponse#pending_window_in_days #pending_window_in_days} => Integer
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/ScheduleKeyDeletion AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#7039
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#7056
   def schedule_key_deletion(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Creates a [digital signature][1] for a message or message digest by
@@ -4704,7 +4704,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::SignResponse#signing_algorithm #signing_algorithm} => String
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/Sign AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#7212
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#7229
   def sign(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Adds or edits tags on a [customer managed key][1].
@@ -4795,7 +4795,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/TagResource AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#7332
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#7349
   def tag_resource(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Deletes tags from a [customer managed key][1]. To delete a tag,
@@ -4869,7 +4869,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/UntagResource AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#7428
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#7445
   def untag_resource(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Associates an existing KMS alias with a different KMS key. Each alias
@@ -4954,7 +4954,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/UpdateAlias AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#7553
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#7570
   def update_alias(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Changes the properties of a custom key store. Use the
@@ -5081,7 +5081,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/UpdateCustomKeyStore AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#7719
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#7736
   def update_custom_key_store(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Updates the description of a KMS key. To see the description of a KMS
@@ -5128,7 +5128,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/UpdateKeyDescription AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#7788
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#7805
   def update_key_description(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Changes the primary key of a multi-Region key.
@@ -5228,7 +5228,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/UpdatePrimaryRegion AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#7914
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#7931
   def update_primary_region(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Verifies a digital signature that was generated by the Sign operation.
@@ -5334,7 +5334,7 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::VerifyResponse#signing_algorithm #signing_algorithm} => String
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/Verify AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#8084
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#8101
   def verify(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Verifies the hash-based message authentication code (HMAC) for a
@@ -5416,24 +5416,24 @@ class Aws::KMS::Client < ::Seahorse::Client::Base
   #   * {Types::VerifyMacResponse#mac_algorithm #mac_algorithm} => String
   # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/VerifyMac AWS API Documentation
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#8206
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#8223
   def verify_mac(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # @api private
   # @deprecated
   #
-  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#8230
+  # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#8247
   def waiter_names; end
 
   class << self
     # @api private
     #
-    # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#8240
+    # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#8257
     def errors_module; end
 
     # @api private
     #
-    # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#8237
+    # source://aws-sdk-kms//lib/aws-sdk-kms/client.rb#8254
     def identifier; end
   end
 end
@@ -6410,6 +6410,485 @@ Aws::KMS::ClientApi::VerifyResponse = T.let(T.unsafe(nil), Seahorse::Model::Shap
 # source://aws-sdk-kms//lib/aws-sdk-kms/client_api.rb#207
 Aws::KMS::ClientApi::WrappingKeySpec = T.let(T.unsafe(nil), Seahorse::Model::Shapes::StringShape)
 
+# Endpoint parameters used to influence endpoints per request.
+#
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoint_parameters.rb#33
+class Aws::KMS::EndpointParameters < ::Struct
+  include ::Aws::Structure
+
+  # @return [EndpointParameters] a new instance of EndpointParameters
+  #
+  # source://aws-sdk-kms//lib/aws-sdk-kms/endpoint_parameters.rb#51
+  def initialize(options = T.unsafe(nil)); end
+
+  # Override the endpoint used to send this request
+  #
+  # @return [String]
+  def endpoint; end
+
+  # Override the endpoint used to send this request
+  #
+  # @return [String]
+  def endpoint=(_); end
+
+  # The AWS region used to dispatch the request.
+  #
+  # @return [String]
+  def region; end
+
+  # The AWS region used to dispatch the request.
+  #
+  # @return [String]
+  def region=(_); end
+
+  # When true, use the dual-stack endpoint. If the configured endpoint does not support dual-stack, dispatching the request MAY return an error.
+  #
+  # @return [Boolean]
+  def use_dual_stack; end
+
+  # When true, use the dual-stack endpoint. If the configured endpoint does not support dual-stack, dispatching the request MAY return an error.
+  #
+  # @return [Boolean]
+  def use_dual_stack=(_); end
+
+  # When true, send this request to the FIPS-compliant regional endpoint. If the configured endpoint does not have a FIPS compliant endpoint, dispatching the request will return an error.
+  #
+  # @return [Boolean]
+  def use_fips; end
+
+  # When true, send this request to the FIPS-compliant regional endpoint. If the configured endpoint does not have a FIPS compliant endpoint, dispatching the request will return an error.
+  #
+  # @return [Boolean]
+  def use_fips=(_); end
+
+  class << self
+    def [](*_arg0); end
+    def inspect; end
+    def keyword_init?; end
+    def members; end
+    def new(*_arg0); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoint_provider.rb#11
+class Aws::KMS::EndpointProvider
+  # @return [EndpointProvider] a new instance of EndpointProvider
+  #
+  # source://aws-sdk-kms//lib/aws-sdk-kms/endpoint_provider.rb#12
+  def initialize(rule_set = T.unsafe(nil)); end
+
+  # source://aws-sdk-kms//lib/aws-sdk-kms/endpoint_provider.rb#25
+  def resolve_endpoint(parameters); end
+end
+
+# @api private
+#
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoint_provider.rb#30
+Aws::KMS::EndpointProvider::RULES = T.let(T.unsafe(nil), String)
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#12
+module Aws::KMS::Endpoints; end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#14
+class Aws::KMS::Endpoints::CancelKeyDeletion
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#15
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#28
+class Aws::KMS::Endpoints::ConnectCustomKeyStore
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#29
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#42
+class Aws::KMS::Endpoints::CreateAlias
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#43
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#56
+class Aws::KMS::Endpoints::CreateCustomKeyStore
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#57
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#70
+class Aws::KMS::Endpoints::CreateGrant
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#71
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#84
+class Aws::KMS::Endpoints::CreateKey
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#85
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#98
+class Aws::KMS::Endpoints::Decrypt
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#99
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#112
+class Aws::KMS::Endpoints::DeleteAlias
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#113
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#126
+class Aws::KMS::Endpoints::DeleteCustomKeyStore
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#127
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#140
+class Aws::KMS::Endpoints::DeleteImportedKeyMaterial
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#141
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#154
+class Aws::KMS::Endpoints::DescribeCustomKeyStores
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#155
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#168
+class Aws::KMS::Endpoints::DescribeKey
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#169
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#182
+class Aws::KMS::Endpoints::DisableKey
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#183
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#196
+class Aws::KMS::Endpoints::DisableKeyRotation
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#197
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#210
+class Aws::KMS::Endpoints::DisconnectCustomKeyStore
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#211
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#224
+class Aws::KMS::Endpoints::EnableKey
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#225
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#238
+class Aws::KMS::Endpoints::EnableKeyRotation
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#239
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#252
+class Aws::KMS::Endpoints::Encrypt
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#253
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#266
+class Aws::KMS::Endpoints::GenerateDataKey
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#267
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#280
+class Aws::KMS::Endpoints::GenerateDataKeyPair
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#281
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#294
+class Aws::KMS::Endpoints::GenerateDataKeyPairWithoutPlaintext
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#295
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#308
+class Aws::KMS::Endpoints::GenerateDataKeyWithoutPlaintext
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#309
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#322
+class Aws::KMS::Endpoints::GenerateMac
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#323
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#336
+class Aws::KMS::Endpoints::GenerateRandom
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#337
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#350
+class Aws::KMS::Endpoints::GetKeyPolicy
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#351
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#364
+class Aws::KMS::Endpoints::GetKeyRotationStatus
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#365
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#378
+class Aws::KMS::Endpoints::GetParametersForImport
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#379
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#392
+class Aws::KMS::Endpoints::GetPublicKey
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#393
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#406
+class Aws::KMS::Endpoints::ImportKeyMaterial
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#407
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#420
+class Aws::KMS::Endpoints::ListAliases
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#421
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#434
+class Aws::KMS::Endpoints::ListGrants
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#435
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#448
+class Aws::KMS::Endpoints::ListKeyPolicies
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#449
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#462
+class Aws::KMS::Endpoints::ListKeys
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#463
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#476
+class Aws::KMS::Endpoints::ListResourceTags
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#477
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#490
+class Aws::KMS::Endpoints::ListRetirableGrants
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#491
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#504
+class Aws::KMS::Endpoints::PutKeyPolicy
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#505
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#518
+class Aws::KMS::Endpoints::ReEncrypt
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#519
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#532
+class Aws::KMS::Endpoints::ReplicateKey
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#533
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#546
+class Aws::KMS::Endpoints::RetireGrant
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#547
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#560
+class Aws::KMS::Endpoints::RevokeGrant
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#561
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#574
+class Aws::KMS::Endpoints::ScheduleKeyDeletion
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#575
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#588
+class Aws::KMS::Endpoints::Sign
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#589
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#602
+class Aws::KMS::Endpoints::TagResource
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#603
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#616
+class Aws::KMS::Endpoints::UntagResource
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#617
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#630
+class Aws::KMS::Endpoints::UpdateAlias
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#631
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#644
+class Aws::KMS::Endpoints::UpdateCustomKeyStore
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#645
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#658
+class Aws::KMS::Endpoints::UpdateKeyDescription
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#659
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#672
+class Aws::KMS::Endpoints::UpdatePrimaryRegion
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#673
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#686
+class Aws::KMS::Endpoints::Verify
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#687
+    def build(context); end
+  end
+end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#700
+class Aws::KMS::Endpoints::VerifyMac
+  class << self
+    # source://aws-sdk-kms//lib/aws-sdk-kms/endpoints.rb#701
+    def build(context); end
+  end
+end
+
 # When KMS returns an error response, the Ruby SDK constructs and raises an error.
 # These errors all extend Aws::KMS::Errors::ServiceError < {Aws::Errors::ServiceError}
 #
@@ -7018,8 +7497,39 @@ class Aws::KMS::Errors::UnsupportedOperationException < ::Aws::KMS::Errors::Serv
   def message; end
 end
 
-# source://aws-sdk-kms//lib/aws-sdk-kms.rb#51
+# source://aws-sdk-kms//lib/aws-sdk-kms.rb#55
 Aws::KMS::GEM_VERSION = T.let(T.unsafe(nil), String)
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/plugins/endpoints.rb#12
+module Aws::KMS::Plugins; end
+
+# source://aws-sdk-kms//lib/aws-sdk-kms/plugins/endpoints.rb#13
+class Aws::KMS::Plugins::Endpoints < ::Seahorse::Client::Plugin
+  # source://aws-sdk-kms//lib/aws-sdk-kms/plugins/endpoints.rb#163
+  def add_handlers(handlers, _config); end
+end
+
+# @api private
+#
+# source://aws-sdk-kms//lib/aws-sdk-kms/plugins/endpoints.rb#26
+class Aws::KMS::Plugins::Endpoints::Handler < ::Seahorse::Client::Handler
+  # @api private
+  #
+  # source://aws-sdk-kms//lib/aws-sdk-kms/plugins/endpoints.rb#27
+  def call(context); end
+
+  private
+
+  # @api private
+  #
+  # source://aws-sdk-kms//lib/aws-sdk-kms/plugins/endpoints.rb#46
+  def apply_endpoint_headers(context, headers); end
+
+  # @api private
+  #
+  # source://aws-sdk-kms//lib/aws-sdk-kms/plugins/endpoints.rb#57
+  def parameters_for_operation(context); end
+end
 
 # source://aws-sdk-kms//lib/aws-sdk-kms/resource.rb#12
 class Aws::KMS::Resource

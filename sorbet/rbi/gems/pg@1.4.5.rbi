@@ -700,7 +700,7 @@ class PG::Connection
   # Returns +nil+ on success, or a string containing the
   # error message if a failure occurs.
   #
-  # source://pg//lib/pg/connection.rb#497
+  # source://pg//lib/pg/connection.rb#518
   def async_cancel; end
 
   def async_describe_portal(_arg0); end
@@ -727,15 +727,12 @@ class PG::Connection
   # Available since PostgreSQL-10.
   # See also corresponding {libpq function}[https://www.postgresql.org/docs/current/libpq-misc.html#LIBPQ-PQENCRYPTPASSWORDCONN].
   #
-  # source://pg//lib/pg/connection.rb#470
+  # source://pg//lib/pg/connection.rb#491
   def async_encrypt_password(password, username, algorithm = T.unsafe(nil)); end
 
-  # source://rack-mini-profiler/3.0.0/lib/patches/db/pg.rb#109
-  def async_exec(*args, &blk); end
-
+  def async_exec(*_arg0); end
   def async_exec_params(*_arg0); end
   def async_exec_prepared(*_arg0); end
-  def async_exec_without_profiling(*_arg0); end
   def async_flush; end
 
   # call-seq:
@@ -755,7 +752,7 @@ class PG::Connection
   #
   # See also #copy_data.
   #
-  # source://pg//lib/pg/connection.rb#338
+  # source://pg//lib/pg/connection.rb#359
   def async_get_copy_data(async = T.unsafe(nil), decoder = T.unsafe(nil)); end
 
   def async_get_last_result; end
@@ -775,7 +772,7 @@ class PG::Connection
   # and the PG::Result object will  automatically be cleared when the block terminates.
   # In this instance, <code>conn.exec</code> returns the value of the block.
   #
-  # source://pg//lib/pg/connection.rb#315
+  # source://pg//lib/pg/connection.rb#336
   def async_get_result; end
 
   # call-seq:
@@ -784,7 +781,7 @@ class PG::Connection
   # Returns the blocking status of the database connection.
   # Returns +true+ if the connection is set to nonblocking mode and +false+ if blocking.
   #
-  # source://pg//lib/pg/connection.rb#386
+  # source://pg//lib/pg/connection.rb#407
   def async_isnonblocking; end
 
   def async_prepare(*_arg0); end
@@ -807,7 +804,7 @@ class PG::Connection
   #
   # See also #copy_data.
   #
-  # source://pg//lib/pg/connection.rb#410
+  # source://pg//lib/pg/connection.rb#431
   def async_put_copy_data(buffer, encoder = T.unsafe(nil)); end
 
   # call-seq:
@@ -823,7 +820,7 @@ class PG::Connection
   # not sent (*false* is only possible if the connection
   # is in nonblocking mode, and this command would block).
   #
-  # source://pg//lib/pg/connection.rb#440
+  # source://pg//lib/pg/connection.rb#461
   def async_put_copy_end(*args); end
 
   def async_query(*_arg0); end
@@ -834,7 +831,7 @@ class PG::Connection
   # Resets the backend connection. This method closes the
   # backend connection and tries to re-connect.
   #
-  # source://pg//lib/pg/connection.rb#482
+  # source://pg//lib/pg/connection.rb#503
   def async_reset; end
 
   def async_set_client_encoding(_arg0); end
@@ -855,7 +852,7 @@ class PG::Connection
   #
   # Returns +nil+.
   #
-  # source://pg//lib/pg/connection.rb#372
+  # source://pg//lib/pg/connection.rb#393
   def async_setnonblocking(enabled); end
 
   def backend_key; end
@@ -871,7 +868,7 @@ class PG::Connection
   # Returns +nil+ on success, or a string containing the
   # error message if a failure occurs.
   #
-  # source://pg//lib/pg/connection.rb#497
+  # source://pg//lib/pg/connection.rb#518
   def cancel; end
 
   def client_encoding=(_arg0); end
@@ -880,13 +877,13 @@ class PG::Connection
   # Returns an array of Hashes with connection defaults. See ::conndefaults
   # for details.
   #
-  # source://pg//lib/pg/connection.rb#253
+  # source://pg//lib/pg/connection.rb#274
   def conndefaults; end
 
   # Returns a Hash with connection defaults. See ::conndefaults_hash
   # for details.
   #
-  # source://pg//lib/pg/connection.rb#269
+  # source://pg//lib/pg/connection.rb#290
   def conndefaults_hash; end
 
   def connect_poll; end
@@ -899,7 +896,7 @@ class PG::Connection
   #
   # See also #conninfo
   #
-  # source://pg//lib/pg/connection.rb#277
+  # source://pg//lib/pg/connection.rb#298
   def conninfo_hash; end
 
   def consume_input; end
@@ -974,7 +971,7 @@ class PG::Connection
   #
   # @raise [PG::NotInBlockingMode]
   #
-  # source://pg//lib/pg/connection.rb#164
+  # source://pg//lib/pg/connection.rb#185
   def copy_data(sql, coder = T.unsafe(nil)); end
 
   def db; end
@@ -1007,7 +1004,7 @@ class PG::Connection
   # Available since PostgreSQL-10.
   # See also corresponding {libpq function}[https://www.postgresql.org/docs/current/libpq-misc.html#LIBPQ-PQENCRYPTPASSWORDCONN].
   #
-  # source://pg//lib/pg/connection.rb#470
+  # source://pg//lib/pg/connection.rb#491
   def encrypt_password(password, username, algorithm = T.unsafe(nil)); end
 
   def enter_pipeline_mode; end
@@ -1017,20 +1014,9 @@ class PG::Connection
   def escape_identifier(_arg0); end
   def escape_literal(_arg0); end
   def escape_string(_arg0); end
-
-  # source://rack-mini-profiler/3.0.0/lib/patches/db/pg.rb#55
-  def exec(*args, &blk); end
-
-  # source://rack-mini-profiler/3.0.0/lib/patches/db/pg.rb#68
-  def exec_params(*args, &blk); end
-
-  def exec_params_without_profiling(*_arg0); end
-
-  # source://rack-mini-profiler/3.0.0/lib/patches/db/pg.rb#81
-  def exec_prepared(*args, &blk); end
-
-  def exec_prepared_without_profiling(*_arg0); end
-  def exec_without_profiling(*_arg0); end
+  def exec(*_arg0); end
+  def exec_params(*_arg0); end
+  def exec_prepared(*_arg0); end
   def exit_pipeline_mode; end
   def external_encoding; end
   def field_name_type; end
@@ -1057,7 +1043,7 @@ class PG::Connection
   #
   # See also #copy_data.
   #
-  # source://pg//lib/pg/connection.rb#338
+  # source://pg//lib/pg/connection.rb#359
   def get_copy_data(async = T.unsafe(nil), decoder = T.unsafe(nil)); end
 
   def get_last_result; end
@@ -1077,11 +1063,17 @@ class PG::Connection
   # and the PG::Result object will  automatically be cleared when the block terminates.
   # In this instance, <code>conn.exec</code> returns the value of the block.
   #
-  # source://pg//lib/pg/connection.rb#315
+  # source://pg//lib/pg/connection.rb#336
   def get_result; end
 
   def host; end
   def hostaddr; end
+
+  # Return a String representation of the object suitable for debugging.
+  #
+  # source://pg//lib/pg/connection.rb#97
+  def inspect; end
+
   def internal_encoding; end
   def internal_encoding=(_arg0); end
   def is_busy; end
@@ -1092,7 +1084,7 @@ class PG::Connection
   # Returns the blocking status of the database connection.
   # Returns +true+ if the connection is set to nonblocking mode and +false+ if blocking.
   #
-  # source://pg//lib/pg/connection.rb#386
+  # source://pg//lib/pg/connection.rb#407
   def isnonblocking; end
 
   def lo_close(_arg0); end
@@ -1129,7 +1121,7 @@ class PG::Connection
   # Returns the blocking status of the database connection.
   # Returns +true+ if the connection is set to nonblocking mode and +false+ if blocking.
   #
-  # source://pg//lib/pg/connection.rb#386
+  # source://pg//lib/pg/connection.rb#407
   def nonblocking?; end
 
   def notifies; end
@@ -1140,11 +1132,7 @@ class PG::Connection
   def pipeline_status; end
   def pipeline_sync; end
   def port; end
-
-  # source://rack-mini-profiler/3.0.0/lib/patches/db/pg.rb#42
-  def prepare(*args, &blk); end
-
-  def prepare_without_profiling(*_arg0); end
+  def prepare(*_arg0); end
   def protocol_version; end
 
   # call-seq:
@@ -1165,7 +1153,7 @@ class PG::Connection
   #
   # See also #copy_data.
   #
-  # source://pg//lib/pg/connection.rb#410
+  # source://pg//lib/pg/connection.rb#431
   def put_copy_data(buffer, encoder = T.unsafe(nil)); end
 
   # call-seq:
@@ -1181,12 +1169,10 @@ class PG::Connection
   # not sent (*false* is only possible if the connection
   # is in nonblocking mode, and this command would block).
   #
-  # source://pg//lib/pg/connection.rb#440
+  # source://pg//lib/pg/connection.rb#461
   def put_copy_end(*args); end
 
-  # source://rack-mini-profiler/3.0.0/lib/patches/db/pg.rb#55
-  def query(*args, &blk); end
-
+  def query(*_arg0); end
   def quote_ident(_arg0); end
 
   # call-seq:
@@ -1195,7 +1181,7 @@ class PG::Connection
   # Resets the backend connection. This method closes the
   # backend connection and tries to re-connect.
   #
-  # source://pg//lib/pg/connection.rb#482
+  # source://pg//lib/pg/connection.rb#503
   def reset; end
 
   def reset_poll; end
@@ -1206,11 +1192,7 @@ class PG::Connection
   def send_prepare(*_arg0); end
   def send_query(*_arg0); end
   def send_query_params(*_arg0); end
-
-  # source://rack-mini-profiler/3.0.0/lib/patches/db/pg.rb#95
-  def send_query_prepared(*args, &blk); end
-
-  def send_query_prepared_without_profiling(*_arg0); end
+  def send_query_prepared(*_arg0); end
   def server_version; end
   def set_client_encoding(_arg0); end
   def set_default_encoding; end
@@ -1236,7 +1218,7 @@ class PG::Connection
   #
   # Returns +nil+.
   #
-  # source://pg//lib/pg/connection.rb#372
+  # source://pg//lib/pg/connection.rb#393
   def setnonblocking(enabled); end
 
   def socket; end
@@ -1254,7 +1236,7 @@ class PG::Connection
   #
   # See also #ssl_attribute
   #
-  # source://pg//lib/pg/connection.rb#294
+  # source://pg//lib/pg/connection.rb#315
   def ssl_attributes; end
 
   def ssl_in_use?; end
@@ -1286,7 +1268,7 @@ class PG::Connection
   # and a +COMMIT+ at the end of the block, or
   # +ROLLBACK+ if any exception occurs.
   #
-  # source://pg//lib/pg/connection.rb#237
+  # source://pg//lib/pg/connection.rb#258
   def transaction; end
 
   def transaction_status; end
@@ -1302,7 +1284,7 @@ class PG::Connection
 
   private
 
-  # source://pg//lib/pg/connection.rb#552
+  # source://pg//lib/pg/connection.rb#573
   def async_connect_or_reset(poll_meth); end
 
   def flush_data=(_arg0); end
@@ -1324,7 +1306,7 @@ class PG::Connection
     # Do not use this method in production code.
     # Any issues with the default setting of <tt>async_api=true</tt> should be reported to the maintainers instead.
     #
-    # source://pg//lib/pg/connection.rb#875
+    # source://pg//lib/pg/connection.rb#864
     def async_api=(enable); end
 
     # call-seq:
@@ -1379,7 +1361,7 @@ class PG::Connection
     #
     # Raises a PG::Error if the connection fails.
     #
-    # source://pg//lib/pg/connection.rb#671
+    # source://pg//lib/pg/connection.rb#694
     def async_connect(*args); end
 
     # call-seq:
@@ -1401,10 +1383,10 @@ class PG::Connection
     # [+PQPING_NO_ATTEMPT+]
     #   connection not attempted (bad params)
     #
-    # source://pg//lib/pg/connection.rb#800
+    # source://pg//lib/pg/connection.rb#789
     def async_ping(*args); end
 
-    # source://pg//lib/pg/connection.rb#852
+    # source://pg//lib/pg/connection.rb#841
     def async_send_api=(enable); end
 
     def conndefaults; end
@@ -1414,7 +1396,7 @@ class PG::Connection
     #
     # See also #conndefaults
     #
-    # source://pg//lib/pg/connection.rb#261
+    # source://pg//lib/pg/connection.rb#282
     def conndefaults_hash; end
 
     # call-seq:
@@ -1469,7 +1451,7 @@ class PG::Connection
     #
     # Raises a PG::Error if the connection fails.
     #
-    # source://pg//lib/pg/connection.rb#671
+    # source://pg//lib/pg/connection.rb#694
     def connect(*args); end
 
     # Convert Hash options to connection String
@@ -1539,7 +1521,7 @@ class PG::Connection
     #
     # Raises a PG::Error if the connection fails.
     #
-    # source://pg//lib/pg/connection.rb#671
+    # source://pg//lib/pg/connection.rb#694
     def new(*args); end
 
     # call-seq:
@@ -1594,7 +1576,7 @@ class PG::Connection
     #
     # Raises a PG::Error if the connection fails.
     #
-    # source://pg//lib/pg/connection.rb#671
+    # source://pg//lib/pg/connection.rb#694
     def open(*args); end
 
     # Parse the connection +args+ into a connection-parameter string.
@@ -1632,7 +1614,7 @@ class PG::Connection
     # [+PQPING_NO_ATTEMPT+]
     #   connection not attempted (bad params)
     #
-    # source://pg//lib/pg/connection.rb#800
+    # source://pg//lib/pg/connection.rb#789
     def ping(*args); end
 
     # Quote a single +value+ for use in a connection-parameter string.
@@ -1694,7 +1676,7 @@ class PG::Connection
     #
     # Raises a PG::Error if the connection fails.
     #
-    # source://pg//lib/pg/connection.rb#671
+    # source://pg//lib/pg/connection.rb#694
     def setdb(*args); end
 
     # call-seq:
@@ -1749,7 +1731,7 @@ class PG::Connection
     #
     # Raises a PG::Error if the connection fails.
     #
-    # source://pg//lib/pg/connection.rb#671
+    # source://pg//lib/pg/connection.rb#694
     def setdblogin(*args); end
 
     def sync_connect(*_arg0); end
@@ -1758,13 +1740,10 @@ class PG::Connection
 
     private
 
-    # source://pg//lib/pg/connection.rb#754
-    def connect_internal(opts, errors = T.unsafe(nil)); end
-
-    # source://pg//lib/pg/connection.rb#689
+    # source://pg//lib/pg/connection.rb#712
     def connect_to_hosts(*args); end
 
-    # source://pg//lib/pg/connection.rb#775
+    # source://pg//lib/pg/connection.rb#764
     def host_is_named_pipe?(host_string); end
   end
 end
@@ -1796,6 +1775,7 @@ PG::Constants::CONNECTION_OK = T.let(T.unsafe(nil), Integer)
 PG::Constants::CONNECTION_SETENV = T.let(T.unsafe(nil), Integer)
 PG::Constants::CONNECTION_SSL_STARTUP = T.let(T.unsafe(nil), Integer)
 PG::Constants::CONNECTION_STARTED = T.let(T.unsafe(nil), Integer)
+PG::Constants::DEF_PGPORT = T.let(T.unsafe(nil), Integer)
 PG::Constants::INVALID_OID = T.let(T.unsafe(nil), Integer)
 PG::Constants::INV_READ = T.let(T.unsafe(nil), Integer)
 PG::Constants::INV_WRITE = T.let(T.unsafe(nil), Integer)
@@ -2105,12 +2085,8 @@ class PG::Result
   def cmd_tuples; end
   def cmdtuples; end
   def column_values(_arg0); end
-
-  # source://rack-mini-profiler/3.0.0/lib/patches/db/pg.rb#15
-  def each(*args, &blk); end
-
+  def each; end
   def each_row; end
-  def each_without_profiling; end
   def error_field(_arg0); end
   def error_message; end
   def fformat(_arg0); end
@@ -2155,9 +2131,6 @@ class PG::Result
   # source://pg//lib/pg/result.rb#16
   def map_types!(type_map); end
 
-  # source://rack-mini-profiler/3.0.0/lib/patches/db/pg.rb#22
-  def mp_report_sql(&block); end
-
   def nfields; end
   def nparams; end
   def ntuples; end
@@ -2177,11 +2150,7 @@ class PG::Result
   def tuple_values(_arg0); end
   def type_map; end
   def type_map=(_arg0); end
-
-  # source://rack-mini-profiler/3.0.0/lib/patches/db/pg.rb#8
-  def values(*args, &blk); end
-
-  def values_without_profiling; end
+  def values; end
   def verbose_error_message(_arg0, _arg1); end
 end
 
@@ -2200,6 +2169,7 @@ class PG::SimpleEncoder < ::PG::SimpleCoder; end
 class PG::SingletonSqlJsonItemRequired < ::PG::DataException; end
 class PG::SnapshotTooOld < ::PG::ServerError; end
 class PG::SqlJsonArrayNotFound < ::PG::DataException; end
+class PG::SqlJsonItemCannotBeCastToTargetType < ::PG::DataException; end
 class PG::SqlJsonMemberNotFound < ::PG::DataException; end
 class PG::SqlJsonNumberNotFound < ::PG::DataException; end
 class PG::SqlJsonObjectNotFound < ::PG::DataException; end

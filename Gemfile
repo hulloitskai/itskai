@@ -7,7 +7,7 @@ ruby "3.1.2"
 gem "rails", "~> 7.0.3", ">= 7.0.3.1"
 
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.2"
+gem "pg", "~> 1.4"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 6.0"
@@ -35,8 +35,7 @@ gem "image_processing", "~> 1.2"
 gem "ruby-vips", "~> 2.1", require: false
 
 # Use S3 as the backend for Active Storage
-gem "aws-sdk-core", require: false
-gem "aws-sdk-s3", "~> 1.113", require: false
+gem "aws-sdk-s3", "~> 1.117", require: false
 
 # Use Good Job as the backend for Active Job
 gem "good_job", "~> 3.6"
@@ -58,7 +57,7 @@ gem "binding_of_caller"
 gem "rails-healthcheck"
 
 # Silence logs from certain actions
-gem "silencer", "~> 2.0.0", require: false
+gem "silencer", "~> 2.0", require: false
 
 # Validate emails, phone numbers, dates, arrays, and more
 gem "can_has_validations", "~> 1.6"
@@ -158,11 +157,10 @@ group :development do
 
   # Typecheck code
   gem "sorbet", "~> 0.5.10554", require: false
-  gem "spoom", require: false
   gem "tapioca", "~> 0.10.3", require: false
 
   # Use Rubocop to lint code
-  gem "rubocop", "~> 1.32", require: false
+  gem "rubocop", "~> 1.39", require: false
   gem "rubocop-graphql", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
