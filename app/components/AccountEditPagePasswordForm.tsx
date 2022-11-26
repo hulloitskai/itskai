@@ -1,24 +1,28 @@
 import type { FC } from "react";
 import { PasswordInput } from "@mantine/core";
 
-export type AccountPasswordFormValues = {
+export type AccountEditPagePasswordFormValues = {
   readonly password: string;
   readonly passwordConfirmation: string;
   readonly currentPassword: string;
 };
 
-export type AccountPasswordFormProps = {};
+export type AccountEditPagePasswordFormProps = {};
 
-const AccountPasswordForm: FC<AccountPasswordFormProps> = () => {
+const AccountEditPagePasswordForm: FC<
+  AccountEditPagePasswordFormProps
+> = () => {
   const router = useRouter();
+  const initialValues: AccountEditPagePasswordFormValues = useMemo(
+    () => ({
+      password: "",
+      passwordConfirmation: "",
+      currentPassword: "",
+    }),
+    [],
+  );
   const { getInputProps, onSubmit, reset, setErrors } =
-    useForm<AccountPasswordFormValues>({
-      initialValues: {
-        password: "",
-        passwordConfirmation: "",
-        currentPassword: "",
-      },
-    });
+    useForm<AccountEditPagePasswordFormValues>({ initialValues });
   return (
     <form
       onSubmit={onSubmit(
@@ -32,17 +36,16 @@ const AccountPasswordForm: FC<AccountPasswordFormProps> = () => {
           };
           router.put("/account", data, {
             errorBag: "AccountPasswordForm",
-            onError: errors => {
-              showAlert({ message: "Failed to change password." });
-              setErrors(errors);
-            },
+            preserveScroll: true,
             onSuccess: () => {
+              reset();
               showNotice({
                 message: "You've updated your account password.",
               });
             },
-            onFinish: () => {
+            onError: errors => {
               reset();
+              setErrors(errors);
             },
           });
         },
@@ -73,4 +76,4 @@ const AccountPasswordForm: FC<AccountPasswordFormProps> = () => {
   );
 };
 
-export default AccountPasswordForm;
+export default AccountEditPagePasswordForm;

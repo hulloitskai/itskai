@@ -1,0 +1,8 @@
+query HomePageGraphQuery {
+  notesConnection: obsidianNotes(first: 32) {
+    notes: nodes {
+      id
+      ...HomePageObsidianNoteFragment
+    }
+  }
+}

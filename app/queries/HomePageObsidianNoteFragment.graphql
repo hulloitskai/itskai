@@ -1,4 +1,4 @@
-fragment HomeGraphNoteFragment on ObsidianNote {
+fragment HomePageObsidianNoteFragment on ObsidianNote {
   id
   modifiedAt
   name

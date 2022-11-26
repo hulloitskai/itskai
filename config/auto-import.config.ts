@@ -34,6 +34,7 @@ export const imports: Array<ImportsMap | PresetName> = [
       "Space",
       "Stack",
       "Text",
+      "Textarea",
       "TextInput",
       "Title",
       "Tooltip",

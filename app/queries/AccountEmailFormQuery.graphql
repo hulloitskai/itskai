@@ -1,7 +1,0 @@
-query AccountEmailFormQuery {
-  viewer {
-    id
-    email
-    unconfirmedEmail
-  }
-}

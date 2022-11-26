@@ -36,7 +36,7 @@ createServer(async page => {
     resolve: async name => {
       const page = pages[name] as PageComponent | undefined;
       if (!page) {
-        throw new Error(`missing page '${name}'`);
+        throw new Error(`Missing page '${name}'`);
       }
       return page as any;
     },

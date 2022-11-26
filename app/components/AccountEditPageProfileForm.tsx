@@ -3,22 +3,24 @@ import type { FC } from "react";
 import { AccountUpdateMutationDocument } from "~/queries";
 import type { AccountEditPageViewerFragment } from "~/queries";
 
-export type AccountProfileFormValues = {
+export type AccountEditPageProfileFormValues = {
   readonly name: string;
 };
 
-export type AccountProfileFormProps = {
+export type AccountEditPageProfileFormProps = {
   readonly viewer: AccountEditPageViewerFragment;
 };
 
-const AccountProfileForm: FC<AccountProfileFormProps> = ({ viewer }) => {
+const AccountEditPageProfileForm: FC<AccountEditPageProfileFormProps> = ({
+  viewer,
+}) => {
   const router = useRouter();
-  const initialValues = useMemo<AccountProfileFormValues>(
+  const initialValues = useMemo<AccountEditPageProfileFormValues>(
     () => pick(viewer, "name"),
     [viewer],
   );
   const { getInputProps, onSubmit, setErrors } =
-    useForm<AccountProfileFormValues>({
+    useForm<AccountEditPageProfileFormValues>({
       initialValues,
     });
   const onError = useApolloErrorCallback("Failed to update account");
@@ -57,4 +59,4 @@ const AccountProfileForm: FC<AccountProfileFormProps> = ({ viewer }) => {
   );
 };
 
-export default AccountProfileForm;
+export default AccountEditPageProfileForm;

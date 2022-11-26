@@ -12,6 +12,6 @@ export const getMeta = (name: string): string | undefined => {
 
 export const requireMeta = (name: string): string => {
   const content = getMeta(name);
-  invariant(content, `missing meta content for '${name}'`);
+  invariant(content, `Missing meta content for '${name}'`);
   return content;
 };

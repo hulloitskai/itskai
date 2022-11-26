@@ -19,12 +19,15 @@ import type {
 } from "d3-force";
 import { select } from "d3-selection";
 
-import { HomeGraphNoteFragment, HomeGraphQueryDocument } from "~/queries";
+import {
+  HomePageObsidianNoteFragment,
+  HomePageGraphQueryDocument,
+} from "~/queries";
 
 import ClockIcon from "~icons/heroicons/clock-20-solid";
 
 type Node = BaseNode &
-  HomeGraphNoteFragment & {
+  HomePageObsidianNoteFragment & {
     radius: number;
     isDragging?: boolean;
   };
@@ -44,22 +47,21 @@ const TAG_COLORS: Record<string, string> = {
   event: "red",
 };
 
-export type HomeGraphProps = BoxProps;
+export type HomePageGraphProps = BoxProps;
 
-const HomeGraph: FC<HomeGraphProps> = ({ sx, ...otherProps }) => {
+const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
   const { ref: containerRef, width, height } = useElementSize<HTMLDivElement>();
   const svgRef = useRef<SVGSVGElement>(null);
 
   const onError = useApolloErrorCallback("Failed to load Obsidian entries");
-  const { data, loading } = useQuery(HomeGraphQueryDocument, {
+  const { data, loading } = useQuery(HomePageGraphQueryDocument, {
     variables: {},
     onError,
   });
   const { notes } = data?.notesConnection ?? {};
 
-  const [focusedNote, setFocusedNote] = useState<HomeGraphNoteFragment | null>(
-    null,
-  );
+  const [focusedNote, setFocusedNote] =
+    useState<HomePageObsidianNoteFragment | null>(null);
   if (!import.meta.env.SSR) {
     useLayoutEffect(() => {
       if (svgRef.current && notes && width && height) {
@@ -180,10 +182,10 @@ const HomeGraph: FC<HomeGraphProps> = ({ sx, ...otherProps }) => {
   );
 };
 
-export default HomeGraph;
+export default HomePageGraph;
 
 type NoteInfoCardProps = Omit<CardProps, "children"> & {
-  readonly note: HomeGraphNoteFragment;
+  readonly note: HomePageObsidianNoteFragment;
 };
 
 const NoteInfoCard: FC<NoteInfoCardProps> = ({ note, ...otherProps }) => {
@@ -235,7 +237,7 @@ const NoteInfoCard: FC<NoteInfoCardProps> = ({ note, ...otherProps }) => {
     </Card>
   );
 };
-const nodeRadius = (note: HomeGraphNoteFragment): number => {
+const nodeRadius = (note: HomePageObsidianNoteFragment): number => {
   const references = note.references.length + note.referencedBy.length;
   const size = NODE_RADIUS_MIN_SIZE + references * NODE_RADIUS_MULTIPLIER;
   return Math.min(size, NODE_RADIUS_MAX_SIZE);
@@ -249,12 +251,12 @@ const nodeLinks = (node: Node, validNodeIds: Set<string>): Link[] => {
 };
 
 type RenderOptions = {
-  readonly notes: ReadonlyArray<HomeGraphNoteFragment>;
+  readonly notes: ReadonlyArray<HomePageObsidianNoteFragment>;
   readonly svgRef: RefObject<SVGSVGElement | null>;
   readonly width: number;
   readonly height: number;
-  readonly onFocus: (entry: HomeGraphNoteFragment) => void;
-  readonly onBlur: (entry: HomeGraphNoteFragment) => void;
+  readonly onFocus: (entry: HomePageObsidianNoteFragment) => void;
+  readonly onBlur: (entry: HomePageObsidianNoteFragment) => void;
 };
 
 const render = ({
@@ -278,7 +280,7 @@ const render = ({
   // Draw SVG
   const svg = select(svgRef.current).attr("viewBox", `0 0 ${width} ${height}`);
 
-  // // Define arrowhead
+  // Define arrowhead
   // svg
   //   .append("svg:defs")
   //   .append("svg:marker")

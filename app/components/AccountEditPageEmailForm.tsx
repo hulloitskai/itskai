@@ -1,28 +1,30 @@
+import type { FC } from "react";
 import { Text } from "@mantine/core";
 import invariant from "tiny-invariant";
-import type { FC } from "react";
 
-import { AccountEmailFormQueryDocument } from "~/queries";
 import type { AccountEditPageViewerFragment } from "~/queries";
 
-export type AccountEmailFormValues = {
+import type { AccountEditPageProps } from "~/pages/AccountEditPage";
+
+export type AccountEditPageEmailFormValues = {
   readonly email: string;
 };
 
-export type AccountEmailFormProps = {
+export type AccountEditPageEmailFormProps = {
   readonly viewer: AccountEditPageViewerFragment;
 };
 
-const AccountEmailForm: FC<AccountEmailFormProps> = ({ viewer }) => {
+const AccountEditPageEmailForm: FC<AccountEditPageEmailFormProps> = ({
+  viewer,
+}) => {
   const { email, unconfirmedEmail } = viewer;
-  const client = useApolloClient();
   const router = useRouter();
-  const initialValues = useMemo<AccountEmailFormValues>(
+  const initialValues = useMemo<AccountEditPageEmailFormValues>(
     () => ({ email: unconfirmedEmail || email }),
     [viewer],
   );
   const { getInputProps, onSubmit, setValues, setErrors } =
-    useForm<AccountEmailFormValues>({
+    useForm<AccountEditPageEmailFormValues>({
       initialValues: initialValues,
     });
   return (
@@ -31,19 +33,12 @@ const AccountEmailForm: FC<AccountEmailFormProps> = ({ viewer }) => {
         const data = { user: { email } };
         router.put("/account", data, {
           errorBag: "AccountEmailForm",
-          onError: errors => {
-            showAlert({ message: "Failed to change email." });
-            setErrors(errors);
-          },
-          onSuccess: async () => {
+          preserveScroll: true,
+          onSuccess: async page => {
             const {
               data: { viewer },
-            } = await client.query({
-              query: AccountEmailFormQueryDocument,
-              variables: {},
-              fetchPolicy: "network-only",
-            });
-            invariant(viewer, "missing viewer");
+            } = page.props as unknown as AccountEditPageProps;
+            invariant(viewer, "Missing viewer after mutation");
             const { email, unconfirmedEmail } = viewer;
             setValues({ email: unconfirmedEmail || email });
             if (unconfirmedEmail) {
@@ -54,6 +49,7 @@ const AccountEmailForm: FC<AccountEmailFormProps> = ({ viewer }) => {
               });
             }
           },
+          onError: setErrors,
         });
       })}
     >
@@ -92,4 +88,4 @@ const AccountEmailForm: FC<AccountEmailFormProps> = ({ viewer }) => {
   );
 };
 
-export default AccountEmailForm;
+export default AccountEditPageEmailForm;

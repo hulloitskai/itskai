@@ -27,6 +27,7 @@ declare global {
   const Stack: typeof import('@mantine/core')['Stack']
   const Text: typeof import('@mantine/core')['Text']
   const TextInput: typeof import('@mantine/core')['TextInput']
+  const Textarea: typeof import('@mantine/core')['Textarea']
   const Title: typeof import('@mantine/core')['Title']
   const Tooltip: typeof import('@mantine/core')['Tooltip']
   const Transition: typeof import('@mantine/core')['Transition']

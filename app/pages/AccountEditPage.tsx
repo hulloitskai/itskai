@@ -2,10 +2,10 @@ import type { PageComponent } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 import invariant from "tiny-invariant";
 
-import AccountProfileForm from "~/components/AccountProfileForm";
-import AccountEmailForm from "~/components/AccountEmailForm";
-import AccountPasswordForm from "~/components/AccountPasswordForm";
-import ICloudCredentialsForm from "~/components/ICloudCredentialsForm";
+import AccountEditPageProfileForm from "~/components/AccountEditPageProfileForm";
+import AccountEditPageEmailForm from "~/components/AccountEditPageEmailForm";
+import AccountEditPagePasswordForm from "~/components/AccountEditPagePasswordForm";
+import AccountEditPageICloudCredentialsForm from "~/components/AccountEditPageICloudCredentialsForm";
 
 import type { AccountEditPageQuery } from "~/queries";
 
@@ -16,7 +16,7 @@ export type AccountEditPageProps = {
 const AccountEditPage: PageComponent<AccountEditPageProps> = ({
   data: { viewer, icloudCredentials },
 }) => {
-  invariant(viewer, "missing viewer");
+  invariant(viewer, "Missing viewer");
   const { isOwner } = viewer;
   return (
     <Stack w={440}>
@@ -27,7 +27,7 @@ const AccountEditPage: PageComponent<AccountEditPageProps> = ({
               Profile Information
             </Title>
           </Center>
-          <AccountProfileForm {...{ viewer }} />
+          <AccountEditPageProfileForm {...{ viewer }} />
         </Stack>
       </Card>
       <Card radius="md" withBorder>
@@ -40,7 +40,7 @@ const AccountEditPage: PageComponent<AccountEditPageProps> = ({
               Change your account email address.
             </Text>
           </Stack>
-          <AccountEmailForm {...{ viewer }} />
+          <AccountEditPageEmailForm {...{ viewer }} />
         </Stack>
       </Card>
       <Card radius="md" withBorder>
@@ -53,7 +53,7 @@ const AccountEditPage: PageComponent<AccountEditPageProps> = ({
               Change your login password.
             </Text>
           </Stack>
-          <AccountPasswordForm />
+          <AccountEditPagePasswordForm />
         </Stack>
       </Card>
       {isOwner && (
@@ -67,7 +67,7 @@ const AccountEditPage: PageComponent<AccountEditPageProps> = ({
                 Authenticate with iCloud to enable dependent services.
               </Text>
             </Stack>
-            <ICloudCredentialsForm {...{ icloudCredentials }} />
+            <AccountEditPageICloudCredentialsForm {...{ icloudCredentials }} />
           </Stack>
         </Card>
       )}

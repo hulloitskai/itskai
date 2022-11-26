@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { JsonInput, PasswordInput, Text, Textarea } from "@mantine/core";
+import { JsonInput, PasswordInput, Text } from "@mantine/core";
 
 import {
   ICloudCredentialsUpdateMutationDocument,
@@ -10,21 +10,21 @@ import type {
   AccountEditPageICloudCredentialsFragment,
 } from "~/queries";
 
-export type ICloudCredentialsFormValues = {
+export type AccountEditPageICloudCredentialsFormValues = {
   readonly email: string;
   readonly password: string;
 };
 
-export type ICloudCredentialsFormProps = {
+export type AccountEditPageICloudCredentialsFormProps = {
   readonly icloudCredentials: Maybe<AccountEditPageICloudCredentialsFragment>;
 };
 
-const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
-  icloudCredentials,
-}) => {
+const AccountEditPageICloudCredentialsForm: FC<
+  AccountEditPageICloudCredentialsFormProps
+> = ({ icloudCredentials }) => {
   const { password, cookies, session } = icloudCredentials || {};
   const router = useRouter();
-  const initialValues = useMemo<ICloudCredentialsFormValues>(
+  const initialValues = useMemo<AccountEditPageICloudCredentialsFormValues>(
     () => ({
       email: "",
       password: "",
@@ -33,7 +33,7 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
     [icloudCredentials],
   );
   const { getInputProps, onSubmit, setErrors } =
-    useForm<ICloudCredentialsFormValues>({
+    useForm<AccountEditPageICloudCredentialsFormValues>({
       initialValues: initialValues,
     });
   const onError = useApolloErrorCallback("Failed to update iCloud credentials");
@@ -131,7 +131,7 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
   );
 };
 
-export default ICloudCredentialsForm;
+export default AccountEditPageICloudCredentialsForm;
 
 const VerifySecurityCodeModalContent: FC = () => {
   const { getInputProps, onSubmit } = useForm({

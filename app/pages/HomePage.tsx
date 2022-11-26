@@ -1,8 +1,8 @@
 import type { PageComponent } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
-import HomeContactLink from "~/components/HomeContactLink";
-import HomeGraph from "~/components/HomeGraph";
+import HomePageContactLink from "~/components/HomePageContactLink";
+import HomePageGraph from "~/components/HomePageGraph";
 
 import type { HomePageQuery } from "~/queries";
 
@@ -62,7 +62,7 @@ const HomePage: PageComponent = () => {
               Is there something you wanted to chat with me about? Please reach
               out!
               <br />
-              You can <HomeContactLink color="indigo" /> or{" "}
+              You can <HomePageContactLink color="indigo" /> or{" "}
               <Anchor
                 href="http://calendly.com/hulloitskai/hangout"
                 target="_blank"
@@ -87,7 +87,7 @@ const HomePage: PageComponent = () => {
           </Box>
         </Stack>
       </Container>
-      <HomeGraph w="full" mih={560} sx={{ flex: 1 }} />
+      <HomePageGraph w="full" mih={560} sx={{ flex: 1 }} />
     </>
   );
 };

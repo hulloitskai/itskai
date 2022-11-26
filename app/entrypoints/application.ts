@@ -16,11 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
     resolve: async name => {
       const importPage = pages[name];
       if (!importPage) {
-        throw new Error(`missing page '${name}'`);
+        throw new Error(`Missing page '${name}'`);
       }
       const page = (await importPage()) as PageComponent | undefined;
       if (!page) {
-        throw new Error(`missing default export for page '${name}'`);
+        throw new Error(`Missing default export for page '${name}'`);
       }
       return page as any;
     },
