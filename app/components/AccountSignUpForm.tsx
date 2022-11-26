@@ -8,11 +8,9 @@ export type AccountSignUpFormValues = {
   readonly passwordConfirmation: string;
 };
 
-export type AccountSignUpFormProps = {
-  readonly errors?: Record<string, string>;
-};
+export type AccountSignUpFormProps = {};
 
-const AccountSignUpForm: FC<AccountSignUpFormProps> = ({ errors }) => {
+const AccountSignUpForm: FC<AccountSignUpFormProps> = () => {
   const router = useRouter();
   const { getInputProps, onSubmit, setFieldValue, setErrors } =
     useForm<AccountSignUpFormValues>({
@@ -22,13 +20,7 @@ const AccountSignUpForm: FC<AccountSignUpFormProps> = ({ errors }) => {
         password: "",
         passwordConfirmation: "",
       },
-      initialErrors: errors,
     });
-  useEffect(() => {
-    if (errors) {
-      setErrors(errors);
-    }
-  }, [errors]);
   return (
     <form
       onSubmit={onSubmit(({ name, email, password, passwordConfirmation }) => {
@@ -42,6 +34,10 @@ const AccountSignUpForm: FC<AccountSignUpFormProps> = ({ errors }) => {
         };
         router.post("/account", data, {
           errorBag: "AccountSignUpForm",
+          onError: errors => {
+            showAlert({ message: "Failed to register account." });
+            setErrors(errors);
+          },
           onFinish: () => {
             setFieldValue("password", "");
             setFieldValue("passwordConfirmation", "");

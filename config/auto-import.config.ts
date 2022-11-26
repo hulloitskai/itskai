@@ -60,7 +60,6 @@ export const imports: Array<ImportsMap | PresetName> = [
       "usePageErrors",
       "usePageProps",
       "usePageData",
-      "useBaggedErrors",
       "useRouter",
       "formErrors",
       "showNotice",

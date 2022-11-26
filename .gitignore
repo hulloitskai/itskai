@@ -2,27 +2,27 @@
 .env
 
 
-# == Vite Ruby ==
-/public/dist*
-
-
 # == Python ==
 __pycache__/
 *.py[cod]
 *$py.class
 
 
+# == Vite Ruby ==
+/dist/
+/public/dist*
+
+
 # == Rails ==
-/public/assets
+/public/assets/
 /public/sitemap*.xml.gz
-/public/packs
 
 # Ignore compiled assets.
 /app/assets/builds/*
 !/app/assets/builds/.keep
 
 # Ignore bundler config.
-/.bundle
+/.bundle/
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -36,10 +36,10 @@ __pycache__/
 
 # Ignore pidfiles and sockets.
 /tmp/pids/*
-!/tmp/pids
+!/tmp/pids/
 !/tmp/pids/.keep
 /tmp/sockets/*
-!/tmp/sockets
+!/tmp/sockets/
 !/tmp/sockets/.keep
 
 # Ignore uploaded files in development.

@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get :test, to: "test#show"
   get :work, to: "work#show"
   get :resume, to: "resume#show"
+  get :jen, to: "jen#show"
 
   # == Internal ==
   authenticate :user, ->(user) { user.owner? } do

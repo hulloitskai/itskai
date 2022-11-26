@@ -15,12 +15,9 @@ export type AccountEditPageProps = {
 
 const AccountEditPage: PageComponent<AccountEditPageProps> = ({
   data: { viewer, icloudCredentials },
-  errors,
 }) => {
   invariant(viewer, "missing viewer");
   const { isOwner } = viewer;
-  const emailFormErrors = useBaggedErrors(errors, "AccountEmailForm");
-  const passwordFormErrors = useBaggedErrors(errors, "AccountPasswordForm");
   return (
     <Stack w={440}>
       <Card radius="md" withBorder>
@@ -43,7 +40,7 @@ const AccountEditPage: PageComponent<AccountEditPageProps> = ({
               Change your account email address.
             </Text>
           </Stack>
-          <AccountEmailForm errors={emailFormErrors} {...{ viewer }} />
+          <AccountEmailForm {...{ viewer }} />
         </Stack>
       </Card>
       <Card radius="md" withBorder>
@@ -56,7 +53,7 @@ const AccountEditPage: PageComponent<AccountEditPageProps> = ({
               Change your login password.
             </Text>
           </Stack>
-          <AccountPasswordForm errors={passwordFormErrors} />
+          <AccountPasswordForm />
         </Stack>
       </Card>
       {isOwner && (

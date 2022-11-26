@@ -9,8 +9,7 @@ export type AccountSignUpPageProps = {
   readonly data: AccountSignUpPageQuery;
 };
 
-const AccountSignUpPage: PageComponent = ({ errors }) => {
-  const signUpFormErrors = useBaggedErrors(errors, "AccountSignUpForm");
+const AccountSignUpPage: PageComponent = () => {
   return (
     <Card w={380} radius="md" withBorder>
       <Stack spacing="xs">
@@ -23,7 +22,7 @@ const AccountSignUpPage: PageComponent = ({ errors }) => {
             </Text>
           </Text>
         </Stack>
-        <AccountSignUpForm errors={signUpFormErrors} />
+        <AccountSignUpForm />
         <Text size="xs" color="gray">
           Already have an account?{" "}
           <Anchor component={Link} href="/account/sign_in" color="indigo">

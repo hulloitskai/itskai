@@ -7,11 +7,9 @@ export type AccountPasswordFormValues = {
   readonly currentPassword: string;
 };
 
-export type AccountPasswordFormProps = {
-  readonly errors?: Record<string, string>;
-};
+export type AccountPasswordFormProps = {};
 
-const AccountPasswordForm: FC<AccountPasswordFormProps> = ({ errors }) => {
+const AccountPasswordForm: FC<AccountPasswordFormProps> = () => {
   const router = useRouter();
   const { getInputProps, onSubmit, reset, setErrors } =
     useForm<AccountPasswordFormValues>({
@@ -20,13 +18,7 @@ const AccountPasswordForm: FC<AccountPasswordFormProps> = ({ errors }) => {
         passwordConfirmation: "",
         currentPassword: "",
       },
-      initialErrors: errors,
     });
-  useEffect(() => {
-    if (errors) {
-      setErrors(errors);
-    }
-  }, [errors]);
   return (
     <form
       onSubmit={onSubmit(
@@ -40,6 +32,10 @@ const AccountPasswordForm: FC<AccountPasswordFormProps> = ({ errors }) => {
           };
           router.put("/account", data, {
             errorBag: "AccountPasswordForm",
+            onError: errors => {
+              showAlert({ message: "Failed to change password." });
+              setErrors(errors);
+            },
             onSuccess: () => {
               showNotice({
                 message: "You've updated your account password.",

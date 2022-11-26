@@ -55,7 +55,6 @@ declare global {
   const startTransition: typeof import('react')['startTransition']
   const useApolloClient: typeof import('@apollo/client')['useApolloClient']
   const useApolloErrorCallback: typeof import('~/helpers')['useApolloErrorCallback']
-  const useBaggedErrors: typeof import('~/helpers')['useBaggedErrors']
   const useCallback: typeof import('react')['useCallback']
   const useContext: typeof import('react')['useContext']
   const useDateTime: typeof import('~/helpers')['useDateTime']

@@ -11,10 +11,9 @@ export type AccountEmailFormValues = {
 
 export type AccountEmailFormProps = {
   readonly viewer: AccountEditPageViewerFragment;
-  readonly errors?: Record<string, string>;
 };
 
-const AccountEmailForm: FC<AccountEmailFormProps> = ({ viewer, errors }) => {
+const AccountEmailForm: FC<AccountEmailFormProps> = ({ viewer }) => {
   const { email, unconfirmedEmail } = viewer;
   const client = useApolloClient();
   const router = useRouter();
@@ -25,19 +24,17 @@ const AccountEmailForm: FC<AccountEmailFormProps> = ({ viewer, errors }) => {
   const { getInputProps, onSubmit, setValues, setErrors } =
     useForm<AccountEmailFormValues>({
       initialValues: initialValues,
-      initialErrors: errors,
     });
-  useEffect(() => {
-    if (errors) {
-      setErrors(errors);
-    }
-  }, [errors]);
   return (
     <form
       onSubmit={onSubmit(({ email }) => {
         const data = { user: { email } };
         router.put("/account", data, {
           errorBag: "AccountEmailForm",
+          onError: errors => {
+            showAlert({ message: "Failed to change email." });
+            setErrors(errors);
+          },
           onSuccess: async () => {
             const {
               data: { viewer },
