@@ -29,6 +29,8 @@ Rails.application.routes.draw do
 
   # == Pages ==
   root "home#show"
+  get :calendly, to: "calendly#show"
+  get :hangout, to: "calendly#show"
   get :test, to: "test#show"
   get :work, to: "work#show"
   get :resume, to: "resume#show"
