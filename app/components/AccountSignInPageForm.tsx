@@ -3,22 +3,23 @@ import { Inertia } from "@inertiajs/inertia";
 
 import { PasswordInput } from "@mantine/core";
 
-export type AccountSignInFormValues = {
+export type AccountSignInPageFormValues = {
   readonly email: string;
   readonly password: string;
 };
 
-export type AccountSignInFormProps = {};
+export type AccountSignInPageFormProps = {};
 
-const AccountSignInForm: FC<AccountSignInFormProps> = () => {
+const AccountSignInPageForm: FC<AccountSignInPageFormProps> = () => {
   const removeInvalidResponseCallback = useRef<VoidFunction>();
   const router = useRouter();
-  const { getInputProps, onSubmit, reset } = useForm<AccountSignInFormValues>({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-  });
+  const { getInputProps, onSubmit, reset } =
+    useForm<AccountSignInPageFormValues>({
+      initialValues: {
+        email: "",
+        password: "",
+      },
+    });
   return (
     <form
       onSubmit={onSubmit(({ email, password }) => {
@@ -66,4 +67,4 @@ const AccountSignInForm: FC<AccountSignInFormProps> = () => {
   );
 };
 
-export default AccountSignInForm;
+export default AccountSignInPageForm;
