@@ -1,4 +1,4 @@
-import type { FC, RefObject } from "react";
+import type { FC } from "react";
 import { Affix, Text } from "@mantine/core";
 import type { BoxProps, CardProps } from "@mantine/core";
 
@@ -51,11 +51,23 @@ export type HomePageGraphProps = BoxProps;
 
 const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
   const { ref: containerRef, width, height } = useElementSize<HTMLDivElement>();
+  const size = useMemo(() => [width, height], [width, height]);
+  const [debouncedSize] = useDebouncedValue(size, 500);
+  const renderSize = useMemo(
+    () => (isEqual(debouncedSize, [0, 0]) ? size : debouncedSize),
+    [size, debouncedSize],
+  );
   const svgRef = useRef<SVGSVGElement>(null);
 
+  const modifiedAfter = useMemo(() => {
+    const time = DateTime.now().minus(Duration.fromObject({ weeks: 1 }));
+    return time.toISO();
+  }, []);
   const onError = useApolloErrorCallback("Failed to load Obsidian entries");
   const { data, loading } = useQuery(HomePageGraphQueryDocument, {
-    variables: {},
+    variables: {
+      modifiedAfter,
+    },
     onError,
   });
   const { notes } = data?.notesConnection ?? {};
@@ -64,17 +76,23 @@ const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
     useState<HomePageObsidianNoteFragment | null>(null);
   if (!import.meta.env.SSR) {
     useLayoutEffect(() => {
-      if (svgRef.current && notes && width && height) {
-        return render({
-          notes,
-          svgRef,
-          width,
-          height,
-          onFocus: setFocusedNote,
-          onBlur: () => setFocusedNote(null),
+      const { current: target } = svgRef;
+      const [width, height] = renderSize;
+      if (target && notes && width && height) {
+        requestIdleCallback(() => {
+          renderGraph(target, {
+            notes,
+            onFocus: setFocusedNote,
+            onBlur: () => setFocusedNote(null),
+          });
         });
+        return () => {
+          requestIdleCallback(() => {
+            clearGraph(target);
+          });
+        };
       }
-    }, [notes, svgRef.current]);
+    }, [svgRef.current, renderSize, notes]);
   }
   return (
     <>
@@ -83,81 +101,88 @@ const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
         sx={[
           ({ colors, fontSizes, fn }) => ({
             position: "relative",
-            ".node": {
-              transitionProperty: "fill-opacity",
-              transitionTimingFunction: "ease-in-out",
-              transitionDuration: "150ms",
-              circle: {
-                cursor: "pointer",
-                fill: colors.dark[4],
-                transitionProperty: "fill",
+            "> svg": {
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              ".node": {
+                transitionProperty: "fill-opacity",
+                transitionTimingFunction: "ease-in-out",
+                transitionDuration: "150ms",
+                circle: {
+                  cursor: "pointer",
+                  fill: colors.dark[4],
+                  transitionProperty: "fill",
+                  transitionTimingFunction: "ease-in-out",
+                  transitionDuration: "150ms",
+                },
+                text: {
+                  pointerEvents: "none",
+                  fill: colors.gray[6],
+                  fontSize: fontSizes.xs,
+                  fontWeight: 500,
+                  transitionProperty: "fill",
+                  transitionTimingFunction: "ease-in-out",
+                  transitionDuration: "150ms",
+                },
+              },
+              ".node.dimmed": {
+                "&:not(.day)": {
+                  fillOpacity: 0.15,
+                },
+                "&.day": {
+                  fillOpacity: 0.3,
+                  strokeOpacity: 0.3,
+                },
+              },
+              ".node.focused": {
+                circle: {
+                  fill: colors.indigo[fn.primaryShade()],
+                },
+                text: {
+                  fill: colors.gray[8],
+                },
+              },
+              ".node:not(.focused)": {
+                "&.person": {
+                  circle: {
+                    fill: colors.pink[4],
+                  },
+                },
+                "&.day": {
+                  circle: {
+                    fill: colors.gray[2],
+                    stroke: colors.gray[4],
+                  },
+                },
+                "&.place": {
+                  circle: {
+                    fill: colors.orange[4],
+                  },
+                },
+                "&.event": {
+                  circle: {
+                    fill: colors.red[4],
+                  },
+                },
+              },
+              ".link": {
+                stroke: colors.gray[3],
+                strokeWidth: 1.5,
+                strokeOpacity: 0.7,
+                transitionProperty: "stroke-opacity",
                 transitionTimingFunction: "ease-in-out",
                 transitionDuration: "150ms",
               },
-              text: {
-                pointerEvents: "none",
-                fill: colors.gray[6],
-                fontSize: fontSizes.xs,
-                fontWeight: 500,
-                transitionProperty: "fill",
-                transitionTimingFunction: "ease-in-out",
-                transitionDuration: "150ms",
+              ".link.focused": {
+                stroke: colors.indigo[3],
+                strokeOpacity: 1,
               },
-            },
-            ".node.dimmed": {
-              "&:not(.day)": {
-                fillOpacity: 0.15,
+              ".link.dimmed": {
+                strokeOpacity: 0.2,
               },
-              "&.day": {
-                fillOpacity: 0.3,
-                strokeOpacity: 0.3,
-              },
-            },
-            ".node.focused": {
-              circle: {
-                fill: colors.indigo[fn.primaryShade()],
-              },
-              text: {
-                fill: colors.gray[8],
-              },
-            },
-            ".node:not(.focused)": {
-              "&.person": {
-                circle: {
-                  fill: colors.pink[4],
-                },
-              },
-              "&.day": {
-                circle: {
-                  fill: colors.gray[2],
-                  stroke: colors.gray[4],
-                },
-              },
-              "&.place": {
-                circle: {
-                  fill: colors.orange[4],
-                },
-              },
-              "&.event": {
-                circle: {
-                  fill: colors.red[4],
-                },
-              },
-            },
-            ".link": {
-              stroke: colors.gray[3],
-              strokeWidth: 1.5,
-              strokeOpacity: 0.7,
-              transitionProperty: "stroke-opacity",
-              transitionTimingFunction: "ease-in-out",
-              transitionDuration: "150ms",
-            },
-            ".link.focused": {
-              stroke: colors.indigo[3],
-              strokeOpacity: 1,
-            },
-            ".link.dimmed": {
-              strokeOpacity: 0.2,
             },
           }),
           ...packSx(sx),
@@ -165,7 +190,11 @@ const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
         {...otherProps}
       >
         <LoadingOverlay visible={loading} loaderProps={{ size: "md" }} />
-        <svg ref={svgRef} style={{ width: "100%", height: "100%" }} />
+        <svg
+          ref={svgRef}
+          viewBox={`0 0 ${width} ${height}`}
+          {...{ width, height }}
+        />
       </Box>
       <Affix position={{ bottom: 20, right: 20 }}>
         <Transition transition="slide-up" mounted={!!focusedNote}>
@@ -250,23 +279,18 @@ const nodeLinks = (node: Node, validNodeIds: Set<string>): Link[] => {
     .map(({ id: target }) => ({ source, target }));
 };
 
-type RenderOptions = {
+type RenderGraphOptions = {
   readonly notes: ReadonlyArray<HomePageObsidianNoteFragment>;
-  readonly svgRef: RefObject<SVGSVGElement | null>;
-  readonly width: number;
-  readonly height: number;
   readonly onFocus: (entry: HomePageObsidianNoteFragment) => void;
   readonly onBlur: (entry: HomePageObsidianNoteFragment) => void;
 };
 
-const render = ({
-  notes,
-  svgRef,
-  width,
-  height,
-  onFocus,
-  onBlur,
-}: RenderOptions): (() => void) => {
+const renderGraph = (
+  target: SVGSVGElement,
+  { notes, onFocus, onBlur }: RenderGraphOptions,
+) => {
+  const { width, height } = target.getBoundingClientRect();
+  const svg = select(target);
   let isDragging = false;
 
   // Construct nodes and links
@@ -276,9 +300,6 @@ const render = ({
   }));
   const validNodeIds = new Set(nodes.map(({ id }) => id));
   const links = nodes.flatMap(node => nodeLinks(node, validNodeIds));
-
-  // Draw SVG
-  const svg = select(svgRef.current).attr("viewBox", `0 0 ${width} ${height}`);
 
   // Define arrowhead
   // svg
@@ -412,8 +433,8 @@ const render = ({
         subject.fy = null;
       }) as any,
   );
+};
 
-  return () => {
-    svg.remove();
-  };
+const clearGraph = (target: SVGSVGElement) => {
+  select(target).selectChildren().remove();
 };

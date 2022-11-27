@@ -6,13 +6,12 @@ class ObsidianNoteAnalyzeJob < ApplicationJob
 
   # == Configuration ==
   good_job_control_concurrency_with(
-    enqueue_limit: 1,
-    perform_limit: 1,
     key: -> do
       T.bind(self, ObsidianNoteAnalyzeJob)
       note = T.let(arguments.first, ObsidianNote)
       "#{self.class.name}:#{note.id}"
     end,
+    total_limit: 1,
   )
 
   sig { params(note: ObsidianNote).void }

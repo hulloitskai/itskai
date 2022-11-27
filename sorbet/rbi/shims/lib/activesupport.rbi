@@ -5,6 +5,34 @@ module ActiveSupport::Dependencies
   def self.interlock; end
 end
 
+class ActiveSupport::Duration
+  sig { returns(Float) }
+  def in_days; end
+
+  sig { returns(Float) }
+  def in_hours; end
+
+  sig { returns(Float) }
+  def in_minutes; end
+
+  sig { returns(Float) }
+  def in_months; end
+
+  sig { returns(Float) }
+  def in_seconds; end
+
+  sig { returns(Float) }
+  def in_weeks; end
+
+  sig { returns(Float) }
+  def in_years; end
+end
+
+class ActiveSupport::TimeWithZone
+  sig { params(format: String).returns(String) }
+  def strftime(format); end
+end
+
 module ActiveSupport::Tryable
   sig do
     type_parameters(:U)
@@ -21,6 +49,44 @@ end
 class Object
   sig { returns(T::Boolean) }
   def present?; end
+end
+
+class Numeric
+  sig { returns(ActiveSupport::Duration) }
+  def day; end
+
+  sig { returns(ActiveSupport::Duration) }
+  def days; end
+
+  sig { returns(ActiveSupport::Duration) }
+  def fortnight; end
+
+  sig { returns(ActiveSupport::Duration) }
+  def fortnights; end
+
+  sig { returns(ActiveSupport::Duration) }
+  def hour; end
+
+  sig { returns(ActiveSupport::Duration) }
+  def hours; end
+
+  sig { returns(ActiveSupport::Duration) }
+  def minute; end
+
+  sig { returns(ActiveSupport::Duration) }
+  def minutes; end
+
+  sig { returns(ActiveSupport::Duration) }
+  def second; end
+
+  sig { returns(ActiveSupport::Duration) }
+  def seconds; end
+
+  sig { returns(ActiveSupport::Duration) }
+  def week; end
+
+  sig { returns(ActiveSupport::Duration) }
+  def weeks; end
 end
 
 class String

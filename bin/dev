@@ -10,4 +10,12 @@ if [ "$STATUS" != "0" ]; then
   exit 1
 fi
 
+if [ -e tmp/sockets/overmind.sock ]; then
+  if bin/overmind status > /dev/null; then
+    bin/overmind echo
+    exit 0
+  fi
+  rm tmp/sockets/overmind.sock
+fi
+
 bin/overmind start -f Procfile.dev --no-port "$@"

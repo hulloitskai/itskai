@@ -6,6 +6,7 @@ module Queries
     extend T::Sig
     extend T::Helpers
 
+    description "Kai's personal iCloud credentials (#securityStartsHere)."
     type Types::ICloudCredentialsType, null: true
 
     sig { returns(T.nilable(::ICloudCredentials)) }

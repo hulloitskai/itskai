@@ -188,20 +188,11 @@ type PageInfo {
 }
 
 type Query {
+  """Kai's contact email."""
   contactEmail: String!
+
+  """Kai's personal iCloud credentials (#securityStartsHere)."""
   icloudCredentials: ICloudCredentials
-
-  """Fetches an object given its ID."""
-  node(
-    """ID of the object."""
-    id: ID!
-  ): Node
-
-  """Fetches a list of objects given a list of IDs."""
-  nodes(
-    """IDs of the objects."""
-    ids: [ID!]!
-  ): [Node]!
   obsidianNote(id: ID!): ObsidianNote
   obsidianNoteByName(name: String!): ObsidianNote
   obsidianNotes(
@@ -218,11 +209,16 @@ type Query {
 
     """Returns the last _n_ elements from the list."""
     last: Int
+    modifiedAfter: DateTime
+    modifiedBefore: DateTime
   ): ObsidianNoteConnection!
 
-  """Kai's JSON Resume (https://jsonresume.org/)"""
+  """Kai's JSON Resume (https://jsonresume.org/)."""
   resume: JSON!
   testEcho(text: String): String!
+
+  """Kai's current timezone."""
+  timezone: Timezone!
 
   """The currently authenticated user."""
   viewer: User
@@ -263,6 +259,13 @@ type TestMutationPayload {
   clientMutationId: String
   errors: [ValidationError!]
   model: TestModel
+}
+
+type Timezone {
+  abbreviation: String!
+  name: String!
+  offset: String!
+  offsetMinutes: Int!
 }
 
 type User implements Identifiable & Node {

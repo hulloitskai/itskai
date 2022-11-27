@@ -8,9 +8,21 @@ module Queries
 
     type Types::ObsidianNoteType.connection_type, null: false
 
-    sig { returns(T.nilable(ActiveRecord::Relation)) }
-    def resolve
+    argument :modified_after, Types::DateTimeType, required: false
+    argument :modified_before, Types::DateTimeType, required: false
+
+    sig do
+      params(modified_after: T.nilable(Time), modified_before: T.nilable(Time))
+        .returns(T.nilable(ActiveRecord::Relation))
+    end
+    def resolve(modified_after: nil, modified_before: nil)
       notes = authorized_scope(::ObsidianNote.all)
+      if modified_after.present?
+        notes = notes.where("modified_at >= ?", modified_after)
+      end
+      if modified_before.present?
+        notes = notes.where("modified_at <= ?", modified_before)
+      end
       notes.order(modified_at: :desc)
     end
   end

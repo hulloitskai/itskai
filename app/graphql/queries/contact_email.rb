@@ -6,6 +6,7 @@ module Queries
     extend T::Sig
     extend T::Helpers
 
+    description "Kai's contact email."
     type String, null: false
 
     sig { returns(String) }

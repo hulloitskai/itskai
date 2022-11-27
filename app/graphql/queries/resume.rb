@@ -9,7 +9,7 @@ module Queries
     RESUME_PATH = Rails.root.join("config/resume.yml")
 
     type GraphQL::Types::JSON, null: false
-    description "Kai's JSON Resume (https://jsonresume.org/)"
+    description "Kai's JSON Resume (https://jsonresume.org/)."
 
     sig { returns(T::Hash[String, T.untyped]) }
     def resolve

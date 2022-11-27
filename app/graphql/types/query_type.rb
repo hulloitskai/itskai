@@ -15,13 +15,10 @@ module Types
     # == Fields ==
     field :test_echo, resolver: Queries::TestEcho
 
-    field :viewer,
-          resolver: Queries::Viewer,
-          description: "The currently authenticated user."
-
-    field :resume, resolver: Queries::Resume
-
     field :contact_email, resolver: Queries::ContactEmail
+    field :resume, resolver: Queries::Resume
+    field :timezone, resolver: Queries::Timezone
+    field :viewer, resolver: Queries::Viewer
 
     field :icloud_credentials, resolver: Queries::ICloudCredentials
 
