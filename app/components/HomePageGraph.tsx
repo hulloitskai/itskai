@@ -75,11 +75,11 @@ const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
   const [focusedNote, setFocusedNote] =
     useState<HomePageObsidianNoteFragment | null>(null);
   if (!import.meta.env.SSR) {
-    useLayoutEffect(() => {
+    useEffect(() => {
       const { current: target } = svgRef;
       const [width, height] = renderSize;
       if (target && notes && width && height) {
-        requestIdleCallback(() => {
+        requestAnimationFrame(() => {
           renderGraph(target, {
             notes,
             onFocus: setFocusedNote,
@@ -87,7 +87,7 @@ const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
           });
         });
         return () => {
-          requestIdleCallback(() => {
+          requestAnimationFrame(() => {
             clearGraph(target);
           });
         };
