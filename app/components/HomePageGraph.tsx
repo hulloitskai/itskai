@@ -112,7 +112,7 @@ const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
                 transitionTimingFunction: "ease-in-out",
                 transitionDuration: "150ms",
                 circle: {
-                  cursor: "pointer",
+                  cursor: "grab",
                   fill: colors.dark[4],
                   transitionProperty: "fill",
                   transitionTimingFunction: "ease-in-out",
@@ -362,6 +362,14 @@ const renderGraph = (
         linkLines.classed("dimmed", false);
         onBlur(node);
       }
+    })
+    .on("click", (event, { name }) => {
+      navigator.clipboard.writeText(name).then(() => {
+        showNotice({
+          title: "Copied note name!",
+          message: name,
+        });
+      });
     });
 
   // Draw node labels

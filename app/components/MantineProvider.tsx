@@ -15,7 +15,9 @@ const MantineProvider: FC<MantineProviderProps> = ({ children }) => (
     {...{ theme }}
   >
     <ModalsProvider>
-      <NotificationsProvider>{children}</NotificationsProvider>
+      <NotificationsProvider position="top-center">
+        {children}
+      </NotificationsProvider>
     </ModalsProvider>
   </_MantineProvider>
 );
