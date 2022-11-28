@@ -1,5 +1,6 @@
 app/graphql/schema.graphql
 app/helpers/apollo/introspection.ts
+app/helpers/apollo/helpers.ts
 app/queries/*.ts
 app/routes
 bin/

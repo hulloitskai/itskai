@@ -1,8 +1,22 @@
-query HomePageGraphQuery($modifiedAfter: DateTime!) {
-  notesConnection: obsidianNotes(modifiedAfter: $modifiedAfter, first: 32) {
-    notes: nodes {
-      id
-      ...HomePageObsidianNoteFragment
+query HomePageGraphQuery(
+  $modifiedAfter: DateTime!
+  $first: Int!
+  $after: String
+) {
+  notesConnection: obsidianNotes(
+    modifiedAfter: $modifiedAfter
+    first: $first
+    after: $after
+  ) {
+    edges {
+      node {
+        id
+        ...HomePageObsidianNoteFragment
+      }
+    }
+    totalCount
+    pageInfo {
+      lastNoteCursor: endCursor
     }
   }
 }

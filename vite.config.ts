@@ -53,6 +53,9 @@ export default defineConfig({
           "./app/helpers/apollo/introspection.ts": {
             plugins: ["fragment-matcher"],
           },
+          "./app/helpers/apollo/helpers.ts": {
+            plugins: ["typescript-apollo-client-helpers"],
+          },
         },
         silent: true,
         errorsOnly: true,

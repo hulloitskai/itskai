@@ -156,7 +156,7 @@ type ObsidianNoteEdge {
   cursor: String!
 
   """The item at the end of the edge."""
-  node: ObsidianNote
+  node: ObsidianNote!
 }
 
 type ObsidianStub implements Identifiable & Node & ObsidianEntry {

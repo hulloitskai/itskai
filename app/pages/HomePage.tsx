@@ -81,13 +81,13 @@ const HomePage: PageComponent = () => {
               Recent Perusings
             </Title>
             <Text color="gray.6">
-              This is a graph of some of the things that I have been thinking
-              (and writing) about.
+              This is a graph of the things that I have been thinking (and
+              writing) about this past week.
             </Text>
           </Box>
         </Stack>
       </Container>
-      <HomePageGraph w="full" mih={560} sx={{ flex: 1 }} />
+      <HomePageGraph w="full" sx={{ flex: 1 }} />
     </>
   );
 };

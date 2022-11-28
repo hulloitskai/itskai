@@ -43,6 +43,7 @@ const BODY_FORCE_MAX_DISTANCE = 250;
 const TAG_COLORS: Record<string, string> = {
   person: "pink",
   day: "gray",
+  month: "gray",
   place: "orange",
   event: "red",
 };
@@ -64,13 +65,17 @@ const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
     return time.toISO();
   }, []);
   const onError = useApolloErrorCallback("Failed to load Obsidian entries");
-  const { data, loading } = useQuery(HomePageGraphQueryDocument, {
+  const { data, loading, fetchMore } = useQuery(HomePageGraphQueryDocument, {
     variables: {
       modifiedAfter,
+      first: 32,
     },
     onError,
   });
-  const { notes } = data?.notesConnection ?? {};
+  const { edges, totalCount = 0, pageInfo } = data?.notesConnection ?? {};
+  const { lastNoteCursor } = pageInfo ?? {};
+  const notes = useMemo(() => edges?.map(({ node }) => node), [edges]);
+  const totalShown = notes?.length ?? 0;
 
   const [focusedNote, setFocusedNote] =
     useState<HomePageObsidianNoteFragment | null>(null);
@@ -98,9 +103,10 @@ const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
     <>
       <Box
         ref={containerRef}
+        pos="relative"
+        mih={560}
         sx={[
           ({ colors, fontSizes, fn }) => ({
-            position: "relative",
             "> svg": {
               position: "absolute",
               top: 0,
@@ -113,7 +119,7 @@ const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
                 transitionDuration: "150ms",
                 circle: {
                   cursor: "grab",
-                  fill: colors.dark[4],
+                  fill: colors.dark[3],
                   transitionProperty: "fill",
                   transitionTimingFunction: "ease-in-out",
                   transitionDuration: "150ms",
@@ -129,10 +135,10 @@ const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
                 },
               },
               ".node.dimmed": {
-                "&:not(.day)": {
+                "&:not(.day):not(.month)": {
                   fillOpacity: 0.15,
                 },
-                "&.day": {
+                "&.day, &.month": {
                   fillOpacity: 0.3,
                   strokeOpacity: 0.3,
                 },
@@ -151,7 +157,7 @@ const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
                     fill: colors.pink[4],
                   },
                 },
-                "&.day": {
+                "&.day, &.month": {
                   circle: {
                     fill: colors.gray[2],
                     stroke: colors.gray[4],
@@ -195,6 +201,27 @@ const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
           viewBox={`0 0 ${width} ${height}`}
           {...{ width, height }}
         />
+        <Center pos="absolute" left={0} bottom={20} right={0}>
+          <Transition transition="slide-up" mounted={totalShown < totalCount}>
+            {style => (
+              <Button
+                variant="default"
+                size="xs"
+                compact
+                onClick={() => {
+                  fetchMore({
+                    variables: {
+                      after: lastNoteCursor,
+                    },
+                  });
+                }}
+                {...{ style }}
+              >
+                Show More
+              </Button>
+            )}
+          </Transition>
+        </Center>
       </Box>
       <Affix position={{ bottom: 20, right: 20 }}>
         <Transition transition="slide-up" mounted={!!focusedNote}>
@@ -363,13 +390,15 @@ const renderGraph = (
         onBlur(node);
       }
     })
-    .on("click", (event, { name }) => {
-      navigator.clipboard.writeText(name).then(() => {
-        showNotice({
-          title: "Copied note name!",
-          message: name,
+    .on("click", (event: MouseEvent, { name }) => {
+      if (event.altKey) {
+        navigator.clipboard.writeText(name).then(() => {
+          showNotice({
+            title: "Copied note name!",
+            message: name,
+          });
         });
-      });
+      }
     });
 
   // Draw node labels
