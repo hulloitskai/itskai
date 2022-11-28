@@ -1,17 +1,24 @@
 import type { FC } from "react";
 
 import { ApolloProvider as _ApolloProvider } from "@apollo/client";
-import { createApolloClient } from "~/helpers/apollo";
+import { createApolloClient, createApolloCache } from "~/helpers/apollo";
 
 import type { ProviderProps } from "~/helpers/inertia";
 
 export type ApolloProviderProps = ProviderProps;
 
-const ApolloProvider: FC<ApolloProviderProps> = ({ page, children }) => {
-  const {
-    csrf: { token: csrfToken },
-  } = page.props;
-  const client = useMemo(() => createApolloClient({ csrfToken }), []);
+const ApolloProvider: FC<ApolloProviderProps> = ({
+  page: {
+    props: {
+      csrf: { token: csrfToken },
+    },
+  },
+  children,
+}) => {
+  const cache = useMemo(createApolloCache, []);
+  const client = useMemo(() => {
+    return createApolloClient({ cache, csrfToken });
+  }, [cache, csrfToken]);
   return <_ApolloProvider {...{ client }}>{children}</_ApolloProvider>;
 };
 

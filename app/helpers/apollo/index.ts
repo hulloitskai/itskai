@@ -1,2 +1,2 @@
 export { formatApolloError, useApolloErrorCallback } from "./errors";
-export { createApolloClient } from "./client";
+export { createApolloClient, createApolloCache } from "./client";
