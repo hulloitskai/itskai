@@ -1,21 +1,8 @@
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 import type { NormalizedCacheObject, ApolloLink } from "@apollo/client";
-import { relayStylePagination } from "@apollo/client/utilities";
 
 import { createApolloLink } from "./link?client";
-
-import { StrictTypedTypePolicies } from "./helpers";
-
-import introspection from "./introspection";
-const { possibleTypes } = introspection;
-
-const typePolicies: StrictTypedTypePolicies = {
-  Query: {
-    fields: {
-      obsidianNotes: relayStylePagination(["modifiedAfter", "modifiedBefore"]),
-    },
-  },
-};
+import { possibleTypes, typePolicies } from "./types";
 
 export type ApolloClientOptions = {
   readonly csrfToken: string;
@@ -41,6 +28,8 @@ export const createApolloClient = ({
     cache: new InMemoryCache({ possibleTypes, typePolicies }),
     defaultOptions: {
       watchQuery: {
+        notifyOnNetworkStatusChange: true,
+
         // The first time a browser-side `watchQuery` is run, attempt to load
         // data from the cache, before making a network request.
         fetchPolicy: "cache-first",
