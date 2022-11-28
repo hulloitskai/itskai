@@ -22,10 +22,10 @@
 #
 
 class ObsidianRelation < ApplicationRecord
-  # == Associations ==
+  # == Associations
   belongs_to :from, class_name: "ObsidianNote", inverse_of: :outgoing_relations
   belongs_to :to, polymorphic: true
 
-  # == Validations ==
+  # == Validations
   validates :to_type, inclusion: { in: %w[ObsidianNote ObsidianStub] }
 end

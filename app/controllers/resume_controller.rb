@@ -10,18 +10,12 @@ class ResumeController < ApplicationController
       format.html do
         printable = params.key?("printable") && !params["printable"].falsy?
         data = query!("ResumePageQuery")
-        render(
-          inertia: "ResumePage",
-          props: {
-            printable: printable,
-            data: data,
-          },
-        )
+        render(inertia: "ResumePage", props: { printable:, data: })
       end
       format.json do
         result = Schema.execute("query { resume }")
         json = JSON.pretty_generate(result["data"]["resume"])
-        render(json: json)
+        render(json:)
       end
     end
   end

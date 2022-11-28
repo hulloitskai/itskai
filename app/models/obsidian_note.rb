@@ -27,7 +27,7 @@
 #
 
 class ObsidianNote < ApplicationRecord
-  # == Associations ==
+  # == Associations
   has_many :outgoing_relations,
            class_name: "ObsidianRelation",
            inverse_of: :from,
@@ -48,36 +48,36 @@ class ObsidianNote < ApplicationRecord
            dependent: :destroy
   has_many :referenced_by, through: :incoming_relations, source: :from
 
-  # == Concerns ==
+  # == Concerns
   include Identifiable
   include ObsidianEntry
 
-  # == Validations ==
+  # == Validations
   validates :aliases, :tags, array: { presence: true }
 
-  # == Callbacks ==
+  # == Callbacks
   after_commit :analyze_later, on: %i[create update], if: :analysis_required?
 
-  # == Synchronization ==
+  # == Synchronization
   sig { params(force: T::Boolean).void }
   def self.synchronize_all(force: false)
-    ObsidianNoteSynchronizationJob.perform_now(force: force)
+    ObsidianNoteSynchronizationJob.perform_now(force:)
   end
 
   sig { params(force: T::Boolean).void }
   def self.synchronize_all_later(force: false)
-    ObsidianNoteSynchronizationJob.perform_later(force: force)
+    ObsidianNoteSynchronizationJob.perform_later(force:)
   end
 
   sig { params(force: T::Boolean).void }
   def synchronize(force: false)
-    Obsidian.synchronize_note(self, force: force)
+    Obsidian.synchronize_note(self, force:)
   end
 
-  # == Analysis ==
+  # == Analysis
   sig { params(force: T::Boolean).void }
   def self.analyze_all(force: false)
-    ObsidianNoteAnalysisJob.perform_now(force: force)
+    ObsidianNoteAnalysisJob.perform_now(force:)
   end
 
   sig { params(force: T::Boolean).void }

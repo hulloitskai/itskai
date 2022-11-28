@@ -3,13 +3,13 @@
 
 module Types
   module IdentifiableType
-    # == Definition ==
+    # == Definition
     include Types::BaseInterface
 
-    # == Interfaces ==
+    # == Interfaces
     implements NodeType
 
-    # == Fields ==
+    # == Fields
     field :short_id,
           ShortIDType,
           null: false,

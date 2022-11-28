@@ -15,16 +15,16 @@
 #
 
 class ICloudCredentials < ApplicationRecord
-  # == Configuration ==
+  # == Configuration
   self.filter_attributes += %i[password cookies session]
 
-  # == Concerns ==
+  # == Concerns
   include Identifiable
 
-  # == Validations ==
+  # == Validations
   validates :email, :password, presence: true
 
-  # == Attributes ==
+  # == Attributes
   sig { returns(T.nilable(T::Hash[String, T.untyped])) }
   def session
     super

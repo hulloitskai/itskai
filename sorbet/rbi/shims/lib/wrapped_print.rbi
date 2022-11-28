@@ -7,13 +7,13 @@ end
 module WrappedPrint::Main
   sig do
     params(
-        label: T.nilable(String),
-        pattern: String,
-        count: Integer,
-        prefix: String,
-        suffix: String,
-        color: Symbol,
-      )
+      label: T.nilable(String),
+      pattern: String,
+      count: Integer,
+      prefix: String,
+      suffix: String,
+      color: Symbol,
+    )
       .returns(T.self_type)
   end
   def wp(

@@ -23,7 +23,7 @@ const AccountEditPageEmailForm: FC<AccountEditPageEmailFormProps> = ({
     () => ({ email: unconfirmedEmail || email }),
     [viewer],
   );
-  const { getInputProps, onSubmit, setValues, setErrors } =
+  const { values, getInputProps, onSubmit, setValues, setErrors } =
     useForm<AccountEditPageEmailFormValues>({
       initialValues: initialValues,
     });
@@ -35,19 +35,26 @@ const AccountEditPageEmailForm: FC<AccountEditPageEmailFormProps> = ({
           errorBag: "AccountEmailForm",
           preserveScroll: true,
           onSuccess: async page => {
-            const {
-              data: { viewer },
-            } = page.props as unknown as AccountEditPageProps;
-            invariant(viewer, "Missing viewer after mutation");
-            const { email, unconfirmedEmail } = viewer;
-            setValues({ email: unconfirmedEmail || email });
-            if (unconfirmedEmail) {
-              showNotice({
-                message:
-                  "Please check your email and follow the confirmation link " +
-                  "to confirm your new email address.",
-              });
-            }
+            const previouslyUnconfirmedEmail = unconfirmedEmail;
+            resolve(() => {
+              const {
+                data: {
+                  viewer: { email, unconfirmedEmail },
+                },
+              } = page.props as unknown as AccountEditPageProps;
+              if (unconfirmedEmail) {
+                showNotice({
+                  message:
+                    "Please check your email and follow the confirmation " +
+                    "link to confirm your new email address.",
+                });
+              } else if (previouslyUnconfirmedEmail) {
+                showNotice({
+                  message: "Your email change request has been cancelled.",
+                });
+              }
+              setValues({ email: unconfirmedEmail || email });
+            });
           },
           onError: setErrors,
         });

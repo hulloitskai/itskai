@@ -8,6 +8,6 @@ class JenController < ApplicationController
   def show
     set_meta_tags(noindex: true)
     data = query!("JenPageQuery")
-    render(inertia: "JenPage", props: { data: data })
+    render(inertia: "JenPage", props: { data: })
   end
 end

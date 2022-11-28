@@ -5,11 +5,11 @@ module Subscriptions
   class BaseSubscription < GraphQL::Schema::Subscription
     extend T::Sig
 
-    # == Modules ==
+    # == Modules
     include ActionPolicy::GraphQL::Behaviour
     include Resolver
 
-    # == Configuration ==
+    # == Configuration
     argument_class Types::BaseArgument
     object_class Types::BaseObject
     field_class Types::BaseField

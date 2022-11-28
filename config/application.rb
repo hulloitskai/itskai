@@ -13,13 +13,13 @@ module ItsKai
   class Application < Rails::Application
     # Load libraries.
     config.before_configuration do
-      # == Core Extensions ==
+      # == Core Extensions
       require "core_ext"
 
-      # == Rails Extensions ==
+      # == Rails Extensions
       require "rails_ext"
 
-      # == Library Extensions ==
+      # == Library Extensions
       require "better_errors_ext"
       require "bullet_ext"
       require "devise_ext"
@@ -27,15 +27,16 @@ module ItsKai
       require "graphql_ext"
       require "premailer_ext"
 
-      # == Libraries ==
+      # == Libraries
       require "icloud"
       require "obsidian"
+      require "spotify"
     end
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults(7.0)
 
-    # == Code Loading ==
+    # == Code Loading
     # See: https://edgeguides.rubyonrails.org/autoloading_and_reloading_constants.html#load_path
     config.add_autoload_paths_to_load_path = false
 
@@ -47,7 +48,7 @@ module ItsKai
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # == Generators ==
+    # == Generators
     config.generators do |g|
       # Generate Active Record model and migration with UUID primary keys.
       g.orm(:active_record, primary_key_type: :uuid)
@@ -63,32 +64,32 @@ module ItsKai
       g.model_specs(false)
     end
 
-    # == Sessions ==
+    # == Sessions
     config.session_store(:cookie_store, key: "session")
 
-    # == Action View ==
+    # == Action View
     config.action_view.frozen_string_literal = true
 
-    # == Active Record ==
+    # == Active Record
     # config.active_record.destroy_association_async_batch_size = 1000
     config.active_record.internal_metadata_table_name =
       "active_record_internal_metadata"
     config.active_record.schema_migrations_table_name =
       "active_record_schema_migrations"
 
-    # == Action Cable ==
+    # == Action Cable
     config.action_cable.mount_path = "/rails/action_cable/cable"
 
-    # == Active Job ==
+    # == Active Job
     config.active_job.queue_adapter = :good_job
 
-    # == Active Storage ==
+    # == Active Storage
     config.active_storage.variant_processor = :vips
 
-    # == Active Support ==
+    # == Active Support
     config.active_support.remove_deprecated_time_with_zone_name = true
 
-    # == Action Mailer ==
+    # == Action Mailer
     config.action_mailer.perform_deliveries =
       ENV.fetch("RAILS_MAILER_PERFORM_DELIVERIES", true).truthy?
   end

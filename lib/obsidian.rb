@@ -6,7 +6,7 @@ require_relative "obsidian/railtie"
 module Obsidian
   FrontMatter = T.type_alias { T::Hash[String, T.untyped] }
 
-  # == Configuration ==
+  # == Configuration
   include ActiveSupport::Configurable
   config_accessor :vault_root
   config_accessor :logger
@@ -14,7 +14,7 @@ module Obsidian
   class << self
     extend T::Sig
 
-    # == Methods ==
+    # == Methods
     sig { returns(T::Array[String]) }
     def note_names
       root = self.root or return []
@@ -32,16 +32,15 @@ module Obsidian
       notes = ObsidianNote.all.to_a
       notes_by_name = notes.index_by(&:name)
       removed_note_names = (notes_by_name.keys - note_names)
-      removed_notes =
-        T.let(
-          T.unsafe(notes_by_name).fetch_values(*removed_note_names),
-          T::Array[ObsidianNote],
-        )
+      removed_notes = T.let(
+        T.unsafe(notes_by_name).fetch_values(*removed_note_names),
+        T::Array[ObsidianNote],
+      )
       added_note_names = (note_names - notes_by_name.keys)
       added_note_names.each do |name|
-        notes_by_name[name] = ObsidianNote.new(name: name)
+        notes_by_name[name] = ObsidianNote.new(name:)
       end
-      notes_by_name.filter! { |_, note| update_quietly(note, force: force) }
+      notes_by_name.filter! { |_, note| update_quietly(note, force:) }
       notes = notes_by_name.values
       ActiveRecord::Base.transaction do
         notes.each(&:save!)
@@ -52,13 +51,13 @@ module Obsidian
 
     sig { params(note: ObsidianNote, force: T::Boolean).returns(TrueClass) }
     def synchronize_note(note, force: false)
-      update_without_saving(note, force: force)
+      update_without_saving(note, force:)
       note.save!
     end
 
     private
 
-    # == Helpers ==
+    # == Helpers
     sig { returns(T.nilable(ICloud::Drive::Node)) }
     def root
       @root = T.let(@root, T.nilable(ICloud::Drive::Node))
@@ -115,7 +114,7 @@ module Obsidian
         if error.is_a?(PyCall::PyError)
           type, message = error.type.__name__, error.value.to_s
           if type == "PyiCloudAPIResponseException" &&
-               message.ends_with?("(500)")
+              message.ends_with?("(500)")
             message = "An unknown iCloud API error occurred"
           end
         end

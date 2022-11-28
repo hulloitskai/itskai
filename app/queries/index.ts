@@ -123,6 +123,17 @@ export type Node = {
   id: Scalars['ID'];
 };
 
+export type OAuthCredentials = Identifiable & Node & {
+  __typename?: 'OAuthCredentials';
+  /** ID of the object. */
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  refreshToken: Maybe<Scalars['String']>;
+  /** ShortID of the object. */
+  shortId: Scalars['ShortID'];
+  uid: Scalars['String'];
+};
+
 /** An object with an ID. */
 export type ObsidianEntry = {
   createdAt: Scalars['DateTime'];
@@ -201,6 +212,8 @@ export type PageInfo = {
 
 export type Query = {
   __typename?: 'Query';
+  /** The currently authenticated user. */
+  authenticatedViewer: User;
   /** Kai's contact email. */
   contactEmail: Scalars['String'];
   /** Kai's personal iCloud credentials (#securityStartsHere). */
@@ -210,6 +223,8 @@ export type Query = {
   obsidianNotes: ObsidianNoteConnection;
   /** Kai's JSON Resume (https://jsonresume.org/). */
   resume: Scalars['JSON'];
+  /** Spotify OAuth credentials. */
+  spotifyCredentials: Maybe<OAuthCredentials>;
   testEcho: Scalars['String'];
   /** Kai's current timezone. */
   timezone: Timezone;
@@ -242,9 +257,28 @@ export type QueryTestEchoArgs = {
   text?: InputMaybe<Scalars['String']>;
 };
 
+export type SpotifyAlbum = {
+  __typename?: 'SpotifyAlbum';
+  id: Scalars['String'];
+  imageUrl: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  url: Scalars['String'];
+};
+
+export type SpotifyArtist = {
+  __typename?: 'SpotifyArtist';
+  id: Scalars['String'];
+  name: Scalars['String'];
+  url: Scalars['String'];
+};
+
 export type SpotifyTrack = {
   __typename?: 'SpotifyTrack';
-  name: Maybe<Scalars['String']>;
+  album: SpotifyAlbum;
+  artists: Array<SpotifyArtist>;
+  id: Scalars['String'];
+  name: Scalars['String'];
+  url: Scalars['String'];
 };
 
 export type Subscription = {
@@ -308,7 +342,9 @@ export type AccountEditPageICloudCredentialsFragment = { __typename?: 'ICloudCre
 export type AccountEditPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AccountEditPageQuery = { __typename?: 'Query', viewer: { __typename?: 'User', id: string, isOwner: boolean, name: string, email: string, unconfirmedEmail: string | null } | null, icloudCredentials: { __typename?: 'ICloudCredentials', id: string, email: string, password: string, session: any | null, cookies: string | null } | null };
+export type AccountEditPageQuery = { __typename?: 'Query', viewer: { __typename?: 'User', id: string, isOwner: boolean, name: string, email: string, unconfirmedEmail: string | null }, icloudCredentials: { __typename?: 'ICloudCredentials', id: string, email: string, password: string, session: any | null, cookies: string | null } | null, spotifyCredentials: { __typename?: 'OAuthCredentials', id: string, uid: string, refreshToken: string | null } | null };
+
+export type AccountEditPageSpotifyCredentialsFragment = { __typename?: 'OAuthCredentials', uid: string, refreshToken: string | null };
 
 export type AccountEditPageViewerFragment = { __typename?: 'User', name: string, email: string, unconfirmedEmail: string | null };
 
@@ -336,10 +372,17 @@ export type ContactEmailQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ContactEmailQuery = { __typename?: 'Query', email: string };
 
+export type CurrentlyPlayingIslandSpotifyTrackFragment = { __typename?: 'SpotifyTrack', id: string, url: string, name: string, album: { __typename?: 'SpotifyAlbum', id: string, imageUrl: string | null }, artists: Array<{ __typename?: 'SpotifyArtist', id: string, name: string }> };
+
+export type CurrentlyPlayingIslandSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CurrentlyPlayingIslandSubscription = { __typename?: 'Subscription', currentlyPlaying: { __typename?: 'SpotifyTrack', id: string, url: string, name: string, album: { __typename?: 'SpotifyAlbum', id: string, imageUrl: string | null }, artists: Array<{ __typename?: 'SpotifyArtist', id: string, name: string }> } | null };
+
 export type CurrentlyPlayingSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CurrentlyPlayingSubscription = { __typename?: 'Subscription', currentlyPlaying: { __typename?: 'SpotifyTrack', name: string | null } | null };
+export type CurrentlyPlayingSubscription = { __typename?: 'Subscription', currentlyPlaying: { __typename?: 'SpotifyTrack', name: string } | null };
 
 export type HomePageGraphQueryVariables = Exact<{
   modifiedAfter: Scalars['DateTime'];
@@ -406,14 +449,17 @@ export type WorkPageQueryVariables = Exact<{ [key: string]: never; }>;
 export type WorkPageQuery = { __typename?: 'Query', viewer: { __typename?: 'User', id: string, isOwner: boolean, name: string } | null };
 
 export const AccountEditPageICloudCredentialsFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountEditPageICloudCredentialsFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ICloudCredentials"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"password"}},{"kind":"Field","name":{"kind":"Name","value":"session"}},{"kind":"Field","name":{"kind":"Name","value":"cookies"}}]}}]} as unknown as DocumentNode<AccountEditPageICloudCredentialsFragment, unknown>;
+export const AccountEditPageSpotifyCredentialsFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountEditPageSpotifyCredentialsFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OAuthCredentials"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"refreshToken"}}]}}]} as unknown as DocumentNode<AccountEditPageSpotifyCredentialsFragment, unknown>;
 export const AccountEditPageViewerFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountEditPageViewerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"unconfirmedEmail"}}]}}]} as unknown as DocumentNode<AccountEditPageViewerFragment, unknown>;
 export const AppViewerFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AppViewerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isOwner"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]} as unknown as DocumentNode<AppViewerFragment, unknown>;
+export const CurrentlyPlayingIslandSpotifyTrackFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CurrentlyPlayingIslandSpotifyTrackFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SpotifyTrack"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"album"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}},{"kind":"Field","name":{"kind":"Name","value":"artists"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<CurrentlyPlayingIslandSpotifyTrackFragment, unknown>;
 export const HomePageObsidianNoteFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HomePageObsidianNoteFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ObsidianNote"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"modifiedAt"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"aliases"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}},{"kind":"Field","name":{"kind":"Name","value":"blurb"}},{"kind":"Field","name":{"kind":"Name","value":"referencedBy"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"references"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<HomePageObsidianNoteFragment, unknown>;
-export const AccountEditPageQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AccountEditPageQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AppViewerFragment"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountEditPageViewerFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"icloudCredentials"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountEditPageICloudCredentialsFragment"}}]}}]}},...AppViewerFragment.definitions,...AccountEditPageViewerFragment.definitions,...AccountEditPageICloudCredentialsFragment.definitions]} as unknown as DocumentNode<AccountEditPageQuery, AccountEditPageQueryVariables>;
+export const AccountEditPageQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AccountEditPageQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"viewer"},"name":{"kind":"Name","value":"authenticatedViewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AppViewerFragment"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountEditPageViewerFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"icloudCredentials"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountEditPageICloudCredentialsFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"spotifyCredentials"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountEditPageSpotifyCredentialsFragment"}}]}}]}},...AppViewerFragment.definitions,...AccountEditPageViewerFragment.definitions,...AccountEditPageICloudCredentialsFragment.definitions,...AccountEditPageSpotifyCredentialsFragment.definitions]} as unknown as DocumentNode<AccountEditPageQuery, AccountEditPageQueryVariables>;
 export const AccountSignInPageQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AccountSignInPageQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AppViewerFragment"}}]}}]}},...AppViewerFragment.definitions]} as unknown as DocumentNode<AccountSignInPageQuery, AccountSignInPageQueryVariables>;
 export const AccountSignUpPageQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AccountSignUpPageQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AppViewerFragment"}}]}}]}},...AppViewerFragment.definitions]} as unknown as DocumentNode<AccountSignUpPageQuery, AccountSignUpPageQueryVariables>;
 export const AccountUpdateMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AccountUpdateMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AccountUpdateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"payload"},"name":{"kind":"Name","value":"accountUpdate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"errors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"field"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<AccountUpdateMutation, AccountUpdateMutationVariables>;
 export const ContactEmailQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ContactEmailQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"email"},"name":{"kind":"Name","value":"contactEmail"}}]}}]} as unknown as DocumentNode<ContactEmailQuery, ContactEmailQueryVariables>;
+export const CurrentlyPlayingIslandSubscriptionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"CurrentlyPlayingIslandSubscription"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"currentlyPlaying"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"CurrentlyPlayingIslandSpotifyTrackFragment"}}]}}]}},...CurrentlyPlayingIslandSpotifyTrackFragment.definitions]} as unknown as DocumentNode<CurrentlyPlayingIslandSubscription, CurrentlyPlayingIslandSubscriptionVariables>;
 export const CurrentlyPlayingSubscriptionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"CurrentlyPlayingSubscription"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"currentlyPlaying"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<CurrentlyPlayingSubscription, CurrentlyPlayingSubscriptionVariables>;
 export const HomePageGraphQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"HomePageGraphQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"modifiedAfter"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DateTime"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"notesConnection"},"name":{"kind":"Name","value":"obsidianNotes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"modifiedAfter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"modifiedAfter"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"HomePageObsidianNoteFragment"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"lastNoteCursor"},"name":{"kind":"Name","value":"endCursor"}}]}}]}}]}},...HomePageObsidianNoteFragment.definitions]} as unknown as DocumentNode<HomePageGraphQuery, HomePageGraphQueryVariables>;
 export const HomePageQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"HomePageQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"AppViewerFragment"}}]}}]}},...AppViewerFragment.definitions]} as unknown as DocumentNode<HomePageQuery, HomePageQueryVariables>;

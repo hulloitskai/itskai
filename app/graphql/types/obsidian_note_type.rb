@@ -3,12 +3,12 @@
 
 module Types
   class ObsidianNoteType < BaseObject
-    # == Interfaces ==
+    # == Interfaces
     implements NodeType
     implements IdentifiableType
     implements ObsidianEntryType
 
-    # == Fields ==
+    # == Fields
     field :aliases, [String], null: false
     field :blurb, String
     field :content, String, null: true
@@ -16,7 +16,7 @@ module Types
     field :references, [ObsidianEntryType], null: false
     field :tags, [String], null: false
 
-    # == Resolvers ==
+    # == Resolvers
     sig { returns(T::Array[T.all(ApplicationRecord, ObsidianEntry)]) }
     def references
       references = authorized_scope(object.references)

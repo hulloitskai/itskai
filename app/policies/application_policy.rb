@@ -4,7 +4,7 @@
 class ApplicationPolicy < ActionPolicy::Base
   extend T::Sig
 
-  # == Configuration ==
+  # == Configuration
   # Configure additional authorization contexts here
   # (`user` is added by default).
   #
@@ -19,7 +19,7 @@ class ApplicationPolicy < ActionPolicy::Base
   # Always permit owner.
   pre_check :allow_owner!
 
-  # == Default Rules ==
+  # == Default Rules
   sig { returns(T::Boolean) }
   def index?
     false
@@ -32,7 +32,7 @@ class ApplicationPolicy < ActionPolicy::Base
 
   private
 
-  # == Helpers ==
+  # == Helpers
   sig { void }
   def allow_owner!
     allow! if user&.owner?

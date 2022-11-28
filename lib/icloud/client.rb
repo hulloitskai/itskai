@@ -13,13 +13,14 @@ module ICloud
     def initialize(credentials:)
       @credentials = credentials
       restore_credentials
-      @pyicloud = T.let(@pyicloud, T.untyped)
-      @pyicloud =
+      @pyicloud = T.let(
         PyClient.new(
           email: @credentials.email,
           password: @credentials.password,
           cookie_directory: ICloud.credentials_dir,
-        )
+        ),
+        T.untyped,
+      )
       save_credentials
     end
 
@@ -53,7 +54,7 @@ module ICloud
       credentials = self.credentials or return
       cookies = File.read(cookies_filename!)
       session = File.read(session_filename!)
-      credentials.update!(cookies: cookies, session: JSON.parse(session))
+      credentials.update!(cookies:, session: JSON.parse(session))
     end
 
     sig { void }

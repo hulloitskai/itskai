@@ -14,7 +14,7 @@ require_relative "lib/pry_ext"
 # TODO: No longer necessary when https://github.com/pry/pry/pull/2209 is merged.
 ENV["PAGER"] = " less --raw-control-chars -F -X"
 
-# == Commands ==
+# == Commands
 Pry::Commands.block_command("clear", "Clear the screen.") { system("clear") }
 Pry::Commands.block_command(
   "copy",

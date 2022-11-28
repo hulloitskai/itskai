@@ -1,26 +1,44 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# == Dependencies ==
+# == Dependencies
 system("bundle", "install", "--quiet") ||
   abort("Failed to install Ruby dependencies")
 system("yarn", "install", "--silent") ||
   abort("Failed to install Node dependencies")
 
-# == Command ==
+# == Command
 require "optparse"
 
 options = {}
 
 OptionParser.new do |opts|
   opts.banner = "Usage: bin/fmt [--fix] <targets...>"
-  opts.on(
-    "--fix",
-    "Auto-format unformatted files",
-  ) { |check| options[:check] = check }
+  opts.on("--fix", "Auto-format unformatted files") do |fix|
+    options[:fix] = fix
+  end
 end.parse!
 
-mode = options[:fix] ? "--write" : "--check"
+def scoped(&block)
+  yield
+end
 
 puts "== prettier =="
-system("yarn", "--silent", "prettier", mode, ".")
+scoped do
+  args = []
+  args << (options[:fix] ? "--write" : "--check")
+  args << "."
+  system("yarn", "--silent", "prettier", *args)
+end
+
+puts "== rubocop =="
+scoped do
+  args = []
+  if options[:fix]
+    args << "--fix-layout"
+  else
+    args << "--only"
+    args << "Layout"
+  end
+  system("bundle", "exec", "rubocop", *args)
+end

@@ -4,7 +4,7 @@
 class ObsidianNoteAnalyzeJob < ApplicationJob
   extend T::Sig
 
-  # == Configuration ==
+  # == Configuration
   good_job_control_concurrency_with(
     key: -> do
       T.bind(self, ObsidianNoteAnalyzeJob)
@@ -37,7 +37,7 @@ class ObsidianNoteAnalyzeJob < ApplicationJob
     unresolved_reference_names = links - referenced_names
     unresolved_references =
       unresolved_reference_names.map do |name|
-        ObsidianStub.find_or_initialize_by(name: name)
+        ObsidianStub.find_or_initialize_by(name:)
       end
     note.references = references
     note.unresolved_references = unresolved_references
@@ -47,6 +47,7 @@ class ObsidianNoteAnalyzeJob < ApplicationJob
   def analyze_blurb(note)
     return if note.blurb.present?
     return if note.content.blank?
+
     root = Markly.parse(note.content)
     node = T.let(root.first, T.nilable(Markly::Node))
     if node.present? && node.type == :paragraph

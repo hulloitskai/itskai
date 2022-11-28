@@ -24,3 +24,17 @@ end
 module GraphQL::Schema::Interface
   mixes_in_class_methods GraphQL::Schema::Member::RelayShortcuts
 end
+
+class GraphQL::Result
+  sig {returns(T::Hash[String, T.untyped])}
+  def to_h
+  end
+end
+
+class GraphQL::Execution::Lookahead
+  sig {params(field_name: T.any(String, Symbol), selected_type: T.untyped, arguments: T.untyped).returns(T.nilable(T.self_type))}
+  def selection(field_name, selected_type: T.unsafe(nil), arguments: T.unsafe(nil)); end
+
+  sig {params(field_name: T.any(String, Symbol), selected_type: T.untyped, arguments: T.untyped).returns(T::Boolean)}
+  def selects?(field_name, selected_type: T.unsafe(nil), arguments: T.unsafe(nil)); end
+end

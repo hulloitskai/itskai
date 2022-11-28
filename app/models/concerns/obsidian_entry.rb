@@ -13,10 +13,10 @@ module ObsidianEntry
   included do
     T.bind(self, T.class_of(ApplicationRecord))
 
-    # == Dependencies ==
+    # == Dependencies
     requires_columns :name
 
-    # == Validations ==
+    # == Validations
     validates :name, presence: true
   end
 end

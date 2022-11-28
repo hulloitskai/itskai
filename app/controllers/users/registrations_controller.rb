@@ -2,15 +2,22 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  # == Filters ==
+  # == Filters
   before_action :configure_sign_up_params, only: :create
 
-  # == Actions ==
+  # == Actions
   # GET /account/sign_up
   sig { override.void }
   def new
     data = query!("AccountSignUpPageQuery")
-    render(inertia: "AccountSignUpPage", props: { data: data })
+    render(inertia: "AccountSignUpPage", props: { data: })
+  end
+
+  # GET /resource/edit
+  sig { void }
+  def edit
+    data = query!("AccountEditPageQuery")
+    render(inertia: "AccountEditPage", props: { data: })
   end
 
   # POST /account
@@ -41,13 +48,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
         },
       )
     end
-  end
-
-  # GET /resource/edit
-  sig { void }
-  def edit
-    data = query!("AccountEditPageQuery")
-    render(inertia: "AccountEditPage", props: { data: data })
   end
 
   # PUT /resource
@@ -117,7 +117,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
-  # == Helpers ==
+  # == Helpers
   sig { returns(T::Hash[String, T.untyped]) }
   def inertia_errors
     error_bag = request.headers["X-Inertia-Error-Bag"]
@@ -133,7 +133,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     error_bag.present? ? { error_bag => errors } : errors
   end
 
-  # == Filters ==
+  # == Filters
   # If you have extra params to permit, append them to the sanitizer.
   sig { void }
   def configure_sign_up_params

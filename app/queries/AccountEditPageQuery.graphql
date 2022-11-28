@@ -1,5 +1,5 @@
 query AccountEditPageQuery {
-  viewer {
+  viewer: authenticatedViewer {
     id
     ...AppViewerFragment
     ...AccountEditPageViewerFragment
@@ -7,5 +7,9 @@ query AccountEditPageQuery {
   icloudCredentials {
     id
     ...AccountEditPageICloudCredentialsFragment
+  }
+  spotifyCredentials {
+    id
+    ...AccountEditPageSpotifyCredentialsFragment
   }
 }

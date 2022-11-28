@@ -17,7 +17,7 @@ module Mutations
     def resolve(**attributes)
       user = current_user!
       if user.update_without_password(attributes)
-        Payload.new(user: user)
+        Payload.new(user:)
       else
         Payload.new(errors: user.errors)
       end

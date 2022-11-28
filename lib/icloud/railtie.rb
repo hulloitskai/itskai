@@ -9,8 +9,7 @@ module ICloud
 
     initializer "icloud.set_configs" do |app|
       options = app.config.icloud
-      options.logger =
-        ActiveSupport::TaggedLogging.new(Rails.logger).tagged("ICloud")
+      options.logger = Rails.logger
       options.credentials_dir = Rails.root.join("tmp/icloud").to_s
 
       ActiveSupport.on_load(:icloud) do
@@ -29,7 +28,7 @@ module ICloud
     initializer "icloud.initialize" do
       config.after_initialize do
         if Rails.const_defined?(:Server)
-          puts "=> Initializing ICloud" # rubocop:disable Rails/Output
+          puts "=> Initializing iCloud" # rubocop:disable Rails/Output
         end
         if Rails.const_defined?(:Server) || Rails.const_defined?(:Console)
           ICloud.initialize

@@ -6,8 +6,10 @@ class Pry::Method
   def source_location
     loc = super
     return loc unless defined?(T::Private::Methods) && @method.is_a?(Method)
+
     signature = T::Private::Methods.signature_for_method(@method)
     return loc unless signature
+
     signature.method.source_location
   end
 end

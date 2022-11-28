@@ -18,7 +18,7 @@ module Mutations
     def resolve(**attributes)
       model = TestModel.new(**attributes)
       if model.valid?
-        Payload.new(model: model)
+        Payload.new(model:)
       else
         Payload.new(errors: model.errors)
       end

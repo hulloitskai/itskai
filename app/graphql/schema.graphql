@@ -104,6 +104,17 @@ interface Node {
   id: ID!
 }
 
+type OAuthCredentials implements Identifiable & Node {
+  """ID of the object."""
+  id: ID!
+  name: String!
+  refreshToken: String
+
+  """ShortID of the object."""
+  shortId: ShortID!
+  uid: String!
+}
+
 """An object with an ID."""
 interface ObsidianEntry implements Identifiable & Node {
   createdAt: DateTime!
@@ -188,6 +199,9 @@ type PageInfo {
 }
 
 type Query {
+  """The currently authenticated user."""
+  authenticatedViewer: User!
+
   """Kai's contact email."""
   contactEmail: String!
 
@@ -215,6 +229,9 @@ type Query {
 
   """Kai's JSON Resume (https://jsonresume.org/)."""
   resume: JSON!
+
+  """Spotify OAuth credentials."""
+  spotifyCredentials: OAuthCredentials
   testEcho(text: String): String!
 
   """Kai's current timezone."""
@@ -229,8 +246,25 @@ Represents a unique identifier that is Base64 obfuscated. It is often used to re
 """
 scalar ShortID
 
+type SpotifyAlbum {
+  id: String!
+  imageUrl: String
+  name: String!
+  url: String!
+}
+
+type SpotifyArtist {
+  id: String!
+  name: String!
+  url: String!
+}
+
 type SpotifyTrack {
-  name: String
+  album: SpotifyAlbum!
+  artists: [SpotifyArtist!]!
+  id: String!
+  name: String!
+  url: String!
 }
 
 type Subscription {

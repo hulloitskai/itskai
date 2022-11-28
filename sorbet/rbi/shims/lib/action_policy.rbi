@@ -26,12 +26,12 @@ end
 module ActionPolicy::Behaviours::Scoping
   sig do
     params(
-        target: ActiveRecord::Relation,
-        type: Symbol,
-        as: Symbol,
-        scope_options: T::Hash[Symbol, T.untyped],
-        options: T.untyped,
-      )
+      target: ActiveRecord::Relation,
+      type: Symbol,
+      as: Symbol,
+      scope_options: T::Hash[Symbol, T.untyped],
+      options: T.untyped,
+    )
       .returns(ActiveRecord::Relation)
   end
   def authorized_scope(

@@ -6,7 +6,7 @@ Rails.application.configure do
     config.poll_interval = ENV.fetch("GOOD_JOB_POLL_INTERVAL", 30).to_i
     config.max_threads = ENV.fetch("GOOD_JOB_MAX_THREADS", 2).to_i
 
-    # == Cron ==
+    # == Cron
     config.enable_cron = true
     config.cron = {
       active_storage_blob_cleanup: {
@@ -31,7 +31,7 @@ Rails.application.configure do
       },
     }
 
-    # == Errors ==
+    # == Errors
     config.retry_on_unhandled_error = false
     config.on_thread_error = ->(error) { Honeybadger.notify(error) }
   end

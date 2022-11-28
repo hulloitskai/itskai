@@ -3,11 +3,11 @@
 
 module Types
   class ICloudCredentialsType < BaseObject
-    # == Interfaces ==
+    # == Interfaces
     implements NodeType
     implements IdentifiableType
 
-    # == Fields ==
+    # == Fields
     field :cookies, String
     field :email, String, null: false
     field :password, String, null: false

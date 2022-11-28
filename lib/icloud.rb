@@ -6,7 +6,7 @@ require_relative "icloud/drive"
 require_relative "icloud/railtie"
 
 module ICloud
-  # == Configuration ==
+  # == Configuration
   include ActiveSupport::Configurable
   config_accessor :logger
   config_accessor :credentials_dir
@@ -14,20 +14,20 @@ module ICloud
   class << self
     extend T::Sig
 
-    # == Init ==
+    # == Init
     sig { void }
     def initialize
       @client = T.let(@client, T.nilable(ICloud::Client))
       ICloudCredentials.first.try! do |credentials|
         credentials = T.let(credentials, ICloudCredentials)
-        authenticate(credentials: credentials)
+        authenticate(credentials:)
       end
     end
 
-    # == Methods ==
+    # == Methods
     sig { params(credentials: ICloudCredentials).void }
     def authenticate(credentials:)
-      @client = Client.new(credentials: credentials)
+      @client = Client.new(credentials:)
     end
 
     sig { returns(T::Boolean) }
@@ -47,7 +47,7 @@ module ICloud
 
     private
 
-    # == Helpers ==
+    # == Helpers
     sig { returns(Client) }
     def client
       @client or raise "iCloud client is not initialized"
@@ -56,7 +56,18 @@ module ICloud
     sig { returns(Client) }
     def authenticated_client
       raise "iCloud client is not authenticated" unless authenticated?
+
       client
+    end
+
+    sig { params(block: T.proc.void).void }
+    def tag_logger(&block)
+      if logger.respond_to?(:tagged)
+        T.cast(logger, ActiveSupport::TaggedLogging).tagged(
+          self.class.name,
+          &block
+        )
+      end
     end
   end
 

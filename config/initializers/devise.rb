@@ -275,6 +275,18 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
+  # Configure sign-ins with Spotify.
+  scoped do
+    client_id = ENV["SPOTIFY_CLIENT_ID"].presence or break
+    client_secret = ENV["SPOTIFY_CLIENT_SECRET"].presence or break
+    config.omniauth(
+      :spotify,
+      client_id,
+      client_secret,
+      scope: %w[user-read-email user-read-playback-state].join(", "),
+    )
+  end
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

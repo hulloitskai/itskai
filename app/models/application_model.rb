@@ -7,10 +7,10 @@ class ApplicationModel
   include ActiveModel::Model
   include ActiveModel::Attributes
 
-  # == GlobalID ==
+  # == GlobalID
   include GlobalID::Identification
 
-  # == Serialization ==
+  # == Serialization
   sig { overridable.returns(T::Hash[String, T.untyped]) }
   def to_hash
     attributes

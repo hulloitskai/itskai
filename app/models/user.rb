@@ -31,11 +31,11 @@
 #
 
 class User < ApplicationRecord
-  # == Concerns ==
+  # == Concerns
   include Identifiable
   include Named
 
-  # == Validations ==
+  # == Validations
   validates :name, presence: true, length: { maximum: 64 }
   validates :email,
             presence: true,
@@ -47,12 +47,11 @@ class User < ApplicationRecord
               case_sensitive: false,
             }
 
-  # == Owner ==
+  # == Owner
   sig { returns(String) }
   def self.owner_email
     unless defined?(@owner_email)
-      @owner_email = T.let(@owner_email, T.nilable(String))
-      @owner_email = ENV.fetch("OWNER_LOGIN_EMAIL")
+      @owner_email = T.let(ENV.fetch("OWNER_LOGIN_EMAIL"), T.nilable(String))
       raise "Owner login email must not be blank" if @owner_email.blank?
     end
     T.must(@owner_email)
@@ -60,7 +59,7 @@ class User < ApplicationRecord
 
   sig { returns(T.nilable(User)) }
   def self.owner
-    User.find_by(email: owner_email)
+    find_by(email: owner_email)
   end
 
   sig { returns(User) }
@@ -74,7 +73,7 @@ class User < ApplicationRecord
   end
 end
 
-# == Devise ==
+# == Devise
 class User
   # Others modules are: :lockable, :timeoutable, and :omniauthable.
   devise :database_authenticatable,
@@ -84,59 +83,14 @@ class User
          :validatable,
          :confirmable,
          :trackable,
-         #  :omniauthable,
+         :omniauthable,
          reconfirmable: true
 
-  # == Configuration ==
+  # == Configuration
   self.filter_attributes += %i[
     encrypted_password
     reset_password_token
     confirmation_token
     invitation_token
   ]
-
-  # == OmniAuth ==
-  sig { params(auth: OmniAuth::AuthHash).returns(User) }
-  def self.from_omniauth(auth)
-    # rubocop:disable Layout/LineLength
-    User.new
-    # info = T.let(auth[:info], OmniAuth::AuthHash::InfoHash)
-    # user =
-    #   scoped do
-    #     u =
-    #       User
-    #         .where(omniauth_provider: auth[:provider], omniauth_uid: auth[:uid])
-    #         .or(User.where(email: info[:email]))
-    #         .first
-    #     T.let(u, T.nilable(User))
-    #   end
-    # if user.nil?
-    #   user =
-    #     User.new(
-    #       omniauth_provider: auth[:provider],
-    #       omniauth_uid: auth[:uid],
-    #       **info.slice(:first_name, :last_name, :email),
-    #     )
-    #   (info[:image] || info[:picture]).try! do |url|
-    #     Addressable::URI
-    #       .parse(url)
-    #       .path
-    #       .try! do |path|
-    #         path = T.let(path, String)
-    #         user.avatar.attach(
-    #           io: File.open(url),
-    #           filename: File.basename(path),
-    #         )
-    #       end
-    #   end
-    #   user.password = Devise.friendly_token
-    #   user.skip_confirmation!
-    #   user.save!
-    # elsif !user.omniauth_provider?
-    #   user.update!(
-    # omniauth_provider: auth[:provider], omniauth_uid: auth[:uid])
-    # end
-    # user
-    # rubocop:enable Layout/LineLength
-  end
 end

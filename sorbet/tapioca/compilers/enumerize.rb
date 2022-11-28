@@ -26,6 +26,7 @@ module Tapioca
         sig { override.void }
         def decorate
           return if constant.enumerized_attributes.empty?
+
           root.create_path(constant) do |scope|
             attributes = constant.enumerized_attributes.attributes
             generate_class_methods(scope, attributes)

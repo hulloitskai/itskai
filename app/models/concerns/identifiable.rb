@@ -10,13 +10,13 @@ module Identifiable
 
   extend ActiveSupport::Concern
 
-  # == Attributes ==
+  # == Attributes
   sig { returns(String) }
   def id!
     self[:id] ||= SecureRandom.uuid
   end
 
-  # == Methods: Short ==
+  # == Methods: Short
   sig { returns(T.nilable(String)) }
   def short_id
     id.try! do |id|
@@ -30,7 +30,7 @@ module Identifiable
     ShortUUID.shorten(id!)
   end
 
-  # == Parameters ==
+  # == Parameters
   sig { returns(T.nilable(String)) }
   def to_param
     short_id
@@ -42,7 +42,7 @@ module Identifiable
 
     requires_ancestor { T.class_of(ApplicationRecord) }
 
-    # == Finders ==
+    # == Finders
     sig { params(args: T.untyped).returns(T.untyped) }
     def find(*args)
       id = args.first

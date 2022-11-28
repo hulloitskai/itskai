@@ -6,16 +6,16 @@ module Queries
     extend T::Sig
     extend T::Helpers
 
-    # == Type ==
+    # == Type
     type Types::ObsidianNoteType, null: true
 
-    # == Arguments ==
+    # == Arguments
     argument :name, String
 
     sig { params(name: String).returns(T.nilable(::ObsidianNote)) }
     def resolve(name:)
       ::ObsidianNote
-        .find_by(name: name)
+        .find_by(name:)
         .try! do |note|
           note = T.let(note, ::ObsidianNote)
           note if allowed_to?(:show?, note)

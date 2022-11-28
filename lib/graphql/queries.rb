@@ -4,11 +4,13 @@
 class GraphQL::Queries
   extend T::Sig
 
-  # == Plugin ==
+  # == Plugin
   sig { params(defn: T.untyped, options: T::Hash[Symbol, T.untyped]).void }
   def self.use(defn, options = {})
-    schema =
-      T.let(defn.is_a?(Class) ? defn : defn.target, T.class_of(GraphQL::Schema))
+    schema = T.let(
+      defn.is_a?(Class) ? defn : defn.target,
+      T.class_of(GraphQL::Schema),
+    )
     schema.queries = new
   end
 
@@ -18,13 +20,13 @@ class GraphQL::Queries
     @fragments = T.let({}, T::Hash[String, ParsedFragment])
   end
 
-  # == Methods ==
+  # == Methods
   sig { params(name: String, kwargs: T.untyped).returns(Result) }
   def execute(name, **kwargs)
     document = build_query_document(name)
-    result = Schema.execute(document: document, **kwargs)
-    data, errors = result["data"], result["errors"]
-    Result.new(data: data, errors: errors)
+    result = Schema.execute(document:, **kwargs)
+    data, errors = result.to_h.values_at("data", "errors")
+    Result.new(data:, errors:)
   end
 
   sig { void }
@@ -44,7 +46,7 @@ class GraphQL::Queries
         Rails.root.join("app/queries"),
         only: /\.graphql$/,
       ) do |modified, added, removed|
-        reload(modified: modified, removed: removed, added: added)
+        reload(modified:, removed:, added:)
       end
     @listener.start
     at_exit { @listener&.stop }
@@ -78,18 +80,10 @@ class GraphQL::Queries
         case definition
         when GraphQL::Language::Nodes::OperationDefinition
           @queries[definition.name] =
-            ParsedQuery.new(
-              definition: definition,
-              fragment_references: fragment_references,
-              filename: filename,
-            )
+            ParsedQuery.new(definition:, fragment_references:, filename:)
         when GraphQL::Language::Nodes::FragmentDefinition
           @fragments[definition.name] =
-            ParsedFragment.new(
-              definition: definition,
-              fragment_references: fragment_references,
-              filename: filename,
-            )
+            ParsedFragment.new(definition:, fragment_references:, filename:)
         else
           T.absurd(definition)
         end

@@ -8,15 +8,5 @@
   "bracketSpacing": true,
   "printWidth": 80,
   "arrowParens": "avoid",
-  "trailingComma": "all",
-  "rubySingleQuote": false,
-  "rubyToProc": true,
-  "overrides": [
-    {
-      "files": "*.html.erb",
-      "options": {
-        "parser": "html"
-      }
-    }
-  ]
+  "trailingComma": "all"
 }

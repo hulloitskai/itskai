@@ -6,7 +6,7 @@ module Types
     # Add `node` and `cursor` fields, as well as `node_type(...)` override.
     include GraphQL::Types::Relay::EdgeBehaviors
 
-    # == Configuration ==
+    # == Configuration
     node_nullable false
   end
 end

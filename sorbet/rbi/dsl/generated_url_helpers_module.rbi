@@ -12,6 +12,9 @@ module GeneratedUrlHelpersModule
   def api_status_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def calendly_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def cancel_user_registration_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -34,6 +37,12 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def graphql_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def hangout_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def jen_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_source_url(*args); end
@@ -151,6 +160,12 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def user_session_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def user_spotify_omniauth_authorize_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def user_spotify_omniauth_callback_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def work_url(*args); end

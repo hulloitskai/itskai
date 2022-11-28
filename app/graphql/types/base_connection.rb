@@ -5,15 +5,15 @@ module Types
   class BaseConnection < GraphQL::Types::Relay::BaseConnection
     extend T::Sig
 
-    # == Configuration ==
+    # == Configuration
     edges_nullable false
     edge_nullable false
     node_nullable false
 
-    # == Fields ==
+    # == Fields
     field :total_count, Integer, null: false
 
-    # == Resolvers ==
+    # == Resolvers
     sig { returns(Integer) }
     def total_count
       object.items.size

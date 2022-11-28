@@ -12,6 +12,9 @@ module GeneratedPathHelpersModule
   def api_status_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def calendly_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def cancel_user_registration_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -34,6 +37,12 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def graphql_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def hangout_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def jen_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_path(*args); end
@@ -151,6 +160,12 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def user_session_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def user_spotify_omniauth_authorize_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def user_spotify_omniauth_callback_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def work_path(*args); end

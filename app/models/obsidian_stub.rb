@@ -16,14 +16,14 @@
 #
 
 class ObsidianStub < ApplicationRecord
-  # == Associations ==
+  # == Associations
   has_many :incoming_relations,
            class_name: "ObsidianRelation",
            as: :to,
            dependent: :destroy
   has_many :referenced_by, through: :incoming_relations, source: :from
 
-  # == Concerns ==
+  # == Concerns
   include Identifiable
   include ObsidianEntry
 end

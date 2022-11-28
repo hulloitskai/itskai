@@ -36,11 +36,9 @@ class GraphQL::RailsLogger::Subscriber < ActionController::LogSubscriber
     format = format.to_s.upcase if format.is_a?(Symbol)
     format = "*/*" if format.nil?
 
-    info(
-      "#{payload[:controller]}##{payload[:action]} is processing as #{format}",
-    )
+    payload => { controller:, action: }
+    info("#{controller}##{action} is processing as #{format}")
 
-    controller, action = payload.fetch_values(:controller, :action)
     config = GraphQL::RailsLogger.configuration
     if config.white_list.fetch(controller, []).include?(action)
       formatter = Rouge::Formatters::Terminal256.new(config.theme)
@@ -54,7 +52,7 @@ class GraphQL::RailsLogger::Subscriber < ActionController::LogSubscriber
 
       # Skip introspection query, if applicable.
       if config.skip_introspection_query &&
-           query.index(/query IntrospectionQuery/)
+          query.index(/query IntrospectionQuery/)
         query = "    query IntrospectionQuery { ... }"
       end
 
@@ -83,6 +81,7 @@ class GraphQL::RailsLogger::Subscriber < ActionController::LogSubscriber
   sig { params(data: T.untyped).returns(T.untyped) }
   def pretty(data)
     return "" if data.blank?
+
     data = JSON.parse(data) if data.is_a?(String)
     PP.pp(data, +"")
   end

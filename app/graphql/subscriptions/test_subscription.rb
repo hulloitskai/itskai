@@ -19,11 +19,11 @@ module Subscriptions
       end
     end
 
-    # == Configuration ==
+    # == Configuration
     type Int
     broadcastable true
 
-    # == Callbacks ==
+    # == Callbacks
     sig { returns(Integer) }
     def subscribe
       self.class.increment!.tap do |count|

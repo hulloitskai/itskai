@@ -3,6 +3,9 @@
 
 return unless defined?(BetterErrors)
 
+# Use VSCode as default editor.
+ENV["BETTER_ERRORS_EDITOR"] = "vscode"
+
 # Force open links in new tab.
 ENV["BETTER_ERRORS_INSIDE_FRAME"] = "1"
 
@@ -10,6 +13,7 @@ class BetterErrors::StackFrame
   module Extension
     def application?
       return false unless super
+
       root = BetterErrors.application_root
       root.present? &&
         !(filename.start_with?("#{root}/lib") && filename.end_with?("_ext.rb"))

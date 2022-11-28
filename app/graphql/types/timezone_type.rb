@@ -3,7 +3,7 @@
 
 module Types
   class TimezoneType < BaseObject
-    # == Fields ==
+    # == Fields
     field :abbreviation, String, null: false
     field :name, String, null: false
     field :offset, String, null: false

@@ -13,9 +13,9 @@ class CreateIndexGoodJobsJobsOnPriorityCreatedAtWhenUnfinished < ActiveRecord::M
         # Ensure this incremental update migration is idempotent
         # with monolithic install migration.
         if connection.index_name_exists?(
-             :good_jobs,
-             :index_good_jobs_jobs_on_priority_created_at_when_unfinished,
-           )
+          :good_jobs,
+          :index_good_jobs_jobs_on_priority_created_at_when_unfinished,
+        )
           return
         end
       end

@@ -6,25 +6,25 @@
 class Schema < GraphQL::Schema
   extend T::Sig
 
-  # == Plugins ==
+  # == Plugins
   use GraphQL::Queries
   use GraphQL::Subscriptions::ActionCableSubscriptions, broadcast: true
   use GraphQL::PersistedQueries, compiled_queries: true
   use GraphQL::Dataloader
 
-  # == Configuration ==
+  # == Configuration
   # By default, limit the maximum number of returned items in connections to 50.
   default_max_page_size 50
 
   # Stop validation after 100 errors.
   validate_max_errors 100
 
-  # == Types ==
+  # == Types
   query Types::QueryType
   mutation Types::MutationType
   subscription Types::SubscriptionType
 
-  # == Resolvers ==
+  # == Resolvers
   # Resolve unions and interfaces.
   T::Sig::WithoutRuntime.sig do
     override
@@ -48,10 +48,10 @@ class Schema < GraphQL::Schema
   # Return a string UUID for `object`.
   sig do
     params(
-        object: T.all(::Object, GlobalID::Identification),
-        type_definition: T.untyped,
-        context: GraphQL::Query::Context,
-      )
+      object: T.all(::Object, GlobalID::Identification),
+      type_definition: T.untyped,
+      context: GraphQL::Query::Context,
+    )
       .returns(String)
   end
   def self.id_from_object(object, type_definition, context)
@@ -66,7 +66,7 @@ class Schema < GraphQL::Schema
     GlobalID::Locator.locate(id)
   end
 
-  # == Callbacks ==
+  # == Callbacks
   # GraphQL-Ruby calls this when something goes wrong while running a query.
   sig do
     params(error: Exception, context: GraphQL::Query::Context)

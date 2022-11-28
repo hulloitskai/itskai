@@ -18,8 +18,8 @@ module GraphQL::Querying
       .returns(GraphQL::Queries::Result)
   end
   def query(name, variables = {})
-    context = { current_user: current_user }
-    Schema.queries!.execute(name, variables: variables, context: context)
+    context = { current_user: }
+    Schema.queries!.execute(name, variables:, context:)
   end
 
   sig do

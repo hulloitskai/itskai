@@ -18,7 +18,7 @@ module ApplicationCable
     def find_verified_user
       cookies.signed["user.id"].try! do |id|
         id = T.let(id, String)
-        User.find_by(id: id)
+        User.find_by(id:)
       end
     end
   end

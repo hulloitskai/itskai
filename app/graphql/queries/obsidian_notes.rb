@@ -6,13 +6,18 @@ module Queries
     extend T::Sig
     extend T::Helpers
 
+    # == Configuration
     type Types::ObsidianNoteType.connection_type, null: false
 
+    # == Arguments
     argument :modified_after, Types::DateTimeType, required: false
     argument :modified_before, Types::DateTimeType, required: false
 
     sig do
-      params(modified_after: T.nilable(Time), modified_before: T.nilable(Time))
+      params(
+        modified_after: T.nilable(Time),
+        modified_before: T.nilable(Time),
+      )
         .returns(T.nilable(ActiveRecord::Relation))
     end
     def resolve(modified_after: nil, modified_before: nil)

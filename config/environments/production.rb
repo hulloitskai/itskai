@@ -4,12 +4,12 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  # == URLs ==
+  # == URLs
   config.before_configuration do
     routes.default_url_options = { protocol: "https", host: "itskai.me" }
   end
 
-  # == Code Loading ==
+  # == Code Loading
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -35,7 +35,7 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  # == Action Dispatch ==
+  # == Action Dispatch
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = !ENV["RAILS_SERVE_STATIC_FILES"].falsy?
@@ -47,13 +47,13 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
 
-  # == Active Storage ==
+  # == Active Storage
   # Store uploaded files on the local file system (see config/storage.yml for
   # options).
   config.active_storage.service =
     ENV.fetch("RAILS_STORAGE_SERVICE", :amazon).to_sym
 
-  # == Action Cable ==
+  # == Action Cable
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
   # config.action_cable.url = "wss://example.com/cable"
@@ -65,11 +65,11 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "itskai_production"
 
-  # == Active Record ==
+  # == Active Record
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # == Action Mailer ==
+  # == Action Mailer
   config.action_mailer.delivery_method =
     ENV.fetch("RAILS_MAILER", :mailjet_api).to_sym
   config.action_mailer.perform_caching = false
@@ -79,10 +79,10 @@ Rails.application.configure do
   # raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  # == Action Mailbox ==
+  # == Action Mailbox
   # config.action_mailbox.ingress = ENV.fetch("RAILS_MAILBOX", :mailgun).to_sym
 
-  # == Active Support ==
+  # == Active Support
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
@@ -111,11 +111,11 @@ Rails.application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
-  # == Action Mailbox ==
+  # == Action Mailbox
   # Prepare the ingress controller used to receive mail
   # config.action_mailbox.ingress = :relay
 
-  # == Good Job ==
+  # == Good Job
   config.good_job.execution_mode =
     ENV.fetch("GOOD_JOB_EXECUTION_MODE", :async).to_sym
 end

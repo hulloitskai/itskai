@@ -11,6 +11,7 @@ module Premailer::Rails::CSSLoaders::NetworkLoader
 
     if uri.host.present?
       return uri if uri.scheme.present?
+
       URI("http:#{uri}")
     elsif asset_host_present?
       scheme, host = asset_host(url).split(%r{:?//})

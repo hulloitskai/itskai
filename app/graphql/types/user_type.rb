@@ -3,11 +3,11 @@
 
 module Types
   class UserType < BaseObject
-    # == Interfaces ==
+    # == Interfaces
     implements NodeType
     implements IdentifiableType
 
-    # == Fields ==
+    # == Fields
     field :email, String, null: false
     field :is_owner, Boolean, null: false, method: :owner?
     field :name, String, null: false

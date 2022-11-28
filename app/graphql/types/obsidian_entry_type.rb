@@ -3,14 +3,14 @@
 
 module Types
   module ObsidianEntryType
-    # == Definition ==
+    # == Definition
     include Types::BaseInterface
     orphan_types Types::ObsidianStubType
 
-    # == Interfaces ==
+    # == Interfaces
     implements IdentifiableType
 
-    # == Fields ==
+    # == Fields
     field :created_at, DateTimeType, null: false
     field :name, String, null: false
     field :referenced_by, [ObsidianNoteType], null: false

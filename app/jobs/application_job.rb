@@ -2,10 +2,10 @@
 # frozen_string_literal: true
 
 class ApplicationJob < ActiveJob::Base
-  # == Modules ==
+  # == Modules
   include GoodJob::ActiveJobExtensions::Concurrency
 
-  # == Configuration ==
+  # == Configuration
   # Automatically retry jobs that encountered a deadlock
   retry_on ActiveRecord::Deadlocked
 

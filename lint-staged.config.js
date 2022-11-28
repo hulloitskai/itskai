@@ -1,5 +1,5 @@
 module.exports = {
-  "*.{rb,rbi,js,jsx,ts,tsx,css,md,html,json,yaml,yml}":
+  "*.{js,jsx,ts,tsx,css,md,html,json,yaml,yml}":
     "yarn --silent prettier --list-different",
   "*.{js,jsx,ts,tsx}": "yarn --silent eslint",
   "*.{ts,tsx,cts,mts}": () => "yarn --silent tsc --noEmit",

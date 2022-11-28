@@ -6,6 +6,6 @@ class HomeController < ApplicationController
 
   def show
     data = query!("HomePageQuery")
-    render(inertia: "HomePage", props: { data: data })
+    render(inertia: "HomePage", props: { data: })
   end
 end

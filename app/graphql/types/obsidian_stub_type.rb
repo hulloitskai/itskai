@@ -3,7 +3,7 @@
 
 module Types
   class ObsidianStubType < BaseObject
-    # == Interfaces ==
+    # == Interfaces
     implements NodeType
     implements IdentifiableType
     implements ObsidianEntryType

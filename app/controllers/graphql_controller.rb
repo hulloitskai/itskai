@@ -4,19 +4,20 @@
 class GraphQLController < ApplicationController
   extend T::Sig
 
-  # == Configuration ==
+  # == Configuration
   protect_from_forgery with: :null_session, only: :execute
 
-  # == Modules ==
+  # == Modules
   include GraphQL::Helpers
 
-  # == Actions ==
+  # == Actions
   sig { void }
   def execute
     operation_name = params["operationName"]
     unless operation_name.nil?
       raise "operationName must be a String" unless operation_name.is_a?(String)
     end
+
     query = params[:query]
     unless query.nil?
       raise "query must be a String" unless query.is_a?(String)
@@ -24,18 +25,13 @@ class GraphQLController < ApplicationController
 
     variables = prepare_variables(params[:variables])
     extensions = prepare_extensions(params[:extensions])
-    context = { extensions: extensions, current_user: current_user }
+    context = { controller: self, extensions:, current_user: }
+    result = Schema.execute(query, variables:, operation_name:, context:)
 
-    result =
-      Schema.execute(
-        query,
-        variables: variables,
-        operation_name: operation_name,
-        context: context,
-      )
     render(json: result)
   rescue StandardError => e
     raise e unless Rails.env.development?
+
     handle_error_in_development(e)
   end
 

@@ -8,7 +8,7 @@ Healthcheck.configure do |config|
   config.route = "/api/status"
   config.method = :get
 
-  # == Checks ==
+  # == Checks
   config.add_check(
     :database,
     -> do
@@ -26,7 +26,7 @@ Healthcheck.configure do |config|
   #   -> { Dotenv.require_keys("ENV_NAME", "ANOTHER_ENV") },
   # )
 
-  # == Custom Response ==
+  # == Custom Response
   # config.custom =
   #   lambda do |controller, checker|
   #     unless checker.errored?

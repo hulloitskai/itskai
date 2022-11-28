@@ -8,12 +8,14 @@
   "possibleTypes": {
     "Identifiable": [
       "ICloudCredentials",
+      "OAuthCredentials",
       "ObsidianNote",
       "ObsidianStub",
       "User"
     ],
     "Node": [
       "ICloudCredentials",
+      "OAuthCredentials",
       "ObsidianNote",
       "ObsidianStub",
       "User"

@@ -52,7 +52,7 @@ export const imports: Array<ImportsMap | PresetName> = [
     "lodash-es": ["first", "mapKeys", "omit", "pick", "isEmpty", "isEqual"],
     luxon: ["DateTime", "Duration"],
     "react-use": ["useEvent"],
-    "~/components": ["Head", "AppLayout", "CenterLayout", "PageHeader"],
+    "~/components": ["Head", "AppLayout", "PageHeader"],
     "~/helpers": [
       "resolve",
       "getMeta",

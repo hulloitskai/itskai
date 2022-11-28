@@ -120,11 +120,11 @@ class Logger::Formatter
 
   sig do
     params(
-        severity: T.untyped,
-        time: T.untyped,
-        progname: T.untyped,
-        msg: T.untyped,
-      )
+      severity: T.untyped,
+      time: T.untyped,
+      progname: T.untyped,
+      msg: T.untyped,
+    )
       .returns(String)
   end
   def call(severity, time, progname, msg)

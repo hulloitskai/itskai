@@ -6,18 +6,18 @@ module Mutations
     extend T::Sig
     extend T::Helpers
 
-    # == Modules ==
+    # == Modules
     include ActionPolicy::GraphQL::Behaviour
     include Resolver
 
-    # == Configuration ==
+    # == Configuration
     object_class Types::BaseObject
     field_class Types::BaseField
     input_object_class Types::BaseInputObject
     argument_class Types::BaseArgument
     null false
 
-    # == Resolver ==
+    # == Resolver
     resolve_method :resolve_wrapper
 
     sig { params(args: T.untyped).returns(T.untyped) }

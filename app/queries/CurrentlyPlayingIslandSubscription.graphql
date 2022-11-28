@@ -1,0 +1,6 @@
+subscription CurrentlyPlayingIslandSubscription {
+  currentlyPlaying {
+    id
+    ...CurrentlyPlayingIslandSpotifyTrackFragment
+  }
+}

@@ -41,6 +41,14 @@ export type NodeKeySpecifier = ('id' | NodeKeySpecifier)[];
 export type NodeFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type OAuthCredentialsKeySpecifier = ('id' | 'name' | 'refreshToken' | 'shortId' | 'uid' | OAuthCredentialsKeySpecifier)[];
+export type OAuthCredentialsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	refreshToken?: FieldPolicy<any> | FieldReadFunction<any>,
+	shortId?: FieldPolicy<any> | FieldReadFunction<any>,
+	uid?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type ObsidianEntryKeySpecifier = ('createdAt' | 'id' | 'name' | 'referencedBy' | 'shortId' | 'updatedAt' | ObsidianEntryKeySpecifier)[];
 export type ObsidianEntryFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -93,21 +101,40 @@ export type PageInfoFieldPolicy = {
 	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
 	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('contactEmail' | 'icloudCredentials' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'resume' | 'testEcho' | 'timezone' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('authenticatedViewer' | 'contactEmail' | 'icloudCredentials' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
+	authenticatedViewer?: FieldPolicy<any> | FieldReadFunction<any>,
 	contactEmail?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNote?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNoteByName?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNotes?: FieldPolicy<any> | FieldReadFunction<any>,
 	resume?: FieldPolicy<any> | FieldReadFunction<any>,
+	spotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	testEcho?: FieldPolicy<any> | FieldReadFunction<any>,
 	timezone?: FieldPolicy<any> | FieldReadFunction<any>,
 	viewer?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type SpotifyTrackKeySpecifier = ('name' | SpotifyTrackKeySpecifier)[];
+export type SpotifyAlbumKeySpecifier = ('id' | 'imageUrl' | 'name' | 'url' | SpotifyAlbumKeySpecifier)[];
+export type SpotifyAlbumFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	imageUrl?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	url?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type SpotifyArtistKeySpecifier = ('id' | 'name' | 'url' | SpotifyArtistKeySpecifier)[];
+export type SpotifyArtistFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	url?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type SpotifyTrackKeySpecifier = ('album' | 'artists' | 'id' | 'name' | 'url' | SpotifyTrackKeySpecifier)[];
 export type SpotifyTrackFieldPolicy = {
-	name?: FieldPolicy<any> | FieldReadFunction<any>
+	album?: FieldPolicy<any> | FieldReadFunction<any>,
+	artists?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SubscriptionKeySpecifier = ('currentlyPlaying' | 'testSubscription' | SubscriptionKeySpecifier)[];
 export type SubscriptionFieldPolicy = {
@@ -176,6 +203,10 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | NodeKeySpecifier | (() => undefined | NodeKeySpecifier),
 		fields?: NodeFieldPolicy,
 	},
+	OAuthCredentials?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | OAuthCredentialsKeySpecifier | (() => undefined | OAuthCredentialsKeySpecifier),
+		fields?: OAuthCredentialsFieldPolicy,
+	},
 	ObsidianEntry?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ObsidianEntryKeySpecifier | (() => undefined | ObsidianEntryKeySpecifier),
 		fields?: ObsidianEntryFieldPolicy,
@@ -203,6 +234,14 @@ export type StrictTypedTypePolicies = {
 	Query?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier),
 		fields?: QueryFieldPolicy,
+	},
+	SpotifyAlbum?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SpotifyAlbumKeySpecifier | (() => undefined | SpotifyAlbumKeySpecifier),
+		fields?: SpotifyAlbumFieldPolicy,
+	},
+	SpotifyArtist?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SpotifyArtistKeySpecifier | (() => undefined | SpotifyArtistKeySpecifier),
+		fields?: SpotifyArtistFieldPolicy,
 	},
 	SpotifyTrack?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SpotifyTrackKeySpecifier | (() => undefined | SpotifyTrackKeySpecifier),

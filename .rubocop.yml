@@ -15,9 +15,6 @@ require:
   - rubocop-rails
   - rubocop-sorbet
 
-inherit_from:
-  - node_modules/@prettier/plugin-ruby/rubocop.yml
-
 inherit_gem:
   rubocop-shopify: rubocop.yml
 
@@ -55,6 +52,13 @@ Lint/MissingCopEnableDirective:
 Lint/Void:
   Enabled: false
 
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_first_argument
+Layout/BlockAlignment:
+  EnforcedStyleAlignWith: start_of_block
+Layout/FirstArgumentIndentation:
+  Enabled: true
+# Layout/MultilineMethodCallIndentation:
 Layout/LineLength:
   Max: 80
   AllowedPatterns: ["# rubocop:disable"]
@@ -62,20 +66,24 @@ Layout/LineLength:
 Naming/InclusiveLanguage:
   Enabled: false
 
-Style/ClassMethodsDefinitions:
-  Enabled: false
 Style/AndOr:
   EnforcedStyle: conditionals
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/ClassMethodsDefinitions:
+  Enabled: false
 Style/CommandLiteral:
   EnforcedStyle: backticks
-Style/TrailingCommaInHashLiteral:
-  EnforcedStyleForMultiline: comma
 Style/Documentation:
-  Enabled: false
-Style/ClassAndModuleChildren:
   Enabled: false
 Style/ParallelAssignment:
   Enabled: false
+Style/SymbolArray:
+  EnforcedStyle: percent
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+Style/WordArray:
+  EnforcedStyle: percent
 
 Sorbet/FalseSigil:
   Enabled: false

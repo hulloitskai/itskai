@@ -1,9 +1,10 @@
 import type { FC } from "react";
 import { Header } from "@mantine/core";
 
-import type { Maybe } from "~/queries";
-import type { AppViewerFragment } from "~/queries";
 import AppMenu from "./AppMenu";
+import CurrentlyPlayingIsland from "./CurrentlyPlayingIsland";
+
+import type { Maybe, AppViewerFragment } from "~/queries";
 
 export type AppHeaderProps = {
   readonly viewer: Maybe<AppViewerFragment>;
@@ -35,6 +36,7 @@ const AppHeader: FC<AppHeaderProps> = ({ viewer }) => (
     >
       It&apos;s Kai!
     </Button>
+    <CurrentlyPlayingIsland />
     <AppMenu {...{ viewer }} />
   </Header>
 );

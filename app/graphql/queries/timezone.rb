@@ -12,12 +12,13 @@ module Queries
     sig { returns(TZInfo::DataTimezone) }
     def resolve
       unless defined?(@zone)
-        @zone = T.let(@zone, T.nilable(TZInfo::DataTimezone))
-        @zone =
+        @zone = T.let(
           ENV["OWNER_TIMEZONE"].presence.try! do |name|
             name = T.let(name, String)
             TZInfo::Timezone.get(name)
-          end
+          end,
+          T.nilable(TZInfo::DataTimezone),
+        )
       end
       @zone or raise GraphQL::ExecutionError, "Missing contact zone"
     end

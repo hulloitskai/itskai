@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class ObsidianNotePolicy < ApplicationPolicy
-  # == Rules ==
+  # == Rules
   sig { override.returns(T::Boolean) }
   def index?
     true
@@ -20,13 +20,13 @@ class ObsidianNotePolicy < ApplicationPolicy
 
   alias_rule :read?, to: :edit?
 
-  # == Scopes ==
+  # == Scopes
   relation_scope do |relation|
     T.bind(self, ObsidianNotePolicy)
     user&.owner? ? relation : relation.where(hidden: false)
   end
 
-  # == Helpers ==
+  # == Helpers
   sig { returns(ObsidianNote) }
   def record!
     T.must(record)

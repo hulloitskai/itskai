@@ -21,6 +21,12 @@ module ActiveRecord::Transactions
   def save!(**_arg0); end
 end
 
+module ActiveRecord::QueryMethods
+  sig {params(args: T.untyped).returns(ActiveRecord::Relation)}
+  def includes(*args)
+  end
+end
+
 module ActiveRecord::Serialization
   sig { params(options: T.untyped).returns(T::Hash[String, T.untyped]) }
   def serializable_hash(options = T.unsafe(nil)); end
@@ -37,8 +43,7 @@ end
 # Method definitions are documented here:
 # https://api.rubyonrails.org/v7.0/classes/ActiveRecord/ConnectionAdapters/SchemaStatements.html
 class ActiveRecord::Migration::Current < ActiveRecord::Migration
-  # == Tables ==
-
+  # == Tables
   # https://github.com/rails/rails/blob/v7.0.0.alpha2/activerecord/lib/active_record/connection_adapters/abstract/schema_statements.rb#L154-L295
   sig do
     params(
@@ -112,7 +117,7 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
   end
   def drop_table(table_name, force: false, if_exists: false, &blk); end
 
-  # == Join Tables ==
+  # == Join Tables
   sig do
     params(
       table_1: T.any(String, Symbol),
@@ -160,7 +165,7 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
   end
   def drop_join_table(table_1, table_2, options = {}, &blk); end
 
-  # == Columns ==
+  # == Columns
   sig do
     params(
       table_name: T.any(String, Symbol),
@@ -313,12 +318,12 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
 
   sig do
     params(
-        from_table: T.any(String, Symbol),
-        to_table: T.any(String, Symbol),
-        name: T.any(String, Symbol),
-        column: T.any(String, Symbol),
-        options: T.untyped,
-      )
+      from_table: T.any(String, Symbol),
+      to_table: T.any(String, Symbol),
+      name: T.any(String, Symbol),
+      column: T.any(String, Symbol),
+      options: T.untyped,
+    )
       .returns(T::Boolean)
   end
   def foreign_key_exists?(
@@ -332,7 +337,7 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
   sig { params(table_name: T.any(String, Symbol)).returns(T::Array[T.untyped]) }
   def foreign_keys(table_name); end
 
-  # == Indices ==
+  # == Indices
   sig do
     params(
       table_name: T.any(String, Symbol),
@@ -406,10 +411,10 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
 
   sig do
     params(
-        table_name: T.any(String, Symbol),
-        column_name: T.any(String, Symbol, T::Array[T.any(String, Symbol)]),
-        options: T.untyped,
-      )
+      table_name: T.any(String, Symbol),
+      column_name: T.any(String, Symbol, T::Array[T.any(String, Symbol)]),
+      options: T.untyped,
+    )
       .returns(T::Boolean)
   end
   def index_exists?(table_name, column_name, options = {}); end
@@ -422,11 +427,11 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
 
   sig do
     params(
-        table_name: T.any(String, Symbol),
-        column_name: T.any(String, Symbol),
-        type: T.nilable(Symbol),
-        options: T.untyped,
-      )
+      table_name: T.any(String, Symbol),
+      column_name: T.any(String, Symbol),
+      type: T.nilable(Symbol),
+      options: T.untyped,
+    )
       .returns(T::Boolean)
   end
   def column_exists?(table_name, column_name, type = nil, options = {}); end
@@ -478,7 +483,7 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
     null: nil
   ); end
 
-  # == Timestamps ==
+  # == Timestamps
 
   sig { params(table_name: T.any(String, Symbol), options: T.untyped).void }
   def add_timestamps(table_name, options = {}); end
@@ -486,14 +491,14 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
   sig { params(table_name: T.any(String, Symbol), options: T.untyped).void }
   def remove_timestamps(table_name, options = {}); end
 
-  # == Extensions ==
+  # == Extensions
   sig { params(name: T.any(String, Symbol)).void }
   def enable_extension(name); end
 
   sig { params(name: T.any(String, Symbol)).void }
   def disable_extension(name); end
 
-  # == Miscellaneous ==
+  # == Miscellaneous
 
   sig { params(message: String, subitem: T.untyped).void }
   def say(message, subitem = false); end

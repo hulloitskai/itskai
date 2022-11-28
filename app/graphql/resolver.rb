@@ -8,7 +8,7 @@ module Resolver
   abstract!
   requires_ancestor { Kernel }
 
-  # == Methods ==
+  # == Methods
   sig { abstract.returns(GraphQL::Query::Context) }
   def context; end
 
@@ -49,10 +49,6 @@ module Resolver
   sig { returns(User) }
   def current_user!
     user = current_user
-    if user.nil?
-      raise GraphQL::ExecutionError,
-            "Not authenticated, please sign in to continue."
-    end
-    user
+    user or raise GraphQL::ExecutionError, "Not authenticated."
   end
 end

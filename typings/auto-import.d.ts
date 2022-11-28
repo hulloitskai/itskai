@@ -9,7 +9,6 @@ declare global {
   const Button: typeof import('@mantine/core')['Button']
   const Card: typeof import('@mantine/core')['Card']
   const Center: typeof import('@mantine/core')['Center']
-  const CenterLayout: typeof import('~/components')['CenterLayout']
   const Chip: typeof import('@mantine/core')['Chip']
   const Container: typeof import('@mantine/core')['Container']
   const DateTime: typeof import('luxon')['DateTime']
