@@ -9,64 +9,76 @@ import iconsPlugin from "unplugin-icons/vite";
 import reactPlugin from "@vitejs/plugin-react";
 import graphqlCodegenPlugin from "vite-plugin-graphql-codegen";
 import { isoImport as isoImportPlugin } from "vite-plugin-iso-import";
+import { visualizer as visualizerPlugin } from "rollup-plugin-visualizer";
 
 import { imports } from "./config/auto-import.config";
+
+const plugins = [
+  rubyPlugin(),
+  isoImportPlugin(),
+  autoImportPlugin({
+    dts: join(__dirname, "typings/auto-import.d.ts"),
+    imports,
+  }),
+  iconsPlugin({
+    compiler: "jsx",
+    jsx: "react",
+  }),
+  graphqlCodegenPlugin({
+    config: {
+      schema: "app/graphql/schema.graphql",
+      documents: ["app/queries/*.graphql"],
+      generates: {
+        "./app/queries/index.ts": {
+          config: {
+            omitOperationSuffix: true,
+            avoidOptionals: {
+              field: true,
+            },
+            scalars: {
+              DateTime: "string",
+              Date: "string",
+            },
+          },
+          plugins: [
+            "typescript",
+            "typescript-operations",
+            "typed-document-node",
+          ],
+        },
+        "./app/helpers/apollo/introspection.ts": {
+          plugins: ["fragment-matcher"],
+        },
+        "./app/helpers/apollo/helpers.ts": {
+          plugins: ["typescript-apollo-client-helpers"],
+        },
+      },
+      silent: true,
+      errorsOnly: true,
+    },
+  }),
+  reactPlugin(),
+  gzipPlugin(),
+  fullReloadPlugin([
+    "config/routes.rb",
+    "config/routes/**/*.rb",
+    "app/views/**/*.{html,html.erb}",
+  ]),
+];
+
+if (process.env.VITE_VISUALIZE) {
+  plugins.push(
+    visualizerPlugin({
+      filename: "dist/stats.html",
+      open: true,
+    }),
+  );
+}
 
 export default defineConfig({
   clearScreen: false,
   ssr: {
     format: "cjs",
   },
-  plugins: [
-    rubyPlugin(),
-    isoImportPlugin(),
-    autoImportPlugin({
-      dts: join(__dirname, "typings/auto-import.d.ts"),
-      imports,
-    }),
-    iconsPlugin({
-      compiler: "jsx",
-      jsx: "react",
-    }),
-    graphqlCodegenPlugin({
-      config: {
-        schema: "app/graphql/schema.graphql",
-        documents: ["app/queries/*.graphql"],
-        generates: {
-          "./app/queries/index.ts": {
-            config: {
-              omitOperationSuffix: true,
-              avoidOptionals: {
-                field: true,
-              },
-              scalars: {
-                DateTime: "string",
-                Date: "string",
-              },
-            },
-            plugins: [
-              "typescript",
-              "typescript-operations",
-              "typed-document-node",
-            ],
-          },
-          "./app/helpers/apollo/introspection.ts": {
-            plugins: ["fragment-matcher"],
-          },
-          "./app/helpers/apollo/helpers.ts": {
-            plugins: ["typescript-apollo-client-helpers"],
-          },
-        },
-        silent: true,
-        errorsOnly: true,
-      },
-    }),
-    reactPlugin(),
-    gzipPlugin(),
-    fullReloadPlugin([
-      "config/routes.rb",
-      "config/routes/**/*.rb",
-      "app/views/**/*.{html,html.erb}",
-    ]),
-  ],
+  plugins,
 });

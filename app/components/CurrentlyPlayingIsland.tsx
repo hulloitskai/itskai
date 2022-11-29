@@ -85,9 +85,10 @@ const CurrentTrack: FC<CurrentTrackProps> = ({ track, ...otherProps }) => {
     album: { imageUrl },
     artists,
   } = track;
-  const artistNames = useMemo(() => {
-    return artists.map(({ name }) => name).join(", ");
-  }, [artists]);
+  const artistNames = useMemo(
+    () => artists.map(({ name }) => name).join(", ") || "(missing artists)",
+    [artists],
+  );
   return (
     <Tooltip
       label={
@@ -96,10 +97,16 @@ const CurrentTrack: FC<CurrentTrackProps> = ({ track, ...otherProps }) => {
           <Text weight={600} span>
             {name}
           </Text>{" "}
+          by{" "}
+          <Text weight={600} span>
+            {first(artists)?.name || "(missing artists)"}
+          </Text>{" "}
           right now.
         </>
       }
+      multiline
       withArrow
+      maw={400}
     >
       <Badge
         component="a"
@@ -112,8 +119,8 @@ const CurrentTrack: FC<CurrentTrackProps> = ({ track, ...otherProps }) => {
           <Box pos="relative" p={2}>
             <MotionImage
               src={imageUrl}
-              width={27}
-              height={27}
+              width={24}
+              height={24}
               radius="xl"
               animate={{ rotate: 360 }}
               transition={{ ease: "linear", duration: 4, repeat: Infinity }}
@@ -129,27 +136,34 @@ const CurrentTrack: FC<CurrentTrackProps> = ({ track, ...otherProps }) => {
         }
         size="xl"
         pl={0}
-        styles={{
+        styles={({ colors }) => ({
           root: {
-            transitionProperty: "width",
+            height: 30,
+            paddingRight: 10,
+            borderColor: colors.gray[5],
             cursor: "pointer",
             "&:hover": {
               textDecoration: "underline",
             },
           },
           leftSection: {
-            marginRight: 6,
+            marginRight: 3,
           },
           inner: {
             maxWidth: 200,
+            "> *": {
+              textOverflow: "ellipsis",
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+            },
           },
-        }}
+        })}
         {...otherProps}
       >
-        <Text size="xs" color="dark" lineClamp={1}>
+        <Text size="xs" color="dark">
           {name}
         </Text>
-        <Text size={10} mt={-5} lineClamp={1}>
+        <Text size={10} mt={-5.5}>
           {artistNames}
         </Text>
       </Badge>

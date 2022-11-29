@@ -18,6 +18,7 @@ const AppHeader: FC<AppHeaderProps> = ({ viewer }) => (
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
+      columnGap: 6,
     }}
   >
     <Button
@@ -27,6 +28,7 @@ const AppHeader: FC<AppHeaderProps> = ({ viewer }) => (
       compact
       p={4}
       sx={({ colors, fontSizes }) => ({
+        flexShrink: 0,
         fontSize: fontSizes.md,
         fontWeight: 700,
         "&:hover": {
@@ -37,7 +39,7 @@ const AppHeader: FC<AppHeaderProps> = ({ viewer }) => (
       It&apos;s Kai!
     </Button>
     <CurrentlyPlayingIsland />
-    <AppMenu {...{ viewer }} />
+    <AppMenu sx={{ flexShrink: 0 }} {...{ viewer }} />
   </Header>
 );
 

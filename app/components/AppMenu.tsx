@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import type { BadgeProps } from "@mantine/core";
+import type { BoxProps, BadgeProps } from "@mantine/core";
 
 import CogIcon from "~icons/heroicons/cog-6-tooth-20-solid";
 import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
@@ -7,11 +7,11 @@ import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
 import type { Maybe } from "~/queries";
 import type { AppViewerFragment } from "~/queries";
 
-export type AppMenuProps = {
+export type AppMenuProps = Pick<BoxProps, "sx"> & {
   readonly viewer: Maybe<AppViewerFragment>;
 };
 
-const AppMenu: FC<AppMenuProps> = ({ viewer }) => {
+const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
   const router = useRouter();
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
@@ -51,6 +51,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer }) => {
           fontWeight: 500,
         },
       })}
+      {...{ sx }}
     >
       <Menu.Target>
         <Badge variant="dot" color="indigo" {...badgeProps}>
