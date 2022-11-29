@@ -5,3 +5,8 @@ db/schema.rb linguist-generated
 
 # Mark any vendored files as having been vendored.
 vendor/* linguist-vendored
+
+# Mark other generated files.
+app/graphql/schema.graphql linguist-generated
+app/helpers/apollo/introspection.ts linguist-generated
+app/helpers/apollo/helpers.ts linguist-generated

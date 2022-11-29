@@ -13,8 +13,7 @@ module WrappedPrint::Main
       prefix: String,
       suffix: String,
       color: Symbol,
-    )
-      .returns(T.self_type)
+    ).returns(T.self_type)
   end
   def wp(
     label = nil,

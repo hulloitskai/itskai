@@ -11,7 +11,7 @@ import graphqlCodegenPlugin from "vite-plugin-graphql-codegen";
 import { isoImport as isoImportPlugin } from "vite-plugin-iso-import";
 import { visualizer as visualizerPlugin } from "rollup-plugin-visualizer";
 
-import { imports } from "./config/auto-import.config";
+import { imports } from "./config/auto-import";
 
 const plugins = [
   rubyPlugin(),
@@ -25,7 +25,7 @@ const plugins = [
     jsx: "react",
   }),
   graphqlCodegenPlugin({
-    configFilePathOverride: "config/graphql-codegen.client.config.ts",
+    configFilePathOverride: "config/graphql-codegen.client.ts",
     configOverride: {
       errorsOnly: true,
     },
