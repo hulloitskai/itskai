@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    // == Paths ==
+    // == Paths
     "baseUrl": ".",
     "paths": {
       "~/*": ["app/*"]
     },
 
-    // == Language ==
+    // == Language
     "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "module": "ESNext",
     "moduleResolution": "node",
@@ -15,21 +15,21 @@
     "isolatedModules": true,
     "useDefineForClassFields": true,
 
-    // == JavaScript ==
+    // == JavaScript
     "allowJs": true,
 
-    // == Emit ==
+    // == Emit
     "noEmit": true,
 
-    // == Types ==
+    // == Types
     "strict": true,
     "alwaysStrict": true,
 
-    // == Completeness ==
+    // == Completeness
     "skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
 
-    // == Plugins ==
+    // == Plugins
     "plugins": [
       {
         "name": "vite-plugin-iso-import"

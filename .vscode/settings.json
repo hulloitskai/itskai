@@ -5,12 +5,12 @@
     "Aptfile": "plaintext"
   },
 
-  // == Ruby ==
+  // == Ruby
   "ruby.useLanguageServer": false,
   "ruby.intellisense": false,
   "ruby.format": false,
 
-  // == Formatting ==
+  // == Formatting
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

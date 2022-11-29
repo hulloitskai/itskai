@@ -1,6 +1,5 @@
 import type { FC } from "react";
 import { Text } from "@mantine/core";
-import invariant from "tiny-invariant";
 
 import type { AccountEditPageViewerFragment } from "~/queries";
 
@@ -23,7 +22,7 @@ const AccountEditPageEmailForm: FC<AccountEditPageEmailFormProps> = ({
     () => ({ email: unconfirmedEmail || email }),
     [viewer],
   );
-  const { values, getInputProps, onSubmit, setValues, setErrors } =
+  const { getInputProps, onSubmit, setValues, setErrors } =
     useForm<AccountEditPageEmailFormValues>({
       initialValues: initialValues,
     });

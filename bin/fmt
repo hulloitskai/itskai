@@ -23,7 +23,7 @@ def scoped(&block)
   yield
 end
 
-puts "== prettier =="
+puts "=> Running Prettier"
 scoped do
   args = []
   args << (options[:fix] ? "--write" : "--check")
@@ -31,7 +31,7 @@ scoped do
   system("yarn", "--silent", "prettier", *args)
 end
 
-puts "== rubocop =="
+puts "\n=> Runnning Rubocop"
 scoped do
   args = []
   if options[:fix]

@@ -26,7 +26,7 @@ const TestPage: PageComponent<TestPageProps> = ({
   data,
   name: initialName,
 }) => {
-  // == Form ==
+  // == Form
   const { values, getInputProps } = useForm<TestPageFormValues>({
     initialValues: resolve<TestPageFormValues>(() => {
       return { name: initialName };
@@ -38,7 +38,7 @@ const TestPage: PageComponent<TestPageProps> = ({
     return `Your name is: ${name}`;
   }, [name]);
 
-  // == Callbacks ==
+  // == Callbacks
   const showModal = useCallback(() => {
     openModal({
       title: <Title order={3}>I Am A Modal!</Title>,
@@ -54,7 +54,7 @@ const TestPage: PageComponent<TestPageProps> = ({
     });
   }, []);
 
-  // == Render ==
+  // == Render
   return (
     <Stack spacing="xl">
       <Title>Test Page</Title>

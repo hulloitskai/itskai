@@ -4,7 +4,7 @@
 class GraphQLChannel < ApplicationCable::Channel
   extend T::Sig
 
-  # == Concerns ==
+  # == Concerns
   include GraphQL::Helpers
 
   sig do

@@ -23,14 +23,14 @@ def scoped(&block)
   yield
 end
 
-puts "== rubocop =="
+puts "=> Running Rubocop"
 scoped do
   args = []
   args << "--autocorrect" if options[:fix]
   system("bundle", "exec", "rubocop", "--except", "Layout", *args)
 end
 
-puts "\n== eslint =="
+puts "\n=> Running Eslint"
 scoped do
   args = %w[--ext .js,.jsx,.ts,.tsx]
   args << "--fix" if options[:fix]
@@ -39,8 +39,8 @@ scoped do
     puts("No problems or warnings")
 end
 
-puts "\n== tsc =="
+puts "\n=> Running tsc"
 system("yarn", "--silent", "tsc", "--noEmit") && puts("No errors found")
 
-puts "\n== srb =="
+puts "\n=> Running Sorbet"
 system("bundle", "exec", "srb", "tc")
