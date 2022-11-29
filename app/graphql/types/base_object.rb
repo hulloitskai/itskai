@@ -4,7 +4,6 @@
 module Types
   class BaseObject < GraphQL::Schema::Object
     extend T::Sig
-    extend T::Helpers
 
     # == Modules
     include ActionPolicy::GraphQL::Behaviour

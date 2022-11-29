@@ -3,9 +3,6 @@
 
 module Types
   module BaseInterface
-    extend T::Sig
-    extend T::Helpers
-
     # == Definition
     include GraphQL::Schema::Interface
 

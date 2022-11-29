@@ -3,8 +3,6 @@
 
 module Types
   class SpotifyTrackType < BaseObject
-    extend T::Sig
-
     # == Fields
     field :album, SpotifyAlbumType, null: false
     field :artists, [SpotifyArtistType], null: false

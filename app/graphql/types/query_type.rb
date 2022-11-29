@@ -4,9 +4,6 @@
 
 module Types
   class QueryType < BaseObject
-    extend T::Sig
-    extend T::Helpers
-
     # == Relay
     # Add 'node' and 'nodes' fields.
     include GraphQL::Types::Relay::HasNodeField

@@ -3,8 +3,6 @@
 
 module Types
   class SpotifyAlbumType < BaseObject
-    extend T::Sig
-
     # == Fields
     field :id, String, null: false
     field :image_url, String

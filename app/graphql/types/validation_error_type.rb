@@ -3,8 +3,6 @@
 
 module Types
   class ValidationErrorType < BaseObject
-    extend T::Sig
-
     field :field, String, null: false
     field :message, String, null: false
 

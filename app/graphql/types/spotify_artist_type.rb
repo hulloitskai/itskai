@@ -3,8 +3,6 @@
 
 module Types
   class SpotifyArtistType < BaseObject
-    extend T::Sig
-
     # == Fields
     field :id, String, null: false
     field :name, String, null: false
