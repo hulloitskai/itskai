@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
 
-bin/yarn graphql-codegen --config config/graphql-codegen.config.ts
+TARGET=schema
+if [ ! -z "$1" ]; then
+  TARGET="$1"
+fi
+CONFIG="config/graphql-codegen.$TARGET.config.ts"
+
+bin/yarn --silent graphql-codegen --config "$CONFIG"
