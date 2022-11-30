@@ -5,12 +5,14 @@ module Types
   class ObsidianNoteType < BaseObject
     # == Interfaces
     implements NodeType
+    implements SluggedType
     implements ObsidianEntryType
 
     # == Fields
     field :aliases, [String], null: false
     field :blurb, String
     field :content, String, null: true
+    field :is_published, Boolean, null: false, method: :published?
     field :modified_at, DateTimeType, null: false
     field :references, [ObsidianEntryType], null: false
     field :tags, [String], null: false

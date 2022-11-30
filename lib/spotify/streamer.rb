@@ -13,6 +13,11 @@ module Spotify
           loop do
             update
             sleep(2)
+          rescue => error
+            tag_logger do
+              logger.error("Failed to update currently playing: #{error}")
+            end
+            Honeybadger.notify(error)
           end
         end,
         Thread,

@@ -25,6 +25,7 @@ module Types
 
     field :obsidian_note, resolver: Queries::ObsidianNote
     field :obsidian_note_by_name, resolver: Queries::ObsidianNoteByName
+    field :obsidian_note_by_slug, resolver: Queries::ObsidianNoteBySlug
     field :obsidian_notes, resolver: Queries::ObsidianNotes
   end
 end
