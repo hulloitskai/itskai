@@ -5,7 +5,6 @@ module Types
   class OAuthCredentialsType < BaseObject
     # == Interfaces
     implements NodeType
-    implements IdentifiableType
 
     # == Fields
     field :name, String, null: false

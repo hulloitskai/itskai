@@ -884,6 +884,51 @@ class ObsidianNote
     sig { void }
     def name_will_change!; end
 
+    sig { returns(T::Boolean) }
+    def published; end
+
+    sig { params(value: T::Boolean).returns(T::Boolean) }
+    def published=(value); end
+
+    sig { returns(T::Boolean) }
+    def published?; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def published_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def published_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def published_came_from_user?; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def published_change; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def published_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def published_changed?; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def published_in_database; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def published_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def published_previously_changed?; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def published_previously_was; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def published_was; end
+
+    sig { void }
+    def published_will_change!; end
+
     sig { void }
     def restore_aliases!; end
 
@@ -910,6 +955,12 @@ class ObsidianNote
 
     sig { void }
     def restore_name!; end
+
+    sig { void }
+    def restore_published!; end
+
+    sig { void }
+    def restore_slug!; end
 
     sig { void }
     def restore_tags!; end
@@ -971,6 +1022,18 @@ class ObsidianNote
     sig { returns(T::Boolean) }
     def saved_change_to_name?; end
 
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def saved_change_to_published; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_published?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_slug; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_slug?; end
+
     sig { returns(T.nilable([T.untyped, T.untyped])) }
     def saved_change_to_tags; end
 
@@ -982,6 +1045,51 @@ class ObsidianNote
 
     sig { returns(T::Boolean) }
     def saved_change_to_updated_at?; end
+
+    sig { returns(T.nilable(::String)) }
+    def slug; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def slug=(value); end
+
+    sig { returns(T::Boolean) }
+    def slug?; end
+
+    sig { returns(T.nilable(::String)) }
+    def slug_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def slug_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def slug_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def slug_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def slug_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def slug_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def slug_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def slug_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def slug_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def slug_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def slug_was; end
+
+    sig { void }
+    def slug_will_change!; end
 
     sig { returns(T.untyped) }
     def tags; end
@@ -1099,6 +1207,12 @@ class ObsidianNote
 
     sig { returns(T::Boolean) }
     def will_save_change_to_name?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_published?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_slug?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_tags?; end

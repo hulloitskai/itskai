@@ -14,11 +14,14 @@ class ObsidianNotePolicy < ApplicationPolicy
   end
 
   sig { returns(T::Boolean) }
+  def read?
+    record!.published?
+  end
+
+  sig { returns(T::Boolean) }
   def edit?
     false
   end
-
-  alias_rule :read?, to: :edit?
 
   # == Scopes
   relation_scope do |relation|

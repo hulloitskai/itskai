@@ -5,7 +5,6 @@ module Types
   class UserType < BaseObject
     # == Interfaces
     implements NodeType
-    implements IdentifiableType
 
     # == Fields
     field :email, String, null: false

@@ -94,6 +94,18 @@ module Obsidian
         note.blurb = front_matter["blurb"].presence
         note.aliases = parse_aliases(front_matter)
         note.tags = parse_tags(front_matter)
+        front_matter["publish"].try! do |publish|
+          case publish
+          when String
+            slug = ObsidianNote.normalize_friendly_id(publish)
+            note.slug = slug if should_update_slug?(note, slug)
+            note.published = true
+          when TrueClass
+            note.published = true
+          else
+            note.published = false
+          end
+        end
       end
     end
 
@@ -159,6 +171,11 @@ module Obsidian
       else
         [value.to_s]
       end
+    end
+
+    sig { params(note: ObsidianNote, slug: String).returns(T::Boolean) }
+    def should_update_slug?(note, slug)
+      note.slug != slug && !ObsidianNote.exists?(slug: slug)
     end
   end
 

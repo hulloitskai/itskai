@@ -43,8 +43,11 @@ gem "good_job", "~> 3.6"
 # Use Mailjet to send emails.
 gem "mailjet", "~> 1.7"
 
-# Use ShortUUID to shorten UUIDs for use in URLs
-gem "shortuuid", "~> 0.6.0"
+# Use FriendlyId to create human-friendly identifiers for models
+gem "friendly_id", "~> 5.4"
+
+# Use Nanoid to generate tiny collision-resistant IDs
+gem "nanoid", "~> 2.0"
 
 # Perform HTTP requests with HTTParty
 gem "httparty", "~> 0.20.0"

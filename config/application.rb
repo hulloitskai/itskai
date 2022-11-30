@@ -24,6 +24,7 @@ module ItsKai
       require "bullet_ext"
       require "devise_ext"
       require "email_validator_ext"
+      require "friendly_id_ext"
       require "graphql_ext"
       require "premailer_ext"
 

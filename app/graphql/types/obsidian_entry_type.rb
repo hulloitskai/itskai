@@ -8,7 +8,7 @@ module Types
     orphan_types Types::ObsidianStubType
 
     # == Interfaces
-    implements IdentifiableType
+    implements NodeType
 
     # == Fields
     field :created_at, DateTimeType, null: false

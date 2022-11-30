@@ -13,6 +13,8 @@
 #  hidden      :boolean          default(FALSE), not null
 #  modified_at :datetime         not null
 #  name        :string           not null
+#  published   :boolean          default(FALSE), not null
+#  slug        :string           not null
 #  tags        :string           default([]), not null, is an Array
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -50,7 +52,14 @@ class ObsidianNote < ApplicationRecord
 
   # == Concerns
   include Identifiable
+  include Slugged
+
+  # == Interfaces
   include ObsidianEntry
+
+  # == FriendlyId
+  include FriendlyId
+  friendly_id :name
 
   # == Validations
   validates :aliases, :tags, array: { presence: true }
