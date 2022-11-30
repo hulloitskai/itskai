@@ -6,6 +6,7 @@ module Subscriptions
     extend T::Sig
 
     # == Configuration
+    description "What I'm currently listening to on Spotify!"
     type Types::SpotifyTrackType, null: true
     broadcastable true
 

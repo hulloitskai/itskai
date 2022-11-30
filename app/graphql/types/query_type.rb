@@ -9,10 +9,11 @@ module Types
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
-    # == Fields
+    # == Queries
     field :test_echo, resolver: Queries::TestEcho
 
     field :contact_email, resolver: Queries::ContactEmail
+    field :currently_playing, resolver: Queries::CurrentlyPlaying
     field :resume, resolver: Queries::Resume
     field :timezone, resolver: Queries::Timezone
 
