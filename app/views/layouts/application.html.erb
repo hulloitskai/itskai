@@ -9,9 +9,13 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 
-    <%# == Meta %>
+    <%# == Meta: Viewport %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <%# == Meta: Content Security Policy %>
     <%= csp_meta_tag %>
+
+    <%# == Meta: Action Cable %>
     <%= action_cable_meta_tag %>
 
     <%# == Meta: GraphQL %>

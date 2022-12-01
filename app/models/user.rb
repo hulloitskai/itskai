@@ -47,7 +47,7 @@ class User < ApplicationRecord
               case_sensitive: false,
             }
 
-  # == Owner
+  # == Methods: Owner
   sig { returns(String) }
   def self.owner_email
     unless defined?(@owner_email)
@@ -72,13 +72,13 @@ class User < ApplicationRecord
     email == User.owner_email
   end
 
-  # == Honeybadger
+  # == Methods: Honeybadger
   sig { returns(T::Hash[String, T.untyped]) }
   def honeybadger_context
     { "user_id" => id, "user_email" => email }
   end
 
-  # == FullStory
+  # == Methods: FullStory
   sig { returns(T::Hash[String, T.untyped]) }
   def fullstory_identity
     { "uid" => id, "email" => email, "displayName" => name }

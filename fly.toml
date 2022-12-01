@@ -10,6 +10,11 @@ processes = []
   RAILS_ENV = "production"
   RAILS_STORAGE_SERVICE = "test"
   RAILS_LOG_TO_STDOUT = "true"
+  POSTGRES_URL = "postgresql://top2.nearest.of.itskai-db.internal"
+  POSTGRES_USERNAME = "itskai"
+  POSTGRES_DATABASE = "itskai"
+  SPOTIFY_CLIENT_ID = "0a0f796dd227445787b5cc019a749555"
+  MAILJET_API_KEY = "c8aa7cafd6972ffe6718fcfab344b547"
 
 [experimental]
   allowed_public_ports = []
