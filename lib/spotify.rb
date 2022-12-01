@@ -42,10 +42,14 @@ module Spotify
 
     sig { returns(T::Boolean) }
     def authenticate
-      client_id = ENV["SPOTIFY_CLIENT_ID"].presence or return false
-      client_secret = ENV["SPOTIFY_CLIENT_SECRET"].presence or return false
-      RSpotify.authenticate(client_id, client_secret)
-      true
+      client_id = ENV["SPOTIFY_CLIENT_ID"]
+      client_secret = ENV["SPOTIFY_CLIENT_SECRET"]
+      if [client_id, client_secret].all?(&:present?)
+        RSpotify.authenticate(client_id, client_secret)
+        true
+      else
+        false
+      end
     end
 
     sig { void }

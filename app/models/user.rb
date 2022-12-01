@@ -71,6 +71,18 @@ class User < ApplicationRecord
   def owner?
     email == User.owner_email
   end
+
+  # == Honeybadger
+  sig { returns(T::Hash[String, T.untyped]) }
+  def honeybadger_context
+    { "user_id" => id, "user_email" => email }
+  end
+
+  # == FullStory
+  sig { returns(T::Hash[String, T.untyped]) }
+  def fullstory_identity
+    { "uid" => id, "email" => email, "displayName" => name }
+  end
 end
 
 # == Devise
