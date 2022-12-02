@@ -18,6 +18,7 @@ module ItsKai
 
       # == Rails Extensions
       require "rails_ext"
+      require "actionview_ext"
 
       # == Library Extensions
       require "better_errors_ext"

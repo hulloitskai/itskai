@@ -50,6 +50,9 @@ if (process.env.VITE_VISUALIZE) {
 
 export default defineConfig({
   clearScreen: false,
+  build: {
+    sourcemap: true,
+  },
   ssr: {
     format: "cjs",
   },

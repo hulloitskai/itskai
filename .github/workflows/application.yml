@@ -71,19 +71,6 @@ jobs:
         run: pip install -r requirements.txt
       - name: Compile assets
         run: bundle exec rails assets:precompile
-      - name: Locate files
-        id: locate_files
-        run: |
-          cd public
-          echo "minified_file=$(echo dist/application*.js)" >> $GITHUB_OUTPUT
-          echo "source_map=$(echo dist/application*.map)" >> $GITHUB_OUTPUT
-      - name: Upload sourcemap
-        uses: honeybadger-io/github-upload-sourcemap-action@master
-        with:
-          api_key: ${{ secrets.HONEYBADGER_CLIENT_API_KEY }}
-          minified_url: https://itskai.me/${{ steps.locate_files.outputs.minified_file }}
-          minified_file: public/${{ steps.locate_files.outputs.minified_file }}
-          source_map: public/${{ steps.locate_files.outputs.source_map }}
       - name: Notify server deploy
         uses: honeybadger-io/github-notify-deploy-action@v1
         with:
