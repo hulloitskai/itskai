@@ -8,15 +8,16 @@ require_relative "icloud/railtie"
 module ICloud
   # == Configuration
   include ActiveSupport::Configurable
+
   config_accessor :logger
   config_accessor :credentials_dir
 
   class << self
     extend T::Sig
 
-    # == Init
+    # == Initialization
     sig { void }
-    def initialize
+    def initialize!
       @client = T.let(@client, T.nilable(ICloud::Client))
       ICloudCredentials.first.try! do |credentials|
         credentials = T.let(credentials, ICloudCredentials)

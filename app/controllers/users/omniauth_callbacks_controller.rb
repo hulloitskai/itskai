@@ -33,7 +33,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
             "#{refresh_token})",
         )
       end
-    Spotify.initialize
+    Spotify.initialize!(stream: true)
     if is_navigational_format?
       set_flash_message(:notice, :success, kind: "Spotify")
     end

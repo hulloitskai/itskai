@@ -31,7 +31,7 @@ module ICloud
           puts "=> Initializing iCloud" # rubocop:disable Rails/Output
         end
         if Rails.const_defined?(:Server) || Rails.const_defined?(:Console)
-          ICloud.initialize
+          ICloud.initialize!
         end
       end
     end

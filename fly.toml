@@ -7,9 +7,7 @@ processes = []
   release_command = "bin/release"
 
 [env]
-  RAILS_ENV = "production"
   RAILS_STORAGE_SERVICE = "test"
-  RAILS_LOG_TO_STDOUT = "true"
   POSTGRES_URL = "postgresql://top2.nearest.of.itskai-db.internal"
   POSTGRES_USERNAME = "itskai"
   POSTGRES_DATABASE = "itskai"

@@ -30,7 +30,7 @@ module Spotify
           puts "=> Initializing Spotify" # rubocop:disable Rails/Output
         end
         if Rails.const_defined?(:Server) || Rails.const_defined?(:Console)
-          Spotify.initialize
+          Spotify.initialize!(stream: Rails.const_defined?(:Server))
         end
       end
     end

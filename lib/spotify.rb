@@ -12,20 +12,31 @@ module Spotify
   class << self
     extend T::Sig
 
-    # == Init
-    sig { void }
-    def initialize
-      if authenticate
-        set_credentials
-        set_user
-        set_streamer
+    # == Initialization
+    sig { params(stream: T::Boolean).void }
+    def initialize!(stream: false)
+      @user = T.let(@user, T.nilable(RSpotify::User))
+      @streamer = T.let(@streamer, T.nilable(Streamer))
+      @streamer&.stop
+      if authenticate_client
+        credentials = OAuthCredentials.spotify
+        @user = authenticate_user(credentials) if credentials
+        if @user && stream
+          @streamer = Streamer.new
+          @streamer.start
+        end
       end
     end
 
-    # == Methods
+    # == Methods: User
+    sig { returns(T.nilable(RSpotify::User)) }
+    attr_reader :user
+
+    # == Methods: Streaming
     sig { returns(T.nilable(Streamer)) }
     attr_reader :streamer
 
+    # == Methods
     sig { returns(T.nilable(RSpotify::Track)) }
     def currently_playing
       user.try! do |user|
@@ -37,11 +48,8 @@ module Spotify
 
     private
 
-    sig { returns(T.nilable(RSpotify::User)) }
-    attr_reader :user
-
     sig { returns(T::Boolean) }
-    def authenticate
+    def authenticate_client
       client_id = ENV["SPOTIFY_CLIENT_ID"]
       client_secret = ENV["SPOTIFY_CLIENT_SECRET"]
       if [client_id, client_secret].all?(&:present?)
@@ -52,34 +60,15 @@ module Spotify
       end
     end
 
-    sig { void }
-    def set_credentials
-      @credentials = T.let(@credentials, T.nilable(OAuthCredentials))
-      @credentials = OAuthCredentials.spotify
-    end
-
-    sig { void }
-    def set_user
-      @user = T.let(@user, T.nilable(RSpotify::User))
-      if @credentials.present?
-        @credentials => {uid:, refresh_token:}
-        @user =
-          RSpotify::User.new({
-            "id" => uid,
-            "credentials" => { "refresh_token" => refresh_token },
-          }).tap do
-            RSpotify::User.send(:refresh_token, uid)
-          end
+    sig { params(credentials: OAuthCredentials).returns(RSpotify::User) }
+    def authenticate_user(credentials)
+      credentials => {uid:, refresh_token:}
+      RSpotify::User.new({
+        "id" => uid,
+        "credentials" => { "refresh_token" => refresh_token },
+      }).tap do
+        RSpotify::User.send(:refresh_token, uid)
       end
-    end
-
-    sig { void }
-    def set_streamer
-      @streamer = T.let(@streamer, T.nilable(Streamer))
-      if @streamer.present?
-        @streamer.stop
-      end
-      @streamer = Streamer.new
     end
   end
 

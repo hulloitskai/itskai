@@ -50,7 +50,7 @@ class User < ApplicationRecord
   # == Methods: Owner
   sig { returns(String) }
   def self.owner_email
-    unless defined?(@owner_email)
+    unless instance_variable_defined?(:@owner_email)
       @owner_email = T.let(ENV.fetch("OWNER_LOGIN_EMAIL"), T.nilable(String))
       raise "Owner login email must not be blank" if @owner_email.blank?
     end

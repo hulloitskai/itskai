@@ -8,43 +8,58 @@ module Spotify
     sig { void }
     def initialize
       @current_track = T.let(@current_track, T.nilable(RSpotify::Track))
-      @running_thread = T.let(
-        Thread.new do
-          loop do
-            update
-            sleep(2)
-          rescue => error
-            tag_logger do
-              logger.error("Failed to update currently playing: #{error}")
-            end
-            Honeybadger.notify(error)
+      @current_track_mutex = T.let(Thread::Mutex.new, Thread::Mutex)
+      @running_thread = T.let(@running_thread, T.nilable(Thread))
+    end
+
+    # == Methods: Lifecycle
+    sig { void }
+    def start
+      Thread.new do
+        loop do
+          update
+          sleep(2)
+        rescue => error
+          tag_logger do
+            logger.error("Failed to update currently playing: #{error}")
           end
-        end,
-        Thread,
-      )
+          Honeybadger.notify(error)
+        end
+      end
     end
 
     sig { void }
     def stop
-      @running_thread.kill
+      @running_thread&.kill
     end
 
+    # == Methods: Current Track
     sig { returns(T.nilable(RSpotify::Track)) }
-    attr_reader :current_track
+    def current_track
+      @current_track_mutex.synchronize do
+        @current_track
+      end
+    end
 
     private
 
     sig { void }
     def update
       track = Spotify.currently_playing
-      should_update = track&.id != @current_track&.id
-      @current_track = track
-      update_subscriptions if should_update
+      if @current_track_mutex.synchronize do
+        if track&.id != @current_track&.id
+          @current_track = track
+          true
+        else
+          false
+        end
+      end
+        update_subscriptions(track)
+      end
     end
 
-    sig { void }
-    def update_subscriptions
-      track = current_track
+    sig { params(track: T.nilable(RSpotify::Track)).void }
+    def update_subscriptions(track)
       if track
         tag_logger do
           logger.info("Currently playing: #{track.name}")
