@@ -19,12 +19,13 @@ import type {
 } from "d3-force";
 import { select } from "d3-selection";
 
+import ObsidianNoteTag from "./ObsidianNoteTag";
+import ClockIcon from "~icons/heroicons/clock-20-solid";
+
 import {
   HomePageObsidianNoteFragment,
   HomePageGraphQueryDocument,
 } from "~/queries";
-
-import ClockIcon from "~icons/heroicons/clock-20-solid";
 
 type Node = BaseNode &
   HomePageObsidianNoteFragment & {
@@ -40,17 +41,12 @@ const NODE_RADIUS_MULTIPLIER = 0.3;
 const LINK_FORCE = 0.02;
 const BODY_FORCE = -350;
 const BODY_FORCE_MAX_DISTANCE = 250;
-const TAG_COLORS: Record<string, string> = {
-  person: "pink",
-  day: "gray",
-  month: "gray",
-  place: "orange",
-  event: "red",
-};
 
 export type HomePageGraphProps = BoxProps;
 
 const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
+  const router = useRouter();
+
   const { ref: containerRef, width, height } = useElementSize<HTMLDivElement>();
   const size = useMemo(() => [width, height], [width, height]);
   const [debouncedSize] = useDebouncedValue(size, 500);
@@ -89,6 +85,9 @@ const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
             notes,
             onFocus: setFocusedNote,
             onBlur: () => setFocusedNote(null),
+            onClick: ({ url }) => {
+              router.visit(url);
+            },
           });
         });
         return () => {
@@ -118,7 +117,7 @@ const HomePageGraph: FC<HomePageGraphProps> = ({ sx, ...otherProps }) => {
                 transitionTimingFunction: "ease-in-out",
                 transitionDuration: "150ms",
                 circle: {
-                  cursor: "grab",
+                  cursor: "pointer",
                   fill: colors.dark[3],
                   transitionProperty: "fill",
                   transitionTimingFunction: "ease-in-out",
@@ -256,17 +255,7 @@ const NoteInfoCard: FC<NoteInfoCardProps> = ({ note, ...otherProps }) => {
         <Text size="sm" weight={500} lineClamp={1}>
           {name}
         </Text>
-        {!!tag && (
-          <Badge
-            variant="outline"
-            size="xs"
-            radius="sm"
-            color={TAG_COLORS[tag] || "gray"}
-            sx={{ flexShrink: 0 }}
-          >
-            {tag}
-          </Badge>
-        )}
+        {!!tag && <ObsidianNoteTag size="xs">{tag}</ObsidianNoteTag>}
       </Group>
       {!!modifiedAgo && (
         <Group spacing={4} mt={-3}>
@@ -310,11 +299,12 @@ type RenderGraphOptions = {
   readonly notes: ReadonlyArray<HomePageObsidianNoteFragment>;
   readonly onFocus: (entry: HomePageObsidianNoteFragment) => void;
   readonly onBlur: (entry: HomePageObsidianNoteFragment) => void;
+  readonly onClick: (entry: HomePageObsidianNoteFragment) => void;
 };
 
 const renderGraph = (
   target: SVGSVGElement,
-  { notes, onFocus, onBlur }: RenderGraphOptions,
+  { notes, onFocus, onBlur, onClick }: RenderGraphOptions,
 ) => {
   const { width, height } = target.getBoundingClientRect();
   const svg = select(target);
@@ -390,14 +380,17 @@ const renderGraph = (
         onBlur(node);
       }
     })
-    .on("click", (event: MouseEvent, { name }) => {
+    .on("click", (event: MouseEvent, node) => {
       if (event.altKey) {
+        const { name } = node;
         navigator.clipboard.writeText(name).then(() => {
           showNotice({
             title: "Copied note name!",
             message: name,
           });
         });
+      } else {
+        onClick(node);
       }
     });
 

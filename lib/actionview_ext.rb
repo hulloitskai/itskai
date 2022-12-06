@@ -3,6 +3,6 @@
 
 class ActionView::Helpers::TagHelper::TagBuilder
   def boolean_tag_option(key)
-    key
+    key.to_s
   end
 end

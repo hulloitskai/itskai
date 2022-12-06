@@ -28,9 +28,9 @@ module Spotify
       config.after_initialize do
         if Rails.const_defined?(:Server)
           puts "=> Initializing Spotify" # rubocop:disable Rails/Output
-        end
-        if Rails.const_defined?(:Server) || Rails.const_defined?(:Console)
-          Spotify.initialize!(stream: Rails.const_defined?(:Server))
+          Spotify.initialize!(stream: Rails.env.production?)
+        elsif Rails.const_defined?(:Console)
+          Spotify.initialize!
         end
       end
     end

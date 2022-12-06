@@ -8,11 +8,12 @@
 #  id          :uuid             not null, primary key
 #  aliases     :string           default([]), not null, is an Array
 #  analyzed_at :datetime
-#  blurb       :string
+#  blurb       :text
 #  content     :text             not null
 #  hidden      :boolean          default(FALSE), not null
 #  modified_at :datetime         not null
 #  name        :string           not null
+#  plain_blurb :text
 #  published   :boolean          default(FALSE), not null
 #  slug        :string           not null
 #  tags        :string           default([]), not null, is an Array
@@ -65,6 +66,7 @@ class ObsidianNote < ApplicationRecord
   validates :aliases, :tags, array: { presence: true }
 
   # == Callbacks
+  before_save :set_plain_blurb, if: :will_save_change_to_blurb?
   after_commit :analyze_later, on: %i[create update], if: :analysis_required?
 
   # == Synchronization
@@ -112,5 +114,16 @@ class ObsidianNote < ApplicationRecord
   sig { returns(T::Boolean) }
   def analysis_required?
     !analyzed? || T.must(analyzed_at) < modified_at
+  end
+
+  private
+
+  # == Callbacks
+  sig { void }
+  def set_plain_blurb
+    self.plain_blurb = blurb.try! do |text|
+      text = T.let(text, String)
+      text.gsub(/\[\[([^\[\]]+\|)?([^\[\]]+)\]\]/, '\2')
+    end
   end
 end

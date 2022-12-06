@@ -63,7 +63,7 @@ class Schema < GraphQL::Schema
     params(id: String, context: GraphQL::Query::Context).returns(T.untyped)
   end
   def self.object_from_id(id, context)
-    GlobalID::Locator.locate(id)
+    context.dataloader.with(Sources::RecordByGid).load(id)
   end
 
   # == Callbacks

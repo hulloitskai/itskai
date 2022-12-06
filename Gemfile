@@ -49,6 +49,9 @@ gem "friendly_id", "~> 5.4"
 # Use Nanoid to generate tiny collision-resistant IDs
 gem "nanoid", "~> 2.0"
 
+# Modern concurrency tools
+gem "concurrent-ruby", "~> 1.1"
+
 # Perform HTTP requests with HTTParty
 gem "httparty", "~> 0.20.0"
 
@@ -149,9 +152,6 @@ gem "markly", "~> 0.7.0"
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"
-
-  # Generate JavaScript path helpers
-  gem "js_from_routes", "~> 2.0"
 end
 
 group :development do
@@ -184,7 +184,7 @@ group :development do
   gem "better_errors"
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  gem "spring"
+  # gem "spring"
 
   # Annotate models and routes
   gem "annotate", require: false

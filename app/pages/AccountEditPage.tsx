@@ -8,10 +8,11 @@ import AccountEditPagePasswordForm from "~/components/AccountEditPagePasswordFor
 import AccountEditPageICloudCredentialsForm from "~/components/AccountEditPageICloudCredentialsForm";
 import AccountEditPageSpotifyCredentialsForm from "~/components/AccountEditPageSpotifyCredentialsForm";
 
+import type { DeepRequired } from "~/helpers/utils";
 import type { AccountEditPageQuery } from "~/queries";
 
 export type AccountEditPageProps = {
-  readonly data: AccountEditPageQuery;
+  readonly data: DeepRequired<AccountEditPageQuery, ["viewer"]>;
 };
 
 const AccountEditPage: PageComponent<AccountEditPageProps> = ({

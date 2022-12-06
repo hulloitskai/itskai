@@ -7,54 +7,56 @@ module Spotify
 
     sig { void }
     def initialize
-      @current_track = T.let(@current_track, T.nilable(RSpotify::Track))
-      @current_track_mutex = T.let(Thread::Mutex.new, Thread::Mutex)
-      @running_thread = T.let(@running_thread, T.nilable(Thread))
+      @task = T.let(@task, T.nilable(Concurrent::TimerTask))
     end
 
     # == Methods: Lifecycle
     sig { void }
     def start
-      Thread.new do
-        loop do
-          update
-          sleep(2)
-        rescue => error
-          tag_logger do
-            logger.error("Failed to update currently playing: #{error}")
-          end
-          Honeybadger.notify(error)
+      raise "Streamer already started" if @task&.running?
+
+      @task = Concurrent::TimerTask.new(
+        execution_interval: 2,
+        timeout_interval: 2,
+        run_now: true,
+      ) do |task|
+        Rails.application.reloader.wrap do
+          update(previous_track: task.value)
         end
+      rescue => error
+        tag_logger do
+          logger.error("Failed to update currently playing: #{error}")
+        end
+        Honeybadger.notify(error)
       end
+      @task.execute
     end
 
     sig { void }
     def stop
-      @running_thread&.kill
+      @task&.kill
     end
 
     # == Methods: Current Track
     sig { returns(T.nilable(RSpotify::Track)) }
     def current_track
-      @current_track_mutex.synchronize do
-        @current_track
+      ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
+        @task&.value
       end
     end
 
     private
 
-    sig { void }
-    def update
-      track = Spotify.currently_playing
-      if @current_track_mutex.synchronize do
-        if track&.id != @current_track&.id
-          @current_track = track
-          true
-        else
-          false
+    sig do
+      params(previous_track: T.nilable(RSpotify::Track))
+        .returns(T.nilable(RSpotify::Track))
+    end
+    def update(previous_track:)
+      Spotify.currently_playing.tap do |track|
+        track = T.let(track, T.nilable(RSpotify::Track))
+        if track&.id != previous_track&.id
+          update_subscriptions(track)
         end
-      end
-        update_subscriptions(track)
       end
     end
 
@@ -69,9 +71,7 @@ module Spotify
           logger.info("Stopped playing")
         end
       end
-      logger.silence do
-        Schema.subscriptions!.trigger(:currently_playing, {}, nil)
-      end
+      Schema.subscriptions!.trigger(:currently_playing, {}, nil)
     end
 
     sig { returns(ActiveSupport::Logger) }
@@ -82,10 +82,8 @@ module Spotify
     sig { params(block: T.proc.void).void }
     def tag_logger(&block)
       if logger.respond_to?(:tagged)
-        T.cast(logger, ActiveSupport::TaggedLogging).tagged(
-          self.class.name,
-          &block
-        )
+        logger = T.cast(self.logger, ActiveSupport::TaggedLogging)
+        logger.tagged(self.class.name, &block)
       end
     end
   end

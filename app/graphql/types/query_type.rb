@@ -16,8 +16,6 @@ module Types
     field :currently_playing, resolver: Queries::CurrentlyPlaying
     field :resume, resolver: Queries::Resume
     field :timezone, resolver: Queries::Timezone
-
-    field :authenticated_viewer, resolver: Queries::AuthenticatedViewer
     field :viewer, resolver: Queries::Viewer
 
     field :icloud_credentials, resolver: Queries::ICloudCredentials

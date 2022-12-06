@@ -18,4 +18,16 @@ class Users::SessionsController < Devise::SessionsController
     sign_in(resource_name, resource)
     respond_with(resource, location: after_sign_in_path_for(resource))
   end
+
+  protected
+
+  sig { params(resource_or_scope: ApplicationRecord).returns(String) }
+  def after_sign_in_path_for(resource_or_scope)
+    stored_location_for(resource_or_scope) || request.referer
+  end
+
+  sig { params(resource_or_scope: ApplicationRecord).returns(String) }
+  def after_sign_out_path_for(resource_or_scope)
+    stored_location_for(resource_or_scope) || request.referer
+  end
 end

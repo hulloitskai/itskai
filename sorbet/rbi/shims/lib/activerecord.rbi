@@ -13,6 +13,12 @@ class ActiveRecord::Relation
   def to_a; end
 end
 
+module ActiveRecord::Calculations
+  sig {returns(T::Array[String])}
+  def ids
+  end
+end
+
 module ActiveRecord::Transactions
   sig { params(_arg0: T.untyped).returns(T::Boolean) }
   def save(**_arg0); end

@@ -17,6 +17,11 @@ module Resolver
     T.cast(Rails.application, ItsKai::Application)
   end
 
+  T::Sig::WithoutRuntime.sig { returns(GeneratedUrlHelpersModule) }
+  def url_helpers
+    app.routes.url_helpers
+  end
+
   # sig { returns(T.nilable(GraphQLController)) }
   # def controller
   #   context[:controller]

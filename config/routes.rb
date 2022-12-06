@@ -35,6 +35,14 @@ Rails.application.routes.draw do
   get :work, to: "work#show"
   get :resume, to: "resume#show"
   get :jen, to: "jen#show"
+  resources :obsidian_notes, path: :entries, only: :show
+
+  # == Errors
+  scope controller: :errors do
+    match "/404", action: :not_found, via: :all
+    match "/500", action: :internal_server_error, via: :all
+    match "/401", action: :unauthorized, via: :all
+  end
 
   # == Internal
   authenticate :user, ->(user) { user.owner? } do

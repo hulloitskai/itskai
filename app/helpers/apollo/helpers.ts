@@ -5,14 +5,13 @@ export type AccountUpdatePayloadFieldPolicy = {
 	errors?: FieldPolicy<any> | FieldReadFunction<any>,
 	user?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ICloudCredentialsKeySpecifier = ('cookies' | 'email' | 'id' | 'password' | 'session' | 'shortId' | ICloudCredentialsKeySpecifier)[];
+export type ICloudCredentialsKeySpecifier = ('cookies' | 'email' | 'id' | 'password' | 'session' | ICloudCredentialsKeySpecifier)[];
 export type ICloudCredentialsFieldPolicy = {
 	cookies?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
-	session?: FieldPolicy<any> | FieldReadFunction<any>,
-	shortId?: FieldPolicy<any> | FieldReadFunction<any>
+	session?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type ICloudCredentialsUpdatePayloadKeySpecifier = ('clientMutationId' | 'errors' | 'icloudCredentials' | ICloudCredentialsUpdatePayloadKeySpecifier)[];
 export type ICloudCredentialsUpdatePayloadFieldPolicy = {
@@ -25,11 +24,6 @@ export type ICloudCredentialsVerifySecurityCodePayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type IdentifiableKeySpecifier = ('id' | 'shortId' | IdentifiableKeySpecifier)[];
-export type IdentifiableFieldPolicy = {
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	shortId?: FieldPolicy<any> | FieldReadFunction<any>
-};
 export type MutationKeySpecifier = ('accountUpdate' | 'icloudCredentialsUpdate' | 'icloudCredentialsVerifySecurityCode' | 'testMutation' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	accountUpdate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -41,37 +35,38 @@ export type NodeKeySpecifier = ('id' | NodeKeySpecifier)[];
 export type NodeFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type OAuthCredentialsKeySpecifier = ('id' | 'name' | 'refreshToken' | 'shortId' | 'uid' | OAuthCredentialsKeySpecifier)[];
+export type OAuthCredentialsKeySpecifier = ('id' | 'name' | 'refreshToken' | 'uid' | OAuthCredentialsKeySpecifier)[];
 export type OAuthCredentialsFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	refreshToken?: FieldPolicy<any> | FieldReadFunction<any>,
-	shortId?: FieldPolicy<any> | FieldReadFunction<any>,
 	uid?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ObsidianEntryKeySpecifier = ('createdAt' | 'id' | 'name' | 'referencedBy' | 'shortId' | 'updatedAt' | ObsidianEntryKeySpecifier)[];
+export type ObsidianEntryKeySpecifier = ('createdAt' | 'id' | 'name' | 'referencedBy' | 'updatedAt' | ObsidianEntryKeySpecifier)[];
 export type ObsidianEntryFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	referencedBy?: FieldPolicy<any> | FieldReadFunction<any>,
-	shortId?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ObsidianNoteKeySpecifier = ('aliases' | 'blurb' | 'content' | 'createdAt' | 'id' | 'modifiedAt' | 'name' | 'referencedBy' | 'references' | 'shortId' | 'tags' | 'updatedAt' | ObsidianNoteKeySpecifier)[];
+export type ObsidianNoteKeySpecifier = ('aliases' | 'blurb' | 'content' | 'createdAt' | 'id' | 'isPublished' | 'modifiedAt' | 'name' | 'plainBlurb' | 'referencedBy' | 'references' | 'slug' | 'tags' | 'updatedAt' | 'url' | ObsidianNoteKeySpecifier)[];
 export type ObsidianNoteFieldPolicy = {
 	aliases?: FieldPolicy<any> | FieldReadFunction<any>,
 	blurb?: FieldPolicy<any> | FieldReadFunction<any>,
 	content?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	isPublished?: FieldPolicy<any> | FieldReadFunction<any>,
 	modifiedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	plainBlurb?: FieldPolicy<any> | FieldReadFunction<any>,
 	referencedBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	references?: FieldPolicy<any> | FieldReadFunction<any>,
-	shortId?: FieldPolicy<any> | FieldReadFunction<any>,
+	slug?: FieldPolicy<any> | FieldReadFunction<any>,
 	tags?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type ObsidianNoteConnectionKeySpecifier = ('edges' | 'nodes' | 'pageInfo' | 'totalCount' | ObsidianNoteConnectionKeySpecifier)[];
 export type ObsidianNoteConnectionFieldPolicy = {
@@ -85,13 +80,12 @@ export type ObsidianNoteEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ObsidianStubKeySpecifier = ('createdAt' | 'id' | 'name' | 'referencedBy' | 'shortId' | 'updatedAt' | ObsidianStubKeySpecifier)[];
+export type ObsidianStubKeySpecifier = ('createdAt' | 'id' | 'name' | 'referencedBy' | 'updatedAt' | ObsidianStubKeySpecifier)[];
 export type ObsidianStubFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	referencedBy?: FieldPolicy<any> | FieldReadFunction<any>,
-	shortId?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type PageInfoKeySpecifier = ('endCursor' | 'hasNextPage' | 'hasPreviousPage' | 'startCursor' | PageInfoKeySpecifier)[];
@@ -101,19 +95,24 @@ export type PageInfoFieldPolicy = {
 	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
 	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('authenticatedViewer' | 'contactEmail' | 'icloudCredentials' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('contactEmail' | 'currentlyPlaying' | 'icloudCredentials' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNoteBySlug' | 'obsidianNotes' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
-	authenticatedViewer?: FieldPolicy<any> | FieldReadFunction<any>,
 	contactEmail?: FieldPolicy<any> | FieldReadFunction<any>,
+	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNote?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNoteByName?: FieldPolicy<any> | FieldReadFunction<any>,
+	obsidianNoteBySlug?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNotes?: FieldPolicy<any> | FieldReadFunction<any>,
 	resume?: FieldPolicy<any> | FieldReadFunction<any>,
 	spotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	testEcho?: FieldPolicy<any> | FieldReadFunction<any>,
 	timezone?: FieldPolicy<any> | FieldReadFunction<any>,
 	viewer?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type SluggedKeySpecifier = ('slug' | SluggedKeySpecifier)[];
+export type SluggedFieldPolicy = {
+	slug?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SpotifyAlbumKeySpecifier = ('id' | 'imageUrl' | 'name' | 'url' | SpotifyAlbumKeySpecifier)[];
 export type SpotifyAlbumFieldPolicy = {
@@ -160,13 +159,12 @@ export type TimezoneFieldPolicy = {
 	offset?: FieldPolicy<any> | FieldReadFunction<any>,
 	offsetMinutes?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserKeySpecifier = ('email' | 'id' | 'isOwner' | 'name' | 'shortId' | 'unconfirmedEmail' | UserKeySpecifier)[];
+export type UserKeySpecifier = ('email' | 'id' | 'isOwner' | 'name' | 'unconfirmedEmail' | UserKeySpecifier)[];
 export type UserFieldPolicy = {
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	isOwner?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
-	shortId?: FieldPolicy<any> | FieldReadFunction<any>,
 	unconfirmedEmail?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type ValidationErrorKeySpecifier = ('field' | 'message' | ValidationErrorKeySpecifier)[];
@@ -190,10 +188,6 @@ export type StrictTypedTypePolicies = {
 	ICloudCredentialsVerifySecurityCodePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ICloudCredentialsVerifySecurityCodePayloadKeySpecifier | (() => undefined | ICloudCredentialsVerifySecurityCodePayloadKeySpecifier),
 		fields?: ICloudCredentialsVerifySecurityCodePayloadFieldPolicy,
-	},
-	Identifiable?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | IdentifiableKeySpecifier | (() => undefined | IdentifiableKeySpecifier),
-		fields?: IdentifiableFieldPolicy,
 	},
 	Mutation?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | MutationKeySpecifier | (() => undefined | MutationKeySpecifier),
@@ -234,6 +228,10 @@ export type StrictTypedTypePolicies = {
 	Query?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier),
 		fields?: QueryFieldPolicy,
+	},
+	Slugged?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SluggedKeySpecifier | (() => undefined | SluggedKeySpecifier),
+		fields?: SluggedFieldPolicy,
 	},
 	SpotifyAlbum?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SpotifyAlbumKeySpecifier | (() => undefined | SpotifyAlbumKeySpecifier),

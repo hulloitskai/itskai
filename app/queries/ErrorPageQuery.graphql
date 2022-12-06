@@ -1,0 +1,6 @@
+query ErrorPageQuery {
+  viewer {
+    id
+    ...AppViewerFragment
+  }
+}

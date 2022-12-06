@@ -42,7 +42,10 @@ module Spotify
       user.try! do |user|
         user = T.let(user, RSpotify::User)
         player = user.player
-        player.currently_playing if player.playing?
+        if player.playing?
+          # Compensate for weird bugs in the RSpotify library.
+          suppress(NoMethodError) { player.currently_playing }
+        end
       end
     end
 
@@ -58,6 +61,17 @@ module Spotify
       else
         false
       end
+    rescue SocketError => error
+      if error.message.include?("Failed to open TCP connection")
+        tag_logger do
+          logger.warn(
+            "Failed to authenticate (bad connection); skipping",
+          )
+        end
+        false
+      else
+        raise
+      end
     end
 
     sig { params(credentials: OAuthCredentials).returns(RSpotify::User) }
@@ -68,6 +82,14 @@ module Spotify
         "credentials" => { "refresh_token" => refresh_token },
       }).tap do
         RSpotify::User.send(:refresh_token, uid)
+      end
+    end
+
+    sig { params(block: T.proc.void).void }
+    def tag_logger(&block)
+      if logger.respond_to?(:tagged)
+        logger = T.cast(self.logger, ActiveSupport::TaggedLogging)
+        logger.tagged(name, &block)
       end
     end
   end

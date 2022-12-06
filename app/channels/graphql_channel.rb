@@ -15,8 +15,7 @@ class GraphQLChannel < ApplicationCable::Channel
     ).void
   end
   def initialize(connection, identifier, params)
-    super(connection, identifier, params)
-    @identifier = T.let(@identifier, T.untyped)
+    super
     @subscription_ids = T.let([], T::Array[String])
   end
 
@@ -126,7 +125,7 @@ class GraphQLChannel < ApplicationCable::Channel
 
     payload = { channel_class: self.class.name, data:, via: }
     ActiveSupport::Notifications.instrument("transmit.action_cable", payload) do
-      connection.transmit(identifier: @identifier, message: data)
+      connection.transmit(identifier:, message: data)
     end
   end
 

@@ -46,6 +46,18 @@ module ActiveSupport::Tryable
   def try!(*args, **kwargs, &block); end
 end
 
+module Kernel
+  sig do
+    type_parameters(:U)
+      .params(
+        exception_classes: Class,
+        block: T.proc.returns(T.type_parameter(:U)),
+      )
+      .returns(T.nilable(T.type_parameter(:U)))
+  end
+  def suppress(*exception_classes, &block); end
+end
+
 class Object
   sig { returns(T::Boolean) }
   def present?; end

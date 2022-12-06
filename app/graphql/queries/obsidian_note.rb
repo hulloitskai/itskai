@@ -14,7 +14,11 @@ module Queries
 
     sig { params(id: String).returns(T.nilable(::ObsidianNote)) }
     def resolve(id:)
-      ::ObsidianNote.find_by(id:).try! do |note|
+      note = T.let(
+        object_from_id(Types::ObsidianNoteType, id, context),
+        T.nilable(::ObsidianNote),
+      )
+      note.try! do |note|
         note = T.let(note, ::ObsidianNote)
         note if allowed_to?(:show?, note)
       end

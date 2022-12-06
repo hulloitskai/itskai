@@ -1,0 +1,10 @@
+query ObsidianNotePageQuery($noteId: ID!) {
+  viewer {
+    id
+    ...AppViewerFragment
+  }
+  note: obsidianNote(id: $noteId) {
+    id
+    ...ObsidianNotePageNoteFragment
+  }
+}

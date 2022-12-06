@@ -1,10 +1,13 @@
 fragment HomePageObsidianNoteFragment on ObsidianNote {
   id
+  url
+  isPublished
   modifiedAt
+  slug
   name
   aliases
   tags
-  blurb
+  blurb: plainBlurb
   referencedBy {
     id
   }

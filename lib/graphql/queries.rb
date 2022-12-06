@@ -18,6 +18,7 @@ class GraphQL::Queries
   def initialize
     @queries = T.let({}, T::Hash[String, ParsedQuery])
     @fragments = T.let({}, T::Hash[String, ParsedFragment])
+    @mutex = T.let(Mutex.new, Mutex)
   end
 
   # == Methods
@@ -31,8 +32,10 @@ class GraphQL::Queries
 
   sig { void }
   def load
-    @queries.clear
-    @fragments.clear
+    synchronize do
+      @queries.clear
+      @fragments.clear
+    end
     filenames = Dir.glob(Rails.root.join("app/queries/**/*.graphql").to_s)
     load_files(*T.unsafe(filenames))
   end
@@ -41,18 +44,23 @@ class GraphQL::Queries
   def listen
     require "listen"
     @listener = T.let(@listener, T.nilable(Listen::Listener))
-    @listener =
-      Listen.to(
-        Rails.root.join("app/queries"),
-        only: /\.graphql$/,
-      ) do |modified, added, removed|
-        reload(modified:, removed:, added:)
-      end
+    @listener ||= Listen.to(
+      Rails.root.join("app/queries"),
+      only: /\.graphql$/,
+    ) do |modified, added, removed|
+      reload(modified:, removed:, added:)
+    end
     @listener.start
-    at_exit { @listener&.stop }
+  end
+
+  sig { void }
+  def unlisten
+    @listener&.stop
   end
 
   private
+
+  delegate :synchronize, to: :@mutex
 
   sig do
     params(
@@ -62,6 +70,12 @@ class GraphQL::Queries
     ).void
   end
   def reload(modified:, added:, removed:)
+    tag_logger do
+      logger.debug(
+        "Reloading queries (modified: #{modified}, added: #{added}, removed: " \
+          "#{removed})",
+      )
+    end
     next_files = (modified + added).to_set
     prev_files = (modified + removed).to_set
     [@queries, @fragments].each do |collection|
@@ -72,20 +86,28 @@ class GraphQL::Queries
 
   sig { params(filenames: String).void }
   def load_files(*filenames)
-    filenames.each do |filename|
-      document = GraphQL.parse_file(filename)
-      definitions = resolve_document_definitions(document)
-      definitions.each do |definition|
-        fragment_references = resolve_fragment_references(definition)
-        case definition
-        when GraphQL::Language::Nodes::OperationDefinition
-          @queries[definition.name] =
-            ParsedQuery.new(definition:, fragment_references:, filename:)
-        when GraphQL::Language::Nodes::FragmentDefinition
-          @fragments[definition.name] =
-            ParsedFragment.new(definition:, fragment_references:, filename:)
-        else
-          T.absurd(definition)
+    synchronize do
+      filenames.each do |filename|
+        document = GraphQL.parse_file(filename)
+        definitions = resolve_document_definitions(document)
+        definitions.each do |definition|
+          fragment_references = resolve_fragment_references(definition)
+          case definition
+          when GraphQL::Language::Nodes::OperationDefinition
+            @queries[definition.name] = ParsedQuery.new(
+              definition:,
+              fragment_references:,
+              filename:,
+            )
+          when GraphQL::Language::Nodes::FragmentDefinition
+            @fragments[definition.name] = ParsedFragment.new(
+              definition:,
+              fragment_references:,
+              filename:,
+            )
+          else
+            T.absurd(definition)
+          end
         end
       end
     end
@@ -103,16 +125,18 @@ class GraphQL::Queries
 
   sig { params(name: String).returns(GraphQL::Language::Nodes::Document) }
   def build_query_document(name)
-    query = query!(name)
-    fragment_references = build_fragment_references(query)
-    GraphQL::Language::Nodes::Document.new(
-      definitions: [
-        query.definition,
-        *fragment_references.map do |reference|
-          fragment!(reference).definition
-        end,
-      ],
-    )
+    synchronize do
+      query = query!(name)
+      fragment_references = build_fragment_references(query)
+      GraphQL::Language::Nodes::Document.new(
+        definitions: [
+          query.definition,
+          *fragment_references.map do |reference|
+            fragment!(reference).definition
+          end,
+        ],
+      )
+    end
   end
 
   sig { params(definition: ParsedDefinition).returns(T::Set[String]) }
@@ -149,6 +173,19 @@ class GraphQL::Queries
     visitor = FragmentReferencesVisitor.new(node)
     visitor.visit
     visitor.references
+  end
+
+  sig { returns(ActiveSupport::Logger) }
+  def logger
+    Rails.logger
+  end
+
+  sig { params(block: T.proc.void).void }
+  def tag_logger(&block)
+    if logger.respond_to?(:tagged)
+      logger = T.cast(self.logger, ActiveSupport::TaggedLogging)
+      logger.tagged(self.class.name, &block)
+    end
   end
 end
 

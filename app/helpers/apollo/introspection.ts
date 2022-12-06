@@ -6,13 +6,6 @@
       }
       const result: PossibleTypesResultData = {
   "possibleTypes": {
-    "Identifiable": [
-      "ICloudCredentials",
-      "OAuthCredentials",
-      "ObsidianNote",
-      "ObsidianStub",
-      "User"
-    ],
     "Node": [
       "ICloudCredentials",
       "OAuthCredentials",
@@ -23,6 +16,9 @@
     "ObsidianEntry": [
       "ObsidianNote",
       "ObsidianStub"
+    ],
+    "Slugged": [
+      "ObsidianNote"
     ]
   }
 };

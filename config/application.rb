@@ -64,10 +64,20 @@ module ItsKai
       g.view_specs(false)
       g.helper_specs(false)
       g.model_specs(false)
+
+      # Don't generate views or assets.
+      g.template_engine(false)
+      g.assets(false)
     end
 
     # == Sessions
     config.session_store(:cookie_store, key: "session")
+
+    # == Exceptions
+    config.exceptions_app = T.unsafe(self).routes
+    config.action_dispatch.rescue_responses.merge!( # rubocop:disable Performance/RedundantMerge
+      "ActionPolicy::Unauthorized" => :unauthorized,
+    )
 
     # == Action View
     config.action_view.frozen_string_literal = true
@@ -94,5 +104,12 @@ module ItsKai
     # == Action Mailer
     config.action_mailer.perform_deliveries =
       ENV.fetch("RAILS_MAILER_PERFORM_DELIVERIES", true).truthy?
+
+    # == Logging
+    if ENV["RAILS_LOG_TO_STDOUT"].truthy?
+      logger = ActiveSupport::Logger.new($stdout)
+      logger.formatter = config.log_formatter
+      config.logger = ActiveSupport::TaggedLogging.new(logger)
+    end
   end
 end

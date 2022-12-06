@@ -21,6 +21,49 @@ class GraphQL::Schema
   def self.execute(query_str = nil, **kwargs); end
 end
 
+class GraphQL::Query::Context
+  sig {returns(GraphQL::Dataloader)}
+  def dataloader
+  end
+end
+
+class GraphQL::Schema::Object
+  sig {returns(GraphQL::Dataloader)}
+  def dataloader
+  end
+end
+
+class GraphQL::Dataloader
+  sig do
+    params(
+      source_class: Class,
+      batch_args: T.untyped,
+      batch_kwargs: T.untyped,
+    ).returns(GraphQL::Dataloader::Source)
+  end
+  def with(source_class, *batch_args, **batch_kwargs); end
+end
+
+class GraphQL::Dataloader::Source
+  sig {params(key: T.untyped).returns(GraphQL::Dataloader::Request)}
+  def request(key); end
+
+  sig {params(keys: T::Array[T.untyped]).returns(GraphQL::Dataloader::RequestAll)}
+  def request_all(keys); end
+end
+
+class GraphQL::Dataloader::Request
+  sig {returns(Object)}
+  def load
+  end
+end
+
+class GraphQL::Dataloader::RequestAll
+  sig {returns(T::Array[Object])}
+  def load
+  end
+end
+
 module GraphQL::Schema::Interface
   mixes_in_class_methods GraphQL::Schema::Member::RelayShortcuts
 end

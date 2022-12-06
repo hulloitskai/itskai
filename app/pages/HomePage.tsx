@@ -10,7 +10,7 @@ export type HomePageProps = {
   readonly data: HomePageQuery;
 };
 
-const HomePage: PageComponent = () => {
+const HomePage: PageComponent<HomePageProps> = () => {
   const theme = useMantineTheme();
   return (
     <>

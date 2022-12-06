@@ -41,6 +41,7 @@ declare global {
   const getMeta: typeof import('~/helpers')['getMeta']
   const isEmpty: typeof import('lodash-es')['isEmpty']
   const isEqual: typeof import('lodash-es')['isEqual']
+  const keyBy: typeof import('lodash-es')['keyBy']
   const layoutWithData: typeof import('~/helpers')['layoutWithData']
   const lazy: typeof import('react')['lazy']
   const mapKeys: typeof import('lodash-es')['mapKeys']

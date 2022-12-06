@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_30_155303) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_05_233928) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -111,10 +111,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_155303) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "analyzed_at", precision: nil
-    t.string "blurb"
+    t.text "blurb"
     t.boolean "hidden", default: false, null: false
     t.boolean "published", default: false, null: false
     t.string "slug", null: false
+    t.text "plain_blurb"
     t.index ["aliases"], name: "index_obsidian_notes_on_aliases"
     t.index ["analyzed_at"], name: "index_obsidian_notes_on_analyzed_at"
     t.index ["modified_at"], name: "index_obsidian_notes_on_modified_at"

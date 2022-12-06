@@ -1,0 +1,10 @@
+fragment ObsidianNotePageNoteFragment on ObsidianNote {
+  name
+  tags
+  content
+  blurb
+  references {
+    id
+    ...ObsidianNotePageReferenceFragment
+  }
+}
