@@ -140,9 +140,11 @@ const Markdown: FC<MarkdownProps> = ({ referencesByName, children }) => (
               ? [reference]
               : [];
           },
-          hrefTemplate: (reference: ObsidianNotePageReferenceFragment) => {
-            invariant(reference.type === "ObsidianNote");
-            return reference.url;
+          hrefTemplate: (reference?: ObsidianNotePageReferenceFragment) => {
+            if (reference) {
+              invariant(reference.type === "ObsidianNote");
+              return reference.url;
+            }
           },
           wikiLinkClassName: "reference",
           newClassName: "stub",
