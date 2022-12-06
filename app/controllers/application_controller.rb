@@ -49,3 +49,25 @@ class ApplicationController < ActionController::Base
     yield
   end
 end
+
+# == Devise ==
+class ApplicationController
+  extend T::Sig
+
+  # == Filters ==
+  before_action :store_user_location!, if: :storable_location?
+
+  private
+
+  # == Helpers ==
+  sig { returns(T::Boolean) }
+  def storable_location?
+    request.get? && is_navigational_format? &&
+      (!request.xhr? || request.inertia?) && !devise_controller?
+  end
+
+  sig { void }
+  def store_user_location!
+    store_location_for(:user, request.fullpath)
+  end
+end

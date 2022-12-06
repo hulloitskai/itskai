@@ -21,7 +21,8 @@ module Spotify
         run_now: true,
       ) do |task|
         Rails.application.reloader.wrap do
-          update(previous_track: task.value)
+          previous_track = T.let(task.value, T.nilable(RSpotify::Track))
+          update(previous_track:)
         end
       rescue => error
         tag_logger do

@@ -19,15 +19,26 @@ class Users::SessionsController < Devise::SessionsController
     respond_with(resource, location: after_sign_in_path_for(resource))
   end
 
-  protected
-
-  sig { params(resource_or_scope: ApplicationRecord).returns(String) }
-  def after_sign_in_path_for(resource_or_scope)
-    stored_location_for(resource_or_scope) || request.referer
+  # DELETE /account/sign_out
+  sig { override.void }
+  def destroy
+    @stored_location_before_sign_out = T.let(
+      @stored_location_before_sign_out,
+      T.nilable(String),
+    )
+    @stored_location_before_sign_out = stored_location_for(resource_name)
+    super
   end
 
-  sig { params(resource_or_scope: ApplicationRecord).returns(String) }
+  protected
+
+  sig { params(resource_or_scope: T.untyped).returns(String) }
+  def after_sign_in_path_for(resource_or_scope)
+    stored_location_for(resource_or_scope) || super
+  end
+
+  sig { params(resource_or_scope: T.untyped).returns(String) }
   def after_sign_out_path_for(resource_or_scope)
-    stored_location_for(resource_or_scope) || request.referer
+    @stored_location_before_sign_out || super
   end
 end
