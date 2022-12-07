@@ -2,7 +2,7 @@ import type { FC } from "react";
 import type { PageComponent } from "~/helpers/inertia";
 import invariant from "tiny-invariant";
 
-import { Text } from "@mantine/core";
+import { Text, TypographyStylesProvider, MantineProvider } from "@mantine/core";
 import type { Sx } from "@mantine/core";
 
 import _Markdown from "react-markdown";
@@ -42,10 +42,10 @@ const ObsidianNotePage: PageComponent<ObsidianNotePageProps> = ({
         marginTop: spacing.xl,
       })}
     >
-      <Stack spacing="xs">
+      <Stack spacing="lg">
         <Stack spacing={4}>
           <Title
-            size={30}
+            size={28}
             weight={800}
             sx={({ fontFamilyMonospace }) => ({
               fontFamily: fontFamilyMonospace,
@@ -53,13 +53,15 @@ const ObsidianNotePage: PageComponent<ObsidianNotePageProps> = ({
           >
             {name}
           </Title>
-          <Group>
-            {tags.map(tag => (
-              <ObsidianNoteTag key={tag} size="sm">
-                {tag}
-              </ObsidianNoteTag>
-            ))}
-          </Group>
+          {!isEmpty(tags) && (
+            <Group>
+              {tags.map(tag => (
+                <ObsidianNoteTag key={tag} size="sm">
+                  {tag}
+                </ObsidianNoteTag>
+              ))}
+            </Group>
+          )}
         </Stack>
         {typeof content === "string" ? (
           content ? (
@@ -156,108 +158,94 @@ type MarkdownProps = {
 };
 
 const Markdown: FC<MarkdownProps> = ({ referencesByName, children }) => (
-  <_Markdown
-    remarkPlugins={[
-      remarkGfm,
-      [
-        remarkWikiLink,
-        {
-          aliasDivider: "|",
-          pageResolver: (name: string) => {
-            const reference = referencesByName[name];
-            return reference && reference.type == "ObsidianNote"
-              ? [reference]
-              : [];
-          },
-          hrefTemplate: (reference?: ObsidianNotePageReferenceFragment) => {
-            if (reference) {
-              invariant(reference.type === "ObsidianNote");
-              return reference.url;
-            }
-          },
-          wikiLinkClassName: "reference",
-          newClassName: "stub",
+  <MantineProvider
+    theme={{
+      fontSizes: {
+        md: 15,
+      },
+      headings: {
+        sizes: {
+          h1: { fontSize: 28, fontWeight: 800, lineHeight: 1.25 },
+          h2: { fontSize: 24, fontWeight: 800, lineHeight: 1.3 },
+          h3: { fontSize: 20, fontWeight: 800, lineHeight: 1.35 },
+          h4: { fontSize: 16, fontWeight: 800, lineHeight: 1.4 },
+          h5: { fontSize: 14, fontWeight: 800, lineHeight: 1.45 },
+          h6: { fontSize: 13, fontWeight: 800, lineHeight: 1.5 },
         },
-      ],
-    ]}
-    components={{
-      p: props => (
-        <Text
-          size={15}
-          weight={500}
-          color="dark.4"
-          {...markdownElementProps(props)}
-        />
-      ),
-      h1: props => (
-        <Title order={1} size={30} mt={8} {...markdownElementProps(props)} />
-      ),
-      h2: props => (
-        <Title order={2} size={24} mt={8} {...markdownElementProps(props)} />
-      ),
-      h3: props => (
-        <Title order={3} size={20} mt={8} {...markdownElementProps(props)} />
-      ),
-      h4: props => (
-        <Title order={4} size={16} mt={8} {...markdownElementProps(props)} />
-      ),
-      h5: props => (
-        <Title order={5} size={15} mt={8} {...markdownElementProps(props)} />
-      ),
-      h6: props => (
-        <Title order={6} size={13} mt={8} {...markdownElementProps(props)} />
-      ),
-      span: props => <Text span {...markdownElementProps(props)} />,
-      ul: props => (
-        <List
-          type="unordered"
-          size={15}
-          withPadding
-          styles={({ colors }) => ({
-            item: {
-              color: colors.dark[4],
-              fontWeight: 500,
-            },
-          })}
-          {...markdownElementProps(omit(props, "ordered"))}
-        />
-      ),
-      ol: props => (
-        <List
-          type="ordered"
-          size={15}
-          withPadding
-          styles={({ colors }) => ({
-            item: {
-              color: colors.dark[4],
-              fontWeight: 500,
-            },
-          })}
-          {...markdownElementProps(omit(props, "type"))}
-        />
-      ),
-      li: props => (
-        <List.Item {...markdownElementProps(omit(props, "ordered"))} />
-      ),
-      a: ({ href, className, ...props }) => {
-        if (href) {
-          const classes = className?.split(" ") || [];
-          return (
-            <Anchor<any>
-              component={classes.includes("reference") ? Link : "a"}
-              color="indigo"
-              {...{ href, className }}
-              {...markdownElementProps(props)}
-            />
-          );
-        } else {
-          return <Anchor {...markdownElementProps(props)} />;
-        }
       },
     }}
+    inherit
   >
-    {children}
-  </_Markdown>
+    <TypographyStylesProvider
+      sx={({ colors, fontFamilyMonospace, fn }) => ({
+        fontFamily: `${fontFamilyMonospace}`,
+        "> *:first-child": {
+          marginTop: `0 !important`,
+        },
+        "> *:last-child": {
+          marginBottom: `0 !important`,
+        },
+        "h1, h2, h3, h4, h5, h6": {
+          fontFamily: `${fontFamilyMonospace}`,
+        },
+        li: {
+          margin: `0 !important`,
+          "ul, ol": {
+            marginBottom: 0,
+          },
+        },
+        "a[href]": {
+          color: colors.indigo[fn.primaryShade()],
+          fontWeight: 500,
+        },
+      })}
+    >
+      <_Markdown
+        remarkPlugins={[
+          remarkGfm,
+          [
+            remarkWikiLink,
+            {
+              aliasDivider: "|",
+              pageResolver: (name: string) => {
+                const reference = referencesByName[name];
+                return reference && reference.type == "ObsidianNote"
+                  ? [reference]
+                  : [];
+              },
+              hrefTemplate: (reference?: ObsidianNotePageReferenceFragment) => {
+                if (reference) {
+                  invariant(reference.type === "ObsidianNote");
+                  return reference.url;
+                }
+              },
+              wikiLinkClassName: "reference",
+              newClassName: "stub",
+            },
+          ],
+        ]}
+        components={{
+          a: ({ href, className, ...props }) => {
+            if (href) {
+              const classes = className?.split(" ") || [];
+              const Component = classes.includes("reference") ? Link : "a";
+              return (
+                <Component
+                  {...{ href, className }}
+                  {...(markdownElementProps(props) as any)}
+                />
+              );
+            } else {
+              return <a {...markdownElementProps(props)} />;
+            }
+          },
+        }}
+        skipHtml
+      >
+        {children}
+      </_Markdown>
+    </TypographyStylesProvider>
+  </MantineProvider>
 );
 
 const markdownElementProps = <T extends object>(
