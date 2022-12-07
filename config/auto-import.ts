@@ -53,6 +53,7 @@ export const imports: Array<ImportsMap | PresetName> = [
       "first",
       "keyBy",
       "mapKeys",
+      "mapValues",
       "omit",
       "pick",
       "isEmpty",

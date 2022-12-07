@@ -24,6 +24,7 @@
     // == Types
     "strict": true,
     "alwaysStrict": true,
+    "noUncheckedIndexedAccess": true,
 
     // == Completeness
     "skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,

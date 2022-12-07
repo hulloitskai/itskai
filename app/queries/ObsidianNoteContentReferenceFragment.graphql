@@ -1,0 +1,5 @@
+fragment ObsidianNoteContentReferenceFragment on ObsidianEntry {
+  name
+  type: __typename
+  ...ObsidianNoteContentNoteReferenceFragment
+}

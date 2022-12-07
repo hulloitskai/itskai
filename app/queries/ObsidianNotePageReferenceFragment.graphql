@@ -1,8 +1,0 @@
-fragment ObsidianNotePageReferenceFragment on ObsidianEntry {
-  name
-  type: __typename
-  ... on ObsidianNote {
-    url
-    slug
-  }
-}

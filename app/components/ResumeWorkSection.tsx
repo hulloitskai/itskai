@@ -19,7 +19,7 @@ const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({ info }) => {
         <Title order={3} size="h5" color="indigo">
           {name}
         </Title>
-        <WebsiteBadge color="indigo" {...{ url }} />
+        <WebsiteBadge color="indigo" url={url!} />
         <Space sx={{ flex: 1 }} />
         <Text size="sm" weight={600} color="dark">
           {position}

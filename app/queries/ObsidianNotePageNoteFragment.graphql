@@ -5,6 +5,6 @@ fragment ObsidianNotePageNoteFragment on ObsidianNote {
   blurb
   references {
     id
-    ...ObsidianNotePageReferenceFragment
+    ...ObsidianNoteContentReferenceFragment
   }
 }

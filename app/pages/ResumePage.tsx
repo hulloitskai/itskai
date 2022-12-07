@@ -30,9 +30,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({ data, printable }) => {
   const githubProfile = profiles.find(
     x => x.network.toLowerCase() === "github",
   );
-  const splitEmail = useMemo(() => {
-    return email.replace("@", " [at] ");
-  }, [email]);
+  const splitEmail = useMemo(() => email!.replace("@", " [at] "), [email]);
   return (
     <>
       <ResumeLayout {...{ printable }}>

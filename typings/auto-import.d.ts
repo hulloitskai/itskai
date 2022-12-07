@@ -45,6 +45,7 @@ declare global {
   const layoutWithData: typeof import('~/helpers')['layoutWithData']
   const lazy: typeof import('react')['lazy']
   const mapKeys: typeof import('lodash-es')['mapKeys']
+  const mapValues: typeof import('lodash-es')['mapValues']
   const memo: typeof import('react')['memo']
   const omit: typeof import('lodash-es')['omit']
   const openModal: typeof import('@mantine/modals')['openModal']

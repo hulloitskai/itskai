@@ -7,22 +7,19 @@ export type PageHeaderProps = {
   readonly small?: boolean;
 };
 
-const PageHeader: FC<PageHeaderProps> = ({ title, description, small }) => {
-  const theme = useMantineTheme();
-  return (
-    <Stack spacing={4}>
-      <MediaQuery smallerThan={780} styles={{ height: 4 }}>
-        <Box sx={{ height: theme.spacing.xl }} />
-      </MediaQuery>
-      <MediaQuery
-        smallerThan="xs"
-        styles={theme.headings.sizes.h2 as CSSObject}
-      >
-        <Title order={small ? 2 : 1}>{title}</Title>
-      </MediaQuery>
-      {!!description && <Text color="dark.3">{description}</Text>}
-    </Stack>
-  );
-};
+const PageHeader: FC<PageHeaderProps> = ({ title, description, small }) => (
+  <Stack spacing={4}>
+    <MediaQuery smallerThan={780} styles={{ height: 4 }}>
+      <Box sx={({ spacing }) => ({ height: spacing.xl })} />
+    </MediaQuery>
+    <MediaQuery
+      smallerThan="xs"
+      styles={({ headings }) => headings.sizes.h2 as CSSObject}
+    >
+      <Title order={small ? 2 : 1}>{title}</Title>
+    </MediaQuery>
+    {!!description && <Text color="dark.3">{description}</Text>}
+  </Stack>
+);
 
 export default PageHeader;
