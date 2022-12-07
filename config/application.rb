@@ -70,6 +70,13 @@ module ItsKai
       g.assets(false)
     end
 
+    # == Logging
+    if ENV["RAILS_LOG_TO_STDOUT"].truthy?
+      logger = ActiveSupport::Logger.new($stdout)
+      logger.formatter = config.log_formatter
+      config.logger = ActiveSupport::TaggedLogging.new(logger)
+    end
+
     # == Sessions
     config.session_store(:cookie_store, key: "session")
 
@@ -104,12 +111,5 @@ module ItsKai
     # == Action Mailer
     config.action_mailer.perform_deliveries =
       ENV.fetch("RAILS_MAILER_PERFORM_DELIVERIES", true).truthy?
-
-    # == Logging
-    if ENV["RAILS_LOG_TO_STDOUT"].truthy?
-      logger = ActiveSupport::Logger.new($stdout)
-      logger.formatter = config.log_formatter
-      config.logger = ActiveSupport::TaggedLogging.new(logger)
-    end
   end
 end
