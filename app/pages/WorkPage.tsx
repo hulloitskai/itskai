@@ -138,7 +138,9 @@ const WorkPage: PageComponent<WorkPageProps> = () => (
 );
 
 WorkPage.layout = layoutWithData<WorkPageProps>((page, { viewer }) => (
-  <AppLayout {...{ viewer }}>{page}</AppLayout>
+  <AppLayout withContainer {...{ viewer }}>
+    {page}
+  </AppLayout>
 ));
 
 export default WorkPage;

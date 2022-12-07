@@ -98,7 +98,7 @@ const AccountEditPage: PageComponent<AccountEditPageProps> = ({
 
 AccountEditPage.layout = layoutWithData<AccountEditPageProps>(
   (page, { viewer }) => (
-    <AppLayout withContainer={false} {...{ viewer }}>
+    <AppLayout {...{ viewer }}>
       <Center h="100%">{page}</Center>
     </AppLayout>
   ),

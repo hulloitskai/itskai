@@ -32,7 +32,11 @@ const ErrorPage: PageComponent<ErrorPageProps> = ({
 };
 
 ErrorPage.layout = layoutWithData<ErrorPageProps>((page, { viewer }) => (
-  <AppLayout containerProps={{ size: "xs", my: "xl" }} {...{ viewer }}>
+  <AppLayout
+    withContainer
+    containerProps={{ size: "xs", my: "xl" }}
+    {...{ viewer }}
+  >
     {page}
   </AppLayout>
 ));

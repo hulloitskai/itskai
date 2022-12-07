@@ -12,14 +12,14 @@ import type { AppViewerFragment } from "~/queries";
 
 export type AppLayoutProps = AppShellProps & {
   readonly viewer: Maybe<AppViewerFragment>;
-  readonly containerProps?: ContainerProps;
   readonly withContainer?: boolean;
+  readonly containerProps?: ContainerProps;
 };
 
 const AppLayout: FC<AppLayoutProps> = ({
   viewer,
   containerProps,
-  withContainer = true,
+  withContainer,
   children,
   ...otherProps
 }) => {
@@ -43,7 +43,7 @@ const AppLayout: FC<AppLayoutProps> = ({
             display: "flex",
             flexDirection: "column",
             alignItems: "stretch",
-            paddingBottom: 0,
+            paddingBottom: 16,
           },
         }}
         {...otherProps}

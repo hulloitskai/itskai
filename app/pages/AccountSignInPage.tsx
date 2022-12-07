@@ -36,7 +36,7 @@ const AccountSignInPage: PageComponent = () => {
 
 AccountSignInPage.layout = layoutWithData<AccountSignInPageProps>(
   (page, { viewer }) => (
-    <AppLayout withContainer={false} {...{ viewer }}>
+    <AppLayout {...{ viewer }}>
       <Center h="100%">{page}</Center>
     </AppLayout>
   ),

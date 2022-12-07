@@ -1,7 +1,9 @@
 import type { FC } from "react";
 import type { PageComponent } from "~/helpers/inertia";
-import { Text } from "@mantine/core";
 import invariant from "tiny-invariant";
+
+import { Text } from "@mantine/core";
+import type { Sx } from "@mantine/core";
 
 import _Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -42,7 +44,15 @@ const ObsidianNotePage: PageComponent<ObsidianNotePageProps> = ({
     >
       <Stack spacing="xs">
         <Stack spacing={4}>
-          <Title>{name}</Title>
+          <Title
+            size={30}
+            weight={800}
+            sx={({ fontFamilyMonospace }) => ({
+              fontFamily: fontFamilyMonospace,
+            })}
+          >
+            {name}
+          </Title>
           <Group>
             {tags.map(tag => (
               <ObsidianNoteTag key={tag} size="sm">
@@ -128,7 +138,11 @@ const ObsidianNotePage: PageComponent<ObsidianNotePageProps> = ({
 
 ObsidianNotePage.layout = layoutWithData<ObsidianNotePageProps>(
   (page, { viewer }) => (
-    <AppLayout containerProps={{ w: "100%", size: 682 }} {...{ viewer }}>
+    <AppLayout
+      withContainer
+      containerProps={{ w: "100%", size: 682 }}
+      {...{ viewer }}
+    >
       {page}
     </AppLayout>
   ),
@@ -167,24 +181,64 @@ const Markdown: FC<MarkdownProps> = ({ referencesByName, children }) => (
       ],
     ]}
     components={{
-      p: props => <Text {...markdownElementProps(props)} />,
-      h1: props => <Title order={1} {...markdownElementProps(props)} />,
-      h2: props => <Title order={2} {...markdownElementProps(props)} />,
-      h3: props => <Title order={3} {...markdownElementProps(props)} />,
-      h4: props => <Title order={4} {...markdownElementProps(props)} />,
-      h5: props => <Title order={5} {...markdownElementProps(props)} />,
-      h6: props => <Title order={6} {...markdownElementProps(props)} />,
+      p: props => (
+        <Text
+          size={15}
+          weight={500}
+          color="dark.4"
+          {...markdownElementProps(props)}
+        />
+      ),
+      h1: props => (
+        <Title order={1} size={30} mt={8} {...markdownElementProps(props)} />
+      ),
+      h2: props => (
+        <Title order={2} size={24} mt={8} {...markdownElementProps(props)} />
+      ),
+      h3: props => (
+        <Title order={3} size={20} mt={8} {...markdownElementProps(props)} />
+      ),
+      h4: props => (
+        <Title order={4} size={16} mt={8} {...markdownElementProps(props)} />
+      ),
+      h5: props => (
+        <Title order={5} size={15} mt={8} {...markdownElementProps(props)} />
+      ),
+      h6: props => (
+        <Title order={6} size={13} mt={8} {...markdownElementProps(props)} />
+      ),
+      span: props => <Text span {...markdownElementProps(props)} />,
       ul: props => (
-        <List type="unordered" withPadding {...markdownElementProps(props)} />
+        <List
+          type="unordered"
+          size={15}
+          withPadding
+          styles={({ colors }) => ({
+            item: {
+              color: colors.dark[4],
+              fontWeight: 500,
+            },
+          })}
+          {...markdownElementProps(omit(props, "ordered"))}
+        />
       ),
       ol: props => (
         <List
           type="ordered"
+          size={15}
           withPadding
+          styles={({ colors }) => ({
+            item: {
+              color: colors.dark[4],
+              fontWeight: 500,
+            },
+          })}
           {...markdownElementProps(omit(props, "type"))}
         />
       ),
-      li: props => <List.Item {...markdownElementProps(props)} />,
+      li: props => (
+        <List.Item {...markdownElementProps(omit(props, "ordered"))} />
+      ),
       a: ({ href, className, ...props }) => {
         if (href) {
           const classes = className?.split(" ") || [];
@@ -208,8 +262,13 @@ const Markdown: FC<MarkdownProps> = ({ referencesByName, children }) => (
 
 const markdownElementProps = <T extends object>(
   props: T,
-): Pick<T, Exclude<keyof T, "node">> => {
-  return omit(props, "node");
+): Pick<T, Exclude<keyof T, "node">> & { sx: Sx } => {
+  return {
+    ...omit(props, "node"),
+    sx: ({ fontFamilyMonospace }) => ({
+      fontFamily: fontFamilyMonospace,
+    }),
+  };
 };
 
 type RequestAccessButtonProps = {

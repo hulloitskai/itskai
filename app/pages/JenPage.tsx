@@ -78,7 +78,11 @@ const JenPage: PageComponent<JenPageProps> = () => {
 };
 
 JenPage.layout = layoutWithData<JenPageProps>((page, { viewer }) => (
-  <AppLayout containerProps={{ size: "xs", my: "xl" }} {...{ viewer }}>
+  <AppLayout
+    withContainer
+    containerProps={{ size: "xs", my: "xl" }}
+    {...{ viewer }}
+  >
     {page}
   </AppLayout>
 ));
