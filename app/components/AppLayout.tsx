@@ -12,8 +12,8 @@ import type { AppViewerFragment } from "~/queries";
 
 export type AppLayoutProps = AppShellProps & {
   readonly viewer: Maybe<AppViewerFragment>;
-  readonly withContainer?: boolean;
   readonly containerProps?: ContainerProps;
+  readonly withContainer?: boolean;
 };
 
 const AppLayout: FC<AppLayoutProps> = ({

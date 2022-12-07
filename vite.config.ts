@@ -39,9 +39,7 @@ const plugins = [
       "app/views/**/*.{html,html.erb}",
       "app/queries/**/*.graphql",
     ],
-    {
-      delay: 100,
-    },
+    { delay: 100 },
   ),
 ];
 
