@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+require_relative "streamer/observer"
+
 module Spotify
   class Streamer
     extend T::Sig
@@ -30,12 +32,17 @@ module Spotify
         end
         Honeybadger.notify(error)
       end
+      @task.add_observer(CurrentlyPlayingSubscriptionTrigger.new)
       @task.execute
     end
 
     sig { void }
     def stop
-      @task&.kill
+      @task.try! do |task|
+        task = T.let(task, Concurrent::TimerTask)
+        task.delete_observers
+        task.kill
+      end
     end
 
     # == Methods: Current Track
@@ -56,23 +63,17 @@ module Spotify
       Spotify.currently_playing.tap do |track|
         track = T.let(track, T.nilable(RSpotify::Track))
         if track&.id != previous_track&.id
-          update_subscriptions(track)
+          if track
+            tag_logger do
+              logger.info("Currently playing: #{track.name}")
+            end
+          else
+            tag_logger do
+              logger.info("Stopped playing")
+            end
+          end
         end
       end
-    end
-
-    sig { params(track: T.nilable(RSpotify::Track)).void }
-    def update_subscriptions(track)
-      if track
-        tag_logger do
-          logger.info("Currently playing: #{track.name}")
-        end
-      else
-        tag_logger do
-          logger.info("Stopped playing")
-        end
-      end
-      Schema.subscriptions!.trigger(:currently_playing, {}, nil)
     end
 
     sig { returns(ActiveSupport::Logger) }
