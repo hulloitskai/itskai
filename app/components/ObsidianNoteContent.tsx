@@ -61,9 +61,14 @@ const ObsidianNoteMarkdown: FC<ObsidianNoteContentProps> = ({
               marginBottom: 0,
             },
           },
-          "a[href]": {
-            color: colors.indigo[fn.primaryShade()],
-            fontWeight: 500,
+          a: {
+            fontWeight: 600,
+            "&[href]": {
+              color: colors.indigo[fn.primaryShade()],
+            },
+            "&:not([href])": {
+              cursor: "not-allowed",
+            },
           },
         })}
       >

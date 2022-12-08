@@ -61,7 +61,7 @@ const ObsidianGraphInfoCard: FC<ObsidianGraphInfoCardProps> = ({
             mb={4}
             sx={({ colors }) => ({ borderColor: colors.gray[3] })}
           />
-          <Text size="xs" color="gray.7" sx={{ lineHeight: 1.4 }}>
+          <Text lineClamp={4} size="xs" color="gray.7" sx={{ lineHeight: 1.4 }}>
             {blurb}
           </Text>
         </>
