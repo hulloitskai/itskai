@@ -1,5 +1,8 @@
-fragment HomePageObsidianNoteFragment on ObsidianNote {
+fragment ObsidianGraphNoteFragment on ObsidianNote {
   id
+  referencedBy {
+    id
+  }
   url
   isPublished
   modifiedAt
@@ -8,9 +11,6 @@ fragment HomePageObsidianNoteFragment on ObsidianNote {
   aliases
   tags
   blurb: plainBlurb
-  referencedBy {
-    id
-  }
   references {
     id
   }

@@ -21,6 +21,7 @@ const AppLayout: FC<AppLayoutProps> = ({
   containerProps,
   withContainer,
   children,
+  padding,
   ...otherProps
 }) => {
   const content = useMemo(() => {
@@ -43,9 +44,10 @@ const AppLayout: FC<AppLayoutProps> = ({
             display: "flex",
             flexDirection: "column",
             alignItems: "stretch",
-            paddingBottom: 16,
+            paddingBottom: typeof padding === "number" ? padding : 16,
           },
         }}
+        {...{ padding }}
         {...otherProps}
       >
         {content}

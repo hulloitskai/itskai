@@ -1,0 +1,9 @@
+fragment ObsidianGraphEntryFragment on ObsidianEntry {
+  id
+  type: __typename
+  name
+  referencedBy {
+    id
+  }
+  ...ObsidianGraphNoteFragment
+}

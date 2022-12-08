@@ -1,0 +1,12 @@
+query ObsidianNotePageGraphQuery($noteId: ID!) {
+  note: obsidianNote(id: $noteId) {
+    id
+    ...ObsidianGraphEntryFragment
+    references {
+      ...ObsidianGraphEntryFragment
+    }
+    referencedBy {
+      ...ObsidianGraphEntryFragment
+    }
+  }
+}

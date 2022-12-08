@@ -11,12 +11,12 @@ query HomePageGraphQuery(
     edges {
       node {
         id
-        ...HomePageObsidianNoteFragment
+        ...ObsidianGraphEntryFragment
       }
     }
-    totalCount
     pageInfo {
-      lastNoteCursor: endCursor
+      endCursor
+      hasNextPage
     }
   }
 }

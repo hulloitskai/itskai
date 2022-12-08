@@ -57,6 +57,8 @@ declare global {
   const showNotice: typeof import('~/helpers')['showNotice']
   const showNotification: typeof import('@mantine/notifications')['showNotification']
   const startTransition: typeof import('react')['startTransition']
+  const take: typeof import('lodash-es')['take']
+  const uniqBy: typeof import('lodash-es')['uniqBy']
   const useApolloClient: typeof import('@apollo/client')['useApolloClient']
   const useApolloErrorCallback: typeof import('~/helpers')['useApolloErrorCallback']
   const useCallback: typeof import('react')['useCallback']

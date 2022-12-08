@@ -1,10 +1,11 @@
-import type { FC } from "react";
+import type { FC, PropsWithChildren } from "react";
 import type { PageComponent } from "~/helpers/inertia";
 
 import { Text } from "@mantine/core";
 
 import ObsidianNoteMarkdown from "~/components/ObsidianNoteContent";
 import ObsidianNoteTag from "~/components/ObsidianNoteTag";
+import ObsidianNotePageGraph from "~/components/ObsidianNotePageGraph";
 
 import HiddenIcon from "~icons/heroicons/eye-slash-20-solid";
 import DocumentIcon from "~icons/heroicons/document-20-solid";
@@ -24,15 +25,10 @@ export type ObsidianNotePageProps = {
 const ObsidianNotePage: PageComponent<ObsidianNotePageProps> = ({
   data: { note },
 }) => {
-  const { name, tags, content, blurb, references } = note;
+  const { id, name, tags, content, blurb, references } = note;
   return (
-    <MediaQuery
-      largerThan="sm"
-      styles={({ spacing }) => ({
-        marginTop: spacing.xl,
-      })}
-    >
-      <Stack spacing="lg">
+    <>
+      <Layout>
         <Stack spacing={4}>
           <Title
             size={28}
@@ -91,9 +87,18 @@ const ObsidianNotePage: PageComponent<ObsidianNotePageProps> = ({
         ) : (
           <Stack>
             {!!blurb && (
-              <ObsidianNoteMarkdown {...{ references }}>
-                {blurb}
-              </ObsidianNoteMarkdown>
+              <Box pos="relative">
+                <Card withBorder>
+                  <ObsidianNoteMarkdown {...{ references }}>
+                    {blurb}
+                  </ObsidianNoteMarkdown>
+                </Card>
+                <Center pos="absolute" left={0} top={-10} right={0}>
+                  <Badge variant="filled" color="gray">
+                    Summary
+                  </Badge>
+                </Center>
+              </Box>
             )}
             <Alert
               color="gray"
@@ -129,24 +134,34 @@ const ObsidianNotePage: PageComponent<ObsidianNotePageProps> = ({
             </Alert>
           </Stack>
         )}
-      </Stack>
-    </MediaQuery>
+      </Layout>
+      <ObsidianNotePageGraph noteId={id} />
+    </>
   );
 };
 
 ObsidianNotePage.layout = layoutWithData<ObsidianNotePageProps>(
   (page, { viewer }) => (
-    <AppLayout
-      withContainer
-      containerProps={{ w: "100%", size: 682 }}
-      {...{ viewer }}
-    >
+    <AppLayout padding={0} {...{ viewer }}>
       {page}
     </AppLayout>
   ),
 );
 
 export default ObsidianNotePage;
+
+const Layout: FC<PropsWithChildren<{}>> = ({ children }) => (
+  <MediaQuery
+    largerThan="sm"
+    styles={({ spacing }) => ({
+      marginTop: spacing.xl,
+    })}
+  >
+    <Container size="sm" w="100%" pt="sm">
+      <Stack spacing="lg">{children}</Stack>
+    </Container>
+  </MediaQuery>
+);
 
 type RequestAccessButtonProps = {
   readonly note: ObsidianNotePageNoteFragment;

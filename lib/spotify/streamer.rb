@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-require_relative "streamer/observer"
+require_relative "streamer/currently_playing_subscription_trigger"
 
 module Spotify
   class Streamer

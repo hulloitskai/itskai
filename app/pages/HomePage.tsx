@@ -87,7 +87,7 @@ const HomePage: PageComponent<HomePageProps> = () => {
           </Box>
         </Stack>
       </Container>
-      <HomePageGraph w="full" sx={{ flex: 1 }} />
+      <HomePageGraph />
     </>
   );
 };
