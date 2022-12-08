@@ -103,6 +103,7 @@ type OAuthCredentials implements Node {
 """An object with an ID."""
 interface ObsidianEntry implements Node {
   createdAt: DateTime!
+  displayName: String!
 
   """ID of the object."""
   id: ID!
@@ -116,6 +117,7 @@ type ObsidianNote implements Node & ObsidianEntry & Slugged {
   blurb: String
   content: String
   createdAt: DateTime!
+  displayName: String!
 
   """ID of the object."""
   id: ID!
@@ -155,6 +157,7 @@ type ObsidianNoteEdge {
 
 type ObsidianStub implements Node & ObsidianEntry {
   createdAt: DateTime!
+  displayName: String!
 
   """ID of the object."""
   id: ID!

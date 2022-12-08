@@ -26,4 +26,10 @@ class ObsidianStub < ApplicationRecord
   # == Concerns
   include Identifiable
   include ObsidianEntry
+
+  # == Methods
+  sig { override.returns(String) }
+  def display_name
+    name
+  end
 end

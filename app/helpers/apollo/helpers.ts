@@ -42,20 +42,22 @@ export type OAuthCredentialsFieldPolicy = {
 	refreshToken?: FieldPolicy<any> | FieldReadFunction<any>,
 	uid?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ObsidianEntryKeySpecifier = ('createdAt' | 'id' | 'name' | 'referencedBy' | 'updatedAt' | ObsidianEntryKeySpecifier)[];
+export type ObsidianEntryKeySpecifier = ('createdAt' | 'displayName' | 'id' | 'name' | 'referencedBy' | 'updatedAt' | ObsidianEntryKeySpecifier)[];
 export type ObsidianEntryFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	displayName?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	referencedBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ObsidianNoteKeySpecifier = ('aliases' | 'blurb' | 'content' | 'createdAt' | 'id' | 'isPublished' | 'modifiedAt' | 'name' | 'plainBlurb' | 'referencedBy' | 'references' | 'slug' | 'tags' | 'updatedAt' | 'url' | ObsidianNoteKeySpecifier)[];
+export type ObsidianNoteKeySpecifier = ('aliases' | 'blurb' | 'content' | 'createdAt' | 'displayName' | 'id' | 'isPublished' | 'modifiedAt' | 'name' | 'plainBlurb' | 'referencedBy' | 'references' | 'slug' | 'tags' | 'updatedAt' | 'url' | ObsidianNoteKeySpecifier)[];
 export type ObsidianNoteFieldPolicy = {
 	aliases?: FieldPolicy<any> | FieldReadFunction<any>,
 	blurb?: FieldPolicy<any> | FieldReadFunction<any>,
 	content?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	displayName?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	isPublished?: FieldPolicy<any> | FieldReadFunction<any>,
 	modifiedAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -80,9 +82,10 @@ export type ObsidianNoteEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ObsidianStubKeySpecifier = ('createdAt' | 'id' | 'name' | 'referencedBy' | 'updatedAt' | ObsidianStubKeySpecifier)[];
+export type ObsidianStubKeySpecifier = ('createdAt' | 'displayName' | 'id' | 'name' | 'referencedBy' | 'updatedAt' | ObsidianStubKeySpecifier)[];
 export type ObsidianStubFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	displayName?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	referencedBy?: FieldPolicy<any> | FieldReadFunction<any>,

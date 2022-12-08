@@ -5,20 +5,21 @@
 #
 # Table name: obsidian_notes
 #
-#  id          :uuid             not null, primary key
-#  aliases     :string           default([]), not null, is an Array
-#  analyzed_at :datetime
-#  blurb       :text
-#  content     :text             not null
-#  hidden      :boolean          default(FALSE), not null
-#  modified_at :datetime         not null
-#  name        :string           not null
-#  plain_blurb :text
-#  published   :boolean          default(FALSE), not null
-#  slug        :string           not null
-#  tags        :string           default([]), not null, is an Array
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id           :uuid             not null, primary key
+#  aliases      :string           default([]), not null, is an Array
+#  analyzed_at  :datetime
+#  blurb        :text
+#  content      :text             not null
+#  display_name :string
+#  hidden       :boolean          default(FALSE), not null
+#  modified_at  :datetime         not null
+#  name         :string           not null
+#  plain_blurb  :text
+#  published    :boolean          default(FALSE), not null
+#  slug         :string           not null
+#  tags         :string           default([]), not null, is an Array
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 # Indexes
 #
@@ -114,6 +115,12 @@ class ObsidianNote < ApplicationRecord
   sig { returns(T::Boolean) }
   def analysis_required?
     !analyzed? || T.must(analyzed_at) < modified_at
+  end
+
+  # == Methods
+  sig { override.returns(String) }
+  def display_name
+    super || aliases.first || name
   end
 
   private

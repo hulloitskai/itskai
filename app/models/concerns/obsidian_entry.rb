@@ -19,4 +19,9 @@ module ObsidianEntry
     # == Validations
     validates :name, presence: true
   end
+
+  # == Methods
+  sig { abstract.returns(String) }
+  def display_name
+  end
 end

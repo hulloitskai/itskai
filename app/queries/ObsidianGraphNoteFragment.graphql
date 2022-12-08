@@ -8,7 +8,6 @@ fragment ObsidianGraphNoteFragment on ObsidianNote {
   modifiedAt
   slug
   name
-  aliases
   tags
   blurb: plainBlurb
   references {

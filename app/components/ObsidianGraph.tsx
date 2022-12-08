@@ -365,15 +365,7 @@ const renderGraph = (
   // Draw node labels
   nodeGroups
     .append("text")
-    .text(node => {
-      const { name } = node;
-      switch (node.type) {
-        case "ObsidianNote":
-          return first(node.aliases) || name;
-        case "ObsidianStub":
-          return name;
-      }
-    })
+    .text(({ displayName }) => displayName)
     .attr("text-anchor", "middle")
     .attr("dy", ({ radius }) => radius + 15);
 

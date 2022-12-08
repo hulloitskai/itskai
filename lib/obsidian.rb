@@ -88,6 +88,7 @@ module Obsidian
         logger.info("Updating note '#{note.name}'")
         data = parse_with_front_matter(node)
         content, front_matter = data.content, data.front_matter
+        note.display_name = front_matter["display_name"].presence
         note.hidden = front_matter["hidden"].truthy?
         note.modified_at = modified_at
         note.content = content
