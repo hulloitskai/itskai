@@ -29,6 +29,7 @@ AllCops:
     - node_modules/**/*
     - public/**/*
     - tmp/**/*
+    - sorbet/rbi/annotations/**/*
     - sorbet/rbi/dsl/**/*
     - sorbet/rbi/gems/**/*
     - sorbet/rbi/sorbet-typed/**/*

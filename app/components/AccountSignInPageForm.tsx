@@ -3,6 +3,8 @@ import { Inertia } from "@inertiajs/inertia";
 
 import { PasswordInput } from "@mantine/core";
 
+import { createApolloLink } from "~/helpers/apollo";
+
 export type AccountSignInPageFormValues = {
   readonly email: string;
   readonly password: string;
@@ -13,6 +15,7 @@ export type AccountSignInPageFormProps = {};
 const AccountSignInPageForm: FC<AccountSignInPageFormProps> = () => {
   const removeInvalidResponseCallback = useRef<VoidFunction>();
   const router = useRouter();
+  const client = useApolloClient();
   const { getInputProps, onSubmit, reset } =
     useForm<AccountSignInPageFormValues>({
       initialValues: {
@@ -38,6 +41,15 @@ const AccountSignInPageForm: FC<AccountSignInPageFormProps> = () => {
                 }
               },
             );
+          },
+          onSuccess: ({
+            props: {
+              csrf: { token: csrfToken },
+            },
+          }: any) => {
+            const link = createApolloLink({ csrfToken });
+            client.setLink(link);
+            client.resetStore();
           },
           onFinish: () => {
             if (removeInvalidResponseCallback.current) {

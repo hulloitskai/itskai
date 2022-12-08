@@ -1,11 +1,6 @@
 inherit_from: ../../.rubocop.yml
-
 inherit_gem:
   rubocop-sorbet: config/rbi.yml
-
-AllCops:
-  Exclude:
-    - "annotations/**/*"
 
 Layout/LineLength:
   Enabled: false

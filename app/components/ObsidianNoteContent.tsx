@@ -46,10 +46,10 @@ const ObsidianNoteMarkdown: FC<ObsidianNoteContentProps> = ({
       <TypographyStylesProvider
         sx={({ colors, fontFamilyMonospace, fn }) => ({
           fontFamily: `${fontFamilyMonospace}`,
-          "> *:first-child": {
+          "> *:first-of-type": {
             marginTop: `0 !important`,
           },
-          "> *:last-child": {
+          "> *:last-of-type": {
             marginBottom: `0 !important`,
           },
           "h1, h2, h3, h4, h5, h6": {

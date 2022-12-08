@@ -1,29 +1,19 @@
-import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
-import type {
-  NormalizedCacheObject,
-  ApolloLink,
-  ApolloCache,
-} from "@apollo/client";
+import { ApolloClient, ApolloLink, InMemoryCache } from "@apollo/client";
+import type { NormalizedCacheObject } from "@apollo/client";
 
-import { createApolloLink } from "./link?client";
 import { possibleTypes, typePolicies } from "./types";
 
 export type ApolloClientOptions = {
-  readonly cache?: ApolloCache<NormalizedCacheObject>;
-  readonly csrfToken: string;
+  readonly link: ApolloLink;
 };
 
 export const createApolloClient = ({
-  cache = createApolloCache(),
-  csrfToken,
+  link,
 }: ApolloClientOptions): ApolloClient<NormalizedCacheObject> => {
-  const link: ApolloLink = import.meta.env.SSR
-    ? createDummyLink()
-    : createApolloLink({ csrfToken });
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
+    cache: new InMemoryCache({ possibleTypes, typePolicies }),
     link,
-    cache,
     defaultOptions: {
       watchQuery: {
         notifyOnNetworkStatusChange: true,
@@ -33,17 +23,5 @@ export const createApolloClient = ({
         fetchPolicy: "cache-first",
       },
     },
-  });
-};
-
-export const createApolloCache = (): ApolloCache<NormalizedCacheObject> =>
-  new InMemoryCache({ possibleTypes, typePolicies });
-
-const createDummyLink = (): ApolloLink => {
-  return new HttpLink({
-    fetch: () =>
-      new Promise(() => {
-        // Do nothing.
-      }),
   });
 };

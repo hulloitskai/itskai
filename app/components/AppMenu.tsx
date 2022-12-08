@@ -7,12 +7,15 @@ import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
 import type { Maybe } from "~/queries";
 import type { AppViewerFragment } from "~/queries";
 
+import { createApolloLink } from "~/helpers/apollo";
+
 export type AppMenuProps = Pick<BoxProps, "sx"> & {
   readonly viewer: Maybe<AppViewerFragment>;
 };
 
 const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
   const router = useRouter();
+  const client = useApolloClient();
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
   const badgeActiveColor = theme.colors.gray[5];
@@ -67,7 +70,17 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
         <Menu.Item
           icon={<SignOutIcon />}
           onClick={() => {
-            router.delete("/account/sign_out");
+            router.delete("/account/sign_out", {
+              onSuccess: ({
+                props: {
+                  csrf: { token: csrfToken },
+                },
+              }: any) => {
+                const link = createApolloLink({ csrfToken });
+                client.setLink(link);
+                client.resetStore();
+              },
+            });
           }}
         >
           Sign Out

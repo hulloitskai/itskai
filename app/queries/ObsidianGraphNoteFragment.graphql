@@ -4,7 +4,6 @@ fragment ObsidianGraphNoteFragment on ObsidianNote {
     id
   }
   url
-  isPublished
   modifiedAt
   slug
   name
