@@ -1,5 +1,4 @@
 import type { FC } from "react";
-import invariant from "tiny-invariant";
 
 import { Affix } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
@@ -94,6 +93,7 @@ const ObsidianGraph: FC<ObsidianGraphProps> = ({
       }
     }, [svgRef.current, renderSize, entries]);
   }
+
   return (
     <>
       <Box

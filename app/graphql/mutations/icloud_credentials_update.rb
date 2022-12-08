@@ -11,8 +11,8 @@ module Mutations
     field :errors, [Types::ValidationErrorType]
     field :icloud_credentials, Types::ICloudCredentialsType
 
-    argument :email, String, required: true
-    argument :password, String, required: true
+    argument :email, String
+    argument :password, String
 
     sig { override.params(attributes: T.untyped).returns(Payload) }
     def resolve(**attributes)

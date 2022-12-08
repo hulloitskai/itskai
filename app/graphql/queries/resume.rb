@@ -1,4 +1,4 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 module Queries
@@ -6,7 +6,7 @@ module Queries
     # extend T::Sig
     extend T::Helpers
 
-    RESUME_PATH = Rails.root.join("config/resume.yml")
+    RESUME_PATH = T.let(Rails.root.join("config/resume.yml"), Pathname)
 
     type GraphQL::Types::JSON, null: false
     description "Kai's JSON Resume (https://jsonresume.org/)."

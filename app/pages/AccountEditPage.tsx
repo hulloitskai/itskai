@@ -1,6 +1,6 @@
 import type { PageComponent } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
-import invariant from "tiny-invariant";
+import type { DeepRequired } from "~/helpers/utils";
 
 import AccountEditPageProfileForm from "~/components/AccountEditPageProfileForm";
 import AccountEditPageEmailForm from "~/components/AccountEditPageEmailForm";
@@ -8,7 +8,6 @@ import AccountEditPagePasswordForm from "~/components/AccountEditPagePasswordFor
 import AccountEditPageICloudCredentialsForm from "~/components/AccountEditPageICloudCredentialsForm";
 import AccountEditPageSpotifyCredentialsForm from "~/components/AccountEditPageSpotifyCredentialsForm";
 
-import type { DeepRequired } from "~/helpers/utils";
 import type { AccountEditPageQuery } from "~/queries";
 
 export type AccountEditPageProps = {
@@ -18,7 +17,6 @@ export type AccountEditPageProps = {
 const AccountEditPage: PageComponent<AccountEditPageProps> = ({
   data: { viewer, icloudCredentials, spotifyCredentials },
 }) => {
-  invariant(viewer, "Missing viewer");
   const { isOwner } = viewer;
   return (
     <Stack w={440}>

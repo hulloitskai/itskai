@@ -9,7 +9,7 @@ module Mutations
 
     field :icloud_credentials, Types::ICloudCredentialsType, null: false
 
-    argument :code, String, required: true
+    argument :code, String
 
     sig { override.params(code: String).returns(Payload) }
     def resolve(code:)

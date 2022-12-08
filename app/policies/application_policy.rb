@@ -19,12 +19,7 @@ class ApplicationPolicy < ActionPolicy::Base
   # Always permit owner.
   pre_check :allow_owner!
 
-  # == Default Rules
-  sig { returns(T::Boolean) }
-  def index?
-    false
-  end
-
+  # == Rules
   sig { returns(T::Boolean) }
   def show?
     true

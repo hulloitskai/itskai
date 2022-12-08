@@ -1,5 +1,7 @@
 import type { FC, PropsWithChildren } from "react";
 import type { PageComponent } from "~/helpers/inertia";
+import type { DeepRequired } from "~/helpers/utils";
+import { useContactMe } from "~/helpers/contactMe";
 
 import { Text } from "@mantine/core";
 
@@ -9,9 +11,6 @@ import ObsidianNotePageGraph from "~/components/ObsidianNotePageGraph";
 
 import HiddenIcon from "~icons/heroicons/eye-slash-20-solid";
 import DocumentIcon from "~icons/heroicons/document-20-solid";
-
-import { useContactMe } from "~/helpers/contactMe";
-import type { DeepRequired } from "~/helpers/utils";
 
 import type {
   ObsidianNotePageNoteFragment,

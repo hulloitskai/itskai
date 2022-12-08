@@ -63,6 +63,7 @@ export const imports: Array<ImportsMap | PresetName> = [
     ],
     luxon: ["DateTime", "Duration"],
     "react-use": ["useEvent"],
+    "tiny-invariant": [["default", "invariant"]],
     "~/components": ["Head", "AppLayout", "PageHeader"],
     "~/helpers": [
       "resolve",

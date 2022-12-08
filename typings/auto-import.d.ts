@@ -39,6 +39,7 @@ declare global {
   const formatError: typeof import('~/helpers')['formatError']
   const forwardRef: typeof import('react')['forwardRef']
   const getMeta: typeof import('~/helpers')['getMeta']
+  const invariant: typeof import('tiny-invariant')['default']
   const isEmpty: typeof import('lodash-es')['isEmpty']
   const isEqual: typeof import('lodash-es')['isEqual']
   const keyBy: typeof import('lodash-es')['keyBy']
