@@ -19,13 +19,16 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
   const badgeProps = useMemo<BadgeProps>(
     () => ({
       variant: "dot",
-      sx: {
-        cursor: "pointer",
-        borderColor: opened ? badgeActiveColor : undefined,
-        "&:hover": {
-          borderColor: badgeActiveColor,
+      sx: [
+        ...packSx(sx),
+        {
+          cursor: "pointer",
+          borderColor: opened ? badgeActiveColor : undefined,
+          "&:hover": {
+            borderColor: badgeActiveColor,
+          },
         },
-      },
+      ],
     }),
     [opened],
   );
@@ -51,7 +54,6 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
           fontWeight: 500,
         },
       })}
-      {...{ sx }}
     >
       <Menu.Target>
         <Badge variant="dot" color="indigo" {...badgeProps}>

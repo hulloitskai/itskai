@@ -14,7 +14,11 @@ import type {
 
 const MotionImage = motion(Image);
 
-const CurrentlyPlayingIsland: FC = () => {
+export type CurrentlyPlayingIslandProps = Pick<BoxProps, "sx">;
+
+const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
+  ...otherProps
+}) => {
   const { data } = useSubscription(CurrentlyPlayingIslandSubscriptionDocument, {
     variables: {},
   });
@@ -43,7 +47,7 @@ const CurrentlyPlayingIsland: FC = () => {
     >
       {style => (
         <TrackCoalescer {...{ track }}>
-          {track => <CurrentTrack {...{ track, style }} />}
+          {track => <CurrentTrack {...{ track, style }} {...otherProps} />}
         </TrackCoalescer>
       )}
     </Transition>
@@ -74,11 +78,11 @@ const TrackCoalescer: FC<TrackCoalescerProps> = ({
   return <>{!!track && children(track)}</>;
 };
 
-type CurrentTrackProps = Pick<BoxProps, "style"> & {
+type CurrentTrackProps = Pick<BoxProps, "sx"> & {
   readonly track: CurrentlyPlayingIslandSpotifyTrackFragment;
 };
 
-const CurrentTrack: FC<CurrentTrackProps> = ({ track, ...otherProps }) => {
+const CurrentTrack: FC<CurrentTrackProps> = ({ track, sx }) => {
   const {
     name,
     url,
@@ -158,7 +162,7 @@ const CurrentTrack: FC<CurrentTrackProps> = ({ track, ...otherProps }) => {
             },
           },
         })}
-        {...otherProps}
+        {...{ sx }}
       >
         <Text size="xs" color="dark">
           {name}
