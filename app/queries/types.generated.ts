@@ -130,7 +130,7 @@ export type ObsidianEntry = {
   updatedAt: Scalars['DateTime'];
 };
 
-export type ObsidianNote = Node & ObsidianEntry & Slugged & {
+export type ObsidianNote = Node & ObsidianEntry & {
   __typename?: 'ObsidianNote';
   aliases: Array<Scalars['String']>;
   blurb?: Maybe<Scalars['String']>;
@@ -145,7 +145,6 @@ export type ObsidianNote = Node & ObsidianEntry & Slugged & {
   plainBlurb?: Maybe<Scalars['String']>;
   referencedBy: Array<ObsidianNote>;
   references: Array<ObsidianEntry>;
-  slug: Scalars['String'];
   tags: Array<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
   url: Scalars['String'];
@@ -206,7 +205,6 @@ export type Query = {
   icloudCredentials?: Maybe<ICloudCredentials>;
   obsidianNote?: Maybe<ObsidianNote>;
   obsidianNoteByName?: Maybe<ObsidianNote>;
-  obsidianNoteBySlug?: Maybe<ObsidianNote>;
   obsidianNotes: ObsidianNoteConnection;
   /** Kai's JSON Resume (https://jsonresume.org/). */
   resume: Scalars['JSON'];
@@ -230,11 +228,6 @@ export type QueryObsidianNoteByNameArgs = {
 };
 
 
-export type QueryObsidianNoteBySlugArgs = {
-  slug: Scalars['String'];
-};
-
-
 export type QueryObsidianNotesArgs = {
   after?: InputMaybe<Scalars['String']>;
   before?: InputMaybe<Scalars['String']>;
@@ -247,10 +240,6 @@ export type QueryObsidianNotesArgs = {
 
 export type QueryTestEchoArgs = {
   text?: InputMaybe<Scalars['String']>;
-};
-
-export type Slugged = {
-  slug: Scalars['String'];
 };
 
 export type SpotifyAlbum = {

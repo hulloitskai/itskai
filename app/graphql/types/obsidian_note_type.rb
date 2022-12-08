@@ -5,7 +5,6 @@ module Types
   class ObsidianNoteType < BaseObject
     # == Interfaces
     implements NodeType
-    implements SluggedType
     implements ObsidianEntryType
 
     # == Fields

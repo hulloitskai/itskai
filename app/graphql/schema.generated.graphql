@@ -112,7 +112,7 @@ interface ObsidianEntry implements Node {
   updatedAt: DateTime!
 }
 
-type ObsidianNote implements Node & ObsidianEntry & Slugged {
+type ObsidianNote implements Node & ObsidianEntry {
   aliases: [String!]!
   blurb: String
   content: String
@@ -127,7 +127,6 @@ type ObsidianNote implements Node & ObsidianEntry & Slugged {
   plainBlurb: String
   referencedBy: [ObsidianNote!]!
   references: [ObsidianEntry!]!
-  slug: String!
   tags: [String!]!
   updatedAt: DateTime!
   url: String!
@@ -192,7 +191,6 @@ type Query {
   icloudCredentials: ICloudCredentials
   obsidianNote(id: ID!): ObsidianNote
   obsidianNoteByName(name: String!): ObsidianNote
-  obsidianNoteBySlug(slug: String!): ObsidianNote
   obsidianNotes(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -223,10 +221,6 @@ type Query {
 
   """The currently authenticated user."""
   viewer: User
-}
-
-interface Slugged {
-  slug: String!
 }
 
 type SpotifyAlbum {

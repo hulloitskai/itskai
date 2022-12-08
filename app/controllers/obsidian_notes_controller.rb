@@ -3,7 +3,7 @@
 
 class ObsidianNotesController < ApplicationController
   # == Filters
-  before_action :set_note, except: :resolve
+  before_action :set_note
 
   # == Actions
   sig { void }
@@ -21,6 +21,6 @@ class ObsidianNotesController < ApplicationController
   sig { void }
   def set_note
     @note = T.let(@note, T.nilable(ObsidianNote))
-    @note = authorized_scope(ObsidianNote.all).friendly.find(params[:id])
+    @note = ObsidianNote.friendly.find(params[:id])
   end
 end

@@ -16,9 +16,6 @@
     "ObsidianEntry": [
       "ObsidianNote",
       "ObsidianStub"
-    ],
-    "Slugged": [
-      "ObsidianNote"
     ]
   }
 };

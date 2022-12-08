@@ -51,7 +51,7 @@ export type ObsidianEntryFieldPolicy = {
 	referencedBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ObsidianNoteKeySpecifier = ('aliases' | 'blurb' | 'content' | 'createdAt' | 'displayName' | 'id' | 'isPublished' | 'modifiedAt' | 'name' | 'plainBlurb' | 'referencedBy' | 'references' | 'slug' | 'tags' | 'updatedAt' | 'url' | ObsidianNoteKeySpecifier)[];
+export type ObsidianNoteKeySpecifier = ('aliases' | 'blurb' | 'content' | 'createdAt' | 'displayName' | 'id' | 'isPublished' | 'modifiedAt' | 'name' | 'plainBlurb' | 'referencedBy' | 'references' | 'tags' | 'updatedAt' | 'url' | ObsidianNoteKeySpecifier)[];
 export type ObsidianNoteFieldPolicy = {
 	aliases?: FieldPolicy<any> | FieldReadFunction<any>,
 	blurb?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -65,7 +65,6 @@ export type ObsidianNoteFieldPolicy = {
 	plainBlurb?: FieldPolicy<any> | FieldReadFunction<any>,
 	referencedBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	references?: FieldPolicy<any> | FieldReadFunction<any>,
-	slug?: FieldPolicy<any> | FieldReadFunction<any>,
 	tags?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
@@ -98,24 +97,19 @@ export type PageInfoFieldPolicy = {
 	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
 	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('contactEmail' | 'currentlyPlaying' | 'icloudCredentials' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNoteBySlug' | 'obsidianNotes' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('contactEmail' | 'currentlyPlaying' | 'icloudCredentials' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	contactEmail?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNote?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNoteByName?: FieldPolicy<any> | FieldReadFunction<any>,
-	obsidianNoteBySlug?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNotes?: FieldPolicy<any> | FieldReadFunction<any>,
 	resume?: FieldPolicy<any> | FieldReadFunction<any>,
 	spotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	testEcho?: FieldPolicy<any> | FieldReadFunction<any>,
 	timezone?: FieldPolicy<any> | FieldReadFunction<any>,
 	viewer?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type SluggedKeySpecifier = ('slug' | SluggedKeySpecifier)[];
-export type SluggedFieldPolicy = {
-	slug?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SpotifyAlbumKeySpecifier = ('id' | 'imageUrl' | 'name' | 'url' | SpotifyAlbumKeySpecifier)[];
 export type SpotifyAlbumFieldPolicy = {
@@ -231,10 +225,6 @@ export type StrictTypedTypePolicies = {
 	Query?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier),
 		fields?: QueryFieldPolicy,
-	},
-	Slugged?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | SluggedKeySpecifier | (() => undefined | SluggedKeySpecifier),
-		fields?: SluggedFieldPolicy,
 	},
 	SpotifyAlbum?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SpotifyAlbumKeySpecifier | (() => undefined | SpotifyAlbumKeySpecifier),

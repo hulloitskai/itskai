@@ -55,12 +55,10 @@ class ObsidianNote < ApplicationRecord
   # == Concerns
   include Identifiable
   include Slugged
-
-  # == Interfaces
   include ObsidianEntry
 
-  # == FriendlyId
-  include FriendlyId
+  # == Concerns: FriendlyId
+  include FriendlyId::Concern
   friendly_id :name
 
   # == Validations

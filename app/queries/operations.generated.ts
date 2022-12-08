@@ -154,7 +154,7 @@ export type HomePageGraphQuery = (
       { __typename?: 'ObsidianNoteEdge' }
       & { node: (
         { __typename?: 'ObsidianNote' }
-        & Pick<Types.ObsidianNote, 'id' | 'name' | 'displayName' | 'url' | 'modifiedAt' | 'slug' | 'tags'>
+        & Pick<Types.ObsidianNote, 'id' | 'name' | 'displayName' | 'url' | 'modifiedAt' | 'tags'>
         & { type: 'ObsidianNote', blurb: Types.ObsidianNote['plainBlurb'] }
         & { referencedBy: Array<(
           { __typename?: 'ObsidianNote' }
@@ -233,7 +233,7 @@ export type JenPageQuery = (
 
 type ObsidianGraphEntryFragment_ObsidianNote_ = (
   { __typename?: 'ObsidianNote' }
-  & Pick<Types.ObsidianNote, 'id' | 'name' | 'displayName' | 'url' | 'modifiedAt' | 'slug' | 'tags'>
+  & Pick<Types.ObsidianNote, 'id' | 'name' | 'displayName' | 'url' | 'modifiedAt' | 'tags'>
   & { type: 'ObsidianNote', blurb: Types.ObsidianNote['plainBlurb'] }
   & { referencedBy: Array<(
     { __typename?: 'ObsidianNote' }
@@ -261,7 +261,7 @@ export type ObsidianGraphEntryFragment = ObsidianGraphEntryFragment_ObsidianNote
 
 export type ObsidianGraphNoteFragment = (
   { __typename?: 'ObsidianNote' }
-  & Pick<Types.ObsidianNote, 'id' | 'url' | 'modifiedAt' | 'slug' | 'name' | 'tags'>
+  & Pick<Types.ObsidianNote, 'id' | 'url' | 'modifiedAt' | 'name' | 'tags'>
   & { blurb: Types.ObsidianNote['plainBlurb'] }
   & { referencedBy: Array<(
     { __typename?: 'ObsidianNote' }
@@ -303,11 +303,11 @@ export type ObsidianNotePageGraphQuery = (
   { __typename?: 'Query' }
   & { note: Types.Maybe<(
     { __typename?: 'ObsidianNote' }
-    & Pick<Types.ObsidianNote, 'id' | 'name' | 'displayName' | 'url' | 'modifiedAt' | 'slug' | 'tags'>
+    & Pick<Types.ObsidianNote, 'id' | 'name' | 'displayName' | 'url' | 'modifiedAt' | 'tags'>
     & { type: 'ObsidianNote', blurb: Types.ObsidianNote['plainBlurb'] }
     & { references: Array<(
       { __typename?: 'ObsidianNote' }
-      & Pick<Types.ObsidianNote, 'id' | 'name' | 'displayName' | 'url' | 'modifiedAt' | 'slug' | 'tags'>
+      & Pick<Types.ObsidianNote, 'id' | 'name' | 'displayName' | 'url' | 'modifiedAt' | 'tags'>
       & { type: 'ObsidianNote', blurb: Types.ObsidianNote['plainBlurb'] }
       & { referencedBy: Array<(
         { __typename?: 'ObsidianNote' }
@@ -329,7 +329,7 @@ export type ObsidianNotePageGraphQuery = (
       )> }
     )>, referencedBy: Array<(
       { __typename?: 'ObsidianNote' }
-      & Pick<Types.ObsidianNote, 'id' | 'name' | 'displayName' | 'url' | 'modifiedAt' | 'slug' | 'tags'>
+      & Pick<Types.ObsidianNote, 'id' | 'name' | 'displayName' | 'url' | 'modifiedAt' | 'tags'>
       & { type: 'ObsidianNote', blurb: Types.ObsidianNote['plainBlurb'] }
       & { referencedBy: Array<(
         { __typename?: 'ObsidianNote' }
@@ -449,7 +449,7 @@ export const AccountEditPageSpotifyCredentialsFragment = {"kind":"Document","def
 export const AccountEditPageViewerFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountEditPageViewerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"unconfirmedEmail"}}]}}]} as unknown as DocumentNode<AccountEditPageViewerFragment, unknown>;
 export const AppViewerFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AppViewerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isOwner"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]} as unknown as DocumentNode<AppViewerFragment, unknown>;
 export const CurrentlyPlayingIslandSpotifyTrackFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CurrentlyPlayingIslandSpotifyTrackFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SpotifyTrack"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"album"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}},{"kind":"Field","name":{"kind":"Name","value":"artists"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<CurrentlyPlayingIslandSpotifyTrackFragment, unknown>;
-export const ObsidianGraphNoteFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ObsidianGraphNoteFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ObsidianNote"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"referencedBy"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"modifiedAt"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}},{"kind":"Field","alias":{"kind":"Name","value":"blurb"},"name":{"kind":"Name","value":"plainBlurb"}},{"kind":"Field","name":{"kind":"Name","value":"references"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<ObsidianGraphNoteFragment, unknown>;
+export const ObsidianGraphNoteFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ObsidianGraphNoteFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ObsidianNote"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"referencedBy"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"modifiedAt"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}},{"kind":"Field","alias":{"kind":"Name","value":"blurb"},"name":{"kind":"Name","value":"plainBlurb"}},{"kind":"Field","name":{"kind":"Name","value":"references"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<ObsidianGraphNoteFragment, unknown>;
 export const ObsidianGraphEntryFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ObsidianGraphEntryFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ObsidianEntry"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"type"},"name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"displayName"}},{"kind":"Field","name":{"kind":"Name","value":"referencedBy"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ObsidianGraphNoteFragment"}}]}},...ObsidianGraphNoteFragment.definitions]} as unknown as DocumentNode<ObsidianGraphEntryFragment, unknown>;
 export const ObsidianNoteContentNoteReferenceFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ObsidianNoteContentNoteReferenceFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ObsidianNote"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]} as unknown as DocumentNode<ObsidianNoteContentNoteReferenceFragment, unknown>;
 export const ObsidianNoteContentReferenceFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ObsidianNoteContentReferenceFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ObsidianEntry"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","alias":{"kind":"Name","value":"type"},"name":{"kind":"Name","value":"__typename"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ObsidianNoteContentNoteReferenceFragment"}}]}},...ObsidianNoteContentNoteReferenceFragment.definitions]} as unknown as DocumentNode<ObsidianNoteContentReferenceFragment, unknown>;

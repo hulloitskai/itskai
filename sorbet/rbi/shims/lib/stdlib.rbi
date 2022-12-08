@@ -1,4 +1,4 @@
-# typed: strict
+# typed: strong
 
 class Time
   sig { returns(T.untyped) }

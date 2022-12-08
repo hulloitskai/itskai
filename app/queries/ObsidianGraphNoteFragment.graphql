@@ -5,7 +5,6 @@ fragment ObsidianGraphNoteFragment on ObsidianNote {
   }
   url
   modifiedAt
-  slug
   name
   tags
   blurb: plainBlurb
