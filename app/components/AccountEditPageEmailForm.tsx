@@ -43,19 +43,23 @@ const AccountEditPageEmailForm: FC<AccountEditPageEmailFormProps> = ({
               } = page.props as unknown as AccountEditPageProps;
               if (unconfirmedEmail) {
                 showNotice({
+                  title: "Confirm New Email",
                   message:
                     "Please check your email and follow the confirmation " +
                     "link to confirm your new email address.",
                 });
               } else if (previouslyUnconfirmedEmail) {
                 showNotice({
-                  message: "Your email change request has been cancelled.",
+                  message: "Email change request has been cancelled.",
                 });
               }
               setValues({ email: unconfirmedEmail || email });
             });
           },
-          onError: setErrors,
+          onError: errors => {
+            setErrors(errors);
+            showAlert({ message: "Failed to change email." });
+          },
         });
       })}
     >

@@ -1,4 +1,4 @@
-import type { FC, PropsWithChildren } from "react";
+import type { FC, ReactNode } from "react";
 import type { PageComponent } from "~/helpers/inertia";
 import type { DeepRequired } from "~/helpers/utils";
 import { useContactMe } from "~/helpers/contactMe";
@@ -149,7 +149,11 @@ ObsidianNotePage.layout = layoutWithData<ObsidianNotePageProps>(
 
 export default ObsidianNotePage;
 
-const Layout: FC<PropsWithChildren<{}>> = ({ children }) => (
+type LayoutProps = {
+  readonly children: ReactNode;
+};
+
+const Layout: FC<LayoutProps> = ({ children }) => (
   <MediaQuery
     largerThan="sm"
     styles={({ spacing }) => ({

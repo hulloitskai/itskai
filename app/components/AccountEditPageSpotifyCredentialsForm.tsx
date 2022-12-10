@@ -35,10 +35,16 @@ const AccountEditPageSpotifyCredentialsForm: FC<
     <form action="/account/auth/spotify" method="post">
       <FormAuthenticityField />
       <Stack spacing="xs">
-        {!!uid && <TextInput label="UID" readOnly {...getInputProps("uid")} />}
+        {!!uid && (
+          <TextInput
+            label="UID (read-only)"
+            readOnly
+            {...getInputProps("uid")}
+          />
+        )}
         {!!refreshToken && (
           <TextInput
-            label="Refresh Token"
+            label="Refresh Token (read-only)"
             readOnly
             {...getInputProps("refreshToken")}
           />

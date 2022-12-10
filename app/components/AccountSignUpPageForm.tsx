@@ -38,6 +38,7 @@ const AccountSignUpPageForm: FC<AccountSignUpPageFormProps> = () => {
             setFieldValue("password", "");
             setFieldValue("passwordConfirmation", "");
             setErrors(errors);
+            showAlert({ message: "Failed to register account." });
           },
         });
       })}

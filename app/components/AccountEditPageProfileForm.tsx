@@ -27,12 +27,14 @@ const AccountEditPageProfileForm: FC<AccountEditPageProfileFormProps> = ({
   const [runMutation, { loading }] = useMutation(
     AccountUpdateMutationDocument,
     {
-      onCompleted: ({ payload: { errors } }) => {
-        if (errors) {
-          setErrors(formErrors(errors));
-        } else {
+      onCompleted: ({ payload: { user, errors } }) => {
+        if (user) {
           router.reload();
-          showNotice({ message: "You've updated your account." });
+          showNotice({ message: "Profile updated!" });
+        } else {
+          invariant(errors);
+          setErrors(formErrors(errors));
+          showAlert({ message: "Failed to update profile." });
         }
       },
       onError,

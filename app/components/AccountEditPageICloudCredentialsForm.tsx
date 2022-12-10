@@ -40,12 +40,14 @@ const AccountEditPageICloudCredentialsForm: FC<
   const [runMutation, { loading }] = useMutation(
     ICloudCredentialsUpdateMutationDocument,
     {
-      onCompleted: ({ payload: { errors } }) => {
-        if (errors) {
-          setErrors(formErrors(errors));
-        } else {
+      onCompleted: ({ payload: { icloudCredentials, errors } }) => {
+        if (icloudCredentials) {
           router.reload();
           showNotice({ message: "You've authenticated with iCloud." });
+        } else {
+          invariant(errors);
+          setErrors(formErrors(errors));
+          showAlert({ message: "Failed to update iCloud credentials." });
         }
       },
       onError,
@@ -143,7 +145,7 @@ const VerifySecurityCodeModalContent: FC = () => {
     {
       onCompleted: () => {
         closeAllModals();
-        showNotice({ message: "You've verified your iCloud security code." });
+        showNotice({ message: "iCloud security code verified." });
       },
       onError,
     },

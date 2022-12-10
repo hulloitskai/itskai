@@ -39,13 +39,12 @@ const AccountEditPagePasswordForm: FC<
             preserveScroll: true,
             onSuccess: () => {
               reset();
-              showNotice({
-                message: "You've updated your account password.",
-              });
+              showNotice({ message: "Password changed successfully." });
             },
             onError: errors => {
               reset();
               setErrors(errors);
+              showAlert({ message: "Failed to change password." });
             },
           });
         },
