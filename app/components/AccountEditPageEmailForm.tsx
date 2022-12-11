@@ -31,7 +31,7 @@ const AccountEditPageEmailForm: FC<AccountEditPageEmailFormProps> = ({
       onSubmit={onSubmit(({ email }) => {
         const data = { user: { email } };
         router.put("/account", data, {
-          errorBag: "AccountEmailForm",
+          errorBag: AccountEditPageEmailForm.name,
           preserveScroll: true,
           onSuccess: async page => {
             const previouslyUnconfirmedEmail = unconfirmedEmail;

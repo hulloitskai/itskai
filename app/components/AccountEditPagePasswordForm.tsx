@@ -35,7 +35,7 @@ const AccountEditPagePasswordForm: FC<
             },
           };
           router.put("/account", data, {
-            errorBag: "AccountPasswordForm",
+            errorBag: AccountEditPagePasswordForm.name,
             preserveScroll: true,
             onSuccess: () => {
               reset();

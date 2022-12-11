@@ -33,7 +33,7 @@ const AccountSignUpPageForm: FC<AccountSignUpPageFormProps> = () => {
           },
         };
         router.post("/account", data, {
-          errorBag: "AccountSignUpForm",
+          errorBag: AccountSignUpPageForm.name,
           onError: errors => {
             setFieldValue("password", "");
             setFieldValue("passwordConfirmation", "");

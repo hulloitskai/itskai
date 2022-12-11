@@ -28,7 +28,6 @@ const AccountSignInPageForm: FC<AccountSignInPageFormProps> = () => {
       onSubmit={onSubmit(({ email, password }) => {
         const data = { user: { email, password } };
         router.post("/account/sign_in", data, {
-          errorBag: "AccountSignInForm",
           onBefore: () => {
             // Navigate to non-Inertia pages.
             removeInvalidResponseCallback.current = Inertia.on(
