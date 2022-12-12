@@ -16,16 +16,16 @@
 #
 
 class ObsidianStub < ApplicationRecord
+  # == Concerns
+  include Identifiable
+  include ObsidianEntry
+
   # == Associations
   has_many :incoming_relations,
            class_name: "ObsidianRelation",
            as: :to,
            dependent: :destroy
   has_many :referenced_by, through: :incoming_relations, source: :from
-
-  # == Concerns
-  include Identifiable
-  include ObsidianEntry
 
   # == Methods
   sig { override.returns(String) }

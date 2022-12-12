@@ -19,7 +19,7 @@ const AccountEditPage: PageComponent<AccountEditPageProps> = ({
 }) => {
   const { isOwner } = viewer;
   return (
-    <Stack w={440}>
+    <Stack>
       <Card radius="md" withBorder>
         <Stack spacing="xs">
           <Center>
@@ -87,7 +87,7 @@ const AccountEditPage: PageComponent<AccountEditPageProps> = ({
                 {...{ spotifyCredentials }}
               />
             </Stack>
-          </Card>{" "}
+          </Card>
         </>
       )}
     </Stack>
@@ -96,8 +96,8 @@ const AccountEditPage: PageComponent<AccountEditPageProps> = ({
 
 AccountEditPage.layout = layoutWithData<AccountEditPageProps>(
   (page, { viewer }) => (
-    <AppLayout {...{ viewer }}>
-      <Center h="100%">{page}</Center>
+    <AppLayout withContainer withGutter containerSize={440} {...{ viewer }}>
+      {page}
     </AppLayout>
   ),
 );

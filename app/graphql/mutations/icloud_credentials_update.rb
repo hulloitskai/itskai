@@ -14,7 +14,13 @@ module Mutations
     argument :email, String
     argument :password, String
 
-    sig { override.params(attributes: T.untyped).returns(Payload) }
+    sig do
+      override(
+        allow_incompatible: true,
+      ).params(
+        attributes: T.untyped,
+      ).returns(Payload)
+    end
     def resolve(**attributes)
       credentials = ICloudCredentials.first_or_initialize
       authorize!(credentials, to: :edit?)

@@ -22,7 +22,7 @@ Rails.application.routes.draw do
           as: :graphiql,
           graphql_path: "/api/graphql"
     scope :graphql, controller: :graphql do
-      get :/, to: redirect("/api")
+      get :/, to: redirect("/api", status: 302)
       post :/, action: :execute, as: :graphql
     end
   end
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   get :test, to: "test#show"
   get :work, to: "work#show"
   get :resume, to: "resume#show"
-  get :jen, to: "jen#show"
+  get :jen, to: redirect("/entries/birthday-writings-for-jen", status: 302)
   resources :obsidian_notes, path: :entries, only: :show
 
   # == Errors

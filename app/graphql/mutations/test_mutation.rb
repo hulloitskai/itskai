@@ -14,7 +14,13 @@ module Mutations
     argument :birthday, Types::DateType, required: false
     argument :name, String
 
-    sig { override.params(attributes: T.untyped).returns(Payload) }
+    sig do
+      override(
+        allow_incompatible: true,
+      ).params(
+        attributes: T.untyped,
+      ).returns(Payload)
+    end
     def resolve(**attributes)
       model = TestModel.new(**attributes)
       if model.valid?

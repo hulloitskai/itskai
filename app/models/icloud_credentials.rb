@@ -25,18 +25,6 @@ class ICloudCredentials < ApplicationRecord
   # == Concerns
   include Identifiable
 
-  # == Validations
-  validates :email,
-            presence: true,
-            length: {
-              maximum: 100,
-            },
-            email: true,
-            uniqueness: {
-              case_sensitive: false,
-            }
-  validates :password, presence: true
-
   # == Attributes
   sig { returns(T.nilable(T::Hash[String, T.untyped])) }
   def session
@@ -50,4 +38,16 @@ class ICloudCredentials < ApplicationRecord
   def setters=(value)
     super
   end
+
+  # == Validations
+  validates :email,
+            presence: true,
+            length: {
+              maximum: 100,
+            },
+            email: true,
+            uniqueness: {
+              case_sensitive: false,
+            }
+  validates :password, presence: true
 end

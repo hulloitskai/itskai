@@ -35,12 +35,12 @@ type Node = BaseNode &
 type Link = BaseLink<Node>;
 type DragEvent = D3DragEvent<HTMLElement, Node, Node>;
 
-const NODE_RADIUS_MIN_SIZE = 4;
-const NODE_RADIUS_MAX_SIZE = 30;
-const NODE_RADIUS_MULTIPLIER = 0.3;
-const LINK_FORCE = 0.02;
-const BODY_FORCE = -350;
-const BODY_FORCE_MAX_DISTANCE = 250;
+const NodeRadiusMinSize = 4;
+const NodeRadiusMaxSize = 30;
+const NodeRadiusMultiplier = 0.3;
+const LinkForce = 0.02;
+const BodyForce = -350;
+const BodyForceMaxDistance = 250;
 
 export type ObsidianGraphProps = BoxProps & {
   readonly entries: ReadonlyArray<ObsidianGraphEntryFragment> | undefined;
@@ -239,8 +239,8 @@ const nodeRadius = (note: ObsidianGraphEntryFragment): number => {
   if (note.type === "ObsidianNote") {
     referenceCount += note.references.length;
   }
-  const size = NODE_RADIUS_MIN_SIZE + referenceCount * NODE_RADIUS_MULTIPLIER;
-  return Math.min(size, NODE_RADIUS_MAX_SIZE);
+  const size = NodeRadiusMinSize + referenceCount * NodeRadiusMultiplier;
+  return Math.min(size, NodeRadiusMaxSize);
 };
 
 const nodeLinks = (node: Node, validNodeIds: Set<string>): Link[] => {
@@ -375,7 +375,7 @@ const renderGraph = (
       "link",
       forceLink<Node, Link>(links)
         .id(({ id }) => id)
-        .strength(LINK_FORCE)
+        .strength(LinkForce)
         .iterations(2),
     )
     .force(
@@ -386,7 +386,7 @@ const renderGraph = (
     )
     .force(
       "charge",
-      forceManyBody().strength(BODY_FORCE).distanceMax(BODY_FORCE_MAX_DISTANCE),
+      forceManyBody().strength(BodyForce).distanceMax(BodyForceMaxDistance),
     )
     .force("center", forceCenter(width / 2, height / 2))
     .force("gravity.x", forceX(width / 2))

@@ -31,6 +31,15 @@
 #
 
 class ObsidianNote < ApplicationRecord
+  # == Concerns
+  include Identifiable
+  include Slugged
+  include ObsidianEntry
+
+  # == Concerns: FriendlyId
+  include FriendlyId::Concern
+  friendly_id :name
+
   # == Associations
   has_many :outgoing_relations,
            class_name: "ObsidianRelation",
@@ -51,15 +60,6 @@ class ObsidianNote < ApplicationRecord
            as: :to,
            dependent: :destroy
   has_many :referenced_by, through: :incoming_relations, source: :from
-
-  # == Concerns
-  include Identifiable
-  include Slugged
-  include ObsidianEntry
-
-  # == Concerns: FriendlyId
-  include FriendlyId::Concern
-  friendly_id :name
 
   # == Validations
   validates :aliases, :tags, array: { presence: true }

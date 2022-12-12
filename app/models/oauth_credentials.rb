@@ -23,7 +23,7 @@ class OAuthCredentials < ApplicationRecord
   validates :provider, presence: true, uniqueness: true
   validates :uid, presence: true, uniqueness: true
 
-  # == Spotify
+  # == Methods: Spotify
   sig { returns(T.nilable(OAuthCredentials)) }
   def self.spotify
     find_by(provider: :spotify)

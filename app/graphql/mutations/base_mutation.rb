@@ -18,13 +18,11 @@ module Mutations
     null false
 
     # == Resolver
-    resolve_method :resolve_wrapper
-
-    sig { params(args: T.untyped).returns(T.untyped) }
-    def resolve_wrapper(**args)
+    sig { override.params(kwargs: T.untyped).returns(T.untyped) }
+    def resolve(**kwargs)
       ActiveRecord::Base.transaction do
-        return_value = args.any? ? resolve(**args) : resolve
-        return_value.is_a?(T::Struct) ? return_value.serialize : return_value
+        result = kwargs.any? ? super(**kwargs) : super()
+        result.is_a?(T::Struct) ? result.serialize : result
       end
     end
   end
