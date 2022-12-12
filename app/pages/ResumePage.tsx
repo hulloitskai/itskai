@@ -10,11 +10,10 @@ import ResumePDFDownloadButton from "~/components/ResumePDFDownloadButton";
 import EnvelopeIcon from "~icons/heroicons/envelope-20-solid";
 import GithubIcon from "~icons/feather/github";
 
-import { ResumePageQuery, ResumePageQueryVariables } from "~/queries";
+import type { ResumePageQuery } from "~/queries";
 
 type ResumePageProps = {
   readonly data: ResumePageQuery;
-  readonly variables: ResumePageQueryVariables;
   readonly printable?: boolean;
 };
 
