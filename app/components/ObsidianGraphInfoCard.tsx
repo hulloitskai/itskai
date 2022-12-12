@@ -41,7 +41,7 @@ const ObsidianGraphInfoCard: FC<ObsidianGraphInfoCardProps> = ({
       </Group>
       {type === "ObsidianStub" && (
         <Text size="xs" color="gray.6" sx={{ lineHeight: 1.4 }}>
-          This is a reference to a non-existent entry!
+          This is entry is from the future; it has yet to be written!
         </Text>
       )}
       {!!modifiedAgo && (
