@@ -44,14 +44,16 @@ const ObsidianNoteMarkdown: FC<ObsidianNoteContentProps> = ({
       inherit
     >
       <TypographyStylesProvider
-        sx={({ colors, fontFamilyMonospace, fn }) => ({
+        sx={({ colors, fontFamilyMonospace, fontSizes, fn }) => ({
           fontFamily: `${fontFamilyMonospace}`,
-          "> *:first-of-type": {
-            marginTop: `0 !important`,
-          },
-          "> *:last-of-type": {
-            marginBottom: `0 !important`,
-          },
+          "> *:first-child /* emotion-disable-server-rendering-unsafe-selector-warning-please-do-not-use-this-the-warning-exists-for-a-reason */":
+            {
+              marginTop: `0 !important`,
+            },
+          "> *:last-child /* emotion-disable-server-rendering-unsafe-selector-warning-please-do-not-use-this-the-warning-exists-for-a-reason */":
+            {
+              marginBottom: `0 !important`,
+            },
           "h1, h2, h3, h4, h5, h6": {
             fontFamily: `${fontFamilyMonospace}`,
           },
@@ -70,6 +72,20 @@ const ObsidianNoteMarkdown: FC<ObsidianNoteContentProps> = ({
               cursor: "not-allowed",
             },
           },
+          blockquote: {
+            whiteSpace: "pre-line",
+            fontSize: fontSizes.md,
+            paddingTop: 0,
+            paddingBottom: 0,
+          },
+          "blockquote > *:first-child /* emotion-disable-server-rendering-unsafe-selector-warning-please-do-not-use-this-the-warning-exists-for-a-reason */":
+            {
+              marginTop: `0 !important`,
+            },
+          "blockquote > *:last-child /* emotion-disable-server-rendering-unsafe-selector-warning-please-do-not-use-this-the-warning-exists-for-a-reason */":
+            {
+              marginBottom: `0 !important`,
+            },
         })}
       >
         <_Markdown

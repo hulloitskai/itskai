@@ -17,7 +17,7 @@
     "@mantine/modals": "^5.9.4",
     "@mantine/notifications": "^5.9.4",
     "@mantine/nprogress": "^5.9.4",
-    "@mantine/ssr": "^5.8.4",
+    "@mantine/ssr": "^5.9.4",
     "@rails/actioncable": "^7.0.4",
     "@rails/activestorage": "^7.0.4",
     "@svgr/core": "^6.5.1",
