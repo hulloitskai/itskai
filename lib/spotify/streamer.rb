@@ -26,11 +26,6 @@ module Spotify
           previous_track = T.let(task.value, T.nilable(RSpotify::Track))
           update(previous_track:)
         end
-      rescue => error
-        tag_logger do
-          logger.error("Failed to update currently playing: #{error}")
-        end
-        Honeybadger.notify(error)
       end
       @task.add_observer(CurrentlyPlayingSubscriptionTrigger.new)
       @task.execute
@@ -74,6 +69,12 @@ module Spotify
           end
         end
       end
+    rescue => error
+      tag_logger do
+        logger.error("Failed to update currently playing: #{error}")
+      end
+      Honeybadger.notify(error)
+      nil
     end
 
     sig { returns(ActiveSupport::Logger) }
