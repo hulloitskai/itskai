@@ -78,11 +78,11 @@ const TrackCoalescer: FC<TrackCoalescerProps> = ({
   return <>{!!track && children(track)}</>;
 };
 
-type CurrentTrackProps = Pick<BoxProps, "sx"> & {
+type CurrentTrackProps = Omit<BoxProps, "children"> & {
   readonly track: CurrentlyPlayingIslandSpotifyTrackFragment;
 };
 
-const CurrentTrack: FC<CurrentTrackProps> = ({ track, sx }) => {
+const CurrentTrack: FC<CurrentTrackProps> = ({ track, sx, ...otherProps }) => {
   const {
     name,
     url,
@@ -163,6 +163,7 @@ const CurrentTrack: FC<CurrentTrackProps> = ({ track, sx }) => {
           },
         })}
         {...{ sx }}
+        {...otherProps}
       >
         <Text size="xs" color="dark">
           {name}

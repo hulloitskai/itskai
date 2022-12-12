@@ -29,8 +29,11 @@ const AccountEditPageProfileForm: FC<AccountEditPageProfileFormProps> = ({
     {
       onCompleted: ({ payload: { user, errors } }) => {
         if (user) {
-          router.reload();
-          showNotice({ message: "Profile updated!" });
+          router.reload({
+            onSuccess: () => {
+              showNotice({ message: "Profile updated." });
+            },
+          });
         } else {
           invariant(errors);
           setErrors(formErrors(errors));

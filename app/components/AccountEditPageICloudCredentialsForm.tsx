@@ -42,8 +42,11 @@ const AccountEditPageICloudCredentialsForm: FC<
     {
       onCompleted: ({ payload: { icloudCredentials, errors } }) => {
         if (icloudCredentials) {
-          router.reload();
-          showNotice({ message: "You've authenticated with iCloud." });
+          router.reload({
+            onSuccess: () => {
+              showNotice({ message: "You've authenticated with iCloud." });
+            },
+          });
         } else {
           invariant(errors);
           setErrors(formErrors(errors));
