@@ -30,7 +30,7 @@ export type AccountUpdatePayload = {
   __typename?: 'AccountUpdatePayload';
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
-  errors?: Maybe<Array<ValidationError>>;
+  errors?: Maybe<Array<InputFieldError>>;
   user?: Maybe<User>;
 };
 
@@ -57,7 +57,7 @@ export type ICloudCredentialsUpdatePayload = {
   __typename?: 'ICloudCredentialsUpdatePayload';
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
-  errors?: Maybe<Array<ValidationError>>;
+  errors?: Maybe<Array<InputFieldError>>;
   icloudCredentials?: Maybe<ICloudCredentials>;
 };
 
@@ -74,6 +74,12 @@ export type ICloudCredentialsVerifySecurityCodePayload = {
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
   icloudCredentials: ICloudCredentials;
+};
+
+export type InputFieldError = {
+  __typename?: 'InputFieldError';
+  field: Scalars['String'];
+  message: Scalars['String'];
 };
 
 export type Mutation = {
@@ -293,7 +299,7 @@ export type TestMutationPayload = {
   __typename?: 'TestMutationPayload';
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
-  errors?: Maybe<Array<ValidationError>>;
+  errors?: Maybe<Array<InputFieldError>>;
   model?: Maybe<TestModel>;
 };
 
@@ -313,10 +319,4 @@ export type User = Node & {
   isOwner: Scalars['Boolean'];
   name: Scalars['String'];
   unconfirmedEmail?: Maybe<Scalars['String']>;
-};
-
-export type ValidationError = {
-  __typename?: 'ValidationError';
-  field: Scalars['String'];
-  message: Scalars['String'];
 };

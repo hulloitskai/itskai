@@ -88,6 +88,7 @@ module Obsidian
         logger.info("Updating note '#{note.name}'")
         data = parse_with_front_matter(node)
         content, front_matter = data.content, data.front_matter
+        note.synchronized_at = Time.current
         note.display_name = front_matter["display_name"].presence
         note.hidden = front_matter["hidden"].truthy?
         note.modified_at = modified_at
@@ -110,7 +111,12 @@ module Obsidian
       end
     end
 
-    sig { params(note: ObsidianNote, options: T.untyped).returns(T::Boolean) }
+    sig do
+      params(
+        note: ObsidianNote,
+        options: T.untyped,
+      ).returns(T::Boolean)
+    end
     def update_quietly(note, **options)
       update_without_saving(note, **options)
       valid = note.validate

@@ -8,7 +8,7 @@ module Mutations
       const :model, T.nilable(TestModel)
     end
 
-    field :errors, [Types::ValidationErrorType]
+    field :errors, [Types::InputFieldErrorType]
     field :model, Types::TestModelType
 
     argument :birthday, Types::DateType, required: false

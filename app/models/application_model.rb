@@ -20,4 +20,10 @@ class ApplicationModel
   def to_h
     to_hash
   end
+
+  # == GraphQL
+  sig { returns(InputFieldErrors) }
+  def input_field_errors
+    InputFieldErrors.from(errors)
+  end
 end

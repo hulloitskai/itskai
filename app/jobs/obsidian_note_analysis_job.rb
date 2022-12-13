@@ -10,10 +10,9 @@ class ObsidianNoteAnalysisJob < ApplicationJob
   sig { params(force: T::Boolean).void }
   def perform(force: false)
     notes = ObsidianNote.all
-    notes =
-      notes
-        .where(analyzed_at: nil)
-        .or(ObsidianNote.where("analyzed_at < modified_at")) unless force
+    notes = notes
+      .where(analyzed_at: nil)
+      .or(ObsidianNote.where("analyzed_at < modified_at")) unless force
     notes.find_each do |note|
       note = T.let(note, ObsidianNote)
       note.analyze_later

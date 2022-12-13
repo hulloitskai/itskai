@@ -72,6 +72,12 @@ class ApplicationRecord
     serializable_hash(only: keys).symbolize_keys!
   end
 
+  # == GraphQL
+  sig { returns(InputFieldErrors) }
+  def input_field_errors
+    InputFieldErrors.from(errors)
+  end
+
   private
 
   # == Helpers

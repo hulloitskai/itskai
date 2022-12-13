@@ -8,7 +8,7 @@ module Mutations
       const :errors, T.nilable(ActiveModel::Errors)
     end
 
-    field :errors, [Types::ValidationErrorType]
+    field :errors, [Types::InputFieldErrorType]
     field :icloud_credentials, Types::ICloudCredentialsType
 
     argument :email, String

@@ -84,6 +84,11 @@ class ObsidianNote < ApplicationRecord
     Obsidian.synchronize_note(self, force:)
   end
 
+  sig { returns(T::Boolean) }
+  def synchronized?
+    synchronized_at?
+  end
+
   # == Analysis
   sig { params(force: T::Boolean).void }
   def self.analyze_all(force: false)
@@ -112,7 +117,11 @@ class ObsidianNote < ApplicationRecord
 
   sig { returns(T::Boolean) }
   def analysis_required?
-    !analyzed? || T.must(analyzed_at) < modified_at
+    return false unless synchronized?
+    return true unless analyzed?
+    synchronized_at = T.must(self.synchronized_at)
+    analyzed_at = T.must(self.analyzed_at)
+    analyzed_at <= synchronized_at
   end
 
   # == Methods

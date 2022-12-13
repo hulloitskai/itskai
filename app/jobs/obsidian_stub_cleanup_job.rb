@@ -9,6 +9,8 @@ class ObsidianStubCleanupJob < ApplicationJob
 
   sig { void }
   def perform
-    ObsidianStub.where.missing(:incoming_relations).find_each(&:destroy!)
+    ObsidianStub
+      .where.missing(:incoming_relations)
+      .find_each(&:destroy!)
   end
 end

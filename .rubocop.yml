@@ -57,6 +57,8 @@ Layout/ArgumentAlignment:
   EnforcedStyle: with_first_argument
 Layout/BlockAlignment:
   EnforcedStyleAlignWith: start_of_block
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
 Layout/FirstArgumentIndentation:
   Enabled: true
 # Layout/MultilineMethodCallIndentation:

@@ -68,8 +68,8 @@ export type AccountUpdateMutation = (
       { __typename?: 'User' }
       & Pick<Types.User, 'id'>
     )>, errors: Types.Maybe<Array<(
-      { __typename?: 'ValidationError' }
-      & Pick<Types.ValidationError, 'field' | 'message'>
+      { __typename?: 'InputFieldError' }
+      & Pick<Types.InputFieldError, 'field' | 'message'>
     )>> }
   ) }
 );
@@ -198,8 +198,8 @@ export type ICloudCredentialsUpdateMutation = (
       { __typename?: 'ICloudCredentials' }
       & Pick<Types.ICloudCredentials, 'id'>
     )>, errors: Types.Maybe<Array<(
-      { __typename?: 'ValidationError' }
-      & Pick<Types.ValidationError, 'field' | 'message'>
+      { __typename?: 'InputFieldError' }
+      & Pick<Types.InputFieldError, 'field' | 'message'>
     )>> }
   ) }
 );
@@ -413,8 +413,8 @@ export type TestMutation = (
       { __typename?: 'TestModel' }
       & Pick<Types.TestModel, 'id' | 'name' | 'birthday'>
     )>, errors: Types.Maybe<Array<(
-      { __typename?: 'ValidationError' }
-      & Pick<Types.ValidationError, 'field' | 'message'>
+      { __typename?: 'InputFieldError' }
+      & Pick<Types.InputFieldError, 'field' | 'message'>
     )>> }
   ) }
 );

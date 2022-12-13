@@ -12,4 +12,4 @@ export {
   usePageData,
   useRouter,
 } from "./inertia";
-export { formErrors } from "./validation";
+export { formErrors } from "./form";

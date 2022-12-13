@@ -24,6 +24,11 @@ export type ICloudCredentialsVerifySecurityCodePayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type InputFieldErrorKeySpecifier = ('field' | 'message' | InputFieldErrorKeySpecifier)[];
+export type InputFieldErrorFieldPolicy = {
+	field?: FieldPolicy<any> | FieldReadFunction<any>,
+	message?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type MutationKeySpecifier = ('accountUpdate' | 'icloudCredentialsUpdate' | 'icloudCredentialsVerifySecurityCode' | 'testMutation' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	accountUpdate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -164,11 +169,6 @@ export type UserFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	unconfirmedEmail?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ValidationErrorKeySpecifier = ('field' | 'message' | ValidationErrorKeySpecifier)[];
-export type ValidationErrorFieldPolicy = {
-	field?: FieldPolicy<any> | FieldReadFunction<any>,
-	message?: FieldPolicy<any> | FieldReadFunction<any>
-};
 export type StrictTypedTypePolicies = {
 	AccountUpdatePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | AccountUpdatePayloadKeySpecifier | (() => undefined | AccountUpdatePayloadKeySpecifier),
@@ -185,6 +185,10 @@ export type StrictTypedTypePolicies = {
 	ICloudCredentialsVerifySecurityCodePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ICloudCredentialsVerifySecurityCodePayloadKeySpecifier | (() => undefined | ICloudCredentialsVerifySecurityCodePayloadKeySpecifier),
 		fields?: ICloudCredentialsVerifySecurityCodePayloadFieldPolicy,
+	},
+	InputFieldError?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | InputFieldErrorKeySpecifier | (() => undefined | InputFieldErrorKeySpecifier),
+		fields?: InputFieldErrorFieldPolicy,
 	},
 	Mutation?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | MutationKeySpecifier | (() => undefined | MutationKeySpecifier),
@@ -257,10 +261,6 @@ export type StrictTypedTypePolicies = {
 	User?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | UserKeySpecifier | (() => undefined | UserKeySpecifier),
 		fields?: UserFieldPolicy,
-	},
-	ValidationError?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ValidationErrorKeySpecifier | (() => undefined | ValidationErrorKeySpecifier),
-		fields?: ValidationErrorFieldPolicy,
 	}
 };
 export type TypedTypePolicies = StrictTypedTypePolicies & TypePolicies;
