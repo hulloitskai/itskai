@@ -10,14 +10,6 @@ class ApplicationService
   include Singleton
   include Logging
 
-  # == Initialization
-  sig { void }
-  def initialize
-    if Rails.const_defined?(:Server)
-      puts "=> Initializing #{self.class.name}" # rubocop:disable Rails/Output
-    end
-  end
-
   # == Methods
   sig { overridable.returns(T::Boolean) }
   def ready?
@@ -30,7 +22,13 @@ class ApplicationService
     extend T::Sig
     extend T::Helpers
 
-    alias_method :start, :instance
+    sig { returns(T.attached_class) }
+    def start
+      if Rails.const_defined?(:Server)
+        puts "=> Initializing #{name}" # rubocop:disable Rails/Output
+      end
+      instance
+    end
 
     sig { returns(T::Boolean) }
     def ready?

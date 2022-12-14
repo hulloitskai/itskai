@@ -20,7 +20,7 @@ class CurrentlyPlaying
       if Spotify.ready?
         tag_logger { logger.debug("Polling") }
       else
-        tag_logger { logger.warn("Skipping (Spotify isn't ready)") }
+        tag_logger { logger.warn("Spotify not ready; skipping") }
         return
       end
       Spotify.currently_playing.tap do |track|

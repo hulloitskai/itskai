@@ -11,7 +11,7 @@ module Queries
 
     sig { returns(T.nilable(RSpotify::Track)) }
     def resolve
-      ::CurrentlyPlaying.current_track
+      ::CurrentlyPlaying.current_track if ::CurrentlyPlaying.ready?
     end
   end
 end

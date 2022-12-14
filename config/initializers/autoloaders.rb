@@ -1,3 +1,6 @@
+# typed: strict
 # frozen_string_literal: true
 
-Rails.autoloaders.log!
+if ENV["RAILS_LOG_AUTOLOADERS"].truthy?
+  Rails.autoloaders.log!
+end

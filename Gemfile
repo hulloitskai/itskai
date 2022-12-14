@@ -10,7 +10,11 @@ gem "rails", "~> 7.0.3", ">= 7.0.3.1"
 gem "pg", "~> 1.4"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 6.0"
+#
+# TODO: Upgrade to Puma 6 when https://github.com/puma/puma/issues/2999 is
+# resolved.
+gem "puma", "~> 5.6"
+
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails", "~> 3.4"
@@ -184,7 +188,7 @@ group :development do
   gem "better_errors"
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
+  gem "spring"
 
   # Annotate models and routes
   gem "annotate", require: false

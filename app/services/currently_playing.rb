@@ -24,7 +24,12 @@ class CurrentlyPlaying < ApplicationService
     @task.add_observer(SubscriptionsTrigger.new)
   end
 
-  # == Lifecycle
+  # == Service
+  sig { override.returns(T::Boolean) }
+  def ready?
+    Spotify.ready?
+  end
+
   sig { void }
   def start
     return if task.running?
@@ -52,11 +57,6 @@ end
 class CurrentlyPlaying
   class << self
     # == Service
-    sig { override.returns(T::Boolean) }
-    def ready?
-      Spotify.ready? && super
-    end
-
     sig { override.returns(T.attached_class) }
     def start = super.tap(&:start)
 
