@@ -1,9 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-require_relative "drive/node"
-
-module ICloud
+class ICloud
   class Drive
     extend T::Sig
 

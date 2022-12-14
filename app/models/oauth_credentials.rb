@@ -25,9 +25,7 @@ class OAuthCredentials < ApplicationRecord
 
   # == Methods: Spotify
   sig { returns(T.nilable(OAuthCredentials)) }
-  def self.spotify
-    find_by(provider: :spotify)
-  end
+  def self.spotify = find_by(provider: :spotify)
 
   sig { returns(OAuthCredentials) }
   def self.spotify!

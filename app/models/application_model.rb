@@ -12,18 +12,12 @@ class ApplicationModel
 
   # == Serialization
   sig { overridable.returns(T::Hash[String, T.untyped]) }
-  def to_hash
-    attributes
-  end
+  def to_hash = attributes
 
   sig { returns(T::Hash[String, T.untyped]) }
-  def to_h
-    to_hash
-  end
+  def to_h = to_hash
 
   # == GraphQL
   sig { returns(InputFieldErrors) }
-  def input_field_errors
-    InputFieldErrors.from(errors)
-  end
+  def input_field_errors = InputFieldErrors.from(errors)
 end

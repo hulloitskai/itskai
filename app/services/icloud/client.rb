@@ -1,23 +1,25 @@
 # typed: strict
 # frozen_string_literal: true
 
-require "pycall_ext"
-
-module ICloud
+class ICloud
   class Client
     extend T::Sig
 
-    PyClient = T.let(PyCall.import_module("icloud").ICloud, T.untyped)
+    # == Constants
+    PyICloud = T.let(PyCall.import_module("icloud").ICloud, T.untyped)
+
+    # == Concerns
+    include Logging
 
     sig { params(credentials: ICloudCredentials).void }
     def initialize(credentials:)
       @credentials = credentials
       restore_credentials
       @pyicloud = T.let(
-        PyClient.new(
+        PyICloud.new(
           email: @credentials.email,
           password: @credentials.password,
-          cookie_directory: ICloud.credentials_dir,
+          cookie_directory: ICloud.credentials_dir.to_s,
         ),
         T.untyped,
       )

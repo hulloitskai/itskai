@@ -23,13 +23,10 @@ module Mutations
       if credentials.nil?
         raise GraphQL::ExecutionError, "Missing iCloud credentials."
       end
-
       authorize!(credentials, to: :edit?)
       unless ICloud.verify_security_code(code)
         raise GraphQL::ExecutionError, "Invalid security code."
       end
-
-      ObsidianNote.synchronize_all_later
       Payload.new(icloud_credentials: credentials)
     end
   end

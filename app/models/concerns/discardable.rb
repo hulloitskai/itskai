@@ -10,7 +10,7 @@ module Discardable
 
   extend ActiveSupport::Concern
 
-  # == Discard
+  # == Modules
   include Discard::Model
 
   included do

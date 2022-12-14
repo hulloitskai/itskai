@@ -11,7 +11,7 @@ module Queries
 
     sig { returns(T.nilable(RSpotify::Track)) }
     def resolve
-      Spotify.streamer&.current_track
+      ::CurrentlyPlaying.current_track
     end
   end
 end

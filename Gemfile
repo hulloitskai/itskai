@@ -159,7 +159,7 @@ group :development do
   gem "listen", "~> 3.7"
 
   # Typecheck code
-  gem "sorbet", "~> 0.5.10554", require: false
+  gem "sorbet", "0.5.10576", require: false
   gem "tapioca", "~> 0.10.3", require: false
 
   # Use Rubocop to lint code

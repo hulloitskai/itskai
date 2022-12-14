@@ -2,6 +2,63 @@
 # frozen_string_literal: true
 
 class ApplicationRecord < ActiveRecord::Base
+  extend T::Sig
+
+  primary_abstract_class
+
+  # == Enumerize
+  extend Enumerize
+
+  # == Sorbet
+  # Support runtime type-checking for Sorbet-generated types.
+  PrivateRelation = ActiveRecord::Relation
+  PrivateRelationWhereChain = ActiveRecord::Relation
+  PrivateAssociationRelation = ActiveRecord::AssociationRelation
+  PrivateAssociationRelationWhereChain = ActiveRecord::AssociationRelation
+  PrivateCollectionProxy = ActiveRecord::Associations::CollectionProxy
+
+  # == Scopes
+  scope :chronological, -> { order(:created_at) }
+  scope :reverse_chronological, -> { order(created_at: :desc) }
+
+  # == Serialization
+  sig { overridable.returns(T::Hash[String, T.untyped]) }
+  def to_hash = build_hash
+
+  sig { returns(T::Hash[String, T.untyped]) }
+  def to_h = to_hash
+
+  # == Pattern Matching
+  sig do
+    params(keys: T.nilable(T::Array[Symbol]))
+      .returns(T::Hash[Symbol, T.untyped])
+  end
+  def deconstruct_keys(keys = [])
+    serializable_hash(only: keys).symbolize_keys!
+  end
+
+  # == GraphQL
+  sig { returns(InputFieldErrors) }
+  def input_field_errors = InputFieldErrors.from(errors)
+
+  private
+
+  # == Helpers
+  sig do
+    params(hash: T.nilable(T::Hash[String, T.untyped]), options: T.untyped)
+      .returns(T::Hash[String, T.untyped])
+  end
+  def build_hash(hash = nil, **options)
+    default_options = { except: self.class.filter_attributes }
+    options = default_options.deep_merge(options)
+    hash = serializable_hash(options).with_indifferent_access
+    hash.deep_merge!(hash) if hash.present?
+    hash.compact_blank!
+    hash
+  end
+end
+
+class ApplicationRecord
   class << self
     extend T::Sig
 
@@ -29,68 +86,5 @@ class ApplicationRecord < ActiveRecord::Base
         end
       end
     end
-  end
-end
-
-class ApplicationRecord
-  extend T::Sig
-
-  primary_abstract_class
-
-  # == Enumerize
-  extend Enumerize
-
-  # == Sorbet
-  # Support runtime type-checking for Sorbet-generated types.
-  PrivateRelation = ActiveRecord::Relation
-  PrivateRelationWhereChain = ActiveRecord::Relation
-  PrivateAssociationRelation = ActiveRecord::AssociationRelation
-  PrivateAssociationRelationWhereChain = ActiveRecord::AssociationRelation
-  PrivateCollectionProxy = ActiveRecord::Associations::CollectionProxy
-
-  # == Scopes
-  scope :chronological, -> { order(:created_at) }
-  scope :reverse_chronological, -> { order(created_at: :desc) }
-
-  # == Serialization
-  sig { overridable.returns(T::Hash[String, T.untyped]) }
-  def to_hash
-    build_hash
-  end
-
-  sig { returns(T::Hash[String, T.untyped]) }
-  def to_h
-    to_hash
-  end
-
-  # == Pattern Matching
-  sig do
-    params(keys: T.nilable(T::Array[Symbol]))
-      .returns(T::Hash[Symbol, T.untyped])
-  end
-  def deconstruct_keys(keys = [])
-    serializable_hash(only: keys).symbolize_keys!
-  end
-
-  # == GraphQL
-  sig { returns(InputFieldErrors) }
-  def input_field_errors
-    InputFieldErrors.from(errors)
-  end
-
-  private
-
-  # == Helpers
-  sig do
-    params(hash: T.nilable(T::Hash[String, T.untyped]), options: T.untyped)
-      .returns(T::Hash[String, T.untyped])
-  end
-  def build_hash(hash = nil, **options)
-    default_options = { except: self.class.filter_attributes }
-    options = default_options.deep_merge(options)
-    hash = serializable_hash(options).with_indifferent_access
-    hash.deep_merge!(hash) if hash.present?
-    hash.compact_blank!
-    hash
   end
 end

@@ -7779,12 +7779,15 @@ class ActiveRecord::Base
   include ::ActiveRecord::SignedId
   include ::ActiveRecord::Suppressor
   include ::ActiveRecord::Encryption::EncryptableRecord
+  include ::FriendlyId::UnfriendlyUtils
+  include ::ActiveStorageValidations
   extend ::ActiveModel::Naming
   extend ::ActiveSupport::Benchmarkable
   extend ::ActiveSupport::DescendantsTracker
   extend ::ActiveRecord::ConnectionHandling
   extend ::ActiveRecord::QueryCache::ClassMethods
   extend ::ActiveRecord::Querying
+  extend ::ActiveRecordExtended::RelationPatch::QueryDelegation
   extend ::ActiveModel::Translation
   extend ::ActiveRecord::Translation
   extend ::ActiveRecord::DynamicMatchers
@@ -28152,7 +28155,7 @@ class ActiveRecord::PredicateBuilder::ArrayHandler
   # source://activerecord//lib/active_record/relation/predicate_builder/array_handler.rb#8
   def initialize(predicate_builder); end
 
-  # source://activerecord//lib/active_record/relation/predicate_builder/array_handler.rb#12
+  # source://active_record_extended/2.2.0/lib/active_record_extended/predicate_builder/array_handler_decorator.rb#8
   def call(attribute, value); end
 
   private
@@ -29792,6 +29795,9 @@ class ActiveRecord::QueryMethods::WhereChain
   #
   # source://activerecord//lib/active_record/relation/query_methods.rb#76
   def associated(*associations); end
+
+  # source://active_record_extended/2.2.0/lib/active_record_extended/query_methods/where_chain.rb#127
+  def build_where_chain(opts, rest, &block); end
 
   # Returns a new relation with left outer joins and where clause to identify
   # missing relations.
@@ -32170,7 +32176,7 @@ class ActiveRecord::Relation::Merger
   # source://activerecord//lib/active_record/relation/merger.rb#47
   def initialize(relation, other, rewhere = T.unsafe(nil)); end
 
-  # source://activerecord//lib/active_record/relation/merger.rb#60
+  # source://active_record_extended/2.2.0/lib/active_record_extended/active_record/relation_patch.rb#16
   def merge; end
 
   # Returns the value of attribute other.
@@ -38816,13 +38822,22 @@ end
 
 # source://activerecord//lib/arel/predications.rb#4
 module Arel::Predications
+  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#12
+  def all(other); end
+
+  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#7
+  def any(other); end
+
   # source://activerecord//lib/arel/predications.rb#37
   def between(other); end
 
   # source://activerecord//lib/arel/predications.rb#213
   def concat(other); end
 
-  # source://activerecord//lib/arel/predications.rb#217
+  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#26
+  def contained_in_array(other); end
+
+  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#22
   def contains(other); end
 
   # source://activerecord//lib/arel/predications.rb#145
@@ -38872,6 +38887,21 @@ module Arel::Predications
 
   # source://activerecord//lib/arel/predications.rb#74
   def in_any(others); end
+
+  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#38
+  def inet_contained_within(other); end
+
+  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#42
+  def inet_contained_within_or_equals(other); end
+
+  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#30
+  def inet_contains(other); end
+
+  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#46
+  def inet_contains_or_equals(other); end
+
+  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#34
+  def inet_contains_or_is_contained_within(other); end
 
   # source://activerecord//lib/arel/predications.rb#25
   def is_distinct_from(other); end
@@ -38930,7 +38960,10 @@ module Arel::Predications
   # source://activerecord//lib/arel/predications.rb#121
   def not_in_any(others); end
 
-  # source://activerecord//lib/arel/predications.rb#221
+  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#17
+  def overlap(other); end
+
+  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#17
   def overlaps(other); end
 
   # source://activerecord//lib/arel/predications.rb#225

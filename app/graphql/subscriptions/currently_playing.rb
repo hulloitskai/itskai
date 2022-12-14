@@ -13,12 +13,12 @@ module Subscriptions
     # == Callbacks
     sig { returns(T.nilable(RSpotify::Track)) }
     def subscribe
-      Spotify.streamer&.current_track
+      ::CurrentlyPlaying.current_track
     end
 
     sig { returns(T.nilable(RSpotify::Track)) }
     def update
-      Spotify.streamer&.current_track
+      ::CurrentlyPlaying.current_track
     end
   end
 end

@@ -79,15 +79,25 @@ class ObsidianNote < ApplicationRecord
     ObsidianNoteSynchronizationJob.perform_later(force:)
   end
 
+  sig { returns(T::Boolean) }
+  def synchronization_required?
+    file = Obsidian.note_file(name)
+    file.nil? || file.modified_at! > modified_at
+  end
+
   sig { params(force: T::Boolean).void }
   def synchronize(force: false)
-    Obsidian.synchronize_note(self, force:)
+    return if !force && !synchronization_required?
+    ObsidianNoteSynchronizeJob.perform_now(self, force:)
+  end
+
+  sig { params(force: T::Boolean).void }
+  def synchronize_later(force: false)
+    ObsidianNoteSynchronizeJob.perform_later(self, force:)
   end
 
   sig { returns(T::Boolean) }
-  def synchronized?
-    synchronized_at?
-  end
+  def synchronized? = synchronized_at?
 
   # == Analysis
   sig { params(force: T::Boolean).void }
@@ -111,9 +121,7 @@ class ObsidianNote < ApplicationRecord
   end
 
   sig { returns(T::Boolean) }
-  def analyzed?
-    analyzed_at?
-  end
+  def analyzed? = analyzed_at?
 
   sig { returns(T::Boolean) }
   def analysis_required?
@@ -126,9 +134,7 @@ class ObsidianNote < ApplicationRecord
 
   # == Methods
   sig { override.returns(String) }
-  def display_name
-    super || aliases.first || name
-  end
+  def display_name = super || aliases.first || name
 
   private
 

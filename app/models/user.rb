@@ -58,9 +58,7 @@ class User < ApplicationRecord
   end
 
   sig { returns(T.nilable(User)) }
-  def self.owner
-    find_by(email: owner_email)
-  end
+  def self.owner = find_by(email: owner_email)
 
   sig { returns(User) }
   def self.owner!

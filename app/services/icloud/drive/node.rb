@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-module ICloud
+class ICloud
   class Drive
     class Node
       extend T::Sig
@@ -46,12 +46,10 @@ module ICloud
         end
       end
 
-      # sig { returns(T.nilable(Time)) }
-      # def changed_at
-      #   @pynode.date_changed.try! do |datetime|
-      #     Time.at(datetime.timestamp).utc
-      #   end
-      # end
+      sig { returns(ActiveSupport::TimeWithZone) }
+      def modified_at!
+        T.must(modified_at)
+      end
 
       protected
 

@@ -26,8 +26,7 @@ class ObsidianRelation < ApplicationRecord
   include Identifiable
 
   # == Associations
-  belongs_to :from, class_name: "ObsidianNote",
-inverse_of: :outgoing_relations
+  belongs_to :from, class_name: "ObsidianNote", inverse_of: :outgoing_relations
   belongs_to :to, polymorphic: true
 
   # == Validations

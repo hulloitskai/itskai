@@ -21,9 +21,7 @@ module Slugged
     extend T::Sig
 
     sig { returns(Integer) }
-    def slug_length
-      @slug_length || 16
-    end
+    def slug_length = @slug_length || 16
 
     sig { params(size: Integer).returns(Integer) }
     def slug_length=(size)

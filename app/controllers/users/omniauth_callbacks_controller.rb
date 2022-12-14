@@ -24,16 +24,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     )
     credentials.refresh_token = auth.fetch("credentials").fetch("refresh_token")
     credentials.save!
-    credentials
-      .tap do |provider|
-        provider = T.let(provider, OAuthCredentials)
-        provider => { uid:, refresh_token: }
-        logger.info(
-          "Authenticated with Spotify (uid: #{uid}, refresh_token: " \
-            "#{refresh_token})",
-        )
-      end
-    Spotify.initialize!(stream: true)
+    credentials.tap do |provider|
+      provider = T.let(provider, OAuthCredentials)
+      provider => { uid:, refresh_token: }
+      logger.info(
+        "Authenticated with Spotify (uid: #{uid}, refresh_token: " \
+          "#{refresh_token})",
+      )
+    end
+    Spotify.authenticate!(credentials)
     if is_navigational_format?
       set_flash_message(:notice, :success, kind: "Spotify")
     end

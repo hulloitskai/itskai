@@ -6,4 +6,7 @@ class FrontMatterParser::Parsed
 
   sig { returns(T::Hash[String, T.untyped]) }
   def front_matter; end
+
+  sig { params(key: String).returns(T.untyped) }
+  def [](key); end
 end

@@ -28,11 +28,6 @@ module ItsKai
       require "friendly_id_ext"
       require "graphql_ext"
       require "premailer_ext"
-
-      # == Libraries
-      require "icloud"
-      require "obsidian"
-      require "spotify"
     end
 
     # Initialize configuration defaults for originally generated Rails version.
@@ -109,7 +104,8 @@ module ItsKai
     config.active_support.remove_deprecated_time_with_zone_name = true
 
     # == Action Mailer
-    config.action_mailer.perform_deliveries =
-      ENV.fetch("RAILS_MAILER_PERFORM_DELIVERIES", true).truthy?
+    config.action_mailer.perform_deliveries = ENV.fetch(
+      "RAILS_MAILER_PERFORM_DELIVERIES", true
+    ).truthy?
   end
 end

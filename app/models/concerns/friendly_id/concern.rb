@@ -14,7 +14,7 @@ module FriendlyId
     extend ActiveSupport::Concern
 
     included do
-      # == FriendlyId
+      # == Modules
       extend FriendlyId unless respond_to?(:friendly)
     end
   end
