@@ -5,6 +5,7 @@ dist/
 db/schema.rb
 log/
 node_modules/
+public/assets/
 public/dist*
 sorbet/rbi/dsl/
 sorbet/rbi/gems/

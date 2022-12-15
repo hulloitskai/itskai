@@ -33,10 +33,7 @@
         <meta name="honeybadger-revision" content="<%= revision %>">
       <% end %>
       <% if user_signed_in? %>
-        <meta
-          name="honeybadger-context"
-          content="<%= current_user.honeybadger_context.to_json %>"
-        >
+        <meta name="honeybadger-context" content="<%= current_user.honeybadger_context.to_json %>">
       <% end %>
     <% end %>
 
@@ -44,10 +41,7 @@
     <% ENV["FULLSTORY_ORG_ID"].presence.try! do |org_id| %>
       <meta name="fullstory-org-id" content="<%= org_id %>">
       <% if user_signed_in? %>
-        <meta
-          name="fullstory-identity"
-          content="<%= current_user.fullstory_identity.to_json %>"
-        >
+        <meta name="fullstory-identity" content="<%= current_user.fullstory_identity.to_json %>">
       <% end %>
     <% end %>
 
@@ -64,13 +58,24 @@
       },
     ) %>
 
-    <%# == Scripts %>
+    <%# == Scripts: Application %>
     <%= vite_client_tag %>
     <%= vite_typescript_tag 'honeybadger' %>
     <%= vite_typescript_tag 'fullstory' %>
     <% if local_assigns.include?(:page) %>
       <%= vite_react_refresh_tag %>
       <%= vite_typescript_tag 'application' %>
+    <% end %>
+
+    <%# == Scripts: Google Analytics %>
+    <% ENV["GOOGLE_ANALYTICS_MEASUREMENT_ID"].presence.try! do |measurement_id| %>
+      <script src="https://www.googletagmanager.com/gtag/js?id=<%= measurement_id %>" async></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag("js", new Date());
+        gtag("config", "<%= measurement_id %>");
+      </script>
     <% end %>
 
     <%# == Inertia %>
