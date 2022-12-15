@@ -13,6 +13,8 @@ processes = []
   POSTGRES_DATABASE = "itskai"
   SPOTIFY_CLIENT_ID = "0a0f796dd227445787b5cc019a749555"
   MAILJET_API_KEY = "c8aa7cafd6972ffe6718fcfab344b547"
+  FULLSTORY_ORG_ID = "o-1CGMZ5-na1"
+  GOOGLE_ANALYTICS_MEASUREMENT_ID = "G-MFGZXQLMM9"
 
 [experimental]
   allowed_public_ports = []
