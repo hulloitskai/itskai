@@ -13,10 +13,10 @@ class ObsidianNoteSynchronizeJob < ApplicationJob
     updated_note = Obsidian.note(note.name)
     if updated_note.nil?
       note.destroy!
-      logger.info("Destroyed note")
+      logger.info("Destroyed note '#{note.name}'")
     else
       updated_note.save!
-      logger.info("Updated note")
+      logger.info("Updated note '#{note.name}'")
     end
   end
 end

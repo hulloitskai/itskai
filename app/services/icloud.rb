@@ -20,7 +20,7 @@ class ICloud < ApplicationService
   sig { override.returns(T::Boolean) }
   def ready?
     client = self.client or return false
-    client.requires_security_code?
+    !client.requires_security_code?
   end
 
   sig { params(credentials: ICloudCredentials).void }

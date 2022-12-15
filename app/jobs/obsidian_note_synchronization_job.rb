@@ -30,7 +30,7 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
   sig { params(new_note_names: T::Array[String]).void }
   def create_notes(new_note_names:)
     new_note_names.each do |name|
-      Obsidian.note(name).tap do |note|
+      Obsidian.note(name).try! do |note|
         note = T.let(note, ObsidianNote)
         if note.save
           logger.info("Created note '#{note.name}'")
