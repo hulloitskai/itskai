@@ -80,6 +80,7 @@ const AppLayout: FC<AppLayoutProps> = ({
             paddingBottom: typeof padding === "number" ? padding : 16,
           },
         }}
+        {...{ padding }}
         {...otherProps}
       >
         {content}
