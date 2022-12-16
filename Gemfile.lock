@@ -198,7 +198,6 @@ GEM
       railties (> 5.0)
       rouge (~> 3.0)
     hashie (5.0.0)
-    honeybadger (4.12.2)
     htmlentities (4.3.4)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
@@ -423,6 +422,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentry-rails (5.7.0)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.7.0)
+    sentry-ruby (5.7.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     silencer (2.0.0)
     snaky_hash (2.0.1)
       hashie
@@ -525,7 +529,6 @@ DEPENDENCIES
   annotate
   aws-sdk-s3 (~> 1.117)
   better_errors
-  binding_of_caller
   bootsnap
   break
   bullet
@@ -546,7 +549,6 @@ DEPENDENCIES
   graphql (~> 2.0)
   graphql-persisted_queries (~> 1.6)
   graphql-rails_logger
-  honeybadger (~> 4.12)
   httparty (~> 0.20.0)
   image_processing (~> 1.2)
   inertia_rails (~> 3.0)
@@ -582,6 +584,7 @@ DEPENDENCIES
   ruby-lsp
   ruby-vips (~> 2.1)
   selenium-webdriver
+  sentry-rails
   silencer (~> 2.0)
   sorbet (= 0.5.10576)
   sorbet-runtime (~> 0.5.10554)

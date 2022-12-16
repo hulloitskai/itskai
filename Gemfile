@@ -59,9 +59,8 @@ gem "concurrent-ruby", "~> 1.1"
 # Perform HTTP requests with HTTParty
 gem "httparty", "~> 0.20.0"
 
-# Use Honeybadger for error reporting
-gem "honeybadger", "~> 4.12"
-gem "binding_of_caller"
+# Use Sentry for error reporting
+gem "sentry-rails"
 
 # Show a healthcheck route
 gem "rails-healthcheck"

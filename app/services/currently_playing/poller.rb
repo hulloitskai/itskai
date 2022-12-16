@@ -33,7 +33,7 @@ class CurrentlyPlaying
       end
     rescue => error
       tag_logger { logger.error("Error: #{error}") }
-      Honeybadger.notify(error)
+      # Honeybadger.notify(error)
       nil
     end
 

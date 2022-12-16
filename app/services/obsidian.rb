@@ -71,7 +71,7 @@ class Obsidian < ApplicationService
       end
     end
     logger.error("Failed to read note '#{name}': #{message}")
-    Honeybadger.notify(message, backtrace: error.backtrace)
+    # Honeybadger.notify(message, backtrace: error.backtrace)
     nil
   end
 

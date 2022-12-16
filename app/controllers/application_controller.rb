@@ -29,8 +29,8 @@ class ApplicationController < ActionController::Base
   sig { void }
   def set_honeybadger_context
     current_user.try! do |user|
-      user = T.let(user, User)
-      Honeybadger.context(user_id: user.id, user_email: user.email)
+      # user = T.let(user, User)
+      # Honeybadger.context(user_id: user.id, user_email: user.email)
     end
   end
 
