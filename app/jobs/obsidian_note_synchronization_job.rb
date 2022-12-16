@@ -16,7 +16,7 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
     orphaned_note_names = existing_names - incoming_note_names
     cleanup_notes(orphaned_note_names:)
     create_notes(new_note_names:)
-    update_notes(existing_notes:)
+    update_notes(existing_notes:, force:)
   end
 
   private
@@ -42,9 +42,10 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
     end
   end
 
-  sig { params(existing_notes: T::Array[ObsidianNote]).void }
-  def update_notes(existing_notes:)
+  sig { params(existing_notes: T::Array[ObsidianNote], force: T::Boolean).void }
+  def update_notes(existing_notes:, force:)
     existing_notes.each do |note|
+      next if !note.synchronization_required? && !force
       updated_note = Obsidian.note!(note.name)
       if updated_note.save
         logger.info("Updated note '#{note.name}'")
