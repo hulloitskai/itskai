@@ -893,168 +893,421 @@ end
 # source://actionmailbox//lib/action_mailbox/mail_ext/address_equality.rb#3
 module Mail
   class << self
-    # source://mail/2.7.1/lib/mail/mail.rb#163
+    # Receive all emails from the default retriever
+    # See Mail::Retriever for a complete documentation.
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#163
     def all(*args, &block); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#183
+    # source://mail/2.8.0/lib/mail/mail.rb#183
     def connection(&block); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#98
+    # Sets the default delivery method and retriever method for all new Mail objects.
+    # The delivery_method and retriever_method default to :smtp and :pop3, with defaults
+    # set.
+    #
+    # So sending a new email, if you have an SMTP server running on localhost is
+    # as easy as:
+    #
+    #   Mail.deliver do
+    #     to      'mikel@test.lindsaar.net'
+    #     from    'bob@test.lindsaar.net'
+    #     subject 'hi there!'
+    #     body    'this is a body'
+    #   end
+    #
+    # If you do not specify anything, you will get the following equivalent code set in
+    # every new mail object:
+    #
+    #   Mail.defaults do
+    #     delivery_method :smtp, { :address              => "localhost",
+    #                              :port                 => 25,
+    #                              :domain               => 'localhost.localdomain',
+    #                              :user_name            => nil,
+    #                              :password             => nil,
+    #                              :authentication       => nil,
+    #                              :enable_starttls_auto => true  }
+    #
+    #     retriever_method :pop3, { :address             => "localhost",
+    #                               :port                => 995,
+    #                               :user_name           => nil,
+    #                               :password            => nil,
+    #                               :enable_ssl          => true }
+    #   end
+    #
+    #   Mail.delivery_method.new  #=> Mail::SMTP instance
+    #   Mail.retriever_method.new #=> Mail::POP3 instance
+    #
+    # Each mail object inherits the default set in Mail.delivery_method, however, on
+    # a per email basis, you can override the method:
+    #
+    #   mail.delivery_method :smtp
+    #
+    # Or you can override the method and pass in settings:
+    #
+    #   mail.delivery_method :smtp, :address => 'some.host'
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#98
     def defaults(&block); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#174
+    # Delete all emails from the default retriever
+    # See Mail::Retriever for a complete documentation.
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#174
     def delete_all(*args, &block); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#131
+    # Send an email using the default configuration.  You do need to set a default
+    # configuration first before you use self.deliver, if you don't, an appropriate
+    # error will be raised telling you to.
+    #
+    # If you do not specify a delivery type, SMTP will be used.
+    #
+    #  Mail.deliver do
+    #   to 'mikel@test.lindsaar.net'
+    #   from 'ada@test.lindsaar.net'
+    #   subject 'This is a test email'
+    #   body 'Not much to say here'
+    #  end
+    #
+    # You can also do:
+    #
+    #  mail = Mail.read('email.eml')
+    #  mail.deliver!
+    #
+    # And your email object will be created and sent.
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#131
     def deliver(*args, &block); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#103
+    # Returns the delivery method selected, defaults to an instance of Mail::SMTP
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#103
     def delivery_method; end
 
-    # source://mail/2.7.1/lib/mail.rb#53
+    # This runs through the autoload list and explictly requires them for you.
+    # Useful when running mail in a threaded process.
+    #
+    # Usage:
+    #
+    #   require 'mail'
+    #   Mail.eager_autoload!
+    #
+    # source://mail/2.8.0/lib/mail.rb#35
     def eager_autoload!; end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#139
+    # Find emails from the default retriever
+    # See Mail::Retriever for a complete documentation.
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#139
     def find(*args, &block); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#145
+    # Finds and then deletes retrieved emails from the default retriever
+    # See Mail::Retriever for a complete documentation.
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#145
     def find_and_delete(*args, &block); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#151
+    # Receive the first email(s) from the default retriever
+    # See Mail::Retriever for a complete documentation.
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#151
     def first(*args, &block); end
 
     # source://actionmailbox//lib/action_mailbox/mail_ext/from_source.rb#4
     def from_source(source); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#233
+    # source://mail/2.8.0/lib/mail/mail.rb#233
     def inform_interceptors(mail); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#227
+    # source://mail/2.8.0/lib/mail/mail.rb#227
     def inform_observers(mail); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#157
+    # Receive the first email(s) from the default retriever
+    # See Mail::Retriever for a complete documentation.
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#157
     def last(*args, &block); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#50
+    # Allows you to create a new Mail::Message object.
+    #
+    # You can make an email via passing a string or passing a block.
+    #
+    # For example, the following two examples will create the same email
+    # message:
+    #
+    # Creating via a string:
+    #
+    #  string = "To: mikel@test.lindsaar.net\r\n"
+    #  string << "From: bob@test.lindsaar.net\r\n"
+    #  string << "Subject: This is an email\r\n"
+    #  string << "\r\n"
+    #  string << "This is the body"
+    #  Mail.new(string)
+    #
+    # Or creating via a block:
+    #
+    #  message = Mail.new do
+    #    to 'mikel@test.lindsaar.net'
+    #    from 'bob@test.lindsaar.net'
+    #    subject 'This is an email'
+    #    body 'This is the body'
+    #  end
+    #
+    # Or creating via a hash (or hash like object):
+    #
+    #  message = Mail.new({:to => 'mikel@test.lindsaar.net',
+    #                      'from' => 'bob@test.lindsaar.net',
+    #                      :subject => 'This is an email',
+    #                      :body => 'This is the body' })
+    #
+    # Note, the hash keys can be strings or symbols, the passed in object
+    # does not need to be a hash, it just needs to respond to :each_pair
+    # and yield each key value pair.
+    #
+    # As a side note, you can also create a new email through creating
+    # a Mail::Message object directly and then passing in values via string,
+    # symbol or direct method calls.  See Mail::Message for more information.
+    #
+    #  mail = Mail.new
+    #  mail.to = 'mikel@test.lindsaar.net'
+    #  mail[:from] = 'bob@test.lindsaar.net'
+    #  mail['subject'] = 'This is an email'
+    #  mail.body = 'This is the body'
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#50
     def new(*args, &block); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#243
+    # source://mail/2.8.0/lib/mail/mail.rb#243
     def random_tag; end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#168
+    # Reads in an email message from a path and instantiates it as a new Mail::Message
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#168
     def read(filename); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#179
+    # Instantiates a new Mail::Message using a string
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#179
     def read_from_string(mail_as_string); end
 
-    # source://mail/2.7.1/lib/mail.rb#41
+    # source://mail/2.8.0/lib/mail.rb#23
     def register_autoload(name, path); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#215
+    # You can register an object to be given every mail object that will be sent,
+    # before it is sent.  So if you want to add special headers or modify any
+    # email that gets sent through the Mail library, you can do so.
+    #
+    # Your object needs to respond to a single method #delivering_email(mail)
+    # which receives the email that is about to be sent.  Make your modifications
+    # directly to this object.
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#215
     def register_interceptor(interceptor); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#196
+    # You can register an object to be informed of every email that is sent through
+    # this method.
+    #
+    # Your object needs to respond to a single method #delivered_email(mail)
+    # which receives the email that is sent.
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#196
     def register_observer(observer); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#108
+    # Returns the retriever method selected, defaults to an instance of Mail::POP3
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#108
     def retriever_method; end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#252
+    # source://mail/2.8.0/lib/mail/mail.rb#252
     def something_random; end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#256
+    # source://mail/2.8.0/lib/mail/mail.rb#256
     def uniq; end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#223
+    # Unregister the given interceptor, allowing mail to resume operations
+    # without it.
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#223
     def unregister_interceptor(interceptor); end
 
-    # source://mail/2.7.1/lib/mail/mail.rb#204
+    # Unregister the given observer, allowing mail to resume operations
+    # without it.
+    #
+    # source://mail/2.8.0/lib/mail/mail.rb#204
     def unregister_observer(observer); end
   end
 end
 
+# Mail::Address handles all email addresses in Mail.  It takes an email address string
+# and parses it, breaking it down into its component parts and allowing you to get the
+# address, comments, display name, name, local part, domain part and fully formatted
+# address.
+#
+# Mail::Address requires a correctly formatted email address per RFC2822 or RFC822.  It
+# handles all obsolete versions including obsolete domain routing on the local part.
+#
+#  a = Address.new('Mikel Lindsaar (My email address) <mikel@test.lindsaar.net>')
+#  a.format       #=> 'Mikel Lindsaar <mikel@test.lindsaar.net> (My email address)'
+#  a.address      #=> 'mikel@test.lindsaar.net'
+#  a.display_name #=> 'Mikel Lindsaar'
+#  a.local        #=> 'mikel'
+#  a.domain       #=> 'test.lindsaar.net'
+#  a.comments     #=> ['My email address']
+#  a.to_s         #=> 'Mikel Lindsaar <mikel@test.lindsaar.net> (My email address)'
+#
 # source://actionmailbox//lib/action_mailbox/mail_ext/address_equality.rb#4
 class Mail::Address
-  include ::Mail::Constants
-
-  # source://mail/2.7.1/lib/mail/elements/address.rb#25
+  # @return [Address] a new instance of Address
+  #
+  # source://mail/2.8.0/lib/mail/elements/address.rb#25
   def initialize(value = T.unsafe(nil)); end
 
   # source://actionmailbox//lib/action_mailbox/mail_ext/address_equality.rb#5
   def ==(other_address); end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#65
+  # Returns the address that is in the address itself.  That is, the
+  # local@domain string, without any angle brackets or the like.
+  #
+  #  a = Address.new('Mikel Lindsaar (My email address) <mikel@test.lindsaar.net>')
+  #  a.address #=> 'mikel@test.lindsaar.net'
+  #
+  # source://mail/2.8.0/lib/mail/elements/address.rb#65
   def address(output_type = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#79
+  # Provides a way to assign an address to an already made Mail::Address object.
+  #
+  #  a = Address.new
+  #  a.address = 'Mikel Lindsaar (My email address) <mikel@test.lindsaar.net>'
+  #  a.address #=> 'mikel@test.lindsaar.net'
+  #
+  # source://mail/2.8.0/lib/mail/elements/address.rb#79
   def address=(value); end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#132
+  # Returns an array of comments that are in the email, or nil if there
+  # are no comments
+  #
+  #  a = Address.new('Mikel Lindsaar (My email address) <mikel@test.lindsaar.net>')
+  #  a.comments #=> ['My email address']
+  #
+  #  b = Address.new('Mikel Lindsaar <mikel@test.lindsaar.net>')
+  #  b.comments #=> nil
+  #
+  # source://mail/2.8.0/lib/mail/elements/address.rb#132
   def comments; end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#173
+  # source://mail/2.8.0/lib/mail/elements/address.rb#173
   def decoded; end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#87
+  # Returns the display name of the email address passed in.
+  #
+  #  a = Address.new('Mikel Lindsaar (My email address) <mikel@test.lindsaar.net>')
+  #  a.display_name #=> 'Mikel Lindsaar'
+  #
+  # source://mail/2.8.0/lib/mail/elements/address.rb#87
   def display_name(output_type = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#99
+  # Provides a way to assign a display name to an already made Mail::Address object.
+  #
+  #  a = Address.new
+  #  a.address = 'mikel@test.lindsaar.net'
+  #  a.display_name = 'Mikel Lindsaar'
+  #  a.format #=> 'Mikel Lindsaar <mikel@test.lindsaar.net>'
+  #
+  # source://mail/2.8.0/lib/mail/elements/address.rb#99
   def display_name=(str); end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#118
+  # Returns the domain part (the right hand side of the @ sign in the email address) of
+  # the address
+  #
+  #  a = Address.new('Mikel Lindsaar (My email address) <mikel@test.lindsaar.net>')
+  #  a.domain #=> 'test.lindsaar.net'
+  #
+  # source://mail/2.8.0/lib/mail/elements/address.rb#118
   def domain(output_type = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#169
+  # source://mail/2.8.0/lib/mail/elements/address.rb#169
   def encoded; end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#47
+  # Returns a correctly formatted address for the email going out.  If given
+  # an incorrectly formatted address as input, Mail::Address will do its best
+  # to format it correctly.  This includes quoting display names as needed and
+  # putting the address in angle brackets etc.
+  #
+  #  a = Address.new('Mikel Lindsaar (My email address) <mikel@test.lindsaar.net>')
+  #  a.format #=> 'Mikel Lindsaar <mikel@test.lindsaar.net> (My email address)'
+  #
+  # source://mail/2.8.0/lib/mail/elements/address.rb#47
   def format(output_type = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#177
+  # source://mail/2.8.0/lib/mail/elements/address.rb#177
   def group; end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#164
+  # Shows the Address object basic details, including the Address
+  #  a = Address.new('Mikel (My email) <mikel@test.lindsaar.net>')
+  #  a.inspect #=> "#<Mail::Address:14184910 Address: |Mikel <mikel@test.lindsaar.net> (My email)| >"
+  #
+  # source://mail/2.8.0/lib/mail/elements/address.rb#164
   def inspect; end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#108
+  # Returns the local part (the left hand side of the @ sign in the email address) of
+  # the address
+  #
+  #  a = Address.new('Mikel Lindsaar (My email address) <mikel@test.lindsaar.net>')
+  #  a.local #=> 'mikel'
+  #
+  # source://mail/2.8.0/lib/mail/elements/address.rb#108
   def local(output_type = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#147
+  # Sometimes an address will not have a display name, but might have the name
+  # as a comment field after the address.  This returns that name if it exists.
+  #
+  #  a = Address.new('mikel@test.lindsaar.net (Mikel Lindsaar)')
+  #  a.name #=> 'Mikel Lindsaar'
+  #
+  # source://mail/2.8.0/lib/mail/elements/address.rb#147
   def name; end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#36
+  # Returns the raw input of the passed in string, this is before it is passed
+  # by the parser.
+  #
+  # source://mail/2.8.0/lib/mail/elements/address.rb#36
   def raw; end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#156
+  # Returns the format of the address, or returns nothing
+  #
+  #  a = Address.new('Mikel Lindsaar (My email address) <mikel@test.lindsaar.net>')
+  #  a.format #=> 'Mikel Lindsaar <mikel@test.lindsaar.net> (My email address)'
+  #
+  # source://mail/2.8.0/lib/mail/elements/address.rb#156
   def to_s; end
 
   private
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#237
+  # source://mail/2.8.0/lib/mail/elements/address.rb#237
   def format_comments; end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#254
+  # source://mail/2.8.0/lib/mail/elements/address.rb#254
   def get_comments; end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#218
+  # source://mail/2.8.0/lib/mail/elements/address.rb#218
   def get_display_name; end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#250
+  # source://mail/2.8.0/lib/mail/elements/address.rb#250
   def get_domain; end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#246
+  # source://mail/2.8.0/lib/mail/elements/address.rb#246
   def get_local; end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#227
+  # source://mail/2.8.0/lib/mail/elements/address.rb#227
   def get_name; end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#183
+  # source://mail/2.8.0/lib/mail/elements/address.rb#183
   def parse(value = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#198
+  # source://mail/2.8.0/lib/mail/elements/address.rb#198
   def strip_all_comments(string); end
 
-  # source://mail/2.7.1/lib/mail/elements/address.rb#207
+  # source://mail/2.8.0/lib/mail/elements/address.rb#207
   def strip_domain_comments(value); end
 
   class << self
@@ -1063,408 +1316,1188 @@ class Mail::Address
   end
 end
 
+# The Message class provides a single point of access to all things to do with an
+# email message.
+#
+# You create a new email message by calling the Mail::Message.new method, or just
+# Mail.new
+#
+# A Message object by default has the following objects inside it:
+#
+# * A Header object which contains all information and settings of the header of the email
+# * Body object which contains all parts of the email that are not part of the header, this
+#   includes any attachments, body text, MIME parts etc.
+#
+# ==Per RFC2822
+#
+#  2.1. General Description
+#
+#   At the most basic level, a message is a series of characters.  A
+#   message that is conformant with this standard is comprised of
+#   characters with values in the range 1 through 127 and interpreted as
+#   US-ASCII characters [ASCII].  For brevity, this document sometimes
+#   refers to this range of characters as simply "US-ASCII characters".
+#
+#   Note: This standard specifies that messages are made up of characters
+#   in the US-ASCII range of 1 through 127.  There are other documents,
+#   specifically the MIME document series [RFC2045, RFC2046, RFC2047,
+#   RFC2048, RFC2049], that extend this standard to allow for values
+#   outside of that range.  Discussion of those mechanisms is not within
+#   the scope of this standard.
+#
+#   Messages are divided into lines of characters.  A line is a series of
+#   characters that is delimited with the two characters carriage-return
+#   and line-feed; that is, the carriage return (CR) character (ASCII
+#   value 13) followed immediately by the line feed (LF) character (ASCII
+#   value 10).  (The carriage-return/line-feed pair is usually written in
+#   this document as "CRLF".)
+#
+#   A message consists of header fields (collectively called "the header
+#   of the message") followed, optionally, by a body.  The header is a
+#   sequence of lines of characters with special syntax as defined in
+#   this standard. The body is simply a sequence of characters that
+#   follows the header and is separated from the header by an empty line
+#   (i.e., a line with nothing preceding the CRLF).
+#
 # source://actionmailbox//lib/action_mailbox/mail_ext/addresses.rb#4
 class Mail::Message
-  # source://mail/2.7.1/lib/mail/message.rb#109
+  # ==Making an email
+  #
+  # You can make an new mail object via a block, passing a string, file or direct assignment.
+  #
+  # ===Making an email via a block
+  #
+  #  mail = Mail.new do |m|
+  #    m.from 'mikel@test.lindsaar.net'
+  #    m.to 'you@test.lindsaar.net'
+  #    m.subject 'This is a test email'
+  #    m.body File.read('body.txt')
+  #  end
+  #
+  #  mail.to_s #=> "From: mikel@test.lindsaar.net\r\nTo: you@...
+  #
+  # If may also pass a block with no arguments, in which case it will
+  # be evaluated in the scope of the new message instance:
+  #
+  #  mail = Mail.new do
+  #    from 'mikel@test.lindsaar.net'
+  #    # …
+  #  end
+  #
+  # ===Making an email via passing a string
+  #
+  #  mail = Mail.new("To: mikel@test.lindsaar.net\r\nSubject: Hello\r\n\r\nHi there!")
+  #  mail.body.to_s #=> 'Hi there!'
+  #  mail.subject   #=> 'Hello'
+  #  mail.to        #=> 'mikel@test.lindsaar.net'
+  #
+  # ===Making an email from a file
+  #
+  #  mail = Mail.read('path/to/file.eml')
+  #  mail.body.to_s #=> 'Hi there!'
+  #  mail.subject   #=> 'Hello'
+  #  mail.to        #=> 'mikel@test.lindsaar.net'
+  #
+  # ===Making an email via assignment
+  #
+  # You can assign values to a mail object via four approaches:
+  #
+  # * Message#field_name=(value)
+  # * Message#field_name(value)
+  # * Message#['field_name']=(value)
+  # * Message#[:field_name]=(value)
+  #
+  # Examples:
+  #
+  #  mail = Mail.new
+  #  mail['from'] = 'mikel@test.lindsaar.net'
+  #  mail[:to]    = 'you@test.lindsaar.net'
+  #  mail.subject 'This is a test email'
+  #  mail.body    = 'This is a body'
+  #
+  #  mail.to_s #=> "From: mikel@test.lindsaar.net\r\nTo: you@...
+  #
+  # @return [Message] a new instance of Message
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#107
   def initialize(*args, &block); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#341
+  # Provides the operator needed for sort et al.
+  #
+  # Compares this mail object with another mail object, this is done by date, so an
+  # email that is older than another will appear first.
+  #
+  # Example:
+  #
+  #  mail1 = Mail.new do
+  #    date(Time.now)
+  #  end
+  #  mail2 = Mail.new do
+  #    date(Time.now - 86400) # 1 day older
+  #  end
+  #  [mail2, mail1].sort #=> [mail2, mail1]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#334
   def <=>(other); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#380
+  # Two emails are the same if they have the same fields and body contents. One
+  # gotcha here is that Mail will insert Message-IDs when calling encoded, so doing
+  # mail1.encoded == mail2.encoded is most probably not going to return what you think
+  # as the assigned Message-IDs by Mail (if not already defined as the same) will ensure
+  # that the two objects are unique, and this comparison will ALWAYS return false.
+  #
+  # So the == operator has been defined like so:  Two messages are the same if they have
+  # the same content, ignoring the Message-ID field, unless BOTH emails have a defined and
+  # different Message-ID value, then they are false.
+  #
+  # So, in practice the == operator works like this:
+  #
+  #  m1 = Mail.new("Subject: Hello\r\n\r\nHello")
+  #  m2 = Mail.new("Subject: Hello\r\n\r\nHello")
+  #  m1 == m2 #=> true
+  #
+  #  m1 = Mail.new("Subject: Hello\r\n\r\nHello")
+  #  m2 = Mail.new("Message-ID: <1234@test>\r\nSubject: Hello\r\n\r\nHello")
+  #  m1 == m2 #=> true
+  #
+  #  m1 = Mail.new("Message-ID: <1234@test>\r\nSubject: Hello\r\n\r\nHello")
+  #  m2 = Mail.new("Subject: Hello\r\n\r\nHello")
+  #  m1 == m2 #=> true
+  #
+  #  m1 = Mail.new("Message-ID: <1234@test>\r\nSubject: Hello\r\n\r\nHello")
+  #  m2 = Mail.new("Message-ID: <1234@test>\r\nSubject: Hello\r\n\r\nHello")
+  #  m1 == m2 #=> true
+  #
+  #  m1 = Mail.new("Message-ID: <1234@test>\r\nSubject: Hello\r\n\r\nHello")
+  #  m2 = Mail.new("Message-ID: <DIFFERENT@test>\r\nSubject: Hello\r\n\r\nHello")
+  #  m1 == m2 #=> false
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#373
   def ==(other); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1341
+  # Allows you to read an arbitrary header
+  #
+  # Example:
+  #
+  #  mail['foo'] = '1234'
+  #  mail['foo'].to_s #=> '1234'
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1334
   def [](name); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1323
+  # Allows you to add an arbitrary header
+  #
+  # Example:
+  #
+  #  mail['foo'] = '1234'
+  #  mail['foo'].to_s #=> '1234'
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1316
   def []=(name, value); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1589
+  # source://mail/2.8.0/lib/mail/message.rb#1558
   def action; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1484
+  # Adds a content type and charset if the body is US-ASCII
+  #
+  # Otherwise raises a warning
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1472
   def add_charset; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1497
+  # Adds a content transfer encoding
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1487
   def add_content_transfer_encoding; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1477
+  # Adds a content type and charset if the body is US-ASCII
+  #
+  # Otherwise raises a warning
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1465
   def add_content_type; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1460
+  # Creates a new empty Date field and inserts it in the correct order
+  # into the Header.  The DateField object will automatically generate
+  # DateTime.now's date if you try and encode it or output it to_s without
+  # specifying a date yourself.
+  #
+  # It will preserve any date you specify if you do.
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1448
   def add_date(date_val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1788
+  # Adds a file to the message.  You have two options with this method, you can
+  # just pass in the absolute path to the file you want and Mail will read the file,
+  # get the filename from the path you pass in and guess the MIME media type, or you
+  # can pass in the filename as a string, and pass in the file content as a blob.
+  #
+  # Example:
+  #
+  #  m = Mail.new
+  #  m.add_file('/path/to/filename.png')
+  #
+  #  m = Mail.new
+  #  m.add_file(:filename => 'filename.png', :content => File.read('/path/to/file.jpg'))
+  #
+  # Note also that if you add a file to an existing message, Mail will convert that message
+  # to a MIME multipart email, moving whatever plain text body you had into its own text
+  # plain part.
+  #
+  # Example:
+  #
+  #  m = Mail.new do
+  #    body 'this is some text'
+  #  end
+  #  m.multipart? #=> false
+  #  m.add_file('/path/to/filename.png')
+  #  m.multipart? #=> true
+  #  m.parts.first.content_type.content_type #=> 'text/plain'
+  #  m.parts.last.content_type.content_type #=> 'image/png'
+  #
+  # See also #attachments
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1757
   def add_file(values); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1450
+  # Creates a new empty Message-ID field and inserts it in the correct order
+  # into the Header.  The MessageIdField object will automatically generate
+  # a unique message ID if you try and encode it or output it to_s without
+  # specifying a message id.
+  #
+  # It will preserve the message ID you specify if you do.
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1438
   def add_message_id(msg_id_val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1470
+  # Creates a new empty Mime Version field and inserts it in the correct order
+  # into the Header.  The MimeVersion object will automatically generate
+  # set itself to '1.0' if you try and encode it or output it to_s without
+  # specifying a version yourself.
+  #
+  # It will preserve any date you specify if you do.
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1458
   def add_mime_version(ver_val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1732
+  # Adds a part to the parts list or creates the part list
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1701
   def add_part(part); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1501
-  def add_transfer_encoding; end
-
-  # source://mail/2.7.1/lib/mail/message.rb#1944
+  # source://mail/2.8.0/lib/mail/message.rb#1927
   def all_parts; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1935
+  # Returns the attachment data if there is any
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1918
   def attachment; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1930
+  # Returns true if this part is an attachment,
+  # false otherwise.
+  #
+  # @return [Boolean]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1913
   def attachment?; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1657
+  # Returns an AttachmentsList object, which holds all of the attachments in
+  # the receiver object (either the entire email or a part within) and all
+  # of its descendants.
+  #
+  # It also allows you to add attachments to the mail object directly, like so:
+  #
+  #  mail.attachments['filename.jpg'] = File.read('/path/to/filename.jpg')
+  #
+  # If you do this, then Mail will take the file name and work out the MIME media type
+  # set the Content-Type, Content-Disposition, Content-Transfer-Encoding and
+  # base64 encode the contents of the attachment all for you.
+  #
+  # You can also specify overrides if you want by passing a hash instead of a string:
+  #
+  #  mail.attachments['filename.jpg'] = {:mime_type => 'application/x-gzip',
+  #                                      :content => File.read('/path/to/filename.jpg')}
+  #
+  # If you want to use a different encoding than Base64, you can pass an encoding in,
+  # but then it is up to you to pass in the content pre-encoded, and don't expect
+  # Mail to know how to decode this data:
+  #
+  #  file_content = SpecialEncode(File.read('/path/to/filename.jpg'))
+  #  mail.attachments['filename.jpg'] = {:mime_type => 'application/x-gzip',
+  #                                      :encoding => 'SpecialEncoding',
+  #                                      :content => file_content }
+  #
+  # You can also search for specific attachments:
+  #
+  #  # By Filename
+  #  mail.attachments['filename.jpg']   #=> Mail::Part object or nil
+  #
+  #  # or by index
+  #  mail.attachments[0]                #=> Mail::Part (first attachment)
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1626
   def attachments; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#507
+  # Returns the Bcc value of the mail object as an array of strings of
+  # address specs.
+  #
+  # Example:
+  #
+  #  mail.bcc = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.bcc #=> ['mikel@test.lindsaar.net']
+  #  mail.bcc = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.bcc #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # Also allows you to set the value by passing a value as a parameter
+  #
+  # Example:
+  #
+  #  mail.bcc 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.bcc #=> ['mikel@test.lindsaar.net']
+  #
+  # Additionally, you can append new addresses to the returned Array like
+  # object.
+  #
+  # Example:
+  #
+  #  mail.bcc 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.bcc << 'ada@test.lindsaar.net'
+  #  mail.bcc #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#500
   def bcc(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#519
+  # Sets the Bcc value of the mail object, pass in a string of the field
+  #
+  # Example:
+  #
+  #  mail.bcc = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.bcc #=> ['mikel@test.lindsaar.net']
+  #  mail.bcc = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.bcc #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#512
   def bcc=(val); end
 
   # source://actionmailbox//lib/action_mailbox/mail_ext/addresses.rb#21
   def bcc_addresses; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1313
+  # Returns an array of addresses (the encoded value) in the Bcc field,
+  # if no Bcc field, returns an empty array
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1306
   def bcc_addrs; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1258
+  # Returns the body of the message object. Or, if passed
+  # a parameter sets the value.
+  #
+  # Example:
+  #
+  #  mail = Mail::Message.new('To: mikel\r\n\r\nThis is the body')
+  #  mail.body #=> #<Mail::Body:0x13919c @raw_source="This is the bo...
+  #
+  #  mail.body 'This is another body'
+  #  mail.body #=> #<Mail::Body:0x13919c @raw_source="This is anothe...
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1251
   def body(value = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1244
+  # Sets the body object of the message object.
+  #
+  # Example:
+  #
+  #  mail.body = 'This is the body'
+  #  mail.body #=> #<Mail::Body:0x13919c @raw_source="This is the bo...
+  #
+  # You can also reset the body of an Message object by setting body to nil
+  #
+  # Example:
+  #
+  #  mail.body = 'this is the body'
+  #  mail.body.encoded #=> 'this is the body'
+  #  mail.body = nil
+  #  mail.body.encoded #=> ''
+  #
+  # If you try and set the body of an email that is a multipart email, then instead
+  # of deleting all the parts of your email, mail will add a text/plain part to
+  # your email:
+  #
+  #  mail.add_file 'somefilename.png'
+  #  mail.parts.length #=> 1
+  #  mail.body = "This is a body"
+  #  mail.parts.length #=> 2
+  #  mail.parts.last.content_type.content_type #=> 'This is a body'
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1237
   def body=(value); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1267
+  # source://mail/2.8.0/lib/mail/message.rb#1260
   def body_encoding(value = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1275
+  # source://mail/2.8.0/lib/mail/message.rb#1268
   def body_encoding=(value); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1585
+  # @return [Boolean]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1554
   def bounced?; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1614
+  # Returns the current boundary for this message part
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1583
   def boundary; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#548
+  # Returns the Cc value of the mail object as an array of strings of
+  # address specs.
+  #
+  # Example:
+  #
+  #  mail.cc = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.cc #=> ['mikel@test.lindsaar.net']
+  #  mail.cc = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.cc #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # Also allows you to set the value by passing a value as a parameter
+  #
+  # Example:
+  #
+  #  mail.cc 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.cc #=> ['mikel@test.lindsaar.net']
+  #
+  # Additionally, you can append new addresses to the returned Array like
+  # object.
+  #
+  # Example:
+  #
+  #  mail.cc 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.cc << 'ada@test.lindsaar.net'
+  #  mail.cc #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#541
   def cc(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#560
+  # Sets the Cc value of the mail object, pass in a string of the field
+  #
+  # Example:
+  #
+  #  mail.cc = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.cc #=> ['mikel@test.lindsaar.net']
+  #  mail.cc = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.cc #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#553
   def cc=(val); end
 
   # source://actionmailbox//lib/action_mailbox/mail_ext/addresses.rb#17
   def cc_addresses; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1307
+  # Returns an array of addresses (the encoded value) in the Cc field,
+  # if no Cc field, returns an empty array
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1300
   def cc_addrs; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1522
+  # Returns the character set defined in the content type field
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1497
   def charset; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1531
+  # Sets the charset to the supplied value.
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1506
   def charset=(value); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#564
+  # source://mail/2.8.0/lib/mail/message.rb#557
   def comments(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#568
+  # source://mail/2.8.0/lib/mail/message.rb#561
   def comments=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#572
+  # source://mail/2.8.0/lib/mail/message.rb#565
   def content_description(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#576
+  # source://mail/2.8.0/lib/mail/message.rb#569
   def content_description=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#580
+  # source://mail/2.8.0/lib/mail/message.rb#573
   def content_disposition(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#584
+  # source://mail/2.8.0/lib/mail/message.rb#577
   def content_disposition=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#588
+  # source://mail/2.8.0/lib/mail/message.rb#581
   def content_id(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#592
+  # source://mail/2.8.0/lib/mail/message.rb#585
   def content_id=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#596
+  # source://mail/2.8.0/lib/mail/message.rb#589
   def content_location(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#600
+  # source://mail/2.8.0/lib/mail/message.rb#593
   def content_location=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#604
+  # source://mail/2.8.0/lib/mail/message.rb#597
   def content_transfer_encoding(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#608
+  # source://mail/2.8.0/lib/mail/message.rb#601
   def content_transfer_encoding=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#612
+  # source://mail/2.8.0/lib/mail/message.rb#605
   def content_type(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#616
+  # source://mail/2.8.0/lib/mail/message.rb#609
   def content_type=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1554
+  # Returns the content type parameters
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1523
   def content_type_parameters; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1801
+  # source://mail/2.8.0/lib/mail/message.rb#1773
   def convert_to_multipart; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#620
+  # source://mail/2.8.0/lib/mail/message.rb#613
   def date(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#624
+  # source://mail/2.8.0/lib/mail/message.rb#617
   def date=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1924
+  # source://mail/2.8.0/lib/mail/message.rb#1907
   def decode_body; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1903
+  # source://mail/2.8.0/lib/mail/message.rb#1886
   def decoded; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1211
+  # Returns the default value of the field requested as a symbol.
+  #
+  # Each header field has a :default method which returns the most common use case for
+  # that field, for example, the date field types will return a DateTime object when
+  # sent :default, the subject, or unstructured fields will return a decoded string of
+  # their value, the address field types will return a single addr_spec or an array of
+  # addr_specs if there is more than one.
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1204
   def default(sym, val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#257
+  # Delivers a mail object.
+  #
+  # Examples:
+  #
+  #  mail = Mail.read('file.eml')
+  #  mail.deliver
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#250
   def deliver; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#274
+  # This method bypasses checking perform_deliveries and raise_delivery_errors,
+  # so use with caution.
+  #
+  # It still however fires off the interceptors and calls the observers callbacks if they are defined.
+  #
+  # Returns self
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#267
   def deliver!; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#201
+  # If you assign a delivery handler, mail will call :deliver_mail on the
+  # object you assign to delivery_handler, it will pass itself as the
+  # single argument.
+  #
+  # If you define a delivery_handler, then you are responsible for the
+  # following actions in the delivery cycle:
+  #
+  # * Appending the mail object to Mail.deliveries as you see fit.
+  # * Checking the mail.perform_deliveries flag to decide if you should
+  #   actually call :deliver! the mail object or not.
+  # * Checking the mail.raise_delivery_errors flag to decide if you
+  #   should raise delivery errors if they occur.
+  # * Actually calling :deliver! (with the bang) on the mail object to
+  #   get it to deliver itself.
+  #
+  # A simplest implementation of a delivery_handler would be
+  #
+  #   class MyObject
+  #
+  #     def initialize
+  #       @mail = Mail.new('To: mikel@test.lindsaar.net')
+  #       @mail.delivery_handler = self
+  #     end
+  #
+  #     attr_accessor :mail
+  #
+  #     def deliver_mail(mail)
+  #       yield
+  #     end
+  #   end
+  #
+  # Then doing:
+  #
+  #   obj = MyObject.new
+  #   obj.mail.deliver
+  #
+  # Would cause Mail to call obj.deliver_mail passing itself as a parameter,
+  # which then can just yield and let Mail do its own private do_delivery
+  # method.
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#199
   def delivery_handler; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#201
+  # If you assign a delivery handler, mail will call :deliver_mail on the
+  # object you assign to delivery_handler, it will pass itself as the
+  # single argument.
+  #
+  # If you define a delivery_handler, then you are responsible for the
+  # following actions in the delivery cycle:
+  #
+  # * Appending the mail object to Mail.deliveries as you see fit.
+  # * Checking the mail.perform_deliveries flag to decide if you should
+  #   actually call :deliver! the mail object or not.
+  # * Checking the mail.raise_delivery_errors flag to decide if you
+  #   should raise delivery errors if they occur.
+  # * Actually calling :deliver! (with the bang) on the mail object to
+  #   get it to deliver itself.
+  #
+  # A simplest implementation of a delivery_handler would be
+  #
+  #   class MyObject
+  #
+  #     def initialize
+  #       @mail = Mail.new('To: mikel@test.lindsaar.net')
+  #       @mail.delivery_handler = self
+  #     end
+  #
+  #     attr_accessor :mail
+  #
+  #     def deliver_mail(mail)
+  #       yield
+  #     end
+  #   end
+  #
+  # Then doing:
+  #
+  #   obj = MyObject.new
+  #   obj.mail.deliver
+  #
+  # Would cause Mail to call obj.deliver_mail passing itself as a parameter,
+  # which then can just yield and let Mail do its own private do_delivery
+  # method.
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#199
   def delivery_handler=(_arg0); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#281
+  # source://mail/2.8.0/lib/mail/message.rb#274
   def delivery_method(method = T.unsafe(nil), settings = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1574
+  # returns the part in a multipart/report email that has the content-type delivery-status
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1543
   def delivery_status_part; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1569
+  # Returns true if the message is a multipart/report; report-type=delivery-status;
+  #
+  # @return [Boolean]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1538
   def delivery_status_report?; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1289
+  # Returns the list of addresses this message should be sent to by
+  # collecting the addresses off the to, cc and bcc fields.
+  #
+  # Example:
+  #
+  #  mail.to = 'mikel@test.lindsaar.net'
+  #  mail.cc = 'sam@test.lindsaar.net'
+  #  mail.bcc = 'bob@test.lindsaar.net'
+  #  mail.destinations.length #=> 3
+  #  mail.destinations.first #=> 'mikel@test.lindsaar.net'
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1282
   def destinations; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1601
+  # source://mail/2.8.0/lib/mail/message.rb#1570
   def diagnostic_code; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1821
-  def encode!; end
-
-  # source://mail/2.7.1/lib/mail/message.rb#1829
+  # Outputs an encoded string representation of the mail message including
+  # all headers, attachments, etc.  This is an encoded email in US-ASCII,
+  # so it is able to be directly sent to an email server.
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1803
   def encoded; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#425
+  # source://mail/2.8.0/lib/mail/message.rb#418
   def envelope_date; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#421
+  # source://mail/2.8.0/lib/mail/message.rb#414
   def envelope_from; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1597
+  # source://mail/2.8.0/lib/mail/message.rb#1566
   def error_status; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#478
+  # Returns a list of parser errors on the header, each field that had an error
+  # will be reparsed as an unstructured field to preserve the data inside, but
+  # will not be used for further processing.
+  #
+  # It returns a nested array of [field_name, value, original_error_message]
+  # per error found.
+  #
+  # Example:
+  #
+  #  message = Mail.new("Content-Transfer-Encoding: weirdo\r\n")
+  #  message.errors.size #=> 1
+  #  message.errors.first[0] #=> "Content-Transfer-Encoding"
+  #  message.errors.first[1] #=> "weirdo"
+  #  message.errors.first[3] #=> <The original error message exception>
+  #
+  # This is a good first defence on detecting spam by the way.  Some spammers send
+  # invalid emails to try and get email parsers to give up parsing them.
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#471
   def errors; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1940
+  # Returns the filename of the attachment
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1923
   def filename; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1593
+  # source://mail/2.8.0/lib/mail/message.rb#1562
   def final_recipient; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1948
+  # source://mail/2.8.0/lib/mail/message.rb#1931
   def find_first_mime_type(mt); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#665
+  # Returns the From value of the mail object as an array of strings of
+  # address specs.
+  #
+  # Example:
+  #
+  #  mail.from = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.from #=> ['mikel@test.lindsaar.net']
+  #  mail.from = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.from #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # Also allows you to set the value by passing a value as a parameter
+  #
+  # Example:
+  #
+  #  mail.from 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.from #=> ['mikel@test.lindsaar.net']
+  #
+  # Additionally, you can append new addresses to the returned Array like
+  # object.
+  #
+  # Example:
+  #
+  #  mail.from 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.from << 'ada@test.lindsaar.net'
+  #  mail.from #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#658
   def from(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#677
+  # Sets the From value of the mail object, pass in a string of the field
+  #
+  # Example:
+  #
+  #  mail.from = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.from #=> ['mikel@test.lindsaar.net']
+  #  mail.from = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.from #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#670
   def from=(val); end
 
   # source://actionmailbox//lib/action_mailbox/mail_ext/addresses.rb#5
   def from_address; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1295
+  # Returns an array of addresses (the encoded value) in the From field,
+  # if no From field, returns an empty array
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1288
   def from_addrs; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1661
+  # @return [Boolean]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1630
   def has_attachments?; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1430
+  # @return [Boolean]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1423
   def has_charset?; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1435
+  # @return [Boolean]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1428
   def has_content_transfer_encoding?; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1425
+  # @return [Boolean]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1418
   def has_content_type?; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1415
+  # Returns true if the message has a Date field, the field may or may
+  # not have a value, but the field exists or not.
+  #
+  # @return [Boolean]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1408
   def has_date?; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1409
+  # Returns true if the message has a message ID field, the field may or may
+  # not have a value, but the field exists or not.
+  #
+  # @return [Boolean]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1402
   def has_message_id?; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1421
+  # Returns true if the message has a Mime-Version field, the field may or may
+  # not have a value, but the field exists or not.
+  #
+  # @return [Boolean]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1414
   def has_mime_version?; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1439
-  def has_transfer_encoding?; end
-
-  # source://mail/2.7.1/lib/mail/message.rb#450
+  # Returns the header object of the message object. Or, if passed
+  # a parameter sets the value.
+  #
+  # Example:
+  #
+  #  mail = Mail::Message.new('To: mikel\r\nFrom: you')
+  #  mail.header #=> #<Mail::Header:0x13ce14 @raw_source="To: mikel\r\nFr...
+  #
+  #  mail.header #=> nil
+  #  mail.header 'To: mikel\r\nFrom: you'
+  #  mail.header #=> #<Mail::Header:0x13ce14 @raw_source="To: mikel\r\nFr...
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#443
   def header(value = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#435
+  # Sets the header of the message object.
+  #
+  # Example:
+  #
+  #  mail.header = 'To: mikel@test.lindsaar.net\r\nFrom: Bob@bob.com'
+  #  mail.header #=> <#Mail::Header
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#428
   def header=(value); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1403
+  # Returns an FieldList of all the fields in the header in the order that
+  # they appear in the header
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1396
   def header_fields; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#455
+  # Provides a way to set custom headers, by passing in a hash
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#448
   def headers(hash = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1666
+  # Accessor for html_part
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1635
   def html_part(&block); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1686
+  # Helper to add a html part to a multipart/alternative email.  If this and
+  # text_part are both defined in a message, then it will be a multipart/alternative
+  # message and set itself that way.
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1655
   def html_part=(msg); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#681
+  # source://mail/2.8.0/lib/mail/message.rb#674
   def in_reply_to(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#685
+  # source://mail/2.8.0/lib/mail/message.rb#678
   def in_reply_to=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#247
+  # source://mail/2.8.0/lib/mail/message.rb#240
   def inform_interceptors; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#243
+  # source://mail/2.8.0/lib/mail/message.rb#236
   def inform_observers; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1899
+  # source://mail/2.8.0/lib/mail/message.rb#1873
   def inspect; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1977
+  # source://mail/2.8.0/lib/mail/message.rb#1877
+  def inspect_structure; end
+
+  # Returns whether message will be marked for deletion.
+  # If so, the message will be deleted at session close (i.e. after #find
+  # exits), but only if also using the #find_and_delete method, or by
+  # calling #find with :delete_after_find set to true.
+  #
+  # Side-note: Just to be clear, this method will return true even if
+  # the message hasn't yet been marked for delete on the mail server.
+  # However, if this method returns true, it *will be* marked on the
+  # server after each block yields back to #find or #find_and_delete.
+  #
+  # @return [Boolean]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1960
   def is_marked_for_delete?; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#689
+  # source://mail/2.8.0/lib/mail/message.rb#682
   def keywords(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#693
+  # source://mail/2.8.0/lib/mail/message.rb#686
   def keywords=(val); end
 
-  # source://mailgun-ruby/1.2.5/lib/railgun/message.rb#11
-  def mailgun_headers; end
-
-  # source://mailgun-ruby/1.2.5/lib/railgun/message.rb#11
-  def mailgun_headers=(_arg0); end
-
-  # source://mailgun-ruby/1.2.5/lib/railgun/message.rb#11
-  def mailgun_options; end
-
-  # source://mailgun-ruby/1.2.5/lib/railgun/message.rb#11
-  def mailgun_options=(_arg0); end
-
-  # source://mailgun-ruby/1.2.5/lib/railgun/message.rb#11
-  def mailgun_recipient_variables; end
-
-  # source://mailgun-ruby/1.2.5/lib/railgun/message.rb#11
-  def mailgun_recipient_variables=(_arg0); end
-
-  # source://mailgun-ruby/1.2.5/lib/railgun/message.rb#11
-  def mailgun_template_variables; end
-
-  # source://mailgun-ruby/1.2.5/lib/railgun/message.rb#11
-  def mailgun_template_variables=(_arg0); end
-
-  # source://mailgun-ruby/1.2.5/lib/railgun/message.rb#11
-  def mailgun_variables; end
-
-  # source://mailgun-ruby/1.2.5/lib/railgun/message.rb#11
-  def mailgun_variables=(_arg0); end
-
-  # source://mail/2.7.1/lib/mail/message.rb#1538
+  # Returns the main content type
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1513
   def main_type; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1964
+  # Sets whether this message should be deleted at session close (i.e.
+  # after #find). Message will only be deleted if messages are retrieved
+  # using the #find_and_delete method, or by calling #find with
+  # :delete_after_find set to true.
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1947
   def mark_for_delete=(value = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1516
-  def message_content_type; end
-
-  # source://mail/2.7.1/lib/mail/message.rb#710
+  # Returns the Message-ID of the mail object.  Note, per RFC 2822 the Message ID
+  # consists of what is INSIDE the < > usually seen in the mail header, so this method
+  # will return only what is inside.
+  #
+  # Example:
+  #
+  #  mail.message_id = '<1234@message.id>'
+  #  mail.message_id #=> '1234@message.id'
+  #
+  # Also allows you to set the Message-ID by passing a string as a parameter
+  #
+  #  mail.message_id '<1234@message.id>'
+  #  mail.message_id #=> '1234@message.id'
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#703
   def message_id(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#719
+  # Sets the Message-ID. Note, per RFC 2822 the Message ID consists of what is INSIDE
+  # the < > usually seen in the mail header, so this method will return only what is inside.
+  #
+  #  mail.message_id = '<1234@message.id>'
+  #  mail.message_id #=> '1234@message.id'
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#712
   def message_id=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1384
+  # Method Missing in this implementation allows you to set any of the
+  # standard fields directly as you would the "to", "subject" etc.
+  #
+  # Those fields used most often (to, subject et al) are given their
+  # own method for ease of documentation and also to avoid the hook
+  # call to method missing.
+  #
+  # This will only catch the known fields listed in:
+  #
+  #  Mail::Field::KNOWN_FIELDS
+  #
+  # as per RFC 2822, any ruby string or method name could pretty much
+  # be a field name, so we don't want to just catch ANYTHING sent to
+  # a message object and interpret it as a header.
+  #
+  # This method provides all three types of header call to set, read
+  # and explicitly set with the = operator
+  #
+  # Examples:
+  #
+  #  mail.comments = 'These are some comments'
+  #  mail.comments #=> 'These are some comments'
+  #
+  #  mail.comments 'These are other comments'
+  #  mail.comments #=> 'These are other comments'
+  #
+  #
+  #  mail.date = 'Tue, 1 Jul 2003 10:52:37 +0200'
+  #  mail.date.to_s #=> 'Tue, 1 Jul 2003 10:52:37 +0200'
+  #
+  #  mail.date 'Tue, 1 Jul 2003 10:52:37 +0200'
+  #  mail.date.to_s #=> 'Tue, 1 Jul 2003 10:52:37 +0200'
+  #
+  #
+  #  mail.resent_msg_id = '<1234@resent_msg_id.lindsaar.net>'
+  #  mail.resent_msg_id #=> '<1234@resent_msg_id.lindsaar.net>'
+  #
+  #  mail.resent_msg_id '<4567@resent_msg_id.lindsaar.net>'
+  #  mail.resent_msg_id #=> '<4567@resent_msg_id.lindsaar.net>'
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1377
   def method_missing(name, *args, &block); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1548
-  def mime_parameters; end
-
-  # source://mail/2.7.1/lib/mail/message.rb#1512
+  # Returns the MIME media type of part we are on, this is taken from the content-type header
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1492
   def mime_type; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#736
+  # Returns the MIME version of the email as a string
+  #
+  # Example:
+  #
+  #  mail.mime_version = '1.0'
+  #  mail.mime_version #=> '1.0'
+  #
+  # Also allows you to set the MIME version by passing a string as a parameter.
+  #
+  # Example:
+  #
+  #  mail.mime_version '1.0'
+  #  mail.mime_version #=> '1.0'
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#729
   def mime_version(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#746
+  # Sets the MIME version of the email by accepting a string
+  #
+  # Example:
+  #
+  #  mail.mime_version = '1.0'
+  #  mail.mime_version #=> '1.0'
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#739
   def mime_version=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1559
+  # Returns true if the message is multipart
+  #
+  # @return [Boolean]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1528
   def multipart?; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1564
+  # Returns true if the message is a multipart/report
+  #
+  # @return [Boolean]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1533
   def multipart_report?; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1753
+  # Allows you to add a part in block form to an existing mail message object
+  #
+  # Example:
+  #
+  #  mail = Mail.new do
+  #    part :content_type => "multipart/alternative", :content_disposition => "inline" do |p|
+  #      p.part :content_type => "text/plain", :body => "test text\nline #2"
+  #      p.part :content_type => "text/html", :body => "<b>test</b> HTML<br/>\nline #2"
+  #    end
+  #  end
+  #
+  # @yield [new_part]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1722
   def part(params = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1619
+  # Returns a parts list object of all the parts in the message
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1588
   def parts; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#225
+  # If set to false, mail will go through the motions of doing a delivery,
+  # but not actually call the delivery method or append the mail object to
+  # the Mail.deliveries collection.  Useful for testing.
+  #
+  #   Mail.deliveries.size #=> 0
+  #   mail.delivery_method :smtp
+  #   mail.perform_deliveries = false
+  #   mail.deliver                        # Mail::SMTP not called here
+  #   Mail.deliveries.size #=> 0
+  #
+  # If you want to test and query the Mail.deliveries collection to see what
+  # mail you sent, you should set perform_deliveries to true and use
+  # the :test mail delivery_method:
+  #
+  #   Mail.deliveries.size #=> 0
+  #   mail.delivery_method :test
+  #   mail.perform_deliveries = true
+  #   mail.deliver
+  #   Mail.deliveries.size #=> 1
+  #
+  # This setting is ignored by mail (though still available as a flag) if you
+  # define a delivery_handler
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#223
   def perform_deliveries; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#225
+  # If set to false, mail will go through the motions of doing a delivery,
+  # but not actually call the delivery method or append the mail object to
+  # the Mail.deliveries collection.  Useful for testing.
+  #
+  #   Mail.deliveries.size #=> 0
+  #   mail.delivery_method :smtp
+  #   mail.perform_deliveries = false
+  #   mail.deliver                        # Mail::SMTP not called here
+  #   Mail.deliveries.size #=> 0
+  #
+  # If you want to test and query the Mail.deliveries collection to see what
+  # mail you sent, you should set perform_deliveries to true and use
+  # the :test mail delivery_method:
+  #
+  #   Mail.deliveries.size #=> 0
+  #   mail.delivery_method :test
+  #   mail.perform_deliveries = true
+  #   mail.deliver
+  #   Mail.deliveries.size #=> 1
+  #
+  # This setting is ignored by mail (though still available as a flag) if you
+  # define a delivery_handler
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#223
   def perform_deliveries=(_arg0); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#232
+  # If set to false, mail will silently catch and ignore any exceptions
+  # raised through attempting to deliver an email.
+  #
+  # This setting is ignored by mail (though still available as a flag) if you
+  # define a delivery_handler
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#230
   def raise_delivery_errors; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#232
+  # If set to false, mail will silently catch and ignore any exceptions
+  # raised through attempting to deliver an email.
+  #
+  # This setting is ignored by mail (though still available as a flag) if you
+  # define a delivery_handler
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#230
   def raise_delivery_errors=(_arg0); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#417
+  # The raw_envelope is the From mikel@test.lindsaar.net Mon May  2 16:07:05 2009
+  # type field that you can see at the top of any email that has come
+  # from a mailbox
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#410
   def raw_envelope; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#404
+  # Provides access to the raw source of the message as it was when it
+  # was instantiated. This is set at initialization and so is untouched
+  # by the parsers or decoder / encoders
+  #
+  # Example:
+  #
+  #  mail = Mail.new('This is an invalid email message')
+  #  mail.raw_source #=> "This is an invalid email message"
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#397
   def raw_source; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1916
+  # source://mail/2.8.0/lib/mail/message.rb#1899
   def read; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1812
+  # Encodes the message, calls encode on all its parts, gets an email message
+  # ready to send
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1791
   def ready_to_send!; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#750
+  # source://mail/2.8.0/lib/mail/message.rb#743
   def received(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#758
+  # source://mail/2.8.0/lib/mail/message.rb#751
   def received=(val); end
 
   # source://actionmailbox//lib/action_mailbox/mail_ext/recipients.rb#5
@@ -1473,148 +2506,496 @@ class Mail::Message
   # source://actionmailbox//lib/action_mailbox/mail_ext/addresses.rb#9
   def recipients_addresses; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#762
+  # source://mail/2.8.0/lib/mail/message.rb#755
   def references(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#766
+  # source://mail/2.8.0/lib/mail/message.rb#759
   def references=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#238
-  def register_for_delivery_notification(observer); end
-
-  # source://mail/2.7.1/lib/mail/message.rb#1605
+  # source://mail/2.8.0/lib/mail/message.rb#1574
   def remote_mta; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#289
+  # source://mail/2.8.0/lib/mail/message.rb#282
   def reply(*args, &block); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#795
+  # Returns the Reply-To value of the mail object as an array of strings of
+  # address specs.
+  #
+  # Example:
+  #
+  #  mail.reply_to = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.reply_to #=> ['mikel@test.lindsaar.net']
+  #  mail.reply_to = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.reply_to #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # Also allows you to set the value by passing a value as a parameter
+  #
+  # Example:
+  #
+  #  mail.reply_to 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.reply_to #=> ['mikel@test.lindsaar.net']
+  #
+  # Additionally, you can append new addresses to the returned Array like
+  # object.
+  #
+  # Example:
+  #
+  #  mail.reply_to 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.reply_to << 'ada@test.lindsaar.net'
+  #  mail.reply_to #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#788
   def reply_to(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#807
+  # Sets the Reply-To value of the mail object, pass in a string of the field
+  #
+  # Example:
+  #
+  #  mail.reply_to = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.reply_to #=> ['mikel@test.lindsaar.net']
+  #  mail.reply_to = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.reply_to #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#800
   def reply_to=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#836
+  # Returns the Resent-Bcc value of the mail object as an array of strings of
+  # address specs.
+  #
+  # Example:
+  #
+  #  mail.resent_bcc = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_bcc #=> ['mikel@test.lindsaar.net']
+  #  mail.resent_bcc = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.resent_bcc #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # Also allows you to set the value by passing a value as a parameter
+  #
+  # Example:
+  #
+  #  mail.resent_bcc 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_bcc #=> ['mikel@test.lindsaar.net']
+  #
+  # Additionally, you can append new addresses to the returned Array like
+  # object.
+  #
+  # Example:
+  #
+  #  mail.resent_bcc 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_bcc << 'ada@test.lindsaar.net'
+  #  mail.resent_bcc #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#829
   def resent_bcc(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#848
+  # Sets the Resent-Bcc value of the mail object, pass in a string of the field
+  #
+  # Example:
+  #
+  #  mail.resent_bcc = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_bcc #=> ['mikel@test.lindsaar.net']
+  #  mail.resent_bcc = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.resent_bcc #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#841
   def resent_bcc=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#877
+  # Returns the Resent-Cc value of the mail object as an array of strings of
+  # address specs.
+  #
+  # Example:
+  #
+  #  mail.resent_cc = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_cc #=> ['mikel@test.lindsaar.net']
+  #  mail.resent_cc = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.resent_cc #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # Also allows you to set the value by passing a value as a parameter
+  #
+  # Example:
+  #
+  #  mail.resent_cc 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_cc #=> ['mikel@test.lindsaar.net']
+  #
+  # Additionally, you can append new addresses to the returned Array like
+  # object.
+  #
+  # Example:
+  #
+  #  mail.resent_cc 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_cc << 'ada@test.lindsaar.net'
+  #  mail.resent_cc #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#870
   def resent_cc(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#889
+  # Sets the Resent-Cc value of the mail object, pass in a string of the field
+  #
+  # Example:
+  #
+  #  mail.resent_cc = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_cc #=> ['mikel@test.lindsaar.net']
+  #  mail.resent_cc = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.resent_cc #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#882
   def resent_cc=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#893
+  # source://mail/2.8.0/lib/mail/message.rb#886
   def resent_date(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#897
+  # source://mail/2.8.0/lib/mail/message.rb#890
   def resent_date=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#926
+  # Returns the Resent-From value of the mail object as an array of strings of
+  # address specs.
+  #
+  # Example:
+  #
+  #  mail.resent_from = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_from #=> ['mikel@test.lindsaar.net']
+  #  mail.resent_from = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.resent_from #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # Also allows you to set the value by passing a value as a parameter
+  #
+  # Example:
+  #
+  #  mail.resent_from ['Mikel <mikel@test.lindsaar.net>']
+  #  mail.resent_from #=> 'mikel@test.lindsaar.net'
+  #
+  # Additionally, you can append new addresses to the returned Array like
+  # object.
+  #
+  # Example:
+  #
+  #  mail.resent_from 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_from << 'ada@test.lindsaar.net'
+  #  mail.resent_from #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#919
   def resent_from(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#938
+  # Sets the Resent-From value of the mail object, pass in a string of the field
+  #
+  # Example:
+  #
+  #  mail.resent_from = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_from #=> ['mikel@test.lindsaar.net']
+  #  mail.resent_from = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.resent_from #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#931
   def resent_from=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#942
+  # source://mail/2.8.0/lib/mail/message.rb#935
   def resent_message_id(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#946
+  # source://mail/2.8.0/lib/mail/message.rb#939
   def resent_message_id=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#965
+  # Returns the Resent-Sender value of the mail object, as a single string of an address
+  # spec.  A sender per RFC 2822 must be a single address, so you can not append to
+  # this address.
+  #
+  # Example:
+  #
+  #  mail.resent_sender = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_sender #=> 'mikel@test.lindsaar.net'
+  #
+  # Also allows you to set the value by passing a value as a parameter
+  #
+  # Example:
+  #
+  #  mail.resent_sender 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_sender #=> 'mikel@test.lindsaar.net'
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#958
   def resent_sender(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#975
+  # Sets the Resent-Sender value of the mail object, pass in a string of the field
+  #
+  # Example:
+  #
+  #  mail.resent_sender = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_sender #=> 'mikel@test.lindsaar.net'
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#968
   def resent_sender=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1004
+  # Returns the Resent-To value of the mail object as an array of strings of
+  # address specs.
+  #
+  # Example:
+  #
+  #  mail.resent_to = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_to #=> ['mikel@test.lindsaar.net']
+  #  mail.resent_to = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.resent_to #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # Also allows you to set the value by passing a value as a parameter
+  #
+  # Example:
+  #
+  #  mail.resent_to 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_to #=> ['mikel@test.lindsaar.net']
+  #
+  # Additionally, you can append new addresses to the returned Array like
+  # object.
+  #
+  # Example:
+  #
+  #  mail.resent_to 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_to << 'ada@test.lindsaar.net'
+  #  mail.resent_to #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#997
   def resent_to(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1016
+  # Sets the Resent-To value of the mail object, pass in a string of the field
+  #
+  # Example:
+  #
+  #  mail.resent_to = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.resent_to #=> ['mikel@test.lindsaar.net']
+  #  mail.resent_to = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.resent_to #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1009
   def resent_to=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1609
+  # @return [Boolean]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1578
   def retryable?; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1021
+  # Returns the return path of the mail object, or sets it if you pass a string
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1014
   def return_path(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1026
+  # Sets the return path of the object
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1019
   def return_path=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1044
+  # Returns the Sender value of the mail object, as a single string of an address
+  # spec.  A sender per RFC 2822 must be a single address.
+  #
+  # Example:
+  #
+  #  mail.sender = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.sender #=> 'mikel@test.lindsaar.net'
+  #
+  # Also allows you to set the value by passing a value as a parameter
+  #
+  # Example:
+  #
+  #  mail.sender 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.sender #=> 'mikel@test.lindsaar.net'
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1037
   def sender(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1054
+  # Sets the Sender value of the mail object, pass in a string of the field
+  #
+  # Example:
+  #
+  #  mail.sender = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.sender #=> 'mikel@test.lindsaar.net'
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1047
   def sender=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#409
+  # Sets the envelope from for the email
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#402
   def set_envelope(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1956
+  # Skips the deletion of this message. All other messages
+  # flagged for delete still will be deleted at session close (i.e. when
+  # #find exits). Only has an effect if you're using #find_and_delete
+  # or #find with :delete_after_find set to true.
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1939
   def skip_deletion; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1074
+  # Returns the SMTP Envelope From value of the mail object, as a single
+  # string of an address spec.
+  #
+  # Defaults to Return-Path, Sender, or the first From address.
+  #
+  # Example:
+  #
+  #  mail.smtp_envelope_from = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.smtp_envelope_from #=> 'mikel@test.lindsaar.net'
+  #
+  # Also allows you to set the value by passing a value as a parameter
+  #
+  # Example:
+  #
+  #  mail.smtp_envelope_from 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.smtp_envelope_from #=> 'mikel@test.lindsaar.net'
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1067
   def smtp_envelope_from(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1088
+  # Sets the From address on the SMTP Envelope.
+  #
+  # Example:
+  #
+  #  mail.smtp_envelope_from = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.smtp_envelope_from #=> 'mikel@test.lindsaar.net'
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1081
   def smtp_envelope_from=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1107
+  # Returns the SMTP Envelope To value of the mail object.
+  #
+  # Defaults to #destinations: To, Cc, and Bcc addresses.
+  #
+  # Example:
+  #
+  #  mail.smtp_envelope_to = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.smtp_envelope_to #=> 'mikel@test.lindsaar.net'
+  #
+  # Also allows you to set the value by passing a value as a parameter
+  #
+  # Example:
+  #
+  #  mail.smtp_envelope_to ['Mikel <mikel@test.lindsaar.net>', 'Lindsaar <lindsaar@test.lindsaar.net>']
+  #  mail.smtp_envelope_to #=> ['mikel@test.lindsaar.net', 'lindsaar@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1100
   def smtp_envelope_to(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1124
+  # Sets the To addresses on the SMTP Envelope.
+  #
+  # Example:
+  #
+  #  mail.smtp_envelope_to = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.smtp_envelope_to #=> 'mikel@test.lindsaar.net'
+  #
+  #  mail.smtp_envelope_to = ['Mikel <mikel@test.lindsaar.net>', 'Lindsaar <lindsaar@test.lindsaar.net>']
+  #  mail.smtp_envelope_to #=> ['mikel@test.lindsaar.net', 'lindsaar@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1117
   def smtp_envelope_to=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1543
+  # Returns the sub content type
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1518
   def sub_type; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1149
+  # Returns the decoded value of the subject field, as a single string.
+  #
+  # Example:
+  #
+  #  mail.subject = "G'Day mate"
+  #  mail.subject #=> "G'Day mate"
+  #  mail.subject = '=?UTF-8?Q?This_is_=E3=81=82_string?='
+  #  mail.subject #=> "This is あ string"
+  #
+  # Also allows you to set the value by passing a value as a parameter
+  #
+  # Example:
+  #
+  #  mail.subject "G'Day mate"
+  #  mail.subject #=> "G'Day mate"
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1142
   def subject(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1159
+  # Sets the Subject value of the mail object, pass in a string of the field
+  #
+  # Example:
+  #
+  #  mail.subject = '=?UTF-8?Q?This_is_=E3=81=82_string?='
+  #  mail.subject #=> "This is あ string"
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1152
   def subject=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1981
+  # @return [Boolean]
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1964
   def text?; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1675
+  # Accessor for text_part
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1644
   def text_part(&block); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1710
+  # Helper to add a text part to a multipart/alternative email.  If this and
+  # html_part are both defined in a message, then it will be a multipart/alternative
+  # message and set itself that way.
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1679
   def text_part=(msg); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1188
+  # Returns the To value of the mail object as an array of strings of
+  # address specs.
+  #
+  # Example:
+  #
+  #  mail.to = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.to #=> ['mikel@test.lindsaar.net']
+  #  mail.to = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.to #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # Also allows you to set the value by passing a value as a parameter
+  #
+  # Example:
+  #
+  #  mail.to 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.to #=> ['mikel@test.lindsaar.net']
+  #
+  # Additionally, you can append new addresses to the returned Array like
+  # object.
+  #
+  # Example:
+  #
+  #  mail.to 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.to << 'ada@test.lindsaar.net'
+  #  mail.to #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1181
   def to(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1200
+  # Sets the To value of the mail object, pass in a string of the field
+  #
+  # Example:
+  #
+  #  mail.to = 'Mikel <mikel@test.lindsaar.net>'
+  #  mail.to #=> ['mikel@test.lindsaar.net']
+  #  mail.to = 'Mikel <mikel@test.lindsaar.net>, ada@test.lindsaar.net'
+  #  mail.to #=> ['mikel@test.lindsaar.net', 'ada@test.lindsaar.net']
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1193
   def to=(val); end
 
   # source://actionmailbox//lib/action_mailbox/mail_ext/addresses.rb#13
   def to_addresses; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1301
+  # Returns an array of addresses (the encoded value) in the To field,
+  # if no To field, returns an empty array
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1294
   def to_addrs; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1895
+  # source://mail/2.8.0/lib/mail/message.rb#1869
   def to_s; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1849
+  # source://mail/2.8.0/lib/mail/message.rb#1823
   def to_yaml(opts = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1506
-  def transfer_encoding; end
-
-  # source://mail/2.7.1/lib/mail/message.rb#628
+  # source://mail/2.8.0/lib/mail/message.rb#621
   def transport_encoding(val = T.unsafe(nil)); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#636
+  # source://mail/2.8.0/lib/mail/message.rb#629
   def transport_encoding=(val); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1837
+  # source://mail/2.8.0/lib/mail/message.rb#1811
   def without_attachments!; end
 
   # source://actionmailbox//lib/action_mailbox/mail_ext/addresses.rb#25
@@ -1622,89 +3003,98 @@ class Mail::Message
 
   private
 
-  # source://mail/2.7.1/lib/mail/message.rb#2083
+  # source://mail/2.8.0/lib/mail/message.rb#2067
   def add_boundary; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2049
+  # source://mail/2.8.0/lib/mail/message.rb#2032
   def add_encoding_to_body; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2077
+  # source://mail/2.8.0/lib/mail/message.rb#2062
   def add_multipart_alternate_header; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2092
+  # source://mail/2.8.0/lib/mail/message.rb#2079
   def add_multipart_mixed_header; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2063
+  # source://mail/2.8.0/lib/mail/message.rb#2048
   def add_required_fields; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2071
+  # source://mail/2.8.0/lib/mail/message.rb#2056
   def add_required_message_fields; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2042
+  # source://mail/2.8.0/lib/mail/message.rb#2025
   def allowed_encodings; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2007
+  # see comments to body=. We take data and process it lazily
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1990
   def body_lazy(value); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2166
+  # source://mail/2.8.0/lib/mail/message.rb#2152
   def decode_body_as_text; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2156
+  # source://mail/2.8.0/lib/mail/message.rb#2142
   def do_delivery; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2138
+  # Returns the filename of the attachment (if it exists) or returns nil
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#2124
   def find_attachment; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2055
+  # source://mail/2.8.0/lib/mail/message.rb#2038
   def identify_and_set_transfer_encoding; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2100
+  # source://mail/2.8.0/lib/mail/message.rb#2086
   def init_with_hash(hash); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2130
+  # source://mail/2.8.0/lib/mail/message.rb#2116
   def init_with_string(string); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#391
+  # source://mail/2.8.0/lib/mail/message.rb#384
   def initialize_copy(original); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#1996
+  # 2.1. General Description
+  #   A message consists of header fields (collectively called "the header
+  #   of the message") followed, optionally, by a body.  The header is a
+  #   sequence of lines of characters with special syntax as defined in
+  #   this standard. The body is simply a sequence of characters that
+  #   follows the header and is separated from the header by an empty line
+  #   (i.e., a line with nothing preceding the CRLF).
+  #
+  # source://mail/2.8.0/lib/mail/message.rb#1979
   def parse_message; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2022
+  # source://mail/2.8.0/lib/mail/message.rb#2005
   def process_body_raw; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2002
+  # source://mail/2.8.0/lib/mail/message.rb#1985
   def raw_source=(value); end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2038
+  # source://mail/2.8.0/lib/mail/message.rb#2021
   def separate_parts; end
 
-  # source://mail/2.7.1/lib/mail/message.rb#2030
+  # source://mail/2.8.0/lib/mail/message.rb#2013
   def set_envelope_header; end
 
   class << self
-    # source://mail/2.7.1/lib/mail/message.rb#234
+    # source://mail/2.8.0/lib/mail/message.rb#232
     def default_charset; end
 
-    # source://mail/2.7.1/lib/mail/message.rb#235
+    # source://mail/2.8.0/lib/mail/message.rb#233
     def default_charset=(charset); end
 
-    # source://mail/2.7.1/lib/mail/message.rb#1891
+    # source://mail/2.8.0/lib/mail/message.rb#1865
     def from_hash(hash); end
 
-    # source://mail/2.7.1/lib/mail/message.rb#1869
+    # source://mail/2.8.0/lib/mail/message.rb#1843
     def from_yaml(str); end
   end
 end
 
-# source://mail/2.7.1/lib/mail/message.rb#1987
+# source://mail/2.8.0/lib/mail/message.rb#1970
 Mail::Message::HEADER_SEPARATOR = T.let(T.unsafe(nil), Regexp)
 
-# source://mail/2.7.1/lib/mail/mail.rb#241
+# source://mail/2.8.0/lib/mail/mail.rb#241
 Mail::RANDOM_TAG = T.let(T.unsafe(nil), String)
-
-# source://mail/2.7.1/lib/mail.rb#22
-Mail::RubyVer = Mail::Ruby19
 
 module Rails
   class << self
@@ -1897,4 +3287,13 @@ class Rails::Conductor::BaseController < ::ActionController::Base
     # source://actionpack/7.0.4/lib/action_controller/metal.rb#210
     def middleware_stack; end
   end
+end
+
+module Rails::Conductor::BaseController::HelperMethods
+  include ::ActionText::ContentHelper
+  include ::ActionText::TagHelper
+  include ::InertiaRails::Helper
+  include ::ViteRails::TagHelpers
+  include ::ActionController::Base::HelperMethods
+  include ::DeviseHelper
 end
