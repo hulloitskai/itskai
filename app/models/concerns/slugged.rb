@@ -21,12 +21,12 @@ module Slugged
     extend T::Sig
 
     sig { returns(Integer) }
-    def generated_slug_length = @slug_length || 16
+    def generated_slug_length = @generated_slug_length || 16
 
     sig { params(size: Integer).returns(Integer) }
     def generated_slug_length=(size)
-      @slug_length = T.let(@slug_length, T.nilable(Integer))
-      @slug_length = size
+      @generated_slug_length = T.let(@generated_slug_length, T.nilable(Integer))
+      @generated_slug_length = size
     end
 
     sig { returns(String) }

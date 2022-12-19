@@ -23,6 +23,7 @@ class ICloud
         ),
         T.untyped,
       )
+      save_credentials!
     end
 
     sig { params(code: T.nilable(String)).returns(T::Boolean) }
