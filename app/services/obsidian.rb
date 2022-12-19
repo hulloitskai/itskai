@@ -43,7 +43,7 @@ class Obsidian < ApplicationService
     note.synchronized_at = Time.current
     note.modified_at = file.modified_at!
     note.published = scoped do
-      value = data["published"]
+      value = data["publish"]
       case value
       when TrueClass
         true
@@ -54,7 +54,7 @@ class Obsidian < ApplicationService
       end
     end
     note.hidden = data["hidden"].truthy?
-    note.slug = data["published"]
+    note.slug = data["publish"]
     note.display_name = data["display_name"].presence
     note.aliases = parse_frontmatter_list(data["aliases"])
     note.tags = parse_frontmatter_list(data["tags"])

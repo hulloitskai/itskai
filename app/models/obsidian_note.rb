@@ -5,29 +5,31 @@
 #
 # Table name: obsidian_notes
 #
-#  id           :uuid             not null, primary key
-#  aliases      :string           default([]), not null, is an Array
-#  analyzed_at  :datetime
-#  blurb        :text
-#  content      :text             not null
-#  display_name :string
-#  hidden       :boolean          default(FALSE), not null
-#  modified_at  :datetime         not null
-#  name         :string           not null
-#  plain_blurb  :text
-#  published    :boolean          default(FALSE), not null
-#  slug         :string           not null
-#  tags         :string           default([]), not null, is an Array
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id              :uuid             not null, primary key
+#  aliases         :string           default([]), not null, is an Array
+#  analyzed_at     :datetime
+#  blurb           :text
+#  content         :text             not null
+#  display_name    :string
+#  hidden          :boolean          default(FALSE), not null
+#  modified_at     :datetime         not null
+#  name            :string           not null
+#  plain_blurb     :text
+#  published       :boolean          default(FALSE), not null
+#  slug            :string           not null
+#  synchronized_at :datetime
+#  tags            :string           default([]), not null, is an Array
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 # Indexes
 #
-#  index_obsidian_notes_on_aliases      (aliases)
-#  index_obsidian_notes_on_analyzed_at  (analyzed_at)
-#  index_obsidian_notes_on_modified_at  (modified_at)
-#  index_obsidian_notes_on_name         (name) UNIQUE
-#  index_obsidian_notes_on_tags         (tags)
+#  index_obsidian_notes_on_aliases          (aliases)
+#  index_obsidian_notes_on_analyzed_at      (analyzed_at)
+#  index_obsidian_notes_on_modified_at      (modified_at)
+#  index_obsidian_notes_on_name             (name) UNIQUE
+#  index_obsidian_notes_on_synchronized_at  (synchronized_at)
+#  index_obsidian_notes_on_tags             (tags)
 #
 
 class ObsidianNote < ApplicationRecord

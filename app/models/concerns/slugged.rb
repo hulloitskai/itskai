@@ -11,7 +11,7 @@ module Slugged
   extend ActiveSupport::Concern
 
   included do
-    T.bind(self, T.class_of(ApplicationRecord))
+    T.bind(self, T.all(T.class_of(ApplicationRecord), ClassMethods))
 
     # == Dependencies
     requires_columns :slug
@@ -21,10 +21,10 @@ module Slugged
     extend T::Sig
 
     sig { returns(Integer) }
-    def slug_length = @slug_length || 16
+    def generated_slug_length = @slug_length || 16
 
     sig { params(size: Integer).returns(Integer) }
-    def slug_length=(size)
+    def generated_slug_length=(size)
       @slug_length = T.let(@slug_length, T.nilable(Integer))
       @slug_length = size
     end
@@ -34,22 +34,8 @@ module Slugged
       Nanoid.generate(
         alphabet:
           "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-        size: slug_length,
+        size: generated_slug_length,
       )
     end
-  end
-
-  # == Attributes
-  sig { returns(String) }
-  def slug!
-    self.slug ||= generate_slug
-  end
-
-  private
-
-  # == Helpers
-  sig { returns(String) }
-  def generate_slug
-    T.cast(self.class, ClassMethods).generate_slug
   end
 end
