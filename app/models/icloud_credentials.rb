@@ -25,6 +25,12 @@ class ICloudCredentials < ApplicationRecord
   # == Concerns
   include Identifiable
 
+  # == Attributes
+  sig { returns(ActiveSupport::TimeWithZone) }
+  def updated_at!
+    T.must(updated_at)
+  end
+
   # == Validations
   validates :email,
             presence: true,

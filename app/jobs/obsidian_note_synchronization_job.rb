@@ -23,36 +23,42 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
 
   sig { params(orphaned_note_names: T::Array[String]).void }
   def cleanup_notes(orphaned_note_names:)
-    notes = ObsidianNote.where(name: orphaned_note_names).destroy_all
-    logger.info("Destroyed #{notes.count} notes")
+    destroyed_notes = ObsidianNote.where(name: orphaned_note_names).destroy_all
+    logger.info("Destroyed #{destroyed_notes.count} notes")
   end
 
   sig { params(new_note_names: T::Array[String]).void }
   def create_notes(new_note_names:)
-    new_note_names.each do |name|
+    created_notes = new_note_names.filter_map do |name|
       Obsidian.note(name).try! do |note|
         note = T.let(note, ObsidianNote)
         if note.save
           logger.info("Created note '#{note.name}'")
+          note
         else
           message = note.errors.full_messages.to_sentence
           logger.warn("Failed to create note '#{note.name}': #{message}")
+          nil
         end
       end
     end
+    logger.info("Created #{created_notes.count} notes")
   end
 
   sig { params(existing_notes: T::Array[ObsidianNote], force: T::Boolean).void }
   def update_notes(existing_notes:, force:)
-    existing_notes.each do |note|
+    updated_notes = existing_notes.filter_map do |note|
       next if !note.synchronization_required? && !force
       updated_note = Obsidian.note!(note.name)
       if updated_note.save
         logger.info("Updated note '#{note.name}'")
+        note
       else
         message = note.errors.full_messages.to_sentence
         logger.warn("Failed to update note '#{note.name}': #{message}")
+        nil
       end
     end
+    logger.info("Updated #{updated_notes.count} notes")
   end
 end

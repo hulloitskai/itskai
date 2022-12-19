@@ -14,7 +14,7 @@ class ICloud
     sig { params(credentials: ICloudCredentials).void }
     def initialize(credentials:)
       @credentials = credentials
-      restore_credentials
+      restore_credentials!
       @pyicloud = T.let(
         PyICloud.new(
           email: @credentials.email,
@@ -23,12 +23,12 @@ class ICloud
         ),
         T.untyped,
       )
-      save_credentials
+      save_credentials!
     end
 
     sig { params(code: T.nilable(String)).returns(T::Boolean) }
     def verify_security_code(code)
-      @pyicloud.verify_security_code(code).tap { save_credentials }
+      @pyicloud.verify_security_code(code).tap { save_credentials! }
     end
 
     sig { returns(T::Boolean) }
@@ -52,15 +52,24 @@ class ICloud
     end
 
     sig { void }
-    def save_credentials
+    def save_credentials!
       credentials = self.credentials or return
-      cookies = File.read(cookies_filename!)
-      session = File.read(session_filename!)
-      credentials.update!(cookies:, session: JSON.parse(session))
+      credentials_mtime = credentials.updated_at!.to_time
+      cookies_filename = cookies_filename!
+      cookies_mtime = File.mtime(cookies_filename)
+      session_filename = session_filename!
+      session_mtime = File.mtime(session_filename)
+      if cookies_mtime > credentials_mtime
+        credentials.cookies = File.read(cookies_filename)
+      end
+      if session_mtime > credentials_mtime
+        credentials.session = File.read(session_filename)
+      end
+      credentials.save!
     end
 
     sig { void }
-    def restore_credentials
+    def restore_credentials!
       FileUtils.mkdir_p(ICloud.credentials_dir)
       credentials = self.credentials or return
       cookies, session = credentials.cookies, credentials.session

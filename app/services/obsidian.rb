@@ -62,16 +62,17 @@ class Obsidian < ApplicationService
     note.content = data.content
     note
   rescue => error
-    message = error.message
     if error.is_a?(PyCall::PyError)
       type, message = error.type.__name__, error.value.to_s
-      if type == "PyiCloudAPIResponseException" &&
-          message.ends_with?("(500)")
-        message = "An unknown iCloud API error occurred"
+      if type == "PyiCloudAPIResponseException" && message.ends_with?("(500)")
+        logger.error(
+          "Failed to read note '#{name}': Unknown iCloud API error occurred",
+        )
       end
+    else
+      logger.error("Failed to read note '#{name}': #{error}")
+      Honeybadger.notify(message, backtrace: error.backtrace)
     end
-    logger.error("Failed to read note '#{name}': #{message}")
-    Honeybadger.notify(message, backtrace: error.backtrace)
     nil
   end
 

@@ -31,6 +31,10 @@ end
 class ActiveSupport::TimeWithZone
   sig { params(format: String).returns(String) }
   def strftime(format); end
+
+  sig {returns(Time)}
+  def to_time
+  end
 end
 
 module ActiveSupport::Tryable
