@@ -5,7 +5,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  # == URLs
+  # == Routing
   config.before_configuration do
     routes.default_url_options = {
       protocol: "http",

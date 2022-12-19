@@ -37,7 +37,7 @@ module Types
 
     sig { returns(String) }
     def url
-      url_helpers.obsidian_note_url(object)
+      obsidian_note_url(object)
     end
 
     private

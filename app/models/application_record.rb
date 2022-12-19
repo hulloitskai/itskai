@@ -6,6 +6,9 @@ class ApplicationRecord < ActiveRecord::Base
 
   primary_abstract_class
 
+  # == Concerns
+  include Routing
+
   # == Enumerize
   extend Enumerize
 
