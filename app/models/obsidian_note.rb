@@ -28,6 +28,7 @@
 #  index_obsidian_notes_on_analyzed_at      (analyzed_at)
 #  index_obsidian_notes_on_modified_at      (modified_at)
 #  index_obsidian_notes_on_name             (name) UNIQUE
+#  index_obsidian_notes_on_slug             (slug) UNIQUE
 #  index_obsidian_notes_on_synchronized_at  (synchronized_at)
 #  index_obsidian_notes_on_tags             (tags)
 #

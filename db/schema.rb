@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_19_011259) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_19_022145) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -123,6 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_011259) do
     t.index ["analyzed_at"], name: "index_obsidian_notes_on_analyzed_at"
     t.index ["modified_at"], name: "index_obsidian_notes_on_modified_at"
     t.index ["name"], name: "index_obsidian_notes_on_name", unique: true
+    t.index ["slug"], name: "index_obsidian_notes_on_slug", unique: true
     t.index ["synchronized_at"], name: "index_obsidian_notes_on_synchronized_at"
     t.index ["tags"], name: "index_obsidian_notes_on_tags"
   end

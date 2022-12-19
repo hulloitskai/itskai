@@ -24,6 +24,26 @@ const AccountEditPageICloudCredentialsForm: FC<
 > = ({ icloudCredentials }) => {
   const { password, cookies, session } = icloudCredentials || {};
   const router = useRouter();
+
+  // == Callbacks
+  const openVerifySecurityCodeModal = useCallback(() => {
+    openModal({
+      title: (
+        <Box>
+          <Title order={2} size="h4">
+            Verify Security Code
+          </Title>
+          <Text size="sm" color="dimmed" sx={{ lineHeight: 1.3 }}>
+            Enter the security code you received on your device to complete
+            iCloud authentication.
+          </Text>
+        </Box>
+      ),
+      children: <VerifySecurityCodeModalContent />,
+    });
+  }, []);
+
+  // == Form
   const initialValues = useMemo<AccountEditPageICloudCredentialsFormValues>(
     () => ({
       email: "",
@@ -36,6 +56,8 @@ const AccountEditPageICloudCredentialsForm: FC<
     useForm<AccountEditPageICloudCredentialsFormValues>({
       initialValues: initialValues,
     });
+
+  // == Mutation
   const onError = useApolloErrorCallback("Failed to update iCloud credentials");
   const [runMutation, { loading }] = useMutation(
     ICloudCredentialsUpdateMutationDocument,
@@ -44,7 +66,20 @@ const AccountEditPageICloudCredentialsForm: FC<
         if (icloudCredentials) {
           router.reload({
             onSuccess: () => {
-              showNotice({ message: "You've authenticated with iCloud." });
+              openModal({
+                title: (
+                  <Box>
+                    <Title order={2} size="h4">
+                      Verify Security Code
+                    </Title>
+                    <Text size="sm" color="dimmed" sx={{ lineHeight: 1.3 }}>
+                      Enter the security code you received on your device to
+                      complete iCloud authentication.
+                    </Text>
+                  </Box>
+                ),
+                children: <VerifySecurityCodeModalContent />,
+              });
             },
           });
         } else {
@@ -56,6 +91,7 @@ const AccountEditPageICloudCredentialsForm: FC<
       onError,
     },
   );
+
   return (
     <form
       onSubmit={onSubmit(values => {
@@ -81,25 +117,7 @@ const AccountEditPageICloudCredentialsForm: FC<
           </Button>
           <Group spacing={6} grow>
             {!!password && (
-              <Button
-                variant="default"
-                onClick={() => {
-                  openModal({
-                    title: (
-                      <Box>
-                        <Title order={2} size="h4">
-                          Verify Security Code
-                        </Title>
-                        <Text size="sm" color="dimmed" sx={{ lineHeight: 1.3 }}>
-                          Enter the security code you received on your device to
-                          complete iCloud authentication.
-                        </Text>
-                      </Box>
-                    ),
-                    children: <VerifySecurityCodeModalContent />,
-                  });
-                }}
-              >
+              <Button variant="default" onClick={openVerifySecurityCodeModal}>
                 Verify Security Code
               </Button>
             )}
@@ -148,7 +166,7 @@ const VerifySecurityCodeModalContent: FC = () => {
     {
       onCompleted: () => {
         closeAllModals();
-        showNotice({ message: "iCloud security code verified." });
+        showNotice({ message: "Successfully authenticated with iCloud." });
       },
       onError,
     },

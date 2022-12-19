@@ -25,7 +25,10 @@ class ObsidianNoteAnalyzeJob < ApplicationJob
 
   sig { params(note: ObsidianNote).void }
   def analyze_references(note)
-    links = T.cast(note.content.scan(/\[\[[^\[\]]+\]\]/), T::Array[String])
+    links = T.cast(
+      note.content.scan(/(?<!\!)\[\[[^\[\]]+\]\]/),
+      T::Array[String],
+    )
     links.map! do |link|
       link.delete_prefix!("[[")
       link.delete_suffix!("]]")

@@ -20,6 +20,12 @@ class ObsidianStub < ApplicationRecord
   include Identifiable
   include ObsidianEntry
 
+  # == Attributes
+  sig { override.returns(String) }
+  def display_name
+    name
+  end
+
   # == Associations
   has_many :incoming_relations,
            class_name: "ObsidianRelation",
@@ -27,9 +33,14 @@ class ObsidianStub < ApplicationRecord
            dependent: :destroy
   has_many :referenced_by, through: :incoming_relations, source: :from
 
-  # == Methods
-  sig { override.returns(String) }
-  def display_name
-    name
+  # == Cleanup
+  sig { void }
+  def self.cleanup_all
+    ObsidianStubCleanupJob.perform_now
+  end
+
+  sig { void }
+  def self.cleanup_all_later
+    ObsidianStubCleanupJob.perform_later
   end
 end

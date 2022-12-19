@@ -5,6 +5,7 @@ import { TypographyStylesProvider, MantineProvider } from "@mantine/core";
 import _Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkWikiLink from "remark-wiki-link";
+// import remarkObsidianLink from "remark-wiki-link-plus";
 
 import type {
   ObsidianNoteContentNoteReferenceFragment,
@@ -63,6 +64,9 @@ const ObsidianNoteMarkdown: FC<ObsidianNoteContentProps> = ({
               marginBottom: 0,
             },
           },
+          p: {
+            whiteSpace: "pre-line",
+          },
           a: {
             fontWeight: 600,
             "&[href]": {
@@ -73,7 +77,6 @@ const ObsidianNoteMarkdown: FC<ObsidianNoteContentProps> = ({
             },
           },
           blockquote: {
-            whiteSpace: "pre-line",
             fontSize: fontSizes.md,
             paddingTop: 0,
             paddingBottom: 0,

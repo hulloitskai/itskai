@@ -17,7 +17,9 @@ class CurrentlyPlaying
     # == Execution
     sig { returns(T.nilable(RSpotify::Track)) }
     def call
-      unless Spotify.ready?
+      if Spotify.ready?
+        tag_logger { logger.debug("Polling") }
+      else
         tag_logger { logger.warn("Spotify not ready; skipping") }
         return
       end

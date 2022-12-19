@@ -23,7 +23,6 @@ class ICloud
         ),
         T.untyped,
       )
-      save_credentials!
     end
 
     sig { params(code: T.nilable(String)).returns(T::Boolean) }
@@ -54,18 +53,9 @@ class ICloud
     sig { void }
     def save_credentials!
       credentials = self.credentials or return
-      credentials_mtime = credentials.updated_at!.to_time
-      cookies_filename = cookies_filename!
-      cookies_mtime = File.mtime(cookies_filename)
-      session_filename = session_filename!
-      session_mtime = File.mtime(session_filename)
-      if cookies_mtime > credentials_mtime
-        credentials.cookies = File.read(cookies_filename)
-      end
-      if session_mtime > credentials_mtime
-        credentials.session = File.read(session_filename)
-      end
-      credentials.save!
+      cookies = File.read(cookies_filename!)
+      session = File.read(session_filename!)
+      credentials.update!(cookies: cookies, session: JSON.parse(session))
     end
 
     sig { void }
@@ -74,8 +64,7 @@ class ICloud
       credentials = self.credentials or return
       cookies, session = credentials.cookies, credentials.session
       if [cookies, session].all?(&:present?)
-        cookies = T.must(cookies)
-        session = credentials.session
+        cookies, session = T.must(cookies), T.must(session)
         File.write(cookies_filename!, cookies)
         File.write(session_filename!, session.to_json)
       else
