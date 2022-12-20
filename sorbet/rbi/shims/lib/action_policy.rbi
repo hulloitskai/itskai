@@ -13,11 +13,9 @@ module ActionPolicy::ScopeMatchers::ActiveRecord
   sig do
     params(
       args: T.untyped,
-      block:
-        T
-          .proc
-          .params(relation: ActiveRecord::Relation)
-          .returns(ActiveRecord::Relation),
+      block: T.proc
+        .params(relation: ActiveRecord::Relation)
+        .returns(ActiveRecord::Relation),
     ).void
   end
   def relation_scope(*args, &block); end

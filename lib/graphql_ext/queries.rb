@@ -1,6 +1,9 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "graphql"
+require "rails"
+
 class GraphQL::Queries
   extend T::Sig
 
@@ -14,6 +17,7 @@ class GraphQL::Queries
     schema.queries = new
   end
 
+  # == Initialization
   sig { void }
   def initialize
     @queries = T.let({}, T::Hash[String, ParsedQuery])

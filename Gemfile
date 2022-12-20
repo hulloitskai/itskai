@@ -111,6 +111,7 @@ gem "action_policy-graphql", "~> 0.5.3"
 
 # Expose a GraphQL API
 gem "graphql", "~> 2.0"
+gem "graphql-connections", "~> 1.3"
 gem "graphql-persisted_queries", "~> 1.6"
 gem "graphql-rails_logger"
 gem "graphiql-rails"
@@ -200,3 +201,4 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+

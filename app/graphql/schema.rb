@@ -4,13 +4,12 @@
 # TODO: Read up on other N+1 solutions:
 # https://evilmartians.com/chronicles/how-to-graphql-with-ruby-rails-active-record-and-no-n-plus-one
 class Schema < GraphQL::Schema
-  extend T::Sig
-
   # == Plugins
-  use GraphQL::Queries
+  use GraphQL::Connections::Stable
   use GraphQL::Subscriptions::ActionCableSubscriptions, broadcast: true
   use GraphQL::PersistedQueries, compiled_queries: true
   use GraphQL::Dataloader
+  use GraphQL::Queries
 
   # == Configuration
   # By default, limit the maximum number of returned items in connections to 50.
@@ -46,7 +45,7 @@ class Schema < GraphQL::Schema
   end
 
   # Return a string UUID for `object`.
-  sig do
+  T::Sig::WithoutRuntime.sig do
     params(
       object: T.all(::Object, GlobalID::Identification),
       type_definition: T.untyped,
@@ -59,7 +58,7 @@ class Schema < GraphQL::Schema
   end
 
   # Given a string UUID, find the object.
-  sig do
+  T::Sig::WithoutRuntime.sig do
     params(id: String, context: GraphQL::Query::Context).returns(T.untyped)
   end
   def self.object_from_id(id, context)
@@ -68,7 +67,7 @@ class Schema < GraphQL::Schema
 
   # == Callbacks
   # GraphQL-Ruby calls this when something goes wrong while running a query.
-  sig do
+  T::Sig::WithoutRuntime.sig do
     params(error: Exception, context: GraphQL::Query::Context)
       .returns(T.untyped)
   end
