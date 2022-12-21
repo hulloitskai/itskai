@@ -64,13 +64,13 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
         </Badge>
       </Menu.Target>
       <Menu.Dropdown>
-        <Menu.Item component={Link} href="/account/edit" icon={<CogIcon />}>
+        <Menu.Item component={Link} href="/user/settings" icon={<CogIcon />}>
           Settings
         </Menu.Item>
         <Menu.Item
           icon={<SignOutIcon />}
           onClick={() => {
-            router.delete("/account/sign_out", {
+            router.delete("/user/logout", {
               onSuccess: ({
                 props: {
                   csrf: { token: csrfToken },
@@ -88,12 +88,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
       </Menu.Dropdown>
     </Menu>
   ) : (
-    <Badge
-      component={Link}
-      href="/account/sign_in"
-      color="gray.4"
-      {...badgeProps}
-    >
+    <Badge component={Link} href="/user/login" color="gray.4" {...badgeProps}>
       Sign In
     </Badge>
   );

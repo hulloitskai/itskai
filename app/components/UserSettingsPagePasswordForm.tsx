@@ -1,19 +1,19 @@
 import type { FC } from "react";
 import { PasswordInput } from "@mantine/core";
 
-export type AccountEditPagePasswordFormValues = {
+export type UserSettingsPagePasswordFormValues = {
   readonly password: string;
   readonly passwordConfirmation: string;
   readonly currentPassword: string;
 };
 
-export type AccountEditPagePasswordFormProps = {};
+export type UserSettingsPagePasswordFormProps = {};
 
-const AccountEditPagePasswordForm: FC<
-  AccountEditPagePasswordFormProps
+const UserSettingsPagePasswordForm: FC<
+  UserSettingsPagePasswordFormProps
 > = () => {
   const router = useRouter();
-  const initialValues: AccountEditPagePasswordFormValues = useMemo(
+  const initialValues: UserSettingsPagePasswordFormValues = useMemo(
     () => ({
       password: "",
       passwordConfirmation: "",
@@ -22,7 +22,7 @@ const AccountEditPagePasswordForm: FC<
     [],
   );
   const { getInputProps, onSubmit, reset, setErrors } =
-    useForm<AccountEditPagePasswordFormValues>({ initialValues });
+    useForm<UserSettingsPagePasswordFormValues>({ initialValues });
   return (
     <form
       onSubmit={onSubmit(
@@ -35,7 +35,7 @@ const AccountEditPagePasswordForm: FC<
             },
           };
           router.put("/account", data, {
-            errorBag: AccountEditPagePasswordForm.name,
+            errorBag: UserSettingsPagePasswordForm.name,
             preserveScroll: true,
             onSuccess: () => {
               reset();
@@ -75,4 +75,4 @@ const AccountEditPagePasswordForm: FC<
   );
 };
 
-export default AccountEditPagePasswordForm;
+export default UserSettingsPagePasswordForm;

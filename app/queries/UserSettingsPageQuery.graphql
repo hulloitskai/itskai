@@ -1,0 +1,15 @@
+query UserSettingsPageQuery {
+  viewer {
+    id
+    ...AppViewerFragment
+    ...UserSettingsPageViewerFragment
+  }
+  icloudCredentials {
+    id
+    ...UserSettingsPageICloudCredentialsFragment
+  }
+  spotifyCredentials {
+    id
+    ...UserSettingsPageSpotifyCredentialsFragment
+  }
+}

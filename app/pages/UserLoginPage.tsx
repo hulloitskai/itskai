@@ -1,15 +1,15 @@
 import { PageComponent } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
-import AccountSignInPageForm from "~/components/AccountSignInPageForm";
+import UserLoginPageForm from "~/components/UserLoginPageForm";
 
-import { AccountSignInPageQuery } from "~/queries";
+import { UserLoginPageQuery } from "~/queries";
 
-export type AccountSignInPageProps = {
-  readonly data: AccountSignInPageQuery;
+export type UserLoginPageProps = {
+  readonly data: UserLoginPageQuery;
 };
 
-const AccountSignInPage: PageComponent = () => {
+const UserLoginPage: PageComponent = () => {
   return (
     <Card w={380} radius="md" withBorder>
       <Stack spacing="xs">
@@ -22,10 +22,10 @@ const AccountSignInPage: PageComponent = () => {
             </Text>
           </Text>
         </Stack>
-        <AccountSignInPageForm />
+        <UserLoginPageForm />
         <Text size="xs" color="gray">
           Don&apos;t have an account?{" "}
-          <Anchor component={Link} href="/account/sign_up" color="indigo">
+          <Anchor component={Link} href="/user/register" color="indigo">
             Sign up instead.
           </Anchor>
         </Text>
@@ -34,7 +34,7 @@ const AccountSignInPage: PageComponent = () => {
   );
 };
 
-AccountSignInPage.layout = layoutWithData<AccountSignInPageProps>(
+UserLoginPage.layout = layoutWithData<UserLoginPageProps>(
   (page, { viewer }) => (
     <AppLayout {...{ viewer }}>
       <Center h="100%">{page}</Center>
@@ -42,4 +42,4 @@ AccountSignInPage.layout = layoutWithData<AccountSignInPageProps>(
   ),
 );
 
-export default AccountSignInPage;
+export default UserLoginPage;

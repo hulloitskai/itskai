@@ -6,21 +6,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: :create
 
   # == Actions
-  # GET /account/sign_up
+  # GET /<resource>/register
   sig { override.void }
   def new
-    data = query!("AccountSignUpPageQuery")
-    render(inertia: "AccountSignUpPage", props: { data: })
+    data = query!("UserRegisterPageQuery")
+    render(inertia: "UserRegisterPage", props: { data: })
   end
 
-  # GET /resource/edit
+  # GET /<resource>/settings
   sig { void }
   def edit
-    data = query!("AccountEditPageQuery")
-    render(inertia: "AccountEditPage", props: { data: })
+    data = query!("UserSettingsPageQuery")
+    render(inertia: "UserSettingsPage", props: { data: })
   end
 
-  # POST /account
+  # POST /<resource>
   sig { override.void }
   def create
     build_resource(sign_up_params)
@@ -50,7 +50,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  # PUT /resource
+  # PUT /<resource>
   sig { void }
   def update
     self.resource =
@@ -73,12 +73,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  # DELETE /resource
+  # DELETE /<resource>
   # def destroy
   #   super
   # end
 
-  # GET /resource/cancel
+  # GET /<resource>/cancel
   # Forces the session data which is usually expired after sign
   # in to be expired now. This is useful if the user wants to
   # cancel oauth signing in/up in the middle of the process,

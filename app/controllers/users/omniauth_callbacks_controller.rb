@@ -15,7 +15,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   # == Actions
-  # GET /account/auth/spotify/callback
+  # GET /user/auth/spotify/callback
   sig { void }
   def spotify
     auth = T.let(request.env.fetch("omniauth.auth"), OmniAuth::AuthHash)
@@ -40,7 +40,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     response.set_header("Location", response.get_header("Location") + "#")
   end
 
-  # # GET /account/auth/facebook/callback
+  # # GET /user/auth/facebook/callback
   # sig { void }
   # def facebook
   #   @user = User.from_omniauth(request.env.fetch("omniauth.auth"))

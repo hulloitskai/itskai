@@ -2,19 +2,19 @@ import type { PageComponent } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 import type { DeepRequired } from "~/helpers/utils";
 
-import AccountEditPageProfileForm from "~/components/AccountEditPageProfileForm";
-import AccountEditPageEmailForm from "~/components/AccountEditPageEmailForm";
-import AccountEditPagePasswordForm from "~/components/AccountEditPagePasswordForm";
-import AccountEditPageICloudCredentialsForm from "~/components/AccountEditPageICloudCredentialsForm";
-import AccountEditPageSpotifyCredentialsForm from "~/components/AccountEditPageSpotifyCredentialsForm";
+import UserSettingsPageProfileForm from "~/components/UserSettingsPageProfileForm";
+import UserSettingsPageEmailForm from "~/components/UserSettingsPageEmailForm";
+import UserSettingsPagePasswordForm from "~/components/UserSettingsPagePasswordForm";
+import UserSettingsPageICloudCredentialsForm from "~/components/UserSettingsPageICloudCredentialsForm";
+import UserSettingsPageSpotifyCredentialsForm from "~/components/UserSettingsPageSpotifyCredentialsForm";
 
-import type { AccountEditPageQuery } from "~/queries";
+import type { UserSettingsPageQuery } from "~/queries";
 
-export type AccountEditPageProps = {
-  readonly data: DeepRequired<AccountEditPageQuery, ["viewer"]>;
+export type UserSettingsPageProps = {
+  readonly data: DeepRequired<UserSettingsPageQuery, ["viewer"]>;
 };
 
-const AccountEditPage: PageComponent<AccountEditPageProps> = ({
+const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
   data: { viewer, icloudCredentials, spotifyCredentials },
 }) => {
   const { isOwner } = viewer;
@@ -27,7 +27,7 @@ const AccountEditPage: PageComponent<AccountEditPageProps> = ({
               Profile Information
             </Title>
           </Center>
-          <AccountEditPageProfileForm {...{ viewer }} />
+          <UserSettingsPageProfileForm {...{ viewer }} />
         </Stack>
       </Card>
       <Card radius="md" withBorder>
@@ -40,7 +40,7 @@ const AccountEditPage: PageComponent<AccountEditPageProps> = ({
               Change your account email address.
             </Text>
           </Stack>
-          <AccountEditPageEmailForm {...{ viewer }} />
+          <UserSettingsPageEmailForm {...{ viewer }} />
         </Stack>
       </Card>
       <Card radius="md" withBorder>
@@ -53,7 +53,7 @@ const AccountEditPage: PageComponent<AccountEditPageProps> = ({
               Change your login password.
             </Text>
           </Stack>
-          <AccountEditPagePasswordForm />
+          <UserSettingsPagePasswordForm />
         </Stack>
       </Card>
       {isOwner && (
@@ -68,7 +68,7 @@ const AccountEditPage: PageComponent<AccountEditPageProps> = ({
                   Authenticate with iCloud to enable knowledge graph services.
                 </Text>
               </Stack>
-              <AccountEditPageICloudCredentialsForm
+              <UserSettingsPageICloudCredentialsForm
                 {...{ icloudCredentials }}
               />
             </Stack>
@@ -83,7 +83,7 @@ const AccountEditPage: PageComponent<AccountEditPageProps> = ({
                   Authorize Spotify to enable music services.
                 </Text>
               </Stack>
-              <AccountEditPageSpotifyCredentialsForm
+              <UserSettingsPageSpotifyCredentialsForm
                 {...{ spotifyCredentials }}
               />
             </Stack>
@@ -94,7 +94,7 @@ const AccountEditPage: PageComponent<AccountEditPageProps> = ({
   );
 };
 
-AccountEditPage.layout = layoutWithData<AccountEditPageProps>(
+UserSettingsPage.layout = layoutWithData<UserSettingsPageProps>(
   (page, { viewer }) => (
     <AppLayout withContainer withGutter containerSize={440} {...{ viewer }}>
       {page}
@@ -102,4 +102,4 @@ AccountEditPage.layout = layoutWithData<AccountEditPageProps>(
   ),
 );
 
-export default AccountEditPage;
+export default UserSettingsPage;

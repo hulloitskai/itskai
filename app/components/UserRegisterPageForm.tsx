@@ -1,19 +1,20 @@
 import type { FC } from "react";
 import { PasswordInput } from "@mantine/core";
 
-export type AccountSignUpPageFormValues = {
+export type UserRegisterPageFormValues = {
   readonly name: string;
   readonly email: string;
   readonly password: string;
   readonly passwordConfirmation: string;
 };
 
-export type AccountSignUpPageFormProps = {};
+export type UserRegisterPageFormProps = {};
 
-const AccountSignUpPageForm: FC<AccountSignUpPageFormProps> = () => {
+const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const { getInputProps, onSubmit, setFieldValue, setErrors } =
-    useForm<AccountSignUpPageFormValues>({
+    useForm<UserRegisterPageFormValues>({
       initialValues: {
         name: "",
         email: "",
@@ -33,13 +34,15 @@ const AccountSignUpPageForm: FC<AccountSignUpPageFormProps> = () => {
           },
         };
         router.post("/account", data, {
-          errorBag: AccountSignUpPageForm.name,
+          errorBag: UserRegisterPageForm.name,
+          onBefore: () => setLoading(true),
           onError: errors => {
             setFieldValue("password", "");
             setFieldValue("passwordConfirmation", "");
             setErrors(errors);
-            showAlert({ message: "Failed to register account." });
+            showAlert({ message: "Failed to Register account." });
           },
+          onFinish: () => setLoading(false),
         });
       })}
     >
@@ -68,10 +71,12 @@ const AccountSignUpPageForm: FC<AccountSignUpPageFormProps> = () => {
           required
           {...getInputProps("passwordConfirmation")}
         />
-        <Button type="submit">Sign Up</Button>
+        <Button type="submit" {...{ loading }}>
+          Sign Up
+        </Button>
       </Stack>
     </form>
   );
 };
 
-export default AccountSignUpPageForm;
+export default UserRegisterPageForm;

@@ -6,7 +6,7 @@ module Types
   class MutationType < BaseObject
     field :test_mutation, mutation: Mutations::TestMutation
 
-    field :account_update, mutation: Mutations::AccountUpdate
+    field :user_update, mutation: Mutations::UserUpdate
 
     field :icloud_credentials_update,
           mutation: Mutations::ICloudCredentialsUpdate

@@ -3,14 +3,14 @@
 
 class Users::SessionsController < Devise::SessionsController
   # == Actions
-  # GET /account/sign_in
+  # GET /<resource>/login
   sig { override.void }
   def new
-    data = query!("AccountSignInPageQuery")
-    render(inertia: "AccountSignInPage", props: { data: })
+    data = query!("UserLoginPageQuery")
+    render(inertia: "UserLoginPage", props: { data: })
   end
 
-  # POST /account/sign_in
+  # POST /<resource>/login
   sig { override.void }
   def create
     self.resource = warden.authenticate!(auth_options)

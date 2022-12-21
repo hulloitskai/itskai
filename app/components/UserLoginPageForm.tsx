@@ -5,30 +5,32 @@ import { PasswordInput } from "@mantine/core";
 
 import { createApolloLink } from "~/helpers/apollo";
 
-export type AccountSignInPageFormValues = {
+export type UserLoginPageFormValues = {
   readonly email: string;
   readonly password: string;
 };
 
-export type AccountSignInPageFormProps = {};
+export type UserLoginPageFormProps = {};
 
-const AccountSignInPageForm: FC<AccountSignInPageFormProps> = () => {
+const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
   const removeInvalidResponseCallback = useRef<VoidFunction>();
   const router = useRouter();
   const client = useApolloClient();
-  const { getInputProps, onSubmit, reset } =
-    useForm<AccountSignInPageFormValues>({
-      initialValues: {
-        email: "",
-        password: "",
-      },
-    });
+  const [loading, setLoading] = useState(false);
+  const { getInputProps, onSubmit, reset } = useForm<UserLoginPageFormValues>({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+  });
   return (
     <form
       onSubmit={onSubmit(({ email, password }) => {
         const data = { user: { email, password } };
-        router.post("/account/sign_in", data, {
+        router.post("/user/login", data, {
           onBefore: () => {
+            setLoading(true);
+
             // Navigate to non-Inertia pages.
             removeInvalidResponseCallback.current = Inertia.on(
               "invalid",
@@ -55,6 +57,7 @@ const AccountSignInPageForm: FC<AccountSignInPageFormProps> = () => {
               removeInvalidResponseCallback.current();
             }
             reset();
+            setLoading(false);
           },
         });
       })}
@@ -72,10 +75,12 @@ const AccountSignInPageForm: FC<AccountSignInPageFormProps> = () => {
           required
           {...getInputProps("password")}
         />
-        <Button type="submit">Sign In</Button>
+        <Button type="submit" {...{ loading }}>
+          Sign In
+        </Button>
       </Stack>
     </form>
   );
 };
 
-export default AccountSignInPageForm;
+export default UserLoginPageForm;

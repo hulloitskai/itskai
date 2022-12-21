@@ -7,20 +7,20 @@ import {
 } from "~/queries";
 import type {
   Maybe,
-  AccountEditPageICloudCredentialsFragment,
+  UserSettingsPageICloudCredentialsFragment,
 } from "~/queries";
 
-export type AccountEditPageICloudCredentialsFormValues = {
+export type UserSettingsPageICloudCredentialsFormValues = {
   readonly email: string;
   readonly password: string;
 };
 
-export type AccountEditPageICloudCredentialsFormProps = {
-  readonly icloudCredentials: Maybe<AccountEditPageICloudCredentialsFragment>;
+export type UserSettingsPageICloudCredentialsFormProps = {
+  readonly icloudCredentials: Maybe<UserSettingsPageICloudCredentialsFragment>;
 };
 
-const AccountEditPageICloudCredentialsForm: FC<
-  AccountEditPageICloudCredentialsFormProps
+const UserSettingsPageICloudCredentialsForm: FC<
+  UserSettingsPageICloudCredentialsFormProps
 > = ({ icloudCredentials }) => {
   const { password, cookies, session } = icloudCredentials || {};
   const router = useRouter();
@@ -44,7 +44,7 @@ const AccountEditPageICloudCredentialsForm: FC<
   }, []);
 
   // == Form
-  const initialValues = useMemo<AccountEditPageICloudCredentialsFormValues>(
+  const initialValues = useMemo<UserSettingsPageICloudCredentialsFormValues>(
     () => ({
       email: "",
       password: "",
@@ -53,7 +53,7 @@ const AccountEditPageICloudCredentialsForm: FC<
     [icloudCredentials],
   );
   const { getInputProps, onSubmit, setErrors } =
-    useForm<AccountEditPageICloudCredentialsFormValues>({
+    useForm<UserSettingsPageICloudCredentialsFormValues>({
       initialValues: initialValues,
     });
 
@@ -154,7 +154,7 @@ const AccountEditPageICloudCredentialsForm: FC<
   );
 };
 
-export default AccountEditPageICloudCredentialsForm;
+export default UserSettingsPageICloudCredentialsForm;
 
 const VerifySecurityCodeModalContent: FC = () => {
   const { getInputProps, onSubmit } = useForm({
@@ -193,7 +193,7 @@ const VerifySecurityCodeModalContent: FC = () => {
 };
 
 type SessionInformationModalContentProps = {
-  readonly icloudCredentials: AccountEditPageICloudCredentialsFragment;
+  readonly icloudCredentials: UserSettingsPageICloudCredentialsFragment;
 };
 
 const SessionInformationModalContent: FC<

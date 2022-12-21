@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Mutations
-  class AccountUpdate < BaseMutation
+  class UserUpdate < BaseMutation
     class Payload < T::Struct
       const :user, T.nilable(User)
       const :errors, T.nilable(ActiveModel::Errors)

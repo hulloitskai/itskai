@@ -1,29 +1,29 @@
 import type { FC } from "react";
 import { Text } from "@mantine/core";
 
-import type { AccountEditPageViewerFragment } from "~/queries";
+import type { UserSettingsPageViewerFragment } from "~/queries";
 
-import type { AccountEditPageProps } from "~/pages/AccountEditPage";
+import type { UserSettingsPageProps } from "~/pages/UserSettingsPage";
 
-export type AccountEditPageEmailFormValues = {
+export type UserSettingsPageEmailFormValues = {
   readonly email: string;
 };
 
-export type AccountEditPageEmailFormProps = {
-  readonly viewer: AccountEditPageViewerFragment;
+export type UserSettingsPageEmailFormProps = {
+  readonly viewer: UserSettingsPageViewerFragment;
 };
 
-const AccountEditPageEmailForm: FC<AccountEditPageEmailFormProps> = ({
+const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
   viewer,
 }) => {
   const { email, unconfirmedEmail } = viewer;
   const router = useRouter();
-  const initialValues = useMemo<AccountEditPageEmailFormValues>(
+  const initialValues = useMemo<UserSettingsPageEmailFormValues>(
     () => ({ email: unconfirmedEmail || email }),
     [viewer],
   );
   const { getInputProps, onSubmit, setValues, setErrors } =
-    useForm<AccountEditPageEmailFormValues>({
+    useForm<UserSettingsPageEmailFormValues>({
       initialValues: initialValues,
     });
   return (
@@ -31,7 +31,7 @@ const AccountEditPageEmailForm: FC<AccountEditPageEmailFormProps> = ({
       onSubmit={onSubmit(({ email }) => {
         const data = { user: { email } };
         router.put("/account", data, {
-          errorBag: AccountEditPageEmailForm.name,
+          errorBag: UserSettingsPageEmailForm.name,
           preserveScroll: true,
           onSuccess: async page => {
             const previouslyUnconfirmedEmail = unconfirmedEmail;
@@ -40,7 +40,7 @@ const AccountEditPageEmailForm: FC<AccountEditPageEmailFormProps> = ({
                 data: {
                   viewer: { email, unconfirmedEmail },
                 },
-              } = page.props as unknown as AccountEditPageProps;
+              } = page.props as unknown as UserSettingsPageProps;
               if (unconfirmedEmail) {
                 showNotice({
                   title: "Confirm New Email",
@@ -98,4 +98,4 @@ const AccountEditPageEmailForm: FC<AccountEditPageEmailFormProps> = ({
   );
 };
 
-export default AccountEditPageEmailForm;
+export default UserSettingsPageEmailForm;

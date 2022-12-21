@@ -2,24 +2,24 @@ import type { FC } from "react";
 
 import type {
   Maybe,
-  AccountEditPageSpotifyCredentialsFragment,
+  UserSettingsPageSpotifyCredentialsFragment,
 } from "~/queries";
 import FormAuthenticityField from "./FormAuthenticityField";
 
-export type AccountEditPageSpotifyCredentialsFormValues = {
+export type UserSettingsPageSpotifyCredentialsFormValues = {
   readonly uid: string;
   readonly refreshToken: string | null;
 };
 
-export type AccountEditPageSpotifyCredentialsFormProps = {
-  readonly spotifyCredentials: Maybe<AccountEditPageSpotifyCredentialsFragment>;
+export type UserSettingsPageSpotifyCredentialsFormProps = {
+  readonly spotifyCredentials: Maybe<UserSettingsPageSpotifyCredentialsFragment>;
 };
 
-const AccountEditPageSpotifyCredentialsForm: FC<
-  AccountEditPageSpotifyCredentialsFormProps
+const UserSettingsPageSpotifyCredentialsForm: FC<
+  UserSettingsPageSpotifyCredentialsFormProps
 > = ({ spotifyCredentials }) => {
   const { uid, refreshToken } = spotifyCredentials || {};
-  const initialValues = useMemo<AccountEditPageSpotifyCredentialsFormValues>(
+  const initialValues = useMemo<UserSettingsPageSpotifyCredentialsFormValues>(
     () => ({
       uid: "",
       refreshToken: "",
@@ -28,11 +28,11 @@ const AccountEditPageSpotifyCredentialsForm: FC<
     [spotifyCredentials],
   );
   const { getInputProps } =
-    useForm<AccountEditPageSpotifyCredentialsFormValues>({
+    useForm<UserSettingsPageSpotifyCredentialsFormValues>({
       initialValues: initialValues,
     });
   return (
-    <form action="/account/auth/spotify" method="post">
+    <form action="/user/auth/spotify" method="post">
       <FormAuthenticityField />
       <Stack spacing="xs">
         {!!uid && (
@@ -55,4 +55,4 @@ const AccountEditPageSpotifyCredentialsForm: FC<
   );
 };
 
-export default AccountEditPageSpotifyCredentialsForm;
+export default UserSettingsPageSpotifyCredentialsForm;
