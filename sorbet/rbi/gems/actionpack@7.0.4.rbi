@@ -1254,6 +1254,7 @@ class ActionController::API < ::ActionController::Metal
   include ::Devise::Controllers::StoreLocation
   include ::Devise::Controllers::Helpers
   include ::Devise::Controllers::UrlHelpers
+  include ::Devise::OmniAuth::UrlHelpers
   extend ::ActionView::ViewPaths::ClassMethods
   extend ::AbstractController::UrlFor::ClassMethods
   extend ::ActionController::Rendering::ClassMethods
@@ -1712,11 +1713,11 @@ class ActionController::Base < ::ActionController::Metal
   include ::ActionController::RespondWith
   include ::ActionDispatch::Routing::RouteSet::MountedHelpers
   include ::ActiveRecord::Railties::ControllerRuntime
-  include ::MetaTags::ControllerHelper
   include ::Devise::Controllers::SignInOut
   include ::Devise::Controllers::StoreLocation
   include ::Devise::Controllers::Helpers
   include ::Devise::Controllers::UrlHelpers
+  include ::Devise::OmniAuth::UrlHelpers
   include ::ActionPolicy::Behaviours::PolicyFor
   include ::ActionPolicy::Behaviours::Scoping
   include ::ActionPolicy::Behaviour
@@ -12662,7 +12663,7 @@ class ActionDispatch::Journey::Route
 
   # @return [Boolean]
   #
-  # source://js_from_routes/2.0.6/lib/js_from_routes/railtie.rb#32
+  # source://actionpack//lib/action_dispatch/journey/route.rb#127
   def required_default?(key); end
 
   # source://actionpack//lib/action_dispatch/journey/route.rb#131

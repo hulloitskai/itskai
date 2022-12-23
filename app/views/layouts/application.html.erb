@@ -45,19 +45,6 @@
       <% end %>
     <% end %>
 
-    <%# == Meta: SEO %>
-    <%= display_meta_tags(
-      reverse: true,
-      site: "It's Kai!",
-      description: "Welcome to my little corner of the internet :)",
-      og: {
-        title: :title,
-        site_name: :site,
-        description: :description,
-        image: "/banner.png",
-      },
-    ) %>
-
     <%# == Scripts: Application %>
     <%= vite_client_tag %>
     <%= vite_typescript_tag 'honeybadger' %>

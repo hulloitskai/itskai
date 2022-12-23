@@ -96,9 +96,6 @@ gem "addressable", "~> 2.8"
 # Handle soft deletions with Discard
 gem "discard", "~> 1.2"
 
-# Manage meta tags
-gem "meta-tags", "~> 2.16"
-
 # Typecheck code at runtime
 gem "sorbet-runtime", "~> 0.5.10554"
 
