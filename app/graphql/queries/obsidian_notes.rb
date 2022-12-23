@@ -17,8 +17,7 @@ module Queries
       params(
         modified_after: T.nilable(Time),
         modified_before: T.nilable(Time),
-      )
-        .returns(T.nilable(ActiveRecord::Relation))
+      ).returns(T.nilable(GraphQL::Connections::Base))
     end
     def resolve(modified_after: nil, modified_before: nil)
       notes = authorized_scope(::ObsidianNote.all)
@@ -29,6 +28,11 @@ module Queries
         notes = notes.where("modified_at <= ?", modified_before)
       end
       notes.order(modified_at: :desc)
+      GraphQL::Connections::Stable.new(
+        notes,
+        keys: %i[modified_at],
+        desc: true,
+      )
     end
   end
 end
