@@ -25,6 +25,12 @@ const ObsidianNotePage: PageComponent<ObsidianNotePageProps> = ({
   data: { note },
 }) => {
   const { id, name, tags, content, blurb, references } = note;
+  useEffect(() => {
+    setVars("page", {
+      pageName: ObsidianNotePage.name,
+      noteName: name,
+    });
+  }, [name]);
   return (
     <>
       <Layout>

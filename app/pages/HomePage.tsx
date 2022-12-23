@@ -12,6 +12,11 @@ export type HomePageProps = {
 
 const HomePage: PageComponent<HomePageProps> = () => {
   const theme = useMantineTheme();
+  useEffect(() => {
+    setVars("page", {
+      pageName: HomePage.name,
+    });
+  }, []);
   return (
     <>
       <Container size="sm">

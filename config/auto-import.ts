@@ -10,6 +10,7 @@ export const imports: Array<ImportsMap | PresetName> = [
       "useSubscription",
       "useMutation",
     ],
+    "@fullstory/browser": ["setVars"],
     "@inertiajs/inertia-react": ["Link", "usePage"],
     "@mantine/core": [
       "packSx",

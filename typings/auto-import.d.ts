@@ -54,6 +54,7 @@ declare global {
   const pick: typeof import('lodash-es')['pick']
   const requireMeta: typeof import('~/helpers')['requireMeta']
   const resolve: typeof import('~/helpers')['resolve']
+  const setVars: typeof import('@fullstory/browser')['setVars']
   const showAlert: typeof import('~/helpers')['showAlert']
   const showNotice: typeof import('~/helpers')['showNotice']
   const showNotification: typeof import('@mantine/notifications')['showNotification']
