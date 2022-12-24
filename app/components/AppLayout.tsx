@@ -29,6 +29,8 @@ export type AppLayoutProps = AppMetaProps &
 const AppLayout: FC<AppLayoutProps> = ({
   viewer,
   title,
+  description,
+  imageUrl,
   containerSize,
   containerProps,
   withContainer,
@@ -74,7 +76,7 @@ const AppLayout: FC<AppLayoutProps> = ({
   }, [withContainer, children]);
   return (
     <>
-      <AppMeta {...{ title }} />
+      <AppMeta {...{ title, description, imageUrl }} />
       <AppShell
         header={<AppHeader {...{ viewer }} />}
         styles={{

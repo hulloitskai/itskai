@@ -85,7 +85,7 @@ const TestPage: PageComponent<TestPageProps> = ({
   );
 };
 
-TestPage.layout = layoutWithData<TestPageProps>((page, { viewer }) => (
+TestPage.layout = buildLayout<TestPageProps>((page, { data: { viewer } }) => (
   <AppLayout withContainer {...{ viewer }}>
     {page}
   </AppLayout>

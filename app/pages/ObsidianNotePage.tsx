@@ -145,9 +145,9 @@ const ObsidianNotePage: PageComponent<ObsidianNotePageProps> = ({
   );
 };
 
-ObsidianNotePage.layout = layoutWithData<ObsidianNotePageProps>(
-  (page, { viewer, note: { name } }) => (
-    <AppLayout title={name} padding={0} {...{ viewer }}>
+ObsidianNotePage.layout = buildLayout<ObsidianNotePageProps>(
+  (page, { data: { viewer, note } }) => (
+    <AppLayout title={note.name} padding={0} {...{ viewer }}>
       {page}
     </AppLayout>
   ),

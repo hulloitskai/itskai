@@ -137,7 +137,7 @@ const WorkPage: PageComponent<WorkPageProps> = () => (
   </Stack>
 );
 
-WorkPage.layout = layoutWithData<WorkPageProps>((page, { viewer }) => (
+WorkPage.layout = buildLayout<WorkPageProps>((page, { data: { viewer } }) => (
   <AppLayout withContainer {...{ viewer }}>
     {page}
   </AppLayout>

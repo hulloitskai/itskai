@@ -97,7 +97,7 @@ const HomePage: PageComponent<HomePageProps> = () => {
   );
 };
 
-HomePage.layout = layoutWithData<HomePageProps>((page, { viewer }) => (
+HomePage.layout = buildLayout<HomePageProps>((page, { data: { viewer } }) => (
   <AppLayout padding={0} {...{ viewer }}>
     {page}
   </AppLayout>

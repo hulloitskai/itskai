@@ -1,4 +1,6 @@
 import type { ReactNode, ComponentType } from "react";
+
+import { usePage as _usePage } from "@inertiajs/inertia-react";
 import type { Page, Errors, ErrorBag } from "@inertiajs/inertia";
 
 export const pagesFromFiles = <T>(
@@ -29,6 +31,10 @@ export const usePageErrors = (): Errors & ErrorBag => {
     props: { errors },
   } = usePage();
   return errors;
+};
+
+export const usePage = <PageProps>(): Page<PageProps> => {
+  return _usePage() as Page<PageProps>;
 };
 
 export const usePageProps = <PageProps>(): PageProps & SharedPageProps => {

@@ -94,8 +94,8 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
   );
 };
 
-UserSettingsPage.layout = layoutWithData<UserSettingsPageProps>(
-  (page, { viewer }) => (
+UserSettingsPage.layout = buildLayout<UserSettingsPageProps>(
+  (page, { data: { viewer } }) => (
     <AppLayout withContainer withGutter containerSize={440} {...{ viewer }}>
       {page}
     </AppLayout>

@@ -1,18 +1,21 @@
 import type { FC } from "react";
 
-const AppMetaSiteName = "It's Kai";
 const AppMetaSiteType = "website";
+const AppMetaSiteName = "It's Kai!";
 const AppMetaSiteDescription = "Welcome to my little corner of the internet :)";
+const AppMetaSiteImage = "/banner.png";
 const AppMetaTitleSeparator = "|";
 
 export type AppMetaProps = {
   readonly title?: string | string[];
-  readonly description?: string;
+  readonly description?: string | null;
+  readonly imageUrl?: string | null;
 };
 
 const AppMeta: FC<AppMetaProps> = ({
   title: titleProp,
   description = AppMetaSiteDescription,
+  imageUrl = AppMetaSiteImage,
 }) => {
   const title = useMemo<string>(() => {
     return new Array(titleProp)
@@ -27,16 +30,20 @@ const AppMeta: FC<AppMetaProps> = ({
   return (
     <Head>
       <title>{fullTitle}</title>
-      <meta name="description" content={description} />
+      {!!description && <meta name="description" content={description} />}
       <meta property="og:site_name" content={AppMetaSiteName} />
       <meta property="og:type" content={AppMetaSiteType} />
       <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content="/banner.png" />
+      {!!description && (
+        <meta property="og:description" content={description} />
+      )}
+      {!!imageUrl && <meta property="og:image" content={imageUrl} />}
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content="/banner.png" />
+      {!!description && (
+        <meta name="twitter:description" content={description} />
+      )}
+      {!!imageUrl && <meta name="twitter:image" content={imageUrl} />}
     </Head>
   );
 };

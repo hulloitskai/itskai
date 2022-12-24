@@ -1,4 +1,5 @@
 export {
+  usePage,
   usePageData,
   usePageErrors,
   usePageProps,
@@ -12,8 +13,8 @@ export type { SetupAppOptions } from "./app";
 export { Router, useRouter } from "./router";
 export type { RouterOptions } from "./router";
 
-export { layoutWithData } from "./layout";
-export type { LayoutWithDataFn } from "./layout";
+export { buildLayout } from "./layout";
+export type { LayoutBuilder } from "./layout";
 
 export type { ProviderProps } from "./provider";
 
