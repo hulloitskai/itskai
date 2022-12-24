@@ -1,9 +1,7 @@
 import type { FC } from "react";
 
-import type {
-  Maybe,
-  UserSettingsPageSpotifyCredentialsFragment,
-} from "~/queries";
+import type { Maybe } from "~/queries";
+import type { UserSettingsPageSpotifyCredentialsFragment } from "~/queries";
 import FormAuthenticityField from "./FormAuthenticityField";
 
 export type UserSettingsPageSpotifyCredentialsFormValues = {

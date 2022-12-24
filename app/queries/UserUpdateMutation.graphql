@@ -1,5 +1,5 @@
-mutation UserUpdateMutation($input: AccountUpdateInput!) {
-  payload: accountUpdate(input: $input) {
+mutation UserUpdateMutation($input: UserUpdateInput!) {
+  payload: userUpdate(input: $input) {
     user {
       id
     }

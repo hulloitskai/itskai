@@ -1,10 +1,4 @@
 import { FieldPolicy, FieldReadFunction, TypePolicies, TypePolicy } from '@apollo/client/cache';
-export type AccountUpdatePayloadKeySpecifier = ('clientMutationId' | 'errors' | 'user' | AccountUpdatePayloadKeySpecifier)[];
-export type AccountUpdatePayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	errors?: FieldPolicy<any> | FieldReadFunction<any>,
-	user?: FieldPolicy<any> | FieldReadFunction<any>
-};
 export type ICloudCredentialsKeySpecifier = ('cookies' | 'email' | 'id' | 'password' | 'session' | ICloudCredentialsKeySpecifier)[];
 export type ICloudCredentialsFieldPolicy = {
 	cookies?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -29,12 +23,13 @@ export type InputFieldErrorFieldPolicy = {
 	field?: FieldPolicy<any> | FieldReadFunction<any>,
 	message?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('accountUpdate' | 'icloudCredentialsUpdate' | 'icloudCredentialsVerifySecurityCode' | 'testMutation' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('icloudCredentialsUpdate' | 'icloudCredentialsVerifySecurityCode' | 'obsidianNoteSynchronize' | 'testMutation' | 'userUpdate' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
-	accountUpdate?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentialsUpdate?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentialsVerifySecurityCode?: FieldPolicy<any> | FieldReadFunction<any>,
-	testMutation?: FieldPolicy<any> | FieldReadFunction<any>
+	obsidianNoteSynchronize?: FieldPolicy<any> | FieldReadFunction<any>,
+	testMutation?: FieldPolicy<any> | FieldReadFunction<any>,
+	userUpdate?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type NodeKeySpecifier = ('id' | NodeKeySpecifier)[];
 export type NodeFieldPolicy = {
@@ -85,6 +80,11 @@ export type ObsidianNoteEdgeKeySpecifier = ('cursor' | 'node' | ObsidianNoteEdge
 export type ObsidianNoteEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ObsidianNoteSynchronizePayloadKeySpecifier = ('clientMutationId' | 'success' | ObsidianNoteSynchronizePayloadKeySpecifier)[];
+export type ObsidianNoteSynchronizePayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type ObsidianStubKeySpecifier = ('createdAt' | 'displayName' | 'id' | 'name' | 'referencedBy' | 'updatedAt' | ObsidianStubKeySpecifier)[];
 export type ObsidianStubFieldPolicy = {
@@ -169,11 +169,13 @@ export type UserFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	unconfirmedEmail?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type UserUpdatePayloadKeySpecifier = ('clientMutationId' | 'errors' | 'user' | UserUpdatePayloadKeySpecifier)[];
+export type UserUpdatePayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	errors?: FieldPolicy<any> | FieldReadFunction<any>,
+	user?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type StrictTypedTypePolicies = {
-	AccountUpdatePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | AccountUpdatePayloadKeySpecifier | (() => undefined | AccountUpdatePayloadKeySpecifier),
-		fields?: AccountUpdatePayloadFieldPolicy,
-	},
 	ICloudCredentials?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ICloudCredentialsKeySpecifier | (() => undefined | ICloudCredentialsKeySpecifier),
 		fields?: ICloudCredentialsFieldPolicy,
@@ -218,6 +220,10 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | ObsidianNoteEdgeKeySpecifier | (() => undefined | ObsidianNoteEdgeKeySpecifier),
 		fields?: ObsidianNoteEdgeFieldPolicy,
 	},
+	ObsidianNoteSynchronizePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ObsidianNoteSynchronizePayloadKeySpecifier | (() => undefined | ObsidianNoteSynchronizePayloadKeySpecifier),
+		fields?: ObsidianNoteSynchronizePayloadFieldPolicy,
+	},
 	ObsidianStub?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ObsidianStubKeySpecifier | (() => undefined | ObsidianStubKeySpecifier),
 		fields?: ObsidianStubFieldPolicy,
@@ -261,6 +267,10 @@ export type StrictTypedTypePolicies = {
 	User?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | UserKeySpecifier | (() => undefined | UserKeySpecifier),
 		fields?: UserFieldPolicy,
+	},
+	UserUpdatePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | UserUpdatePayloadKeySpecifier | (() => undefined | UserUpdatePayloadKeySpecifier),
+		fields?: UserUpdatePayloadFieldPolicy,
 	}
 };
 export type TypedTypePolicies = StrictTypedTypePolicies & TypePolicies;

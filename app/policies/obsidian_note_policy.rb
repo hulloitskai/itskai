@@ -8,6 +8,11 @@ class ObsidianNotePolicy < ApplicationPolicy
     true
   end
 
+  sig { returns(T::Boolean) }
+  def synchronize?
+    false
+  end
+
   sig { override.returns(T::Boolean) }
   def show?
     !record!.hidden?

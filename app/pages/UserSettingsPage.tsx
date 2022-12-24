@@ -9,6 +9,7 @@ import UserSettingsPageICloudCredentialsForm from "~/components/UserSettingsPage
 import UserSettingsPageSpotifyCredentialsForm from "~/components/UserSettingsPageSpotifyCredentialsForm";
 
 import type { UserSettingsPageQuery } from "~/queries";
+import UserSettingsPageObsidianActions from "~/components/UserSettingsPageObsidianActions";
 
 export type UserSettingsPageProps = {
   readonly data: DeepRequired<UserSettingsPageQuery, ["viewer"]>;
@@ -86,6 +87,19 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
               <UserSettingsPageSpotifyCredentialsForm
                 {...{ spotifyCredentials }}
               />
+            </Stack>
+          </Card>
+          <Card radius="md" withBorder>
+            <Stack spacing="xs">
+              <Stack align="center" spacing={0}>
+                <Title order={2} size="h4">
+                  Obsidian
+                </Title>
+                <Text mt={-4} size="sm" color="dimmed">
+                  Synchronize or re-synchronize notes.
+                </Text>
+              </Stack>
+              <UserSettingsPageObsidianActions />
             </Stack>
           </Card>
         </>

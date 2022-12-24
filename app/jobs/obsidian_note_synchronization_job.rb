@@ -10,7 +10,7 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
   sig { params(force: T::Boolean).void }
   def perform(force: false)
     incoming_note_names = Obsidian.note_names
-    existing_notes = ObsidianNote.where(name: incoming_note_names).to_a
+    existing_notes = ObsidianNote.all.to_a
     existing_names = existing_notes.map(&:name)
     new_note_names = incoming_note_names - existing_names
     orphaned_note_names = existing_names - incoming_note_names

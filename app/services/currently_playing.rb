@@ -9,10 +9,7 @@ class CurrentlyPlaying < ApplicationService
   def initialize
     super
     @task = T.let(
-      Concurrent::TimerTask.new(
-        execution_interval: 2,
-        run_now: true,
-      ) do |task|
+      Concurrent::TimerTask.new(execution_interval: 2) do |task|
         Rails.application.reloader.wrap do
           previous_result = T.let(task.value, T.nilable(RSpotify::Track))
           poll = Poller.new(previous_result:)

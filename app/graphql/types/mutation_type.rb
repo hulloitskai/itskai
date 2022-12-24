@@ -12,5 +12,8 @@ module Types
           mutation: Mutations::ICloudCredentialsUpdate
     field :icloud_credentials_verify_security_code,
           mutation: Mutations::ICloudCredentialsVerifySecurityCode
+
+    field :obsidian_note_synchronize,
+          mutation: Mutations::ObsidianNoteSynchronize
   end
 end

@@ -5,10 +5,8 @@ import {
   ICloudCredentialsUpdateMutationDocument,
   ICloudCredentialsVerifySecurityCodeMutationDocument,
 } from "~/queries";
-import type {
-  Maybe,
-  UserSettingsPageICloudCredentialsFragment,
-} from "~/queries";
+import type { Maybe } from "~/queries";
+import type { UserSettingsPageICloudCredentialsFragment } from "~/queries";
 
 export type UserSettingsPageICloudCredentialsFormValues = {
   readonly email: string;
