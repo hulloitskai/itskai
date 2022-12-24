@@ -14,9 +14,9 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
     existing_names = existing_notes.map(&:name)
     new_note_names = incoming_note_names - existing_names
     orphaned_note_names = existing_names - incoming_note_names
-    cleanup_notes(orphaned_note_names:)
     create_notes(new_note_names:)
     update_notes(existing_notes:, force:)
+    cleanup_notes(orphaned_note_names:)
   end
 
   private

@@ -33,6 +33,8 @@ class Obsidian < ApplicationService
   sig { params(name: String).returns(T.nilable(ICloud::Drive::Node)) }
   def note_file(name)
     vault_root.get(name + ".md")
+  rescue PyCall::PyError => error
+    raise unless error.type.__name__ == "IndexError"
   end
 
   sig { params(name: String).returns(T.nilable(ObsidianNote)) }
