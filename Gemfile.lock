@@ -215,6 +215,7 @@ GEM
       ruby-vips (>= 2.0.17, < 3)
     inertia_rails (3.0.0)
       rails (>= 5)
+    interception (0.5)
     io-console (0.5.11)
     irb (1.5.0)
       reline (>= 0.3.0)
@@ -309,6 +310,9 @@ GEM
       yard (~> 0.9.11)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
+    pry-rescue (1.5.2)
+      interception (>= 0.5)
+      pry (>= 0.12.0)
     pry-sorbet (0.2.1)
       pry
     pry-stack_explorer (0.6.1)
@@ -566,6 +570,7 @@ DEPENDENCIES
   pry
   pry-doc
   pry-rails
+  pry-rescue
   pry-sorbet
   pry-stack_explorer
   psych (~> 4.0)

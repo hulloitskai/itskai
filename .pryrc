@@ -4,6 +4,7 @@
 require "pry-doc"
 require "pry-sorbet"
 require "pry-stack_explorer"
+require "pry-rescue"
 require "break"
 
 # Apply patches.

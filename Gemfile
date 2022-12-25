@@ -85,6 +85,7 @@ gem "pry-rails"
 gem "pry-doc", require: false
 gem "pry-sorbet", require: false
 gem "pry-stack_explorer", require: false
+gem "pry-rescue", require: false
 gem "break", require: false
 
 # Load environment variables from .env
