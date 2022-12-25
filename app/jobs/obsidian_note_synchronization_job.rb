@@ -10,22 +10,16 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
   sig { params(force: T::Boolean).void }
   def perform(force: false)
     incoming_note_names = Obsidian.note_names
-    existing_notes = ObsidianNote.all.to_a
-    existing_names = existing_notes.map(&:name)
-    new_note_names = incoming_note_names - existing_names
-    orphaned_note_names = existing_names - incoming_note_names
+    all_note_names = ObsidianNote.pluck(:name)
+    new_note_names = incoming_note_names - all_note_names
+    existing_note_names = all_note_names - new_note_names
+    orphaned_note_names = all_note_names - incoming_note_names
     create_notes(new_note_names:)
-    update_notes(existing_notes:, force:)
-    cleanup_notes(orphaned_note_names:)
+    update_notes(existing_note_names:, force:)
+    destroy_notes(orphaned_note_names:)
   end
 
   private
-
-  sig { params(orphaned_note_names: T::Array[String]).void }
-  def cleanup_notes(orphaned_note_names:)
-    destroyed_notes = ObsidianNote.where(name: orphaned_note_names).destroy_all
-    logger.info("Destroyed #{destroyed_notes.count} notes")
-  end
 
   sig { params(new_note_names: T::Array[String]).void }
   def create_notes(new_note_names:)
@@ -45,9 +39,10 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
     logger.info("Created #{created_notes.count} notes")
   end
 
-  sig { params(existing_notes: T::Array[ObsidianNote], force: T::Boolean).void }
-  def update_notes(existing_notes:, force:)
-    updated_notes = existing_notes.filter_map do |note|
+  sig { params(existing_note_names: T::Array[String], force: T::Boolean).void }
+  def update_notes(existing_note_names:, force:)
+    updated_notes = existing_note_names.filter_map do |name|
+      note = ObsidianNote.find_by!(name: name)
       next if !note.synchronization_required? && !force
       updated_note = Obsidian.note!(note.name)
       if updated_note.save
@@ -60,5 +55,11 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
       end
     end
     logger.info("Updated #{updated_notes.count} notes")
+  end
+
+  sig { params(orphaned_note_names: T::Array[String]).void }
+  def destroy_notes(orphaned_note_names:)
+    destroyed_notes = ObsidianNote.where(name: orphaned_note_names).destroy_all
+    logger.info("Destroyed #{destroyed_notes.count} notes")
   end
 end
