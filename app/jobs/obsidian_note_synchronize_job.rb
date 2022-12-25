@@ -9,6 +9,10 @@ class ObsidianNoteSynchronizeJob < ApplicationJob
 
   sig { params(note: ObsidianNote, force: T::Boolean).void }
   def perform(note, force: false)
+    unless Obsidian.ready?
+      logger.warn("Obsidian not ready; skipping")
+      return
+    end
     return if !force && !note.synchronization_required?
     updated_note = Obsidian.note(note.name)
     if updated_note.nil?

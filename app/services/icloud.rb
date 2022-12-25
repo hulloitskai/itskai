@@ -19,6 +19,7 @@ class ICloud < ApplicationService
   # == Service
   sig { override.returns(T::Boolean) }
   def ready?
+    super or return false
     client = self.client or return false
     !client.requires_security_code?
   end

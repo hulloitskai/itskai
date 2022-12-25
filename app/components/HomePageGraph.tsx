@@ -8,19 +8,20 @@ import { HomePageGraphQueryDocument } from "~/queries";
 export type HomePageGraphProps = BoxProps;
 
 const HomePageGraph: FC<HomePageGraphProps> = ({ ...otherProps }) => {
-  const modifiedAfter = useMemo(() => {
-    const time = DateTime.now().minus(Duration.fromObject({ weeks: 1 }));
-    return time.toISO();
+  const oneWeekAgo = useMemo(() => {
+    return DateTime.now()
+      .minus(Duration.fromObject({ weeks: 1 }))
+      .toISO();
   }, []);
   const onError = useApolloErrorCallback("Failed to load Obsidian entries");
   const { data, loading, fetchMore } = useQuery(HomePageGraphQueryDocument, {
     variables: {
-      modifiedAfter,
+      modifiedAfter: oneWeekAgo,
       first: 32,
     },
     onError,
   });
-  const { edges, pageInfo } = data?.notesConnection ?? {};
+  const { edges, pageInfo } = data?.obsidianNotes ?? {};
   const { hasNextPage, endCursor } = pageInfo ?? {};
   const notes = useMemo(() => edges?.map(({ node }) => node), [edges]);
   return (

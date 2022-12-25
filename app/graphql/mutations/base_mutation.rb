@@ -18,7 +18,7 @@ module Mutations
     null false
 
     # == Resolver
-    sig { override.params(kwargs: T.untyped).returns(T.untyped) }
+    sig { override.overridable.params(kwargs: T.untyped).returns(T.untyped) }
     def resolve(**kwargs)
       ActiveRecord::Base.transaction do
         result = kwargs.any? ? super(**kwargs) : super()

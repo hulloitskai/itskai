@@ -3,11 +3,7 @@ query HomePageGraphQuery(
   $first: Int!
   $after: String
 ) {
-  notesConnection: obsidianNotes(
-    modifiedAfter: $modifiedAfter
-    first: $first
-    after: $after
-  ) {
+  obsidianNotes(modifiedAfter: $modifiedAfter, first: $first, after: $after) {
     edges {
       node {
         id

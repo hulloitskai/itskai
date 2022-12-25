@@ -9,6 +9,10 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
 
   sig { params(force: T::Boolean).void }
   def perform(force: false)
+    unless Obsidian.ready?
+      logger.warn("Obsidian not ready; skipping")
+      return
+    end
     incoming_note_names = Obsidian.note_names
     all_note_names = ObsidianNote.pluck(:name)
     new_note_names = incoming_note_names - all_note_names

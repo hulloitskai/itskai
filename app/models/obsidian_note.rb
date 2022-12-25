@@ -84,6 +84,7 @@ class ObsidianNote < ApplicationRecord
 
   sig { returns(T::Boolean) }
   def synchronization_required?
+    return false unless Obsidian.ready?
     file = Obsidian.note_file(name)
     file.nil? || file.modified_at! > modified_at
   end

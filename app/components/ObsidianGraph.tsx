@@ -74,7 +74,7 @@ const ObsidianGraph: FC<ObsidianGraphProps> = ({
     useEffect(() => {
       const { current: target } = svgRef;
       const [width, height] = renderSize;
-      if (target && entries && width && height) {
+      if (target && entries && !isEmpty(entries) && width && height) {
         requestAnimationFrame(() => {
           renderGraph(target, {
             entries,
@@ -94,6 +94,13 @@ const ObsidianGraph: FC<ObsidianGraphProps> = ({
     }, [svgRef.current, renderSize, entries]);
   }
 
+  if (isEmpty(entries)) {
+    return (
+      <Box ref={containerRef} {...{ sx }} {...otherProps}>
+        <Empty itemLabel="entries" mx="md" my={8} />
+      </Box>
+    );
+  }
   return (
     <>
       <Box

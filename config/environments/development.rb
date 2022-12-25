@@ -67,9 +67,13 @@ Rails.application.configure do
 
   # == Action Mailer
   config.action_mailer.delivery_method = ENV.fetch("RAILS_MAILER", :smtp).to_sym
-  config.action_mailer.smtp_settings = { address: "127.0.0.1", port: 1025 }
+  config.action_mailer.smtp_settings = {
+    port: ENV.fetch("MAILCATCHER_PORT", 1025).to_i,
+  }
   config.action_mailer.perform_caching = false
-
+  config.action_mailer.perform_deliveries = ENV
+    .fetch("RAILS_MAILER_PERFORM_DELIVERIES", true)
+    .truthy?
   # Don't care if the mailer can't send.
   # config.action_mailer.raise_delivery_errors = false
 

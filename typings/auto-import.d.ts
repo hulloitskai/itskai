@@ -14,6 +14,7 @@ declare global {
   const DateTime: typeof import('luxon')['DateTime']
   const Divider: typeof import('@mantine/core')['Divider']
   const Duration: typeof import('luxon')['Duration']
+  const Empty: typeof import('~/components')['Empty']
   const Group: typeof import('@mantine/core')['Group']
   const Head: typeof import('~/components')['Head']
   const Link: typeof import('@inertiajs/inertia-react')['Link']

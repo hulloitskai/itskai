@@ -13,11 +13,8 @@ class Spotify < ApplicationService
     end
   end
 
-  # == Service
   sig { override.returns(T::Boolean) }
-  def ready?
-    @user.present?
-  end
+  def ready? = T.cast(super, T::Boolean) && @user.present?
 
   sig { params(credentials: OAuthCredentials).void }
   def authenticate!(credentials)
@@ -49,10 +46,14 @@ class Spotify < ApplicationService
     @user or raise "Not authenticated"
   end
 
+  sig { returns(T.nilable(String)) }
+  def client_id = self.class.client_id
+
+  sig { returns(T.nilable(String)) }
+  def client_secret = self.class.client_secret
+
   sig { returns(T::Boolean) }
   def authenticate_client
-    client_id = ENV["SPOTIFY_CLIENT_ID"]
-    client_secret = ENV["SPOTIFY_CLIENT_SECRET"]
     if [client_id, client_secret].all?(&:present?)
       RSpotify.authenticate(client_id, client_secret)
       true
@@ -79,10 +80,33 @@ class Spotify
       instance.authenticate!(credentials)
     end
 
+    sig { override.returns(T::Boolean) }
+    def enabled?
+      return T.must(@enabled) if defined?(@enabled)
+      @enabled = T.let(@enabled, T.nilable(T::Boolean))
+      @enabled = scoped do
+        enviroment_set = [client_id, client_secret].all?(&:present?)
+        T.let(super, T::Boolean) && enviroment_set
+      end
+    end
+
     # == Methods
     sig { returns(T.nilable(RSpotify::Track)) }
-    def currently_playing
-      instance.currently_playing
+    def currently_playing = instance.currently_playing
+
+    # == Helpers
+    sig { returns(T.nilable(String)) }
+    def client_id
+      return @client_id if defined?(@client_id)
+      @client_id = T.let(@client_id, T.nilable(String))
+      @client_id = ENV["SPOTIFY_CLIENT_ID"]
+    end
+
+    sig { returns(T.nilable(String)) }
+    def client_secret
+      return @client_secret if defined?(@client_secret)
+      @client_secret = T.let(@client_secret, T.nilable(String))
+      @client_secret = ENV["SPOTIFY_CLIENT_SECRET"]
     end
   end
 end

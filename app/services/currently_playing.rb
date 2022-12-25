@@ -23,9 +23,7 @@ class CurrentlyPlaying < ApplicationService
 
   # == Service
   sig { override.returns(T::Boolean) }
-  def ready?
-    Spotify.ready?
-  end
+  def ready? = T.let(super, T::Boolean) && Spotify.ready?
 
   sig { void }
   def start
@@ -38,6 +36,13 @@ class CurrentlyPlaying < ApplicationService
     return unless task.running?
     task.delete_observers
     task.kill
+  end
+
+  sig { returns(T::Boolean) }
+  def debug?
+    return T.must(@debug) if defined?(@debug)
+    @debug = T.let(@debug, T.nilable(T::Boolean))
+    @debug = ENV["CURRENTLY_PLAYING_DEBUG"].truthy?
   end
 
   # == Methods
@@ -55,10 +60,21 @@ class CurrentlyPlaying
   class << self
     # == Service
     sig { override.returns(T.attached_class) }
-    def start = super.tap(&:start)
+    def start
+      super.tap do |service|
+        service = T.let(service, T.nilable(CurrentlyPlaying))
+        service&.start
+      end
+    end
+
+    sig { override.returns(T::Boolean) }
+    def enabled? = T.let(super, T::Boolean) && Spotify.enabled?
 
     sig { void }
     def stop = instance.stop
+
+    sig { returns(T::Boolean) }
+    def debug? = instance.debug?
 
     # == Methods
     sig { returns(T.nilable(RSpotify::Track)) }
