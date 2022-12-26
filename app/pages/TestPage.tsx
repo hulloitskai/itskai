@@ -54,7 +54,7 @@ const TestPage: PageComponent<TestPageProps> = ({
     });
   }, []);
 
-  // == Render
+  // == Markup
   return (
     <Stack spacing="xl">
       <Title>Test Page</Title>

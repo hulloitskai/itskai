@@ -70,6 +70,7 @@ declare global {
   const useDebouncedValue: typeof import('@mantine/hooks')['useDebouncedValue']
   const useDebugValue: typeof import('react')['useDebugValue']
   const useDeferredValue: typeof import('react')['useDeferredValue']
+  const useDidUpdate: typeof import('@mantine/hooks')['useDidUpdate']
   const useEffect: typeof import('react')['useEffect']
   const useElementSize: typeof import('@mantine/hooks')['useElementSize']
   const useEvent: typeof import('react-use')['useEvent']

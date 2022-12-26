@@ -15,31 +15,37 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
   viewer,
 }) => {
   const router = useRouter();
+
+  // == Form
   const initialValues = useMemo<UserSettingsPageProfileFormValues>(
     () => pick(viewer, "name"),
     [viewer],
   );
-  const { getInputProps, onSubmit, setErrors } =
+  const { getInputProps, onSubmit, setErrors, isDirty } =
     useForm<UserSettingsPageProfileFormValues>({
       initialValues,
     });
-  const onError = useApolloErrorCallback("Failed to update account");
+
+  // == Mutation
+  const onError = useApolloErrorCallback("Failed to update profile");
   const [runMutation, { loading }] = useMutation(UserUpdateMutationDocument, {
     onCompleted: ({ payload: { user, errors } }) => {
       if (user) {
         router.reload({
           onSuccess: () => {
-            showNotice({ message: "Profile updated." });
+            showNotice({ message: "Profile updated successfully" });
           },
         });
       } else {
         invariant(errors);
         setErrors(formErrors(errors));
-        showAlert({ message: "Failed to update profile." });
+        showAlert({ message: "Failed to update profile" });
       }
     },
     onError,
   });
+
+  // == Markup
   return (
     <form
       onSubmit={onSubmit(values => {
@@ -53,7 +59,7 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
           required
           {...getInputProps("name")}
         />
-        <Button type="submit" {...{ loading }}>
+        <Button type="submit" disabled={!isDirty()} {...{ loading }}>
           Save
         </Button>
       </Stack>

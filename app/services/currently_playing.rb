@@ -40,7 +40,7 @@ class CurrentlyPlaying < ApplicationService
 
   sig { returns(T::Boolean) }
   def debug?
-    return T.must(@debug) if defined?(@debug)
+    return !!@debug if defined?(@debug)
     @debug = T.let(@debug, T.nilable(T::Boolean))
     @debug = ENV["CURRENTLY_PLAYING_DEBUG"].truthy?
   end

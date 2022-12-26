@@ -82,7 +82,7 @@ class Spotify
 
     sig { override.returns(T::Boolean) }
     def enabled?
-      return T.must(@enabled) if defined?(@enabled)
+      return !!@enabled if defined?(@enabled)
       @enabled = T.let(@enabled, T.nilable(T::Boolean))
       @enabled = scoped do
         enviroment_set = [client_id, client_secret].all?(&:present?)

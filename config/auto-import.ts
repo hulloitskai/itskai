@@ -44,6 +44,7 @@ export const imports: Array<ImportsMap | PresetName> = [
     "@mantine/form": ["useForm"],
     "@mantine/hooks": [
       "useDebouncedValue",
+      "useDidUpdate",
       "useElementSize",
       "useMediaQuery",
       "useViewportSize",

@@ -35,8 +35,15 @@ class User < ApplicationRecord
   include Identifiable
   include Named
 
+  # == Attributes
+  sig { override.params(value: String).returns(String) }
+  def email=(value)
+    self.unconfirmed_email = nil if value == email && unconfirmed_email?
+    super(value)
+  end
+
   # == Validations
-  validates :name, presence: true, length: { maximum: 64 }
+  validates :name, presence: true, length: { maximum: 64, minimum: 2 }
   validates :email,
             presence: true,
             length: {
@@ -46,6 +53,9 @@ class User < ApplicationRecord
             uniqueness: {
               case_sensitive: false,
             }
+  validates :password,
+            password_strength: { use_dictionary: true },
+            allow_nil: true
 
   # == Methods: Owner
   sig { returns(String) }
@@ -103,4 +113,16 @@ class User
     confirmation_token
     invitation_token
   ]
+
+  # == Methods
+  sig do
+    params(
+      params: T::Hash[Symbol, T.untyped],
+      options: T.untyped,
+    ).returns(T::Boolean)
+  end
+  def update_without_password(params, *options)
+    params.delete(:email)
+    super(params)
+  end
 end

@@ -12,7 +12,9 @@ class InputFieldError < T::Struct
   sig { params(model_error: ActiveModel::Error).returns(InputFieldError) }
   def self.from(model_error)
     new(
-      field: model_error.attribute.to_s,
+      field: model_error.attribute.to_s
+        .camelize(:lower)
+        .gsub(/\[([0-9]+)\]/, '.\1'),
       message: model_error.message.upcase_first,
     )
   end

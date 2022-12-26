@@ -33,14 +33,14 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
             password_confirmation: passwordConfirmation,
           },
         };
-        router.post("/account", data, {
+        router.post("/user", data, {
           errorBag: UserRegisterPageForm.name,
           onBefore: () => setLoading(true),
           onError: errors => {
             setFieldValue("password", "");
             setFieldValue("passwordConfirmation", "");
             setErrors(errors);
-            showAlert({ message: "Failed to Register account." });
+            showAlert({ message: "Registration failed" });
           },
           onFinish: () => setLoading(false),
         });

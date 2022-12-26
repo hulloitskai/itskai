@@ -89,23 +89,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  sig do
-    override
-      .params(resource: User, params: T::Hash[T.untyped, T.untyped])
-      .returns(T::Boolean)
-  end
-  def update_resource(resource, params)
-    if params[:password].present?
-      resource.update_with_password(params)
-    else
-      attributes = params.excluding("password_confirmation", "current_password")
-      if params["email"] == resource["email"]
-        attributes["unconfirmed_email"] = ""
-      end
-      resource.update_without_password(attributes)
-    end
-  end
-
   sig { params(resource: User).returns(String) }
   def after_update_path_for(resource)
     if sign_in_after_change_password?
@@ -122,13 +105,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def inertia_errors
     error_bag = request.headers["X-Inertia-Error-Bag"]
     errors =
-      resource
-        .errors
+      resource.errors
         .group_by_attribute
         .transform_keys! { |key| key.to_s.camelize(:lower) }
         .transform_values! do |errors|
           error = T.must(errors.first)
-          error.full_message + "."
+          error.message.upcase_first
         end
     error_bag.present? ? { error_bag => errors } : errors
   end

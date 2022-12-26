@@ -132,6 +132,9 @@ gem "front_matter_parser", "~> 1.0"
 # Authenticate users with Devise
 gem "devise", "~> 4.8"
 
+# Check password strength with StrongPassword
+gem "strong_password", "~> 0.0.10"
+
 # Use OmniAuth to authenticate with external providers (i.e. Spotify)
 gem "omniauth", "~> 2.1"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
@@ -199,4 +202,3 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-

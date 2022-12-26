@@ -50,8 +50,16 @@ Rails.application.routes.draw do
     match "/401", action: :unauthorized, via: :all
   end
 
-  # == Internal
-  authenticate :user, ->(user) { user.owner? } do
+  # == Development
+  if Rails.env.development?
     mount GoodJob::Engine, at: "/good_job"
+    get "/mailcatcher", to: redirect("//localhost:1080", status: 302)
+  end
+
+  # == Administration
+  unless Rails.env.development?
+    authenticate :user, ->(user) { user.admin? } do
+      mount GoodJob::Engine, at: "/good_job"
+    end
   end
 end

@@ -13,6 +13,7 @@ const UserSettingsPagePasswordForm: FC<
   UserSettingsPagePasswordFormProps
 > = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const initialValues: UserSettingsPagePasswordFormValues = useMemo(
     () => ({
       password: "",
@@ -21,8 +22,10 @@ const UserSettingsPagePasswordForm: FC<
     }),
     [],
   );
-  const { getInputProps, onSubmit, reset, setErrors } =
-    useForm<UserSettingsPagePasswordFormValues>({ initialValues });
+  const { getInputProps, onSubmit, reset, setErrors, isDirty } =
+    useForm<UserSettingsPagePasswordFormValues>({
+      initialValues,
+    });
   return (
     <form
       onSubmit={onSubmit(
@@ -34,9 +37,10 @@ const UserSettingsPagePasswordForm: FC<
               current_password: currentPassword,
             },
           };
-          router.put("/account", data, {
+          router.put("/user", data, {
             errorBag: UserSettingsPagePasswordForm.name,
             preserveScroll: true,
+            onBefore: () => setLoading(true),
             onSuccess: () => {
               reset();
               showNotice({ message: "Password changed successfully." });
@@ -46,6 +50,7 @@ const UserSettingsPagePasswordForm: FC<
               setErrors(errors);
               showAlert({ message: "Failed to change password." });
             },
+            onFinish: () => setLoading(false),
           });
         },
       )}
@@ -55,21 +60,44 @@ const UserSettingsPagePasswordForm: FC<
           label="New Password"
           placeholder="applesauce"
           required
+          minLength={8}
           {...getInputProps("password")}
         />
         <PasswordInput
           label="New Password (confirm)"
           placeholder="applesauce"
           required
+          minLength={8}
           {...getInputProps("passwordConfirmation")}
         />
-        <PasswordInput
-          label="Current Password"
-          placeholder="potato-123"
-          required
-          {...getInputProps("currentPassword")}
-        />
-        <Button type="submit">Change Password</Button>
+        <Transition
+          transition="fade"
+          mounted={isDirty("password") && isDirty("passwordConfirmation")}
+        >
+          {style => (
+            <PasswordInput
+              label="Current Password"
+              description="Please confirm your current password to make changes."
+              placeholder="potato-123"
+              required
+              {...{ style }}
+              {...getInputProps("currentPassword")}
+            />
+          )}
+        </Transition>
+        <Button
+          type="submit"
+          disabled={
+            !(
+              isDirty("password") &&
+              isDirty("passwordConfirmation") &&
+              isDirty("currentPassword")
+            )
+          }
+          {...{ loading }}
+        >
+          Change Password
+        </Button>
       </Stack>
     </form>
   );

@@ -454,6 +454,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     stringio (3.0.2)
+    strong_password (0.0.10)
     syntax_tree (4.3.0)
       prettier_print (>= 1.0.2)
     tapioca (0.10.3)
@@ -593,6 +594,7 @@ DEPENDENCIES
   sorbet-runtime (~> 0.5.10554)
   spring
   sprockets-rails (~> 3.4)
+  strong_password (~> 0.0.10)
   tapioca (~> 0.10.3)
   tzinfo-data
   validate_url (~> 1.0)
