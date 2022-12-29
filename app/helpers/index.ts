@@ -10,7 +10,6 @@ export {
   usePage,
   usePageErrors,
   usePageProps,
-  usePageData,
   useRouter,
 } from "./inertia";
 export { formErrors } from "./form";

@@ -41,11 +41,3 @@ export const usePageProps = <PageProps>(): PageProps & SharedPageProps => {
   const { props } = usePage<Page<SharedPageProps & PageProps>>();
   return omit(props, "errors") as PageProps & SharedPageProps;
 };
-
-export const usePageData = <
-  PageProps extends { data: T },
-  T = PageProps["data"],
->(): T => {
-  const { data } = usePageProps<PageProps>();
-  return data;
-};

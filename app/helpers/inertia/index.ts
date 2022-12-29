@@ -1,10 +1,4 @@
-export {
-  usePage,
-  usePageData,
-  usePageErrors,
-  usePageProps,
-  pagesFromFiles,
-} from "./page";
+export { usePage, usePageErrors, usePageProps, pagesFromFiles } from "./page";
 export type { PageComponent, SharedPageProps } from "./page";
 
 export { setupApp } from "./app";

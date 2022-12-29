@@ -45,6 +45,9 @@ module GeneratedPathHelpersModule
   def jen_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def mailcatcher_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

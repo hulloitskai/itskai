@@ -87,7 +87,6 @@ declare global {
   const useMounted: typeof import('~/helpers')['useMounted']
   const useMutation: typeof import('@apollo/client')['useMutation']
   const usePage: typeof import('~/helpers')['usePage']
-  const usePageData: typeof import('~/helpers')['usePageData']
   const usePageErrors: typeof import('~/helpers')['usePageErrors']
   const usePageProps: typeof import('~/helpers')['usePageProps']
   const useQuery: typeof import('@apollo/client')['useQuery']
