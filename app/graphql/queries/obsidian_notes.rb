@@ -27,7 +27,7 @@ module Queries
       if modified_before.present?
         notes = notes.where("modified_at <= ?", modified_before)
       end
-      notes.order(modified_at: :desc)
+      notes = notes.order(modified_at: :desc)
       GraphQL::Connections::Stable.new(
         notes,
         keys: %i[modified_at],

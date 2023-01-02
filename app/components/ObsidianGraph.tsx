@@ -94,10 +94,12 @@ const ObsidianGraph: FC<ObsidianGraphProps> = ({
     }, [svgRef.current, renderSize, entries]);
   }
 
-  if (isEmpty(entries)) {
+  if (entries && isEmpty(entries)) {
     return (
       <Box ref={containerRef} {...{ sx }} {...otherProps}>
-        <Empty itemLabel="entries" mx="md" my={8} />
+        <Container size="sm" p={0}>
+          <Empty itemLabel="entries" mx="md" my={8} />
+        </Container>
       </Box>
     );
   }

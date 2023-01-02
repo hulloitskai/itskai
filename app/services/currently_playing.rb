@@ -27,14 +27,11 @@ class CurrentlyPlaying < ApplicationService
 
   sig { void }
   def start
-    return if task.running?
-    task.execute
+    task.execute unless task.running?
   end
 
   sig { void }
   def stop
-    return unless task.running?
-    task.delete_observers
     task.kill
   end
 
@@ -60,12 +57,7 @@ class CurrentlyPlaying
   class << self
     # == Service
     sig { override.returns(T.attached_class) }
-    def start
-      super.tap do |service|
-        service = T.let(service, T.nilable(CurrentlyPlaying))
-        service&.start
-      end
-    end
+    def start = super.tap(&:start)
 
     sig { override.returns(T::Boolean) }
     def enabled? = T.let(super, T::Boolean) && Spotify.enabled?

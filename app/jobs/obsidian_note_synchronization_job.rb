@@ -16,8 +16,8 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
     incoming_note_names = Obsidian.note_names
     all_note_names = ObsidianNote.pluck(:name)
     new_note_names = incoming_note_names - all_note_names
-    existing_note_names = all_note_names - new_note_names
     orphaned_note_names = all_note_names - incoming_note_names
+    existing_note_names = all_note_names - new_note_names - orphaned_note_names
     create_notes(new_note_names:)
     update_notes(existing_note_names:, force:)
     destroy_notes(orphaned_note_names:)
@@ -48,14 +48,16 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
     updated_notes = existing_note_names.filter_map do |name|
       note = ObsidianNote.find_by!(name: name)
       next if !note.synchronization_required? && !force
-      updated_note = Obsidian.note!(note.name)
-      if updated_note.save
-        logger.info("Updated note '#{note.name}'")
-        note
-      else
-        message = note.errors.full_messages.to_sentence
-        logger.warn("Failed to update note '#{note.name}': #{message}")
-        nil
+      Obsidian.note(note.name).try! do |updated_note|
+        updated_note = T.let(updated_note, ObsidianNote)
+        if updated_note.save
+          logger.info("Updated note '#{note.name}'")
+          note
+        else
+          message = note.errors.full_messages.to_sentence
+          logger.warn("Failed to update note '#{note.name}': #{message}")
+          nil
+        end
       end
     end
     logger.info("Updated #{updated_notes.count} notes")
