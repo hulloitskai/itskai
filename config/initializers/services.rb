@@ -2,14 +2,18 @@
 # frozen_string_literal: true
 
 Rails.application.configure do
-  config.to_prepare do
-    server = Rails.const_defined?(:Server)
-    console = Rails.const_defined?(:Console)
-    if server || console
-      ICloud.start
-      Obsidian.start
-      Spotify.start
-      CurrentlyPlaying.start if server
-    end
+  server = Rails.const_defined?(:Server)
+  console = Rails.const_defined?(:Console)
+  return unless server || console
+
+  reloader.to_prepare do
+    ICloud.start
+    Obsidian.start
+    Spotify.start
+    CurrentlyPlaying.start if server
+  end
+
+  reloader.before_class_unload do
+    CurrentlyPlaying.stop if server
   end
 end
