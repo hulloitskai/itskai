@@ -44,29 +44,31 @@ class Obsidian < ApplicationService
   def note(name)
     file = note_file(name) or return nil
     data = parse_note_file(file)
-    note = ObsidianNote.find_or_initialize_by(name:)
-    note.synchronized_at = Time.current
-    note.modified_at = file.modified_at!
-    note.published = scoped do
-      value = data["publish"].presence
-      case value
-      when TrueClass
-        true
-      when String
-        value.present?
-      else
-        false
-      end
-    end
-    note.hidden = data["hidden"].truthy?
-    note[:slug] = data["publish"].presence.try! do |value|
-      value if value.is_a?(String)
-    end
-    note.display_name = data["display_name"].presence
-    note.aliases = parse_frontmatter_list(data["aliases"])
-    note.tags = parse_frontmatter_list(data["tags"])
-    note.blurb = data["blurb"].presence
-    note.content = data.content
+    note = ObsidianNote.find_or_initialize_by(name: name)
+    note.attributes = {
+      synchronized_at: Time.current,
+      modified_at: file.modified_at!,
+      published: scoped do
+        value = data["publish"].presence
+        case value
+        when TrueClass
+          true
+        when String
+          value.present?
+        else
+          false
+        end
+      end,
+      hidden: data["hidden"].truthy?,
+      slug: data["publish"].presence.try! do |value|
+        value if value.is_a?(String)
+      end,
+      display_name: data["display_name"].presence,
+      aliases: parse_frontmatter_list(data["aliases"]),
+      tags: parse_frontmatter_list(data["tags"]),
+      blurb: data["blurb"].presence,
+      content: data.content,
+    }
     note
   rescue => error
     if error.is_a?(PyCall::PyError)

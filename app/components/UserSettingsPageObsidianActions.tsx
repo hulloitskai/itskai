@@ -64,7 +64,9 @@ const ResynchronizeAllButton: FC = () => {
       onClick={() => {
         runMutation({
           variables: {
-            input: {},
+            input: {
+              force: true,
+            },
           },
         });
       }}

@@ -14,7 +14,7 @@ import type {
 
 const MotionImage = motion(Image);
 
-export type CurrentlyPlayingIslandProps = Pick<BoxProps, "sx">;
+export type CurrentlyPlayingIslandProps = Omit<BoxProps, "children">;
 
 const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   ...otherProps

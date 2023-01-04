@@ -8,6 +8,7 @@ import { HomePageGraphQueryDocument } from "~/queries";
 export type HomePageGraphProps = BoxProps;
 
 const HomePageGraph: FC<HomePageGraphProps> = ({ ...otherProps }) => {
+  // == Query
   const oneWeekAgo = useMemo(() => {
     return DateTime.now()
       .minus(Duration.fromObject({ weeks: 1 }))
@@ -24,6 +25,8 @@ const HomePageGraph: FC<HomePageGraphProps> = ({ ...otherProps }) => {
   const { edges, pageInfo } = data?.obsidianNotes ?? {};
   const { hasNextPage, endCursor } = pageInfo ?? {};
   const notes = useMemo(() => edges?.map(({ node }) => node), [edges]);
+
+  // == Markup
   return (
     <ObsidianGraph
       entries={notes}

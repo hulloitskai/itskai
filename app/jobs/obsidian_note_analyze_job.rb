@@ -14,6 +14,9 @@ class ObsidianNoteAnalyzeJob < ApplicationJob
     total_limit: 1,
   )
 
+  # == Callbacks
+  before_perform :update_activity_status
+
   sig { params(note: ObsidianNote).void }
   def perform(note)
     analyze_references(note)
@@ -60,5 +63,12 @@ class ObsidianNoteAnalyzeJob < ApplicationJob
         text
       end.presence
     end
+  end
+
+  # == Callbacks
+  sig { void }
+  def update_activity_status
+    note = T.let(arguments.first, ObsidianNote)
+    ActivityStatus.update("Analyzing note: #{note.name}")
   end
 end

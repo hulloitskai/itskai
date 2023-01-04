@@ -193,6 +193,8 @@ type PageInfo {
 }
 
 type Query {
+  activityStatus: String
+
   """Kai's contact email."""
   contactEmail: String!
 
@@ -257,6 +259,8 @@ type SpotifyTrack {
 }
 
 type Subscription {
+  activityStatus: String
+
   """What I'm currently listening to on Spotify!"""
   currentlyPlaying: SpotifyTrack
   testSubscription: Int!

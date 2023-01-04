@@ -12,6 +12,7 @@ module Types
     # == Queries
     field :test_echo, resolver: Queries::TestEcho
 
+    field :activity_status, resolver: Queries::ActivityStatus
     field :contact_email, resolver: Queries::ContactEmail
     field :currently_playing, resolver: Queries::CurrentlyPlaying
     field :resume, resolver: Queries::Resume

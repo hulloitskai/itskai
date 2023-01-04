@@ -214,6 +214,7 @@ export type PageInfo = {
 
 export type Query = {
   __typename?: 'Query';
+  activityStatus?: Maybe<Scalars['String']>;
   /** Kai's contact email. */
   contactEmail: Scalars['String'];
   /** What I'm currently listening to on Spotify! */
@@ -285,6 +286,7 @@ export type SpotifyTrack = {
 
 export type Subscription = {
   __typename?: 'Subscription';
+  activityStatus?: Maybe<Scalars['String']>;
   /** What I'm currently listening to on Spotify! */
   currentlyPlaying?: Maybe<SpotifyTrack>;
   testSubscription: Scalars['Int'];

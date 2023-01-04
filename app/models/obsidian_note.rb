@@ -129,10 +129,8 @@ class ObsidianNote < ApplicationRecord
 
   sig { returns(T::Boolean) }
   def analysis_required?
-    return false unless synchronized?
-    return true unless analyzed?
-    synchronized_at = T.must(self.synchronized_at)
-    analyzed_at = T.must(self.analyzed_at)
+    synchronized_at = self.synchronized_at or return false
+    analyzed_at = self.analyzed_at or return true
     analyzed_at <= synchronized_at
   end
 
