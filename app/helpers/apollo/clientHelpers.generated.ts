@@ -103,7 +103,7 @@ export type PageInfoFieldPolicy = {
 	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
 	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('activityStatus' | 'contactEmail' | 'currentlyPlaying' | 'icloudCredentials' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('activityStatus' | 'contactEmail' | 'currentlyPlaying' | 'icloudCredentials' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	contactEmail?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -112,6 +112,7 @@ export type QueryFieldPolicy = {
 	obsidianNote?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNoteByName?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNotes?: FieldPolicy<any> | FieldReadFunction<any>,
+	passwordStrength?: FieldPolicy<any> | FieldReadFunction<any>,
 	resume?: FieldPolicy<any> | FieldReadFunction<any>,
 	spotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	testEcho?: FieldPolicy<any> | FieldReadFunction<any>,

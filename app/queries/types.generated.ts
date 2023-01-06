@@ -224,6 +224,7 @@ export type Query = {
   obsidianNote?: Maybe<ObsidianNote>;
   obsidianNoteByName?: Maybe<ObsidianNote>;
   obsidianNotes: ObsidianNoteConnection;
+  passwordStrength: Scalars['Float'];
   /** Kai's JSON Resume (https://jsonresume.org/). */
   resume: Scalars['JSON'];
   /** Spotify OAuth credentials. */
@@ -253,6 +254,11 @@ export type QueryObsidianNotesArgs = {
   last?: InputMaybe<Scalars['Int']>;
   modifiedAfter?: InputMaybe<Scalars['DateTime']>;
   modifiedBefore?: InputMaybe<Scalars['DateTime']>;
+};
+
+
+export type QueryPasswordStrengthArgs = {
+  password: Scalars['String'];
 };
 
 

@@ -31,9 +31,12 @@
 #
 
 class User < ApplicationRecord
+  # == Constants
+  MIN_PASSWORD_ENTROPY = T.let(14, Integer)
+
   # == Concerns
   include Identifiable
-  include Named
+  include ::Named
 
   # == Attributes
   sig { override.params(value: String).returns(String) }
@@ -54,9 +57,11 @@ class User < ApplicationRecord
               case_sensitive: false,
             }
   validates :password,
-            password_strength: { use_dictionary: true },
+            password_strength: {
+              min_entropy: MIN_PASSWORD_ENTROPY,
+              use_dictionary: true,
+            },
             allow_nil: true
-
   # == Methods: Owner
   sig { returns(String) }
   def self.owner_email

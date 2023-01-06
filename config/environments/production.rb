@@ -71,7 +71,7 @@ Rails.application.configure do
 
   # == Action Mailer
   config.action_mailer.delivery_method =
-    ENV.fetch("RAILS_MAILER", :mailjet_api).to_sym
+    ENV.fetch("RAILS_MAILER", :mailjet).to_sym
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.

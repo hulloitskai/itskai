@@ -1,6 +1,8 @@
 import type { FC } from "react";
 import { PasswordInput } from "@mantine/core";
 
+import PasswordWithStrengthCheckField from "./PasswordWithStrengthCheckField";
+
 export type UserSettingsPagePasswordFormValues = {
   readonly password: string;
   readonly passwordConfirmation: string;
@@ -14,6 +16,9 @@ const UserSettingsPagePasswordForm: FC<
 > = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState(0.0);
+
+  // == Form
   const initialValues: UserSettingsPagePasswordFormValues = useMemo(
     () => ({
       password: "",
@@ -22,10 +27,24 @@ const UserSettingsPagePasswordForm: FC<
     }),
     [],
   );
-  const { getInputProps, onSubmit, reset, setErrors, isDirty } =
+  const { errors, getInputProps, onSubmit, reset, setErrors, isDirty } =
     useForm<UserSettingsPagePasswordFormValues>({
       initialValues,
+      validate: {
+        password: () => {
+          if (passwordStrength < 1.0) {
+            return "Too weak.";
+          }
+        },
+        passwordConfirmation: (value, { password }) => {
+          if (password != value) {
+            return "Does not match password.";
+          }
+        },
+      },
     });
+
+  // == Markup
   return (
     <form
       onSubmit={onSubmit(
@@ -56,11 +75,11 @@ const UserSettingsPagePasswordForm: FC<
       )}
     >
       <Stack spacing="xs">
-        <PasswordInput
-          label="New Password"
+        <PasswordWithStrengthCheckField
+          label="Password"
           placeholder="applesauce"
           required
-          minLength={8}
+          onStrengthCheck={setPasswordStrength}
           {...getInputProps("password")}
         />
         <PasswordInput
@@ -72,7 +91,10 @@ const UserSettingsPagePasswordForm: FC<
         />
         <Transition
           transition="fade"
-          mounted={isDirty("password") && isDirty("passwordConfirmation")}
+          mounted={
+            !isEmpty(errors) ||
+            (isDirty("password") && isDirty("passwordConfirmation"))
+          }
         >
           {style => (
             <PasswordInput

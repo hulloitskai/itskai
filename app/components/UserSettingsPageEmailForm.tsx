@@ -27,10 +27,17 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
     }),
     [viewer],
   );
-  const { getInputProps, onSubmit, setValues, resetDirty, setErrors, isDirty } =
-    useForm<UserSettingsPageEmailFormValues>({
-      initialValues: initialValues,
-    });
+  const {
+    errors,
+    getInputProps,
+    onSubmit,
+    setValues,
+    resetDirty,
+    setErrors,
+    isDirty,
+  } = useForm<UserSettingsPageEmailFormValues>({
+    initialValues: initialValues,
+  });
   useDidUpdate(() => {
     setValues(initialValues);
     resetDirty(initialValues);
@@ -48,7 +55,7 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
             onSuccess: () => {
               if (unconfirmedEmail) {
                 showNotice({
-                  title: "Confirm New Email",
+                  title: "Confirm your new email address",
                   message:
                     "Please check your email and follow the confirmation " +
                     "link to confirm your new email address.",
@@ -113,7 +120,10 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
             </Text>
           )}
         </Box>
-        <Transition transition="fade" mounted={isDirty("email")}>
+        <Transition
+          transition="fade"
+          mounted={!isEmpty(errors) || isDirty("email")}
+        >
           {style => (
             <PasswordInput
               label="Current Password"

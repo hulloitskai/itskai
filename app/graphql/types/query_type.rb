@@ -15,6 +15,7 @@ module Types
     field :activity_status, resolver: Queries::ActivityStatus
     field :contact_email, resolver: Queries::ContactEmail
     field :currently_playing, resolver: Queries::CurrentlyPlaying
+    field :password_strength, resolver: Queries::PasswordStrength
     field :resume, resolver: Queries::Resume
     field :timezone, resolver: Queries::Timezone
     field :viewer, resolver: Queries::Viewer

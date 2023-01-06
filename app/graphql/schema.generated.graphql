@@ -222,6 +222,7 @@ type Query {
     modifiedAfter: DateTime
     modifiedBefore: DateTime
   ): ObsidianNoteConnection!
+  passwordStrength(password: String!): Float!
 
   """Kai's JSON Resume (https://jsonresume.org/)."""
   resume: JSON!

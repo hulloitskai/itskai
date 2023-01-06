@@ -32,15 +32,12 @@ const plugins = [
   }),
   reactPlugin(),
   gzipPlugin(),
-  fullReloadPlugin(
-    [
-      "config/routes.rb",
-      "config/routes/**/*.rb",
-      "app/views/**/*.{html,html.erb}",
-      "app/queries/**/*.graphql",
-    ],
-    { delay: 100 },
-  ),
+  fullReloadPlugin([
+    "config/routes.rb",
+    "config/routes/**/*.rb",
+    "app/views/**/*.{html,html.erb}",
+  ]),
+  fullReloadPlugin(["app/queries/**/*.graphql"], { delay: 500 }),
 ];
 
 if (process.env.VITE_VISUALIZE) {

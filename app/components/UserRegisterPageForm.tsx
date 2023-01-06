@@ -1,6 +1,8 @@
 import type { FC } from "react";
 import { PasswordInput } from "@mantine/core";
 
+import PasswordWithStrengthCheckField from "./PasswordWithStrengthCheckField";
+
 export type UserRegisterPageFormValues = {
   readonly name: string;
   readonly email: string;
@@ -13,6 +15,9 @@ export type UserRegisterPageFormProps = {};
 const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState(0.0);
+
+  // == Form
   const { getInputProps, onSubmit, setFieldValue, setErrors } =
     useForm<UserRegisterPageFormValues>({
       initialValues: {
@@ -21,7 +26,21 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
         password: "",
         passwordConfirmation: "",
       },
+      validate: {
+        password: () => {
+          if (passwordStrength < 1.0) {
+            return "Too weak.";
+          }
+        },
+        passwordConfirmation: (value, { password }) => {
+          if (password != value) {
+            return "Does not match password.";
+          }
+        },
+      },
     });
+
+  // == Markup
   return (
     <form
       onSubmit={onSubmit(({ name, email, password, passwordConfirmation }) => {
@@ -59,10 +78,11 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
           required
           {...getInputProps("email")}
         />
-        <PasswordInput
+        <PasswordWithStrengthCheckField
           label="Password"
-          placeholder="potato-123"
+          placeholder="password"
           required
+          onStrengthCheck={setPasswordStrength}
           {...getInputProps("password")}
         />
         <PasswordInput
