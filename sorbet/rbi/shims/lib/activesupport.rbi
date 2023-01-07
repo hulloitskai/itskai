@@ -28,6 +28,42 @@ class ActiveSupport::Duration
   def in_years; end
 end
 
+class ActiveSupport::ErrorReporter
+  sig do
+    type_parameters(:U).
+      params(
+        error_class: Class,
+        severity: Symbol,
+        context: T::Hash[Symbol, T.untyped],
+        fallback: T.nilable(T.proc.returns(T.type_parameter(:U))),
+        block: T.proc.returns(T.type_parameter(:U)),
+      ).returns(T.nilable(T.type_parameter(:U)))
+  end
+  def handle(
+    error_class = StandardError,
+    severity: :warning,
+    context: {},
+    fallback: nil,
+    &block
+  ); end
+
+  sig do
+    type_parameters(:T).
+      params(
+        error_class: Class,
+        severity: Symbol,
+        context: T::Hash[Symbol, T.untyped],
+        block: T.proc.returns(T.type_parameter(:T)),
+      ).returns(T.type_parameter(:T))
+  end
+  def record(
+    error_class = StandardError,
+    severity: :error,
+    context: {},
+    &block
+  ); end
+end
+
 class ActiveSupport::TimeWithZone
   sig { params(format: String).returns(String) }
   def strftime(format); end
@@ -45,7 +81,7 @@ module ActiveSupport::Tryable
         kwargs: T.untyped,
         block: T.proc.params(object: T.self_type).returns(T.type_parameter(:U)),
       )
-      .returns(T.type_parameter(:U))
+      .returns(T.nilable(T.type_parameter(:U)))
   end
   def try!(*args, **kwargs, &block); end
 end

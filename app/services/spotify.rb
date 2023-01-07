@@ -33,8 +33,11 @@ class Spotify < ApplicationService
   def currently_playing
     player = user!.player
     if player.playing?
-      # Compensate for weird bugs in the RSpotify library.
-      suppress(NoMethodError) { player.currently_playing }
+      # Suppress sporadic errors caused by weird bugs in the RSpotify library,
+      # as well as certain network errors.
+      suppress(NoMethodError, RestClient::BadGateway) do
+        player.currently_playing
+      end
     end
   end
 

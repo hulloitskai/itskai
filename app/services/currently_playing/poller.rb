@@ -17,27 +17,28 @@ class CurrentlyPlaying
     # == Execution
     sig { returns(T.nilable(RSpotify::Track)) }
     def call
-      unless Spotify.ready?
-        tag_logger { logger.warn("Spotify not ready; skipping") }
-        return
-      end
-      if CurrentlyPlaying.debug?
-        tag_logger { logger.debug("Polling") }
-      end
-      Spotify.currently_playing.tap do |track|
-        track = T.let(track, T.nilable(RSpotify::Track))
-        if track&.id != previous_result&.id
-          if track.present?
-            tag_logger { logger.info("Currently playing: #{track.name}") }
-          else
-            tag_logger { logger.info("Stopped playing") }
+      Rails.error.handle do
+        unless Spotify.ready?
+          tag_logger { logger.warn("Spotify not ready; skipping") }
+          return
+        end
+        if CurrentlyPlaying.debug?
+          tag_logger { logger.debug("Polling") }
+        end
+        Spotify.currently_playing.tap do |track|
+          track = T.let(track, T.nilable(RSpotify::Track))
+          if track&.id != previous_result&.id
+            if track.present?
+              tag_logger { logger.info("Currently playing: #{track.name}") }
+            else
+              tag_logger { logger.info("Stopped playing") }
+            end
           end
         end
+      rescue => error
+        tag_logger { logger.error("Error: #{error}") }
+        raise "Failed to poll for currently playing track"
       end
-    rescue => error
-      tag_logger { logger.error("Error: #{error}") }
-      Honeybadger.notify(error)
-      nil
     end
 
     private

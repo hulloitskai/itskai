@@ -33,6 +33,8 @@ Rails.application.configure do
 
     # == Errors
     config.retry_on_unhandled_error = false
-    config.on_thread_error = ->(error) { Honeybadger.notify(error) }
+    config.on_thread_error = ->(error) do
+      Rails.error.report(error, handled: false)
+    end
   end
 end

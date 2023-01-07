@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   extend T::Sig
 
   # == Filters
-  around_action :prepare_action
+  around_action :around_set_error_context
 
   # == Modules
   include GraphQL::Querying
@@ -25,15 +25,17 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # == Filters
-  sig { void }
-  def set_honeybadger_context
-    current_user.try! do |user|
+  # == Helpers
+  sig { returns(T::Hash[Symbol, T.untyped]) }
+  def error_context
+    context = current_user.try! do |user|
       user = T.let(user, User)
-      Honeybadger.context(user_id: user.id, user_email: user.email)
+      { user_id: user.id, user_email: user.email }
     end
+    context || {}
   end
 
+  # == Filters
   # sig { void }
   # def debug_action
   #   targets = params[:debug]
@@ -44,8 +46,8 @@ class ApplicationController < ActionController::Base
   # end
 
   sig { params(block: T.proc.returns(T.untyped)).void }
-  def prepare_action(&block)
-    set_honeybadger_context
+  def around_set_error_context(&block)
+    Rails.error.set_context(error_context)
     yield
   end
 end

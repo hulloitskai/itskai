@@ -35,9 +35,25 @@ class Obsidian < ApplicationService
 
   sig { params(name: String).returns(T.nilable(ICloud::Drive::Node)) }
   def note_file(name)
-    vault_root.get(name + ".md")
-  rescue PyCall::PyError => error
-    raise unless error.type.__name__ == "IndexError"
+    Rails.error.handle(context: { note_name: name }) do
+      vault_root.get(name + ".md")
+    rescue => error
+      if error.is_a?(PyCall::PyError)
+        type, message = error.type.__name__, error.value.to_s
+        case
+        when type == "IndexError"
+          return nil
+        when type == "PyiCloudAPIResponseException" &&
+          message.ends_with?("(500)")
+          logger.error(
+            "Failed to read note '#{name}': Unknown iCloud API error occurred",
+          )
+          return nil
+        end
+      end
+      logger.error("Failed to read note '#{name}': #{error}")
+      raise "Failed to read note"
+    end
   end
 
   sig { params(name: String).returns(T.nilable(ObsidianNote)) }
@@ -70,19 +86,6 @@ class Obsidian < ApplicationService
       content: data.content,
     }
     note
-  rescue => error
-    if error.is_a?(PyCall::PyError)
-      type, message = error.type.__name__, error.value.to_s
-      if type == "PyiCloudAPIResponseException" && message.ends_with?("(500)")
-        logger.error(
-          "Failed to read note '#{name}': Unknown iCloud API error occurred",
-        )
-      end
-    else
-      logger.error("Failed to read note '#{name}': #{error}")
-      Honeybadger.notify(message, backtrace: error.backtrace)
-    end
-    nil
   end
 
   sig { params(name: String).returns(ObsidianNote) }
