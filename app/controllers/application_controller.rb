@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   extend T::Sig
 
   # == Filters
-  around_action :around_set_error_context
+  around_action :set_error_context_around
 
   # == Modules
   include GraphQL::Querying
@@ -30,7 +30,10 @@ class ApplicationController < ActionController::Base
   def error_context
     context = current_user.try! do |user|
       user = T.let(user, User)
-      { user_id: user.id, user_email: user.email }
+      {
+        user_id: user.id,
+        user_email: user.email,
+      }
     end
     context || {}
   end
@@ -46,8 +49,9 @@ class ApplicationController < ActionController::Base
   # end
 
   sig { params(block: T.proc.returns(T.untyped)).void }
-  def around_set_error_context(&block)
-    Rails.error.set_context(error_context)
+  def set_error_context_around(&block)
+    context = error_context.compact
+    Rails.error.set_context(context)
     yield
   end
 end

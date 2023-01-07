@@ -8,7 +8,7 @@ class ObsidianNoteAnalysisJob < ApplicationJob
   good_job_control_concurrency_with total_limit: 1, key: name
 
   # == Callbacks
-  around_perform :around_update_activity_status
+  around_perform :update_activity_status_around
 
   sig { params(force: T::Boolean).void }
   def perform(force: false)
@@ -26,7 +26,7 @@ class ObsidianNoteAnalysisJob < ApplicationJob
 
   # == Callbacks
   sig { params(block: T.proc.void).void }
-  def around_update_activity_status(&block)
+  def update_activity_status_around(&block)
     ActivityStatus.update("Analyzing notes")
     yield
     ActivityStatus.update("Note analysis complete")
