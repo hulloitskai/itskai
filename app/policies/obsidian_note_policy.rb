@@ -30,7 +30,6 @@ class ObsidianNotePolicy < ApplicationPolicy
 
   # == Scopes
   relation_scope do |relation|
-    T.bind(self, ObsidianNotePolicy)
     user&.owner? ? relation : relation.where(hidden: false)
   end
 

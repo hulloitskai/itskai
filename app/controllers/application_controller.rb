@@ -12,14 +12,12 @@ class ApplicationController < ActionController::Base
 
   # == Inertia
   inertia_share do
-    T.bind(self, ApplicationController)
-    flash = self.flash.to_h.presence
     {
       csrf: {
         param: request_forgery_protection_token,
         token: form_authenticity_token,
       },
-      flash:,
+      flash: flash.to_h.presence,
     }.compact
   end
 
@@ -51,7 +49,7 @@ class ApplicationController < ActionController::Base
   sig { params(block: T.proc.returns(T.untyped)).void }
   def set_error_context_around(&block)
     context = error_context.compact
-    Rails.error.set_context(context)
+    Rails.error.set_context(**context)
     yield
   end
 end

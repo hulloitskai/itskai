@@ -18,7 +18,6 @@ module ItsKai
 
       # == Rails Extensions
       require "rails_ext"
-      require "activesupport_ext"
       require "actionview_ext"
 
       # == Library Extensions

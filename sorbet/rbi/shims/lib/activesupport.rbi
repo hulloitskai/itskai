@@ -30,14 +30,13 @@ end
 
 class ActiveSupport::ErrorReporter
   sig do
-    type_parameters(:U).
-      params(
-        error_class: Class,
-        severity: Symbol,
-        context: T::Hash[Symbol, T.untyped],
-        fallback: T.nilable(T.proc.returns(T.type_parameter(:U))),
-        block: T.proc.returns(T.type_parameter(:U)),
-      ).returns(T.nilable(T.type_parameter(:U)))
+    params(
+      error_class: Class,
+      severity: Symbol,
+      context: T::Hash[Symbol, T.untyped],
+      fallback: T.nilable(T.proc.returns(T.untyped)),
+      block: T.proc.returns(T.untyped),
+    ).returns(T.untyped)
   end
   def handle(
     error_class = StandardError,
@@ -79,7 +78,7 @@ module ActiveSupport::Tryable
       .params(
         args: T.untyped,
         kwargs: T.untyped,
-        block: T.proc.params(object: T.self_type).returns(T.type_parameter(:U)),
+        block: T.proc.params(arg0: T.self_type).returns(T.type_parameter(:U)),
       )
       .returns(T.nilable(T.type_parameter(:U)))
   end
@@ -143,8 +142,9 @@ end
 
 class String
   sig do
-    params(position: T.any(Integer, T::Range[Integer], Regexp, String))
-      .returns(T.nilable(String))
+    params(
+      position: T.any(Integer, T::Range[Integer], Regexp, String),
+    ).returns(T.nilable(String))
   end
   def at(position); end
 
