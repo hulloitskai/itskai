@@ -19,6 +19,9 @@ class ApplicationService
 
   sig { overridable.returns(T::Boolean) }
   def ready? = true
+
+  sig { overridable.void }
+  def start; end
 end
 
 class ApplicationService
@@ -30,11 +33,13 @@ class ApplicationService
     sig { returns(T.nilable(T.attached_class)) }
     def start
       return if disabled?
-      if Rails.const_defined?(:Server)
+      if !started? && Rails.const_defined?(:Server)
         puts "=> Initializing #{name}" # rubocop:disable Rails/Output
+        started!
       end
-      instance
+      instance.tap(&:start)
     end
+    alias_method :restart, :start
 
     sig { overridable.returns(T::Boolean) }
     def enabled? = true
@@ -43,6 +48,19 @@ class ApplicationService
     def disabled? = !enabled?
 
     sig { returns(T::Boolean) }
-    def ready? = enabled? && instance.ready?
+    def ready? = started? && enabled? && instance.ready?
+
+    private
+
+    sig { returns(T::Boolean) }
+    def started?
+      @started = T.let(@started, T.nilable(TrueClass))
+      !!@started
+    end
+
+    sig { void }
+    def started!
+      @started = true
+    end
   end
 end

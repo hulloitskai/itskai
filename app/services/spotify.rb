@@ -7,28 +7,19 @@ class Spotify < ApplicationService
   def initialize
     super
     @user = T.let(@user, T.nilable(RSpotify::User))
+  end
+
+  sig { override.void }
+  def start
+    super
     OAuthCredentials.spotify.try! do |credentials|
       credentials = T.let(credentials, OAuthCredentials)
-      authenticate!(credentials)
+      authenticate(credentials)
     end
   end
 
   sig { override.returns(T::Boolean) }
   def ready? = T.cast(super, T::Boolean) && @user.present?
-
-  sig { params(credentials: OAuthCredentials).void }
-  def authenticate!(credentials)
-    return unless authenticate_client
-    @user = RSpotify::User.new({
-      "id" => credentials.uid,
-      "credentials" => credentials
-        .slice(:access_token, :refresh_token)
-        .tap do |credentials|
-          credentials[:token] = credentials.delete(:access_token)
-        end
-        .stringify_keys,
-    })
-  end
 
   # == Methods
   sig { returns(T.nilable(RSpotify::Track)) }
@@ -57,6 +48,20 @@ class Spotify < ApplicationService
   sig { returns(T.nilable(String)) }
   def client_secret = self.class.client_secret
 
+  sig { params(credentials: OAuthCredentials).void }
+  def authenticate(credentials)
+    return unless authenticate_client
+    @user = RSpotify::User.new({
+      "id" => credentials.uid,
+      "credentials" => credentials
+        .slice(:access_token, :refresh_token)
+        .tap do |credentials|
+          credentials[:token] = credentials.delete(:access_token)
+        end
+        .stringify_keys,
+    })
+  end
+
   sig { returns(T::Boolean) }
   def authenticate_client
     if [client_id, client_secret].all?(&:present?)
@@ -80,11 +85,6 @@ end
 class Spotify
   class << self
     # == Service
-    sig { params(credentials: OAuthCredentials).void }
-    def authenticate!(credentials)
-      instance.authenticate!(credentials)
-    end
-
     sig { override.returns(T::Boolean) }
     def enabled?
       return !!@enabled if defined?(@enabled)

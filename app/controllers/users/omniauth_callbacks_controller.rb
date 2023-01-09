@@ -40,7 +40,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           "#{refresh_token})",
       )
     end
-    Spotify.authenticate!(credentials)
+    Spotify.restart
     set_flash_message(:notice, :success, kind: "Spotify")
     redirect_to(edit_registration_path(current_user)).tap do
       response.set_header(

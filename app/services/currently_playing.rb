@@ -25,8 +25,9 @@ class CurrentlyPlaying < ApplicationService
   sig { override.returns(T::Boolean) }
   def ready? = T.let(super, T::Boolean) && Spotify.ready?
 
-  sig { void }
+  sig { override.void }
   def start
+    super
     task.execute unless task.running?
   end
 
@@ -56,9 +57,6 @@ end
 class CurrentlyPlaying
   class << self
     # == Service
-    sig { override.returns(T.attached_class) }
-    def start = super.tap(&:start)
-
     sig { override.returns(T::Boolean) }
     def enabled? = T.let(super, T::Boolean) && Spotify.enabled?
 
