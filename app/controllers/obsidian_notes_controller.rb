@@ -6,6 +6,7 @@ class ObsidianNotesController < ApplicationController
   before_action :set_note
 
   # == Actions
+  # GET /entries/1
   sig { void }
   def show
     note = T.must(@note)

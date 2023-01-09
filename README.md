@@ -1,5 +1,7 @@
 # itskai.me
 
+A complete rewrite of my personal website!
+
 ## Setup
 
 ```bash

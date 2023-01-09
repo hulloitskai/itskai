@@ -21,6 +21,7 @@ module Types
     field :viewer, resolver: Queries::Viewer
 
     field :icloud_credentials, resolver: Queries::ICloudCredentials
+    field :linear_credentials, resolver: Queries::LinearCredentials
     field :spotify_credentials, resolver: Queries::SpotifyCredentials
 
     field :obsidian_note, resolver: Queries::ObsidianNote

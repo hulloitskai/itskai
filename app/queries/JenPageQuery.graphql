@@ -1,6 +1,0 @@
-query JenPageQuery {
-  viewer {
-    id
-    ...AppViewerFragment
-  }
-}

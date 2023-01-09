@@ -56,8 +56,11 @@ gem "nanoid", "~> 2.0"
 # Modern concurrency tools
 gem "concurrent-ruby", "~> 1.1"
 
-# Perform HTTP requests with HTTParty
+# Use HTTParty for REST client
 gem "httparty", "~> 0.20.0"
+
+# Use graphql–client for GraphQL client
+gem "graphql-client", "~> 0.18.0"
 
 # Use Honeybadger for error reporting
 gem "honeybadger", "~> 4.12"
@@ -138,6 +141,7 @@ gem "strong_password", "~> 0.0.10"
 # Use OmniAuth to authenticate with external providers (i.e. Spotify)
 gem "omniauth", "~> 2.1"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
+gem "omniauth-oauth2", "~> 1.8"
 gem "omniauth-spotify", "~> 0.0.13"
 
 # Use RSpotify to read currently playing data from Spotify

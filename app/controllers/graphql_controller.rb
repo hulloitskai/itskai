@@ -11,6 +11,7 @@ class GraphQLController < ApplicationController
   include GraphQL::Helpers
 
   # == Actions
+  # POST /api/graphql
   sig { void }
   def execute
     operation_name = params["operationName"]

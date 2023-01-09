@@ -11,6 +11,7 @@ Rails.application.configure do
     Obsidian.start
     Spotify.start
     CurrentlyPlaying.start if server
+    Linear.start
   end
 
   reloader.before_class_unload do

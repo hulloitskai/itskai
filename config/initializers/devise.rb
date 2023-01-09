@@ -275,12 +275,20 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
-  # Configure sign-ins with Spotify.
+  # Allow authenticating with Spotify.
   config.omniauth(
     :spotify,
     client_id: ENV["SPOTIFY_CLIENT_ID"],
     client_secret: ENV["SPOTIFY_CLIENT_SECRET"],
     scope: %w[user-read-email user-read-playback-state].join(", "),
+  )
+
+  # Allow authenticating with Linear.
+  config.omniauth(
+    :linear,
+    client_id: ENV["LINEAR_CLIENT_ID"],
+    client_secret: ENV["LINEAR_CLIENT_SECRET"],
+    scope: %w[read issues:create].join(","),
   )
 
   # ==> Warden configuration

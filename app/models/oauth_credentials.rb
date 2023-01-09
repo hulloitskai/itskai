@@ -6,6 +6,7 @@
 # Table name: oauth_credentials
 #
 #  id            :uuid             not null, primary key
+#  access_token  :string           not null
 #  provider      :string           not null
 #  refresh_token :string
 #  uid           :string           not null
@@ -30,5 +31,14 @@ class OAuthCredentials < ApplicationRecord
   sig { returns(OAuthCredentials) }
   def self.spotify!
     spotify or raise ActiveRecord::RecordNotFound
+  end
+
+  # == Methods: Linear
+  sig { returns(T.nilable(OAuthCredentials)) }
+  def self.linear = find_by(provider: :linear)
+
+  sig { returns(OAuthCredentials) }
+  def self.linear!
+    linear or raise ActiveRecord::RecordNotFound
   end
 end

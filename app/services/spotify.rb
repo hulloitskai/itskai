@@ -19,13 +19,15 @@ class Spotify < ApplicationService
   sig { params(credentials: OAuthCredentials).void }
   def authenticate!(credentials)
     return unless authenticate_client
-    credentials => {uid:, refresh_token:}
     @user = RSpotify::User.new({
-      "id" => uid,
-      "credentials" => { "refresh_token" => refresh_token },
-    }).tap do
-      RSpotify::User.send(:refresh_token, uid)
-    end
+      "id" => credentials.uid,
+      "credentials" => credentials
+        .slice(:access_token, :refresh_token)
+        .tap do |credentials|
+          credentials[:token] = credentials.delete(:access_token)
+        end
+        .stringify_keys,
+    })
   end
 
   # == Methods

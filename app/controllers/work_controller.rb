@@ -4,6 +4,7 @@
 class WorkController < ApplicationController
   extend T::Sig
 
+  # GET /work
   sig { void }
   def show
     data = query!("WorkPageQuery")

@@ -28,6 +28,9 @@ module ItsKai
       require "friendly_id_ext"
       require "graphql_ext"
       require "premailer_ext"
+
+      # == Libraries
+      require "omniauth-linear"
     end
 
     # Initialize configuration defaults for originally generated Rails version.
@@ -61,7 +64,7 @@ module ItsKai
       g.model_specs(false)
 
       # Don't generate views or assets.
-      g.template_engine(false)
+      g.template_engine(nil)
       g.assets(false)
     end
 

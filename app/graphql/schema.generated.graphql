@@ -91,6 +91,8 @@ interface Node {
 }
 
 type OAuthCredentials implements Node {
+  accessToken: String
+
   """ID of the object."""
   id: ID!
   name: String!
@@ -203,6 +205,9 @@ type Query {
 
   """Kai's personal iCloud credentials (#securityStartsHere)."""
   icloudCredentials: ICloudCredentials
+
+  """Linear OAuth credentials."""
+  linearCredentials: OAuthCredentials
   obsidianNote(id: ID!): ObsidianNote
   obsidianNoteByName(name: String!): ObsidianNote
   obsidianNotes(

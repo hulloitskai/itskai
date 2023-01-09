@@ -12,6 +12,7 @@ Rails.application.routes.draw do
             controllers: {
               sessions: "users/sessions",
               registrations: "users/registrations",
+              omniauth_callbacks: "users/omniauth_callbacks",
             },
             path: :user,
             path_names: {
@@ -42,6 +43,7 @@ Rails.application.routes.draw do
   get :resume, to: "resume#show"
   get :jen, to: redirect("/entries/birthday-writings-for-jen", status: 302)
   resources :obsidian_notes, path: :entries, only: :show
+  resources :linear_issues, path: :issues, only: :create
 
   # == Errors
   scope controller: :errors do

@@ -114,6 +114,7 @@ export type Node = {
 
 export type OAuthCredentials = Node & {
   __typename?: 'OAuthCredentials';
+  accessToken?: Maybe<Scalars['String']>;
   /** ID of the object. */
   id: Scalars['ID'];
   name: Scalars['String'];
@@ -221,6 +222,8 @@ export type Query = {
   currentlyPlaying?: Maybe<SpotifyTrack>;
   /** Kai's personal iCloud credentials (#securityStartsHere). */
   icloudCredentials?: Maybe<ICloudCredentials>;
+  /** Linear OAuth credentials. */
+  linearCredentials?: Maybe<OAuthCredentials>;
   obsidianNote?: Maybe<ObsidianNote>;
   obsidianNoteByName?: Maybe<ObsidianNote>;
   obsidianNotes: ObsidianNoteConnection;

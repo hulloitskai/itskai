@@ -3,6 +3,7 @@
 
 class ErrorsController < ApplicationController
   # == Actions ==
+  # GET /404
   sig { void }
   def not_found
     error(
@@ -12,6 +13,7 @@ class ErrorsController < ApplicationController
     )
   end
 
+  # GET /500
   sig { void }
   def internal_server_error
     error(
@@ -23,6 +25,7 @@ class ErrorsController < ApplicationController
     )
   end
 
+  # GET /422
   sig { void }
   def unprocessable_entity
     error(
@@ -34,6 +37,7 @@ class ErrorsController < ApplicationController
     )
   end
 
+  # GET /401
   sig { void }
   def unauthorized
     error(

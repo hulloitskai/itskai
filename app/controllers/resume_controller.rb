@@ -4,6 +4,7 @@
 class ResumeController < ApplicationController
   extend T::Sig
 
+  # GET /resume
   sig { void }
   def show
     respond_to do |format|

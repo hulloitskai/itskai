@@ -11,21 +11,21 @@ export type UserSettingsPageOAuthCredentialsFormValues = {
 };
 
 export type UserSettingsPageOAuthCredentialsFormProps = {
-  readonly spotifyCredentials: Maybe<UserSettingsPageOAuthCredentialsFragment>;
+  readonly linearCredentials: Maybe<UserSettingsPageOAuthCredentialsFragment>;
 };
 
 const UserSettingsPageOAuthCredentialsForm: FC<
   UserSettingsPageOAuthCredentialsFormProps
-> = ({ spotifyCredentials }) => {
-  const { uid, accessToken, refreshToken } = spotifyCredentials || {};
+> = ({ linearCredentials }) => {
+  const { uid, accessToken, refreshToken } = linearCredentials || {};
   const initialValues = useMemo<UserSettingsPageOAuthCredentialsFormValues>(
     () => ({
       uid: "",
       accessToken: "",
       refreshToken: "",
-      ...pick(spotifyCredentials, "uid", "accessToken", "refreshToken"),
+      ...pick(linearCredentials, "uid", "accessToken", "refreshToken"),
     }),
-    [spotifyCredentials],
+    [linearCredentials],
   );
   const { getInputProps } = useForm<UserSettingsPageOAuthCredentialsFormValues>(
     {
@@ -33,7 +33,7 @@ const UserSettingsPageOAuthCredentialsForm: FC<
     },
   );
   return (
-    <form action="/user/auth/spotify" method="post">
+    <form action="/user/auth/linear" method="post">
       <FormAuthenticityField />
       <Stack spacing="xs">
         {!!uid && (

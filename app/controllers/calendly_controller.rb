@@ -4,6 +4,7 @@
 class CalendlyController < ApplicationController
   extend T::Sig
 
+  # GET /calendly, /hangout
   sig { void }
   def show
     redirect_to(

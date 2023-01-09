@@ -406,6 +406,51 @@ class OAuthCredentials
   end
 
   module GeneratedAttributeMethods
+    sig { returns(::String) }
+    def access_token; end
+
+    sig { params(value: ::String).returns(::String) }
+    def access_token=(value); end
+
+    sig { returns(T::Boolean) }
+    def access_token?; end
+
+    sig { returns(T.nilable(::String)) }
+    def access_token_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def access_token_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def access_token_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def access_token_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def access_token_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def access_token_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def access_token_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def access_token_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def access_token_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def access_token_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def access_token_was; end
+
+    sig { void }
+    def access_token_will_change!; end
+
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at; end
 
@@ -587,6 +632,9 @@ class OAuthCredentials
     def refresh_token_will_change!; end
 
     sig { void }
+    def restore_access_token!; end
+
+    sig { void }
     def restore_created_at!; end
 
     sig { void }
@@ -603,6 +651,12 @@ class OAuthCredentials
 
     sig { void }
     def restore_updated_at!; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_access_token; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_access_token?; end
 
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def saved_change_to_created_at; end
@@ -729,6 +783,9 @@ class OAuthCredentials
 
     sig { void }
     def updated_at_will_change!; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_access_token?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_created_at?; end

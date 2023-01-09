@@ -159,6 +159,12 @@ module GeneratedUrlHelpersModule
   def user_confirmation_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def user_linear_omniauth_authorize_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def user_linear_omniauth_callback_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def user_password_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

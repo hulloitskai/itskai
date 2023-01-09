@@ -4,6 +4,7 @@
 class TestController < ApplicationController
   extend T::Sig
 
+  # GET /test
   sig { void }
   def show
     name = "Big Papa"
