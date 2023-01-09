@@ -15,16 +15,10 @@ class LinearIssuesController < ApplicationController
     description = issue_params[:description]
     description = T.cast(description, T.nilable(String))
     issue = Linear.create_issue(title:, description:)
-    issue_payload = issue.to_h.slice("id", "title", "description")
+    issue_payload = issue.to_h
   rescue => error
     respond_to do |format|
       format.html { raise }
-      format.text do
-        render(
-          status: :internal_server_error,
-          plain: "Failed to add issue: #{error.message}",
-        )
-      end
       format.json do
         render(
           status: :internal_server_error,
@@ -37,8 +31,9 @@ class LinearIssuesController < ApplicationController
       format.html do
         redirect_to(root_path, notice: "Issue added successfully!")
       end
-      format.text { render(plain: "Issue added successfully!") }
-      format.json { render(json: issue_payload) }
+      format.json do
+        render(json: { issue: issue_payload })
+      end
     end
   end
 

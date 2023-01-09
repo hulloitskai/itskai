@@ -25,11 +25,9 @@ class Linear
             payload: issueCreate(input: $input) {
               issue {
                 id
+                url
                 title
                 description
-                state {
-                  id
-                }
               }
             }
           }
