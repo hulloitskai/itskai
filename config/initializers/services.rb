@@ -12,6 +12,7 @@ Rails.application.configure do
     Spotify.start
     CurrentlyPlaying.start if server
     Linear.start
+    Notifi.start
   end
 
   reloader.before_class_unload do
