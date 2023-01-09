@@ -2,8 +2,7 @@ app/**/*.generated.*
 app/routes
 bin/
 dist/
-db/schema.rb
-db/**/schema.json
+db/**/schema.*
 log/
 node_modules/
 public/assets/
