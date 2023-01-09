@@ -9,9 +9,6 @@ module GeneratedUrlHelpersModule
   include ::ActionDispatch::Routing::PolymorphicRoutes
 
   sig { params(args: T.untyped).returns(String) }
-  def api_status_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def calendly_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -43,6 +40,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def jen_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def linear_issues_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def mailcatcher_url(*args); end
@@ -148,6 +148,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def root_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def status_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def test_url(*args); end

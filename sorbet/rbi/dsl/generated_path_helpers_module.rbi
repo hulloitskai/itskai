@@ -9,9 +9,6 @@ module GeneratedPathHelpersModule
   include ::ActionDispatch::Routing::PolymorphicRoutes
 
   sig { params(args: T.untyped).returns(String) }
-  def api_status_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def calendly_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -43,6 +40,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def jen_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def linear_issues_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def mailcatcher_path(*args); end
@@ -148,6 +148,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def root_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def status_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def test_path(*args); end

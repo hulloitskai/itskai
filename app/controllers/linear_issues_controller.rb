@@ -2,6 +2,9 @@
 # frozen_string_literal: true
 
 class LinearIssuesController < ApplicationController
+  # == Configuration
+  protect_from_forgery with: :null_session, only: :create
+
   # == Actions
   # POST /issues
   sig { void }
