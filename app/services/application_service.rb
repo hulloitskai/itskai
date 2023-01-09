@@ -10,6 +10,12 @@ class ApplicationService
   include Singleton
   include Logging
 
+  # == Initialization
+  sig { void }
+  def initialize
+    @started = T.let(false, T::Boolean)
+  end
+
   # == Methods
   sig { returns(T::Boolean) }
   def enabled? = self.class.enabled?
@@ -17,11 +23,20 @@ class ApplicationService
   sig { returns(T::Boolean) }
   def disabled? = self.class.disabled?
 
+  sig { returns(T::Boolean) }
+  def started?
+    @started
+  end
+
   sig { overridable.returns(T::Boolean) }
-  def ready? = true
+  def ready?
+    started?
+  end
 
   sig { overridable.void }
-  def start; end
+  def start
+    @started = true
+  end
 end
 
 class ApplicationService
@@ -29,13 +44,12 @@ class ApplicationService
     extend T::Sig
     extend T::Helpers
 
-    # == Service
+    # == Methods
     sig { returns(T.nilable(T.attached_class)) }
     def start
       return if disabled?
       if !started? && Rails.const_defined?(:Server)
         puts "=> Initializing #{name}" # rubocop:disable Rails/Output
-        started!
       end
       instance.tap(&:start)
     end
@@ -48,19 +62,9 @@ class ApplicationService
     def disabled? = !enabled?
 
     sig { returns(T::Boolean) }
-    def ready? = started? && enabled? && instance.ready?
-
-    private
+    def started? = instance.started?
 
     sig { returns(T::Boolean) }
-    def started?
-      @started = T.let(@started, T.nilable(TrueClass))
-      !!@started
-    end
-
-    sig { void }
-    def started!
-      @started = true
-    end
+    def ready? = enabled? && instance.ready?
   end
 end

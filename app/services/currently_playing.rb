@@ -21,9 +21,12 @@ class CurrentlyPlaying < ApplicationService
     @task.add_observer(SubscriptionsTrigger.new)
   end
 
-  # == Service
+  # == Methods: Service
   sig { override.returns(T::Boolean) }
-  def ready? = T.let(super, T::Boolean) && Spotify.ready?
+  def ready?
+    return false unless super
+    Spotify.ready?
+  end
 
   sig { override.void }
   def start
@@ -56,7 +59,7 @@ end
 
 class CurrentlyPlaying
   class << self
-    # == Service
+    # == Methods: Service
     sig { override.returns(T::Boolean) }
     def enabled? = T.let(super, T::Boolean) && Spotify.enabled?
 

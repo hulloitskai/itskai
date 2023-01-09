@@ -3,6 +3,7 @@ app/routes
 bin/
 dist/
 db/schema.rb
+db/**/schema.json
 log/
 node_modules/
 public/assets/

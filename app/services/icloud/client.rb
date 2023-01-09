@@ -64,8 +64,7 @@ class ICloud
       FileUtils.mkdir_p(ICloud.credentials_dir)
       credentials = self.credentials or return
       cookies, session = credentials.cookies, credentials.session
-      if [cookies, session].all?(&:present?)
-        cookies, session = T.must(cookies), T.must(session)
+      if cookies.present? && session.present?
         File.write(cookies_filename!, cookies)
         File.write(session_filename!, session.to_json)
       else

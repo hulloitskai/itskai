@@ -17,10 +17,10 @@ class Obsidian < ApplicationService
 
   # == Methods
   sig { override.returns(T::Boolean) }
-  def enabled? = T.cast(super, T::Boolean) && ICloud.enabled?
-
-  sig { override.returns(T::Boolean) }
-  def ready? = T.cast(super, T::Boolean) && ICloud.ready?
+  def ready?
+    return false unless super
+    ICloud.ready?
+  end
 
   sig { returns(T::Array[String]) }
   def note_names
@@ -131,9 +131,12 @@ end
 
 class Obsidian
   class << self
-    # == Service
+    # == Methods: Service
     sig { override.returns(T::Boolean) }
-    def enabled? = T.cast(super, T::Boolean) && ICloud.enabled?
+    def enabled?
+      return false unless super
+      ICloud.enabled?
+    end
 
     # == Methods
     sig { returns(T::Array[String]) }

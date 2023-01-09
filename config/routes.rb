@@ -22,28 +22,24 @@ Rails.application.routes.draw do
               edit: :settings,
             }
 
-  # == API
-  scope :api do
+  # == GraphQL
+  scope :graphql, controller: :graphql do
     mount GraphiQL::Rails::Engine,
           at: :/,
           as: :graphiql,
-          graphql_path: "/api/graphql"
-    scope :graphql, controller: :graphql do
-      get :/, to: redirect("/api", status: 302)
-      post :/, action: :execute, as: :graphql
-    end
+          graphql_path: "/graphql"
+    post :/, action: :execute, as: :graphql
   end
 
-  # == Pages
-  root "home#show"
+  # == Obsidian
+  resources :obsidian_notes, path: :entries, only: :show
+
+  # == Linear
+  resources :linear_issues, path: :issues, only: :create
+
+  # == Calendly
   get :calendly, to: "calendly#show"
   get :hangout, to: "calendly#show"
-  get :test, to: "test#show"
-  # get :work, to: "work#show"
-  get :resume, to: "resume#show"
-  get :jen, to: redirect("/entries/birthday-writings-for-jen", status: 302)
-  resources :obsidian_notes, path: :entries, only: :show
-  resources :linear_issues, path: :issues, only: :create
 
   # == Errors
   scope controller: :errors do
@@ -51,6 +47,13 @@ Rails.application.routes.draw do
     match "/500", action: :internal_server_error, via: :all
     match "/401", action: :unauthorized, via: :all
   end
+
+  # == Pages
+  root "home#show"
+  get :test, to: "test#show"
+  # get :work, to: "work#show"
+  get :resume, to: "resume#show"
+  get :jen, to: redirect("/entries/birthday-writings-for-jen", status: 302)
 
   # == Development
   if Rails.env.development?

@@ -25,7 +25,7 @@ module Mutations
       credentials = ICloudCredentials.first_or_initialize
       authorize!(credentials, to: :edit?)
       if credentials.update(cookies: nil, session: nil, **attributes)
-        ICloud.authenticate!(credentials)
+        ICloud.restart
         Payload.new(icloud_credentials: credentials)
       else
         Payload.new(errors: credentials.errors)

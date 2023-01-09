@@ -1,14 +1,12 @@
-# rubocop:disable Rails/RakeEnvironment
 # typed: false
 # frozen_string_literal: true
 
 namespace :linear do
-  namespace :schema do
-    task :dump do
-      GraphQL::Client.dump_schema(
-        Linear::Adapter,
-        "config/linear/schema.generated.json",
-      )
-    end
+  desc "Dump the Linear GraphQL schema into a JSON file."
+  task schema: :environment do
+    GraphQL::Client.dump_schema(
+      Linear::Adapter,
+      Rails.root.join(Linear::SCHEMA_PATH).to_s,
+    )
   end
 end

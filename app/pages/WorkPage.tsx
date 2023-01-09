@@ -83,13 +83,18 @@ const WorkPage: PageComponent<WorkPageProps> = () => (
             <List.Item>Responsive, mobile-friendly pages</List.Item>
             <List.Item>Un-scrapable mailto links ;)</List.Item>
             <List.Item>
-              <Anchor href="/api" target="_blank" weight={500} color="indigo">
+              <Anchor
+                href="/graphql"
+                target="_blank"
+                weight={500}
+                color="indigo"
+              >
                 A GraphQL API
               </Anchor>
             </List.Item>
             <List.Item>
               <Anchor
-                href="/api/status"
+                href="/status"
                 target="_blank"
                 weight={500}
                 color="indigo"

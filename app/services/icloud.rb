@@ -9,24 +9,52 @@ class ICloud < ApplicationService
   sig { void }
   def initialize
     super
+    @credentials = T.let(@credentials, T.nilable(ICloudCredentials))
     @client = T.let(@client, T.nilable(Client))
-    ICloudCredentials.first.try! do |credentials|
-      credentials = T.let(credentials, ICloudCredentials)
-      authenticate!(credentials)
+  end
+
+  # == Methods: Service
+  sig { override.returns(T::Boolean) }
+  def ready?
+    return false unless super
+    return false if @credentials.blank? || @client.blank?
+    !@client.requires_security_code?
+  end
+
+  sig { override.void }
+  def start
+    super
+    @credentials = ICloudCredentials.first
+    authenticate
+  end
+
+  # == Methods
+  sig { returns(ICloudCredentials) }
+  def credentials
+    @credentials or raise "Not authenticated (missing credentials)"
+  end
+
+  sig { returns(Client) }
+  def client
+    @client or raise "Not authenticated (missing client)"
+  end
+
+  sig { returns(Drive) }
+  def drive = authenticated_client.drive
+
+  sig { params(code: T.nilable(String)).returns(T::Boolean) }
+  def verify_security_code(code)
+    client.verify_security_code(code).tap do
+      ObsidianNote.synchronize_all_later
     end
   end
 
-  # == Service
-  sig { override.returns(T::Boolean) }
-  def ready?
-    super or return false
-    client = self.client or return false
-    !client.requires_security_code?
-  end
+  private
 
-  sig { params(credentials: ICloudCredentials).void }
-  def authenticate!(credentials)
-    self.client = Client.new(credentials:)
+  # == Helpers
+  sig { void }
+  def authenticate
+    @client = Client.new(credentials:)
   rescue PyCall::PyError => error
     type, message = error.type.__name__, error.value.to_s
     if type == "ConnectionError" &&
@@ -41,48 +69,29 @@ class ICloud < ApplicationService
     end
   end
 
-  sig { returns(Drive) }
-  def drive = authenticated_client!.drive
-
-  # == Methods
-  sig { params(code: T.nilable(String)).returns(T::Boolean) }
-  def verify_security_code(code)
-    client!.verify_security_code(code).tap do
-      ObsidianNote.synchronize_all_later
-    end
-  end
-
-  private
-
-  # == Helpers
-  sig { returns(T.nilable(Client)) }
-  attr_accessor :client
-
   sig { returns(Client) }
-  def client!
-    client or raise "Not authenticated"
-  end
-
-  sig { returns(Client) }
-  def authenticated_client!
-    client = client!
-    if client.requires_security_code?
-      raise "Not authenticated: requires security code"
+  def authenticated_client
+    client.tap do |client|
+      client = T.let(client, Client)
+      if client.requires_security_code?
+        raise "Not authenticated (requires security code)"
+      end
     end
-    client
   end
 end
 
 class ICloud
   class << self
-    # == Service
-    sig { params(credentials: ICloudCredentials).void }
-    def authenticate!(credentials) = instance.authenticate!(credentials)
+    # == Methods
+    sig { returns(ICloudCredentials) }
+    def credentials = instance.credentials
+
+    sig { returns(ICloud::Client) }
+    def client = instance.client
 
     sig { returns(ICloud::Drive) }
     def drive = instance.drive
 
-    # == Methods
     sig { params(code: T.nilable(String)).returns(T::Boolean) }
     def verify_security_code(code) = instance.verify_security_code(code)
   end

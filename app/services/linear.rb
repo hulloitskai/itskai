@@ -3,86 +3,35 @@
 
 class Linear < ApplicationService
   # == Constants
-  Adapter = T.let(
-    GraphQL::Client::HTTP.new("https://api.linear.app/graphql") do
-      # rubocop:disable Style/MethodCallWithArgsParentheses
-      T.bind(self, T.class_of(GraphQL::Client::HTTP))
-
-      extend T::Sig
-
-      sig { params(context: T.untyped).returns(T::Hash[String, String]) }
-      def headers(context)
-        {}.tap do |headers|
-          Linear.access_token.try! do |token|
-            headers["Authorization"] = "Bearer #{token}"
-          end
-        end
-      end
-
-      # rubocop:enable Style/MethodCallWithArgsParentheses
-    end,
-    GraphQL::Client::HTTP,
+  SCHEMA_PATH = T.let(
+    Rails.root.join("db/linear/schema.json").to_s,
+    String,
   )
 
-  Schema = T.let(
-    GraphQL::Client.load_schema("config/linear/schema.generated.json"),
-    T.untyped,
-  )
-
-  Client = T.let(
-    GraphQL::Client.new(schema: Schema, execute: Adapter),
-    GraphQL::Client,
-  )
-
-  # == Operations
-  TriageStateQuery = T.let(
-    Client.parse(
-      <<~GQL,
-        query($teamId: String!) {
-          team(id: $teamId) {
-            triageIssueState {
-              id
-            }
-          }
-        }
-      GQL
-    ),
-    GraphQL::Client::OperationDefinition,
-  )
-
-  CreateIssueMutation = T.let(
-    Client.parse(
-      <<~GQL,
-        mutation($input: IssueCreateInput!) {
-          payload: issueCreate(input: $input) {
-            issue {
-              id
-              title
-              description
-              state {
-                id
-              }
-            }
-          }
-        }
-      GQL
-    ),
-    GraphQL::Client::OperationDefinition,
-  )
-
-  # == Methods
-  sig { returns(T.nilable(String)) }
-  def access_token
-    return @access_token if defined?(@access_token)
-    @access_token = T.let(@access_token, T.nilable(String))
-    @access_token = OAuthCredentials.linear&.access_token
+  # == Initialization
+  sig { void }
+  def initialize
+    super
+    @credentials = T.let(@credentials, T.nilable(OAuthCredentials))
   end
 
-  sig { returns(String) }
-  def team_id
-    return T.must(@team_id) if defined?(@team_id)
-    @team_id = T.let(@team_id, T.nilable(String))
-    @team_id = ENV.fetch("LINEAR_TEAM_ID")
+  # == Methods: Service
+  sig { override.returns(T::Boolean) }
+  def ready?
+    return false unless super
+    @credentials.present?
+  end
+
+  sig { override.void }
+  def start
+    super
+    @credentials = OAuthCredentials.linear
+  end
+
+  # == Methods
+  sig { returns(OAuthCredentials) }
+  def credentials
+    @credentials or raise "Not authenticated (missing credentials)"
   end
 
   sig do
@@ -92,7 +41,7 @@ class Linear < ApplicationService
     ).returns(T.untyped)
   end
   def create_issue(title:, description: nil)
-    response = Client.query(CreateIssueMutation, variables: {
+    response = Client.query(Operations::CreateIssueMutation, variables: {
       "input" => {
         "teamId" => team_id,
         "stateId" => triage_state_id,
@@ -107,12 +56,17 @@ class Linear < ApplicationService
   private
 
   # == Helpers
+  sig { returns(String) }
+  def team_id
+    T.must(self.class.team_id)
+  end
+
   sig { returns(T.nilable(String)) }
   def triage_state_id
     return @triage_state_id if defined?(@triage_state_id)
     @triage_state_id = T.let(@triage_state_id, T.nilable(String))
     @triage_state_id = scoped do
-      response = Client.query(TriageStateQuery, variables: {
+      response = Client.query(Operations::TriageStateQuery, variables: {
         "teamId" => team_id,
       })
       data = unwrap_response!(response)
@@ -131,12 +85,24 @@ end
 
 class Linear
   class << self
-    # == Methods
-    sig { returns(T.nilable(String)) }
-    def access_token = instance.access_token
+    # == Methods: Service
+    sig { override.returns(T::Boolean) }
+    def enabled?
+      return !!@enabled if defined?(@enabled)
+      @enabled = T.let(@enabled, T.nilable(T::Boolean))
+      @enabled = T.let(super, T::Boolean) && team_id.present?
+    end
 
-    sig { returns(String) }
-    def team_id = instance.team_id
+    # == Methods
+    sig { returns(OAuthCredentials) }
+    def credentials = instance.credentials
+
+    sig { returns(T.nilable(String)) }
+    def team_id
+      return @team_id if defined?(@team_id)
+      @team_id = T.let(@team_id, T.nilable(String))
+      @team_id = ENV.fetch("LINEAR_TEAM_ID")
+    end
 
     sig do
       params(
