@@ -34,16 +34,16 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
   sig { params(new_note_names: T::Array[String]).void }
   def create_notes(new_note_names:)
     created_notes = new_note_names.filter_map do |name|
-      Obsidian.note(name).try! do |note|
-        note = T.let(note, ObsidianNote)
-        if note.save
-          logger.info("Created note '#{note.name}'")
-          note
-        else
-          message = note.errors.full_messages.to_sentence
-          logger.warn("Failed to create note '#{note.name}': #{message}")
-          nil
+      Rails.error.handle(context: { note_name: name }) do
+        Obsidian.note(name).try! do |note|
+          note = T.let(note, ObsidianNote)
+          note.save!.tap do
+            logger.info("Created note '#{note.name}'")
+          end
         end
+      rescue => error
+        logger.error("Failed to create '#{name}': #{error}")
+        raise error
       end
     end
     logger.info("Created #{created_notes.count} notes")
@@ -52,19 +52,19 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
   sig { params(existing_note_names: T::Array[String], force: T::Boolean).void }
   def update_notes(existing_note_names:, force:)
     updated_notes = existing_note_names.filter_map do |name|
-      note = ObsidianNote.find_by!(name: name)
-      next if !note.synchronization_required? && !force
-      Obsidian.note(note.name).try! do |updated_note|
-        updated_note = T.let(updated_note, ObsidianNote)
-        updated_note.analyzed_at = nil if force
-        if updated_note.save
-          logger.info("Updated note '#{note.name}'")
-          note
-        else
-          message = note.errors.full_messages.to_sentence
-          logger.warn("Failed to update note '#{note.name}': #{message}")
-          nil
+      Rails.error.handle(context: { note_name: name }) do
+        note = ObsidianNote.find_by!(name: name)
+        next if !note.synchronization_required? && !force
+        Obsidian.note(note.name).try! do |updated_note|
+          updated_note = T.let(updated_note, ObsidianNote)
+          updated_note.analyzed_at = nil if force
+          updated_note.save!.tap do
+            logger.info("Updated note '#{updated_note.name}'")
+          end
         end
+      rescue => error
+        logger.error("Failed to update '#{name}': #{error}")
+        raise error
       end
     end
     logger.info("Updated #{updated_notes.count} notes")
@@ -72,7 +72,15 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
 
   sig { params(orphaned_note_names: T::Array[String]).void }
   def destroy_notes(orphaned_note_names:)
-    destroyed_notes = ObsidianNote.where(name: orphaned_note_names).destroy_all
+    destroyed_notes = ObsidianNote.where(name: orphaned_note_names)
+      .filter_map do |note|
+        Rails.error.handle(context: { note_name: note.name }) do
+          note.destroy!
+        rescue => error
+          logger.error("Failed to destroy '#{note.name}': #{error}")
+          raise error
+        end
+      end
     logger.info("Destroyed #{destroyed_notes.count} notes")
   end
 
