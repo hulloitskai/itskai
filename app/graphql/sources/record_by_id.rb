@@ -15,8 +15,8 @@ module Sources
     end
     def fetch(ids)
       records = @model_class.where(id: ids)
-      # Return a list with `nil` for any ID that wasn't found.
-      ids.map { |id| records.find { |r| r.id == id } }
+      records_by_id = records.index_by(&:id)
+      ids.map { |id| records_by_id.fetch(id) }
     end
   end
 end

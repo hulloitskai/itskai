@@ -3,16 +3,18 @@
 
 # Load queries and listen to changes.
 Rails.application.configure do
-  config.to_prepare do
-    if Rails.const_defined?(:Server)
-      puts "=> Loading queries" # rubocop:disable Rails/Output
-    end
+  server = Rails.const_defined?(:Server)
+
+  reloader.to_prepare do
+    puts "=> Loading queries" if server # rubocop:disable Rails/Output
     Schema.queries!.load
+    Schema.queries!.listen if server && Rails.env.development?
   end
 
-  if Rails.env.development?
-    config.after_initialize { Schema.queries!.listen }
-    at_exit { Schema.queries!.unlisten }
+  if server && Rails.env.development?
+    reloader.before_class_unload do
+      Schema.queries!.unlisten
+    end
   end
 end
 

@@ -85,6 +85,12 @@ class User < ApplicationRecord
     email == User.owner_email
   end
 
+  # == Methods: Email
+  sig { returns(String) }
+  def email_with_name
+    ActionMailer::Base.email_address_with_name(email, name)
+  end
+
   # == Methods: Honeybadger
   sig { returns(T::Hash[String, T.untyped]) }
   def honeybadger_context
