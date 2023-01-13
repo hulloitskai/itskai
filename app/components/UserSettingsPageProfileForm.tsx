@@ -33,13 +33,13 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
       if (user) {
         router.reload({
           onSuccess: () => {
-            showNotice({ message: "Profile updated successfully" });
+            showNotice({ message: "Profile updated successfully." });
           },
         });
       } else {
-        invariant(errors);
+        invariant(errors, "Missing input errors");
         setErrors(formErrors(errors));
-        showAlert({ message: "Failed to update profile" });
+        showFormErrors("Could not update profile");
       }
     },
     onError,

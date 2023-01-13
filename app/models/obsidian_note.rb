@@ -37,10 +37,10 @@ class ObsidianNote < ApplicationRecord
   # == Concerns
   include Identifiable
   include Slugged
+  include FriendlyIdable
   include ObsidianEntry
 
-  # == Concerns: FriendlyId
-  include FriendlyId::Concern
+  # == Configuration
   friendly_id :name
 
   # == Associations

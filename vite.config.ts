@@ -17,7 +17,7 @@ const plugins = [
   rubyPlugin(),
   isoImportPlugin(),
   autoImportPlugin({
-    dts: join(__dirname, "typings/auto-import.d.ts"),
+    dts: join(__dirname, "typings/auto-import.generated.d.ts"),
     imports,
   }),
   iconsPlugin({

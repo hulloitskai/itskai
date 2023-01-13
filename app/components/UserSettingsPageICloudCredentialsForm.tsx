@@ -81,9 +81,9 @@ const UserSettingsPageICloudCredentialsForm: FC<
             },
           });
         } else {
-          invariant(errors);
+          invariant(errors, "Missing input errors");
           setErrors(formErrors(errors));
-          showAlert({ message: "Failed to update iCloud credentials." });
+          showFormErrors("Could not update iCloud credentials");
         }
       },
       onError,

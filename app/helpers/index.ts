@@ -12,4 +12,4 @@ export {
   usePageProps,
   useRouter,
 } from "./inertia";
-export { formErrors } from "./form";
+export { formErrors, showFormErrors, useNestedForm } from "./form";

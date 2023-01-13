@@ -17,6 +17,7 @@ module Slugged
     requires_columns :slug
   end
 
+  # == Class Methods
   class_methods do
     extend T::Sig
 
@@ -37,5 +38,21 @@ module Slugged
         size: generated_slug_length,
       )
     end
+  end
+
+  # == Methods
+  sig { returns(String) }
+  def generate_slug
+    self[:slug] ||= T.cast(self.class, ClassMethods).generate_slug
+  end
+
+  sig { returns(String) }
+  def generate_slug!
+    self.slug = generate_slug
+  end
+
+  sig { void }
+  def clear_slug
+    self[:slug] = nil
   end
 end

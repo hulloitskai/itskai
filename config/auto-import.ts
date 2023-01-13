@@ -53,6 +53,7 @@ export const imports: Array<ImportsMap | PresetName> = [
     "@mantine/modals": ["openModal", "closeAllModals"],
     "lodash-es": [
       "first",
+      "get",
       "isEmpty",
       "isEqual",
       "keyBy",
@@ -84,6 +85,7 @@ export const imports: Array<ImportsMap | PresetName> = [
       "formErrors",
       "showNotice",
       "showAlert",
+      "showFormErrors",
     ],
   },
 ];
