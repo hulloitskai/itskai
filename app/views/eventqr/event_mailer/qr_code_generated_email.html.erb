@@ -1,0 +1,11 @@
+<p>
+  Hi, <%= @inviter_name %>!
+</p>
+<p>
+  A QR code has been generated for your event,
+  <%= link_to @event.title, @event %>:
+</p>
+<%= image_tag @event.qr_code_image %>
+<p>
+  When somebody scans this QR code, your event will be added to their calendar.
+</p>

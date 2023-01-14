@@ -69,8 +69,8 @@ class ActionController::Parameters
   sig { params(keys: T.any(String, Symbol)).returns(T.untyped) }
   def extract!(*keys); end
 
-  sig { params(key: T.any(String, Symbol), args: T.untyped).returns(T.untyped) }
-  def fetch(key, *args); end
+  # sig { params(key: T.any(String, Symbol), args: T.untyped).returns(T.untyped) }
+  # def fetch(key, *args); end
 
   sig { returns(String) }
   def inspect; end

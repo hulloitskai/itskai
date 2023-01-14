@@ -48,6 +48,11 @@ Rails.application.routes.draw do
     match "/401", action: :unauthorized, via: :all
   end
 
+  # == Eventqr
+  namespace :eventqr do
+    resources :events, path: "/", only: %i[show create]
+  end
+
   # == Pages
   root "home#show"
   get :test, to: "test#show"

@@ -44,8 +44,11 @@ gem "aws-sdk-s3", "~> 1.117", require: false
 # Use Good Job as the backend for Active Job
 gem "good_job", "~> 3.6"
 
-# Use Mailjet to send emails.
+# Send emails with Mailjet.
 gem "mailjet", "~> 1.7"
+
+# Send emails with Sendgrid.
+gem "sendgrid-ruby", "~> 6.6"
 
 # Use FriendlyId to create human-friendly identifiers for models
 gem "friendly_id", "~> 5.4"
@@ -80,15 +83,13 @@ gem "validate_url", "~> 1.0"
 gem "date_validator", "~> 0.12.0"
 gem "active_storage_validations", "~> 0.9.6"
 
-# Debug code and inspect values at runtime
-# See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-gem "debug", platforms: %i[mri mingw x64_mingw]
+# Introspect program at runtime with Pry
 gem "pry"
 gem "pry-rails"
+gem "pry-rescue"
 gem "pry-doc", require: false
 gem "pry-sorbet", require: false
 gem "pry-stack_explorer", require: false
-gem "pry-rescue", require: false
 gem "break", require: false
 
 # Load environment variables from .env
@@ -156,8 +157,11 @@ gem "wrapped_print"
 # Enable additional operators and utilities for Active Record with PostgreSQL
 gem "active_record_extended", "~> 2.1"
 
-# Parse Markdown with Markly.
+# Parse Markdown with Markly
 gem "markly", "~> 0.7.0"
+
+# Parse iCalendar files
+gem "icalendar", "~> 2.8"
 
 group :development, :test do
   # Auto-detect and warn about N+1 queries
@@ -167,6 +171,10 @@ end
 group :development do
   # Detect file changes for live reload
   gem "listen", "~> 3.7"
+
+  # Debug code with debug
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "debug", platforms: %i[mri mingw x64_mingw]
 
   # Typecheck code
   gem "sorbet", "0.5.10576", require: false

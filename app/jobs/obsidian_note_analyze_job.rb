@@ -17,6 +17,7 @@ class ObsidianNoteAnalyzeJob < ApplicationJob
   # == Callbacks
   before_perform :update_activity_status
 
+  # == Job
   sig { params(note: ObsidianNote).void }
   def perform(note)
     analyze_references(note)

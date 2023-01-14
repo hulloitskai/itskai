@@ -7,7 +7,6 @@ processes = []
   release_command = "bin/release"
 
 [env]
-  RAILS_STORAGE_SERVICE = "test"
   POSTGRES_URL = "postgresql://top2.nearest.of.itskai-db.internal"
   POSTGRES_USERNAME = "itskai"
   POSTGRES_DATABASE = "itskai"
@@ -15,6 +14,9 @@ processes = []
   MAILJET_API_KEY = "c8aa7cafd6972ffe6718fcfab344b547"
   FULLSTORY_ORG_ID = "o-1CGMZ5-na1"
   GOOGLE_ANALYTICS_MEASUREMENT_ID = "G-MFGZXQLMM9"
+  AWS_ACCESS_KEY_ID = "AKIA267OA7D6UCFFUX3B"
+  AWS_BUCKET = "itskai"
+  AWS_REGION = "us-east-2"
 
 [experimental]
   allowed_public_ports = []

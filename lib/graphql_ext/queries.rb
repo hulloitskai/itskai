@@ -10,10 +10,8 @@ class GraphQL::Queries
   # == Plugin
   sig { params(defn: T.untyped, options: T::Hash[Symbol, T.untyped]).void }
   def self.use(defn, options = {})
-    schema = T.let(
-      defn.is_a?(Class) ? defn : defn.target,
-      T.class_of(GraphQL::Schema),
-    )
+    schema = T.let(defn.is_a?(Class) ? defn : defn.target,
+                   T.class_of(GraphQL::Schema))
     schema.queries = new
   end
 

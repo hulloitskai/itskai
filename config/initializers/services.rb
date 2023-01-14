@@ -13,6 +13,7 @@ Rails.application.configure do
     CurrentlyPlaying.start if server
     Linear.start
     Notifi.start
+    QrCodeGenerator.start
   end
 
   reloader.before_class_unload do

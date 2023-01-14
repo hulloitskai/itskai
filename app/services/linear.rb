@@ -3,10 +3,8 @@
 
 class Linear < ApplicationService
   # == Constants
-  SCHEMA_PATH = T.let(
-    Rails.root.join("db/linear/schema.json").to_s,
-    String,
-  )
+  SCHEMA_PATH = T.let(Rails.root.join("db/linear/schema.json").to_s,
+                      String)
 
   # == Initialization
   sig { void }

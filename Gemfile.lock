@@ -213,6 +213,9 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    icalendar (2.8.0)
+      ice_cube (~> 0.16)
+    ice_cube (0.16.4)
     image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
@@ -425,12 +428,15 @@ GEM
     ruby-vips (2.1.4)
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
+    ruby_http_client (3.5.5)
     rubyzip (2.3.2)
     selenium-webdriver (4.6.1)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sendgrid-ruby (6.6.2)
+      ruby_http_client (~> 3.4)
     silencer (2.0.0)
     snaky_hash (2.0.1)
       hashie
@@ -559,6 +565,7 @@ DEPENDENCIES
   graphql-rails_logger
   honeybadger (~> 4.12)
   httparty (~> 0.20.0)
+  icalendar (~> 2.8)
   image_processing (~> 1.2)
   inertia_rails (~> 3.0)
   listen (~> 3.7)
@@ -594,6 +601,7 @@ DEPENDENCIES
   ruby-lsp
   ruby-vips (~> 2.1)
   selenium-webdriver
+  sendgrid-ruby (~> 6.6)
   silencer (~> 2.0)
   sorbet (= 0.5.10576)
   sorbet-runtime (~> 0.5.10554)

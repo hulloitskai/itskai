@@ -8,8 +8,9 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
   good_job_control_concurrency_with key: name, total_limit: 1
 
   # == Callbacks
-  around_perform :update_activity_status_around
+  around_perform :with_activity_status
 
+  # == Job
   sig { params(force: T::Boolean).void }
   def perform(force: false)
     unless Obsidian.ready?
@@ -86,7 +87,7 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
 
   # == Callbacks
   sig { params(block: T.proc.void).void }
-  def update_activity_status_around(&block)
+  def with_activity_status(&block)
     ActivityStatus.update("Synchronizing notes")
     yield
     ActivityStatus.update("Note synchronization complete")

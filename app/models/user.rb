@@ -85,7 +85,7 @@ class User < ApplicationRecord
     email == User.owner_email
   end
 
-  # == Methods: Email
+  # == Methods
   sig { returns(String) }
   def email_with_name
     ActionMailer::Base.email_address_with_name(email, name)

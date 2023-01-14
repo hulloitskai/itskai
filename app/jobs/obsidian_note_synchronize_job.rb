@@ -7,6 +7,7 @@ class ObsidianNoteSynchronizeJob < ApplicationJob
   # == Configuration
   good_job_control_concurrency_with key: name, total_limit: 1
 
+  # == Job
   sig { params(note: ObsidianNote, force: T::Boolean).void }
   def perform(note, force: false)
     unless Obsidian.ready?

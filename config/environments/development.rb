@@ -66,10 +66,9 @@ Rails.application.configure do
     ENV.fetch("RAILS_STORAGE_SERVICE", :local).to_sym
 
   # == Action Mailer
-  config.action_mailer.delivery_method = ENV.fetch("RAILS_MAILER", :smtp).to_sym
-  config.action_mailer.smtp_settings = {
-    port: ENV.fetch("MAILCATCHER_PORT", 1025).to_i,
-  }
+  config.action_mailer.delivery_method = ENV
+    .fetch("RAILS_MAILER", :mailcatcher)
+    .to_sym
   config.action_mailer.perform_caching = false
   config.action_mailer.perform_deliveries = ENV
     .fetch("RAILS_MAILER_PERFORM_DELIVERIES", true)

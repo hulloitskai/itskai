@@ -700,6 +700,9 @@ class Pry
     # source://forwardable/1.3.2/forwardable.rb#229
     def editor=(*args, **_arg1, &block); end
 
+    # source://pry-rescue/1.5.2/lib/pry-rescue/core_ext.rb#73
+    def enable_rescuing!(block = T.unsafe(nil)); end
+
     # Returns the value of attribute eval_path.
     #
     # source://pry//lib/pry/pry_class.rb#21
@@ -887,6 +890,12 @@ class Pry
     # source://pry//lib/pry/pry_class.rb#94
     def real_path_to(file); end
 
+    # source://pry-rescue/1.5.2/lib/pry-rescue/core_ext.rb#11
+    def rescue(&block); end
+
+    # source://pry-rescue/1.5.2/lib/pry-rescue/core_ext.rb#35
+    def rescued(e = T.unsafe(nil)); end
+
     # Set all the configurable options back to their default values
     #
     # source://pry//lib/pry/pry_class.rb#320
@@ -952,6 +961,11 @@ class Pry
     #
     # source://pry//lib/pry/pry_class.rb#219
     def view_clip(obj, options = T.unsafe(nil)); end
+
+    private
+
+    # source://pry-rescue/1.5.2/lib/pry-rescue/core_ext.rb#88
+    def with_rescuing(&block); end
   end
 end
 
