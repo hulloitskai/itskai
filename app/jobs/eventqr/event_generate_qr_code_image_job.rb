@@ -25,9 +25,9 @@ module Eventqr
 
       url = Rails.application.routes.url_helpers.url_for(event)
       QrCodeGenerator.generate_qr_code(url) do |file|
-        event.qr_code_image.attach(io: file, filename: "qrcode.png")
+        event.qr_code.attach(io: file, filename: "qrcode.png")
       end
-      event.qr_code_image_blob!
+      event.qr_code_blob!
     end
   end
 end

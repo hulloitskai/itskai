@@ -8,6 +8,7 @@ module Eventqr
       @event = T.let(@event, T.nilable(Event))
       @event = event
       @inviter_name = T.let(@event.inviter_name, T.nilable(String))
+      @inviter_email = T.let(@event.inviter_email, T.nilable(String))
       mail(
         to: @event.inviter_email_with_name,
         subject: "A QR code has been generated for your event",

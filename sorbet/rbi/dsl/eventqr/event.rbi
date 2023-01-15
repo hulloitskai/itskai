@@ -17,10 +17,10 @@ class Eventqr::Event
   def invite=(attachable); end
 
   sig { returns(ActiveStorage::Attached::One) }
-  def qr_code_image; end
+  def qr_code; end
 
   sig { params(attachable: T.untyped).returns(T.untyped) }
-  def qr_code_image=(attachable); end
+  def qr_code=(attachable); end
 
   private
 
@@ -240,10 +240,10 @@ class Eventqr::Event
     def build_invite_blob(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Attachment) }
-    def build_qr_code_image_attachment(*args, &blk); end
+    def build_qr_code_attachment(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Blob) }
-    def build_qr_code_image_blob(*args, &blk); end
+    def build_qr_code_blob(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Attachment) }
     def create_invite_attachment(*args, &blk); end
@@ -258,16 +258,16 @@ class Eventqr::Event
     def create_invite_blob!(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Attachment) }
-    def create_qr_code_image_attachment(*args, &blk); end
+    def create_qr_code_attachment(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Attachment) }
-    def create_qr_code_image_attachment!(*args, &blk); end
+    def create_qr_code_attachment!(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Blob) }
-    def create_qr_code_image_blob(*args, &blk); end
+    def create_qr_code_blob(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Blob) }
-    def create_qr_code_image_blob!(*args, &blk); end
+    def create_qr_code_blob!(*args, &blk); end
 
     sig { returns(T.nilable(::ActiveStorage::Attachment)) }
     def invite_attachment; end
@@ -282,16 +282,16 @@ class Eventqr::Event
     def invite_blob=(value); end
 
     sig { returns(T.nilable(::ActiveStorage::Attachment)) }
-    def qr_code_image_attachment; end
+    def qr_code_attachment; end
 
     sig { params(value: T.nilable(::ActiveStorage::Attachment)).void }
-    def qr_code_image_attachment=(value); end
+    def qr_code_attachment=(value); end
 
     sig { returns(T.nilable(::ActiveStorage::Blob)) }
-    def qr_code_image_blob; end
+    def qr_code_blob; end
 
     sig { params(value: T.nilable(::ActiveStorage::Blob)).void }
-    def qr_code_image_blob=(value); end
+    def qr_code_blob=(value); end
 
     sig { returns(T.nilable(::ActiveStorage::Attachment)) }
     def reload_invite_attachment; end
@@ -300,10 +300,10 @@ class Eventqr::Event
     def reload_invite_blob; end
 
     sig { returns(T.nilable(::ActiveStorage::Attachment)) }
-    def reload_qr_code_image_attachment; end
+    def reload_qr_code_attachment; end
 
     sig { returns(T.nilable(::ActiveStorage::Blob)) }
-    def reload_qr_code_image_blob; end
+    def reload_qr_code_blob; end
   end
 
   module GeneratedAssociationRelationMethods
@@ -492,7 +492,7 @@ class Eventqr::Event
     def with_attached_invite(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def with_attached_qr_code_image(*args, &blk); end
+    def with_attached_qr_code(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
@@ -1204,7 +1204,7 @@ class Eventqr::Event
     def with_attached_invite(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def with_attached_qr_code_image(*args, &blk); end
+    def with_attached_qr_code(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end

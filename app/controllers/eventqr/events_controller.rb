@@ -33,21 +33,12 @@ module Eventqr
       data = T.let(content.fetch("data"), T::Array[Integer])
       with_temp_file(filename) do |file|
         file.write(data.pack("C*")).tap { file.rewind }
-        events = T.let(Icalendar::Event.parse(file).tap { file.rewind },
-                       T::Array[Icalendar::Event])
-        event = events.first or break
-        Event.find_or_initialize_by(uid: event.uid.value) do |e|
-          e.update!(
-            inviter_email: from.fetch("address"),
-            inviter_name: from["name"],
-            title: event.summary.value,
-            start: event.dtstart.value,
-            end: event.dtend.value,
-            invite: {
-              io: file, filename:
-            },
-          )
-        end
+        Event.create_from_file!(
+          io: file,
+          filename:,
+          inviter_email: from.fetch("address"),
+          inviter_name: from["name"],
+        )
       end
       head(:no_content)
     end

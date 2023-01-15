@@ -28,7 +28,7 @@ module Named
               }
   end
 
-  # == Setters
+  # == Attributes
   sig { params(value: String).returns(String) }
   def name=(value)
     super(value.strip)

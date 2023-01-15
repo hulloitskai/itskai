@@ -36,9 +36,15 @@ module Eventqr
     # == Attributes
     attribute :slug, default: -> { generate_slug }
 
+    # == Attributes
+    sig { params(value: String).returns(String) }
+    def name=(value)
+      super(value.strip.presence)
+    end
+
     # == Attachments
     has_one_attached :invite
-    has_one_attached :qr_code_image
+    has_one_attached :qr_code
 
     sig { returns(ActiveStorage::Blob) }
     def invite_blob!
@@ -46,8 +52,8 @@ module Eventqr
     end
 
     sig { returns(ActiveStorage::Blob) }
-    def qr_code_image_blob!
-      qr_code_image_blob or raise ActiveRecord::RecordNotFound
+    def qr_code_blob!
+      qr_code_blob or raise ActiveRecord::RecordNotFound
     end
 
     # == Validations
@@ -57,17 +63,50 @@ module Eventqr
     validates :start, :end, presence: true
 
     # == Callbacks
-    after_create_commit :generate_qr_code_image_later
+    after_create_commit :generate_qr_code_later
     after_update_commit :send_qr_code_generated_email
+
+    # == Constructors
+    sig do
+      params(
+        io: IO,
+        filename: String,
+        inviter_email: String,
+        inviter_name: T.nilable(String),
+      ).returns(Event)
+    end
+    def self.create_from_file!(
+      io:,
+      filename:,
+      inviter_email:,
+      inviter_name: nil
+    )
+      events = T.let(Icalendar::Event.parse(io).tap { io.rewind },
+                     T::Array[Icalendar::Event])
+      event = events.first or raise "No events found"
+      find_or_initialize_by(uid: event.uid.value) do |e|
+        e.update!(
+          inviter_email:,
+          inviter_name:,
+          title: event.summary.value,
+          start: event.dtstart.value,
+          end: event.dtend.value,
+          invite: {
+            io:,
+            filename:,
+          },
+        )
+      end
+    end
 
     # == Jobs
     sig { returns(ActiveStorage::Blob) }
-    def generate_qr_code_image
+    def generate_qr_code
       EventGenerateQrCodeImageJob.perform_now(self)
     end
 
     sig { void }
-    def generate_qr_code_image_later
+    def generate_qr_code_later
       EventGenerateQrCodeImageJob.perform_later(self)
     end
 
@@ -85,7 +124,7 @@ module Eventqr
 
     sig { returns(T.nilable(String)) }
     def qr_code_image_url
-      qr_code_image_blob.try! do |blob|
+      qr_code_blob.try! do |blob|
         blob = T.let(blob, ActiveStorage::Blob)
         polymorphic_url(blob)
       end
@@ -96,7 +135,7 @@ module Eventqr
     # == Callbacks
     sig { void }
     def send_qr_code_generated_email
-      attachment_changes["qr_code_image"].try! do |change|
+      attachment_changes["qr_code"].try! do |change|
         if change.is_a?(ActiveStorage::Attached::Changes::CreateOne)
           qr_code_generated_email.deliver_later
         end
