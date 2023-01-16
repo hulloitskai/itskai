@@ -37,9 +37,9 @@ module Eventqr
     attribute :slug, default: -> { generate_slug }
 
     # == Attributes
-    sig { params(value: String).returns(String) }
-    def name=(value)
-      super(value.strip.presence)
+    sig { params(value: T.nilable(String)).returns(T.nilable(String)) }
+    def inviter_name=(value)
+      super(value&.strip.presence)
     end
 
     # == Attachments
