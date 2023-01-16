@@ -27,7 +27,7 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
     <form
       onSubmit={onSubmit(({ email, password }) => {
         const data = { user: { email, password } };
-        router.post("/user/login", data, {
+        router.post("/login", data, {
           onBefore: () => {
             setLoading(true);
 

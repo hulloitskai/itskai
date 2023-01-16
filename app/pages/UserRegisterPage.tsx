@@ -24,7 +24,7 @@ const UserRegisterPage: PageComponent = () => (
       <UserRegisterPageForm />
       <Text size="xs" color="gray">
         Already have an account?{" "}
-        <Anchor component={Link} href="/user/login" color="indigo">
+        <Anchor component={Link} href="/login" color="indigo">
           Sign in instead.
         </Anchor>
       </Text>

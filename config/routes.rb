@@ -8,19 +8,26 @@ Rails.application.routes.draw do
 
   # == Devise
   devise_for :users,
-             except: ["passwords"],
-            controllers: {
-              sessions: "users/sessions",
-              registrations: "users/registrations",
-              omniauth_callbacks: "users/omniauth_callbacks",
-            },
-            path: :user,
-            path_names: {
-              sign_in: :login,
-              sign_out: :logout,
-              sign_up: :register,
-              edit: :settings,
-            }
+             skip: %i[sessions passwords],
+             controllers: {
+               registrations: "users/registrations",
+             },
+             path: :user,
+             path_names: {
+               sign_up: :register,
+               edit: :settings,
+             }
+  devise_scope :user do
+    resource :user_session,
+             controller: "users/sessions",
+             only: %i[new create],
+             path: "/",
+             path_names: {
+               new: "login",
+             } do
+               post :logout, action: :destroy, as: :destroy
+             end
+  end
 
   # == GraphQL
   scope :graphql, controller: :graphql do
