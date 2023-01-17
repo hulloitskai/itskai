@@ -337,6 +337,11 @@ class OmniAuth::Configuration
 
     # source://omniauth//lib/omniauth.rb#33
     def defaults; end
+
+    private
+
+    def allocate; end
+    def new(*_arg0); end
   end
 end
 
@@ -454,7 +459,7 @@ OmniAuth::Form::DEFAULT_CSS = T.let(T.unsafe(nil), String)
 
 # Generic helper hash that allows method access on deeply nested keys.
 #
-# source://omniauth//lib/omniauth/key_store.rb#6
+# source://omniauth//lib/omniauth/key_store.rb#5
 class OmniAuth::KeyStore < ::Hashie::Mash
   class << self
     # Disables warnings on Hashie 3.5.0+ for overwritten keys

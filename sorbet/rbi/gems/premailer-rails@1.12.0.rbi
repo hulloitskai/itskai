@@ -6,138 +6,56 @@
 
 # source://premailer-rails//lib/premailer/rails/version.rb#1
 class Premailer
-  # Create a new Premailer object.
-  #
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @option options
-  # @param html is the HTML data to process. It can be either an IO object, the URL of a
-  #   remote file, a local path or a raw HTML string.  If passing an HTML string you
-  #   must set the with_html_string option to true.
-  # @param options [Hash] the options to handle html with.
-  # @return [Premailer] a new instance of Premailer
-  #
   # source://premailer/1.18.0/lib/premailer/premailer.rb#183
   def initialize(html, options = T.unsafe(nil)); end
 
   # source://premailer/1.18.0/lib/premailer/premailer.rb#358
   def append_query_string(doc, qs); end
 
-  # base directory used to resolve links for local files
-  #
-  # @return [String] base directory
-  #
   # source://premailer/1.18.0/lib/premailer/premailer.rb#119
   def base_dir; end
 
-  # base URL used to resolve links
-  #
   # source://premailer/1.18.0/lib/premailer/premailer.rb#115
   def base_url; end
 
-  # Check <tt>CLIENT_SUPPORT_FILE</tt> for any CSS warnings
-  #
   # source://premailer/1.18.0/lib/premailer/premailer.rb#509
   def check_client_support; end
 
-  # Convert relative links to absolute links.
-  #
-  # Processes <tt>href</tt> <tt>src</tt> and <tt>background</tt> attributes
-  # as well as CSS <tt>url()</tt> declarations found in inline <tt>style</tt> attributes.
-  #
-  # <tt>doc</tt> is a document and <tt>base_uri</tt> is either a string or a URI.
-  #
-  # Returns a document.
-  #
   # source://premailer/1.18.0/lib/premailer/premailer.rb#424
   def convert_inline_links(doc, base_uri); end
 
-  # source HTML document (Nokogiri/Nokogumbo)
-  #
   # source://premailer/1.18.0/lib/premailer/premailer.rb#128
   def doc; end
 
-  # URI of the HTML file used
-  #
   # source://premailer/1.18.0/lib/premailer/premailer.rb#112
   def html_file; end
 
-  # Check for an XHTML doctype
-  #
-  # @return [Boolean]
-  #
   # source://premailer/1.18.0/lib/premailer/premailer.rb#409
   def is_xhtml?; end
 
-  # @deprecated
-  # @private
-  # @return [Boolean]
-  #
   # source://premailer/1.18.0/lib/premailer/premailer.rb#344
   def local_uri?(uri); end
 
-  # @private
-  # @return [Boolean]
-  #
   # source://premailer/1.18.0/lib/premailer/premailer.rb#352
   def media_type_ok?(media_types); end
 
-  # processed HTML document (Nokogiri/Nokogumbo)
-  #
   # source://premailer/1.18.0/lib/premailer/premailer.rb#125
   def processed_doc; end
 
-  # unmergeable CSS rules to be preserved in the head (CssParser)
-  #
   # source://premailer/1.18.0/lib/premailer/premailer.rb#122
   def unmergable_rules; end
 
-  # CSS warnings.
-  #
-  # @return [Array(Hash)] Array of warnings.
-  #
   # source://premailer/1.18.0/lib/premailer/premailer.rb#259
   def warnings; end
 
   protected
 
-  # Load CSS included in <tt>style</tt> and <tt>link</tt> tags from an HTML document.
-  #
   # source://premailer/1.18.0/lib/premailer/premailer.rb#300
   def load_css_from_html!; end
 
   # source://premailer/1.18.0/lib/premailer/premailer.rb#266
   def load_css_from_local_file!(path); end
 
-  # @private
-  #
   # source://premailer/1.18.0/lib/premailer/premailer.rb#287
   def load_css_from_options!; end
 
@@ -145,28 +63,15 @@ class Premailer
   def load_css_from_string(css_string); end
 
   class << self
-    # from http://www.ruby-forum.com/topic/140101
-    #
     # source://premailer/1.18.0/lib/premailer/premailer.rb#502
     def canonicalize(uri); end
 
-    # @private
-    # @return [Boolean]
-    #
     # source://premailer/1.18.0/lib/premailer/premailer.rb#470
     def is_media_query?(media_types); end
 
-    # Test the passed variable to see if we are in local or remote mode.
-    #
-    # IO objects return true, as do strings that look like URLs.
-    #
-    # @return [Boolean]
-    #
     # source://premailer/1.18.0/lib/premailer/premailer.rb#496
     def local_data?(data); end
 
-    # @private
-    #
     # source://premailer/1.18.0/lib/premailer/premailer.rb#475
     def resolve_link(path, base_path); end
   end
@@ -175,27 +80,15 @@ end
 # source://premailer/1.18.0/lib/premailer/premailer.rb#38
 Premailer::CLIENT_SUPPORT_FILE = T.let(T.unsafe(nil), String)
 
-# list of HTMLEntities to fix
-# source: http://stackoverflow.com/questions/2812781/how-to-convert-webpage-apostrophe-8217-to-ascii-39-in-ruby-1-
-#
 # source://premailer/1.18.0/lib/premailer/premailer.rb#47
 Premailer::HTML_ENTITIES = T.let(T.unsafe(nil), Hash)
 
-# list of CSS attributes that can be rendered as HTML attributes
-#
-# @todo too much repetition
-# @todo background=""
-#
 # source://premailer/1.18.0/lib/premailer/premailer.rb#65
 Premailer::RELATED_ATTRIBUTES = T.let(T.unsafe(nil), Hash)
 
-# Reset selectors regexp.
-#
 # source://premailer/1.18.0/lib/premailer/premailer.rb#43
 Premailer::RE_RESET_SELECTORS = T.let(T.unsafe(nil), Regexp)
 
-# Unmergable selectors regexp.
-#
 # source://premailer/1.18.0/lib/premailer/premailer.rb#41
 Premailer::RE_UNMERGABLE_SELECTORS = T.let(T.unsafe(nil), Regexp)
 
@@ -441,12 +334,8 @@ class Premailer::Rails::Railtie < ::Rails::Railtie; end
 # source://premailer-rails//lib/premailer/rails/version.rb#3
 Premailer::Rails::VERSION = T.let(T.unsafe(nil), String)
 
-# Premailer version.
-#
 # source://premailer/1.18.0/lib/premailer/version.rb#3
 Premailer::VERSION = T.let(T.unsafe(nil), String)
 
-# Waning level names
-#
 # source://premailer/1.18.0/lib/premailer/premailer.rb#144
 Premailer::WARN_LABEL = T.let(T.unsafe(nil), Array)

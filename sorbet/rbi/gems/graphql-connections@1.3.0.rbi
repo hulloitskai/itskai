@@ -7,25 +7,25 @@
 # source://graphql-connections//lib/graphql/connections.rb#6
 module GraphQL
   class << self
-    # source://graphql/2.0.15/lib/graphql.rb#35
+    # source://graphql/2.0.16/lib/graphql.rb#35
     def default_parser; end
 
-    # source://graphql/2.0.15/lib/graphql.rb#39
+    # source://graphql/2.0.16/lib/graphql.rb#39
     def default_parser=(_arg0); end
 
-    # source://graphql/2.0.15/lib/graphql.rb#45
+    # source://graphql/2.0.16/lib/graphql.rb#45
     def parse(graphql_string, tracer: T.unsafe(nil)); end
 
-    # source://graphql/2.0.15/lib/graphql.rb#52
+    # source://graphql/2.0.16/lib/graphql.rb#52
     def parse_file(filename); end
 
-    # source://graphql/2.0.15/lib/graphql.rb#57
+    # source://graphql/2.0.16/lib/graphql.rb#57
     def parse_with_racc(string, filename: T.unsafe(nil), tracer: T.unsafe(nil)); end
 
-    # source://graphql/2.0.15/lib/graphql.rb#62
+    # source://graphql/2.0.16/lib/graphql.rb#62
     def scan(graphql_string); end
 
-    # source://graphql/2.0.15/lib/graphql.rb#66
+    # source://graphql/2.0.16/lib/graphql.rb#66
     def scan_with_ragel(graphql_string); end
   end
 end
@@ -317,8 +317,11 @@ module GraphQL::Connections::Stable
     #
     # source://graphql-connections//lib/graphql/connections/stable.rb#15
     def new(*args, desc: T.unsafe(nil), keys: T.unsafe(nil), **kwargs); end
+
+    sig { params(defn: T.untyped, options: T::Hash[::Symbol, T.untyped]).void }
+    def use(defn, options = T.unsafe(nil)); end
   end
 end
 
-# source://graphql/2.0.15/lib/graphql/version.rb#3
+# source://graphql/2.0.16/lib/graphql/version.rb#3
 GraphQL::VERSION = T.let(T.unsafe(nil), String)

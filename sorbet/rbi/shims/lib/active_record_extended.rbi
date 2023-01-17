@@ -1,5 +1,5 @@
 # typed: strict
 
 class ActiveRecord::Relation
-  include ActiveRecordExtended::WhereChain
+  include ActiveRecordExtended::QueryMethods::WhereChain
 end

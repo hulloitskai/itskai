@@ -7,25 +7,25 @@
 # source://graphql-persisted_queries//lib/graphql/persisted_queries/resolver_helpers.rb#3
 module GraphQL
   class << self
-    # source://graphql/2.0.15/lib/graphql.rb#35
+    # source://graphql/2.0.16/lib/graphql.rb#35
     def default_parser; end
 
-    # source://graphql/2.0.15/lib/graphql.rb#39
+    # source://graphql/2.0.16/lib/graphql.rb#39
     def default_parser=(_arg0); end
 
-    # source://graphql/2.0.15/lib/graphql.rb#45
+    # source://graphql/2.0.16/lib/graphql.rb#45
     def parse(graphql_string, tracer: T.unsafe(nil)); end
 
-    # source://graphql/2.0.15/lib/graphql.rb#52
+    # source://graphql/2.0.16/lib/graphql.rb#52
     def parse_file(filename); end
 
-    # source://graphql/2.0.15/lib/graphql.rb#57
+    # source://graphql/2.0.16/lib/graphql.rb#57
     def parse_with_racc(string, filename: T.unsafe(nil), tracer: T.unsafe(nil)); end
 
-    # source://graphql/2.0.15/lib/graphql.rb#62
+    # source://graphql/2.0.16/lib/graphql.rb#62
     def scan(graphql_string); end
 
-    # source://graphql/2.0.15/lib/graphql.rb#66
+    # source://graphql/2.0.16/lib/graphql.rb#66
     def scan_with_ragel(graphql_string); end
   end
 end
@@ -585,188 +585,188 @@ class GraphQL::PersistedQueries::WrongHash < ::StandardError
 end
 
 class GraphQL::Query
-  # source://graphql/2.0.15/lib/graphql/query.rb#86
+  # source://graphql/2.0.16/lib/graphql/query.rb#86
   def initialize(schema, query_string = T.unsafe(nil), query: T.unsafe(nil), document: T.unsafe(nil), context: T.unsafe(nil), variables: T.unsafe(nil), validate: T.unsafe(nil), subscription_topic: T.unsafe(nil), operation_name: T.unsafe(nil), root_value: T.unsafe(nil), max_depth: T.unsafe(nil), max_complexity: T.unsafe(nil), except: T.unsafe(nil), only: T.unsafe(nil), warden: T.unsafe(nil)); end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#293
+  # source://graphql/2.0.16/lib/graphql/query.rb#293
   def analysis_errors; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#293
+  # source://graphql/2.0.16/lib/graphql/query.rb#293
   def analysis_errors=(_arg0); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def analyzers(*args, **_arg1, &block); end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#246
+  # source://graphql/2.0.16/lib/graphql/query.rb#246
   def arguments_cache; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#242
+  # source://graphql/2.0.16/lib/graphql/query.rb#242
   def arguments_for(ast_node, definition, parent_object: T.unsafe(nil)); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def ast_analyzers(*args, **_arg1, &block); end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#28
+  # source://graphql/2.0.16/lib/graphql/query.rb#28
   def context; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#51
+  # source://graphql/2.0.16/lib/graphql/query.rb#51
   def document; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#204
+  # source://graphql/2.0.16/lib/graphql/query.rb#204
   def executed?; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#272
+  # source://graphql/2.0.16/lib/graphql/query.rb#272
   def fingerprint; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#187
+  # source://graphql/2.0.16/lib/graphql/query.rb#187
   def fragments; end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def get_field(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def get_type(*args, **_arg1, &block); end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#343
+  # source://graphql/2.0.16/lib/graphql/query.rb#343
   def handle_or_reraise(err); end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#60
+  # source://graphql/2.0.16/lib/graphql/query.rb#60
   def inspect; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#154
+  # source://graphql/2.0.16/lib/graphql/query.rb#154
   def interpreter?; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#166
+  # source://graphql/2.0.16/lib/graphql/query.rb#166
   def lookahead; end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def max_complexity(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def max_depth(*args, **_arg1, &block); end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#329
+  # source://graphql/2.0.16/lib/graphql/query.rb#329
   def merge_filters(only: T.unsafe(nil), except: T.unsafe(nil)); end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#158
+  # source://graphql/2.0.16/lib/graphql/query.rb#158
   def multiplex; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#158
+  # source://graphql/2.0.16/lib/graphql/query.rb#158
   def multiplex=(_arg0); end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#320
+  # source://graphql/2.0.16/lib/graphql/query.rb#320
   def mutation?; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#277
+  # source://graphql/2.0.16/lib/graphql/query.rb#277
   def operation_fingerprint; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#34
+  # source://graphql/2.0.16/lib/graphql/query.rb#34
   def operation_name; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#34
+  # source://graphql/2.0.16/lib/graphql/query.rb#34
   def operation_name=(_arg0); end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#191
+  # source://graphql/2.0.16/lib/graphql/query.rb#191
   def operations; end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def possible_types(*args, **_arg1, &block); end
 
   # source://graphql-persisted_queries//lib/graphql/persisted_queries/compiled_queries/query_patch.rb#16
   def prepare_ast; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#28
+  # source://graphql/2.0.16/lib/graphql/query.rb#28
   def provided_variables; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#324
+  # source://graphql/2.0.16/lib/graphql/query.rb#324
   def query?; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#150
+  # source://graphql/2.0.16/lib/graphql/query.rb#150
   def query_string; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#48
+  # source://graphql/2.0.16/lib/graphql/query.rb#48
   def query_string=(_arg0); end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#308
+  # source://graphql/2.0.16/lib/graphql/query.rb#308
   def resolve_type(abstract_type, value = T.unsafe(nil)); end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#197
+  # source://graphql/2.0.16/lib/graphql/query.rb#197
   def result; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#185
+  # source://graphql/2.0.16/lib/graphql/query.rb#185
   def result_values; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#175
+  # source://graphql/2.0.16/lib/graphql/query.rb#175
   def result_values=(result_hash); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def root_type_for_operation(*args, **_arg1, &block); end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#31
+  # source://graphql/2.0.16/lib/graphql/query.rb#31
   def root_value; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#31
+  # source://graphql/2.0.16/lib/graphql/query.rb#31
   def root_value=(_arg0); end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#254
+  # source://graphql/2.0.16/lib/graphql/query.rb#254
   def sanitized_query_string(inline_variables: T.unsafe(nil)); end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#28
+  # source://graphql/2.0.16/lib/graphql/query.rb#28
   def schema; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#215
+  # source://graphql/2.0.16/lib/graphql/query.rb#215
   def selected_operation; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#65
+  # source://graphql/2.0.16/lib/graphql/query.rb#65
   def selected_operation_name; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#208
+  # source://graphql/2.0.16/lib/graphql/query.rb#208
   def static_errors; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#338
+  # source://graphql/2.0.16/lib/graphql/query.rb#338
   def subscription?; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#71
+  # source://graphql/2.0.16/lib/graphql/query.rb#71
   def subscription_topic; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#160
+  # source://graphql/2.0.16/lib/graphql/query.rb#160
   def subscription_update?; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#73
+  # source://graphql/2.0.16/lib/graphql/query.rb#73
   def tracers; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#294
+  # source://graphql/2.0.16/lib/graphql/query.rb#294
   def valid?; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#37
+  # source://graphql/2.0.16/lib/graphql/query.rb#37
   def validate; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#40
+  # source://graphql/2.0.16/lib/graphql/query.rb#40
   def validate=(new_validate); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def validation_errors(*args, **_arg1, &block); end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#286
+  # source://graphql/2.0.16/lib/graphql/query.rb#286
   def validation_pipeline; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#225
+  # source://graphql/2.0.16/lib/graphql/query.rb#225
   def variables; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#282
+  # source://graphql/2.0.16/lib/graphql/query.rb#282
   def variables_fingerprint; end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#298
+  # source://graphql/2.0.16/lib/graphql/query.rb#298
   def warden; end
 
   private
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#349
+  # source://graphql/2.0.16/lib/graphql/query.rb#349
   def find_operation(operations, operation_name); end
 
-  # source://graphql/2.0.15/lib/graphql/query.rb#423
+  # source://graphql/2.0.16/lib/graphql/query.rb#423
   def with_prepared_ast; end
 end
 
-# source://graphql/2.0.15/lib/graphql/version.rb#3
+# source://graphql/2.0.16/lib/graphql/version.rb#3
 GraphQL::VERSION = T.let(T.unsafe(nil), String)

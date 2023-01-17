@@ -6,7 +6,7 @@
 
 # EmailValidator class
 #
-# source://email_validator//lib/email_validator.rb#5
+# source://email_validator//lib/email_validator.rb#4
 class EmailValidator < ::ActiveModel::EachValidator
   # source://email_validator//lib/email_validator.rb#161
   def validate_each(record, attribute, value); end

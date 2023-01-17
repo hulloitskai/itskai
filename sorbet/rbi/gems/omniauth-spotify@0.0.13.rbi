@@ -27,7 +27,7 @@ end
 # source://omniauth-spotify//lib/omniauth-spotify.rb#5
 module OmniAuth::Strategies; end
 
-# source://omniauth-spotify//lib/omniauth-spotify.rb#7
+# source://omniauth-spotify//lib/omniauth-spotify.rb#6
 class OmniAuth::Strategies::Spotify < ::OmniAuth::Strategies::OAuth2
   # source://omniauth-spotify//lib/omniauth-spotify.rb#63
   def authorize_params; end

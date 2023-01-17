@@ -919,6 +919,9 @@ class ActiveRecord::Base
   end
 end
 
+# source://orm_adapter/0.5.0/lib/orm_adapter/adapters/active_record.rb#81
+ActiveRecord::Base::OrmAdapter = OrmAdapter::ActiveRecord
+
 # source://activestorage//lib/active_storage/gem_version.rb#3
 module ActiveStorage
   extend ::ActiveSupport::Autoload
@@ -1728,7 +1731,7 @@ class ActiveStorage::Attached::Changes::PurgeOne
   def reset; end
 end
 
-# source://activestorage//lib/active_storage/attached/many.rb#10
+# source://activestorage//lib/active_storage/attached/many.rb#5
 class ActiveStorage::Attached::Many < ::ActiveStorage::Attached
   # source://activestorage//lib/active_storage/attached/many.rb#49
   def attach(*attachables); end
@@ -1801,7 +1804,7 @@ module ActiveStorage::Attached::Model::ClassMethods
   def validate_service_configuration(association_name, service); end
 end
 
-# source://activestorage//lib/active_storage/attached/one.rb#10
+# source://activestorage//lib/active_storage/attached/one.rb#5
 class ActiveStorage::Attached::One < ::ActiveStorage::Attached
   # source://activestorage//lib/active_storage/attached/one.rb#56
   def attach(attachable); end
@@ -1941,8 +1944,6 @@ class ActiveStorage::BaseController < ::ActionController::Base
 
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
-
-  def _layout_from_proc; end
 
   class << self
     # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
@@ -2228,8 +2229,6 @@ class ActiveStorage::Blobs::ProxyController < ::ActiveStorage::BaseController
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
-
   class << self
     # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
     def __callbacks; end
@@ -2254,8 +2253,6 @@ class ActiveStorage::Blobs::RedirectController < ::ActiveStorage::BaseController
 
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
-
-  def _layout_from_proc; end
 
   class << self
     # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
@@ -2293,7 +2290,6 @@ class ActiveStorage::DirectUploadsController < ::ActiveStorage::BaseController
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
   def blob_args; end
   def direct_upload_json(blob); end
 
@@ -2320,7 +2316,6 @@ class ActiveStorage::DiskController < ::ActiveStorage::BaseController
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
   def acceptable_content?(token); end
   def decode_verified_key; end
   def decode_verified_token; end
@@ -2849,7 +2844,6 @@ class ActiveStorage::Representations::BaseController < ::ActiveStorage::BaseCont
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
   def blob_scope; end
   def set_representation; end
 
@@ -2880,8 +2874,6 @@ class ActiveStorage::Representations::ProxyController < ::ActiveStorage::Represe
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
-  def _layout_from_proc; end
-
   class << self
     # source://actionpack/7.0.4/lib/action_controller/metal/params_wrapper.rb#185
     def _wrapper_options; end
@@ -2901,8 +2893,6 @@ class ActiveStorage::Representations::RedirectController < ::ActiveStorage::Repr
 
   # source://actionview/7.0.4/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
-
-  def _layout_from_proc; end
 
   class << self
     # source://actionpack/7.0.4/lib/action_controller/metal/params_wrapper.rb#185
@@ -3342,6 +3332,9 @@ ActiveStorage::VERSION::MAJOR = T.let(T.unsafe(nil), Integer)
 
 # source://activestorage//lib/active_storage/gem_version.rb#11
 ActiveStorage::VERSION::MINOR = T.let(T.unsafe(nil), Integer)
+
+# source://activestorage//lib/active_storage/gem_version.rb#13
+ActiveStorage::VERSION::PRE = T.let(T.unsafe(nil), T.untyped)
 
 # source://activestorage//lib/active_storage/gem_version.rb#15
 ActiveStorage::VERSION::STRING = T.let(T.unsafe(nil), String)

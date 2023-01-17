@@ -6483,19 +6483,19 @@ end
 class ActiveRecord::AttributeMethods::GeneratedAttributeMethods < ::Module
   include ::Mutex_m
 
-  # source://mutex_m/0.1.1/mutex_m.rb#93
+  # source://mutex_m/0.1.2/mutex_m.rb#93
   def lock; end
 
-  # source://mutex_m/0.1.1/mutex_m.rb#83
+  # source://mutex_m/0.1.2/mutex_m.rb#83
   def locked?; end
 
-  # source://mutex_m/0.1.1/mutex_m.rb#78
+  # source://mutex_m/0.1.2/mutex_m.rb#78
   def synchronize(&block); end
 
-  # source://mutex_m/0.1.1/mutex_m.rb#88
+  # source://mutex_m/0.1.2/mutex_m.rb#88
   def try_lock; end
 
-  # source://mutex_m/0.1.1/mutex_m.rb#98
+  # source://mutex_m/0.1.2/mutex_m.rb#98
   def unlock; end
 end
 
@@ -7787,7 +7787,6 @@ class ActiveRecord::Base
   extend ::ActiveRecord::ConnectionHandling
   extend ::ActiveRecord::QueryCache::ClassMethods
   extend ::ActiveRecord::Querying
-  extend ::ActiveRecordExtended::RelationPatch::QueryDelegation
   extend ::ActiveModel::Translation
   extend ::ActiveRecord::Translation
   extend ::ActiveRecord::DynamicMatchers
@@ -12547,10 +12546,10 @@ class ActiveRecord::ConnectionAdapters::PoolConfig
   # source://activerecord//lib/active_record/connection_adapters/pool_config.rb#38
   def disconnect!; end
 
-  # source://mutex_m/0.1.1/mutex_m.rb#93
+  # source://mutex_m/0.1.2/mutex_m.rb#93
   def lock; end
 
-  # source://mutex_m/0.1.1/mutex_m.rb#83
+  # source://mutex_m/0.1.2/mutex_m.rb#83
   def locked?; end
 
   # source://activerecord//lib/active_record/connection_adapters/pool_config.rb#53
@@ -12578,13 +12577,13 @@ class ActiveRecord::ConnectionAdapters::PoolConfig
   # source://activerecord//lib/active_record/connection_adapters/pool_config.rb#8
   def shard; end
 
-  # source://mutex_m/0.1.1/mutex_m.rb#78
+  # source://mutex_m/0.1.2/mutex_m.rb#78
   def synchronize(&block); end
 
-  # source://mutex_m/0.1.1/mutex_m.rb#88
+  # source://mutex_m/0.1.2/mutex_m.rb#88
   def try_lock; end
 
-  # source://mutex_m/0.1.1/mutex_m.rb#98
+  # source://mutex_m/0.1.2/mutex_m.rb#98
   def unlock; end
 
   class << self
@@ -12594,7 +12593,7 @@ class ActiveRecord::ConnectionAdapters::PoolConfig
 end
 
 # source://activerecord//lib/active_record/connection_adapters/pool_config.rb#11
-ActiveRecord::ConnectionAdapters::PoolConfig::INSTANCES = T.let(T.unsafe(nil), ObjectSpace::WeakMap[T.untyped])
+ActiveRecord::ConnectionAdapters::PoolConfig::INSTANCES = T.let(T.unsafe(nil), ObjectSpace::WeakMap)
 
 # source://activerecord//lib/active_record/connection_adapters/pool_manager.rb#5
 class ActiveRecord::ConnectionAdapters::PoolManager
@@ -19551,19 +19550,19 @@ class ActiveRecord::Delegation::GeneratedRelationMethods < ::Module
   # source://activerecord//lib/active_record/relation/delegation.rb#60
   def generate_method(method); end
 
-  # source://mutex_m/0.1.1/mutex_m.rb#93
+  # source://mutex_m/0.1.2/mutex_m.rb#93
   def lock; end
 
-  # source://mutex_m/0.1.1/mutex_m.rb#83
+  # source://mutex_m/0.1.2/mutex_m.rb#83
   def locked?; end
 
-  # source://mutex_m/0.1.1/mutex_m.rb#78
+  # source://mutex_m/0.1.2/mutex_m.rb#78
   def synchronize(&block); end
 
-  # source://mutex_m/0.1.1/mutex_m.rb#88
+  # source://mutex_m/0.1.2/mutex_m.rb#88
   def try_lock; end
 
-  # source://mutex_m/0.1.1/mutex_m.rb#98
+  # source://mutex_m/0.1.2/mutex_m.rb#98
   def unlock; end
 end
 
@@ -28155,7 +28154,7 @@ class ActiveRecord::PredicateBuilder::ArrayHandler
   # source://activerecord//lib/active_record/relation/predicate_builder/array_handler.rb#8
   def initialize(predicate_builder); end
 
-  # source://active_record_extended/2.2.0/lib/active_record_extended/predicate_builder/array_handler_decorator.rb#8
+  # source://active_record_extended/3.1.0/lib/active_record_extended/patch/array_handler_patch.rb#9
   def call(attribute, value); end
 
   private
@@ -29796,7 +29795,7 @@ class ActiveRecord::QueryMethods::WhereChain
   # source://activerecord//lib/active_record/relation/query_methods.rb#76
   def associated(*associations); end
 
-  # source://active_record_extended/2.2.0/lib/active_record_extended/query_methods/where_chain.rb#127
+  # source://active_record_extended/3.1.0/lib/active_record_extended/query_methods/where_chain.rb#129
   def build_where_chain(opts, rest, &block); end
 
   # Returns a new relation with left outer joins and where clause to identify
@@ -30971,7 +30970,7 @@ end
 # Base class for AggregateReflection and AssociationReflection. Objects of
 # AggregateReflection and AssociationReflection are returned by the Reflection::ClassMethods.
 #
-# source://activerecord//lib/active_record/reflection.rb#333
+# source://activerecord//lib/active_record/reflection.rb#329
 class ActiveRecord::Reflection::MacroReflection < ::ActiveRecord::Reflection::AbstractReflection
   # @return [MacroReflection] a new instance of MacroReflection
   #
@@ -32176,7 +32175,7 @@ class ActiveRecord::Relation::Merger
   # source://activerecord//lib/active_record/relation/merger.rb#47
   def initialize(relation, other, rewhere = T.unsafe(nil)); end
 
-  # source://active_record_extended/2.2.0/lib/active_record_extended/active_record/relation_patch.rb#16
+  # source://active_record_extended/3.1.0/lib/active_record_extended/patch/relation_patch.rb#20
   def merge; end
 
   # Returns the value of attribute other.
@@ -32926,6 +32925,8 @@ class ActiveRecord::SchemaDumper
 
     # source://activerecord//lib/active_record/schema_dumper.rb#39
     def generate_options(config); end
+
+    def new(*_arg0); end
   end
 end
 
@@ -38822,10 +38823,10 @@ end
 
 # source://activerecord//lib/arel/predications.rb#4
 module Arel::Predications
-  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#12
+  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#12
   def all(other); end
 
-  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#7
+  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#7
   def any(other); end
 
   # source://activerecord//lib/arel/predications.rb#37
@@ -38834,10 +38835,10 @@ module Arel::Predications
   # source://activerecord//lib/arel/predications.rb#213
   def concat(other); end
 
-  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#26
+  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#26
   def contained_in_array(other); end
 
-  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#22
+  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#22
   def contains(other); end
 
   # source://activerecord//lib/arel/predications.rb#145
@@ -38888,19 +38889,19 @@ module Arel::Predications
   # source://activerecord//lib/arel/predications.rb#74
   def in_any(others); end
 
-  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#38
+  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#38
   def inet_contained_within(other); end
 
-  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#42
+  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#42
   def inet_contained_within_or_equals(other); end
 
-  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#30
+  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#30
   def inet_contains(other); end
 
-  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#46
+  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#46
   def inet_contains_or_equals(other); end
 
-  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#34
+  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#34
   def inet_contains_or_is_contained_within(other); end
 
   # source://activerecord//lib/arel/predications.rb#25
@@ -38960,10 +38961,10 @@ module Arel::Predications
   # source://activerecord//lib/arel/predications.rb#121
   def not_in_any(others); end
 
-  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#17
+  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#17
   def overlap(other); end
 
-  # source://active_record_extended/2.2.0/lib/active_record_extended/arel/predications.rb#17
+  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#17
   def overlaps(other); end
 
   # source://activerecord//lib/arel/predications.rb#225

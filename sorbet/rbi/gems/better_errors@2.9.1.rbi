@@ -519,9 +519,7 @@ class BetterErrors::Middleware
   # source://better_errors//lib/better_errors/middleware.rb#94
   def show_error_page(env, exception = T.unsafe(nil)); end
 
-  # @return [Boolean]
-  #
-  # source://better_errors//lib/better_errors/middleware.rb#126
+  sig { params(env: T::Hash[::String, T.untyped]).returns(T::Boolean) }
   def text?(env); end
 
   class << self

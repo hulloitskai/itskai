@@ -842,13 +842,22 @@ class ActionMailer::Base < ::AbstractController::Base
   def mailer_name; end
 
   # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
-  def mailgun_settings; end
+  def mailjet_api_settings; end
 
   # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
-  def mailgun_settings=(_arg0); end
+  def mailjet_api_settings=(_arg0); end
 
   # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
-  def mailgun_settings?; end
+  def mailjet_api_settings?; end
+
+  # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
+  def mailjet_settings; end
+
+  # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
+  def mailjet_settings=(_arg0); end
+
+  # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
+  def mailjet_settings?; end
 
   # source://activesupport/7.0.4/lib/active_support/core_ext/module/attr_internal.rb#33
   def message; end
@@ -1234,13 +1243,22 @@ class ActionMailer::Base < ::AbstractController::Base
     def mailer_name=(_arg0); end
 
     # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
-    def mailgun_settings; end
+    def mailjet_api_settings; end
 
     # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
-    def mailgun_settings=(value); end
+    def mailjet_api_settings=(value); end
 
     # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
-    def mailgun_settings?; end
+    def mailjet_api_settings?; end
+
+    # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
+    def mailjet_settings; end
+
+    # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
+    def mailjet_settings=(value); end
+
+    # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
+    def mailjet_settings?; end
 
     # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
     def perform_caching; end
@@ -1606,7 +1624,7 @@ ActionMailer::InlinePreviewInterceptor::PATTERN = T.let(T.unsafe(nil), Regexp)
 # Implements the ActiveSupport::LogSubscriber for logging notifications when
 # email is delivered or received.
 #
-# source://actionmailer//lib/action_mailer/log_subscriber.rb#9
+# source://actionmailer//lib/action_mailer/log_subscriber.rb#8
 class ActionMailer::LogSubscriber < ::ActiveSupport::LogSubscriber
   # An email was delivered.
   #
@@ -2394,6 +2412,9 @@ ActionMailer::VERSION::MAJOR = T.let(T.unsafe(nil), Integer)
 
 # source://actionmailer//lib/action_mailer/gem_version.rb#11
 ActionMailer::VERSION::MINOR = T.let(T.unsafe(nil), Integer)
+
+# source://actionmailer//lib/action_mailer/gem_version.rb#13
+ActionMailer::VERSION::PRE = T.let(T.unsafe(nil), T.untyped)
 
 # source://actionmailer//lib/action_mailer/gem_version.rb#15
 ActionMailer::VERSION::STRING = T.let(T.unsafe(nil), String)

@@ -34,6 +34,9 @@ module Rails
     # source://railties/7.0.4/lib/rails.rb#46
     def configuration; end
 
+    sig { returns(T::Boolean) }
+    def console?; end
+
     # source://railties/7.0.4/lib/rails.rb#72
     def env; end
 
@@ -66,6 +69,9 @@ module Rails
 
     # source://railties/7.0.4/lib/rails.rb#63
     def root; end
+
+    sig { returns(T::Boolean) }
+    def server?; end
 
     # source://railties/7.0.4/lib/rails/version.rb#7
     def version; end
@@ -293,6 +299,8 @@ class Rails::Application < ::Rails::Engine
 
     # source://railties/7.0.4/lib/rails/application.rb#77
     def instance; end
+
+    def new(*_arg0); end
   end
 end
 
@@ -622,7 +630,7 @@ end
 # source://railties/7.0.4/lib/rails/application.rb#103
 Rails::Application::INITIAL_VARIABLES = T.let(T.unsafe(nil), Array)
 
-# source://sprockets-rails//lib/sprockets/railtie.rb#58
+# source://sprockets-rails//lib/sprockets/railtie.rb#57
 class Rails::Engine < ::Rails::Railtie
   # source://railties/7.0.4/lib/rails/engine.rb#432
   def initialize; end
@@ -793,8 +801,6 @@ class Rails::Engine < ::Rails::Railtie
   end
 end
 
-# Define some basic Sprockets error classes
-#
 # source://sprockets-rails//lib/sprockets/rails/version.rb#1
 module Sprockets
   extend ::Sprockets::Utils
@@ -1293,5 +1299,5 @@ class Sprockets::Railtie::OrderedOptions < ::ActiveSupport::OrderedOptions
   def configure(&block); end
 end
 
-# source://sprockets/4.1.1/lib/sprockets/version.rb#3
+# source://sprockets/4.2.0/lib/sprockets/version.rb#3
 Sprockets::VERSION = T.let(T.unsafe(nil), String)

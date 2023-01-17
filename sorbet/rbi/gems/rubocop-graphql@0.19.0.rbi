@@ -124,7 +124,7 @@ end
 # source://rubocop-graphql//lib/rubocop/cop/graphql/argument_uniqueness.rb#25
 RuboCop::Cop::GraphQL::ArgumentUniqueness::MSG = T.let(T.unsafe(nil), String)
 
-# source://rubocop-graphql//lib/rubocop/cop/graphql/extract_input_type.rb#24
+# source://rubocop-graphql//lib/rubocop/cop/graphql/extract_input_type.rb#6
 class RuboCop::Cop::GraphQL::ExtractInputType < ::RuboCop::Cop::Base
   include ::RuboCop::GraphQL::NodePattern
 
@@ -135,7 +135,7 @@ end
 # source://rubocop-graphql//lib/rubocop/cop/graphql/extract_input_type.rb#27
 RuboCop::Cop::GraphQL::ExtractInputType::MSG = T.let(T.unsafe(nil), String)
 
-# source://rubocop-graphql//lib/rubocop/cop/graphql/extract_type.rb#35
+# source://rubocop-graphql//lib/rubocop/cop/graphql/extract_type.rb#6
 class RuboCop::Cop::GraphQL::ExtractType < ::RuboCop::Cop::Base
   include ::RuboCop::GraphQL::NodePattern
 
@@ -479,7 +479,7 @@ end
 # source://rubocop-graphql//lib/rubocop/cop/graphql/field_uniqueness.rb#32
 RuboCop::Cop::GraphQL::FieldUniqueness::MSG = T.let(T.unsafe(nil), String)
 
-# source://rubocop-graphql//lib/rubocop/cop/graphql/legacy_dsl.rb#23
+# source://rubocop-graphql//lib/rubocop/cop/graphql/legacy_dsl.rb#22
 class RuboCop::Cop::GraphQL::LegacyDsl < ::RuboCop::Cop::Base
   # source://rubocop-graphql//lib/rubocop/cop/graphql/legacy_dsl.rb#24
   def legacy_dsl?(param0 = T.unsafe(nil)); end
@@ -982,10 +982,10 @@ end
 # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#69
 RuboCop::Cop::GraphQL::UnusedArgument::MSG = T.let(T.unsafe(nil), String)
 
-# source://rubocop/1.42.0/lib/rubocop/cop/mixin/allowed_methods.rb#38
+# source://rubocop/1.43.0/lib/rubocop/cop/mixin/allowed_methods.rb#38
 RuboCop::Cop::IgnoredMethods = RuboCop::Cop::AllowedMethods
 
-# source://rubocop/1.42.0/lib/rubocop/cop/mixin/allowed_pattern.rb#54
+# source://rubocop/1.43.0/lib/rubocop/cop/mixin/allowed_pattern.rb#54
 RuboCop::Cop::IgnoredPattern = RuboCop::Cop::AllowedPattern
 
 # RuboCop GraphQL project namespace
@@ -1188,7 +1188,7 @@ class RuboCop::GraphQL::Field
   # source://rubocop-graphql//lib/rubocop/graphql/field.rb#39
   def node; end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def parent(*args, **_arg1, &block); end
 
   # source://rubocop-graphql//lib/rubocop/graphql/field.rb#64
@@ -1197,7 +1197,7 @@ class RuboCop::GraphQL::Field
   # source://rubocop-graphql//lib/rubocop/graphql/field.rb#76
   def schema_member; end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def sibling_index(*args, **_arg1, &block); end
 
   # source://rubocop-graphql//lib/rubocop/graphql/field.rb#49
@@ -1418,13 +1418,13 @@ end
 # source://rubocop-graphql//lib/rubocop/graphql/version.rb#3
 RuboCop::GraphQL::VERSION = T.let(T.unsafe(nil), String)
 
-# source://rubocop/1.42.0/lib/rubocop/ast_aliases.rb#5
+# source://rubocop/1.43.0/lib/rubocop/ast_aliases.rb#5
 RuboCop::NodePattern = RuboCop::AST::NodePattern
 
-# source://rubocop/1.42.0/lib/rubocop/ast_aliases.rb#6
+# source://rubocop/1.43.0/lib/rubocop/ast_aliases.rb#6
 RuboCop::ProcessedSource = RuboCop::AST::ProcessedSource
 
-# source://rubocop/1.42.0/lib/rubocop/ast_aliases.rb#7
+# source://rubocop/1.43.0/lib/rubocop/ast_aliases.rb#7
 RuboCop::Token = RuboCop::AST::Token
 
 # source://rubocop-graphql//lib/refinements/underscore_string.rb#3

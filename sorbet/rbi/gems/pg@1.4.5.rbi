@@ -102,7 +102,7 @@ end
 #   # The format of the parameter is set to 0 (text) and the OID of this parameter is set to 20 (int8).
 #   res = conn.exec_params( "SELECT $1", [5] )
 #
-# source://pg//lib/pg/basic_type_map_for_queries.rb#36
+# source://pg//lib/pg/basic_type_map_for_queries.rb#24
 class PG::BasicTypeMapForQueries < ::PG::TypeMapByClass
   include ::PG::BasicTypeRegistry::Checker
 

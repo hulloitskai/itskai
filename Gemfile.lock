@@ -52,9 +52,8 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    active_record_extended (2.2.0)
+    active_record_extended (3.1.0)
       activerecord (>= 5.2, < 7.1.0)
-      ar_outer_joins (~> 0.2)
       pg (< 3.0)
     active_storage_validations (0.9.8)
       activejob (>= 5.2.0)
@@ -86,8 +85,6 @@ GEM
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
-    ar_outer_joins (0.2.0)
-      activerecord (>= 3.2)
     ast (2.4.2)
     aws-eventstream (1.2.0)
     aws-partitions (1.693.0)
@@ -141,8 +138,6 @@ GEM
       activemodel (>= 3)
       activesupport (>= 3)
     debug (1.7.1)
-      irb (>= 1.5.0)
-      reline (>= 0.3.1)
     debug_inspector (1.1.0)
     devise (4.8.1)
       bcrypt (~> 3.0)
@@ -207,8 +202,8 @@ GEM
     htmlentities (4.3.4)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
-    httparty (0.20.0)
-      mime-types (~> 3.0)
+    httparty (0.21.0)
+      mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
@@ -221,9 +216,6 @@ GEM
     inertia_rails (3.0.0)
       rails (>= 5)
     interception (0.5)
-    io-console (0.6.0)
-    irb (1.6.2)
-      reline (>= 0.3.0)
     jmespath (1.6.2)
     json (2.6.3)
     jwt (2.6.0)
@@ -294,7 +286,7 @@ GEM
       omniauth-oauth2 (~> 1.1)
     orm_adapter (0.5.0)
     parallel (1.22.1)
-    parser (3.1.2.1)
+    parser (3.2.0.0)
       ast (~> 2.4.1)
     pg (1.4.5)
     phonelib (0.6.58)
@@ -326,7 +318,7 @@ GEM
     psych (4.0.6)
       stringio
     public_suffix (5.0.1)
-    puma (5.6.5)
+    puma (6.0.2)
       nio4r (~> 2.0)
     pycall (1.4.2)
     raabro (1.4.0)
@@ -378,8 +370,6 @@ GEM
       sorbet-runtime (>= 0.5.9204)
       unparser
     regexp_parser (2.6.1)
-    reline (0.3.2)
-      io-console (~> 0.5)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -393,16 +383,16 @@ GEM
       addressable (~> 2.8.0)
       omniauth-oauth2 (>= 1.6)
       rest-client (~> 2.0.2)
-    rubocop (1.42.0)
+    rubocop (1.43.0)
       json (~> 2.3)
       parallel (~> 1.10)
-      parser (>= 3.1.2.1)
+      parser (>= 3.2.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
       rubocop-ast (>= 1.24.1, < 2.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (>= 1.4.0, < 3.0)
+      unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.24.1)
       parser (>= 3.1.1.0)
     rubocop-graphql (0.19.0)
@@ -439,15 +429,15 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
-    sorbet (0.5.10576)
-      sorbet-static (= 0.5.10576)
-    sorbet-runtime (0.5.10576)
-    sorbet-static (0.5.10576-universal-darwin-21)
-    sorbet-static (0.5.10576-universal-darwin-22)
-    sorbet-static (0.5.10576-x86_64-linux)
-    sorbet-static-and-runtime (0.5.10576)
-      sorbet (= 0.5.10576)
-      sorbet-runtime (= 0.5.10576)
+    sorbet (0.5.10626)
+      sorbet-static (= 0.5.10626)
+    sorbet-runtime (0.5.10626)
+    sorbet-static (0.5.10626-universal-darwin-21)
+    sorbet-static (0.5.10626-universal-darwin-22)
+    sorbet-static (0.5.10626-x86_64-linux)
+    sorbet-static-and-runtime (0.5.10626)
+      sorbet (= 0.5.10626)
+      sorbet-runtime (= 0.5.10626)
     spoom (1.1.15)
       sorbet (>= 0.5.10187)
       sorbet-runtime (>= 0.5.9204)
@@ -532,7 +522,7 @@ PLATFORMS
 DEPENDENCIES
   action_policy (~> 0.6.3)
   action_policy-graphql (~> 0.5.3)
-  active_record_extended (~> 2.1)
+  active_record_extended (~> 3.1)
   active_storage_validations (~> 0.9.6)
   addressable (~> 2.8)
   annotate
@@ -552,9 +542,9 @@ DEPENDENCIES
   dotenv (~> 2.7)
   email_validator (~> 2.2)
   enumerize (~> 2.5)
-  friendly_id (~> 5.4)
+  friendly_id (~> 5.5)
   front_matter_parser (~> 1.0)
-  good_job (~> 3.6)
+  good_job (~> 3.7)
   graphiql-rails
   graphql (~> 2.0)
   graphql-client (~> 0.18.0)
@@ -562,11 +552,11 @@ DEPENDENCIES
   graphql-persisted_queries (~> 1.6)
   graphql-rails_logger
   honeybadger (~> 4.12)
-  httparty (~> 0.20.0)
+  httparty (~> 0.21.0)
   icalendar (~> 2.8)
-  image_processing (~> 1.2)
+  image_processing (~> 1.12)
   inertia_rails (~> 3.0)
-  listen (~> 3.7)
+  listen (~> 3.8)
   mailjet (~> 1.7)
   markly (~> 0.7.0)
   nanoid (~> 2.0)
@@ -574,10 +564,10 @@ DEPENDENCIES
   omniauth-oauth2 (~> 1.8)
   omniauth-rails_csrf_protection (~> 1.0)
   omniauth-spotify (~> 0.0.13)
-  parser (~> 3.1.2.1)
+  parser (~> 3.2.0.0)
   pg (~> 1.4)
   phonelib (~> 0.6.55)
-  premailer-rails (~> 1.11)
+  premailer-rails (~> 1.12)
   pry
   pry-doc
   pry-rails
@@ -585,12 +575,12 @@ DEPENDENCIES
   pry-sorbet
   pry-stack_explorer
   psych (~> 4.0)
-  puma (~> 5.6)
+  puma (~> 6.0.2)
   pycall (~> 1.4)
-  rails (~> 7.0.3, >= 7.0.3.1)
+  rails (~> 7.0.4)
   rails-healthcheck
   rspotify (~> 2.11)
-  rubocop (~> 1.39)
+  rubocop (~> 1.43)
   rubocop-graphql
   rubocop-performance
   rubocop-rails
@@ -601,12 +591,12 @@ DEPENDENCIES
   selenium-webdriver
   sendgrid-ruby (~> 6.6)
   silencer (~> 2.0)
-  sorbet (= 0.5.10576)
-  sorbet-runtime (~> 0.5.10554)
+  sorbet (= 0.5.10626)
+  sorbet-runtime (~> 0.5.10626)
   spring
   sprockets-rails (~> 3.4)
   strong_password (~> 0.0.10)
-  tapioca (~> 0.10.3)
+  tapioca (~> 0.10.5)
   tzinfo-data
   validate_url (~> 1.0)
   vite_rails (~> 3.0)
@@ -615,7 +605,7 @@ DEPENDENCIES
   wrapped_print
 
 RUBY VERSION
-   ruby 3.1.2p20
+   ruby 3.2.0p0
 
 BUNDLED WITH
    2.3.26

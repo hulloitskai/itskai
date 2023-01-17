@@ -132,6 +132,8 @@ end
 # source://date_validator//lib/active_model/validations/date_validator.rb#18
 ActiveModel::Validations::DateValidator::CHECKS = T.let(T.unsafe(nil), Hash)
 
+ActiveModel::Validations::EmailValidator = EmailValidator
+
 # source://date_validator//lib/active_model/validations/date_validator.rb#112
 module ActiveModel::Validations::HelperMethods
   # source://activemodel/7.0.4/lib/active_model/validations/absence.rb#28
@@ -177,6 +179,9 @@ module ActiveModel::Validations::HelperMethods
 
   # source://activemodel/7.0.4/lib/active_model/validations/numericality.rb#205
   def validates_numericality_of(*attr_names); end
+
+  # source://strong_password/0.0.10/lib/active_model/validations/password_strength_validator.rb#38
+  def validates_password_strength(*attr_names); end
 
   # source://activemodel/7.0.4/lib/active_model/validations/presence.rb#34
   def validates_presence_of(*attr_names); end

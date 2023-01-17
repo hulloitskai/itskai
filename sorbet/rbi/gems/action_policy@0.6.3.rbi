@@ -64,6 +64,8 @@ ActionPolicy::AuthorizationContextMissing::MESSAGE_TEMPLATE = T.let(T.unsafe(nil
 #
 # source://action_policy//lib/action_policy/authorizer.rb#19
 module ActionPolicy::Authorizer
+  extend ::ActionPolicy::Rails::Authorizer
+
   class << self
     # source://action_policy//lib/action_policy/rails/authorizer.rb#9
     def authorize(policy, rule); end

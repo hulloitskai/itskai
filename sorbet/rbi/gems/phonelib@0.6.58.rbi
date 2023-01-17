@@ -57,7 +57,7 @@
 #     validates :number, phone: { extensions: false }
 #   end
 #
-# source://phonelib//lib/validators/phone_validator3.rb#55
+# source://phonelib//lib/validators/phone_validator3.rb#54
 class PhoneValidator < ::ActiveModel::EachValidator
   include ::Phonelib::Core
 

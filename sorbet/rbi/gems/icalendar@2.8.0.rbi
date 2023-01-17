@@ -1761,7 +1761,7 @@ end
 # source://icalendar//lib/icalendar/values/array.rb#2
 module Icalendar::Values; end
 
-# source://icalendar//lib/icalendar/values/active_support_time_with_zone_adapter.rb#8
+# source://icalendar//lib/icalendar/values/active_support_time_with_zone_adapter.rb#3
 class Icalendar::Values::ActiveSupportTimeWithZoneAdapter < ::ActiveSupport::TimeWithZone; end
 
 # source://icalendar//lib/icalendar/values/array.rb#4

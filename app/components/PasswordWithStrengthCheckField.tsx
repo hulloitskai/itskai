@@ -19,18 +19,25 @@ const PasswordWithStrengthCheckField: FC<
 > = ({ onStrengthCheck, ...otherProps }) => {
   const { value, error } = otherProps;
   const [debouncedValue] = useDebouncedValue(value, 100);
-  const { data } = useQuery(PasswordWithStrengthCheckFieldQueryDocument, {
-    variables: {
-      password: debouncedValue,
+
+  // == Query
+  const { data, previousData } = useQuery(
+    PasswordWithStrengthCheckFieldQueryDocument,
+    {
+      variables: {
+        password: debouncedValue,
+      },
+      skip: !debouncedValue,
+      onCompleted: ({ passwordStrength }) => {
+        if (onStrengthCheck) {
+          onStrengthCheck(passwordStrength);
+        }
+      },
     },
-    skip: !value,
-    onCompleted: ({ passwordStrength }) => {
-      if (onStrengthCheck) {
-        onStrengthCheck(passwordStrength);
-      }
-    },
-  });
-  const { passwordStrength = 0.0 } = data ?? {};
+  );
+  const { passwordStrength = 0.0 } = data ?? previousData ?? {};
+
+  // == Markup
   return (
     <PasswordInput
       inputContainer={children => (

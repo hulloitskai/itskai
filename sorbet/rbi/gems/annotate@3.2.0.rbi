@@ -593,6 +593,8 @@ class AnnotateRoutes::HeaderGenerator
 
     private
 
+    def new(*_arg0); end
+
     # source://annotate//lib/annotate/annotate_routes/header_generator.rb#18
     def routes_map(options); end
   end

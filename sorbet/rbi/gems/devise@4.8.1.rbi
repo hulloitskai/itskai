@@ -2543,21 +2543,6 @@ module Devise::Models::Authenticatable
   # source://devise//lib/devise/models/authenticatable.rb#97
   def inactive_message; end
 
-  # Redefine inspect using serializable_hash, to ensure we don't accidentally
-  # leak passwords into exceptions.
-  #
-  # source://devise//lib/devise/models/authenticatable.rb#124
-  def inspect; end
-
-  # Redefine serializable_hash in models for more secure defaults.
-  # By default, it removes from the serializable model all attributes that
-  # are *not* accessible. You can remove this default by using :force_except
-  # and passing a new list of attributes you want to exempt. All attributes
-  # given to :except will simply add names to exempt to Devise internal list.
-  #
-  # source://devise//lib/devise/models/authenticatable.rb#109
-  def serializable_hash(options = T.unsafe(nil)); end
-
   # source://devise//lib/devise/models/authenticatable.rb#89
   def unauthenticated_message; end
 
@@ -4621,7 +4606,7 @@ end
 
 # Base strategy for Devise. Responsible for verifying correct scope and mapping.
 #
-# source://devise//lib/devise/strategies/base.rb#7
+# source://devise//lib/devise/strategies/base.rb#6
 class Devise::Strategies::Base < ::Warden::Strategies::Base
   # Checks if a valid scope was given for devise and find mapping based on this scope.
   #
@@ -4649,7 +4634,7 @@ end
 # recreate the user from this cookie if it exists. Must be called *before*
 # authenticatable.
 #
-# source://devise//lib/devise/strategies/rememberable.rb#12
+# source://devise//lib/devise/strategies/rememberable.rb#11
 class Devise::Strategies::Rememberable < ::Devise::Strategies::Authenticatable
   # To authenticate a user we deserialize the cookie and attempt finding
   # the record in the database. If the attempt fails, we pass to another

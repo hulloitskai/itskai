@@ -655,13 +655,13 @@ class GraphQL::Client::HashWithIndifferentAccess
   # source://graphql-client//lib/graphql/client/hash_with_indifferent_access.rb#31
   def [](key); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def each(*args, **_arg1, &block); end
 
   # source://graphql-client//lib/graphql/client/hash_with_indifferent_access.rb#46
   def each_key(&block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def empty?(*args, **_arg1, &block); end
 
   # source://graphql-client//lib/graphql/client/hash_with_indifferent_access.rb#35
@@ -677,7 +677,7 @@ class GraphQL::Client::HashWithIndifferentAccess
   # source://graphql-client//lib/graphql/client/hash_with_indifferent_access.rb#39
   def include?(key); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def inspect(*args, **_arg1, &block); end
 
   # @return [Boolean]
@@ -685,10 +685,10 @@ class GraphQL::Client::HashWithIndifferentAccess
   # source://graphql-client//lib/graphql/client/hash_with_indifferent_access.rb#39
   def key?(key); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def keys(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def length(*args, **_arg1, &block); end
 
   # @return [Boolean]
@@ -696,16 +696,16 @@ class GraphQL::Client::HashWithIndifferentAccess
   # source://graphql-client//lib/graphql/client/hash_with_indifferent_access.rb#39
   def member?(key); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def size(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def to_h(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def to_hash(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def values(*args, **_arg1, &block); end
 
   private
@@ -767,7 +767,7 @@ class GraphQL::Client::NotImplementedError < ::GraphQL::Client::Error; end
 # Specific operation definition subtype for queries, mutations or
 # subscriptions.
 #
-# source://graphql-client//lib/graphql/client/operation_definition.rb#10
+# source://graphql-client//lib/graphql/client/operation_definition.rb#9
 class GraphQL::Client::OperationDefinition < ::GraphQL::Client::Definition
   # Public: Alias for definition name.
   #

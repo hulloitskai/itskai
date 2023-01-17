@@ -55,6 +55,9 @@ module Rails
     # source://railties//lib/rails.rb#46
     def configuration; end
 
+    sig { returns(T::Boolean) }
+    def console?; end
+
     # Returns the current Rails environment.
     #
     #   Rails.env # => "development"
@@ -136,6 +139,9 @@ module Rails
     # source://railties//lib/rails.rb#63
     def root; end
 
+    sig { returns(T::Boolean) }
+    def server?; end
+
     # Returns the currently loaded version of Rails as a string.
     #
     # source://railties//lib/rails/version.rb#7
@@ -196,17 +202,26 @@ class Rails::Application < ::Rails::Engine
   # source://railties//lib/rails/application.rb#106
   def initialize(initial_variable_values = T.unsafe(nil), &block); end
 
+  # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#37
+  def asset_precompiled?(logical_path); end
+
   # Returns the value of attribute assets.
   #
-  # source://railties//lib/rails/application.rb#97
+  # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#30
   def assets; end
 
   # Sets the attribute assets
   #
   # @param value the value to set the attribute assets to.
   #
-  # source://railties//lib/rails/application.rb#97
+  # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#30
   def assets=(_arg0); end
+
+  # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#33
+  def assets_manifest; end
+
+  # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#33
+  def assets_manifest=(_arg0); end
 
   # Returns the value of attribute autoloaders.
   #
@@ -416,6 +431,9 @@ class Rails::Application < ::Rails::Engine
   # source://railties//lib/rails/application.rb#492
   def migration_railties; end
 
+  # source://sprockets-rails/3.4.2/lib/sprockets/railtie.rb#51
+  def precompiled_assets(clear_cache = T.unsafe(nil)); end
+
   # If you try to define a set of Rake tasks on the instance, these will get
   # passed up to the Rake tasks defined on the application's class.
   #
@@ -585,6 +603,8 @@ class Rails::Application < ::Rails::Engine
 
     # source://railties//lib/rails/application.rb#77
     def instance; end
+
+    def new(*_arg0); end
   end
 end
 
@@ -1428,6 +1448,16 @@ class Rails::ApplicationController < ::ActionController::Base
     # source://actionpack/7.0.4/lib/action_controller/metal.rb#210
     def middleware_stack; end
   end
+end
+
+# source://railties//lib/rails/application_controller.rb#0
+module Rails::ApplicationController::HelperMethods
+  include ::ActionText::ContentHelper
+  include ::ActionText::TagHelper
+  include ::InertiaRails::Helper
+  include ::ViteRails::TagHelpers
+  include ::ActionController::Base::HelperMethods
+  include ::DeviseHelper
 end
 
 # source://railties//lib/rails/autoloaders.rb#4
@@ -2605,6 +2635,8 @@ module Rails::MailersController::HelperMethods
   include ::InertiaRails::Helper
   include ::ViteRails::TagHelpers
   include ::ActionController::Base::HelperMethods
+  include ::DeviseHelper
+  include ::Rails::ApplicationController::HelperMethods
 
   # source://railties//lib/rails/mailers_controller.rb#12
   def locale_query(*args, **_arg1, &block); end
@@ -3122,6 +3154,8 @@ class Rails::Railtie
     # source://railties//lib/rails/railtie.rb#224
     def method_missing(name, *args, **_arg2, &block); end
 
+    def new(*_arg0); end
+
     # receives an instance variable identifier, set the variable value if is
     # blank and append given block to value, which will be used later in
     # `#each_registered_block(type, &block)`
@@ -3521,6 +3555,9 @@ Rails::VERSION::MAJOR = T.let(T.unsafe(nil), Integer)
 
 # source://railties//lib/rails/gem_version.rb#11
 Rails::VERSION::MINOR = T.let(T.unsafe(nil), Integer)
+
+# source://railties//lib/rails/gem_version.rb#13
+Rails::VERSION::PRE = T.let(T.unsafe(nil), T.untyped)
 
 # source://railties//lib/rails/gem_version.rb#15
 Rails::VERSION::STRING = T.let(T.unsafe(nil), String)

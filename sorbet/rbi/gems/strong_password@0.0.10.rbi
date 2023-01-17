@@ -80,6 +80,8 @@ module ActiveModel::Validations
   end
 end
 
+ActiveModel::Validations::EmailValidator = EmailValidator
+
 # source://strong_password//lib/active_model/validations/password_strength_validator.rb#32
 module ActiveModel::Validations::HelperMethods
   # source://activemodel/7.0.4/lib/active_model/validations/absence.rb#28

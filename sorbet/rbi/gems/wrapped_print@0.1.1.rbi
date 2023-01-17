@@ -6,6 +6,7 @@
 
 class Object < ::BasicObject
   include ::Kernel
+  include ::PP::ObjectMixin
   include ::WrappedPrint::Main
 end
 

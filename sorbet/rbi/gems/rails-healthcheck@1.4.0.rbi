@@ -256,6 +256,15 @@ class Healthcheck::HealthchecksController < ::ActionController::Base
   end
 end
 
+module Healthcheck::HealthchecksController::HelperMethods
+  include ::ActionText::ContentHelper
+  include ::ActionText::TagHelper
+  include ::InertiaRails::Helper
+  include ::ViteRails::TagHelpers
+  include ::ActionController::Base::HelperMethods
+  include ::DeviseHelper
+end
+
 # source://rails-healthcheck//lib/healthcheck/response/base.rb#4
 module Healthcheck::Response; end
 

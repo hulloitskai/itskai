@@ -10,10 +10,10 @@ module RuboCop; end
 # source://rubocop-performance//lib/rubocop/cop/mixin/regexp_metacharacter.rb#4
 module RuboCop::Cop; end
 
-# source://rubocop/1.42.0/lib/rubocop/cop/mixin/allowed_methods.rb#38
+# source://rubocop/1.43.0/lib/rubocop/cop/mixin/allowed_methods.rb#38
 RuboCop::Cop::IgnoredMethods = RuboCop::Cop::AllowedMethods
 
-# source://rubocop/1.42.0/lib/rubocop/cop/mixin/allowed_pattern.rb#54
+# source://rubocop/1.43.0/lib/rubocop/cop/mixin/allowed_pattern.rb#54
 RuboCop::Cop::IgnoredPattern = RuboCop::Cop::AllowedPattern
 
 # source://rubocop-performance//lib/rubocop/cop/performance/ancestors_include.rb#5
@@ -2973,7 +2973,7 @@ module RuboCop::Cop::SortBlock
   def sort_range(send, node); end
 end
 
-# source://rubocop/1.42.0/lib/rubocop/ast_aliases.rb#5
+# source://rubocop/1.43.0/lib/rubocop/ast_aliases.rb#5
 RuboCop::NodePattern = RuboCop::AST::NodePattern
 
 # RuboCop Performance project namespace
@@ -3014,8 +3014,8 @@ end
 # source://rubocop-performance//lib/rubocop/performance/version.rb#7
 RuboCop::Performance::Version::STRING = T.let(T.unsafe(nil), String)
 
-# source://rubocop/1.42.0/lib/rubocop/ast_aliases.rb#6
+# source://rubocop/1.43.0/lib/rubocop/ast_aliases.rb#6
 RuboCop::ProcessedSource = RuboCop::AST::ProcessedSource
 
-# source://rubocop/1.42.0/lib/rubocop/ast_aliases.rb#7
+# source://rubocop/1.43.0/lib/rubocop/ast_aliases.rb#7
 RuboCop::Token = RuboCop::AST::Token

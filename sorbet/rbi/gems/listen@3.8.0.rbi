@@ -358,10 +358,10 @@ class Listen::Backend
   # source://listen//lib/listen/backend.rb#34
   def min_delay_between_events; end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def start(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def stop(*args, **_arg1, &block); end
 
   private
@@ -609,13 +609,13 @@ class Listen::Event::Queue
   # source://listen//lib/listen/event/queue.rb#27
   def <<(args); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def close(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def empty?(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def pop(*args, **_arg1, &block); end
 
   private

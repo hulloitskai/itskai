@@ -141,6 +141,8 @@ end
 # source://activemodel/7.0.4/lib/active_model/validations.rb#89
 ActiveModel::Validations::ClassMethods::VALID_OPTIONS_FOR_VALIDATE = T.let(T.unsafe(nil), Array)
 
+ActiveModel::Validations::EmailValidator = EmailValidator
+
 # source://validate_url//lib/validate_url.rb#8
 class ActiveModel::Validations::UrlValidator < ::ActiveModel::EachValidator
   # @return [UrlValidator] a new instance of UrlValidator

@@ -1,20 +1,16 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.2"
+ruby "3.2.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.3", ">= 7.0.3.1"
+gem "rails", "~> 7.0.4"
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.4"
 
 # Use the Puma web server [https://github.com/puma/puma]
-#
-# TODO: Upgrade to Puma 6 when https://github.com/puma/puma/issues/2999 is
-# resolved.
-gem "puma", "~> 5.6"
-
+gem "puma", "~> 6.0.2"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails", "~> 3.4"
@@ -35,14 +31,14 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "bootsnap", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.12"
 gem "ruby-vips", "~> 2.1", require: false
 
 # Use S3 as the backend for Active Storage
 gem "aws-sdk-s3", "~> 1.117", require: false
 
 # Use Good Job as the backend for Active Job
-gem "good_job", "~> 3.6"
+gem "good_job", "~> 3.7"
 
 # Send emails with Mailjet.
 gem "mailjet", "~> 1.7"
@@ -51,7 +47,7 @@ gem "mailjet", "~> 1.7"
 gem "sendgrid-ruby", "~> 6.6"
 
 # Use FriendlyId to create human-friendly identifiers for models
-gem "friendly_id", "~> 5.4"
+gem "friendly_id", "~> 5.5"
 
 # Use Nanoid to generate tiny collision-resistant IDs
 gem "nanoid", "~> 2.0"
@@ -60,7 +56,7 @@ gem "nanoid", "~> 2.0"
 gem "concurrent-ruby", "~> 1.1"
 
 # Use HTTParty for REST client
-gem "httparty", "~> 0.20.0"
+gem "httparty", "~> 0.21.0"
 
 # Use graphql–client for GraphQL client
 gem "graphql-client", "~> 0.18.0"
@@ -102,7 +98,7 @@ gem "addressable", "~> 2.8"
 gem "discard", "~> 1.2"
 
 # Typecheck code at runtime
-gem "sorbet-runtime", "~> 0.5.10554"
+gem "sorbet-runtime", "~> 0.5.10626"
 
 # Use Enumerize to enumerate attributes
 gem "enumerize", "~> 2.5"
@@ -125,7 +121,7 @@ gem "vite_rails", "~> 3.0"
 gem "inertia_rails", "~> 3.0"
 
 # Use Premailer to inline CSS into email templates
-gem "premailer-rails", "~> 1.11"
+gem "premailer-rails", "~> 1.12"
 
 # Parse YAML files with Psych
 gem "psych", "~> 4.0"
@@ -155,7 +151,7 @@ gem "pycall", "~> 1.4"
 gem "wrapped_print"
 
 # Enable additional operators and utilities for Active Record with PostgreSQL
-gem "active_record_extended", "~> 2.1"
+gem "active_record_extended", "~> 3.1"
 
 # Parse Markdown with Markly
 gem "markly", "~> 0.7.0"
@@ -170,25 +166,25 @@ end
 
 group :development do
   # Detect file changes for live reload
-  gem "listen", "~> 3.7"
+  gem "listen", "~> 3.8"
 
   # Debug code with debug
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
 
   # Typecheck code
-  gem "sorbet", "0.5.10576", require: false
-  gem "tapioca", "~> 0.10.3", require: false
+  gem "sorbet", "0.5.10626", require: false
+  gem "tapioca", "~> 0.10.5", require: false
 
   # Use Rubocop to lint code
-  gem "rubocop", "~> 1.39", require: false
+  gem "rubocop", "~> 1.43", require: false
   gem "rubocop-graphql", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-shopify", require: false
   gem "rubocop-sorbet", require: false
   gem "ruby-lsp", require: false
-  gem "parser", "~> 3.1.2.1", require: false
+  gem "parser", "~> 3.2.0.0", require: false
 
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"

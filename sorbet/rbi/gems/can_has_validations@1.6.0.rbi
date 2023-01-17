@@ -160,28 +160,7 @@ class ActiveModel::Validations::BeforeValidator < ::ActiveModel::EachValidator
   def validate_each(record, attribute, value); end
 end
 
-# source://can_has_validations//lib/can_has_validations/validators/email_validator.rb#7
-class ActiveModel::Validations::EmailValidator < ::ActiveModel::EachValidator
-  # @return [Boolean]
-  #
-  # source://can_has_validations//lib/can_has_validations/validators/email_validator.rb#20
-  def email_valid?(value); end
-
-  # source://can_has_validations//lib/can_has_validations/validators/email_validator.rb#14
-  def validate_each(record, attribute, value); end
-end
-
-# source://can_has_validations//lib/can_has_validations/validators/email_validator.rb#9
-ActiveModel::Validations::EmailValidator::EMAIL_REGEXP = T.let(T.unsafe(nil), Regexp)
-
-# source://can_has_validations//lib/can_has_validations/validators/email_validator.rb#12
-ActiveModel::Validations::EmailValidator::FINAL_LABEL_REGEXP = T.let(T.unsafe(nil), Regexp)
-
-# source://can_has_validations//lib/can_has_validations/validators/email_validator.rb#11
-ActiveModel::Validations::EmailValidator::LABEL_REGEXP = T.let(T.unsafe(nil), Regexp)
-
-# source://can_has_validations//lib/can_has_validations/validators/email_validator.rb#10
-ActiveModel::Validations::EmailValidator::SEGMENT_REGEXP = T.let(T.unsafe(nil), Regexp)
+ActiveModel::Validations::EmailValidator = EmailValidator
 
 # source://can_has_validations//lib/can_has_validations/validators/existence_validator.rb#6
 class ActiveModel::Validations::ExistenceValidator < ::ActiveModel::Validations::PresenceValidator
@@ -283,7 +262,7 @@ end
 # source://validate_url/1.0.15/lib/validate_url.rb#9
 ActiveModel::Validations::UrlValidator::RESERVED_OPTIONS = T.let(T.unsafe(nil), Array)
 
-# source://can_has_validations//lib/can_has_validations/validators/write_once_validator.rb#12
+# source://can_has_validations//lib/can_has_validations/validators/write_once_validator.rb#10
 class ActiveModel::Validations::WriteOnceValidator < ::ActiveModel::EachValidator
   # as of ActiveModel 4, allow_nil: true causes a change from a value back to
   #   nil to be allowed. prevent this.
