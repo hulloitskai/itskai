@@ -58,8 +58,8 @@ gem "concurrent-ruby", "~> 1.1"
 # Use HTTParty for REST client
 gem "httparty", "~> 0.21.0"
 
-# Use graphql–client for GraphQL client
-gem "graphql-client", "~> 0.18.0"
+# Use Graphlient to query GraphQL APIs
+gem "graphlient", "~> 0.7.0"
 
 # Use Honeybadger for error reporting
 gem "honeybadger", "~> 4.12"
@@ -213,3 +213,4 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+

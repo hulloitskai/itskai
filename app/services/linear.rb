@@ -2,15 +2,12 @@
 # frozen_string_literal: true
 
 class Linear < ApplicationService
-  # == Constants
-  SCHEMA_PATH = T.let(Rails.root.join("db/linear/schema.json").to_s,
-                      String)
-
   # == Initialization
   sig { void }
   def initialize
     super
     @credentials = T.let(@credentials, T.nilable(OAuthCredentials))
+    @client = T.let(@client, T.nilable(Graphlient::Client))
   end
 
   # == Methods: Service
@@ -24,12 +21,21 @@ class Linear < ApplicationService
   def start
     super
     @credentials = OAuthCredentials.linear
+    @client = @credentials.try! do |credentials|
+      credentials = T.let(credentials, OAuthCredentials)
+      build_client(credentials:)
+    end
   end
 
   # == Methods
   sig { returns(OAuthCredentials) }
   def credentials
     @credentials or raise "Not authenticated (missing credentials)"
+  end
+
+  sig { returns(Graphlient::Client) }
+  def client
+    @client ||= build_client(credentials:)
   end
 
   sig do
@@ -39,14 +45,28 @@ class Linear < ApplicationService
     ).returns(T.untyped)
   end
   def create_issue(title:, description: nil)
-    response = Client.query(Operations::CreateIssueMutation, variables: {
-      "input" => {
-        "teamId" => team_id,
-        "stateId" => triage_state_id,
-        "title" => title,
-        "description" => description,
+    response = client.query(
+      <<~GQL,
+        mutation($input: IssueCreateInput!) {
+          payload: issueCreate(input: $input) {
+            issue {
+              id
+              url
+              title
+              description
+            }
+          }
+        }
+      GQL
+      {
+        "input" => {
+          "teamId" => team_id,
+          "stateId" => triage_state_id,
+          "title" => title,
+          "description" => description,
+        },
       },
-    })
+    )
     data = unwrap_response!(response)
     data.payload.issue
   end
@@ -64,12 +84,33 @@ class Linear < ApplicationService
     return @triage_state_id if defined?(@triage_state_id)
     @triage_state_id = T.let(@triage_state_id, T.nilable(String))
     @triage_state_id = scoped do
-      response = Client.query(Operations::TriageStateQuery, variables: {
-        "teamId" => team_id,
-      })
+      response = client.query(
+        <<~GQL,
+          query($teamId: String!) {
+            team(id: $teamId) {
+              triageIssueState {
+                id
+              }
+            }
+          }
+        GQL
+        {
+          "teamId" => team_id,
+        },
+      )
       data = unwrap_response!(response)
       data.team.triage_issue_state&.id
     end
+  end
+
+  sig { params(credentials: OAuthCredentials).returns(Graphlient::Client) }
+  def build_client(credentials:)
+    Graphlient::Client.new(
+      "https://api.linear.app/graphql",
+      headers: {
+        "Authorization" => "Bearer #{credentials.access_token}",
+      },
+    )
   end
 
   sig { params(response: GraphQL::Client::Response).returns(T.untyped) }

@@ -13,7 +13,7 @@ module Rails
 
     sig { returns(T::Boolean) }
     def console?
-      const_defined?(:Server)
+      const_defined?(:Console)
     end
   end
 end

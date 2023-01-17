@@ -1,8 +1,8 @@
 app/**/*.generated.*
-app/routes
+app/graphql/schema.graphql
 bin/
 dist/
-db/**/schema.*
+db/schema.rb
 log/
 node_modules/
 public/assets/
