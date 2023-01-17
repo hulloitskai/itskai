@@ -16,11 +16,14 @@ module PyCall
   # source://pycall//lib/pycall.rb#17
   def callable?(obj); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#178
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#184
   def check_isclass(pyptr); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#173
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#179
   def check_ismodule(pyptr); end
+
+  # source://pycall//lib/pycall.rb#66
+  def delattr(obj, name); end
 
   # source://pycall//lib/pycall.rb#28
   def dir(obj); end
@@ -37,25 +40,28 @@ module PyCall
   # source://pycall//lib/pycall.rb#58
   def hasattr?(obj, name); end
 
-  # source://pycall//lib/pycall.rb#73
+  # source://pycall//lib/pycall.rb#81
   def import_module(name); end
 
-  # source://pycall//lib/pycall.rb#77
+  # source://pycall//lib/pycall.rb#85
   def iterable(obj); end
 
-  # source://pycall//lib/pycall.rb#81
+  # source://pycall//lib/pycall.rb#89
   def len(obj); end
 
-  # source://pycall//lib/pycall.rb#62
+  # source://pycall//lib/pycall.rb#70
   def same?(left, right); end
 
-  # source://pycall//lib/pycall.rb#92
+  # source://pycall//lib/pycall.rb#62
+  def setattr(obj, name, val); end
+
+  # source://pycall//lib/pycall.rb#100
   def sys; end
 
-  # source://pycall//lib/pycall.rb#96
+  # source://pycall//lib/pycall.rb#104
   def tuple(iterable = T.unsafe(nil)); end
 
-  # source://pycall//lib/pycall.rb#105
+  # source://pycall//lib/pycall.rb#113
   def with(ctx); end
 
   def without_gvl; end
@@ -81,13 +87,16 @@ module PyCall
 
     # @raise [TypeError]
     #
-    # source://pycall//lib/pycall/pyobject_wrapper.rb#178
+    # source://pycall//lib/pycall/pyobject_wrapper.rb#184
     def check_isclass(pyptr); end
 
     # @raise [TypeError]
     #
-    # source://pycall//lib/pycall/pyobject_wrapper.rb#173
+    # source://pycall//lib/pycall/pyobject_wrapper.rb#179
     def check_ismodule(pyptr); end
+
+    # source://pycall//lib/pycall.rb#66
+    def delattr(obj, name); end
 
     # source://pycall//lib/pycall.rb#28
     def dir(obj); end
@@ -106,30 +115,33 @@ module PyCall
     # source://pycall//lib/pycall.rb#58
     def hasattr?(obj, name); end
 
-    # source://pycall//lib/pycall.rb#73
+    # source://pycall//lib/pycall.rb#81
     def import_module(name); end
 
     # source://pycall//lib/pycall/init.rb#24
     def init(python = T.unsafe(nil)); end
 
-    # source://pycall//lib/pycall.rb#77
+    # source://pycall//lib/pycall.rb#85
     def iterable(obj); end
 
-    # source://pycall//lib/pycall.rb#81
+    # source://pycall//lib/pycall.rb#89
     def len(obj); end
 
     # @return [Boolean]
     #
-    # source://pycall//lib/pycall.rb#62
+    # source://pycall//lib/pycall.rb#70
     def same?(left, right); end
 
-    # source://pycall//lib/pycall.rb#92
+    # source://pycall//lib/pycall.rb#62
+    def setattr(obj, name, val); end
+
+    # source://pycall//lib/pycall.rb#100
     def sys; end
 
-    # source://pycall//lib/pycall.rb#96
+    # source://pycall//lib/pycall.rb#104
     def tuple(iterable = T.unsafe(nil)); end
 
-    # source://pycall//lib/pycall.rb#105
+    # source://pycall//lib/pycall.rb#113
     def with(ctx); end
 
     def without_gvl; end
@@ -341,6 +353,7 @@ module PyCall::LibPython::Helpers
   def callable?(_arg0); end
   def compare(_arg0, _arg1, _arg2); end
   def define_wrapper_method(_arg0, _arg1); end
+  def delattr(_arg0, _arg1); end
   def delitem(_arg0, _arg1); end
   def dict_contains(_arg0, _arg1); end
   def dict_each(_arg0); end
@@ -350,6 +363,7 @@ module PyCall::LibPython::Helpers
   def import_module(*_arg0); end
   def sequence_contains(_arg0, _arg1); end
   def sequence_each(_arg0); end
+  def setattr(_arg0, _arg1, _arg2); end
   def setitem(_arg0, _arg1, _arg2); end
   def str(_arg0); end
   def unicode_literals?; end
@@ -359,6 +373,7 @@ module PyCall::LibPython::Helpers
     def callable?(_arg0); end
     def compare(_arg0, _arg1, _arg2); end
     def define_wrapper_method(_arg0, _arg1); end
+    def delattr(_arg0, _arg1); end
     def delitem(_arg0, _arg1); end
     def dict_contains(_arg0, _arg1); end
     def dict_each(_arg0); end
@@ -368,6 +383,7 @@ module PyCall::LibPython::Helpers
     def import_module(*_arg0); end
     def sequence_contains(_arg0, _arg1); end
     def sequence_each(_arg0); end
+    def setattr(_arg0, _arg1, _arg2); end
     def setitem(_arg0, _arg1, _arg2); end
     def str(_arg0); end
     def unicode_literals?; end
@@ -469,28 +485,28 @@ end
 
 # source://pycall//lib/pycall/pyobject_wrapper.rb#4
 module PyCall::PyObjectWrapper
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#66
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#72
   def !=(other); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#66
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#72
   def <(other); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#66
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#72
   def <=(other); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#66
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#72
   def ==(other); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#66
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#72
   def >(other); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#66
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#72
   def >=(other); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#78
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#84
   def [](*key); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#82
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#88
   def []=(*key, value); end
 
   # Returns the value of attribute __pyptr__.
@@ -498,40 +514,40 @@ module PyCall::PyObjectWrapper
   # source://pycall//lib/pycall/pyobject_wrapper.rb#5
   def __pyptr__; end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#86
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#92
   def call(*args); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#142
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#148
   def coerce(other); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#146
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#152
   def dup; end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#154
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#160
   def inspect; end
 
   # @return [Boolean]
   #
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#54
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#60
   def kind_of?(cls); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#29
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#35
   def method_missing(name, *args); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#166
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#172
   def to_f; end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#162
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#168
   def to_i; end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#158
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#164
   def to_s; end
 
   private
 
   # @return [Boolean]
   #
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#49
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#55
   def respond_to_missing?(name, include_private); end
 
   class << self
@@ -543,49 +559,49 @@ end
 # source://pycall//lib/pycall/pyobject_wrapper.rb#15
 PyCall::PyObjectWrapper::OPERATOR_METHOD_NAMES = T.let(T.unsafe(nil), Hash)
 
-# source://pycall//lib/pycall/pyobject_wrapper.rb#90
+# source://pycall//lib/pycall/pyobject_wrapper.rb#96
 class PyCall::PyObjectWrapper::SwappedOperationAdapter
   # @return [SwappedOperationAdapter] a new instance of SwappedOperationAdapter
   #
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#91
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#97
   def initialize(obj); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#113
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#119
   def %(other); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#129
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#135
   def &(other); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#105
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#111
   def *(other); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#117
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#123
   def **(other); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#97
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#103
   def +(other); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#101
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#107
   def -(other); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#109
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#115
   def /(other); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#121
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#127
   def <<(other); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#125
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#131
   def >>(other); end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#133
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#139
   def ^(other); end
 
   # Returns the value of attribute obj.
   #
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#95
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#101
   def obj; end
 
-  # source://pycall//lib/pycall/pyobject_wrapper.rb#137
+  # source://pycall//lib/pycall/pyobject_wrapper.rb#143
   def |(other); end
 end
 

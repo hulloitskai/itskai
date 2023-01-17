@@ -63,13 +63,13 @@ module MiniMagick::Configuration
   #
   # @return [Symbol] `:imagemagick` or `:graphicsmagick`
   #
-  # source://mini_magick//lib/mini_magick/configuration.rb#134
+  # source://mini_magick//lib/mini_magick/configuration.rb#142
   def cli; end
 
   # Set whether you want to use [ImageMagick](http://www.imagemagick.org) or
   # [GraphicsMagick](http://www.graphicsmagick.org).
   #
-  # source://mini_magick//lib/mini_magick/configuration.rb#149
+  # source://mini_magick//lib/mini_magick/configuration.rb#157
   def cli=(value); end
 
   # If you set the path of CLI tools, you can get the path of the
@@ -77,7 +77,7 @@ module MiniMagick::Configuration
   #
   # @return [String]
   #
-  # source://mini_magick//lib/mini_magick/configuration.rb#165
+  # source://mini_magick//lib/mini_magick/configuration.rb#173
   def cli_path; end
 
   # If you don't have the CLI tools in your PATH, you can set the path to the
@@ -115,7 +115,7 @@ module MiniMagick::Configuration
   #   end
   # @yield [self]
   #
-  # source://mini_magick//lib/mini_magick/configuration.rb#100
+  # source://mini_magick//lib/mini_magick/configuration.rb#108
   def configure; end
 
   # When get to `true`, it outputs each command to STDOUT in their shell
@@ -129,7 +129,7 @@ module MiniMagick::Configuration
   # When set to `true`, it outputs each command to STDOUT in their shell
   # version.
   #
-  # source://mini_magick//lib/mini_magick/configuration.rb#179
+  # source://mini_magick//lib/mini_magick/configuration.rb#187
   def debug=(value); end
 
   # Logger for {#debug}, default is `MiniMagick::Logger.new(STDOUT)`, but
@@ -152,12 +152,12 @@ module MiniMagick::Configuration
 
   # @private (for backwards compatibility)
   #
-  # source://mini_magick//lib/mini_magick/configuration.rb#111
+  # source://mini_magick//lib/mini_magick/configuration.rb#119
   def processor; end
 
   # @private (for backwards compatibility)
   #
-  # source://mini_magick//lib/mini_magick/configuration.rb#118
+  # source://mini_magick//lib/mini_magick/configuration.rb#126
   def processor=(processor); end
 
   # @private (for backwards compatibility)
@@ -172,7 +172,7 @@ module MiniMagick::Configuration
 
   # Backwards compatibility
   #
-  # source://mini_magick//lib/mini_magick/configuration.rb#185
+  # source://mini_magick//lib/mini_magick/configuration.rb#193
   def reload_tools; end
 
   # Instructs MiniMagick how to execute the shell commands. Available
@@ -181,7 +181,7 @@ module MiniMagick::Configuration
   #
   # @return [String]
   #
-  # source://mini_magick//lib/mini_magick/configuration.rb#82
+  # source://mini_magick//lib/mini_magick/configuration.rb#89
   def shell_api; end
 
   # Instructs MiniMagick how to execute the shell commands. Available
@@ -190,7 +190,7 @@ module MiniMagick::Configuration
   #
   # @return [String]
   #
-  # source://mini_magick//lib/mini_magick/configuration.rb#82
+  # source://mini_magick//lib/mini_magick/configuration.rb#89
   def shell_api=(_arg0); end
 
   # If you don't want commands to take too long, you can set a timeout (in
@@ -209,13 +209,29 @@ module MiniMagick::Configuration
   # source://mini_magick//lib/mini_magick/configuration.rb#32
   def timeout=(_arg0); end
 
+  # Temporary directory used by MiniMagick, default is `Dir.tmpdir`, but
+  # you can override it.
+  #
+  # @return [String]
+  #
+  # source://mini_magick//lib/mini_magick/configuration.rb#54
+  def tmpdir; end
+
+  # Temporary directory used by MiniMagick, default is `Dir.tmpdir`, but
+  # you can override it.
+  #
+  # @return [String]
+  #
+  # source://mini_magick//lib/mini_magick/configuration.rb#54
+  def tmpdir=(_arg0); end
+
   # If set to `true`, it will `identify` every newly created image, and raise
   # `MiniMagick::Invalid` if the image is not valid. Useful for validating
   # user input, although it adds a bit of overhead. Defaults to `true`.
   #
   # @return [Boolean]
   #
-  # source://mini_magick//lib/mini_magick/configuration.rb#56
+  # source://mini_magick//lib/mini_magick/configuration.rb#63
   def validate_on_create; end
 
   # If set to `true`, it will `identify` every newly created image, and raise
@@ -224,7 +240,7 @@ module MiniMagick::Configuration
   #
   # @return [Boolean]
   #
-  # source://mini_magick//lib/mini_magick/configuration.rb#56
+  # source://mini_magick//lib/mini_magick/configuration.rb#63
   def validate_on_create=(_arg0); end
 
   # If set to `true`, it will `identify` every image that gets written (with
@@ -234,7 +250,7 @@ module MiniMagick::Configuration
   #
   # @return [Boolean]
   #
-  # source://mini_magick//lib/mini_magick/configuration.rb#65
+  # source://mini_magick//lib/mini_magick/configuration.rb#72
   def validate_on_write; end
 
   # If set to `true`, it will `identify` every image that gets written (with
@@ -244,7 +260,7 @@ module MiniMagick::Configuration
   #
   # @return [Boolean]
   #
-  # source://mini_magick//lib/mini_magick/configuration.rb#65
+  # source://mini_magick//lib/mini_magick/configuration.rb#72
   def validate_on_write=(_arg0); end
 
   # If set to `false`, it will not raise errors when ImageMagick returns
@@ -252,7 +268,7 @@ module MiniMagick::Configuration
   #
   # @return [Boolean]
   #
-  # source://mini_magick//lib/mini_magick/configuration.rb#73
+  # source://mini_magick//lib/mini_magick/configuration.rb#80
   def whiny; end
 
   # If set to `false`, it will not raise errors when ImageMagick returns
@@ -260,18 +276,18 @@ module MiniMagick::Configuration
   #
   # @return [Boolean]
   #
-  # source://mini_magick//lib/mini_magick/configuration.rb#73
+  # source://mini_magick//lib/mini_magick/configuration.rb#80
   def whiny=(_arg0); end
 
   class << self
     # @private
     #
-    # source://mini_magick//lib/mini_magick/configuration.rb#84
+    # source://mini_magick//lib/mini_magick/configuration.rb#91
     def extended(base); end
   end
 end
 
-# source://mini_magick//lib/mini_magick/configuration.rb#104
+# source://mini_magick//lib/mini_magick/configuration.rb#112
 MiniMagick::Configuration::CLI_DETECTION = T.let(T.unsafe(nil), Hash)
 
 # source://mini_magick//lib/mini_magick.rb#58
@@ -314,7 +330,7 @@ class MiniMagick::Image
   # @param frame [Integer] The frame to which to collapse to, defaults to `0`.
   # @return [self]
   #
-  # source://mini_magick//lib/mini_magick/image.rb#551
+  # source://mini_magick//lib/mini_magick/image.rb#562
   def collapse!(frame = T.unsafe(nil)); end
 
   # @return [String]
@@ -335,7 +351,7 @@ class MiniMagick::Image
   # @see http://www.imagemagick.org/script/mogrify.php
   # @yield [MiniMagick::Tool::Mogrify]
   #
-  # source://mini_magick//lib/mini_magick/image.rb#473
+  # source://mini_magick//lib/mini_magick/image.rb#484
   def combine_options(&block); end
 
   # @example
@@ -348,7 +364,7 @@ class MiniMagick::Image
   #   result.write "output.jpg"
   # @see http://www.imagemagick.org/script/composite.php
   #
-  # source://mini_magick//lib/mini_magick/image.rb#530
+  # source://mini_magick//lib/mini_magick/image.rb#541
   def composite(other_image, output_extension = T.unsafe(nil), mask = T.unsafe(nil)); end
 
   # Returns the information from `identify -verbose` in a Hash format, for
@@ -361,7 +377,7 @@ class MiniMagick::Image
 
   # Destroys the tempfile (created by {.open}) if it exists.
   #
-  # source://mini_magick//lib/mini_magick/image.rb#558
+  # source://mini_magick//lib/mini_magick/image.rb#569
   def destroy!; end
 
   # Returns the information from `identify -verbose` in a Hash format, for
@@ -411,7 +427,7 @@ class MiniMagick::Image
   # @yield [MiniMagick::Tool::Convert] It optionally yields the command,
   #   if you want to add something.
   #
-  # source://mini_magick//lib/mini_magick/image.rb#425
+  # source://mini_magick//lib/mini_magick/image.rb#433
   def format(format, page = T.unsafe(nil), read_opts = T.unsafe(nil)); end
 
   # Returns layers of the image. For example, JPEGs are 1-layered, but
@@ -432,7 +448,7 @@ class MiniMagick::Image
   #
   # 1) one for each row of pixels
   # 2) one for each column of pixels
-  # 3) three elements in the range 0-255, one for each of the RGB color channels
+  # 3) three or four elements in the range 0-255, one for each of the RGB(A) color channels
   #
   # It can also be called after applying transformations:
   #
@@ -444,13 +460,20 @@ class MiniMagick::Image
   #   pixels[3][2][1] # the green channel value from the 4th-row, 3rd-column pixel
   # @example
   #   img = MiniMagick::Image.open 'image.jpg'
+  #   pixels = img.get_pixels("RGBA")
+  #   pixels[3][2][3] # the alpha channel value from the 4th-row, 3rd-column pixel
+  # @example
+  #   img = MiniMagick::Image.open 'image.jpg'
   #   img.crop '20x30+10+5'
   #   img.colorspace 'Gray'
   #   pixels = img.get_pixels
+  # @param map [String] A code for the mapping of the pixel data. Must be either
+  #   'RGB' or 'RGBA'. Default to 'RGB'
+  # @raise [ArgumentError]
   # @return [Array] Matrix of each color of each pixel
   #
-  # source://mini_magick//lib/mini_magick/image.rb#361
-  def get_pixels; end
+  # source://mini_magick//lib/mini_magick/image.rb#368
+  def get_pixels(map = T.unsafe(nil)); end
 
   # source://mini_magick//lib/mini_magick/image.rb#183
   def hash; end
@@ -478,7 +501,7 @@ class MiniMagick::Image
   # @return [String] Output from `identify`
   # @yield [MiniMagick::Tool::Identify]
   #
-  # source://mini_magick//lib/mini_magick/image.rb#577
+  # source://mini_magick//lib/mini_magick/image.rb#588
   def identify; end
 
   # Use this method if you want to access raw Identify's format API.
@@ -502,12 +525,12 @@ class MiniMagick::Image
   #
   # @return [Boolean]
   #
-  # source://mini_magick//lib/mini_magick/image.rb#616
+  # source://mini_magick//lib/mini_magick/image.rb#627
   def landscape?; end
 
   # @return [Boolean]
   #
-  # source://mini_magick//lib/mini_magick/image.rb#604
+  # source://mini_magick//lib/mini_magick/image.rb#615
   def layer?; end
 
   # Returns layers of the image. For example, JPEGs are 1-layered, but
@@ -529,7 +552,7 @@ class MiniMagick::Image
   # @return [self]
   # @see http://www.imagemagick.org/script/mogrify.php
   #
-  # source://mini_magick//lib/mini_magick/image.rb#484
+  # source://mini_magick//lib/mini_magick/image.rb#495
   def method_missing(name, *args); end
 
   # @return [String]
@@ -537,7 +560,7 @@ class MiniMagick::Image
   # source://mini_magick//lib/mini_magick/image.rb#141
   def mime_type(*args); end
 
-  # source://mini_magick//lib/mini_magick/image.rb#593
+  # source://mini_magick//lib/mini_magick/image.rb#604
   def mogrify(page = T.unsafe(nil)); end
 
   # Returns layers of the image. For example, JPEGs are 1-layered, but
@@ -569,7 +592,7 @@ class MiniMagick::Image
   #
   # @return [Boolean]
   #
-  # source://mini_magick//lib/mini_magick/image.rb#630
+  # source://mini_magick//lib/mini_magick/image.rb#641
   def portrait?; end
 
   # Returns the resolution of the photo. You can optionally specify the
@@ -585,7 +608,7 @@ class MiniMagick::Image
 
   # @private
   #
-  # source://mini_magick//lib/mini_magick/image.rb#585
+  # source://mini_magick//lib/mini_magick/image.rb#596
   def run_command(tool_name, *args); end
 
   # Returns the message digest of this image as a SHA-256, hexidecimal
@@ -658,14 +681,14 @@ class MiniMagick::Image
   # @param output_to [String, Pathname, #read] Some kind of stream object
   #   that needs to be read or a file path as a String
   #
-  # source://mini_magick//lib/mini_magick/image.rb#502
+  # source://mini_magick//lib/mini_magick/image.rb#513
   def write(output_to); end
 
   private
 
   # @return [Boolean]
   #
-  # source://mini_magick//lib/mini_magick/image.rb#490
+  # source://mini_magick//lib/mini_magick/image.rb#501
   def respond_to_missing?(method_name, include_private = T.unsafe(nil)); end
 
   class << self
@@ -701,7 +724,7 @@ class MiniMagick::Image
     # @example
     #   # It is given in readme.md file
     #
-    # source://mini_magick//lib/mini_magick/image.rb#392
+    # source://mini_magick//lib/mini_magick/image.rb#400
     def get_image_from_pixels(pixels, dimension, map, depth, mime_type); end
 
     # Creates an image object from a binary string blob which contains raw
@@ -845,10 +868,10 @@ class MiniMagick::Shell
   # source://mini_magick//lib/mini_magick/shell.rb#38
   def execute_open3(command, options = T.unsafe(nil)); end
 
-  # source://mini_magick//lib/mini_magick/shell.rb#65
+  # source://mini_magick//lib/mini_magick/shell.rb#63
   def execute_posix_spawn(command, options = T.unsafe(nil)); end
 
-  # source://mini_magick//lib/mini_magick/shell.rb#73
+  # source://mini_magick//lib/mini_magick/shell.rb#71
   def log(command, &block); end
 end
 
@@ -1244,6 +1267,9 @@ MiniMagick::VERSION::MAJOR = T.let(T.unsafe(nil), Integer)
 
 # source://mini_magick//lib/mini_magick/version.rb#11
 MiniMagick::VERSION::MINOR = T.let(T.unsafe(nil), Integer)
+
+# source://mini_magick//lib/mini_magick/version.rb#13
+MiniMagick::VERSION::PRE = T.let(T.unsafe(nil), T.untyped)
 
 # source://mini_magick//lib/mini_magick/version.rb#15
 MiniMagick::VERSION::STRING = T.let(T.unsafe(nil), String)

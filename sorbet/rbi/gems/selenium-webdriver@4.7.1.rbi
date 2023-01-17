@@ -32,19 +32,19 @@ module Selenium::WebDriver
     # @see Selenium::WebDriver::Firefox::Driver
     # @see Selenium::WebDriver::IE::Driver
     #
-    # source://selenium-webdriver//lib/selenium/webdriver.rb#88
+    # source://selenium-webdriver//lib/selenium/webdriver.rb#87
     def for(*args); end
 
     # Returns logger instance that can be used across the whole Selenium.
     #
     # @return [Logger]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver.rb#98
+    # source://selenium-webdriver//lib/selenium/webdriver.rb#97
     def logger; end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver.rb#51
+    # source://selenium-webdriver//lib/selenium/webdriver.rb#50
     def root; end
   end
 end
@@ -319,6 +319,109 @@ class Selenium::WebDriver::BiDi::Session::Status < ::Struct
     def new(*_arg0); end
   end
 end
+
+# @api private
+#
+# source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#27
+class Selenium::WebDriver::ChildProcess
+  # @api private
+  # @return [ChildProcess] a new instance of ChildProcess
+  #
+  # source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#42
+  def initialize(*command); end
+
+  # @api private
+  # @return [Boolean]
+  #
+  # source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#80
+  def alive?; end
+
+  # @api private
+  #
+  # source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#35
+  def detach; end
+
+  # @api private
+  #
+  # source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#35
+  def detach=(_arg0); end
+
+  # @api private
+  # @return [Boolean]
+  #
+  # source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#84
+  def exited?; end
+
+  # @api private
+  #
+  # source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#49
+  def io; end
+
+  # @api private
+  #
+  # source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#36
+  def io=(_arg0); end
+
+  # @api private
+  # @raise [TimeoutError]
+  #
+  # source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#97
+  def poll_for_exit(timeout); end
+
+  # @api private
+  #
+  # source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#53
+  def start; end
+
+  # @api private
+  #
+  # source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#64
+  def stop(timeout = T.unsafe(nil)); end
+
+  # @api private
+  #
+  # source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#106
+  def wait; end
+
+  private
+
+  # @api private
+  #
+  # source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#118
+  def kill(pid); end
+
+  # @api private
+  #
+  # source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#114
+  def terminate(pid); end
+
+  class << self
+    # @api private
+    #
+    # source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#38
+    def build(*command); end
+  end
+end
+
+# @api private
+#
+# source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#33
+Selenium::WebDriver::ChildProcess::POLL_INTERVAL = T.let(T.unsafe(nil), Float)
+
+# @api private
+#
+# source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#31
+Selenium::WebDriver::ChildProcess::SIGKILL = T.let(T.unsafe(nil), String)
+
+# @api private
+#
+# source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#30
+Selenium::WebDriver::ChildProcess::SIGTERM = T.let(T.unsafe(nil), String)
+
+# @api private
+#
+# source://selenium-webdriver//lib/selenium/webdriver/common/child_process.rb#28
+class Selenium::WebDriver::ChildProcess::TimeoutError < ::StandardError; end
 
 # source://selenium-webdriver//lib/selenium/webdriver/chrome.rb#24
 module Selenium::WebDriver::Chrome
@@ -1266,7 +1369,7 @@ class Selenium::WebDriver::DevTools::Response
   end
 end
 
-# source://selenium-webdriver//lib/selenium/webdriver.rb#35
+# source://selenium-webdriver//lib/selenium/webdriver.rb#34
 class Selenium::WebDriver::Dimension < ::Struct
   # Returns the value of attribute height
   #
@@ -3879,7 +3982,7 @@ end
 # source://selenium-webdriver//lib/selenium/webdriver/common/keys.rb#28
 Selenium::WebDriver::Keys::KEYS = T.let(T.unsafe(nil), Hash)
 
-# source://selenium-webdriver//lib/selenium/webdriver.rb#37
+# source://selenium-webdriver//lib/selenium/webdriver.rb#36
 class Selenium::WebDriver::Location < ::Struct
   # Returns the value of attribute altitude
   #
@@ -4297,12 +4400,12 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#143
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#147
   def assert_executable(path); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#137
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#141
   def assert_file(path); end
 
   # @api private
@@ -4317,12 +4420,12 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#106
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#110
   def cygwin?; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#118
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#122
   def cygwin_path(path, **opts); end
 
   # @api private
@@ -4332,17 +4435,17 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#151
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#155
   def exit_hook; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#157
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#161
   def find_binary(*binary_names); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#177
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#181
   def find_in_program_files(*binary_names); end
 
   # @api private
@@ -4352,12 +4455,12 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#218
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#222
   def interfaces; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#202
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#206
   def ip; end
 
   # @api private
@@ -4367,27 +4470,27 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#93
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#97
   def linux?; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#194
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#198
   def localhost; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#89
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#93
   def mac?; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#133
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#137
   def make_writable(file); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#110
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#114
   def null_device; end
 
   # @api private
@@ -4397,45 +4500,50 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#81
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#85
   def ruby_version; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#125
-  def unix_path(path); end
-
-  # @api private
-  #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#85
-  def windows?; end
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#81
+  def truffleruby?; end
 
   # @api private
   #
   # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#129
+  def unix_path(path); end
+
+  # @api private
+  #
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#89
+  def windows?; end
+
+  # @api private
+  #
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#133
   def windows_path(path); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#114
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#118
   def wrap_in_quotes_if_necessary(str); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#97
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#101
   def wsl?; end
 
   class << self
     # @api private
     # @raise [Error::WebDriverError]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#143
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#147
     def assert_executable(path); end
 
     # @api private
     # @raise [Error::WebDriverError]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#137
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#141
     def assert_file(path); end
 
     # @api private
@@ -4451,12 +4559,12 @@ module Selenium::WebDriver::Platform
     # @api private
     # @return [Boolean]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#106
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#110
     def cygwin?; end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#118
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#122
     def cygwin_path(path, **opts); end
 
     # @api private
@@ -4466,17 +4574,17 @@ module Selenium::WebDriver::Platform
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#151
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#155
     def exit_hook; end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#157
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#161
     def find_binary(*binary_names); end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#177
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#181
     def find_in_program_files(*binary_names); end
 
     # @api private
@@ -4486,12 +4594,12 @@ module Selenium::WebDriver::Platform
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#218
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#222
     def interfaces; end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#202
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#206
     def ip; end
 
     # @api private
@@ -4503,29 +4611,29 @@ module Selenium::WebDriver::Platform
     # @api private
     # @return [Boolean]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#93
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#97
     def linux?; end
 
     # @api private
     # @raise [Error::WebDriverError]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#194
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#198
     def localhost; end
 
     # @api private
     # @return [Boolean]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#89
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#93
     def mac?; end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#133
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#137
     def make_writable(file); end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#110
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#114
     def null_device; end
 
     # @api private
@@ -4535,39 +4643,45 @@ module Selenium::WebDriver::Platform
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#81
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#85
     def ruby_version; end
 
     # @api private
+    # @return [Boolean]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#125
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#81
+    def truffleruby?; end
+
+    # @api private
+    #
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#129
     def unix_path(path); end
 
     # @api private
     # @return [Boolean]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#85
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#89
     def windows?; end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#129
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#133
     def windows_path(path); end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#114
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#118
     def wrap_in_quotes_if_necessary(str); end
 
     # @api private
     # @return [Boolean]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#97
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#101
     def wsl?; end
   end
 end
 
-# source://selenium-webdriver//lib/selenium/webdriver.rb#34
+# source://selenium-webdriver//lib/selenium/webdriver.rb#33
 class Selenium::WebDriver::Point < ::Struct
   # Returns the value of attribute x
   #
@@ -5015,7 +5129,7 @@ Selenium::WebDriver::Proxy::ALLOWED = T.let(T.unsafe(nil), Hash)
 # source://selenium-webdriver//lib/selenium/webdriver/common/proxy.rb#23
 Selenium::WebDriver::Proxy::TYPES = T.let(T.unsafe(nil), Hash)
 
-# source://selenium-webdriver//lib/selenium/webdriver.rb#36
+# source://selenium-webdriver//lib/selenium/webdriver.rb#35
 class Selenium::WebDriver::Rectangle < ::Struct
   # Returns the value of attribute height
   #
@@ -6117,14 +6231,14 @@ Selenium::WebDriver::SearchContext::FINDERS = T.let(T.unsafe(nil), Hash)
 #
 # @api private
 #
-# source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#27
+# source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#29
 class Selenium::WebDriver::SeleniumManager
   class << self
     # @api private
     # @param driver_name [String] which driver to use.
     # @return [String] the path to the correct driver.
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#33
+    # source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#35
     def driver_path(driver_name); end
 
     private
@@ -6132,20 +6246,19 @@ class Selenium::WebDriver::SeleniumManager
     # @api private
     # @return [String] the path to the correct selenium manager
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#51
+    # source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#53
     def binary; end
 
     # @api private
-    # @raise [Error::WebDriverError]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#71
+    # source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#73
     def run(command); end
   end
 end
 
 # @api private
 #
-# source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#28
+# source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#30
 Selenium::WebDriver::SeleniumManager::BIN_PATH = T.let(T.unsafe(nil), String)
 
 # Base class implementing default behavior of service object,
@@ -6279,55 +6392,55 @@ class Selenium::WebDriver::ServiceManager
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#141
+  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#133
   def cannot_connect_error_text; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#92
+  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#87
   def connect_to_server; end
 
   # @api private
   # @raise [Error::WebDriverError]
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#134
+  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#126
   def connect_until_stable; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#101
+  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#96
   def find_free_port; end
 
   # @api private
   # @return [Boolean]
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#130
+  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#122
   def process_exited?; end
 
   # @api private
   # @return [Boolean]
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#126
+  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#118
   def process_running?; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#145
+  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#137
   def socket_lock; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#105
+  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#100
   def start_process; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#112
+  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#105
   def stop_process; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#119
+  # source://selenium-webdriver//lib/selenium/webdriver/common/service_manager.rb#111
   def stop_server; end
 end
 
@@ -6436,7 +6549,7 @@ class Selenium::WebDriver::SocketLock
   # @api private
   # @return [Boolean]
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/socket_lock.rb#77
+  # source://selenium-webdriver//lib/selenium/webdriver/common/socket_lock.rb#76
   def did_lock?; end
 
   # @api private
@@ -6863,7 +6976,7 @@ class Selenium::WebDriver::Support::Select
   #
   #     <option value="foo">Bar</option>
   #
-  # When slecting by :value, selects all options that have a value matching the argument. That is, when given "foo" this
+  # When selecting by :value, selects all options that have a value matching the argument. That is, when given "foo" this
   # would select an option like:
   #
   #     <option value="foo">Bar</option>
@@ -7261,62 +7374,65 @@ Selenium::WebDriver::Wait::DEFAULT_TIMEOUT = T.let(T.unsafe(nil), Integer)
 class Selenium::WebDriver::WebSocketConnection
   # @return [WebSocketConnection] a new instance of WebSocketConnection
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#30
+  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#35
   def initialize(url:); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#46
+  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#51
   def callbacks; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#40
+  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#45
   def close; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#50
+  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#55
   def send_cmd(**payload); end
 
   private
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#75
+  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#80
   def attach_socket_listener; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#113
+  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#120
   def callback_thread(params); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#96
+  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#103
   def incoming_frame; end
 
   # We should be thread-safe to use the hash without synchronization
   # because its keys are WebSocket message identifiers and they should be
   # unique within a devtools session.
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#66
+  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#71
   def messages; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#149
+  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#158
   def next_id; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#100
+  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#107
   def process_frame(frame); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#70
+  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#75
   def process_handshake; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#132
+  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#141
   def socket; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#128
+  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#137
   def wait; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#145
+  # source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#154
   def ws; end
 end
 
-# source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#28
+# source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#25
+Selenium::WebDriver::WebSocketConnection::CONNECTION_ERRORS = T.let(T.unsafe(nil), Array)
+
+# source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#33
 Selenium::WebDriver::WebSocketConnection::MAX_LOG_MESSAGE_SIZE = T.let(T.unsafe(nil), Integer)
 
-# source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#26
+# source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#31
 Selenium::WebDriver::WebSocketConnection::RESPONSE_WAIT_INTERVAL = T.let(T.unsafe(nil), Float)
 
-# source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#25
+# source://selenium-webdriver//lib/selenium/webdriver/common/websocket_connection.rb#30
 Selenium::WebDriver::WebSocketConnection::RESPONSE_WAIT_TIMEOUT = T.let(T.unsafe(nil), Integer)
 
 # source://selenium-webdriver//lib/selenium/webdriver/common/interactions/scroll_origin.rb#22

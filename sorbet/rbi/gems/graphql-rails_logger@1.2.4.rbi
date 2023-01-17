@@ -7,25 +7,25 @@
 # source://graphql-rails_logger//lib/graphql/rails_logger/version.rb#1
 module GraphQL
   class << self
-    # source://graphql/2.0.14/lib/graphql.rb#35
+    # source://graphql/2.0.16/lib/graphql.rb#35
     def default_parser; end
 
-    # source://graphql/2.0.14/lib/graphql.rb#39
+    # source://graphql/2.0.16/lib/graphql.rb#39
     def default_parser=(_arg0); end
 
-    # source://graphql/2.0.14/lib/graphql.rb#45
+    # source://graphql/2.0.16/lib/graphql.rb#45
     def parse(graphql_string, tracer: T.unsafe(nil)); end
 
-    # source://graphql/2.0.14/lib/graphql.rb#52
+    # source://graphql/2.0.16/lib/graphql.rb#52
     def parse_file(filename); end
 
-    # source://graphql/2.0.14/lib/graphql.rb#57
+    # source://graphql/2.0.16/lib/graphql.rb#57
     def parse_with_racc(string, filename: T.unsafe(nil), tracer: T.unsafe(nil)); end
 
-    # source://graphql/2.0.14/lib/graphql.rb#62
+    # source://graphql/2.0.16/lib/graphql.rb#62
     def scan(graphql_string); end
 
-    # source://graphql/2.0.14/lib/graphql.rb#66
+    # source://graphql/2.0.16/lib/graphql.rb#66
     def scan_with_ragel(graphql_string); end
   end
 end
@@ -101,20 +101,18 @@ class GraphQL::RailsLogger::Railtie < ::Rails::Railtie; end
 
 # source://graphql-rails_logger//lib/graphql/rails_logger/subscriber.rb#20
 class GraphQL::RailsLogger::Subscriber < ::ActionController::LogSubscriber
-  # source://graphql-rails_logger//lib/graphql/rails_logger/subscriber.rb#21
-  def start_processing(event); end
-
-  private
-
-  # source://graphql-rails_logger//lib/graphql/rails_logger/subscriber.rb#58
+  sig { params(data: T.untyped).returns(T.untyped) }
   def indent(data); end
 
-  # source://graphql-rails_logger//lib/graphql/rails_logger/subscriber.rb#62
+  sig { params(data: T.untyped).returns(T.untyped) }
   def pretty(data); end
+
+  sig { params(event: T.untyped).void }
+  def start_processing(event); end
 end
 
 # source://graphql-rails_logger//lib/graphql/rails_logger/version.rb#3
 GraphQL::RailsLogger::VERSION = T.let(T.unsafe(nil), String)
 
-# source://graphql/2.0.14/lib/graphql/version.rb#3
+# source://graphql/2.0.16/lib/graphql/version.rb#3
 GraphQL::VERSION = T.let(T.unsafe(nil), String)

@@ -113,6 +113,12 @@ class ObsidianNote
     end
     def find_or_initialize_by(attributes, &block); end
 
+    sig { params(signed_id: T.untyped, purpose: T.untyped).returns(T.nilable(::ObsidianNote)) }
+    def find_signed(signed_id, purpose: nil); end
+
+    sig { params(signed_id: T.untyped, purpose: T.untyped).returns(::ObsidianNote) }
+    def find_signed!(signed_id, purpose: nil); end
+
     sig { params(arg: T.untyped, args: T.untyped).returns(::ObsidianNote) }
     def find_sole_by(arg, *args); end
 
@@ -479,16 +485,16 @@ class ObsidianNote
   end
 
   module GeneratedAttributeMethods
-    sig { returns(T.untyped) }
+    sig { returns(T::Array[::String]) }
     def aliases; end
 
-    sig { params(value: T.untyped).returns(T.untyped) }
+    sig { params(value: T::Array[::String]).returns(T::Array[::String]) }
     def aliases=(value); end
 
     sig { returns(T::Boolean) }
     def aliases?; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(T::Array[::String])) }
     def aliases_before_last_save; end
 
     sig { returns(T.untyped) }
@@ -497,28 +503,28 @@ class ObsidianNote
     sig { returns(T::Boolean) }
     def aliases_came_from_user?; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T::Array[::String], T::Array[::String]])) }
     def aliases_change; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T::Array[::String], T::Array[::String]])) }
     def aliases_change_to_be_saved; end
 
     sig { returns(T::Boolean) }
     def aliases_changed?; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(T::Array[::String])) }
     def aliases_in_database; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T::Array[::String], T::Array[::String]])) }
     def aliases_previous_change; end
 
     sig { returns(T::Boolean) }
     def aliases_previously_changed?; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(T::Array[::String])) }
     def aliases_previously_was; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(T::Array[::String])) }
     def aliases_was; end
 
     sig { void }
@@ -1067,7 +1073,7 @@ class ObsidianNote
     sig { void }
     def restore_updated_at!; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T::Array[::String], T::Array[::String]])) }
     def saved_change_to_aliases; end
 
     sig { returns(T::Boolean) }
@@ -1151,7 +1157,7 @@ class ObsidianNote
     sig { returns(T::Boolean) }
     def saved_change_to_synchronized_at?; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T::Array[::String], T::Array[::String]])) }
     def saved_change_to_tags; end
 
     sig { returns(T::Boolean) }
@@ -1253,16 +1259,16 @@ class ObsidianNote
     sig { void }
     def synchronized_at_will_change!; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T::Array[::String]) }
     def tags; end
 
-    sig { params(value: T.untyped).returns(T.untyped) }
+    sig { params(value: T::Array[::String]).returns(T::Array[::String]) }
     def tags=(value); end
 
     sig { returns(T::Boolean) }
     def tags?; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(T::Array[::String])) }
     def tags_before_last_save; end
 
     sig { returns(T.untyped) }
@@ -1271,28 +1277,28 @@ class ObsidianNote
     sig { returns(T::Boolean) }
     def tags_came_from_user?; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T::Array[::String], T::Array[::String]])) }
     def tags_change; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T::Array[::String], T::Array[::String]])) }
     def tags_change_to_be_saved; end
 
     sig { returns(T::Boolean) }
     def tags_changed?; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(T::Array[::String])) }
     def tags_in_database; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T::Array[::String], T::Array[::String]])) }
     def tags_previous_change; end
 
     sig { returns(T::Boolean) }
     def tags_previously_changed?; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(T::Array[::String])) }
     def tags_previously_was; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(T::Array[::String])) }
     def tags_was; end
 
     sig { void }

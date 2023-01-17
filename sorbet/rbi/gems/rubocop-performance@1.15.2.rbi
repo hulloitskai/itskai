@@ -10,10 +10,10 @@ module RuboCop; end
 # source://rubocop-performance//lib/rubocop/cop/mixin/regexp_metacharacter.rb#4
 module RuboCop::Cop; end
 
-# source://rubocop/1.39.0/lib/rubocop/cop/mixin/allowed_methods.rb#38
+# source://rubocop/1.42.0/lib/rubocop/cop/mixin/allowed_methods.rb#38
 RuboCop::Cop::IgnoredMethods = RuboCop::Cop::AllowedMethods
 
-# source://rubocop/1.39.0/lib/rubocop/cop/mixin/allowed_pattern.rb#54
+# source://rubocop/1.42.0/lib/rubocop/cop/mixin/allowed_pattern.rb#54
 RuboCop::Cop::IgnoredPattern = RuboCop::Cop::AllowedPattern
 
 # source://rubocop-performance//lib/rubocop/cop/performance/ancestors_include.rb#5
@@ -1941,6 +1941,7 @@ RuboCop::Cop::Performance::RedundantSplitRegexpArgument::STR_SPECIAL_CHARS = T.l
 #   # bad
 #   str.chars[0..2]
 #   str.chars.slice(0..2)
+#   str.chars.last
 #
 #   # good
 #   str[0..2].chars
@@ -1952,6 +1953,7 @@ RuboCop::Cop::Performance::RedundantSplitRegexpArgument::STR_SPECIAL_CHARS = T.l
 #   # good
 #   str[0]
 #   str[0...2].chars
+#   str[-1]
 #
 #   # bad
 #   str.chars.take(2)
@@ -1965,51 +1967,50 @@ RuboCop::Cop::Performance::RedundantSplitRegexpArgument::STR_SPECIAL_CHARS = T.l
 #   str.size
 #   str.empty?
 #
-#   # For example, if the receiver is a blank string, it will be incompatible.
+#   # For example, if the receiver is an empty string, it will be incompatible.
 #   # If a negative value is specified for the receiver, `nil` is returned.
-#   str.chars.last    # Incompatible with `str[-1]`.
 #   str.chars.last(2) # Incompatible with `str[-2..-1].chars`.
 #   str.chars.drop(2) # Incompatible with `str[2..-1].chars`.
 #
-# source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#42
+# source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#43
 class RuboCop::Cop::Performance::RedundantStringChars < ::RuboCop::Cop::Base
   include ::RuboCop::Cop::RangeHelp
   extend ::RuboCop::Cop::AutoCorrector
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#53
+  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#54
   def on_send(node); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#49
+  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#50
   def redundant_chars_call?(param0 = T.unsafe(nil)); end
 
   private
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#108
+  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#112
   def build_bad_method(method, args); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#121
+  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#125
   def build_call_args(call_args_node); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#83
+  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#85
   def build_good_method(method, args); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#96
+  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#100
   def build_good_method_for_brackets_or_first_method(method, args); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#77
+  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#79
   def build_message(method, args); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#73
+  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#75
   def correction_range(receiver, node); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#69
+  # source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#71
   def offense_range(receiver, node); end
 end
 
-# source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#46
+# source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#47
 RuboCop::Cop::Performance::RedundantStringChars::MSG = T.let(T.unsafe(nil), String)
 
-# source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#47
+# source://rubocop-performance//lib/rubocop/cop/performance/redundant_string_chars.rb#48
 RuboCop::Cop::Performance::RedundantStringChars::RESTRICT_ON_SEND = T.let(T.unsafe(nil), Array)
 
 # In Ruby 2.4, `String#match?`, `Regexp#match?`, and `Symbol#match?`
@@ -2567,7 +2568,7 @@ class RuboCop::Cop::Performance::StringInclude < ::RuboCop::Cop::Base
 
   # @return [Boolean]
   #
-  # source://rubocop-performance//lib/rubocop/cop/performance/string_include.rb#50
+  # source://rubocop-performance//lib/rubocop/cop/performance/string_include.rb#53
   def literal?(regex_str); end
 end
 
@@ -2699,90 +2700,91 @@ RuboCop::Cop::Performance::StringReplacement::TR = T.let(T.unsafe(nil), String)
 class RuboCop::Cop::Performance::Sum < ::RuboCop::Cop::Base
   include ::RuboCop::Cop::RangeHelp
   extend ::RuboCop::Cop::AutoCorrector
+  extend ::RuboCop::Cop::TargetRubyVersion
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#99
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#102
   def acc_plus_elem?(param0 = T.unsafe(nil), param1, param2); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#99
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#102
   def elem_plus_acc?(param0 = T.unsafe(nil), param1, param2); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#111
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#114
   def on_block(node); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#104
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#107
   def on_send(node); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#79
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#82
   def sum_candidate?(param0 = T.unsafe(nil)); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#83
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#86
   def sum_map_candidate?(param0 = T.unsafe(nil)); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#92
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#95
   def sum_with_block_candidate?(param0 = T.unsafe(nil)); end
 
   private
 
   # @return [Boolean]
   #
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#156
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#159
   def array_literal?(node); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#161
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#164
   def autocorrect(corrector, init, range); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#169
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#172
   def autocorrect_sum_map(corrector, sum, map, init); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#245
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#248
   def build_block_bad_method(method, init, var_acc, var_elem, body); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#212
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#215
   def build_block_message(send, init, var_acc, var_elem, body); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#218
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#221
   def build_good_method(init, block_pass = T.unsafe(nil)); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#231
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#234
   def build_method_bad_method(init, method, operation); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#194
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#197
   def build_method_message(node, method, init, operation); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#205
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#208
   def build_sum_map_message(method, init); end
 
   # @return [Boolean]
   #
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#151
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#154
   def empty_array_literal?(node); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#126
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#129
   def handle_sum_candidate(node); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#139
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#142
   def handle_sum_map_candidate(node); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#256
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#259
   def method_call_with_args_range(node); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#190
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#193
   def sum_block_range(send, node); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#186
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#189
   def sum_map_range(map, sum); end
 
-  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#182
+  # source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#185
   def sum_method_range(node); end
 end
 
-# source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#74
+# source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#77
 RuboCop::Cop::Performance::Sum::MSG = T.let(T.unsafe(nil), String)
 
-# source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#75
+# source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#78
 RuboCop::Cop::Performance::Sum::MSG_IF_NO_INIT_VALUE = T.let(T.unsafe(nil), String)
 
-# source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#77
+# source://rubocop-performance//lib/rubocop/cop/performance/sum.rb#80
 RuboCop::Cop::Performance::Sum::RESTRICT_ON_SEND = T.let(T.unsafe(nil), Array)
 
 # Checks for .times.map calls.
@@ -2971,7 +2973,7 @@ module RuboCop::Cop::SortBlock
   def sort_range(send, node); end
 end
 
-# source://rubocop/1.39.0/lib/rubocop/ast_aliases.rb#5
+# source://rubocop/1.42.0/lib/rubocop/ast_aliases.rb#5
 RuboCop::NodePattern = RuboCop::AST::NodePattern
 
 # RuboCop Performance project namespace
@@ -3012,8 +3014,8 @@ end
 # source://rubocop-performance//lib/rubocop/performance/version.rb#7
 RuboCop::Performance::Version::STRING = T.let(T.unsafe(nil), String)
 
-# source://rubocop/1.39.0/lib/rubocop/ast_aliases.rb#6
+# source://rubocop/1.42.0/lib/rubocop/ast_aliases.rb#6
 RuboCop::ProcessedSource = RuboCop::AST::ProcessedSource
 
-# source://rubocop/1.39.0/lib/rubocop/ast_aliases.rb#7
+# source://rubocop/1.42.0/lib/rubocop/ast_aliases.rb#7
 RuboCop::Token = RuboCop::AST::Token

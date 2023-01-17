@@ -129,16 +129,16 @@ class Mailjet::Aggregategraphstatistics
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -283,16 +283,16 @@ class Mailjet::Apikey
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -414,16 +414,16 @@ class Mailjet::Apikeyaccess
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -545,16 +545,16 @@ class Mailjet::Apikeytotals
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -676,16 +676,16 @@ class Mailjet::Apitoken
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -807,16 +807,16 @@ class Mailjet::Axtesting
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -938,16 +938,16 @@ class Mailjet::Batchjob
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -1069,16 +1069,16 @@ class Mailjet::Bouncestatistics
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -1200,16 +1200,16 @@ class Mailjet::Campaign
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -1331,16 +1331,16 @@ class Mailjet::Campaignaggregate
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -1462,16 +1462,16 @@ class Mailjet::Campaigndraft
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -1593,16 +1593,16 @@ class Mailjet::Campaigndraft_detailcontent
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -1727,16 +1727,16 @@ class Mailjet::Campaigndraft_schedule
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -1858,16 +1858,16 @@ class Mailjet::Campaigndraft_send
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -1989,16 +1989,16 @@ class Mailjet::Campaigndraft_status
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -2120,16 +2120,16 @@ class Mailjet::Campaigndraft_test
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -2251,16 +2251,16 @@ class Mailjet::Campaigngraphstatistics
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -2382,16 +2382,16 @@ class Mailjet::Campaignoverview
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -2513,16 +2513,16 @@ class Mailjet::Campaignstatistics
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -2644,16 +2644,16 @@ class Mailjet::Clickstatistics
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -2950,16 +2950,16 @@ class Mailjet::Contact
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -3081,16 +3081,16 @@ class Mailjet::Contact_getcontactslists
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -3215,16 +3215,16 @@ class Mailjet::Contact_managecontactslists
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -3346,16 +3346,16 @@ class Mailjet::Contact_managemanycontacts
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -3477,16 +3477,16 @@ class Mailjet::Contactdata
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -3608,16 +3608,16 @@ class Mailjet::Contactfilter
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -3739,16 +3739,16 @@ class Mailjet::Contacthistorydata
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -3870,16 +3870,16 @@ class Mailjet::Contactmetadata
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -4001,16 +4001,16 @@ class Mailjet::Contactslist
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -4132,16 +4132,16 @@ class Mailjet::Contactslist_managecontact
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -4263,16 +4263,16 @@ class Mailjet::Contactslist_managemanycontacts
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -4394,16 +4394,16 @@ class Mailjet::Contactslistsignup
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -4525,16 +4525,16 @@ class Mailjet::Contactstatistics
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -4656,16 +4656,16 @@ class Mailjet::Csvimport
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -4787,16 +4787,16 @@ class Mailjet::DNS
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -4918,16 +4918,16 @@ class Mailjet::DNS_check
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -5049,16 +5049,16 @@ class Mailjet::Domainstatistics
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -5180,16 +5180,16 @@ class Mailjet::Eventcallbackurl
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -5311,16 +5311,16 @@ class Mailjet::Geostatistics
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -5442,16 +5442,16 @@ class Mailjet::Graphstatistics
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -5573,16 +5573,16 @@ class Mailjet::Listrecipient
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -5704,16 +5704,16 @@ class Mailjet::Listrecipientstatistics
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -5835,16 +5835,16 @@ class Mailjet::Liststatistics
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -5977,16 +5977,16 @@ class Mailjet::Manycontacts
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -6108,16 +6108,16 @@ class Mailjet::Message
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -6239,16 +6239,16 @@ class Mailjet::MessageDelivery
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -6370,16 +6370,16 @@ class Mailjet::Messagehistory
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -6504,16 +6504,16 @@ class Mailjet::Messageinformation
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -6638,16 +6638,16 @@ class Mailjet::Messagesentstatistics
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -6769,16 +6769,16 @@ class Mailjet::Messagestate
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -6900,16 +6900,16 @@ class Mailjet::Messagestatistics
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -7031,16 +7031,16 @@ class Mailjet::Metadata
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -7162,16 +7162,16 @@ class Mailjet::Metasender
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -7296,16 +7296,16 @@ class Mailjet::Myprofile
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -7427,16 +7427,16 @@ class Mailjet::Newsletter
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -7558,16 +7558,16 @@ class Mailjet::Newsletter_detailcontent
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -7689,16 +7689,16 @@ class Mailjet::Newsletter_schedule
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -7820,16 +7820,16 @@ class Mailjet::Newsletter_send
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -7951,16 +7951,16 @@ class Mailjet::Newsletter_status
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -8082,16 +8082,16 @@ class Mailjet::Newsletter_test
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -8213,16 +8213,16 @@ class Mailjet::Newsletterblock
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -8344,16 +8344,16 @@ class Mailjet::Newsletterproperties
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -8475,16 +8475,16 @@ class Mailjet::Newslettertemplate
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -8606,16 +8606,16 @@ class Mailjet::Newslettertemplateblock
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -8737,16 +8737,16 @@ class Mailjet::Newslettertemplatecategory
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -8868,16 +8868,16 @@ class Mailjet::Newslettertemplateproperties
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -8999,16 +8999,16 @@ class Mailjet::Openinformation
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -9133,16 +9133,16 @@ class Mailjet::Openstatistics
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -9264,16 +9264,16 @@ class Mailjet::Parseroute
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -9395,16 +9395,16 @@ class Mailjet::Preferences
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -9475,74 +9475,74 @@ end
 module Mailjet::Resource
   mixes_in_class_methods ::Mailjet::Resource::ClassMethods
 
-  # source://mailjet//lib/mailjet/resource.rb#239
+  # source://mailjet//lib/mailjet/resource.rb#241
   def initialize(_attributes = T.unsafe(nil)); end
 
   # Returns the value of attribute attributes.
   #
-  # source://mailjet//lib/mailjet/resource.rb#237
+  # source://mailjet//lib/mailjet/resource.rb#239
   def attributes; end
 
   # Sets the attribute attributes
   #
   # @param value the value to set the attribute attributes to.
   #
-  # source://mailjet//lib/mailjet/resource.rb#281
+  # source://mailjet//lib/mailjet/resource.rb#283
   def attributes=(attribute_hash = T.unsafe(nil)); end
 
-  # source://mailjet//lib/mailjet/resource.rb#303
+  # source://mailjet//lib/mailjet/resource.rb#305
   def delete; end
 
   # Returns the value of attribute persisted.
   #
-  # source://mailjet//lib/mailjet/resource.rb#237
+  # source://mailjet//lib/mailjet/resource.rb#239
   def persisted; end
 
   # Sets the attribute persisted
   #
   # @param value the value to set the attribute persisted to.
   #
-  # source://mailjet//lib/mailjet/resource.rb#237
+  # source://mailjet//lib/mailjet/resource.rb#239
   def persisted=(_arg0); end
 
   # @return [Boolean]
   #
-  # source://mailjet//lib/mailjet/resource.rb#243
+  # source://mailjet//lib/mailjet/resource.rb#245
   def persisted?; end
 
-  # source://mailjet//lib/mailjet/resource.rb#247
+  # source://mailjet//lib/mailjet/resource.rb#249
   def save(options = T.unsafe(nil)); end
 
-  # source://mailjet//lib/mailjet/resource.rb#277
+  # source://mailjet//lib/mailjet/resource.rb#279
   def save!(options = T.unsafe(nil)); end
 
-  # source://mailjet//lib/mailjet/resource.rb#287
+  # source://mailjet//lib/mailjet/resource.rb#289
   def update_attributes(attribute_hash = T.unsafe(nil), options = T.unsafe(nil)); end
 
   private
 
-  # source://mailjet//lib/mailjet/resource.rb#333
+  # source://mailjet//lib/mailjet/resource.rb#335
   def camelcase_keys(hash); end
 
-  # source://mailjet//lib/mailjet/resource.rb#309
+  # source://mailjet//lib/mailjet/resource.rb#311
   def connection(options); end
 
-  # source://mailjet//lib/mailjet/resource.rb#345
+  # source://mailjet//lib/mailjet/resource.rb#347
   def convert_dates_from(data); end
 
-  # source://mailjet//lib/mailjet/resource.rb#313
+  # source://mailjet//lib/mailjet/resource.rb#315
   def default_headers; end
 
-  # source://mailjet//lib/mailjet/resource.rb#317
+  # source://mailjet//lib/mailjet/resource.rb#319
   def formatted_payload; end
 
-  # source://mailjet//lib/mailjet/resource.rb#349
+  # source://mailjet//lib/mailjet/resource.rb#351
   def method_missing(method_symbol, *arguments); end
 
-  # source://mailjet//lib/mailjet/resource.rb#341
+  # source://mailjet//lib/mailjet/resource.rb#343
   def parse_api_json(response_json); end
 
-  # source://mailjet//lib/mailjet/resource.rb#337
+  # source://mailjet//lib/mailjet/resource.rb#339
   def underscore_keys(hash); end
 
   class << self
@@ -9553,55 +9553,55 @@ module Mailjet::Resource
   end
 end
 
-# source://mailjet//lib/mailjet/resource.rb#58
+# source://mailjet//lib/mailjet/resource.rb#60
 module Mailjet::Resource::ClassMethods
-  # source://mailjet//lib/mailjet/resource.rb#63
+  # source://mailjet//lib/mailjet/resource.rb#65
   def all(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
-  # source://mailjet//lib/mailjet/resource.rb#199
+  # source://mailjet//lib/mailjet/resource.rb#201
   def camelcase_keys(hash); end
 
   # Method -- taken from the ActiveSupport library -- which converts the date-time from
   # "2014-05-19T15:31:09Z" to "Mon, 19 May 2014 15:31:09 +0000" format.
   # We may have to change this in the future if ActiveSupport's JSON implementation changes
   #
-  # source://mailjet//lib/mailjet/resource.rb#166
+  # source://mailjet//lib/mailjet/resource.rb#168
   def convert_dates_from(data); end
 
-  # source://mailjet//lib/mailjet/resource.rb#71
+  # source://mailjet//lib/mailjet/resource.rb#73
   def count(options = T.unsafe(nil)); end
 
-  # source://mailjet//lib/mailjet/resource.rb#100
+  # source://mailjet//lib/mailjet/resource.rb#102
   def create(attributes = T.unsafe(nil), options = T.unsafe(nil)); end
 
-  # source://mailjet//lib/mailjet/resource.rb#148
+  # source://mailjet//lib/mailjet/resource.rb#150
   def create_action_resource_path(id, job_id = T.unsafe(nil)); end
 
-  # source://mailjet//lib/mailjet/resource.rb#225
+  # source://mailjet//lib/mailjet/resource.rb#227
   def define_options(options = T.unsafe(nil)); end
 
-  # source://mailjet//lib/mailjet/resource.rb#122
+  # source://mailjet//lib/mailjet/resource.rb#124
   def delete(id, options = T.unsafe(nil)); end
 
-  # source://mailjet//lib/mailjet/resource.rb#78
+  # source://mailjet//lib/mailjet/resource.rb#80
   def find(id, job_id = T.unsafe(nil), options = T.unsafe(nil)); end
 
-  # source://mailjet//lib/mailjet/resource.rb#59
+  # source://mailjet//lib/mailjet/resource.rb#61
   def first(params = T.unsafe(nil), options = T.unsafe(nil)); end
 
-  # source://mailjet//lib/mailjet/resource.rb#188
+  # source://mailjet//lib/mailjet/resource.rb#190
   def format_params(params); end
 
-  # source://mailjet//lib/mailjet/resource.rb#129
+  # source://mailjet//lib/mailjet/resource.rb#131
   def instanciate_from_api(attributes = T.unsafe(nil)); end
 
-  # source://mailjet//lib/mailjet/resource.rb#207
+  # source://mailjet//lib/mailjet/resource.rb#209
   def map_keys(hash, method); end
 
-  # source://mailjet//lib/mailjet/resource.rb#133
+  # source://mailjet//lib/mailjet/resource.rb#135
   def parse_api_json(response_json); end
 
-  # source://mailjet//lib/mailjet/resource.rb#203
+  # source://mailjet//lib/mailjet/resource.rb#205
   def underscore_keys(hash); end
 end
 
@@ -9684,16 +9684,16 @@ class Mailjet::Send
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -9815,16 +9815,16 @@ class Mailjet::Sender
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -9946,16 +9946,16 @@ class Mailjet::Sender_validate
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -10077,16 +10077,16 @@ class Mailjet::Senderstatistics
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -10208,16 +10208,16 @@ class Mailjet::Statcounters
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -10339,16 +10339,16 @@ class Mailjet::Statistics_linkclick
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -10470,16 +10470,16 @@ class Mailjet::Template
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -10601,16 +10601,16 @@ class Mailjet::Template_detailcontent
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -10735,16 +10735,16 @@ class Mailjet::Toplinkclicked
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -10866,16 +10866,16 @@ class Mailjet::Trigger
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -10997,16 +10997,16 @@ class Mailjet::User
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -11128,16 +11128,16 @@ class Mailjet::Useragentstatistics
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -11259,16 +11259,16 @@ class Mailjet::Widget
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28
@@ -11390,16 +11390,16 @@ class Mailjet::Widgetcustomvalue
     # source://mailjet//lib/mailjet/resource.rb#28
     def action=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#31
+    # source://mailjet//lib/mailjet/resource.rb#33
     def connection(options = T.unsafe(nil)); end
 
     # source://mailjet//lib/mailjet/resource.rb#29
     def connection=(val); end
 
-    # source://mailjet//lib/mailjet/resource.rb#35
+    # source://mailjet//lib/mailjet/resource.rb#37
     def default_connection(options = T.unsafe(nil)); end
 
-    # source://mailjet//lib/mailjet/resource.rb#47
+    # source://mailjet//lib/mailjet/resource.rb#49
     def default_headers; end
 
     # source://mailjet//lib/mailjet/resource.rb#28

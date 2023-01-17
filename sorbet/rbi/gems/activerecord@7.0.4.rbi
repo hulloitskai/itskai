@@ -652,10 +652,10 @@ class ActiveRecord::Associations::Association
   # source://activerecord//lib/active_record/associations/association.rb#193
   def initialize_attributes(record, except_from_scope_attributes = T.unsafe(nil)); end
 
-  # source://bullet/7.0.3/lib/bullet/active_record70.rb#167
+  # source://bullet/7.0.7/lib/bullet/active_record70.rb#167
   def inversed_from(record); end
 
-  # source://activerecord//lib/active_record/associations/association.rb#140
+  # source://bullet/7.0.7/lib/bullet/active_record70.rb#174
   def inversed_from_queries(record); end
 
   # Returns the class of the target. belongs_to polymorphic overrides this to look at the
@@ -3061,7 +3061,7 @@ class ActiveRecord::Associations::CollectionAssociation < ::ActiveRecord::Associ
   #
   # @return [Boolean]
   #
-  # source://bullet/7.0.3/lib/bullet/active_record70.rb#207
+  # source://bullet/7.0.7/lib/bullet/active_record70.rb#216
   def empty?; end
 
   # source://activerecord//lib/active_record/associations/collection_association.rb#86
@@ -3084,10 +3084,10 @@ class ActiveRecord::Associations::CollectionAssociation < ::ActiveRecord::Associ
 
   # @return [Boolean]
   #
-  # source://bullet/7.0.3/lib/bullet/active_record70.rb#214
+  # source://bullet/7.0.7/lib/bullet/active_record70.rb#223
   def include?(object); end
 
-  # source://bullet/7.0.3/lib/bullet/active_record70.rb#178
+  # source://bullet/7.0.7/lib/bullet/active_record70.rb#185
   def load_target; end
 
   # @return [Boolean]
@@ -4594,7 +4594,7 @@ class ActiveRecord::Associations::HasManyAssociation < ::ActiveRecord::Associati
   # If the collection is empty the target is set to an empty array and
   # the loaded flag is set to true as well.
   #
-  # source://bullet/7.0.3/lib/bullet/active_record70.rb#264
+  # source://bullet/7.0.7/lib/bullet/active_record70.rb#273
   def count_records; end
 
   # source://activerecord//lib/active_record/associations/has_many_association.rb#13
@@ -4799,16 +4799,16 @@ class ActiveRecord::Associations::JoinDependency
   # source://activerecord//lib/active_record/associations/join_dependency.rb#77
   def base_klass; end
 
-  # source://bullet/7.0.3/lib/bullet/active_record70.rb#126
+  # source://bullet/7.0.7/lib/bullet/active_record70.rb#126
   def construct(ar_parent, parent, row, seen, model_cache, strict_loading_value); end
 
-  # source://bullet/7.0.3/lib/bullet/active_record70.rb#148
+  # source://bullet/7.0.7/lib/bullet/active_record70.rb#148
   def construct_model(record, node, row, model_cache, id, strict_loading_value); end
 
   # source://activerecord//lib/active_record/associations/join_dependency.rb#158
   def each(&block); end
 
-  # source://bullet/7.0.3/lib/bullet/active_record70.rb#110
+  # source://bullet/7.0.7/lib/bullet/active_record70.rb#110
   def instantiate(result_set, strict_loading_value, &block); end
 
   # source://activerecord//lib/active_record/associations/join_dependency.rb#85
@@ -5422,7 +5422,7 @@ class ActiveRecord::Associations::Preloader::Batch
   # source://activerecord//lib/active_record/associations/preloader/batch.rb#7
   def initialize(preloaders, available_records:); end
 
-  # source://bullet/7.0.3/lib/bullet/active_record70.rb#65
+  # source://bullet/7.0.7/lib/bullet/active_record70.rb#65
   def call; end
 
   private
@@ -5498,7 +5498,7 @@ class ActiveRecord::Associations::Preloader::Branch
   # source://activerecord//lib/active_record/associations/preloader/branch.rb#9
   def preloaded_records=(_arg0); end
 
-  # source://bullet/7.0.3/lib/bullet/active_record70.rb#79
+  # source://bullet/7.0.7/lib/bullet/active_record70.rb#79
   def preloaders_for_reflection(reflection, reflection_records); end
 
   # @return [Boolean]
@@ -5538,7 +5538,7 @@ class ActiveRecord::Associations::Preloader::ThroughAssociation < ::ActiveRecord
   # source://activerecord//lib/active_record/associations/preloader/through_association.rb#51
   def future_classes; end
 
-  # source://bullet/7.0.3/lib/bullet/active_record70.rb#94
+  # source://bullet/7.0.7/lib/bullet/active_record70.rb#94
   def preloaded_records; end
 
   # source://activerecord//lib/active_record/associations/preloader/through_association.rb#11
@@ -5595,7 +5595,7 @@ class ActiveRecord::Associations::SingularAssociation < ::ActiveRecord::Associat
 
   # Implements the reader method, e.g. foo.bar for Foo.has_one :bar
   #
-  # source://bullet/7.0.3/lib/bullet/active_record70.rb#224
+  # source://bullet/7.0.7/lib/bullet/active_record70.rb#233
   def reader; end
 
   # Implements the writer method, e.g. foo.bar= for Foo.belongs_to :bar
@@ -31848,7 +31848,7 @@ class ActiveRecord::Relation
   # source://activerecord//lib/active_record/relation.rb#777
   def pretty_print(q); end
 
-  # source://bullet/7.0.3/lib/bullet/active_record70.rb#45
+  # source://bullet/7.0.7/lib/bullet/active_record70.rb#45
   def records; end
 
   # Forces reloading of relation.

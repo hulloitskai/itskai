@@ -7,7 +7,7 @@
 # source://fugit//lib/fugit.rb#4
 module Fugit
   class << self
-    # source://fugit//lib/fugit/parse.rb#36
+    # source://fugit//lib/fugit/parse.rb#49
     def determine_type(s); end
 
     # source://fugit//lib/fugit/parse.rb#30
@@ -18,6 +18,9 @@ module Fugit
 
     # source://fugit//lib/fugit/parse.rb#13
     def do_parse_cron(s); end
+
+    # source://fugit//lib/fugit/parse.rb#43
+    def do_parse_cronish(s, opts = T.unsafe(nil)); end
 
     # source://fugit//lib/fugit/parse.rb#14
     def do_parse_duration(s); end
@@ -39,6 +42,9 @@ module Fugit
 
     # source://fugit//lib/fugit/parse.rb#7
     def parse_cron(s); end
+
+    # source://fugit//lib/fugit/parse.rb#36
+    def parse_cronish(s, opts = T.unsafe(nil)); end
 
     # source://fugit//lib/fugit/parse.rb#8
     def parse_duration(s); end

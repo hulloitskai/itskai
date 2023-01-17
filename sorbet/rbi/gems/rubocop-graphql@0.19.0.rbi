@@ -770,14 +770,14 @@ RuboCop::Cop::GraphQL::ResolverMethodLength::MSG = T.let(T.unsafe(nil), String)
 #  # bad
 #
 #   class UserType < BaseType
-#     argument :filter, String, required: false, camelize: false
+#     argument :filter, String, required: false
 #   end
 #
 #  # bad
 #
 #   class UserType < BaseType
 #     field :name, String, "Name of the user", null: true do
-#       argument :filter, String, required: false, camelize: true
+#       argument :filter, String, required: false
 #     end
 #   end
 #
@@ -982,10 +982,10 @@ end
 # source://rubocop-graphql//lib/rubocop/cop/graphql/unused_argument.rb#69
 RuboCop::Cop::GraphQL::UnusedArgument::MSG = T.let(T.unsafe(nil), String)
 
-# source://rubocop/1.39.0/lib/rubocop/cop/mixin/allowed_methods.rb#38
+# source://rubocop/1.42.0/lib/rubocop/cop/mixin/allowed_methods.rb#38
 RuboCop::Cop::IgnoredMethods = RuboCop::Cop::AllowedMethods
 
-# source://rubocop/1.39.0/lib/rubocop/cop/mixin/allowed_pattern.rb#54
+# source://rubocop/1.42.0/lib/rubocop/cop/mixin/allowed_pattern.rb#54
 RuboCop::Cop::IgnoredPattern = RuboCop::Cop::AllowedPattern
 
 # RuboCop GraphQL project namespace
@@ -1408,6 +1408,9 @@ module RuboCop::GraphQL::SwapRange
   # source://rubocop-graphql//lib/rubocop/graphql/swap_range.rb#16
   def declaration(node); end
 
+  # source://rubocop-graphql//lib/rubocop/graphql/swap_range.rb#25
+  def final_end_location(start_node); end
+
   # source://rubocop-graphql//lib/rubocop/graphql/swap_range.rb#8
   def swap_range(corrector, current, previous); end
 end
@@ -1415,13 +1418,13 @@ end
 # source://rubocop-graphql//lib/rubocop/graphql/version.rb#3
 RuboCop::GraphQL::VERSION = T.let(T.unsafe(nil), String)
 
-# source://rubocop/1.39.0/lib/rubocop/ast_aliases.rb#5
+# source://rubocop/1.42.0/lib/rubocop/ast_aliases.rb#5
 RuboCop::NodePattern = RuboCop::AST::NodePattern
 
-# source://rubocop/1.39.0/lib/rubocop/ast_aliases.rb#6
+# source://rubocop/1.42.0/lib/rubocop/ast_aliases.rb#6
 RuboCop::ProcessedSource = RuboCop::AST::ProcessedSource
 
-# source://rubocop/1.39.0/lib/rubocop/ast_aliases.rb#7
+# source://rubocop/1.42.0/lib/rubocop/ast_aliases.rb#7
 RuboCop::Token = RuboCop::AST::Token
 
 # source://rubocop-graphql//lib/refinements/underscore_string.rb#3
