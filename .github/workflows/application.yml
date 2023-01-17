@@ -1,7 +1,8 @@
 name: application
-on: ["push", "pull_request"]
-env:
-  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+on:
+  - push
+  - pull_request
 
 concurrency:
   group: ${{ github.ref }}
@@ -10,6 +11,8 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
