@@ -9,7 +9,7 @@ export type UserRegisterPageProps = {
   readonly data: UserRegisterPageQuery;
 };
 
-const UserRegisterPage: PageComponent = () => (
+const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => (
   <Card w={380} radius="md" withBorder>
     <Stack spacing="xs">
       <Stack align="center" spacing={0}>
@@ -17,7 +17,7 @@ const UserRegisterPage: PageComponent = () => (
         <Text size="sm" color="dimmed">
           Create an account on{" "}
           <Text color="dark.4" weight={600} span>
-            It&apos;s Kai!
+            Popshop
           </Text>
         </Text>
       </Stack>
@@ -28,6 +28,19 @@ const UserRegisterPage: PageComponent = () => (
           Sign in instead.
         </Anchor>
       </Text>
+      <Divider />
+      <Stack spacing={0} sx={({ fontSizes }) => ({ fontSize: fontSizes.xs })}>
+        <Anchor component={Link} href="/user/password/reset" color="indigo">
+          Forgot your password?
+        </Anchor>
+        <Anchor
+          component={Link}
+          href="/user/verification/resend"
+          color="indigo"
+        >
+          Didn&apos;t get a verification email?
+        </Anchor>
+      </Stack>
     </Stack>
   </Card>
 );

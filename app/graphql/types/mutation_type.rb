@@ -7,6 +7,10 @@ module Types
     field :test_mutation, mutation: Mutations::TestMutation
 
     field :user_change_email, mutation: Mutations::UserChangeEmail
+    field :user_send_email_verification_instructions,
+          mutation: Mutations::UserSendEmailVerificationInstructions
+    field :user_send_password_reset_instructions,
+          mutation: Mutations::UserSendPasswordResetInstructions
     field :user_update, mutation: Mutations::UserUpdate
 
     field :icloud_credentials_update,

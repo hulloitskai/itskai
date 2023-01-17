@@ -48,7 +48,7 @@ class ApplicationService
     sig { returns(T.nilable(T.attached_class)) }
     def start
       return if disabled?
-      if !started? && Rails.const_defined?(:Server)
+      if !started? && Rails.server?
         puts "=> Initializing #{name}" # rubocop:disable Rails/Output
       end
       instance.tap(&:start)

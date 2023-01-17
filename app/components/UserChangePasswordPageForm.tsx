@@ -3,26 +3,26 @@ import { PasswordInput } from "@mantine/core";
 
 import PasswordWithStrengthCheckField from "./PasswordWithStrengthCheckField";
 
-export type UserRegisterPageFormValues = {
-  readonly name: string;
-  readonly email: string;
+export type UserChangePasswordPageFormValues = {
   readonly password: string;
   readonly passwordConfirmation: string;
 };
 
-export type UserRegisterPageFormProps = {};
+export type UserChangePasswordPageFormProps = {
+  readonly resetPasswordToken: string;
+};
 
-const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
+const UserChangePasswordPageForm: FC<UserChangePasswordPageFormProps> = ({
+  resetPasswordToken,
+}) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0.0);
 
   // == Form
-  const { getInputProps, onSubmit, setFieldValue, setErrors } =
-    useForm<UserRegisterPageFormValues>({
+  const { getInputProps, onSubmit, reset } =
+    useForm<UserChangePasswordPageFormValues>({
       initialValues: {
-        name: "",
-        email: "",
         password: "",
         passwordConfirmation: "",
       },
@@ -43,60 +43,47 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
   // == Markup
   return (
     <form
-      onSubmit={onSubmit(({ name, email, password, passwordConfirmation }) => {
+      onSubmit={onSubmit(({ password, passwordConfirmation }) => {
         const data = {
           user: {
-            name,
-            email,
             password,
             password_confirmation: passwordConfirmation,
+            reset_password_token: resetPasswordToken,
           },
         };
-        router.post("/user", data, {
-          errorBag: UserRegisterPageForm.name,
-          onBefore: () => setLoading(true),
-          onError: errors => {
-            setFieldValue("password", "");
-            setFieldValue("passwordConfirmation", "");
-            setErrors(errors);
-            showFormErrors("Could not complete registration");
+        router.put("/user/password", data, {
+          onBefore: () => {
+            setLoading(true);
           },
-          onFinish: () => setLoading(false),
+          onFinish: () => {
+            reset();
+            setLoading(false);
+          },
         });
       })}
     >
       <Stack spacing="xs">
-        <TextInput
-          label="Name"
-          placeholder="Kai's Friend"
-          required
-          {...getInputProps("name")}
-        />
-        <TextInput
-          label="Email"
-          placeholder="friend@example.com"
-          required
-          {...getInputProps("email")}
-        />
         <PasswordWithStrengthCheckField
-          label="Password"
-          placeholder="password"
+          label="New Password"
+          placeholder="new-password"
           required
+          minLength={8}
           onStrengthCheck={setPasswordStrength}
           {...getInputProps("password")}
         />
         <PasswordInput
-          label="Password Confirmation"
-          placeholder="potato-123"
+          label="New Password (confirm)"
+          placeholder="new-password"
           required
+          minLength={8}
           {...getInputProps("passwordConfirmation")}
         />
         <Button type="submit" {...{ loading }}>
-          Sign Up
+          Continue
         </Button>
       </Stack>
     </form>
   );
 };
 
-export default UserRegisterPageForm;
+export default UserChangePasswordPageForm;

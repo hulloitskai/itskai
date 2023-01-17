@@ -70,7 +70,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
         <Menu.Item
           icon={<SignOutIcon />}
           onClick={() => {
-            router.post("/logout", {
+            router.post("/user/logout", {
               onSuccess: ({
                 props: {
                   csrf: { token: csrfToken },

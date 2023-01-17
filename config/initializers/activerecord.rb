@@ -21,7 +21,7 @@ ActiveRecord::LogSubscriber.backtrace_cleaner =
 # Wait for database to start up in development.
 if Rails.env.development?
   Rails.application.configure do
-    if Rails.const_defined?(:Server)
+    if Rails.server?
       config.before_initialize do
         attempt = 1
         loop do

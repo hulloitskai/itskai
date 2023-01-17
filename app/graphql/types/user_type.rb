@@ -10,6 +10,6 @@ module Types
     field :email, String, null: false
     field :is_owner, Boolean, null: false, method: :owner?
     field :name, String, null: false
-    field :unconfirmed_email, String
+    field :unverified_email, String, method: :unconfirmed_email
   end
 end

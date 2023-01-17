@@ -1,0 +1,6 @@
+query UserSendEmailVerificationInstructionsPageQuery {
+  viewer {
+    id
+    ...AppViewerFragment
+  }
+}

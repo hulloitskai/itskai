@@ -1,5 +1,5 @@
 fragment UserSettingsPageViewerFragment on User {
   name
   email
-  unconfirmedEmail
+  unverifiedEmail
 }

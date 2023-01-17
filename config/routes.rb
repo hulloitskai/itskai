@@ -8,25 +8,37 @@ Rails.application.routes.draw do
 
   # == Devise
   devise_for :users,
-             skip: %i[sessions passwords],
+             skip: %i[confirmations passwords],
              controllers: {
+               sessions: "users/sessions",
                registrations: "users/registrations",
+               confirmations: "users/confirmations",
+               passwords: "users/passwords",
              },
-             path: :user,
+             path: "/user",
              path_names: {
-               sign_up: :register,
-               edit: :settings,
+               sign_in: "login",
+               sign_out: "logout",
+               sign_up: "register",
+               edit: "settings",
+               confirmation: "verification",
              }
   devise_scope :user do
-    resource :user_session,
-             controller: "users/sessions",
-             only: %i[new create],
-             path: "/",
-             path_names: {
-               new: "login",
-             } do
-               post :logout, action: :destroy, as: :destroy
-             end
+    get :login, to: "users/sessions#new"
+    scope :user, module: "users", as: :user do
+      resource :confirmation,
+               only: %i[new show],
+               path: "/verification",
+               path_names: {
+                 new: "resend",
+               }
+      resource :password,
+               only: %i[new edit update],
+               path_names: {
+                 new: "reset",
+                 edit: "change",
+               }
+    end
   end
 
   # == GraphQL

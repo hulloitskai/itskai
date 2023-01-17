@@ -9,7 +9,7 @@ export type UserLoginPageProps = {
   readonly data: UserLoginPageQuery;
 };
 
-const UserLoginPage: PageComponent = () => (
+const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
   <Card w={380} radius="md" withBorder>
     <Stack spacing="xs">
       <Stack align="center" spacing={0}>
@@ -28,6 +28,19 @@ const UserLoginPage: PageComponent = () => (
           Sign up instead.
         </Anchor>
       </Text>
+      <Divider />
+      <Stack spacing={0} sx={({ fontSizes }) => ({ fontSize: fontSizes.xs })}>
+        <Anchor component={Link} href="/user/password/reset" color="indigo">
+          Forgot your password?
+        </Anchor>
+        <Anchor
+          component={Link}
+          href="/user/verification/resend"
+          color="indigo"
+        >
+          Didn&apos;t get a verification email?
+        </Anchor>
+      </Stack>
     </Stack>
   </Card>
 );

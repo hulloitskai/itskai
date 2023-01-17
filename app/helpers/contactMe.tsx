@@ -1,4 +1,5 @@
 import { QueryResult } from "@apollo/client";
+
 import { ContactEmailQueryDocument } from "~/queries";
 
 export type ContactMeOptions = {

@@ -2,21 +2,19 @@
 # frozen_string_literal: true
 
 Rails.application.configure do
-  server = Rails.const_defined?(:Server)
-  console = Rails.const_defined?(:Console)
-  return unless server || console
+  return unless Rails.server? || Rails.console?
 
   reloader.to_prepare do
     ICloud.start
     Obsidian.start
     Spotify.start
-    CurrentlyPlaying.start if server
+    CurrentlyPlaying.start if Rails.server?
     Linear.start
     Notifi.start
     QrCodeGenerator.start
   end
 
   reloader.before_class_unload do
-    CurrentlyPlaying.stop if server
+    CurrentlyPlaying.stop if Rails.server?
   end
 end

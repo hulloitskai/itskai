@@ -2,7 +2,7 @@ mutation UserChangeEmailMutation($input: UserChangeEmailInput!) {
   payload: userChangeEmail(input: $input) {
     user {
       id
-      unconfirmedEmail
+      unverifiedEmail
     }
     errors {
       field

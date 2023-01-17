@@ -1,7 +1,6 @@
 import type { FC } from "react";
-import { Inertia } from "@inertiajs/inertia";
-
 import { PasswordInput } from "@mantine/core";
+import { Inertia } from "@inertiajs/inertia";
 
 import { createApolloLink } from "~/helpers/apollo";
 

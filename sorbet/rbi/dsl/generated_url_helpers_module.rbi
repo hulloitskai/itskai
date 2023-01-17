@@ -51,6 +51,9 @@ module GeneratedUrlHelpersModule
   def linear_issues_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def login_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def mailcatcher_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

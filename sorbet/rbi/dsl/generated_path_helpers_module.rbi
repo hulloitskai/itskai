@@ -51,6 +51,9 @@ module GeneratedPathHelpersModule
   def linear_issues_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def login_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def mailcatcher_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
