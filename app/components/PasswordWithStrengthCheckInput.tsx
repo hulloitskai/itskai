@@ -1,33 +1,32 @@
-import type { FC, ChangeEventHandler } from "react";
+import type { FC, RefAttributes } from "react";
 
 import { PasswordInput, Progress } from "@mantine/core";
 import type { PasswordInputProps } from "@mantine/core";
 
-import { PasswordWithStrengthCheckFieldQueryDocument } from "~/queries";
+import { PasswordWithStrengthCheckInputQueryDocument } from "~/queries";
 
-export type PasswordWithStrengthCheckFieldProps = Omit<
+export type PasswordWithStrengthCheckInputProps = Omit<
   PasswordInputProps,
-  "value" | "onChange" | "inputContainer"
-> & {
-  readonly value: string;
-  readonly onChange: ChangeEventHandler<HTMLInputElement>;
-  readonly onStrengthCheck?: (strength: number) => void;
-};
+  "inputContainer"
+> &
+  RefAttributes<HTMLInputElement> & {
+    readonly onStrengthCheck?: (strength: number) => void;
+  };
 
-const PasswordWithStrengthCheckField: FC<
-  PasswordWithStrengthCheckFieldProps
+const PasswordWithStrengthCheckInput: FC<
+  PasswordWithStrengthCheckInputProps
 > = ({ onStrengthCheck, ...otherProps }) => {
   const { value, error } = otherProps;
   const [debouncedValue] = useDebouncedValue(value, 100);
 
   // == Query
   const { data, previousData } = useQuery(
-    PasswordWithStrengthCheckFieldQueryDocument,
+    PasswordWithStrengthCheckInputQueryDocument,
     {
       variables: {
-        password: debouncedValue,
+        password: typeof debouncedValue === "string" ? debouncedValue : "",
       },
-      skip: !debouncedValue,
+      skip: typeof debouncedValue !== "string",
       onCompleted: ({ passwordStrength }) => {
         if (onStrengthCheck) {
           onStrengthCheck(passwordStrength);
@@ -65,4 +64,4 @@ const PasswordWithStrengthCheckField: FC<
   );
 };
 
-export default PasswordWithStrengthCheckField;
+export default PasswordWithStrengthCheckInput;

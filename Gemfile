@@ -177,7 +177,10 @@ group :development do
   gem "tapioca", "~> 0.10.5", require: false
 
   # Use Rubocop to lint code
-  gem "rubocop", "~> 1.43", require: false
+  #
+  # NOTE: Rubocop >= 1.42.0 causes bin/lint to produce unwanted
+  # Lint/RedundantCopDisableDirective warnings (since Layout cops are disabled).
+  gem "rubocop", "~> 1.41.0", require: false
   gem "rubocop-graphql", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false

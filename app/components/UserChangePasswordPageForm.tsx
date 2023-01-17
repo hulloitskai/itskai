@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { PasswordInput } from "@mantine/core";
 
-import PasswordWithStrengthCheckField from "./PasswordWithStrengthCheckField";
+import PasswordWithStrengthCheckInput from "./PasswordWithStrengthCheckInput";
 
 export type UserChangePasswordPageFormValues = {
   readonly password: string;
@@ -63,7 +63,7 @@ const UserChangePasswordPageForm: FC<UserChangePasswordPageFormProps> = ({
       })}
     >
       <Stack spacing="xs">
-        <PasswordWithStrengthCheckField
+        <PasswordWithStrengthCheckInput
           label="New Password"
           placeholder="new-password"
           required
