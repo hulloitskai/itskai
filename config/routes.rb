@@ -60,6 +60,9 @@ Rails.application.routes.draw do
   get :calendly, to: "calendly#show"
   get :hangout, to: "calendly#show"
 
+  # == Notify
+  post :notify, to: "notify#create"
+
   # == Errors
   scope controller: :errors do
     match "/404", action: :not_found, via: :all
