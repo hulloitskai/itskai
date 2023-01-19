@@ -8,7 +8,10 @@ module Users
     sig { override.void }
     def new
       data = query!("UserSendPasswordResetInstructionsPageQuery")
-      render(inertia: "UserSendPasswordResetInstructionsPage", props: { data: })
+      render(
+        inertia: "UserSendPasswordResetInstructionsPage",
+        props: { data: },
+      )
     end
 
     # GET /<resource>/password/change?reset_password_token=abcdef
