@@ -4,11 +4,11 @@ import { renderToString, renderToStaticMarkup } from "react-dom/server";
 import { createStylesServer, ServerStyles } from "@mantine/ssr";
 
 import { setupApp, pagesFromFiles } from "~/helpers/inertia";
-import type { PageProps } from "@inertiajs/inertia";
-import { createInertiaApp } from "@inertiajs/inertia-react";
-import type { InertiaAppOptionsForSSR } from "@inertiajs/inertia-react";
-import createServer from "@inertiajs/server";
 import type { PageComponent } from "~/helpers/inertia";
+
+import createServer from "@inertiajs/react/server";
+import { createInertiaApp } from "@inertiajs/react";
+import type { Page, PageProps } from "@inertiajs/core";
 
 const pages = resolve(() => {
   const files = import.meta.glob("~/pages/*.tsx", {
@@ -20,11 +20,11 @@ const pages = resolve(() => {
 
 const stylesServer = createStylesServer();
 
-createServer(async page => {
+createServer(async (page: Page<PageProps>) => {
   let stylesMarkup = "";
   const { head, body } = await createInertiaApp({
     page,
-    render: (element: ReactElement) => {
+    render: (element: ReactElement): string => {
       const content = renderToString(element);
       const styles = createElement(ServerStyles, {
         html: content,
@@ -38,9 +38,10 @@ createServer(async page => {
       if (!page) {
         throw new Error(`Missing page '${name}'`);
       }
-      return page as any;
+      return page;
     },
+    progress: undefined,
     setup: setupApp,
-  } as InertiaAppOptionsForSSR<PageProps>);
+  });
   return { head: [...head, stylesMarkup], body };
 });

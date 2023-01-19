@@ -1,4 +1,10 @@
-import { Inertia, VisitOptions } from "@inertiajs/inertia";
+import { router } from "@inertiajs/react";
+import type {
+  GlobalEvent,
+  GlobalEventNames,
+  GlobalEventResult,
+  VisitOptions,
+} from "@inertiajs/core";
 
 import { useCSRFToken } from "~/helpers/csrf";
 
@@ -14,7 +20,7 @@ export class Router {
   }
 
   visit(url: string | URL, options?: VisitOptions): void {
-    Inertia.visit(url, options);
+    router.visit(url, options);
   }
 
   post(
@@ -22,7 +28,7 @@ export class Router {
     data?: any,
     options?: Exclude<VisitOptions, "method" | "data">,
   ): void {
-    Inertia.post(url, data, this.optionsWithCSRFToken(options));
+    router.post(url, data, this.optionsWithCSRFToken(options));
   }
 
   put(
@@ -30,7 +36,7 @@ export class Router {
     data?: any,
     options?: Exclude<VisitOptions, "method" | "data">,
   ): void {
-    Inertia.put(url, data, this.optionsWithCSRFToken(options));
+    router.put(url, data, this.optionsWithCSRFToken(options));
   }
 
   patch(
@@ -38,17 +44,24 @@ export class Router {
     data?: any,
     options?: Exclude<VisitOptions, "method" | "data">,
   ): void {
-    Inertia.patch(url, data, this.optionsWithCSRFToken(options));
+    router.patch(url, data, this.optionsWithCSRFToken(options));
   }
 
   delete(url: URL | string, options?: Exclude<VisitOptions, "method">): void {
-    Inertia.delete(url, this.optionsWithCSRFToken(options));
+    router.delete(url, this.optionsWithCSRFToken(options));
   }
 
   reload(
     options?: Exclude<VisitOptions, "preserveScroll" | "preserveState">,
   ): void {
-    Inertia.reload(this.optionsWithCSRFToken(options));
+    router.reload(this.optionsWithCSRFToken(options));
+  }
+
+  on<TEventName extends GlobalEventNames>(
+    type: TEventName,
+    callback: (event: GlobalEvent<TEventName>) => GlobalEventResult<TEventName>,
+  ): VoidFunction {
+    return router.on(type, callback);
   }
 
   private optionsWithCSRFToken(options?: VisitOptions): VisitOptions {

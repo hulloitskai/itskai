@@ -1,5 +1,5 @@
 import { createRoot, hydrateRoot } from "react-dom/client";
-import { createInertiaApp } from "@inertiajs/inertia-react";
+import { createInertiaApp } from "@inertiajs/react";
 
 import type { PageComponent } from "~/helpers/inertia";
 import { setupApp, pagesFromFiles } from "~/helpers/inertia";

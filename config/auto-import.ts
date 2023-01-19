@@ -11,7 +11,7 @@ export const imports: Array<ImportsMap | PresetName> = [
       "useMutation",
     ],
     "@fullstory/browser": ["setVars"],
-    "@inertiajs/inertia-react": ["Link"],
+    "@inertiajs/react": ["Link"],
     "@mantine/core": [
       "packSx",
       "useMantineTheme",
@@ -48,6 +48,7 @@ export const imports: Array<ImportsMap | PresetName> = [
       "useElementSize",
       "useMediaQuery",
       "useViewportSize",
+      "useWindowEvent",
     ],
     "@mantine/notifications": ["showNotification"],
     "@mantine/modals": ["openModal", "closeAllModals"],

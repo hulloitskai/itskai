@@ -1,6 +1,5 @@
 import type { FC } from "react";
 import { PasswordInput } from "@mantine/core";
-import { Inertia } from "@inertiajs/inertia";
 
 import { createApolloLink } from "~/helpers/apollo";
 
@@ -26,12 +25,12 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
     <form
       onSubmit={onSubmit(({ email, password }) => {
         const data = { user: { email, password } };
-        router.post("/login", data, {
+        router.post("/user/login", data, {
           onBefore: () => {
             setLoading(true);
 
             // Navigate to non-Inertia pages.
-            removeInvalidResponseCallback.current = Inertia.on(
+            removeInvalidResponseCallback.current = router.on(
               "invalid",
               event => {
                 const { status, request } = event.detail.response;

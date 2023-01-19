@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Page } from "@inertiajs/inertia";
+import type { Page } from "@inertiajs/core";
 
 export type PageConsumerProps<PageProps> = {
   children: (page: Page<PageProps>) => ReactNode;

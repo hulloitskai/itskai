@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from "@inertiajs/react";
 
 import { NavigationProgress } from "@mantine/nprogress";
 import {
@@ -11,8 +11,8 @@ const AppProgress: FC = () => {
   const onStart = useCallback(() => startNavigationProgress(), []);
   const onFinish = useCallback(() => completeNavigationProgress(), []);
   useEffect(() => {
-    const removeStartListener = Inertia.on("start", onStart);
-    const removeFinishListener = Inertia.on("finish", onFinish);
+    const removeStartListener = router.on("start", onStart);
+    const removeFinishListener = router.on("finish", onFinish);
     return () => {
       removeStartListener();
       removeFinishListener();

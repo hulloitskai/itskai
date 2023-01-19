@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
-import type { Page, PageProps } from "@inertiajs/inertia";
-import type { SetupOptions } from "@inertiajs/inertia-react";
+import type { SetupOptions } from "@inertiajs/react/types/createInertiaApp";
+import type { Page, PageProps } from "@inertiajs/core";
 import type { SharedPageProps } from "./page";
 
 import AppContainer from "~/components/AppContainer";

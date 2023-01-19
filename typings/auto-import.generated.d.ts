@@ -17,7 +17,7 @@ declare global {
   const Empty: typeof import('~/components')['Empty']
   const Group: typeof import('@mantine/core')['Group']
   const Head: typeof import('~/components')['Head']
-  const Link: typeof import('@inertiajs/inertia-react')['Link']
+  const Link: typeof import('@inertiajs/react')['Link']
   const List: typeof import('@mantine/core')['List']
   const LoadingOverlay: typeof import('@mantine/core')['LoadingOverlay']
   const MediaQuery: typeof import('@mantine/core')['MediaQuery']
@@ -100,4 +100,5 @@ declare global {
   const useSyncExternalStore: typeof import('react')['useSyncExternalStore']
   const useTransition: typeof import('react')['useTransition']
   const useViewportSize: typeof import('@mantine/hooks')['useViewportSize']
+  const useWindowEvent: typeof import('@mantine/hooks')['useWindowEvent']
 }
