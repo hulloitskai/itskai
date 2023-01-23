@@ -9,7 +9,7 @@ Rails.application.configure do
         address: "smtp.sendgrid.net",
         port: 465,
         tls: true,
-        domain: "itskai.me",
+        domain: ENV["SENDGRID_DOMAIN"],
         authentication: :plain,
         user_name: "apikey",
         password: ENV["SENDGRID_API_KEY"],
