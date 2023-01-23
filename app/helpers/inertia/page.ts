@@ -27,10 +27,8 @@ export type SharedPageProps = {
 };
 
 export const usePageErrors = (): Errors & ErrorBag => {
-  const {
-    props: { errors },
-  } = usePage();
-  return errors;
+  const { props } = usePage();
+  return props.errors;
 };
 
 export const usePage = <PageProps>(): Page<PageProps> => {

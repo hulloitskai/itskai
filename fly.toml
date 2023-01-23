@@ -7,6 +7,9 @@ processes = []
   release_command = "bin/release"
 
 [env]
+  RAILS_DEFAULT_URL = "https://itskai.me"
+  RAILS_MAILER_FROM = "RoboKai <robot@itskai.me>"
+  RAILS_MAILER_REPLY_TO = "Kai <hullo@itskai.me>"
   POSTGRES_URL = "postgresql://top2.nearest.of.itskai-db.internal"
   POSTGRES_USERNAME = "itskai"
   POSTGRES_DATABASE = "itskai"

@@ -4,6 +4,6 @@
 class ApplicationMailer < ActionMailer::Base
   extend T::Sig
 
-  default from: "RoboKai <robot@itskai.me>", reply_to: "Kai <hullo@itskai.me>"
+  default from: ENV["RAILS_MAILER_FROM"], reply_to: ENV["RAILS_MAILER_REPLY_TO"]
   layout "mailer"
 end

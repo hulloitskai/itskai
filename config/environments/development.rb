@@ -5,15 +5,6 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  # == Routing
-  config.before_configuration do
-    routes.default_url_options = {
-      protocol: "http",
-      host: "localhost",
-      port: 3000,
-    }
-  end
-
   # == Bullet
   config.after_initialize do
     Bullet.enable = true

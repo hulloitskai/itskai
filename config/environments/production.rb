@@ -4,11 +4,6 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  # == Routing
-  config.before_configuration do
-    routes.default_url_options = { protocol: "https", host: "itskai.me" }
-  end
-
   # == Code Loading
   # Code is not reloaded between requests.
   config.cache_classes = true
