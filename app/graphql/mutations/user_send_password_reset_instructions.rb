@@ -23,7 +23,11 @@ module Mutations
     end
     def resolve(email:)
       user = User.find_by(email: email)
-      user.send_reset_password_instructions if user.present?
+      if user.nil?
+        raise GraphQL::ExecutionError,
+              "No such user with the given email address"
+      end
+      user.send_reset_password_instructions
       Payload.new
     end
   end
