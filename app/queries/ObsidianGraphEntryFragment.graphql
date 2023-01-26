@@ -2,7 +2,7 @@ fragment ObsidianGraphEntryFragment on ObsidianEntry {
   id
   type: __typename
   name
-  displayName
+  title
   referencedBy {
     id
   }

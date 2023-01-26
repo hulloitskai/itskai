@@ -111,12 +111,12 @@ type OAuthCredentials implements Node {
 """An object with an ID."""
 interface ObsidianEntry implements Node {
   createdAt: DateTime!
-  displayName: String!
 
   """ID of the object."""
   id: ID!
   name: String!
   referencedBy: [ObsidianNote!]!
+  title: String!
   updatedAt: DateTime!
 }
 
@@ -125,7 +125,6 @@ type ObsidianNote implements Node & ObsidianEntry {
   blurb: String
   content: String
   createdAt: DateTime!
-  displayName: String!
 
   """ID of the object."""
   id: ID!
@@ -136,6 +135,7 @@ type ObsidianNote implements Node & ObsidianEntry {
   referencedBy: [ObsidianNote!]!
   references: [ObsidianEntry!]!
   tags: [String!]!
+  title: String!
   updatedAt: DateTime!
   url: String!
 }
@@ -178,12 +178,12 @@ type ObsidianNoteSynchronizePayload {
 
 type ObsidianStub implements Node & ObsidianEntry {
   createdAt: DateTime!
-  displayName: String!
 
   """ID of the object."""
   id: ID!
   name: String!
   referencedBy: [ObsidianNote!]!
+  title: String!
   updatedAt: DateTime!
 }
 

@@ -10,7 +10,6 @@
 #  analyzed_at     :datetime
 #  blurb           :text
 #  content         :text             not null
-#  display_name    :string
 #  hidden          :boolean          default(FALSE), not null
 #  modified_at     :datetime         not null
 #  name            :string           not null
@@ -19,6 +18,7 @@
 #  slug            :string           not null
 #  synchronized_at :datetime
 #  tags            :string           default([]), not null, is an Array
+#  title           :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
@@ -65,10 +65,14 @@ class ObsidianNote < ApplicationRecord
   has_many :referenced_by, through: :incoming_relations, source: :from
 
   # == Validations
+  validates :name, presence: true
+  validates :title, presence: true
+  validates :plain_blurb, presence: true, if: :blurb?
   validates :aliases, :tags, array: { presence: true }
 
   # == Callbacks
-  before_save :set_plain_blurb, if: :will_save_change_to_blurb?
+  before_validation :set_title, unless: :title?
+  before_validation :set_plain_blurb, if: :will_save_change_to_blurb?
   after_commit :analyze_later, on: %i[create update], if: :analysis_required?
 
   # == Synchronization
@@ -134,13 +138,14 @@ class ObsidianNote < ApplicationRecord
     analyzed_at <= synchronized_at
   end
 
-  # == Methods
-  sig { override.returns(String) }
-  def display_name = super || aliases.first || name
-
   private
 
   # == Callbacks
+  sig { void }
+  def set_title
+    self.title = aliases.first || name
+  end
+
   sig { void }
   def set_plain_blurb
     self.plain_blurb = blurb.try! do |text|

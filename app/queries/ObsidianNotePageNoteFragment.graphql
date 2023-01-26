@@ -1,5 +1,6 @@
 fragment ObsidianNotePageNoteFragment on ObsidianNote {
   name
+  title
   tags
   content
   blurb

@@ -374,7 +374,7 @@ const renderGraph = (
   // Draw node labels
   nodeGroups
     .append("text")
-    .text(({ displayName }) => displayName)
+    .text(({ title }) => title)
     .attr("text-anchor", "middle")
     .attr("dy", ({ radius }) => radius + 15);
 

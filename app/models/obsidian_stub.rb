@@ -22,7 +22,7 @@ class ObsidianStub < ApplicationRecord
 
   # == Attributes
   sig { override.returns(String) }
-  def display_name
+  def title
     name
   end
 

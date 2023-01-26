@@ -75,6 +75,9 @@ module GeneratedPathHelpersModule
   def new_user_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def notify_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def obsidian_note_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

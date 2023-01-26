@@ -76,10 +76,10 @@ class Obsidian < ApplicationService
         end
       end,
       hidden: data["hidden"].truthy?,
+      title: data["title"].presence,
       slug: data["publish"].presence.try! do |value|
         value if value.is_a?(String)
       end,
-      display_name: data["display_name"].presence,
       aliases: parse_frontmatter_list(data["aliases"]),
       tags: parse_frontmatter_list(data["tags"]),
       blurb: data["blurb"].presence,

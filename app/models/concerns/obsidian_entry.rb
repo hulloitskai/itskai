@@ -22,6 +22,6 @@ module ObsidianEntry
 
   # == Methods
   sig { abstract.returns(String) }
-  def display_name
+  def title
   end
 end

@@ -3,7 +3,7 @@ import type { PageComponent } from "~/helpers/inertia";
 import type { DeepRequired } from "~/helpers/utils";
 import { useContactMe } from "~/helpers/contactMe";
 
-import { Text } from "@mantine/core";
+import { Code, Text } from "@mantine/core";
 
 import ObsidianNoteMarkdown from "~/components/ObsidianNoteContent";
 import ObsidianNoteTag from "~/components/ObsidianNoteTag";
@@ -24,7 +24,7 @@ export type ObsidianNotePageProps = {
 const ObsidianNotePage: PageComponent<ObsidianNotePageProps> = ({
   data: { note },
 }) => {
-  const { id, name, tags, content, blurb, references } = note;
+  const { id, name, title, tags, content, blurb, references } = note;
   useEffect(() => {
     setVars("page", {
       pageName: ObsidianNotePage.name,
@@ -35,15 +35,23 @@ const ObsidianNotePage: PageComponent<ObsidianNotePageProps> = ({
     <>
       <Layout>
         <Stack spacing={4}>
-          <Title
-            size={28}
-            weight={800}
-            sx={({ fontFamilyMonospace }) => ({
-              fontFamily: fontFamilyMonospace,
-            })}
-          >
-            {name}
-          </Title>
+          <Box>
+            <Title
+              size={28}
+              weight={800}
+              sx={({ fontFamilyMonospace }) => ({
+                fontFamily: fontFamilyMonospace,
+              })}
+            >
+              {title}
+            </Title>
+
+            {title !== name && (
+              <Box mt={-2}>
+                <Code>{name}</Code>
+              </Box>
+            )}
+          </Box>
           {!isEmpty(tags) && (
             <Group>
               {tags.map(tag => (

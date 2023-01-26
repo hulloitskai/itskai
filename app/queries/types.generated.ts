@@ -137,11 +137,11 @@ export type OAuthCredentials = Node & {
 /** An object with an ID. */
 export type ObsidianEntry = {
   createdAt: Scalars['DateTime'];
-  displayName: Scalars['String'];
   /** ID of the object. */
   id: Scalars['ID'];
   name: Scalars['String'];
   referencedBy: Array<ObsidianNote>;
+  title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
 };
 
@@ -151,7 +151,6 @@ export type ObsidianNote = Node & ObsidianEntry & {
   blurb?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
-  displayName: Scalars['String'];
   /** ID of the object. */
   id: Scalars['ID'];
   isPublished: Scalars['Boolean'];
@@ -161,6 +160,7 @@ export type ObsidianNote = Node & ObsidianEntry & {
   referencedBy: Array<ObsidianNote>;
   references: Array<ObsidianEntry>;
   tags: Array<Scalars['String']>;
+  title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   url: Scalars['String'];
 };
@@ -204,11 +204,11 @@ export type ObsidianNoteSynchronizePayload = {
 export type ObsidianStub = Node & ObsidianEntry & {
   __typename?: 'ObsidianStub';
   createdAt: Scalars['DateTime'];
-  displayName: Scalars['String'];
   /** ID of the object. */
   id: Scalars['ID'];
   name: Scalars['String'];
   referencedBy: Array<ObsidianNote>;
+  title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
 };
 
