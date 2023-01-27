@@ -193,4 +193,7 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def user_spotify_omniauth_callback_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def work_path(*args); end
 end

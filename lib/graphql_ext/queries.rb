@@ -32,6 +32,11 @@ class GraphQL::Queries
     Result.new(data:, errors:)
   end
 
+  sig { params(name: String).returns(T::Boolean) }
+  def include?(name)
+    @queries.include?(name)
+  end
+
   sig { void }
   def load
     synchronize do

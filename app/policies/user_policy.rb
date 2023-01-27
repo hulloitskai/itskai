@@ -1,8 +1,8 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 class UserPolicy < ApplicationPolicy
-  sig { returns(T::Boolean) }
+  # == Rules
   def edit?
     authenticate! == record
   end

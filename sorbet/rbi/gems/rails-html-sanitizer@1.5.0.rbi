@@ -186,6 +186,8 @@ module Rails
     # source://railties/7.0.4/lib/rails.rb#46
     def configuration; end
 
+    def console?; end
+
     # source://railties/7.0.4/lib/rails.rb#72
     def env; end
 
@@ -218,6 +220,8 @@ module Rails
 
     # source://railties/7.0.4/lib/rails.rb#63
     def root; end
+
+    def server?; end
 
     # source://railties/7.0.4/lib/rails/version.rb#7
     def version; end
@@ -309,17 +313,22 @@ class Rails::Html::PermitScrubber < ::Loofah::Scrubber
   # @return [PermitScrubber] a new instance of PermitScrubber
   #
   # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#50
-  def initialize; end
+  def initialize(prune: T.unsafe(nil)); end
 
   # Returns the value of attribute attributes.
   #
   # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#48
   def attributes; end
 
-  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#59
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#60
   def attributes=(attributes); end
 
-  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#63
+  # Returns the value of attribute prune.
+  #
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#48
+  def prune; end
+
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#64
   def scrub(node); end
 
   # Returns the value of attribute tags.
@@ -327,44 +336,44 @@ class Rails::Html::PermitScrubber < ::Loofah::Scrubber
   # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#48
   def tags; end
 
-  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#55
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#56
   def tags=(tags); end
 
   protected
 
   # @return [Boolean]
   #
-  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#80
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#81
   def allowed_node?(node); end
 
   # @return [Boolean]
   #
-  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#92
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#93
   def keep_node?(node); end
 
-  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#134
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#135
   def scrub_attribute(node, attr_node); end
 
   # @return [Boolean]
   #
-  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#88
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#89
   def scrub_attribute?(name); end
 
-  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#105
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#106
   def scrub_attributes(node); end
 
-  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#118
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#119
   def scrub_css_attribute(node); end
 
-  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#100
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#101
   def scrub_node(node); end
 
   # @return [Boolean]
   #
-  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#84
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#85
   def skip_node?(node); end
 
-  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#127
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#128
   def validate!(var, name); end
 end
 
@@ -416,7 +425,7 @@ class Rails::Html::SafeListSanitizer < ::Rails::Html::Sanitizer
   # @return [SafeListSanitizer] a new instance of SafeListSanitizer
   #
   # source://rails-html-sanitizer//lib/rails/html/sanitizer.rb#113
-  def initialize; end
+  def initialize(prune: T.unsafe(nil)); end
 
   # source://rails-html-sanitizer//lib/rails/html/sanitizer.rb#117
   def sanitize(html, options = T.unsafe(nil)); end
@@ -503,16 +512,16 @@ Rails::Html::Sanitizer::VERSION = T.let(T.unsafe(nil), String)
 # +attributes=+
 # If set, attributes included will be removed.
 #
-# source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#169
+# source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#170
 class Rails::Html::TargetScrubber < ::Rails::Html::PermitScrubber
   # @return [Boolean]
   #
-  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#170
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#171
   def allowed_node?(node); end
 
   # @return [Boolean]
   #
-  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#174
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#175
   def scrub_attribute?(name); end
 end
 
@@ -522,14 +531,14 @@ end
 #
 # Unallowed elements will be stripped, i.e. element is removed but its subtree kept.
 #
-# source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#184
+# source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#185
 class Rails::Html::TextOnlyScrubber < ::Loofah::Scrubber
   # @return [TextOnlyScrubber] a new instance of TextOnlyScrubber
   #
-  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#185
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#186
   def initialize; end
 
-  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#189
+  # source://rails-html-sanitizer//lib/rails/html/scrubbers.rb#190
   def scrub(node); end
 end
 

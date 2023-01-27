@@ -193,4 +193,7 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def user_spotify_omniauth_callback_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def work_url(*args); end
 end

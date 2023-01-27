@@ -1,29 +1,24 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 class ObsidianNotePolicy < ApplicationPolicy
   # == Rules
-  sig { override.returns(T::Boolean) }
   def index?
     true
   end
 
-  sig { returns(T::Boolean) }
   def synchronize?
     false
   end
 
-  sig { override.returns(T::Boolean) }
   def show?
     !record!.hidden?
   end
 
-  sig { returns(T::Boolean) }
   def read?
     record!.published?
   end
 
-  sig { returns(T::Boolean) }
   def edit?
     false
   end
@@ -36,6 +31,6 @@ class ObsidianNotePolicy < ApplicationPolicy
   # == Helpers
   sig { returns(ObsidianNote) }
   def record!
-    T.must(record)
+    record or raise "missing note"
   end
 end

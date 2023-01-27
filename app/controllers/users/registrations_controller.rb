@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Users
@@ -8,17 +8,13 @@ module Users
 
     # == Actions
     # GET /<resource>/register
-    sig { override.void }
     def new
-      data = query!("UserRegisterPageQuery")
-      render(inertia: "UserRegisterPage", props: { data: })
+      render(inertia: "UserRegisterPage")
     end
 
     # GET /<resource>/settings
-    sig { void }
     def edit
-      data = query!("UserSettingsPageQuery")
-      render(inertia: "UserSettingsPage", props: { data: })
+      render(inertia: "UserSettingsPage")
     end
 
     # POST /<resource>

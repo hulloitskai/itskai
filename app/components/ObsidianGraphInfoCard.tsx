@@ -25,12 +25,15 @@ const ObsidianGraphInfoCard: FC<ObsidianGraphInfoCardProps> = ({
     tags = [],
     blurb,
   } = entry as Widen<ObsidianGraphEntryFragment>;
+
   const modifiedAgo = useMemo(() => {
     if (modifiedAtISO) {
       return DateTime.fromISO(modifiedAtISO).toRelativeCalendar();
     }
   }, [modifiedAtISO]);
   const tag = useMemo(() => first(tags), [tags]);
+
+  // == Markup
   return (
     <Card p="xs" radius="md" withBorder w={300} {...otherProps}>
       <Group spacing={8} noWrap>

@@ -27,6 +27,7 @@ module ItsKai
       require "email_validator_ext"
       require "friendly_id_ext"
       require "graphql_ext"
+      require "inertia_rails_ext"
       require "premailer_ext"
 
       # == Libraries

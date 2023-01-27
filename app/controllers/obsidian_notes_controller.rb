@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 class ObsidianNotesController < ApplicationController
@@ -7,7 +7,6 @@ class ObsidianNotesController < ApplicationController
 
   # == Actions
   # GET /entries/1
-  sig { void }
   def show
     note = T.must(@note)
     authorize!(note)
@@ -19,7 +18,6 @@ class ObsidianNotesController < ApplicationController
   private
 
   # == Filters
-  sig { void }
   def set_note
     @note = T.let(@note, T.nilable(ObsidianNote))
     @note = ObsidianNote.friendly.find(params[:id])

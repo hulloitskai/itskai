@@ -50,6 +50,7 @@ class ErrorsController < ApplicationController
 
   private
 
+  # == Helpers
   sig do
     params(
       status: Symbol,

@@ -8,3 +8,8 @@ class ActionController::Base
     def inertia_share(*args, &block); end
   end
 end
+
+class InertiaRails::Renderer
+  sig { returns (T::Hash[T.any(Symbol, String), T.untyped])}
+  def view_data; end
+end

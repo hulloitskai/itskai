@@ -14,8 +14,10 @@ module GraphQL::Querying
   def current_user; end
 
   sig do
-    params(name: String, variables: T::Hash[T.any(Symbol, String), T.untyped])
-      .returns(GraphQL::Queries::Result)
+    params(
+      name: String,
+      variables: T::Hash[T.any(Symbol, String), T.untyped],
+    ).returns(GraphQL::Queries::Result)
   end
   def query(name, variables = {})
     context = { current_user: }
@@ -24,8 +26,10 @@ module GraphQL::Querying
   end
 
   sig do
-    params(name: String, variables: T::Hash[T.any(Symbol, String), T.untyped])
-      .returns(GraphQL::Queries::Result::JSONObject)
+    params(
+      name: String,
+      variables: T::Hash[T.any(Symbol, String), T.untyped],
+    ).returns(GraphQL::Queries::Result::JSONObject)
   end
   def query!(name, variables = {})
     result = query(name, variables)
@@ -35,5 +39,10 @@ module GraphQL::Querying
       raise error.fetch("message")
     end
     data or raise "No data from query"
+  end
+
+  sig { params(name: String).returns(T::Boolean) }
+  def query?(name)
+    Schema.queries!.include?(name)
   end
 end

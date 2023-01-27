@@ -2,11 +2,8 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
-  extend T::Sig
-
-  # GET /
+  # == Actions
   def show
-    data = query!("HomePageQuery")
-    render(inertia: "HomePage", props: { data: })
+    render(inertia: "HomePage")
   end
 end

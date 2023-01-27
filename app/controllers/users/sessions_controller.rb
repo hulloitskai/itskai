@@ -1,18 +1,15 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Users
   class SessionsController < Devise::SessionsController
     # == Actions
     # GET /<resource>/login
-    sig { override.void }
     def new
-      data = query!("UserLoginPageQuery")
-      render(inertia: "UserLoginPage", props: { data: })
+      render(inertia: "UserLoginPage")
     end
 
     # POST /<resource>/login
-    sig { override.void }
     def create
       self.resource = warden.authenticate!(auth_options)
       set_flash_message!(:notice, :signed_in)

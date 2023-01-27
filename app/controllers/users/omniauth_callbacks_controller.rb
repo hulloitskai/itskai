@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Users
@@ -17,7 +17,6 @@ module Users
 
     # == Actions
     # GET /user/auth/spotify/callback
-    sig { void }
     def spotify
       auth = T.let(request.env.fetch("omniauth.auth"), OmniAuth::AuthHash)
       auth = T.let(auth.to_hash, T::Hash[String, T.untyped])
@@ -52,7 +51,6 @@ module Users
     end
 
     # GET /user/auth/linear/callback
-    sig { void }
     def linear
       auth = T.let(request.env.fetch("omniauth.auth"), OmniAuth::AuthHash)
       auth = T.let(auth.to_hash, T::Hash[String, T.untyped])

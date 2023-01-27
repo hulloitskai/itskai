@@ -1,9 +1,7 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 class GraphQLController < ApplicationController
-  extend T::Sig
-
   # == Configuration
   protect_from_forgery with: :null_session, only: :execute
 
@@ -12,7 +10,6 @@ class GraphQLController < ApplicationController
 
   # == Actions
   # POST /graphql
-  sig { void }
   def execute
     operation_name = params["operationName"]
     unless operation_name.nil?
@@ -38,13 +35,13 @@ class GraphQLController < ApplicationController
 
   private
 
-  sig { params(e: StandardError).returns(T.untyped) }
-  def handle_error_in_development(e)
-    logger.error(e.message)
-    logger.error((e.backtrace || []).join("\n"))
+  sig { params(error: StandardError).returns(T.untyped) }
+  def handle_error_in_development(error)
+    logger.error(error.message)
+    logger.error((error.backtrace || []).join("\n"))
     render(
       json: {
-        errors: [{ message: e.message, backtrace: e.backtrace }],
+        errors: [{ message: error.message, backtrace: error.backtrace }],
         data: {},
       },
       status: :internal_server_error,

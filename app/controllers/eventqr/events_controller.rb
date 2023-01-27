@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Eventqr
@@ -10,13 +10,11 @@ module Eventqr
     before_action :set_event, except: :create
 
     # == Actions
-    sig { void }
     def show
       @event = T.must(@event)
       redirect_to(@event.invite_blob!)
     end
 
-    sig { void }
     def create
       payload = T.let(params.permit!.to_h, T::Hash[String, T.untyped])
       from = T.let(payload.dig("from", "value", 0),
@@ -59,7 +57,6 @@ module Eventqr
     end
 
     # == Filters
-    sig { void }
     def set_event
       @event = T.let(@event, T.nilable(Event))
       @event = Event.friendly.find(params[:id])

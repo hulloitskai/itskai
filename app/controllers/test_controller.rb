@@ -2,8 +2,7 @@
 # frozen_string_literal: true
 
 class TestController < ApplicationController
-  extend T::Sig
-
+  # == Actions
   # GET /test
   sig { void }
   def show

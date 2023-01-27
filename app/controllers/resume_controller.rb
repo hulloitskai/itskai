@@ -2,8 +2,7 @@
 # frozen_string_literal: true
 
 class ResumeController < ApplicationController
-  extend T::Sig
-
+  # == Actions
   # GET /resume
   sig { void }
   def show

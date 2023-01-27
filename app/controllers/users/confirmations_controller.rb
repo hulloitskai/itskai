@@ -1,11 +1,10 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Users
   class ConfirmationsController < Devise::ConfirmationsController
     # == Actions
     # GET /<resource>/verification?confirmation_token=abcdef
-    sig { void }
     def show
       resource = resource_class.confirm_by_token(params[:confirmation_token])
       if resource.errors.empty?
@@ -20,13 +19,8 @@ module Users
     end
 
     # GET /<resource>/verification/resend
-    sig { override.void }
     def new
-      data = query!("UserSendEmailVerificationInstructionsPageQuery")
-      render(
-        inertia: "UserSendEmailVerificationInstructionsPage",
-        props: { data: },
-      )
+      render(inertia: "UserSendEmailVerificationInstructionsPage")
     end
   end
 end

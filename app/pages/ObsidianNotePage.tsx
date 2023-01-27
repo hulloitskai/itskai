@@ -155,7 +155,7 @@ const ObsidianNotePage: PageComponent<ObsidianNotePageProps> = ({
 
 ObsidianNotePage.layout = buildLayout<ObsidianNotePageProps>(
   (page, { data: { viewer, note } }) => (
-    <AppLayout title={note.name} padding={0} {...{ viewer }}>
+    <AppLayout title={note.title} padding={0} {...{ viewer }}>
       {page}
     </AppLayout>
   ),
@@ -184,11 +184,9 @@ type RequestAccessButtonProps = {
   readonly note: ObsidianNotePageNoteFragment;
 };
 
-const RequestAccessButton: FC<RequestAccessButtonProps> = ({
-  note: { name },
-}) => {
+const RequestAccessButton: FC<RequestAccessButtonProps> = ({ note }) => {
   const [contactMe, { loading }] = useContactMe({
-    subject: `I want to read what you wrote about ${name}!`,
+    subject: `I want to read what you wrote about ${note.title}!`,
   });
   return (
     <Button variant="outline" {...{ loading }} onClick={contactMe}>

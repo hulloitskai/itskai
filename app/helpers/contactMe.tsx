@@ -3,7 +3,7 @@ import { QueryResult } from "@apollo/client";
 import { ContactEmailQueryDocument } from "~/queries";
 
 export type ContactMeOptions = {
-  subject: string;
+  readonly subject?: string;
 };
 
 export const useContactMe = (

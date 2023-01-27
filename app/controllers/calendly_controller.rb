@@ -1,11 +1,9 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 class CalendlyController < ApplicationController
-  extend T::Sig
-
+  # == Actions
   # GET /calendly, /hangout
-  sig { void }
   def show
     redirect_to(
       "https://calendly.com/hulloitskai/hangout",

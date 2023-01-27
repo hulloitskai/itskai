@@ -3,6 +3,7 @@
 
 class ApplicationController < ActionController::Base
   extend T::Sig
+  extend T::Helpers
 
   # == Filters
   around_action :with_error_context

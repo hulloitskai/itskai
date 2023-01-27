@@ -57,11 +57,11 @@ Rails.application.routes.draw do
   resources :linear_issues, path: :issues, only: :create
 
   # == Calendly
-  get :calendly, to: "calendly#show"
-  get :hangout, to: "calendly#show"
+  get "/calendly" => "calendly#show"
+  get "/hangout" => "calendly#show"
 
   # == Notify
-  post :notify, to: "notify#create"
+  post "/notify" => "notify#create"
 
   # == Errors
   scope controller: :errors do
@@ -77,21 +77,21 @@ Rails.application.routes.draw do
 
   # == Pages
   root "home#show"
-  get :test, to: "test#show"
-  # get :work, to: "work#show"
-  get :resume, to: "resume#show"
-  get :jen, to: redirect("/entries/birthday-writings-for-jen", status: 302)
+  inertia "/work" => "WorkPage"
+  get "/test" => "test#show"
+  get "/resume" => "resume#show"
+  get "/jen" => redirect("/entries/birthday-writings-for-jen", status: 302)
 
   # == Development
   if Rails.env.development?
-    mount GoodJob::Engine, at: "/good_job"
-    get "/mailcatcher", to: redirect("//localhost:1080", status: 302)
+    mount GoodJob::Engine => "/good_job"
+    get "/mailcatcher" => redirect("//localhost:1080", status: 302)
   end
 
   # == Administration
   unless Rails.env.development?
     authenticate :user, ->(user) { user.owner? } do
-      mount GoodJob::Engine, at: "/good_job"
+      mount GoodJob::Engine => "/good_job"
     end
   end
 end

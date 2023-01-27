@@ -1,11 +1,9 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 class ObsidianStubPolicy < ApplicationPolicy
-  sig { override.returns(T::Boolean) }
+  # == Rules
   def index?
     true
   end
-
-  relation_scope { |relation| relation }
 end

@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 class ApplicationPolicy < ActionPolicy::Base
@@ -24,6 +24,9 @@ class ApplicationPolicy < ActionPolicy::Base
   def show?
     true
   end
+
+  # == Scopes
+  relation_scope { |relation| relation }
 
   private
 

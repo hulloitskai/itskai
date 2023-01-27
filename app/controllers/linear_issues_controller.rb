@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 class LinearIssuesController < ApplicationController
@@ -7,7 +7,6 @@ class LinearIssuesController < ApplicationController
 
   # == Actions
   # POST /issues
-  sig { void }
   def create
     issue_params = self.issue_params
     title = issue_params[:title] or raise "Missing title"

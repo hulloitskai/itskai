@@ -4,14 +4,12 @@
 # Add predicates to determine if Rails is running a console or a server.
 module Rails
   class << self
-    extend T::Sig
-
-    sig { returns(T::Boolean) }
+    T::Sig::WithoutRuntime.sig { returns(T::Boolean) }
     def server?
       const_defined?(:Server)
     end
 
-    sig { returns(T::Boolean) }
+    T::Sig::WithoutRuntime.sig { returns(T::Boolean) }
     def console?
       const_defined?(:Console)
     end
@@ -22,11 +20,9 @@ end
 # generators in 'lib/rails/generators'.
 module Rails::Generators
   class << self
-    extend T::Sig
-
     private
 
-    sig { returns(T::Array[String]) }
+    T::Sig::WithoutRuntime.sig { returns(T::Array[String]) }
     def lookup_paths
       @lookup_paths = T.let(@lookup_paths, T.nilable(T::Array[String]))
       @lookup_paths ||= %w[generators rails/generators]
