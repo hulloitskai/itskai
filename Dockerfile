@@ -3,9 +3,9 @@ ARG DISTRO_NAME=bullseye
 ARG RUBY_VERSION=3.2.0
 ARG PYTHON_VERSION=3
 ARG NODE_VERSION=16
-ARG YARN_VERSION=1.22.17
+ARG YARN_VERSION=1.22.19
 ARG POSTGRES_VERSION=14
-ARG OVERMIND_VERSION=2.2.2
+ARG OVERMIND_VERSION=2.3.0
 
 # Configure base image
 FROM ruby:$RUBY_VERSION-slim-$DISTRO_NAME
@@ -84,29 +84,6 @@ RUN apt-get update -qq \
 COPY starship.toml /root/.config/starship.toml
 RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
-# Copy application code to /app
-WORKDIR /app
-COPY ./ ./
-
-# Configure environment
-ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true
-ENV NODE_ENV=$RAILS_ENV
-
-# Install application dependencies
-RUN bundle config set --local without 'development test' \
-    && bundle install \
-    && yarn install \
-    && pip install -r requirements.txt
-
-# Precompile assets
-RUN bin/rails assets:precompile RAILS_SECRET_KEY_BASE=dummy
-
-# Configure exposed ports
-EXPOSE 3000
-
-# Configure healthcheck
-HEALTHCHECK --interval=10s --timeout=1s --start-period=10s --retries=3 CMD curl -f http://127.0.0.1:3000/status || exit 1
-
 # Configure shell
 COPY .zshrc /tmp/.zshrc
 RUN echo >> ~/.zshrc \
@@ -114,5 +91,32 @@ RUN echo >> ~/.zshrc \
     && chsh -s /bin/zsh \
     && rm -rf /tmp/*
 
-# Configure command
+# Configure workdir and environment
+WORKDIR /app
+ENV BUNDLE_WITHOUT="development test" \
+    RAILS_ENV=production RAILS_LOG_TO_STDOUT=true \
+    NODE_ENV=$RAILS_ENV
+
+# Copy dependency lists
+COPY Gemfile Gemfile.lock package.json yarn.lock requirements.txt ./
+
+# Install dependencies
+RUN bundle install && yarn install && pip install -r requirements.txt
+
+# Copy application code
+COPY . ./
+
+# Precompile bootsnap code for faster boot times
+RUN bundle exec bootsnap precompile --gemfile app/ lib/
+
+# Precompile assets
+RUN bundle exec rails assets:precompile RAILS_SECRET_KEY_BASE=dummy
+
+# Expose ports
+EXPOSE 3000
+
+# Configure healthcheck
+HEALTHCHECK --interval=10s --timeout=1s --start-period=10s --retries=3 CMD curl -f http://127.0.0.1:3000/status || exit 1
+
+# Set command
 CMD [ "/app/bin/run" ]
