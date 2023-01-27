@@ -1,11 +1,11 @@
-# Library dependencies:
+# Libraries:
+build-essential
 libvips
 mupdf
 
-# Program dependencies:
-nginx
+# Programs:
 tmux
-
-# Utils:
+git
+less
 zsh
 vim

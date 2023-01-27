@@ -21,9 +21,9 @@ ARG YARN_VERSION
 ARG POSTGRES_VERSION
 ARG OVERMIND_VERSION
 
-# Install common dependencies
+# Install required programs
 RUN apt-get update -qq \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends build-essential gnupg2 curl less git \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends curl \
     && apt-get clean \
     && rm -rf /var/cache/apt/archives/* \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
@@ -31,17 +31,7 @@ RUN apt-get update -qq \
 
 # Install Bundler
 ENV LANG=C.UTF-8 BUNDLE_JOBS=4 BUNDLE_RETRY=3 BUNDLE_APP_CONFIG=.bundle
-RUN gem update --system \
-    && gem install bundler
-
-# Install Python and Pip
-RUN apt-get update -qq \
-    && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends python${PYTHON_VERSION}-dev python${PYTHON_VERSION}-pip \
-    && apt-get clean \
-    && rm -rf /var/cache/apt/archives/* \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && truncate -s 0 /var/log/*log
+RUN gem update --system && gem install bundler
 
 # Install NodeJS and Yarn
 RUN curl -sL https://deb.nodesource.com/setup_$NODE_VERSION.x | bash -
@@ -53,6 +43,15 @@ RUN apt-get update -qq \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && truncate -s 0 /var/log/*log
 RUN npm install -g yarn@$YARN_VERSION
+
+# Install Python and pip
+RUN apt-get update -qq \
+    && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends python${PYTHON_VERSION}-dev python${PYTHON_VERSION}-pip \
+    && apt-get clean \
+    && rm -rf /var/cache/apt/archives/* \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && truncate -s 0 /var/log/*log
 
 # Install Overmind
 RUN curl -Lo /usr/local/bin/overmind.gz https://github.com/DarthSim/overmind/releases/download/v$OVERMIND_VERSION/overmind-v$OVERMIND_VERSION-linux-amd64.gz \
@@ -70,7 +69,7 @@ RUN apt-get update -qq \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && truncate -s 0 /var/log/*log
 
-# Install utils
+# Install programs
 COPY Aptfile /tmp/Aptfile
 RUN apt-get update -qq \
     && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
