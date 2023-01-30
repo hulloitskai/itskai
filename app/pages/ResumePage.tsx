@@ -12,7 +12,7 @@ import GithubIcon from "~icons/feather/github";
 
 import type { ResumePageQuery } from "~/queries";
 
-type ResumePageProps = {
+export type ResumePageProps = {
   readonly data: ResumePageQuery;
   readonly printable?: boolean;
 };

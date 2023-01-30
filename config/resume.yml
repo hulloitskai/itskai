@@ -18,20 +18,20 @@ work:
       - >-
         Designed and built a platform in Ruby on Rails and React to modernize
         independent tourism businesses, enabling them to display availability
-        and receive bookings online, accept payments and send invoices (Stripe),
+        and receive bookings, accept payments and send invoices,
         automate manual processes (booking questions, automatic emails, built-in
         CRM, operations dashboard) and reach more customers (travel communities
-        with social feed and media embeds).
+        with a social feed and media embeds).
       - >-
         Gave our partners observability into under-utilized resources and the
-        operational agility to really grow; one customer champion increased
-        bookings by 250%, tripled the number of experiences offered, and
+        operational agility to really grow; our customer champion increased
+        bookings by 250%, tripled number of experiences offered, and
         increased revenue per booking by 40% after switching from AirBnB & Fare
         Harbor to Playces.
       - >-
-        Researched, designed, built, deployed, and iterated on our
+        Researched, designed, built, deployed, and iterated on
         product and technology stack (Postgres, ElasticSearch, Kubernetes,
-        HubSpot, Mailgun, Sentry, etc.) as the sole engineering/product person.
+        HubSpot, Sentry, Stripe) as the sole engineering/product person.
   - name: Universe
     position: Software Developer Intern
     url: http://universe.com
@@ -39,26 +39,25 @@ work:
     endDate: 2019-04
     highlights:
       - >-
-        Write a CLI tool in Go for orchestrating on-demand staging environments
+        Wrote a CLI tool in Go for orchestrating on-demand staging environments
         for our microservices stack on Kubernetes, which powered our code review
         and QA flows. Investigated the operational limitations
         of the existing Rundeck-based systems and used these insights to design
         a spiritual successor.
       - >-
-        Researched and implemented  optimizations to half the amount of time it
+        Researched and implemented optimizations to half the amount of time it
         took to launch a staging stack, reducing both wait times in our QA
         workflow, as well as our GCP bills.
       - >-
         Supported product development by troubleshooting unexpected deployment
-        failures
+        failures.
       - >-
         Investigated security concerns and implemented solutions to mitigate
         them.
-
   - name: ConsenSys
     position: Software Developer Intern
     url: https://consensys.net
-    startDate: 2018-04
+    startDate: 2018-05
     endDate: 2018-08
     highlights:
       - >-

@@ -13,7 +13,7 @@ import ArrowTopRightOnSquareIcon from "~icons/heroicons/arrow-top-right-on-squar
 
 import { TestPageQuery } from "~/queries";
 
-type TestPageProps = {
+export type TestPageProps = {
   readonly data: TestPageQuery;
   readonly name: string;
 };
