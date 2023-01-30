@@ -36,7 +36,6 @@
     "react-use": "^17.4.0",
     "remark-gfm": "^3.0.1",
     "remark-wiki-link": "^1.0.4",
-    "remark-wiki-link-plus": "^1.1.1",
     "scroll-into-view": "^1.16.2",
     "tiny-invariant": "^1.3.1"
   },

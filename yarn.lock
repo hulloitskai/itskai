@@ -5967,15 +5967,6 @@ remark-rehype@^10.0.0:
     mdast-util-to-hast "^12.1.0"
     unified "^10.0.0"
 
-remark-wiki-link-plus@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/remark-wiki-link-plus/-/remark-wiki-link-plus-1.1.1.tgz#04c53735ff60c5eb603b3ec2b2a816d8b004a44f"
-  integrity sha512-zSnIF3MrGQN+Bckl0+83pScJkhQe02OCAmbkgKqbhLkjnJSOJZk/UuyCRA6FNLkcAK9fhERUvwtsQKxEI/M76w==
-  dependencies:
-    "@babel/runtime" "^7.4.4"
-    mdast-util-wiki-link "^0.0.2"
-    micromark-extension-wiki-link "^0.0.4"
-
 remark-wiki-link@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/remark-wiki-link/-/remark-wiki-link-1.0.4.tgz#f3ac7688ce822e494bb3732a5957082293a59a42"
