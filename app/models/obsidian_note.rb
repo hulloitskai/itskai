@@ -43,6 +43,12 @@ class ObsidianNote < ApplicationRecord
   # == Configuration
   friendly_id :name
 
+  # == Attributes
+  sig { override.params(value: T.nilable(String)).returns(T.nilable(String)) }
+  def blurb=(value)
+    super(value.presence)
+  end
+
   # == Associations
   has_many :outgoing_relations,
            class_name: "ObsidianRelation",
