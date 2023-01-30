@@ -26,6 +26,10 @@ export type SharedPageProps = {
   readonly flash?: Record<string, string>;
 };
 
+export type PageProps<Data = undefined> = SharedPageProps & {
+  readonly data: Data;
+};
+
 export const usePageErrors = (): Errors & ErrorBag => {
   const { props } = usePage();
   return props.errors;

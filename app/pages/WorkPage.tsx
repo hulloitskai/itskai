@@ -1,4 +1,4 @@
-import type { PageComponent } from "~/helpers/inertia";
+import type { PageComponent, PageProps } from "~/helpers/inertia";
 import { Highlight, Text } from "@mantine/core";
 
 import ResumeButton from "~/components/ResumeButton";
@@ -9,9 +9,7 @@ import GithubIcon from "~icons/feather/github";
 
 import type { WorkPageQuery } from "~/queries";
 
-type WorkPageProps = {
-  readonly data: WorkPageQuery;
-};
+export type WorkPageProps = PageProps<WorkPageQuery>;
 
 const WorkPage: PageComponent<WorkPageProps> = () => (
   <Stack spacing="xl">

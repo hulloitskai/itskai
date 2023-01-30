@@ -1,13 +1,11 @@
-import { PageComponent } from "~/helpers/inertia";
+import type { PageComponent, PageProps } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
 import UserLoginPageForm from "~/components/UserLoginPageForm";
 
 import { UserLoginPageQuery } from "~/queries";
 
-export type UserLoginPageProps = {
-  readonly data: UserLoginPageQuery;
-};
+export type UserLoginPageProps = PageProps<UserLoginPageQuery>;
 
 const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
   <Card w={380} radius="md" withBorder>

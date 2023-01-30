@@ -1,4 +1,4 @@
-import type { PageComponent } from "~/helpers/inertia";
+import type { PageComponent, PageProps } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
 import ResumeLayout from "~/components/ResumeLayout";
@@ -12,8 +12,7 @@ import GithubIcon from "~icons/feather/github";
 
 import type { ResumePageQuery } from "~/queries";
 
-export type ResumePageProps = {
-  readonly data: ResumePageQuery;
+export type ResumePageProps = PageProps<ResumePageQuery> & {
   readonly printable?: boolean;
 };
 

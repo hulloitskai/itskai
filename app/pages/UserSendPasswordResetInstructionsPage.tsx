@@ -1,13 +1,12 @@
-import { PageComponent } from "~/helpers/inertia";
+import type { PageComponent, PageProps } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
 import UserSendPasswordResetInstructionsPageForm from "~/components/UserSendPasswordResetInstructionsPageForm";
 
-import { UserSendPasswordResetInstructionsPageQuery } from "~/queries";
+import type { UserSendPasswordResetInstructionsPageQuery } from "~/queries";
 
-export type UserSendPasswordResetInstructionsPageProps = {
-  readonly data: UserSendPasswordResetInstructionsPageQuery;
-};
+export type UserSendPasswordResetInstructionsPageProps =
+  PageProps<UserSendPasswordResetInstructionsPageQuery>;
 
 const UserSendPasswordResetInstructionsPage: PageComponent<
   UserSendPasswordResetInstructionsPageProps

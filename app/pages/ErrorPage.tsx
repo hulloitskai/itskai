@@ -1,10 +1,9 @@
-import type { PageComponent } from "~/helpers/inertia";
+import type { PageComponent, PageProps } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
 import type { ErrorPageQuery } from "~/queries";
 
-export type ErrorPageProps = {
-  readonly data: ErrorPageQuery;
+export type ErrorPageProps = PageProps<ErrorPageQuery> & {
   readonly title: string;
   readonly description: string;
   readonly code: number;

@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import type { PageComponent } from "~/helpers/inertia";
+import type { PageComponent, PageProps } from "~/helpers/inertia";
 
 import { Code, Text } from "@mantine/core";
 
@@ -13,8 +13,7 @@ import ArrowTopRightOnSquareIcon from "~icons/heroicons/arrow-top-right-on-squar
 
 import { TestPageQuery } from "~/queries";
 
-export type TestPageProps = {
-  readonly data: TestPageQuery;
+export type TestPageProps = PageProps<TestPageQuery> & {
   readonly name: string;
 };
 

@@ -1,4 +1,4 @@
-import type { PageComponent } from "~/helpers/inertia";
+import type { PageComponent, PageProps } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 import type { DeepRequired } from "~/helpers/utils";
 
@@ -12,9 +12,9 @@ import UserSettingsPageSpotifyCredentialsForm from "~/components/UserSettingsPag
 import type { UserSettingsPageQuery } from "~/queries";
 import UserSettingsPageObsidianActions from "~/components/UserSettingsPageObsidianActions";
 
-export type UserSettingsPageProps = {
-  readonly data: DeepRequired<UserSettingsPageQuery, ["viewer"]>;
-};
+export type UserSettingsPageProps = PageProps<
+  DeepRequired<UserSettingsPageQuery, ["viewer"]>
+>;
 
 const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
   data: { viewer, icloudCredentials, linearCredentials, spotifyCredentials },

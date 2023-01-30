@@ -62,6 +62,7 @@ class User < ApplicationRecord
               use_dictionary: true,
             },
             allow_nil: true
+
   # == Methods: Owner
   sig { returns(String) }
   def self.owner_email

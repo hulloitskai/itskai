@@ -1,4 +1,4 @@
-import type { PageComponent } from "~/helpers/inertia";
+import type { PageComponent, PageProps } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
 import HomePageContactLink from "~/components/HomePageContactLink";
@@ -6,9 +6,7 @@ import HomePageGraph from "~/components/HomePageGraph";
 
 import type { HomePageQuery } from "~/queries";
 
-export type HomePageProps = {
-  readonly data: HomePageQuery;
-};
+export type HomePageProps = PageProps<HomePageQuery>;
 
 const HomePage: PageComponent<HomePageProps> = () => {
   const theme = useMantineTheme();
