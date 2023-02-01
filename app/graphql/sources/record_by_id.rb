@@ -16,7 +16,7 @@ module Sources
     def fetch(ids)
       records = @model_class.where(id: ids)
       records_by_id = records.index_by(&:id)
-      ids.map { |id| records_by_id.fetch(id) }
+      ids.map { |id| records_by_id[id] }
     end
   end
 end
