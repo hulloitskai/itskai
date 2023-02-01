@@ -10,12 +10,7 @@ module Types
     include ActionPolicy::GraphQL::Behaviour
     include Resolver
 
-    # == Configuration
-    field_class Types::BaseField
-    connection_type_class Types::BaseConnection
-    edge_type_class Types::BaseEdge
-
-    # == Methods
+    # == Macros
     sig do
       params(
         args: T.untyped,
@@ -26,5 +21,10 @@ module Types
     def self.field(*args, **kwargs, &block)
       super
     end
+
+    # == Configuration
+    field_class Types::BaseField
+    connection_type_class Types::BaseConnection
+    edge_type_class Types::BaseEdge
   end
 end

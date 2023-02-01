@@ -15,13 +15,7 @@ module Mutations
     argument :code, String
 
     # == Resolver
-    sig do
-      override(
-        allow_incompatible: true,
-      ).params(
-        code: String,
-      ).returns(Payload)
-    end
+    sig { override.params(code: String).returns(Payload) }
     def resolve(code:)
       credentials = ICloudCredentials.first
       if credentials.nil?

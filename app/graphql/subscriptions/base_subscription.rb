@@ -10,6 +10,19 @@ module Subscriptions
     include ActionPolicy::GraphQL::Behaviour
     include Resolver
 
+    # == Macros
+    sig do
+      params(
+        args: T.untyped,
+        kwargs: T.untyped,
+        block: T.nilable(T.proc.bind(Types::BaseField).void),
+      )
+        .returns(T.untyped)
+    end
+    def self.field(*args, **kwargs, &block)
+      super
+    end
+
     # == Configuration
     argument_class Types::BaseArgument
     object_class Types::BaseObject

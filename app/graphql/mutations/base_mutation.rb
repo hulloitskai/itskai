@@ -17,11 +17,22 @@ module Mutations
     argument_class Types::BaseArgument
     null false
 
+    # == Macros
+    sig do
+      params(
+        args: T.untyped,
+        kwargs: T.untyped,
+        block: T.nilable(T.proc.bind(Types::BaseField).void),
+      ).void
+    end
+    def self.field(*args, **kwargs, &block)
+      super
+    end
+
     # == Resolver
-    sig { override.overridable.params(kwargs: T.untyped).returns(T.untyped) }
-    def resolve(**kwargs)
+    def resolve_with_support(...)
       ActiveRecord::Base.transaction do
-        result = kwargs.any? ? super(**kwargs) : super()
+        result = super
         result.is_a?(T::Struct) ? result.serialize : result
       end
     end

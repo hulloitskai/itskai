@@ -15,11 +15,7 @@ module Mutations
     argument :force, Boolean, required: false
 
     # == Resolver
-    sig do
-      override(allow_incompatible: true).params(
-        force: T::Boolean,
-      ).returns(Payload)
-    end
+    sig { override.params(force: T::Boolean).returns(Payload) }
     def resolve(force: false)
       authorize!(to: :synchronize?, with: ObsidianNotePolicy)
       ObsidianNote.synchronize_all_later(force:)

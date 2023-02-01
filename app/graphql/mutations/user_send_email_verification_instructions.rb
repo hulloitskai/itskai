@@ -15,13 +15,7 @@ module Mutations
     argument :email, String
 
     # == Resolver
-    sig do
-      override(
-        allow_incompatible: true,
-      ).params(
-        email: String,
-      ).returns(Payload)
-    end
+    sig { override.params(email: String).returns(Payload) }
     def resolve(email:)
       user = User.find_by(email: email)
       if user.nil?

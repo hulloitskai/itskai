@@ -18,13 +18,7 @@ module Mutations
     argument :name, String
 
     # == Resolver
-    sig do
-      override(
-        allow_incompatible: true,
-      ).params(
-        attributes: T.untyped,
-      ).returns(Payload)
-    end
+    sig { override.params(attributes: T.untyped).returns(Payload) }
     def resolve(**attributes)
       model = TestModel.new(**attributes)
       if model.valid?
