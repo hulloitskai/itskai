@@ -1,5 +1,5 @@
 # rubocop:disable GraphQL/ExtractType
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Types

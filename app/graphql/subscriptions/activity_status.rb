@@ -1,13 +1,13 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Subscriptions
   class ActivityStatus < BaseSubscription
-    extend T::Sig
-
     # == Configuration
-    type String, null: true
     broadcastable true
+
+    # == Type
+    type String, null: true
 
     # == Callbacks
     sig { returns(T.nilable(String)) }

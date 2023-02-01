@@ -1,14 +1,15 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Queries
   class ICloudCredentials < BaseQuery
-    extend T::Sig
-    extend T::Helpers
-
+    # == Configuration
     description "Kai's personal iCloud credentials (#securityStartsHere)."
+
+    # == Type
     type Types::ICloudCredentialsType, null: true
 
+    # == Resolver
     sig { returns(T.nilable(::ICloudCredentials)) }
     def resolve
       ::ICloudCredentials.first.try! do |credentials|

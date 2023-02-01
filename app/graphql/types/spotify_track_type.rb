@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Types
@@ -9,6 +9,12 @@ module Types
     field :id, String, null: false
     field :name, String, null: false
     field :url, String, null: false
+
+    # == Methods
+    sig { returns(RSpotify::Track) }
+    def object
+      super
+    end
 
     # == Resolvers
     sig { returns(String) }

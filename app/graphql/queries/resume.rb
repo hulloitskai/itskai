@@ -1,16 +1,18 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Queries
   class Resume < BaseQuery
-    # extend T::Sig
-    extend T::Helpers
-
+    # == Constants
     RESUME_PATH = T.let(Rails.root.join("config/resume.yml"), Pathname)
 
-    type GraphQL::Types::JSON, null: false
+    # == Configuration
     description "Kai's JSON Resume (https://jsonresume.org/)."
 
+    # == Type
+    type GraphQL::Types::JSON, null: false
+
+    # == Resolver
     sig { returns(T::Hash[String, T.untyped]) }
     def resolve
       mtime = File.mtime(RESUME_PATH).to_i

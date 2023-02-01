@@ -1,17 +1,15 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Queries
   class ObsidianNote < BaseQuery
-    extend T::Sig
-    extend T::Helpers
-
     # == Type
     type Types::ObsidianNoteType, null: true
 
     # == Arguments
     argument :id, ID
 
+    # == Resolver
     sig { params(id: String).returns(T.nilable(::ObsidianNote)) }
     def resolve(id:)
       note = T.let(object_from_id(Types::ObsidianNoteType, id, context),

@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Types
@@ -11,5 +11,11 @@ module Types
     field :name, String, null: false
     field :refresh_token, String
     field :uid, String, null: false
+
+    # == Methods
+    sig { returns(OAuthCredentials) }
+    def object
+      super
+    end
   end
 end

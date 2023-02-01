@@ -1,14 +1,15 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Queries
   class ContactEmail < BaseQuery
-    extend T::Sig
-    extend T::Helpers
-
+    # == Configuration
     description "Kai's contact email."
+
+    # == Type
     type String, null: false
 
+    # == Resolver
     sig { returns(String) }
     def resolve
       unless instance_variable_defined?(:@email)

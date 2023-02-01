@@ -1,9 +1,10 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Subscriptions
   class BaseSubscription < GraphQL::Schema::Subscription
     extend T::Sig
+    extend T::Helpers
 
     # == Modules
     include ActionPolicy::GraphQL::Behaviour

@@ -1,8 +1,9 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Mutations
   class UserSendEmailVerificationInstructions < BaseMutation
+    # == Payload
     class Payload < T::Struct
       const :success, TrueClass, default: true
     end

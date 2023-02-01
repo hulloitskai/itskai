@@ -1,11 +1,8 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Queries
   class PasswordStrength < BaseQuery
-    extend T::Sig
-    extend T::Helpers
-
     # == Type
     type Float, null: false
 

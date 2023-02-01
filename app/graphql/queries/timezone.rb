@@ -1,14 +1,15 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Queries
   class Timezone < BaseQuery
-    extend T::Sig
-    extend T::Helpers
-
+    # == Configuration
     description "Kai's current timezone."
+
+    # == Type
     type Types::TimezoneType, null: false
 
+    # == Resolver
     sig { returns(TZInfo::DataTimezone) }
     def resolve
       unless defined?(@zone)

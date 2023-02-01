@@ -16,5 +16,18 @@ module Users
       sign_in(resource_name, resource)
       respond_with(resource, location: after_sign_in_path_for(resource))
     end
+
+    protected
+
+    # == Helpers
+    sig { override.returns(User) }
+    def resource
+      super
+    end
+
+    sig { override.params(new_resource: User).returns(User) }
+    def resource=(new_resource)
+      super
+    end
   end
 end

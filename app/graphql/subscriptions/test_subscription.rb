@@ -3,8 +3,6 @@
 
 module Subscriptions
   class TestSubscription < BaseSubscription
-    extend T::Sig
-
     @count = T.let(0, Integer)
 
     class << self
@@ -20,8 +18,10 @@ module Subscriptions
     end
 
     # == Configuration
-    type Int
     broadcastable true
+
+    # == Type
+    type Int
 
     # == Callbacks
     sig { returns(Integer) }

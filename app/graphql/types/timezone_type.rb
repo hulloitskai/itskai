@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Types
@@ -9,6 +9,13 @@ module Types
     field :offset, String, null: false
     field :offset_minutes, Integer, null: false
 
+    # == Methods
+    sig { returns(TZInfo::DataTimezone) }
+    def object
+      super
+    end
+
+    # == Resolvers
     sig { returns(String) }
     def offset
       object.now.strftime("%z")

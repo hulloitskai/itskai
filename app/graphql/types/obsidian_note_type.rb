@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Types
@@ -17,6 +17,12 @@ module Types
     field :references, [ObsidianEntryType], null: false
     field :tags, [String], null: false
     field :url, String, null: false
+
+    # == Methods
+    sig { returns(ObsidianNote) }
+    def object
+      super
+    end
 
     # == Resolvers
     sig { returns(T::Array[T.all(ApplicationRecord, ObsidianEntry)]) }

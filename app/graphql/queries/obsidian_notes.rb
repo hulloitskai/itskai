@@ -1,18 +1,16 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Queries
   class ObsidianNotes < BaseQuery
-    extend T::Sig
-    extend T::Helpers
-
-    # == Configuration
+    # == Type
     type Types::ObsidianNoteType.connection_type, null: false
 
     # == Arguments
     argument :modified_after, Types::DateTimeType, required: false
     argument :modified_before, Types::DateTimeType, required: false
 
+    # == Resolver
     sig do
       params(
         modified_after: T.nilable(Time),

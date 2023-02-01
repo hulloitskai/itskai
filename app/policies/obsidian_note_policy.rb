@@ -12,11 +12,13 @@ class ObsidianNotePolicy < ApplicationPolicy
   end
 
   def show?
-    !record!.hidden?
+    record = T.cast(self.record, ObsidianNote)
+    !record.hidden?
   end
 
   def read?
-    record!.published?
+    record = T.cast(self.record, ObsidianNote)
+    record.published?
   end
 
   def edit?
@@ -26,11 +28,5 @@ class ObsidianNotePolicy < ApplicationPolicy
   # == Scopes
   relation_scope do |relation|
     user&.owner? ? relation : relation.where(hidden: false)
-  end
-
-  # == Helpers
-  sig { returns(ObsidianNote) }
-  def record!
-    record or raise "missing note"
   end
 end

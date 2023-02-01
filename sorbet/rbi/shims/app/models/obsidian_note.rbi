@@ -2,10 +2,8 @@
 
 class ObsidianNote
   sig {returns(T::Array[String])}
-  def aliases
-  end
+  def aliases; end
 
   sig {returns(T::Array[String])}
-  def tags
-  end
+  def tags; end
 end

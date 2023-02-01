@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Types
@@ -8,6 +8,12 @@ module Types
     field :image_url, String
     field :name, String, null: false
     field :url, String, null: false
+
+    # == Methods
+    sig { returns(RSpotify::Album) }
+    def object
+      super
+    end
 
     # == Resolvers
     sig { returns(T.nilable(String)) }

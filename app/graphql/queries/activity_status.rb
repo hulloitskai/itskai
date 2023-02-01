@@ -1,13 +1,12 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Queries
   class ActivityStatus < BaseQuery
-    extend T::Sig
-    extend T::Helpers
-
+    # == Type
     type String, null: true
 
+    # == Resolver
     sig { returns(T.nilable(String)) }
     def resolve
       ::ActivityStatus.current if ::ActivityStatus.ready?

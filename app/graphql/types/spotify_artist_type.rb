@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Types
@@ -12,6 +12,12 @@ module Types
     sig { returns(String) }
     def url
       object.external_urls.fetch("spotify")
+    end
+
+    # == Methods
+    sig { returns(RSpotify::Artist) }
+    def object
+      super
     end
   end
 end

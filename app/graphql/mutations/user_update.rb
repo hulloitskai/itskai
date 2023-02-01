@@ -1,18 +1,22 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Mutations
   class UserUpdate < BaseMutation
+    # == Payload
     class Payload < T::Struct
       const :user, T.nilable(User)
       const :errors, T.nilable(InputFieldErrors)
     end
 
+    # == Fields
     field :errors, [Types::InputFieldErrorType]
     field :user, Types::UserType
 
+    # == Arguments
     argument :name, String
 
+    # == Resolver
     sig { override.params(attributes: T.untyped).returns(Payload) }
     def resolve(**attributes)
       user = current_user!

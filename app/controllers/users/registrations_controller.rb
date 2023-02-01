@@ -18,7 +18,6 @@ module Users
     end
 
     # POST /<resource>
-    sig { override.void }
     def create
       build_resource(sign_up_params)
       resource.save
@@ -48,7 +47,6 @@ module Users
     end
 
     # PUT /<resource>
-    sig { void }
     def update
       self.resource =
         resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
@@ -85,6 +83,12 @@ module Users
     # end
 
     protected
+
+    # == Helpers
+    sig { override.returns(User) }
+    def resource
+      super
+    end
 
     sig { params(resource: User).returns(String) }
     def after_update_path_for(resource)

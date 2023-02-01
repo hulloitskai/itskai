@@ -1,14 +1,15 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Queries
   class LinearCredentials < BaseQuery
-    extend T::Sig
-    extend T::Helpers
-
+    # == Configuration
     description "Linear OAuth credentials."
+
+    # == Type
     type Types::OAuthCredentialsType, null: true
 
+    # == Resolver
     sig { returns(T.nilable(OAuthCredentials)) }
     def resolve
       OAuthCredentials.linear.try! do |credentials|
