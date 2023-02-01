@@ -21,7 +21,7 @@ module Mutations
       if credentials.nil?
         raise GraphQL::ExecutionError, "Missing iCloud credentials."
       end
-      authorize!(credentials, to: :edit?)
+      authorize!(credentials, to: :update?)
       unless ICloud.verify_security_code(code)
         raise GraphQL::ExecutionError, "Invalid security code."
       end

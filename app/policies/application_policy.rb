@@ -19,12 +19,12 @@ class ApplicationPolicy < ActionPolicy::Base
   end
 
   # == Pre-checks
-  # Always permit owner.
   pre_check :allow_owner!
 
   # == Aliases
-  # Define common aliases.
-  alias_rule :delete?, to: :edit?
+  alias_rule :edit?, to: :update?
+  alias_rule :delete?, to: :destroy?
+  alias_rule :destroy?, to: :update?
 
   # == Rules
   sig { returns(T::Boolean) }

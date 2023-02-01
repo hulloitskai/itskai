@@ -21,7 +21,7 @@ module Mutations
     sig { override.params(attributes: T.untyped).returns(Payload) }
     def resolve(**attributes)
       credentials = ICloudCredentials.first_or_initialize
-      authorize!(credentials, to: :edit?)
+      authorize!(credentials, to: :update?)
       if credentials.update(cookies: nil, session: nil, **attributes)
         ICloud.restart
         Payload.new(icloud_credentials: credentials)
