@@ -14,19 +14,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@400..800&display=swap" rel="stylesheet">
 
-    <%# == Meta: Viewport %>
+    <%# == Viewport %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <%# == Meta: Content Security Policy %>
+    <%# == Content Security Policy %>
     <%= csp_meta_tag %>
 
-    <%# == Meta: Action Cable %>
+    <%# == Action Cable %>
     <%= action_cable_meta_tag %>
 
-    <%# == Meta: GraphQL %>
+    <%# == GraphQL %>
     <meta name="graphql-url" content="<%= graphql_path %>">
 
-    <%# == Meta: Honeybadger %>
+    <%# == Honeybadger %>
     <% Honeybadger.config[:client_api_key].presence.try! do |api_key| %>
       <meta name="honeybadger-api-key" content="<%= api_key %>">
       <% Honeybadger.config[:revision].presence.try! do |revision| %>
@@ -37,7 +37,7 @@
       <% end %>
     <% end %>
 
-    <%# == Meta: FullStory %>
+    <%# == FullStory %>
     <% ENV["FULLSTORY_ORG_ID"].presence.try! do |org_id| %>
       <meta name="fullstory-org-id" content="<%= org_id %>">
       <% if user_signed_in? %>
@@ -45,16 +45,16 @@
       <% end %>
     <% end %>
 
-    <%# == Scripts: Application %>
+    <%# == Vite %>
     <%= vite_client_tag %>
-    <%= vite_typescript_tag 'honeybadger' %>
-    <%= vite_typescript_tag 'fullstory' %>
+    <%= vite_typescript_tag "honeybadger" %>
+    <%= vite_typescript_tag "fullstory" %>
     <% if local_assigns.include?(:page) %>
       <%= vite_react_refresh_tag %>
-      <%= vite_typescript_tag 'application' %>
+      <%= vite_typescript_tag "application" %>
     <% end %>
 
-    <%# == Scripts: Google Analytics %>
+    <%# == Google Analytics %>
     <% ENV["GOOGLE_ANALYTICS_MEASUREMENT_ID"].presence.try! do |measurement_id| %>
       <script src="https://www.googletagmanager.com/gtag/js?id=<%= measurement_id %>" async></script>
       <script>
