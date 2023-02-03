@@ -1,8 +1,13 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
+  # == Redirects
+  constraints subdomain: "www" do
+    get "(*any)" => redirect(subdomain: "", status: 302)
+  end
+
   # == Healthcheck
   Healthcheck.routes(self)
 
