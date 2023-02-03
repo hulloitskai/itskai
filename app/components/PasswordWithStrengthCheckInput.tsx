@@ -5,17 +5,14 @@ import type { PasswordInputProps } from "@mantine/core";
 
 import { PasswordWithStrengthCheckInputQueryDocument } from "~/queries";
 
-export type PasswordWithStrengthCheckInputProps = Omit<
-  PasswordInputProps,
-  "inputContainer"
-> &
+export type PasswordWithStrengthCheckInputProps = PasswordInputProps &
   RefAttributes<HTMLInputElement> & {
     readonly onStrengthCheck?: (strength: number) => void;
   };
 
 const PasswordWithStrengthCheckInput: FC<
   PasswordWithStrengthCheckInputProps
-> = ({ onStrengthCheck, ...otherProps }) => {
+> = ({ onStrengthCheck, inputContainer, ...otherProps }) => {
   const { value, error } = otherProps;
   const [debouncedValue] = useDebouncedValue(value, 100);
 
@@ -39,26 +36,31 @@ const PasswordWithStrengthCheckInput: FC<
   // == Markup
   return (
     <PasswordInput
-      inputContainer={children => (
-        <>
-          {children}
-          {!!value && (
-            <Progress
-              size="xs"
-              color={
-                passwordStrength === 1.0
-                  ? "green"
-                  : passwordStrength > 0.25
-                  ? "yellow"
-                  : "red"
-              }
-              value={value ? Math.round(passwordStrength * 100) : 0}
-              mt={6}
-              mb={error ? 6 : 0}
-            />
-          )}
-        </>
-      )}
+      inputContainer={children => {
+        const inputWithProgress = (
+          <>
+            {children}
+            {!!value && (
+              <Progress
+                size="xs"
+                color={
+                  passwordStrength === 1.0
+                    ? "green"
+                    : passwordStrength > 0.25
+                    ? "yellow"
+                    : "red"
+                }
+                value={value ? Math.round(passwordStrength * 100) : 0}
+                mt={6}
+                mb={error ? 6 : 0}
+              />
+            )}
+          </>
+        );
+        return inputContainer
+          ? inputContainer(inputWithProgress)
+          : inputWithProgress;
+      }}
       {...otherProps}
     />
   );
