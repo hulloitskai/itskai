@@ -3,8 +3,14 @@
 
 module Types
   module BaseInterface
-    # == Definition
+    extend T::Sig
+    extend T::Helpers
+
+    # == Modules
     include GraphQL::Schema::Interface
+
+    # == Annotations
+    mixes_in_class_methods GraphQL::Schema::Interface::DefinitionMethods
 
     # == Configuration
     field_class Types::BaseField

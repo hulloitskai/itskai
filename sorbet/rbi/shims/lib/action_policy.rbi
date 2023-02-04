@@ -52,3 +52,9 @@ module ActionPolicy::Behaviours::Scoping
     **options
   ); end
 end
+
+module ActionPolicy::GraphQL::Behaviour
+  include ActionPolicy::GraphQL::Fields
+
+  mixes_in_class_methods ActionPolicy::GraphQL::Fields::ClassMethods
+end

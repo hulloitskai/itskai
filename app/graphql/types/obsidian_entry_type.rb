@@ -3,8 +3,9 @@
 
 module Types
   module ObsidianEntryType
-    # == Definition
     include Types::BaseInterface
+
+    # == Configuration
     orphan_types Types::ObsidianStubType
 
     # == Interfaces

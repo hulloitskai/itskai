@@ -21,6 +21,7 @@ module ItsKai
       require "actionview_ext"
 
       # == Library Extensions
+      require "action_policy_ext"
       require "better_errors_ext"
       require "bullet_ext"
       require "devise_ext"
