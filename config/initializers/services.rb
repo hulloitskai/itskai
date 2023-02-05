@@ -12,6 +12,7 @@ Rails.application.configure do
     Linear.start
     Notifi.start
     QrCodeGenerator.start
+    Resume.start
   end
 
   reloader.before_class_unload do

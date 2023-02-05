@@ -39,7 +39,7 @@ scoped do
     puts("No problems or warnings")
 end
 
-puts "\n=> Running tsc"
+puts "\n=> Running Typescript Compiler"
 system("yarn", "--silent", "tsc", "--noEmit") && puts("No errors found")
 
 puts "\n=> Running Sorbet"

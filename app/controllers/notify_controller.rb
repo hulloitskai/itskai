@@ -2,8 +2,6 @@
 # frozen_string_literal: true
 
 class NotifyController < ApplicationController
-  extend T::Sig
-
   # == Actions
   # POST /notify
   def create

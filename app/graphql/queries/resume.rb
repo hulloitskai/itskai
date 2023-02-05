@@ -3,9 +3,6 @@
 
 module Queries
   class Resume < BaseQuery
-    # == Constants
-    RESUME_PATH = T.let(Rails.root.join("config/resume.yml"), Pathname)
-
     # == Configuration
     description "Kai's JSON Resume (https://jsonresume.org/)."
 
@@ -15,8 +12,7 @@ module Queries
     # == Resolver
     sig { returns(T::Hash[String, T.untyped]) }
     def resolve
-      mtime = File.mtime(RESUME_PATH).to_i
-      Rails.cache.fetch("resume/#{mtime}") { Psych.load_file(RESUME_PATH) }
+      ::Resume.load
     end
   end
 end

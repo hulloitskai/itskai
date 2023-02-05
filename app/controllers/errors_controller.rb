@@ -1,10 +1,9 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 class ErrorsController < ApplicationController
   # == Actions ==
   # GET /404
-  sig { void }
   def not_found
     error(
       status: :not_found,
@@ -14,7 +13,6 @@ class ErrorsController < ApplicationController
   end
 
   # GET /500
-  sig { void }
   def internal_server_error
     error(
       status: :internal_server_error,
@@ -26,7 +24,6 @@ class ErrorsController < ApplicationController
   end
 
   # GET /422
-  sig { void }
   def unprocessable_entity
     error(
       status: :unprocessable_entity,
@@ -38,7 +35,6 @@ class ErrorsController < ApplicationController
   end
 
   # GET /401
-  sig { void }
   def unauthorized
     error(
       status: :unauthorized,
