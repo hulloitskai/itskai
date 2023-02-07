@@ -108,3 +108,7 @@ GraphQL/FieldDescription:
   Enabled: false
 GraphQL/ObjectDescription:
   Enabled: false
+GraphQL/ExtractType:
+  Enabled: false
+GraphQL/ExtractInputType:
+  Enabled: false

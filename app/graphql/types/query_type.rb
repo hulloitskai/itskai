@@ -1,4 +1,3 @@
-# rubocop:disable GraphQL/ExtractType
 # typed: true
 # frozen_string_literal: true
 
