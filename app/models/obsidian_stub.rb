@@ -14,7 +14,6 @@
 #
 #  index_obsidian_stubs_on_name  (name) UNIQUE
 #
-
 class ObsidianStub < ApplicationRecord
   # == Concerns
   include Identifiable

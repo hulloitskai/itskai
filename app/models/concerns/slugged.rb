@@ -5,10 +5,12 @@ module Slugged
   extend T::Sig
   extend T::Helpers
 
+  # == Modules
+  extend ActiveSupport::Concern
+
+  # == Configuration
   abstract!
   requires_ancestor { ApplicationRecord }
-
-  extend ActiveSupport::Concern
 
   included do
     T.bind(self, T.all(T.class_of(ApplicationRecord), ClassMethods))

@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 # == Schema Information
@@ -21,13 +21,12 @@
 #  index_eventqr_events_on_inviter_email  (inviter_email)
 #  index_eventqr_events_on_uid            (uid) UNIQUE
 #
-
 module Eventqr
   class Event < ApplicationRecord
     # == Concerns
     include Identifiable
+    include FriendlyIdentifiable
     include Slugged
-    include FriendlyIdable
 
     # == Configuration
     self.generated_slug_length = 12

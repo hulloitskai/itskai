@@ -1,14 +1,15 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module Identifiable
   extend T::Sig
   extend T::Helpers
 
-  abstract!
-  requires_ancestor { ApplicationRecord }
-
+  # == Modules
   extend ActiveSupport::Concern
+
+  # == Configuration
+  requires_ancestor { ApplicationRecord }
 
   # == Attributes
   sig { returns(String) }

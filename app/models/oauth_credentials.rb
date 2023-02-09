@@ -18,7 +18,6 @@
 #  index_oauth_credentials_on_provider  (provider) UNIQUE
 #  index_oauth_credentials_on_uid       (uid) UNIQUE
 #
-
 class OAuthCredentials < ApplicationRecord
   # == Validations
   validates :provider, presence: true, uniqueness: true

@@ -5,10 +5,12 @@ module ObsidianEntry
   extend T::Sig
   extend T::Helpers
 
+  # == Modules
+  extend ActiveSupport::Concern
+
+  # == Configuration
   abstract!
   requires_ancestor { ApplicationRecord }
-
-  extend ActiveSupport::Concern
 
   included do
     T.bind(self, T.class_of(ApplicationRecord))
@@ -22,6 +24,5 @@ module ObsidianEntry
 
   # == Methods
   sig { abstract.returns(String) }
-  def title
-  end
+  def title; end
 end

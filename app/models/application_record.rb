@@ -1,9 +1,11 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 class ApplicationRecord < ActiveRecord::Base
   extend T::Sig
+  extend T::Helpers
 
+  # == Configuration
   primary_abstract_class
 
   # == Concerns

@@ -32,12 +32,11 @@
 #  index_obsidian_notes_on_synchronized_at  (synchronized_at)
 #  index_obsidian_notes_on_tags             (tags)
 #
-
 class ObsidianNote < ApplicationRecord
   # == Concerns
   include Identifiable
+  include FriendlyIdentifiable
   include Slugged
-  include FriendlyIdable
   include ObsidianEntry
 
   # == Configuration

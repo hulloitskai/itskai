@@ -1,6 +1,6 @@
 # typed: strong
 
-module FriendlyIdable
+module FriendlyIdentifiable
   include FriendlyId::Model
   include FriendlyId::Base
   include FriendlyId::Reserved

@@ -1,13 +1,15 @@
 # typed: true
 # frozen_string_literal: true
 
-module FriendlyIdable
+module FriendlyIdentifiable
   extend T::Sig
   extend T::Helpers
 
-  requires_ancestor { ApplicationRecord }
-
+  # == Modules
   extend ActiveSupport::Concern
+
+  # == Configuration
+  requires_ancestor { ApplicationRecord }
 
   included do
     extend FriendlyId unless respond_to?(:friendly)

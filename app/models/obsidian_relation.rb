@@ -20,7 +20,6 @@
 #
 #  fk_rails_...  (from_id => obsidian_notes.id)
 #
-
 class ObsidianRelation < ApplicationRecord
   # == Concerns
   include Identifiable

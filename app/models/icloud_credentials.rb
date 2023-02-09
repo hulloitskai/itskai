@@ -17,7 +17,6 @@
 #
 #  index_icloud_credentials_on_email  (email) UNIQUE
 #
-
 class ICloudCredentials < ApplicationRecord
   # == Configuration
   self.filter_attributes += %i[password cookies session]
