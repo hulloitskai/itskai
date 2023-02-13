@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 class GraphQLChannel < ApplicationCable::Channel
@@ -135,6 +135,6 @@ class GraphQLChannel < ApplicationCable::Channel
     return "" if data.blank?
 
     data = JSON.parse(data) if data.is_a?(String)
-    PP.pp(data, "")
+    PP.pp(data, +"")
   end
 end

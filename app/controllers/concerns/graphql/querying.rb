@@ -21,7 +21,13 @@ module GraphQL::Querying
   end
   def query(name, variables = {})
     context = { current_user: }
-    variables.deep_transform_keys! { |key| key.to_s.camelize(:lower) }
+    variables.deep_transform_keys! do |key|
+      if key.is_a?(Symbol)
+        key.to_s.camelize(:lower)
+      else
+        key
+      end
+    end
     Schema.queries!.execute(name, variables:, context:)
   end
 

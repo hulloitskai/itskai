@@ -2,7 +2,16 @@
 # frozen_string_literal: true
 
 class ErrorsController < ApplicationController
-  # == Actions ==
+  # == Initialization
+  def initialize(...)
+    super
+    @exceptions_app = T.let(
+      ActionDispatch::PublicExceptions.new(Rails.public_path),
+      ActionDispatch::PublicExceptions,
+    )
+  end
+
+  # == Actions
   # GET /404
   def not_found
     error(
@@ -47,6 +56,9 @@ class ErrorsController < ApplicationController
   private
 
   # == Helpers
+  sig { returns(ActionDispatch::PublicExceptions) }
+  attr_reader :exceptions_app
+
   sig do
     params(
       status: Symbol,
@@ -57,10 +69,15 @@ class ErrorsController < ApplicationController
   def error(status:, title:, description:)
     data = query!("ErrorPageQuery")
     code = Rack::Utils.status_code(status)
-    render(
-      inertia: "ErrorPage",
-      props: { data:, title:, description:, code: },
-      status:,
-    )
+    if request.format == :html
+      render(
+        inertia: "ErrorPage",
+        props: { data:, title:, description:, code: },
+        status:,
+      )
+    else
+      message = Rack::Utils::HTTP_STATUS_CODES[code]
+      render(plain: message, status:)
+    end
   end
 end
