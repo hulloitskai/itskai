@@ -15,7 +15,7 @@ const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => (
         <Text size="sm" color="dimmed">
           Create an account on{" "}
           <Text color="dark.4" weight={600} span>
-            Popshop
+            It&apos;s Kai!
           </Text>
         </Text>
       </Stack>

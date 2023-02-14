@@ -80,7 +80,7 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
         />
         <PasswordWithStrengthCheckInput
           label="Password"
-          placeholder="password"
+          placeholder="potato-123"
           required
           onStrengthCheck={setPasswordStrength}
           {...getInputProps("password")}

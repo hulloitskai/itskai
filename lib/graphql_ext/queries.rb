@@ -234,6 +234,17 @@ class GraphQL::Queries::DefinitionsVisitor < GraphQL::Language::Visitor
 
   sig do
     override.params(
+      node: Nodes::Field,
+      parent: Nodes::AbstractNode,
+    ).void
+  end
+  def on_field(node, parent)
+    add_typename_to_selections(node) if node.selections.present?
+    super
+  end
+
+  sig do
+    override.params(
       node: Nodes::FragmentDefinition,
       parent: Nodes::AbstractNode,
     ).void
@@ -241,6 +252,15 @@ class GraphQL::Queries::DefinitionsVisitor < GraphQL::Language::Visitor
   def on_fragment_definition(node, parent)
     @definitions << node
     super
+  end
+
+  private
+
+  sig { params(field: Nodes::Field).void }
+  def add_typename_to_selections(field)
+    unless field.selections.any? { |field| field.name == "__typename" }
+      field.selections << Nodes::Field.new(name: "__typename")
+    end
   end
 end
 
