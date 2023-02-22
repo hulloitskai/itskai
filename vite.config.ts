@@ -52,6 +52,7 @@ if (process.env.VITE_VISUALIZE) {
 export default defineConfig({
   clearScreen: false,
   build: {
+    emptyOutDir: true,
     sourcemap: true,
   },
   ssr: {
