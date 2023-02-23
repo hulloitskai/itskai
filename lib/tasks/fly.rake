@@ -4,16 +4,16 @@
 
 namespace :fly do
   task :console do
-    remote_sh "app/bin/rails console"
+    remote_sh("app/bin/rails console")
   end
 
   task :db do
-    remote_sh "app/bin/rails db"
+    remote_sh("app/bin/rails db")
   end
 
   private
 
   def remote_sh(command)
-    sh("fly ssh console -C \"#{command}\"")
+    system("fly", "ssh", "console", "-C", command)
   end
 end
