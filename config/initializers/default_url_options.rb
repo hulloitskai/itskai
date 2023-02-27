@@ -20,5 +20,6 @@ Rails.application.configure do
         }
       end
     end
+    config.action_mailer.default_url_options = routes.default_url_options
   end
 end

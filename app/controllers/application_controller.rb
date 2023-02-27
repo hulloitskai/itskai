@@ -65,6 +65,11 @@ class ApplicationController
   private
 
   # == Helpers ==
+  sig { returns(User) }
+  def current_user!
+    authenticate_user!
+  end
+
   sig { returns(T::Boolean) }
   def storable_location?
     request.get? && is_navigational_format? &&

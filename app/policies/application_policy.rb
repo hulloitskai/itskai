@@ -14,9 +14,7 @@ class ApplicationPolicy < ActionPolicy::Base
   authorize :user, optional: true
 
   sig { returns(T.nilable(User)) }
-  def user
-    super
-  end
+  def user = super
 
   # == Pre-checks
   pre_check :allow_owner!
