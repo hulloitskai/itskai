@@ -3,7 +3,9 @@ import type { ReactNode, ComponentType } from "react";
 import { usePage as _usePage } from "@inertiajs/react";
 import type { Page, Errors, ErrorBag } from "@inertiajs/core";
 
-export const pagesFromFiles = <T>(
+import PageContainer from "~/components/PageContainer";
+
+export const pagesFromFiles = <T,>(
   files: Record<string, T>,
 ): Record<string, T> => {
   return mapKeys(files, (file, path) => {
@@ -35,11 +37,22 @@ export const usePageErrors = (): Errors & ErrorBag => {
   return props.errors;
 };
 
-export const usePage = <PageProps>(): Page<PageProps> => {
+export const usePage = <PageProps,>(): Page<PageProps> => {
   return _usePage() as Page<PageProps>;
 };
 
-export const usePageProps = <PageProps>(): PageProps & SharedPageProps => {
+export const usePageProps = <PageProps,>(): PageProps & SharedPageProps => {
   const { props } = usePage<Page<SharedPageProps & PageProps>>();
   return omit(props, "errors") as PageProps & SharedPageProps;
+};
+
+export const wrapPage = <P,>(page: PageComponent<P>): PageComponent<P> => {
+  const wrappedPage: PageComponent<P> = (pageProps: P) => (
+    <PageContainer {...{ page, pageProps }} />
+  );
+  wrappedPage.layout = page.layout;
+  wrappedPage.displayName = page.displayName
+    ? `Wrapped${page.displayName}`
+    : undefined;
+  return wrappedPage;
 };
