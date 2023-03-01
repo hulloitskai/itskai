@@ -1,11 +1,11 @@
 # Declare arguments, with default values
 ARG DISTRO_NAME=bullseye
 ARG RUBY_VERSION=3.2.0
-ARG PYTHON_VERSION=3
-ARG NODE_VERSION=18
+ARG PYTHON_MAJOR_VERSION=3
+ARG NODE_MAJOR_VERSION=18
 ARG YARN_VERSION=1.22.19
-ARG POSTGRES_VERSION=14
-ARG OVERMIND_VERSION=2.3.0
+ARG POSTGRES_MAJOR_VERSION=14
+ARG OVERMIND_VERSION=2.4.0
 
 # Configure base image
 FROM ruby:$RUBY_VERSION-slim-$DISTRO_NAME
@@ -15,69 +15,69 @@ FROM ruby:$RUBY_VERSION-slim-$DISTRO_NAME
 # See: https://github.com/moby/moby/issues/34129
 ARG DISTRO_NAME
 ARG RUBY_VERSION
-ARG PYTHON_VERSION
-ARG NODE_VERSION
+ARG PYTHON_MAJOR_VERSION
+ARG NODE_MAJOR_VERSION
 ARG YARN_VERSION
-ARG POSTGRES_VERSION
+ARG POSTGRES_MAJOR_VERSION
 ARG OVERMIND_VERSION
 
-# Install required programs
+# Install curl
 RUN apt-get update -qq \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends curl \
-    && apt-get clean \
-    && rm -rf /var/cache/apt/archives/* \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && truncate -s 0 /var/log/*log
+  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends curl \
+  && apt-get clean \
+  && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+  && truncate -s 0 /var/log/*log
 
 # Install Bundler
 ENV LANG=C.UTF-8 BUNDLE_JOBS=4 BUNDLE_RETRY=3 BUNDLE_APP_CONFIG=.bundle
 RUN gem update --system && gem install bundler
 
 # Install NodeJS and Yarn
-RUN curl -sL https://deb.nodesource.com/setup_$NODE_VERSION.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_$NODE_MAJOR_VERSION.x | bash -
 RUN apt-get update -qq \
-    && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends nodejs \
-    && apt-get clean \
-    && rm -rf /var/cache/apt/archives/* \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && truncate -s 0 /var/log/*log
+  && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends nodejs \
+  && apt-get clean \
+  && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+  && truncate -s 0 /var/log/*log
 RUN npm install -g yarn@$YARN_VERSION
 
 # Install Python and pip
 RUN apt-get update -qq \
-    && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends python${PYTHON_VERSION}-dev python${PYTHON_VERSION}-pip \
-    && apt-get clean \
-    && rm -rf /var/cache/apt/archives/* \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && truncate -s 0 /var/log/*log
+  && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends python${PYTHON_MAJOR_VERSION}-dev python${PYTHON_MAJOR_VERSION}-pip \
+  && apt-get clean \
+  && rm -rf /var/cache/apt/archives/* rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+  && truncate -s 0 /var/log/*log
 
 # Install Overmind
-RUN curl -Lo /usr/local/bin/overmind.gz https://github.com/DarthSim/overmind/releases/download/v$OVERMIND_VERSION/overmind-v$OVERMIND_VERSION-linux-amd64.gz \
-    && gzip -d /usr/local/bin/overmind.gz \
-    && chmod u+x /usr/local/bin/overmind
+RUN apt-get update -qq \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends tmux \
+  && apt-get clean \
+  && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+  && truncate -s 0 /var/log/*log \
+  && curl -Lo /usr/bin/overmind.gz https://github.com/DarthSim/overmind/releases/download/v$OVERMIND_VERSION/overmind-v$OVERMIND_VERSION-linux-amd64.gz \
+  && gzip -d /usr/bin/overmind.gz \
+  && chmod u+x /usr/bin/overmind
 
 # Install Postgres client
 RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
-    && echo deb http://apt.postgresql.org/pub/repos/apt/ $DISTRO_NAME-pgdg main $POSTGRES_VERSION > /etc/apt/sources.list.d/pgdg.list
+  && echo deb http://apt.postgresql.org/pub/repos/apt/ $DISTRO_NAME-pgdg main $POSTGRES_MAJOR_VERSION > /etc/apt/sources.list.d/pgdg.list
 RUN apt-get update -qq \
-    && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends libpq-dev postgresql-client-$POSTGRES_VERSION \
-    && apt-get clean \
-    && rm -rf /var/cache/apt/archives/* \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && truncate -s 0 /var/log/*log
+  && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends libpq-dev postgresql-client-$POSTGRES_MAJOR_VERSION \
+  && apt-get clean \
+  && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+  && truncate -s 0 /var/log/*log
 
 # Install programs
 COPY Aptfile /tmp/Aptfile
 RUN apt-get update -qq \
-    && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends $(grep -Ev '^\s*#' /tmp/Aptfile | xargs) \
-    && apt-get clean \
-    && rm -rf /var/cache/apt/archives/* \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && truncate -s 0 /var/log/*log
+  && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends $(grep -Ev '^\s*#' /tmp/Aptfile | xargs) \
+  && apt-get clean \
+  && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+  && truncate -s 0 /var/log/*log
 
 # Install Starship
 COPY starship.toml /root/.config/starship.toml
@@ -86,15 +86,13 @@ RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
 # Configure shell
 COPY .zshrc /tmp/.zshrc
 RUN echo >> ~/.zshrc \
-    && cat /tmp/.zshrc >> ~/.zshrc \
-    && chsh -s /bin/zsh \
-    && rm -rf /tmp/*
+  && cat /tmp/.zshrc >> ~/.zshrc \
+  && chsh -s /bin/zsh \
+  && rm -rf /tmp/*
 
 # Configure workdir and environment
 WORKDIR /app
-ENV BUNDLE_WITHOUT="development test" \
-    RAILS_ENV=production RAILS_LOG_TO_STDOUT=true \
-    NODE_ENV=$RAILS_ENV
+ENV BUNDLE_WITHOUT="development test" RAILS_ENV=production RAILS_LOG_TO_STDOUT=true NODE_ENV=$RAILS_ENV
 
 # Copy dependency lists
 COPY Gemfile Gemfile.lock package.json yarn.lock requirements.txt ./
@@ -115,7 +113,8 @@ RUN bundle exec rails assets:precompile RAILS_SECRET_KEY_BASE=dummy
 EXPOSE 3000
 
 # Configure healthcheck
-HEALTHCHECK --interval=10s --timeout=1s --start-period=10s --retries=3 CMD curl -f http://127.0.0.1:3000/status || exit 1
+HEALTHCHECK --interval=10s --timeout=1s --start-period=10s --retries=3 \
+  CMD curl -f http://127.0.0.1:3000/status || exit 1
 
 # Set command
-CMD [ "/app/bin/run" ]
+CMD ["/app/bin/run"]

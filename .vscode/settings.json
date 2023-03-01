@@ -31,5 +31,14 @@
   },
   "[ruby]": {
     "editor.defaultFormatter": "Shopify.ruby-lsp"
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[dotenv]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[ignore]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
