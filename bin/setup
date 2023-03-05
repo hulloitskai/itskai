@@ -43,8 +43,10 @@ FileUtils.chdir APP_ROOT do
   system! "bin/rails db:prepare"
 
   puts "\n=> Removing old logs and tempfiles"
-  system! "bin/rails log:clear tmp:clear" && puts "Files removed"
+  system! "bin/rails log:clear tmp:clear"
+  puts "Files removed"
 
   puts "\n=> Restarting application server"
-  system! "bin/rails restart" && puts "Server restarted"
+  system! "bin/rails restart"
+  puts "Server restarted"
 end
