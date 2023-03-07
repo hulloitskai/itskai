@@ -33,7 +33,6 @@
 #  index_obsidian_notes_on_tags             (tags)
 #
 class ObsidianNote < ApplicationRecord
-  # == Concerns
   include Identifiable
   include FriendlyIdentifiable
   include Slugged

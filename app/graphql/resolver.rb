@@ -4,12 +4,11 @@
 module Resolver
   extend T::Sig
   extend T::Helpers
+  include Routing
 
+  # == Annotations
   abstract!
   requires_ancestor { Kernel }
-
-  # == Concerns
-  include Routing
 
   # == Methods
   sig { abstract.returns(GraphQL::Query::Context) }

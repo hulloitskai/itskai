@@ -18,12 +18,6 @@ module Types
     field :tags, [String], null: false
     field :url, String, null: false
 
-    # == Methods
-    sig { returns(ObsidianNote) }
-    def object
-      super
-    end
-
     # == Resolvers
     sig { returns(T::Array[T.all(ApplicationRecord, ObsidianEntry)]) }
     def references
@@ -63,6 +57,17 @@ module Types
       dataloader
         .with(Sources::RecordById, ObsidianStub)
         .request_all(unresolved_references.ids)
+    end
+  end
+end
+
+# == Sorbet
+module Types
+  class ObsidianNoteType
+    # == Annotations
+    sig { returns(ObsidianNote) }
+    def object
+      super
     end
   end
 end

@@ -5,7 +5,6 @@ module ActionPolicy::GraphQL::Fields
   extend T::Helpers
 
   module ClassMethods
-    # == Modules
     include GraphQL::Schema::Member::GraphQLTypeNames
 
     # == Methods
@@ -33,5 +32,6 @@ module ActionPolicy::GraphQL::Fields
     end
   end
 
+  # == Annotations
   mixes_in_class_methods ClassMethods
 end

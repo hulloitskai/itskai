@@ -4,12 +4,10 @@
 class ApplicationController < ActionController::Base
   extend T::Sig
   extend T::Helpers
+  include GraphQL::Querying
 
   # == Filters
   around_action :with_error_context
-
-  # == Modules
-  include GraphQL::Querying
 
   # == Inertia
   inertia_share do
@@ -55,7 +53,7 @@ class ApplicationController < ActionController::Base
   end
 end
 
-# == Devise ==
+# == Devise
 class ApplicationController
   extend T::Sig
 

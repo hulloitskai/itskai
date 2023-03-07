@@ -5,6 +5,7 @@ module GraphQL::Querying
   extend T::Sig
   extend T::Helpers
 
+  # == Annotations
   abstract!
   requires_ancestor { Kernel }
 

@@ -4,12 +4,10 @@
 class ICloud
   class Client
     extend T::Sig
+    include Logging
 
     # == Constants
     PyICloud = T.let(PyCall.import_module("icloud").ICloud, T.untyped)
-
-    # == Concerns
-    include Logging
 
     sig { params(credentials: ICloudCredentials).void }
     def initialize(credentials:)

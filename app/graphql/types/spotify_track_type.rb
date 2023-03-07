@@ -10,16 +10,21 @@ module Types
     field :name, String, null: false
     field :url, String, null: false
 
-    # == Methods
-    sig { returns(RSpotify::Track) }
-    def object
-      super
-    end
-
     # == Resolvers
     sig { returns(String) }
     def url
       object.external_urls.fetch("spotify")
+    end
+  end
+end
+
+# == Sorbet
+module Types
+  class SpotifyTrackType
+    # == Annotations
+    sig { returns(RSpotify::Track) }
+    def object
+      super
     end
   end
 end

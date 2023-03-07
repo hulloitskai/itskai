@@ -2,6 +2,35 @@
 # frozen_string_literal: true
 
 class Notifi < ApplicationService
+  class << self
+    # == Methods: Service
+    sig { override.returns(T::Boolean) }
+    def enabled?
+      return !!@enabled if defined?(@enabled)
+      @enabled = T.let(@enabled, T.nilable(T::Boolean))
+      @enabled = T.let(super, T::Boolean) && credentials.present?
+    end
+
+    # == Methods
+    sig { returns(T.nilable(String)) }
+    def credentials
+      return @credentials if defined?(@credentials)
+      @credentials = T.let(@credentials, T.nilable(String))
+      @credentials = ENV.fetch("NOTIFI_CREDENTIALS")
+    end
+
+    sig do
+      params(
+        title: String,
+        message: T.nilable(String),
+        link: T.nilable(String),
+        image_url: T.nilable(String),
+      ).void
+    end
+    def notify(title:, message: nil, link: nil, image_url: nil) =
+      instance.notify(title:, message:, link:, image_url:)
+  end
+
   # == Methods
   sig do
     params(
@@ -34,36 +63,5 @@ class Notifi < ApplicationService
   sig { returns(String) }
   def credentials
     T.must(self.class.credentials)
-  end
-end
-
-class Notifi
-  class << self
-    # == Methods: Service
-    sig { override.returns(T::Boolean) }
-    def enabled?
-      return !!@enabled if defined?(@enabled)
-      @enabled = T.let(@enabled, T.nilable(T::Boolean))
-      @enabled = T.let(super, T::Boolean) && credentials.present?
-    end
-
-    # == Methods
-    sig { returns(T.nilable(String)) }
-    def credentials
-      return @credentials if defined?(@credentials)
-      @credentials = T.let(@credentials, T.nilable(String))
-      @credentials = ENV.fetch("NOTIFI_CREDENTIALS")
-    end
-
-    sig do
-      params(
-        title: String,
-        message: T.nilable(String),
-        link: T.nilable(String),
-        image_url: T.nilable(String),
-      ).void
-    end
-    def notify(title:, message: nil, link: nil, image_url: nil) =
-      instance.notify(title:, message:, link:, image_url:)
   end
 end

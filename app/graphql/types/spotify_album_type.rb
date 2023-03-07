@@ -9,12 +9,6 @@ module Types
     field :name, String, null: false
     field :url, String, null: false
 
-    # == Methods
-    sig { returns(RSpotify::Album) }
-    def object
-      super
-    end
-
     # == Resolvers
     sig { returns(T.nilable(String)) }
     def image_url
@@ -27,6 +21,17 @@ module Types
     sig { returns(String) }
     def url
       object.external_urls.fetch("spotify")
+    end
+  end
+end
+
+# == Sorbet
+module Types
+  class SpotifyAlbumType
+    # == Annotations
+    sig { returns(RSpotify::Album) }
+    def object
+      super
     end
   end
 end

@@ -11,8 +11,13 @@ module Types
     field :name, String, null: false
     field :refresh_token, String
     field :uid, String, null: false
+  end
+end
 
-    # == Methods
+# == Sorbet
+module Types
+  class OAuthCredentialsType
+    # == Annotations
     sig { returns(OAuthCredentials) }
     def object
       super

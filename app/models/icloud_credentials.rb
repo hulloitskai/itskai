@@ -18,11 +18,10 @@
 #  index_icloud_credentials_on_email  (email) UNIQUE
 #
 class ICloudCredentials < ApplicationRecord
+  include Identifiable
+
   # == Configuration
   self.filter_attributes += %i[password cookies session]
-
-  # == Concerns
-  include Identifiable
 
   # == Attributes
   sig { returns(ActiveSupport::TimeWithZone) }

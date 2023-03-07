@@ -6,8 +6,13 @@ module Types
     # == Fields
     field :field, String, null: false
     field :message, String, null: false
+  end
+end
 
-    # == Methods
+# == Sorbet
+module Types
+  class InputFieldErrorType
+    # == Annotations
     sig { override.returns(InputFieldError) }
     def object
       super

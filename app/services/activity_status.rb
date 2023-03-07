@@ -2,6 +2,14 @@
 # frozen_string_literal: true
 
 class ActivityStatus < ApplicationService
+  class << self
+    sig { params(status: String).void }
+    def update(status) = instance.update(status)
+
+    sig { returns(T.nilable(String)) }
+    def current = instance.current
+  end
+
   sig { void }
   def initialize
     super
@@ -50,11 +58,4 @@ class ActivityStatus < ApplicationService
 end
 
 class ActivityStatus
-  class << self
-    sig { params(status: String).void }
-    def update(status) = instance.update(status)
-
-    sig { returns(T.nilable(String)) }
-    def current = instance.current
-  end
 end

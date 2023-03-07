@@ -4,8 +4,6 @@
 class CurrentlyPlaying
   class SubscriptionsTrigger
     extend T::Sig
-
-    # == Concerns
     include Logging
 
     # == Initialization

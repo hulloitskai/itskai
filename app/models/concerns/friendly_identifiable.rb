@@ -4,11 +4,9 @@
 module FriendlyIdentifiable
   extend T::Sig
   extend T::Helpers
-
-  # == Modules
   extend ActiveSupport::Concern
 
-  # == Configuration
+  # == Annotations
   requires_ancestor { ApplicationRecord }
 
   included do

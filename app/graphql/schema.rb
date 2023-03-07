@@ -26,13 +26,11 @@ class Schema < GraphQL::Schema
   # == Resolvers
   # Resolve unions and interfaces.
   T::Sig::WithoutRuntime.sig do
-    override
-      .params(
-        abstract_type: T.untyped,
-        object: T.untyped,
-        context: GraphQL::Query::Context,
-      )
-      .returns(String)
+    override.params(
+      abstract_type: T.untyped,
+      object: T.untyped,
+      context: GraphQL::Query::Context,
+    ).returns(String)
   end
   def self.resolve_type(abstract_type, object, context)
     if object.is_a?(ApplicationRecord)
@@ -46,12 +44,11 @@ class Schema < GraphQL::Schema
 
   # Return a string UUID for `object`.
   T::Sig::WithoutRuntime.sig do
-    params(
+    override.params(
       object: T.all(::Object, GlobalID::Identification),
       type_definition: T.untyped,
       context: GraphQL::Query::Context,
-    )
-      .returns(String)
+    ).returns(String)
   end
   def self.id_from_object(object, type_definition, context)
     object.to_gid.to_s
@@ -59,7 +56,10 @@ class Schema < GraphQL::Schema
 
   # Given a string UUID, find the object.
   T::Sig::WithoutRuntime.sig do
-    params(id: String, context: GraphQL::Query::Context).returns(T.untyped)
+    override.params(
+      id: String,
+      context: GraphQL::Query::Context,
+    ).returns(T.untyped)
   end
   def self.object_from_id(id, context)
     context.dataloader.with(Sources::RecordByGid).load(id)
@@ -68,8 +68,10 @@ class Schema < GraphQL::Schema
   # == Callbacks
   # GraphQL-Ruby calls this when something goes wrong while running a query.
   T::Sig::WithoutRuntime.sig do
-    params(error: Exception, context: GraphQL::Query::Context)
-      .returns(T.untyped)
+    override.params(
+      error: Exception,
+      context: GraphQL::Query::Context,
+    ).returns(T.untyped)
   end
   def self.type_error(error, context)
     raise error

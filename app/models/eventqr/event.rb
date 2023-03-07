@@ -23,7 +23,6 @@
 #
 module Eventqr
   class Event < ApplicationRecord
-    # == Concerns
     include Identifiable
     include FriendlyIdentifiable
     include Slugged

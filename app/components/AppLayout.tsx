@@ -61,7 +61,7 @@ const AppLayout: FC<AppLayoutProps> = ({
           },
           size,
         });
-        const marginSize = `clamp(0px, calc((100vw - ${breakpoint}px - 32px) / 2), ${spacing.md}px)`;
+        const marginSize = `clamp(0px, calc((100vw - ${breakpoint}px) / 2 - ${spacing.md}px), ${spacing.md}px)`;
         content = (
           <MediaQuery
             largerThan={breakpoint}

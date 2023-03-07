@@ -2,6 +2,43 @@
 # frozen_string_literal: true
 
 class Spotify < ApplicationService
+  class << self
+    # == Methods: Service
+    sig { override.returns(T::Boolean) }
+    def enabled?
+      return !!@enabled if defined?(@enabled)
+      @enabled = T.let(@enabled, T.nilable(T::Boolean))
+      @enabled = scoped do
+        break false unless super
+        client_id.present? && client_secret.present?
+      end
+    end
+
+    # == Methods
+    sig { returns(T.nilable(String)) }
+    def client_id
+      return @client_id if defined?(@client_id)
+      @client_id = T.let(@client_id, T.nilable(String))
+      @client_id = ENV["SPOTIFY_CLIENT_ID"]
+    end
+
+    sig { returns(T.nilable(String)) }
+    def client_secret
+      return @client_secret if defined?(@client_secret)
+      @client_secret = T.let(@client_secret, T.nilable(String))
+      @client_secret = ENV["SPOTIFY_CLIENT_SECRET"]
+    end
+
+    sig { returns(OAuthCredentials) }
+    def credentials = instance.credentials
+
+    sig { returns(RSpotify::User) }
+    def user = instance.user
+
+    sig { returns(T.nilable(RSpotify::Track)) }
+    def currently_playing = instance.currently_playing
+  end
+
   # == Initialization
   sig { void }
   def initialize
@@ -91,44 +128,5 @@ class Spotify < ApplicationService
     else
       raise
     end
-  end
-end
-
-class Spotify
-  class << self
-    # == Methods: Service
-    sig { override.returns(T::Boolean) }
-    def enabled?
-      return !!@enabled if defined?(@enabled)
-      @enabled = T.let(@enabled, T.nilable(T::Boolean))
-      @enabled = scoped do
-        break false unless super
-        client_id.present? && client_secret.present?
-      end
-    end
-
-    # == Methods
-    sig { returns(T.nilable(String)) }
-    def client_id
-      return @client_id if defined?(@client_id)
-      @client_id = T.let(@client_id, T.nilable(String))
-      @client_id = ENV["SPOTIFY_CLIENT_ID"]
-    end
-
-    sig { returns(T.nilable(String)) }
-    def client_secret
-      return @client_secret if defined?(@client_secret)
-      @client_secret = T.let(@client_secret, T.nilable(String))
-      @client_secret = ENV["SPOTIFY_CLIENT_SECRET"]
-    end
-
-    sig { returns(OAuthCredentials) }
-    def credentials = instance.credentials
-
-    sig { returns(RSpotify::User) }
-    def user = instance.user
-
-    sig { returns(T.nilable(RSpotify::Track)) }
-    def currently_playing = instance.currently_playing
   end
 end

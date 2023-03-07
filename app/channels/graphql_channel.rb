@@ -2,11 +2,9 @@
 # frozen_string_literal: true
 
 class GraphQLChannel < ApplicationCable::Channel
-  extend T::Sig
-
-  # == Concerns
   include GraphQL::Helpers
 
+  # == Initialization
   sig do
     params(
       connection: ApplicationCable::Connection,
@@ -19,6 +17,7 @@ class GraphQLChannel < ApplicationCable::Channel
     @subscription_ids = T.let([], T::Array[String])
   end
 
+  # == Action
   # Type signature must not have a runtime in order not to interfere with
   # ActionCable::Channel::Base's arity checks.
   T::Sig::WithoutRuntime.sig do
@@ -55,6 +54,7 @@ class GraphQLChannel < ApplicationCable::Channel
 
   private
 
+  # == Helpers
   sig { void }
   def subscribed
     @subscription_ids = []

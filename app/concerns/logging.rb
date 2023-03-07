@@ -4,10 +4,10 @@
 module Logging
   extend T::Sig
   extend T::Helpers
-
-  requires_ancestor { Kernel }
-
   extend ActiveSupport::Concern
+
+  # == Annotations
+  requires_ancestor { Kernel }
 
   class_methods do
     extend T::Sig
@@ -16,11 +16,13 @@ module Logging
     def logger = Rails.logger
   end
 
+  # == Methods
   sig { returns(ActiveSupport::Logger) }
   def logger = Rails.logger
 
   private
 
+  # == Helpers
   sig { overridable.params(block: T.proc.void).void }
   def tag_logger(&block)
     logger = self.logger

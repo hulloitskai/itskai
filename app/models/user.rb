@@ -30,12 +30,11 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
-  # == Constants
-  MIN_PASSWORD_ENTROPY = T.let(14, Integer)
-
-  # == Concerns
   include Identifiable
   include ::Named
+
+  # == Constants
+  MIN_PASSWORD_ENTROPY = T.let(14, Integer)
 
   # == Attributes
   sig { override.params(value: String).returns(String) }
@@ -106,6 +105,7 @@ end
 
 # == Devise
 class User
+  # == Configuration
   # Others modules are: :lockable, :timeoutable, and :omniauthable.
   devise :database_authenticatable,
          :registerable,
@@ -117,7 +117,6 @@ class User
          :omniauthable,
          reconfirmable: true
 
-  # == Configuration
   self.filter_attributes += %i[
     encrypted_password
     reset_password_token

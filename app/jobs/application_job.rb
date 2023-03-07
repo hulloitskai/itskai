@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 class ApplicationJob < ActiveJob::Base
-  # == Modules
   include GoodJob::ActiveJobExtensions::Concurrency
 
   # == Configuration

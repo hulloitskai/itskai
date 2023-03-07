@@ -11,8 +11,13 @@ module Types
     field :is_owner, Boolean, null: false, method: :owner?
     field :name, String, null: false
     field :unverified_email, String, method: :unconfirmed_email
+  end
+end
 
-    # == Methods
+# == Sorbet
+module Types
+  class UserType
+    # == Annotations
     sig { returns(User) }
     def object
       super

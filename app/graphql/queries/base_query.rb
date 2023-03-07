@@ -6,7 +6,6 @@ module Queries
     extend T::Sig
     extend T::Helpers
 
-    # == Modules
     include ActionPolicy::GraphQL::Behaviour
     include Resolver
 

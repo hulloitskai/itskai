@@ -4,8 +4,6 @@
 class CurrentlyPlaying
   class Poller
     extend T::Sig
-
-    # == Concerns
     include Logging
 
     # == Initialization

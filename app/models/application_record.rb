@@ -2,25 +2,38 @@
 # frozen_string_literal: true
 
 class ApplicationRecord < ActiveRecord::Base
+  class << self
+    extend T::Sig
+
+    private
+
+    # == Helpers
+    sig { params(column_names: T.any(Symbol, String)).void }
+    def requires_columns(*column_names)
+      return unless Rails.server? || Rails.console?
+      Kernel.suppress(ActiveRecord::ConnectionNotEstablished) do
+        missing_columns = column_names.map(&:to_s) - self.column_names
+        if missing_columns.present?
+          subject = if missing_columns.count == 1
+            "column `#{missing_columns.first}'"
+          else
+            missing_columns_sentence =
+              missing_columns.map { |name| "`#{name}'" }.to_sentence
+            "columns #{missing_columns_sentence}"
+          end
+          raise "Missing #{subject} on #{model_name}"
+        end
+      end
+    end
+  end
+
   extend T::Sig
   extend T::Helpers
+  extend Enumerize
+  include Routing
 
   # == Configuration
   primary_abstract_class
-
-  # == Concerns
-  include Routing
-
-  # == Enumerize
-  extend Enumerize
-
-  # == Sorbet
-  # Support runtime type-checking for Sorbet-generated types.
-  PrivateRelation = ActiveRecord::Relation
-  PrivateRelationWhereChain = ActiveRecord::Relation
-  PrivateAssociationRelation = ActiveRecord::AssociationRelation
-  PrivateAssociationRelationWhereChain = ActiveRecord::AssociationRelation
-  PrivateCollectionProxy = ActiveRecord::Associations::CollectionProxy
 
   # == Scopes
   scope :chronological, -> { order(:created_at) }
@@ -72,29 +85,13 @@ class ApplicationRecord < ActiveRecord::Base
   end
 end
 
+# == Sorbet
 class ApplicationRecord
-  class << self
-    extend T::Sig
-
-    private
-
-    # == Helpers
-    sig { params(column_names: T.any(Symbol, String)).void }
-    def requires_columns(*column_names)
-      return unless Rails.server? || Rails.console?
-      Kernel.suppress(ActiveRecord::ConnectionNotEstablished) do
-        missing_columns = column_names.map(&:to_s) - self.column_names
-        if missing_columns.present?
-          subject = if missing_columns.count == 1
-            "column `#{missing_columns.first}'"
-          else
-            missing_columns_sentence =
-              missing_columns.map { |name| "`#{name}'" }.to_sentence
-            "columns #{missing_columns_sentence}"
-          end
-          raise "Missing #{subject} on #{model_name}"
-        end
-      end
-    end
-  end
+  # == Constants
+  # Support runtime type-checking for Sorbet-generated types.
+  PrivateRelation = ActiveRecord::Relation
+  PrivateRelationWhereChain = ActiveRecord::Relation
+  PrivateAssociationRelation = ActiveRecord::AssociationRelation
+  PrivateAssociationRelationWhereChain = ActiveRecord::AssociationRelation
+  PrivateCollectionProxy = ActiveRecord::Associations::CollectionProxy
 end

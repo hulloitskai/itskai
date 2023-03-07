@@ -6,7 +6,6 @@ module Mutations
     extend T::Sig
     extend T::Helpers
 
-    # == Modules
     include ActionPolicy::GraphQL::Behaviour
     include Resolver
 
@@ -17,9 +16,22 @@ module Mutations
     argument_class Types::BaseArgument
     null false
 
-    # == Macros
+    # == Resolver
+    def resolve_with_support(...)
+      ActiveRecord::Base.transaction do
+        result = super
+        result.is_a?(T::Struct) ? result.serialize : result
+      end
+    end
+  end
+end
+
+# == Sorbet
+module Mutations
+  class BaseMutation
+    # == Annotations
     sig do
-      params(
+      override.params(
         args: T.untyped,
         kwargs: T.untyped,
         block: T.nilable(T.proc.bind(Types::BaseField).void),
@@ -27,14 +39,6 @@ module Mutations
     end
     def self.field(*args, **kwargs, &block)
       super
-    end
-
-    # == Resolver
-    def resolve_with_support(...)
-      ActiveRecord::Base.transaction do
-        result = super
-        result.is_a?(T::Struct) ? result.serialize : result
-      end
     end
   end
 end

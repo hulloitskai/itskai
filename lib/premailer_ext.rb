@@ -4,8 +4,10 @@
 module Premailer::Rails::CSSLoaders::NetworkLoader
   extend T::Helpers
 
+  # == Annotations
   requires_ancestor { Kernel }
 
+  # == Methods
   def uri_for_url(url)
     uri = URI(url)
 

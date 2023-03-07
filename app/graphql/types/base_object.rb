@@ -6,13 +6,22 @@ module Types
     extend T::Sig
     extend T::Helpers
 
-    # == Modules
     include ActionPolicy::GraphQL::Behaviour
     include Resolver
 
-    # == Macros
+    # == Configuration
+    field_class Types::BaseField
+    connection_type_class Types::BaseConnection
+    edge_type_class Types::BaseEdge
+  end
+end
+
+# == Sorbet
+module Types
+  class BaseObject
+    # == Annotations
     sig do
-      params(
+      override.params(
         args: T.untyped,
         kwargs: T.untyped,
         block: T.nilable(T.proc.bind(Types::BaseField).void),
@@ -21,10 +30,5 @@ module Types
     def self.field(*args, **kwargs, &block)
       super
     end
-
-    # == Configuration
-    field_class Types::BaseField
-    connection_type_class Types::BaseConnection
-    edge_type_class Types::BaseEdge
   end
 end

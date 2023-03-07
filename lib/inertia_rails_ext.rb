@@ -7,8 +7,10 @@ module InertiaRails
       extend T::Sig
       extend T::Helpers
 
+      # == Annotations
       requires_ancestor { Renderer }
 
+      # == Initialization
       def initialize(...)
         super
         @query = @component + "Query"
@@ -17,6 +19,7 @@ module InertiaRails
 
       private
 
+      # == Helper
       sig { void }
       def set_data_prop
         return unless @controller.respond_to?(:query?, true)

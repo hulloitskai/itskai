@@ -5,8 +5,6 @@ module Types
   module BaseInterface
     extend T::Sig
     extend T::Helpers
-
-    # == Modules
     include GraphQL::Schema::Interface
 
     # == Annotations

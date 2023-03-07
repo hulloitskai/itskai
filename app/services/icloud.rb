@@ -2,6 +2,21 @@
 # frozen_string_literal: true
 
 class ICloud < ApplicationService
+  class << self
+    # == Methods
+    sig { returns(ICloudCredentials) }
+    def credentials = instance.credentials
+
+    sig { returns(ICloud::Client) }
+    def client = instance.client
+
+    sig { returns(ICloud::Drive) }
+    def drive = instance.drive
+
+    sig { params(code: T.nilable(String)).returns(T::Boolean) }
+    def verify_security_code(code) = instance.verify_security_code(code)
+  end
+
   # == Configuration
   config_accessor :credentials_dir, default: Rails.root.join("tmp/icloud")
 
@@ -77,22 +92,5 @@ class ICloud < ApplicationService
         raise "Not authenticated (requires security code)"
       end
     end
-  end
-end
-
-class ICloud
-  class << self
-    # == Methods
-    sig { returns(ICloudCredentials) }
-    def credentials = instance.credentials
-
-    sig { returns(ICloud::Client) }
-    def client = instance.client
-
-    sig { returns(ICloud::Drive) }
-    def drive = instance.drive
-
-    sig { params(code: T.nilable(String)).returns(T::Boolean) }
-    def verify_security_code(code) = instance.verify_security_code(code)
   end
 end

@@ -4,12 +4,10 @@
 module Discardable
   extend T::Sig
   extend T::Helpers
-
-  # == Modules
   extend ActiveSupport::Concern
   include Discard::Model
 
-  # == Configuration
+  # == Annotations
   abstract!
   requires_ancestor { ApplicationRecord }
 

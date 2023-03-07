@@ -4,11 +4,9 @@
 module Slugged
   extend T::Sig
   extend T::Helpers
-
-  # == Modules
   extend ActiveSupport::Concern
 
-  # == Configuration
+  # == Annotations
   abstract!
   requires_ancestor { ApplicationRecord }
 

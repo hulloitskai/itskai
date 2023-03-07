@@ -5,7 +5,6 @@ class ApplicationModel
   extend T::Sig
   extend T::Helpers
 
-  # == Modules
   include ActiveModel::Model
   include ActiveModel::Attributes
   include GlobalID::Identification

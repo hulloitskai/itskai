@@ -6,6 +6,7 @@ module FriendlyId::Slugged
     extend T::Sig
     extend T::Helpers
 
+    # == Annotations
     requires_ancestor { FriendlyId::Base }
     requires_ancestor { FriendlyId::Slugged }
 

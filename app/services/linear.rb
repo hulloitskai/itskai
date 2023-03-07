@@ -2,6 +2,38 @@
 # frozen_string_literal: true
 
 class Linear < ApplicationService
+  class << self
+    # == Methods: Service
+    sig { override.returns(T::Boolean) }
+    def enabled?
+      return !!@enabled if defined?(@enabled)
+      @enabled = T.let(@enabled, T.nilable(T::Boolean))
+      @enabled = T.let(super, T::Boolean) && team_id.present?
+    end
+
+    # == Methods
+    sig { returns(OAuthCredentials) }
+    def credentials = instance.credentials
+
+    sig { returns(T.nilable(String)) }
+    def team_id
+      return @team_id if defined?(@team_id)
+      @team_id = T.let(@team_id, T.nilable(String))
+      @team_id = ENV.fetch("LINEAR_TEAM_ID")
+    end
+
+    sig do
+      params(
+        title: String,
+        description: T.nilable(String),
+      ).returns(T.untyped)
+    end
+    def create_issue(
+      title:,
+      description: nil
+    ) = instance.create_issue(title:, description:)
+  end
+
   # == Initialization
   sig { void }
   def initialize
@@ -119,39 +151,5 @@ class Linear < ApplicationService
       raise response.errors.first
     end
     response.data
-  end
-end
-
-class Linear
-  class << self
-    # == Methods: Service
-    sig { override.returns(T::Boolean) }
-    def enabled?
-      return !!@enabled if defined?(@enabled)
-      @enabled = T.let(@enabled, T.nilable(T::Boolean))
-      @enabled = T.let(super, T::Boolean) && team_id.present?
-    end
-
-    # == Methods
-    sig { returns(OAuthCredentials) }
-    def credentials = instance.credentials
-
-    sig { returns(T.nilable(String)) }
-    def team_id
-      return @team_id if defined?(@team_id)
-      @team_id = T.let(@team_id, T.nilable(String))
-      @team_id = ENV.fetch("LINEAR_TEAM_ID")
-    end
-
-    sig do
-      params(
-        title: String,
-        description: T.nilable(String),
-      ).returns(T.untyped)
-    end
-    def create_issue(
-      title:,
-      description: nil
-    ) = instance.create_issue(title:, description:)
   end
 end

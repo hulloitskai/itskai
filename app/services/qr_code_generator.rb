@@ -2,6 +2,36 @@
 # frozen_string_literal: true
 
 class QrCodeGenerator < ApplicationService
+  class << self
+    # == Methods: Service
+    sig { override.returns(T::Boolean) }
+    def enabled?
+      return !!@enabled if defined?(@enabled)
+      @enabled = T.let(@enabled, T.nilable(T::Boolean))
+      @enabled = T.let(super, T::Boolean) && api_key.present?
+    end
+
+    # == Methods
+    sig { returns(T.nilable(String)) }
+    def api_key
+      return @api_key if defined?(@api_key)
+      @api_key = T.let(@api_key, T.nilable(String))
+      @api_key = ENV.fetch("QR_CODE_GENERATOR_API_KEY")
+    end
+
+    sig do
+      type_parameters(:U)
+        .params(
+          url: String,
+          block: T.proc
+            .params(file: Tempfile)
+            .returns(T.type_parameter(:U)),
+        )
+        .returns(T.type_parameter(:U))
+    end
+    def generate_qr_code(url, &block) = instance.generate_qr_code(url, &block)
+  end
+
   # == Methods
   sig { returns(String) }
   def api_key
@@ -47,37 +77,5 @@ class QrCodeGenerator < ApplicationService
       file.rewind
       yield file
     end
-  end
-end
-
-class QrCodeGenerator
-  class << self
-    # == Methods: Service
-    sig { override.returns(T::Boolean) }
-    def enabled?
-      return !!@enabled if defined?(@enabled)
-      @enabled = T.let(@enabled, T.nilable(T::Boolean))
-      @enabled = T.let(super, T::Boolean) && api_key.present?
-    end
-
-    # == Methods
-    sig { returns(T.nilable(String)) }
-    def api_key
-      return @api_key if defined?(@api_key)
-      @api_key = T.let(@api_key, T.nilable(String))
-      @api_key = ENV.fetch("QR_CODE_GENERATOR_API_KEY")
-    end
-
-    sig do
-      type_parameters(:U)
-        .params(
-          url: String,
-          block: T.proc
-            .params(file: Tempfile)
-            .returns(T.type_parameter(:U)),
-        )
-        .returns(T.type_parameter(:U))
-    end
-    def generate_qr_code(url, &block) = instance.generate_qr_code(url, &block)
   end
 end
