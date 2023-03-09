@@ -11,9 +11,11 @@ module GraphQL::Querying
 
   private
 
+  # == Interface
   sig { abstract.returns(T.nilable(User)) }
   def current_user; end
 
+  # == Helpers
   sig do
     params(
       name: String,

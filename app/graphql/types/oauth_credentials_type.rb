@@ -19,8 +19,6 @@ module Types
   class OAuthCredentialsType
     # == Annotations
     sig { returns(OAuthCredentials) }
-    def object
-      super
-    end
+    def object = super
   end
 end

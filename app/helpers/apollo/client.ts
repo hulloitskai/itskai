@@ -17,10 +17,6 @@ export const createApolloClient = ({
     defaultOptions: {
       watchQuery: {
         notifyOnNetworkStatusChange: true,
-
-        // The first time a browser-side `watchQuery` is run, attempt to load
-        // data from the cache, before making a network request.
-        fetchPolicy: "cache-first",
       },
     },
   });

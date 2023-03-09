@@ -20,7 +20,7 @@ module ObsidianEntry
     validates :name, presence: true
   end
 
-  # == Methods
+  # == Interface
   sig { abstract.returns(String) }
   def title; end
 end

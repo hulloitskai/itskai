@@ -292,8 +292,10 @@ module GraphQL::Queries::ParsedDefinition
   extend T::Sig
   extend T::Helpers
 
+  # == Annotations
   interface!
 
+  # == Interface
   sig { abstract.returns(T::Set[String]) }
   def fragment_references; end
 end

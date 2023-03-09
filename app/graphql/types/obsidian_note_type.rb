@@ -66,8 +66,6 @@ module Types
   class ObsidianNoteType
     # == Annotations
     sig { returns(ObsidianNote) }
-    def object
-      super
-    end
+    def object = super
   end
 end

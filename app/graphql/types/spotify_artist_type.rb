@@ -21,8 +21,6 @@ module Types
   class SpotifyArtistType
     # == Annotations
     sig { returns(RSpotify::Artist) }
-    def object
-      super
-    end
+    def object = super
   end
 end

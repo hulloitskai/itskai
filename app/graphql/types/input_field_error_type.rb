@@ -14,8 +14,6 @@ module Types
   class InputFieldErrorType
     # == Annotations
     sig { override.returns(InputFieldError) }
-    def object
-      super
-    end
+    def object = super
   end
 end

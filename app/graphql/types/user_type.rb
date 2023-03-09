@@ -19,8 +19,6 @@ module Types
   class UserType
     # == Annotations
     sig { returns(User) }
-    def object
-      super
-    end
+    def object = super
   end
 end

@@ -18,10 +18,8 @@ module Mutations
 
     # == Resolver
     def resolve_with_support(...)
-      ActiveRecord::Base.transaction do
-        result = super
-        result.is_a?(T::Struct) ? result.serialize : result
-      end
+      result = super
+      result.is_a?(T::Struct) ? result.serialize : result
     end
   end
 end
@@ -37,8 +35,6 @@ module Mutations
         block: T.nilable(T.proc.bind(Types::BaseField).void),
       ).void
     end
-    def self.field(*args, **kwargs, &block)
-      super
-    end
+    def self.field(*args, **kwargs, &block) = super
   end
 end

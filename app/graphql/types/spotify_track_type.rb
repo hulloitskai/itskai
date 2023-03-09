@@ -23,8 +23,6 @@ module Types
   class SpotifyTrackType
     # == Annotations
     sig { returns(RSpotify::Track) }
-    def object
-      super
-    end
+    def object = super
   end
 end

@@ -10,10 +10,11 @@ module Resolver
   abstract!
   requires_ancestor { Kernel }
 
-  # == Methods
+  # == Interface
   sig { abstract.returns(GraphQL::Query::Context) }
   def context; end
 
+  # == Methods
   sig { returns(ItsKai::Application) }
   def app
     T.cast(Rails.application, ItsKai::Application)
