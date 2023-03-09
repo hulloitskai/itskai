@@ -18,6 +18,7 @@ export type PageComponent<P = {}> = ComponentType<
   P & { readonly errors?: Errors & ErrorBag } & SharedPageProps
 > & {
   layout?: ((page: ReactNode) => ReactNode) | null;
+  wrappedComponent?: PageComponent<P>;
 };
 
 export type SharedPageProps = {
@@ -37,22 +38,33 @@ export const usePageErrors = (): Errors & ErrorBag => {
   return props.errors;
 };
 
-export const usePage = <PageProps,>(): Page<PageProps> => {
+export const usePage = <
+  PageProps extends Record<string, any>,
+>(): Page<PageProps> => {
   return _usePage() as Page<PageProps>;
 };
 
-export const usePageProps = <PageProps,>(): PageProps & SharedPageProps => {
+export const usePageProps = <
+  PageProps extends Record<string, any>,
+>(): PageProps & SharedPageProps => {
   const { props } = usePage<Page<SharedPageProps & PageProps>>();
   return omit(props, "errors") as PageProps & SharedPageProps;
 };
 
-export const wrapPage = <P,>(page: PageComponent<P>): PageComponent<P> => {
-  const wrappedPage: PageComponent<P> = (pageProps: P) => (
-    <PageContainer {...{ page, pageProps }} />
-  );
-  wrappedPage.layout = page.layout;
-  wrappedPage.displayName = page.displayName
-    ? `Wrapped${page.displayName}`
-    : undefined;
-  return wrappedPage;
+export const wrapPage = <PageProps extends SharedPageProps>(
+  page: PageComponent<PageProps>,
+): PageComponent<PageProps> => {
+  if (!page.wrappedComponent) {
+    page.wrappedComponent = resolve(() => {
+      const wrappedPage: PageComponent<PageProps> = (pageProps: PageProps) => (
+        <PageContainer {...{ page, pageProps }} />
+      );
+      wrappedPage.layout = page.layout;
+      wrappedPage.displayName = `Wrapped(${
+        page.displayName || page.name || "Component"
+      })`;
+      return wrappedPage;
+    });
+  }
+  return page.wrappedComponent;
 };

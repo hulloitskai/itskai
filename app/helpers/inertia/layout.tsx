@@ -7,7 +7,7 @@ export type LayoutBuilder<PageProps> = (
   props: PageProps,
 ) => ReactNode;
 
-export const buildLayout = <PageProps,>(
+export const buildLayout = <PageProps extends Record<string, any>>(
   fn: LayoutBuilder<PageProps>,
 ): ((page: ReactNode) => ReactNode) => {
   // eslint-disable-next-line react/display-name

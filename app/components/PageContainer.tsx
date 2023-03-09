@@ -1,19 +1,19 @@
 import type { PropsWithChildren } from "react";
-import type { PageComponent } from "~/helpers/inertia";
+import type { PageComponent, SharedPageProps } from "~/helpers/inertia";
 
 import PageProviders from "./PageProviders";
 
-export type PageContainerProps<P> = PropsWithChildren<{
-  readonly page: PageComponent<P>;
-  readonly pageProps: P;
+export type PageContainerProps<PageProps> = PropsWithChildren<{
+  readonly page: PageComponent<PageProps>;
+  readonly pageProps: PageProps;
 }>;
 
-const PageContainer = <P,>({
+const PageContainer = <PageProps extends SharedPageProps>({
   page: Page,
   pageProps,
-}: PageContainerProps<P>) => (
+}: PageContainerProps<PageProps>) => (
   <PageProviders>
-    <Page {...(pageProps as any)} />
+    <Page {...pageProps} />
   </PageProviders>
 );
 

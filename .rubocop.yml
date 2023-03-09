@@ -101,6 +101,8 @@ Rails/HasAndBelongsToMany:
   Enabled: false
 Rails/I18nLocaleTexts:
   Enabled: false
+Rails/RenderInline:
+  Enabled: false
 
 GraphQL/ArgumentDescription:
   Enabled: false

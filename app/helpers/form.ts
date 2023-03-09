@@ -33,7 +33,16 @@ export const showFormErrors = (alert: string): void => {
 export const useNestedForm = <Values>(
   form: UseFormReturnType<any>,
   path: LooseKeys<Values>,
-) => {
+): Pick<
+  UseFormReturnType<Values>,
+  | "getInputProps"
+  | "setFieldValue"
+  | "isTouched"
+  | "isDirty"
+  | "values"
+  | "insertListItem"
+  | "removeListItem"
+> => {
   const getInputProps = useCallback(
     <Field extends LooseKeys<Values>>(
       nestedPath: Field,

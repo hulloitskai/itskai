@@ -5,8 +5,10 @@ module GraphQL::Helpers
   extend T::Sig
   extend T::Helpers
 
+  # == Annotations
   requires_ancestor { Kernel }
 
+  # == Methods
   # Handle variables in form data, JSON body, or a blank value.
   sig { params(variables_param: T.untyped).returns(T::Hash[String, T.untyped]) }
   def prepare_variables(variables_param)
