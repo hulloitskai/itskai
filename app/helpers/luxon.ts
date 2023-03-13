@@ -1,9 +1,7 @@
 import { DateTime } from "luxon";
 
-export const useDateTime = (text: string): DateTime => {
-  return useMemo(() => DateTime.fromISO(text), [text]);
-};
+export const useParseDateTime = (text: string): DateTime =>
+  useMemo(() => DateTime.fromISO(text), [text]);
 
-export const useOptionalDateTime = (text?: string | null): DateTime | null => {
-  return useMemo(() => (text ? DateTime.fromISO(text) : null), [text]);
-};
+export const useMaybeParseDateTime = (text?: string | null): DateTime | null =>
+  useMemo(() => (text ? DateTime.fromISO(text) : null), [text]);

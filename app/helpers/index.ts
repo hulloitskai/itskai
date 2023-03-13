@@ -2,7 +2,7 @@ export { formatError } from "./errors";
 export { resolve } from "./utils";
 export { getMeta, requireMeta } from "./meta";
 export { formatApolloError, useApolloErrorCallback } from "./apollo";
-export { useDateTime } from "./luxon";
+export { useParseDateTime, useMaybeParseDateTime } from "./luxon";
 export { useMounted } from "./react";
 export { showAlert, showNotice } from "./notifications";
 export {

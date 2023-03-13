@@ -6,7 +6,7 @@ import { createStylesServer, ServerStyles } from "@mantine/ssr";
 import { setupApp, pagesFromFiles, wrapPage } from "~/helpers/inertia";
 import type { PageComponent } from "~/helpers/inertia";
 
-import createServer from "@inertiajs/react/server";
+import createServer from "@inertiajs/server";
 import { createInertiaApp } from "@inertiajs/react";
 import type { Page, PageProps } from "@inertiajs/core";
 

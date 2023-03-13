@@ -85,11 +85,6 @@ module Users
     protected
 
     # == Helpers
-    sig { override.returns(User) }
-    def resource
-      super
-    end
-
     sig { params(resource: User).returns(String) }
     def after_update_path_for(resource)
       if sign_in_after_change_password?
@@ -128,5 +123,14 @@ module Users
     # def configure_account_update_params
     #   devise_parameter_sanitizer.permit(:account_update, keys: %i[])
     # end
+  end
+end
+
+# == Sorbet
+module Users
+  class RegistrationsController
+    # == Annotations
+    sig { override.returns(User) }
+    def resource = super
   end
 end
