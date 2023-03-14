@@ -12,11 +12,8 @@ module Queries
     # == Resolver
     sig { returns(String) }
     def resolve
-      unless instance_variable_defined?(:@email)
-        @email = T.let(ENV["OWNER_CONTACT_EMAIL"].presence,
-                       T.nilable(String))
-      end
-      @email or raise GraphQL::ExecutionError, "Missing contact email"
+      @email = T.let(@email, T.nilable(String))
+      @email ||= ENV.fetch("OWNER_CONTACT_EMAIL")
     end
   end
 end

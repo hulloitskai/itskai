@@ -5,13 +5,6 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  # == Bullet
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.bullet_logger = true
-    Bullet.add_footer = true
-  end
-
   # == Code Loading
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
@@ -93,4 +86,22 @@ Rails.application.configure do
   # == Action Cable
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  # == Active Record
+  if Rails.server?
+    # Wait for the database to start up.
+    config.before_initialize do
+      attempt = 1
+      loop do
+        message = "=> Connecting to database"
+        message += " (attempt #{attempt})" if attempt > 1
+        puts message # rubocop:disable Rails/Output
+        break if suppress(ActiveRecord::ConnectionNotEstablished) do
+          ActiveRecord::Base.connection
+        end
+        attempt += 1
+        sleep(1)
+      end
+    end
+  end
 end
