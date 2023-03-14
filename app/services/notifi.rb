@@ -16,7 +16,7 @@ class Notifi < ApplicationService
     def credentials
       return @credentials if defined?(@credentials)
       @credentials = T.let(@credentials, T.nilable(String))
-      @credentials = ENV.fetch("NOTIFI_CREDENTIALS")
+      @credentials = ENV["NOTIFI_CREDENTIALS"]
     end
 
     sig do
