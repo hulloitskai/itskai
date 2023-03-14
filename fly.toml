@@ -1,4 +1,4 @@
-app = "itskai"
+app = "itskai-app"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
@@ -10,13 +10,6 @@ processes = []
   RAILS_DEFAULT_URL = "https://itskai.me"
   RAILS_MAILER_FROM = "RoboKai <robot@itskai.me>"
   RAILS_MAILER_REPLY_TO = "Kai <hullo@itskai.me>"
-  SPOTIFY_CLIENT_ID = "0a0f796dd227445787b5cc019a749555"
-  MAILJET_API_KEY = "71f29dcbbc010c367b0450a44b06e702"
-  FULLSTORY_ORG_ID = "o-1CGMZ5-na1"
-  GOOGLE_ANALYTICS_MEASUREMENT_ID = "G-MFGZXQLMM9"
-  AWS_ACCESS_KEY_ID = "AKIA267OA7D6UCFFUX3B"
-  AWS_BUCKET = "itskai"
-  AWS_REGION = "us-east-2"
 
 [experimental]
   allowed_public_ports = []
