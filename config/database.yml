@@ -17,16 +17,16 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  url: <%= ENV["POSTGRES_URL"] %>
+  url: <%= ENV["DATABASE_URL"] %>
   host: localhost
-  username: <%= ENV.fetch("POSTGRES_USERNAME", "postgres") %>
-  password: <%= ENV.fetch("POSTGRES_PASSWORD", "postgres") %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
   timeout: 5000
 
 development:
   <<: *default
-  database: <%= ENV.fetch("POSTGRES_DATABASE", "itskai_development") %>
+  database: <%= ENV.fetch("DATABASE_NAME", "itskai_development") %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5).to_i + ENV.fetch("GOOD_JOB_MAX_THREADS", 2).to_i + 3 + 1 %>
 
   # The specified database role being used to connect to postgres.
@@ -61,7 +61,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: <%= ENV.fetch("POSTGRES_DATABASE", "itskai_test") %>
+  database: <%= ENV.fetch("DATABASE_NAME", "itskai_test") %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -85,5 +85,5 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV.fetch("POSTGRES_DATABASE", "itskai_production") %>
+  database: <%= ENV.fetch("DATABASE_NAME", "itskai_production") %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5).to_i + ENV.fetch("GOOD_JOB_MAX_THREADS", 2).to_i + 3 + 1 %>

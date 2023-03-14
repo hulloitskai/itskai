@@ -36,7 +36,7 @@ FileUtils.chdir APP_ROOT do
   # end
 
   puts "\n=> Starting database"
-  system! "docker compose up -d postgres --no-log-prefix"
+  system! "docker compose up -d db --no-log-prefix"
   sleep(1)
 
   puts "\n=> Preparing database"
