@@ -1,4 +1,4 @@
-import { relayStylePagination } from "@apollo/client/utilities";
+import { relayStylePagination } from "@apollo/client/utilities/index";
 
 import introspection from "./introspection.generated";
 import type { StrictTypedTypePolicies } from "./clientHelpers.generated";

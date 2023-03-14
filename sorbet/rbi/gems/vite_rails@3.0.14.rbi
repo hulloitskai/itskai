@@ -86,7 +86,7 @@ module ViteRails::TagHelpers
   # Public: Renders a script tag for vite/client to enable HMR in development.
   #
   # source://vite_rails//lib/vite_rails/tag_helpers.rb#6
-  def vite_client_tag; end
+  def vite_client_tag(crossorigin: T.unsafe(nil), **options); end
 
   # Public: Renders an <img> tag for the specified Vite asset.
   #

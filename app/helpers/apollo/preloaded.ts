@@ -1,4 +1,4 @@
-import { useApolloClient, useQuery } from "@apollo/client";
+import { useApolloClient, useQuery } from "@apollo/client/index";
 import type {
   DocumentNode,
   OperationVariables,
@@ -9,13 +9,16 @@ import type {
 
 type PreloadedQueryHookOptions<
   TData = any,
-  TVariables = OperationVariables,
+  TVariables extends OperationVariables = OperationVariables,
 > = QueryHookOptions<TData, TVariables> & {
   initialData: TData;
   initialVariables?: TVariables;
 };
 
-export const usePreloadedQuery = <TData = any, TVariables = OperationVariables>(
+export const usePreloadedQuery = <
+  TData = any,
+  TVariables extends OperationVariables = OperationVariables,
+>(
   query: DocumentNode | TypedDocumentNode<TData, TVariables>,
   options: PreloadedQueryHookOptions<TData, TVariables>,
 ): Omit<QueryResult<TData, TVariables>, "data"> & { data: TData } => {

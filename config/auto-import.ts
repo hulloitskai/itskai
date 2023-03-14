@@ -3,7 +3,7 @@ import type { ImportsMap, PresetName } from "unplugin-auto-import/types";
 export const imports: Array<ImportsMap | PresetName> = [
   "react",
   {
-    "@apollo/client": [
+    "@apollo/client/index": [
       "useApolloClient",
       "useQuery",
       "useLazyQuery",

@@ -67,7 +67,7 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
           T
             .proc
             .params(
-              t: ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition,
+              t: ActiveRecord::ConnectionAdapters::PostGIS::TableDefinition,
             )
             .void,
         ),
@@ -91,10 +91,7 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
       table_name: T.any(String, Symbol),
       bulk: T::Boolean,
       blk:
-        T
-          .proc
-          .params(t: ActiveRecord::ConnectionAdapters::PostgreSQL::Table)
-          .void,
+        T.proc.params(t: ActiveRecord::ConnectionAdapters::PostgreSQL::Table).void,
     ).void
   end
   def change_table(table_name, bulk: false, &blk); end
@@ -115,7 +112,7 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
           T
             .proc
             .params(
-              t: ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition,
+              t: ActiveRecord::ConnectionAdapters::PostGIS::TableDefinition,
             )
             .void,
         ),
@@ -137,7 +134,7 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
           T
             .proc
             .params(
-              t: ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition,
+              t: ActiveRecord::ConnectionAdapters::PostGIS::TableDefinition,
             )
             .void,
         ),
@@ -163,7 +160,7 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
           T
             .proc
             .params(
-              t: ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition,
+              t: ActiveRecord::ConnectionAdapters::PostGIS::TableDefinition,
             )
             .void,
         ),

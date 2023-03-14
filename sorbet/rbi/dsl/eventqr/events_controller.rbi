@@ -14,6 +14,7 @@ class Eventqr::EventsController
     include ::InertiaRails::Helper
     include ::ViteRails::TagHelpers
     include ::ActionController::Base::HelperMethods
+    include ::MailerHelper
     include ::DeviseHelper
   end
 

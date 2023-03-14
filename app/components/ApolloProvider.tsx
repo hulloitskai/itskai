@@ -1,9 +1,8 @@
 import type { FC } from "react";
+import { ApolloProvider as _ApolloProvider } from "@apollo/client/index";
 
 import { createApolloClient, createApolloLink } from "~/helpers/apollo";
 import type { ProviderProps } from "~/helpers/inertia";
-
-import { ApolloProvider as _ApolloProvider } from "@apollo/client";
 
 export type ApolloProviderProps = ProviderProps;
 

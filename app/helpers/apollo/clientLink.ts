@@ -1,8 +1,7 @@
-import { ApolloLink, HttpLink } from "@apollo/client";
-import { split, from } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
-import { RetryLink } from "@apollo/client/link/retry";
-import { getOperationDefinition } from "@apollo/client/utilities";
+import { ApolloLink, HttpLink, split, from } from "@apollo/client/index";
+import { setContext } from "@apollo/client/link/context/index";
+import { RetryLink } from "@apollo/client/link/retry/index";
+import { getOperationDefinition } from "@apollo/client/utilities/index";
 
 import ActionCableLink from "graphql-ruby-client/subscriptions/ActionCableLink";
 

@@ -55,8 +55,5 @@ export default defineConfig({
     emptyOutDir: true,
     sourcemap: true,
   },
-  ssr: {
-    format: "cjs",
-  },
   plugins,
 });

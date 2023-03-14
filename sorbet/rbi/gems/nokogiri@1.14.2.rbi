@@ -916,7 +916,7 @@ class Nokogiri::HTML4::Builder < ::Nokogiri::XML::Builder
   def to_html; end
 end
 
-# source://nokogiri//lib/nokogiri/html4/document.rb#11
+# source://nokogiri//lib/nokogiri/html4/document.rb#8
 class Nokogiri::HTML4::Document < ::Nokogiri::XML::Document
   # Create a Nokogiri::XML::DocumentFragment from +tags+
   #
@@ -1026,7 +1026,7 @@ class Nokogiri::HTML4::Document < ::Nokogiri::XML::Document
   end
 end
 
-# source://nokogiri//lib/nokogiri/html4/document_fragment.rb#7
+# source://nokogiri//lib/nokogiri/html4/document_fragment.rb#5
 class Nokogiri::HTML4::DocumentFragment < ::Nokogiri::XML::DocumentFragment
   # @return [DocumentFragment] a new instance of DocumentFragment
   # @yield [options]
@@ -1538,7 +1538,7 @@ module Nokogiri::HTML4::SAX; end
 #
 # For more information on SAX parsers, see Nokogiri::XML::SAX
 #
-# source://nokogiri//lib/nokogiri/html4/sax/parser.rb#29
+# source://nokogiri//lib/nokogiri/html4/sax/parser.rb#27
 class Nokogiri::HTML4::SAX::Parser < ::Nokogiri::XML::SAX::Parser
   # Parse a file with +filename+
   #
@@ -1872,7 +1872,7 @@ end
 #
 # 💡 HTML5 functionality is not available when running JRuby.
 #
-# source://nokogiri//lib/nokogiri/html5/document.rb#41
+# source://nokogiri//lib/nokogiri/html5/document.rb#39
 class Nokogiri::HTML5::Document < ::Nokogiri::HTML4::Document
   # @return [Document] a new instance of Document
   #
@@ -2198,6 +2198,13 @@ class Nokogiri::VersionInfo
   #
   # source://nokogiri//lib/nokogiri/version/info.rb#14
   def windows?; end
+
+  class << self
+    private
+
+    def allocate; end
+    def new(*_arg0); end
+  end
 end
 
 # source://nokogiri//lib/nokogiri/xml.rb#12
@@ -2703,7 +2710,7 @@ class Nokogiri::XML::Builder::NodeBuilder
   def method_missing(method, *args, &block); end
 end
 
-# source://nokogiri//lib/nokogiri/xml/cdata.rb#7
+# source://nokogiri//lib/nokogiri/xml/cdata.rb#5
 class Nokogiri::XML::CDATA < ::Nokogiri::XML::Text
   # Get the name of this CDATA node
   #
@@ -2762,7 +2769,7 @@ end
 # For searching a Document, see Nokogiri::XML::Searchable#css and
 # Nokogiri::XML::Searchable#xpath
 #
-# source://nokogiri//lib/nokogiri/xml/document.rb#17
+# source://nokogiri//lib/nokogiri/xml/document.rb#14
 class Nokogiri::XML::Document < ::Nokogiri::XML::Node
   # @return [Document] a new instance of Document
   #
@@ -3185,7 +3192,7 @@ Nokogiri::XML::Document::NCNAME_RE = T.let(T.unsafe(nil), Regexp)
 # source://nokogiri//lib/nokogiri/xml/document.rb#18
 Nokogiri::XML::Document::NCNAME_START_CHAR = T.let(T.unsafe(nil), String)
 
-# source://nokogiri//lib/nokogiri/xml/document_fragment.rb#8
+# source://nokogiri//lib/nokogiri/xml/document_fragment.rb#6
 class Nokogiri::XML::DocumentFragment < ::Nokogiri::XML::Node
   # Create a new DocumentFragment from +tags+.
   #
@@ -5184,7 +5191,7 @@ class Nokogiri::XML::NodeSet
   # of elements and if each element is equal to the corresponding
   # element in the other NodeSet
   #
-  # source://nokogiri//lib/nokogiri/xml/node_set.rb#392
+  # source://nokogiri//lib/nokogiri/xml/node_set.rb#393
   def ==(other); end
 
   def [](*_arg0); end
@@ -5302,7 +5309,7 @@ class Nokogiri::XML::NodeSet
   # Returns a new NodeSet containing all the children of all the nodes in
   # the NodeSet
   #
-  # source://nokogiri//lib/nokogiri/xml/node_set.rb#405
+  # source://nokogiri//lib/nokogiri/xml/node_set.rb#406
   def children; end
 
   def clone; end
@@ -5323,7 +5330,7 @@ class Nokogiri::XML::NodeSet
   #
   #  ⚡ This is an experimental feature, available since v1.14.0
   #
-  # source://nokogiri//lib/nokogiri/xml/node_set.rb#439
+  # source://nokogiri//lib/nokogiri/xml/node_set.rb#440
   def deconstruct; end
 
   def delete(_arg0); end
@@ -5392,7 +5399,7 @@ class Nokogiri::XML::NodeSet
 
   # Return a nicely formated string representation
   #
-  # source://nokogiri//lib/nokogiri/xml/node_set.rb#426
+  # source://nokogiri//lib/nokogiri/xml/node_set.rb#427
   def inspect; end
 
   # Get the last element of the NodeSet.
@@ -5405,7 +5412,7 @@ class Nokogiri::XML::NodeSet
   # Removes the last element from set and returns it, or +nil+ if
   # the set is empty
   #
-  # source://nokogiri//lib/nokogiri/xml/node_set.rb#373
+  # source://nokogiri//lib/nokogiri/xml/node_set.rb#374
   def pop; end
 
   def push(_arg0); end
@@ -5432,7 +5439,7 @@ class Nokogiri::XML::NodeSet
   # Returns a new NodeSet containing all the nodes in the NodeSet
   # in reverse order
   #
-  # source://nokogiri//lib/nokogiri/xml/node_set.rb#416
+  # source://nokogiri//lib/nokogiri/xml/node_set.rb#417
   def reverse; end
 
   # Set attributes on each Node in the NodeSet, or get an
@@ -5473,7 +5480,7 @@ class Nokogiri::XML::NodeSet
   # Returns the first element of the NodeSet and removes it.  Returns
   # +nil+ if the set is empty.
   #
-  # source://nokogiri//lib/nokogiri/xml/node_set.rb#382
+  # source://nokogiri//lib/nokogiri/xml/node_set.rb#383
   def shift; end
 
   def size; end
@@ -5510,12 +5517,12 @@ class Nokogiri::XML::NodeSet
 
   # Convert this NodeSet to XHTML
   #
-  # source://nokogiri//lib/nokogiri/xml/node_set.rb#357
+  # source://nokogiri//lib/nokogiri/xml/node_set.rb#358
   def to_xhtml(*args); end
 
   # Convert this NodeSet to XML
   #
-  # source://nokogiri//lib/nokogiri/xml/node_set.rb#363
+  # source://nokogiri//lib/nokogiri/xml/node_set.rb#364
   def to_xml(*args); end
 
   def unlink; end
@@ -5600,12 +5607,12 @@ class Nokogiri::XML::NodeSet
   def |(_arg0); end
 end
 
-# source://nokogiri//lib/nokogiri/xml/node_set.rb#443
+# source://nokogiri//lib/nokogiri/xml/node_set.rb#444
 Nokogiri::XML::NodeSet::IMPLIED_XPATH_CONTEXTS = T.let(T.unsafe(nil), Array)
 
 # Struct representing an {XML Schema Notation}[https://www.w3.org/TR/xml/#Notations]
 #
-# source://nokogiri//lib/nokogiri/xml/notation.rb#7
+# source://nokogiri//lib/nokogiri/xml/notation.rb#6
 class Nokogiri::XML::Notation < ::Struct; end
 
 # source://nokogiri//lib/nokogiri/xml/pp/node.rb#6
@@ -7234,6 +7241,7 @@ end
 
 class Object < ::BasicObject
   include ::Kernel
+  include ::PP::ObjectMixin
 
   private
 

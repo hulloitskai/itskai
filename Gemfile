@@ -9,6 +9,14 @@ gem "rails", "~> 7.0.4"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.4"
 
+# Use RGeo geometry types
+gem "rgeo", "~> 3.0"
+gem "rgeo-geojson", "~> 2.1"
+gem "rgeo-activerecord", "~> 7.0"
+
+# Use PostGIS extensions for PostgreSQL
+gem "activerecord-postgis-adapter", "~> 8.0"
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 6.0.2"
 

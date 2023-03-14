@@ -14,6 +14,7 @@ class Users::OmniauthCallbacksController
     include ::InertiaRails::Helper
     include ::ViteRails::TagHelpers
     include ::ActionController::Base::HelperMethods
+    include ::MailerHelper
     include ::DeviseHelper
     include ::ApplicationController::HelperMethods
 
