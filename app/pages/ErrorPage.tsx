@@ -14,28 +14,33 @@ const ErrorPage: PageComponent<ErrorPageProps> = ({
   description,
   code,
 }) => (
-  <Stack align="center" my="xl">
-    <Badge variant="outline" color="red">
-      Status {code}
-    </Badge>
-    <Stack align="center" spacing={2}>
-      <Title size="h2">{title}</Title>
-      <Text color="dark.3" align="center">
-        {description}
-      </Text>
+  <Container size="sm" my="xl">
+    <Stack align="center">
+      <Badge variant="outline" color="red">
+        Status {code}
+      </Badge>
+      <Stack align="center" spacing={2}>
+        <Title size="h2">{title}</Title>
+        <Text color="dark.3" align="center">
+          {description}
+        </Text>
+      </Stack>
+      <Button component={Link} href="/" mt={4}>
+        Back to Home
+      </Button>
     </Stack>
-    <Button component={Link} href="/" mt={4}>
-      Back to Home
-    </Button>
-  </Stack>
+  </Container>
 );
 
 ErrorPage.layout = buildLayout<ErrorPageProps>(
-  (page, { title, description, data: { viewer } }) => (
-    <AppLayout {...{ title, description }} {...{ viewer }}>
-      {page}
-    </AppLayout>
-  ),
+  (page, { title, description, data }) => {
+    const { viewer } = data;
+    return (
+      <AppLayout {...{ title, description }} {...{ viewer }}>
+        {page}
+      </AppLayout>
+    );
+  },
 );
 
 export default ErrorPage;
