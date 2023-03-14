@@ -39,7 +39,7 @@ const WorkPage: PageComponent<WorkPageProps> = () => (
             <Text weight={600}>This Website!</Text>
             <Button
               component="a"
-              href="https://github.com/hulloitskai/itskai.me"
+              href="https://github.com/hulloitskai/itskai-app"
               target="_blank"
               rel="noopener noreferrer nofollow"
               variant="outline"
@@ -53,7 +53,7 @@ const WorkPage: PageComponent<WorkPageProps> = () => (
                 },
               }}
             >
-              github.com/hulloitskai/itskai.me
+              github.com/hulloitskai/itskai-app
             </Button>
           </Group>
           <Text size="sm" color="dark.3" mt={4}>
@@ -102,7 +102,7 @@ const WorkPage: PageComponent<WorkPageProps> = () => (
             </List.Item>
             <List.Item>
               <Anchor
-                href="https://github.com/hulloitskai/itskai.me/actions"
+                href="https://github.com/hulloitskai/itskai-app/actions"
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 weight={500}
