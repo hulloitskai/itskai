@@ -9,7 +9,8 @@ const PageConsumer = <PageProps extends Record<string, any>>({
   children,
 }: PageConsumerProps<PageProps>) => {
   const data = usePage() as Page<PageProps>;
-  return <>{children(data)}</>;
+  const content = useMemo(() => children(data), [children, data]);
+  return <>{content}</>;
 };
 
 export default PageConsumer;
