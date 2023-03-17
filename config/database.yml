@@ -17,16 +17,16 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  url: <%= ENV["DATABASE_URL"] %>
+  url: <%= ENV["POSTGRES_URL"] %>
   host: localhost
-  username: <%= ENV["DATABASE_USERNAME"] %>
-  password: <%= ENV["DATABASE_PASSWORD"] %>
+  username: <%= ENV["POSTGRES_USERNAME"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
   timeout: 5000
 
 development:
   <<: *default
-  database: <%= ENV.fetch("DATABASE_NAME", "itskai_development") %>
+  database: <%= ENV.fetch("POSTGRES_DATABASE", "itskai_development") %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5).to_i + ENV.fetch("GOOD_JOB_MAX_THREADS", 2).to_i + 3 + 1 %>
 
   # The specified database role being used to connect to postgres.
@@ -61,7 +61,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: <%= ENV.fetch("DATABASE_NAME", "itskai_test") %>
+  database: <%= ENV.fetch("POSTGRES_DATABASE", "itskai_test") %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -70,20 +70,20 @@ test:
 # Instead, provide the password or a full connection URL as an environment
 # variable when you boot the app. For example:
 #
-#   DATABASE_URL="postgres://myuser:mypass@localhost/somedatabase"
+#   POSTGRES_URL="postgres://myuser:mypass@localhost/somedatabase"
 #
-# If the connection URL is provided in the special DATABASE_URL environment
+# If the connection URL is provided in the special POSTGRES_URL environment
 # variable, Rails will automatically merge its configuration values on top of
 # the values provided in this file. Alternatively, you can specify a connection
 # URL environment variable explicitly:
 #
 #   production:
-#     url: <%= ENV["MY_APP_DATABASE_URL"] %>
+#     url: <%= ENV["MY_APP_POSTGRES_URL"] %>
 #
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
 production:
   <<: *default
-  database: <%= ENV.fetch("DATABASE_NAME", "itskai_production") %>
+  database: <%= ENV.fetch("POSTGRES_DATABASE", "itskai_production") %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5).to_i + ENV.fetch("GOOD_JOB_MAX_THREADS", 2).to_i + 3 + 1 %>
