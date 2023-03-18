@@ -32,7 +32,7 @@ end
 
 puts "\n=> Running Eslint"
 scoped do
-  args = %w[--ext .js,.jsx,.ts,.tsx]
+  args = %w[--ext .js,.jsx,.ts,.tsx,.graphql]
   args << "--fix" if options[:fix]
   args << "."
   system("yarn", "--silent", "eslint", "--cache", *args) &&

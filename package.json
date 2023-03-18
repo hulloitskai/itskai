@@ -48,6 +48,7 @@
     "@graphql-codegen/typescript": "^2.7.3",
     "@graphql-codegen/typescript-apollo-client-helpers": "^2.2.6",
     "@graphql-codegen/typescript-operations": "^2.5.3",
+    "@graphql-eslint/eslint-plugin": "^3.16.1",
     "@iconify-json/feather": "^1.1.2",
     "@iconify-json/heroicons": "^1.1.4",
     "@types/d3-drag": "^3.0.1",
