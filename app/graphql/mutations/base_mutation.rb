@@ -15,11 +15,16 @@ module Mutations
     input_object_class Types::BaseInputObject
     argument_class Types::BaseArgument
     null false
+    field :success, Boolean, null: false
 
     # == Resolver
     def resolve_with_support(...)
       result = super
-      result.is_a?(T::Struct) ? result.serialize : result
+      result = result.serialize if result.is_a?(T::Struct)
+      result = T.let(result, T::Hash[T.any(String, Symbol), T.untyped])
+      result = result.with_indifferent_access
+      result[:success] = result[:errors].blank? unless result.include?(:success)
+      result
     end
   end
 end

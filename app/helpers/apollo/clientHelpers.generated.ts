@@ -7,16 +7,18 @@ export type ICloudCredentialsFieldPolicy = {
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
 	session?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ICloudCredentialsUpdatePayloadKeySpecifier = ('clientMutationId' | 'errors' | 'icloudCredentials' | ICloudCredentialsUpdatePayloadKeySpecifier)[];
+export type ICloudCredentialsUpdatePayloadKeySpecifier = ('clientMutationId' | 'errors' | 'icloudCredentials' | 'success' | ICloudCredentialsUpdatePayloadKeySpecifier)[];
 export type ICloudCredentialsUpdatePayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	errors?: FieldPolicy<any> | FieldReadFunction<any>,
-	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>
+	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ICloudCredentialsVerifySecurityCodePayloadKeySpecifier = ('clientMutationId' | 'icloudCredentials' | ICloudCredentialsVerifySecurityCodePayloadKeySpecifier)[];
+export type ICloudCredentialsVerifySecurityCodePayloadKeySpecifier = ('clientMutationId' | 'icloudCredentials' | 'success' | ICloudCredentialsVerifySecurityCodePayloadKeySpecifier)[];
 export type ICloudCredentialsVerifySecurityCodePayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>
+	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type InputFieldErrorKeySpecifier = ('field' | 'message' | InputFieldErrorKeySpecifier)[];
 export type InputFieldErrorFieldPolicy = {
@@ -156,11 +158,12 @@ export type TestModelFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TestMutationPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'model' | TestMutationPayloadKeySpecifier)[];
+export type TestMutationPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'model' | 'success' | TestMutationPayloadKeySpecifier)[];
 export type TestMutationPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	errors?: FieldPolicy<any> | FieldReadFunction<any>,
-	model?: FieldPolicy<any> | FieldReadFunction<any>
+	model?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type TimezoneKeySpecifier = ('abbreviation' | 'name' | 'offset' | 'offsetMinutes' | TimezoneKeySpecifier)[];
 export type TimezoneFieldPolicy = {
@@ -177,10 +180,11 @@ export type UserFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	unverifiedEmail?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserChangeEmailPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'user' | UserChangeEmailPayloadKeySpecifier)[];
+export type UserChangeEmailPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'success' | 'user' | UserChangeEmailPayloadKeySpecifier)[];
 export type UserChangeEmailPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	errors?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>,
 	user?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type UserSendEmailVerificationInstructionsPayloadKeySpecifier = ('clientMutationId' | 'success' | UserSendEmailVerificationInstructionsPayloadKeySpecifier)[];
@@ -193,10 +197,11 @@ export type UserSendPasswordResetInstructionsPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserUpdatePayloadKeySpecifier = ('clientMutationId' | 'errors' | 'user' | UserUpdatePayloadKeySpecifier)[];
+export type UserUpdatePayloadKeySpecifier = ('clientMutationId' | 'errors' | 'success' | 'user' | UserUpdatePayloadKeySpecifier)[];
 export type UserUpdatePayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	errors?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>,
 	user?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type StrictTypedTypePolicies = {

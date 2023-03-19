@@ -4,12 +4,7 @@
 module Mutations
   class ObsidianNoteSynchronize < BaseMutation
     # == Payload
-    class Payload < T::Struct
-      const :success, T::Boolean
-    end
-
-    # == Fields
-    field :success, Boolean
+    class Payload < T::Struct; end
 
     # == Arguments
     argument :force, Boolean, required: false
@@ -19,7 +14,7 @@ module Mutations
     def resolve(force: false)
       authorize!(to: :synchronize?, with: ObsidianNotePolicy)
       ObsidianNote.synchronize_all_later(force:)
-      Payload.new(success: true)
+      Payload.new
     end
   end
 end

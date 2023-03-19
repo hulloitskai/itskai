@@ -4,12 +4,7 @@
 module Mutations
   class UserSendPasswordResetInstructions < BaseMutation
     # == Payload
-    class Payload < T::Struct
-      const :success, TrueClass, default: true
-    end
-
-    # == Fields
-    field :success, Boolean, null: false
+    class Payload < T::Struct; end
 
     # == Arguments
     argument :email, String
