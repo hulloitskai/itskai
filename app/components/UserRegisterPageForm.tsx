@@ -3,14 +3,14 @@ import { PasswordInput } from "@mantine/core";
 
 import PasswordWithStrengthCheckInput from "./PasswordWithStrengthCheckInput";
 
+export type UserRegisterPageFormProps = {};
+
 export type UserRegisterPageFormValues = {
   readonly name: string;
   readonly email: string;
   readonly password: string;
   readonly passwordConfirmation: string;
 };
-
-export type UserRegisterPageFormProps = {};
 
 const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
   const router = useRouter();

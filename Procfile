@@ -1,2 +1,2 @@
-js: bin/vite ssr
-web: bin/rails server
+vite: bin/vite ssr
+rails: bin/rails server

@@ -23,6 +23,7 @@ export const imports: Array<ImportsMap | PresetName> = [
       "Button",
       "Card",
       "Center",
+      "Checkbox",
       "Chip",
       "Container",
       "Divider",

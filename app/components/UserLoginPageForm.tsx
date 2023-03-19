@@ -3,27 +3,41 @@ import { PasswordInput } from "@mantine/core";
 
 import { createApolloLink } from "~/helpers/apollo";
 
+export type UserLoginPageFormProps = {};
+
 export type UserLoginPageFormValues = {
   readonly email: string;
   readonly password: string;
+  readonly rememberMe: boolean;
 };
-
-export type UserLoginPageFormProps = {};
 
 const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
   const router = useRouter();
   const client = useApolloClient();
   const [loading, setLoading] = useState(false);
-  const { getInputProps, onSubmit, reset } = useForm<UserLoginPageFormValues>({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-  });
+
+  // == Form
+  const { getInputProps, onSubmit, reset, values, setFieldValue } =
+    useForm<UserLoginPageFormValues>({
+      initialValues: {
+        email: "",
+        password: "",
+        rememberMe: true,
+      },
+    });
+  const { rememberMe } = values;
+
+  // == Markup
   return (
     <form
-      onSubmit={onSubmit(({ email, password }) => {
-        const data = { user: { email, password } };
+      onSubmit={onSubmit(({ email, password, rememberMe }) => {
+        const data = {
+          user: {
+            email,
+            password,
+            remember_me: rememberMe,
+          },
+        };
         router.post("/user/login", data, {
           onBefore: () => {
             setLoading(true);
@@ -57,6 +71,29 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
           required
           {...getInputProps("password")}
         />
+        <Tooltip
+          label="Uncheck this if you're signing in from a shared device."
+          position="top-start"
+          withinPortal
+          withArrow
+        >
+          <Checkbox
+            label="Stay signed in"
+            checked={rememberMe}
+            color="indigo"
+            styles={{
+              input: {
+                cursor: "pointer",
+              },
+              label: {
+                cursor: "pointer",
+              },
+            }}
+            onChange={() => {
+              setFieldValue("rememberMe", !rememberMe);
+            }}
+          />
+        </Tooltip>
         <Button type="submit" {...{ loading }}>
           Sign In
         </Button>
