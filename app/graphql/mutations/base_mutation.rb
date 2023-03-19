@@ -20,10 +20,26 @@ module Mutations
     # == Resolver
     def resolve_with_support(...)
       result = super
+      if result.is_a?(GraphQL::Execution::Lazy)
+        result.then do |result|
+          transform_resolve_result(result)
+        end
+      else
+        transform_resolve_result(result)
+      end
+    end
+
+    private
+
+    sig { params(result: T.untyped).returns(T.untyped) }
+    def transform_resolve_result(result)
       result = result.serialize if result.is_a?(T::Struct)
-      result = T.let(result, T::Hash[T.any(String, Symbol), T.untyped])
-      result = result.with_indifferent_access
-      result[:success] = result[:errors].blank? unless result.include?(:success)
+      if result.is_a?(Hash)
+        result = result.with_indifferent_access
+        unless result.include?(:success)
+          result[:success] = result[:errors].blank?
+        end
+      end
       result
     end
   end
