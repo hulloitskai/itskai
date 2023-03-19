@@ -3,7 +3,7 @@ export {
   usePageErrors,
   usePageProps,
   pagesFromFiles,
-  wrapPage,
+  preparePage,
 } from "./page";
 export type { PageComponent, PageProps, SharedPageProps } from "./page";
 

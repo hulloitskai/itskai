@@ -3,7 +3,7 @@ import type { ReactNode, ComponentType } from "react";
 import { usePage as _usePage } from "@inertiajs/react";
 import type { Page, Errors, ErrorBag } from "@inertiajs/core";
 
-import PageContainer from "~/components/PageContainer";
+import BlankLayout from "~/components/BlankLayout";
 
 export const pagesFromFiles = <T,>(
   files: Record<string, T>,
@@ -51,20 +51,8 @@ export const usePageProps = <
   return omit(props, "errors") as PageProps & SharedPageProps;
 };
 
-export const wrapPage = <PageProps extends SharedPageProps>(
-  page: PageComponent<PageProps>,
-): PageComponent<PageProps> => {
-  if (!page.wrappedComponent) {
-    page.wrappedComponent = resolve(() => {
-      const wrappedPage: PageComponent<PageProps> = (pageProps: PageProps) => (
-        <PageContainer {...{ page, pageProps }} />
-      );
-      wrappedPage.layout = page.layout;
-      wrappedPage.displayName = `Wrapped(${
-        page.displayName || page.name || "Component"
-      })`;
-      return wrappedPage;
-    });
+export const preparePage = <P,>(page: PageComponent<P>): void => {
+  if (!page.layout) {
+    page.layout = page => <BlankLayout>{page}</BlankLayout>;
   }
-  return page.wrappedComponent;
 };

@@ -1,6 +1,6 @@
-import type { FC, ReactNode } from "react";
+import type { FC } from "react";
 
-import { AppShell } from "@mantine/core";
+import { AppShell, Breadcrumbs } from "@mantine/core";
 import type {
   AppShellProps,
   ContainerProps,
@@ -13,6 +13,8 @@ import type { AppMetaProps } from "./AppMeta";
 import AppHeader from "./AppHeader";
 import AppFooter from "./AppFooter";
 import AppFlash from "./AppFlash";
+import ContentContainer from "./ContentContainer";
+import LayoutContainer from "./LayoutContainer";
 
 import type { Maybe } from "~/queries";
 import type { AppViewerFragment } from "~/queries";
@@ -20,17 +22,24 @@ import type { AppViewerFragment } from "~/queries";
 export type AppLayoutProps = AppMetaProps &
   AppShellProps & {
     readonly viewer: Maybe<AppViewerFragment>;
+    readonly breadcrumbs?: ReadonlyArray<AppBreadcrumb | null | false>;
     readonly containerSize?: MantineNumberSize;
     readonly containerProps?: ContainerProps;
     readonly withContainer?: boolean;
     readonly withGutter?: boolean;
   };
 
+export type AppBreadcrumb = {
+  readonly title: string;
+  readonly href: string;
+};
+
 const AppLayout: FC<AppLayoutProps> = ({
   viewer,
   title,
   description,
   imageUrl,
+  breadcrumbs,
   containerSize,
   containerProps,
   withContainer,
@@ -39,43 +48,32 @@ const AppLayout: FC<AppLayoutProps> = ({
   padding,
   ...otherProps
 }) => {
-  const theme = useMantineTheme();
-  const content = useMemo(() => {
-    let content: ReactNode = children;
-    const size = containerSize || containerProps?.size || "sm";
-    if (withContainer) {
-      content = (
-        <Container p={0} w="100%" {...{ size }} {...containerProps}>
-          {content}
-        </Container>
-      );
-      if (withGutter) {
-        const { spacing, fn } = theme;
-        const breakpoint = fn.size({
-          sizes: {
-            xs: 540,
-            sm: 720,
-            md: 960,
-            lg: 1140,
-            xl: 1320,
-          },
-          size,
-        });
-        const marginSize = `clamp(0px, calc((100vw - ${breakpoint}px) / 2 - ${spacing.md}px), ${spacing.md}px)`;
-        content = (
-          <MediaQuery
-            largerThan={breakpoint}
-            styles={{ marginTop: marginSize, marginBottom: marginSize }}
-          >
-            {content}
-          </MediaQuery>
-        );
-      }
-    }
-    return content;
-  }, [withContainer, children]);
+  // == Breadcrumbs
+  const filteredBreadcrumbs = useMemo(
+    () => (breadcrumbs?.filter(x => !!x) || []) as AppBreadcrumb[],
+    [breadcrumbs],
+  );
+
+  // == Content
+  const content = useMemo(
+    () =>
+      withContainer ? (
+        <ContentContainer
+          size={containerSize || containerProps?.size}
+          {...{ withGutter }}
+          {...containerProps}
+        >
+          {children}
+        </ContentContainer>
+      ) : (
+        children
+      ),
+    [withContainer, containerSize, containerProps, children],
+  );
+
+  // == Markup
   return (
-    <>
+    <LayoutContainer>
       <AppMeta {...{ title, description, imageUrl }} />
       <AppShell
         header={<AppHeader {...{ viewer }} />}
@@ -85,17 +83,51 @@ const AppLayout: FC<AppLayoutProps> = ({
             display: "flex",
             flexDirection: "column",
             alignItems: "stretch",
-            paddingBottom: typeof padding === "number" ? padding : 16,
+            paddingBottom: 0,
           },
         }}
-        {...{ padding }}
+        padding={0}
         {...otherProps}
       >
-        {content}
+        {!isEmpty(filteredBreadcrumbs) && (
+          <Breadcrumbs
+            mx={10}
+            mt={6}
+            styles={{
+              separator: {
+                marginLeft: 6,
+                marginRight: 6,
+              },
+            }}
+          >
+            {filteredBreadcrumbs.map(({ title, href }, index) => (
+              <Anchor
+                component={Link}
+                href={href}
+                key={index}
+                size="sm"
+                color="orange"
+              >
+                {title}
+              </Anchor>
+            ))}
+          </Breadcrumbs>
+        )}
+        <Box
+          p={padding}
+          sx={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "stretch",
+          }}
+        >
+          {content}
+        </Box>
       </AppShell>
       <AppFooter />
       <AppFlash />
-    </>
+    </LayoutContainer>
   );
 };
 

@@ -59,7 +59,7 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
             setFieldValue("password", "");
             setFieldValue("passwordConfirmation", "");
             setErrors(errors);
-            showFormErrors("Could not complete registration");
+            showFormErrors("Registration failed.");
           },
           onFinish: () => setLoading(false),
         });

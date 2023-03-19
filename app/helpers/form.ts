@@ -15,17 +15,14 @@ export const formErrors = (errors: InputFieldError[]): FormErrors => {
   );
 };
 
-export const showFormErrors = (alert: string): void => {
-  showAlert({
-    title: alert,
-    message:
-      "There were some problems with your submission! Please review the " +
-      "errors shown in the form.",
-  });
+export const showFormErrors = (message: string): void => {
+  showAlert({ message });
   setTimeout(() => {
-    const element = document.querySelector('[aria-invalid="true"]');
-    if (element instanceof HTMLElement) {
-      scrollIntoView(element);
+    if (isEmpty(document.getElementsByClassName("mantine-Modal-root"))) {
+      const element = document.querySelector('[aria-invalid="true"]');
+      if (element instanceof HTMLElement) {
+        scrollIntoView(element);
+      }
     }
   }, 100);
 };

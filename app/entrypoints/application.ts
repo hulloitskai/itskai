@@ -1,7 +1,7 @@
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";
 
-import { setupApp, pagesFromFiles, wrapPage } from "~/helpers/inertia";
+import { setupApp, pagesFromFiles, preparePage } from "~/helpers/inertia";
 import type { PageComponent } from "~/helpers/inertia";
 
 const pages = resolve(() => {
@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!page) {
         throw new Error(`Missing default export for page '${name}'`);
       }
-      return wrapPage(page);
+      preparePage(page);
+      return page;
     },
     setup: ({ el, App, props }) => {
       const app = setupApp({ App, props });

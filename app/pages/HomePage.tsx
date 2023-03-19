@@ -96,9 +96,7 @@ const HomePage: PageComponent<HomePageProps> = () => {
 };
 
 HomePage.layout = buildLayout<HomePageProps>((page, { data: { viewer } }) => (
-  <AppLayout padding={0} {...{ viewer }}>
-    {page}
-  </AppLayout>
+  <AppLayout {...{ viewer }}>{page}</AppLayout>
 ));
 
 export default HomePage;
