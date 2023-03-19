@@ -114,7 +114,7 @@ const AppLayout: FC<AppLayoutProps> = ({
           </Breadcrumbs>
         )}
         <Box
-          p={padding}
+          p={padding ?? (withContainer ? undefined : "md")}
           sx={{
             flex: 1,
             display: "flex",

@@ -32,7 +32,7 @@ const ContentContainer: FC<ContentContainerProps> = ({
       },
       size,
     });
-    const marginSize = `clamp(0px, calc((100vw - ${breakpoint}px) / 2 - ${spacing.md}px), ${spacing.md}px)`;
+    const marginSize = `clamp(0px, calc((100vw - ${breakpoint}px) / 2), ${spacing.md}px)`;
     content = (
       <MediaQuery
         largerThan={breakpoint}
