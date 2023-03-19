@@ -11,7 +11,6 @@ export type UserLoginPageFormValues = {
 export type UserLoginPageFormProps = {};
 
 const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
-  const removeInvalidResponseCallback = useRef<VoidFunction>();
   const router = useRouter();
   const client = useApolloClient();
   const [loading, setLoading] = useState(false);
@@ -28,18 +27,6 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
         router.post("/user/login", data, {
           onBefore: () => {
             setLoading(true);
-
-            // Navigate to non-Inertia pages.
-            removeInvalidResponseCallback.current = router.on(
-              "invalid",
-              event => {
-                const { status, request } = event.detail.response;
-                if (status === 200 && request instanceof XMLHttpRequest) {
-                  event.preventDefault();
-                  window.location.href = request.responseURL;
-                }
-              },
-            );
           },
           onSuccess: ({
             props: {
@@ -51,9 +38,6 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
             client.resetStore();
           },
           onFinish: () => {
-            if (removeInvalidResponseCallback.current) {
-              removeInvalidResponseCallback.current();
-            }
             reset();
             setLoading(false);
           },
