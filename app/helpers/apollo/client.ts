@@ -11,7 +11,7 @@ export const createApolloClient = ({
   link,
 }: ApolloClientOptions): ApolloClient<NormalizedCacheObject> => {
   return new ApolloClient({
-    ssrMode: typeof window === "undefined",
+    ssrMode: import.meta.env.SSR,
     cache: new InMemoryCache({ possibleTypes, typePolicies }),
     link,
     defaultOptions: {

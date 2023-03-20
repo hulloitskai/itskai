@@ -13,13 +13,8 @@ const ApolloProvider: FC<ApolloProviderProps> = ({ csrfToken, children }) => {
   const client = useMemo(() => createApolloClient({ link }), []);
   useDidUpdate(() => client.setLink(link), [link]);
   useEffect(() => {
-    let initialNavigation = true;
-    return router.on("navigate", () => {
-      if (initialNavigation) {
-        initialNavigation = false;
-      } else {
-        client.resetStore();
-      }
+    return router.on("success", () => {
+      client.resetStore();
     });
   }, []);
   return <_ApolloProvider {...{ client }}>{children}</_ApolloProvider>;
