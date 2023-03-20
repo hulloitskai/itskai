@@ -3,9 +3,9 @@ import type { FC, PropsWithChildren } from "react";
 import { ModalsProvider } from "@mantine/modals";
 import { NotificationsProvider } from "@mantine/notifications";
 
-export type LayoutContainerProps = PropsWithChildren;
+export type PageContainerProps = PropsWithChildren;
 
-const LayoutContainer: FC<LayoutContainerProps> = ({ children }) => (
+const PageContainer: FC<PageContainerProps> = ({ children }) => (
   <ModalsProvider modalProps={{ size: "md" }}>
     <NotificationsProvider position="top-center">
       {children}
@@ -13,4 +13,4 @@ const LayoutContainer: FC<LayoutContainerProps> = ({ children }) => (
   </ModalsProvider>
 );
 
-export default LayoutContainer;
+export default PageContainer;

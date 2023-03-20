@@ -1,26 +1,27 @@
-import type { FC } from "react";
+import type { FC, PropsWithChildren } from "react";
+import { router } from "@inertiajs/react";
+
 import { ApolloProvider as _ApolloProvider } from "@apollo/client/index";
-
 import { createApolloClient, createApolloLink } from "~/helpers/apollo";
-import type { ProviderProps } from "~/helpers/inertia";
 
-export type ApolloProviderProps = ProviderProps;
+export type ApolloProviderProps = PropsWithChildren<{
+  readonly csrfToken: string;
+}>;
 
-const ApolloProvider: FC<ApolloProviderProps> = ({
-  page: {
-    props: {
-      csrf: { token: csrfToken },
-    },
-  },
-  children,
-}) => {
+const ApolloProvider: FC<ApolloProviderProps> = ({ csrfToken, children }) => {
   const link = useMemo(() => createApolloLink({ csrfToken }), [csrfToken]);
   const client = useMemo(() => createApolloClient({ link }), []);
+  useDidUpdate(() => client.setLink(link), [link]);
   useEffect(() => {
-    if (client.link !== link) {
-      client.setLink(link);
-    }
-  }, [link]);
+    let initialNavigation = true;
+    return router.on("navigate", () => {
+      if (initialNavigation) {
+        initialNavigation = false;
+      } else {
+        client.resetStore();
+      }
+    });
+  }, []);
   return <_ApolloProvider {...{ client }}>{children}</_ApolloProvider>;
 };
 

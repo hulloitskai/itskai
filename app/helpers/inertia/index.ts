@@ -15,12 +15,3 @@ export type { RouterOptions } from "./router";
 
 export { buildLayout } from "./layout";
 export type { LayoutBuilder } from "./layout";
-
-export type { ProviderProps } from "./provider";
-
-// export const setupPage = (page: PageComponent): PageComponent => {
-//   if (page.layout === undefined) {
-//     page.layout = withAppLayout;
-//   }
-//   return page;
-// };

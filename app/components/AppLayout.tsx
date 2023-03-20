@@ -14,7 +14,7 @@ import AppHeader from "./AppHeader";
 import AppFooter from "./AppFooter";
 import AppFlash from "./AppFlash";
 import ContentContainer from "./ContentContainer";
-import LayoutContainer from "./LayoutContainer";
+import PageContainer from "./PageContainer";
 
 import type { Maybe } from "~/queries";
 import type { AppViewerFragment } from "~/queries";
@@ -73,7 +73,7 @@ const AppLayout: FC<AppLayoutProps> = ({
 
   // == Markup
   return (
-    <LayoutContainer>
+    <PageContainer>
       <AppMeta {...{ title, description, imageUrl }} />
       <AppShell
         header={<AppHeader {...{ viewer }} />}
@@ -127,7 +127,7 @@ const AppLayout: FC<AppLayoutProps> = ({
       </AppShell>
       <AppFooter />
       <AppFlash />
-    </LayoutContainer>
+    </PageContainer>
   );
 };
 

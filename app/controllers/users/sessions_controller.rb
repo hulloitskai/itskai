@@ -20,17 +20,27 @@ module Users
       inertia_location(after_sign_in_path_for(resource))
     end
 
-    protected
+    private
 
     # == Helpers
-    sig { override.returns(User) }
-    def resource
-      super
+    def respond_to_on_destroy
+      respond_to do |format|
+        format.all { head(:no_content) }
+        format.any(*navigational_formats) do
+          inertia_location(after_sign_out_path_for(resource_name))
+        end
+      end
     end
+  end
+end
 
-    sig { override.params(new_resource: User).returns(User) }
-    def resource=(new_resource)
-      super
-    end
+# == Sorbet
+module Users
+  class SessionsController
+    protected
+
+    # == Annotations
+    sig { override.returns(User) }
+    def resource = super
   end
 end

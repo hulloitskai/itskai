@@ -1,17 +1,22 @@
-import type { FC } from "react";
+import type { FC, PropsWithChildren } from "react";
+import type { Page } from "@inertiajs/core";
+import type { SharedPageProps } from "~/helpers/inertia";
 
-import AppProviders from "./AppProviders";
 import AppProgress from "./AppProgress";
+import MantineProvider from "./MantineProvider";
+import ApolloProvider from "./ApolloProvider";
 
-import type { ProviderProps } from "~/helpers/inertia";
+export type AppContainerProps = PropsWithChildren<{
+  readonly initialPage: Page<SharedPageProps>;
+}>;
 
-export type AppContainerProps = ProviderProps;
-
-const AppContainer: FC<AppContainerProps> = ({ page, children }) => (
-  <AppProviders {...{ page }}>
-    {children}
-    <AppProgress />
-  </AppProviders>
+const AppContainer: FC<AppContainerProps> = ({ initialPage, children }) => (
+  <ApolloProvider csrfToken={initialPage.props.csrf.token}>
+    <MantineProvider>
+      {children}
+      <AppProgress />
+    </MantineProvider>
+  </ApolloProvider>
 );
 
 export default AppContainer;

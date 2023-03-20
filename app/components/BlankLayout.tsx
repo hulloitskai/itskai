@@ -1,10 +1,10 @@
 import type { FC, PropsWithChildren } from "react";
-import LayoutContainer from "./LayoutContainer";
+import PageContainer from "./PageContainer";
 
 export type BlankLayoutProps = PropsWithChildren;
 
 const BlankLayout: FC<BlankLayoutProps> = ({ children }) => (
-  <LayoutContainer>{children}</LayoutContainer>
+  <PageContainer>{children}</PageContainer>
 );
 
 export default BlankLayout;
