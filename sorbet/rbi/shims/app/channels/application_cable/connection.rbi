@@ -1,4 +1,4 @@
-# typed: strict
+# typed: strong
 
 class ApplicationCable::Connection
   sig { returns(T.nilable(User)) }

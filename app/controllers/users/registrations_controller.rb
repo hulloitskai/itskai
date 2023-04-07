@@ -85,6 +85,11 @@ module Users
     protected
 
     # == Helpers
+    # sig { params(resource: User).returns(String) }
+    # def after_sign_up_path_for(resource)
+    #   dashboard_path
+    # end
+
     sig { params(resource: User).returns(String) }
     def after_update_path_for(resource)
       if sign_in_after_change_password?

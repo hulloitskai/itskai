@@ -41,3 +41,19 @@ class ICloudCredentials < ApplicationRecord
             }
   validates :password, presence: true
 end
+
+# == Sorbet
+class ICloudCredentials
+  # == Annotations
+  sig { returns(T.nilable(T::Hash[String, T.untyped])) }
+  def session = super
+
+  sig do
+    params(
+      value: T.nilable(T::Hash[String, T.untyped]),
+    ).returns(T.nilable(T::Hash[String, T.untyped]))
+  end
+  def setters=(value)
+    super
+  end
+end

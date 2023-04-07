@@ -17,4 +17,18 @@ module Discardable
     # == Dependencies
     requires_columns :discarded_at
   end
+
+  # == Interface
+  sig { abstract.returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+  def discarded_at; end
+
+  sig do
+    abstract.params(
+      value: T.nilable(::ActiveSupport::TimeWithZone),
+    ).returns(T.nilable(::ActiveSupport::TimeWithZone))
+  end
+  def discarded_at=(value); end
+
+  sig { abstract.returns(T::Boolean) }
+  def discarded_at?; end
 end

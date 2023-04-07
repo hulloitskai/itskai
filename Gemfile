@@ -9,6 +9,9 @@ gem "rails", "~> 7.0.4"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.4"
 
+# Perform full text search with Postgres
+gem "pg_search", "~> 2.3"
+
 # Use RGeo geometry types
 gem "rgeo", "~> 3.0"
 gem "rgeo-geojson", "~> 2.1"
@@ -46,7 +49,7 @@ gem "ruby-vips", "~> 2.1", require: false
 gem "aws-sdk-s3", "~> 1.117", require: false
 
 # Use Good Job as the backend for Active Job
-gem "good_job", "~> 3.7"
+gem "good_job", "~> 3.15"
 
 # Send emails with Mailjet.
 gem "mailjet", "~> 1.7"
@@ -80,7 +83,7 @@ gem "rails-healthcheck"
 gem "silencer", "~> 2.0", require: false
 
 # Validate emails, phone numbers, dates, arrays, and more
-gem "can_has_validations", "~> 1.6"
+gem "can_has_validations", "~> 1.8"
 gem "email_validator", "~> 2.2"
 gem "phonelib", "~> 0.6.55"
 gem "validate_url", "~> 1.0"
@@ -109,7 +112,7 @@ gem "discard", "~> 1.2"
 gem "sorbet-runtime", "~> 0.5.10626"
 
 # Use Enumerize to enumerate attributes
-gem "enumerize", "~> 2.5"
+gem "enumerize", "~> 2.6"
 
 # Use Action Policy to authorize actions
 gem "action_policy", "~> 0.6.3"
@@ -118,7 +121,7 @@ gem "action_policy-graphql", "~> 0.5.3"
 # Expose a GraphQL API
 gem "graphql", "~> 2.0"
 gem "graphql-connections", "~> 1.3"
-gem "graphql-persisted_queries", "~> 1.6"
+gem "graphql-persisted_queries", "~> 1.7"
 gem "graphql-rails_logger"
 gem "graphiql-rails"
 
@@ -138,7 +141,7 @@ gem "psych", "~> 4.0"
 gem "front_matter_parser", "~> 1.0"
 
 # Authenticate users with Devise
-gem "devise", "~> 4.8"
+gem "devise", "~> 4.9"
 
 # Check password strength with StrongPassword
 gem "strong_password", "~> 0.0.10"
@@ -159,7 +162,7 @@ gem "pycall", "~> 1.4"
 gem "wrapped_print"
 
 # Enable additional operators and utilities for Active Record with PostgreSQL
-gem "active_record_extended", "~> 3.1"
+gem "active_record_extended", "~> 3.2"
 
 # Parse Markdown with Markly
 gem "markly", "~> 0.7.0"

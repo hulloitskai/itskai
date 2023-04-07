@@ -1,17 +1,14 @@
 # == Dotenv
 .env
 
-
 # == Python
 __pycache__/
 *.py[cod]
 *$py.class
 
-
 # == Vite Ruby
 /dist/
 /public/dist*
-
 
 # == Rails
 /public/assets/
@@ -52,7 +49,6 @@ __pycache__/
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-
 # == Node
 **/node_modules/
 **/jspm_packages/
@@ -90,7 +86,6 @@ __pycache__/
 # **/*.seed
 # **/*.pid.lock
 
-
 # == IDE
 # VSCode (keeping workspace configurations):
 **/.vscode/*
@@ -101,7 +96,6 @@ __pycache__/
 
 # IntelliJ:
 **/.idea/
-
 
 # == OS
 # macOS:

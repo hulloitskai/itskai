@@ -4,6 +4,7 @@
 module Types
   class BaseConnection < GraphQL::Types::Relay::BaseConnection
     extend T::Sig
+    extend T::Helpers
 
     # == Configuration
     edges_nullable false

@@ -1,13 +1,13 @@
 import type { PageComponent, PageProps } from "~/helpers/inertia";
 import { Highlight, Text } from "@mantine/core";
 
-import ResumeButton from "~/components/ResumeButton";
-import WorkContactButton from "~/components/WorkContactButton";
-
 import WrenchScrewdriverIcon from "~icons/heroicons/wrench-screwdriver-20-solid";
 import GithubIcon from "~icons/feather/github";
 
 import type { WorkPageQuery } from "~/queries";
+
+import ResumeButton from "~/components/ResumeButton";
+import WorkContactButton from "~/components/WorkContactButton";
 
 export type WorkPageProps = PageProps<WorkPageQuery>;
 

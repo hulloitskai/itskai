@@ -124,7 +124,7 @@ module Eventqr
     def qr_code_image_url
       qr_code_blob.try! do |blob|
         blob = T.let(blob, ActiveStorage::Blob)
-        polymorphic_url(blob)
+        rails_blob_url(blob)
       end
     end
 

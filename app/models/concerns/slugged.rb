@@ -22,7 +22,9 @@ module Slugged
     extend T::Sig
 
     sig { returns(Integer) }
-    def generated_slug_length = @generated_slug_length || 16
+    def generated_slug_length
+      @generated_slug_length || 16
+    end
 
     sig { params(size: Integer).returns(Integer) }
     def generated_slug_length=(size)
@@ -39,6 +41,16 @@ module Slugged
       )
     end
   end
+
+  # == Interface
+  sig { abstract.returns(::String) }
+  def slug; end
+
+  sig { abstract.params(value: ::String).returns(::String) }
+  def slug=(value); end
+
+  sig { abstract.returns(T::Boolean) }
+  def slug?; end
 
   # == Methods
   sig { returns(String) }

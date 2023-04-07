@@ -1,4 +1,4 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 require "graphql/connections"
@@ -23,10 +23,8 @@ module GraphQL::Connections
         extend T::Sig
         extend T::Helpers
 
-        # == Annotations
         requires_ancestor { Base }
 
-        # == Methods
         sig { returns(T::Boolean) }
         def has_next_page
           if first

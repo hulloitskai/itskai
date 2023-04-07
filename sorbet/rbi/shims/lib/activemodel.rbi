@@ -17,11 +17,6 @@ class ActiveModel::Name
   def to_str(*_arg0, **_arg1, &_arg2); end
 end
 
-module ActiveModel::Validations
-  sig { returns(ActiveModel::Errors) }
-  def errors; end
-end
-
 class ActiveModel::Errors
   sig do
     params(
@@ -31,9 +26,6 @@ class ActiveModel::Errors
     ).void
   end
   def each(*args, **_arg1, &block); end
-
-  sig { returns(T::Hash[Symbol, T::Array[ActiveModel::Error]]) }
-  def group_by_attribute; end
 end
 
 class ActiveModel::Error

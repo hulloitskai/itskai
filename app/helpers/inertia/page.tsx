@@ -18,7 +18,6 @@ export type PageComponent<P = {}> = ComponentType<
   P & { readonly errors?: Errors & ErrorBag } & SharedPageProps
 > & {
   layout?: ((page: ReactNode) => ReactNode) | null;
-  wrappedComponent?: PageComponent<P>;
 };
 
 export type SharedPageProps = {

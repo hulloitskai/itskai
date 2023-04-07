@@ -5,7 +5,6 @@ module MailerHelper
   extend T::Sig
   extend T::Helpers
 
-  # == Annotations
   abstract!
 
   # == Interface

@@ -62,15 +62,11 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
       force: T.any(T::Boolean, Symbol),
       if_not_exists: T::Boolean,
       as: T.untyped,
-      blk:
-        T.nilable(
-          T
-            .proc
-            .params(
-              t: ActiveRecord::ConnectionAdapters::PostGIS::TableDefinition,
-            )
-            .void,
-        ),
+      blk: T.nilable(
+        T.proc.params(
+          t: ActiveRecord::ConnectionAdapters::PostGIS::TableDefinition,
+        ).void,
+      ),
     ).void
   end
   def create_table(
@@ -90,8 +86,9 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
     params(
       table_name: T.any(String, Symbol),
       bulk: T::Boolean,
-      blk:
-        T.proc.params(t: ActiveRecord::ConnectionAdapters::PostgreSQL::Table).void,
+      blk: T.proc
+        .params(t: ActiveRecord::ConnectionAdapters::PostgreSQL::Table)
+        .void,
     ).void
   end
   def change_table(table_name, bulk: false, &blk); end
@@ -107,15 +104,11 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
       table_name: T.any(String, Symbol),
       force: T.any(T::Boolean, Symbol),
       if_exists: T::Boolean,
-      blk:
-        T.nilable(
-          T
-            .proc
-            .params(
-              t: ActiveRecord::ConnectionAdapters::PostGIS::TableDefinition,
-            )
-            .void,
-        ),
+      blk: T.nilable(
+        T.proc.params(
+          t: ActiveRecord::ConnectionAdapters::PostGIS::TableDefinition,
+        ).void,
+      ),
     ).void
   end
   def drop_table(table_name, force: false, if_exists: false, &blk); end
@@ -134,7 +127,7 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
           T
             .proc
             .params(
-              t: ActiveRecord::ConnectionAdapters::PostGIS::TableDefinition,
+              t: ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition,
             )
             .void,
         ),
@@ -155,15 +148,11 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
       table_1: T.any(String, Symbol),
       table_2: T.any(String, Symbol),
       options: T.untyped,
-      blk:
-        T.nilable(
-          T
-            .proc
-            .params(
-              t: ActiveRecord::ConnectionAdapters::PostGIS::TableDefinition,
-            )
-            .void,
-        ),
+      blk: T.nilable(
+        T.proc.params(
+          t: ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition,
+        ).void,
+      ),
     ).void
   end
   def drop_join_table(table_1, table_2, options = {}, &blk); end
@@ -525,4 +514,9 @@ class ActiveRecord::Migration::Current < ActiveRecord::Migration
 
   sig { params(sql: String, name: T.nilable(String)).returns(T.untyped) }
   def execute(sql, name = nil); end
+end
+
+class ActiveRecord::RecordNotDestroyed
+  sig {returns(ActiveRecord::Base)}
+  def record; end
 end

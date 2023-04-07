@@ -1,9 +1,17 @@
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";
+import { setupLuxon } from "~/helpers/luxon";
 
-import { setupApp, pagesFromFiles, preparePage } from "~/helpers/inertia";
 import type { PageComponent } from "~/helpers/inertia";
+import { setupApp, pagesFromFiles, preparePage } from "~/helpers/inertia";
 
+// == Polyfills
+// import "requestidlecallback-polyfill";
+
+// == Setup
+setupLuxon();
+
+// == Pages
 const pages = resolve(() => {
   const files = import.meta.glob("~/pages/*.tsx", {
     import: "default",
@@ -11,8 +19,10 @@ const pages = resolve(() => {
   return pagesFromFiles(files);
 });
 
+// == Entrypoint
 document.addEventListener("DOMContentLoaded", () => {
   createInertiaApp({
+    progress: false,
     resolve: async name => {
       const importPage = pages[name];
       if (!importPage) {

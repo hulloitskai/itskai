@@ -51,11 +51,9 @@ class GraphQL::Queries
   def listen
     require "listen"
     @listener = T.let(@listener, T.nilable(Listen::Listener))
-    @listener ||= Listen.to(
-      Rails.root.join("app/queries"),
-      only: /\.graphql$/,
-    ) do |modified, added, removed|
-      reload(modified:, removed:, added:)
+    @listener ||= scoped do
+      path = Rails.root.join("app/queries")
+      Listen.to(path, only: /\.graphql$/) { load }
     end
     @listener.start
   end
@@ -68,28 +66,6 @@ class GraphQL::Queries
   private
 
   delegate :synchronize, to: :@mutex
-
-  sig do
-    params(
-      modified: T::Array[String],
-      added: T::Array[String],
-      removed: T::Array[String],
-    ).void
-  end
-  def reload(modified:, added:, removed:)
-    tag_logger do
-      logger.debug(
-        "Reloading queries (modified: #{modified}, added: #{added}, removed: " \
-          "#{removed})",
-      )
-    end
-    next_files = (modified + added).to_set
-    prev_files = (modified + removed).to_set
-    [@queries, @fragments].each do |collection|
-      collection.reject! { |_, definition| definition.filename.in?(prev_files) }
-    end
-    load_files(*T.unsafe(next_files))
-  end
 
   sig { params(filenames: String).void }
   def load_files(*filenames)
@@ -292,10 +268,8 @@ module GraphQL::Queries::ParsedDefinition
   extend T::Sig
   extend T::Helpers
 
-  # == Annotations
   interface!
 
-  # == Interface
   sig { abstract.returns(T::Set[String]) }
   def fragment_references; end
 end

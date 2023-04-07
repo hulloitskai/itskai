@@ -18,14 +18,18 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
   const [passwordStrength, setPasswordStrength] = useState(0.0);
 
   // == Form
+  const initialValues = useMemo<UserRegisterPageFormValues>(
+    () => ({
+      name: "",
+      email: "",
+      password: "",
+      passwordConfirmation: "",
+    }),
+    [],
+  );
   const { getInputProps, onSubmit, setFieldValue, setErrors } =
     useForm<UserRegisterPageFormValues>({
-      initialValues: {
-        name: "",
-        email: "",
-        password: "",
-        passwordConfirmation: "",
-      },
+      initialValues,
       validate: {
         password: () => {
           if (passwordStrength < 1.0) {

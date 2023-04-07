@@ -1,6 +1,11 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+# == Helpers
+def system!(*args)
+  system(*args) || abort("Command `#{args.join(' ')}' failed")
+end
+
 # == Dependencies
 system("bundle", "install", "--quiet") ||
   abort("Failed to install Ruby dependencies")
@@ -28,7 +33,7 @@ scoped do
   args = []
   args << (options[:fix] ? "--write" : "--check")
   args << "."
-  system("yarn", "--silent", "prettier", *args)
+  system!("yarn", "--silent", "prettier", *args)
 end
 
 puts "\n=> Runnning Rubocop"
@@ -40,5 +45,5 @@ scoped do
     args << "--only"
     args << "Layout"
   end
-  system("bundle", "exec", "rubocop", *args)
+  system!("bundle", "exec", "rubocop", *args)
 end

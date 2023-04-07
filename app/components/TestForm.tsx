@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { DatePicker } from "@mantine/dates";
+import { DatePickerInput } from "@mantine/dates";
 
 import { TestMutationDocument } from "~/queries";
 
@@ -42,7 +42,7 @@ const TestForm: FC = () => {
       >
         <Stack spacing="xs">
           <TextInput label="Name" required {...getInputProps("name")} />
-          <DatePicker label="Birthday" {...getInputProps("birthday")} />
+          <DatePickerInput label="Birthday" {...getInputProps("birthday")} />
           <Button type="submit">Submit</Button>
         </Stack>
       </form>

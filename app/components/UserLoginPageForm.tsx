@@ -17,7 +17,7 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
   const [loading, setLoading] = useState(false);
 
   // == Form
-  const { getInputProps, onSubmit, reset, values, setFieldValue } =
+  const { getInputProps, onSubmit, values, setFieldValue } =
     useForm<UserLoginPageFormValues>({
       initialValues: {
         email: "",
@@ -42,17 +42,16 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
           onBefore: () => {
             setLoading(true);
           },
-          onSuccess: ({
-            props: {
-              csrf: { token: csrfToken },
-            },
-          }: any) => {
+          onSuccess: ({ props: { csrf } }) => {
+            const csrfToken = (csrf as any).token;
             const link = createApolloLink({ csrfToken });
             client.setLink(link);
             client.resetStore();
           },
+          onError: () => {
+            setFieldValue("password", "");
+          },
           onFinish: () => {
-            reset();
             setLoading(false);
           },
         });
@@ -61,13 +60,13 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
       <Stack spacing="xs">
         <TextInput
           label="Email"
-          placeholder="friend@example.com"
+          placeholder="jon.snow@example.com"
           required
           {...getInputProps("email")}
         />
         <PasswordInput
           label="Password"
-          placeholder="potato-123"
+          placeholder="secret-passphrase"
           required
           {...getInputProps("password")}
         />

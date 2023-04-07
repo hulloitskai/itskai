@@ -13146,7 +13146,7 @@ class Array
   #   </messages>
   #
   # source://activesupport//lib/active_support/core_ext/array/conversions.rb#184
-  def to_xml(options = T.unsafe(nil)); end
+  # def to_xml(options = T.unsafe(nil)); end
 
   # Returns a copy of the Array excluding the specified elements.
   #

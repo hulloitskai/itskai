@@ -28,16 +28,16 @@ const ObsidianNoteMarkdown: FC<ObsidianNoteContentProps> = ({
     <MantineProvider
       theme={{
         fontSizes: {
-          md: 15,
+          md: rem(15),
         },
         headings: {
           sizes: {
-            h1: { fontSize: 28, fontWeight: 800, lineHeight: 1.25 },
-            h2: { fontSize: 24, fontWeight: 800, lineHeight: 1.3 },
-            h3: { fontSize: 20, fontWeight: 800, lineHeight: 1.35 },
-            h4: { fontSize: 16, fontWeight: 800, lineHeight: 1.4 },
-            h5: { fontSize: 14, fontWeight: 800, lineHeight: 1.45 },
-            h6: { fontSize: 13, fontWeight: 800, lineHeight: 1.5 },
+            h1: { fontSize: rem(28), fontWeight: 800, lineHeight: 1.25 },
+            h2: { fontSize: rem(24), fontWeight: 800, lineHeight: 1.3 },
+            h3: { fontSize: rem(20), fontWeight: 800, lineHeight: 1.35 },
+            h4: { fontSize: rem(16), fontWeight: 800, lineHeight: 1.4 },
+            h5: { fontSize: rem(14), fontWeight: 800, lineHeight: 1.45 },
+            h6: { fontSize: rem(13), fontWeight: 800, lineHeight: 1.5 },
           },
         },
       }}

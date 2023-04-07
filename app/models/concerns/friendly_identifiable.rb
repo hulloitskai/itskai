@@ -9,6 +9,7 @@ module FriendlyIdentifiable
   # == Annotations
   requires_ancestor { ApplicationRecord }
 
+  # == Methods
   included do
     extend FriendlyId unless respond_to?(:friendly)
   end

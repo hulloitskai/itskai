@@ -3,6 +3,7 @@
 
 class ApplicationPolicy < ActionPolicy::Base
   extend T::Sig
+  extend T::Helpers
 
   # == Context
   # Configure additional authorization contexts here

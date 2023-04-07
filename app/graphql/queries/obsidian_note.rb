@@ -3,17 +3,21 @@
 
 module Queries
   class ObsidianNote < BaseQuery
+    include AllowsFailedLoads
+
     # == Type
     type Types::ObsidianNoteType, null: true
 
     # == Arguments
-    argument :id, ID
+    argument :id, ID, loads: Types::ObsidianNoteType, as: :note
 
     # == Resolver
-    sig { params(id: String).returns(T.nilable(::ObsidianNote)) }
-    def resolve(id:)
-      note = T.let(object_from_id(Types::ObsidianNoteType, id, context),
-                   T.nilable(::ObsidianNote))
+    sig do
+      params(
+        note: T.nilable(::ObsidianNote),
+      ).returns(T.nilable(::ObsidianNote))
+    end
+    def resolve(note:)
       note.try! do |note|
         note = T.let(note, ::ObsidianNote)
         note if allowed_to?(:show?, note)

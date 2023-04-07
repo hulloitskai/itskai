@@ -1,4 +1,6 @@
 import type { ComponentPropsWithoutRef, FC, ReactNode } from "react";
+
+import { getSize } from "@mantine/core";
 import type { ContainerProps } from "@mantine/core";
 
 export type ContentContainerProps = ContainerProps &
@@ -12,7 +14,7 @@ const ContentContainer: FC<ContentContainerProps> = ({
   size: sizeProp,
   ...otherProps
 }) => {
-  const theme = useMantineTheme();
+  const { spacing } = useMantineTheme();
   const size = sizeProp || "sm";
   let content: ReactNode = children;
   content = (
@@ -21,8 +23,7 @@ const ContentContainer: FC<ContentContainerProps> = ({
     </Container>
   );
   if (withGutter) {
-    const { spacing, fn } = theme;
-    const breakpoint = fn.size({
+    const breakpoint = getSize({
       sizes: {
         xs: 540,
         sm: 720,

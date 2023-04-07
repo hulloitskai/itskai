@@ -5,8 +5,10 @@
 # https://evilmartians.com/chronicles/how-to-graphql-with-ruby-rails-active-record-and-no-n-plus-one
 class Schema < GraphQL::Schema
   # == Plugins
-  use GraphQL::Connections::Stable
-  use GraphQL::Subscriptions::ActionCableSubscriptions, broadcast: true
+  # use GraphQL::Connections::Stable
+  use GraphQL::Subscriptions::ActionCableSubscriptions,
+      broadcast: true,
+      default_broadcastable: true
   use GraphQL::PersistedQueries, compiled_queries: true
   use GraphQL::Dataloader
   use GraphQL::Queries
@@ -30,21 +32,19 @@ class Schema < GraphQL::Schema
       abstract_type: T.untyped,
       object: T.untyped,
       context: GraphQL::Query::Context,
-    ).returns(String)
+    ).returns(T.nilable(String))
   end
   def self.resolve_type(abstract_type, object, context)
     if object.is_a?(ApplicationRecord)
       name = object.model_name.to_s
       type = "::Types::#{name}Type".safe_constantize
       type or raise "Unexpected record type: #{name}"
-    else
-      raise GraphQL::RequiredImplementationMissingError
     end
   end
 
   # Return a string UUID for `object`.
   T::Sig::WithoutRuntime.sig do
-    override.params(
+    params(
       object: T.all(::Object, GlobalID::Identification),
       type_definition: T.untyped,
       context: GraphQL::Query::Context,
@@ -56,10 +56,7 @@ class Schema < GraphQL::Schema
 
   # Given a string UUID, find the object.
   T::Sig::WithoutRuntime.sig do
-    override.params(
-      id: String,
-      context: GraphQL::Query::Context,
-    ).returns(T.untyped)
+    params(id: String, context: GraphQL::Query::Context).returns(T.untyped)
   end
   def self.object_from_id(id, context)
     context.dataloader.with(Sources::RecordByGid).load(id)
@@ -68,7 +65,7 @@ class Schema < GraphQL::Schema
   # == Callbacks
   # GraphQL-Ruby calls this when something goes wrong while running a query.
   T::Sig::WithoutRuntime.sig do
-    override.params(
+    params(
       error: Exception,
       context: GraphQL::Query::Context,
     ).returns(T.untyped)

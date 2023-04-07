@@ -2,6 +2,7 @@ import { createElement } from "react";
 import type { ReactElement } from "react";
 import { renderToString, renderToStaticMarkup } from "react-dom/server";
 import { createStylesServer, ServerStyles } from "@mantine/ssr";
+import { setupLuxon } from "~/helpers/luxon";
 
 import { setupApp, pagesFromFiles, preparePage } from "~/helpers/inertia";
 import type { PageComponent } from "~/helpers/inertia";
@@ -10,6 +11,10 @@ import createServer from "@inertiajs/react/server";
 import { createInertiaApp } from "@inertiajs/react";
 import type { Page, PageProps } from "@inertiajs/core";
 
+// == Setup
+setupLuxon();
+
+// == Pages
 const pages = resolve(() => {
   const files = import.meta.glob("~/pages/*.tsx", {
     import: "default",
@@ -18,6 +23,7 @@ const pages = resolve(() => {
   return pagesFromFiles(files);
 });
 
+// == Entrypoint
 const stylesServer = createStylesServer();
 
 createServer(async (page: Page<PageProps>) => {
@@ -41,7 +47,6 @@ createServer(async (page: Page<PageProps>) => {
       preparePage(page);
       return page;
     },
-    progress: undefined,
     setup: setupApp,
   });
   return { head: [...head, stylesMarkup], body };

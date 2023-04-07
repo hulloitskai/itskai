@@ -9,7 +9,15 @@ module Users
       params[:redirect_url].presence.try! do |url|
         store_location_for(:user, url)
       end
-      render(inertia: "UserLoginPage")
+      errors = flash.alert.try! do |alert|
+        { "alert" => alert }
+      end
+      render(
+        inertia: "UserLoginPage",
+        props: {
+          errors:,
+        },
+      )
     end
 
     # POST /<resource>/login
@@ -40,7 +48,7 @@ module Users
     protected
 
     # == Annotations
-    sig { override.returns(User) }
+    sig { override.returns(T.nilable(User)) }
     def resource = super
   end
 end
