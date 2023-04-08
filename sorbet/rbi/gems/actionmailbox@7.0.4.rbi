@@ -1682,7 +1682,6 @@ module Rails
     # source://railties/7.0.4/lib/rails.rb#46
     def configuration; end
 
-    sig { returns(T::Boolean) }
     def console?; end
 
     # source://railties/7.0.4/lib/rails.rb#72
@@ -1718,7 +1717,6 @@ module Rails
     # source://railties/7.0.4/lib/rails.rb#63
     def root; end
 
-    sig { returns(T::Boolean) }
     def server?; end
 
     # source://railties/7.0.4/lib/rails/version.rb#7
@@ -1858,5 +1856,6 @@ module Rails::Conductor::BaseController::HelperMethods
   include ::InertiaRails::Helper
   include ::ViteRails::TagHelpers
   include ::ActionController::Base::HelperMethods
+  include ::MailerHelper
   include ::DeviseHelper
 end

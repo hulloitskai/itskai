@@ -658,39 +658,39 @@ Fugit::DAY_S = T.let(T.unsafe(nil), Integer)
 
 # source://fugit//lib/fugit/duration.rb#5
 class Fugit::Duration
-  # source://fugit//lib/fugit/duration.rb#253
+  # source://fugit//lib/fugit/duration.rb#255
   def +(a); end
 
-  # source://fugit//lib/fugit/duration.rb#266
+  # source://fugit//lib/fugit/duration.rb#268
   def -(a); end
 
-  # source://fugit//lib/fugit/duration.rb#197
+  # source://fugit//lib/fugit/duration.rb#199
   def -@; end
 
-  # source://fugit//lib/fugit/duration.rb#279
+  # source://fugit//lib/fugit/duration.rb#281
   def ==(o); end
 
-  # source://fugit//lib/fugit/duration.rb#253
+  # source://fugit//lib/fugit/duration.rb#255
   def add(a); end
 
-  # source://fugit//lib/fugit/duration.rb#214
+  # source://fugit//lib/fugit/duration.rb#216
   def add_duration(d); end
 
-  # source://fugit//lib/fugit/duration.rb#206
+  # source://fugit//lib/fugit/duration.rb#208
   def add_numeric(n); end
 
-  # source://fugit//lib/fugit/duration.rb#221
+  # source://fugit//lib/fugit/duration.rb#223
   def add_to_time(t); end
 
-  # source://fugit//lib/fugit/duration.rb#161
+  # source://fugit//lib/fugit/duration.rb#163
   def deflate(options = T.unsafe(nil)); end
 
   # Returns a copy of this duration, omitting its seconds.
   #
-  # source://fugit//lib/fugit/duration.rb#297
+  # source://fugit//lib/fugit/duration.rb#299
   def drop_seconds; end
 
-  # source://fugit//lib/fugit/duration.rb#279
+  # source://fugit//lib/fugit/duration.rb#281
   def eql?(o); end
 
   # Returns the value of attribute h.
@@ -698,16 +698,16 @@ class Fugit::Duration
   # source://fugit//lib/fugit/duration.rb#7
   def h; end
 
-  # source://fugit//lib/fugit/duration.rb#285
+  # source://fugit//lib/fugit/duration.rb#287
   def hash; end
 
-  # source://fugit//lib/fugit/duration.rb#141
+  # source://fugit//lib/fugit/duration.rb#143
   def inflate; end
 
-  # source://fugit//lib/fugit/duration.rb#290
+  # source://fugit//lib/fugit/duration.rb#292
   def next_time(from = T.unsafe(nil)); end
 
-  # source://fugit//lib/fugit/duration.rb#197
+  # source://fugit//lib/fugit/duration.rb#199
   def opposite; end
 
   # Returns the value of attribute options.
@@ -720,41 +720,41 @@ class Fugit::Duration
   # source://fugit//lib/fugit/duration.rb#7
   def original; end
 
-  # source://fugit//lib/fugit/duration.rb#266
+  # source://fugit//lib/fugit/duration.rb#268
   def subtract(a); end
 
   # For now, let's alias to #h
   #
-  # source://fugit//lib/fugit/duration.rb#126
+  # source://fugit//lib/fugit/duration.rb#128
   def to_h; end
 
-  # source://fugit//lib/fugit/duration.rb#88
+  # source://fugit//lib/fugit/duration.rb#90
   def to_iso_s; end
 
-  # source://fugit//lib/fugit/duration.rb#107
+  # source://fugit//lib/fugit/duration.rb#109
   def to_long_s(opts = T.unsafe(nil)); end
 
-  # source://fugit//lib/fugit/duration.rb#85
+  # source://fugit//lib/fugit/duration.rb#87
   def to_plain_s; end
 
-  # source://fugit//lib/fugit/duration.rb#128
+  # source://fugit//lib/fugit/duration.rb#130
   def to_rufus_h; end
 
-  # source://fugit//lib/fugit/duration.rb#86
+  # source://fugit//lib/fugit/duration.rb#88
   def to_rufus_s; end
 
   # Warning: this is an "approximation", months are 30 days and years are
   # 365 days, ...
   #
-  # source://fugit//lib/fugit/duration.rb#136
+  # source://fugit//lib/fugit/duration.rb#138
   def to_sec; end
 
   protected
 
-  # source://fugit//lib/fugit/duration.rb#74
+  # source://fugit//lib/fugit/duration.rb#76
   def _to_s(key); end
 
-  # source://fugit//lib/fugit/duration.rb#308
+  # source://fugit//lib/fugit/duration.rb#310
   def init(original, options, h); end
 
   class << self
@@ -781,138 +781,138 @@ class Fugit::Duration
   end
 end
 
-# source://fugit//lib/fugit/duration.rb#71
+# source://fugit//lib/fugit/duration.rb#72
 Fugit::Duration::INFLA_KEYS = T.let(T.unsafe(nil), Array)
 
-# source://fugit//lib/fugit/duration.rb#372
+# source://fugit//lib/fugit/duration.rb#374
 module Fugit::Duration::IsoParser
   include ::Raabro
   extend ::Raabro::ModuleMethods
   extend ::Raabro
   extend ::Fugit::Duration::IsoParser
 
-  # source://fugit//lib/fugit/duration.rb#390
+  # source://fugit//lib/fugit/duration.rb#392
   def date(i); end
 
-  # source://fugit//lib/fugit/duration.rb#382
+  # source://fugit//lib/fugit/duration.rb#384
   def day(i); end
 
-  # source://fugit//lib/fugit/duration.rb#387
+  # source://fugit//lib/fugit/duration.rb#389
   def delt(i); end
 
-  # source://fugit//lib/fugit/duration.rb#394
+  # source://fugit//lib/fugit/duration.rb#396
   def dur(i); end
 
-  # source://fugit//lib/fugit/duration.rb#383
+  # source://fugit//lib/fugit/duration.rb#385
   def hou(i); end
 
-  # source://fugit//lib/fugit/duration.rb#384
+  # source://fugit//lib/fugit/duration.rb#386
   def min(i); end
 
-  # source://fugit//lib/fugit/duration.rb#380
+  # source://fugit//lib/fugit/duration.rb#382
   def mon(i); end
 
   # piece parsers bottom to top
   #
-  # source://fugit//lib/fugit/duration.rb#376
+  # source://fugit//lib/fugit/duration.rb#378
   def p(i); end
 
   # rewrite parsed tree
   #
-  # source://fugit//lib/fugit/duration.rb#398
+  # source://fugit//lib/fugit/duration.rb#400
   def rewrite_dur(t); end
 
-  # source://fugit//lib/fugit/duration.rb#385
+  # source://fugit//lib/fugit/duration.rb#387
   def sec(i); end
 
-  # source://fugit//lib/fugit/duration.rb#377
+  # source://fugit//lib/fugit/duration.rb#379
   def t(i); end
 
-  # source://fugit//lib/fugit/duration.rb#392
+  # source://fugit//lib/fugit/duration.rb#394
   def t_time(i); end
 
-  # source://fugit//lib/fugit/duration.rb#388
+  # source://fugit//lib/fugit/duration.rb#390
   def telt(i); end
 
-  # source://fugit//lib/fugit/duration.rb#391
+  # source://fugit//lib/fugit/duration.rb#393
   def time(i); end
 
-  # source://fugit//lib/fugit/duration.rb#381
+  # source://fugit//lib/fugit/duration.rb#383
   def wee(i); end
 
-  # source://fugit//lib/fugit/duration.rb#379
+  # source://fugit//lib/fugit/duration.rb#381
   def yea(i); end
 end
 
 # source://fugit//lib/fugit/duration.rb#63
 Fugit::Duration::KEYS = T.let(T.unsafe(nil), Hash)
 
-# source://fugit//lib/fugit/duration.rb#71
+# source://fugit//lib/fugit/duration.rb#72
 Fugit::Duration::NON_INFLA_KEYS = T.let(T.unsafe(nil), Array)
 
-# source://fugit//lib/fugit/duration.rb#323
+# source://fugit//lib/fugit/duration.rb#325
 module Fugit::Duration::Parser
   include ::Raabro
   extend ::Raabro::ModuleMethods
   extend ::Raabro
   extend ::Fugit::Duration::Parser
 
-  # source://fugit//lib/fugit/duration.rb#332
+  # source://fugit//lib/fugit/duration.rb#334
   def day(i); end
 
-  # source://fugit//lib/fugit/duration.rb#344
+  # source://fugit//lib/fugit/duration.rb#346
   def dur(i); end
 
-  # source://fugit//lib/fugit/duration.rb#339
+  # source://fugit//lib/fugit/duration.rb#341
   def elt(i); end
 
-  # source://fugit//lib/fugit/duration.rb#333
+  # source://fugit//lib/fugit/duration.rb#335
   def hou(i); end
 
   # rewrite parsed tree
   #
-  # source://fugit//lib/fugit/duration.rb#348
+  # source://fugit//lib/fugit/duration.rb#350
   def merge(h0, h1); end
 
-  # source://fugit//lib/fugit/duration.rb#334
+  # source://fugit//lib/fugit/duration.rb#336
   def min(i); end
 
-  # source://fugit//lib/fugit/duration.rb#330
+  # source://fugit//lib/fugit/duration.rb#332
   def mon(i); end
 
-  # source://fugit//lib/fugit/duration.rb#365
+  # source://fugit//lib/fugit/duration.rb#367
   def rewrite_dur(t); end
 
-  # source://fugit//lib/fugit/duration.rb#355
+  # source://fugit//lib/fugit/duration.rb#357
   def rewrite_sdur(t); end
 
-  # source://fugit//lib/fugit/duration.rb#342
+  # source://fugit//lib/fugit/duration.rb#344
   def sdur(i); end
 
-  # source://fugit//lib/fugit/duration.rb#336
+  # source://fugit//lib/fugit/duration.rb#338
   def sec(i); end
 
-  # source://fugit//lib/fugit/duration.rb#337
+  # source://fugit//lib/fugit/duration.rb#339
   def sek(i); end
 
   # piece parsers bottom to top
   #
-  # source://fugit//lib/fugit/duration.rb#327
+  # source://fugit//lib/fugit/duration.rb#329
   def sep(i); end
 
-  # source://fugit//lib/fugit/duration.rb#340
+  # source://fugit//lib/fugit/duration.rb#342
   def sign(i); end
 
-  # source://fugit//lib/fugit/duration.rb#331
+  # source://fugit//lib/fugit/duration.rb#333
   def wee(i); end
 
-  # source://fugit//lib/fugit/duration.rb#329
+  # source://fugit//lib/fugit/duration.rb#331
   def yea(i); end
 end
 
 # Round float seconds to 9 decimals when deflating
 #
-# source://fugit//lib/fugit/duration.rb#159
+# source://fugit//lib/fugit/duration.rb#161
 Fugit::Duration::SECOND_ROUND = T.let(T.unsafe(nil), Integer)
 
 # A natural language set of parsers for fugit.

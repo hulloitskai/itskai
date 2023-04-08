@@ -2757,8 +2757,34 @@ ActionCable::VERSION::MAJOR = T.let(T.unsafe(nil), Integer)
 # source://actioncable//lib/action_cable/gem_version.rb#11
 ActionCable::VERSION::MINOR = T.let(T.unsafe(nil), Integer)
 
+# source://actioncable//lib/action_cable/gem_version.rb#13
+ActionCable::VERSION::PRE = T.let(T.unsafe(nil), T.untyped)
+
 # source://actioncable//lib/action_cable/gem_version.rb#15
 ActionCable::VERSION::STRING = T.let(T.unsafe(nil), String)
 
 # source://actioncable//lib/action_cable/gem_version.rb#12
 ActionCable::VERSION::TINY = T.let(T.unsafe(nil), Integer)
+
+module ApplicationCable; end
+
+class ApplicationCable::Connection < ::ActionCable::Connection::Base
+  sig { void }
+  def connect; end
+
+  # source://actioncable//lib/action_cable/connection/identification.rb#21
+  def current_user; end
+
+  # source://actioncable//lib/action_cable/connection/identification.rb#21
+  def current_user=(_arg0); end
+
+  private
+
+  sig { returns(T.nilable(::User)) }
+  def find_verified_user; end
+
+  class << self
+    # source://actioncable//lib/action_cable/connection/identification.rb#11
+    def identifiers; end
+  end
+end

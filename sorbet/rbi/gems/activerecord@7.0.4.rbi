@@ -17955,6 +17955,9 @@ module ActiveRecord::ConnectionHandling
   # source://activerecord//lib/active_record/connection_handling.rb#256
   def lookup_connection_handler(handler_key); end
 
+  # source://activerecord-postgis-adapter/8.0.1/lib/active_record/connection_adapters/postgis/create_connection.rb#29
+  def postgis_connection(config); end
+
   # Establishes a connection to the database that's used by all Active Record objects
   #
   # source://activerecord//lib/active_record/connection_adapters/postgresql_adapter.rb#25
@@ -28154,7 +28157,7 @@ class ActiveRecord::PredicateBuilder::ArrayHandler
   # source://activerecord//lib/active_record/relation/predicate_builder/array_handler.rb#8
   def initialize(predicate_builder); end
 
-  # source://active_record_extended/3.1.0/lib/active_record_extended/patch/array_handler_patch.rb#9
+  # source://active_record_extended/3.2.1/lib/active_record_extended/patch/array_handler_patch.rb#9
   def call(attribute, value); end
 
   private
@@ -29795,7 +29798,7 @@ class ActiveRecord::QueryMethods::WhereChain
   # source://activerecord//lib/active_record/relation/query_methods.rb#76
   def associated(*associations); end
 
-  # source://active_record_extended/3.1.0/lib/active_record_extended/query_methods/where_chain.rb#129
+  # source://active_record_extended/3.2.1/lib/active_record_extended/query_methods/where_chain.rb#129
   def build_where_chain(opts, rest, &block); end
 
   # Returns a new relation with left outer joins and where clause to identify
@@ -32175,7 +32178,7 @@ class ActiveRecord::Relation::Merger
   # source://activerecord//lib/active_record/relation/merger.rb#47
   def initialize(relation, other, rewhere = T.unsafe(nil)); end
 
-  # source://active_record_extended/3.1.0/lib/active_record_extended/patch/relation_patch.rb#20
+  # source://active_record_extended/3.2.1/lib/active_record_extended/patch/relation_patch.rb#20
   def merge; end
 
   # Returns the value of attribute other.
@@ -32952,9 +32955,6 @@ class ActiveRecord::SchemaMigration < ::ActiveRecord::Base
 
     # source://activerecord//lib/active_record/schema_migration.rb#21
     def create_table; end
-
-    # source://activerecord//lib/active_record/scoping/default.rb#20
-    def default_scope_override; end
 
     # source://activerecord//lib/active_record/enum.rb#116
     def defined_enums; end
@@ -35499,6 +35499,8 @@ end
 #
 # source://activerecord//lib/active_record/type/internal/timezone.rb#4
 module ActiveRecord::Type
+  extend ::ActiveRecord::ConnectionAdapters::PostGIS::Type
+
   class << self
     # source://activerecord//lib/active_record/type.rb#49
     def adapter_name_from(model); end
@@ -35509,7 +35511,7 @@ module ActiveRecord::Type
     # source://activerecord//lib/active_record/type.rb#45
     def default_value; end
 
-    # source://activerecord//lib/active_record/type.rb#41
+    # source://activerecord-postgis-adapter/8.0.1/lib/active_record/connection_adapters/postgis/type.rb#9
     def lookup(*args, adapter: T.unsafe(nil), **kwargs); end
 
     # Add a new type to the registry, allowing it to be referenced as a
@@ -36495,6 +36497,9 @@ module Arel
 
     # source://activerecord//lib/arel.rb#50
     def fetch_attribute(value, &block); end
+
+    # source://rgeo-activerecord/7.0.1/lib/rgeo/active_record/spatial_expressions.rb#253
+    def spatial(arg); end
 
     # Wrap a known-safe SQL string for passing to query methods, e.g.
     #
@@ -38823,10 +38828,10 @@ end
 
 # source://activerecord//lib/arel/predications.rb#4
 module Arel::Predications
-  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#12
+  # source://active_record_extended/3.2.1/lib/active_record_extended/arel/predications.rb#12
   def all(other); end
 
-  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#7
+  # source://active_record_extended/3.2.1/lib/active_record_extended/arel/predications.rb#7
   def any(other); end
 
   # source://activerecord//lib/arel/predications.rb#37
@@ -38835,10 +38840,10 @@ module Arel::Predications
   # source://activerecord//lib/arel/predications.rb#213
   def concat(other); end
 
-  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#26
+  # source://active_record_extended/3.2.1/lib/active_record_extended/arel/predications.rb#26
   def contained_in_array(other); end
 
-  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#22
+  # source://active_record_extended/3.2.1/lib/active_record_extended/arel/predications.rb#22
   def contains(other); end
 
   # source://activerecord//lib/arel/predications.rb#145
@@ -38889,19 +38894,19 @@ module Arel::Predications
   # source://activerecord//lib/arel/predications.rb#74
   def in_any(others); end
 
-  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#38
+  # source://active_record_extended/3.2.1/lib/active_record_extended/arel/predications.rb#38
   def inet_contained_within(other); end
 
-  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#42
+  # source://active_record_extended/3.2.1/lib/active_record_extended/arel/predications.rb#42
   def inet_contained_within_or_equals(other); end
 
-  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#30
+  # source://active_record_extended/3.2.1/lib/active_record_extended/arel/predications.rb#30
   def inet_contains(other); end
 
-  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#46
+  # source://active_record_extended/3.2.1/lib/active_record_extended/arel/predications.rb#46
   def inet_contains_or_equals(other); end
 
-  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#34
+  # source://active_record_extended/3.2.1/lib/active_record_extended/arel/predications.rb#34
   def inet_contains_or_is_contained_within(other); end
 
   # source://activerecord//lib/arel/predications.rb#25
@@ -38961,10 +38966,10 @@ module Arel::Predications
   # source://activerecord//lib/arel/predications.rb#121
   def not_in_any(others); end
 
-  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#17
+  # source://active_record_extended/3.2.1/lib/active_record_extended/arel/predications.rb#17
   def overlap(other); end
 
-  # source://active_record_extended/3.1.0/lib/active_record_extended/arel/predications.rb#17
+  # source://active_record_extended/3.2.1/lib/active_record_extended/arel/predications.rb#17
   def overlaps(other); end
 
   # source://activerecord//lib/arel/predications.rb#225
@@ -39492,6 +39497,12 @@ class Arel::Visitors::Dot < ::Arel::Visitors::Visitor
   # source://activerecord//lib/arel/visitors/dot.rb#196
   def visit_NilClass(o); end
 
+  # source://activerecord//lib/arel/visitors/dot.rb#196
+  def visit_RGeo_Cartesian_BoundingBox(o); end
+
+  # source://activerecord//lib/arel/visitors/dot.rb#196
+  def visit_RGeo_Feature_Instance(o); end
+
   # source://activerecord//lib/arel/visitors/dot.rb#225
   def visit_Set(o); end
 
@@ -39631,6 +39642,9 @@ class Arel::Visitors::MySQL < ::Arel::Visitors::ToSql
   # source://activerecord//lib/arel/visitors/mysql.rb#12
   def visit_Arel_Nodes_UnqualifiedColumn(o, collector); end
 end
+
+# source://activerecord-postgis-adapter/8.0.1/lib/active_record/connection_adapters/postgis/arel_tosql.rb#24
+Arel::Visitors::PostGISSuperclass = Arel::Visitors::PostgreSQL
 
 # source://activerecord//lib/arel/visitors/postgresql.rb#5
 class Arel::Visitors::PostgreSQL < ::Arel::Visitors::ToSql
@@ -40191,6 +40205,9 @@ class Arel::Visitors::Visitor
 
   # source://activerecord//lib/arel/visitors/visitor.rb#10
   def accept(object, collector = T.unsafe(nil)); end
+
+  # source://rgeo-activerecord/7.0.1/lib/rgeo/active_record/arel_spatial_queries.rb#79
+  def visit_RGeo_ActiveRecord_SpatialConstantNode(node, collector); end
 
   private
 

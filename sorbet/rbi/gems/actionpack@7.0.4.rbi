@@ -1326,13 +1326,13 @@ class ActionController::API < ::ActionController::Metal
   # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
   def logger=(value); end
 
-  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
   def mimes_for_respond_to; end
 
-  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
   def mimes_for_respond_to=(_arg0); end
 
-  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
   def mimes_for_respond_to?; end
 
   # source://actionpack//lib/action_controller/metal/redirecting.rb#13
@@ -1350,13 +1350,13 @@ class ActionController::API < ::ActionController::Metal
   # source://activesupport/7.0.4/lib/active_support/rescuable.rb#13
   def rescue_handlers?; end
 
-  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
   def responder; end
 
-  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
   def responder=(_arg0); end
 
-  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
   def responder?; end
 
   class << self
@@ -1420,13 +1420,13 @@ class ActionController::API < ::ActionController::Metal
     # source://actionpack//lib/action_controller/metal.rb#210
     def middleware_stack; end
 
-    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
     def mimes_for_respond_to; end
 
-    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
     def mimes_for_respond_to=(value); end
 
-    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
     def mimes_for_respond_to?; end
 
     # source://actionpack//lib/action_controller/metal/redirecting.rb#13
@@ -1444,13 +1444,13 @@ class ActionController::API < ::ActionController::Metal
     # source://activesupport/7.0.4/lib/active_support/rescuable.rb#13
     def rescue_handlers?; end
 
-    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
     def responder; end
 
-    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
     def responder=(value); end
 
-    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
     def responder?; end
 
     # Shortcut helper that returns all the ActionController::API modules except
@@ -1754,8 +1754,8 @@ class ActionController::Base < ::ActionController::Metal
   extend ::ActiveSupport::Rescuable::ClassMethods
   extend ::ActionController::Instrumentation::ClassMethods
   extend ::ActionController::ParamsWrapper::ClassMethods
-  extend ::InertiaRails::Controller::ClassMethods
   extend ::Responders::ControllerMethod
+  extend ::InertiaRails::Controller::ClassMethods
   extend ::ActionController::RespondWith::ClassMethods
   extend ::ActionController::Railties::Helpers
   extend ::ActiveRecord::Railties::ControllerRuntime::ClassMethods
@@ -1943,13 +1943,13 @@ class ActionController::Base < ::ActionController::Metal
   # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
   def logger=(value); end
 
-  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
   def mimes_for_respond_to; end
 
-  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
   def mimes_for_respond_to=(_arg0); end
 
-  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
   def mimes_for_respond_to?; end
 
   # source://actionpack//lib/action_controller/metal/flash.rb#36
@@ -1994,13 +1994,13 @@ class ActionController::Base < ::ActionController::Metal
   # source://activesupport/7.0.4/lib/active_support/rescuable.rb#13
   def rescue_handlers?; end
 
-  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
   def responder; end
 
-  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
   def responder=(_arg0); end
 
-  # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+  # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
   def responder?; end
 
   # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
@@ -2251,13 +2251,13 @@ class ActionController::Base < ::ActionController::Metal
     # source://actionpack//lib/action_controller/metal.rb#210
     def middleware_stack; end
 
-    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
     def mimes_for_respond_to; end
 
-    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
     def mimes_for_respond_to=(value); end
 
-    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
     def mimes_for_respond_to?; end
 
     # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
@@ -2299,13 +2299,13 @@ class ActionController::Base < ::ActionController::Metal
     # source://activesupport/7.0.4/lib/active_support/rescuable.rb#13
     def rescue_handlers?; end
 
-    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
     def responder; end
 
-    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
     def responder=(value); end
 
-    # source://responders/3.0.1/lib/action_controller/respond_with.rb#11
+    # source://responders/3.1.0/lib/action_controller/respond_with.rb#11
     def responder?; end
 
     # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
@@ -2366,10 +2366,10 @@ module ActionController::Base::HelperMethods
   # source://actionpack//lib/action_controller/metal/cookies.rb#8
   def cookies(*args, **_arg1, &block); end
 
-  # source://devise/4.8.1/lib/devise/controllers/helpers.rb#136
+  # source://devise/4.9.1/lib/devise/controllers/helpers.rb#136
   def current_user(*args, **_arg1, &block); end
 
-  # source://devise/4.8.1/lib/devise/controllers/helpers.rb#13
+  # source://devise/4.9.1/lib/devise/controllers/helpers.rb#13
   def devise_controller?(*args, **_arg1, &block); end
 
   # source://actionpack//lib/action_controller/metal/request_forgery_protection.rb#106
@@ -2381,19 +2381,19 @@ module ActionController::Base::HelperMethods
   # source://actionpack//lib/action_controller/metal/request_forgery_protection.rb#107
   def protect_against_forgery?(*args, **_arg1, &block); end
 
-  # source://devise/4.8.1/lib/devise/controllers/helpers.rb#13
+  # source://devise/4.9.1/lib/devise/controllers/helpers.rb#13
   def signed_in?(*args, **_arg1, &block); end
 
-  # source://devise/4.8.1/lib/devise/controllers/helpers.rb#136
+  # source://devise/4.9.1/lib/devise/controllers/helpers.rb#136
   def user_session(*args, **_arg1, &block); end
 
-  # source://devise/4.8.1/lib/devise/controllers/helpers.rb#136
+  # source://devise/4.9.1/lib/devise/controllers/helpers.rb#136
   def user_signed_in?(*args, **_arg1, &block); end
 
   # source://actionpack//lib/abstract_controller/caching.rb#43
   def view_cache_dependencies(*args, **_arg1, &block); end
 
-  # source://devise/4.8.1/lib/devise/controllers/helpers.rb#13
+  # source://devise/4.9.1/lib/devise/controllers/helpers.rb#13
   def warden(*args, **_arg1, &block); end
 end
 
@@ -4238,17 +4238,17 @@ ActionController::Live::SSE::PERMITTED_OPTIONS = T.let(T.unsafe(nil), Array)
 class ActionController::LiveTestResponse < ::ActionController::Live::Response
   # Was there a server-side error?
   #
-  # source://rack/2.2.6/lib/rack/response.rb#141
+  # source://rack/2.2.6.4/lib/rack/response.rb#141
   def error?; end
 
   # Was the URL not found?
   #
-  # source://rack/2.2.6/lib/rack/response.rb#151
+  # source://rack/2.2.6.4/lib/rack/response.rb#151
   def missing?; end
 
   # Was the response successful?
   #
-  # source://rack/2.2.6/lib/rack/response.rb#138
+  # source://rack/2.2.6.4/lib/rack/response.rb#138
   def success?; end
 end
 
@@ -14067,7 +14067,7 @@ class ActionDispatch::Request
   # source://actionpack//lib/action_dispatch/http/request.rb#323
   def raw_post; end
 
-  # source://rack/2.2.6/lib/rack/request.rb#157
+  # source://rack/2.2.6.4/lib/rack/request.rb#157
   def raw_request_method; end
 
   # source://actionpack//lib/action_dispatch/http/request.rb#50
@@ -14790,10 +14790,10 @@ class ActionDispatch::Response
 
   # Aliasing these off because AD::Http::Cache::Response defines them.
   #
-  # source://rack/2.2.6/lib/rack/response.rb#229
+  # source://rack/2.2.6.4/lib/rack/response.rb#229
   def _cache_control; end
 
-  # source://rack/2.2.6/lib/rack/response.rb#233
+  # source://rack/2.2.6.4/lib/rack/response.rb#233
   def _cache_control=(v); end
 
   # source://actionpack//lib/action_dispatch/http/response.rb#370
@@ -14936,7 +14936,7 @@ class ActionDispatch::Response
 
   # The location header we'll be responding with.
   #
-  # source://rack/2.2.6/lib/rack/response.rb#204
+  # source://rack/2.2.6.4/lib/rack/response.rb#204
   def redirect_url; end
 
   # The request that the response is responding to.
@@ -15622,60 +15622,60 @@ class ActionDispatch::Routing::Mapper
   # source://actionpack//lib/action_dispatch/routing/mapper.rb#2279
   def initialize(set); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#363
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#363
   def as(scope); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#290
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#290
   def authenticate(scope = T.unsafe(nil), block = T.unsafe(nil)); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#314
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#314
   def authenticated(scope = T.unsafe(nil), block = T.unsafe(nil)); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#226
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#226
   def devise_for(*resources); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#363
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#363
   def devise_scope(scope); end
 
   # source://inertia_rails/3.0.0/lib/patches/mapper.rb#2
   def inertia(args, &block); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#331
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#331
   def unauthenticated(scope = T.unsafe(nil)); end
 
   protected
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#477
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#477
   def constraints_for(method_to_apply, scope = T.unsafe(nil), block = T.unsafe(nil)); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#390
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#390
   def devise_confirmation(mapping, controllers); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#421
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#421
   def devise_omniauth_callback(mapping, controllers); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#385
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#385
   def devise_password(mapping, controllers); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#402
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#402
   def devise_registration(mapping, controllers); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#377
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#377
   def devise_session(mapping, controllers); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#395
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#395
   def devise_unlock(mapping, controllers); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#509
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#509
   def raise_no_devise_method_error!(klass); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#499
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#499
   def raise_no_secret_key; end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#488
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#488
   def set_omniauth_path_prefix!(path_prefix); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#461
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#461
   def with_devise_exclusive_scope(new_path, new_as, options); end
 
   class << self
@@ -17712,7 +17712,7 @@ class ActionDispatch::Routing::RouteSet
   # source://actionpack//lib/action_dispatch/routing/route_set.rb#760
   def extra_keys(options, recall = T.unsafe(nil)); end
 
-  # source://devise/4.8.1/lib/devise/rails/routes.rb#8
+  # source://devise/4.9.1/lib/devise/rails/routes.rb#8
   def finalize!; end
 
   # source://actionpack//lib/action_dispatch/routing/route_set.rb#792
@@ -19955,193 +19955,193 @@ Mime::Type::MIME_REGEXP = T.let(T.unsafe(nil), Regexp)
 # source://actionpack//lib/action_dispatch.rb#33
 module Rack
   class << self
-    # source://rack/2.2.6/lib/rack/version.rb#26
+    # source://rack/2.2.6.4/lib/rack/version.rb#26
     def release; end
 
-    # source://rack/2.2.6/lib/rack/version.rb#19
+    # source://rack/2.2.6.4/lib/rack/version.rb#19
     def version; end
   end
 end
 
-# source://rack/2.2.6/lib/rack.rb#29
+# source://rack/2.2.6.4/lib/rack.rb#29
 Rack::CACHE_CONTROL = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#31
+# source://rack/2.2.6.4/lib/rack.rb#31
 Rack::CONTENT_LENGTH = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#32
+# source://rack/2.2.6.4/lib/rack.rb#32
 Rack::CONTENT_TYPE = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#43
+# source://rack/2.2.6.4/lib/rack.rb#43
 Rack::DELETE = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#36
+# source://rack/2.2.6.4/lib/rack.rb#36
 Rack::ETAG = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#30
+# source://rack/2.2.6.4/lib/rack.rb#30
 Rack::EXPIRES = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack/file.rb#6
+# source://rack/2.2.6.4/lib/rack/file.rb#6
 Rack::File = Rack::Files
 
-# source://rack/2.2.6/lib/rack.rb#39
+# source://rack/2.2.6.4/lib/rack.rb#39
 Rack::GET = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#44
+# source://rack/2.2.6.4/lib/rack.rb#44
 Rack::HEAD = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#20
+# source://rack/2.2.6.4/lib/rack.rb#20
 Rack::HTTPS = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#35
+# source://rack/2.2.6.4/lib/rack.rb#35
 Rack::HTTP_COOKIE = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#17
+# source://rack/2.2.6.4/lib/rack.rb#17
 Rack::HTTP_HOST = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#18
+# source://rack/2.2.6.4/lib/rack.rb#18
 Rack::HTTP_PORT = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#19
+# source://rack/2.2.6.4/lib/rack.rb#19
 Rack::HTTP_VERSION = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#46
+# source://rack/2.2.6.4/lib/rack.rb#46
 Rack::LINK = T.let(T.unsafe(nil), String)
 
-# source://rack-test/2.0.2/lib/rack/test.rb#413
+# source://rack-test/2.1.0/lib/rack/test.rb#381
 Rack::MockSession = Rack::Test::Session
 
-# source://rack/2.2.6/lib/rack.rb#45
+# source://rack/2.2.6.4/lib/rack.rb#45
 Rack::OPTIONS = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#42
+# source://rack/2.2.6.4/lib/rack.rb#42
 Rack::PATCH = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#21
+# source://rack/2.2.6.4/lib/rack.rb#21
 Rack::PATH_INFO = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#40
+# source://rack/2.2.6.4/lib/rack.rb#40
 Rack::POST = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#41
+# source://rack/2.2.6.4/lib/rack.rb#41
 Rack::PUT = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#25
+# source://rack/2.2.6.4/lib/rack.rb#25
 Rack::QUERY_STRING = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#53
+# source://rack/2.2.6.4/lib/rack.rb#53
 Rack::RACK_ERRORS = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#63
+# source://rack/2.2.6.4/lib/rack.rb#63
 Rack::RACK_HIJACK = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#65
+# source://rack/2.2.6.4/lib/rack.rb#65
 Rack::RACK_HIJACK_IO = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#55
+# source://rack/2.2.6.4/lib/rack.rb#55
 Rack::RACK_INPUT = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#64
+# source://rack/2.2.6.4/lib/rack.rb#64
 Rack::RACK_IS_HIJACK = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#54
+# source://rack/2.2.6.4/lib/rack.rb#54
 Rack::RACK_LOGGER = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#76
+# source://rack/2.2.6.4/lib/rack.rb#76
 Rack::RACK_METHODOVERRIDE_ORIGINAL_METHOD = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#67
+# source://rack/2.2.6.4/lib/rack.rb#67
 Rack::RACK_MULTIPART_BUFFER_SIZE = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#68
+# source://rack/2.2.6.4/lib/rack.rb#68
 Rack::RACK_MULTIPART_TEMPFILE_FACTORY = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#60
+# source://rack/2.2.6.4/lib/rack.rb#60
 Rack::RACK_MULTIPROCESS = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#59
+# source://rack/2.2.6.4/lib/rack.rb#59
 Rack::RACK_MULTITHREAD = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#66
+# source://rack/2.2.6.4/lib/rack.rb#66
 Rack::RACK_RECURSIVE_INCLUDE = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#72
+# source://rack/2.2.6.4/lib/rack.rb#72
 Rack::RACK_REQUEST_COOKIE_HASH = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#73
+# source://rack/2.2.6.4/lib/rack.rb#73
 Rack::RACK_REQUEST_COOKIE_STRING = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#70
+# source://rack/2.2.6.4/lib/rack.rb#70
 Rack::RACK_REQUEST_FORM_HASH = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#69
+# source://rack/2.2.6.4/lib/rack.rb#69
 Rack::RACK_REQUEST_FORM_INPUT = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#71
+# source://rack/2.2.6.4/lib/rack.rb#71
 Rack::RACK_REQUEST_FORM_VARS = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#74
+# source://rack/2.2.6.4/lib/rack.rb#74
 Rack::RACK_REQUEST_QUERY_HASH = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#75
+# source://rack/2.2.6.4/lib/rack.rb#75
 Rack::RACK_REQUEST_QUERY_STRING = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#61
+# source://rack/2.2.6.4/lib/rack.rb#61
 Rack::RACK_RUNONCE = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#56
+# source://rack/2.2.6.4/lib/rack.rb#56
 Rack::RACK_SESSION = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#57
+# source://rack/2.2.6.4/lib/rack.rb#57
 Rack::RACK_SESSION_OPTIONS = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#77
+# source://rack/2.2.6.4/lib/rack.rb#77
 Rack::RACK_SESSION_UNPACKED_COOKIE_DATA = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#58
+# source://rack/2.2.6.4/lib/rack.rb#58
 Rack::RACK_SHOWSTATUS_DETAIL = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#52
+# source://rack/2.2.6.4/lib/rack.rb#52
 Rack::RACK_TEMPFILES = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#62
+# source://rack/2.2.6.4/lib/rack.rb#62
 Rack::RACK_URL_SCHEME = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#51
+# source://rack/2.2.6.4/lib/rack.rb#51
 Rack::RACK_VERSION = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack/version.rb#23
+# source://rack/2.2.6.4/lib/rack/version.rb#23
 Rack::RELEASE = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#22
+# source://rack/2.2.6.4/lib/rack.rb#22
 Rack::REQUEST_METHOD = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#23
+# source://rack/2.2.6.4/lib/rack.rb#23
 Rack::REQUEST_PATH = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#24
+# source://rack/2.2.6.4/lib/rack.rb#24
 Rack::SCRIPT_NAME = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#27
+# source://rack/2.2.6.4/lib/rack.rb#27
 Rack::SERVER_NAME = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#28
+# source://rack/2.2.6.4/lib/rack.rb#28
 Rack::SERVER_PORT = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#26
+# source://rack/2.2.6.4/lib/rack.rb#26
 Rack::SERVER_PROTOCOL = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#33
+# source://rack/2.2.6.4/lib/rack.rb#33
 Rack::SET_COOKIE = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#48
+# source://rack/2.2.6.4/lib/rack.rb#48
 Rack::TRACE = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#34
+# source://rack/2.2.6.4/lib/rack.rb#34
 Rack::TRANSFER_ENCODING = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack.rb#47
+# source://rack/2.2.6.4/lib/rack.rb#47
 Rack::UNLINK = T.let(T.unsafe(nil), String)
 
-# source://rack/2.2.6/lib/rack/version.rb#16
+# source://rack/2.2.6.4/lib/rack/version.rb#16
 Rack::VERSION = T.let(T.unsafe(nil), Array)

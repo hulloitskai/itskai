@@ -843,36 +843,25 @@ module ActiveRecordExtended::QueryMethods::AnyOf
   # source://active_record_extended//lib/active_record_extended/query_methods/any_of.rb#6
   def any_of(*queries); end
 
-  # source://active_record_extended//lib/active_record_extended/query_methods/any_of.rb#17
+  # source://active_record_extended//lib/active_record_extended/query_methods/any_of.rb#13
   def none_of(*queries); end
 
   private
 
-  # Rails 5.1 fix
-  # In Rails 5.2 the arel table maintains attribute binds
-  #
-  # source://active_record_extended//lib/active_record_extended/query_methods/any_of.rb#62
-  def bind_attributes(query); end
-
-  # source://active_record_extended//lib/active_record_extended/query_methods/any_of.rb#38
+  # source://active_record_extended//lib/active_record_extended/query_methods/any_of.rb#30
   def build_query(queries); end
 
-  # source://active_record_extended//lib/active_record_extended/query_methods/any_of.rb#47
+  # source://active_record_extended//lib/active_record_extended/query_methods/any_of.rb#39
   def construct_query_mappings(queries); end
 
-  # source://active_record_extended//lib/active_record_extended/query_methods/any_of.rb#79
+  # source://active_record_extended//lib/active_record_extended/query_methods/any_of.rb#55
   def generate_where_clause(query); end
 
-  # source://active_record_extended//lib/active_record_extended/query_methods/any_of.rb#30
+  # source://active_record_extended//lib/active_record_extended/query_methods/any_of.rb#22
   def hash_map_queries(queries); end
 
-  # source://active_record_extended//lib/active_record_extended/query_methods/any_of.rb#75
+  # source://active_record_extended//lib/active_record_extended/query_methods/any_of.rb#51
   def translate_reference(reference); end
-
-  # Rails 5.1 fix
-  #
-  # source://active_record_extended//lib/active_record_extended/query_methods/any_of.rb#69
-  def unprepared_query(query); end
 end
 
 # source://active_record_extended//lib/active_record_extended/query_methods/either.rb#5
@@ -1625,7 +1614,7 @@ end
 
 # source://active_record_extended//lib/active_record_extended/query_methods/with_cte.rb#5
 module ActiveRecordExtended::QueryMethods::WithCTE
-  # source://active_record_extended//lib/active_record_extended/query_methods/with_cte.rb#173
+  # source://active_record_extended//lib/active_record_extended/query_methods/with_cte.rb#178
   def build_with(arel); end
 
   # @return [WithCTE]
@@ -1658,7 +1647,7 @@ module ActiveRecordExtended::QueryMethods::WithCTE
   # @param opts [Hash, WithCTE]
   #
   # source://active_record_extended//lib/active_record_extended/query_methods/with_cte.rb#164
-  def with!(opts = T.unsafe(nil), *_rest); end
+  def with!(opts = T.unsafe(nil), *rest); end
 
   # @param values [Hash, WithCTE]
   #
@@ -1672,7 +1661,7 @@ module ActiveRecordExtended::QueryMethods::WithCTE
 
   private
 
-  # source://active_record_extended//lib/active_record_extended/query_methods/with_cte.rb#194
+  # source://active_record_extended//lib/active_record_extended/query_methods/with_cte.rb#198
   def add_materialized_modifier(expression, cte, name); end
 end
 
@@ -1996,6 +1985,9 @@ module Arel
 
     # source://activerecord/7.0.4/lib/arel.rb#50
     def fetch_attribute(value, &block); end
+
+    # source://rgeo-activerecord/7.0.1/lib/rgeo/active_record/spatial_expressions.rb#253
+    def spatial(arg); end
 
     # source://activerecord/7.0.4/lib/arel.rb#38
     def sql(raw_sql); end

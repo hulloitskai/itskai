@@ -133,7 +133,7 @@ class Enumerize::Attribute
   # source://enumerize//lib/enumerize/attribute.rb#5
   def default_value; end
 
-  # source://enumerize//lib/enumerize/attribute.rb#90
+  # source://enumerize//lib/enumerize/attribute.rb#94
   def define_methods!(mod); end
 
   # source://enumerize//lib/enumerize/attribute.rb#51
@@ -153,7 +153,7 @@ class Enumerize::Attribute
   # source://enumerize//lib/enumerize/attribute.rb#5
   def i18n_scope; end
 
-  # source://enumerize//lib/enumerize/attribute.rb#55
+  # source://enumerize//lib/enumerize/attribute.rb#59
   def i18n_scopes; end
 
   # Returns the value of attribute klass.
@@ -166,13 +166,18 @@ class Enumerize::Attribute
   # source://enumerize//lib/enumerize/attribute.rb#5
   def name; end
 
-  # source://enumerize//lib/enumerize/attribute.rb#65
+  # source://enumerize//lib/enumerize/attribute.rb#69
   def options(options = T.unsafe(nil)); end
 
   # Returns the value of attribute skip_validations_value.
   #
   # source://enumerize//lib/enumerize/attribute.rb#5
   def skip_validations_value; end
+
+  # @return [Boolean]
+  #
+  # source://enumerize//lib/enumerize/attribute.rb#55
+  def value?(value); end
 
   # Returns the value of attribute values.
   #
@@ -181,12 +186,12 @@ class Enumerize::Attribute
 
   private
 
-  # source://enumerize//lib/enumerize/attribute.rb#135
+  # source://enumerize//lib/enumerize/attribute.rb#139
   def method_missing(method); end
 
   # @return [Boolean]
   #
-  # source://enumerize//lib/enumerize/attribute.rb#86
+  # source://enumerize//lib/enumerize/attribute.rb#90
   def respond_to_missing?(method, include_private = T.unsafe(nil)); end
 end
 
@@ -226,7 +231,7 @@ module Enumerize::Base
   mixes_in_class_methods ::Enumerize::Base::ClassMethods::Hook
 
   # source://enumerize//lib/enumerize/base.rb#52
-  def initialize(*_arg0); end
+  def initialize(*_arg0, **_arg1, &_arg2); end
 
   # source://enumerize//lib/enumerize/base.rb#57
   def read_attribute_for_validation(key); end
@@ -235,6 +240,9 @@ module Enumerize::Base
 
   # source://enumerize//lib/enumerize/base.rb#71
   def _enumerized_values_for_validation; end
+
+  # source://enumerize//lib/enumerize/base.rb#97
+  def _set_default_value_for_enumerized_attribute(attr); end
 
   # source://enumerize//lib/enumerize/base.rb#91
   def _set_default_value_for_enumerized_attributes; end
@@ -305,14 +313,19 @@ end
 module Enumerize::MongoidSupport::InstanceMethods
   # source://enumerize//lib/enumerize/mongoid.rb#18
   def reload; end
+
+  private
+
+  # source://enumerize//lib/enumerize/mongoid.rb#30
+  def _set_default_value_for_enumerized_attribute(attr); end
 end
 
-# source://enumerize//lib/enumerize/attribute.rb#144
+# source://enumerize//lib/enumerize/attribute.rb#148
 module Enumerize::Multiple
-  # source://enumerize//lib/enumerize/attribute.rb#153
+  # source://enumerize//lib/enumerize/attribute.rb#157
   def define_methods!(mod); end
 
-  # source://enumerize//lib/enumerize/attribute.rb#145
+  # source://enumerize//lib/enumerize/attribute.rb#149
   def find_default_value(value); end
 end
 

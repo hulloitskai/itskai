@@ -6022,7 +6022,7 @@ class GraphQL::Query
   # source://forwardable/1.3.3/forwardable.rb#231
   def possible_types(*args, **_arg1, &block); end
 
-  # source://graphql-persisted_queries/1.6.1/lib/graphql/persisted_queries/compiled_queries/query_patch.rb#16
+  # source://graphql-persisted_queries/1.7.0/lib/graphql/persisted_queries/compiled_queries/query_patch.rb#16
   def prepare_ast; end
 
   # Returns the value of attribute provided_variables.

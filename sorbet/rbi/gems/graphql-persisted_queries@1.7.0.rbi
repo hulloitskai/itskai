@@ -375,11 +375,24 @@ class GraphQL::PersistedQueries::StoreAdapters::BaseStoreAdapter
   # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/base_store_adapter.rb#11
   def initialize(**_options); end
 
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/base_store_adapter.rb#15
-  def fetch_query(hash, compiled_query: T.unsafe(nil)); end
+  # @raise [NotImplementedError]
+  #
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/base_store_adapter.rb#30
+  def fetch(_hash); end
 
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/base_store_adapter.rb#24
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/base_store_adapter.rb#15
+  def fetch_query(hash, options = T.unsafe(nil)); end
+
+  # @raise [NotImplementedError]
+  #
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/base_store_adapter.rb#34
+  def save(_hash, _query); end
+
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/base_store_adapter.rb#25
   def save_query(hash, query, compiled_query: T.unsafe(nil)); end
+
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/base_store_adapter.rb#38
+  def trace(key, metadata); end
 
   # Sets the attribute tracers
   #
@@ -388,24 +401,9 @@ class GraphQL::PersistedQueries::StoreAdapters::BaseStoreAdapter
   # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/base_store_adapter.rb#9
   def tracers=(_arg0); end
 
-  protected
-
-  # @raise [NotImplementedError]
-  #
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/base_store_adapter.rb#31
-  def fetch(_hash); end
-
-  # @raise [NotImplementedError]
-  #
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/base_store_adapter.rb#35
-  def save(_hash, _query); end
-
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/base_store_adapter.rb#39
-  def trace(key, metadata); end
-
   private
 
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/base_store_adapter.rb#50
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/base_store_adapter.rb#49
   def build_key(hash, compiled_query); end
 end
 
@@ -436,20 +434,18 @@ class GraphQL::PersistedQueries::StoreAdapters::MemcachedStoreAdapter < ::GraphQ
   # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/memcached_store_adapter.rb#13
   def initialize(dalli_client:, expiration: T.unsafe(nil), namespace: T.unsafe(nil)); end
 
-  protected
-
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/memcached_store_adapter.rb#22
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/memcached_store_adapter.rb#20
   def fetch(hash); end
 
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/memcached_store_adapter.rb#26
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/memcached_store_adapter.rb#24
   def save(hash, query); end
 
   private
 
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/memcached_store_adapter.rb#36
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/memcached_store_adapter.rb#34
   def build_dalli_proc(dalli_client); end
 
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/memcached_store_adapter.rb#32
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/memcached_store_adapter.rb#30
   def key_for(hash); end
 end
 
@@ -468,12 +464,10 @@ class GraphQL::PersistedQueries::StoreAdapters::MemoryStoreAdapter < ::GraphQL::
   # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/memory_store_adapter.rb#8
   def initialize(**_options); end
 
-  protected
-
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/memory_store_adapter.rb#15
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/memory_store_adapter.rb#13
   def fetch(hash); end
 
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/memory_store_adapter.rb#19
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/memory_store_adapter.rb#17
   def save(hash, query); end
 end
 
@@ -507,20 +501,18 @@ class GraphQL::PersistedQueries::StoreAdapters::RedisStoreAdapter < ::GraphQL::P
   # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_store_adapter.rb#13
   def initialize(redis_client: T.unsafe(nil), expiration: T.unsafe(nil), namespace: T.unsafe(nil)); end
 
-  protected
-
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_store_adapter.rb#22
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_store_adapter.rb#20
   def fetch(hash); end
 
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_store_adapter.rb#26
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_store_adapter.rb#24
   def save(hash, query); end
 
   private
 
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_store_adapter.rb#39
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_store_adapter.rb#37
   def build_redis_proc(redis_client); end
 
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_store_adapter.rb#32
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_store_adapter.rb#30
   def key_for(hash); end
 end
 
@@ -539,31 +531,22 @@ class GraphQL::PersistedQueries::StoreAdapters::RedisWithLocalCacheStoreAdapter 
   # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_with_local_cache_store_adapter.rb#11
   def initialize(redis_client: T.unsafe(nil), expiration: T.unsafe(nil), namespace: T.unsafe(nil), redis_adapter_class: T.unsafe(nil), memory_adapter_class: T.unsafe(nil)); end
 
-  # We don't need to implement our own traces for this adapter since the
-  # underlying adapters will emit the proper events for us.  However,
-  # since tracers can be defined at any time, we need to pass them through.
-  #
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_with_local_cache_store_adapter.rb#28
-  def tracers=(tracers); end
-
-  protected
-
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_with_local_cache_store_adapter.rb#35
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_with_local_cache_store_adapter.rb#25
   def fetch(hash); end
 
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_with_local_cache_store_adapter.rb#45
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_with_local_cache_store_adapter.rb#35
   def save(hash, query); end
 
   private
 
   # Returns the value of attribute memory_adapter.
   #
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_with_local_cache_store_adapter.rb#52
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_with_local_cache_store_adapter.rb#42
   def memory_adapter; end
 
   # Returns the value of attribute redis_adapter.
   #
-  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_with_local_cache_store_adapter.rb#52
+  # source://graphql-persisted_queries//lib/graphql/persisted_queries/store_adapters/redis_with_local_cache_store_adapter.rb#42
   def redis_adapter; end
 end
 

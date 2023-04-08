@@ -2569,7 +2569,7 @@ class ActiveSupport::Concern::MultiplePrependBlocks < ::StandardError
   def initialize; end
 end
 
-# source://activesupport//lib/active_support/concurrency/share_lock.rb#7
+# source://activesupport//lib/active_support/concurrency/load_interlock_aware_monitor.rb#6
 module ActiveSupport::Concurrency; end
 
 # A monitor that will permit dependency loading while blocked waiting for
@@ -3194,12 +3194,6 @@ module ActiveSupport::Dependencies::RequireDependency
   #
   # source://activesupport//lib/active_support/dependencies/require_dependency.rb#11
   def require_dependency(filename); end
-end
-
-# source://activesupport//lib/active_support/core_ext/numeric/deprecated_conversions.rb#4
-module ActiveSupport::DeprecatedNumericWithFormat
-  # source://activesupport//lib/active_support/core_ext/numeric/deprecated_conversions.rb#5
-  def to_s(format = T.unsafe(nil), options = T.unsafe(nil)); end
 end
 
 # source://activesupport//lib/active_support/core_ext/range/deprecated_conversions.rb#4
@@ -6392,7 +6386,7 @@ module ActiveSupport::IsolatedExecutionState
   end
 end
 
-# source://activesupport//lib/active_support/json/encoding.rb#15
+# source://activesupport//lib/active_support/json/decoding.rb#11
 module ActiveSupport::JSON
   class << self
     # Parses a JSON string (JavaScript Object Notation) into a hash.
@@ -10382,48 +10376,48 @@ class ActiveSupport::TestCase < ::Minitest::Test
   # source://activesupport//lib/active_support/callbacks.rb#940
   def _teardown_callbacks; end
 
-  # source://minitest/5.17.0/lib/minitest/assertions.rb#709
+  # source://minitest/5.18.0/lib/minitest/assertions.rb#735
   def assert_no_match(matcher, obj, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.17.0/lib/minitest/assertions.rb#638
+  # source://minitest/5.18.0/lib/minitest/assertions.rb#664
   def assert_not_empty(obj, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.17.0/lib/minitest/assertions.rb#649
+  # source://minitest/5.18.0/lib/minitest/assertions.rb#675
   def assert_not_equal(exp, act, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.17.0/lib/minitest/assertions.rb#661
+  # source://minitest/5.18.0/lib/minitest/assertions.rb#687
   def assert_not_in_delta(exp, act, delta = T.unsafe(nil), msg = T.unsafe(nil)); end
 
-  # source://minitest/5.17.0/lib/minitest/assertions.rb#673
+  # source://minitest/5.18.0/lib/minitest/assertions.rb#699
   def assert_not_in_epsilon(a, b, epsilon = T.unsafe(nil), msg = T.unsafe(nil)); end
 
-  # source://minitest/5.17.0/lib/minitest/assertions.rb#680
+  # source://minitest/5.18.0/lib/minitest/assertions.rb#706
   def assert_not_includes(collection, obj, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.17.0/lib/minitest/assertions.rb#691
+  # source://minitest/5.18.0/lib/minitest/assertions.rb#717
   def assert_not_instance_of(cls, obj, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.17.0/lib/minitest/assertions.rb#701
+  # source://minitest/5.18.0/lib/minitest/assertions.rb#727
   def assert_not_kind_of(cls, obj, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.17.0/lib/minitest/assertions.rb#719
+  # source://minitest/5.18.0/lib/minitest/assertions.rb#745
   def assert_not_nil(obj, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.17.0/lib/minitest/assertions.rb#730
+  # source://minitest/5.18.0/lib/minitest/assertions.rb#780
   def assert_not_operator(o1, op, o2 = T.unsafe(nil), msg = T.unsafe(nil)); end
 
-  # source://minitest/5.17.0/lib/minitest/assertions.rb#753
+  # source://minitest/5.18.0/lib/minitest/assertions.rb#803
   def assert_not_predicate(o1, op, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.17.0/lib/minitest/assertions.rb#761
+  # source://minitest/5.18.0/lib/minitest/assertions.rb#811
   def assert_not_respond_to(obj, meth, msg = T.unsafe(nil)); end
 
-  # source://minitest/5.17.0/lib/minitest/assertions.rb#770
+  # source://minitest/5.18.0/lib/minitest/assertions.rb#820
   def assert_not_same(exp, act, msg = T.unsafe(nil)); end
 
   # test/unit backwards compatibility methods
   #
-  # source://minitest/5.17.0/lib/minitest/assertions.rb#396
+  # source://minitest/5.18.0/lib/minitest/assertions.rb#422
   def assert_raise(*exp); end
 
   # source://activesupport//lib/active_support/testing/file_fixtures.rb#20
@@ -10435,7 +10429,7 @@ class ActiveSupport::TestCase < ::Minitest::Test
   # source://activesupport//lib/active_support/test_case.rb#151
   def inspect; end
 
-  # source://minitest/5.17.0/lib/minitest.rb#304
+  # source://minitest/5.18.0/lib/minitest.rb#304
   def method_name; end
 
   class << self
@@ -13012,9 +13006,6 @@ class Array
   # source://activesupport//lib/active_support/core_ext/object/to_query.rb#50
   def to_query(key); end
 
-  # source://activesupport//lib/active_support/core_ext/array/deprecated_conversions.rb#5
-  # def to_s(format = T.unsafe(nil)); end
-
   # Converts the array to a comma-separated sentence where the last element is
   # joined by the connector word.
   #
@@ -13201,14 +13192,10 @@ class Array
   end
 end
 
-# source://activesupport//lib/active_support/core_ext/array/deprecated_conversions.rb#4
-Array::NOT_SET = T.let(T.unsafe(nil), Object)
-
 # source://activesupport//lib/active_support/core_ext/object/json.rb#118
 class BigDecimal < ::Numeric
   include ::ActiveSupport::BigDecimalWithDefaultFormat
   include ::ActiveSupport::NumericWithFormat
-  include ::ActiveSupport::DeprecatedNumericWithFormat
 
   # A BigDecimal would be naturally represented as a JSON number. Most libraries,
   # however, parse non-integer JSON numbers directly as floats. Clients using
@@ -13223,8 +13210,8 @@ class BigDecimal < ::Numeric
   # source://activesupport//lib/active_support/core_ext/object/json.rb#128
   def as_json(options = T.unsafe(nil)); end
 
-  # source://activesupport//lib/active_support/core_ext/numeric/deprecated_conversions.rb#5
-  # def to_s(format = T.unsafe(nil), options = T.unsafe(nil)); end
+  # source://activesupport//lib/active_support/core_ext/big_decimal/conversions.rb#8
+  def to_s(format = T.unsafe(nil)); end
 end
 
 BigDecimal::EXCEPTION_NaN = T.let(T.unsafe(nil), Integer)
@@ -15095,16 +15082,12 @@ File::RELATIVE_SAMEDIR = T.let(T.unsafe(nil), String)
 # source://activesupport//lib/active_support/core_ext/object/json.rb#110
 class Float < ::Numeric
   include ::ActiveSupport::NumericWithFormat
-  include ::ActiveSupport::DeprecatedNumericWithFormat
 
   # Encoding Infinity or NaN to JSON should return "null". The default returns
   # "Infinity" or "NaN" which are not valid JSON.
   #
   # source://activesupport//lib/active_support/core_ext/object/json.rb#113
   def as_json(options = T.unsafe(nil)); end
-
-  # source://activesupport//lib/active_support/core_ext/numeric/deprecated_conversions.rb#5
-  # def to_s(format = T.unsafe(nil), options = T.unsafe(nil)); end
 end
 
 # source://activesupport//lib/active_support/core_ext/hash/deep_merge.rb#3
@@ -15805,7 +15788,6 @@ IPAddr::VERSION = T.let(T.unsafe(nil), String)
 # source://activesupport//lib/active_support/core_ext/integer/time.rb#6
 class Integer < ::Numeric
   include ::ActiveSupport::NumericWithFormat
-  include ::ActiveSupport::DeprecatedNumericWithFormat
 
   # Returns a Duration instance matching the number of months provided.
   #
@@ -15857,9 +15839,6 @@ class Integer < ::Numeric
   #
   # source://activesupport//lib/active_support/core_ext/integer/inflections.rb#15
   def ordinalize; end
-
-  # source://activesupport//lib/active_support/core_ext/numeric/deprecated_conversions.rb#5
-  # def to_s(format = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Returns a Duration instance matching the number of years provided.
   #
@@ -18585,7 +18564,7 @@ end
 # source://aws-sdk-core/3.168.4/lib/aws-sdk-core/structure.rb#88
 Struct::AwsEmptyStructure = Struct
 
-# source://nokogiri/1.14.0/lib/nokogiri/html4/element_description_defaults.rb#11
+# source://nokogiri/1.14.2/lib/nokogiri/html4/element_description_defaults.rb#11
 Struct::HTMLElementDescription = Struct
 
 # source://activesupport//lib/active_support/core_ext/object/json.rb#98

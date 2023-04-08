@@ -242,7 +242,7 @@ class ActiveModel::Validations::IpaddrValidator < ::ActiveModel::EachValidator
   def resolve_array(record, val); end
 end
 
-# source://can_has_validations//lib/can_has_validations/validators/url_validator.rb#8
+# source://can_has_validations//lib/can_has_validations/validators/url_validator.rb#15
 class ActiveModel::Validations::UrlValidator < ::ActiveModel::EachValidator
   # source://validate_url/1.0.15/lib/validate_url.rb#11
   def initialize(options); end

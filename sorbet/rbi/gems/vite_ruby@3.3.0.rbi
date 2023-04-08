@@ -86,19 +86,19 @@ class ViteRuby
     # source://vite_ruby//lib/vite_ruby.rb#43
     def bootstrap; end
 
-    # source://forwardable/1.3.2/forwardable.rb#229
+    # source://forwardable/1.3.3/forwardable.rb#231
     def commands(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.2/forwardable.rb#229
+    # source://forwardable/1.3.3/forwardable.rb#231
     def config(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.2/forwardable.rb#229
+    # source://forwardable/1.3.3/forwardable.rb#231
     def configure(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.2/forwardable.rb#229
+    # source://forwardable/1.3.3/forwardable.rb#231
     def digest(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.2/forwardable.rb#229
+    # source://forwardable/1.3.3/forwardable.rb#231
     def env(*args, **_arg1, &block); end
 
     # Internal: Detects if the application has installed a framework-specific
@@ -115,7 +115,7 @@ class ViteRuby
     # source://vite_ruby//lib/vite_ruby.rb#38
     def instance; end
 
-    # source://forwardable/1.3.2/forwardable.rb#229
+    # source://forwardable/1.3.3/forwardable.rb#231
     def mode(*args, **_arg1, &block); end
 
     # Internal: Creates a new instance with the specified options.
@@ -123,10 +123,10 @@ class ViteRuby
     # source://vite_ruby//lib/vite_ruby.rb#53
     def reload_with(**config_options); end
 
-    # source://forwardable/1.3.2/forwardable.rb#229
+    # source://forwardable/1.3.3/forwardable.rb#231
     def run(*args, **_arg1, &block); end
 
-    # source://forwardable/1.3.2/forwardable.rb#229
+    # source://forwardable/1.3.3/forwardable.rb#231
     def run_proxy?(*args, **_arg1, &block); end
   end
 end
@@ -207,7 +207,7 @@ class ViteRuby::Builder
   # source://vite_ruby//lib/vite_ruby/builder.rb#13
   def build(*args); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def config(*args, **_arg1, &block); end
 
   # Internal: Reads the result of the last compilation from disk.
@@ -215,10 +215,10 @@ class ViteRuby::Builder
   # source://vite_ruby//lib/vite_ruby/builder.rb#31
   def last_build_metadata(ssr: T.unsafe(nil)); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def logger(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def run(*args, **_arg1, &block); end
 
   private
@@ -269,7 +269,7 @@ end
 
 # source://vite_ruby//lib/vite_ruby/cli/build.rb#3
 class ViteRuby::CLI::Build < ::ViteRuby::CLI::Vite
-  # source://vite_rails/3.0.13/lib/vite_rails/cli.rb#9
+  # source://vite_rails/3.0.14/lib/vite_rails/cli.rb#9
   def call(**options); end
 end
 
@@ -403,17 +403,17 @@ class ViteRuby::CLI::Install < ::Dry::CLI::Command
   # source://vite_ruby//lib/vite_ruby/cli/install.rb#8
   def call(**_arg0); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def config(*args, **_arg1, &block); end
 
   # Internal: Create a sample JS file and attempt to inject it in an HTML template.
   #
-  # source://vite_rails/3.0.13/lib/vite_rails/cli.rb#60
+  # source://vite_rails/3.0.14/lib/vite_rails/cli.rb#60
   def install_sample_files; end
 
   # Internal: Setup for a plain Rack application.
   #
-  # source://vite_rails/3.0.13/lib/vite_rails/cli.rb#28
+  # source://vite_rails/3.0.14/lib/vite_rails/cli.rb#28
   def setup_app_files; end
 
   protected
@@ -581,7 +581,7 @@ class ViteRuby::Commands
   # source://vite_ruby//lib/vite_ruby/commands.rb#11
   def build_from_task(*args); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def builder(*args, **_arg1, &block); end
 
   # Public: Cleanup old assets in the output directory.
@@ -608,7 +608,7 @@ class ViteRuby::Commands
   # source://vite_ruby//lib/vite_ruby/commands.rb#25
   def clobber; end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def config(*args, **_arg1, &block); end
 
   # Internal: Installs the binstub for the CLI in the appropriate path.
@@ -630,13 +630,13 @@ class ViteRuby::Commands
   # source://vite_ruby//lib/vite_ruby/commands.rb#75
   def legacy_yarn_version?; end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def logger(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def logger=(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def manifest(*args, **_arg1, &block); end
 
   # Internal: Prints information about ViteRuby's environment.
@@ -875,7 +875,7 @@ class ViteRuby::Config
 
     # Internal: Default values for a Ruby application.
     #
-    # source://vite_rails/3.0.13/lib/vite_rails/config.rb#7
+    # source://vite_rails/3.0.14/lib/vite_rails/config.rb#7
     def config_defaults; end
 
     # Internal: Extracts the configuration options provided as env vars.
@@ -892,6 +892,8 @@ class ViteRuby::Config
     #
     # source://vite_ruby//lib/vite_ruby/config.rb#143
     def load_json(path); end
+
+    def new(*_arg0); end
 
     # Internal: Retrieves a configuration option from environment variables.
     #
@@ -939,10 +941,10 @@ class ViteRuby::DevServerProxy < ::Rack::Proxy
   # source://vite_ruby//lib/vite_ruby/dev_server_proxy.rb#10
   def initialize(app = T.unsafe(nil), options = T.unsafe(nil)); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def config(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def dev_server_running?(*args, **_arg1, &block); end
 
   # Rack: Intercept asset requests and send them to the Vite server.
@@ -1039,13 +1041,13 @@ class ViteRuby::Manifest
   # source://vite_ruby//lib/vite_ruby/manifest.rb#13
   def initialize(vite_ruby); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def builder(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def config(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def dev_server_running?(*args, **_arg1, &block); end
 
   # Public: Returns the path for the specified Vite entrypoint file.
@@ -1200,16 +1202,16 @@ class ViteRuby::MissingEntrypointError < ::ViteRuby::Error
   # source://vite_ruby//lib/vite_ruby/missing_entrypoint_error.rb#11
   def initialize(info); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def config(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def file_name(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def last_build(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def manifest(*args, **_arg1, &block); end
 
   # source://vite_ruby//lib/vite_ruby/missing_entrypoint_error.rb#24
@@ -1246,13 +1248,13 @@ class ViteRuby::Runner
   # source://vite_ruby//lib/vite_ruby/runner.rb#5
   def initialize(vite_ruby); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def config(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def env(*args, **_arg1, &block); end
 
-  # source://forwardable/1.3.2/forwardable.rb#229
+  # source://forwardable/1.3.3/forwardable.rb#231
   def logger(*args, **_arg1, &block); end
 
   # Public: Executes Vite with the specified arguments.
@@ -1273,4 +1275,5 @@ class ViteRuby::Runner
   def vite_executable; end
 end
 
+# source://vite_ruby//lib/vite_ruby/version.rb#4
 ViteRuby::VERSION = T.let(T.unsafe(nil), String)

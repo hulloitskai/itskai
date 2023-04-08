@@ -482,6 +482,9 @@ class ActionController::Base < ::ActionController::Metal
 
   protected
 
+  # source://action_policy/0.6.3/lib/action_policy/rails/controller.rb#67
+  def authorize_count; end
+
   # source://action_policy/0.6.3/lib/action_policy/rails/controller.rb#31
   def authorize_count=(_arg0); end
 
@@ -837,7 +840,10 @@ module ActionController::RespondWith
   #      i.e. its +show+ action.
   #   2. If there are validation errors, the response
   #      renders a default action, which is <tt>:new</tt> for a
-  #      +post+ request or <tt>:edit</tt> for +patch+ or +put+.
+  #      +post+ request or <tt>:edit</tt> for +patch+ or +put+,
+  #      and the status is set based on the configured `error_status`.
+  #      (defaults to `422 Unprocessable Entity` on new apps,
+  #       `200 OK` for compatibility reasons on old apps.)
   #   Thus an example like this -
   #
   #     respond_to :html, :xml
@@ -858,8 +864,8 @@ module ActionController::RespondWith
   #           format.html { redirect_to(@user) }
   #           format.xml { render xml: @user }
   #         else
-  #           format.html { render action: "new" }
-  #           format.xml { render xml: @user }
+  #           format.html { render action: "new", status: :unprocessable_entity }
+  #           format.xml { render xml: @user, status: :unprocessable_entity }
   #         end
   #       end
   #     end
@@ -936,9 +942,9 @@ module ActionController::RespondWith
   #    need to render a template which is outside of controller's path or you
   #    want to override the default http <tt>:status</tt> code, e.g.
   #
-  #    respond_with(resource, render: { template: 'path/to/template', status: 422 })
+  #    respond_with(resource, render: { template: 'path/to/template', status: 418 })
   #
-  # source://responders//lib/action_controller/respond_with.rb#198
+  # source://responders//lib/action_controller/respond_with.rb#201
   def respond_with(*resources, &block); end
 
   protected
@@ -946,7 +952,7 @@ module ActionController::RespondWith
   # Collect mimes declared in the class method respond_to valid for the
   # current action.
   #
-  # source://responders//lib/action_controller/respond_with.rb#242
+  # source://responders//lib/action_controller/respond_with.rb#245
   def collect_mimes_from_class_level; end
 
   # Before action callback that can be used to prevent requests that do not
@@ -958,7 +964,7 @@ module ActionController::RespondWith
   #     before_action :verify_requested_format!
   #   end
   #
-  # source://responders//lib/action_controller/respond_with.rb#229
+  # source://responders//lib/action_controller/respond_with.rb#232
   def verify_request_format!; end
 
   # Before action callback that can be used to prevent requests that do not
@@ -970,7 +976,7 @@ module ActionController::RespondWith
   #     before_action :verify_requested_format!
   #   end
   #
-  # source://responders//lib/action_controller/respond_with.rb#229
+  # source://responders//lib/action_controller/respond_with.rb#232
   def verify_requested_format!; end
 
   module GeneratedClassMethods
@@ -1072,7 +1078,7 @@ end
 #         format.html { redirect_to(@user) }
 #         format.xml { render xml: @user, status: :created, location: @user }
 #       else
-#         format.html { render action: "new" }
+#         format.html { render action: "new", status: :unprocessable_entity }
 #         format.xml { render xml: @user.errors, status: :unprocessable_entity }
 #       end
 #     end
@@ -1136,7 +1142,7 @@ end
 #       if @task.save
 #         flash[:notice] = 'Task was successfully created.'
 #       else
-#         format.html { render "some_special_template" }
+#         format.html { render "some_special_template", status: :unprocessable_entity }
 #       end
 #     end
 #   end
@@ -1147,84 +1153,90 @@ end
 class ActionController::Responder
   # @return [Responder] a new instance of Responder
   #
-  # source://responders//lib/action_controller/responder.rb#131
+  # source://responders//lib/action_controller/responder.rb#134
   def initialize(controller, resources, options = T.unsafe(nil)); end
 
   # Returns the value of attribute controller.
   #
-  # source://responders//lib/action_controller/responder.rb#123
+  # source://responders//lib/action_controller/responder.rb#126
   def controller; end
 
-  # source://responders//lib/action_controller/responder.rb#148
+  # source://responders//lib/action_controller/responder.rb#151
   def delete?(*_arg0, **_arg1, &_arg2); end
+
+  # source://responders//lib/action_controller/responder.rb#123
+  def error_status; end
 
   # Returns the value of attribute format.
   #
-  # source://responders//lib/action_controller/responder.rb#123
+  # source://responders//lib/action_controller/responder.rb#126
   def format; end
 
-  # source://responders//lib/action_controller/responder.rb#148
+  # source://responders//lib/action_controller/responder.rb#151
   def get?(*_arg0, **_arg1, &_arg2); end
 
-  # source://responders//lib/action_controller/responder.rb#147
+  # source://responders//lib/action_controller/responder.rb#150
   def head(*_arg0, **_arg1, &_arg2); end
 
   # Returns the value of attribute options.
   #
-  # source://responders//lib/action_controller/responder.rb#123
+  # source://responders//lib/action_controller/responder.rb#126
   def options; end
 
-  # source://responders//lib/action_controller/responder.rb#148
+  # source://responders//lib/action_controller/responder.rb#151
   def patch?(*_arg0, **_arg1, &_arg2); end
 
-  # source://responders//lib/action_controller/responder.rb#148
+  # source://responders//lib/action_controller/responder.rb#151
   def post?(*_arg0, **_arg1, &_arg2); end
 
-  # source://responders//lib/action_controller/responder.rb#148
+  # source://responders//lib/action_controller/responder.rb#151
   def put?(*_arg0, **_arg1, &_arg2); end
 
-  # source://responders//lib/action_controller/responder.rb#147
+  # source://responders//lib/action_controller/responder.rb#124
+  def redirect_status; end
+
+  # source://responders//lib/action_controller/responder.rb#150
   def redirect_to(*_arg0, **_arg1, &_arg2); end
 
-  # source://responders//lib/action_controller/responder.rb#147
+  # source://responders//lib/action_controller/responder.rb#150
   def render(*_arg0, **_arg1, &_arg2); end
 
   # Returns the value of attribute request.
   #
-  # source://responders//lib/action_controller/responder.rb#123
+  # source://responders//lib/action_controller/responder.rb#126
   def request; end
 
   # Returns the value of attribute resource.
   #
-  # source://responders//lib/action_controller/responder.rb#123
+  # source://responders//lib/action_controller/responder.rb#126
   def resource; end
 
   # Returns the value of attribute resources.
   #
-  # source://responders//lib/action_controller/responder.rb#123
+  # source://responders//lib/action_controller/responder.rb#126
   def resources; end
 
   # Main entry point for responder responsible to dispatch to the proper format.
   #
-  # source://responders//lib/action_controller/responder.rb#163
+  # source://responders//lib/action_controller/responder.rb#166
   def respond; end
 
   # All other formats follow the procedure below. First we try to render a
   # template, if the template is not available, we verify if the resource
   # responds to :to_format and display it.
   #
-  # source://responders//lib/action_controller/responder.rb#186
+  # source://responders//lib/action_controller/responder.rb#189
   def to_format; end
 
   # HTML format does not render the resource, it always attempt to render a
   # template.
   #
-  # source://responders//lib/action_controller/responder.rb#171
+  # source://responders//lib/action_controller/responder.rb#174
   def to_html; end
 
   # to_js simply tries to render a template. If no template is found, raises the error.
   #
-  # source://responders//lib/action_controller/responder.rb#178
+  # source://responders//lib/action_controller/responder.rb#181
   def to_js; end
 
   protected
@@ -1233,25 +1245,25 @@ class ActionController::Responder
   #
   # @raise [MissingRenderer]
   #
-  # source://responders//lib/action_controller/responder.rb#212
+  # source://responders//lib/action_controller/responder.rb#215
   def api_behavior; end
 
   # Returns the resource location by retrieving it from the options or
   # returning the resources array.
   #
-  # source://responders//lib/action_controller/responder.rb#227
+  # source://responders//lib/action_controller/responder.rb#230
   def api_location; end
 
   # By default, render the <code>:edit</code> action for HTML requests with errors, unless
   # the verb was POST.
   #
-  # source://responders//lib/action_controller/responder.rb#287
+  # source://responders//lib/action_controller/responder.rb#294
   def default_action; end
 
   # If a response block was given, use it, otherwise call render on
   # controller.
   #
-  # source://responders//lib/action_controller/responder.rb#236
+  # source://responders//lib/action_controller/responder.rb#239
   def default_render; end
 
   # Display is just a shortcut to render a resource with the current format.
@@ -1271,72 +1283,84 @@ class ActionController::Responder
   #
   #   render xml: @user, status: :created
   #
-  # source://responders//lib/action_controller/responder.rb#261
+  # source://responders//lib/action_controller/responder.rb#266
   def display(resource, given_options = T.unsafe(nil)); end
 
-  # source://responders//lib/action_controller/responder.rb#265
+  # source://responders//lib/action_controller/responder.rb#270
   def display_errors; end
+
+  # source://responders//lib/action_controller/responder.rb#310
+  def error_rendering_options; end
 
   # Check whether the resource has errors.
   #
   # @return [Boolean]
   #
-  # source://responders//lib/action_controller/responder.rb#271
+  # source://responders//lib/action_controller/responder.rb#278
   def has_errors?; end
 
   # Check whether the necessary Renderer is available
   #
   # @return [Boolean]
   #
-  # source://responders//lib/action_controller/responder.rb#276
+  # source://responders//lib/action_controller/responder.rb#283
   def has_renderer?; end
 
   # @return [Boolean]
   #
-  # source://responders//lib/action_controller/responder.rb#280
+  # source://responders//lib/action_controller/responder.rb#287
   def has_view_rendering?; end
 
-  # source://responders//lib/action_controller/responder.rb#295
+  # source://responders//lib/action_controller/responder.rb#302
   def json_resource_errors; end
 
   # This is the common behavior for formats associated with browsing, like :html, :iphone and so forth.
   #
-  # source://responders//lib/action_controller/responder.rb#201
+  # source://responders//lib/action_controller/responder.rb#204
   def navigation_behavior(error); end
 
   # Returns the resource location by retrieving it from the options or
   # returning the resources array.
   #
-  # source://responders//lib/action_controller/responder.rb#227
+  # source://responders//lib/action_controller/responder.rb#230
   def navigation_location; end
 
-  # source://responders//lib/action_controller/responder.rb#303
-  def rendering_options; end
-
-  # source://responders//lib/action_controller/responder.rb#291
+  # source://responders//lib/action_controller/responder.rb#298
   def resource_errors; end
 
   # Returns the resource location by retrieving it from the options or
   # returning the resources array.
   #
-  # source://responders//lib/action_controller/responder.rb#227
+  # source://responders//lib/action_controller/responder.rb#230
   def resource_location; end
 
   # @return [Boolean]
   #
-  # source://responders//lib/action_controller/responder.rb#299
+  # source://responders//lib/action_controller/responder.rb#306
   def response_overridden?; end
 
   class << self
     # Initializes a new responder and invokes the proper format. If the format is
     # not defined, call to_format.
     #
-    # source://responders//lib/action_controller/responder.rb#157
+    # source://responders//lib/action_controller/responder.rb#160
     def call(*args); end
+
+    # source://responders//lib/action_controller/responder.rb#123
+    def error_status; end
+
+    # source://responders//lib/action_controller/responder.rb#123
+    def error_status=(value); end
+
+    # source://responders//lib/action_controller/responder.rb#124
+    def redirect_status; end
+
+    # source://responders//lib/action_controller/responder.rb#124
+    def redirect_status=(value); end
   end
 end
 
-# source://responders//lib/action_controller/responder.rb#125
+# source://responders//lib/action_controller/responder.rb#128
 ActionController::Responder::DEFAULT_ACTIONS_FOR_VERBS = T.let(T.unsafe(nil), Hash)
 
 # source://responders//lib/responders.rb#11
@@ -1458,7 +1482,7 @@ end
 #
 #     respond_with(@user, :notice => "Hooray! Welcome!", :alert => "Woot! You failed.")
 #
-# * :flash_now - Sets the flash message using flash.now. Accepts true, :on_failure or :on_sucess.
+# * :flash_now - Sets the flash message using flash.now. Accepts true, :on_failure or :on_success.
 #
 # == Configure status keys
 #
@@ -1472,43 +1496,43 @@ end
 #
 # source://responders//lib/responders/flash_responder.rb#87
 module Responders::FlashResponder
-  # source://responders//lib/responders/flash_responder.rb#99
+  # source://responders//lib/responders/flash_responder.rb#95
   def initialize(controller, resources, options = T.unsafe(nil)); end
 
-  # source://responders//lib/responders/flash_responder.rb#107
+  # source://responders//lib/responders/flash_responder.rb#103
   def to_html; end
 
-  # source://responders//lib/responders/flash_responder.rb#112
+  # source://responders//lib/responders/flash_responder.rb#108
   def to_js; end
 
   protected
 
-  # source://responders//lib/responders/flash_responder.rb#166
+  # source://responders//lib/responders/flash_responder.rb#162
   def controller_interpolation_options; end
 
-  # source://responders//lib/responders/flash_responder.rb#183
+  # source://responders//lib/responders/flash_responder.rb#174
   def flash_defaults_by_namespace(status); end
 
-  # source://responders//lib/responders/flash_responder.rb#151
+  # source://responders//lib/responders/flash_responder.rb#147
   def mount_i18n_options(status); end
 
-  # source://responders//lib/responders/flash_responder.rb#175
+  # source://responders//lib/responders/flash_responder.rb#166
   def resource_name; end
 
-  # source://responders//lib/responders/flash_responder.rb#135
+  # source://responders//lib/responders/flash_responder.rb#131
   def set_flash(key, value); end
 
-  # source://responders//lib/responders/flash_responder.rb#119
+  # source://responders//lib/responders/flash_responder.rb#115
   def set_flash_message!; end
 
   # @return [Boolean]
   #
-  # source://responders//lib/responders/flash_responder.rb#147
+  # source://responders//lib/responders/flash_responder.rb#143
   def set_flash_message?; end
 
   # @return [Boolean]
   #
-  # source://responders//lib/responders/flash_responder.rb#142
+  # source://responders//lib/responders/flash_responder.rb#138
   def set_flash_now?; end
 
   class << self
@@ -1523,18 +1547,6 @@ module Responders::FlashResponder
     #
     # source://responders//lib/responders/flash_responder.rb#89
     def flash_keys=(_arg0); end
-
-    # Returns the value of attribute helper.
-    #
-    # source://responders//lib/responders/flash_responder.rb#89
-    def helper; end
-
-    # Sets the attribute helper
-    #
-    # @param value the value to set the attribute helper to.
-    #
-    # source://responders//lib/responders/flash_responder.rb#89
-    def helper=(_arg0); end
 
     # Returns the value of attribute namespace_lookup.
     #
@@ -1583,15 +1595,5 @@ module Responders::HttpCacheResponder
   def persisted?; end
 end
 
-# source://responders//lib/responders/location_responder.rb#4
-module Responders::LocationResponder
-  class << self
-    # @private
-    #
-    # source://responders//lib/responders/location_responder.rb#5
-    def included(_base); end
-  end
-end
-
-# source://responders//lib/responders.rb#19
+# source://responders//lib/responders.rb#18
 class Responders::Railtie < ::Rails::Railtie; end
