@@ -20,6 +20,7 @@ processes = []
   processes = ["app"]
   protocol = "tcp"
   script_checks = []
+  tcp_checks = []
 
   [services.concurrency]
     hard_limit = 25
