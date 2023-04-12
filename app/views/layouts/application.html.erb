@@ -35,7 +35,7 @@
       <% if user_signed_in? %>
         <meta name="honeybadger-context" content="<%= current_user.honeybadger_context.to_json %>">
       <% end %>
-    <% end %>
+    <% end if false %>
 
     <%# == FullStory %>
     <% ENV["FULLSTORY_ORG_ID"].presence.try! do |org_id| %>
@@ -47,7 +47,7 @@
 
     <%# == Vite %>
     <%= vite_client_tag %>
-    <%= vite_typescript_tag "honeybadger" %>
+    <%#= vite_typescript_tag "honeybadger" %>
     <%= vite_typescript_tag "fullstory" %>
     <% if local_assigns.include?(:page) %>
       <%= vite_react_refresh_tag %>

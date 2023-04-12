@@ -6,7 +6,6 @@
     "@emotion/react": "^11.10.6",
     "@emotion/server": "^11.10.0",
     "@fullstory/browser": "^1.6.2",
-    "@honeybadger-io/js": "^4.7.4",
     "@inertiajs/core": "^1.0.2",
     "@inertiajs/react": "^1.0.2",
     "@mantine/core": "^6.0.4",

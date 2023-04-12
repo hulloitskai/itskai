@@ -21,7 +21,7 @@ class Users::SessionsController
     sig { returns(T.untyped) }
     def devise_mapping; end
 
-    sig { returns(::User) }
+    sig { returns(T.nilable(::User)) }
     def resource; end
 
     sig { returns(T.untyped) }

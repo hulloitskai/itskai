@@ -227,6 +227,21 @@ class GoodJob::Job
   end
 
   module GeneratedAssociationMethods
+    sig { returns(T.nilable(::GoodJob::BatchRecord)) }
+    def batch; end
+
+    sig { params(value: T.nilable(::GoodJob::BatchRecord)).void }
+    def batch=(value); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::GoodJob::BatchRecord) }
+    def build_batch(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::GoodJob::BatchRecord) }
+    def create_batch(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::GoodJob::BatchRecord) }
+    def create_batch!(*args, &blk); end
+
     sig { returns(T::Array[T.untyped]) }
     def execution_ids; end
 
@@ -240,6 +255,9 @@ class GoodJob::Job
 
     sig { params(value: T::Enumerable[::GoodJob::Execution]).void }
     def executions=(value); end
+
+    sig { returns(T.nilable(::GoodJob::BatchRecord)) }
+    def reload_batch; end
   end
 
   module GeneratedAssociationRelationMethods

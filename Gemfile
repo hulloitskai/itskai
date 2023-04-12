@@ -72,10 +72,6 @@ gem "httparty", "~> 0.21.0"
 # Use Graphlient to query GraphQL APIs
 gem "graphlient", "~> 0.7.0"
 
-# Use Honeybadger for error reporting
-gem "honeybadger", "~> 4.12"
-gem "binding_of_caller"
-
 # Show a healthcheck route
 gem "rails-healthcheck"
 

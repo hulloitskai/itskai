@@ -15,6 +15,9 @@ class GoodJob::JobsController
     include ::ViteRails::TagHelpers
     include ::ActionController::Base::HelperMethods
     include ::GoodJob::ApplicationHelper
+
+    sig { returns(T.untyped) }
+    def good_job_available_locales; end
   end
 
   class HelperProxy < ::ActionView::Base
