@@ -1255,6 +1255,8 @@ class ActionController::API < ::ActionController::Metal
   include ::Devise::Controllers::Helpers
   include ::Devise::Controllers::UrlHelpers
   include ::Devise::OmniAuth::UrlHelpers
+  include ::Sentry::Rails::ControllerMethods
+  include ::Sentry::Rails::ControllerTransaction
   extend ::ActionView::ViewPaths::ClassMethods
   extend ::AbstractController::UrlFor::ClassMethods
   extend ::ActionController::Rendering::ClassMethods
@@ -1728,6 +1730,8 @@ class ActionController::Base < ::ActionController::Metal
   include ::ActionPolicy::Behaviours::ThreadMemoized::InstanceMethods
   include ::ActionPolicy::Behaviours::Memoized::InstanceMethods
   include ::ActionPolicy::Behaviours::Namespaced::InstanceMethods
+  include ::Sentry::Rails::ControllerMethods
+  include ::Sentry::Rails::ControllerTransaction
   extend ::ActionView::ViewPaths::ClassMethods
   extend ::AbstractController::Helpers::ClassMethods
   extend ::ActionController::Helpers::ClassMethods
@@ -4018,9 +4022,13 @@ class ActionController::InvalidCrossOriginRequest < ::ActionController::ActionCo
 #
 # source://actionpack//lib/action_controller/metal/live.rb#37
 module ActionController::Live
+  include ::Sentry::Rails::Overrides::StreamingReporter
   extend ::ActiveSupport::Concern
 
   mixes_in_class_methods ::ActionController::Live::ClassMethods
+
+  # source://sentry-rails/5.8.0/lib/sentry/rails/overrides/streaming_reporter.rb#5
+  def log_error(exception); end
 
   # source://actionpack//lib/action_controller/test_case.rb#24
   def new_controller_thread; end
@@ -4055,11 +4063,6 @@ module ActionController::Live
   #
   # source://actionpack//lib/action_controller/metal/live.rb#321
   def send_stream(filename:, disposition: T.unsafe(nil), type: T.unsafe(nil)); end
-
-  private
-
-  # source://actionpack//lib/action_controller/metal/live.rb#348
-  def log_error(exception); end
 end
 
 # source://actionpack//lib/action_controller/metal/live.rb#127
@@ -9313,9 +9316,6 @@ class ActionDispatch::DebugExceptions
   # source://actionpack//lib/action_dispatch/middleware/debug_exceptions.rb#26
   def call(env); end
 
-  # source://honeybadger/4.12.2/lib/honeybadger/plugins/rails.rb#16
-  def render_exception(arg, exception); end
-
   # source://inertia_rails/3.0.0/lib/patches/debug_exceptions/patch-5-1.rb#11
   def render_for_browser_request(request, wrapper); end
 
@@ -9348,6 +9348,9 @@ class ActionDispatch::DebugExceptions
 
   # source://actionpack//lib/action_dispatch/middleware/debug_exceptions.rb#129
   def render(status, body, format); end
+
+  # source://actionpack//lib/action_dispatch/middleware/debug_exceptions.rb#54
+  def render_exception(request, exception); end
 
   # source://actionpack//lib/action_dispatch/middleware/debug_exceptions.rb#90
   def render_for_api_request(content_type, wrapper); end

@@ -20,7 +20,7 @@ Rails.application.routes.draw do
                confirmations: "users/confirmations",
                passwords: "users/passwords",
              },
-             path: "/user",
+             path: "user",
              path_names: {
                sign_in: "login",
                sign_out: "logout",
@@ -56,10 +56,10 @@ Rails.application.routes.draw do
   end
 
   # == Obsidian
-  resources :obsidian_notes, path: :entries, only: :show
+  resources :obsidian_notes, path: "entries", only: :show
 
   # == Linear
-  resources :linear_issues, path: :issues, only: :create
+  resources :linear_issues, path: "issues", only: :create
 
   # == Calendly
   get "/calendly" => "calendly#show"

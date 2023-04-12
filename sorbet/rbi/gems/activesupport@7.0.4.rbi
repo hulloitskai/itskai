@@ -6726,20 +6726,20 @@ class ActiveSupport::LogSubscriber < ::ActiveSupport::Subscriber
   # source://activesupport//lib/active_support/log_subscriber.rb#80
   def colorize_logging=(val); end
 
-  # source://honeybadger/4.12.2/lib/honeybadger/breadcrumbs/logging.rb#39
-  def debug(*args, &block); end
+  # source://activesupport//lib/active_support/log_subscriber.rb#129
+  def debug(progname = T.unsafe(nil), &block); end
 
-  # source://honeybadger/4.12.2/lib/honeybadger/breadcrumbs/logging.rb#39
-  def error(*args, &block); end
+  # source://activesupport//lib/active_support/log_subscriber.rb#129
+  def error(progname = T.unsafe(nil), &block); end
 
-  # source://honeybadger/4.12.2/lib/honeybadger/breadcrumbs/logging.rb#39
-  def fatal(*args, &block); end
+  # source://activesupport//lib/active_support/log_subscriber.rb#129
+  def fatal(progname = T.unsafe(nil), &block); end
 
   # source://activesupport//lib/active_support/log_subscriber.rb#114
   def finish(name, id, payload); end
 
-  # source://honeybadger/4.12.2/lib/honeybadger/breadcrumbs/logging.rb#39
-  def info(*args, &block); end
+  # source://activesupport//lib/active_support/log_subscriber.rb#129
+  def info(progname = T.unsafe(nil), &block); end
 
   # source://activesupport//lib/active_support/log_subscriber.rb#106
   def logger; end
@@ -6750,11 +6750,11 @@ class ActiveSupport::LogSubscriber < ::ActiveSupport::Subscriber
   # source://activesupport//lib/active_support/log_subscriber.rb#110
   def start(name, id, payload); end
 
-  # source://honeybadger/4.12.2/lib/honeybadger/breadcrumbs/logging.rb#39
-  def unknown(*args, &block); end
+  # source://activesupport//lib/active_support/log_subscriber.rb#129
+  def unknown(progname = T.unsafe(nil), &block); end
 
-  # source://honeybadger/4.12.2/lib/honeybadger/breadcrumbs/logging.rb#39
-  def warn(*args, &block); end
+  # source://activesupport//lib/active_support/log_subscriber.rb#129
+  def warn(progname = T.unsafe(nil), &block); end
 
   private
 

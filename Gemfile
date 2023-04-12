@@ -166,6 +166,9 @@ gem "markly", "~> 0.7.0"
 # Parse iCalendar files
 gem "icalendar", "~> 2.8"
 
+# Use Sentry for error reporting
+gem "sentry-rails", "~> 5.8"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"

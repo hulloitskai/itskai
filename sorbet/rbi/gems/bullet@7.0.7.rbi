@@ -857,7 +857,7 @@ class Bullet::Registry::Base
   def select(*args, &block); end
 end
 
-# source://bullet//lib/bullet/registry/call_stack.rb#6
+# source://bullet//lib/bullet/registry/call_stack.rb#5
 class Bullet::Registry::CallStack < ::Bullet::Registry::Base
   # remembers found association backtrace
   #
@@ -914,9 +914,29 @@ Bullet::StackTraceFilter::IS_RUBY_19 = T.let(T.unsafe(nil), FalseClass)
 # source://bullet//lib/bullet/stack_trace_filter.rb#6
 Bullet::StackTraceFilter::VENDOR_PATH = T.let(T.unsafe(nil), String)
 
+# --
+# Most objects are cloneable, but not all. For example you can't dup methods:
+#
+#   method(:puts).dup # => TypeError: allocator undefined for Method
+#
+# Classes may signal their instances are not duplicable removing +dup+/+clone+
+# or raising exceptions from them. So, to dup an arbitrary object you normally
+# use an optimistic approach and are ready to catch an exception, say:
+#
+#   arbitrary_object.dup rescue object
+#
+# Rails dups objects in a few critical spots where they are not that arbitrary.
+# That rescue is very expensive (like 40 times slower than a predicate), and it
+# is often triggered.
+#
+# That's why we hardcode the following cases and check duplicable? instead of
+# using that rescue idiom.
+# ++
+#
 # source://bullet//lib/bullet/ext/object.rb#3
 class Object < ::BasicObject
   include ::Kernel
+  include ::PP::ObjectMixin
 
   # source://bullet//lib/bullet/ext/object.rb#4
   def bullet_key; end
@@ -925,6 +945,11 @@ class Object < ::BasicObject
   def bullet_primary_key_value; end
 end
 
+# String inflections define new methods on the String class to transform names for different purposes.
+# For instance, you can figure out the name of a table from the name of a class.
+#
+#   'ScaleScore'.tableize # => "scale_scores"
+#
 # source://bullet//lib/bullet/ext/string.rb#3
 class String
   include ::Comparable
