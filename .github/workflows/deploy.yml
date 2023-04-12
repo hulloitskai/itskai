@@ -1,11 +1,16 @@
-name: application
+name: deploy
+run-name: Deploy from ${{ github.event.workflow_run.head_branch }}
 
 on:
-  - push
-  - pull_request
+  workflow_run:
+    workflows: [check]
+    branches:
+      - main
+      - legacy
+    types: [completed]
 
 concurrency:
-  group: ${{ github.ref }}
+  group: ${{ github.event.workflow_run.head_branch }}
   cancel-in-progress: true
 
 jobs:
@@ -21,31 +26,7 @@ jobs:
       - name: Deploy
         run: flyctl deploy --remote-only --detach
 
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-      - name: Set up Node
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: .node-version
-          cache: yarn
-          cache-dependency-path: "**/yarn.lock"
-      - name: Install dependencies
-        run: bundle install
-      - name: Check formatting
-        run: bin/fmt
-      - name: Check lints
-        run: bin/lint
-
-  notify:
+  notify_honeybadger:
     runs-on: ubuntu-latest
     needs: deploy
     steps:
