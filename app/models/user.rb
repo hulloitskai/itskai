@@ -87,11 +87,11 @@ class User < ApplicationRecord
     ActionMailer::Base.email_address_with_name(email, name)
   end
 
-  # # == Methods: Honeybadger
-  # sig { returns(T::Hash[String, T.untyped]) }
-  # def honeybadger_context
-  #   { "user_id" => id, "user_email" => email }
-  # end
+  # == Methods: Sentry
+  sig { returns(T::Hash[String, T.untyped]) }
+  def sentry_info
+    { "id" => id, "email" => email }
+  end
 
   # == Methods: FullStory
   sig { returns(T::Hash[String, T.untyped]) }

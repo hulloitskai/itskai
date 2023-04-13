@@ -18,6 +18,8 @@
     "@mantine/ssr": "^6.0.4",
     "@rails/actioncable": "^7.0.4-3",
     "@rails/activestorage": "^7.0.4-3",
+    "@sentry/integrations": "^7.47.0",
+    "@sentry/react": "^7.47.0",
     "@svgr/core": "^6.5.1",
     "d3-drag": "^3.0.0",
     "d3-force": "^3.0.0",
