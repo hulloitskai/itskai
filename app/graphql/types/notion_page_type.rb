@@ -19,10 +19,15 @@ module Types
 
     sig { returns(T.untyped) }
     def blocks
-      message = NotionService.client.block_children(block_id: object["id"])
-      blocks = message.results
-      redact_blocks!(blocks)
-      blocks
+      id = object["id"]
+      Rails.cache.fetch(
+        "notion_page_blocks/#{id}",
+        expires_in: 10.minutes,
+        race_condition_ttl: 10.seconds,
+      ) do
+        message = NotionService.client.block_children(block_id: id)
+        message.results.tap { |blocks| redact_blocks!(blocks) }
+      end
     end
 
     private
