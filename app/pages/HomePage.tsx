@@ -17,9 +17,9 @@ const HomePage: PageComponent<HomePageProps> = ({ writingsStartCursor }) => {
     });
   }, []);
   return (
-    <Stack spacing="xl">
-      <Space h="sm" />
-      <Center h={220}>
+    <Stack spacing="xs">
+      <Space h="xs" />
+      <Center h={240}>
         <Stack spacing="xs" align="center">
           <Title color="white">hi, it&apos;s kai</Title>
           <Text color="gray.6" align="center" maw={400}>
@@ -34,18 +34,19 @@ const HomePage: PageComponent<HomePageProps> = ({ writingsStartCursor }) => {
               weight={600}
               color="pink"
             >
-              do something together!
+              do something together
             </Anchor>
+            !
           </Text>
         </Stack>
       </Center>
-      <Stack align="center" spacing="lg">
+      <Stack align="center" spacing="xs">
         <Title order={2} size="h3">
           sometimes, kai writes.
         </Title>
         <HomePageWritings startCursor={writingsStartCursor} w="100%" />
       </Stack>
-      <Space h="sm" />
+      <Space h="xs" />
     </Stack>
   );
 };

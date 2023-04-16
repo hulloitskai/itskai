@@ -48,25 +48,24 @@ const HomePageWritings: FC<HomePageWritingsProps> = ({
             {pages.map(({ id, createdAt, title, blocks }) => (
               <Card key={id} withBorder padding="lg" shadow="sm" radius="md">
                 <Stack spacing={2}>
-                  <Box>
-                    <Title
-                      order={3}
-                      size="h4"
-                      weight={900}
-                      color="white"
-                      sx={({ fontFamilyMonospace }) => ({
-                        fontFamily: fontFamilyMonospace,
-                      })}
-                    >
-                      {title}
-                    </Title>
-                    <Text size="xs" color="dimmed">
-                      written{" "}
-                      <Time format={time => formatTimeAgo(time.toJSDate())}>
-                        {createdAt}
-                      </Time>{" "}
-                    </Text>
-                  </Box>
+                 <Title
+                    order={3}
+                    size="h4"
+                    weight={900}
+                    color="white"
+                    lh={1.3}
+                    sx={({ fontFamilyMonospace }) => ({
+                      fontFamily: fontFamilyMonospace,
+                    })}
+                  >
+                    {title}
+                  </Title>
+                  <Text size="xs" color="dimmed">
+                    written{" "}
+                    <Time format={time => formatTimeAgo(time.toJSDate())}>
+                      {createdAt}
+                    </Time>{" "}
+                  </Text>
                   <NotionContent {...{ blocks }} />
                 </Stack>
               </Card>
