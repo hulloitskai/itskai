@@ -20,6 +20,7 @@ export const useApolloErrorCallback = (
   return useCallback(
     error => {
       const message = formatApolloError(error);
+      console.error(title ?? "Unknown query error", { error });
       showAlert({ title, message });
     },
     [showNotification, title],

@@ -29,6 +29,9 @@ const PasswordWithStrengthCheckInput: FC<
           onStrengthCheck(passwordStrength);
         }
       },
+      onError: error => {
+        console.error("Failed to check password strength", { error });
+      },
     },
   );
   const { passwordStrength = 0.0 } = data ?? previousData ?? {};

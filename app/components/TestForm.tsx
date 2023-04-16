@@ -11,13 +11,13 @@ export type TestFormValues = {
 const TestForm: FC = () => {
   const onError = useApolloErrorCallback("Mutation failed!");
   const [runMutation] = useMutation(TestMutationDocument, {
-    onError,
     onCompleted: data => {
       showNotification({
         title: "You won!",
         message: JSON.stringify(data),
       });
     },
+    onError,
   });
   const { getInputProps, onSubmit } = useForm<TestFormValues>({
     initialValues: {

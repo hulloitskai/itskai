@@ -21,6 +21,9 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
 }) => {
   const { data } = useSubscription(CurrentlyPlayingIslandSubscriptionDocument, {
     variables: {},
+    onError: error => {
+      console.error("Failed to load currently playing track", { error });
+    },
   });
   const { currentlyPlaying } = data ?? {};
   const [mounted, setMounted] = useState(false);
