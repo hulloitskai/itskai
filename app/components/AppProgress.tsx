@@ -8,17 +8,19 @@ import {
 } from "@mantine/nprogress";
 
 const AppProgress: FC = () => {
-  const onStart = useCallback(() => startNavigationProgress(), []);
-  const onFinish = useCallback(() => completeNavigationProgress(), []);
   useEffect(() => {
-    const removeStartListener = router.on("start", onStart);
-    const removeFinishListener = router.on("finish", onFinish);
+    const removeStartListener = router.on("start", () =>
+      startNavigationProgress(),
+    );
+    const removeFinishListener = router.on("finish", () =>
+      completeNavigationProgress(),
+    );
     return () => {
       removeStartListener();
       removeFinishListener();
     };
   }, []);
-  return <NavigationProgress autoReset color="orange" size={1} />;
+  return <NavigationProgress autoReset color="pink.4" size={1} />;
 };
 
 export default AppProgress;

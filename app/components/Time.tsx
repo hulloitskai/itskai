@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
 
 import { Text } from "@mantine/core";
 import type { TextProps } from "@mantine/core";
@@ -6,22 +6,25 @@ import type { TextProps } from "@mantine/core";
 import { DateTime } from "luxon";
 import type { DateTimeFormatOptions } from "luxon";
 
-export type TimeProps = Omit<TextProps, "children"> & {
-  readonly format: DateTimeFormatOptions;
-  readonly children: DateTime | string;
-};
+export type TimeProps = Omit<TextProps, "children"> &
+  Omit<ComponentPropsWithoutRef<"div">, "children"> & {
+    readonly format: DateTimeFormatOptions | ((time: DateTime) => string);
+    readonly children: DateTime | string;
+  };
 
 const Time: FC<TimeProps> = ({ format, lh, children, ...otherProps }) => {
+  const applyFormat = (time: DateTime) =>
+    typeof format === "function" ? format(time) : time.toLocaleString(format);
   const placeholder = useMemo(
-    () => DateTime.fromSeconds(0, { zone: "utc" }).toLocaleString(format),
+    () => applyFormat(DateTime.fromSeconds(0, { zone: "utc" })),
     [format],
   );
   const [formattedTime, setFormattedTime] = useState<string | undefined>();
   const loading = !formattedTime;
   useEffect(() => {
-    const dateTime =
+    const time =
       typeof children === "string" ? DateTime.fromISO(children) : children;
-    setFormattedTime(dateTime.toLocaleString(format));
+    setFormattedTime(applyFormat(time));
   }, [children, format]);
   return (
     <Skeleton
@@ -36,7 +39,7 @@ const Time: FC<TimeProps> = ({ format, lh, children, ...otherProps }) => {
         }),
       }}
     >
-      <Text lh={loading ? 1 : lh} {...otherProps}>
+      <Text display="inline" lh={loading ? 1 : lh} {...otherProps}>
         {formattedTime ?? placeholder}
       </Text>
     </Skeleton>

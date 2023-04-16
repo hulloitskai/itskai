@@ -14,7 +14,7 @@ const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
         <Title size="h3">Sign In</Title>
         <Text size="sm" color="dimmed">
           Welcome back to{" "}
-          <Text color="gray.4" weight={600} span>
+          <Text color="pink.4" weight={600} span>
             it&apos;s kai
           </Text>
         </Text>
@@ -22,20 +22,16 @@ const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
       <UserLoginPageForm />
       <Text size="xs" color="gray.6">
         Don&apos;t have an account?{" "}
-        <Anchor component={Link} href="/user/register" color="indigo">
+        <Anchor component={Link} href="/user/register" color="pink">
           Sign up instead.
         </Anchor>
       </Text>
       <Divider />
       <Stack spacing={0} sx={({ fontSizes }) => ({ fontSize: fontSizes.xs })}>
-        <Anchor component={Link} href="/user/password/reset" color="indigo">
+        <Anchor component={Link} href="/user/password/reset" color="pink">
           Forgot your password?
         </Anchor>
-        <Anchor
-          component={Link}
-          href="/user/verification/resend"
-          color="indigo"
-        >
+        <Anchor component={Link} href="/user/verification/resend" color="pink">
           Didn&apos;t get a verification email?
         </Anchor>
       </Stack>

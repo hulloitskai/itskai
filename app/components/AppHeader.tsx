@@ -24,15 +24,16 @@ const AppHeader: FC<AppHeaderProps> = ({ viewer }) => (
     <Button
       component={Link}
       href="/"
-      variant="subtle"
       compact
+      variant="subtle"
       p={4}
-      sx={({ colors, fontSizes }) => ({
+      sx={({ fontSizes, colors, white, fn }) => ({
+        color: colors.gray[4],
         flexShrink: 0,
         fontSize: fontSizes.md,
         fontWeight: 700,
         "&:hover": {
-          backgroundColor: colors.gray[8],
+          backgroundColor: fn.rgba(white, 0.1),
         },
       })}
     >

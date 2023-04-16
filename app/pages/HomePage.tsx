@@ -33,8 +33,8 @@ const HomePage: PageComponent<HomePageProps> = () => {
               href="http://cal.com/itskai"
               target="_blank"
               rel="noopener noreferrer nofollow"
-              weight={500}
-              color="indigo"
+              weight={600}
+              color="pink"
             >
               do something together!
             </Anchor>
@@ -45,7 +45,7 @@ const HomePage: PageComponent<HomePageProps> = () => {
         <Title order={2} size="h3">
           sometimes, kai writes.
         </Title>
-        <HomePageWritings />
+        <HomePageWritings w="100%" />
       </Stack>
       <Space h="xl" />
     </Stack>

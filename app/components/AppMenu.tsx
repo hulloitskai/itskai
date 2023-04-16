@@ -59,7 +59,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
       })}
     >
       <Menu.Target>
-        <Badge variant="dot" color="indigo" {...badgeProps}>
+        <Badge variant="dot" color="pink" {...badgeProps}>
           {viewer.name}
         </Badge>
       </Menu.Target>

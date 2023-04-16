@@ -129,7 +129,9 @@ export type Node = {
 export type NotionPage = {
   __typename?: 'NotionPage';
   blocks: Scalars['JSON'];
+  createdAt: Scalars['DateTime'];
   id: Scalars['String'];
+  modifiedAt: Scalars['DateTime'];
   title: Scalars['String'];
 };
 

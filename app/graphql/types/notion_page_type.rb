@@ -8,13 +8,14 @@ module Types
 
     # == Fields
     field :blocks, GraphQL::Types::JSON, null: false
+    field :created_at, DateTimeType, null: false
     field :id, String, null: false
+    field :modified_at, DateTimeType, null: false
     field :title, String, null: false
 
-    sig { returns(String) }
-    def title
-      property = properties["Name"]["title"].first
-      property.plain_text
+    sig { returns(Time) }
+    def created_at
+      properties["Created At"].created_time.to_time
     end
 
     sig { returns(T.untyped) }
@@ -28,6 +29,17 @@ module Types
         message = NotionService.client.block_children(block_id: id)
         message.results.tap { |blocks| redact_blocks!(blocks) }
       end
+    end
+
+    sig { returns(Time) }
+    def modified_at
+      properties["Modified At"].last_edited_time.to_time
+    end
+
+    sig { returns(String) }
+    def title
+      property = properties["Name"]["title"].first
+      property.plain_text
     end
 
     private

@@ -16,10 +16,10 @@ const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({ info }) => {
   return (
     <Box>
       <Group spacing={8} mb={-2}>
-        <Title order={3} size="h5" color="indigo">
+        <Title order={3} size="h5" color="pink">
           {name}
         </Title>
-        <WebsiteBadge color="indigo" url={url!} />
+        <WebsiteBadge color="pink" url={url!} />
         <Space sx={{ flex: 1 }} />
         <Text size="sm" weight={600} color="dark">
           {position}

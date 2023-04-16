@@ -102,7 +102,9 @@ interface Node {
 
 type NotionPage {
   blocks: JSON!
+  createdAt: DateTime!
   id: String!
+  modifiedAt: DateTime!
   title: String!
 }
 

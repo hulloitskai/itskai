@@ -27,19 +27,15 @@ const UserChangePasswordPage: PageComponent<UserChangePasswordPageProps> = ({
       <Divider />
       <Stack spacing={0} sx={({ fontSizes }) => ({ fontSize: fontSizes.xs })}>
         <Text color="gray.6">
-          <Anchor component={Link} href="/login" color="indigo">
+          <Anchor component={Link} href="/login" color="pink">
             Sign In
           </Anchor>{" "}
           or{" "}
-          <Anchor component={Link} href="/user/register" color="indigo">
+          <Anchor component={Link} href="/user/register" color="pink">
             Sign Up
           </Anchor>
         </Text>
-        <Anchor
-          component={Link}
-          href="/user/verification/resend"
-          color="indigo"
-        >
+        <Anchor component={Link} href="/user/verification/resend" color="pink">
           Didn&apos;t get a verification email?
         </Anchor>
       </Stack>

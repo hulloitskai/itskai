@@ -106,7 +106,7 @@ const AppLayout: FC<AppLayoutProps> = ({
                 href={href}
                 key={index}
                 size="sm"
-                color="orange"
+                color="pink"
               >
                 {title}
               </Anchor>

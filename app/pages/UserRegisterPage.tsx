@@ -14,7 +14,7 @@ const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => (
         <Title size="h3">Sign Up</Title>
         <Text size="sm" color="dimmed">
           Create an account on{" "}
-          <Text color="gray.4" weight={600} span>
+          <Text color="pink.4" weight={600} span>
             it&apos;s kai
           </Text>
         </Text>
@@ -22,20 +22,16 @@ const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => (
       <UserRegisterPageForm />
       <Text size="xs" color="gray.6">
         Already have an account?{" "}
-        <Anchor component={Link} href="/login" color="indigo">
+        <Anchor component={Link} href="/login" color="pink">
           Sign in instead.
         </Anchor>
       </Text>
       <Divider />
       <Stack spacing={0} sx={({ fontSizes }) => ({ fontSize: fontSizes.xs })}>
-        <Anchor component={Link} href="/user/password/reset" color="indigo">
+        <Anchor component={Link} href="/user/password/reset" color="pink">
           Forgot your password?
         </Anchor>
-        <Anchor
-          component={Link}
-          href="/user/verification/resend"
-          color="indigo"
-        >
+        <Anchor component={Link} href="/user/verification/resend" color="pink">
           Didn&apos;t get a verification email?
         </Anchor>
       </Stack>

@@ -40,10 +40,12 @@ export type NodeKeySpecifier = ('id' | NodeKeySpecifier)[];
 export type NodeFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type NotionPageKeySpecifier = ('blocks' | 'id' | 'title' | NotionPageKeySpecifier)[];
+export type NotionPageKeySpecifier = ('blocks' | 'createdAt' | 'id' | 'modifiedAt' | 'title' | NotionPageKeySpecifier)[];
 export type NotionPageFieldPolicy = {
 	blocks?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	modifiedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type NotionPageListingKeySpecifier = ('nextCursor' | 'pages' | NotionPageListingKeySpecifier)[];

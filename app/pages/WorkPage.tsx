@@ -81,22 +81,12 @@ const WorkPage: PageComponent<WorkPageProps> = () => (
             <List.Item>Responsive, mobile-friendly pages</List.Item>
             <List.Item>Un-scrapable mailto links ;)</List.Item>
             <List.Item>
-              <Anchor
-                href="/graphql"
-                target="_blank"
-                weight={500}
-                color="indigo"
-              >
+              <Anchor href="/graphql" target="_blank" weight={500} color="pink">
                 A GraphQL API
               </Anchor>
             </List.Item>
             <List.Item>
-              <Anchor
-                href="/status"
-                target="_blank"
-                weight={500}
-                color="indigo"
-              >
+              <Anchor href="/status" target="_blank" weight={500} color="pink">
                 Health checks
               </Anchor>
             </List.Item>
@@ -106,7 +96,7 @@ const WorkPage: PageComponent<WorkPageProps> = () => (
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 weight={500}
-                color="indigo"
+                color="pink"
               >
                 Continuous integration & deployment (GitHub Actions & Fly.io)
               </Anchor>
