@@ -18,15 +18,15 @@ class NotionService < ApplicationService
     sig do
       params(
         published: T.nilable(T::Boolean),
-        start_cursor: T.nilable(String),
         page_size: T.nilable(Integer),
+        start_cursor: T.nilable(String),
       ).returns(T.untyped)
     end
     def entries(
       published: nil,
-      start_cursor: nil,
-      page_size: nil
-    ) = instance.entries(published:, start_cursor:, page_size:)
+      page_size: nil,
+      start_cursor: nil
+    ) = instance.entries(published:, page_size:, start_cursor:)
   end
 
   # == Initialization
@@ -43,11 +43,11 @@ class NotionService < ApplicationService
   sig do
     params(
       published: T.nilable(T::Boolean),
-      start_cursor: T.nilable(String),
       page_size: T.nilable(Integer),
+      start_cursor: T.nilable(String),
     ).returns(T.untyped)
   end
-  def entries(published: nil, start_cursor: nil, page_size: nil)
+  def entries(published: nil, page_size: nil, start_cursor: nil)
     database_id = ENV.fetch("NOTION_ENTRIES_DATABASE_ID")
     filter = T.let(nil, T.nilable(T::Hash[String, T.untyped]))
     unless published.nil?

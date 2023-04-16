@@ -48,7 +48,7 @@ const HomePageWritings: FC<HomePageWritingsProps> = ({
             {pages.map(({ id, createdAt, title, blocks }) => (
               <Card key={id} withBorder padding="lg" shadow="sm" radius="md">
                 <Stack spacing={2}>
-                 <Title
+                  <Title
                     order={3}
                     size="h4"
                     weight={900}

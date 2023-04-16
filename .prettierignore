@@ -1,3 +1,4 @@
+.ruby-lsp/
 app/**/*.generated.*
 app/graphql/schema.graphql
 bin/

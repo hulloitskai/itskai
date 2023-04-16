@@ -13,12 +13,12 @@ module Queries
     # == Resolver
     sig do
       params(
-        start_cursor: T.nilable(String),
         page_size: T.nilable(Integer),
+        start_cursor: T.nilable(String),
       ).returns(T.untyped)
     end
-    def resolve(start_cursor: nil, page_size: nil)
-      NotionService.entries(published: true, start_cursor:, page_size:)
+    def resolve(page_size: nil, start_cursor: nil)
+      NotionService.entries(published: true, page_size:, start_cursor:)
     end
   end
 end
