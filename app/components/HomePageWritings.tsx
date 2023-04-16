@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 import type { FC } from "react";
+import NextIcon from "~icons/heroicons/arrow-path-rounded-square-20-solid";
+import ResetIcon from "~icons/heroicons/arrow-uturn-left-20-solid";
 
 import type { BoxProps } from "@mantine/core";
 
@@ -46,14 +48,16 @@ const HomePageWritings: FC<HomePageWritingsProps> = ({ ...otherProps }) => {
               </Stack>
             </Card>
           ))}
-          {nextCursor && (
+          {data && (
             <Center>
               <Button
+                leftIcon={nextCursor ? <NextIcon /> : <ResetIcon />}
+                radius="xl"
                 onClick={() => {
-                  setStartCursor(nextCursor);
+                  setStartCursor(nextCursor ?? null);
                 }}
               >
-                more writing
+                {nextCursor ? "more words pls" : "from the top!"}
               </Button>
             </Center>
           )}

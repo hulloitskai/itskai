@@ -43,7 +43,7 @@ const HomePage: PageComponent<HomePageProps> = () => {
       </Center>
       <Stack align="center" spacing="lg" my="md">
         <Title order={2} size="h3">
-          sometimes, kai writes
+          sometimes, kai writes.
         </Title>
         <HomePageWritings />
       </Stack>
