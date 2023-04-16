@@ -26,7 +26,7 @@ const UserChangePasswordPage: PageComponent<UserChangePasswordPageProps> = ({
       <UserChangePasswordPageForm {...{ resetPasswordToken }} />
       <Divider />
       <Stack spacing={0} sx={({ fontSizes }) => ({ fontSize: fontSizes.xs })}>
-        <Text>
+        <Text color="gray.6">
           <Anchor component={Link} href="/login" color="indigo">
             Sign In
           </Anchor>{" "}

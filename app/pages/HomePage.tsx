@@ -1,102 +1,59 @@
 import type { PageComponent, PageProps } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
-import HomePageContactLink from "~/components/HomePageContactLink";
-import HomePageGraph from "~/components/HomePageGraph";
-
 import type { HomePageQuery } from "~/queries";
+
+import HomePageWritings from "~/components/HomePageWritings";
 
 export type HomePageProps = PageProps<HomePageQuery>;
 
 const HomePage: PageComponent<HomePageProps> = () => {
-  const theme = useMantineTheme();
   useEffect(() => {
     setVars("page", {
       pageName: HomePage.name,
     });
   }, []);
   return (
-    <>
-      <Container size="sm">
-        <Stack spacing="xl">
-          <MediaQuery largerThan="xs" styles={{ height: theme.spacing.xl }}>
-            <Space h="sm" />
-          </MediaQuery>
-          <Stack spacing={0} align="center">
-            <Title size={48}>Hullo!</Title>
-            <Text color="dark.3" sx={{ alignSelf: "center" }}>
-              I&apos;m{" "}
-              <Text color="dark" weight={600} span>
-                Kai
-              </Text>
-              ! Welcome to my little corner of the internet :)
-            </Text>
-          </Stack>
-          <Divider sx={({ colors }) => ({ borderColor: colors.gray[3] })} />
-          <Stack spacing={8}>
-            <Text color="gray.6">
-              This website is still very much in construction! And so here are
-              some design goals I am keeping in mind as I build it:
-            </Text>
-            <List
-              ml="md"
-              mr="lg"
-              styles={({ colors, fn }) => ({
-                item: {
-                  color: colors.dark[fn.primaryShade()],
-                  fontWeight: 500,
-                },
-              })}
+    <Stack spacing="xl">
+      <MediaQuery
+        largerThan="xs"
+        styles={({ spacing }) => ({ height: spacing.xl })}
+      >
+        <Space h="sm" />
+      </MediaQuery>
+      <Center h={220}>
+        <Stack spacing="xs" align="center">
+          <Title color="white">hi, it&apos;s kai</Title>
+          <Text color="gray.6" align="center" maw={400}>
+            welcome to my little corner of the internet :)
+            <br />
+            please enjoy your stay. if you&apos;re having a good time,
+            let&apos;s{" "}
+            <Anchor
+              href="http://cal.com/itskai"
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              weight={500}
+              color="indigo"
             >
-              <List.Item>
-                To create a space where I can share my thoughts, feelings, and
-                ideas.
-              </List.Item>
-              <List.Item>
-                To make it easy for others to collaborate with me on the things
-                I care about.
-              </List.Item>
-              <List.Item>
-                To encourage others to interact with me and do fun things
-                together with me in The Real World!
-              </List.Item>
-            </List>
-            <Text color="gray.6">
-              Is there something you wanted to chat with me about? Please reach
-              out!
-              <br />
-              You can <HomePageContactLink color="indigo" /> or{" "}
-              <Anchor
-                href="http://calendly.com/hulloitskai/hangout"
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-                weight={500}
-                color="indigo"
-              >
-                schedule a hangout with me
-              </Anchor>{" "}
-              :)
-            </Text>
-          </Stack>
-          <Divider sx={({ colors }) => ({ borderColor: colors.gray[3] })} />
-          <Box>
-            <Title order={2} size="h3">
-              Recent Perusings
-            </Title>
-            <Text color="gray.6">
-              This is a graph of the things that I have been thinking (and
-              writing) about this past week.
-            </Text>
-          </Box>
+              do something together!
+            </Anchor>
+          </Text>
         </Stack>
-      </Container>
-      <HomePageGraph />
-    </>
+      </Center>
+      <Stack align="center" spacing="lg" my="md">
+        <Title order={2} size="h3">
+          sometimes, kai writes
+        </Title>
+        <HomePageWritings />
+      </Stack>
+      <Space h="xl" />
+    </Stack>
   );
 };
 
 HomePage.layout = buildLayout<HomePageProps>((page, { data: { viewer } }) => (
-  <AppLayout padding={0} {...{ viewer }}>
+  <AppLayout withContainer withGutter {...{ viewer }}>
     {page}
   </AppLayout>
 ));

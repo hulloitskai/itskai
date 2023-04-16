@@ -1,11 +1,12 @@
+import { lazy } from "react";
 import type { FC } from "react";
 import type { BoxProps } from "@mantine/core";
-
-import ObsidianGraph from "./ObsidianGraph";
 
 import { HomePageGraphQueryDocument } from "~/queries";
 
 export type HomePageGraphProps = BoxProps;
+
+const ObsidianGraph = lazy(() => import("./ObsidianGraph"));
 
 const HomePageGraph: FC<HomePageGraphProps> = ({ ...otherProps }) => {
   // == Query

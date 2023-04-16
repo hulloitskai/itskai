@@ -3,7 +3,7 @@ import { Footer, Image, Text } from "@mantine/core";
 
 import ActivityStatusBadge from "./ActivityStatusBadge";
 
-import logoPath from "~/assets/images/logo.png";
+import logoPath from "~/assets/images/logo-plain.png";
 
 // import type { Maybe } from "~/queries";
 // import type { AppViewerFragment } from "~/queries";

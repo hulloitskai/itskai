@@ -100,6 +100,17 @@ interface Node {
   id: ID!
 }
 
+type NotionPage {
+  blocks: JSON!
+  id: String!
+  title: String!
+}
+
+type NotionPageListing {
+  nextCursor: String
+  pages: [NotionPage!]!
+}
+
 type OAuthCredentials implements Node {
   accessToken: String
 
@@ -251,6 +262,7 @@ type Query {
 
   """The currently authenticated user."""
   viewer: User
+  writings(pageSize: Int, startCursor: String): NotionPageListing!
 }
 
 type SpotifyAlbum {

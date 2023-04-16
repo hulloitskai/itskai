@@ -126,6 +126,19 @@ export type Node = {
   id: Scalars['ID'];
 };
 
+export type NotionPage = {
+  __typename?: 'NotionPage';
+  blocks: Scalars['JSON'];
+  id: Scalars['String'];
+  title: Scalars['String'];
+};
+
+export type NotionPageListing = {
+  __typename?: 'NotionPageListing';
+  nextCursor?: Maybe<Scalars['String']>;
+  pages: Array<NotionPage>;
+};
+
 export type OAuthCredentials = Node & {
   __typename?: 'OAuthCredentials';
   accessToken?: Maybe<Scalars['String']>;
@@ -251,6 +264,7 @@ export type Query = {
   timezone: Timezone;
   /** The currently authenticated user. */
   viewer?: Maybe<User>;
+  writings: NotionPageListing;
 };
 
 
@@ -281,6 +295,12 @@ export type QueryPasswordStrengthArgs = {
 
 export type QueryTestEchoArgs = {
   text?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryWritingsArgs = {
+  pageSize?: InputMaybe<Scalars['Int']>;
+  startCursor?: InputMaybe<Scalars['String']>;
 };
 
 export type SpotifyAlbum = {

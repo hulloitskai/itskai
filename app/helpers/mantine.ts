@@ -1,6 +1,7 @@
 import type { MantineThemeOverride } from "@mantine/core";
 
 export const theme: MantineThemeOverride = {
+  colorScheme: "dark",
   primaryColor: "dark",
   fontFamily:
     "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, " +

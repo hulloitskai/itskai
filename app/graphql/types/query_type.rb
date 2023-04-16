@@ -4,7 +4,7 @@
 module Types
   class QueryType < BaseObject
     # == Relay
-    # Add 'node' and 'nodes' fields.
+    # Add `node` and `nodes` fields.
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
@@ -26,5 +26,7 @@ module Types
     field :obsidian_note, resolver: Queries::ObsidianNote
     field :obsidian_note_by_name, resolver: Queries::ObsidianNoteByName
     field :obsidian_notes, resolver: Queries::ObsidianNotes
+
+    field :writings, resolver: Queries::Writings
   end
 end

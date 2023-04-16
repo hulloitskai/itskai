@@ -14,10 +14,5 @@ module Subscriptions
     def subscribe
       ActivityService.status if ActivityService.ready?
     end
-
-    sig { returns(T.nilable(String)) }
-    def update
-      object
-    end
   end
 end

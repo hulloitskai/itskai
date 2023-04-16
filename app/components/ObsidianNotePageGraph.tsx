@@ -1,13 +1,13 @@
 import type { FC } from "react";
 import type { BoxProps } from "@mantine/core";
 
-import ObsidianGraph from "./ObsidianGraph";
-
 import { ObsidianNotePageGraphQueryDocument } from "~/queries";
 
 export type ObsidianNotePageGraphProps = BoxProps & {
   readonly noteId: string;
 };
+
+const ObsidianGraph = lazy(() => import("./ObsidianGraph"));
 
 const ObsidianNotePageGraph: FC<ObsidianNotePageGraphProps> = ({
   noteId,

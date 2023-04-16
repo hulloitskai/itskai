@@ -32,11 +32,11 @@ const AppHeader: FC<AppHeaderProps> = ({ viewer }) => (
         fontSize: fontSizes.md,
         fontWeight: 700,
         "&:hover": {
-          backgroundColor: colors.gray[1],
+          backgroundColor: colors.gray[8],
         },
       })}
     >
-      It&apos;s Kai!
+      it&apos;s kai
     </Button>
     <CurrentlyPlayingIsland />
     <AppMenu sx={{ flexShrink: 0 }} {...{ viewer }} />

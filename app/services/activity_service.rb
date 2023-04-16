@@ -52,8 +52,10 @@ class ActivityService < ApplicationService
   sig { returns(Concurrent::ScheduledTask) }
   def build_clear_status_task
     Concurrent::ScheduledTask.new(3) do
-      status_atom.reset(nil)
-      Schema.subscriptions!.trigger(:activity_status, {}, nil)
+      if status_atom.value
+        status_atom.reset(nil)
+        Schema.subscriptions!.trigger(:activity_status, {}, nil)
+      end
     end
   end
 end

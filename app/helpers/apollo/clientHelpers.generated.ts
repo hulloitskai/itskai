@@ -40,6 +40,17 @@ export type NodeKeySpecifier = ('id' | NodeKeySpecifier)[];
 export type NodeFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type NotionPageKeySpecifier = ('blocks' | 'id' | 'title' | NotionPageKeySpecifier)[];
+export type NotionPageFieldPolicy = {
+	blocks?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	title?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type NotionPageListingKeySpecifier = ('nextCursor' | 'pages' | NotionPageListingKeySpecifier)[];
+export type NotionPageListingFieldPolicy = {
+	nextCursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	pages?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type OAuthCredentialsKeySpecifier = ('accessToken' | 'id' | 'name' | 'refreshToken' | 'uid' | OAuthCredentialsKeySpecifier)[];
 export type OAuthCredentialsFieldPolicy = {
 	accessToken?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -108,7 +119,7 @@ export type PageInfoFieldPolicy = {
 	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
 	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('activityStatus' | 'contactEmail' | 'currentlyPlaying' | 'icloudCredentials' | 'linearCredentials' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('activityStatus' | 'contactEmail' | 'currentlyPlaying' | 'icloudCredentials' | 'linearCredentials' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | 'writings' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	contactEmail?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -123,7 +134,8 @@ export type QueryFieldPolicy = {
 	spotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	testEcho?: FieldPolicy<any> | FieldReadFunction<any>,
 	timezone?: FieldPolicy<any> | FieldReadFunction<any>,
-	viewer?: FieldPolicy<any> | FieldReadFunction<any>
+	viewer?: FieldPolicy<any> | FieldReadFunction<any>,
+	writings?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SpotifyAlbumKeySpecifier = ('id' | 'imageUrl' | 'name' | 'url' | SpotifyAlbumKeySpecifier)[];
 export type SpotifyAlbumFieldPolicy = {
@@ -228,6 +240,14 @@ export type StrictTypedTypePolicies = {
 	Node?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | NodeKeySpecifier | (() => undefined | NodeKeySpecifier),
 		fields?: NodeFieldPolicy,
+	},
+	NotionPage?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | NotionPageKeySpecifier | (() => undefined | NotionPageKeySpecifier),
+		fields?: NotionPageFieldPolicy,
+	},
+	NotionPageListing?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | NotionPageListingKeySpecifier | (() => undefined | NotionPageListingKeySpecifier),
+		fields?: NotionPageListingFieldPolicy,
 	},
 	OAuthCredentials?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | OAuthCredentialsKeySpecifier | (() => undefined | OAuthCredentialsKeySpecifier),

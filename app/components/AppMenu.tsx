@@ -53,7 +53,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
           color: colors.black,
         },
         itemLabel: {
-          color: colors.gray[7],
+          color: colors.gray[5],
           fontWeight: 500,
         },
       })}

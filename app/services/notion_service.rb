@@ -18,9 +18,15 @@ class NotionService < ApplicationService
     sig do
       params(
         published: T.nilable(T::Boolean),
-      ).returns(T::Array[T::Hash[String, T.untyped]])
+        start_cursor: T.nilable(String),
+        page_size: T.nilable(Integer),
+      ).returns(T.untyped)
     end
-    def entries(published: nil) = instance.entries(published:)
+    def entries(
+      published: nil,
+      start_cursor: nil,
+      page_size: nil
+    ) = instance.entries(published:, start_cursor:, page_size:)
   end
 
   # == Initialization
@@ -37,27 +43,26 @@ class NotionService < ApplicationService
   sig do
     params(
       published: T.nilable(T::Boolean),
-    ).returns(T::Array[T::Hash[String, T.untyped]])
+      start_cursor: T.nilable(String),
+      page_size: T.nilable(Integer),
+    ).returns(T.untyped)
   end
-  def entries(published: nil)
-    @entries = T.let(@entries, T.nilable(T::Array[T::Hash[String, T.untyped]]))
-    @entries ||= scoped do
-      database_id = ENV.fetch("NOTION_ENTRIES_DATABASE_ID")
-      filter = T.let(nil, T.nilable(T::Hash[String, T.untyped]))
-      unless published.nil?
-        filter = {
-          "property" => "Published",
-          "checkbox" => {
-            "equals" => published,
-          },
-        }
-      end
-      sorts = T.let([{
-        "timestamp" => "created_time",
-        "direction" => "descending",
-      }], T::Array[T::Hash[String, T.untyped]])
-      data = client.database_query(database_id:, filter:, sorts:)
-      data["results"]
+  def entries(published: nil, start_cursor: nil, page_size: nil)
+    database_id = ENV.fetch("NOTION_ENTRIES_DATABASE_ID")
+    filter = T.let(nil, T.nilable(T::Hash[String, T.untyped]))
+    unless published.nil?
+      filter = {
+        "property" => "Published",
+        "checkbox" => {
+          "equals" => published,
+        },
+      }
     end
+    sorts = T.let([{
+      "timestamp" => "created_time",
+      "direction" => "descending",
+    }], T::Array[T::Hash[String, T.untyped]])
+    options = { filter:, sorts:, start_cursor:, page_size: }.compact
+    client.database_query(database_id:, **options)
   end
 end

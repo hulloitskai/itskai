@@ -1,0 +1,10 @@
+query HomePageWritingsQuery($startCursor: String) {
+  writings(startCursor: $startCursor, pageSize: 1) {
+    pages {
+      id
+      title
+      blocks
+    }
+    nextCursor
+  }
+}

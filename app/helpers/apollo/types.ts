@@ -9,6 +9,9 @@ export const typePolicies: StrictTypedTypePolicies = {
       obsidianNotes: relayStylePagination(["modifiedAfter", "modifiedBefore"]),
     },
   },
+  NotionPageListing: {
+    keyFields: false,
+  },
 };
 
 export const { possibleTypes } = introspection;

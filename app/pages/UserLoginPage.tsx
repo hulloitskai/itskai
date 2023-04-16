@@ -14,13 +14,13 @@ const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
         <Title size="h3">Sign In</Title>
         <Text size="sm" color="dimmed">
           Welcome back to{" "}
-          <Text color="dark.4" weight={600} span>
-            It&apos;s Kai!
+          <Text color="gray.4" weight={600} span>
+            it&apos;s kai
           </Text>
         </Text>
       </Stack>
       <UserLoginPageForm />
-      <Text size="xs" color="gray">
+      <Text size="xs" color="gray.6">
         Don&apos;t have an account?{" "}
         <Anchor component={Link} href="/user/register" color="indigo">
           Sign up instead.
