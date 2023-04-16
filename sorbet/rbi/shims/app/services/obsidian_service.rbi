@@ -1,6 +1,6 @@
 # typed: strong
 
-class Obsidian
+class ObsidianService
   class << self
     sig { returns(Pathname) }
     def vault_root_dir; end

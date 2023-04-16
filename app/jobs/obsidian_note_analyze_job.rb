@@ -70,6 +70,6 @@ class ObsidianNoteAnalyzeJob < ApplicationJob
   sig { void }
   def update_activity_status
     note = T.let(arguments.first, ObsidianNote)
-    ActivityStatus.update("Analyzing note: #{note.name}")
+    ActivityService.update_status("Analyzing note: #{note.name}")
   end
 end

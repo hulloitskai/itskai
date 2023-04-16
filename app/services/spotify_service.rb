@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class Spotify < ApplicationService
+class SpotifyService < ApplicationService
   class << self
     # == Methods: Service
     sig { override.returns(T::Boolean) }

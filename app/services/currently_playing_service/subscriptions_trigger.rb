@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-class CurrentlyPlaying
+class CurrentlyPlayingService
   class SubscriptionsTrigger
     extend T::Sig
     include Logging

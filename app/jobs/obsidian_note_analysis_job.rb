@@ -28,8 +28,8 @@ class ObsidianNoteAnalysisJob < ApplicationJob
   # == Callbacks
   sig { params(block: T.proc.void).void }
   def with_activity_status(&block)
-    ActivityStatus.update("Analyzing notes")
+    ActivityService.update_status("Analyzing notes")
     yield
-    ActivityStatus.update("Note analysis complete")
+    ActivityService.update_status("Note analysis complete")
   end
 end

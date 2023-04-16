@@ -12,7 +12,7 @@ module Subscriptions
     # == Callbacks
     sig { returns(T.nilable(String)) }
     def subscribe
-      ::ActivityStatus.current if ::ActivityStatus.ready?
+      ActivityService.status if ActivityService.ready?
     end
 
     sig { returns(T.nilable(String)) }

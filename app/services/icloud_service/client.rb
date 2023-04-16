@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class ICloud
+class ICloudService
   class Client
     extend T::Sig
     include Logging
@@ -17,7 +17,7 @@ class ICloud
         PyICloud.new(
           email: @credentials.email,
           password: @credentials.password,
-          cookie_directory: ICloud.credentials_dir.to_s,
+          cookie_directory: ICloudService.credentials_dir.to_s,
         ),
         T.untyped,
       )
@@ -59,21 +59,21 @@ class ICloud
 
     sig { void }
     def restore_credentials!
-      FileUtils.mkdir_p(ICloud.credentials_dir)
+      FileUtils.mkdir_p(ICloudService.credentials_dir)
       credentials = self.credentials or return
       cookies, session = credentials.cookies, credentials.session
       if cookies.present? && session.present?
         File.write(cookies_filename!, cookies)
         File.write(session_filename!, session.to_json)
       else
-        FileUtils.remove_dir(ICloud.credentials_dir)
+        FileUtils.remove_dir(ICloudService.credentials_dir)
       end
     end
 
     sig { returns(String) }
     def cookies_filename!
       File.join(
-        ICloud.credentials_dir,
+        ICloudService.credentials_dir,
         credentials!.email.gsub(/[^0-9a-z]/i, ""),
       )
     end

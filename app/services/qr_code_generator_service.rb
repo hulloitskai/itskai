@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class QrCodeGenerator < ApplicationService
+class QrCodeGeneratorService < ApplicationService
   class << self
     # == Methods: Service
     sig { override.returns(T::Boolean) }

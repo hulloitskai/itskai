@@ -169,6 +169,9 @@ gem "icalendar", "~> 2.8"
 # Use Sentry for error reporting
 gem "sentry-rails", "~> 5.8"
 
+# Query Notion with Notion Ruby Client
+gem "notion-ruby-client", "~> 1.2"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"
@@ -223,4 +226,3 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-

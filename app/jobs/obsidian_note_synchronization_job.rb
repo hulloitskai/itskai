@@ -13,12 +13,12 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
   # == Job
   sig { params(force: T::Boolean).void }
   def perform(force: false)
-    unless Obsidian.ready?
+    unless ObsidianService.ready?
       logger.warn("Obsidian not ready; skipping")
       return
     end
 
-    incoming_note_names = Obsidian.note_names
+    incoming_note_names = ObsidianService.note_names
     all_note_names = ObsidianNote.pluck(:name)
     new_note_names = incoming_note_names - all_note_names
     orphaned_note_names = all_note_names - incoming_note_names
@@ -36,7 +36,7 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
   def create_notes(new_note_names:)
     created_notes = new_note_names.filter_map do |name|
       Rails.error.handle(context: { note_name: name }) do
-        Obsidian.note(name).try! do |note|
+        ObsidianService.note(name).try! do |note|
           note = T.let(note, ObsidianNote)
           note.save!.tap do
             logger.info("Created note '#{note.name}'")
@@ -56,7 +56,7 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
       Rails.error.handle(context: { note_name: name }) do
         note = ObsidianNote.find_by!(name: name)
         next if !note.synchronization_required? && !force
-        Obsidian.note(note.name).try! do |updated_note|
+        ObsidianService.note(note.name).try! do |updated_note|
           updated_note = T.let(updated_note, ObsidianNote)
           updated_note.analyzed_at = nil if force
           updated_note.save!.tap do
@@ -88,8 +88,8 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
   # == Callbacks
   sig { params(block: T.proc.void).void }
   def with_activity_status(&block)
-    ActivityStatus.update("Synchronizing notes")
+    ActivityService.update_status("Synchronizing notes")
     yield
-    ActivityStatus.update("Note synchronization complete")
+    ActivityService.update_status("Note synchronization complete")
   end
 end

@@ -1,7 +1,12 @@
 # typed: true
 # frozen_string_literal: true
 
-class Resume < ApplicationService
+class ResumeService < ApplicationService
+  class << self
+    sig { returns(T::Hash[String, T.untyped]) }
+    def load_resume = instance.load_resume
+  end
+
   # == Constants
   RESUME_PATH = T.let(Rails.root.join("config/resume.yml"), Pathname)
 
@@ -11,22 +16,15 @@ class Resume < ApplicationService
     super
 
     # Prewarm cached copy of the resume.
-    load
+    load_resume
   end
 
   # == Methods
   sig { returns(T::Hash[String, T.untyped]) }
-  def load
+  def load_resume
     mtime = File.mtime(RESUME_PATH).to_i
     Rails.cache.fetch("resume/#{mtime}") do
       Psych.load_file(RESUME_PATH)
     end
-  end
-end
-
-class Resume
-  class << self
-    sig { returns(T::Hash[String, T.untyped]) }
-    def load = instance.load
   end
 end

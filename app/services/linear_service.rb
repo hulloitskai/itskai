@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class Linear < ApplicationService
+class LinearService < ApplicationService
   class << self
     # == Methods: Service
     sig { override.returns(T::Boolean) }

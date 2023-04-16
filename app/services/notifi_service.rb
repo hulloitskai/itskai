@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class Notifi < ApplicationService
+class NotifiService < ApplicationService
   class << self
     # == Methods: Service
     sig { override.returns(T::Boolean) }

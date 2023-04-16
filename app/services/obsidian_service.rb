@@ -1,7 +1,29 @@
 # typed: true
 # frozen_string_literal: true
 
-class Obsidian < ApplicationService
+class ObsidianService < ApplicationService
+  class << self
+    # == Methods: Service
+    sig { override.returns(T::Boolean) }
+    def enabled?
+      return false unless super
+      ICloudService.enabled?
+    end
+
+    # == Methods
+    sig { returns(T::Array[String]) }
+    def note_names = instance.note_names
+
+    sig { params(name: String).returns(T.nilable(ICloudService::Drive::Node)) }
+    def note_file(name) = instance.note_file(name)
+
+    sig { params(name: String).returns(T.nilable(ObsidianNote)) }
+    def note(name) = instance.note(name)
+
+    sig { params(name: String).returns(ObsidianNote) }
+    def note!(name) = instance.note!(name)
+  end
+
   # == Constants
   FrontMatter = T.type_alias { T::Hash[String, T.untyped] }
 
@@ -12,14 +34,14 @@ class Obsidian < ApplicationService
   sig { void }
   def initialize
     super
-    @vault_root = T.let(@vault_root, T.nilable(ICloud::Drive::Node))
+    @vault_root = T.let(@vault_root, T.nilable(ICloudService::Drive::Node))
   end
 
   # == Methods
   sig { override.returns(T::Boolean) }
   def ready?
     return false unless super
-    ICloud.ready?
+    ICloudService.ready?
   end
 
   sig { returns(T::Array[String]) }
@@ -33,7 +55,7 @@ class Obsidian < ApplicationService
     end
   end
 
-  sig { params(name: String).returns(T.nilable(ICloud::Drive::Node)) }
+  sig { params(name: String).returns(T.nilable(ICloudService::Drive::Node)) }
   def note_file(name)
     Rails.error.handle(context: { note_name: name }) do
       vault_root.get(name + ".md")
@@ -94,14 +116,14 @@ class Obsidian < ApplicationService
   private
 
   # == Helpers
-  sig { returns(ICloud::Drive::Node) }
+  sig { returns(ICloudService::Drive::Node) }
   def vault_root
-    @vault_root ||= ICloud.drive.get(Obsidian.vault_root_dir)
+    @vault_root ||= ICloudService.drive.get(ObsidianService.vault_root_dir)
     @vault_root or raise "Can't retrieve Obsidian vault root"
   end
 
   sig do
-    params(file: ICloud::Drive::Node).returns(FrontMatterParser::Parsed)
+    params(file: ICloudService::Drive::Node).returns(FrontMatterParser::Parsed)
   end
   def parse_note_file(file)
     @parser = T.let(@parser, T.nilable(FrontMatterParser::Parser))
@@ -126,29 +148,5 @@ class Obsidian < ApplicationService
     else
       [value.to_s]
     end
-  end
-end
-
-class Obsidian
-  class << self
-    # == Methods: Service
-    sig { override.returns(T::Boolean) }
-    def enabled?
-      return false unless super
-      ICloud.enabled?
-    end
-
-    # == Methods
-    sig { returns(T::Array[String]) }
-    def note_names = instance.note_names
-
-    sig { params(name: String).returns(T.nilable(ICloud::Drive::Node)) }
-    def note_file(name) = instance.note_file(name)
-
-    sig { params(name: String).returns(T.nilable(ObsidianNote)) }
-    def note(name) = instance.note(name)
-
-    sig { params(name: String).returns(ObsidianNote) }
-    def note!(name) = instance.note!(name)
   end
 end

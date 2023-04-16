@@ -39,7 +39,7 @@ module Users
             "#{refresh_token})",
         )
       end
-      Spotify.restart
+      SpotifyService.restart
       set_flash_message(:notice, :success, kind: "Spotify")
       redirect_to(edit_registration_path(current_user)).tap do
         response.set_header(
@@ -73,7 +73,7 @@ module Users
             "#{refresh_token})",
         )
       end
-      Linear.restart
+      LinearService.restart
       set_flash_message(:notice, :success, kind: "Linear")
       redirect_to(edit_registration_path(current_user)).tap do
         response.set_header(

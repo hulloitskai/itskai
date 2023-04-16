@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class CurrentlyPlaying < ApplicationService
+class CurrentlyPlayingService < ApplicationService
   extend T::Sig
 
   # == Initialization
@@ -25,7 +25,7 @@ class CurrentlyPlaying < ApplicationService
   sig { override.returns(T::Boolean) }
   def ready?
     return false unless super
-    Spotify.ready?
+    SpotifyService.ready?
   end
 
   sig { override.void }
@@ -57,11 +57,11 @@ class CurrentlyPlaying < ApplicationService
   attr_reader :task
 end
 
-class CurrentlyPlaying
+class CurrentlyPlayingService
   class << self
     # == Methods: Service
     sig { override.returns(T::Boolean) }
-    def enabled? = T.let(super, T::Boolean) && Spotify.enabled?
+    def enabled? = T.let(super, T::Boolean) && SpotifyService.enabled?
 
     sig { void }
     def stop = instance.stop

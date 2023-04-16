@@ -1,16 +1,16 @@
 # typed: true
 # frozen_string_literal: true
 
-class ICloud < ApplicationService
+class ICloudService < ApplicationService
   class << self
     # == Methods
     sig { returns(ICloudCredentials) }
     def credentials = instance.credentials
 
-    sig { returns(ICloud::Client) }
+    sig { returns(Client) }
     def client = instance.client
 
-    sig { returns(ICloud::Drive) }
+    sig { returns(Drive) }
     def drive = instance.drive
 
     sig { params(code: T.nilable(String)).returns(T::Boolean) }

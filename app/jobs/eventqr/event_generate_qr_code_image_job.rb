@@ -18,13 +18,13 @@ module Eventqr
     # == Job
     sig { params(event: Event).returns(ActiveStorage::Blob) }
     def perform(event)
-      unless QrCodeGenerator.ready?
+      unless QrCodeGeneratorService.ready?
         logger.warn("QRCodeGenerator not ready; skipping")
         nil
       end
 
       url = Rails.application.routes.url_helpers.url_for(event)
-      QrCodeGenerator.generate_qr_code(url) do |file|
+      QrCodeGeneratorService.generate_qr_code(url) do |file|
         event.qr_code.attach(io: file, filename: "qrcode.png")
       end
       event.qr_code_blob!

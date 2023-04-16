@@ -5,8 +5,8 @@ class SynchronizeObsidianNotes2 < ActiveRecord::Migration[7.0]
   disable_ddl_transaction!
 
   def up
-    ICloud.start
-    Obsidian.start
+    ICloudService.start
+    ObsidianService.start
     ObsidianNote.synchronize_all(force: true)
   end
 end

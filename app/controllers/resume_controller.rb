@@ -11,7 +11,7 @@ class ResumeController < ApplicationController
         data = query!("ResumePageQuery")
         render(inertia: "ResumePage", props: { printable:, data: })
       end
-      format.json { render(json: Resume.load) }
+      format.json { render(json: ResumeService.load_resume) }
     end
   end
 end

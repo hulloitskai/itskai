@@ -5,17 +5,17 @@ Rails.application.configure do
   return unless Rails.server? || Rails.console?
 
   reloader.to_prepare do
-    ICloud.start
-    Obsidian.start
-    Spotify.start
-    CurrentlyPlaying.start if Rails.server?
-    Linear.start
-    Notifi.start
-    QrCodeGenerator.start
-    Resume.start
+    ICloudService.start
+    ObsidianService.start
+    SpotifyService.start
+    CurrentlyPlayingService.start if Rails.server?
+    LinearService.start
+    NotifiService.start
+    QrCodeGeneratorService.start
+    ResumeService.start
   end
 
   reloader.before_class_unload do
-    CurrentlyPlaying.stop if Rails.server?
+    CurrentlyPlayingService.stop if Rails.server?
   end
 end

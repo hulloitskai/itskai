@@ -13,9 +13,9 @@ class LinearIssuesController < ApplicationController
     title = T.cast(title, String)
     description = issue_params[:description]
     description = T.cast(description, T.nilable(String))
-    issue = Linear.create_issue(title:, description:).tap do |issue|
-      if Notifi.ready?
-        Notifi.notify(
+    issue = LinearService.create_issue(title:, description:).tap do |issue|
+      if NotifiService.ready?
+        NotifiService.notify(
           title: "Issue added to Linear",
           message: issue.title,
           link: issue.url,

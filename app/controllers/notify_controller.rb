@@ -7,7 +7,7 @@ class NotifyController < ApplicationController
   def create
     title = string_param(:title) || "Notify"
     message = string_param(:message)
-    Notifi.notify(title:, message:)
+    NotifiService.notify(title:, message:)
   end
 
   private

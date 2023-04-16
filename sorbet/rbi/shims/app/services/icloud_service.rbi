@@ -1,6 +1,6 @@
 # typed: strong
 
-class ICloud
+class ICloudService
   class << self
     sig { returns(Pathname) }
     def credentials_dir; end

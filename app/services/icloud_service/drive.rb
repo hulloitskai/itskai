@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class ICloud
+class ICloudService
   class Drive
     extend T::Sig
 

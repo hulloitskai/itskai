@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-class CurrentlyPlaying
+class CurrentlyPlayingService
   class Poller
     extend T::Sig
     include Logging
@@ -16,14 +16,14 @@ class CurrentlyPlaying
     sig { returns(T.nilable(RSpotify::Track)) }
     def call
       Rails.error.handle do
-        unless Spotify.ready?
+        unless SpotifyService.ready?
           tag_logger { logger.warn("Spotify not ready; skipping") }
           return
         end
-        if CurrentlyPlaying.debug?
+        if CurrentlyPlayingService.debug?
           tag_logger { logger.debug("Polling") }
         end
-        Spotify.currently_playing.tap do |track|
+        SpotifyService.currently_playing.tap do |track|
           track = T.let(track, T.nilable(RSpotify::Track))
           if track&.id != previous_result&.id
             if track.present?
