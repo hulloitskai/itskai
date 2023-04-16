@@ -35,12 +35,12 @@ module Types
 
     sig { returns(T::Array[String]) }
     def redacted_phrases
-      @redacted_words = T.let(@redacted_words, T.nilable(T::Array[String]))
-      @redacted_words ||= scoped do
+      @redacted_phrases = T.let(@redacted_phrases, T.nilable(T::Array[String]))
+      @redacted_phrases ||= scoped do
         property = properties["Redact"]["rich_text"].first
         if property.present?
           text = T.let(property.plain_text, String)
-          text.strip.split(", ")
+          text.strip.split(",").map(&:strip)
         else
           []
         end
