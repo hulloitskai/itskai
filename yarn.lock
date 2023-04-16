@@ -1425,7 +1425,17 @@
     kolorist "^1.7.0"
     local-pkg "^0.4.3"
 
-"@inertiajs/core@1.0.2", "@inertiajs/core@^1.0.2":
+"@inertiajs/core@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@inertiajs/core/-/core-1.0.3.tgz#bc9201eeca3f90ec70c818ada1f0f416b6ecce9b"
+  integrity sha512-53umy2ol+2QJRMULA9Md5miGIEXHLWj2H0czu6hXXCbgw5Lio2kSVQs/kmjvgy9GrSsxeWacg/QcosQ3VTWV3w==
+  dependencies:
+    axios "^1.2.0"
+    deepmerge "^4.0.0"
+    nprogress "^0.2.0"
+    qs "^6.9.0"
+
+"@inertiajs/core@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@inertiajs/core/-/core-1.0.2.tgz#93f7b8030591344a11417ac6ae690fe55a365eec"
   integrity sha512-IJryvuNBcOIEZqKaA1vsX++hroovrLfb4jezym/W6NqxpsacoOkCLqWFneiScTaa5IiU0Wv0Li3lCuxK7DwTEQ==
@@ -1435,12 +1445,12 @@
     nprogress "^0.2.0"
     qs "^6.9.0"
 
-"@inertiajs/react@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@inertiajs/react/-/react-1.0.2.tgz#50ca6a173347418726876744433f511ec8ded5e0"
-  integrity sha512-CRoyc/SSWejddOb/E8cJPYZcSl0Jz2hex8se/G4hERx7OychZNsyx2k9JQxYt3wMPU0ih51qtqgiSLYMJWl8bA==
+"@inertiajs/react@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@inertiajs/react/-/react-1.0.3.tgz#da82c492a3a91f3141e1670a0ca69268ea165661"
+  integrity sha512-1EzGlInYx9aQbybzI2X8uJ2XKMhee2cF0fFsjHEGz8cKcUS57PvIhe56WJ8ZQMns/hWY02rxhir6eH9T5y4aEw==
   dependencies:
-    "@inertiajs/core" "1.0.2"
+    "@inertiajs/core" "1.0.3"
     lodash.isequal "^4.5.0"
 
 "@jridgewell/gen-mapping@^0.1.0":

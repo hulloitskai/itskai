@@ -8,7 +8,7 @@
     "@emotion/server": "^11.10.0",
     "@fullstory/browser": "^1.6.2",
     "@inertiajs/core": "^1.0.2",
-    "@inertiajs/react": "^1.0.2",
+    "@inertiajs/react": "^1.0.3",
     "@mantine/core": "^6.0.4",
     "@mantine/dates": "^6.0.4",
     "@mantine/form": "^6.0.4",

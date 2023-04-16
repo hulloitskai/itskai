@@ -2,12 +2,15 @@ import type { PageComponent, PageProps } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
 import type { HomePageQuery } from "~/queries";
+import type { Maybe } from "~/queries";
 
 import HomePageWritings from "~/components/HomePageWritings";
 
-export type HomePageProps = PageProps<HomePageQuery>;
+export type HomePageProps = PageProps<HomePageQuery> & {
+  readonly writingsStartCursor: Maybe<string>;
+};
 
-const HomePage: PageComponent<HomePageProps> = () => {
+const HomePage: PageComponent<HomePageProps> = ({ writingsStartCursor }) => {
   useEffect(() => {
     setVars("page", {
       pageName: HomePage.name,
@@ -15,12 +18,7 @@ const HomePage: PageComponent<HomePageProps> = () => {
   }, []);
   return (
     <Stack spacing="xl">
-      <MediaQuery
-        largerThan="xs"
-        styles={({ spacing }) => ({ height: spacing.xl })}
-      >
-        <Space h="sm" />
-      </MediaQuery>
+      <Space h="sm" />
       <Center h={220}>
         <Stack spacing="xs" align="center">
           <Title color="white">hi, it&apos;s kai</Title>
@@ -41,13 +39,13 @@ const HomePage: PageComponent<HomePageProps> = () => {
           </Text>
         </Stack>
       </Center>
-      <Stack align="center" spacing="lg" my="md">
+      <Stack align="center" spacing="lg">
         <Title order={2} size="h3">
           sometimes, kai writes.
         </Title>
-        <HomePageWritings w="100%" />
+        <HomePageWritings startCursor={writingsStartCursor} w="100%" />
       </Stack>
-      <Space h="xl" />
+      <Space h="sm" />
     </Stack>
   );
 };

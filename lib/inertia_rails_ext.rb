@@ -13,13 +13,20 @@ module InertiaRails
       # == Initialization
       def initialize(...)
         super
-        @query = @component + "Query"
+        @query = T.let(@component + "Query", String)
+        @props.transform_keys! do |key|
+          if key.is_a?(Symbol)
+            key.to_s.camelize(:lower).to_sym
+          else
+            key
+          end
+        end
         set_data_prop
       end
 
       private
 
-      # == Helper
+      # == Helpers
       sig { void }
       def set_data_prop
         return unless @controller.respond_to?(:query?, true)

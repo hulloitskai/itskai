@@ -8,8 +8,7 @@ class ResumeController < ApplicationController
     respond_to do |format|
       format.html do
         printable = params.key?("printable") && !params["printable"].falsy?
-        data = query!("ResumePageQuery")
-        render(inertia: "ResumePage", props: { printable:, data: })
+        render(inertia: "ResumePage", props: { printable: })
       end
       format.json { render(json: ResumeService.load_resume) }
     end
