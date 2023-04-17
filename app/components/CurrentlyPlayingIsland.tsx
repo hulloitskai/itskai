@@ -121,7 +121,7 @@ const CurrentTrack: FC<CurrentTrackProps> = ({ track, sx, ...otherProps }) => {
         target="_blank"
         rel="noopener noreferrer nofollow"
         variant="outline"
-        color="gray"
+        color="gray.5"
         leftSection={
           <Box pos="relative" p={2}>
             <MotionImage
@@ -147,7 +147,7 @@ const CurrentTrack: FC<CurrentTrackProps> = ({ track, sx, ...otherProps }) => {
           root: {
             height: 30,
             paddingRight: 10,
-            borderColor: colors.gray[5],
+            borderColor: colors.gray[6],
             cursor: "pointer",
             "&:hover": {
               textDecoration: "underline",
@@ -168,10 +168,10 @@ const CurrentTrack: FC<CurrentTrackProps> = ({ track, sx, ...otherProps }) => {
         {...{ sx }}
         {...otherProps}
       >
-        <Text size="xs" color="dark">
+        <Text size="xs" color="gray.3">
           {name}
         </Text>
-        <Text size={10} mt={-5.5}>
+        <Text size={10} mt={-5.5} color="gray.6">
           {artistNames}
         </Text>
       </Badge>

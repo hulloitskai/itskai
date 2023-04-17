@@ -12,7 +12,19 @@ export type TimeProps = Omit<TextProps, "children"> &
     readonly children: DateTime | string;
   };
 
-const Time: FC<TimeProps> = ({ format, lh, children, ...otherProps }) => {
+const Time: FC<TimeProps> = ({
+  format,
+  lh,
+  m,
+  mt,
+  mr,
+  mb,
+  ml,
+  mx,
+  my,
+  children,
+  ...otherProps
+}) => {
   const applyFormat = (time: DateTime) =>
     typeof format === "function" ? format(time) : time.toLocaleString(format);
   const placeholder = useMemo(
@@ -38,8 +50,9 @@ const Time: FC<TimeProps> = ({ format, lh, children, ...otherProps }) => {
           verticalAlign: "middle",
         }),
       }}
+      {...{ m, mt, mr, mb, ml, mx, my }}
     >
-      <Text display="inline" lh={loading ? 1 : lh} {...otherProps}>
+      <Text display="inline-block" lh={loading ? 1 : lh} {...otherProps}>
         {formattedTime ?? placeholder}
       </Text>
     </Skeleton>

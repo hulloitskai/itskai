@@ -25,10 +25,11 @@ export type InputFieldErrorFieldPolicy = {
 	field?: FieldPolicy<any> | FieldReadFunction<any>,
 	message?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('icloudCredentialsUpdate' | 'icloudCredentialsVerifySecurityCode' | 'obsidianNoteSynchronize' | 'testMutation' | 'userChangeEmail' | 'userSendEmailVerificationInstructions' | 'userSendPasswordResetInstructions' | 'userUpdate' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('icloudCredentialsUpdate' | 'icloudCredentialsVerifySecurityCode' | 'notionCommentCreate' | 'obsidianNoteSynchronize' | 'testMutation' | 'userChangeEmail' | 'userSendEmailVerificationInstructions' | 'userSendPasswordResetInstructions' | 'userUpdate' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	icloudCredentialsUpdate?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentialsVerifySecurityCode?: FieldPolicy<any> | FieldReadFunction<any>,
+	notionCommentCreate?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNoteSynchronize?: FieldPolicy<any> | FieldReadFunction<any>,
 	testMutation?: FieldPolicy<any> | FieldReadFunction<any>,
 	userChangeEmail?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -40,6 +41,23 @@ export type NodeKeySpecifier = ('id' | NodeKeySpecifier)[];
 export type NodeFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type NotionCommentKeySpecifier = ('createdAt' | 'id' | 'modifiedAt' | 'richText' | NotionCommentKeySpecifier)[];
+export type NotionCommentFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	modifiedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	richText?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type NotionCommentCreatePayloadKeySpecifier = ('clientMutationId' | 'success' | NotionCommentCreatePayloadKeySpecifier)[];
+export type NotionCommentCreatePayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type NotionCommentListingKeySpecifier = ('items' | 'nextCursor' | NotionCommentListingKeySpecifier)[];
+export type NotionCommentListingFieldPolicy = {
+	items?: FieldPolicy<any> | FieldReadFunction<any>,
+	nextCursor?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type NotionPageKeySpecifier = ('blocks' | 'createdAt' | 'id' | 'modifiedAt' | 'title' | NotionPageKeySpecifier)[];
 export type NotionPageFieldPolicy = {
 	blocks?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -48,10 +66,10 @@ export type NotionPageFieldPolicy = {
 	modifiedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type NotionPageListingKeySpecifier = ('nextCursor' | 'pages' | NotionPageListingKeySpecifier)[];
+export type NotionPageListingKeySpecifier = ('items' | 'nextCursor' | NotionPageListingKeySpecifier)[];
 export type NotionPageListingFieldPolicy = {
-	nextCursor?: FieldPolicy<any> | FieldReadFunction<any>,
-	pages?: FieldPolicy<any> | FieldReadFunction<any>
+	items?: FieldPolicy<any> | FieldReadFunction<any>,
+	nextCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type OAuthCredentialsKeySpecifier = ('accessToken' | 'id' | 'name' | 'refreshToken' | 'uid' | OAuthCredentialsKeySpecifier)[];
 export type OAuthCredentialsFieldPolicy = {
@@ -121,13 +139,15 @@ export type PageInfoFieldPolicy = {
 	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
 	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('activityStatus' | 'contactEmail' | 'currentlyPlaying' | 'icloudCredentials' | 'linearCredentials' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | 'writings' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('activityStatus' | 'contactEmail' | 'currentlyPlaying' | 'icloudCredentials' | 'linearCredentials' | 'notionComments' | 'notionEntries' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	contactEmail?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	linearCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	notionComments?: FieldPolicy<any> | FieldReadFunction<any>,
+	notionEntries?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNote?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNoteByName?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNotes?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -136,8 +156,7 @@ export type QueryFieldPolicy = {
 	spotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	testEcho?: FieldPolicy<any> | FieldReadFunction<any>,
 	timezone?: FieldPolicy<any> | FieldReadFunction<any>,
-	viewer?: FieldPolicy<any> | FieldReadFunction<any>,
-	writings?: FieldPolicy<any> | FieldReadFunction<any>
+	viewer?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SpotifyAlbumKeySpecifier = ('id' | 'imageUrl' | 'name' | 'url' | SpotifyAlbumKeySpecifier)[];
 export type SpotifyAlbumFieldPolicy = {
@@ -242,6 +261,18 @@ export type StrictTypedTypePolicies = {
 	Node?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | NodeKeySpecifier | (() => undefined | NodeKeySpecifier),
 		fields?: NodeFieldPolicy,
+	},
+	NotionComment?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | NotionCommentKeySpecifier | (() => undefined | NotionCommentKeySpecifier),
+		fields?: NotionCommentFieldPolicy,
+	},
+	NotionCommentCreatePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | NotionCommentCreatePayloadKeySpecifier | (() => undefined | NotionCommentCreatePayloadKeySpecifier),
+		fields?: NotionCommentCreatePayloadFieldPolicy,
+	},
+	NotionCommentListing?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | NotionCommentListingKeySpecifier | (() => undefined | NotionCommentListingKeySpecifier),
+		fields?: NotionCommentListingFieldPolicy,
 	},
 	NotionPage?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | NotionPageKeySpecifier | (() => undefined | NotionPageKeySpecifier),

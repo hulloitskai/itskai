@@ -196,7 +196,7 @@ GEM
     graphlient (0.7.0)
       faraday (~> 2.0)
       graphql-client
-    graphql (2.0.16)
+    graphql (2.0.21)
     graphql-client (0.18.0)
       activesupport (>= 3.0)
       graphql

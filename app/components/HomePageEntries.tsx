@@ -1,22 +1,20 @@
 import { Suspense } from "react";
 import type { FC } from "react";
-import { format as formatTimeAgo } from "timeago.js";
 import NextIcon from "~icons/heroicons/arrow-path-rounded-square-20-solid";
 import ResetIcon from "~icons/heroicons/arrow-uturn-left-20-solid";
 
-import { Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
-import { HomePageWritingsQueryDocument } from "~/queries";
+import { HomePageEntriesQueryDocument } from "~/queries";
 import type { Maybe } from "~/queries";
 
-export type HomePageWritingsProps = BoxProps & {
+export type HomePageEntriesProps = BoxProps & {
   readonly startCursor: Maybe<string>;
 };
 
-const NotionContent = lazy(() => import("./NotionContent"));
+const NotionEntry = lazy(() => import("./NotionEntry"));
 
-const HomePageWritings: FC<HomePageWritingsProps> = ({
+const HomePageEntries: FC<HomePageEntriesProps> = ({
   startCursor,
   ...otherProps
 }) => {
@@ -26,7 +24,7 @@ const HomePageWritings: FC<HomePageWritingsProps> = ({
   // == Query
   const onError = useApolloErrorCallback("Failed to load Obsidian entries");
   const { data, previousData, loading } = useQuery(
-    HomePageWritingsQueryDocument,
+    HomePageEntriesQueryDocument,
     {
       variables: {
         startCursor,
@@ -34,7 +32,7 @@ const HomePageWritings: FC<HomePageWritingsProps> = ({
       onError,
     },
   );
-  const { pages = [], nextCursor } = (data ?? previousData)?.writings ?? {};
+  const { items = [], nextCursor } = (data ?? previousData)?.entries ?? {};
 
   // == Markup
   return (
@@ -45,31 +43,10 @@ const HomePageWritings: FC<HomePageWritingsProps> = ({
           <CardSkeleton />
         ) : (
           <Suspense fallback={<CardSkeleton />}>
-            {pages.map(({ id, createdAt, title, blocks }) => (
-              <Card key={id} withBorder padding="lg" shadow="sm" radius="md">
-                <Stack spacing={2}>
-                  <Title
-                    order={3}
-                    size="h4"
-                    weight={900}
-                    color="white"
-                    lh={1.3}
-                    sx={({ fontFamilyMonospace }) => ({
-                      fontFamily: fontFamilyMonospace,
-                    })}
-                  >
-                    {title}
-                  </Title>
-                  <Text size="xs" color="dimmed">
-                    written{" "}
-                    <Time format={time => formatTimeAgo(time.toJSDate())}>
-                      {createdAt}
-                    </Time>{" "}
-                  </Text>
-                  <NotionContent {...{ blocks }} />
-                </Stack>
-              </Card>
-            ))}
+            {items.map(page => {
+              const { id: pageId } = page;
+              return <NotionEntry key={pageId} {...{ page }} />;
+            })}
           </Suspense>
         )}
         <Center>
@@ -90,7 +67,7 @@ const HomePageWritings: FC<HomePageWritingsProps> = ({
                     return params.toString();
                   });
                   router.visit(url.toString(), {
-                    only: ["writingsStartCursor"],
+                    only: ["entriesStartCursor"],
                     onSuccess: () => {
                       if (topRef.current) {
                         topRef.current.scrollIntoView({
@@ -113,7 +90,7 @@ const HomePageWritings: FC<HomePageWritingsProps> = ({
   );
 };
 
-export default HomePageWritings;
+export default HomePageEntries;
 
 const CardSkeleton: FC = () => (
   <Skeleton width="100%" height={340} radius="md" />

@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Queries
-  class Writings < BaseQuery
+  class NotionEntries < BaseQuery
     # == Arguments
     argument :page_size, Integer, required: false
     argument :start_cursor, String, required: false
@@ -12,13 +12,10 @@ module Queries
 
     # == Resolver
     sig do
-      params(
-        page_size: T.nilable(Integer),
-        start_cursor: T.nilable(String),
-      ).returns(T.untyped)
+      params(options: T.untyped).returns(T.untyped)
     end
-    def resolve(page_size: nil, start_cursor: nil)
-      NotionService.entries(published: true, page_size:, start_cursor:)
+    def resolve(**options)
+      NotionService.entries(published: true, **options)
     end
   end
 end

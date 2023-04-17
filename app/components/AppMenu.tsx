@@ -25,11 +25,12 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
       sx: [
         ...packSx(sx),
         {
-          cursor: "pointer",
+          textTransform: "unset",
           borderColor: opened ? badgeActiveColor : undefined,
           "&:hover": {
             borderColor: badgeActiveColor,
           },
+          cursor: "pointer",
         },
       ],
     }),

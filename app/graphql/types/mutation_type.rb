@@ -1,4 +1,3 @@
-# rubocop:disable GraphQL/ExtractType
 # typed: true
 # frozen_string_literal: true
 
@@ -18,6 +17,7 @@ module Types
     field :icloud_credentials_verify_security_code,
           mutation: Mutations::ICloudCredentialsVerifySecurityCode
 
+    field :notion_comment_create, mutation: Mutations::NotionCommentCreate
     field :obsidian_note_synchronize,
           mutation: Mutations::ObsidianNoteSynchronize
   end

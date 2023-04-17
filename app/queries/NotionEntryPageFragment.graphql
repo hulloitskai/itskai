@@ -1,0 +1,6 @@
+fragment NotionEntryPageFragment on NotionPage {
+  id
+  createdAt
+  title
+  blocks
+}

@@ -13,14 +13,9 @@ module Types
     field :modified_at, DateTimeType, null: false
     field :title, String, null: false
 
-    sig { returns(Time) }
-    def created_at
-      properties["Created At"].created_time.to_time
-    end
-
     sig { returns(T.untyped) }
     def blocks
-      id = object["id"]
+      id = object.id
       Rails.cache.fetch(
         "notion_page_blocks/#{id}",
         expires_in: 10.minutes,
@@ -32,29 +27,29 @@ module Types
     end
 
     sig { returns(Time) }
+    def created_at
+      object.properties["Created At"].created_time.to_time
+    end
+
+    sig { returns(Time) }
     def modified_at
-      properties["Modified At"].last_edited_time.to_time
+      object.properties["Modified At"].last_edited_time.to_time
     end
 
     sig { returns(String) }
     def title
-      property = properties["Name"]["title"].first
+      property = object.properties["Name"]["title"].first
       property.plain_text
     end
 
     private
 
     # == Helpers
-    sig { returns(T::Hash[String, T.untyped]) }
-    def properties
-      object["properties"]
-    end
-
     sig { returns(T::Array[String]) }
     def redacted_phrases
       @redacted_phrases = T.let(@redacted_phrases, T.nilable(T::Array[String]))
       @redacted_phrases ||= scoped do
-        property = properties["Redact"]["rich_text"].first
+        property = object.properties["Redact"]["rich_text"].first
         if property.present?
           text = T.let(property.plain_text, String)
           text.strip.split(",").map(&:strip)
@@ -89,14 +84,5 @@ module Types
         rich_text.plain_text.gsub!(phrase, REDACTION_PLACEHOLDER)
       end
     end
-  end
-end
-
-# == Sorbet
-module Types
-  class NotionPageType
-    # == Annotations
-    sig { returns(T::Hash[String, T.untyped]) }
-    def object = super
   end
 end

@@ -27,6 +27,7 @@ module Types
     field :obsidian_note_by_name, resolver: Queries::ObsidianNoteByName
     field :obsidian_notes, resolver: Queries::ObsidianNotes
 
-    field :writings, resolver: Queries::Writings
+    field :notion_comments, resolver: Queries::NotionComments
+    field :notion_entries, resolver: Queries::NotionEntries
   end
 end

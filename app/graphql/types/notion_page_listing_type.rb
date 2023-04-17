@@ -4,7 +4,7 @@
 module Types
   class NotionPageListingType < BaseObject
     # == Fields
+    field :items, [NotionPageType], null: false, hash_key: :results
     field :next_cursor, String
-    field :pages, [NotionPageType], null: false, hash_key: :results
   end
 end
