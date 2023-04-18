@@ -26,7 +26,7 @@ const AppFooter: FC<AppFooterProps> = () => {
     >
       <Group spacing={0} sx={{ flexShrink: 0 }}>
         <Text size="xs" weight={500} color="gray.6">
-          Made with
+          made with
         </Text>
         <Image src={logoPath} width={24} height={24} />
       </Group>

@@ -1,8 +1,8 @@
 import type { FC } from "react";
 
 const AppMetaSiteType = "website";
-const AppMetaSiteName = "It's Kai";
-const AppMetaSiteDescription = "Welcome to my little corner of the internet :)";
+const AppMetaSiteName = "it's kai";
+const AppMetaSiteDescription = "welcome to my little corner of the internet :)";
 const AppMetaSiteImage = "/banner.png";
 const AppMetaTitleSeparator = "|";
 
