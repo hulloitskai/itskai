@@ -26,7 +26,7 @@ class NotionService < ApplicationService
       published: nil,
       page_size: nil,
       start_cursor: nil
-    ) = instance.entries(published:, page_size:, start_cursor:)
+    ) = instance.journal_entries(published:, page_size:, start_cursor:)
   end
 
   # == Initialization
@@ -47,8 +47,8 @@ class NotionService < ApplicationService
       start_cursor: T.nilable(String),
     ).returns(T.untyped)
   end
-  def entries(published: nil, page_size: nil, start_cursor: nil)
-    database_id = ENV.fetch("NOTION_ENTRIES_DATABASE_ID")
+  def journal_entries(published: nil, page_size: nil, start_cursor: nil)
+    database_id = ENV.fetch("NOTION_JOURNAL_DATABASE_ID")
     filter = T.let(nil, T.nilable(T::Hash[String, T.untyped]))
     unless published.nil?
       filter = {

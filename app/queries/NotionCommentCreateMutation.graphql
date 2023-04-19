@@ -1,5 +1,0 @@
-mutation NotionCommentCreateMutation($input: NotionCommentCreateInput!) {
-  payload: notionCommentCreate(input: $input) {
-    success
-  }
-}

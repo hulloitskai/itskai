@@ -1,6 +1,6 @@
-query NotionEntryCommentsQuery($pageId: String!, $startCursor: String) {
-  comments: notionComments(
-    blockId: $pageId
+query JournalEntryCommentsQuery($entryId: String!, $startCursor: String) {
+  comments: journalEntryComments(
+    entryId: $entryId
     startCursor: $startCursor
     pageSize: 100
   ) {

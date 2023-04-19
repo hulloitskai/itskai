@@ -4,17 +4,17 @@ import { format as formatTimeAgo } from "timeago.js";
 import { Text } from "@mantine/core";
 import type { CardProps } from "@mantine/core";
 
-import type { NotionEntryPageFragment } from "~/queries";
+import type { JournalEntryEntryFragment } from "~/queries";
 
 import NotionContent from "./NotionContent";
-import NotionEntryComments from "./NotionEntryComments";
+import JournalEntryComments from "./JournalEntryComments";
 
-export type NotionEntryProps = Omit<CardProps, "children"> & {
-  readonly page: NotionEntryPageFragment;
+export type JournalEntryProps = Omit<CardProps, "children"> & {
+  readonly page: JournalEntryEntryFragment;
 };
 
-const NotionEntry: FC<NotionEntryProps> = ({ page, ...otherProps }) => {
-  const { id: pageId, title, createdAt, blocks } = page;
+const JournalEntry: FC<JournalEntryProps> = ({ page, ...otherProps }) => {
+  const { id: entryId, title, createdAt, blocks } = page;
   return (
     <Card withBorder padding="lg" shadow="sm" radius="md" {...otherProps}>
       <Stack spacing="xs">
@@ -41,10 +41,10 @@ const NotionEntry: FC<NotionEntryProps> = ({ page, ...otherProps }) => {
         </Stack>
       </Stack>
       <Card.Section withBorder inheritPadding mt="sm" py="sm">
-        <NotionEntryComments {...{ pageId }} />
+        <JournalEntryComments {...{ entryId }} />
       </Card.Section>
     </Card>
   );
 };
 
-export default NotionEntry;
+export default JournalEntry;

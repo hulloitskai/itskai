@@ -5,16 +5,16 @@ import ResetIcon from "~icons/heroicons/arrow-uturn-left-20-solid";
 
 import type { BoxProps } from "@mantine/core";
 
-import { HomePageEntriesQueryDocument } from "~/queries";
+import { HomePageJournalEntriesQueryDocument } from "~/queries";
 import type { Maybe } from "~/queries";
 
-export type HomePageEntriesProps = BoxProps & {
+export type HomePageJournalEntriesProps = BoxProps & {
   readonly startCursor: Maybe<string>;
 };
 
-const NotionEntry = lazy(() => import("./NotionEntry"));
+const JournalEntry = lazy(() => import("./JournalEntry"));
 
-const HomePageEntries: FC<HomePageEntriesProps> = ({
+const HomePageJournalEntries: FC<HomePageJournalEntriesProps> = ({
   startCursor,
   ...otherProps
 }) => {
@@ -22,9 +22,11 @@ const HomePageEntries: FC<HomePageEntriesProps> = ({
   const router = useRouter();
 
   // == Query
-  const onError = useApolloErrorCallback("Failed to load Obsidian entries");
+  const onError = useApolloErrorCallback(
+    "Failed to load Obsidian journalentries",
+  );
   const { data, previousData, loading } = useQuery(
-    HomePageEntriesQueryDocument,
+    HomePageJournalEntriesQueryDocument,
     {
       variables: {
         startCursor,
@@ -45,7 +47,7 @@ const HomePageEntries: FC<HomePageEntriesProps> = ({
           <Suspense fallback={<CardSkeleton />}>
             {items.map(page => {
               const { id: pageId } = page;
-              return <NotionEntry key={pageId} {...{ page }} />;
+              return <JournalEntry key={pageId} {...{ page }} />;
             })}
           </Suspense>
         )}
@@ -67,7 +69,7 @@ const HomePageEntries: FC<HomePageEntriesProps> = ({
                     return params.toString();
                   });
                   router.visit(url.toString(), {
-                    only: ["entriesStartCursor"],
+                    only: ["journalentriesStartCursor"],
                     onSuccess: () => {
                       if (topRef.current) {
                         topRef.current.scrollIntoView({
@@ -90,7 +92,7 @@ const HomePageEntries: FC<HomePageEntriesProps> = ({
   );
 };
 
-export default HomePageEntries;
+export default HomePageJournalEntries;
 
 const CardSkeleton: FC = () => (
   <Skeleton width="100%" height={340} radius="md" />

@@ -1,0 +1,5 @@
+mutation JournalEntryCommentMutation($input: JournalEntryCommentInput!) {
+  payload: journalEntryComment(input: $input) {
+    success
+  }
+}

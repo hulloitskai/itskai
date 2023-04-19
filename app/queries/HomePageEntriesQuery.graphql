@@ -1,9 +1,0 @@
-query HomePageEntriesQuery($startCursor: String) {
-  entries: notionEntries(startCursor: $startCursor, pageSize: 1) {
-    items {
-      id
-      ...NotionEntryPageFragment
-    }
-    nextCursor
-  }
-}

@@ -25,11 +25,16 @@ export type InputFieldErrorFieldPolicy = {
 	field?: FieldPolicy<any> | FieldReadFunction<any>,
 	message?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('icloudCredentialsUpdate' | 'icloudCredentialsVerifySecurityCode' | 'notionCommentCreate' | 'obsidianNoteSynchronize' | 'testMutation' | 'userChangeEmail' | 'userSendEmailVerificationInstructions' | 'userSendPasswordResetInstructions' | 'userUpdate' | MutationKeySpecifier)[];
+export type JournalEntryCommentPayloadKeySpecifier = ('clientMutationId' | 'success' | JournalEntryCommentPayloadKeySpecifier)[];
+export type JournalEntryCommentPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type MutationKeySpecifier = ('icloudCredentialsUpdate' | 'icloudCredentialsVerifySecurityCode' | 'journalEntryComment' | 'obsidianNoteSynchronize' | 'testMutation' | 'userChangeEmail' | 'userSendEmailVerificationInstructions' | 'userSendPasswordResetInstructions' | 'userUpdate' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	icloudCredentialsUpdate?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentialsVerifySecurityCode?: FieldPolicy<any> | FieldReadFunction<any>,
-	notionCommentCreate?: FieldPolicy<any> | FieldReadFunction<any>,
+	journalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNoteSynchronize?: FieldPolicy<any> | FieldReadFunction<any>,
 	testMutation?: FieldPolicy<any> | FieldReadFunction<any>,
 	userChangeEmail?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -47,11 +52,6 @@ export type NotionCommentFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	modifiedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	richText?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type NotionCommentCreatePayloadKeySpecifier = ('clientMutationId' | 'success' | NotionCommentCreatePayloadKeySpecifier)[];
-export type NotionCommentCreatePayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type NotionCommentListingKeySpecifier = ('items' | 'nextCursor' | NotionCommentListingKeySpecifier)[];
 export type NotionCommentListingFieldPolicy = {
@@ -139,15 +139,15 @@ export type PageInfoFieldPolicy = {
 	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
 	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('activityStatus' | 'contactEmail' | 'currentlyPlaying' | 'icloudCredentials' | 'linearCredentials' | 'notionComments' | 'notionEntries' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('activityStatus' | 'contactEmail' | 'currentlyPlaying' | 'icloudCredentials' | 'journalEntries' | 'journalEntryComments' | 'linearCredentials' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	contactEmail?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	journalEntries?: FieldPolicy<any> | FieldReadFunction<any>,
+	journalEntryComments?: FieldPolicy<any> | FieldReadFunction<any>,
 	linearCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
-	notionComments?: FieldPolicy<any> | FieldReadFunction<any>,
-	notionEntries?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNote?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNoteByName?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNotes?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -254,6 +254,10 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | InputFieldErrorKeySpecifier | (() => undefined | InputFieldErrorKeySpecifier),
 		fields?: InputFieldErrorFieldPolicy,
 	},
+	JournalEntryCommentPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | JournalEntryCommentPayloadKeySpecifier | (() => undefined | JournalEntryCommentPayloadKeySpecifier),
+		fields?: JournalEntryCommentPayloadFieldPolicy,
+	},
 	Mutation?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | MutationKeySpecifier | (() => undefined | MutationKeySpecifier),
 		fields?: MutationFieldPolicy,
@@ -265,10 +269,6 @@ export type StrictTypedTypePolicies = {
 	NotionComment?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | NotionCommentKeySpecifier | (() => undefined | NotionCommentKeySpecifier),
 		fields?: NotionCommentFieldPolicy,
-	},
-	NotionCommentCreatePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | NotionCommentCreatePayloadKeySpecifier | (() => undefined | NotionCommentCreatePayloadKeySpecifier),
-		fields?: NotionCommentCreatePayloadFieldPolicy,
 	},
 	NotionCommentListing?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | NotionCommentListingKeySpecifier | (() => undefined | NotionCommentListingKeySpecifier),

@@ -8,16 +8,16 @@ import { ActionIcon } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
 import {
-  NotionCommentCreateMutationDocument,
-  NotionEntryCommentsQueryDocument,
+  JournalEntryCommentMutationDocument,
+  JournalEntryCommentsQueryDocument,
 } from "~/queries";
 
-export type NotionEntryCommentsProps = BoxProps & {
-  readonly pageId: string;
+export type JournalEntryCommentsProps = BoxProps & {
+  readonly entryId: string;
 };
 
-const NotionEntryComments: FC<NotionEntryCommentsProps> = ({
-  pageId,
+const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
+  entryId,
   ...otherProps
 }) => {
   // == Input
@@ -26,10 +26,10 @@ const NotionEntryComments: FC<NotionEntryCommentsProps> = ({
   // == Query
   const onError = useApolloErrorCallback("Failed to load Notion comments");
   const { data, loading, refetch } = useQuery(
-    NotionEntryCommentsQueryDocument,
+    JournalEntryCommentsQueryDocument,
     {
       variables: {
-        pageId,
+        entryId,
       },
       onError,
     },
@@ -41,7 +41,7 @@ const NotionEntryComments: FC<NotionEntryCommentsProps> = ({
     "Failed to create Notion comment",
   );
   const [runMutation, { loading: mutating }] = useMutation(
-    NotionCommentCreateMutationDocument,
+    JournalEntryCommentMutationDocument,
     {
       onCompleted: () => {
         refetch({ startCursor: undefined });
@@ -53,7 +53,7 @@ const NotionEntryComments: FC<NotionEntryCommentsProps> = ({
     runMutation({
       variables: {
         input: {
-          pageId,
+          entryId,
           text: commentText,
         },
       },
@@ -146,4 +146,4 @@ const NotionEntryComments: FC<NotionEntryCommentsProps> = ({
   );
 };
 
-export default NotionEntryComments;
+export default JournalEntryComments;

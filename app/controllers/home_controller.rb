@@ -4,10 +4,10 @@
 class HomeController < ApplicationController
   # == Actions
   def show
-    entries_start_cursor = params["entry"]&.to_s
+    journal_entries_start_cusor = params["entry"]&.to_s
     render(
       inertia: "HomePage",
-      props: { entries_start_cursor: },
+      props: { journal_entries_start_cusor: },
     )
   end
 end

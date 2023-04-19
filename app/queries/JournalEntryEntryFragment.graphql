@@ -1,0 +1,6 @@
+fragment JournalEntryEntryFragment on NotionPage {
+  id
+  createdAt
+  title
+  blocks
+}

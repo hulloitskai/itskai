@@ -4,13 +4,15 @@ import { Text } from "@mantine/core";
 import type { HomePageQuery } from "~/queries";
 import type { Maybe } from "~/queries";
 
-import HomePageEntries from "~/components/HomePageEntries";
+import HomePageJournalEntries from "~/components/HomePageJournalEntries";
 
 export type HomePageProps = PageProps<HomePageQuery> & {
-  readonly entriesStartCursor: Maybe<string>;
+  readonly journalEntriesStartCursor: Maybe<string>;
 };
 
-const HomePage: PageComponent<HomePageProps> = ({ entriesStartCursor }) => {
+const HomePage: PageComponent<HomePageProps> = ({
+  journalEntriesStartCursor,
+}) => {
   useEffect(() => {
     setVars("page", {
       pageName: HomePage.name,
@@ -44,7 +46,10 @@ const HomePage: PageComponent<HomePageProps> = ({ entriesStartCursor }) => {
         <Title order={2} size="h3">
           sometimes, kai writes.
         </Title>
-        <HomePageEntries startCursor={entriesStartCursor} w="100%" />
+        <HomePageJournalEntries
+          startCursor={journalEntriesStartCursor}
+          w="100%"
+        />
       </Stack>
       <Space h="xs" />
     </Stack>

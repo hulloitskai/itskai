@@ -17,7 +17,7 @@ module Types
     field :icloud_credentials_verify_security_code,
           mutation: Mutations::ICloudCredentialsVerifySecurityCode
 
-    field :notion_comment_create, mutation: Mutations::NotionCommentCreate
+    field :journal_entry_comment, mutation: Mutations::JournalEntryComment
     field :obsidian_note_synchronize,
           mutation: Mutations::ObsidianNoteSynchronize
   end
