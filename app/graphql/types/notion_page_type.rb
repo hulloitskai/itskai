@@ -12,7 +12,7 @@ module Types
 
     sig { returns(T::Array[T.untyped]) }
     def blocks
-      NotionService.retrieve_page_blocks(page: self)
+      JournalService.retrieve_entry_blocks(entry: self)
     end
 
     sig { returns(Time) }

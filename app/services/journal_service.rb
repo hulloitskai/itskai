@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class NotionService < ApplicationService
+class JournalService < ApplicationService
   class << self
     # == Service
     sig { override.returns(T::Boolean) }
@@ -18,31 +18,35 @@ class NotionService < ApplicationService
         options: T.untyped,
       ).returns(T.untyped)
     end
-    def list_journal_entries(
+    def list_entries(
       published: nil,
       **options
-    ) = instance.journal_entries(
+    ) = instance.list_entries(
       published:,
       **options,
     )
 
     sig { params(entry_id: String, options: T.untyped).returns(T.untyped) }
-    def list_journal_entry_comments(
+    def list_entry_comments(
       entry_id:,
       **options
-    ) = instance.list_journal_entry_comments(**T.unsafe({
+    ) = instance.list_entry_comments(**T.unsafe({
       entry_id:,
       **options,
     }))
 
-    sig { params(page: T.untyped).returns(T::Array[T.untyped]) }
-    def retrieve_page_blocks(page:) = instance.retrieve_page_blocks(page:)
+    sig { params(entry: T.untyped).returns(T::Array[T.untyped]) }
+    def retrieve_entry_blocks(
+      entry:
+    ) = instance.retrieve_entry_blocks(
+      entry:,
+    )
 
     sig { params(entry_id: String, text: String).returns(T.untyped) }
-    def create_journal_entry_comment(
+    def create_entry_comment(
       entry_id:,
       text:
-    ) = instance.create_journal_entry_comment(
+    ) = instance.create_entry_comment(
       entry_id:,
       text:,
     )
@@ -52,7 +56,7 @@ class NotionService < ApplicationService
   sig { void }
   def initialize
     super
-    @client = T.let(Notion::Client.new, Notion::Client)
+    @client = Notion::Client.new
   end
 
   # == Attributes
@@ -66,8 +70,8 @@ class NotionService < ApplicationService
       options: T.untyped,
     ).returns(T.untyped)
   end
-  def journal_entries(published: nil, **options)
-    database_id = ENV.fetch("NOTION_JOURNAL_DATABASE_ID")
+  def list_entries(published: nil, **options)
+    database_id = ENV.fetch("JOURNAL_JOURNAL_DATABASE_ID")
     filter = T.let(nil, T.nilable(T::Hash[String, T.untyped]))
     unless published.nil?
       filter = {
@@ -86,25 +90,25 @@ class NotionService < ApplicationService
   end
 
   sig { params(entry_id: String, options: T.untyped).returns(T.untyped) }
-  def list_journal_entry_comments(entry_id:, **options)
+  def list_entry_comments(entry_id:, **options)
     client.retrieve_comments(block_id: entry_id, **options)
   end
 
-  sig { params(page: T.untyped).returns(T::Array[T.untyped]) }
-  def retrieve_page_blocks(page:)
+  sig { params(entry: T.untyped).returns(T::Array[T.untyped]) }
+  def retrieve_entry_blocks(entry:)
     Rails.cache.fetch(
-      "notion/page_blocks:#{page.id}",
+      "journal/page_blocks:#{entry.id}",
       expires_in: 10.minutes,
       race_condition_ttl: 10.seconds,
     ) do
-      redactor = PageRedactor.new(page)
-      message = client.block_children(block_id: page.id)
+      redactor = Redactor.new(entry)
+      message = client.block_children(block_id: entry.id)
       message.results.tap { |blocks| redactor.redact_blocks!(blocks) }
     end
   end
 
   sig { params(entry_id: String, text: String).returns(T.untyped) }
-  def create_journal_entry_comment(
+  def create_entry_comment(
     entry_id:,
     text:
   )

@@ -12,12 +12,10 @@ module Queries
     type Types::NotionCommentListingType, null: false
 
     # == Resolver
-    sig do
-      params(entry_id: String, options: T.untyped).returns(T.untyped)
-    end
+    sig { params(entry_id: String, options: T.untyped).returns(T.untyped) }
     def resolve(entry_id:, **options)
-      NotionService.list_journal_entry_comments(**T.unsafe({
-        page_id: entry_id,
+      JournalService.list_entry_comments(**T.unsafe({
+        entry_id:,
         **options,
       }))
     end

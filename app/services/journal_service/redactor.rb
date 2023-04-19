@@ -1,17 +1,17 @@
 # typed: true
 # frozen_string_literal: true
 
-class NotionService
-  class PageRedactor
+class JournalService
+  class Redactor
     extend T::Sig
 
     # == Constants
     REDACTION_PLACEHOLDER = "[REDACTED]"
 
     # == Initialization
-    sig { params(page: T.untyped).void }
-    def initialize(page)
-      @page = page
+    sig { params(entry: T.untyped).void }
+    def initialize(entry)
+      @entry = entry
     end
 
     # == Methods
@@ -30,14 +30,14 @@ class NotionService
 
     # == Attributes
     sig { returns(T.untyped) }
-    attr_reader :page
+    attr_reader :entry
 
     # == Helpers
     sig { returns(T::Array[String]) }
     def redacted_phrases
       @redacted_phrases = T.let(@redacted_phrases, T.nilable(T::Array[String]))
       @redacted_phrases ||= scoped do
-        property = page.properties["Redact"]["rich_text"].first
+        property = entry.properties["Redact"]["rich_text"].first
         if property.present?
           text = T.let(property.plain_text, String)
           text.strip.split(",").map(&:strip)

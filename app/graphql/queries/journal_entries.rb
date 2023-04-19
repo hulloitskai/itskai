@@ -15,7 +15,7 @@ module Queries
       params(options: T.untyped).returns(T.untyped)
     end
     def resolve(**options)
-      NotionService.list_journal_entries(published: true, **options)
+      JournalService.list_entries(published: true, **options)
     end
   end
 end
