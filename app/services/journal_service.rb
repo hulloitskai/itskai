@@ -8,7 +8,7 @@ class JournalService < ApplicationService
     def enabled?
       return !!@enabled if defined?(@enabled)
       @enabled = T.let(@enabled, T.nilable(T::Boolean))
-      @enabled = T.let(super, T::Boolean) && Notion.config.token.present?
+      @enabled = T.must(super && notion_ready? && database_id.present?)
     end
 
     # == Methods
@@ -50,6 +50,18 @@ class JournalService < ApplicationService
       entry_id:,
       text:,
     )
+
+    sig { returns(String) }
+    def database_id
+      @database_id = T.let(@database_id, T.nilable(String))
+      @database_id ||= ENV.fetch("JOURNAL_DATABASE_ID")
+    end
+
+    private
+
+    # == Helpers
+    sig { returns(T::Boolean) }
+    def notion_ready? =Notion.config.token.present?
   end
 
   # == Initialization
@@ -59,10 +71,6 @@ class JournalService < ApplicationService
     @client = Notion::Client.new
   end
 
-  # == Attributes
-  sig { returns(Notion::Client) }
-  attr_reader :client
-
   # == Methods
   sig do
     params(
@@ -71,7 +79,6 @@ class JournalService < ApplicationService
     ).returns(T.untyped)
   end
   def list_entries(published: nil, **options)
-    database_id = ENV.fetch("JOURNAL_JOURNAL_DATABASE_ID")
     filter = T.let(nil, T.nilable(T::Hash[String, T.untyped]))
     unless published.nil?
       filter = {
@@ -97,7 +104,7 @@ class JournalService < ApplicationService
   sig { params(entry: T.untyped).returns(T::Array[T.untyped]) }
   def retrieve_entry_blocks(entry:)
     Rails.cache.fetch(
-      "journal/page_blocks:#{entry.id}",
+      "journal/entry_blocks:#{entry.id}",
       expires_in: 10.minutes,
       race_condition_ttl: 10.seconds,
     ) do
@@ -122,5 +129,17 @@ class JournalService < ApplicationService
         },
       }],
     )
+  end
+
+  private
+
+  # == Attributes
+  sig { returns(Notion::Client) }
+  attr_reader :client
+
+  # == Helpers
+  sig { returns(String) }
+  def database_id
+    self.class.database_id
   end
 end

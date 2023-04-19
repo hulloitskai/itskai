@@ -27,12 +27,6 @@ module GeneratedUrlHelpersModule
   def edit_user_registration_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def eventqr_event_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def eventqr_events_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def good_job_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -172,12 +166,6 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def user_confirmation_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def user_linear_omniauth_authorize_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def user_linear_omniauth_callback_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def user_password_url(*args); end

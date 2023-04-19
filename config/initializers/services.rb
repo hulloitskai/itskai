@@ -10,9 +10,7 @@ Rails.application.configure do
     ObsidianService.start
     SpotifyService.start
     CurrentlyPlayingService.start if Rails.server?
-    LinearService.start
-    NotifiService.start
-    QrCodeGeneratorService.start
+    JournalService.start
     ResumeService.start
   end
 

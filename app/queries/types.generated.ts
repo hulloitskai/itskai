@@ -289,8 +289,6 @@ export type Query = {
   icloudCredentials?: Maybe<ICloudCredentials>;
   journalEntries: NotionPageListing;
   journalEntryComments: NotionCommentListing;
-  /** Linear OAuth credentials. */
-  linearCredentials?: Maybe<OAuthCredentials>;
   obsidianNote?: Maybe<ObsidianNote>;
   obsidianNoteByName?: Maybe<ObsidianNote>;
   obsidianNotes: ObsidianNoteConnection;

@@ -6,6 +6,7 @@
 
 class GoodJob::BatchRecord
   include GeneratedAssociationMethods
+  include GeneratedAttributeMethods
   extend CommonRelationMethods
   extend GeneratedRelationMethods
 
@@ -250,10 +251,10 @@ class GoodJob::BatchRecord
 
     # This method is created by ActiveRecord on the `GoodJob::BatchRecord` class because it declared `has_many :callback_jobs`.
     # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
-    sig { returns(ActiveRecord::Associations::CollectionProxy) }
+    sig { returns(::GoodJob::Job::PrivateCollectionProxy) }
     def callback_jobs; end
 
-    sig { params(value: T::Enumerable[T.untyped]).void }
+    sig { params(value: T::Enumerable[::GoodJob::Job]).void }
     def callback_jobs=(value); end
 
     sig { returns(T::Array[T.untyped]) }
@@ -264,10 +265,10 @@ class GoodJob::BatchRecord
 
     # This method is created by ActiveRecord on the `GoodJob::BatchRecord` class because it declared `has_many :executions`.
     # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
-    sig { returns(ActiveRecord::Associations::CollectionProxy) }
+    sig { returns(::GoodJob::Execution::PrivateCollectionProxy) }
     def executions; end
 
-    sig { params(value: T::Enumerable[T.untyped]).void }
+    sig { params(value: T::Enumerable[::GoodJob::Execution]).void }
     def executions=(value); end
 
     sig { returns(T::Array[T.untyped]) }
@@ -278,10 +279,10 @@ class GoodJob::BatchRecord
 
     # This method is created by ActiveRecord on the `GoodJob::BatchRecord` class because it declared `has_many :jobs`.
     # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
-    sig { returns(ActiveRecord::Associations::CollectionProxy) }
+    sig { returns(::GoodJob::Job::PrivateCollectionProxy) }
     def jobs; end
 
-    sig { params(value: T::Enumerable[T.untyped]).void }
+    sig { params(value: T::Enumerable[::GoodJob::Job]).void }
     def jobs=(value); end
   end
 
@@ -496,6 +497,824 @@ class GoodJob::BatchRecord
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
+  end
+
+  module GeneratedAttributeMethods
+    sig { returns(T.nilable(::Integer)) }
+    def callback_priority; end
+
+    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
+    def callback_priority=(value); end
+
+    sig { returns(T::Boolean) }
+    def callback_priority?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def callback_priority_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def callback_priority_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def callback_priority_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def callback_priority_change; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def callback_priority_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def callback_priority_changed?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def callback_priority_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def callback_priority_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def callback_priority_previously_changed?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def callback_priority_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def callback_priority_was; end
+
+    sig { void }
+    def callback_priority_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def callback_queue_name; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def callback_queue_name=(value); end
+
+    sig { returns(T::Boolean) }
+    def callback_queue_name?; end
+
+    sig { returns(T.nilable(::String)) }
+    def callback_queue_name_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def callback_queue_name_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def callback_queue_name_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def callback_queue_name_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def callback_queue_name_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def callback_queue_name_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def callback_queue_name_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def callback_queue_name_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def callback_queue_name_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def callback_queue_name_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def callback_queue_name_was; end
+
+    sig { void }
+    def callback_queue_name_will_change!; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at; end
+
+    sig { params(value: ::ActiveSupport::TimeWithZone).returns(::ActiveSupport::TimeWithZone) }
+    def created_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def created_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def created_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def created_at_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def created_at_change; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def created_at_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def created_at_changed?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def created_at_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def created_at_previously_changed?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_was; end
+
+    sig { void }
+    def created_at_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def description; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def description=(value); end
+
+    sig { returns(T::Boolean) }
+    def description?; end
+
+    sig { returns(T.nilable(::String)) }
+    def description_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def description_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def description_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def description_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def description_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def description_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def description_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def description_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def description_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def description_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def description_was; end
+
+    sig { void }
+    def description_will_change!; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def discarded?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def discarded_at; end
+
+    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def discarded_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def discarded_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def discarded_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def discarded_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def discarded_at_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def discarded_at_change; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def discarded_at_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def discarded_at_changed?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def discarded_at_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def discarded_at_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def discarded_at_previously_changed?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def discarded_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def discarded_at_was; end
+
+    sig { void }
+    def discarded_at_will_change!; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def enqueued?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def enqueued_at; end
+
+    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def enqueued_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def enqueued_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def enqueued_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def enqueued_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def enqueued_at_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def enqueued_at_change; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def enqueued_at_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def enqueued_at_changed?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def enqueued_at_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def enqueued_at_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def enqueued_at_previously_changed?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def enqueued_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def enqueued_at_was; end
+
+    sig { void }
+    def enqueued_at_will_change!; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def finished?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def finished_at; end
+
+    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def finished_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def finished_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def finished_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def finished_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def finished_at_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def finished_at_change; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def finished_at_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def finished_at_changed?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def finished_at_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def finished_at_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def finished_at_previously_changed?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def finished_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def finished_at_was; end
+
+    sig { void }
+    def finished_at_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def id; end
+
+    sig { params(value: ::String).returns(::String) }
+    def id=(value); end
+
+    sig { returns(T::Boolean) }
+    def id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def id_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def id_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def id_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def id_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def id_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def id_was; end
+
+    sig { void }
+    def id_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def on_discard; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def on_discard=(value); end
+
+    sig { returns(T::Boolean) }
+    def on_discard?; end
+
+    sig { returns(T.nilable(::String)) }
+    def on_discard_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def on_discard_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def on_discard_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def on_discard_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def on_discard_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def on_discard_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def on_discard_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def on_discard_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def on_discard_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def on_discard_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def on_discard_was; end
+
+    sig { void }
+    def on_discard_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def on_finish; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def on_finish=(value); end
+
+    sig { returns(T::Boolean) }
+    def on_finish?; end
+
+    sig { returns(T.nilable(::String)) }
+    def on_finish_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def on_finish_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def on_finish_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def on_finish_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def on_finish_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def on_finish_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def on_finish_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def on_finish_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def on_finish_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def on_finish_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def on_finish_was; end
+
+    sig { void }
+    def on_finish_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def on_success; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def on_success=(value); end
+
+    sig { returns(T::Boolean) }
+    def on_success?; end
+
+    sig { returns(T.nilable(::String)) }
+    def on_success_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def on_success_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def on_success_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def on_success_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def on_success_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def on_success_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def on_success_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def on_success_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def on_success_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def on_success_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def on_success_was; end
+
+    sig { void }
+    def on_success_will_change!; end
+
+    sig { returns(T.untyped) }
+    def properties; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def properties=(value); end
+
+    sig { returns(T::Boolean) }
+    def properties?; end
+
+    sig { returns(T.untyped) }
+    def properties_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def properties_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def properties_came_from_user?; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def properties_change; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def properties_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def properties_changed?; end
+
+    sig { returns(T.untyped) }
+    def properties_in_database; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def properties_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def properties_previously_changed?; end
+
+    sig { returns(T.untyped) }
+    def properties_previously_was; end
+
+    sig { returns(T.untyped) }
+    def properties_was; end
+
+    sig { void }
+    def properties_will_change!; end
+
+    sig { void }
+    def restore_callback_priority!; end
+
+    sig { void }
+    def restore_callback_queue_name!; end
+
+    sig { void }
+    def restore_created_at!; end
+
+    sig { void }
+    def restore_description!; end
+
+    sig { void }
+    def restore_discarded_at!; end
+
+    sig { void }
+    def restore_enqueued_at!; end
+
+    sig { void }
+    def restore_finished_at!; end
+
+    sig { void }
+    def restore_id!; end
+
+    sig { void }
+    def restore_on_discard!; end
+
+    sig { void }
+    def restore_on_finish!; end
+
+    sig { void }
+    def restore_on_success!; end
+
+    sig { void }
+    def restore_properties!; end
+
+    sig { void }
+    def restore_serialized_properties!; end
+
+    sig { void }
+    def restore_updated_at!; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def saved_change_to_callback_priority; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_callback_priority?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_callback_queue_name; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_callback_queue_name?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_created_at; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_created_at?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_description; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_description?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_discarded?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_discarded_at; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_discarded_at?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_enqueued?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_enqueued_at; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_enqueued_at?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_finished?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_finished_at; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_finished_at?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_id; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_id?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_on_discard; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_on_discard?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_on_finish; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_on_finish?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_on_success; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_on_success?; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def saved_change_to_properties; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_properties?; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def saved_change_to_serialized_properties; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_serialized_properties?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_updated_at; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_updated_at?; end
+
+    sig { returns(T.untyped) }
+    def serialized_properties; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def serialized_properties=(value); end
+
+    sig { returns(T::Boolean) }
+    def serialized_properties?; end
+
+    sig { returns(T.untyped) }
+    def serialized_properties_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def serialized_properties_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def serialized_properties_came_from_user?; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def serialized_properties_change; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def serialized_properties_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def serialized_properties_changed?; end
+
+    sig { returns(T.untyped) }
+    def serialized_properties_in_database; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def serialized_properties_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def serialized_properties_previously_changed?; end
+
+    sig { returns(T.untyped) }
+    def serialized_properties_previously_was; end
+
+    sig { returns(T.untyped) }
+    def serialized_properties_was; end
+
+    sig { void }
+    def serialized_properties_will_change!; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at; end
+
+    sig { params(value: ::ActiveSupport::TimeWithZone).returns(::ActiveSupport::TimeWithZone) }
+    def updated_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def updated_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def updated_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def updated_at_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def updated_at_change; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def updated_at_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def updated_at_changed?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def updated_at_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def updated_at_previously_changed?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_was; end
+
+    sig { void }
+    def updated_at_will_change!; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_callback_priority?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_callback_queue_name?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_created_at?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_description?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_discarded_at?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_enqueued_at?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_finished_at?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_id?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_on_discard?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_on_finish?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_on_success?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_properties?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_serialized_properties?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_updated_at?; end
   end
 
   module GeneratedRelationMethods

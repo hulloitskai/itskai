@@ -23,7 +23,7 @@ class ResumeService < ApplicationService
   sig { returns(T::Hash[String, T.untyped]) }
   def load_resume
     mtime = File.mtime(RESUME_PATH).to_i
-    Rails.cache.fetch("resume/#{mtime}") do
+    Rails.cache.fetch("resume/file:#{mtime}") do
       Psych.load_file(RESUME_PATH)
     end
   end

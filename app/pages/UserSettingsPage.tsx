@@ -6,7 +6,6 @@ import UserSettingsPageProfileForm from "~/components/UserSettingsPageProfileFor
 import UserSettingsPageEmailForm from "~/components/UserSettingsPageEmailForm";
 import UserSettingsPagePasswordForm from "~/components/UserSettingsPagePasswordForm";
 import UserSettingsPageICloudCredentialsForm from "~/components/UserSettingsPageICloudCredentialsForm";
-import UserSettingsPageLinearCredentialsForm from "~/components/UserSettingsPageLinearCredentialsForm";
 import UserSettingsPageSpotifyCredentialsForm from "~/components/UserSettingsPageSpotifyCredentialsForm";
 
 import type { UserSettingsPageQuery } from "~/queries";
@@ -17,7 +16,7 @@ export type UserSettingsPageProps = PageProps<
 >;
 
 const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
-  data: { viewer, icloudCredentials, linearCredentials, spotifyCredentials },
+  data: { viewer, icloudCredentials, spotifyCredentials },
 }) => {
   const { isOwner } = viewer;
   return (
@@ -87,21 +86,6 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
               </Stack>
               <UserSettingsPageSpotifyCredentialsForm
                 {...{ spotifyCredentials }}
-              />
-            </Stack>
-          </Card>
-          <Card radius="md" withBorder>
-            <Stack spacing="xs">
-              <Stack align="center" spacing={0}>
-                <Title order={2} size="h4">
-                  Linear
-                </Title>
-                <Text mt={-4} size="sm" color="dimmed">
-                  Authorize Linear to enable issue management.
-                </Text>
-              </Stack>
-              <UserSettingsPageLinearCredentialsForm
-                {...{ linearCredentials }}
               />
             </Stack>
           </Card>

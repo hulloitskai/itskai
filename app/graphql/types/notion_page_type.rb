@@ -12,7 +12,7 @@ module Types
 
     sig { returns(T::Array[T.untyped]) }
     def blocks
-      JournalService.retrieve_entry_blocks(entry: self)
+      JournalService.retrieve_entry_blocks(entry: object)
     end
 
     sig { returns(Time) }

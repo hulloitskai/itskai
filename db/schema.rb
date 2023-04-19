@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_12_172659) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_19_235227) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -41,20 +41,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_172659) do
     t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "eventqr_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "title", null: false
-    t.string "inviter_email", null: false
-    t.string "inviter_name"
-    t.datetime "start", precision: nil, null: false
-    t.datetime "end", precision: nil, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "uid", null: false
-    t.string "slug", null: false
-    t.index ["inviter_email"], name: "index_eventqr_events_on_inviter_email"
-    t.index ["uid"], name: "index_eventqr_events_on_uid", unique: true
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

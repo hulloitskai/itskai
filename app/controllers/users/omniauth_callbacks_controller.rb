@@ -49,40 +49,6 @@ module Users
       end
     end
 
-    # GET /user/auth/linear/callback
-    def linear
-      auth = T.let(request.env.fetch("omniauth.auth"), OmniAuth::AuthHash)
-      auth = T.let(auth.to_hash, T::Hash[String, T.untyped])
-      credentials = OAuthCredentials
-        .find_or_initialize_by(
-          auth.slice("provider", "uid").symbolize_keys,
-        )
-      credentials.attributes = auth
-        .fetch("credentials")
-        .slice("token", "refresh_token")
-        .symbolize_keys
-        .tap do |credentials|
-          credentials[:access_token] = credentials.delete(:token)
-        end
-      credentials.save!
-      credentials.tap do |provider|
-        provider = T.let(provider, OAuthCredentials)
-        provider => { uid:, refresh_token: }
-        logger.info(
-          "Authenticated with Linear (uid: #{uid}, refresh_token: " \
-            "#{refresh_token})",
-        )
-      end
-      LinearService.restart
-      set_flash_message(:notice, :success, kind: "Linear")
-      redirect_to(edit_registration_path(current_user)).tap do
-        response.set_header(
-          "Location",
-          response.get_header("Location") + "#",
-        )
-      end
-    end
-
     # # GET /user/auth/facebook/callback
     # sig { void }
     # def facebook

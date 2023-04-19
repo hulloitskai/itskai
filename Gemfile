@@ -145,7 +145,6 @@ gem "strong_password", "~> 0.0.10"
 # Use OmniAuth to authenticate with external providers (i.e. Spotify)
 gem "omniauth", "~> 2.1"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
-gem "omniauth-oauth2", "~> 1.8"
 gem "omniauth-spotify", "~> 0.0.13"
 
 # Use RSpotify to read currently playing data from Spotify
@@ -162,9 +161,6 @@ gem "active_record_extended", "~> 3.2"
 
 # Parse Markdown with Markly
 gem "markly", "~> 0.7.0"
-
-# Parse iCalendar files
-gem "icalendar", "~> 2.8"
 
 # Use Sentry for error reporting
 gem "sentry-rails", "~> 5.8"

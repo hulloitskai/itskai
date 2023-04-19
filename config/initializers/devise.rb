@@ -283,14 +283,6 @@ Devise.setup do |config|
     scope: %w[user-read-email user-read-playback-state].join(", "),
   )
 
-  # Allow authenticating with Linear.
-  config.omniauth(
-    :linear,
-    client_id: ENV["LINEAR_CLIENT_ID"],
-    client_secret: ENV["LINEAR_CLIENT_SECRET"],
-    scope: %w[read issues:create].join(","),
-  )
-
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

@@ -261,9 +261,6 @@ type Query {
   icloudCredentials: ICloudCredentials
   journalEntries(pageSize: Int, startCursor: String): NotionPageListing!
   journalEntryComments(entryId: String, pageSize: Int, startCursor: String): NotionCommentListing!
-
-  """Linear OAuth credentials."""
-  linearCredentials: OAuthCredentials
   obsidianNote(id: ID!): ObsidianNote
   obsidianNoteByName(name: String!): ObsidianNote
   obsidianNotes(

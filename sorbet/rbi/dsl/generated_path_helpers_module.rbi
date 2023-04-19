@@ -27,12 +27,6 @@ module GeneratedPathHelpersModule
   def edit_user_registration_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def eventqr_event_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def eventqr_events_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def good_job_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -172,12 +166,6 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def user_confirmation_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def user_linear_omniauth_authorize_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def user_linear_omniauth_callback_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def user_password_path(*args); end

@@ -8,10 +8,7 @@ class SpotifyService < ApplicationService
     def enabled?
       return !!@enabled if defined?(@enabled)
       @enabled = T.let(@enabled, T.nilable(T::Boolean))
-      @enabled = scoped do
-        break false unless super
-        client_id.present? && client_secret.present?
-      end
+      @enabled = T.must(super && client_id.present? && client_secret.present?)
     end
 
     # == Methods

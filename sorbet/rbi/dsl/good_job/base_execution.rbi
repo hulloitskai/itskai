@@ -471,6 +471,96 @@ class GoodJob::BaseExecution
     def active_job_id_will_change!; end
 
     sig { returns(T.nilable(::String)) }
+    def batch_callback_id; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def batch_callback_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def batch_callback_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def batch_callback_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def batch_callback_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def batch_callback_id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def batch_callback_id_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def batch_callback_id_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def batch_callback_id_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def batch_callback_id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def batch_callback_id_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def batch_callback_id_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def batch_callback_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def batch_callback_id_was; end
+
+    sig { void }
+    def batch_callback_id_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def batch_id; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def batch_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def batch_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def batch_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def batch_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def batch_id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def batch_id_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def batch_id_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def batch_id_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def batch_id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def batch_id_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def batch_id_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def batch_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def batch_id_was; end
+
+    sig { void }
+    def batch_id_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
     def concurrency_key; end
 
     sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
@@ -924,6 +1014,12 @@ class GoodJob::BaseExecution
     def restore_active_job_id!; end
 
     sig { void }
+    def restore_batch_callback_id!; end
+
+    sig { void }
+    def restore_batch_id!; end
+
+    sig { void }
     def restore_concurrency_key!; end
 
     sig { void }
@@ -1015,6 +1111,18 @@ class GoodJob::BaseExecution
 
     sig { returns(T::Boolean) }
     def saved_change_to_active_job_id?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_batch_callback_id; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_batch_callback_id?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_batch_id; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_batch_id?; end
 
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_concurrency_key; end
@@ -1237,6 +1345,12 @@ class GoodJob::BaseExecution
 
     sig { returns(T::Boolean) }
     def will_save_change_to_active_job_id?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_batch_callback_id?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_batch_id?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_concurrency_key?; end

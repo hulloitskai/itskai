@@ -1,5 +1,5 @@
 # rubocop:disable Rails/SkipsModelValidations
-# typed: true
+# typed: ignore
 # frozen_string_literal: true
 
 class NullBlankInviterNamesOnEventqrEvents < ActiveRecord::Migration[7.0]

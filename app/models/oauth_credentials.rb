@@ -31,13 +31,4 @@ class OAuthCredentials < ApplicationRecord
   def self.spotify!
     spotify or raise ActiveRecord::RecordNotFound
   end
-
-  # == Methods: Linear
-  sig { returns(T.nilable(OAuthCredentials)) }
-  def self.linear = find_by(provider: :linear)
-
-  sig { returns(OAuthCredentials) }
-  def self.linear!
-    linear or raise ActiveRecord::RecordNotFound
-  end
 end

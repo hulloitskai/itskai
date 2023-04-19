@@ -30,9 +30,6 @@ module ItsKai
       require "graphql_ext"
       require "inertia_rails_ext"
       require "premailer_ext"
-
-      # == Libraries
-      require "omniauth-linear"
     end
 
     # Initialize configuration defaults for originally generated Rails version.
