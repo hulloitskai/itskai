@@ -164,7 +164,7 @@ export type NotionCommentListing = {
 
 export type NotionPage = {
   __typename?: 'NotionPage';
-  blocks: Scalars['JSON'];
+  blocks: Array<Scalars['JSON']>;
   createdAt: Scalars['DateTime'];
   id: Scalars['String'];
   modifiedAt: Scalars['DateTime'];

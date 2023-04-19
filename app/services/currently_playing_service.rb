@@ -21,7 +21,7 @@ class CurrentlyPlayingService < ApplicationService
     @task.add_observer(SubscriptionsTrigger.new)
   end
 
-  # == Methods: Service
+  # == Service
   sig { override.returns(T::Boolean) }
   def ready?
     return false unless super
@@ -52,14 +52,14 @@ class CurrentlyPlayingService < ApplicationService
 
   private
 
-  # == Helpers
+  # == Attributes
   sig { returns(Concurrent::TimerTask) }
   attr_reader :task
 end
 
 class CurrentlyPlayingService
   class << self
-    # == Methods: Service
+    # == Service
     sig { override.returns(T::Boolean) }
     def enabled? = T.let(super, T::Boolean) && SpotifyService.enabled?
 

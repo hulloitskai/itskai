@@ -3,7 +3,7 @@
 
 class QrCodeGeneratorService < ApplicationService
   class << self
-    # == Methods: Service
+    # == Service
     sig { override.returns(T::Boolean) }
     def enabled?
       return !!@enabled if defined?(@enabled)

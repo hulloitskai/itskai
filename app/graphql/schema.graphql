@@ -132,7 +132,7 @@ type NotionCommentListing {
 }
 
 type NotionPage {
-  blocks: JSON!
+  blocks: [JSON!]!
   createdAt: DateTime!
   id: String!
   modifiedAt: DateTime!

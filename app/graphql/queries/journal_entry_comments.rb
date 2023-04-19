@@ -16,7 +16,10 @@ module Queries
       params(entry_id: String, options: T.untyped).returns(T.untyped)
     end
     def resolve(entry_id:, **options)
-      NotionService.client.retrieve_comments(block_id: entry_id, **options)
+      NotionService.list_journal_entry_comments(**T.unsafe({
+        page_id: entry_id,
+        **options,
+      }))
     end
   end
 end

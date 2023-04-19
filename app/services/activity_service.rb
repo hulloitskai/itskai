@@ -31,12 +31,14 @@ class ActivityService < ApplicationService
 
   private
 
+  # == Attributes
   sig { returns(Concurrent::Atom) }
   attr_reader :status_atom
 
   sig { returns(Concurrent::ScheduledTask) }
   attr_accessor :clear_status_task
 
+  # == Helpers
   # TODO: Can this assignment be a race condition?
   sig { void }
   def schedule_clear_status_task

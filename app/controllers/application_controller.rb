@@ -62,7 +62,7 @@ class ApplicationController
 
   private
 
-  # == Helpers ==
+  # == Helpers
   sig { returns(User) }
   def current_user!
     authenticate_user!

@@ -8,9 +8,11 @@ module Subscriptions
     class << self
       extend T::Sig
 
+      # == Attributes
       sig { returns(Integer) }
       attr_reader :count
 
+      # == Methods
       sig { returns(Integer) }
       def increment!
         @count += 1

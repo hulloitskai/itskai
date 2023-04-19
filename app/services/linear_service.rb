@@ -3,7 +3,7 @@
 
 class LinearService < ApplicationService
   class << self
-    # == Methods: Service
+    # == Service
     sig { override.returns(T::Boolean) }
     def enabled?
       return !!@enabled if defined?(@enabled)
@@ -42,7 +42,7 @@ class LinearService < ApplicationService
     @client = T.let(@client, T.nilable(Graphlient::Client))
   end
 
-  # == Methods: Service
+  # == Service
   sig { override.returns(T::Boolean) }
   def ready?
     return false unless super

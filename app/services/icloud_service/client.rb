@@ -9,6 +9,7 @@ class ICloudService
     # == Constants
     PyICloud = T.let(PyCall.import_module("icloud").ICloud, T.untyped)
 
+    # == Initialization
     sig { params(credentials: ICloudCredentials).void }
     def initialize(credentials:)
       @credentials = credentials
@@ -24,6 +25,7 @@ class ICloudService
       save_credentials!
     end
 
+    # == Methods
     sig { params(code: T.nilable(String)).returns(T::Boolean) }
     def verify_security_code(code)
       @pyicloud.verify_security_code(code).tap { save_credentials! }
@@ -41,9 +43,11 @@ class ICloudService
 
     private
 
+    # == Attributes
     sig { returns(T.nilable(ICloudCredentials)) }
     attr_reader :credentials
 
+    # == Helpers
     sig { returns(ICloudCredentials) }
     def credentials!
       T.must(credentials)

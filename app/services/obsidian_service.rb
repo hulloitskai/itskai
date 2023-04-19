@@ -3,7 +3,7 @@
 
 class ObsidianService < ApplicationService
   class << self
-    # == Methods: Service
+    # == Service
     sig { override.returns(T::Boolean) }
     def enabled?
       return false unless super

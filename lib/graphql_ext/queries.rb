@@ -182,21 +182,25 @@ end
 class GraphQL::Queries::DefinitionsVisitor < GraphQL::Language::Visitor
   extend T::Sig
 
+  # == Constants
   Nodes = GraphQL::Language::Nodes
   Definition =
     T.type_alias do
       T.any(Nodes::OperationDefinition, Nodes::FragmentDefinition)
     end
 
+  # == Initialization
   sig { params(node: GraphQL::Language::Nodes::AbstractNode).void }
   def initialize(node)
     super
     @definitions = T.let([], T::Array[Definition])
   end
 
+  # == Attributes
   sig { returns(T::Array[Definition]) }
   attr_reader :definitions
 
+  # == Methods
   sig do
     override.params(
       node: Nodes::OperationDefinition,
@@ -232,6 +236,7 @@ class GraphQL::Queries::DefinitionsVisitor < GraphQL::Language::Visitor
 
   private
 
+  # == Helpers
   sig { params(field: Nodes::Field).void }
   def add_typename_to_selections(field)
     unless field.selections.any? { |field| field.name == "__typename" }
@@ -243,15 +248,18 @@ end
 class GraphQL::Queries::FragmentReferencesVisitor < GraphQL::Language::Visitor
   extend T::Sig
 
+  # == Initialization
   sig { params(node: GraphQL::Language::Nodes::AbstractNode).void }
   def initialize(node)
     super
     @references = T.let(Set.new, T::Set[String])
   end
 
+  # == Attributes
   sig { returns(T::Set[String]) }
   attr_reader :references
 
+  # == Methods
   sig do
     override.params(
       node: GraphQL::Language::Nodes::FragmentSpread,

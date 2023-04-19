@@ -55,10 +55,11 @@ class ErrorsController < ApplicationController
 
   private
 
-  # == Helpers
+  # == Attributes
   sig { returns(ActionDispatch::PublicExceptions) }
   attr_reader :exceptions_app
 
+  # == Helpers
   sig do
     params(
       status: Symbol,

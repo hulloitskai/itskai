@@ -3,7 +3,7 @@
 
 class SpotifyService < ApplicationService
   class << self
-    # == Methods: Service
+    # == Service
     sig { override.returns(T::Boolean) }
     def enabled?
       return !!@enabled if defined?(@enabled)
@@ -47,7 +47,7 @@ class SpotifyService < ApplicationService
     @user = T.let(@user, T.nilable(RSpotify::User))
   end
 
-  # == Methods: Service
+  # == Service
   sig { override.returns(T::Boolean) }
   def ready?
     return false unless super

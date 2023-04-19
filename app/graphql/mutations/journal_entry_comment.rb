@@ -15,16 +15,7 @@ module Mutations
     # == Resolver
     sig { override.params(entry_id: String, text: String).returns(Payload) }
     def resolve(entry_id:, text:)
-      comment = NotionService.client.create_comment(
-        parent: {
-          page_id: entry_id,
-        },
-        rich_text: [{
-          text: {
-            content: text,
-          },
-        }],
-      )
+      comment = NotionService.create_journal_entry_comment(entry_id:, text:)
       Payload.new(comment:)
     end
   end
