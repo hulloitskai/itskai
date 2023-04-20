@@ -6,13 +6,13 @@ import type { Maybe } from "~/queries";
 
 import HomePageJournalEntries from "~/components/HomePageJournalEntries";
 
+const HomePageJournalEntriesStartCursorParam = "after";
+
 export type HomePageProps = PageProps<HomePageQuery> & {
-  readonly journalEntriesStartCursor: Maybe<string>;
+  readonly [HomePageJournalEntriesStartCursorParam]: Maybe<string>;
 };
 
-const HomePage: PageComponent<HomePageProps> = ({
-  journalEntriesStartCursor,
-}) => {
+const HomePage: PageComponent<HomePageProps> = ({ after }) => {
   useEffect(() => {
     setVars("page", {
       pageName: HomePage.name,
@@ -47,7 +47,8 @@ const HomePage: PageComponent<HomePageProps> = ({
           sometimes, kai writes.
         </Title>
         <HomePageJournalEntries
-          startCursor={journalEntriesStartCursor}
+          startCursorParam={HomePageJournalEntriesStartCursorParam}
+          startCursor={after}
           w="100%"
         />
       </Stack>

@@ -10,12 +10,14 @@ import type { Maybe } from "~/queries";
 
 export type HomePageJournalEntriesProps = BoxProps & {
   readonly startCursor: Maybe<string>;
+  readonly startCursorParam: string;
 };
 
 const JournalEntry = lazy(() => import("./JournalEntry"));
 
 const HomePageJournalEntries: FC<HomePageJournalEntriesProps> = ({
   startCursor,
+  startCursorParam,
   ...otherProps
 }) => {
   const topRef = useRef<HTMLDivElement>(null);
@@ -62,14 +64,14 @@ const HomePageJournalEntries: FC<HomePageJournalEntriesProps> = ({
                   url.search = resolve(() => {
                     const params = url.searchParams;
                     if (nextCursor) {
-                      params.set("entry", nextCursor);
+                      params.set(startCursorParam, nextCursor);
                     } else {
-                      params.delete("entry");
+                      params.delete(startCursorParam);
                     }
                     return params.toString();
                   });
                   router.visit(url.toString(), {
-                    only: ["journalentriesStartCursor"],
+                    only: ["after"],
                     onSuccess: () => {
                       if (topRef.current) {
                         topRef.current.scrollIntoView({
