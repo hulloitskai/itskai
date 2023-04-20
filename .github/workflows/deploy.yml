@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
       - name: Set up Flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy
