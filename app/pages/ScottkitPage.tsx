@@ -119,7 +119,7 @@ const KitButton: FC<KitButtonProps> = ({ type, description }) => {
               A <Code {...{ color }}>{label}</Code> signal was broadcasted
             </>
           ),
-          message: <>You will be follow-up with shortly :)</>,
+          message: <>You will be followed-up with shortly :)</>,
         });
       },
       onError,
