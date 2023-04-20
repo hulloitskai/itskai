@@ -24,8 +24,7 @@ class CurrentlyPlayingService < ApplicationService
   # == Service
   sig { override.returns(T::Boolean) }
   def ready?
-    return false unless super
-    SpotifyService.ready?
+    T.must(super && SpotifyService.ready?)
   end
 
   sig { override.void }

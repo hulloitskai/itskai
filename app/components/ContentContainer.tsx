@@ -18,22 +18,28 @@ const ContentContainer: FC<ContentContainerProps> = ({
   const size = sizeProp || "sm";
   let content: ReactNode = children;
   content = (
-    <Container p="md" w="100%" {...{ size }} {...otherProps}>
+    <Container
+      className={ContentContainer.name}
+      p="md"
+      w="100%"
+      {...{ size }}
+      {...otherProps}
+    >
       {content}
     </Container>
   );
   if (withGutter) {
     const breakpoint = getSize({
       sizes: {
-        xs: 540,
-        sm: 720,
-        md: 960,
-        lg: 1140,
-        xl: 1320,
+        xs: rem(540),
+        sm: rem(720),
+        md: rem(960),
+        lg: rem(1140),
+        xl: rem(1320),
       },
       size,
     });
-    const marginSize = `clamp(0px, calc((100vw - ${breakpoint}px) / 2), ${spacing.md}px)`;
+    const marginSize = `clamp(0px, calc((100vw - ${breakpoint}) / 2), ${spacing.md})`;
     content = (
       <MediaQuery
         largerThan={breakpoint}

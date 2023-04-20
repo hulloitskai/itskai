@@ -1,0 +1,6 @@
+query ScottkitPageQuery {
+  viewer {
+    id
+    ...AppViewerFragment
+  }
+}

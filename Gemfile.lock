@@ -1,3 +1,17 @@
+GIT
+  remote: https://github.com/shardlab/discordrb.git
+  revision: 2011ac63da2c5dde1ff3bea06e1b471325128575
+  ref: 2011ac63da2c5dde1ff3bea06e1b471325128575
+  specs:
+    discordrb (3.4.2)
+      discordrb-webhooks (~> 3.4.2)
+      ffi (>= 1.9.24)
+      opus-ruby
+      rest-client (>= 2.0.0)
+      websocket-client-simple (>= 0.3.0)
+    discordrb-webhooks (3.4.2)
+      rest-client (>= 2.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -164,6 +178,7 @@ GEM
     erubi (1.12.0)
     et-orbi (1.2.7)
       tzinfo
+    event_emitter (0.2.6)
     faraday (2.7.3)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
@@ -301,6 +316,8 @@ GEM
       omniauth (~> 2.0)
     omniauth-spotify (0.0.13)
       omniauth-oauth2 (~> 1.1)
+    opus-ruby (1.0.1)
+      ffi
     orm_adapter (0.5.0)
     parallel (1.22.1)
     parser (3.2.0.0)
@@ -531,6 +548,9 @@ GEM
       selenium-webdriver (~> 4.0)
     webrick (1.7.0)
     websocket (1.2.9)
+    websocket-client-simple (0.6.1)
+      event_emitter
+      websocket
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -569,6 +589,7 @@ DEPENDENCIES
   debug
   devise (~> 4.9)
   discard (~> 1.2)
+  discordrb!
   dotenv (~> 2.7)
   email_validator (~> 2.2)
   enumerize (~> 2.6)

@@ -139,7 +139,5 @@ class JournalService < ApplicationService
 
   # == Helpers
   sig { returns(String) }
-  def database_id
-    self.class.database_id
-  end
+  def database_id = self.class.database_id
 end

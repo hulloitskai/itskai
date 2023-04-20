@@ -68,7 +68,7 @@ const AppLayout: FC<AppLayoutProps> = ({
       ) : (
         children
       ),
-    [withContainer, containerSize, containerProps, children],
+    [withContainer, withGutter, containerSize, containerProps, children],
   );
 
   // == Markup

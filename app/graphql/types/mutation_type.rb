@@ -20,5 +20,6 @@ module Types
     field :journal_entry_comment, mutation: Mutations::JournalEntryComment
     field :obsidian_note_synchronize,
           mutation: Mutations::ObsidianNoteSynchronize
+    field :scottkit_signal, mutation: Mutations::ScottkitSignal
   end
 end

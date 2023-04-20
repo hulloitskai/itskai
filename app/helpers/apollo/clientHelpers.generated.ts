@@ -30,12 +30,13 @@ export type JournalEntryCommentPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('icloudCredentialsUpdate' | 'icloudCredentialsVerifySecurityCode' | 'journalEntryComment' | 'obsidianNoteSynchronize' | 'testMutation' | 'userChangeEmail' | 'userSendEmailVerificationInstructions' | 'userSendPasswordResetInstructions' | 'userUpdate' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('icloudCredentialsUpdate' | 'icloudCredentialsVerifySecurityCode' | 'journalEntryComment' | 'obsidianNoteSynchronize' | 'scottkitSignal' | 'testMutation' | 'userChangeEmail' | 'userSendEmailVerificationInstructions' | 'userSendPasswordResetInstructions' | 'userUpdate' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	icloudCredentialsUpdate?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentialsVerifySecurityCode?: FieldPolicy<any> | FieldReadFunction<any>,
 	journalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNoteSynchronize?: FieldPolicy<any> | FieldReadFunction<any>,
+	scottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	testMutation?: FieldPolicy<any> | FieldReadFunction<any>,
 	userChangeEmail?: FieldPolicy<any> | FieldReadFunction<any>,
 	userSendEmailVerificationInstructions?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -156,6 +157,11 @@ export type QueryFieldPolicy = {
 	testEcho?: FieldPolicy<any> | FieldReadFunction<any>,
 	timezone?: FieldPolicy<any> | FieldReadFunction<any>,
 	viewer?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ScottkitSignalPayloadKeySpecifier = ('clientMutationId' | 'success' | ScottkitSignalPayloadKeySpecifier)[];
+export type ScottkitSignalPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SpotifyAlbumKeySpecifier = ('id' | 'imageUrl' | 'name' | 'url' | SpotifyAlbumKeySpecifier)[];
 export type SpotifyAlbumFieldPolicy = {
@@ -316,6 +322,10 @@ export type StrictTypedTypePolicies = {
 	Query?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier),
 		fields?: QueryFieldPolicy,
+	},
+	ScottkitSignalPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ScottkitSignalPayloadKeySpecifier | (() => undefined | ScottkitSignalPayloadKeySpecifier),
+		fields?: ScottkitSignalPayloadFieldPolicy,
 	},
 	SpotifyAlbum?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SpotifyAlbumKeySpecifier | (() => undefined | SpotifyAlbumKeySpecifier),

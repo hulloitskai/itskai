@@ -168,6 +168,9 @@ gem "sentry-rails", "~> 5.8"
 # Query Notion with Notion Ruby Client
 gem "notion-ruby-client", "~> 1.2"
 
+# Send and receive messages on Discord
+gem "discordrb", github: "shardlab/discordrb", ref: "2011ac63da2c5dde1ff3bea06e1b471325128575"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"

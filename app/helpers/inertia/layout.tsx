@@ -10,8 +10,8 @@ export type LayoutBuilder<PageProps> = (
 export const buildLayout = <PageProps extends Record<string, any>>(
   fn: LayoutBuilder<PageProps>,
 ): ((page: ReactNode) => ReactNode) => {
-  // eslint-disable-next-line react/display-name
-  return page => (
+  const Layout = (page: ReactNode) => (
     <PageConsumer<PageProps>>{({ props }) => fn(page, props)}</PageConsumer>
   );
+  return Layout;
 };

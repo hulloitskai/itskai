@@ -47,8 +47,7 @@ class SpotifyService < ApplicationService
   # == Service
   sig { override.returns(T::Boolean) }
   def ready?
-    return false unless super
-    !@user.nil?
+    T.must(super && @user.present?)
   end
 
   sig { override.void }

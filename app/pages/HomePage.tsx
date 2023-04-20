@@ -12,53 +12,45 @@ export type HomePageProps = PageProps<HomePageQuery> & {
   readonly [HomePageJournalEntriesStartCursorParam]: Maybe<string>;
 };
 
-const HomePage: PageComponent<HomePageProps> = ({ after }) => {
-  useEffect(() => {
-    setVars("page", {
-      pageName: HomePage.name,
-    });
-  }, []);
-  return (
-    <Stack spacing="xs">
-      <Space h="xs" />
-      <Center h={240}>
-        <Stack spacing="xs" align="center">
-          <Title color="white">hi, it&apos;s kai</Title>
-          <Text color="gray.6" align="center" maw={400}>
-            welcome to my little corner of the internet :)
-            <br />
-            please enjoy your stay. if you&apos;re having a good time,
-            let&apos;s{" "}
-            <Anchor
-              href="http://cal.com/itskai"
-              target="_blank"
-              rel="noopener noreferrer nofollow"
-              weight={600}
-              color="pink"
-            >
-              do something together
-            </Anchor>
-            !
-          </Text>
-        </Stack>
-      </Center>
-      <Stack align="center" spacing="xs">
-        <Title order={2} size="h3">
-          sometimes, kai writes.
-        </Title>
-        <HomePageJournalEntries
-          startCursorParam={HomePageJournalEntriesStartCursorParam}
-          startCursor={after}
-          w="100%"
-        />
+const HomePage: PageComponent<HomePageProps> = ({ after }) => (
+  <Stack spacing="xs">
+    <Space h="xs" />
+    <Center h={240}>
+      <Stack spacing="xs" align="center">
+        <Title color="white">hi, it&apos;s kai</Title>
+        <Text color="gray.6" align="center" maw={400}>
+          welcome to my little corner of the internet :)
+          <br />
+          please enjoy your stay. if you&apos;re having a good time, let&apos;s{" "}
+          <Anchor
+            href="http://cal.com/itskai"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            weight={600}
+            color="pink"
+          >
+            do something together
+          </Anchor>
+          !
+        </Text>
       </Stack>
-      <Space h="xs" />
+    </Center>
+    <Stack align="center" spacing="xs">
+      <Title order={2} size="h3">
+        sometimes, kai writes.
+      </Title>
+      <HomePageJournalEntries
+        startCursorParam={HomePageJournalEntriesStartCursorParam}
+        startCursor={after}
+        w="100%"
+      />
     </Stack>
-  );
-};
+    <Space h="xs" />
+  </Stack>
+);
 
 HomePage.layout = buildLayout<HomePageProps>((page, { data: { viewer } }) => (
-  <AppLayout withContainer withGutter {...{ viewer }}>
+  <AppLayout withContainer {...{ viewer }}>
     {page}
   </AppLayout>
 ));

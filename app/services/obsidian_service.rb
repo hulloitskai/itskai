@@ -6,8 +6,7 @@ class ObsidianService < ApplicationService
     # == Service
     sig { override.returns(T::Boolean) }
     def enabled?
-      return false unless super
-      ICloudService.enabled?
+      T.must(super && ICloudService.enabled?)
     end
 
     # == Methods
@@ -40,8 +39,7 @@ class ObsidianService < ApplicationService
   # == Methods
   sig { override.returns(T::Boolean) }
   def ready?
-    return false unless super
-    ICloudService.ready?
+    T.must(super && ICloudService.ready?)
   end
 
   sig { returns(T::Array[String]) }

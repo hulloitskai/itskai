@@ -78,6 +78,7 @@ Rails.application.routes.draw do
   # == Pages
   root "home#show"
   inertia "/work" => "WorkPage"
+  inertia "/scottkit" => "ScottkitPage"
   get "/test" => "test#show"
   get "/resume" => "resume#show"
   get "/jen" => redirect("/entries/birthday-writings-for-jen", status: 302)

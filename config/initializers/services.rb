@@ -9,12 +9,18 @@ Rails.application.configure do
     ICloudService.start
     ObsidianService.start
     SpotifyService.start
-    CurrentlyPlayingService.start if Rails.server?
     JournalService.start
     ResumeService.start
+    if Rails.server?
+      CurrentlyPlayingService.start
+      ScottbotService.start
+    end
   end
 
-  reloader.before_class_unload do
-    CurrentlyPlayingService.stop if Rails.server?
+  if Rails.server?
+    reloader.before_class_unload do
+      CurrentlyPlayingService.stop
+      ScottbotService.stop
+    end
   end
 end

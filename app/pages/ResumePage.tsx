@@ -16,8 +16,10 @@ export type ResumePageProps = PageProps<ResumePageQuery> & {
   readonly printable?: boolean;
 };
 
-const ResumePage: PageComponent<ResumePageProps> = ({ data, printable }) => {
-  const { resume } = data;
+const ResumePage: PageComponent<ResumePageProps> = ({
+  data: { resume },
+  printable,
+}) => {
   const { basics, work, education, skills } = resume as {
     basics: Record<string, string> & { profiles: any[] };
     work: any[];

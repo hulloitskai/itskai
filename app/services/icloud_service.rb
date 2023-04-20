@@ -31,16 +31,19 @@ class ICloudService < ApplicationService
   # == Service
   sig { override.returns(T::Boolean) }
   def ready?
-    return false unless super
-    return false if @credentials.blank? || @client.blank?
-    !@client.requires_security_code?
+    T.must(
+      super && @credentials.present? && @client.present? && \
+        !@client.requires_security_code?,
+    )
   end
 
   sig { override.void }
   def start
     super
-    @credentials = ICloudCredentials.first
-    authenticate
+    Thread.new do
+      @credentials = ICloudCredentials.first
+      authenticate
+    end
   end
 
   # == Methods
