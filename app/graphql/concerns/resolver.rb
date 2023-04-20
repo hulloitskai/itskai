@@ -19,29 +19,39 @@ module Resolver
     T.cast(Rails.application, ItsKai::Application)
   end
 
-  # sig { returns(T.nilable(GraphQLController)) }
-  # def controller
-  #   context[:controller]
-  # end
+  sig { returns(T.nilable(GraphQLController)) }
+  def controller
+    context[:controller]
+  end
 
-  # sig { returns(GraphQLController) }
-  # def controller!
-  #   controller = self.controller
-  #   raise "not executing within a controller" if controller.nil?
-  #   controller
-  # end
+  sig { returns(GraphQLController) }
+  def controller!
+    controller = self.controller
+    raise "not executing within a controller" if controller.nil?
+    controller
+  end
 
-  # sig { returns(T.nilable(GraphQLChannel)) }
-  # def channel
-  #   context[:channel]
-  # end
+  sig { returns(T.nilable(GraphQLChannel)) }
+  def channel
+    context[:channel]
+  end
 
-  # sig { returns(GraphQLChannel) }
-  # def channel!
-  #   channel = self.channel
-  #   raise "not executing within a channel" if channel.nil?
-  #   channel
-  # end
+  sig { returns(GraphQLChannel) }
+  def channel!
+    channel = self.channel
+    raise "not executing within a channel" if channel.nil?
+    channel
+  end
+
+  sig { returns(ActionDispatch::Flash::FlashHash) }
+  def flash
+    controller = self.controller
+    if controller
+      controller.flash
+    else
+      ActionDispatch::Flash::FlashHash.new
+    end
+  end
 
   sig { returns(T.nilable(User)) }
   def current_user

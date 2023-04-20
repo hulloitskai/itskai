@@ -5,7 +5,9 @@ import UserLoginPageForm from "~/components/UserLoginPageForm";
 
 import { UserLoginPageQuery } from "~/queries";
 
-export type UserLoginPageProps = PageProps<UserLoginPageQuery>;
+export type UserLoginPageProps = PageProps<UserLoginPageQuery> & {
+  readonly failed: boolean;
+};
 
 const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
   <Card w={380} radius="md" withBorder>

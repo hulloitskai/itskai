@@ -21,10 +21,14 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
     () => pick(viewer, "name"),
     [viewer],
   );
-  const { getInputProps, onSubmit, setErrors, isDirty } =
+  const { getInputProps, onSubmit, setErrors, isDirty, setValues, resetDirty } =
     useForm<UserSettingsPageProfileFormValues>({
       initialValues,
     });
+  useDidUpdate(() => {
+    setValues(initialValues);
+    resetDirty(initialValues);
+  }, [initialValues]);
 
   // == Mutation
   const onError = useApolloErrorCallback("Failed to update profile");

@@ -27,22 +27,29 @@ const UserSettingsPagePasswordForm: FC<
     }),
     [],
   );
-  const { errors, getInputProps, onSubmit, reset, setErrors, isDirty } =
-    useForm<UserSettingsPagePasswordFormValues>({
-      initialValues,
-      validate: {
-        password: () => {
-          if (passwordStrength < 1.0) {
-            return "Too weak.";
-          }
-        },
-        passwordConfirmation: (value, { password }) => {
-          if (password != value) {
-            return "Does not match password.";
-          }
-        },
+  const {
+    errors,
+    getInputProps,
+    onSubmit,
+    reset,
+    setFieldValue,
+    setErrors,
+    isDirty,
+  } = useForm<UserSettingsPagePasswordFormValues>({
+    initialValues,
+    validate: {
+      password: () => {
+        if (passwordStrength < 1.0) {
+          return "Too weak.";
+        }
       },
-    });
+      passwordConfirmation: (value, { password }) => {
+        if (password != value) {
+          return "Does not match password.";
+        }
+      },
+    },
+  });
 
   // == Markup
   return (
@@ -65,7 +72,13 @@ const UserSettingsPagePasswordForm: FC<
               showNotice({ message: "Password changed successfully." });
             },
             onError: errors => {
-              reset();
+              if (
+                ["password", "passwordConfirmation"].some(key => key in errors)
+              ) {
+                reset();
+              } else {
+                setFieldValue("currentPassword", "");
+              }
               setErrors(errors);
               showFormErrors("Could not change password");
             },

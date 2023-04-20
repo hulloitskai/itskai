@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { PasswordInput } from "@mantine/core";
 
-import { createApolloLink } from "~/helpers/apollo";
+import type { UserLoginPageProps } from "~/pages/UserLoginPage";
 
 export type UserLoginPageFormProps = {};
 
@@ -13,7 +13,6 @@ export type UserLoginPageFormValues = {
 
 const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
   const router = useRouter();
-  const client = useApolloClient();
   const [loading, setLoading] = useState(false);
 
   // == Form
@@ -42,14 +41,13 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
           onBefore: () => {
             setLoading(true);
           },
-          onSuccess: ({ props: { csrf } }) => {
-            const csrfToken = (csrf as any).token;
-            const link = createApolloLink({ csrfToken });
-            client.setLink(link);
-            client.resetStore();
-          },
-          onError: () => {
-            setFieldValue("password", "");
+          onSuccess: ({ component, props }) => {
+            if (component === "UserLoginPage") {
+              const { failed } = props as unknown as UserLoginPageProps;
+              if (failed) {
+                setFieldValue("password", "");
+              }
+            }
           },
           onFinish: () => {
             setLoading(false);
