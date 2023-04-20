@@ -15,7 +15,6 @@ module Queries
       unless defined?(@zone)
         @zone = T.let(@zone, T.nilable(TZInfo::DataTimezone))
         @zone = ENV["OWNER_TIMEZONE"].presence.try! do |name|
-          name = T.let(name, String)
           TZInfo::Timezone.get(name)
         end
       end

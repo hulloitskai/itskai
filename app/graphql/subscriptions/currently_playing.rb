@@ -13,12 +13,12 @@ module Subscriptions
     # == Callbacks
     sig { returns(T.nilable(RSpotify::Track)) }
     def subscribe
-      CurrentlyPlayingService.current_track if CurrentlyPlayingService.ready?
+      CurrentlyPlayingService.current_track
     end
 
     sig { returns(T.nilable(RSpotify::Track)) }
     def update
-      CurrentlyPlayingService.current_track if CurrentlyPlayingService.ready?
+      CurrentlyPlayingService.current_track
     end
   end
 end

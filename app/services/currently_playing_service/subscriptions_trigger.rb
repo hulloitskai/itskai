@@ -9,6 +9,7 @@ class CurrentlyPlayingService
     # == Initialization
     sig { void }
     def initialize
+      super
       @previous_result = T.let(@previous_result, T.nilable(RSpotify::Track))
     end
 

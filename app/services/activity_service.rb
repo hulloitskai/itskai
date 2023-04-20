@@ -3,13 +3,19 @@
 
 class ActivityService < ApplicationService
   class << self
+    # == Methods
     sig { params(status: String).void }
-    def update_status(status) = instance.update_status(status)
+    def update_status(status)
+      checked { instance.update_status(status) }
+    end
 
     sig { returns(T.nilable(String)) }
-    def status = instance.status
+    def status
+      instance.status if ready?
+    end
   end
 
+  # == Initialization
   sig { void }
   def initialize
     super

@@ -20,6 +20,11 @@ class Schema < GraphQL::Schema
   # Stop validation after 100 errors.
   validate_max_errors 100
 
+  # == Handlers
+  rescue_from RuntimeError do |error|
+    raise GraphQL::ExecutionError, error.message
+  end
+
   # == Types
   query Types::QueryType
   mutation Types::MutationType
@@ -63,18 +68,18 @@ class Schema < GraphQL::Schema
   end
 
   # == Callbacks
-  # GraphQL-Ruby calls this when something goes wrong while running a query.
-  T::Sig::WithoutRuntime.sig do
-    params(
-      error: Exception,
-      context: GraphQL::Query::Context,
-    ).returns(T.untyped)
-  end
-  def self.type_error(error, context)
-    raise error
-    # if err.is_a?(GraphQL::InvalidNullError)
-    #   # report to your bug tracker here
-    #   return nil
-    # end
-  end
+  # # Handle a failed runtime type coercion.
+  # T::Sig::WithoutRuntime.sig do
+  #   params(
+  #     error: Exception,
+  #     context: GraphQL::Query::Context,
+  #   ).returns(T.untyped)
+  # end
+  # def self.type_error(error, context)
+  #   raise error
+  #   # if err.is_a?(GraphQL::InvalidNullError)
+  #   #   # report to your bug tracker here
+  #   #   return nil
+  #   # end
+  # end
 end

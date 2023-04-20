@@ -5,13 +5,19 @@ class ICloudService < ApplicationService
   class << self
     # == Methods
     sig { returns(ICloudCredentials) }
-    def credentials = instance.credentials
+    def credentials
+      checked { instance.credentials }
+    end
 
     sig { returns(Client) }
-    def client = instance.client
+    def client
+      checked { instance.client }
+    end
 
     sig { returns(Drive) }
-    def drive = instance.drive
+    def drive
+      checked  { instance.drive }
+    end
 
     sig { params(code: T.nilable(String)).returns(T::Boolean) }
     def verify_security_code(code) = instance.verify_security_code(code)

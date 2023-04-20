@@ -7,27 +7,31 @@ class ScottbotService < ApplicationService
     sig { override.returns(T::Boolean) }
     def enabled?
       return !!@enabled if defined?(@enabled)
-      @enabled = T.let(@enabled, T.nilable(T::Boolean))
-      @enabled = T.must(super && discord_token.present?)
+      @enabled = T.must(super && \
+        [discord_token, discord_channel_id].all?(:present?))
+    end
+
+    sig { void }
+    def stop
+      instance.stop if enabled?
     end
 
     # == Methods
-    sig { void }
-    def stop = instance.stop
-
     sig { params(type: Symbol).void }
-    def signal(type) = instance.signal(type)
-
-    sig { returns(String) }
-    def discord_token
-      @discord_token = T.let(@discord_token, T.nilable(String))
-      @discord_token ||= ENV.fetch("SCOTTBOT_DISCORD_TOKEN")
+    def signal(type)
+      checked { instance.signal(type) }
     end
 
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
+    def discord_token
+      return @discord_token if defined?(@discord_token)
+      @discord_token = ENV["SCOTTBOT_DISCORD_TOKEN"]
+    end
+
+    sig { returns(T.nilable(String)) }
     def discord_channel_id
-      @discord_channel_id = T.let(@discord_channel_id, T.nilable(String))
-      @discord_channel_id ||= ENV.fetch("SCOTTBOT_DISCORD_CHANNEL_ID")
+      return @discord_channel_id if defined?(@discord_channel_id)
+      @discord_channel_id = ENV["SCOTTBOT_DISCORD_CHANNEL_ID"]
     end
   end
 
@@ -77,10 +81,14 @@ class ScottbotService < ApplicationService
 
   # == Helpers
   sig { returns(String) }
-  def discord_token = self.class.discord_token
+  def discord_token
+    T.must(self.class.discord_token)
+  end
 
   sig { returns(String) }
-  def discord_channel_id = self.class.discord_channel_id
+  def discord_channel_id
+    T.must(self.class.discord_channel_id)
+  end
 
   sig { params(message: String).void }
   def send_message(message)

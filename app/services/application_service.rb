@@ -28,6 +28,18 @@ class ApplicationService
 
     sig { returns(T::Boolean) }
     def ready? = enabled? && instance.ready?
+
+    # == Helpers
+    sig do
+      type_parameters(:U).params(
+        block: T.proc.returns(T.type_parameter((:U))),
+      ).returns(T.type_parameter((:U)))
+    end
+    def checked(&block)
+      raise "#{name} is disabled" if disabled?
+      raise "#{name} is not ready" unless ready?
+      yield
+    end
   end
 
   extend T::Sig

@@ -4,9 +4,7 @@ run-name: Deploy from ${{ github.event.workflow_run.head_branch }}
 on:
   workflow_run:
     workflows: [check]
-    branches:
-      - main
-      - legacy
+    branches: [main]
     types: [completed]
 
 concurrency:

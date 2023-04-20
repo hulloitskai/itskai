@@ -7,7 +7,6 @@ class JournalService < ApplicationService
     sig { override.returns(T::Boolean) }
     def enabled?
       return !!@enabled if defined?(@enabled)
-      @enabled = T.let(@enabled, T.nilable(T::Boolean))
       @enabled = T.must(super && notion_ready? && database_id.present?)
     end
 
@@ -53,7 +52,6 @@ class JournalService < ApplicationService
 
     sig { returns(String) }
     def database_id
-      @database_id = T.let(@database_id, T.nilable(String))
       @database_id ||= ENV.fetch("JOURNAL_DATABASE_ID")
     end
 

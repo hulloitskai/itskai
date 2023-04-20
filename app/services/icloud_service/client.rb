@@ -12,6 +12,7 @@ class ICloudService
     # == Initialization
     sig { params(credentials: ICloudCredentials).void }
     def initialize(credentials:)
+      super()
       @credentials = credentials
       restore_credentials!
       @pyicloud = T.let(

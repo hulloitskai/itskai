@@ -4,7 +4,9 @@
 class ResumeService < ApplicationService
   class << self
     sig { returns(T::Hash[String, T.untyped]) }
-    def load_resume = instance.load_resume
+    def load_resume
+      checked { instance.load_resume }
+    end
   end
 
   # == Constants

@@ -6,21 +6,30 @@ class ObsidianService < ApplicationService
     # == Service
     sig { override.returns(T::Boolean) }
     def enabled?
-      T.must(super && ICloudService.enabled?)
+      return @enabled if defined?(@enabled)
+      @enabled = T.must(super && ICloudService.enabled?)
     end
 
     # == Methods
     sig { returns(T::Array[String]) }
-    def note_names = instance.note_names
+    def note_names
+      checked { instance.note_names }
+    end
 
     sig { params(name: String).returns(T.nilable(ICloudService::Drive::Node)) }
-    def note_file(name) = instance.note_file(name)
+    def note_file(name)
+      checked { instance.note_file(name) }
+    end
 
     sig { params(name: String).returns(T.nilable(ObsidianNote)) }
-    def note(name) = instance.note(name)
+    def note(name)
+      checked { instance.note(name) }
+    end
 
     sig { params(name: String).returns(ObsidianNote) }
-    def note!(name) = instance.note!(name)
+    def note!(name)
+      checked { instance.note!(name) }
+    end
   end
 
   # == Constants

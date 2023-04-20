@@ -12,9 +12,7 @@ module Queries
     # == Resolver
     sig { returns(T.nilable(RSpotify::Track)) }
     def resolve
-      if CurrentlyPlayingService.ready?
-        CurrentlyPlayingService.current_track
-      end
+      CurrentlyPlayingService.current_track
     end
   end
 end

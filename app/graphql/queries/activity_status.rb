@@ -9,7 +9,7 @@ module Queries
     # == Resolver
     sig { returns(T.nilable(String)) }
     def resolve
-      ActivityService.status if ActivityService.ready?
+      ActivityService.status
     end
   end
 end

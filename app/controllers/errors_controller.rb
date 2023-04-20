@@ -5,10 +5,7 @@ class ErrorsController < ApplicationController
   # == Initialization
   def initialize(...)
     super
-    @exceptions_app = T.let(
-      ActionDispatch::PublicExceptions.new(Rails.public_path),
-      ActionDispatch::PublicExceptions,
-    )
+    @exceptions_app = ActionDispatch::PublicExceptions.new(Rails.public_path)
   end
 
   # == Actions

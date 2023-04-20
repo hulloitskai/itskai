@@ -2,7 +2,27 @@
 # frozen_string_literal: true
 
 class CurrentlyPlayingService < ApplicationService
-  extend T::Sig
+  class << self
+    # == Service
+    sig { override.returns(T::Boolean) }
+    def enabled? = T.let(super, T::Boolean) && SpotifyService.enabled?
+
+    sig { void }
+    def stop
+      instance.stop if enabled?
+    end
+
+    sig { returns(T::Boolean) }
+    def debug?
+      checked { instance.debug? }
+    end
+
+    # == Methods
+    sig { returns(T.nilable(RSpotify::Track)) }
+    def current_track
+      instance.current_track if ready?
+    end
+  end
 
   # == Initialization
   sig { void }
@@ -57,19 +77,4 @@ class CurrentlyPlayingService < ApplicationService
 end
 
 class CurrentlyPlayingService
-  class << self
-    # == Service
-    sig { override.returns(T::Boolean) }
-    def enabled? = T.let(super, T::Boolean) && SpotifyService.enabled?
-
-    sig { void }
-    def stop = instance.stop
-
-    sig { returns(T::Boolean) }
-    def debug? = instance.debug?
-
-    # == Methods
-    sig { returns(T.nilable(RSpotify::Track)) }
-    def current_track = instance.current_track
-  end
 end

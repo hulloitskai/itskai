@@ -21,7 +21,6 @@ module ApplicationCable
     sig { returns(T.nilable(User)) }
     def find_verified_user
       cookies.signed["user.id"].try! do |id|
-        id = T.let(id, String)
         User.find_by(id:)
       end
     end
