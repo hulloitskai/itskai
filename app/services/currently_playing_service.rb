@@ -8,9 +8,7 @@ class CurrentlyPlayingService < ApplicationService
     def enabled? = T.let(super, T::Boolean) && SpotifyService.enabled?
 
     sig { void }
-    def stop
-      instance.stop if enabled?
-    end
+    def stop = instance.stop
 
     sig { returns(T::Boolean) }
     def debug?
@@ -55,7 +53,7 @@ class CurrentlyPlayingService < ApplicationService
 
   sig { void }
   def stop
-    task.kill
+    task.kill if started?
   end
 
   sig { returns(T::Boolean) }

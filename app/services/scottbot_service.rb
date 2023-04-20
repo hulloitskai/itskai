@@ -8,13 +8,11 @@ class ScottbotService < ApplicationService
     def enabled?
       return !!@enabled if defined?(@enabled)
       @enabled = T.must(super && \
-        [discord_token, discord_channel_id].all?(:present?))
+        [discord_token, discord_channel_id].all?(&:present?))
     end
 
     sig { void }
-    def stop
-      instance.stop if enabled?
-    end
+    def stop = instance.stop
 
     # == Methods
     sig { params(type: Symbol).void }
@@ -53,7 +51,7 @@ class ScottbotService < ApplicationService
 
   sig { void }
   def stop
-    bot.stop
+    bot.stop if started?
   end
 
   # == Method
