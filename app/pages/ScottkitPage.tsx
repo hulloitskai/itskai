@@ -1,9 +1,7 @@
-import { FC, ReactNode } from "react";
+import type { FC, ReactNode } from "react";
 import type { PageComponent, PageProps } from "~/helpers/inertia";
-
-import LightbulbIcon from "~icons/heroicons/light-bulb-20-solid";
-
 import { Code, Text } from "@mantine/core";
+import LightbulbIcon from "~icons/heroicons/light-bulb-20-solid";
 
 import {
   ScottkitPageQuery,
@@ -16,6 +14,10 @@ import {
   scottkitSignalTypeIcon,
   scottkitSignalTypeColor,
 } from "~/helpers/types/ScottkitSignalType";
+
+import AppMeta from "~/components/AppMeta";
+import BlankLayout from "~/components/BlankLayout";
+import ContentContainer from "~/components/ContentContainer";
 
 export type ScottkitPageProps = PageProps<ScottkitPageQuery>;
 
@@ -82,13 +84,12 @@ const ScottkitPage: PageComponent<ScottkitPageProps> = () => {
   );
 };
 
-ScottkitPage.layout = buildLayout<ScottkitPageProps>(
-  (page, { data: { viewer } }) => (
-    <AppLayout title="Scottkit" withContainer withGutter {...{ viewer }}>
-      {page}
-    </AppLayout>
-  ),
-);
+ScottkitPage.layout = buildLayout<ScottkitPageProps>(page => (
+  <BlankLayout>
+    <AppMeta title="Scottkit" />
+    <ContentContainer withGutter>{page}</ContentContainer>
+  </BlankLayout>
+));
 
 export default ScottkitPage;
 
