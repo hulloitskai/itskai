@@ -26,26 +26,26 @@ class JournalService < ApplicationService
     )
 
     sig { params(entry_id: String, options: T.untyped).returns(T.untyped) }
-    def list_entry_comments(
+    def list_comments(
       entry_id:,
       **options
-    ) = instance.list_entry_comments(**T.unsafe({
+    ) = instance.list_comments(**T.unsafe({
       entry_id:,
       **options,
     }))
 
     sig { params(entry: T.untyped).returns(T::Array[T.untyped]) }
-    def retrieve_entry_blocks(
+    def retrieve_blocks(
       entry:
-    ) = instance.retrieve_entry_blocks(
+    ) = instance.retrieve_blocks(
       entry:,
     )
 
     sig { params(entry_id: String, text: String).returns(T.untyped) }
-    def create_entry_comment(
+    def create_comment(
       entry_id:,
       text:
-    ) = instance.create_entry_comment(
+    ) = instance.create_comment(
       entry_id:,
       text:,
     )
@@ -95,12 +95,12 @@ class JournalService < ApplicationService
   end
 
   sig { params(entry_id: String, options: T.untyped).returns(T.untyped) }
-  def list_entry_comments(entry_id:, **options)
+  def list_comments(entry_id:, **options)
     client.retrieve_comments(block_id: entry_id, **options)
   end
 
   sig { params(entry: T.untyped).returns(T::Array[T.untyped]) }
-  def retrieve_entry_blocks(entry:)
+  def retrieve_blocks(entry:)
     Rails.cache.fetch(
       "journal/entry_blocks:#{entry.id}",
       expires_in: 10.minutes,
@@ -113,7 +113,7 @@ class JournalService < ApplicationService
   end
 
   sig { params(entry_id: String, text: String).returns(T.untyped) }
-  def create_entry_comment(
+  def create_comment(
     entry_id:,
     text:
   )

@@ -14,7 +14,7 @@ module Queries
     # == Resolver
     sig { params(entry_id: String, options: T.untyped).returns(T.untyped) }
     def resolve(entry_id:, **options)
-      JournalService.list_entry_comments(**T.unsafe({
+      JournalService.list_comments(**T.unsafe({
         entry_id:,
         **options,
       }))
