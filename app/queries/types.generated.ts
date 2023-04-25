@@ -290,7 +290,7 @@ export type Query = {
   /** Kai's contact email. */
   contactEmail: Scalars['String'];
   /** What I'm currently listening to on Spotify! */
-  currentlyPlaying?: Maybe<SpotifyTrack>;
+  currentlyPlaying?: Maybe<SpotifyCurrentlyPlaying>;
   /** Kai's personal iCloud credentials (#securityStartsHere). */
   icloudCredentials?: Maybe<ICloudCredentials>;
   journalEntries: NotionPageListing;
@@ -389,11 +389,26 @@ export type SpotifyArtist = {
   url: Scalars['String'];
 };
 
+export type SpotifyCurrentlyPlaying = {
+  __typename?: 'SpotifyCurrentlyPlaying';
+  progressMilliseconds: Scalars['Int'];
+  track: SpotifyTrack;
+};
+
+export type SpotifyLyricLine = {
+  __typename?: 'SpotifyLyricLine';
+  startTimeMilliseconds: Scalars['Int'];
+  words: Scalars['String'];
+};
+
 export type SpotifyTrack = {
   __typename?: 'SpotifyTrack';
   album: SpotifyAlbum;
   artists: Array<SpotifyArtist>;
+  durationMilliseconds: Scalars['Int'];
   id: Scalars['String'];
+  isExplicit: Scalars['Boolean'];
+  lyrics?: Maybe<Array<SpotifyLyricLine>>;
   name: Scalars['String'];
   url: Scalars['String'];
 };
@@ -402,7 +417,7 @@ export type Subscription = {
   __typename?: 'Subscription';
   activityStatus?: Maybe<Scalars['String']>;
   /** What I'm currently listening to on Spotify! */
-  currentlyPlaying?: Maybe<SpotifyTrack>;
+  currentlyPlaying?: Maybe<SpotifyCurrentlyPlaying>;
   testSubscription: Scalars['Int'];
 };
 

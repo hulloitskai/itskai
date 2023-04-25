@@ -91,6 +91,30 @@ class GoodJob::Job
 
     sig do
       params(
+        start: T.untyped,
+        finish: T.untyped,
+        batch_size: Integer,
+        error_on_ignore: T.untyped,
+        order: Symbol,
+        block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)
+      ).returns(T.nilable(T::Enumerator[::GoodJob::Job]))
+    end
+    def find_each(start: nil, finish: nil, batch_size: 1000, error_on_ignore: nil, order: :asc, &block); end
+
+    sig do
+      params(
+        start: T.untyped,
+        finish: T.untyped,
+        batch_size: Integer,
+        error_on_ignore: T.untyped,
+        order: Symbol,
+        block: T.nilable(T.proc.params(object: T::Array[::GoodJob::Job]).void)
+      ).returns(T.nilable(T::Enumerator[T::Enumerator[::GoodJob::Job]]))
+    end
+    def find_in_batches(start: nil, finish: nil, batch_size: 1000, error_on_ignore: nil, order: :asc, &block); end
+
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)
       ).returns(::GoodJob::Job)
@@ -142,6 +166,19 @@ class GoodJob::Job
 
     sig { returns(Array) }
     def ids; end
+
+    sig do
+      params(
+        of: Integer,
+        start: T.untyped,
+        finish: T.untyped,
+        load: T.untyped,
+        error_on_ignore: T.untyped,
+        order: Symbol,
+        block: T.nilable(T.proc.params(object: PrivateRelation).void)
+      ).returns(T.nilable(::ActiveRecord::Batches::BatchEnumerator))
+    end
+    def in_batches(of: 1000, start: nil, finish: nil, load: false, error_on_ignore: nil, order: :asc, &block); end
 
     sig { params(record: T.untyped).returns(T::Boolean) }
     def include?(record); end
@@ -241,6 +278,20 @@ class GoodJob::Job
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::GoodJob::BatchRecord) }
     def create_batch!(*args, &blk); end
+
+    sig { returns(T::Array[T.untyped]) }
+    def discrete_execution_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def discrete_execution_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `GoodJob::Job` class because it declared `has_many :discrete_executions`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::GoodJob::DiscreteExecution::PrivateCollectionProxy) }
+    def discrete_executions; end
+
+    sig { params(value: T::Enumerable[::GoodJob::DiscreteExecution]).void }
+    def discrete_executions=(value); end
 
     sig { returns(T::Array[T.untyped]) }
     def execution_ids; end
@@ -459,6 +510,9 @@ class GoodJob::Job
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def succeeded(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def unfinished_undiscrete(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def uniq!(*args, &blk); end
@@ -1627,6 +1681,9 @@ class GoodJob::Job
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def succeeded(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def unfinished_undiscrete(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def uniq!(*args, &blk); end

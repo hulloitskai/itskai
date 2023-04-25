@@ -73,13 +73,11 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
               key={commentId}
               align="start"
               spacing={8}
-              sx={({ fontSizes, colors }) => ({
-                fontSize: fontSizes.sm,
-                color: colors.gray[5],
-              })}
+              fz="sm"
+              color="gray.5"
             >
               <Box component={CommentIcon} mt={2} />
-              <Box>
+              <Box sx={{ flex: 1 }}>
                 <Stack spacing={4}>
                   {richText.map((props: any, index: number) => (
                     <RenderText key={index} {...props} />

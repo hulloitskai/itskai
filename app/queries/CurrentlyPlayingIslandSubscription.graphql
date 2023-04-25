@@ -1,6 +1,9 @@
 subscription CurrentlyPlayingIslandSubscription {
   currentlyPlaying {
-    id
-    ...CurrentlyPlayingIslandSpotifyTrackFragment
+    track {
+      id
+      ...CurrentlyPlayingIslandTrackFragment
+    }
+    progressMilliseconds
   }
 }

@@ -259,7 +259,7 @@ type Query {
   contactEmail: String!
 
   """What I'm currently listening to on Spotify!"""
-  currentlyPlaying: SpotifyTrack
+  currentlyPlaying: SpotifyCurrentlyPlaying
 
   """Kai's personal iCloud credentials (#securityStartsHere)."""
   icloudCredentials: ICloudCredentials
@@ -333,10 +333,23 @@ type SpotifyArtist {
   url: String!
 }
 
+type SpotifyCurrentlyPlaying {
+  progressMilliseconds: Int!
+  track: SpotifyTrack!
+}
+
+type SpotifyLyricLine {
+  startTimeMilliseconds: Int!
+  words: String!
+}
+
 type SpotifyTrack {
   album: SpotifyAlbum!
   artists: [SpotifyArtist!]!
+  durationMilliseconds: Int!
   id: String!
+  isExplicit: Boolean!
+  lyrics: [SpotifyLyricLine!]
   name: String!
   url: String!
 }
@@ -345,7 +358,7 @@ type Subscription {
   activityStatus: String
 
   """What I'm currently listening to on Spotify!"""
-  currentlyPlaying: SpotifyTrack
+  currentlyPlaying: SpotifyCurrentlyPlaying
   testSubscription: Int!
 }
 

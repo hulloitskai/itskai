@@ -35,11 +35,7 @@ class JournalService < ApplicationService
     }))
 
     sig { params(entry: T.untyped).returns(T::Array[T.untyped]) }
-    def retrieve_blocks(
-      entry:
-    ) = instance.retrieve_blocks(
-      entry:,
-    )
+    def retrieve_blocks(entry:) = instance.retrieve_blocks(entry:)
 
     sig { params(entry_id: String, text: String).returns(T.untyped) }
     def create_comment(

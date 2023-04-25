@@ -7,7 +7,7 @@ ruby "3.2.0"
 gem "rails", "~> 7.0.4"
 
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.4"
+gem "pg", "~> 1.5"
 
 # Perform full text search with Postgres
 gem "pg_search", "~> 2.3"
@@ -111,7 +111,7 @@ gem "sorbet-runtime", "~> 0.5.10626"
 gem "enumerize", "~> 2.6"
 
 # Use Action Policy to authorize actions
-gem "action_policy", "~> 0.6.3"
+gem "action_policy", "~> 0.6.5"
 gem "action_policy-graphql", "~> 0.5.3"
 
 # Expose a GraphQL API
@@ -163,7 +163,7 @@ gem "active_record_extended", "~> 3.2"
 gem "markly", "~> 0.7.0"
 
 # Use Sentry for error reporting
-gem "sentry-rails", "~> 5.8"
+gem "sentry-rails", "~> 5.9"
 
 # Query Notion with Notion Ruby Client
 gem "notion-ruby-client", "~> 1.2"
@@ -185,8 +185,8 @@ group :development do
   gem "debug", platforms: %i[mri mingw x64_mingw]
 
   # Typecheck code
-  gem "sorbet", "0.5.10626", require: false
-  gem "tapioca", "~> 0.10.5", require: false
+  gem "sorbet", "0.5.10794", require: false
+  gem "tapioca", "~> 0.11.5", require: false
 
   # Use Rubocop to lint code
   #

@@ -24,7 +24,7 @@ const UserSendPasswordResetInstructionsPage: PageComponent<
       </Stack>
       <UserSendPasswordResetInstructionsPageForm />
       <Divider />
-      <Stack spacing={0} sx={({ fontSizes }) => ({ fontSize: fontSizes.xs })}>
+      <Stack spacing={0} fz="xs">
         <Text color="gray.6">
           <Anchor component={Link} href="/login" color="pink">
             Sign In

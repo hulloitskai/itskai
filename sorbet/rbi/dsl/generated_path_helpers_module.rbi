@@ -156,6 +156,9 @@ module GeneratedPathHelpersModule
   def root_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def scottkit_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def status_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

@@ -71,8 +71,11 @@ const WorkPage: PageComponent<WorkPageProps> = () => (
           <List
             ml="md"
             mr="lg"
-            styles={({ colors, fontSizes }) => ({
-              item: { color: colors.dark[3], fontSize: fontSizes.sm },
+            styles={({ fontSizes, colors }) => ({
+              item: {
+                fontSize: fontSizes.sm,
+                color: colors.dark[3],
+              },
             })}
           >
             <List.Item>

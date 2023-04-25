@@ -27,10 +27,10 @@ const AppHeader: FC<AppHeaderProps> = ({ viewer }) => (
       compact
       variant="subtle"
       p={4}
-      sx={({ fontSizes, colors, white, fn }) => ({
-        color: colors.gray[4],
+      fz="md"
+      color="gray.4"
+      sx={({ white, fn }) => ({
         flexShrink: 0,
-        fontSize: fontSizes.md,
         fontWeight: 700,
         "&:hover": {
           backgroundColor: fn.rgba(white, 0.1),

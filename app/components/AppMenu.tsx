@@ -87,7 +87,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
     </Menu>
   ) : (
     <Badge component={Link} href="/login" color="gray.4" {...badgeProps}>
-      sign in
+      Sign In
     </Badge>
   );
 };

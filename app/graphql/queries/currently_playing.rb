@@ -7,12 +7,12 @@ module Queries
     description "What I'm currently listening to on Spotify!"
 
     # == Type
-    type Types::SpotifyTrackType, null: true
+    type Types::SpotifyCurrentlyPlayingType, null: true
 
     # == Resolver
-    sig { returns(T.nilable(RSpotify::Track)) }
+    sig { returns(T.nilable(SpotifyService::CurrentlyPlaying)) }
     def resolve
-      CurrentlyPlayingService.current_track
+      CurrentlyPlayingService.currently_playing
     end
   end
 end

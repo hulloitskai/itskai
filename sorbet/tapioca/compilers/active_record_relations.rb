@@ -9,7 +9,7 @@ class Tapioca::Dsl::Compilers::ActiveRecordRelations
 
     private
 
-    def create_relation_class(model)
+    def create_relation_class
       superclass = "::ActiveRecord::Relation"
       model.create_class(
         RelationClassName,
@@ -21,7 +21,7 @@ class Tapioca::Dsl::Compilers::ActiveRecordRelations
       super
     end
 
-    def create_association_relation_class(model)
+    def create_association_relation_class
       superclass = "::ActiveRecord::AssociationRelation"
       model.create_class(
         AssociationRelationClassName,
@@ -33,7 +33,7 @@ class Tapioca::Dsl::Compilers::ActiveRecordRelations
       super
     end
 
-    def create_collection_proxy_class(model)
+    def create_collection_proxy_class
       superclass = "::ActiveRecord::Associations::CollectionProxy"
       model.create_class(
         AssociationsCollectionProxyClassName,

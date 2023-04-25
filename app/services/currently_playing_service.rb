@@ -16,9 +16,9 @@ class CurrentlyPlayingService < ApplicationService
     end
 
     # == Methods
-    sig { returns(T.nilable(RSpotify::Track)) }
-    def current_track
-      instance.current_track if ready?
+    sig { returns(T.nilable(SpotifyService::CurrentlyPlaying)) }
+    def currently_playing
+      instance.currently_playing if ready?
     end
   end
 
@@ -28,11 +28,7 @@ class CurrentlyPlayingService < ApplicationService
     super
     @task = T.let(
       Concurrent::TimerTask.new(execution_interval: 2) do |task|
-        Rails.application.reloader.wrap do
-          previous_result = T.let(task.value, T.nilable(RSpotify::Track))
-          poll = Poller.new(previous_result:)
-          poll.call
-        end
+        Rails.application.reloader.wrap { poll(task:) }
       end,
       Concurrent::TimerTask,
     )
@@ -64,15 +60,52 @@ class CurrentlyPlayingService < ApplicationService
   end
 
   # == Methods
-  sig { returns(T.nilable(RSpotify::Track)) }
-  def current_track = task.value
+  sig { returns(T.nilable(SpotifyService::CurrentlyPlaying)) }
+  def currently_playing = task.value
 
   private
 
   # == Attributes
   sig { returns(Concurrent::TimerTask) }
   attr_reader :task
-end
 
-class CurrentlyPlayingService
+  # == Methods
+  sig do
+    params(task: Concurrent::TimerTask)
+      .returns(T.nilable(SpotifyService::CurrentlyPlaying))
+  end
+  def poll(task:)
+    Rails.error.handle do
+      unless SpotifyService.ready?
+        tag_logger { logger.warn("Spotify not ready; skipping") }
+        return
+      end
+      if debug?
+        tag_logger { logger.debug("Polling") }
+      end
+      previous_result = T.let(
+        task.value,
+        T.nilable(SpotifyService::CurrentlyPlaying),
+      )
+      SpotifyService.retrieve_currently_playing.tap do |result|
+        result = T.let(result, T.nilable(SpotifyService::CurrentlyPlaying))
+        next if result == previous_result
+        if result.present?
+          tag_logger do
+            logger.info(
+              "Currently playing: #{result.track.name} " \
+                "(#{result.progress_milliseconds}ms)",
+            )
+          end
+        else
+          tag_logger do
+            logger.info("Stopped playing")
+          end
+        end
+      end
+    rescue => error
+      tag_logger { logger.error("Error: #{error}") }
+      raise "Failed to poll for currently playing track"
+    end
+  end
 end

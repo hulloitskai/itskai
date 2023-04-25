@@ -29,7 +29,7 @@ const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
         </Anchor>
       </Text>
       <Divider />
-      <Stack spacing={0} sx={({ fontSizes }) => ({ fontSize: fontSizes.xs })}>
+      <Stack spacing={0} fz="xs">
         <Anchor component={Link} href="/user/password/reset" color="pink">
           Forgot your password?
         </Anchor>

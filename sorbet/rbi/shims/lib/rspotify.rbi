@@ -6,11 +6,11 @@ class RSpotify::User
   end
 end
 
-class RSpotify::Player
-  sig {returns(RSpotify::Track)}
-  def currently_playing
-  end
-end
+# class RSpotify::Player
+#   sig {returns(RSpotify::Track)}
+#   def currently_playing
+#   end
+# end
 
 class RSpotify::Track
   sig {returns(String)}

@@ -33,9 +33,17 @@ class SpotifyService < ApplicationService
       checked { instance.user }
     end
 
-    sig { returns(T.nilable(RSpotify::Track)) }
-    def currently_playing
-      instance.currently_playing if ready?
+    sig { returns(T.nilable(CurrentlyPlaying)) }
+    def retrieve_currently_playing
+      instance.retrieve_currently_playing if ready?
+    end
+
+    sig do
+      params(track_id: String)
+        .returns(T.nilable(T::Array[SpotifyService::LyricLine]))
+    end
+    def retrieve_lyrics(track_id:)
+      instance.retrieve_lyrics(track_id:) if ready?
     end
   end
 
@@ -71,14 +79,52 @@ class SpotifyService < ApplicationService
     @user or raise "Not authenticated (missing user)"
   end
 
-  sig { returns(T.nilable(RSpotify::Track)) }
-  def currently_playing
+  sig { returns(T.nilable(CurrentlyPlaying)) }
+  def retrieve_currently_playing
     player = user.player
     if player.playing?
       # Suppress sporadic errors caused by weird bugs in the RSpotify library,
       # as well as certain network errors.
       suppress(NoMethodError, RestClient::BadGateway) do
-        player.currently_playing
+        RSpotify.raw_response = true
+        payload = JSON.parse(player.currently_playing)
+        if payload["is_playing"]
+          CurrentlyPlaying.new(
+            track: RSpotify::Track.new(payload["item"]),
+            progress_milliseconds: payload["progress_ms"],
+          )
+        end
+      ensure
+        RSpotify.raw_response = false
+      end
+    end
+  end
+
+  sig { params(track_id: String).returns(T.nilable(T::Array[LyricLine])) }
+  def retrieve_lyrics(track_id:)
+    response = HTTParty.get(
+      "https://spotify-lyric-api.herokuapp.com",
+      query: {
+        trackid: track_id,
+      },
+    )
+    body = T.let(response.parsed_response, T::Hash[String, T.untyped])
+    error = body.fetch("error", T::Boolean)
+    if error
+      message = T.let(body.fetch("message"), String)
+      if message != "lyrics for this track is not available on spotify!"
+        raise message
+      end
+    else
+      sync_type = T.let(body["syncType"], String)
+      lines = T.let(body["lines"], T::Array[T::Hash[String, T.untyped]])
+      if sync_type == "LINE_SYNCED"
+        lines.map do |line_hash|
+          LyricLine.new(
+            start_time_milliseconds: line_hash["startTimeMs"].to_i,
+            words: line_hash["words"],
+          )
+        end
       end
     end
   end

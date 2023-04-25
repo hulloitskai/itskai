@@ -10,14 +10,7 @@ const ResumeSkillsSection: FC<ResumeSkillsSectionProps> = ({ info }) => {
   const { name, keywords } = info;
   return (
     <Box>
-      <Title
-        order={3}
-        size="h6"
-        color="dark.4"
-        sx={({ fontSizes }) => ({
-          fontSize: fontSizes.xs,
-        })}
-      >
+      <Title order={3} size="h6" color="dark.4" fz="xs">
         {name}
       </Title>
       <Group spacing={2}>

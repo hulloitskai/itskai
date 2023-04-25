@@ -1,16 +1,17 @@
 import type { FC, ReactNode } from "react";
 import { motion } from "framer-motion";
+import { findLast } from "lodash-es";
 
 import { Image, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
 import PlayIcon from "~icons/heroicons/play-circle-20-solid";
 
-import { CurrentlyPlayingIslandSubscriptionDocument } from "~/queries";
-import type {
-  Maybe,
-  CurrentlyPlayingIslandSpotifyTrackFragment,
+import {
+  CurrentlyPlayingIslandQueryDocument,
+  CurrentlyPlayingIslandSubscriptionDocument,
 } from "~/queries";
+import type { Maybe, CurrentlyPlayingIslandTrackFragment } from "~/queries";
 
 const MotionImage = motion(Image);
 
@@ -26,22 +27,31 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
     },
   });
   const { currentlyPlaying } = data ?? {};
+
+  // == Transition
   const [mounted, setMounted] = useState(false);
+  const [transitioned, setTransitioned] = useState(false);
   const [track, setTrack] =
-    useState<Maybe<CurrentlyPlayingIslandSpotifyTrackFragment>>(null);
+    useState<Maybe<CurrentlyPlayingIslandTrackFragment>>(null);
   useEffect(() => {
-    if (track) {
-      setMounted(false);
-    } else if (currentlyPlaying) {
-      setTrack(currentlyPlaying);
-      setMounted(true);
+    if (currentlyPlaying?.track?.id !== track?.id) {
+      if (track) {
+        setMounted(false);
+        setTransitioned(false);
+      } else if (currentlyPlaying) {
+        setTrack(currentlyPlaying.track);
+        setMounted(true);
+      }
     }
   }, [currentlyPlaying]);
+
+  // == Markup
   return (
     <Transition
       transition="slide-down"
+      onEntered={() => setTransitioned(true)}
       onExited={() => {
-        setTrack(currentlyPlaying || null);
+        setTrack(currentlyPlaying?.track ?? null);
         if (currentlyPlaying) {
           setMounted(true);
         }
@@ -50,7 +60,15 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
     >
       {style => (
         <TrackCoalescer {...{ track }}>
-          {track => <CurrentTrack {...{ track, style }} {...otherProps} />}
+          {track => {
+            const { progressMilliseconds = 0 } = currentlyPlaying ?? {};
+            return (
+              <CurrentTrack
+                {...{ track, progressMilliseconds, transitioned, style }}
+                {...otherProps}
+              />
+            );
+          }}
         </TrackCoalescer>
       )}
     </Transition>
@@ -60,10 +78,8 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
 export default CurrentlyPlayingIsland;
 
 type TrackCoalescerProps = {
-  readonly track?: Maybe<CurrentlyPlayingIslandSpotifyTrackFragment>;
-  readonly children: (
-    track: CurrentlyPlayingIslandSpotifyTrackFragment,
-  ) => ReactNode;
+  readonly track?: Maybe<CurrentlyPlayingIslandTrackFragment>;
+  readonly children: (track: CurrentlyPlayingIslandTrackFragment) => ReactNode;
 };
 
 const TrackCoalescer: FC<TrackCoalescerProps> = ({
@@ -71,7 +87,7 @@ const TrackCoalescer: FC<TrackCoalescerProps> = ({
   children,
 }) => {
   const [track, setTrack] = useState<
-    Maybe<CurrentlyPlayingIslandSpotifyTrackFragment> | undefined
+    Maybe<CurrentlyPlayingIslandTrackFragment> | undefined
   >(trackProp);
   useEffect(() => {
     if (trackProp) {
@@ -82,10 +98,18 @@ const TrackCoalescer: FC<TrackCoalescerProps> = ({
 };
 
 type CurrentTrackProps = Omit<BoxProps, "children"> & {
-  readonly track: CurrentlyPlayingIslandSpotifyTrackFragment;
+  readonly track: CurrentlyPlayingIslandTrackFragment;
+  readonly progressMilliseconds: number;
+  readonly transitioned: boolean;
 };
 
-const CurrentTrack: FC<CurrentTrackProps> = ({ track, sx, ...otherProps }) => {
+const CurrentTrack: FC<CurrentTrackProps> = ({
+  track,
+  progressMilliseconds: progressMillisecondsProp,
+  transitioned,
+  sx,
+  ...otherProps
+}) => {
   const {
     name,
     url,
@@ -96,24 +120,72 @@ const CurrentTrack: FC<CurrentTrackProps> = ({ track, sx, ...otherProps }) => {
     () => artists.map(({ name }) => name).join(", ") || "(missing artists)",
     [artists],
   );
+
+  // == Progress
+  const [progressMilliseconds, setProgressMilliseconds] = useState(
+    progressMillisecondsProp,
+  );
+  useEffect(() => {
+    setProgressMilliseconds(progressMillisecondsProp);
+    const increment = 500;
+    const interval = setInterval(() => {
+      setProgressMilliseconds(
+        progressMilliseconds => progressMilliseconds + increment,
+      );
+    }, increment);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [progressMillisecondsProp]);
+
+  // == Query
+  const { data } = useQuery(CurrentlyPlayingIslandQueryDocument, {
+    fetchPolicy: "no-cache",
+    variables: {},
+    onError: error => {
+      console.error("Failed to load lyrics for currently playing track", {
+        error,
+      });
+    },
+  });
+  const { isExplicit, lyrics } = data?.currentlyPlaying?.track ?? {};
+
+  // == Lyrics
+  const currentLyric = useMemo(() => {
+    if (lyrics) {
+      return findLast(
+        lyrics,
+        ({ startTimeMilliseconds }) =>
+          progressMilliseconds >= startTimeMilliseconds,
+      );
+    }
+    return null;
+  }, [lyrics, progressMilliseconds]);
+  const [currentWords, setCurrentWords] = useState("");
+  useEffect(() => {
+    if (currentLyric) {
+      setCurrentWords(currentLyric.words);
+    }
+  }, [currentLyric]);
+  const showLyrics = transitioned && !!currentLyric?.words;
+
+  //== Markup
   return (
     <Tooltip
-      label={
-        <>
-          Kai is listening to{" "}
-          <Text weight={600} span>
-            {name}
-          </Text>{" "}
-          by{" "}
-          <Text weight={600} span>
-            {first(artists)?.name || "(missing artists)"}
-          </Text>{" "}
-          right now.
-        </>
-      }
+      label={currentWords}
       multiline
       withArrow
+      color="pink"
+      transitionProps={{ duration: 200 }}
+      disabled={!showLyrics}
       maw={400}
+      fz="xs"
+      styles={{
+        tooltip: {
+          lineHeight: 1.3,
+        },
+      }}
+      {...(isExplicit === false && { opened: showLyrics })}
     >
       <Badge
         component="a"
@@ -143,28 +215,44 @@ const CurrentTrack: FC<CurrentTrackProps> = ({ track, sx, ...otherProps }) => {
         }
         size="xl"
         pl={0}
-        styles={({ colors }) => ({
-          root: {
-            height: 30,
-            paddingRight: 10,
-            borderColor: colors.gray[6],
-            cursor: "pointer",
-            "&:hover": {
-              textDecoration: "underline",
+        styles={({ colors, fn, transitionTimingFunction }) => {
+          const borderColorNoLyrics = colors.dark[3];
+          const borderColorLyrics = fn.darken(colors.pink[5], 0.1);
+          const borderColorLyricsExplicit = fn.darken(colors.pink[5], 0.4);
+          return {
+            root: {
+              height: 30,
+              paddingRight: 10,
+              borderColor: showLyrics
+                ? isExplicit
+                  ? borderColorLyricsExplicit
+                  : borderColorLyrics
+                : borderColorNoLyrics,
+              cursor: "pointer",
+              transitionProperty: "border",
+              transitionDuration: 200,
+              transitionTimingFunction,
+              "&:hover": {
+                textDecoration: "underline",
+                ...(showLyrics &&
+                  isExplicit && {
+                    borderColor: borderColorLyrics,
+                  }),
+              },
             },
-          },
-          leftSection: {
-            marginRight: 3,
-          },
-          inner: {
-            maxWidth: 200,
-            "> *": {
-              textOverflow: "ellipsis",
-              overflow: "hidden",
-              whiteSpace: "nowrap",
+            leftSection: {
+              marginRight: 3,
             },
-          },
-        })}
+            inner: {
+              maxWidth: 200,
+              "> *": {
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+              },
+            },
+          };
+        }}
         {...{ sx }}
         {...otherProps}
       >

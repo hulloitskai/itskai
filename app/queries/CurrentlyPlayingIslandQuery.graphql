@@ -1,0 +1,12 @@
+query CurrentlyPlayingIslandQuery {
+  currentlyPlaying {
+    track {
+      id
+      isExplicit
+      lyrics {
+        startTimeMilliseconds
+        words
+      }
+    }
+  }
+}

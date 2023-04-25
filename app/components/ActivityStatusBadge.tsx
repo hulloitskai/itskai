@@ -1,14 +1,16 @@
 import type { FC } from "react";
-
 import { useNetwork } from "@mantine/hooks";
+
+import { DefaultMantineColor, Image, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
 import { ActivityStatusBadgeSubscriptionDocument } from "~/queries";
 
+import logoPath from "~/assets/images/logo-plain.png";
+
 export type ActivityStatusBadgeProps = Omit<BoxProps, "children">;
 
 const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
-  sx,
   ...otherProps
 }) => {
   const { online } = useNetwork();
@@ -23,6 +25,7 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
     },
   });
   const { activityStatus } = data ?? {};
+  const showStatus = !!activityStatus || !online;
 
   // == Status Text
   const [statusText, setStatusText] = useState(activityStatus || "");
@@ -34,22 +37,49 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
     }
   }, [activityStatus, online]);
 
+  // == Tagline
+  const [showTagline, setShowTagline] = useState(!showStatus);
+
   // == Markup
   return (
-    <Center sx={[{ overflow: "hidden" }, ...packSx(sx)]} {...otherProps}>
-      <Transition transition="fade" mounted={!!activityStatus || !online}>
+    <Box {...otherProps}>
+      <Transition
+        transition="slide-up"
+        mounted={showStatus}
+        onEnter={() => setShowTagline(false)}
+        onExited={() => setShowTagline(true)}
+      >
+        {style => {
+          const color: DefaultMantineColor = online ? "orange" : "red";
+          return (
+            <Center h="100%" {...{ style }}>
+              <Badge
+                size="xs"
+                variant="dot"
+                sx={({ colors, fn }) => ({
+                  borderColor: fn.darken(colors[color]![4], 0.3),
+                })}
+                {...{ color }}
+              >
+                {statusText}
+              </Badge>
+            </Center>
+          );
+        }}
+      </Transition>
+      <Transition transition="slide-up" mounted={showTagline}>
         {style => (
-          <Badge
-            size="xs"
-            variant="dot"
-            color={online ? "green" : "red"}
-            {...{ style }}
-          >
-            {statusText}
-          </Badge>
+          <Center h="100%" {...{ style }}>
+            <Group spacing={0} sx={{ flexShrink: 0 }}>
+              <Text size="xs" weight={500} color="gray.6">
+                made with
+              </Text>
+              <Image src={logoPath} width={24} height={24} />
+            </Group>
+          </Center>
         )}
       </Transition>
-    </Center>
+    </Box>
   );
 };
 

@@ -8,17 +8,17 @@ module Subscriptions
     broadcastable true
 
     # == Type
-    type Types::SpotifyTrackType, null: true
+    type Types::SpotifyCurrentlyPlayingType, null: true
 
     # == Callbacks
-    sig { returns(T.nilable(RSpotify::Track)) }
+    sig { returns(T.nilable(SpotifyService::CurrentlyPlaying)) }
     def subscribe
-      CurrentlyPlayingService.current_track
+      CurrentlyPlayingService.currently_playing
     end
 
-    sig { returns(T.nilable(RSpotify::Track)) }
+    sig { returns(T.nilable(SpotifyService::CurrentlyPlaying)) }
     def update
-      CurrentlyPlayingService.current_track
+      CurrentlyPlayingService.currently_playing
     end
   end
 end
