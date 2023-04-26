@@ -167,7 +167,10 @@ const CurrentTrack: FC<CurrentTrackProps> = ({
       setCurrentWords(currentLyric.words);
     }
   }, [currentLyric]);
-  const showLyrics = transitioned && !!currentLyric?.words;
+  const showLyrics = useMemo(() => {
+    return transitioned && !isEmpty(lyrics);
+  }, [transitioned, lyrics]);
+  const showTooltip = showLyrics && !!currentLyric?.words;
 
   //== Markup
   return (
@@ -177,7 +180,7 @@ const CurrentTrack: FC<CurrentTrackProps> = ({
       withArrow
       color="pink"
       transitionProps={{ duration: 200 }}
-      disabled={!showLyrics}
+      disabled={!showTooltip}
       maw={400}
       fz="xs"
       styles={{
