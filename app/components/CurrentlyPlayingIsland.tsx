@@ -5,7 +5,10 @@ import PlayIcon from "~icons/heroicons/play-circle-20-solid";
 import { Image, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
-import { CurrentlyPlayingIslandSubscriptionDocument } from "~/queries";
+import {
+  CurrentlyPlayingIslandQueryDocument,
+  CurrentlyPlayingIslandSubscriptionDocument,
+} from "~/queries";
 import type { CurrentlyPlayingIslandTrackFragment } from "~/queries";
 import type { Maybe } from "~/queries";
 
@@ -18,13 +21,39 @@ export type CurrentlyPlayingIslandProps = Omit<BoxProps, "children">;
 const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   ...otherProps
 }) => {
-  const { data } = useSubscription(CurrentlyPlayingIslandSubscriptionDocument, {
-    variables: {},
-    onError: error => {
-      console.error("Failed to load currently playing track", { error });
+  // == Query
+  const { data: queryData, refetch } = useQuery(
+    CurrentlyPlayingIslandQueryDocument,
+    {
+      variables: {},
+      onError: error => {
+        console.error("Failed to load currently playing details", { error });
+      },
     },
-  });
-  const { currentlyPlaying } = data ?? {};
+  );
+  const { currentlyPlaying } = queryData ?? {};
+
+  // == Subscription
+  const { data: subscriptionData } = useSubscription(
+    CurrentlyPlayingIslandSubscriptionDocument,
+    {
+      variables: {},
+      onData: ({ data: { data } }) => {
+        if (data) {
+          const { track } = data?.currentlyPlaying ?? {};
+          if (track?.id !== currentlyPlaying?.track?.id) {
+            refetch();
+          }
+        }
+      },
+      onError: error => {
+        console.error("Failed to subscribe to currently playing info", {
+          error,
+        });
+      },
+    },
+  );
+  const { progressMilliseconds } = subscriptionData?.currentlyPlaying ?? {};
 
   // == Transition
   const [mounted, setMounted] = useState(false);
@@ -58,20 +87,17 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
     >
       {style => (
         <TrackCoalescer {...{ track }}>
-          {track => {
-            const { progressMilliseconds = 0 } = currentlyPlaying ?? {};
-            return (
-              <_CurrentlyPlayingIsland
-                {...{
-                  track,
-                  initialProgressMilliseconds: progressMilliseconds,
-                  transitioned,
-                  style,
-                }}
-                {...otherProps}
-              />
-            );
-          }}
+          {track => (
+            <_CurrentlyPlayingIsland
+              {...{
+                track,
+                initialProgressMilliseconds: progressMilliseconds,
+                transitioned,
+                style,
+              }}
+              {...otherProps}
+            />
+          )}
         </TrackCoalescer>
       )}
     </Transition>
@@ -102,7 +128,7 @@ const TrackCoalescer: FC<TrackCoalescerProps> = ({
 
 type _CurrentlyPlayingIslandProps = Omit<BoxProps, "children"> & {
   readonly track: CurrentlyPlayingIslandTrackFragment;
-  readonly initialProgressMilliseconds: number;
+  readonly initialProgressMilliseconds?: number;
   readonly transitioned: boolean;
 };
 

@@ -23,11 +23,11 @@
     <%# == Action Cable %>
     <%= action_cable_meta_tag %>
 
-    <%# == GraphQL %>
-    <meta name="graphql-url" content="<%= graphql_path %>">
-
     <%# == Environment %>
     <meta name="env" content="<%= Rails.env %>">
+
+    <%# == GraphQL %>
+    <meta name="graphql-url" content="<%= graphql_path %>">
 
     <%# == Sentry %>
     <% scoped do %>

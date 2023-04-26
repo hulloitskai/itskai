@@ -2,7 +2,6 @@ subscription CurrentlyPlayingIslandSubscription {
   currentlyPlaying {
     track {
       id
-      ...CurrentlyPlayingIslandTrackFragment
     }
     progressMilliseconds
   }

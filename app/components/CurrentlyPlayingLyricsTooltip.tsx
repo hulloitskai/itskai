@@ -11,7 +11,7 @@ export type CurrentlyPlayingLyricsTooltipProps = Pick<
   TooltipProps,
   "disabled"
 > & {
-  readonly initialProgressMilliseconds: number;
+  readonly initialProgressMilliseconds?: number;
   readonly children: (
     currentLyricLine:
       | Maybe<CurrentlyPlayingLyricsTooltipLyricLineFragment>
@@ -20,7 +20,7 @@ export type CurrentlyPlayingLyricsTooltipProps = Pick<
 };
 
 const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
-  initialProgressMilliseconds,
+  initialProgressMilliseconds = 0,
   disabled,
   children,
   ...otherProps
@@ -28,7 +28,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
   const { hovered, ref } = useHover();
 
   // == Progress
-  const [progressMilliseconds, setProgressMilliseconds] = useState(
+  const [progressMilliseconds, setProgressMilliseconds] = useState<number>(
     initialProgressMilliseconds,
   );
   useEffect(() => {
