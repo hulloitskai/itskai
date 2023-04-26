@@ -2,6 +2,9 @@
 # frozen_string_literal: true
 
 class SpotifyService < ApplicationService
+  # == Constants
+  BADWORDS_FILE = Rails.root.join("config/badwords.txt")
+
   class << self
     # == Service
     sig { override.returns(T::Boolean) }
@@ -120,9 +123,11 @@ class SpotifyService < ApplicationService
       lines = T.let(body["lines"], T::Array[T::Hash[String, T.untyped]])
       if sync_type == "LINE_SYNCED"
         lines.map do |line_hash|
+          words = normalize_lyric_line_words(line_hash["words"])
           LyricLine.new(
             start_time_milliseconds: line_hash["startTimeMs"].to_i,
-            words: normalize_lyric_line_words(line_hash["words"]),
+            words:,
+            explicit: explicit_lyric_line_words?(words),
           )
         end
       end
@@ -183,6 +188,23 @@ class SpotifyService < ApplicationService
       else
         words
       end
+    end
+  end
+
+  sig { returns(T::Array[String]) }
+  def badwords
+    @badwords ||= scoped do
+      body = File.read(BADWORDS_FILE)
+      body.lines.map { |word| word.strip.downcase }
+    end
+  end
+
+  sig { params(words: String).returns(T::Boolean) }
+  def explicit_lyric_line_words?(words)
+    return false if words.blank?
+    downcased_words = words.downcase
+    badwords.any? do |badword|
+      downcased_words.include?(badword)
     end
   end
 end

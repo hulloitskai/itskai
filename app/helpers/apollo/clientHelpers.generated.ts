@@ -181,18 +181,18 @@ export type SpotifyCurrentlyPlayingFieldPolicy = {
 	progressMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	track?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type SpotifyLyricLineKeySpecifier = ('startTimeMilliseconds' | 'words' | SpotifyLyricLineKeySpecifier)[];
+export type SpotifyLyricLineKeySpecifier = ('isExplicit' | 'startTimeMilliseconds' | 'words' | SpotifyLyricLineKeySpecifier)[];
 export type SpotifyLyricLineFieldPolicy = {
+	isExplicit?: FieldPolicy<any> | FieldReadFunction<any>,
 	startTimeMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	words?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type SpotifyTrackKeySpecifier = ('album' | 'artists' | 'durationMilliseconds' | 'id' | 'isExplicit' | 'lyrics' | 'name' | 'url' | SpotifyTrackKeySpecifier)[];
+export type SpotifyTrackKeySpecifier = ('album' | 'artists' | 'durationMilliseconds' | 'id' | 'lyrics' | 'name' | 'url' | SpotifyTrackKeySpecifier)[];
 export type SpotifyTrackFieldPolicy = {
 	album?: FieldPolicy<any> | FieldReadFunction<any>,
 	artists?: FieldPolicy<any> | FieldReadFunction<any>,
 	durationMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	isExplicit?: FieldPolicy<any> | FieldReadFunction<any>,
 	lyrics?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>

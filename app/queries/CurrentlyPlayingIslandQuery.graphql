@@ -2,8 +2,8 @@ query CurrentlyPlayingIslandQuery {
   currentlyPlaying {
     track {
       id
-      isExplicit
       lyrics {
+        isExplicit
         startTimeMilliseconds
         words
       }

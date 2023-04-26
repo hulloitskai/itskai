@@ -8,7 +8,6 @@ module Types
     field :artists, [SpotifyArtistType], null: false
     field :duration_milliseconds, Integer, null: false, method: :duration_ms
     field :id, String, null: false
-    field :is_explicit, Boolean, null: false, method: :explicit
     field :lyrics, [SpotifyLyricLineType]
     field :name, String, null: false
     field :url, String, null: false

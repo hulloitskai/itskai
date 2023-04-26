@@ -339,6 +339,7 @@ type SpotifyCurrentlyPlaying {
 }
 
 type SpotifyLyricLine {
+  isExplicit: Boolean!
   startTimeMilliseconds: Int!
   words: String!
 }
@@ -348,7 +349,6 @@ type SpotifyTrack {
   artists: [SpotifyArtist!]!
   durationMilliseconds: Int!
   id: String!
-  isExplicit: Boolean!
   lyrics: [SpotifyLyricLine!]
   name: String!
   url: String!

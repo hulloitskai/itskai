@@ -397,6 +397,7 @@ export type SpotifyCurrentlyPlaying = {
 
 export type SpotifyLyricLine = {
   __typename?: 'SpotifyLyricLine';
+  isExplicit: Scalars['Boolean'];
   startTimeMilliseconds: Scalars['Int'];
   words: Scalars['String'];
 };
@@ -407,7 +408,6 @@ export type SpotifyTrack = {
   artists: Array<SpotifyArtist>;
   durationMilliseconds: Scalars['Int'];
   id: Scalars['String'];
-  isExplicit: Scalars['Boolean'];
   lyrics?: Maybe<Array<SpotifyLyricLine>>;
   name: Scalars['String'];
   url: Scalars['String'];

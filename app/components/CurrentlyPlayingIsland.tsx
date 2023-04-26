@@ -148,7 +148,7 @@ const CurrentTrack: FC<CurrentTrackProps> = ({
       });
     },
   });
-  const { isExplicit, lyrics } = data?.currentlyPlaying?.track ?? {};
+  const { lyrics } = data?.currentlyPlaying?.track ?? {};
 
   // == Lyrics
   const currentLyric = useMemo(() => {
@@ -164,10 +164,18 @@ const CurrentTrack: FC<CurrentTrackProps> = ({
   const [currentWords, setCurrentWords] = useState("");
   useEffect(() => {
     if (currentLyric?.words) {
-      setCurrentWords(currentLyric.words);
+      const { words, isExplicit } = currentLyric;
+      if (!isExplicit) {
+        setCurrentWords(words);
+      } else {
+        setTimeout(() => {
+          setCurrentWords(words);
+        }, 100);
+      }
     }
   }, [currentLyric]);
   const showLyrics = transitioned && !!currentLyric?.words;
+  const isExplicit = currentLyric?.isExplicit;
 
   // == Markup
   return (
