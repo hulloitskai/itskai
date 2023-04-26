@@ -233,7 +233,7 @@ const CurrentTrack: FC<CurrentTrackProps> = ({
                 : borderColorNoLyrics,
               cursor: "pointer",
               transitionProperty: "border",
-              transitionDuration: 200,
+              transitionDuration: 500,
               transitionTimingFunction,
               "&:hover": {
                 textDecoration: "underline",
