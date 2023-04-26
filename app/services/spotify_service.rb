@@ -122,7 +122,7 @@ class SpotifyService < ApplicationService
         lines.map do |line_hash|
           LyricLine.new(
             start_time_milliseconds: line_hash["startTimeMs"].to_i,
-            words: line_hash["words"],
+            words: normalize_lyric_line_words(line_hash["words"]),
           )
         end
       end
@@ -172,6 +172,17 @@ class SpotifyService < ApplicationService
       false
     else
       raise
+    end
+  end
+
+  sig { params(words: String).returns(String) }
+  def normalize_lyric_line_words(words)
+    words.strip.then do |words|
+      if words == "♪"
+        ""
+      else
+        words
+      end
     end
   end
 end

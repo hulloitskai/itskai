@@ -163,16 +163,13 @@ const CurrentTrack: FC<CurrentTrackProps> = ({
   }, [lyrics, progressMilliseconds]);
   const [currentWords, setCurrentWords] = useState("");
   useEffect(() => {
-    if (currentLyric) {
+    if (currentLyric?.words) {
       setCurrentWords(currentLyric.words);
     }
   }, [currentLyric]);
-  const showLyrics = useMemo(() => {
-    return transitioned && !isEmpty(lyrics);
-  }, [transitioned, lyrics]);
-  const showTooltip = showLyrics && !!currentLyric?.words;
+  const showLyrics = transitioned && !!currentLyric?.words;
 
-  //== Markup
+  // == Markup
   return (
     <Tooltip
       label={currentWords}
@@ -180,7 +177,7 @@ const CurrentTrack: FC<CurrentTrackProps> = ({
       withArrow
       color="pink"
       transitionProps={{ duration: 200 }}
-      disabled={!showTooltip}
+      disabled={!showLyrics}
       maw={400}
       fz="xs"
       styles={{
@@ -218,7 +215,7 @@ const CurrentTrack: FC<CurrentTrackProps> = ({
         }
         size="xl"
         pl={0}
-        styles={({ colors, fn, transitionTimingFunction }) => {
+        styles={({ colors, fn }) => {
           const borderColorNoLyrics = colors.dark[3];
           const borderColorLyrics = fn.darken(colors.pink[5], 0.1);
           const borderColorLyricsExplicit = fn.darken(colors.pink[5], 0.4);
@@ -232,9 +229,7 @@ const CurrentTrack: FC<CurrentTrackProps> = ({
                   : borderColorLyrics
                 : borderColorNoLyrics,
               cursor: "pointer",
-              transitionProperty: "border",
-              transitionDuration: 500,
-              transitionTimingFunction,
+              transitionProperty: "transform, opacity, border !important",
               "&:hover": {
                 textDecoration: "underline",
                 ...(showLyrics &&
