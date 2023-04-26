@@ -26,6 +26,9 @@
     <%# == GraphQL %>
     <meta name="graphql-url" content="<%= graphql_path %>">
 
+    <%# == Environment %>
+    <meta name="env" content="<%= Rails.env %>">
+
     <%# == Sentry %>
     <% scoped do %>
       <% config = Sentry.configuration %>

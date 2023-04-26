@@ -1,17 +1,15 @@
 import type { FC, ReactNode } from "react";
 import { motion } from "framer-motion";
-import { findLast } from "lodash-es";
+import PlayIcon from "~icons/heroicons/play-circle-20-solid";
 
 import { Image, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
-import PlayIcon from "~icons/heroicons/play-circle-20-solid";
+import { CurrentlyPlayingIslandSubscriptionDocument } from "~/queries";
+import type { CurrentlyPlayingIslandTrackFragment } from "~/queries";
+import type { Maybe } from "~/queries";
 
-import {
-  CurrentlyPlayingIslandQueryDocument,
-  CurrentlyPlayingIslandSubscriptionDocument,
-} from "~/queries";
-import type { Maybe, CurrentlyPlayingIslandTrackFragment } from "~/queries";
+import CurrentlyPlayingLyricsTooltip from "./CurrentlyPlayingLyricsTooltip";
 
 const MotionImage = motion(Image);
 
@@ -63,8 +61,13 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
           {track => {
             const { progressMilliseconds = 0 } = currentlyPlaying ?? {};
             return (
-              <CurrentTrack
-                {...{ track, progressMilliseconds, transitioned, style }}
+              <_CurrentlyPlayingIsland
+                {...{
+                  track,
+                  initialProgressMilliseconds: progressMilliseconds,
+                  transitioned,
+                  style,
+                }}
                 {...otherProps}
               />
             );
@@ -97,17 +100,16 @@ const TrackCoalescer: FC<TrackCoalescerProps> = ({
   return <>{!!track && children(track)}</>;
 };
 
-type CurrentTrackProps = Omit<BoxProps, "children"> & {
+type _CurrentlyPlayingIslandProps = Omit<BoxProps, "children"> & {
   readonly track: CurrentlyPlayingIslandTrackFragment;
-  readonly progressMilliseconds: number;
+  readonly initialProgressMilliseconds: number;
   readonly transitioned: boolean;
 };
 
-const CurrentTrack: FC<CurrentTrackProps> = ({
+const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
   track,
-  progressMilliseconds: progressMillisecondsProp,
+  initialProgressMilliseconds,
   transitioned,
-  sx,
   ...otherProps
 }) => {
   const {
@@ -121,154 +123,92 @@ const CurrentTrack: FC<CurrentTrackProps> = ({
     [artists],
   );
 
-  // == Progress
-  const [progressMilliseconds, setProgressMilliseconds] = useState(
-    progressMillisecondsProp,
-  );
-  useEffect(() => {
-    setProgressMilliseconds(progressMillisecondsProp);
-    const increment = 500;
-    const interval = setInterval(() => {
-      setProgressMilliseconds(
-        progressMilliseconds => progressMilliseconds + increment,
-      );
-    }, increment);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [progressMillisecondsProp]);
-
-  // == Query
-  const { data } = useQuery(CurrentlyPlayingIslandQueryDocument, {
-    fetchPolicy: "no-cache",
-    variables: {},
-    onError: error => {
-      console.error("Failed to load lyrics for currently playing track", {
-        error,
-      });
-    },
-  });
-  const { lyrics } = data?.currentlyPlaying?.track ?? {};
-
-  // == Lyrics
-  const currentLyric = useMemo(() => {
-    if (lyrics) {
-      return findLast(
-        lyrics,
-        ({ startTimeMilliseconds }) =>
-          progressMilliseconds >= startTimeMilliseconds,
-      );
-    }
-    return null;
-  }, [lyrics, progressMilliseconds]);
-  const [currentWords, setCurrentWords] = useState("");
-  useEffect(() => {
-    if (currentLyric?.words) {
-      const { words, isExplicit } = currentLyric;
-      if (!isExplicit) {
-        setCurrentWords(words);
-      } else {
-        setTimeout(() => {
-          setCurrentWords(words);
-        }, 100);
-      }
-    }
-  }, [currentLyric]);
-  const showLyrics = transitioned && !!currentLyric?.words;
-  const isExplicit = currentLyric?.isExplicit;
-
   // == Markup
   return (
-    <Tooltip
-      label={currentWords}
-      multiline
-      withArrow
-      color="pink"
-      transitionProps={{ duration: 200 }}
-      disabled={!showLyrics}
-      maw={400}
-      fz="xs"
-      styles={{
-        tooltip: {
-          lineHeight: 1.3,
-        },
-      }}
-      {...(isExplicit === false && { opened: showLyrics })}
+    <CurrentlyPlayingLyricsTooltip
+      {...(!transitioned && { disabled: true })}
+      {...{ initialProgressMilliseconds }}
     >
-      <Badge
-        component="a"
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer nofollow"
-        variant="outline"
-        color="gray.5"
-        leftSection={
-          <Box pos="relative" p={2}>
-            <MotionImage
-              src={imageUrl}
-              width={24}
-              height={24}
-              radius="xl"
-              animate={{ rotate: 360 }}
-              transition={{ ease: "linear", duration: 4, repeat: Infinity }}
-            />
-            <Center
-              pos="absolute"
-              inset={0}
-              sx={({ white }) => ({ color: white })}
-            >
-              <PlayIcon width={14} height={14} />
-            </Center>
-          </Box>
-        }
-        size="xl"
-        pl={0}
-        styles={({ colors, fn }) => {
-          const borderColorNoLyrics = colors.dark[3];
-          const borderColorLyrics = fn.darken(colors.pink[5], 0.1);
-          const borderColorLyricsExplicit = fn.darken(colors.pink[5], 0.4);
-          return {
-            root: {
-              height: 30,
-              paddingRight: 10,
-              borderColor: showLyrics
-                ? isExplicit
-                  ? borderColorLyricsExplicit
-                  : borderColorLyrics
-                : borderColorNoLyrics,
-              cursor: "pointer",
-              transitionProperty: "transform, opacity, border !important",
-              "&:hover": {
-                textDecoration: "underline",
-                ...(showLyrics &&
-                  isExplicit && {
-                    borderColor: borderColorLyrics,
-                  }),
-              },
-            },
-            leftSection: {
-              marginRight: 3,
-            },
-            inner: {
-              maxWidth: 200,
-              "> *": {
-                textOverflow: "ellipsis",
-                overflow: "hidden",
-                whiteSpace: "nowrap",
-              },
-            },
-          };
-        }}
-        {...{ sx }}
-        {...otherProps}
-      >
-        <Text size="xs" color="gray.3">
-          {name}
-        </Text>
-        <Text size={10} mt={-5.5} color="gray.6">
-          {artistNames}
-        </Text>
-      </Badge>
-    </Tooltip>
+      {currentLyricLine => {
+        const { words: currentWords, isExplicit: currentlyExplicit } =
+          currentLyricLine ?? {};
+        const hasLyrics = !!currentWords;
+        return (
+          <Badge
+            component="a"
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            variant="outline"
+            color="gray.5"
+            leftSection={
+              <Box pos="relative" p={2}>
+                <MotionImage
+                  src={imageUrl}
+                  width={24}
+                  height={24}
+                  radius="xl"
+                  animate={{ rotate: 360 }}
+                  transition={{ ease: "linear", duration: 4, repeat: Infinity }}
+                />
+                <Center
+                  pos="absolute"
+                  inset={0}
+                  sx={({ white }) => ({ color: white })}
+                >
+                  <PlayIcon width={14} height={14} />
+                </Center>
+              </Box>
+            }
+            size="xl"
+            pl={0}
+            styles={({ colors, fn }) => {
+              const borderColorNoLyrics = colors.dark[3];
+              const borderColorLyrics = fn.darken(colors.pink[5], 0.1);
+              const borderColorLyricsExplicit = fn.darken(colors.pink[5], 0.4);
+              return {
+                root: {
+                  height: 30,
+                  paddingRight: 10,
+                  borderColor: hasLyrics
+                    ? currentlyExplicit
+                      ? borderColorLyricsExplicit
+                      : borderColorLyrics
+                    : borderColorNoLyrics,
+                  cursor: "pointer",
+                  transitionProperty: "transform, opacity, border !important",
+                  "&:hover": {
+                    textDecoration: "underline",
+                    ...(hasLyrics &&
+                      currentlyExplicit && {
+                        borderColor: borderColorLyrics,
+                      }),
+                  },
+                },
+                leftSection: {
+                  marginRight: 3,
+                },
+                inner: {
+                  maxWidth: 200,
+                  "> *": {
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                  },
+                },
+              };
+            }}
+            {...otherProps}
+          >
+            <Text size="xs" color="gray.3">
+              {name}
+            </Text>
+            <Text size={10} mt={-5.5} color="gray.6">
+              {artistNames}
+            </Text>
+          </Badge>
+        );
+      }}
+    </CurrentlyPlayingLyricsTooltip>
   );
 };

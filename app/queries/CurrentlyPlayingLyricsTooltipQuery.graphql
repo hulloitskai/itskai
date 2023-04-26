@@ -1,0 +1,10 @@
+query CurrentlyPlayingLyricsTooltipQuery {
+  currentlyPlaying {
+    track {
+      id
+      lyrics {
+        ...CurrentlyPlayingLyricsTooltipLyricLineFragment
+      }
+    }
+  }
+}

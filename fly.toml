@@ -10,7 +10,7 @@ processes = []
   RAILS_DEFAULT_URL = "https://itskai.me"
   RAILS_MAILER_FROM = "RoboKai <robot@itskai.me>"
   RAILS_MAILER_REPLY_TO = "Kai <hullo@itskai.me>"
-  SENTRY_TRACES_SAMPLE_RATE = "0.1"
+  SENTRY_TRACES_SAMPLE_RATE = "0.02"
 
 [experimental]
   allowed_public_ports = []

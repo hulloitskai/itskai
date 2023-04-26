@@ -1,0 +1,5 @@
+fragment CurrentlyPlayingLyricsTooltipLyricLineFragment on SpotifyLyricLine {
+  isExplicit
+  startTimeMilliseconds
+  words
+}
