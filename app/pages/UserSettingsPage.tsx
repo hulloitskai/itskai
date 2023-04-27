@@ -37,7 +37,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
             <Title order={2} size="h4">
               Email Address
             </Title>
-            <Text mt={-4} size="sm" color="dimmed">
+            <Text size="sm" color="dimmed" lh={1.3}>
               Change your account email address.
             </Text>
           </Stack>
@@ -50,7 +50,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
             <Title order={2} size="h4">
               Password
             </Title>
-            <Text mt={-4} size="sm" color="dimmed">
+            <Text size="sm" color="dimmed" lh={1.3}>
               Change your login password.
             </Text>
           </Stack>
@@ -65,7 +65,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
                 <Title order={2} size="h4">
                   iCloud
                 </Title>
-                <Text mt={-4} size="sm" color="dimmed">
+                <Text size="sm" color="dimmed" lh={1.3}>
                   Authenticate with iCloud to enable knowledge graph services.
                 </Text>
               </Stack>
@@ -80,7 +80,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
                 <Title order={2} size="h4">
                   Spotify
                 </Title>
-                <Text mt={-4} size="sm" color="dimmed">
+                <Text size="sm" color="dimmed" lh={1.3}>
                   Authorize Spotify to enable music services.
                 </Text>
               </Stack>
@@ -95,7 +95,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
                 <Title order={2} size="h4">
                   Obsidian
                 </Title>
-                <Text mt={-4} size="sm" color="dimmed">
+                <Text size="sm" color="dimmed" lh={1.3}>
                   Synchronize or re-synchronize notes.
                 </Text>
               </Stack>

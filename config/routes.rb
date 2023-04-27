@@ -19,6 +19,7 @@ Rails.application.routes.draw do
                registrations: "users/registrations",
                confirmations: "users/confirmations",
                passwords: "users/passwords",
+               omniauth_callbacks: "users/omniauth_callbacks",
              },
              path: "user",
              path_names: {

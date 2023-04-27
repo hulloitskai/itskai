@@ -1,14 +1,8 @@
 import type { FC } from "react";
 
-import type { Maybe } from "~/queries";
+import { Maybe, SpotifyCredentialsRemoveMutationDocument } from "~/queries";
 import type { UserSettingsPageOAuthCredentialsFragment } from "~/queries";
 import FormAuthenticityField from "./FormAuthenticityField";
-
-export type UserSettingsPageOAuthCredentialsFormValues = {
-  readonly uid: string;
-  readonly accessToken: string | null;
-  readonly refreshToken: string | null;
-};
 
 export type UserSettingsPageOAuthCredentialsFormProps = {
   readonly spotifyCredentials: Maybe<UserSettingsPageOAuthCredentialsFragment>;
@@ -17,47 +11,84 @@ export type UserSettingsPageOAuthCredentialsFormProps = {
 const UserSettingsPageOAuthCredentialsForm: FC<
   UserSettingsPageOAuthCredentialsFormProps
 > = ({ spotifyCredentials }) => {
-  const { uid, accessToken, refreshToken } = spotifyCredentials || {};
-  const initialValues = useMemo<UserSettingsPageOAuthCredentialsFormValues>(
-    () => ({
-      uid: "",
-      accessToken: "",
-      refreshToken: "",
-      ...pick(spotifyCredentials, "uid", "accessToken", "refreshToken"),
-    }),
-    [spotifyCredentials],
+  const router = useRouter();
+
+  // == Remove Mutation
+  const onRemoveError = useApolloErrorCallback(
+    "Failed to remove Spotify credentials",
   );
-  const { getInputProps } = useForm<UserSettingsPageOAuthCredentialsFormValues>(
+  const [runRemoveMutation, { loading: removing }] = useMutation(
+    SpotifyCredentialsRemoveMutationDocument,
     {
-      initialValues: initialValues,
+      onCompleted: () => {
+        router.reload({
+          preserveScroll: true,
+          onSuccess: () => {
+            showNotice({
+              message: "Spotify credentials removed successfully.",
+            });
+          },
+        });
+      },
+      onError: onRemoveError,
     },
   );
+
+  // == Markup
   return (
     <form action="/user/auth/spotify" method="post">
       <FormAuthenticityField />
       <Stack spacing="xs">
-        {!!uid && (
-          <TextInput
-            label="UID (read-only)"
-            readOnly
-            {...getInputProps("uid")}
-          />
-        )}
-        {!!accessToken && (
-          <TextInput
-            label="Access Token (read-only)"
-            readOnly
-            {...getInputProps("accessToken")}
-          />
-        )}
-        {!!refreshToken && (
-          <TextInput
-            label="Refresh Token (read-only)"
-            readOnly
-            {...getInputProps("refreshToken")}
-          />
-        )}
-        <Button type="submit">Authorize</Button>
+        {spotifyCredentials &&
+          resolve(() => {
+            const { uid, accessToken, refreshToken } = spotifyCredentials;
+            return (
+              <>
+                <TextInput label="UID (read-only)" value={uid} readOnly />
+                {!!accessToken && (
+                  <TextInput
+                    label="Access Token (read-only)"
+                    value={accessToken}
+                    readOnly
+                  />
+                )}
+                {!!refreshToken && (
+                  <TextInput
+                    label="Refresh Token (read-only)"
+                    value={refreshToken}
+                    readOnly
+                  />
+                )}
+              </>
+            );
+          })}
+        <Stack spacing={6}>
+          <Button type="submit">Authorize</Button>
+          {spotifyCredentials && (
+            <Menu withinPortal>
+              <Menu.Target>
+                <Button variant="outline" color="red" loading={removing}>
+                  Deactivate
+                </Button>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Item
+                  color="red"
+                  icon={<AlertIcon />}
+                  onClick={() => {
+                    runRemoveMutation({
+                      variables: {
+                        input: {},
+                      },
+                    });
+                  }}
+                >
+                  Really deactivate?
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          )}
+        </Stack>
       </Stack>
     </form>
   );

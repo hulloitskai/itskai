@@ -15,12 +15,18 @@ Rails.application.configure do
         ScottbotService.start
       end
     end
-  end
 
-  if Rails.server?
     reloader.before_class_unload do
-      CurrentlyPlayingService.stop
-      ScottbotService.stop
+      if Rails.server?
+        ScottbotService.stop
+        CurrentlyPlayingService.stop
+      end
+      ResumeService.stop
+      JournalService.stop
+      SpotifyService.stop
+      ObsidianService.stop
+      ICloudService.stop
+      ActivityService.stop
     end
   end
 end

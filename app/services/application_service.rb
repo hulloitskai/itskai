@@ -15,7 +15,12 @@ class ApplicationService
       end
       instance.tap(&:start)
     end
-    alias_method :restart, :start
+
+    sig { returns(T.nilable(T.attached_class)) }
+    def stop = instance.tap(&:stop)
+
+    sig { returns(T.nilable(T.attached_class)) }
+    def restart = instance.tap(&:restart)
 
     sig { overridable.returns(T::Boolean) }
     def enabled? = true
@@ -75,5 +80,16 @@ class ApplicationService
   sig { overridable.void }
   def start
     @started = true
+  end
+
+  sig { overridable.void }
+  def stop
+    @started = false
+  end
+
+  sig { void }
+  def restart
+    stop
+    start
   end
 end

@@ -7,9 +7,6 @@ class CurrentlyPlayingService < ApplicationService
     sig { override.returns(T::Boolean) }
     def enabled? = T.let(super, T::Boolean) && SpotifyService.enabled?
 
-    sig { void }
-    def stop = instance.stop
-
     sig { returns(T::Boolean) }
     def debug?
       checked { instance.debug? }
@@ -48,7 +45,7 @@ class CurrentlyPlayingService < ApplicationService
     task.execute unless task.running?
   end
 
-  sig { void }
+  sig { override.void }
   def stop
     task.kill if started?
   end

@@ -18,22 +18,20 @@ module Users
     # GET /user/auth/spotify/callback
     def spotify
       auth = T.let(request.env.fetch("omniauth.auth"), OmniAuth::AuthHash)
-      auth = T.let(auth.to_hash, T::Hash[String, T.untyped])
-      credentials = OAuthCredentials
-        .find_or_initialize_by(
-          auth.slice("provider", "uid").symbolize_keys,
-        )
+      auth = T.let(auth.to_hash(symbolize_keys: true),
+                   T::Hash[Symbol, T.untyped])
+      credentials = OAuthCredentials.find_or_initialize_by(
+        auth.slice(:provider, :uid),
+      )
       credentials.attributes = auth
-        .fetch("credentials")
-        .slice("token", "refresh_token")
-        .symbolize_keys
+        .fetch(:credentials)
+        .slice(:token, :refresh_token)
         .tap do |credentials|
           credentials[:access_token] = credentials.delete(:token)
         end
       credentials.save!
-      credentials.tap do |provider|
-        provider = T.let(provider, OAuthCredentials)
-        provider => { uid:, refresh_token: }
+      scoped do
+        credentials => { uid:, refresh_token: }
         logger.info(
           "Authenticated with Spotify (uid: #{uid}, refresh_token: " \
             "#{refresh_token})",

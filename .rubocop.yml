@@ -61,7 +61,8 @@ Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Layout/FirstArgumentIndentation:
   Enabled: true
-# Layout/MultilineMethodCallIndentation:
+# Layout/SpaceAroundBlockParameters:
+#   Enabled: false
 Layout/LineLength:
   Max: 80
   AllowedPatterns: ["# rubocop:disable"]

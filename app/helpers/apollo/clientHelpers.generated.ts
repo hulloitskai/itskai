@@ -7,6 +7,11 @@ export type ICloudCredentialsFieldPolicy = {
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
 	session?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type ICloudCredentialsRemovePayloadKeySpecifier = ('clientMutationId' | 'success' | ICloudCredentialsRemovePayloadKeySpecifier)[];
+export type ICloudCredentialsRemovePayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type ICloudCredentialsUpdatePayloadKeySpecifier = ('clientMutationId' | 'errors' | 'icloudCredentials' | 'success' | ICloudCredentialsUpdatePayloadKeySpecifier)[];
 export type ICloudCredentialsUpdatePayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -30,13 +35,15 @@ export type JournalEntryCommentPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('icloudCredentialsUpdate' | 'icloudCredentialsVerifySecurityCode' | 'journalEntryComment' | 'obsidianNoteSynchronize' | 'scottkitSignal' | 'testMutation' | 'userChangeEmail' | 'userSendEmailVerificationInstructions' | 'userSendPasswordResetInstructions' | 'userUpdate' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('icloudCredentialsRemove' | 'icloudCredentialsUpdate' | 'icloudCredentialsVerifySecurityCode' | 'journalEntryComment' | 'obsidianNoteSynchronize' | 'scottkitSignal' | 'spotifyCredentialsRemove' | 'testMutation' | 'userChangeEmail' | 'userSendEmailVerificationInstructions' | 'userSendPasswordResetInstructions' | 'userUpdate' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
+	icloudCredentialsRemove?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentialsUpdate?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentialsVerifySecurityCode?: FieldPolicy<any> | FieldReadFunction<any>,
 	journalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNoteSynchronize?: FieldPolicy<any> | FieldReadFunction<any>,
 	scottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
+	spotifyCredentialsRemove?: FieldPolicy<any> | FieldReadFunction<any>,
 	testMutation?: FieldPolicy<any> | FieldReadFunction<any>,
 	userChangeEmail?: FieldPolicy<any> | FieldReadFunction<any>,
 	userSendEmailVerificationInstructions?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -176,6 +183,11 @@ export type SpotifyArtistFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type SpotifyCredentialsRemovePayloadKeySpecifier = ('clientMutationId' | 'success' | SpotifyCredentialsRemovePayloadKeySpecifier)[];
+export type SpotifyCredentialsRemovePayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type SpotifyCurrentlyPlayingKeySpecifier = ('progressMilliseconds' | 'track' | SpotifyCurrentlyPlayingKeySpecifier)[];
 export type SpotifyCurrentlyPlayingFieldPolicy = {
 	progressMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -259,6 +271,10 @@ export type StrictTypedTypePolicies = {
 	ICloudCredentials?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ICloudCredentialsKeySpecifier | (() => undefined | ICloudCredentialsKeySpecifier),
 		fields?: ICloudCredentialsFieldPolicy,
+	},
+	ICloudCredentialsRemovePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ICloudCredentialsRemovePayloadKeySpecifier | (() => undefined | ICloudCredentialsRemovePayloadKeySpecifier),
+		fields?: ICloudCredentialsRemovePayloadFieldPolicy,
 	},
 	ICloudCredentialsUpdatePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ICloudCredentialsUpdatePayloadKeySpecifier | (() => undefined | ICloudCredentialsUpdatePayloadKeySpecifier),
@@ -347,6 +363,10 @@ export type StrictTypedTypePolicies = {
 	SpotifyArtist?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SpotifyArtistKeySpecifier | (() => undefined | SpotifyArtistKeySpecifier),
 		fields?: SpotifyArtistFieldPolicy,
+	},
+	SpotifyCredentialsRemovePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SpotifyCredentialsRemovePayloadKeySpecifier | (() => undefined | SpotifyCredentialsRemovePayloadKeySpecifier),
+		fields?: SpotifyCredentialsRemovePayloadFieldPolicy,
 	},
 	SpotifyCurrentlyPlaying?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SpotifyCurrentlyPlayingKeySpecifier | (() => undefined | SpotifyCurrentlyPlayingKeySpecifier),

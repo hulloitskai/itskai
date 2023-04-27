@@ -2,11 +2,12 @@ import type { FC } from "react";
 import { JsonInput, PasswordInput, Text } from "@mantine/core";
 
 import {
+  ICloudCredentialsRemoveMutationDocument,
   ICloudCredentialsUpdateMutationDocument,
   ICloudCredentialsVerifySecurityCodeMutationDocument,
 } from "~/queries";
-import type { Maybe } from "~/queries";
 import type { UserSettingsPageICloudCredentialsFragment } from "~/queries";
+import type { Maybe } from "~/queries";
 
 export type UserSettingsPageICloudCredentialsFormValues = {
   readonly email: string;
@@ -20,7 +21,7 @@ export type UserSettingsPageICloudCredentialsFormProps = {
 const UserSettingsPageICloudCredentialsForm: FC<
   UserSettingsPageICloudCredentialsFormProps
 > = ({ icloudCredentials }) => {
-  const { password, cookies, session } = icloudCredentials || {};
+  const { cookies, session } = icloudCredentials || {};
   const router = useRouter();
 
   // == Callbacks
@@ -50,19 +51,26 @@ const UserSettingsPageICloudCredentialsForm: FC<
     }),
     [icloudCredentials],
   );
-  const { getInputProps, onSubmit, setErrors } =
+  const { getInputProps, onSubmit, setValues, setErrors, resetDirty } =
     useForm<UserSettingsPageICloudCredentialsFormValues>({
       initialValues: initialValues,
     });
+  useDidUpdate(() => {
+    setValues(initialValues);
+    resetDirty(initialValues);
+  }, [initialValues]);
 
-  // == Mutation
-  const onError = useApolloErrorCallback("Failed to update iCloud credentials");
-  const [runMutation, { loading }] = useMutation(
+  // == Update Mutation
+  const onUpdateError = useApolloErrorCallback(
+    "Failed to update iCloud credentials",
+  );
+  const [runUpdateMutation, { loading: updating }] = useMutation(
     ICloudCredentialsUpdateMutationDocument,
     {
       onCompleted: ({ payload: { icloudCredentials, errors } }) => {
         if (icloudCredentials) {
           router.reload({
+            preserveScroll: true,
             onSuccess: () => {
               openModal({
                 title: (
@@ -86,14 +94,36 @@ const UserSettingsPageICloudCredentialsForm: FC<
           showFormErrors("Could not update iCloud credentials");
         }
       },
-      onError,
+      onError: onUpdateError,
     },
   );
 
+  // == Remove Mutation
+  const onRemoveError = useApolloErrorCallback(
+    "Failed to remove iCloud credentials",
+  );
+  const [runRemoveMutation, { loading: removing }] = useMutation(
+    ICloudCredentialsRemoveMutationDocument,
+    {
+      onCompleted: () => {
+        router.reload({
+          preserveScroll: true,
+          onSuccess: () => {
+            showNotice({
+              message: "iCloud credentials removed successfully.",
+            });
+          },
+        });
+      },
+      onError: onRemoveError,
+    },
+  );
+
+  // == Markup
   return (
     <form
       onSubmit={onSubmit(values => {
-        runMutation({ variables: { input: { ...values } } });
+        runUpdateMutation({ variables: { input: { ...values } } });
       })}
     >
       <Stack spacing="xs">
@@ -110,42 +140,70 @@ const UserSettingsPageICloudCredentialsForm: FC<
           {...getInputProps("password")}
         />
         <Stack spacing={6}>
-          <Button type="submit" fullWidth {...{ loading }}>
+          <Button type="submit" loading={updating}>
             Authenticate
           </Button>
-          <Group spacing={6} grow>
-            {!!password && (
-              <Button variant="default" onClick={openVerifySecurityCodeModal}>
-                Verify Security Code
-              </Button>
-            )}
-            {!!(icloudCredentials && (cookies || session)) && (
-              <Button
-                variant="default"
-                onClick={() => {
-                  openModal({
-                    title: (
-                      <Box>
-                        <Title order={2} size="h4">
-                          Session Information
-                        </Title>
-                        <Text size="sm" color="dimmed" sx={{ lineHeight: 1.3 }}>
-                          Details about the current iCloud login session.
-                        </Text>
-                      </Box>
-                    ),
-                    children: (
-                      <SessionInformationModalContent
-                        icloudCredentials={icloudCredentials}
-                      />
-                    ),
-                  });
-                }}
-              >
-                Session Information
-              </Button>
-            )}
-          </Group>
+          {icloudCredentials && (
+            <>
+              <Group spacing={6} grow>
+                <Button variant="default" onClick={openVerifySecurityCodeModal}>
+                  Verify Security Code
+                </Button>
+                {!!(cookies || session) && (
+                  <Button
+                    variant="default"
+                    onClick={() => {
+                      openModal({
+                        title: (
+                          <Box>
+                            <Title order={2} size="h4">
+                              Session Information
+                            </Title>
+                            <Text
+                              size="sm"
+                              color="dimmed"
+                              sx={{ lineHeight: 1.3 }}
+                            >
+                              Details about the current iCloud login session.
+                            </Text>
+                          </Box>
+                        ),
+                        children: (
+                          <SessionInformationModalContent
+                            icloudCredentials={icloudCredentials}
+                          />
+                        ),
+                      });
+                    }}
+                  >
+                    Session Information
+                  </Button>
+                )}
+              </Group>
+              <Menu withinPortal>
+                <Menu.Target>
+                  <Button variant="outline" color="red" loading={removing}>
+                    Deactivate
+                  </Button>
+                </Menu.Target>
+                <Menu.Dropdown>
+                  <Menu.Item
+                    color="red"
+                    icon={<AlertIcon />}
+                    onClick={() => {
+                      runRemoveMutation({
+                        variables: {
+                          input: {},
+                        },
+                      });
+                    }}
+                  >
+                    Really deactivate?
+                  </Menu.Item>
+                </Menu.Dropdown>
+              </Menu>
+            </>
+          )}
         </Stack>
       </Stack>
     </form>

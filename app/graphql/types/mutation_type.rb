@@ -12,10 +12,15 @@ module Types
           mutation: Mutations::UserSendPasswordResetInstructions
     field :user_update, mutation: Mutations::UserUpdate
 
+    field :icloud_credentials_remove,
+          mutation: Mutations::ICloudCredentialsRemove
     field :icloud_credentials_update,
           mutation: Mutations::ICloudCredentialsUpdate
     field :icloud_credentials_verify_security_code,
           mutation: Mutations::ICloudCredentialsVerifySecurityCode
+
+    field :spotify_credentials_remove,
+          mutation: Mutations::SpotifyCredentialsRemove
 
     field :journal_entry_comment, mutation: Mutations::JournalEntryComment
     field :obsidian_note_synchronize,

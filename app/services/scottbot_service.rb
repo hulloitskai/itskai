@@ -11,9 +11,6 @@ class ScottbotService < ApplicationService
         [discord_token, discord_channel_id].all?(&:present?))
     end
 
-    sig { void }
-    def stop = instance.stop
-
     # == Methods
     sig { params(type: Symbol).void }
     def signal(type)
@@ -50,7 +47,7 @@ class ScottbotService < ApplicationService
     bot.run(true)
   end
 
-  sig { void }
+  sig { override.void }
   def stop
     bot.stop if started?
   end
