@@ -26,10 +26,12 @@ const ObsidianNotePage: PageComponent<ObsidianNotePageProps> = ({
 }) => {
   const { id, name, title, tags, content, blurb, references } = note;
   useEffect(() => {
-    setVars("page", {
-      pageName: ObsidianNotePage.name,
-      noteName: name,
-    });
+    if (isFSInitialized()) {
+      setFSVars("page", {
+        pageName: ObsidianNotePage.name,
+        noteName: name,
+      });
+    }
   }, [name]);
   return (
     <>

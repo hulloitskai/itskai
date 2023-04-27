@@ -20,19 +20,27 @@ class JournalService < ApplicationService
     def list_entries(
       published: nil,
       **options
-    ) = instance.list_entries(
-      published:,
-      **options,
     )
+      checked do
+        instance.list_entries(
+          published:,
+          **options,
+        )
+      end
+    end
 
     sig { params(entry_id: String, options: T.untyped).returns(T.untyped) }
     def list_comments(
       entry_id:,
       **options
-    ) = instance.list_comments(**T.unsafe({
-      entry_id:,
-      **options,
-    }))
+    )
+      checked do
+        instance.list_comments(**T.unsafe({
+          entry_id:,
+          **options,
+        }))
+      end
+    end
 
     sig { params(entry: T.untyped).returns(T::Array[T.untyped]) }
     def retrieve_blocks(entry:) = instance.retrieve_blocks(entry:)
@@ -41,14 +49,19 @@ class JournalService < ApplicationService
     def create_comment(
       entry_id:,
       text:
-    ) = instance.create_comment(
-      entry_id:,
-      text:,
     )
+      checked do
+        instance.create_comment(
+          entry_id:,
+          text:,
+        )
+      end
+    end
 
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def database_id
-      @database_id ||= ENV.fetch("JOURNAL_DATABASE_ID")
+      return @database_id if defined?(@database_id)
+      @database_id = ENV["JOURNAL_DATABASE_ID"]
     end
 
     private
@@ -133,5 +146,7 @@ class JournalService < ApplicationService
 
   # == Helpers
   sig { returns(String) }
-  def database_id = self.class.database_id
+  def database_id
+    T.must(self.class.database_id)
+  end
 end

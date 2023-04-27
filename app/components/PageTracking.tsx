@@ -5,9 +5,11 @@ const PageTracking: FC = () => {
 
   // == FullStory
   useEffect(() => {
-    setVars("page", {
-      pageName: component,
-    });
+    if (isFSInitialized()) {
+      setFSVars("page", {
+        pageName: component,
+      });
+    }
   }, [component]);
 
   return null;

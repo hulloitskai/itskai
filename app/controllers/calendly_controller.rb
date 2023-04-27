@@ -5,9 +5,6 @@ class CalendlyController < ApplicationController
   # == Actions
   # GET /calendly, /hangout
   def show
-    redirect_to(
-      "https://calendly.com/hulloitskai/hangout",
-      allow_other_host: true,
-    )
+    redirect_to("https://cal.com/itskai", allow_other_host: true)
   end
 end

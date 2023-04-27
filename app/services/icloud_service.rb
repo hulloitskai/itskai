@@ -46,9 +46,10 @@ class ICloudService < ApplicationService
   sig { override.void }
   def start
     super
+    return if disabled?
     Thread.new do
       @credentials = ICloudCredentials.first
-      authenticate
+      authenticate if @credentials.present?
     end
   end
 

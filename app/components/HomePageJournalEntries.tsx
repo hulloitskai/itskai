@@ -24,9 +24,7 @@ const HomePageJournalEntries: FC<HomePageJournalEntriesProps> = ({
   const router = useRouter();
 
   // == Query
-  const onError = useApolloErrorCallback(
-    "Failed to load Obsidian journalentries",
-  );
+  const onError = useApolloErrorCallback("Failed to load journal entries");
   const { data, previousData, loading } = useQuery(
     HomePageJournalEntriesQueryDocument,
     {

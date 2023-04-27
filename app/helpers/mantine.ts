@@ -16,6 +16,15 @@ export const theme: MantineThemeOverride = {
       outlineWidth: 1.5,
       outlineColor: colors.indigo[colorScheme === "dark" ? 7 : 5],
     }),
+    inputStyles: theme => ({
+      outline: "none",
+      borderColor:
+        theme.colors.pink[
+          typeof theme.primaryShade === "object"
+            ? theme.primaryShade[theme.colorScheme]
+            : theme.primaryShade
+        ],
+    }),
   },
   components: {
     Loader: {

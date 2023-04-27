@@ -67,8 +67,11 @@ class SpotifyService < ApplicationService
   sig { override.void }
   def start
     super
-    @credentials = OAuthCredentials.spotify
-    authenticate
+    return if disabled?
+    Thread.new do
+      @credentials = OAuthCredentials.spotify
+      authenticate if @credentials.present?
+    end
   end
 
   # == Methods

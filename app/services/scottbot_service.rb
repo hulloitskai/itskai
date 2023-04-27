@@ -46,6 +46,7 @@ class ScottbotService < ApplicationService
   sig { override.void }
   def start
     super
+    return if disabled?
     bot.run(true)
   end
 
