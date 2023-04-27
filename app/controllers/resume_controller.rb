@@ -7,7 +7,7 @@ class ResumeController < ApplicationController
   def show
     respond_to do |format|
       format.html do
-        printable = params.key?("printable") && !params["printable"].falsy?
+        printable = params["printable"].truthy?
         render(inertia: "ResumePage", props: { printable: })
       end
       format.json { render(json: ResumeService.load_resume) }

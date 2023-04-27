@@ -1,5 +1,5 @@
 import type { PageComponent, PageProps } from "~/helpers/inertia";
-import { Text } from "@mantine/core";
+import { MantineProvider, Text } from "@mantine/core";
 
 import ResumeLayout from "~/components/ResumeLayout";
 import ResumeEducationSection from "~/components/ResumeEducationSection";
@@ -32,11 +32,13 @@ const ResumePage: PageComponent<ResumePageProps> = ({
   );
   const splitEmail = useMemo(() => email!.replace("@", " [at] "), [email]);
   return (
-    <>
+    <MantineProvider inherit theme={{ colorScheme: "light" }}>
       <ResumeLayout {...{ printable }}>
         <Box>
           <Group spacing="xs" position="apart">
-            <Title size="h2">{basics.name}</Title>
+            <Title size="h2" color="dark">
+              {basics.name}
+            </Title>
             <Group spacing="xs" align="center">
               <Badge
                 leftSection={
@@ -46,7 +48,10 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                 }
                 color="dark"
                 variant="outline"
-                styles={({ fontFamilyMonospace }) => ({
+                styles={({ fontFamilyMonospace, colors, fn }) => ({
+                  root: {
+                    borderColor: colors.pink[fn.primaryShade()],
+                  },
                   inner: {
                     fontFamily: fontFamilyMonospace,
                     textTransform: "none",
@@ -73,8 +78,10 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                     sx={({ fontFamilyMonospace }) => ({
                       fontFamily: fontFamilyMonospace,
                     })}
-                    styles={({ fontFamilyMonospace }) => ({
-                      root: { cursor: "pointer" },
+                    styles={({ fontFamilyMonospace, colors, fn }) => ({
+                      root: {
+                        borderColor: colors.pink[fn.primaryShade()],
+                      },
                       inner: {
                         fontFamily: fontFamilyMonospace,
                         textTransform: "none",
@@ -99,7 +106,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
           </Text>
         </Box>
         <Box>
-          <Title order={2} size="h4">
+          <Title order={2} size="h4" color="dark.3" lh={1.3}>
             Experience
           </Title>
           <Stack spacing={8}>
@@ -109,7 +116,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
           </Stack>
         </Box>
         <Box>
-          <Title order={2} size="h4" mb={-1}>
+          <Title order={2} size="h4" color="dark.3" lh={1.3}>
             Skills
           </Title>
           <Stack spacing={4}>
@@ -119,7 +126,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
           </Stack>
         </Box>
         <Box>
-          <Title order={2} size="h4" mb={-1}>
+          <Title order={2} size="h4" color="dark.3" lh={1.3}>
             Education
           </Title>
           <Group spacing="xs" grow>
@@ -146,7 +153,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
         </Box>
       </ResumeLayout>
       {!printable && <ResumePDFDownloadButton />}
-    </>
+    </MantineProvider>
   );
 };
 

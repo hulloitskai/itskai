@@ -14,7 +14,7 @@ const ResumeExperienceSection: FC<ResumeExperienceSectionProps> = ({
   return (
     <Box>
       <Group spacing={8} mb={-4}>
-        <Title order={3} size="h5" color="pink">
+        <Title order={3} size="h5" color="pink" lh={1.4}>
           {institution}
         </Title>
       </Group>

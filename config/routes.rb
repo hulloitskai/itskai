@@ -57,17 +57,11 @@ Rails.application.routes.draw do
   end
 
   # == Obsidian
-  resources :obsidian_notes, path: "entries", only: :show
-
-  # == Linear
-  resources :linear_issues, path: "issues", only: :create
+  # resources :obsidian_notes, path: "entries", only: :show
 
   # == Calendly
   get "/calendly" => "calendly#show"
   get "/hangout" => "calendly#show"
-
-  # == Notify
-  post "/notify" => "notify#create"
 
   # == Errors
   scope controller: :errors do
@@ -78,7 +72,7 @@ Rails.application.routes.draw do
 
   # == Pages
   root "home#show"
-  inertia "/work" => "WorkPage"
+  # inertia "/work" => "WorkPage"
   inertia "/scottkit" => "ScottkitPage"
   get "/test" => "test#show"
   get "/resume" => "resume#show"
