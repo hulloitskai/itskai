@@ -49,7 +49,7 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
   }, [initialValues]);
 
   // == Mutation
-  const onError = useApolloErrorCallback("Failed to change email");
+  const onError = useApolloAlertCallback("Failed to change email");
   const [runMutation, { loading }] = useMutation(
     UserChangeEmailMutationDocument,
     {
@@ -74,8 +74,9 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
           });
         } else {
           invariant(errors, "Missing input errors");
-          setErrors(formErrors(errors));
-          showFormErrors("Could not change email");
+          const formErrors = parseFormErrors(errors);
+          setErrors(formErrors);
+          showFormErrorsAlert(formErrors, "Could not change email");
         }
       },
       onError,
@@ -172,7 +173,7 @@ export type ResendEmailVerificationInstructionsButtonprops = Omit<
 const ResendEmailVerificationInstructionsButton: FC<
   ResendEmailVerificationInstructionsButtonprops
 > = ({ viewer: { email }, ...otherProps }) => {
-  const onError = useApolloErrorCallback(
+  const onError = useApolloAlertCallback(
     "Failed to re-send verification email",
   );
   const [runMutation, { loading }] = useMutation(

@@ -24,7 +24,7 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
   const [commentText, setCommentText] = useState("");
 
   // == Query
-  const onError = useApolloErrorCallback("Failed to load Notion comments");
+  const onError = useApolloAlertCallback("Failed to load Notion comments");
   const { data, loading, refetch } = useQuery(
     JournalEntryCommentsQueryDocument,
     {
@@ -37,7 +37,7 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
   const { comments } = data ?? {};
 
   // == Mutation
-  const onMutationError = useApolloErrorCallback(
+  const onMutationError = useApolloAlertCallback(
     "Failed to create Notion comment",
   );
   const [runMutation, { loading: mutating }] = useMutation(

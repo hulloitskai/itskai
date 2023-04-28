@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { Code, Text } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 
 import { TestMutationDocument } from "~/queries";
@@ -9,22 +10,34 @@ export type TestFormValues = {
 };
 
 const TestForm: FC = () => {
-  const onError = useApolloErrorCallback("Mutation failed!");
-  const [runMutation] = useMutation(TestMutationDocument, {
-    onCompleted: data => {
-      showNotification({
-        title: "You won!",
-        message: JSON.stringify(data),
-      });
+  // == Form
+  const { getInputProps, onSubmit, setErrors, reset } = useForm<TestFormValues>(
+    {
+      initialValues: {
+        name: "",
+        birthday: null,
+      },
+    },
+  );
+
+  // == Mutation
+  const onError = useApolloAlertCallback("Mutation failed!");
+  const [runMutation, { data }] = useMutation(TestMutationDocument, {
+    onCompleted: ({ payload: { model, errors } }) => {
+      if (model) {
+        showNotification({ message: "Mutation successful!" });
+        reset();
+      } else {
+        invariant(errors, "Missing input errors");
+        const formErrors = parseFormErrors(errors);
+        setErrors(formErrors);
+        showFormErrorsAlert(formErrors, "Could not run mutation");
+      }
     },
     onError,
   });
-  const { getInputProps, onSubmit } = useForm<TestFormValues>({
-    initialValues: {
-      name: "",
-      birthday: null,
-    },
-  });
+
+  // == Markup
   return (
     <Stack spacing="xs">
       <Title order={4}>Test Form</Title>
@@ -44,6 +57,17 @@ const TestForm: FC = () => {
           <TextInput label="Name" required {...getInputProps("name")} />
           <DatePickerInput label="Birthday" {...getInputProps("birthday")} />
           <Button type="submit">Submit</Button>
+          {data && (
+            <>
+              <Divider />
+              <Stack spacing={4}>
+                <Text size="sm" weight={600}>
+                  Response:
+                </Text>
+                <Code block>{JSON.stringify(data, undefined, 2)}</Code>
+              </Stack>
+            </>
+          )}
         </Stack>
       </form>
     </Stack>

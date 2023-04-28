@@ -4,19 +4,27 @@
 class ApplicationModel
   extend T::Sig
   extend T::Helpers
+  include StoreModel::Model
 
-  include ActiveModel::Model
-  include ActiveModel::Attributes
-  include GlobalID::Identification
+  # == Serialization
+  sig { overridable.returns(T::Hash[T.any(Symbol, String), T.untyped]) }
+  def to_hash
+    attributes.with_indifferent_access
+  end
 
-  # == Methods: Serialization
-  sig { overridable.returns(T::Hash[String, T.untyped]) }
-  def to_hash = attributes
-
-  sig { returns(T::Hash[String, T.untyped]) }
+  sig { returns(T::Hash[T.any(Symbol, String), T.untyped]) }
   def to_h = to_hash
 
-  # == Methods: GraphQL
+  # == Pattern Matching
+  sig do
+    params(keys: T.nilable(T::Array[Symbol]))
+      .returns(T::Hash[Symbol, T.untyped])
+  end
+  def deconstruct_keys(keys)
+    attributes.symbolize_keys.slice(*keys)
+  end
+
+  # == GraphQL
   sig { returns(InputFieldErrors) }
   def input_field_errors = InputFieldErrors.from(errors)
 end

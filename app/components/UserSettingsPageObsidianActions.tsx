@@ -14,7 +14,7 @@ const UserSettingsPageObsidianActions: FC<
 );
 
 const SynchronizeUpdatedButton: FC = () => {
-  const onError = useApolloErrorCallback("Failed to request synchronization");
+  const onError = useApolloAlertCallback("Failed to request synchronization");
   const [runMutation, { loading }] = useMutation(
     ObsidianNoteSynchronizeMutationDocument,
     {
@@ -44,7 +44,7 @@ const SynchronizeUpdatedButton: FC = () => {
 };
 
 const ResynchronizeAllButton: FC = () => {
-  const onError = useApolloErrorCallback(
+  const onError = useApolloAlertCallback(
     "Failed to request re-synchronization",
   );
   const [runMutation, { loading }] = useMutation(

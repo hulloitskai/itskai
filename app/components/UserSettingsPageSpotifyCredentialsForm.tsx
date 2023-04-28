@@ -14,7 +14,7 @@ const UserSettingsPageOAuthCredentialsForm: FC<
   const router = useRouter();
 
   // == Remove Mutation
-  const onRemoveError = useApolloErrorCallback(
+  const onRemoveError = useApolloAlertCallback(
     "Failed to remove Spotify credentials",
   );
   const [runRemoveMutation, { loading: removing }] = useMutation(

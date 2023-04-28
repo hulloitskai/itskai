@@ -3,6 +3,7 @@
 
 module Types
   class SubscriptionType < BaseObject
+    # == Subscriptions
     field :activity_status, subscription: Subscriptions::ActivityStatus
     field :currently_playing, subscription: Subscriptions::CurrentlyPlaying
     field :test_subscription, subscription: Subscriptions::TestSubscription

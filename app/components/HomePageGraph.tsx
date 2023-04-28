@@ -15,7 +15,7 @@ const HomePageGraph: FC<HomePageGraphProps> = ({ ...otherProps }) => {
       .minus(Duration.fromObject({ weeks: 1 }))
       .toISO();
   }, []);
-  const onError = useApolloErrorCallback("Failed to load Obsidian entries");
+  const onError = useApolloAlertCallback("Failed to load Obsidian entries");
   const { data, loading, fetchMore } = useQuery(HomePageGraphQueryDocument, {
     variables: {
       modifiedAfter: oneWeekAgo,

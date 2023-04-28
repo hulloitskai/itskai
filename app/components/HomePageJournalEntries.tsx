@@ -24,7 +24,7 @@ const HomePageJournalEntries: FC<HomePageJournalEntriesProps> = ({
   const router = useRouter();
 
   // == Query
-  const onError = useApolloErrorCallback("Failed to load journal entries");
+  const onError = useApolloAlertCallback("Failed to load journal entries");
   const { data, previousData, loading } = useQuery(
     HomePageJournalEntriesQueryDocument,
     {

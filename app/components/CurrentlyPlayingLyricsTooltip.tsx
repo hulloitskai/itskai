@@ -105,7 +105,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
           lineHeight: 1.3,
         },
       }}
-      {...(currentlyExplicit === false && { opened: hasWords })}
+      {...(currentlyExplicit === false && { opened: !disabled && hasWords })}
       {...{ ref }}
       {...otherProps}
     >

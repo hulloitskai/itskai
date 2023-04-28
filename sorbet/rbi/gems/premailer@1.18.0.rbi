@@ -267,7 +267,7 @@ module Premailer::Adapter::Nokogiri
   #
   # @return [::Nokogiri::XML] a document.
   #
-  # source://premailer//lib/premailer/adapter/nokogiri.rb#218
+  # source://premailer//lib/premailer/adapter/nokogiri.rb#214
   def load_html(input); end
 
   # Merge CSS into the HTML document.
@@ -283,14 +283,14 @@ module Premailer::Adapter::Nokogiri
   #
   # @return [String] a plain text.
   #
-  # source://premailer//lib/premailer/adapter/nokogiri.rb#194
+  # source://premailer//lib/premailer/adapter/nokogiri.rb#190
   def to_plain_text; end
 
   # Gets the original HTML as a string.
   #
   # @return [String] HTML.
   #
-  # source://premailer//lib/premailer/adapter/nokogiri.rb#207
+  # source://premailer//lib/premailer/adapter/nokogiri.rb#203
   def to_s; end
 
   # Create a <tt>style</tt> element with un-mergable rules (e.g. <tt>:hover</tt>)
@@ -300,7 +300,7 @@ module Premailer::Adapter::Nokogiri
   #
   # @return [::Nokogiri::XML] a document.
   #
-  # source://premailer//lib/premailer/adapter/nokogiri.rb#170
+  # source://premailer//lib/premailer/adapter/nokogiri.rb#166
   def write_unmergable_css_rules(doc, unmergable_rules); end
 end
 
@@ -314,7 +314,7 @@ module Premailer::Adapter::NokogiriFast
   #
   # @return [::Nokogiri::XML] a document.
   #
-  # source://premailer//lib/premailer/adapter/nokogiri_fast.rb#222
+  # source://premailer//lib/premailer/adapter/nokogiri_fast.rb#214
   def load_html(input); end
 
   # Merge CSS into the HTML document.
@@ -330,14 +330,14 @@ module Premailer::Adapter::NokogiriFast
   #
   # @return [String] a plain text.
   #
-  # source://premailer//lib/premailer/adapter/nokogiri_fast.rb#198
+  # source://premailer//lib/premailer/adapter/nokogiri_fast.rb#190
   def to_plain_text; end
 
   # Gets the original HTML as a string.
   #
   # @return [String] HTML.
   #
-  # source://premailer//lib/premailer/adapter/nokogiri_fast.rb#211
+  # source://premailer//lib/premailer/adapter/nokogiri_fast.rb#203
   def to_s; end
 
   # Create a <tt>style</tt> element with un-mergable rules (e.g. <tt>:hover</tt>)
@@ -347,7 +347,7 @@ module Premailer::Adapter::NokogiriFast
   #
   # @return [::Nokogiri::XML] a document.
   #
-  # source://premailer//lib/premailer/adapter/nokogiri_fast.rb#174
+  # source://premailer//lib/premailer/adapter/nokogiri_fast.rb#166
   def write_unmergable_css_rules(doc, unmergable_rules); end
 
   private
@@ -358,7 +358,7 @@ module Premailer::Adapter::NokogiriFast
   # @param descendants The running hash map of node -> set of nodes that maps descendants of a node.
   # @return The descendants argument after updating it.
   #
-  # source://premailer//lib/premailer/adapter/nokogiri_fast.rb#325
+  # source://premailer//lib/premailer/adapter/nokogiri_fast.rb#324
   def index_ancestry(doc, elem, parent, descendants); end
 
   # For very large documents, it is useful to trade off some memory for performance.
@@ -369,7 +369,7 @@ module Premailer::Adapter::NokogiriFast
   # @return [index, set_of_all_nodes, descendants] The index is a hash from key to set of nodes.
   #   The "descendants" is a hash mapping a node to the set of its descendant nodes.
   #
-  # source://premailer//lib/premailer/adapter/nokogiri_fast.rb#276
+  # source://premailer//lib/premailer/adapter/nokogiri_fast.rb#275
   def make_index(page); end
 
   # Note that fancy CSS selector syntax is not supported. Anything
@@ -382,7 +382,7 @@ module Premailer::Adapter::NokogiriFast
   # @param selector A simple CSS tree matching selector of the form "div.container p.item span"
   # @return Set of matching nodes
   #
-  # source://premailer//lib/premailer/adapter/nokogiri_fast.rb#356
+  # source://premailer//lib/premailer/adapter/nokogiri_fast.rb#355
   def match_selector(index, all_nodes, descendants, selector); end
 
   # @param index An index hash returned by make_index
@@ -391,7 +391,7 @@ module Premailer::Adapter::NokogiriFast
   #   "hello.world" or "#blue.diamond". This should not contain spaces.
   # @return Set of nodes matching the given spec that are present in the base set.
   #
-  # source://premailer//lib/premailer/adapter/nokogiri_fast.rb#340
+  # source://premailer//lib/premailer/adapter/nokogiri_fast.rb#339
   def narrow_down_nodes(index, base, intersection_selector); end
 end
 
@@ -405,7 +405,7 @@ module Premailer::Adapter::Nokogumbo
   #
   # @return [::Nokogiri::XML] a document.
   #
-  # source://premailer//lib/premailer/adapter/nokogumbo.rb#216
+  # source://premailer//lib/premailer/adapter/nokogumbo.rb#208
   def load_html(input); end
 
   # Merge CSS into the HTML document.
@@ -421,14 +421,14 @@ module Premailer::Adapter::Nokogumbo
   #
   # @return [String] a plain text.
   #
-  # source://premailer//lib/premailer/adapter/nokogumbo.rb#192
+  # source://premailer//lib/premailer/adapter/nokogumbo.rb#184
   def to_plain_text; end
 
   # Gets the original HTML as a string.
   #
   # @return [String] HTML.
   #
-  # source://premailer//lib/premailer/adapter/nokogumbo.rb#205
+  # source://premailer//lib/premailer/adapter/nokogumbo.rb#197
   def to_s; end
 
   # Create a <tt>style</tt> element with un-mergable rules (e.g. <tt>:hover</tt>)
@@ -438,7 +438,7 @@ module Premailer::Adapter::Nokogumbo
   #
   # @return [::Nokogiri::XML] a document.
   #
-  # source://premailer//lib/premailer/adapter/nokogumbo.rb#168
+  # source://premailer//lib/premailer/adapter/nokogumbo.rb#160
   def write_unmergable_css_rules(doc, unmergable_rules); end
 end
 

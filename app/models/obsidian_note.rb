@@ -79,7 +79,7 @@ class ObsidianNote < ApplicationRecord
   before_validation :set_plain_blurb, if: :will_save_change_to_blurb?
   after_commit :analyze_later, on: %i[create update], if: :analysis_required?
 
-  # == Methods: Synchronization
+  # == Synchronization
   sig { params(force: T::Boolean).void }
   def self.synchronize_all(force: false)
     ObsidianNoteSynchronizationJob.perform_now(force:)
@@ -111,7 +111,7 @@ class ObsidianNote < ApplicationRecord
   sig { returns(T::Boolean) }
   def synchronized? = synchronized_at?
 
-  # == Methods: Analysis
+  # == Analysis
   sig { params(force: T::Boolean).void }
   def self.analyze_all(force: false)
     ObsidianNoteAnalysisJob.perform_now(force:)

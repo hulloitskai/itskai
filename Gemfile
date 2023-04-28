@@ -6,6 +6,9 @@ ruby "3.2.0"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
 
+# JSON-backed, nestable models
+gem "store_model", "~> 1.6"
+
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.5"
 

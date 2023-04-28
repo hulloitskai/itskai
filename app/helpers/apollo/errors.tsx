@@ -14,13 +14,13 @@ export const formatApolloError = (error: ApolloError): string => {
   return message;
 };
 
-export const useApolloErrorCallback = (
-  title?: string,
+export const useApolloAlertCallback = (
+  title: string,
 ): ((error: ApolloError) => void) => {
   return useCallback(
     error => {
       const message = formatApolloError(error);
-      console.error(title ?? "Unknown query error", { error });
+      console.error(title, { error });
       showAlert({ title, message });
     },
     [showNotification, title],

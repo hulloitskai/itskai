@@ -37,6 +37,11 @@ class User < ApplicationRecord
   MIN_PASSWORD_ENTROPY = T.let(14, Integer)
 
   # == Attributes
+  sig { returns(String) }
+  def email_with_name
+    ActionMailer::Base.email_address_with_name(email, name)
+  end
+
   sig { override.params(value: String).returns(String) }
   def email=(value)
     self.unconfirmed_email = nil if value == email && unconfirmed_email?
@@ -61,7 +66,7 @@ class User < ApplicationRecord
             },
             allow_nil: true
 
-  # == Methods: Owner
+  # == Owner
   sig { returns(String) }
   def self.owner_email
     return @owner_email if defined?(@owner_email)
@@ -73,7 +78,7 @@ class User < ApplicationRecord
 
   sig { returns(User) }
   def self.owner!
-    owner or raise ActiveRecord::RecordNotFound
+    owner or raise ActiveRecord::RecordNotFound, "Missing owner"
   end
 
   sig { returns(T::Boolean) }
@@ -81,19 +86,13 @@ class User < ApplicationRecord
     email == User.owner_email
   end
 
-  # == Methods
-  sig { returns(String) }
-  def email_with_name
-    ActionMailer::Base.email_address_with_name(email, name)
-  end
-
-  # == Methods: Sentry
+  # == Sentry
   sig { returns(T::Hash[String, T.untyped]) }
   def sentry_info
     { "id" => id, "email" => email }
   end
 
-  # == Methods: FullStory
+  # == FullStory
   sig { returns(T::Hash[String, T.untyped]) }
   def fullstory_identity
     { "uid" => id, "email" => email, "displayName" => name }

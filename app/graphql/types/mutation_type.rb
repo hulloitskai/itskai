@@ -3,6 +3,7 @@
 
 module Types
   class MutationType < BaseObject
+    # == Mutations
     field :test_mutation, mutation: Mutations::TestMutation
 
     field :user_change_email, mutation: Mutations::UserChangeEmail

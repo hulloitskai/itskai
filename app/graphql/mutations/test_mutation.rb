@@ -5,7 +5,7 @@ module Mutations
   class TestMutation < BaseMutation
     # == Payload
     class Payload < T::Struct
-      const :errors, T.nilable(ActiveModel::Errors)
+      const :errors, T.nilable(InputFieldErrors)
       const :model, T.nilable(TestModel)
     end
 
@@ -24,7 +24,7 @@ module Mutations
       if model.valid?
         Payload.new(model:)
       else
-        Payload.new(errors: model.errors)
+        Payload.new(errors: model.input_field_errors)
       end
     end
   end

@@ -22,7 +22,7 @@ const UserSendPasswordResetInstructionsPageForm: FC<
     });
 
   // == Mutation
-  const onError = useApolloErrorCallback("Failed to send password reset email");
+  const onError = useApolloAlertCallback("Failed to send password reset email");
   const [runMutation, { loading }] = useMutation(
     UserSendPasswordResetInstructionsMutationDocument,
     {

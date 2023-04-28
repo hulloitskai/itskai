@@ -61,7 +61,7 @@ const UserSettingsPageICloudCredentialsForm: FC<
   }, [initialValues]);
 
   // == Update Mutation
-  const onUpdateError = useApolloErrorCallback(
+  const onUpdateError = useApolloAlertCallback(
     "Failed to update iCloud credentials",
   );
   const [runUpdateMutation, { loading: updating }] = useMutation(
@@ -90,8 +90,12 @@ const UserSettingsPageICloudCredentialsForm: FC<
           });
         } else {
           invariant(errors, "Missing input errors");
-          setErrors(formErrors(errors));
-          showFormErrors("Could not update iCloud credentials");
+          const formErrors = parseFormErrors(errors);
+          setErrors(formErrors);
+          showFormErrorsAlert(
+            formErrors,
+            "Could not update iCloud credentials",
+          );
         }
       },
       onError: onUpdateError,
@@ -99,7 +103,7 @@ const UserSettingsPageICloudCredentialsForm: FC<
   );
 
   // == Remove Mutation
-  const onRemoveError = useApolloErrorCallback(
+  const onRemoveError = useApolloAlertCallback(
     "Failed to remove iCloud credentials",
   );
   const [runRemoveMutation, { loading: removing }] = useMutation(
@@ -216,7 +220,7 @@ const VerifySecurityCodeModalContent: FC = () => {
   const { getInputProps, onSubmit } = useForm({
     initialValues: { code: "" },
   });
-  const onError = useApolloErrorCallback("Failed to verify code");
+  const onError = useApolloAlertCallback("Failed to verify code");
   const [runMutation, { loading }] = useMutation(
     ICloudCredentialsVerifySecurityCodeMutationDocument,
     {

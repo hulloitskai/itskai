@@ -22,7 +22,7 @@ const UserSendEmailVerificationInstructionsPageForm: FC<
     });
 
   // == Mutation
-  const onError = useApolloErrorCallback("Failed to resend verification email");
+  const onError = useApolloAlertCallback("Failed to resend verification email");
   const [runMutation, { loading }] = useMutation(
     UserSendEmailVerificationInstructionsMutationDocument,
     {

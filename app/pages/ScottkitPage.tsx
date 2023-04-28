@@ -109,7 +109,7 @@ const KitButton: FC<KitButtonProps> = ({ type, description }) => {
   );
 
   // == Mutation
-  const onError = useApolloErrorCallback("Failed to send Scottkit signal");
+  const onError = useApolloAlertCallback("Failed to send Scottkit signal");
   const [runMutation, { loading }] = useMutation(
     ScottkitSignalMutationDocument,
     {

@@ -13,7 +13,7 @@ const ObsidianNotePageGraph: FC<ObsidianNotePageGraphProps> = ({
   noteId,
   ...otherProps
 }) => {
-  const onError = useApolloErrorCallback(
+  const onError = useApolloAlertCallback(
     "Failed to load related Obsidian entries",
   );
   const { data, loading } = useQuery(ObsidianNotePageGraphQueryDocument, {

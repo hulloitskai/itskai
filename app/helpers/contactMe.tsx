@@ -9,7 +9,7 @@ export type ContactMeOptions = {
 export const useContactMe = (
   options?: ContactMeOptions,
 ): [() => void, Pick<QueryResult, "loading" | "error" | "called">] => {
-  const onError = useApolloErrorCallback("Failed to load contact email");
+  const onError = useApolloAlertCallback("Failed to load contact email");
   const [runQuery, { loading, error, called }] = useLazyQuery(
     ContactEmailQueryDocument,
     {

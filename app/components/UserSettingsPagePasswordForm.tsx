@@ -80,7 +80,7 @@ const UserSettingsPagePasswordForm: FC<
                 setFieldValue("currentPassword", "");
               }
               setErrors(errors);
-              showFormErrors("Could not change password");
+              showFormErrorsAlert(errors, "Could not change password");
             },
             onFinish: () => setLoading(false),
           });

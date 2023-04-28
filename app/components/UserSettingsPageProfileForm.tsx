@@ -31,7 +31,7 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
   }, [initialValues]);
 
   // == Mutation
-  const onError = useApolloErrorCallback("Failed to update profile");
+  const onError = useApolloAlertCallback("Failed to update profile");
   const [runMutation, { loading }] = useMutation(UserUpdateMutationDocument, {
     onCompleted: ({ payload: { user, errors } }) => {
       if (user) {
@@ -42,8 +42,9 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
         });
       } else {
         invariant(errors, "Missing input errors");
-        setErrors(formErrors(errors));
-        showFormErrors("Could not update profile");
+        const formErrors = parseFormErrors(errors);
+        setErrors(formErrors);
+        showFormErrorsAlert(formErrors, "Could not update profile");
       }
     },
     onError,

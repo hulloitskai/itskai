@@ -3,6 +3,13 @@
 
 class ICloudService < ApplicationService
   class << self
+    # == Service
+    sig { override.returns(T::Boolean) }
+    def enabled?
+      return @enabled if defined?(@enabled)
+      @enabled = !!(super && !ENV["ICLOUD_ENABLED"].falsy?)
+    end
+
     # == Methods
     sig { returns(ICloudCredentials) }
     def credentials

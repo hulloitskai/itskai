@@ -1,6 +1,6 @@
 import scrollIntoView from "scroll-into-view";
 
-import type { FormErrors, UseFormReturnType } from "@mantine/form";
+import type { UseFormReturnType } from "@mantine/form";
 import type {
   GetFieldStatus,
   GetInputPropsType,
@@ -9,14 +9,25 @@ import type {
 
 import type { InputFieldError } from "~/queries";
 
-export const formErrors = (errors: InputFieldError[]): FormErrors => {
+export const parseFormErrors = (
+  errors: InputFieldError[],
+): Record<string, string> => {
   return Object.fromEntries(
     errors.map(({ field, message }) => [field, message]),
   );
 };
 
-export const showFormErrors = (message: string): void => {
-  showAlert({ message });
+export const showFormErrorsAlert = (
+  errors: Record<string, string>,
+  title: string,
+): void => {
+  let message: string;
+  if ("base" in errors) {
+    message = errors["base"];
+  } else {
+    message = `Invalid fields: ${Object.keys(errors)}`;
+  }
+  showAlert({ title, message });
   setTimeout(() => {
     if (isEmpty(document.getElementsByClassName("mantine-Modal-root"))) {
       const element = document.querySelector('[aria-invalid="true"]');

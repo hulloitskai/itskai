@@ -40,10 +40,10 @@ class ApplicationRecord < ActiveRecord::Base
   scope :reverse_chronological, -> { order(created_at: :desc) }
 
   # == Serialization
-  sig { overridable.returns(T::Hash[String, T.untyped]) }
+  sig { overridable.returns(T::Hash[T.any(Symbol, String), T.untyped]) }
   def to_hash = build_hash
 
-  sig { returns(T::Hash[String, T.untyped]) }
+  sig { returns(T::Hash[T.any(Symbol, String), T.untyped]) }
   def to_h = to_hash
 
   # == Pattern Matching
@@ -51,8 +51,8 @@ class ApplicationRecord < ActiveRecord::Base
     params(keys: T.nilable(T::Array[Symbol]))
       .returns(T::Hash[Symbol, T.untyped])
   end
-  def deconstruct_keys(keys = [])
-    serializable_hash(only: keys).symbolize_keys!
+  def deconstruct_keys(keys)
+    serializable_hash(only: keys || []).symbolize_keys!
   end
 
   # == GraphQL
@@ -63,10 +63,10 @@ class ApplicationRecord < ActiveRecord::Base
 
   # == Helpers
   sig do
-    params(hash: T.nilable(T::Hash[String, T.untyped]), options: T.untyped)
-      .returns(T::Hash[String, T.untyped])
+    params(options: T.untyped)
+      .returns(T::Hash[T.any(Symbol, String), T.untyped])
   end
-  def build_hash(hash = nil, **options)
+  def build_hash(**options)
     default_options = { except: self.class.filter_attributes }
     options = default_options.deep_merge(options)
     hash = serializable_hash(options).with_indifferent_access
