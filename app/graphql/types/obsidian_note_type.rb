@@ -37,7 +37,8 @@ module Types
 
     sig { returns(String) }
     def url
-      obsidian_note_url(object)
+      raise NotImplementedError
+      # obsidian_note_url(object)
     end
 
     private

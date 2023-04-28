@@ -4,9 +4,25 @@ on:
   - push
   - pull_request
 
+env:
+  RAILS_ENV: test
+  OWNER_LOGIN_EMAIL: test@example.com
+
 jobs:
   check:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgis/postgis:15-3.3
+        env:
+          POSTGRES_PASSWORD: "postgres"
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -22,9 +38,13 @@ jobs:
           node-version-file: .node-version
           cache: yarn
           cache-dependency-path: "**/yarn.lock"
-      - name: Install dependencies
-        run: bundle install
+      - name: Set up Python
+        uses: actions/setup-python@v4
+      - name: Set up environment
+        run: bin/setup
       - name: Check formatting
         run: bin/fmt
       - name: Check lints
         run: bin/lint
+      - name: Run tests
+        run: bin/rails test:all

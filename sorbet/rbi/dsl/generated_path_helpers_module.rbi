@@ -42,9 +42,6 @@ module GeneratedPathHelpersModule
   def jen_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def linear_issues_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def login_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -67,12 +64,6 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def new_user_session_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def notify_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def obsidian_note_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_path(*args); end
@@ -184,7 +175,4 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def user_spotify_omniauth_callback_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def work_path(*args); end
 end

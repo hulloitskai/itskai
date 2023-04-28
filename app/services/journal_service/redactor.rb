@@ -37,10 +37,10 @@ class JournalService
     def redacted_phrases
       @redacted_phrases = T.let(@redacted_phrases, T.nilable(T::Array[String]))
       @redacted_phrases ||= scoped do
-        property = entry.properties["Redact"]["rich_text"].first!
-        if property.present?
-          text = T.let(property.plain_text, String)
-          text.strip.split(",").map(&:strip)
+        case entry.properties["Redact"]["rich_text"].first
+        in { plain_text: }
+          property = T.let(plain_text, String)
+          property.strip.split(",").map(&:strip)
         else
           []
         end

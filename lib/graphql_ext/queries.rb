@@ -27,7 +27,8 @@ class GraphQL::Queries
   sig { params(name: String, kwargs: T.untyped).returns(Result) }
   def execute(name, **kwargs)
     document = build_query_document(name)
-    Schema.execute(document:, **kwargs) => { data:, errors: }
+    result = Schema.execute(document:, **kwargs)
+    data, errors = result.to_h.values_at("data", "errors")
     Result.new(data:, errors:)
   end
 

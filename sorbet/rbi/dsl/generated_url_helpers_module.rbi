@@ -42,9 +42,6 @@ module GeneratedUrlHelpersModule
   def jen_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def linear_issues_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def login_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -67,12 +64,6 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def new_user_session_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def notify_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def obsidian_note_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_representation_proxy_url(*args); end
@@ -184,7 +175,4 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def user_spotify_omniauth_callback_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def work_url(*args); end
 end

@@ -26,6 +26,9 @@ FileUtils.chdir APP_ROOT do
   system!("bin/yarn --silent install") &&
     puts("Node dependencies are installed")
 
+  puts "\n=> Install Python dependencies"
+  system!("pip install -r requirements.txt")
+
   puts "\n=> Installing githooks"
   system! "bin/yarn --silent husky install"
 
@@ -35,8 +38,13 @@ FileUtils.chdir APP_ROOT do
   # end
 
   puts "\n=> Starting database"
-  system! "docker compose up -d postgres --no-log-prefix"
-  sleep(1)
+  case ENV["CI"]
+  when "", nil
+    system! "docker compose up -d postgres --no-log-prefix"
+    sleep(2)
+  else
+    puts "Running on CI; skipping"
+  end
 
   puts "\n=> Preparing database"
   system! "bin/rails db:prepare"

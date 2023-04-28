@@ -41,15 +41,15 @@ const HomePageJournalEntries: FC<HomePageJournalEntriesProps> = ({
     <>
       <Box ref={topRef} />
       <Stack maw={540} {...otherProps}>
-        {loading ? (
-          <CardSkeleton />
-        ) : (
+        {data ? (
           <Suspense fallback={<CardSkeleton />}>
             {items.map(page => {
               const { id: pageId } = page;
               return <JournalEntry key={pageId} {...{ page }} />;
             })}
           </Suspense>
+        ) : (
+          <CardSkeleton />
         )}
         <Center>
           <Transition transition="fade" mounted={!loading}>

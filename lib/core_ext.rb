@@ -1,6 +1,9 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "active_support"
+require "sorbet-runtime"
+
 class Object
   T::Sig::WithoutRuntime.sig { params(modules: Module).returns(T::Boolean) }
   def is_any?(*modules) # rubocop:disable Naming/PredicateName
