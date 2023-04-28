@@ -44,8 +44,7 @@ module GraphQL::Querying
     result = query(name, variables)
     data, errors = result.data, result.errors
     if errors.present?
-      error = T.must(errors.first)
-      raise error.fetch("message")
+      errors.first!.fetch("message")
     end
     data or raise "No data from query"
   end

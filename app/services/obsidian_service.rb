@@ -7,7 +7,7 @@ class ObsidianService < ApplicationService
     sig { override.returns(T::Boolean) }
     def enabled?
       return @enabled if defined?(@enabled)
-      @enabled = T.must(super && ICloudService.enabled?)
+      @enabled = !!(super && ICloudService.enabled?)
     end
 
     # == Methods
@@ -48,7 +48,7 @@ class ObsidianService < ApplicationService
   # == Methods
   sig { override.returns(T::Boolean) }
   def ready?
-    T.must(super && ICloudService.ready?)
+    !!(super && ICloudService.ready?)
   end
 
   sig { returns(T::Array[String]) }
@@ -118,7 +118,9 @@ class ObsidianService < ApplicationService
   end
 
   sig { params(name: String).returns(ObsidianNote) }
-  def note!(name) = T.must(note(name))
+  def note!(name)
+    note(name) or raise "No such note `#{name}'"
+  end
 
   private
 

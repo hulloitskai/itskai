@@ -64,7 +64,8 @@ class User < ApplicationRecord
   # == Methods: Owner
   sig { returns(String) }
   def self.owner_email
-    @owner_email ||= ENV.fetch("OWNER_LOGIN_EMAIL")
+    return @owner_email if defined?(@owner_email)
+    @owner_email = ENV.fetch("OWNER_LOGIN_EMAIL")
   end
 
   sig { returns(T.nilable(User)) }

@@ -110,8 +110,7 @@ module Users
           .group_by_attribute
           .transform_keys! { |key| key.to_s.camelize(:lower) }
           .transform_values! do |errors|
-            error = T.must(errors.first)
-            error.message.upcase_first
+            errors.first!.message.upcase_first
           end
       error_bag.present? ? { error_bag => errors } : errors
     end

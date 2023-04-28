@@ -16,7 +16,7 @@ class ICloudService < ApplicationService
 
     sig { returns(Drive) }
     def drive
-      checked  { instance.drive }
+      checked { instance.drive }
     end
 
     sig { params(code: T.nilable(String)).returns(T::Boolean) }
@@ -37,10 +37,8 @@ class ICloudService < ApplicationService
   # == Service
   sig { override.returns(T::Boolean) }
   def ready?
-    T.must(
-      super && @credentials.present? && @client.present? && \
-        !@client.requires_security_code?,
-    )
+    !!(super && @credentials.present? && @client.present? && \
+        !@client.requires_security_code?)
   end
 
   sig { override.void }

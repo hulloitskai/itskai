@@ -13,7 +13,7 @@ module Users
           redirect_to(after_confirmation_path_for(resource_name, resource))
         end
       else
-        message = resource.errors.full_messages.first
+        message = resource.errors.full_messages.first!
         redirect_to(new_confirmation_path(resource), alert: message)
       end
     end

@@ -12,8 +12,8 @@ module Queries
     # == Resolver
     sig { returns(String) }
     def resolve
-      @email = T.let(@email, T.nilable(String))
-      @email ||= ENV.fetch("OWNER_CONTACT_EMAIL")
+      return @email if defined?(@email)
+      @email = ENV.fetch("OWNER_CONTACT_EMAIL")
     end
   end
 end

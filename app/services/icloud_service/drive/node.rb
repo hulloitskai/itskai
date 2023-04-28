@@ -48,7 +48,7 @@ class ICloudService
 
       sig { returns(ActiveSupport::TimeWithZone) }
       def modified_at!
-        T.must(modified_at)
+        modified_at or raise "Missing `modified_at' attribute"
       end
 
       protected

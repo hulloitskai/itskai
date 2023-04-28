@@ -51,7 +51,7 @@ class ICloudService
     # == Helpers
     sig { returns(ICloudCredentials) }
     def credentials!
-      T.must(credentials)
+      credentials or raise "Missing credentials"
     end
 
     sig { void }

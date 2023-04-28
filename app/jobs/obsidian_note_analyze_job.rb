@@ -8,7 +8,7 @@ class ObsidianNoteAnalyzeJob < ApplicationJob
   good_job_control_concurrency_with(
     key: -> do
       T.bind(self, ObsidianNoteAnalyzeJob)
-      note = T.let(arguments.first, ObsidianNote)
+      note = T.let(arguments.first!, ObsidianNote)
       "#{self.class.name}:#{note.id}"
     end,
     total_limit: 1,
@@ -36,7 +36,7 @@ class ObsidianNoteAnalyzeJob < ApplicationJob
     links.map! do |link|
       link.delete_prefix!("[[")
       link.delete_suffix!("]]")
-      link.split("|").first
+      link.split("|").first!
     end
     links.uniq!
     references = ObsidianNote.where(name: links).select(:id, :name)
@@ -57,19 +57,20 @@ class ObsidianNoteAnalyzeJob < ApplicationJob
     root = Markly.parse(note.content)
     node = T.let(root.first, T.nilable(Markly::Node))
     if node.present? && node.type.in?(%i[paragraph quote])
-      note.blurb = node.to_plaintext.then do |text|
+      blurb = node.to_plaintext.then do |text|
         text = T.let(text, String)
         text.strip!
         text.tr!("\n", " ")
         text
-      end.presence
+      end
+      note.blurb = blurb.presence
     end
   end
 
   # == Callbacks
   sig { void }
   def update_activity_status
-    note = T.let(arguments.first, ObsidianNote)
+    note = T.let(arguments.first!, ObsidianNote)
     ActivityService.update_status("Analyzing note: #{note.name}")
   end
 end

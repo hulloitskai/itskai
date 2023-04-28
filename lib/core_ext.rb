@@ -100,6 +100,11 @@ class NilClass
   end
 end
 
+class Array
+  T::Sig::WithoutRuntime.sig { returns(Elem) }
+  def first! = fetch(0)
+end
+
 module Kernel
   # Execute the provided block; used to as an alternative to (begin...end) that
   # does not pollute the local scope with variables declared in the block.

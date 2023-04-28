@@ -7,7 +7,7 @@ class JournalService < ApplicationService
     sig { override.returns(T::Boolean) }
     def enabled?
       return !!@enabled if defined?(@enabled)
-      @enabled = T.must(super && notion_ready? && database_id.present?)
+      @enabled = !!(super && notion_ready? && database_id.present?)
     end
 
     # == Methods
@@ -17,10 +17,7 @@ class JournalService < ApplicationService
         options: T.untyped,
       ).returns(T.untyped)
     end
-    def list_entries(
-      published: nil,
-      **options
-    )
+    def list_entries(published: nil, **options)
       checked do
         instance.list_entries(
           published:,
@@ -30,10 +27,7 @@ class JournalService < ApplicationService
     end
 
     sig { params(entry_id: String, options: T.untyped).returns(T.untyped) }
-    def list_comments(
-      entry_id:,
-      **options
-    )
+    def list_comments(entry_id:, **options)
       checked do
         instance.list_comments(**T.unsafe({
           entry_id:,
@@ -46,10 +40,7 @@ class JournalService < ApplicationService
     def retrieve_blocks(entry:) = instance.retrieve_blocks(entry:)
 
     sig { params(entry_id: String, text: String).returns(T.untyped) }
-    def create_comment(
-      entry_id:,
-      text:
-    )
+    def create_comment(entry_id:, text:)
       checked do
         instance.create_comment(
           entry_id:,
@@ -122,10 +113,7 @@ class JournalService < ApplicationService
   end
 
   sig { params(entry_id: String, text: String).returns(T.untyped) }
-  def create_comment(
-    entry_id:,
-    text:
-  )
+  def create_comment(entry_id:, text:)
     client.create_comment(
       parent: {
         page_id: entry_id,

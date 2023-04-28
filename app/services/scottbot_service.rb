@@ -7,8 +7,8 @@ class ScottbotService < ApplicationService
     sig { override.returns(T::Boolean) }
     def enabled?
       return !!@enabled if defined?(@enabled)
-      @enabled = T.must(super && \
-        [discord_token, discord_channel_id].all?(&:present?))
+      @enabled = !!(super && [discord_token,
+                              discord_channel_id,].all?(&:present?))
     end
 
     # == Methods

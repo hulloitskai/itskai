@@ -25,14 +25,12 @@ class ApplicationController < ActionController::Base
   # == Helpers
   sig { returns(T::Hash[Symbol, T.untyped]) }
   def error_context
-    context = current_user.try! do |user|
-      user = T.let(user, User)
-      {
-        user_id: user.id,
-        user_email: user.email,
-      }
+    case current_user
+    in { id:, email: }
+      { user_id: id, user_email: email }
+    else
+      {}
     end
-    context || {}
   end
 
   # == Filters

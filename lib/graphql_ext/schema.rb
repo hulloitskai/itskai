@@ -12,12 +12,12 @@ class GraphQL::Schema
 
     sig { returns(GraphQL::Queries) }
     def queries!
-      T.must(queries)
+      queries or raise "Queries not installed"
     end
 
     sig { returns(GraphQL::Subscriptions) }
     def subscriptions!
-      T.must(subscriptions)
+      subscriptions or raise "Subscriptions not installed"
     end
   end
 end

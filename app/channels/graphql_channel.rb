@@ -24,8 +24,7 @@ class GraphQLChannel < ApplicationCable::Channel
     params(data: T::Hash[String, T.untyped]).returns(T.untyped)
   end
   def execute(data)
-    params = T.let(data.with_indifferent_access,
-                   T::Hash[T.any(Symbol, String), T.untyped])
+    params = data.with_indifferent_access
 
     operation_name = params["operationName"]
     unless operation_name.nil?
@@ -72,8 +71,7 @@ class GraphQLChannel < ApplicationCable::Channel
   def action_signature(action, data)
     signature = +"#{self.class.name}##{action}"
     config = GraphQL::RailsLogger.configuration
-    params = T.let(data.with_indifferent_access,
-                   T::Hash[T.any(Symbol, String), T.untyped])
+    params = data.with_indifferent_access
 
     # Initialize lexers and formatters.
     formatter = Rouge::Formatters::Terminal256.new(config.theme)

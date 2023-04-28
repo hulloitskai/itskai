@@ -15,7 +15,7 @@ class ApplicationRecord < ActiveRecord::Base
         missing_columns = column_names.map(&:to_s) - self.column_names
         if missing_columns.present?
           subject = if missing_columns.count == 1
-            "column `#{missing_columns.first}'"
+            "column `#{missing_columns.first!}'"
           else
             missing_columns_sentence =
               missing_columns.map { |name| "`#{name}'" }.to_sentence

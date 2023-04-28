@@ -26,7 +26,7 @@ class ICloudCredentials < ApplicationRecord
   # == Attributes
   sig { returns(ActiveSupport::TimeWithZone) }
   def updated_at!
-    T.must(updated_at)
+    updated_at or raise "Missing `updated_at' attribute"
   end
 
   # == Validations

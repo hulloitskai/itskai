@@ -10,7 +10,7 @@ class SpotifyService < ApplicationService
     sig { override.returns(T::Boolean) }
     def enabled?
       return !!@enabled if defined?(@enabled)
-      @enabled = T.must(super && [client_id, client_secret].all?(&:present?))
+      @enabled = !!(super && [client_id, client_secret].all?(&:present?))
     end
 
     # == Methods
@@ -61,7 +61,7 @@ class SpotifyService < ApplicationService
   # == Service
   sig { override.returns(T::Boolean) }
   def ready?
-    T.must(super && @user.present?)
+    !!(super && @user.present?)
   end
 
   sig { override.void }

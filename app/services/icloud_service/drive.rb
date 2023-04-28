@@ -20,9 +20,8 @@ class ICloudService
       node = T.let(root, T.nilable(Node))
       path = Pathname.new(path) if path.is_a?(String)
       path.each_filename do |name|
-        node = T.must(node)
-        node = node.children.find { |node| node.name == name }
         break if node.nil?
+        node = node.children.find { |node| node.name == name }
       end
       node
     end
