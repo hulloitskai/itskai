@@ -2,7 +2,7 @@ import type { MantineThemeOverride } from "@mantine/core";
 
 export const theme: MantineThemeOverride = {
   colorScheme: "dark",
-  primaryColor: "dark",
+  primaryColor: "pink",
   fontFamily:
     "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, " +
     "Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji",
@@ -16,22 +16,8 @@ export const theme: MantineThemeOverride = {
       outlineWidth: 1.5,
       outlineColor: colors.indigo[colorScheme === "dark" ? 7 : 5],
     }),
-    inputStyles: theme => ({
-      outline: "none",
-      borderColor:
-        theme.colors.pink[
-          typeof theme.primaryShade === "object"
-            ? theme.primaryShade[theme.colorScheme]
-            : theme.primaryShade
-        ],
-    }),
   },
   components: {
-    Loader: {
-      defaultProps: {
-        color: "indigo",
-      },
-    },
     LoadingOverlay: {
       defaultProps: {
         loaderProps: {
