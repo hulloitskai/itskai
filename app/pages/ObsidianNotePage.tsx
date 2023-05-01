@@ -191,7 +191,7 @@ const RequestAccessButton: FC<RequestAccessButtonProps> = ({ note }) => {
     subject: `I want to read what you wrote about ${note.title}!`,
   });
   return (
-    <Button variant="outline" {...{ loading }} onClick={contactMe}>
+    <Button variant="outline" onClick={contactMe} {...{ loading }}>
       Request Access
     </Button>
   );

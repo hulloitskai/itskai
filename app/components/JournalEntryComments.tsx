@@ -100,6 +100,7 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
         <Skeleton h={40} />
       )}
       <TextInput
+        variant="filled"
         rightSection={
           <ActionIcon
             variant="filled"
@@ -111,7 +112,6 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
             <Box component={SendIcon} w={16} h={16} />
           </ActionIcon>
         }
-        variant="filled"
         radius="xl"
         placeholder="write a comment..."
         value={commentText}

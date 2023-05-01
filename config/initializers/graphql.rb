@@ -1,5 +1,7 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
+
+require "graphql_ext"
 
 # Load queries and listen to changes.
 Rails.application.configure do

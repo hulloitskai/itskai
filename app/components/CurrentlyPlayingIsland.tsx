@@ -165,8 +165,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
             href={url}
             target="_blank"
             rel="noopener noreferrer nofollow"
-            variant="outline"
-            color="gray.5"
+            size="xl"
             leftSection={
               <Box pos="relative" p={2}>
                 <MotionImage
@@ -186,7 +185,8 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
                 </Center>
               </Box>
             }
-            size="xl"
+            variant="outline"
+            color="gray.5"
             pl={0}
             styles={({ colors, fn }) => {
               const borderColorNoLyrics = colors.dark[3];

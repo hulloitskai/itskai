@@ -46,8 +46,8 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                     <EnvelopeIcon />
                   </Center>
                 }
-                color="dark"
                 variant="outline"
+                color="dark"
                 styles={({ fontFamilyMonospace, colors, fn }) => ({
                   root: {
                     borderColor: colors.pink[fn.primaryShade()],
@@ -72,8 +72,8 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                         <GithubIcon />
                       </Center>
                     }
-                    color="dark "
                     variant="outline"
+                    color="dark "
                     px={6}
                     sx={({ fontFamilyMonospace }) => ({
                       fontFamily: fontFamilyMonospace,

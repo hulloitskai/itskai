@@ -3,7 +3,10 @@
 
 require_relative "boot"
 
+require "./lib/core_ext"
 require "rails/all"
+require "./lib/rails_ext"
+require "./lib/actionview_ext"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -11,27 +14,6 @@ Bundler.require(*Rails.groups)
 
 module ItsKai
   class Application < Rails::Application
-    # Load libraries.
-    config.before_configuration do
-      # == Core Extensions
-      require "core_ext"
-
-      # == Rails Extensions
-      require "rails_ext"
-      require "actionview_ext"
-
-      # == Library Extensions
-      require "action_policy_ext"
-      require "better_errors_ext"
-      require "bullet_ext"
-      require "devise_ext"
-      require "email_validator_ext"
-      require "friendly_id_ext"
-      require "graphql_ext"
-      require "inertia_rails_ext"
-      require "premailer_ext"
-    end
-
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults(7.0)
 
@@ -69,9 +51,11 @@ module ItsKai
 
     # == Logging
     if ENV["RAILS_LOG_TO_STDOUT"].truthy?
-      logger = ActiveSupport::Logger.new($stdout)
-      logger.formatter = config.log_formatter
-      config.logger = ActiveSupport::TaggedLogging.new(logger)
+      config.logger = scoped do
+        logger = ActiveSupport::Logger.new($stdout)
+        logger.formatter = config.log_formatter
+        ActiveSupport::TaggedLogging.new(logger)
+      end
     end
 
     # == Sessions

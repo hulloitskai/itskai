@@ -29,8 +29,8 @@ const ResumeExperienceSection: FC<ResumeExperienceSectionProps> = ({
         </Text>
       </Text>
       <Badge
-        color="gray"
         variant="outline"
+        color="gray"
         radius="sm"
         px={6}
         styles={{

@@ -20,7 +20,7 @@ const AppProgress: FC = () => {
       removeFinishListener();
     };
   }, []);
-  return <NavigationProgress autoReset color="pink.4" size={1} />;
+  return <NavigationProgress autoReset size={1} color="pink.4" />;
 };
 
 export default AppProgress;

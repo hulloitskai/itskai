@@ -18,8 +18,8 @@ const WebsiteBadge: FC<WebsiteBadgeProps> = ({ url, ...otherProps }) => {
             <LinkIcon />
           </Center>
         }
-        color="gray"
         variant="outline"
+        color="gray"
         px={6}
         sx={{ cursor: "pointer" }}
         {...otherProps}

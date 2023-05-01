@@ -211,8 +211,8 @@ const ObsidianGraph: FC<ObsidianGraphProps> = ({
           <Transition transition="slide-up" mounted={hasMore && !!fetchMore}>
             {style => (
               <Button
-                variant="default"
                 size="xs"
+                variant="default"
                 compact
                 onClick={() => {
                   invariant(fetchMore);

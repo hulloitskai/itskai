@@ -42,10 +42,10 @@ const WorkPage: PageComponent<WorkPageProps> = () => (
               href="https://github.com/hulloitskai/itskai-app"
               target="_blank"
               rel="noopener noreferrer nofollow"
-              variant="outline"
-              leftIcon={<GithubIcon />}
               size="xs"
               compact
+              leftIcon={<GithubIcon />}
+              variant="outline"
               styles={{
                 root: { position: "relative", bottom: 2 },
                 leftIcon: {

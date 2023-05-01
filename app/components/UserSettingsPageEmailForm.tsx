@@ -108,7 +108,7 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
               ? {
                   rightSectionWidth: 110,
                   rightSection: (
-                    <Badge size="xs" color="yellow.8" variant="outline">
+                    <Badge size="xs" variant="outline" color="yellow.8">
                       Unverified
                     </Badge>
                   ),

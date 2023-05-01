@@ -9,10 +9,10 @@ const WorkContactButton: FC = () => {
   });
   return (
     <Button
-      variant="outline"
       leftIcon={<EnvelopeIcon />}
-      {...{ loading }}
+      variant="outline"
       onClick={contactMe}
+      {...{ loading }}
     >
       Email me!
     </Button>

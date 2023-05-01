@@ -55,6 +55,7 @@ const HomePageJournalEntries: FC<HomePageJournalEntriesProps> = ({
           <Transition transition="fade" mounted={!loading}>
             {style => (
               <Button
+                variant="outline"
                 leftIcon={nextCursor ? <NextIcon /> : <ResetIcon />}
                 radius="xl"
                 onClick={() => {
