@@ -1,11 +1,12 @@
 import type { FC, ReactNode } from "react";
-import type { TooltipProps } from "@mantine/core";
 import { findLast } from "lodash-es";
+
+import { useHover } from "@mantine/hooks";
+import type { TooltipProps } from "@mantine/core";
 
 import { CurrentlyPlayingLyricsTooltipQueryDocument } from "~/queries";
 import type { CurrentlyPlayingLyricsTooltipLyricLineFragment } from "~/queries";
 import type { Maybe } from "~/queries";
-import { useHover } from "@mantine/hooks";
 
 export type CurrentlyPlayingLyricsTooltipProps = Pick<
   TooltipProps,
