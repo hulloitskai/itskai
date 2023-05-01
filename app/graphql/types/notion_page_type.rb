@@ -27,8 +27,7 @@ module Types
 
     sig { returns(String) }
     def title
-      property = object.properties["Name"].title.first!
-      property.plain_text
+      object.properties["Name"].title.first!.plain_text
     end
   end
 end

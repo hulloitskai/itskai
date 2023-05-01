@@ -1,7 +1,8 @@
 import type { FC } from "react";
 import { useNetwork } from "@mantine/hooks";
+import CodeIcon from "~icons/heroicons/code-bracket-20-solid";
 
-import { DefaultMantineColor, Image, Text } from "@mantine/core";
+import { DefaultMantineColor, HoverCard, Image, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
 import { ActivityStatusBadgeSubscriptionDocument } from "~/queries";
@@ -70,12 +71,45 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
       <Transition transition="slide-up" mounted={showTagline}>
         {style => (
           <Center h="100%" {...{ style }}>
-            <Group spacing={0} sx={{ flexShrink: 0 }}>
-              <Text size="xs" weight={500} color="gray.6">
-                made with
-              </Text>
-              <Image src={logoPath} width={24} height={24} />
-            </Group>
+            <HoverCard withArrow withinPortal>
+              <HoverCard.Target>
+                <Group spacing={0} sx={{ flexShrink: 0 }}>
+                  <Text size="xs" weight={500} color="gray.6">
+                    made by{" "}
+                    <Text span weight={700}>
+                      kai
+                    </Text>{" "}
+                    with
+                  </Text>
+                  <Image src={logoPath} width={24} height={24} />
+                </Group>
+              </HoverCard.Target>
+              <HoverCard.Dropdown
+                sx={({ radius }) => ({ borderRadius: radius.md })}
+              >
+                <Stack spacing={6} align="center">
+                  <Text size="sm" lh={1.4}>
+                    Did you know this website is{" "}
+                    <Text span inherit weight={600}>
+                      open source
+                    </Text>
+                    ?
+                  </Text>
+                  <Button
+                    component="a"
+                    href="https://github.com/hulloitskai/itskai-app"
+                    target="_blank"
+                    size="xs"
+                    compact
+                    leftIcon={<CodeIcon />}
+                    h="unset"
+                    py={4}
+                  >
+                    Take me to the code!
+                  </Button>
+                </Stack>
+              </HoverCard.Dropdown>
+            </HoverCard>
           </Center>
         )}
       </Transition>

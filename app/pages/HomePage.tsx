@@ -6,13 +6,13 @@ import type { Maybe } from "~/queries";
 
 import HomePageJournalEntries from "~/components/HomePageJournalEntries";
 
-const HomePageJournalEntriesStartCursorParam = "entry";
+const HomePageJournalEntriesStartCursorParam = "entryId";
 
 export type HomePageProps = PageProps<HomePageQuery> & {
   readonly [HomePageJournalEntriesStartCursorParam]: Maybe<string>;
 };
 
-const HomePage: PageComponent<HomePageProps> = ({ entry }) => (
+const HomePage: PageComponent<HomePageProps> = ({ entryId }) => (
   <Stack spacing="xs">
     <Space h="xs" />
     <Center h={240}>
@@ -41,7 +41,7 @@ const HomePage: PageComponent<HomePageProps> = ({ entry }) => (
       </Title>
       <HomePageJournalEntries
         startCursorParam={HomePageJournalEntriesStartCursorParam}
-        startCursor={entry}
+        startCursor={entryId}
         w="100%"
       />
     </Stack>

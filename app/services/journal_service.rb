@@ -36,6 +36,9 @@ class JournalService < ApplicationService
       end
     end
 
+    sig { params(entry_id: String).returns(T.untyped) }
+    def retrieve_entry(entry_id:) = instance.retrieve_entry(entry_id:)
+
     sig { params(entry: T.untyped).returns(T::Array[T.untyped]) }
     def retrieve_blocks(entry:) = instance.retrieve_blocks(entry:)
 
@@ -97,6 +100,11 @@ class JournalService < ApplicationService
   sig { params(entry_id: String, options: T.untyped).returns(T.untyped) }
   def list_comments(entry_id:, **options)
     client.retrieve_comments(block_id: entry_id, **options)
+  end
+
+  sig { params(entry_id: String).returns(T.untyped) }
+  def retrieve_entry(entry_id:)
+    client.page(page_id: entry_id)
   end
 
   sig { params(entry: T.untyped).returns(T::Array[T.untyped]) }
