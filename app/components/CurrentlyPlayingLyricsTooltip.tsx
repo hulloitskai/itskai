@@ -76,7 +76,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
       } else {
         setTimeout(() => {
           setCurrentWords(words);
-        }, 175);
+        }, 250);
       }
     }
   }, [currentLyric]);
