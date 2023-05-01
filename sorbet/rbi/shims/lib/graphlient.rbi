@@ -1,4 +1,4 @@
-# typed: strong
+# typed: ignore
 
 class Graphlient::Client
   sig do
