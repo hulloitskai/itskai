@@ -70,7 +70,7 @@ const HomePageJournalEntries: FC<HomePageJournalEntriesProps> = ({
                     return params.toString();
                   });
                   router.visit(url.toString(), {
-                    only: ["after"],
+                    only: ["entry"],
                     onSuccess: () => {
                       if (topRef.current) {
                         topRef.current.scrollIntoView({

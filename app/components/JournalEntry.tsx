@@ -1,7 +1,8 @@
 import type { FC } from "react";
 import { format as formatTimeAgo } from "timeago.js";
+import LinkIcon from "~icons/heroicons/link-20-solid";
 
-import { Text } from "@mantine/core";
+import { ActionIcon, CopyButton, Text } from "@mantine/core";
 import type { CardProps } from "@mantine/core";
 
 import type { JournalEntryEntryFragment } from "~/queries";
@@ -15,35 +16,73 @@ export type JournalEntryProps = Omit<CardProps, "children"> & {
 
 const JournalEntry: FC<JournalEntryProps> = ({ page, ...otherProps }) => {
   const { id: entryId, title, createdAt, blocks } = page;
+  const url = useMemo(() => {
+    if (typeof window !== "undefined") {
+      const { protocol, host } = window.location;
+      return `${protocol}//${host}/?entry=${entryId}`;
+    }
+    return "";
+  }, [entryId]);
   return (
-    <Card withBorder padding="lg" shadow="sm" radius="md" {...otherProps}>
-      <Stack spacing="xs">
-        <Stack spacing={2}>
-          <Title
-            order={3}
-            size="h4"
-            weight={900}
-            color="white"
-            lh={1.3}
-            sx={({ fontFamilyMonospace }) => ({
-              fontFamily: fontFamilyMonospace,
-            })}
-          >
-            {title}
-          </Title>
-          <Text size="xs" color="dimmed">
-            written{" "}
-            <Time format={time => formatTimeAgo(time.toJSDate())}>
-              {createdAt}
-            </Time>{" "}
-          </Text>
-          <NotionContent {...{ blocks }} />
+    <Box id={entryId} pos="relative">
+      <Card withBorder padding="lg" shadow="sm" radius="md" {...otherProps}>
+        <Stack spacing="xs">
+          <Stack spacing={2}>
+            <Title
+              order={3}
+              size="h4"
+              weight={900}
+              color="white"
+              lh={1.3}
+              sx={({ fontFamilyMonospace }) => ({
+                fontFamily: fontFamilyMonospace,
+              })}
+            >
+              {title}
+            </Title>
+            <Text size="xs" color="dimmed">
+              written{" "}
+              <Time format={time => formatTimeAgo(time.toJSDate())}>
+                {createdAt}
+              </Time>{" "}
+            </Text>
+            <NotionContent {...{ blocks }} />
+          </Stack>
         </Stack>
-      </Stack>
-      <Card.Section withBorder inheritPadding mt="sm" py="sm">
-        <JournalEntryComments {...{ entryId }} />
-      </Card.Section>
-    </Card>
+        <Card.Section withBorder inheritPadding mt="sm" py="sm">
+          <JournalEntryComments {...{ entryId }} />
+        </Card.Section>
+      </Card>
+      <Box
+        pos="absolute"
+        top={-7}
+        right={-7}
+        bg="dark.6"
+        sx={({ radius }) => ({
+          borderRadius: radius.xl,
+        })}
+      >
+        <CopyButton value={url}>
+          {({ copied, copy }) => (
+            <Tooltip
+              color="dark.9"
+              label={copied ? "Copied!" : "Copy permalink"}
+              withArrow
+            >
+              <ActionIcon
+                size="sm"
+                variant="outline"
+                color="pink"
+                radius="xl"
+                onClick={copy}
+              >
+                <Box component={LinkIcon} w={14} h={14} />
+              </ActionIcon>
+            </Tooltip>
+          )}
+        </CopyButton>
+      </Box>
+    </Box>
   );
 };
 

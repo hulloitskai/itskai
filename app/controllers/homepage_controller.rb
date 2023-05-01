@@ -4,7 +4,7 @@
 class HomepageController < ApplicationController
   # == Actions
   def show
-    after = params["after"]&.to_s
-    render(inertia: "HomePage", props: { after: })
+    entry = params["entry"]&.to_s
+    render(inertia: "HomePage", props: { entry: })
   end
 end
