@@ -1,5 +1,6 @@
 fragment JournalEntryEntryFragment on NotionPage {
   id
+  url
   createdAt
   title
   blocks

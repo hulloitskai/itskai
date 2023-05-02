@@ -9,6 +9,7 @@ module Types
     field :id, String, null: false
     field :modified_at, DateTimeType, null: false
     field :title, String, null: false
+    field :url, String, null: false
 
     sig { returns(T::Array[T.untyped]) }
     def blocks
@@ -28,6 +29,11 @@ module Types
     sig { returns(String) }
     def title
       object.properties["Name"].title.first!.plain_text
+    end
+
+    sig { returns(String) }
+    def url
+      root_url("entryId" => object.id)
     end
   end
 end

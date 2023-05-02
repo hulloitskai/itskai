@@ -162,6 +162,7 @@ type NotionPage {
   id: String!
   modifiedAt: DateTime!
   title: String!
+  url: String!
 }
 
 type NotionPageListing {

@@ -201,6 +201,7 @@ export type NotionPage = {
   id: Scalars['String'];
   modifiedAt: Scalars['DateTime'];
   title: Scalars['String'];
+  url: Scalars['String'];
 };
 
 export type NotionPageListing = {

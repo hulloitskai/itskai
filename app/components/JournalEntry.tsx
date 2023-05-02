@@ -15,14 +15,7 @@ export type JournalEntryProps = BoxProps & {
 };
 
 const JournalEntry: FC<JournalEntryProps> = ({ page, ...otherProps }) => {
-  const { id: entryId, title, createdAt, blocks } = page;
-  const url = useMemo(() => {
-    if (typeof window !== "undefined") {
-      const { protocol, host } = window.location;
-      return `${protocol}//${host}/?entry=${entryId}`;
-    }
-    return "";
-  }, [entryId]);
+  const { id: entryId, url, title, createdAt, blocks } = page;
 
   // == Markup
   return (

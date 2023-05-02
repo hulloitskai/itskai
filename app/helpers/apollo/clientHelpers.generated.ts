@@ -66,13 +66,14 @@ export type NotionCommentListingFieldPolicy = {
 	items?: FieldPolicy<any> | FieldReadFunction<any>,
 	nextCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type NotionPageKeySpecifier = ('blocks' | 'createdAt' | 'id' | 'modifiedAt' | 'title' | NotionPageKeySpecifier)[];
+export type NotionPageKeySpecifier = ('blocks' | 'createdAt' | 'id' | 'modifiedAt' | 'title' | 'url' | NotionPageKeySpecifier)[];
 export type NotionPageFieldPolicy = {
 	blocks?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	modifiedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	title?: FieldPolicy<any> | FieldReadFunction<any>
+	title?: FieldPolicy<any> | FieldReadFunction<any>,
+	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type NotionPageListingKeySpecifier = ('items' | 'nextCursor' | NotionPageListingKeySpecifier)[];
 export type NotionPageListingFieldPolicy = {
