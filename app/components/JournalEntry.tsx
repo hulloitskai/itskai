@@ -1,16 +1,16 @@
-import type { FC } from "react";
+import type { FC, PropsWithChildren } from "react";
 import { format as formatTimeAgo } from "timeago.js";
 import LinkIcon from "~icons/heroicons/link-20-solid";
 
 import { ActionIcon, CopyButton, Text } from "@mantine/core";
-import type { CardProps } from "@mantine/core";
+import type { BoxProps } from "@mantine/core";
 
 import type { JournalEntryEntryFragment } from "~/queries";
 
 import NotionContent from "./NotionContent";
 import JournalEntryComments from "./JournalEntryComments";
 
-export type JournalEntryProps = Omit<CardProps, "children"> & {
+export type JournalEntryProps = BoxProps & {
   readonly page: JournalEntryEntryFragment;
 };
 
@@ -23,9 +23,11 @@ const JournalEntry: FC<JournalEntryProps> = ({ page, ...otherProps }) => {
     }
     return "";
   }, [entryId]);
+
+  // == Markup
   return (
-    <Box id={entryId} pos="relative">
-      <Card withBorder padding="lg" shadow="sm" radius="md" {...otherProps}>
+    <Box id={entryId} pos="relative" mx={4} {...otherProps}>
+      <Card withBorder padding="lg" shadow="sm" radius="md">
         <Stack spacing="xs">
           <Stack spacing={2}>
             <Title
@@ -55,8 +57,8 @@ const JournalEntry: FC<JournalEntryProps> = ({ page, ...otherProps }) => {
       </Card>
       <Box
         pos="absolute"
-        top={-7}
-        right={-7}
+        top={-10}
+        right={-10}
         bg="dark.6"
         sx={({ radius }) => ({
           borderRadius: radius.xl,
@@ -64,11 +66,7 @@ const JournalEntry: FC<JournalEntryProps> = ({ page, ...otherProps }) => {
       >
         <CopyButton value={url}>
           {({ copied, copy }) => (
-            <Tooltip
-              color="dark.9"
-              label={copied ? "Copied!" : "Copy permalink"}
-              withArrow
-            >
+            <JournalEntryCopyTooltip {...{ copied }}>
               <ActionIcon
                 size="sm"
                 variant="outline"
@@ -78,7 +76,7 @@ const JournalEntry: FC<JournalEntryProps> = ({ page, ...otherProps }) => {
               >
                 <Box component={LinkIcon} w={14} h={14} />
               </ActionIcon>
-            </Tooltip>
+            </JournalEntryCopyTooltip>
           )}
         </CopyButton>
       </Box>
@@ -87,3 +85,36 @@ const JournalEntry: FC<JournalEntryProps> = ({ page, ...otherProps }) => {
 };
 
 export default JournalEntry;
+
+type JournalEntryCopyTooltipProps = PropsWithChildren<{
+  readonly copied: boolean;
+}>;
+
+const JournalEntryCopyTooltip: FC<JournalEntryCopyTooltipProps> = ({
+  copied,
+  children,
+}) => {
+  // == Label
+  const [label, setLabel] = useState("");
+  useEffect(() => {
+    if (copied) {
+      setLabel("Copied!");
+    } else {
+      setTimeout(() => {
+        setLabel("Copy permalink");
+      }, 100);
+    }
+  }, [copied]);
+
+  // == Markup
+  return (
+    <Tooltip
+      withArrow
+      color="dark.9"
+      {...{ label }}
+      {...(copied && { opened: true })}
+    >
+      {children}
+    </Tooltip>
+  );
+};

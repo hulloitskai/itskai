@@ -5,6 +5,7 @@ import type { BoxProps } from "@mantine/core";
 
 import { drag } from "d3-drag";
 import type { D3DragEvent } from "d3-drag";
+
 import {
   forceSimulation,
   forceCenter,
@@ -18,14 +19,15 @@ import type {
   SimulationNodeDatum as BaseNode,
   SimulationLinkDatum as BaseLink,
 } from "d3-force";
-import { select } from "d3-selection";
 
-import ObsidianGraphInfoCard from "./ObsidianGraphInfoCard";
+import { select } from "d3-selection";
 
 import type {
   ObsidianGraphEntryFragment,
   ObsidianGraphNoteFragment,
 } from "~/queries";
+
+import ObsidianGraphInfoCard from "./ObsidianGraphInfoCard";
 
 type Node = BaseNode &
   ObsidianGraphEntryFragment & {
