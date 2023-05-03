@@ -6,7 +6,7 @@ import type { PageComponent } from "~/helpers/inertia";
 import { setupApp, pagesFromFiles, preparePage } from "~/helpers/inertia";
 
 // == Polyfills
-// import "requestidlecallback-polyfill";
+import "requestidlecallback-polyfill";
 
 // == Setup
 setupLuxon();

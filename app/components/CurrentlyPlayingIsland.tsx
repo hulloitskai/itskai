@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import PlayIcon from "~icons/heroicons/play-circle-20-solid";
 
 import { Image, Text } from "@mantine/core";
+import { useNetwork } from "@mantine/hooks";
 import type { BoxProps } from "@mantine/core";
 
 import {
@@ -21,10 +22,13 @@ export type CurrentlyPlayingIslandProps = Omit<BoxProps, "children">;
 const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   ...otherProps
 }) => {
+  const { online } = useNetwork();
+
   // == Query
   const { data: queryData, refetch } = useQuery(
     CurrentlyPlayingIslandQueryDocument,
     {
+      fetchPolicy: "no-cache",
       variables: {},
       onError: error => {
         console.error("Failed to load currently playing details", { error });
@@ -61,16 +65,23 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   const [track, setTrack] =
     useState<Maybe<CurrentlyPlayingIslandTrackFragment>>(null);
   useEffect(() => {
-    if (currentlyPlaying?.track?.id !== track?.id) {
-      if (track) {
+    if (online) {
+      if (currentlyPlaying?.track?.id !== track?.id) {
+        if (track) {
+          setMounted(false);
+          setTransitioned(false);
+        } else if (currentlyPlaying) {
+          setTrack(currentlyPlaying.track);
+          setMounted(true);
+        }
+      }
+    } else {
+      if (mounted) {
         setMounted(false);
         setTransitioned(false);
-      } else if (currentlyPlaying) {
-        setTrack(currentlyPlaying.track);
-        setMounted(true);
       }
     }
-  }, [currentlyPlaying]);
+  }, [currentlyPlaying, online]);
 
   // == Markup
   return (
@@ -79,7 +90,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
       onEntered={() => setTransitioned(true)}
       onExited={() => {
         setTrack(currentlyPlaying?.track ?? null);
-        if (currentlyPlaying) {
+        if (currentlyPlaying && online) {
           setMounted(true);
         }
       }}
@@ -91,7 +102,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
             <_CurrentlyPlayingIsland
               {...{
                 track,
-                initialProgressMilliseconds: progressMilliseconds,
+                progressMilliseconds,
                 transitioned,
                 style,
               }}
@@ -128,13 +139,13 @@ const TrackCoalescer: FC<TrackCoalescerProps> = ({
 
 type _CurrentlyPlayingIslandProps = Omit<BoxProps, "children"> & {
   readonly track: CurrentlyPlayingIslandTrackFragment;
-  readonly initialProgressMilliseconds?: number;
+  readonly progressMilliseconds?: number;
   readonly transitioned: boolean;
 };
 
 const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
   track,
-  initialProgressMilliseconds,
+  progressMilliseconds,
   transitioned,
   ...otherProps
 }) => {
@@ -143,6 +154,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
     url,
     album: { imageUrl },
     artists,
+    durationMilliseconds,
   } = track;
   const artistNames = useMemo(
     () => artists.map(({ name }) => name).join(", ") || "(missing artists)",
@@ -153,7 +165,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
   return (
     <CurrentlyPlayingLyricsTooltip
       {...(!transitioned && { disabled: true })}
-      {...{ initialProgressMilliseconds }}
+      {...{ durationMilliseconds, progressMilliseconds }}
     >
       {currentLyricLine => {
         const { words: currentWords, isExplicit: currentlyExplicit } =

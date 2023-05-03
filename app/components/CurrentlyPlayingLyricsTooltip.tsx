@@ -1,5 +1,4 @@
 import type { FC, ReactNode } from "react";
-import { findLast } from "lodash-es";
 
 import { useHover } from "@mantine/hooks";
 import type { TooltipProps } from "@mantine/core";
@@ -8,11 +7,17 @@ import { CurrentlyPlayingLyricsTooltipQueryDocument } from "~/queries";
 import type { CurrentlyPlayingLyricsTooltipLyricLineFragment } from "~/queries";
 import type { Maybe } from "~/queries";
 
+import {
+  useInterpolatedProgressMilliseconds,
+  useProgressLyricsIndexMapping,
+} from "~/helpers/currentlyPlaying";
+
 export type CurrentlyPlayingLyricsTooltipProps = Pick<
   TooltipProps,
   "disabled"
 > & {
-  readonly initialProgressMilliseconds?: number;
+  readonly durationMilliseconds: number;
+  readonly progressMilliseconds: number | undefined;
   readonly children: (
     currentLyricLine:
       | Maybe<CurrentlyPlayingLyricsTooltipLyricLineFragment>
@@ -21,53 +26,54 @@ export type CurrentlyPlayingLyricsTooltipProps = Pick<
 };
 
 const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
-  initialProgressMilliseconds = 0,
+  durationMilliseconds,
+  progressMilliseconds = 0,
   disabled,
   children,
   ...otherProps
 }) => {
+  const interpolationMilliseconds = 250;
+  const transitionDuration = 200;
   const { hovered, ref } = useHover();
 
   // == Progress
-  const [progressMilliseconds, setProgressMilliseconds] = useState<number>(
-    initialProgressMilliseconds,
-  );
-  useEffect(() => {
-    setProgressMilliseconds(initialProgressMilliseconds);
-    const increment = 500;
-    const interval = setInterval(() => {
-      setProgressMilliseconds(
-        progressMilliseconds => progressMilliseconds + increment,
-      );
-    }, increment);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [initialProgressMilliseconds]);
+  const interpolatedProgressMilliseconds = useInterpolatedProgressMilliseconds({
+    progressMilliseconds,
+    interpolationMilliseconds,
+  });
 
   // == Query
-  const { data } = useQuery(CurrentlyPlayingLyricsTooltipQueryDocument, {
-    fetchPolicy: "no-cache",
-    variables: {},
-    onError: error => {
-      console.error("Failed to load lyrics for currently playing track", {
-        error,
-      });
+  const { data, networkStatus } = useQuery(
+    CurrentlyPlayingLyricsTooltipQueryDocument,
+    {
+      fetchPolicy: "no-cache",
+      variables: {},
+      onError: error => {
+        console.error("Failed to load lyrics for currently playing track", {
+          error,
+        });
+      },
     },
-  });
+  );
+  useLogger("Network Status", [networkStatus]);
   const { lyrics } = data?.currentlyPlaying?.track ?? {};
+  const progressLyricsIndexMapping = useProgressLyricsIndexMapping({
+    lyrics,
+    durationMilliseconds,
+    interpolationMilliseconds,
+  });
 
   // == Current Lyric & Words
   const currentLyric = useMemo(() => {
     if (lyrics) {
-      return findLast(
-        lyrics,
-        ({ startTimeMilliseconds }) =>
-          progressMilliseconds >= startTimeMilliseconds,
-      );
+      const currentLyricIndex =
+        progressLyricsIndexMapping[interpolatedProgressMilliseconds];
+      if (currentLyricIndex) {
+        return lyrics[currentLyricIndex];
+      }
+      return null;
     }
-    return null;
-  }, [lyrics, progressMilliseconds]);
+  }, [lyrics, progressLyricsIndexMapping, interpolatedProgressMilliseconds]);
   const [currentWords, setCurrentWords] = useState("");
   useEffect(() => {
     if (currentLyric?.words) {
@@ -77,7 +83,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
       } else {
         setTimeout(() => {
           setCurrentWords(words);
-        }, 250);
+        }, transitionDuration + 50);
       }
     }
   }, [currentLyric]);
@@ -97,9 +103,9 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
       multiline
       withArrow
       color="pink"
-      transitionProps={{ duration: 200 }}
+      transitionProps={{ duration: transitionDuration }}
       disabled={disabled ?? !hasWords}
-      maw={400}
+      maw={350}
       fz="xs"
       styles={{
         tooltip: {

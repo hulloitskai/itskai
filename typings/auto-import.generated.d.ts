@@ -101,6 +101,7 @@ declare global {
   const useInsertionEffect: typeof import('react')['useInsertionEffect']
   const useLayoutEffect: typeof import('react')['useLayoutEffect']
   const useLazyQuery: typeof import('@apollo/client/index')['useLazyQuery']
+  const useLogger: typeof import('@mantine/hooks')['useLogger']
   const useMantineColorScheme: typeof import('@mantine/core')['useMantineColorScheme']
   const useMantineTheme: typeof import('@mantine/core')['useMantineTheme']
   const useMediaQuery: typeof import('@mantine/hooks')['useMediaQuery']

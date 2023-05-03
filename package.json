@@ -37,6 +37,7 @@
     "react-use": "^17.4.0",
     "remark-gfm": "^3.0.1",
     "remark-wiki-link": "^1.0.4",
+    "requestidlecallback-polyfill": "^1.0.2",
     "scroll-into-view": "^1.16.2",
     "timeago.js": "^4.0.2",
     "tiny-invariant": "^1.3.1"

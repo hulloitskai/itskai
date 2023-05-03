@@ -84,6 +84,7 @@ export const imports: Array<ImportsMap | PresetName> = [
       "useDebouncedValue",
       "useDidUpdate",
       "useElementSize",
+      "useLogger",
       "useMediaQuery",
       "useViewportSize",
       "useWindowEvent",

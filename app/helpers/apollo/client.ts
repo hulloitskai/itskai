@@ -15,8 +15,13 @@ export const createApolloClient = ({
     cache: new InMemoryCache({ possibleTypes, typePolicies }),
     link,
     defaultOptions: {
+      query: {
+        notifyOnNetworkStatusChange: true,
+        partialRefetch: true,
+      },
       watchQuery: {
         notifyOnNetworkStatusChange: true,
+        partialRefetch: true,
       },
     },
   });
