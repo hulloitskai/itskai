@@ -42,6 +42,14 @@ class ApplicationRecord < ActiveRecord::Base
   extend Enumerize
   include Routing
 
+  # == Constants
+  # Support runtime type-checking for Sorbet-generated types.
+  PrivateRelation = ActiveRecord::Relation
+  PrivateRelationWhereChain = ActiveRecord::Relation
+  PrivateAssociationRelation = ActiveRecord::AssociationRelation
+  PrivateAssociationRelationWhereChain = ActiveRecord::AssociationRelation
+  PrivateCollectionProxy = ActiveRecord::Associations::CollectionProxy
+
   # == Configuration
   primary_abstract_class
 
@@ -93,15 +101,4 @@ class ApplicationRecord < ActiveRecord::Base
       logger.tagged(self.class.name, &block)
     end
   end
-end
-
-# == Sorbet
-class ApplicationRecord
-  # == Constants
-  # Support runtime type-checking for Sorbet-generated types.
-  PrivateRelation = ActiveRecord::Relation
-  PrivateRelationWhereChain = ActiveRecord::Relation
-  PrivateAssociationRelation = ActiveRecord::AssociationRelation
-  PrivateAssociationRelationWhereChain = ActiveRecord::AssociationRelation
-  PrivateCollectionProxy = ActiveRecord::Associations::CollectionProxy
 end
