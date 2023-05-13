@@ -1,5 +1,5 @@
 # rubocop:disable Layout/LineLength
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 require "devise_ext"

@@ -14,7 +14,7 @@ module Discardable
   included do
     T.bind(self, T.class_of(ApplicationRecord))
 
-    # == Dependencies
+    # == Configuration
     requires_columns :discarded_at
   end
 

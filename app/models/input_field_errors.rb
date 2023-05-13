@@ -5,8 +5,10 @@ class InputFieldErrors < Array
   extend T::Sig
   extend T::Generic
 
+  # == Annotations
   Elem = type_member { { fixed: InputFieldError } }
 
+  # == Initializers
   sig do
     params(
       model_errors: ActiveModel::Errors,
@@ -17,5 +19,14 @@ class InputFieldErrors < Array
       InputFieldError.from(model_error)
     end
     new(errors)
+  end
+
+  # == Methods
+  sig { returns(T::Hash[String, String]) }
+  def to_h
+    super do |error|
+      error = T.let(error, InputFieldError)
+      [error.field, error.message]
+    end
   end
 end

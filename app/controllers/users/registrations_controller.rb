@@ -105,13 +105,7 @@ module Users
     sig { returns(T::Hash[String, T.untyped]) }
     def inertia_errors
       error_bag = request.headers["X-Inertia-Error-Bag"]
-      errors =
-        resource.errors
-          .group_by_attribute
-          .transform_keys! { |key| key.to_s.camelize(:lower) }
-          .transform_values! do |errors|
-            errors.first!.message.upcase_first
-          end
+      errors = resource.input_field_errors.to_h
       error_bag.present? ? { error_bag => errors } : errors
     end
 

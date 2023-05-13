@@ -10,6 +10,9 @@
     "dbaeumer.vscode-eslint",
     "editorconfig.editorconfig",
     "benspaulding.procfile",
-    "itarato.byesig"
+    "itarato.byesig",
+    "graphql.vscode-graphql",
+    "graphql.vscode-graphql-syntax",
+    "github.vscode-github-actions"
   ]
 }

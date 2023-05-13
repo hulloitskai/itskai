@@ -13,6 +13,14 @@ require "./lib/actionview_ext"
 Bundler.require(*Rails.groups)
 
 module ItsKai
+  class << self
+    extend T::Sig
+
+    # == Methods
+    sig { returns(ItsKai::Application) }
+    def application = T.cast(Rails.application, ItsKai::Application)
+  end
+
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults(7.0)

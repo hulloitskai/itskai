@@ -13,7 +13,7 @@ module Named
   included do
     T.bind(self, T.class_of(ApplicationRecord))
 
-    # == Dependencies
+    # == Configuration
     requires_columns :name
 
     # == Validations

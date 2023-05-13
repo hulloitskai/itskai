@@ -20,6 +20,19 @@
 class ICloudCredentials < ApplicationRecord
   include Identifiable
 
+  # == Annotations
+  sig { returns(T.nilable(T::Hash[String, T.untyped])) }
+  def session = super
+
+  sig do
+    params(
+      value: T.nilable(T::Hash[String, T.untyped]),
+    ).returns(T.nilable(T::Hash[String, T.untyped]))
+  end
+  def setters=(value)
+    super
+  end
+
   # == Configuration
   self.filter_attributes += %i[password cookies session]
 
@@ -40,20 +53,4 @@ class ICloudCredentials < ApplicationRecord
               case_sensitive: false,
             }
   validates :password, presence: true
-end
-
-# == Sorbet
-class ICloudCredentials
-  # == Annotations
-  sig { returns(T.nilable(T::Hash[String, T.untyped])) }
-  def session = super
-
-  sig do
-    params(
-      value: T.nilable(T::Hash[String, T.untyped]),
-    ).returns(T.nilable(T::Hash[String, T.untyped]))
-  end
-  def setters=(value)
-    super
-  end
 end

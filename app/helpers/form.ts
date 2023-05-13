@@ -21,12 +21,7 @@ export const showFormErrorsAlert = (
   errors: Record<string, string>,
   title: string,
 ): void => {
-  let message: string;
-  if ("base" in errors) {
-    message = errors["base"];
-  } else {
-    message = `Invalid fields: ${Object.keys(errors)}`;
-  }
+  const message = formErrorsMessage(errors);
   showAlert({ title, message });
   setTimeout(() => {
     if (isEmpty(document.getElementsByClassName("mantine-Modal-root"))) {
@@ -36,6 +31,21 @@ export const showFormErrorsAlert = (
       }
     }
   }, 100);
+};
+
+const formErrorsMessage = (errors: Record<string, string>): string => {
+  const messages = Object.values(errors);
+  let message = messages.shift();
+  if (message) {
+    const remainingCount = messages.length;
+    if (remainingCount > 0) {
+      message += ` (and ${remainingCount} other error${
+        remainingCount > 1 ? "s" : ""
+      })`;
+    }
+    return message + ".";
+  }
+  return "An unknown error occurred.";
 };
 
 export const useNestedForm = <Values>(

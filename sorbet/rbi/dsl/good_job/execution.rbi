@@ -938,6 +938,51 @@ class GoodJob::Execution
     sig { void }
     def error_will_change!; end
 
+    sig { returns(T.nilable(::Integer)) }
+    def executions_count; end
+
+    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
+    def executions_count=(value); end
+
+    sig { returns(T::Boolean) }
+    def executions_count?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def executions_count_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def executions_count_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def executions_count_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def executions_count_change; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def executions_count_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def executions_count_changed?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def executions_count_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def executions_count_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def executions_count_previously_changed?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def executions_count_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def executions_count_was; end
+
+    sig { void }
+    def executions_count_will_change!; end
+
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def finished_at; end
 
@@ -1027,6 +1072,96 @@ class GoodJob::Execution
 
     sig { void }
     def id_will_change!; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def is_discrete; end
+
+    sig { params(value: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+    def is_discrete=(value); end
+
+    sig { returns(T::Boolean) }
+    def is_discrete?; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def is_discrete_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def is_discrete_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def is_discrete_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
+    def is_discrete_change; end
+
+    sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
+    def is_discrete_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def is_discrete_changed?; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def is_discrete_in_database; end
+
+    sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
+    def is_discrete_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def is_discrete_previously_changed?; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def is_discrete_previously_was; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def is_discrete_was; end
+
+    sig { void }
+    def is_discrete_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def job_class; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def job_class=(value); end
+
+    sig { returns(T::Boolean) }
+    def job_class?; end
+
+    sig { returns(T.nilable(::String)) }
+    def job_class_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def job_class_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def job_class_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def job_class_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def job_class_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def job_class_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def job_class_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def job_class_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def job_class_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def job_class_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def job_class_was; end
+
+    sig { void }
+    def job_class_will_change!; end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def performed_at; end
@@ -1188,10 +1323,19 @@ class GoodJob::Execution
     def restore_error!; end
 
     sig { void }
+    def restore_executions_count!; end
+
+    sig { void }
     def restore_finished_at!; end
 
     sig { void }
     def restore_id!; end
+
+    sig { void }
+    def restore_is_discrete!; end
+
+    sig { void }
+    def restore_job_class!; end
 
     sig { void }
     def restore_performed_at!; end
@@ -1307,6 +1451,12 @@ class GoodJob::Execution
     sig { returns(T::Boolean) }
     def saved_change_to_error?; end
 
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def saved_change_to_executions_count; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_executions_count?; end
+
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def saved_change_to_finished_at; end
 
@@ -1318,6 +1468,18 @@ class GoodJob::Execution
 
     sig { returns(T::Boolean) }
     def saved_change_to_id?; end
+
+    sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
+    def saved_change_to_is_discrete; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_is_discrete?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_job_class; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_job_class?; end
 
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def saved_change_to_performed_at; end
@@ -1521,10 +1683,19 @@ class GoodJob::Execution
     def will_save_change_to_error?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_executions_count?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_finished_at?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_id?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_is_discrete?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_job_class?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_performed_at?; end

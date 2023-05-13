@@ -25,6 +25,16 @@ class ApplicationRecord < ActiveRecord::Base
         end
       end
     end
+
+    sig { params(column_names: T.any(Symbol, String)).void }
+    def removes_blanks(*column_names)
+      before_validation do
+        column_names.each do |column_name|
+          value = send(column_name)
+          send("#{column_name}=", value.presence)
+        end
+      end
+    end
   end
 
   extend T::Sig

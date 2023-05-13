@@ -13,7 +13,7 @@ module Slugged
   included do
     T.bind(self, T.all(T.class_of(ApplicationRecord), ClassMethods))
 
-    # == Dependencies
+    # == Configuration
     requires_columns :slug
   end
 

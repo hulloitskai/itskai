@@ -4,11 +4,12 @@
 class TestModel < ApplicationModel
   include GlobalID::Identification
 
+  # == Attributes
   attribute :id, :string, default: -> { SecureRandom.uuid }
-  validates :id, presence: true
-
   attribute :name, :string
-  validates :name, presence: true, inclusion: { in: %w[George] }
-
   attribute :birthday, :date
+
+  # == Validations
+  validates :name, presence: true, inclusion: { in: %w[George] }
+  validates :id, presence: true
 end

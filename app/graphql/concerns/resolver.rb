@@ -14,10 +14,11 @@ module Resolver
   sig { abstract.returns(GraphQL::Query::Context) }
   def context; end
 
+  private
+
+  # == Helpers
   sig { returns(ItsKai::Application) }
-  def app
-    T.cast(Rails.application, ItsKai::Application)
-  end
+  def app = ItsKai.application
 
   sig { returns(T.nilable(GraphQLController)) }
   def controller

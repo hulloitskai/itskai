@@ -4,10 +4,12 @@
 
 namespace :graphql do
   namespace :generate do
+    desc "Generate GraphQL schema from introspection query"
     task :schema do
       codegen "schema"
     end
 
+    desc "Generate GraphQL client code from schema"
     task :client do
       codegen "client"
     end

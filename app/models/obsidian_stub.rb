@@ -29,7 +29,7 @@ class ObsidianStub < ApplicationRecord
            dependent: :destroy
   has_many :referenced_by, through: :incoming_relations, source: :from
 
-  # == Cleanup
+  # == Methods: Cleanup
   sig { void }
   def self.cleanup
     ObsidianStubCleanupJob.perform_now

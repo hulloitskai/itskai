@@ -36,6 +36,25 @@ class User < ApplicationRecord
   # == Constants
   MIN_PASSWORD_ENTROPY = T.let(14, Integer)
 
+  # == Configuration: Devise
+  # Others modules are: :lockable, :timeoutable, and :omniauthable.
+  devise :database_authenticatable,
+         :registerable,
+         :recoverable,
+         :rememberable,
+         :validatable,
+         :confirmable,
+         :trackable,
+         :omniauthable,
+         reconfirmable: true
+
+  self.filter_attributes += %i[
+    encrypted_password
+    reset_password_token
+    confirmation_token
+    invitation_token
+  ]
+
   # == Attributes
   sig { returns(String) }
   def email_with_name
@@ -66,7 +85,19 @@ class User < ApplicationRecord
             },
             allow_nil: true
 
-  # == Owner
+  # == Methods: Devise
+  sig do
+    params(
+      params: T::Hash[Symbol, T.untyped],
+      options: T.untyped,
+    ).returns(T::Boolean)
+  end
+  def update_without_password(params, *options)
+    params.delete(:email)
+    super(params)
+  end
+
+  # == Methods: Owner
   sig { returns(String) }
   def self.owner_email
     return @owner_email if defined?(@owner_email)
@@ -86,7 +117,7 @@ class User < ApplicationRecord
     email == User.owner_email
   end
 
-  # == Sentry
+  # == Methods: Sentry
   sig { returns(T::Hash[String, T.untyped]) }
   def sentry_info
     { "id" => id, "email" => email }
@@ -96,39 +127,5 @@ class User < ApplicationRecord
   sig { returns(T::Hash[String, T.untyped]) }
   def fullstory_identity
     { "uid" => id, "email" => email, "displayName" => name }
-  end
-end
-
-# == Devise
-class User
-  # == Configuration
-  # Others modules are: :lockable, :timeoutable, and :omniauthable.
-  devise :database_authenticatable,
-         :registerable,
-         :recoverable,
-         :rememberable,
-         :validatable,
-         :confirmable,
-         :trackable,
-         :omniauthable,
-         reconfirmable: true
-
-  self.filter_attributes += %i[
-    encrypted_password
-    reset_password_token
-    confirmation_token
-    invitation_token
-  ]
-
-  # == Methods
-  sig do
-    params(
-      params: T::Hash[Symbol, T.untyped],
-      options: T.untyped,
-    ).returns(T::Boolean)
-  end
-  def update_without_password(params, *options)
-    params.delete(:email)
-    super(params)
   end
 end

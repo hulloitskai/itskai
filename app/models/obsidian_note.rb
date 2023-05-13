@@ -41,12 +41,6 @@ class ObsidianNote < ApplicationRecord
   # == Configuration
   friendly_id :name
 
-  # == Attributes
-  sig { override.params(value: T.nilable(String)).returns(T.nilable(String)) }
-  def blurb=(value)
-    super(value.presence)
-  end
-
   # == Associations
   has_many :outgoing_relations,
            class_name: "ObsidianRelation",
@@ -68,6 +62,11 @@ class ObsidianNote < ApplicationRecord
            dependent: :destroy
   has_many :referenced_by, through: :incoming_relations, source: :from
 
+  # == Normalizations
+  removes_blanks :blurb
+  before_validation :set_title, unless: :title?
+  before_validation :set_plain_blurb, if: :will_save_change_to_blurb?
+
   # == Validations
   validates :name, presence: true
   validates :title, presence: true
@@ -75,8 +74,6 @@ class ObsidianNote < ApplicationRecord
   validates :aliases, :tags, array: { presence: true }
 
   # == Callbacks
-  before_validation :set_title, unless: :title?
-  before_validation :set_plain_blurb, if: :will_save_change_to_blurb?
   after_commit :analyze_later, on: %i[create update], if: :analysis_required?
 
   # == Synchronization
