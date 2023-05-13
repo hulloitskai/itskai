@@ -31,9 +31,6 @@ module Tapioca
             attributes = constant.enumerized_attributes.attributes
             generate_class_methods(scope, attributes)
             generate_instance_methods(scope, attributes)
-            # attribute_methods.each do |method, attribute_type|
-            #   generate_method(klass, method, attribute_type)
-            # end
           end
         end
 
