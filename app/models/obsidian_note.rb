@@ -41,6 +41,13 @@ class ObsidianNote < ApplicationRecord
   # == Configuration
   friendly_id :name
 
+  # == Attribute Annotations
+  sig { returns(T::Array[String]) }
+  def aliases = super
+
+  sig { returns(T::Array[String]) }
+  def tags = super
+
   # == Associations
   has_many :outgoing_relations,
            class_name: "ObsidianRelation",
@@ -141,7 +148,7 @@ class ObsidianNote < ApplicationRecord
 
   private
 
-  # == Callbacks
+  # == Callback Handlers
   sig { void }
   def set_title
     self.title = aliases.first || name
@@ -154,14 +161,4 @@ class ObsidianNote < ApplicationRecord
       text.gsub(/\[\[([^\[\]]+\|)?([^\[\]]+)\]\]/, '\2')
     end
   end
-end
-
-# == Sorbet
-class ObsidianNote
-  # == Annotations
-  sig { returns(T::Array[String]) }
-  def aliases = super
-
-  sig { returns(T::Array[String]) }
-  def tags = super
 end

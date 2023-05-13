@@ -13,13 +13,8 @@ module Subscriptions
     argument_class Types::BaseArgument
     object_class Types::BaseObject
     field_class Types::BaseField
-  end
-end
 
-# == Sorbet
-module Subscriptions
-  class BaseSubscription
-    # == Annotations
+    # == Helpers
     sig do
       override.params(
         args: T.untyped,

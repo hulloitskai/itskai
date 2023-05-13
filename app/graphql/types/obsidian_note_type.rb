@@ -41,6 +41,10 @@ module Types
       # obsidian_note_url(object)
     end
 
+    # == Helpers
+    sig { override.returns(ObsidianNote) }
+    def object = super
+
     private
 
     # == Helpers
@@ -59,14 +63,5 @@ module Types
         .with(Sources::RecordById, ObsidianStub)
         .request_all(unresolved_references.ids)
     end
-  end
-end
-
-# == Sorbet
-module Types
-  class ObsidianNoteType
-    # == Annotations
-    sig { returns(ObsidianNote) }
-    def object = super
   end
 end

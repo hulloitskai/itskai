@@ -6,13 +6,8 @@ module Types
     # == Fields
     field :field, String, null: false
     field :message, String, null: false
-  end
-end
 
-# == Sorbet
-module Types
-  class InputFieldErrorType
-    # == Annotations
+    # == Helpers
     sig { override.returns(InputFieldError) }
     def object = super
   end

@@ -25,6 +25,12 @@ module Users
       inertia_location(after_sign_in_path_for(resource))
     end
 
+    protected
+
+    # == Helpers
+    sig { override.returns(T.nilable(User)) }
+    def resource = super
+
     private
 
     # == Helpers
@@ -36,16 +42,5 @@ module Users
         end
       end
     end
-  end
-end
-
-# == Sorbet
-module Users
-  class SessionsController
-    protected
-
-    # == Annotations
-    sig { override.returns(T.nilable(User)) }
-    def resource = super
   end
 end

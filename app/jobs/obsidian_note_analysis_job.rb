@@ -22,7 +22,7 @@ class ObsidianNoteAnalysisJob < ApplicationJob
 
   private
 
-  # == Callbacks
+  # == Callback Handlers
   sig { params(block: T.proc.void).void }
   def with_activity_logging(&block)
     ActivityService.update_status("Analyzing notes")

@@ -9,11 +9,7 @@ class InputFieldErrors < Array
   Elem = type_member { { fixed: InputFieldError } }
 
   # == Initializers
-  sig do
-    params(
-      model_errors: ActiveModel::Errors,
-    ).returns(InputFieldErrors)
-  end
+  sig { params(model_errors: ActiveModel::Errors).returns(InputFieldErrors) }
   def self.from(model_errors)
     errors = model_errors.map do |model_error|
       InputFieldError.from(model_error)

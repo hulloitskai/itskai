@@ -6,14 +6,9 @@ module Types
     # == Fields
     field :progress_milliseconds, Integer, null: false
     field :track, SpotifyTrackType, null: false
-  end
-end
 
-# == Sorbet
-module Types
-  class SpotifyCurrentlyPlayingType
-    # == Annotations
-    sig { returns(SpotifyService::CurrentlyPlaying) }
+    # == Helpers
+    sig { override.returns(SpotifyService::CurrentlyPlaying) }
     def object = super
   end
 end

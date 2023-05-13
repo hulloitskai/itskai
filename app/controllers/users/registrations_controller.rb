@@ -85,6 +85,9 @@ module Users
     protected
 
     # == Helpers
+    sig { override.returns(User) }
+    def resource = super
+
     # sig { params(resource: User).returns(String) }
     # def after_sign_up_path_for(resource)
     #   dashboard_path
@@ -121,14 +124,5 @@ module Users
     # def configure_account_update_params
     #   devise_parameter_sanitizer.permit(:account_update, keys: %i[])
     # end
-  end
-end
-
-# == Sorbet
-module Users
-  class RegistrationsController
-    # == Annotations
-    sig { override.returns(User) }
-    def resource = super
   end
 end

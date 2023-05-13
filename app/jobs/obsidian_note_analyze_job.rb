@@ -67,7 +67,7 @@ class ObsidianNoteAnalyzeJob < ApplicationJob
     end
   end
 
-  # == Callbacks
+  # == Callback Handlers
   sig { void }
   def update_activity_status
     note = T.let(arguments.first!, ObsidianNote)

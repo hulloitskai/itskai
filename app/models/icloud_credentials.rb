@@ -20,7 +20,10 @@
 class ICloudCredentials < ApplicationRecord
   include Identifiable
 
-  # == Annotations
+  # == Configuration
+  self.filter_attributes += %i[password cookies session]
+
+  # == Attributes
   sig { returns(T.nilable(T::Hash[String, T.untyped])) }
   def session = super
 
@@ -33,10 +36,6 @@ class ICloudCredentials < ApplicationRecord
     super
   end
 
-  # == Configuration
-  self.filter_attributes += %i[password cookies session]
-
-  # == Attributes
   sig { returns(ActiveSupport::TimeWithZone) }
   def updated_at!
     updated_at or raise "Missing `updated_at' attribute"

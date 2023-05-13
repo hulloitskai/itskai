@@ -10,7 +10,7 @@ module Subscriptions
     # == Type
     type Types::SpotifyCurrentlyPlayingType, null: true
 
-    # == Callbacks
+    # == Callback Handlers
     sig { returns(T.nilable(SpotifyService::CurrentlyPlaying)) }
     def subscribe
       CurrentlyPlayingService.currently_playing

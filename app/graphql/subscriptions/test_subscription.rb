@@ -25,7 +25,7 @@ module Subscriptions
     # == Type
     type Int
 
-    # == Callbacks
+    # == Callback Handlers
     sig { returns(Integer) }
     def subscribe
       self.class.increment!.tap do |count|

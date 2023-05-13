@@ -85,7 +85,7 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
     logger.info("Destroyed #{destroyed_notes.count} notes")
   end
 
-  # == Callbacks
+  # == Callback Handlers
   sig { params(block: T.proc.void).void }
   def with_activity_logging(&block)
     ActivityService.update_status("Synchronizing notes")

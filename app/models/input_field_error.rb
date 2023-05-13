@@ -8,7 +8,7 @@ class InputFieldError < T::Struct
   const :field, String
   const :message, String
 
-  # == Methods
+  # == Initializers
   sig { params(model_error: ActiveModel::Error).returns(InputFieldError) }
   def self.from(model_error)
     new(
@@ -19,6 +19,7 @@ class InputFieldError < T::Struct
     )
   end
 
+  # == Methods
   sig { params(path: String).returns(InputFieldError) }
   def within(path)
     InputFieldError.new(field: "#{path}.#{field}", message:)

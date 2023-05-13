@@ -13,14 +13,9 @@ module Types
     def url
       object.external_urls.fetch("spotify")
     end
-  end
-end
 
-# == Sorbet
-module Types
-  class SpotifyArtistType
-    # == Annotations
-    sig { returns(RSpotify::Artist) }
+    # == Helpers
+    sig { override.returns(RSpotify::Artist) }
     def object = super
   end
 end

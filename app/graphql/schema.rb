@@ -20,7 +20,7 @@ class Schema < GraphQL::Schema
   # Stop validation after 100 errors.
   validate_max_errors 100
 
-  # == Handlers
+  # == Callback Handlers
   rescue_from RuntimeError do |error|
     raise GraphQL::ExecutionError, error.message
   end

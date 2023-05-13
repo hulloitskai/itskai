@@ -17,6 +17,16 @@ module Mutations
     null false
     field :success, Boolean, null: false
 
+    # == Helpers
+    sig do
+      override.params(
+        args: T.untyped,
+        kwargs: T.untyped,
+        block: T.nilable(T.proc.bind(Types::BaseField).void),
+      ).void
+    end
+    def self.field(*args, **kwargs, &block) = super
+
     # == Resolver
     def resolve_with_support(...)
       result = super
@@ -42,20 +52,5 @@ module Mutations
       end
       result
     end
-  end
-end
-
-# == Sorbet
-module Mutations
-  class BaseMutation
-    # == Annotations
-    sig do
-      override.params(
-        args: T.untyped,
-        kwargs: T.untyped,
-        block: T.nilable(T.proc.bind(Types::BaseField).void),
-      ).void
-    end
-    def self.field(*args, **kwargs, &block) = super
   end
 end
