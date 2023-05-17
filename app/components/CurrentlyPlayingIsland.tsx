@@ -200,10 +200,16 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
             variant="outline"
             color="gray.5"
             pl={0}
-            styles={({ colors, fn }) => {
+            styles={({ colors, primaryColor, fn }) => {
               const borderColorNoLyrics = colors.dark[3];
-              const borderColorLyrics = fn.darken(colors.pink[5], 0.1);
-              const borderColorLyricsExplicit = fn.darken(colors.pink[5], 0.4);
+              const borderColorLyrics = fn.darken(
+                colors[primaryColor]![5],
+                0.1,
+              );
+              const borderColorLyricsExplicit = fn.darken(
+                colors[primaryColor]![5],
+                0.4,
+              );
               return {
                 root: {
                   height: 30,

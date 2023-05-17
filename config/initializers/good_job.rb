@@ -9,7 +9,7 @@ Rails.application.configure do
     # == Cron
     config.enable_cron = true
     config.cron = {
-      active_storage_blob_cleanup: {
+      "active_storage/blob_cleanup": {
         class: "ActiveStorage::BlobCleanupJob",
         description: "Schedule purging of unattached ActiveStorage blobs.",
         cron: "0 */6 * * *",

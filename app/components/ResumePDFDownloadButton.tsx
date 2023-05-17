@@ -15,7 +15,7 @@ const ResumePDFDownloadButton: FC = () => {
             leftIcon={<DocumentIcon />}
             variant="gradient"
             gradient={{
-              from: "pink",
+              from: "indigo",
               to: "pink",
               deg: 45,
             }}

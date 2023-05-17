@@ -48,9 +48,9 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                 }
                 variant="outline"
                 color="dark"
-                styles={({ fontFamilyMonospace, colors, fn }) => ({
+                styles={({ fontFamilyMonospace, fn }) => ({
                   root: {
-                    borderColor: colors.pink[fn.primaryShade()],
+                    borderColor: fn.primaryColor(),
                   },
                   inner: {
                     fontFamily: fontFamilyMonospace,
@@ -78,9 +78,9 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                     sx={({ fontFamilyMonospace }) => ({
                       fontFamily: fontFamilyMonospace,
                     })}
-                    styles={({ fontFamilyMonospace, colors, fn }) => ({
+                    styles={({ fontFamilyMonospace, fn }) => ({
                       root: {
-                        borderColor: colors.pink[fn.primaryShade()],
+                        borderColor: fn.primaryColor(),
                       },
                       inner: {
                         fontFamily: fontFamilyMonospace,

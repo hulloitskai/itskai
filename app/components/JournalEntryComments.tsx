@@ -20,6 +20,8 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
   entryId,
   ...otherProps
 }) => {
+  const theme = useMantineTheme();
+
   // == Input
   const [commentText, setCommentText] = useState("");
 
@@ -104,7 +106,7 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
         rightSection={
           <ActionIcon
             variant="filled"
-            color="pink.5"
+            color={theme.colors[theme.primaryColor]![5]}
             radius="xl"
             loading={mutating}
             onClick={createComment}

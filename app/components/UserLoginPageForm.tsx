@@ -77,7 +77,6 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
           <Checkbox
             label="Stay signed in"
             checked={rememberMe}
-            color="pink"
             styles={{
               input: {
                 cursor: "pointer",

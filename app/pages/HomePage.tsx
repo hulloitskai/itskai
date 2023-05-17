@@ -27,7 +27,6 @@ const HomePage: PageComponent<HomePageProps> = ({ entryId }) => (
             target="_blank"
             rel="noopener noreferrer nofollow"
             weight={600}
-            color="pink"
           >
             do something together
           </Anchor>

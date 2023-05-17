@@ -32,6 +32,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
   children,
   ...otherProps
 }) => {
+  const theme = useMantineTheme();
   const interpolationMilliseconds = 250;
   const transitionDuration = 200;
   const { hovered, ref } = useHover();
@@ -102,7 +103,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
       label={currentWords}
       multiline
       withArrow
-      color="pink"
+      color={theme.primaryColor}
       transitionProps={{ duration: transitionDuration }}
       disabled={disabled ?? !hasWords}
       maw={350}

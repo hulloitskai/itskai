@@ -13,13 +13,14 @@ export type ResumeWorkSectionProps = {
 
 const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({ info }) => {
   const { name, position, url, startDate, endDate, summary, highlights } = info;
+  const theme = useMantineTheme();
   return (
     <Box>
       <Group spacing={8} mb={-2}>
-        <Title order={3} size="h5" color="pink">
+        <Title order={3} size="h5" color={theme.primaryColor}>
           {name}
         </Title>
-        <WebsiteBadge color="pink" url={url!} />
+        <WebsiteBadge color={theme.primaryColor} url={url!} />
         <Space sx={{ flex: 1 }} />
         <Text size="sm" weight={600} color="dark">
           {position}

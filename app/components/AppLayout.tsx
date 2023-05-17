@@ -101,13 +101,7 @@ const AppLayout: FC<AppLayoutProps> = ({
             }}
           >
             {filteredBreadcrumbs.map(({ title, href }, index) => (
-              <Anchor
-                component={Link}
-                href={href}
-                key={index}
-                size="sm"
-                color="pink"
-              >
+              <Anchor component={Link} href={href} key={index} size="sm">
                 {title}
               </Anchor>
             ))}

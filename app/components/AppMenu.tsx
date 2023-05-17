@@ -60,7 +60,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
       })}
     >
       <Menu.Target>
-        <Badge variant="dot" color="pink" {...badgeProps}>
+        <Badge variant="dot" color={theme.primaryColor} {...badgeProps}>
           {viewer.name}
         </Badge>
       </Menu.Target>

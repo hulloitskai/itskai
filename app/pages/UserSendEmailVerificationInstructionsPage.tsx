@@ -26,15 +26,15 @@ const UserSendEmailVerificationInstructionsPage: PageComponent<
       <Divider />
       <Stack spacing={0} fz="xs">
         <Text color="gray.6">
-          <Anchor component={Link} href="/login" color="pink">
+          <Anchor component={Link} href="/login">
             Sign In
           </Anchor>{" "}
           or{" "}
-          <Anchor component={Link} href="/user/register" color="pink">
+          <Anchor component={Link} href="/user/register">
             Sign Up
           </Anchor>
         </Text>
-        <Anchor component={Link} href="/user/password/reset" color="pink">
+        <Anchor component={Link} href="/user/password/reset">
           Forgot your password?
         </Anchor>
       </Stack>

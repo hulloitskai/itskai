@@ -16,6 +16,7 @@ export type JournalEntryProps = BoxProps & {
 
 const JournalEntry: FC<JournalEntryProps> = ({ page, ...otherProps }) => {
   const { id: entryId, url, title, createdAt, blocks } = page;
+  const theme = useMantineTheme();
 
   // == Markup
   return (
@@ -63,7 +64,7 @@ const JournalEntry: FC<JournalEntryProps> = ({ page, ...otherProps }) => {
               <ActionIcon
                 size="sm"
                 variant="outline"
-                color="pink"
+                color={theme.primaryColor}
                 radius="xl"
                 onClick={copy}
               >

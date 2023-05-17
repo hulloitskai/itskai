@@ -8,6 +8,7 @@ import {
 } from "@mantine/nprogress";
 
 const AppProgress: FC = () => {
+  const theme = useMantineTheme();
   useEffect(() => {
     const removeStartListener = router.on("start", () =>
       startNavigationProgress(),
@@ -20,7 +21,13 @@ const AppProgress: FC = () => {
       removeFinishListener();
     };
   }, []);
-  return <NavigationProgress autoReset size={1} color="pink.4" />;
+  return (
+    <NavigationProgress
+      autoReset
+      size={1}
+      color={theme.colors[theme.primaryColor]![3]}
+    />
+  );
 };
 
 export default AppProgress;

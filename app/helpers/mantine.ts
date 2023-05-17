@@ -10,11 +10,11 @@ export const theme: MantineThemeOverride = {
     "JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, " +
     "Liberation Mono, Courier New, monospace",
   focusRingStyles: {
-    styles: ({ colors, colorScheme }) => ({
+    styles: ({ colors, colorScheme, primaryColor }) => ({
       outlineOffset: 2,
       outlineStyle: "solid",
-      outlineWidth: 1.5,
-      outlineColor: colors.indigo[colorScheme === "dark" ? 7 : 5],
+      outlineWidth: 1,
+      outlineColor: colors[primaryColor]![colorScheme === "dark" ? 7 : 5],
     }),
   },
   components: {
