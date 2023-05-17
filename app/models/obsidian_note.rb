@@ -48,6 +48,28 @@ class ObsidianNote < ApplicationRecord
   sig { returns(T::Array[String]) }
   def tags = super
 
+  # == Attributes: Analysis
+  sig { returns(T::Boolean) }
+  def analyzed? = analyzed_at?
+
+  sig { returns(T::Boolean) }
+  def analysis_required?
+    synchronized_at = self.synchronized_at or return false
+    analyzed_at = self.analyzed_at or return true
+    analyzed_at <= synchronized_at
+  end
+
+  # == Attributes: Synchronization
+  sig { returns(T::Boolean) }
+  def synchronized? = synchronized_at?
+
+  sig { returns(T::Boolean) }
+  def synchronization_required?
+    return false unless ObsidianService.ready?
+    file = ObsidianService.note_file(name)
+    file.nil? || file.modified_at! > modified_at
+  end
+
   # == Associations
   has_many :outgoing_relations,
            class_name: "ObsidianRelation",
@@ -83,39 +105,7 @@ class ObsidianNote < ApplicationRecord
   # == Callbacks
   after_commit :analyze_later, on: %i[create update], if: :analysis_required?
 
-  # == Synchronization
-  sig { params(force: T::Boolean).void }
-  def self.synchronize_all(force: false)
-    ObsidianNoteSynchronizationJob.perform_now(force:)
-  end
-
-  sig { params(force: T::Boolean).void }
-  def self.synchronize_all_later(force: false)
-    ObsidianNoteSynchronizationJob.perform_later(force:)
-  end
-
-  sig { returns(T::Boolean) }
-  def synchronization_required?
-    return false unless ObsidianService.ready?
-    file = ObsidianService.note_file(name)
-    file.nil? || file.modified_at! > modified_at
-  end
-
-  sig { params(force: T::Boolean).void }
-  def synchronize(force: false)
-    return if !force && !synchronization_required?
-    ObsidianNoteSynchronizeJob.perform_now(self, force:)
-  end
-
-  sig { params(force: T::Boolean).void }
-  def synchronize_later(force: false)
-    ObsidianNoteSynchronizeJob.perform_later(self, force:)
-  end
-
-  sig { returns(T::Boolean) }
-  def synchronized? = synchronized_at?
-
-  # == Analysis
+  # == Methods: Analysis
   sig { params(force: T::Boolean).void }
   def self.analyze_all(force: false)
     ObsidianNoteAnalysisJob.perform_now(force:)
@@ -136,14 +126,26 @@ class ObsidianNote < ApplicationRecord
     ObsidianNoteAnalyzeJob.perform_later(self)
   end
 
-  sig { returns(T::Boolean) }
-  def analyzed? = analyzed_at?
+  # == Methods: Synchronization
+  sig { params(force: T::Boolean).void }
+  def self.synchronize_all(force: false)
+    ObsidianNoteSynchronizationJob.perform_now(force:)
+  end
 
-  sig { returns(T::Boolean) }
-  def analysis_required?
-    synchronized_at = self.synchronized_at or return false
-    analyzed_at = self.analyzed_at or return true
-    analyzed_at <= synchronized_at
+  sig { params(force: T::Boolean).void }
+  def self.synchronize_all_later(force: false)
+    ObsidianNoteSynchronizationJob.perform_later(force:)
+  end
+
+  sig { params(force: T::Boolean).void }
+  def synchronize(force: false)
+    return if !force && !synchronization_required?
+    ObsidianNoteSynchronizeJob.perform_now(self, force:)
+  end
+
+  sig { params(force: T::Boolean).void }
+  def synchronize_later(force: false)
+    ObsidianNoteSynchronizeJob.perform_later(self, force:)
   end
 
   private

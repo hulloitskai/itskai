@@ -123,7 +123,7 @@ class User < ApplicationRecord
     { "id" => id, "email" => email }
   end
 
-  # == FullStory
+  # == Methods: FullStory
   sig { returns(T::Hash[String, T.untyped]) }
   def fullstory_identity
     { "uid" => id, "email" => email, "displayName" => name }
