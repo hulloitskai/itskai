@@ -14,10 +14,8 @@ end
 migration_tasks = %w[
   db:migrate
   db:migrate:up
-  db:migrate:down
   db:migrate:reset
   db:migrate:redo
-  db:rollback
 ]
 
 if defined?(Rails::Application)
@@ -27,7 +25,6 @@ if defined?(Rails::Application)
     database_tasks = %w[
       db:migrate
       db:migrate:up
-      db:migrate:down
     ].map do |task|
       "#{task}:#{spec_name}"
     end

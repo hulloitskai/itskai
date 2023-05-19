@@ -1,7 +1,6 @@
 .ruby-lsp/
 .husky/_/
 app/**/*.generated.*
-app/graphql/schema.graphql
 bin/
 dist/
 db/schema.rb
