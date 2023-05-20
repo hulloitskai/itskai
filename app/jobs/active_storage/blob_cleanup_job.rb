@@ -3,8 +3,6 @@
 
 module ActiveStorage
   class BlobCleanupJob < ApplicationJob
-    extend T::Sig
-
     # == Configuration
     good_job_control_concurrency_with key: name, total_limit: 1
 

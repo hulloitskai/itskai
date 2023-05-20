@@ -2,8 +2,6 @@
 # frozen_string_literal: true
 
 class ObsidianNoteAnalyzeJob < ApplicationJob
-  extend T::Sig
-
   # == Configuration
   good_job_control_concurrency_with(
     key: -> do
