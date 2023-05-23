@@ -49,10 +49,11 @@ module Tapioca
         def generate_instance_methods(scope, attributes)
           attributes.each do |name, attribute|
             multiple = attribute.is_a?(::Enumerize::Multiple)
-            scope.create_method(
-              name,
-              return_type: multiple ? "Enumerize::Set" : "Enumerize::Value",
-            )
+            return_type = multiple ? "Enumerize::Set" : "Enumerize::Value"
+            if constant.columns_hash[name]&.null
+              return_type = "T.nilable(#{return_type})"
+            end
+            scope.create_method(name, return_type:)
           end
         end
       end
