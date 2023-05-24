@@ -1,7 +1,10 @@
 app = "itskai-app"
+primary_region = "yyz"
 kill_signal = "SIGINT"
 kill_timeout = 5
-processes = []
+
+[experimental]
+  auto_rollback = true
 
 [deploy]
   release_command = "bin/release"
@@ -12,38 +15,33 @@ processes = []
   RAILS_MAILER_REPLY_TO = "Kai <hullo@itskai.me>"
   SENTRY_TRACES_SAMPLE_RATE = "0.02"
 
-[experimental]
-  allowed_public_ports = []
-  auto_rollback = true
-
 [[services]]
+  protocol = "tcp"
   internal_port = 3000
   processes = ["app"]
-  protocol = "tcp"
-  script_checks = []
-  tcp_checks = []
 
   [services.concurrency]
+    type = "connections"
     hard_limit = 25
     soft_limit = 20
-    type = "connections"
 
   [[services.ports]]
-    force_https = true
-    handlers = ["http"]
     port = 80
+    handlers = ["http"]
+    force_https = true
 
   [[services.ports]]
-    handlers = ["tls", "http"]
     port = 443
+    handlers = ["tls", "http"]
 
   [[services.http_checks]]
-    grace_period = "10s"
     interval = "15s"
+    timeout = "2s"
+    grace_period = "10s"
+    restart_limit = 3
     method = "get"
     path = "/status"
-    restart_limit = 3
-    timeout = "2s"
+    protocol = "http"
 
 [[statics]]
   guest_path = "/app/public"
