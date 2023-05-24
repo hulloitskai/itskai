@@ -14,7 +14,7 @@ const UserLoginPage: PageComponent<UserLoginPageProps> = () => {
   return (
     <Card w={380} radius="md" withBorder>
       <Stack spacing="xs">
-        <Stack align="center" spacing={0}>
+        <Stack align="center" spacing={2}>
           <Title size="h3">Sign In</Title>
           <Text size="sm" color="dimmed">
             Welcome back to{" "}

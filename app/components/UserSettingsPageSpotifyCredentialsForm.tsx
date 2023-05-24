@@ -1,15 +1,17 @@
 import type { FC } from "react";
 
-import { Maybe, SpotifyCredentialsRemoveMutationDocument } from "~/queries";
+import { RemoveSpotifyCredentialsMutationDocument } from "~/queries";
 import type { UserSettingsPageOAuthCredentialsFragment } from "~/queries";
+import type { Maybe } from "~/queries";
+
 import FormAuthenticityField from "./FormAuthenticityField";
 
-export type UserSettingsPageOAuthCredentialsFormProps = {
+export type UserSettingsPageSpotifyCredentialsFormProps = {
   readonly spotifyCredentials: Maybe<UserSettingsPageOAuthCredentialsFragment>;
 };
 
-const UserSettingsPageOAuthCredentialsForm: FC<
-  UserSettingsPageOAuthCredentialsFormProps
+const userSettingsPageSpotifyCredentialsForm: FC<
+  UserSettingsPageSpotifyCredentialsFormProps
 > = ({ spotifyCredentials }) => {
   const router = useRouter();
 
@@ -18,7 +20,7 @@ const UserSettingsPageOAuthCredentialsForm: FC<
     "Failed to remove Spotify credentials",
   );
   const [runRemoveMutation, { loading: removing }] = useMutation(
-    SpotifyCredentialsRemoveMutationDocument,
+    RemoveSpotifyCredentialsMutationDocument,
     {
       onCompleted: () => {
         router.reload({
@@ -94,4 +96,4 @@ const UserSettingsPageOAuthCredentialsForm: FC<
   );
 };
 
-export default UserSettingsPageOAuthCredentialsForm;
+export default userSettingsPageSpotifyCredentialsForm;

@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Mutations
-  class JournalEntryComment < BaseMutation
+  class AddJournalEntryComment < BaseMutation
     # == Payload
     class Payload < T::Struct
       const :comment, Notion::Messages::Message

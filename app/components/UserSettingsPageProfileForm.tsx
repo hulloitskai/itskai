@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { UserUpdateMutationDocument } from "~/queries";
+import { UpdateUserProfileMutationDocument } from "~/queries";
 import type { UserSettingsPageViewerFragment } from "~/queries";
 
 export type UserSettingsPageProfileFormValues = {
@@ -32,23 +32,26 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
 
   // == Mutation
   const onError = useApolloAlertCallback("Failed to update profile");
-  const [runMutation, { loading }] = useMutation(UserUpdateMutationDocument, {
-    onCompleted: ({ payload: { user, errors } }) => {
-      if (user) {
-        router.reload({
-          onSuccess: () => {
-            showNotice({ message: "Profile updated successfully." });
-          },
-        });
-      } else {
-        invariant(errors, "Missing input errors");
-        const formErrors = parseFormErrors(errors);
-        setErrors(formErrors);
-        showFormErrorsAlert(formErrors, "Could not update profile");
-      }
+  const [runMutation, { loading }] = useMutation(
+    UpdateUserProfileMutationDocument,
+    {
+      onCompleted: ({ payload: { user, errors } }) => {
+        if (user) {
+          router.reload({
+            onSuccess: () => {
+              showNotice({ message: "Profile updated successfully." });
+            },
+          });
+        } else {
+          invariant(errors, "Missing input errors");
+          const formErrors = parseFormErrors(errors);
+          setErrors(formErrors);
+          showFormErrorsAlert(formErrors, "Could not update profile");
+        }
+      },
+      onError,
     },
-    onError,
-  });
+  );
 
   // == Markup
   return (

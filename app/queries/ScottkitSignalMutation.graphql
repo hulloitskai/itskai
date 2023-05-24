@@ -1,5 +1,0 @@
-mutation ScottkitSignalMutation($input: ScottkitSignalInput!) {
-  payload: scottkitSignal(input: $input) {
-    success
-  }
-}

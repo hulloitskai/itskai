@@ -2,9 +2,9 @@ import type { FC } from "react";
 import { JsonInput, PasswordInput, Text } from "@mantine/core";
 
 import {
-  ICloudCredentialsRemoveMutationDocument,
-  ICloudCredentialsUpdateMutationDocument,
-  ICloudCredentialsVerifySecurityCodeMutationDocument,
+  RemoveICloudCredentialsMutationDocument,
+  UpdateICloudCredentialsMutationDocument,
+  VerifyICloudSecurityCodeMutationDocument,
 } from "~/queries";
 import type { UserSettingsPageICloudCredentialsFragment } from "~/queries";
 import type { Maybe } from "~/queries";
@@ -65,7 +65,7 @@ const UserSettingsPageICloudCredentialsForm: FC<
     "Failed to update iCloud credentials",
   );
   const [runUpdateMutation, { loading: updating }] = useMutation(
-    ICloudCredentialsUpdateMutationDocument,
+    UpdateICloudCredentialsMutationDocument,
     {
       onCompleted: ({ payload: { icloudCredentials, errors } }) => {
         if (icloudCredentials) {
@@ -107,7 +107,7 @@ const UserSettingsPageICloudCredentialsForm: FC<
     "Failed to remove iCloud credentials",
   );
   const [runRemoveMutation, { loading: removing }] = useMutation(
-    ICloudCredentialsRemoveMutationDocument,
+    RemoveICloudCredentialsMutationDocument,
     {
       onCompleted: () => {
         router.reload({
@@ -222,7 +222,7 @@ const VerifySecurityCodeModalContent: FC = () => {
   });
   const onError = useApolloAlertCallback("Failed to verify code");
   const [runMutation, { loading }] = useMutation(
-    ICloudCredentialsVerifySecurityCodeMutationDocument,
+    VerifyICloudSecurityCodeMutationDocument,
     {
       onCompleted: () => {
         closeAllModals();

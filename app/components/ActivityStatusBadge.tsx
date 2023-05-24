@@ -73,7 +73,7 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
           <Center h="100%" {...{ style }}>
             <HoverCard withArrow withinPortal>
               <HoverCard.Target>
-                <Group spacing={0} sx={{ flexShrink: 0 }}>
+                <Flex align="center" sx={{ flexShrink: 0 }}>
                   <Text size="xs" weight={500} color="gray.6">
                     made by{" "}
                     <Text span weight={700}>
@@ -82,7 +82,7 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
                     with
                   </Text>
                   <Image src={logoPath} width={24} height={24} />
-                </Group>
+                </Flex>
               </HoverCard.Target>
               <HoverCard.Dropdown
                 sx={({ radius }) => ({ borderRadius: radius.md })}

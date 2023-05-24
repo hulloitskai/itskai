@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { ObsidianNoteSynchronizeMutationDocument } from "~/queries";
+import { SynchronizeObsidianNotesMutationDocument } from "~/queries";
 
 export type UserSettingsPageObsidianActionsProps = {};
 
@@ -14,9 +14,10 @@ const UserSettingsPageObsidianActions: FC<
 );
 
 const SynchronizeUpdatedButton: FC = () => {
+  // == Mutation
   const onError = useApolloAlertCallback("Failed to request synchronization");
   const [runMutation, { loading }] = useMutation(
-    ObsidianNoteSynchronizeMutationDocument,
+    SynchronizeObsidianNotesMutationDocument,
     {
       onCompleted: () => {
         showNotice({
@@ -26,6 +27,8 @@ const SynchronizeUpdatedButton: FC = () => {
       onError,
     },
   );
+
+  // == Markup
   return (
     <Button
       variant="default"
@@ -48,7 +51,7 @@ const ResynchronizeAllButton: FC = () => {
     "Failed to request re-synchronization",
   );
   const [runMutation, { loading }] = useMutation(
-    ObsidianNoteSynchronizeMutationDocument,
+    SynchronizeObsidianNotesMutationDocument,
     {
       onCompleted: () => {
         showNotice({

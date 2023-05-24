@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { UserSendPasswordResetInstructionsMutationDocument } from "~/queries";
+import { SendUserPasswordResetInstructionsMutationDocument } from "~/queries";
 
 export type UserSendPasswordResetInstructionsPageFormValues = {
   readonly email: string;
@@ -24,7 +24,7 @@ const UserSendPasswordResetInstructionsPageForm: FC<
   // == Mutation
   const onError = useApolloAlertCallback("Failed to send password reset email");
   const [runMutation, { loading }] = useMutation(
-    UserSendPasswordResetInstructionsMutationDocument,
+    SendUserPasswordResetInstructionsMutationDocument,
     {
       onCompleted: () => {
         router.visit("/login", {

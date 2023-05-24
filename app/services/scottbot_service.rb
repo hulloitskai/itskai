@@ -17,6 +17,7 @@ class ScottbotService < ApplicationService
       checked { instance.signal(type) }
     end
 
+    # == Helpers
     sig { returns(T.nilable(String)) }
     def discord_token
       return @discord_token if defined?(@discord_token)

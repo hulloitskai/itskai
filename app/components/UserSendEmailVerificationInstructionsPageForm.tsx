@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { UserSendEmailVerificationInstructionsMutationDocument } from "~/queries";
+import { SendUserEmailVerificationInstructionsMutationDocument } from "~/queries";
 
 export type UserSendEmailVerificationInstructionsPageFormValues = {
   readonly email: string;
@@ -24,7 +24,7 @@ const UserSendEmailVerificationInstructionsPageForm: FC<
   // == Mutation
   const onError = useApolloAlertCallback("Failed to resend verification email");
   const [runMutation, { loading }] = useMutation(
-    UserSendEmailVerificationInstructionsMutationDocument,
+    SendUserEmailVerificationInstructionsMutationDocument,
     {
       onCompleted: () => {
         router.visit("/login", {

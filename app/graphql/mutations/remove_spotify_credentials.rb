@@ -2,17 +2,19 @@
 # frozen_string_literal: true
 
 module Mutations
-  class ICloudCredentialsRemove < BaseMutation
+  class RemoveSpotifyCredentials < BaseMutation
     # == Payload
     class Payload < T::Struct; end
 
     # == Resolver
     sig { override.returns(Payload) }
     def resolve
-      credentials = ICloudCredentials.first or
-        raise GraphQL::ExecutionError, "No existing ICloud credentials."
+      credentials = OAuthCredentials.spotify
+      if credentials.nil?
+        raise GraphQL::ExecutionError, "No existing Spotify credentials."
+      end
       credentials.destroy!
-      ICloudService.restart
+      SpotifyService.restart
       Payload.new
     end
   end

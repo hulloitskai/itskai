@@ -8,7 +8,7 @@ import { ActionIcon } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
 import {
-  JournalEntryCommentMutationDocument,
+  AddJournalEntryCommentMutationDocument,
   JournalEntryCommentsQueryDocument,
 } from "~/queries";
 
@@ -39,20 +39,18 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
   const { comments } = data ?? {};
 
   // == Mutation
-  const onMutationError = useApolloAlertCallback(
-    "Failed to create Notion comment",
-  );
-  const [runMutation, { loading: mutating }] = useMutation(
-    JournalEntryCommentMutationDocument,
+  const onAddError = useApolloAlertCallback("Failed to add Notion comment");
+  const [runAddMutation, { loading: mutating }] = useMutation(
+    AddJournalEntryCommentMutationDocument,
     {
       onCompleted: () => {
         refetch({ startCursor: undefined });
       },
-      onError: onMutationError,
+      onError: onAddError,
     },
   );
   const createComment = () => {
-    runMutation({
+    runAddMutation({
       variables: {
         input: {
           entryId,

@@ -1,4 +1,14 @@
 import { FieldPolicy, FieldReadFunction, TypePolicies, TypePolicy } from '@apollo/client/cache';
+export type ActivateScottkitSignalPayloadKeySpecifier = ('clientMutationId' | 'success' | ActivateScottkitSignalPayloadKeySpecifier)[];
+export type ActivateScottkitSignalPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type AddJournalEntryCommentPayloadKeySpecifier = ('clientMutationId' | 'success' | AddJournalEntryCommentPayloadKeySpecifier)[];
+export type AddJournalEntryCommentPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type ICloudCredentialsKeySpecifier = ('cookies' | 'email' | 'id' | 'password' | 'session' | ICloudCredentialsKeySpecifier)[];
 export type ICloudCredentialsFieldPolicy = {
 	cookies?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -7,48 +17,25 @@ export type ICloudCredentialsFieldPolicy = {
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
 	session?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ICloudCredentialsRemovePayloadKeySpecifier = ('clientMutationId' | 'success' | ICloudCredentialsRemovePayloadKeySpecifier)[];
-export type ICloudCredentialsRemovePayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type ICloudCredentialsUpdatePayloadKeySpecifier = ('clientMutationId' | 'errors' | 'icloudCredentials' | 'success' | ICloudCredentialsUpdatePayloadKeySpecifier)[];
-export type ICloudCredentialsUpdatePayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	errors?: FieldPolicy<any> | FieldReadFunction<any>,
-	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type ICloudCredentialsVerifySecurityCodePayloadKeySpecifier = ('clientMutationId' | 'icloudCredentials' | 'success' | ICloudCredentialsVerifySecurityCodePayloadKeySpecifier)[];
-export type ICloudCredentialsVerifySecurityCodePayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
 export type InputFieldErrorKeySpecifier = ('field' | 'message' | InputFieldErrorKeySpecifier)[];
 export type InputFieldErrorFieldPolicy = {
 	field?: FieldPolicy<any> | FieldReadFunction<any>,
 	message?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type JournalEntryCommentPayloadKeySpecifier = ('clientMutationId' | 'success' | JournalEntryCommentPayloadKeySpecifier)[];
-export type JournalEntryCommentPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type MutationKeySpecifier = ('icloudCredentialsRemove' | 'icloudCredentialsUpdate' | 'icloudCredentialsVerifySecurityCode' | 'journalEntryComment' | 'obsidianNoteSynchronize' | 'scottkitSignal' | 'spotifyCredentialsRemove' | 'testMutation' | 'userChangeEmail' | 'userSendEmailVerificationInstructions' | 'userSendPasswordResetInstructions' | 'userUpdate' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'removeICloudCredentials' | 'removeSpotifyCredentials' | 'sendUserEmailVerificationInstructions' | 'sendUserPasswordResetInstructions' | 'synchronizeObsidianNotes' | 'testMutation' | 'updateICloudCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
-	icloudCredentialsRemove?: FieldPolicy<any> | FieldReadFunction<any>,
-	icloudCredentialsUpdate?: FieldPolicy<any> | FieldReadFunction<any>,
-	icloudCredentialsVerifySecurityCode?: FieldPolicy<any> | FieldReadFunction<any>,
-	journalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
-	obsidianNoteSynchronize?: FieldPolicy<any> | FieldReadFunction<any>,
-	scottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
-	spotifyCredentialsRemove?: FieldPolicy<any> | FieldReadFunction<any>,
+	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
+	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
+	removeICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	removeSpotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	sendUserEmailVerificationInstructions?: FieldPolicy<any> | FieldReadFunction<any>,
+	sendUserPasswordResetInstructions?: FieldPolicy<any> | FieldReadFunction<any>,
+	synchronizeObsidianNotes?: FieldPolicy<any> | FieldReadFunction<any>,
 	testMutation?: FieldPolicy<any> | FieldReadFunction<any>,
-	userChangeEmail?: FieldPolicy<any> | FieldReadFunction<any>,
-	userSendEmailVerificationInstructions?: FieldPolicy<any> | FieldReadFunction<any>,
-	userSendPasswordResetInstructions?: FieldPolicy<any> | FieldReadFunction<any>,
-	userUpdate?: FieldPolicy<any> | FieldReadFunction<any>
+	updateICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateUserEmail?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateUserProfile?: FieldPolicy<any> | FieldReadFunction<any>,
+	verifyICloudSecurityCode?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type NodeKeySpecifier = ('id' | NodeKeySpecifier)[];
 export type NodeFieldPolicy = {
@@ -127,11 +114,6 @@ export type ObsidianNoteEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ObsidianNoteSynchronizePayloadKeySpecifier = ('clientMutationId' | 'success' | ObsidianNoteSynchronizePayloadKeySpecifier)[];
-export type ObsidianNoteSynchronizePayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
 export type ObsidianStubKeySpecifier = ('createdAt' | 'id' | 'name' | 'referencedBy' | 'title' | 'updatedAt' | ObsidianStubKeySpecifier)[];
 export type ObsidianStubFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -166,8 +148,23 @@ export type QueryFieldPolicy = {
 	timezone?: FieldPolicy<any> | FieldReadFunction<any>,
 	viewer?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ScottkitSignalPayloadKeySpecifier = ('clientMutationId' | 'success' | ScottkitSignalPayloadKeySpecifier)[];
-export type ScottkitSignalPayloadFieldPolicy = {
+export type RemoveICloudCredentialsPayloadKeySpecifier = ('clientMutationId' | 'success' | RemoveICloudCredentialsPayloadKeySpecifier)[];
+export type RemoveICloudCredentialsPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type RemoveSpotifyCredentialsPayloadKeySpecifier = ('clientMutationId' | 'success' | RemoveSpotifyCredentialsPayloadKeySpecifier)[];
+export type RemoveSpotifyCredentialsPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type SendUserEmailVerificationInstructionsPayloadKeySpecifier = ('clientMutationId' | 'success' | SendUserEmailVerificationInstructionsPayloadKeySpecifier)[];
+export type SendUserEmailVerificationInstructionsPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type SendUserPasswordResetInstructionsPayloadKeySpecifier = ('clientMutationId' | 'success' | SendUserPasswordResetInstructionsPayloadKeySpecifier)[];
+export type SendUserPasswordResetInstructionsPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -183,11 +180,6 @@ export type SpotifyArtistFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type SpotifyCredentialsRemovePayloadKeySpecifier = ('clientMutationId' | 'success' | SpotifyCredentialsRemovePayloadKeySpecifier)[];
-export type SpotifyCredentialsRemovePayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SpotifyCurrentlyPlayingKeySpecifier = ('progressMilliseconds' | 'track' | SpotifyCurrentlyPlayingKeySpecifier)[];
 export type SpotifyCurrentlyPlayingFieldPolicy = {
@@ -216,6 +208,11 @@ export type SubscriptionFieldPolicy = {
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
 	testSubscription?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type SynchronizeObsidianNotesPayloadKeySpecifier = ('clientMutationId' | 'success' | SynchronizeObsidianNotesPayloadKeySpecifier)[];
+export type SynchronizeObsidianNotesPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type TestModelKeySpecifier = ('birthday' | 'id' | 'name' | TestModelKeySpecifier)[];
 export type TestModelFieldPolicy = {
 	birthday?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -236,6 +233,27 @@ export type TimezoneFieldPolicy = {
 	offset?: FieldPolicy<any> | FieldReadFunction<any>,
 	offsetMinutes?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type UpdateICloudCredentialsPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'icloudCredentials' | 'success' | UpdateICloudCredentialsPayloadKeySpecifier)[];
+export type UpdateICloudCredentialsPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	errors?: FieldPolicy<any> | FieldReadFunction<any>,
+	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type UpdateUserEmailPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'success' | 'user' | UpdateUserEmailPayloadKeySpecifier)[];
+export type UpdateUserEmailPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	errors?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>,
+	user?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type UpdateUserProfilePayloadKeySpecifier = ('clientMutationId' | 'errors' | 'success' | 'user' | UpdateUserProfilePayloadKeySpecifier)[];
+export type UpdateUserProfilePayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	errors?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>,
+	user?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type UserKeySpecifier = ('email' | 'id' | 'isOwner' | 'name' | 'unverifiedEmail' | UserKeySpecifier)[];
 export type UserFieldPolicy = {
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -244,54 +262,28 @@ export type UserFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	unverifiedEmail?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserChangeEmailPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'success' | 'user' | UserChangeEmailPayloadKeySpecifier)[];
-export type UserChangeEmailPayloadFieldPolicy = {
+export type VerifyICloudSecurityCodePayloadKeySpecifier = ('clientMutationId' | 'icloudCredentials' | 'success' | VerifyICloudSecurityCodePayloadKeySpecifier)[];
+export type VerifyICloudSecurityCodePayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	errors?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>,
-	user?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type UserSendEmailVerificationInstructionsPayloadKeySpecifier = ('clientMutationId' | 'success' | UserSendEmailVerificationInstructionsPayloadKeySpecifier)[];
-export type UserSendEmailVerificationInstructionsPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type UserSendPasswordResetInstructionsPayloadKeySpecifier = ('clientMutationId' | 'success' | UserSendPasswordResetInstructionsPayloadKeySpecifier)[];
-export type UserSendPasswordResetInstructionsPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type UserUpdatePayloadKeySpecifier = ('clientMutationId' | 'errors' | 'success' | 'user' | UserUpdatePayloadKeySpecifier)[];
-export type UserUpdatePayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	errors?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>,
-	user?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type StrictTypedTypePolicies = {
+	ActivateScottkitSignalPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ActivateScottkitSignalPayloadKeySpecifier | (() => undefined | ActivateScottkitSignalPayloadKeySpecifier),
+		fields?: ActivateScottkitSignalPayloadFieldPolicy,
+	},
+	AddJournalEntryCommentPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | AddJournalEntryCommentPayloadKeySpecifier | (() => undefined | AddJournalEntryCommentPayloadKeySpecifier),
+		fields?: AddJournalEntryCommentPayloadFieldPolicy,
+	},
 	ICloudCredentials?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ICloudCredentialsKeySpecifier | (() => undefined | ICloudCredentialsKeySpecifier),
 		fields?: ICloudCredentialsFieldPolicy,
 	},
-	ICloudCredentialsRemovePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ICloudCredentialsRemovePayloadKeySpecifier | (() => undefined | ICloudCredentialsRemovePayloadKeySpecifier),
-		fields?: ICloudCredentialsRemovePayloadFieldPolicy,
-	},
-	ICloudCredentialsUpdatePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ICloudCredentialsUpdatePayloadKeySpecifier | (() => undefined | ICloudCredentialsUpdatePayloadKeySpecifier),
-		fields?: ICloudCredentialsUpdatePayloadFieldPolicy,
-	},
-	ICloudCredentialsVerifySecurityCodePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ICloudCredentialsVerifySecurityCodePayloadKeySpecifier | (() => undefined | ICloudCredentialsVerifySecurityCodePayloadKeySpecifier),
-		fields?: ICloudCredentialsVerifySecurityCodePayloadFieldPolicy,
-	},
 	InputFieldError?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | InputFieldErrorKeySpecifier | (() => undefined | InputFieldErrorKeySpecifier),
 		fields?: InputFieldErrorFieldPolicy,
-	},
-	JournalEntryCommentPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | JournalEntryCommentPayloadKeySpecifier | (() => undefined | JournalEntryCommentPayloadKeySpecifier),
-		fields?: JournalEntryCommentPayloadFieldPolicy,
 	},
 	Mutation?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | MutationKeySpecifier | (() => undefined | MutationKeySpecifier),
@@ -337,10 +329,6 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | ObsidianNoteEdgeKeySpecifier | (() => undefined | ObsidianNoteEdgeKeySpecifier),
 		fields?: ObsidianNoteEdgeFieldPolicy,
 	},
-	ObsidianNoteSynchronizePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ObsidianNoteSynchronizePayloadKeySpecifier | (() => undefined | ObsidianNoteSynchronizePayloadKeySpecifier),
-		fields?: ObsidianNoteSynchronizePayloadFieldPolicy,
-	},
 	ObsidianStub?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ObsidianStubKeySpecifier | (() => undefined | ObsidianStubKeySpecifier),
 		fields?: ObsidianStubFieldPolicy,
@@ -353,9 +341,21 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier),
 		fields?: QueryFieldPolicy,
 	},
-	ScottkitSignalPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ScottkitSignalPayloadKeySpecifier | (() => undefined | ScottkitSignalPayloadKeySpecifier),
-		fields?: ScottkitSignalPayloadFieldPolicy,
+	RemoveICloudCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | RemoveICloudCredentialsPayloadKeySpecifier | (() => undefined | RemoveICloudCredentialsPayloadKeySpecifier),
+		fields?: RemoveICloudCredentialsPayloadFieldPolicy,
+	},
+	RemoveSpotifyCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | RemoveSpotifyCredentialsPayloadKeySpecifier | (() => undefined | RemoveSpotifyCredentialsPayloadKeySpecifier),
+		fields?: RemoveSpotifyCredentialsPayloadFieldPolicy,
+	},
+	SendUserEmailVerificationInstructionsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SendUserEmailVerificationInstructionsPayloadKeySpecifier | (() => undefined | SendUserEmailVerificationInstructionsPayloadKeySpecifier),
+		fields?: SendUserEmailVerificationInstructionsPayloadFieldPolicy,
+	},
+	SendUserPasswordResetInstructionsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SendUserPasswordResetInstructionsPayloadKeySpecifier | (() => undefined | SendUserPasswordResetInstructionsPayloadKeySpecifier),
+		fields?: SendUserPasswordResetInstructionsPayloadFieldPolicy,
 	},
 	SpotifyAlbum?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SpotifyAlbumKeySpecifier | (() => undefined | SpotifyAlbumKeySpecifier),
@@ -364,10 +364,6 @@ export type StrictTypedTypePolicies = {
 	SpotifyArtist?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SpotifyArtistKeySpecifier | (() => undefined | SpotifyArtistKeySpecifier),
 		fields?: SpotifyArtistFieldPolicy,
-	},
-	SpotifyCredentialsRemovePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | SpotifyCredentialsRemovePayloadKeySpecifier | (() => undefined | SpotifyCredentialsRemovePayloadKeySpecifier),
-		fields?: SpotifyCredentialsRemovePayloadFieldPolicy,
 	},
 	SpotifyCurrentlyPlaying?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SpotifyCurrentlyPlayingKeySpecifier | (() => undefined | SpotifyCurrentlyPlayingKeySpecifier),
@@ -385,6 +381,10 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | SubscriptionKeySpecifier | (() => undefined | SubscriptionKeySpecifier),
 		fields?: SubscriptionFieldPolicy,
 	},
+	SynchronizeObsidianNotesPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SynchronizeObsidianNotesPayloadKeySpecifier | (() => undefined | SynchronizeObsidianNotesPayloadKeySpecifier),
+		fields?: SynchronizeObsidianNotesPayloadFieldPolicy,
+	},
 	TestModel?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | TestModelKeySpecifier | (() => undefined | TestModelKeySpecifier),
 		fields?: TestModelFieldPolicy,
@@ -397,25 +397,25 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | TimezoneKeySpecifier | (() => undefined | TimezoneKeySpecifier),
 		fields?: TimezoneFieldPolicy,
 	},
+	UpdateICloudCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | UpdateICloudCredentialsPayloadKeySpecifier | (() => undefined | UpdateICloudCredentialsPayloadKeySpecifier),
+		fields?: UpdateICloudCredentialsPayloadFieldPolicy,
+	},
+	UpdateUserEmailPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | UpdateUserEmailPayloadKeySpecifier | (() => undefined | UpdateUserEmailPayloadKeySpecifier),
+		fields?: UpdateUserEmailPayloadFieldPolicy,
+	},
+	UpdateUserProfilePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | UpdateUserProfilePayloadKeySpecifier | (() => undefined | UpdateUserProfilePayloadKeySpecifier),
+		fields?: UpdateUserProfilePayloadFieldPolicy,
+	},
 	User?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | UserKeySpecifier | (() => undefined | UserKeySpecifier),
 		fields?: UserFieldPolicy,
 	},
-	UserChangeEmailPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | UserChangeEmailPayloadKeySpecifier | (() => undefined | UserChangeEmailPayloadKeySpecifier),
-		fields?: UserChangeEmailPayloadFieldPolicy,
-	},
-	UserSendEmailVerificationInstructionsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | UserSendEmailVerificationInstructionsPayloadKeySpecifier | (() => undefined | UserSendEmailVerificationInstructionsPayloadKeySpecifier),
-		fields?: UserSendEmailVerificationInstructionsPayloadFieldPolicy,
-	},
-	UserSendPasswordResetInstructionsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | UserSendPasswordResetInstructionsPayloadKeySpecifier | (() => undefined | UserSendPasswordResetInstructionsPayloadKeySpecifier),
-		fields?: UserSendPasswordResetInstructionsPayloadFieldPolicy,
-	},
-	UserUpdatePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | UserUpdatePayloadKeySpecifier | (() => undefined | UserUpdatePayloadKeySpecifier),
-		fields?: UserUpdatePayloadFieldPolicy,
+	VerifyICloudSecurityCodePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | VerifyICloudSecurityCodePayloadKeySpecifier | (() => undefined | VerifyICloudSecurityCodePayloadKeySpecifier),
+		fields?: VerifyICloudSecurityCodePayloadFieldPolicy,
 	}
 };
 export type TypedTypePolicies = StrictTypedTypePolicies & TypePolicies;

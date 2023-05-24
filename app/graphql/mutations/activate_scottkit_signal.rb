@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Mutations
-  class ScottkitSignal < BaseMutation
+  class ActivateScottkitSignal < BaseMutation
     # == Payload
     class Payload < T::Struct; end
 

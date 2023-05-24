@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Mutations
-  class ObsidianNoteSynchronize < BaseMutation
+  class SynchronizeObsidianNotes < BaseMutation
     # == Payload
     class Payload < T::Struct; end
 

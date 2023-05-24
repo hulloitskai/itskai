@@ -1,0 +1,7 @@
+mutation SynchronizeObsidianNotesMutation(
+  $input: SynchronizeObsidianNotesInput!
+) {
+  payload: synchronizeObsidianNotes(input: $input) {
+    success
+  }
+}

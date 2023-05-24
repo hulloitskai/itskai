@@ -52,6 +52,7 @@ class JournalService < ApplicationService
       end
     end
 
+    # == Helpers
     sig { returns(T.nilable(String)) }
     def database_id
       return @database_id if defined?(@database_id)
@@ -62,14 +63,14 @@ class JournalService < ApplicationService
 
     # == Helpers
     sig { returns(T::Boolean) }
-    def notion_ready? =Notion.config.token.present?
+    def notion_ready? = Notion.config.token.present?
   end
 
   # == Initialization
   sig { void }
   def initialize
     super
-    @client = Notion::Client.new
+    @client = T.let(Notion::Client.new, Notion::Client)
   end
 
   # == Methods

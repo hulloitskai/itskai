@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Mutations
-  class ICloudCredentialsVerifySecurityCode < BaseMutation
+  class VerifyICloudSecurityCode < BaseMutation
     # == Payload
     class Payload < T::Struct
       const :icloud_credentials, ICloudCredentials

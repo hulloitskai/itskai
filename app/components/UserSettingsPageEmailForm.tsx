@@ -4,8 +4,8 @@ import { PasswordInput, Text } from "@mantine/core";
 import type { ButtonProps } from "@mantine/core";
 
 import {
-  UserChangeEmailMutationDocument,
-  UserSendEmailVerificationInstructionsMutationDocument,
+  UpdateUserEmailMutationDocument,
+  SendUserEmailVerificationInstructionsMutationDocument,
 } from "~/queries";
 import type { UserSettingsPageViewerFragment } from "~/queries";
 
@@ -51,7 +51,7 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
   // == Mutation
   const onError = useApolloAlertCallback("Failed to change email");
   const [runMutation, { loading }] = useMutation(
-    UserChangeEmailMutationDocument,
+    UpdateUserEmailMutationDocument,
     {
       onCompleted: ({ payload: { user, errors } }) => {
         if (user) {
@@ -177,7 +177,7 @@ const ResendEmailVerificationInstructionsButton: FC<
     "Failed to re-send verification email",
   );
   const [runMutation, { loading }] = useMutation(
-    UserSendEmailVerificationInstructionsMutationDocument,
+    SendUserEmailVerificationInstructionsMutationDocument,
     {
       onCompleted: () => {
         showNotice({

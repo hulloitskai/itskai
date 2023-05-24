@@ -1,0 +1,7 @@
+mutation VerifyICloudSecurityCodeMutation(
+  $input: VerifyICloudSecurityCodeInput!
+) {
+  payload: verifyICloudSecurityCode(input: $input) {
+    success
+  }
+}

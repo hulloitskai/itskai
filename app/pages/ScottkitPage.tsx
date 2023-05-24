@@ -4,10 +4,10 @@ import { Code, Text } from "@mantine/core";
 import LightbulbIcon from "~icons/heroicons/light-bulb-20-solid";
 
 import {
-  ScottkitPageQuery,
-  ScottkitSignalMutationDocument,
+  ActivateScottkitSignalMutationDocument,
   ScottkitSignalType,
 } from "~/queries";
+import type { ScottkitPageQuery } from "~/queries";
 
 import {
   scottkitSignalTypeLabel,
@@ -109,15 +109,15 @@ const KitButton: FC<KitButtonProps> = ({ type, description }) => {
   );
 
   // == Mutation
-  const onError = useApolloAlertCallback("Failed to send Scottkit signal");
+  const onError = useApolloAlertCallback("Failed to activate Scottkit signal");
   const [runMutation, { loading }] = useMutation(
-    ScottkitSignalMutationDocument,
+    ActivateScottkitSignalMutationDocument,
     {
       onCompleted: () => {
         showNotice({
           title: (
             <>
-              A <Code {...{ color }}>{label}</Code> signal was broadcasted
+              A <Code {...{ color }}>{label}</Code> signal was activated
             </>
           ),
           message: <>You will be followed-up with shortly :)</>,

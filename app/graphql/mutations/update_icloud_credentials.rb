@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Mutations
-  class ICloudCredentialsUpdate < BaseMutation
+  class UpdateICloudCredentials < BaseMutation
     # == Payload
     class Payload < T::Struct
       const :icloud_credentials, T.nilable(ICloudCredentials)

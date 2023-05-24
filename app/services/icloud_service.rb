@@ -11,11 +11,6 @@ class ICloudService < ApplicationService
     end
 
     # == Methods
-    sig { returns(ICloudCredentials) }
-    def credentials
-      checked { instance.credentials }
-    end
-
     sig { returns(Client) }
     def client
       checked { instance.client }
@@ -59,11 +54,6 @@ class ICloudService < ApplicationService
   end
 
   # == Methods
-  sig { returns(ICloudCredentials) }
-  def credentials
-    @credentials or raise "Not authenticated (missing credentials)"
-  end
-
   sig { returns(Client) }
   def client
     @client or raise "Not authenticated (missing client)"
@@ -97,6 +87,11 @@ class ICloudService < ApplicationService
     else
       raise
     end
+  end
+
+  sig { returns(ICloudCredentials) }
+  def credentials
+    @credentials or raise "Not authenticated (missing credentials)"
   end
 
   sig { returns(Client) }

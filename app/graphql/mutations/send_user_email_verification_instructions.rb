@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Mutations
-  class UserSendPasswordResetInstructions < BaseMutation
+  class SendUserEmailVerificationInstructions < BaseMutation
     # == Payload
     class Payload < T::Struct; end
 
@@ -17,7 +17,10 @@ module Mutations
         raise GraphQL::ExecutionError,
               "No such user with the given email address"
       end
-      user.send_reset_password_instructions
+      if user.confirmed? && !user.pending_reconfirmation?
+        raise GraphQL::ExecutionError, "Email address already verified"
+      end
+      user.send_confirmation_instructions
       Payload.new
     end
   end

@@ -64,6 +64,7 @@ export const imports: Array<ImportsMap | PresetName> = [
       "Chip",
       "Container",
       "Divider",
+      "Flex",
       "Group",
       "List",
       "LoadingOverlay",
