@@ -1,4 +1,4 @@
-import { useApolloClient, useQuery } from "@apollo/client/index";
+import { NetworkStatus, useApolloClient, useQuery } from "@apollo/client/index";
 import type {
   DocumentNode,
   OperationVariables,
@@ -12,7 +12,6 @@ type PreloadedQueryHookOptions<
   TVariables extends OperationVariables = OperationVariables,
 > = QueryHookOptions<TData, TVariables> & {
   initialData: TData;
-  initialVariables?: TVariables;
 };
 
 export const usePreloadedQuery = <
@@ -21,18 +20,24 @@ export const usePreloadedQuery = <
 >(
   query: DocumentNode | TypedDocumentNode<TData, TVariables>,
   options: PreloadedQueryHookOptions<TData, TVariables>,
-): Omit<QueryResult<TData, TVariables>, "data"> & { data: TData } => {
-  const { initialData, initialVariables, ...otherOptions } = options;
+): QueryResult<TData, TVariables> & { coalescedData: TData } => {
+  const { initialData, ...queryOptions } = options;
+  const { variables } = queryOptions;
   const client = useApolloClient();
-  if (typeof window !== "undefined") {
+  if (!import.meta.env.SSR) {
     useEffect(() => {
       client.writeQuery({
         query: query,
+        variables,
         data: initialData,
-        variables: initialVariables,
       });
     }, [client, query, initialData]);
   }
-  const { data, ...otherValues } = useQuery(query, otherOptions);
-  return { data: data || initialData, ...otherValues };
+  const { loading, ...otherValues } = useQuery(query, queryOptions);
+  const { data, previousData, networkStatus } = otherValues;
+  return {
+    coalescedData: data ?? previousData ?? initialData,
+    loading: networkStatus == NetworkStatus.loading ? false : loading,
+    ...otherValues,
+  };
 };

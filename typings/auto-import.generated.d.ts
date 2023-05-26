@@ -113,6 +113,7 @@ declare global {
   const usePageErrors: typeof import('~/helpers/inertia/page')['usePageErrors']
   const usePageProps: typeof import('~/helpers/inertia/page')['usePageProps']
   const useParseDateTime: typeof import('~/helpers/luxon')['useParseDateTime']
+  const usePreloadedQuery: typeof import('~/helpers/apollo/preloading')['usePreloadedQuery']
   const useQuery: typeof import('@apollo/client/index')['useQuery']
   const useReducer: typeof import('react')['useReducer']
   const useRef: typeof import('react')['useRef']

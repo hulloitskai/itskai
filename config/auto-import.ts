@@ -25,6 +25,7 @@ export const imports: Array<ImportsMap | PresetName> = [
       "SettingsIcon",
       "UserIcon",
     ],
+    "~/helpers/apollo/preloading": ["usePreloadedQuery"],
     "~/helpers/apollo/errors": ["formatApolloError", "useApolloAlertCallback"],
     "~/helpers/errors": ["formatError"],
     "~/helpers/form": ["parseFormErrors", "showFormErrorsAlert"],
