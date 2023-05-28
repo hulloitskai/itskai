@@ -97,7 +97,7 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
                   </Text>
                   <Button
                     component="a"
-                    href="https://github.com/hulloitskai/itskai-app"
+                    href="https://github.com/hulloitskai/itskai"
                     target="_blank"
                     size="xs"
                     compact

@@ -1,4 +1,4 @@
-# itskai-app
+# itskai
 
 _My personal website!_
 
@@ -9,8 +9,8 @@ _My personal website!_
 brew install docker rbenv nodenv pyenv yarn watchman overmind
 
 # Set up environment
-git clone git@github.com:hulloitskai/itskai-app
-cd itskai-app
+git clone git@github.com:hulloitskai/itskai
+cd itskai
 bin/setup
 ```
 
