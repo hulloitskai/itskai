@@ -4,11 +4,11 @@
 
 namespace :fly do
   task :console do
-    fly_exec "app/bin/rails console", pty: true
+    fly_exec "bin/rails console", pty: true
   end
 
   task :db do
-    fly_exec "app/bin/rails db"
+    fly_exec "bin/rails db"
   end
 
   private
