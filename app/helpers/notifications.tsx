@@ -13,7 +13,7 @@ export const showAlert = (props: NotificationProps) => {
 
 export const showNotice = (props: NotificationProps) => {
   showNotification({
-    color: "pink",
+    color: "brand",
     icon: <InformationCircleIcon />,
     ...props,
   });

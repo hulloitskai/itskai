@@ -1,8 +1,22 @@
-import type { MantineThemeOverride } from "@mantine/core";
+import type { DefaultMantineColor, MantineThemeOverride } from "@mantine/core";
+
+import { DEFAULT_THEME } from "@mantine/core";
+import type { Tuple } from "@mantine/core";
+
+export type CustomColor = "brand";
+
+declare module "@mantine/core" {
+  export interface MantineThemeColorsOverride {
+    colors: Record<DefaultMantineColor | CustomColor, Tuple<string, 10>>;
+  }
+}
 
 export const theme: MantineThemeOverride = {
   colorScheme: "dark",
-  primaryColor: "pink",
+  colors: {
+    brand: DEFAULT_THEME.colors.pink,
+  },
+  primaryColor: "brand",
   fontFamily:
     "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, " +
     "Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji",

@@ -2,6 +2,11 @@
 # frozen_string_literal: true
 
 class ApplicationRecord < ActiveRecord::Base
+  extend T::Sig
+  extend T::Helpers
+  extend Enumerize
+  include Routing
+
   class << self
     extend T::Sig
 
@@ -36,11 +41,6 @@ class ApplicationRecord < ActiveRecord::Base
       end
     end
   end
-
-  extend T::Sig
-  extend T::Helpers
-  extend Enumerize
-  include Routing
 
   # == Constants
   # Support runtime type-checking for Sorbet-generated types.

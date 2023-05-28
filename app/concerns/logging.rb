@@ -12,7 +12,7 @@ module Logging
   class_methods do
     extend T::Sig
 
-    # == Methods
+    # == Class Methods
     sig { returns(ActiveSupport::Logger) }
     def logger = Rails.logger
   end

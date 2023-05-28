@@ -17,10 +17,14 @@ module Slugged
     requires_columns :slug
   end
 
-  # == Class Methods
   class_methods do
     extend T::Sig
+    extend T::Helpers
 
+    # == Class Annotations
+    requires_ancestor { T.class_of(ApplicationRecord) }
+
+    # == Class Methods
     sig { returns(Integer) }
     def generated_slug_length
       @generated_slug_length || 16

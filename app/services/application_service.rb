@@ -2,11 +2,18 @@
 # frozen_string_literal: true
 
 class ApplicationService
+  extend T::Sig
+  extend T::Helpers
+
+  include ActiveSupport::Configurable
+  include Singleton
+  include Logging
+
   class << self
     extend T::Sig
     extend T::Helpers
 
-    # == Methods
+    # == Class Methods
     sig { returns(T.nilable(T.attached_class)) }
     def start
       return if disabled?
@@ -46,13 +53,6 @@ class ApplicationService
       yield
     end
   end
-
-  extend T::Sig
-  extend T::Helpers
-
-  include ActiveSupport::Configurable
-  include Singleton
-  include Logging
 
   # == Initialization
   sig { void }
