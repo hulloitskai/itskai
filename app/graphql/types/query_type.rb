@@ -3,7 +3,6 @@
 
 module Types
   class QueryType < BaseObject
-    # == Relay
     # Add `node` and `nodes` fields.
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
