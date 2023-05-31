@@ -6,13 +6,15 @@ def system!(*args)
   system(*args) || abort("Command `#{args.join(' ')}' failed")
 end
 
+def scoped(&block) = yield
+
 # == Dependencies
 system("bundle", "install", "--quiet") ||
   abort("Failed to install Ruby dependencies")
 system("yarn", "install", "--silent") ||
   abort("Failed to install Node dependencies")
 
-# == Command
+# == Options
 require "optparse"
 
 options = {}
@@ -24,8 +26,7 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-def scoped(&block) = yield
-
+# == Formatting
 puts "=> Running Prettier"
 scoped do
   args = []

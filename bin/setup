@@ -3,14 +3,15 @@
 
 require "fileutils"
 
+# == Helpers
 # Path to your application root.
 APP_ROOT = File.expand_path("..", __dir__)
 
-# == Helpers
 def system!(*args)
   system(*args) || abort("Command `#{args.join(' ')}' failed")
 end
 
+# == Command
 FileUtils.chdir APP_ROOT do
   # This script is a way to set up or update your development environment
   # automatically. This script is idempotent, so that you can run it at any time
@@ -24,6 +25,7 @@ FileUtils.chdir APP_ROOT do
 
   puts "\n=> Installing Node dependencies"
   system!("bin/yarn --silent install") &&
+    Dir.chdir("extension") { system!("yarn --silent install") } &&
     puts("Node dependencies are installed")
 
   puts "\n=> Install Python dependencies"
