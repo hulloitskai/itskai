@@ -1,9 +1,9 @@
 # typed: strict
 # frozen_string_literal: true
 
-class ObsidianStubCleanupJob < ApplicationJob
+class CleanupObsidianStubsJob < ApplicationJob
   # == Configuration
-  good_job_control_concurrency_with(key: name, total_limit: 1)
+  good_job_control_concurrency_with key: name, total_limit: 1
 
   # == Callbacks
   around_perform :with_activity_logging

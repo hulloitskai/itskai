@@ -65,7 +65,7 @@ class ICloudService < ApplicationService
   sig { params(code: T.nilable(String)).returns(T::Boolean) }
   def verify_security_code(code)
     client.verify_security_code(code).tap do
-      ObsidianNote.synchronize_all_later
+      ObsidianNote.sync_all_later
     end
   end
 

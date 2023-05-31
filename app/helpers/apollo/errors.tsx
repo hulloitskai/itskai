@@ -23,6 +23,6 @@ export const useApolloAlertCallback = (
       console.error(title, { error });
       showAlert({ title, message });
     },
-    [showNotification, title],
+    [title],
   );
 };

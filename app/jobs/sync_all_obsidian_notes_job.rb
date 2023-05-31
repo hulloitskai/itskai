@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-class ObsidianNoteSynchronizationJob < ApplicationJob
+class SyncAllObsidianNotesJob < ApplicationJob
   # == Configuration
   good_job_control_concurrency_with key: name, total_limit: 1
 
@@ -37,11 +37,11 @@ class ObsidianNoteSynchronizationJob < ApplicationJob
         ObsidianService.note(name).try! do |note|
           note = T.let(note, ObsidianNote)
           note.save!.tap do
-            logger.info("Created note '#{note.name}'")
+            logger.info("Created note `#{note.name}'")
           end
         end
       rescue => error
-        logger.error("Failed to create '#{name}': #{error}")
+        logger.error("Failed to create `#{name}': #{error}")
         raise error
       end
     end

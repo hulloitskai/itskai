@@ -4,6 +4,8 @@
 module Types
   class MutationType < BaseObject
     # == Mutations
+    field :test_mutation, mutation: Mutations::TestMutation
+
     field :send_user_email_verification_instructions,
           mutation: Mutations::SendUserEmailVerificationInstructions
     field :send_user_password_reset_instructions,
@@ -23,8 +25,7 @@ module Types
           mutation: Mutations::AddJournalEntryComment
     field :remove_spotify_credentials,
           mutation: Mutations::RemoveSpotifyCredentials
-    field :synchronize_obsidian_notes,
-          mutation: Mutations::SynchronizeObsidianNotes
-    field :test_mutation, mutation: Mutations::TestMutation
+    field :sync_all_obsidian_notes, mutation: Mutations::SyncAllObsidianNotes
+    field :sync_cookies, mutation: Mutations::SyncCookies
   end
 end

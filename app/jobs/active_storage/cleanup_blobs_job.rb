@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module ActiveStorage
-  class BlobCleanupJob < ApplicationJob
+  class CleanupBlobsJob < ApplicationJob
     # == Configuration
     good_job_control_concurrency_with key: name, total_limit: 1
 

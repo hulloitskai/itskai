@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-class ObsidianNoteSynchronizeJob < ApplicationJob
+class SyncObsidianNoteJob < ApplicationJob
   # == Configuration
   good_job_control_concurrency_with key: name, total_limit: 1
 

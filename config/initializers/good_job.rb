@@ -9,24 +9,24 @@ Rails.application.configure do
     # == Cron
     config.enable_cron = true
     config.cron = {
-      "active_storage/blob_cleanup": {
-        class: "ActiveStorage::BlobCleanupJob",
+      "active_storage/cleanup_blobs": {
+        class: "ActiveStorage::CleanupBlobsJob",
         description: "Schedule purging of unattached ActiveStorage blobs.",
         cron: "0 */6 * * *",
       },
-      obsidian_stub_cleanup: {
-        class: "ObsidianStubCleanupJob",
+      cleanup_obsidian_stubs: {
+        class: "CleanupObsidianStubJob",
         description: "Destroy unreferenced stubs from Obsidian.",
         cron: "15 */6 * * *",
       },
-      obsidian_note_analysis: {
-        class: "ObsidianNoteAnalysisJob",
-        description: "Analayze notes from Obsidian.",
+      analyze_remaining_obsidian_notes: {
+        class: "AnalyzeRemainingObsidianNotesJob",
+        description: "Analayze remaining notes from Obsidian.",
         cron: "30 */6 * * *",
       },
-      obsidian_note_synchronization: {
-        class: "ObsidianNoteSynchronizationJob",
-        description: "Synchronize notes from Obsidian.",
+      sync_all_obsidian_notes: {
+        class: "SyncAllObsidianNotesJob",
+        description: "Synchronize all notes from Obsidian.",
         cron: "*/5 * * * *",
       },
     }

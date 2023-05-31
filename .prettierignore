@@ -1,6 +1,7 @@
 .ruby-lsp/
 .husky/_/
 app/**/*.generated.*
+extension/**/*.generated.*
 bin/
 dist/
 db/schema.rb

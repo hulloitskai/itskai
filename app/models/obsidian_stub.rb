@@ -32,11 +32,11 @@ class ObsidianStub < ApplicationRecord
   # == Methods: Cleanup
   sig { void }
   def self.cleanup
-    ObsidianStubCleanupJob.perform_now
+    CleanupObsidianStubsJob.perform_now
   end
 
   sig { void }
   def self.cleanup_later
-    ObsidianStubCleanupJob.perform_later
+    CleanupObsidianStubsJob.perform_later
   end
 end

@@ -9,17 +9,26 @@ namespace :graphql do
       codegen "schema"
     end
 
-    desc "Generate GraphQL client code from schema"
-    task :client do
-      codegen "client"
+    desc "Generate app GraphQL code from schema"
+    task :app do
+      codegen "app"
+    end
+
+    desc "Generate extension GraphQL code from schema"
+    task :extension do
+      codegen "extension"
     end
   end
 
   task :generate do
     puts "=> Generating schema"
     codegen "schema"
-    puts "=> Generate client code"
-    codegen "client"
+
+    puts "\n=> Generating app code"
+    codegen "app"
+
+    puts "\n=> Generating extension code"
+    codegen "extension"
   end
 
   private

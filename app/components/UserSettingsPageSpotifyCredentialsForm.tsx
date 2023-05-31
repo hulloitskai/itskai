@@ -10,7 +10,7 @@ export type UserSettingsPageSpotifyCredentialsFormProps = {
   readonly spotifyCredentials: Maybe<UserSettingsPageOAuthCredentialsFragment>;
 };
 
-const userSettingsPageSpotifyCredentialsForm: FC<
+const UserSettingsPageSpotifyCredentialsForm: FC<
   UserSettingsPageSpotifyCredentialsFormProps
 > = ({ spotifyCredentials }) => {
   const router = useRouter();
@@ -96,4 +96,4 @@ const userSettingsPageSpotifyCredentialsForm: FC<
   );
 };
 
-export default userSettingsPageSpotifyCredentialsForm;
+export default UserSettingsPageSpotifyCredentialsForm;

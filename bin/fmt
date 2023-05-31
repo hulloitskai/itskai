@@ -24,16 +24,14 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-def scoped(&block)
-  yield
-end
+def scoped(&block) = yield
 
 puts "=> Running Prettier"
 scoped do
   args = []
   args << (options[:fix] ? "--write" : "--check")
   args << "."
-  system!("yarn", "--silent", "prettier", *args)
+  system! "yarn", "--silent", "prettier", *args
 end
 
 puts "\n=> Runnning Rubocop"
@@ -45,5 +43,5 @@ scoped do
     args << "--only"
     args << "Layout"
   end
-  system!("bundle", "exec", "rubocop", *args)
+  system! "bundle", "exec", "rubocop", *args
 end

@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    // == Language
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+
+    // == Mode
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "noEmit": true,
+
+    // == Linting
+    "strict": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUncheckedIndexedAccess": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["app", "typings"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

@@ -3,6 +3,9 @@
 
 module Types
   class BaseInputObject < GraphQL::Schema::InputObject
+    extend T::Sig
+    extend T::Helpers
+
     # == Configuration
     argument_class BaseArgument
   end

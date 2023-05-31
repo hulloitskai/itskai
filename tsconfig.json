@@ -9,26 +9,24 @@
     // == Language
     "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "module": "ESNext",
+    "skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+
+    // == Mode
     "moduleResolution": "node",
-    "jsx": "react-jsx",
     "esModuleInterop": true,
     "isolatedModules": true,
     "useDefineForClassFields": true,
-
-    // == JavaScript
+    "jsx": "react-jsx",
+    "noEmit": true,
     "allowJs": true,
 
-    // == Emit
-    "noEmit": true,
-
-    // == Types
+    // == Linting
     "strict": true,
     "alwaysStrict": true,
+    "noUnusedLocals": true,
     "noUncheckedIndexedAccess": true,
-
-    // == Completeness
-    "skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+    "noFallthroughCasesInSwitch": true,
 
     // == Plugins
     "plugins": [
@@ -37,5 +35,5 @@
       }
     ]
   },
-  "include": ["app/**/*", "typings/**/*"]
+  "include": ["app", "typings"]
 }

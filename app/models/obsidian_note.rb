@@ -108,44 +108,44 @@ class ObsidianNote < ApplicationRecord
   # == Methods: Analysis
   sig { params(force: T::Boolean).void }
   def self.analyze_all(force: false)
-    ObsidianNoteAnalysisJob.perform_now(force:)
+    AnalyzeRemainingObsidianNotesJob.perform_now(force:)
   end
 
   sig { params(force: T::Boolean).void }
   def self.analyze_all_later(force: false)
-    ObsidianNoteAnalysisJob.perform_later(force: force)
+    AnalyzeRemainingObsidianNotesJob.perform_later(force: force)
   end
 
   sig { void }
   def analyze
-    ObsidianNoteAnalyzeJob.perform_now(self)
+    AnalyzeObsidianNoteJob.perform_now(self)
   end
 
   sig { void }
   def analyze_later
-    ObsidianNoteAnalyzeJob.perform_later(self)
+    AnalyzeObsidianNoteJob.perform_later(self)
   end
 
-  # == Methods: Synchronization
+  # == Methods: Sync
   sig { params(force: T::Boolean).void }
-  def self.synchronize_all(force: false)
-    ObsidianNoteSynchronizationJob.perform_now(force:)
-  end
-
-  sig { params(force: T::Boolean).void }
-  def self.synchronize_all_later(force: false)
-    ObsidianNoteSynchronizationJob.perform_later(force:)
+  def self.sync_all(force: false)
+    SyncAllObsidianNotesJob.perform_now(force:)
   end
 
   sig { params(force: T::Boolean).void }
-  def synchronize(force: false)
+  def self.sync_all_later(force: false)
+    SyncAllObsidianNotesJob.perform_later(force:)
+  end
+
+  sig { params(force: T::Boolean).void }
+  def sync(force: false)
     return if !force && !synchronization_required?
-    ObsidianNoteSynchronizeJob.perform_now(self, force:)
+    SyncObsidianNoteJob.perform_now(self, force:)
   end
 
   sig { params(force: T::Boolean).void }
-  def synchronize_later(force: false)
-    ObsidianNoteSynchronizeJob.perform_later(self, force:)
+  def sync_later(force: false)
+    SyncObsidianNoteJob.perform_later(self, force:)
   end
 
   private

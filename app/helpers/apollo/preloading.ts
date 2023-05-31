@@ -25,6 +25,7 @@ export const usePreloadedQuery = <
   const { variables } = queryOptions;
   const client = useApolloClient();
   if (!import.meta.env.SSR) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       client.writeQuery({
         query: query,

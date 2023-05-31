@@ -73,6 +73,7 @@ const ObsidianGraph: FC<ObsidianGraphProps> = ({
   const [focusedEntry, setFocusedEntry] =
     useState<ObsidianGraphEntryFragment | null>(null);
   if (!import.meta.env.SSR) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       const { current: target } = svgRef;
       const [width, height] = renderSize;

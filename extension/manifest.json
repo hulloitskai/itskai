@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "It's Kai",
+  "version": "0.1",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "logo.png"
+  },
+  "host_permissions": ["*://*.instagram.com/", "*://instagram.com/"],
+  "permissions": ["cookies", "tabs"]
+}

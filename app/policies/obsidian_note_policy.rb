@@ -7,7 +7,7 @@ class ObsidianNotePolicy < ApplicationPolicy
     true
   end
 
-  def synchronize?
+  def sync?
     false
   end
 

@@ -1,11 +1,11 @@
 # typed: strict
 # frozen_string_literal: true
 
-class ObsidianNoteAnalyzeJob < ApplicationJob
+class AnalyzeObsidianNoteJob < ApplicationJob
   # == Configuration
   good_job_control_concurrency_with(
     key: -> do
-      T.bind(self, ObsidianNoteAnalyzeJob)
+      T.bind(self, AnalyzeObsidianNoteJob)
       note = T.let(arguments.first!, ObsidianNote)
       "#{self.class.name}:#{note.id}"
     end,

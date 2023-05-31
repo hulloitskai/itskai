@@ -24,7 +24,7 @@ const config: CodegenConfig = {
       },
       plugins: ["typescript-operations", "typed-document-node"],
       presetConfig: {
-        typesPath: "app/queries/types.generated",
+        typesPath: "./types.generated",
       },
     },
     "app/helpers/apollo/introspection.generated.ts": {

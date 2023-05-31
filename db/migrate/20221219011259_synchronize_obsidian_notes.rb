@@ -7,6 +7,6 @@ class SynchronizeObsidianNotes < ActiveRecord::Migration[7.0]
   def up
     ICloudService.start
     ObsidianService.start
-    ObsidianNote.synchronize_all(force: true)
+    ObsidianNote.sync_all(force: true)
   end
 end
