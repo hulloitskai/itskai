@@ -13,7 +13,7 @@ module Rails
     def console?
       const_defined?(:Console)
     end
-  end
+   end
 end
 
 # Ensure generators defined in 'lib/generators' are prioritized over
