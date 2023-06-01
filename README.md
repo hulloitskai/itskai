@@ -16,6 +16,7 @@ bin/setup
 
 ## TODO
 
+- [ ] Import journal entries from Notion into application database
 - [ ] Set up `extension` subproject to automatically generate GraphQL client
       helpers from `extension/schema.generated.graphql`,
 - [ ] Switch to [Microsoft Clarity](https://clarity.microsoft.com) cuz it's
