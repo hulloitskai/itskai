@@ -36,25 +36,6 @@ class User < ApplicationRecord
   # == Constants
   MIN_PASSWORD_ENTROPY = T.let(14, Integer)
 
-  # == Configuration: Devise
-  # Others modules are: :lockable, :timeoutable, and :omniauthable.
-  devise :database_authenticatable,
-         :registerable,
-         :recoverable,
-         :rememberable,
-         :validatable,
-         :confirmable,
-         :trackable,
-         :omniauthable,
-         reconfirmable: true
-
-  self.filter_attributes += %i[
-    encrypted_password
-    reset_password_token
-    confirmation_token
-    invitation_token
-  ]
-
   # == Attributes
   sig { returns(String) }
   def email_with_name
@@ -85,7 +66,25 @@ class User < ApplicationRecord
             },
             allow_nil: true
 
-  # == Methods: Devise
+  # == Devise
+  # Others modules are: :lockable, :timeoutable, and :omniauthable.
+  devise :database_authenticatable,
+         :registerable,
+         :recoverable,
+         :rememberable,
+         :validatable,
+         :confirmable,
+         :trackable,
+         :omniauthable,
+         reconfirmable: true
+
+  self.filter_attributes += %i[
+    encrypted_password
+    reset_password_token
+    confirmation_token
+    invitation_token
+  ]
+
   sig do
     params(
       params: T::Hash[Symbol, T.untyped],
@@ -97,7 +96,19 @@ class User < ApplicationRecord
     super(params)
   end
 
-  # == Methods: Owner
+  # == Sentry
+  sig { returns(T::Hash[String, T.untyped]) }
+  def sentry_info
+    { "id" => id, "email" => email }
+  end
+
+  # == Fullstory
+  sig { returns(T::Hash[String, T.untyped]) }
+  def fullstory_identity
+    { "uid" => id, "email" => email, "displayName" => name }
+  end
+
+  # == Owner
   sig { returns(String) }
   def self.owner_email
     return @owner_email if defined?(@owner_email)
@@ -115,17 +126,5 @@ class User < ApplicationRecord
   sig { returns(T::Boolean) }
   def owner?
     email == User.owner_email
-  end
-
-  # == Methods: Sentry
-  sig { returns(T::Hash[String, T.untyped]) }
-  def sentry_info
-    { "id" => id, "email" => email }
-  end
-
-  # == Methods: FullStory
-  sig { returns(T::Hash[String, T.untyped]) }
-  def fullstory_identity
-    { "uid" => id, "email" => email, "displayName" => name }
   end
 end

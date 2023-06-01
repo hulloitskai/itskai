@@ -1,4 +1,4 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 module Mutations
@@ -28,7 +28,12 @@ module Mutations
     def self.field(*args, **kwargs, &block) = super
 
     # == Resolver
-    def resolve_with_support(...)
+    sig do
+      override
+        .params(args: T.untyped, kwargs: T.untyped, block: T.untyped)
+        .returns(T.untyped)
+    end
+    def resolve_with_support(*args, **kwargs, &block)
       result = super
       if result.is_a?(GraphQL::Execution::Lazy)
         result.then do |result|
