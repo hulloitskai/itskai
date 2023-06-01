@@ -21,8 +21,10 @@ inherit_gem:
 AllCops:
   NewCops: enable
   Exclude:
-    - .devcontainer/**/*
+    - extension/**/*
+    - .github/**/*
     - .husky/**/*
+    - .vscode/**/*
     - db/schema.rb
     - bin/**/*
     - log/**/*

@@ -1,6 +1,5 @@
-.ruby-lsp/
-.husky/_/
 extension/
+.husky/_/
 bin/
 dist/
 db/schema.rb
