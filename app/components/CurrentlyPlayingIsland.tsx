@@ -9,9 +9,9 @@ import type { BoxProps } from "@mantine/core";
 import {
   CurrentlyPlayingIslandQueryDocument,
   CurrentlyPlayingIslandSubscriptionDocument,
-} from "~/queries";
-import type { CurrentlyPlayingIslandTrackFragment } from "~/queries";
-import type { Maybe } from "~/queries";
+} from "~/helpers/graphql";
+import type { CurrentlyPlayingIslandTrackFragment } from "~/helpers/graphql";
+import type { Maybe } from "~/helpers/graphql";
 
 import CurrentlyPlayingLyricsTooltip from "./CurrentlyPlayingLyricsTooltip";
 

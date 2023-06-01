@@ -5,7 +5,7 @@ import CodeIcon from "~icons/heroicons/code-bracket-20-solid";
 import { DefaultMantineColor, HoverCard, Image, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
-import { ActivityStatusBadgeSubscriptionDocument } from "~/queries";
+import { ActivityStatusBadgeSubscriptionDocument } from "~/helpers/graphql";
 
 import logoPath from "~/assets/images/logo-plain.png";
 

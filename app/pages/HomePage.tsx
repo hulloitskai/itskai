@@ -1,8 +1,8 @@
 import type { PageComponent, PageProps } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
-import type { HomePageQuery } from "~/queries";
-import type { Maybe } from "~/queries";
+import type { HomePageQuery } from "~/helpers/graphql";
+import type { Maybe } from "~/helpers/graphql";
 
 import HomePageJournalEntries from "~/components/HomePageJournalEntries";
 

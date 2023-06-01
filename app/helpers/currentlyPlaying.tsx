@@ -1,5 +1,5 @@
-import type { SpotifyLyricLine } from "~/queries";
-import type { Maybe } from "~/queries";
+import type { SpotifyLyricLine } from "~/helpers/graphql";
+import type { Maybe } from "~/helpers/graphql";
 
 export type InterpolatedProgressMillisecondsParams = {
   readonly progressMilliseconds: number;

@@ -35,5 +35,6 @@
       }
     ]
   },
-  "include": ["app", "typings"]
+  "include": ["app", "typings"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

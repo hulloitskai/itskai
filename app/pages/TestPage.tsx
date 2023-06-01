@@ -11,7 +11,7 @@ import PencilSquareIcon from "~icons/heroicons/pencil-square-20-solid";
 import BellAlertIcon from "~icons/heroicons/bell-alert-20-solid";
 import ArrowTopRightOnSquareIcon from "~icons/heroicons/arrow-top-right-on-square-20-solid";
 
-import { TestPageQuery } from "~/queries";
+import { TestPageQuery } from "~/helpers/graphql";
 
 export type TestPageProps = PageProps<TestPageQuery> & {
   readonly name: string;

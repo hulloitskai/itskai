@@ -3,9 +3,9 @@ import type { FC, ReactNode } from "react";
 import { useHover } from "@mantine/hooks";
 import type { TooltipProps } from "@mantine/core";
 
-import { CurrentlyPlayingLyricsTooltipQueryDocument } from "~/queries";
-import type { CurrentlyPlayingLyricsTooltipLyricLineFragment } from "~/queries";
-import type { Maybe } from "~/queries";
+import { CurrentlyPlayingLyricsTooltipQueryDocument } from "~/helpers/graphql";
+import type { CurrentlyPlayingLyricsTooltipLyricLineFragment } from "~/helpers/graphql";
+import type { Maybe } from "~/helpers/graphql";
 
 import {
   useInterpolatedProgressMilliseconds,

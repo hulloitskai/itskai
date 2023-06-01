@@ -3,7 +3,7 @@ import { Text } from "@mantine/core";
 
 import UserLoginPageForm from "~/components/UserLoginPageForm";
 
-import { UserLoginPageQuery } from "~/queries";
+import { UserLoginPageQuery } from "~/helpers/graphql";
 
 export type UserLoginPageProps = PageProps<UserLoginPageQuery> & {
   readonly failed: boolean;

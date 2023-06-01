@@ -1,7 +1,7 @@
 import type { ComponentType, ReactElement } from "react";
 import type { MantineColor } from "@mantine/core";
 
-import { ScottkitSignalType } from "~/queries";
+import { ScottkitSignalType } from "~/helpers/graphql";
 
 import BreakIcon from "~icons/heroicons/hand-raised-20-solid";
 import RandIcon from "~icons/heroicons/sparkles-20-solid";

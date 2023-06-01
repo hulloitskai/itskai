@@ -25,11 +25,10 @@ FileUtils.chdir APP_ROOT do
 
   puts "\n=> Installing Node dependencies"
   system!("bin/yarn --silent install") &&
-    Dir.chdir("extension") { system!("yarn --silent install") } &&
     puts("Node dependencies are installed")
 
   puts "\n=> Install Python dependencies"
-  system!("pip install -r requirements.txt")
+  system! "pip install -r requirements.txt"
 
   puts "\n=> Installing githooks"
   system! "bin/yarn --silent husky install"

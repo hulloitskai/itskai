@@ -25,7 +25,7 @@ import { select } from "d3-selection";
 import type {
   ObsidianGraphEntryFragment,
   ObsidianGraphNoteFragment,
-} from "~/queries";
+} from "~/helpers/graphql";
 
 import ObsidianGraphInfoCard from "./ObsidianGraphInfoCard";
 

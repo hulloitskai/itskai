@@ -16,8 +16,8 @@ import AppFlash from "./AppFlash";
 import ContentContainer from "./ContentContainer";
 import PageContainer from "./PageContainer";
 
-import type { Maybe } from "~/queries";
-import type { AppViewerFragment } from "~/queries";
+import type { Maybe } from "~/helpers/graphql";
+import type { AppViewerFragment } from "~/helpers/graphql";
 
 export type AppLayoutProps = AppMetaProps &
   AppShellProps & {

@@ -1,0 +1,61 @@
+extension/
+
+# == GitHub Actions
+.github/
+
+# == Rails
+log/
+!log/.keep
+public/assets/
+storage/
+!storage/.keep
+tmp/
+!tmp/.keep
+!tmp/pids/.keep
+!tmp/sockets/.keep
+!tmp/storage/.keep
+
+# Vite:
+dist*
+public/dist*
+
+# == Dotenv
+.env
+.env.*
+
+# == Node
+**/node_modules/
+**/jspm_packages/
+/.pnp
+/.pnp.js
+/build
+/dist/
+/coverage
+
+# Misc:
+**/.nyc_output
+**/.grunt
+**/.lock-wscript
+**/.yarn-integrity
+**/*.tgz
+**/lib-cov
+**/bower_components
+
+# Logs:
+**/logs
+**/*.log
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/.node_repl_history
+
+# Cache:
+**/.npm
+**/.eslintcache
+**/*.tsbuildinfo
+
+# == IDE
+.vscode/
+
+# == Husky
+.husky/

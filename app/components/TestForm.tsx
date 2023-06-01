@@ -2,7 +2,7 @@ import type { FC } from "react";
 import { Code, Text } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 
-import { TestMutationDocument } from "~/queries";
+import { TestMutationDocument } from "~/helpers/graphql";
 
 export type TestFormValues = {
   readonly name: string;

@@ -6,8 +6,8 @@ import LightbulbIcon from "~icons/heroicons/light-bulb-20-solid";
 import {
   ActivateScottkitSignalMutationDocument,
   ScottkitSignalType,
-} from "~/queries";
-import type { ScottkitPageQuery } from "~/queries";
+} from "~/helpers/graphql";
+import type { ScottkitPageQuery } from "~/helpers/graphql";
 
 import {
   scottkitSignalTypeLabel,

@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { SyncAllObsidianNotesMutationDocument } from "~/queries";
+import { SyncAllObsidianNotesMutationDocument } from "~/helpers/graphql";
 
 export type UserSettingsPageObsidianActionsProps = {};
 

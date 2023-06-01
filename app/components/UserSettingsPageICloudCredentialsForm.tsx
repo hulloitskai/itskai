@@ -5,9 +5,9 @@ import {
   RemoveICloudCredentialsMutationDocument,
   UpdateICloudCredentialsMutationDocument,
   VerifyICloudSecurityCodeMutationDocument,
-} from "~/queries";
-import type { UserSettingsPageICloudCredentialsFragment } from "~/queries";
-import type { Maybe } from "~/queries";
+} from "~/helpers/graphql";
+import type { UserSettingsPageICloudCredentialsFragment } from "~/helpers/graphql";
+import type { Maybe } from "~/helpers/graphql";
 
 export type UserSettingsPageICloudCredentialsFormValues = {
   readonly email: string;

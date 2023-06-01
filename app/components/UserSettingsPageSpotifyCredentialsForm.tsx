@@ -1,8 +1,8 @@
 import type { FC } from "react";
 
-import { RemoveSpotifyCredentialsMutationDocument } from "~/queries";
-import type { UserSettingsPageOAuthCredentialsFragment } from "~/queries";
-import type { Maybe } from "~/queries";
+import { RemoveSpotifyCredentialsMutationDocument } from "~/helpers/graphql";
+import type { UserSettingsPageOAuthCredentialsFragment } from "~/helpers/graphql";
+import type { Maybe } from "~/helpers/graphql";
 
 import FormAuthenticityField from "./FormAuthenticityField";
 

@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import type { BoxProps } from "@mantine/core";
 
-import { ObsidianNotePageGraphQueryDocument } from "~/queries";
+import { ObsidianNotePageGraphQueryDocument } from "~/helpers/graphql";
 
 export type ObsidianNotePageGraphProps = BoxProps & {
   readonly noteId: string;

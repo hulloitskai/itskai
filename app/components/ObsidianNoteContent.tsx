@@ -9,7 +9,7 @@ import remarkWikiLink from "remark-wiki-link";
 import type {
   ObsidianNoteContentNoteReferenceFragment,
   ObsidianNoteContentReferenceFragment,
-} from "~/queries";
+} from "~/helpers/graphql";
 
 type ObsidianNoteContentProps = {
   readonly children: string;

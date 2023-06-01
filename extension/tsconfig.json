@@ -21,6 +21,6 @@
     "noUncheckedIndexedAccess": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["app", "typings"],
+  "include": ["src", "typings"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -27,6 +27,7 @@ const NotionContent: FC<NotionContentProps> = ({ blocks }) => {
           divider: NotionContentDivider,
         }}
         useStyles
+        emptyBlocks
         {...{ blocks }}
       />
     </Box>

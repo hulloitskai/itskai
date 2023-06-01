@@ -4,6 +4,6 @@ TARGET=schema
 if [ ! -z "$1" ]; then
   TARGET="$1"
 fi
-CONFIG="config/graphql-codegen.$TARGET.ts"
+CONFIG="config/graphql/codegen.$TARGET.ts"
 
 bin/yarn --silent graphql-codegen --config "$CONFIG"

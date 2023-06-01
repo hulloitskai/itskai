@@ -1,7 +1,7 @@
 import type { FC } from "react";
 
-import { UpdateUserProfileMutationDocument } from "~/queries";
-import type { UserSettingsPageViewerFragment } from "~/queries";
+import { UpdateUserProfileMutationDocument } from "~/helpers/graphql";
+import type { UserSettingsPageViewerFragment } from "~/helpers/graphql";
 
 export type UserSettingsPageProfileFormValues = {
   readonly name: string;

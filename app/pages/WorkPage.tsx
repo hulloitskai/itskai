@@ -4,7 +4,7 @@ import { Highlight, Text } from "@mantine/core";
 import WrenchScrewdriverIcon from "~icons/heroicons/wrench-screwdriver-20-solid";
 import GithubIcon from "~icons/feather/github";
 
-import type { WorkPageQuery } from "~/queries";
+import type { WorkPageQuery } from "~/helpers/graphql";
 
 import ResumeButton from "~/components/ResumeButton";
 import WorkContactButton from "~/components/WorkContactButton";

@@ -1,10 +1,10 @@
 import { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
-  schema: "app/graphql/schema.generated.graphql",
+  schema: "config/graphql/schema.generated.graphql",
   documents: ["app/queries/*.graphql"],
   generates: {
-    "app/queries/types.generated.ts": {
+    "app/helpers/graphql/types.generated.ts": {
       config: {
         scalars: {
           DateTime: "string",
@@ -13,7 +13,7 @@ const config: CodegenConfig = {
       },
       plugins: ["typescript"],
     },
-    "app/queries/operations.generated.ts": {
+    "app/helpers/graphql/operations.generated.ts": {
       preset: "import-types",
       config: {
         avoidOptionals: {

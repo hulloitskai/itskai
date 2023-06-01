@@ -5,7 +5,7 @@ import LinkIcon from "~icons/heroicons/link-20-solid";
 import { ActionIcon, CopyButton, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
-import type { JournalEntryEntryFragment } from "~/queries";
+import type { JournalEntryEntryFragment } from "~/helpers/graphql";
 
 import NotionContent from "./NotionContent";
 import JournalEntryComments from "./JournalEntryComments";
@@ -14,8 +14,10 @@ export type JournalEntryProps = BoxProps & {
   readonly page: JournalEntryEntryFragment;
 };
 
-const JournalEntry: FC<JournalEntryProps> = ({ page, ...otherProps }) => {
-  const { id: entryId, url, title, createdAt, blocks } = page;
+const JournalEntry: FC<JournalEntryProps> = ({
+  page: { id: entryId, url, title, createdAt, blocks },
+  ...otherProps
+}) => {
   const theme = useMantineTheme();
 
   // == Markup

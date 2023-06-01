@@ -3,7 +3,7 @@ import type { FC, RefAttributes } from "react";
 import { PasswordInput, Progress } from "@mantine/core";
 import type { PasswordInputProps } from "@mantine/core";
 
-import { PasswordWithStrengthCheckInputQueryDocument } from "~/queries";
+import { PasswordWithStrengthCheckInputQueryDocument } from "~/helpers/graphql";
 
 export type PasswordWithStrengthCheckInputProps = PasswordInputProps &
   RefAttributes<HTMLInputElement> & {

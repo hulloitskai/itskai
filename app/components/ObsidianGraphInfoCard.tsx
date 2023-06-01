@@ -8,7 +8,7 @@ import ObsidianNoteTag from "./ObsidianNoteTag";
 import ClockIcon from "~icons/heroicons/clock-20-solid";
 
 import type { Widen } from "~/helpers/utils";
-import type { ObsidianGraphEntryFragment } from "~/queries";
+import type { ObsidianGraphEntryFragment } from "~/helpers/graphql";
 
 export type ObsidianGraphInfoCardProps = Omit<CardProps, "children"> & {
   readonly entry: ObsidianGraphEntryFragment;

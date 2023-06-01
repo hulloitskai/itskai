@@ -3,7 +3,7 @@ import { Text } from "@mantine/core";
 
 import UserSendEmailVerificationInstructionsPageForm from "~/components/UserSendEmailVerificationInstructionsPageForm";
 
-import type { UserSendEmailVerificationInstructionsPageQuery } from "~/queries";
+import type { UserSendEmailVerificationInstructionsPageQuery } from "~/helpers/graphql";
 
 export type UserSendEmailVerificationInstructionsPageProps =
   PageProps<UserSendEmailVerificationInstructionsPageQuery>;

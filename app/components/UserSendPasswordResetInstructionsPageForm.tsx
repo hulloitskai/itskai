@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { SendUserPasswordResetInstructionsMutationDocument } from "~/queries";
+import { SendUserPasswordResetInstructionsMutationDocument } from "~/helpers/graphql";
 
 export type UserSendPasswordResetInstructionsPageFormValues = {
   readonly email: string;

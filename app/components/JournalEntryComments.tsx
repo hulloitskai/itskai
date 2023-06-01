@@ -10,7 +10,7 @@ import type { BoxProps } from "@mantine/core";
 import {
   AddJournalEntryCommentMutationDocument,
   JournalEntryCommentsQueryDocument,
-} from "~/queries";
+} from "~/helpers/graphql";
 
 export type JournalEntryCommentsProps = BoxProps & {
   readonly entryId: string;

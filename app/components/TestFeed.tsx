@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { Code, LoadingOverlay } from "@mantine/core";
 
-import { TestFeedSubscriptionDocument } from "~/queries";
+import { TestFeedSubscriptionDocument } from "~/helpers/graphql";
 
 const TestFeed: FC = () => {
   const { data, loading } = useSubscription(TestFeedSubscriptionDocument, {

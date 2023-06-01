@@ -2,7 +2,7 @@ import { lazy } from "react";
 import type { FC } from "react";
 import type { BoxProps } from "@mantine/core";
 
-import { HomePageGraphQueryDocument } from "~/queries";
+import { HomePageGraphQueryDocument } from "~/helpers/graphql";
 
 export type HomePageGraphProps = BoxProps;
 

@@ -3,7 +3,7 @@ import { Text } from "@mantine/core";
 
 import UserSendPasswordResetInstructionsPageForm from "~/components/UserSendPasswordResetInstructionsPageForm";
 
-import type { UserSendPasswordResetInstructionsPageQuery } from "~/queries";
+import type { UserSendPasswordResetInstructionsPageQuery } from "~/helpers/graphql";
 
 export type UserSendPasswordResetInstructionsPageProps =
   PageProps<UserSendPasswordResetInstructionsPageQuery>;

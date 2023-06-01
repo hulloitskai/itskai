@@ -3,7 +3,7 @@ import { Text } from "@mantine/core";
 
 import UserRegisterPageForm from "~/components/UserRegisterPageForm";
 
-import type { UserRegisterPageQuery } from "~/queries";
+import type { UserRegisterPageQuery } from "~/helpers/graphql";
 
 export type UserRegisterPageProps = PageProps<UserRegisterPageQuery>;
 

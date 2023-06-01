@@ -15,7 +15,7 @@ import DocumentIcon from "~icons/heroicons/document-20-solid";
 import type {
   ObsidianNotePageNoteFragment,
   ObsidianNotePageQuery,
-} from "~/queries";
+} from "~/helpers/graphql";
 
 export type ObsidianNotePageProps = PageProps<
   DeepRequired<ObsidianNotePageQuery, ["note"]>

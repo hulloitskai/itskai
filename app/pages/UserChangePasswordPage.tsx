@@ -3,7 +3,7 @@ import { Text } from "@mantine/core";
 
 import UserChangePasswordPageForm from "~/components/UserChangePasswordPageForm";
 
-import { UserChangePasswordPageQuery } from "~/queries";
+import { UserChangePasswordPageQuery } from "~/helpers/graphql";
 
 export type UserChangePasswordPageProps =
   PageProps<UserChangePasswordPageQuery> & {

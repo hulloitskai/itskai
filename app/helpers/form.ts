@@ -7,7 +7,7 @@ import type {
   LooseKeys,
 } from "@mantine/form/lib/types";
 
-import type { InputFieldError } from "~/queries";
+import type { InputFieldError } from "~/helpers/graphql";
 
 export const parseFormErrors = (
   errors: InputFieldError[],

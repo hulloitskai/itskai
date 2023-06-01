@@ -4,8 +4,8 @@ import type { BoxProps, BadgeProps } from "@mantine/core";
 import CogIcon from "~icons/heroicons/cog-6-tooth-20-solid";
 import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
 
-import type { AppViewerFragment } from "~/queries";
-import type { Maybe } from "~/queries";
+import type { AppViewerFragment } from "~/helpers/graphql";
+import type { Maybe } from "~/helpers/graphql";
 
 import { createApolloLink } from "~/helpers/apollo";
 

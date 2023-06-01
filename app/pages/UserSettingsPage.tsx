@@ -8,7 +8,7 @@ import UserSettingsPagePasswordForm from "~/components/UserSettingsPagePasswordF
 import UserSettingsPageICloudCredentialsForm from "~/components/UserSettingsPageICloudCredentialsForm";
 import UserSettingsPageSpotifyCredentialsForm from "~/components/UserSettingsPageSpotifyCredentialsForm";
 
-import type { UserSettingsPageQuery } from "~/queries";
+import type { UserSettingsPageQuery } from "~/helpers/graphql";
 import UserSettingsPageObsidianActions from "~/components/UserSettingsPageObsidianActions";
 
 export type UserSettingsPageProps = PageProps<

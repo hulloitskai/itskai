@@ -1,7 +1,7 @@
 {
   "license": "UNLICENSED",
-  "private": true,
   "type": "module",
+  "private": true,
   "dependencies": {
     "@9gustin/react-notion-render": "^3.11.2",
     "@apollo/client": "^3.7.14",

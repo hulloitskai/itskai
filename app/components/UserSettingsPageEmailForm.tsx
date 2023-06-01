@@ -6,8 +6,8 @@ import type { ButtonProps } from "@mantine/core";
 import {
   UpdateUserEmailMutationDocument,
   SendUserEmailVerificationInstructionsMutationDocument,
-} from "~/queries";
-import type { UserSettingsPageViewerFragment } from "~/queries";
+} from "~/helpers/graphql";
+import type { UserSettingsPageViewerFragment } from "~/helpers/graphql";
 
 export type UserSettingsPageEmailFormValues = {
   readonly email: string;

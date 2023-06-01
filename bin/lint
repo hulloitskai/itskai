@@ -44,8 +44,7 @@ scoped do
 end
 
 puts "\n=> Running Typescript Compiler"
-system! "yarn", "--silent", "tsc", "--noEmit"
-system! "yarn", "--silent", "tsc", "--noEmit", "--project", "extension"
+system! "yarn", "--silent", "tsc"
 puts "No errors found"
 
 puts "\n=> Running Sorbet"

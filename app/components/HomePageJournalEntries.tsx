@@ -5,8 +5,8 @@ import ResetIcon from "~icons/heroicons/arrow-uturn-left-20-solid";
 
 import type { BoxProps } from "@mantine/core";
 
-import { HomePageJournalEntriesQueryDocument } from "~/queries";
-import type { Maybe } from "~/queries";
+import { HomePageJournalEntriesQueryDocument } from "~/helpers/graphql";
+import type { Maybe } from "~/helpers/graphql";
 
 export type HomePageJournalEntriesProps = BoxProps & {
   readonly startCursor: Maybe<string>;

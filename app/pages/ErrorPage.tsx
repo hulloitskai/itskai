@@ -1,7 +1,7 @@
 import type { PageComponent, PageProps } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
-import type { ErrorPageQuery } from "~/queries";
+import type { ErrorPageQuery } from "~/helpers/graphql";
 
 export type ErrorPageProps = PageProps<ErrorPageQuery> & {
   readonly title: string;

@@ -1,6 +1,6 @@
 import type { QueryResult } from "@apollo/client";
 
-import { ContactEmailQueryDocument } from "~/queries";
+import { ContactEmailQueryDocument } from "~/helpers/graphql";
 
 export type ContactMeOptions = {
   readonly subject?: string;

@@ -25,7 +25,7 @@ const plugins = [
     jsx: "react",
   }),
   graphqlCodegenPlugin({
-    configFilePathOverride: "config/graphql-codegen.app.ts",
+    configFilePathOverride: "config/graphql/codegen.helpers.ts",
     configOverride: {
       errorsOnly: true,
     },

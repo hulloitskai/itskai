@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { SendUserEmailVerificationInstructionsMutationDocument } from "~/queries";
+import { SendUserEmailVerificationInstructionsMutationDocument } from "~/helpers/graphql";
 
 export type UserSendEmailVerificationInstructionsPageFormValues = {
   readonly email: string;
