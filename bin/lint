@@ -39,7 +39,10 @@ scoped do
   args = %w[--ext .js,.jsx,.ts,.tsx,.graphql]
   args << "--fix" if options[:fix]
   args << "."
-  system! "yarn", "--silent", "eslint", "--cache", *args
+  system!(
+    "yarn", "--silent",
+    "eslint", "--cache", "--report-unused-disable-directives", *args,
+  )
   puts "No problems or warnings"
 end
 

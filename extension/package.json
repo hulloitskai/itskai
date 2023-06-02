@@ -1,13 +1,14 @@
 {
-  "name": "itskai-crx",
+  "name": "itskai-extension",
   "type": "module",
   "private": true,
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "generate": "graphql-codegen --config ./config/graphql-codegen.ts",
     "fmt": "prettier --write .",
-    "lint": "prettier --list-different ."
+    "lint": "tsc && eslint src --ext ts,tsx --resolve-plugins-relative-to . --report-unused-disable-directives"
   },
   "dependencies": {
     "@apollo/client": "^3.7.14",
@@ -23,13 +24,32 @@
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.17",
+    "@graphql-codegen/cli": "^4.0.1",
+    "@graphql-codegen/fragment-matcher": "^5.0.0",
+    "@graphql-codegen/import-types-preset": "^2.2.6",
+    "@graphql-codegen/typed-document-node": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.0",
+    "@graphql-codegen/typescript-apollo-client-helpers": "^2.2.6",
+    "@graphql-codegen/typescript-operations": "^4.0.0",
+    "@graphql-eslint/eslint-plugin": "^3.19.1",
+    "@iconify-json/feather": "^1.1.4",
+    "@iconify-json/heroicons": "^1.1.10",
     "@types/chrome": "^0.0.237",
     "@types/rails__actioncable": "^6.1.6",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^2.2.0",
+    "eslint": "^8.41.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.1",
     "prettier": "^2.8.8",
+    "rollup-plugin-gzip": "^3.1.0",
+    "ts-node": "^10.9.1",
     "typescript": "^5.0.4",
+    "unplugin-auto-import": "^0.16.4",
+    "unplugin-icons": "^0.16.2",
     "vite": "^3.2.7"
   }
 }

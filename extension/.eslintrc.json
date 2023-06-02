@@ -6,26 +6,38 @@
     "plugin:react-hooks/recommended",
     "prettier"
   ],
+  "plugins": ["react-refresh"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "es2020": true
   },
   "settings": {
     "react": {
       "version": "detect"
     }
   },
-  "plugins": ["react-refresh"],
-  "env": {
-    "browser": true,
-    "es2020": true
-  },
   "rules": {
-    "react-refresh/only-export-components": "warn",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "types": {
+          "{}": false
+        },
+        "extendDefaults": true
+      }
+    ],
     "react/react-in-jsx-scope": "off",
     "react/jsx-no-undef": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "react-refresh/only-export-components": "warn"
   },
   "overrides": [
     {

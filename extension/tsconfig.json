@@ -1,14 +1,21 @@
 {
   "compilerOptions": {
+    // == Paths
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"]
+    },
+
     // == Language
     "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
+    "esModuleInterop": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
 
     // == Mode
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
@@ -19,7 +26,10 @@
     "alwaysStrict": true,
     "noUnusedLocals": true,
     "noUncheckedIndexedAccess": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    // == Plugins
+    "plugins": [{ "name": "vite-plugin-iso-import" }]
   },
   "include": ["src", "typings"],
   "references": [{ "path": "./tsconfig.node.json" }]

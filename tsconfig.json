@@ -9,17 +9,16 @@
     // == Language
     "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "module": "ESNext",
+    "esModuleInterop": true,
     "skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
 
     // == Mode
     "moduleResolution": "node",
-    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "isolatedModules": true,
-    "useDefineForClassFields": true,
     "jsx": "react-jsx",
     "noEmit": true,
-    "allowJs": true,
 
     // == Linting
     "strict": true,
@@ -29,11 +28,7 @@
     "noFallthroughCasesInSwitch": true,
 
     // == Plugins
-    "plugins": [
-      {
-        "name": "vite-plugin-iso-import"
-      }
-    ]
+    "plugins": [{ "name": "vite-plugin-iso-import" }]
   },
   "include": ["app", "typings"],
   "references": [{ "path": "./tsconfig.node.json" }]

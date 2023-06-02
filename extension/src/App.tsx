@@ -1,17 +1,8 @@
-import { useEffect, useState } from "react";
 import type { FC } from "react";
+import { takeRight } from "lodash-es";
 
-import invariant from "tiny-invariant";
-import { first, isEmpty, takeRight } from "lodash-es";
+import { MantineProvider, Table, Text } from "@mantine/core";
 
-import {
-  Box,
-  MantineProvider,
-  Skeleton,
-  Stack,
-  Table,
-  Text,
-} from "@mantine/core";
 // import reactLogo from "./assets/react.svg";
 // import viteLogo from "/vite.svg";
 // import "./App.css";

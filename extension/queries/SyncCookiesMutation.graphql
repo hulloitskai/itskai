@@ -1,0 +1,5 @@
+mutation SyncCookiesMutation($input: SyncCookiesInput!) {
+  syncCookies(input: $input) {
+    success
+  }
+}
