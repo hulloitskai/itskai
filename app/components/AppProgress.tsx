@@ -13,9 +13,9 @@ const AppProgress: FC = () => {
     const removeStartListener = router.on("start", () =>
       startNavigationProgress(),
     );
-    const removeFinishListener = router.on("finish", () =>
-      completeNavigationProgress(),
-    );
+    const removeFinishListener = router.on("finish", () => {
+      completeNavigationProgress();
+    });
     return () => {
       removeStartListener();
       removeFinishListener();
