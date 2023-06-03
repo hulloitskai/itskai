@@ -41,6 +41,7 @@ Rails.application.configure do
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :test
 
+  # == Action Mailer
   config.action_mailer.perform_caching = false
 
   # Tell Action Mailer not to deliver emails to the real world.
@@ -48,6 +49,7 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # == Active Support
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
@@ -60,6 +62,10 @@ Rails.application.configure do
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
+  # == Action View
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  # == Logging
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", :debug).to_sym
 end

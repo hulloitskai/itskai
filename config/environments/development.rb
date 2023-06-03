@@ -79,6 +79,9 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+  # == Logging
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", :debug).to_sym
+
   # == Action View
   # Annotate rendered view with file names.
   config.action_view.annotate_rendered_view_with_filenames = true
