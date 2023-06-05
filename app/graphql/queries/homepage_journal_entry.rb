@@ -6,7 +6,7 @@ module Queries
     include AllowsFailedLoads
 
     # == Type
-    type Types::JournalEntryType, null: false
+    type Types::JournalEntryType, null: true
 
     # == Arguments
     argument :id, ID,
@@ -16,7 +16,7 @@ module Queries
 
     # == Resolver
     sig do
-      params(entry: T.nilable(JournalEntry)).returns(JournalEntry)
+      params(entry: T.nilable(JournalEntry)).returns(T.nilable(JournalEntry))
     end
     def resolve(entry:)
       return entry if entry&.blocks?

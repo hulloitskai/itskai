@@ -177,10 +177,10 @@ export type HomePageJournalEntryQueryVariables = Types.Exact<{
 
 export type HomePageJournalEntryQuery = (
   { __typename?: 'Query' }
-  & { entry: (
+  & { entry: Types.Maybe<(
     { __typename?: 'JournalEntry' }
     & Pick<Types.JournalEntry, 'id' | 'nextEntryId' | 'url' | 'createdAt' | 'title' | 'blocks'>
-  ) }
+  )> }
 );
 
 export type HomePageQueryVariables = Types.Exact<{
@@ -193,10 +193,10 @@ export type HomePageQuery = (
   & { viewer: Types.Maybe<(
     { __typename?: 'User' }
     & Pick<Types.User, 'id' | 'isOwner' | 'name'>
-  )>, entry: (
+  )>, entry: Types.Maybe<(
     { __typename?: 'JournalEntry' }
     & Pick<Types.JournalEntry, 'id' | 'nextEntryId' | 'url' | 'createdAt' | 'title' | 'blocks'>
-  ) }
+  )> }
 );
 
 export type ImportJournalEntriesMutationVariables = Types.Exact<{

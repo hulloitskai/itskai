@@ -328,7 +328,7 @@ export type Query = {
   contactEmail: Scalars['String'];
   /** What I'm currently listening to on Spotify! */
   currentlyPlaying?: Maybe<SpotifyCurrentlyPlaying>;
-  homepageJournalEntry: JournalEntry;
+  homepageJournalEntry?: Maybe<JournalEntry>;
   /** Kai's personal iCloud credentials (#securityStartsHere). */
   icloudCredentials?: Maybe<ICloudCredentials>;
   journalEntryComments: Array<NotionComment>;

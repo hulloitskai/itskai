@@ -291,7 +291,7 @@ type Query {
 
   """What I'm currently listening to on Spotify!"""
   currentlyPlaying: SpotifyCurrentlyPlaying
-  homepageJournalEntry(id: ID): JournalEntry!
+  homepageJournalEntry(id: ID): JournalEntry
 
   """Kai's personal iCloud credentials (#securityStartsHere)."""
   icloudCredentials: ICloudCredentials

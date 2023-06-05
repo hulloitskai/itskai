@@ -1,22 +1,22 @@
-import { Suspense } from "react";
 import type { FC } from "react";
 import NextIcon from "~icons/heroicons/arrow-path-rounded-square-20-solid";
 import ResetIcon from "~icons/heroicons/arrow-uturn-left-20-solid";
 
 import type { BoxProps } from "@mantine/core";
 
-import {
+import { HomePageJournalEntryQueryDocument } from "~/helpers/graphql";
+import type {
   HomePageJournalEntryQuery,
-  HomePageJournalEntryQueryDocument,
   HomePageJournalEntryQueryVariables,
+  HomePageJournalEntryEntryFragment,
 } from "~/helpers/graphql";
-import type { HomePageJournalEntryEntryFragment } from "~/helpers/graphql";
+import type { Maybe } from "~/helpers/graphql";
+
+import JournalEntry from "./JournalEntry";
 
 export type HomePageJournalEntryProps = BoxProps & {
-  readonly initialEntry: HomePageJournalEntryEntryFragment;
+  readonly initialEntry: Maybe<HomePageJournalEntryEntryFragment>;
 };
-
-const JournalEntry = lazy(() => import("./JournalEntry"));
 
 const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
   initialEntry,
@@ -33,9 +33,8 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
     initialData: {
       entry: initialEntry,
     },
-    variables: {
-      entryId: initialEntry.id,
-    },
+    variables: initialEntry ? { entryId: initialEntry.id } : {},
+    skip: !initialEntry,
     onError,
   });
   const { entry } = data ?? previousData ?? {};
@@ -47,13 +46,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
     <>
       <Box ref={topRef} />
       <Stack maw={540} {...otherProps}>
-        {entry ? (
-          <Suspense fallback={<CardSkeleton />}>
-            <JournalEntry {...{ entry }} />
-          </Suspense>
-        ) : (
-          <CardSkeleton />
-        )}
+        {entry ? <JournalEntry {...{ entry }} /> : <CardSkeleton />}
         <Center>
           <Transition transition="fade" mounted={!loading}>
             {style => (
@@ -64,6 +57,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
                 onClick={() => {
                   refetch({ entryId: nextEntryId }).then(
                     ({ data: { entry } }) => {
+                      invariant(entry, "Missing entry");
                       if (topRef.current) {
                         topRef.current.scrollIntoView({
                           behavior: "smooth",
