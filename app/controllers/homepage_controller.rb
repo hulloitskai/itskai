@@ -2,21 +2,24 @@
 # frozen_string_literal: true
 
 class HomepageController < ApplicationController
+  # == Filters
+  before_action :set_entry
+
   # == Actions
   def show
-    entry_id = params["entryId"]&.to_s
     Thread.new do
-      Rails.error.handle do
-        status = if entry_id.present?
-          entry = JournalService.retrieve_entry(entry_id:)
-          title = entry.properties["Name"].title.first!.plain_text
-          "Someone is reading: #{title}"
-        else
-          "Someone landed on the homepage!"
-        end
-        ActivityService.update_status(status)
-      end
+      ActivityService.update_status("Someone landed on the homepage!")
     end
-    render(inertia: "HomePage", props: { entry_id: })
+    entry_id = @entry&.to_gid&.to_s
+    data = query!("HomePageQuery", { entry_id: })
+    render(inertia: "HomePage", props: { data: })
+  end
+
+  private
+
+  # == Filter Handlers
+  def set_entry
+    @entry = T.let(@entry, T.nilable(JournalEntry))
+    @entry = params["entryId"].try! { |id| JournalEntry.find(id.to_s) }
   end
 end

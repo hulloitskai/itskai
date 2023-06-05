@@ -6,9 +6,11 @@ class ApplicationRecord < ActiveRecord::Base
   extend T::Helpers
   extend Enumerize
   include Routing
+  include Logging
 
   class << self
     extend T::Sig
+    extend T::Helpers
 
     private
 
@@ -91,14 +93,5 @@ class ApplicationRecord < ActiveRecord::Base
     hash.deep_merge!(hash) if hash.present?
     hash.compact_blank!
     hash
-  end
-
-  sig { overridable.params(block: T.proc.void).void }
-  def tag_logger(&block)
-    logger = self.logger
-    if logger.respond_to?(:tagged)
-      logger = T.cast(logger, ActiveSupport::TaggedLogging)
-      logger.tagged(self.class.name, &block)
-    end
   end
 end

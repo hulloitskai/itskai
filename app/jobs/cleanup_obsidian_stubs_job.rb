@@ -21,8 +21,8 @@ class CleanupObsidianStubsJob < ApplicationJob
   # == Callback Handlers
   sig { params(block: T.proc.void).void }
   def with_activity_logging(&block)
-    ActivityService.update_status("Cleaning up stubs")
+    ActivityService.update_status("Cleaning up Obsidian stubs")
     yield
-    ActivityService.update_status("Stub cleanup complete")
+    ActivityService.update_status("Obsidian stub cleanup complete")
   end
 end

@@ -1,14 +1,7 @@
-query JournalEntryCommentsQuery($entryId: String!, $startCursor: String) {
-  comments: journalEntryComments(
-    entryId: $entryId
-    startCursor: $startCursor
-    pageSize: 100
-  ) {
-    items {
-      id
-      createdAt
-      richText
-    }
-    nextCursor
+query JournalEntryCommentsQuery($entryId: ID!) {
+  comments: journalEntryComments(entryId: $entryId) {
+    id
+    createdAt
+    richText
   }
 }

@@ -1,4 +1,4 @@
-fragment JournalEntryEntryFragment on NotionPage {
+fragment JournalEntryEntryFragment on JournalEntry {
   id
   url
   createdAt

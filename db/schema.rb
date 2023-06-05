@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_28_192135) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_05_160108) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -143,6 +143,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_192135) do
     t.index ["email"], name: "index_icloud_credentials_on_email", unique: true
   end
 
+  create_table "journal_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "started_at", precision: nil, null: false
+    t.datetime "last_edited_at", precision: nil, null: false
+    t.string "title", null: false
+    t.string "notion_page_id", null: false
+    t.jsonb "blocks"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "imported_at", precision: nil, null: false
+    t.index ["notion_page_id"], name: "index_journal_entries_on_notion_page_id", unique: true
+  end
+
   create_table "oauth_credentials", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "provider", null: false
     t.string "uid", null: false
@@ -169,13 +181,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_192135) do
     t.string "slug", null: false
     t.text "plain_blurb"
     t.string "title", null: false
-    t.datetime "synchronized_at", precision: nil
+    t.datetime "imported_at", precision: nil
     t.index ["aliases"], name: "index_obsidian_notes_on_aliases"
     t.index ["analyzed_at"], name: "index_obsidian_notes_on_analyzed_at"
+    t.index ["imported_at"], name: "index_obsidian_notes_on_imported_at"
     t.index ["modified_at"], name: "index_obsidian_notes_on_modified_at"
     t.index ["name"], name: "index_obsidian_notes_on_name", unique: true
     t.index ["slug"], name: "index_obsidian_notes_on_slug", unique: true
-    t.index ["synchronized_at"], name: "index_obsidian_notes_on_synchronized_at"
     t.index ["tags"], name: "index_obsidian_notes_on_tags"
   end
 

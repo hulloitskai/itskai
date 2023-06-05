@@ -1,0 +1,5 @@
+mutation ImportJournalEntriesMutation($input: ImportJournalEntriesInput!) {
+  payload: importJournalEntries(input: $input) {
+    success
+  }
+}

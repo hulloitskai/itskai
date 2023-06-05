@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Mutations
-  class SyncCookies < BaseMutation
+  class ImportCookies < BaseMutation
     # == Payload
     class Payload < T::Struct
       const :cookies, T::Array[Cookie]

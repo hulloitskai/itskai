@@ -25,7 +25,7 @@ module Types
     field :obsidian_note_by_name, resolver: Queries::ObsidianNoteByName
     field :obsidian_notes, resolver: Queries::ObsidianNotes
 
-    field :journal_entries, resolver: Queries::JournalEntries
+    field :homepage_journal_entry, resolver: Queries::HomepageJournalEntry
     field :journal_entry_comments, resolver: Queries::JournalEntryComments
   end
 end

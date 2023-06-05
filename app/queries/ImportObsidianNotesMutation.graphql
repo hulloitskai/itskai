@@ -1,0 +1,5 @@
+mutation ImportObsidianNotesMutation($input: ImportObsidianNotesInput!) {
+  payload: importObsidianNotes(input: $input) {
+    success
+  }
+}

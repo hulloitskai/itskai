@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-class AnalyzeRemainingObsidianNotesJob < ApplicationJob
+class AnalyzeObsidianNotesJob < ApplicationJob
   # == Configuration
   good_job_control_concurrency_with total_limit: 1, key: name
 
@@ -11,11 +11,7 @@ class AnalyzeRemainingObsidianNotesJob < ApplicationJob
   # == Job
   sig { params(force: T::Boolean).void }
   def perform(force: false)
-    notes = ObsidianNote.all
-    notes = notes
-      .where(analyzed_at: nil)
-      .or(ObsidianNote.where("analyzed_at < modified_at")) unless force
-    notes.find_each(&:analyze_later)
+    ObsidianNote.analyze(force:)
   end
 
   private
@@ -23,8 +19,8 @@ class AnalyzeRemainingObsidianNotesJob < ApplicationJob
   # == Callback Handlers
   sig { params(block: T.proc.void).void }
   def with_activity_logging(&block)
-    ActivityService.update_status("Analyzing notes")
+    ActivityService.update_status("Analyzing Obsidian notes")
     yield
-    ActivityService.update_status("Note analysis complete")
+    ActivityService.update_status("Obsidian note analysis complete")
   end
 end

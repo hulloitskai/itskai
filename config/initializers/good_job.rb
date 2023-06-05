@@ -19,14 +19,19 @@ Rails.application.configure do
         description: "Destroy unreferenced stubs from Obsidian.",
         cron: "15 */6 * * *",
       },
-      analyze_remaining_obsidian_notes: {
-        class: "AnalyzeRemainingObsidianNotesJob",
-        description: "Analayze remaining notes from Obsidian.",
+      analyze_obsidian_notes: {
+        class: "AnalyzeObsidianNotesJob",
+        description: "Analayze notes from Obsidian.",
         cron: "30 */6 * * *",
       },
-      sync_all_obsidian_notes: {
-        class: "SyncAllObsidianNotesJob",
-        description: "Synchronize all notes from Obsidian.",
+      import_obsidian_notes: {
+        class: "ImportObsidianNotesJob",
+        description: "Import notes from Obsidian.",
+        cron: "*/5 * * * *",
+      },
+      import_journal_entries: {
+        class: "ImportJournalEntriesJob",
+        description: "Import journal entries from Notion.",
         cron: "*/5 * * * *",
       },
     }

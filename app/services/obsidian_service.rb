@@ -21,12 +21,12 @@ class ObsidianService < ApplicationService
       checked { instance.note_file(name) }
     end
 
-    sig { params(name: String).returns(T.nilable(ObsidianNote)) }
+    sig { params(name: String).returns(T.nilable(ParsedNote)) }
     def note(name)
       checked { instance.note(name) }
     end
 
-    sig { params(name: String).returns(ObsidianNote) }
+    sig { params(name: String).returns(ParsedNote) }
     def note!(name)
       checked { instance.note!(name) }
     end
@@ -85,16 +85,15 @@ class ObsidianService < ApplicationService
     end
   end
 
-  sig { params(name: String).returns(T.nilable(ObsidianNote)) }
+  sig { params(name: String).returns(T.nilable(ParsedNote)) }
   def note(name)
     file = note_file(name) or return nil
-    data = parse_note_file(file)
-    note = ObsidianNote.find_or_initialize_by(name: name)
-    note.attributes = {
-      synchronized_at: Time.current,
+    parsed = parse_note_file(file)
+    content, front_matter = parsed.content, parsed.front_matter
+    meta = NoteMeta.new(
       modified_at: file.modified_at!,
       published: scoped do
-        value = data["publish"].presence
+        value = front_matter["publish"].presence
         case value
         when TrueClass
           true
@@ -104,20 +103,19 @@ class ObsidianService < ApplicationService
           false
         end
       end,
-      hidden: data["hidden"].truthy?,
-      title: data["title"].presence,
-      slug: data["publish"].presence.try! do |value|
+      hidden: front_matter["hidden"].truthy?,
+      title: front_matter["title"].presence,
+      slug: front_matter["publish"].presence.try! do |value|
         value if value.is_a?(String)
       end,
-      aliases: parse_frontmatter_list(data["aliases"]),
-      tags: parse_frontmatter_list(data["tags"]),
-      blurb: data["blurb"].presence,
-      content: data.content,
-    }
-    note
+      aliases: parse_front_matter_list(front_matter["aliases"]),
+      tags: parse_front_matter_list(front_matter["tags"]),
+      blurb: front_matter["blurb"].presence,
+    )
+    ParsedNote.new(meta:, content:)
   end
 
-  sig { params(name: String).returns(ObsidianNote) }
+  sig { params(name: String).returns(ParsedNote) }
   def note!(name)
     note(name) or raise "No such note `#{name}'"
   end
@@ -125,12 +123,6 @@ class ObsidianService < ApplicationService
   private
 
   # == Helpers
-  sig { returns(ICloudService::Drive::Node) }
-  def vault_root
-    @vault_root ||= ICloudService.drive.get(ObsidianService.vault_root_dir)
-    @vault_root or raise "Can't retrieve Obsidian vault root"
-  end
-
   sig do
     params(file: ICloudService::Drive::Node).returns(FrontMatterParser::Parsed)
   end
@@ -146,7 +138,7 @@ class ObsidianService < ApplicationService
   end
 
   sig { params(value: T.untyped).returns(T::Array[String]) }
-  def parse_frontmatter_list(value)
+  def parse_front_matter_list(value)
     case value.presence
     when String
       value.split(",").map(&:strip)
@@ -157,5 +149,12 @@ class ObsidianService < ApplicationService
     else
       [value.to_s]
     end
+  end
+
+  # == Helpers
+  sig { returns(ICloudService::Drive::Node) }
+  def vault_root
+    @vault_root ||= ICloudService.drive.get(ObsidianService.vault_root_dir)
+    @vault_root or raise "Can't retrieve Obsidian vault root"
   end
 end

@@ -23,9 +23,10 @@ module Types
     field :activate_scottkit_signal, mutation: Mutations::ActivateScottkitSignal
     field :add_journal_entry_comment,
           mutation: Mutations::AddJournalEntryComment
+    field :import_cookies, mutation: Mutations::ImportCookies
+    field :import_journal_entries, mutation: Mutations::ImportJournalEntries
+    field :import_obsidian_notes, mutation: Mutations::ImportObsidianNotes
     field :remove_spotify_credentials,
           mutation: Mutations::RemoveSpotifyCredentials
-    field :sync_all_obsidian_notes, mutation: Mutations::SyncAllObsidianNotes
-    field :sync_cookies, mutation: Mutations::SyncCookies
   end
 end

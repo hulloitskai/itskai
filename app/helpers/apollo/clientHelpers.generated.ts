@@ -17,21 +17,47 @@ export type ICloudCredentialsFieldPolicy = {
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
 	session?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type ImportCookiesPayloadKeySpecifier = ('clientMutationId' | 'success' | ImportCookiesPayloadKeySpecifier)[];
+export type ImportCookiesPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ImportJournalEntriesPayloadKeySpecifier = ('clientMutationId' | 'success' | ImportJournalEntriesPayloadKeySpecifier)[];
+export type ImportJournalEntriesPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ImportObsidianNotesPayloadKeySpecifier = ('clientMutationId' | 'success' | ImportObsidianNotesPayloadKeySpecifier)[];
+export type ImportObsidianNotesPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type InputFieldErrorKeySpecifier = ('field' | 'message' | InputFieldErrorKeySpecifier)[];
 export type InputFieldErrorFieldPolicy = {
 	field?: FieldPolicy<any> | FieldReadFunction<any>,
 	message?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'removeICloudCredentials' | 'removeSpotifyCredentials' | 'sendUserEmailVerificationInstructions' | 'sendUserPasswordResetInstructions' | 'syncAllObsidianNotes' | 'syncCookies' | 'testMutation' | 'updateICloudCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type JournalEntryKeySpecifier = ('blocks' | 'createdAt' | 'id' | 'modifiedAt' | 'nextEntryId' | 'title' | 'url' | JournalEntryKeySpecifier)[];
+export type JournalEntryFieldPolicy = {
+	blocks?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	modifiedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	nextEntryId?: FieldPolicy<any> | FieldReadFunction<any>,
+	title?: FieldPolicy<any> | FieldReadFunction<any>,
+	url?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'importCookies' | 'importJournalEntries' | 'importObsidianNotes' | 'removeICloudCredentials' | 'removeSpotifyCredentials' | 'sendUserEmailVerificationInstructions' | 'sendUserPasswordResetInstructions' | 'testMutation' | 'updateICloudCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
+	importCookies?: FieldPolicy<any> | FieldReadFunction<any>,
+	importJournalEntries?: FieldPolicy<any> | FieldReadFunction<any>,
+	importObsidianNotes?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeSpotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	sendUserEmailVerificationInstructions?: FieldPolicy<any> | FieldReadFunction<any>,
 	sendUserPasswordResetInstructions?: FieldPolicy<any> | FieldReadFunction<any>,
-	syncAllObsidianNotes?: FieldPolicy<any> | FieldReadFunction<any>,
-	syncCookies?: FieldPolicy<any> | FieldReadFunction<any>,
 	testMutation?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateUserEmail?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -48,25 +74,6 @@ export type NotionCommentFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	modifiedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	richText?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type NotionCommentListingKeySpecifier = ('items' | 'nextCursor' | NotionCommentListingKeySpecifier)[];
-export type NotionCommentListingFieldPolicy = {
-	items?: FieldPolicy<any> | FieldReadFunction<any>,
-	nextCursor?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type NotionPageKeySpecifier = ('blocks' | 'createdAt' | 'id' | 'modifiedAt' | 'title' | 'url' | NotionPageKeySpecifier)[];
-export type NotionPageFieldPolicy = {
-	blocks?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	modifiedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	title?: FieldPolicy<any> | FieldReadFunction<any>,
-	url?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type NotionPageListingKeySpecifier = ('items' | 'nextCursor' | NotionPageListingKeySpecifier)[];
-export type NotionPageListingFieldPolicy = {
-	items?: FieldPolicy<any> | FieldReadFunction<any>,
-	nextCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type OAuthCredentialsKeySpecifier = ('accessToken' | 'id' | 'name' | 'refreshToken' | 'uid' | OAuthCredentialsKeySpecifier)[];
 export type OAuthCredentialsFieldPolicy = {
@@ -131,13 +138,13 @@ export type PageInfoFieldPolicy = {
 	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
 	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('activityStatus' | 'contactEmail' | 'currentlyPlaying' | 'icloudCredentials' | 'journalEntries' | 'journalEntryComments' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('activityStatus' | 'contactEmail' | 'currentlyPlaying' | 'homepageJournalEntry' | 'icloudCredentials' | 'journalEntryComments' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	contactEmail?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
+	homepageJournalEntry?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
-	journalEntries?: FieldPolicy<any> | FieldReadFunction<any>,
 	journalEntryComments?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNote?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNoteByName?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -209,16 +216,6 @@ export type SubscriptionFieldPolicy = {
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
 	testSubscription?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type SyncAllObsidianNotesPayloadKeySpecifier = ('clientMutationId' | 'success' | SyncAllObsidianNotesPayloadKeySpecifier)[];
-export type SyncAllObsidianNotesPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type SyncCookiesPayloadKeySpecifier = ('clientMutationId' | 'success' | SyncCookiesPayloadKeySpecifier)[];
-export type SyncCookiesPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
 export type TestModelKeySpecifier = ('birthday' | 'id' | 'name' | TestModelKeySpecifier)[];
 export type TestModelFieldPolicy = {
 	birthday?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -287,9 +284,25 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | ICloudCredentialsKeySpecifier | (() => undefined | ICloudCredentialsKeySpecifier),
 		fields?: ICloudCredentialsFieldPolicy,
 	},
+	ImportCookiesPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ImportCookiesPayloadKeySpecifier | (() => undefined | ImportCookiesPayloadKeySpecifier),
+		fields?: ImportCookiesPayloadFieldPolicy,
+	},
+	ImportJournalEntriesPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ImportJournalEntriesPayloadKeySpecifier | (() => undefined | ImportJournalEntriesPayloadKeySpecifier),
+		fields?: ImportJournalEntriesPayloadFieldPolicy,
+	},
+	ImportObsidianNotesPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ImportObsidianNotesPayloadKeySpecifier | (() => undefined | ImportObsidianNotesPayloadKeySpecifier),
+		fields?: ImportObsidianNotesPayloadFieldPolicy,
+	},
 	InputFieldError?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | InputFieldErrorKeySpecifier | (() => undefined | InputFieldErrorKeySpecifier),
 		fields?: InputFieldErrorFieldPolicy,
+	},
+	JournalEntry?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | JournalEntryKeySpecifier | (() => undefined | JournalEntryKeySpecifier),
+		fields?: JournalEntryFieldPolicy,
 	},
 	Mutation?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | MutationKeySpecifier | (() => undefined | MutationKeySpecifier),
@@ -302,18 +315,6 @@ export type StrictTypedTypePolicies = {
 	NotionComment?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | NotionCommentKeySpecifier | (() => undefined | NotionCommentKeySpecifier),
 		fields?: NotionCommentFieldPolicy,
-	},
-	NotionCommentListing?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | NotionCommentListingKeySpecifier | (() => undefined | NotionCommentListingKeySpecifier),
-		fields?: NotionCommentListingFieldPolicy,
-	},
-	NotionPage?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | NotionPageKeySpecifier | (() => undefined | NotionPageKeySpecifier),
-		fields?: NotionPageFieldPolicy,
-	},
-	NotionPageListing?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | NotionPageListingKeySpecifier | (() => undefined | NotionPageListingKeySpecifier),
-		fields?: NotionPageListingFieldPolicy,
 	},
 	OAuthCredentials?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | OAuthCredentialsKeySpecifier | (() => undefined | OAuthCredentialsKeySpecifier),
@@ -386,14 +387,6 @@ export type StrictTypedTypePolicies = {
 	Subscription?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SubscriptionKeySpecifier | (() => undefined | SubscriptionKeySpecifier),
 		fields?: SubscriptionFieldPolicy,
-	},
-	SyncAllObsidianNotesPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | SyncAllObsidianNotesPayloadKeySpecifier | (() => undefined | SyncAllObsidianNotesPayloadKeySpecifier),
-		fields?: SyncAllObsidianNotesPayloadFieldPolicy,
-	},
-	SyncCookiesPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | SyncCookiesPayloadKeySpecifier | (() => undefined | SyncCookiesPayloadKeySpecifier),
-		fields?: SyncCookiesPayloadFieldPolicy,
 	},
 	TestModel?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | TestModelKeySpecifier | (() => undefined | TestModelKeySpecifier),

@@ -3,13 +3,11 @@ import { Text } from "@mantine/core";
 
 import ArrowRightIcon from "~icons/heroicons/arrow-long-right-20-solid";
 
-export type ResumeExperienceSectionProps = {
+export type ResumeEducationSectionProps = {
   readonly info: Record<string, string>;
 };
 
-const ResumeExperienceSection: FC<ResumeExperienceSectionProps> = ({
-  info,
-}) => {
+const ResumeEducationSection: FC<ResumeEducationSectionProps> = ({ info }) => {
   const { institution, area, studyType, startDate, endDate } = info;
   return (
     <Box>
@@ -47,4 +45,4 @@ const ResumeExperienceSection: FC<ResumeExperienceSectionProps> = ({
   );
 };
 
-export default ResumeExperienceSection;
+export default ResumeEducationSection;

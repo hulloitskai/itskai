@@ -12,44 +12,34 @@ class JournalService < ApplicationService
 
     # == Methods
     sig do
-      params(
-        published: T.nilable(T::Boolean),
-        options: T.untyped,
-      ).returns(T.untyped)
+      params(published: T.nilable(T::Boolean), options: T.untyped)
+        .returns(T::Array[T.untyped])
     end
-    def list_entries(published: nil, **options)
-      checked do
-        instance.list_entries(
-          published:,
-          **options,
-        )
-      end
+    def list_pages(published: nil, **options)
+      checked { instance.list_pages(published:, **options) }
     end
 
-    sig { params(entry_id: String, options: T.untyped).returns(T.untyped) }
-    def list_comments(entry_id:, **options)
-      checked do
-        instance.list_comments(**T.unsafe({
-          entry_id:,
-          **options,
-        }))
-      end
+    sig do
+      params(page_id: String, options: T.untyped)
+        .returns(T::Array[T.untyped])
+    end
+    def list_comments(page_id, **options)
+      checked { instance.list_comments(page_id, **options) }
     end
 
-    sig { params(entry_id: String).returns(T.untyped) }
-    def retrieve_entry(entry_id:) = instance.retrieve_entry(entry_id:)
+    sig { params(page_id: String).returns(T.untyped) }
+    def retrieve_page(page_id)
+      checked { instance.retrieve_page(page_id) }
+    end
 
-    sig { params(entry: T.untyped).returns(T::Array[T.untyped]) }
-    def retrieve_blocks(entry:) = instance.retrieve_blocks(entry:)
+    sig { params(page_id: String).returns(T::Array[T.untyped]) }
+    def retrieve_blocks(page_id)
+      checked { instance.retrieve_blocks(page_id) }
+    end
 
-    sig { params(entry_id: String, text: String).returns(T.untyped) }
-    def create_comment(entry_id:, text:)
-      checked do
-        instance.create_comment(
-          entry_id:,
-          text:,
-        )
-      end
+    sig { params(page_id: String, text: String).returns(T.untyped) }
+    def create_comment(page_id, text:)
+      checked { instance.create_comment(page_id, text:) }
     end
 
     # == Helpers
@@ -75,12 +65,10 @@ class JournalService < ApplicationService
 
   # == Methods
   sig do
-    params(
-      published: T.nilable(T::Boolean),
-      options: T.untyped,
-    ).returns(T.untyped)
+    params(published: T.nilable(T::Boolean), options: T.untyped)
+      .returns(T::Array[T.untyped])
   end
-  def list_entries(published: nil, **options)
+  def list_pages(published: nil, **options)
     filter = T.let(nil, T.nilable(T::Hash[String, T.untyped]))
     unless published.nil?
       filter = {
@@ -95,41 +83,52 @@ class JournalService < ApplicationService
       "direction" => "descending",
     }], T::Array[T::Hash[String, T.untyped]])
     options = { filter:, sorts:, **options }.compact
-    client.database_query(database_id:, **options)
-  end
-
-  sig { params(entry_id: String, options: T.untyped).returns(T.untyped) }
-  def list_comments(entry_id:, **options)
-    client.retrieve_comments(block_id: entry_id, **options)
-  end
-
-  sig { params(entry_id: String).returns(T.untyped) }
-  def retrieve_entry(entry_id:)
-    client.page(page_id: entry_id)
+    results = T.let([], T::Array[T.untyped])
+    client.database_query(database_id:, **options) do |page|
+      results.concat(page.results)
+    end
+    results
   end
 
   sig do
-    params(entry: T.untyped, cached: T::Boolean).returns(T::Array[T.untyped])
+    params(page_id: String, options: T.untyped)
+      .returns(T::Array[T.untyped])
   end
-  def retrieve_blocks(entry:, cached: !Rails.env.development?)
+  def list_comments(page_id, **options)
+    results = T.let([], T::Array[T.untyped])
+    client.retrieve_comments(block_id: page_id, **options) do |page|
+      results.concat(page.results)
+    end
+    results
+  end
+
+  sig { params(page_id: String).returns(T.untyped) }
+  def retrieve_page(page_id)
+    client.page(page_id:)
+  end
+
+  sig do
+    params(page_id: String, cached: T::Boolean).returns(T::Array[T.untyped])
+  end
+  def retrieve_blocks(page_id, cached: !Rails.env.development?)
     if cached
       Rails.cache.fetch(
-        "journal/entry_blocks:#{entry.id}",
+        "journal/blocks:#{page_id}",
         expires_in: 10.minutes,
         race_condition_ttl: 10.seconds,
       ) do
-        retrieve_blocks_uncached(entry:)
+        retrieve_blocks_uncached(page_id)
       end
     else
-      retrieve_blocks_uncached(entry:)
+      retrieve_blocks_uncached(page_id)
     end
   end
 
-  sig { params(entry_id: String, text: String).returns(T.untyped) }
-  def create_comment(entry_id:, text:)
+  sig { params(page_id: String, text: String).returns(T.untyped) }
+  def create_comment(page_id, text:)
     client.create_comment(
       parent: {
-        page_id: entry_id,
+        page_id:,
       },
       rich_text: [{
         text: {
@@ -151,10 +150,11 @@ class JournalService < ApplicationService
     T.must(self.class.database_id)
   end
 
-  sig { params(entry: T.untyped).returns(T::Array[T.untyped]) }
-  def retrieve_blocks_uncached(entry:)
-    redactor = Redactor.new(entry)
-    message = client.block_children(block_id: entry.id)
+  sig { params(page_id: String).returns(T::Array[T.untyped]) }
+  def retrieve_blocks_uncached(page_id)
+    page = retrieve_page(page_id)
+    redactor = Redactor.new(page)
+    message = client.block_children(block_id: page_id)
     message.results.tap { |blocks| redactor.redact_blocks!(blocks) }
   end
 end

@@ -8,6 +8,7 @@
   "possibleTypes": {
     "Node": [
       "ICloudCredentials",
+      "JournalEntry",
       "OAuthCredentials",
       "ObsidianNote",
       "ObsidianStub",

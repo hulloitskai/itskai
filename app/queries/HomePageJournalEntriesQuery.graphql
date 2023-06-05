@@ -1,9 +1,0 @@
-query HomePageJournalEntriesQuery($startCursor: String) {
-  entries: journalEntries(startCursor: $startCursor, pageSize: 1) {
-    items {
-      id
-      ...JournalEntryEntryFragment
-    }
-    nextCursor
-  }
-}

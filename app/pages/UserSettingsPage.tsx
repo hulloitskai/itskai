@@ -9,7 +9,7 @@ import UserSettingsPageICloudCredentialsForm from "~/components/UserSettingsPage
 import UserSettingsPageSpotifyCredentialsForm from "~/components/UserSettingsPageSpotifyCredentialsForm";
 
 import type { UserSettingsPageQuery } from "~/helpers/graphql";
-import UserSettingsPageObsidianActions from "~/components/UserSettingsPageObsidianActions";
+import UserSettingsPageImportActions from "~/components/UserSettingsPageImportActions";
 
 export type UserSettingsPageProps = PageProps<
   DeepRequired<UserSettingsPageQuery, ["viewer"]>
@@ -93,13 +93,13 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
             <Stack spacing="xs">
               <Stack align="center" spacing={0}>
                 <Title order={2} size="h4">
-                  Obsidian
+                  Import Actions
                 </Title>
                 <Text size="sm" color="dimmed" lh={1.3}>
-                  Synchronize or re-synchronize notes.
+                  Manually import data from your services.
                 </Text>
               </Stack>
-              <UserSettingsPageObsidianActions />
+              <UserSettingsPageImportActions />
             </Stack>
           </Card>
         </>

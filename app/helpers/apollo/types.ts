@@ -4,9 +4,6 @@ import introspection from "./introspection.generated";
 import type { StrictTypedTypePolicies } from "./clientHelpers.generated";
 
 export const typePolicies: StrictTypedTypePolicies = {
-  NotionPageListing: {
-    keyFields: false,
-  },
   Query: {
     fields: {
       obsidianNotes: relayStylePagination(["modifiedAfter", "modifiedBefore"]),

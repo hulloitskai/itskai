@@ -837,6 +837,51 @@ class ObsidianNote
     sig { void }
     def id_will_change!; end
 
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def imported_at; end
+
+    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def imported_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def imported_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def imported_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def imported_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def imported_at_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def imported_at_change; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def imported_at_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def imported_at_changed?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def imported_at_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def imported_at_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def imported_at_previously_changed?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def imported_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def imported_at_was; end
+
+    sig { void }
+    def imported_at_will_change!; end
+
     sig { returns(::ActiveSupport::TimeWithZone) }
     def modified_at; end
 
@@ -1039,6 +1084,9 @@ class ObsidianNote
     def restore_id!; end
 
     sig { void }
+    def restore_imported_at!; end
+
+    sig { void }
     def restore_modified_at!; end
 
     sig { void }
@@ -1052,9 +1100,6 @@ class ObsidianNote
 
     sig { void }
     def restore_slug!; end
-
-    sig { void }
-    def restore_synchronized_at!; end
 
     sig { void }
     def restore_tags!; end
@@ -1107,6 +1152,12 @@ class ObsidianNote
     sig { returns(T::Boolean) }
     def saved_change_to_id?; end
 
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_imported_at; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_imported_at?; end
+
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_modified_at; end
 
@@ -1136,12 +1187,6 @@ class ObsidianNote
 
     sig { returns(T::Boolean) }
     def saved_change_to_slug?; end
-
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
-    def saved_change_to_synchronized_at; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_synchronized_at?; end
 
     sig { returns(T.nilable([T::Array[::String], T::Array[::String]])) }
     def saved_change_to_tags; end
@@ -1205,51 +1250,6 @@ class ObsidianNote
 
     sig { void }
     def slug_will_change!; end
-
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
-    def synchronized_at; end
-
-    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
-    def synchronized_at=(value); end
-
-    sig { returns(T::Boolean) }
-    def synchronized_at?; end
-
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
-    def synchronized_at_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def synchronized_at_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def synchronized_at_came_from_user?; end
-
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
-    def synchronized_at_change; end
-
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
-    def synchronized_at_change_to_be_saved; end
-
-    sig { returns(T::Boolean) }
-    def synchronized_at_changed?; end
-
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
-    def synchronized_at_in_database; end
-
-    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
-    def synchronized_at_previous_change; end
-
-    sig { returns(T::Boolean) }
-    def synchronized_at_previously_changed?; end
-
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
-    def synchronized_at_previously_was; end
-
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
-    def synchronized_at_was; end
-
-    sig { void }
-    def synchronized_at_will_change!; end
 
     sig { returns(T::Array[::String]) }
     def tags; end
@@ -1408,6 +1408,9 @@ class ObsidianNote
     def will_save_change_to_id?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_imported_at?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_modified_at?; end
 
     sig { returns(T::Boolean) }
@@ -1421,9 +1424,6 @@ class ObsidianNote
 
     sig { returns(T::Boolean) }
     def will_save_change_to_slug?; end
-
-    sig { returns(T::Boolean) }
-    def will_save_change_to_synchronized_at?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_tags?; end

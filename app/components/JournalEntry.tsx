@@ -11,11 +11,11 @@ import NotionContent from "./NotionContent";
 import JournalEntryComments from "./JournalEntryComments";
 
 export type JournalEntryProps = BoxProps & {
-  readonly page: JournalEntryEntryFragment;
+  readonly entry: JournalEntryEntryFragment;
 };
 
 const JournalEntry: FC<JournalEntryProps> = ({
-  page: { id: entryId, url, title, createdAt, blocks },
+  entry: { id: entryId, url, title, createdAt, blocks },
   ...otherProps
 }) => {
   const theme = useMantineTheme();

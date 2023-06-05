@@ -26,7 +26,7 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
   const [commentText, setCommentText] = useState("");
 
   // == Query
-  const onError = useApolloAlertCallback("Failed to load Notion comments");
+  const onError = useApolloAlertCallback("Failed to load comments");
   const { data, loading, refetch } = useQuery(
     JournalEntryCommentsQueryDocument,
     {
@@ -39,12 +39,12 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
   const { comments } = data ?? {};
 
   // == Mutation
-  const onAddError = useApolloAlertCallback("Failed to add Notion comment");
+  const onAddError = useApolloAlertCallback("Failed to add comment");
   const [runAddMutation, { loading: mutating }] = useMutation(
     AddJournalEntryCommentMutationDocument,
     {
       onCompleted: () => {
-        refetch({ startCursor: undefined });
+        refetch();
       },
       onError: onAddError,
     },
@@ -66,7 +66,7 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
   return (
     <Stack spacing={6} {...otherProps}>
       {!loading && comments ? (
-        comments.items.map(comment => {
+        comments.map(comment => {
           const { id: commentId, createdAt, richText } = comment;
           return (
             <Group

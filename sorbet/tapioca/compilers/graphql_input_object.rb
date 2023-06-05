@@ -9,6 +9,7 @@ class Tapioca::Dsl::Compilers::GraphqlInputObject
     def decorate
       arguments = constant.all_argument_definitions
       return if arguments.empty?
+
       root.create_path(constant) do |input_object|
         arguments.each do |argument|
           name = argument.keyword.to_s

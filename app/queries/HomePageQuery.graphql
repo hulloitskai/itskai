@@ -1,6 +1,10 @@
-query HomePageQuery {
+query HomePageQuery($entryId: ID) {
   viewer {
     id
     ...AppViewerFragment
+  }
+  entry: homepageJournalEntry(id: $entryId) {
+    id
+    ...HomePageJournalEntryEntryFragment
   }
 }

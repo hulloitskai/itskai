@@ -2,17 +2,12 @@ import type { PageComponent, PageProps } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
 import type { HomePageQuery } from "~/helpers/graphql";
-import type { Maybe } from "~/helpers/graphql";
 
-import HomePageJournalEntries from "~/components/HomePageJournalEntries";
+import HomePageJournalEntry from "~/components/HomePageJournalEntry";
 
-const HomePageJournalEntriesStartCursorParam = "entryId";
+export type HomePageProps = PageProps<HomePageQuery>;
 
-export type HomePageProps = PageProps<HomePageQuery> & {
-  readonly [HomePageJournalEntriesStartCursorParam]: Maybe<string>;
-};
-
-const HomePage: PageComponent<HomePageProps> = ({ entryId }) => (
+const HomePage: PageComponent<HomePageProps> = ({ data: { entry } }) => (
   <Stack spacing="xs">
     <Space h="xs" />
     <Center h={240}>
@@ -38,11 +33,7 @@ const HomePage: PageComponent<HomePageProps> = ({ entryId }) => (
       <Title order={2} size="h3">
         sometimes, kai writes.
       </Title>
-      <HomePageJournalEntries
-        startCursorParam={HomePageJournalEntriesStartCursorParam}
-        startCursor={entryId}
-        w="100%"
-      />
+      <HomePageJournalEntry initialEntry={entry} w="100%" />
     </Stack>
     <Space h="xs" />
   </Stack>

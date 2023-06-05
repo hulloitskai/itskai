@@ -9,9 +9,9 @@ class JournalService
     REDACTION_PLACEHOLDER = "[REDACTED]"
 
     # == Initialization
-    sig { params(entry: T.untyped).void }
-    def initialize(entry)
-      @entry = entry
+    sig { params(page: T.untyped).void }
+    def initialize(page)
+      @page = page
     end
 
     # == Methods
@@ -30,14 +30,14 @@ class JournalService
 
     # == Attributes
     sig { returns(T.untyped) }
-    attr_reader :entry
+    attr_reader :page
 
     # == Helpers
     sig { returns(T::Array[String]) }
     def redacted_phrases
       @redacted_phrases = T.let(@redacted_phrases, T.nilable(T::Array[String]))
       @redacted_phrases ||= scoped do
-        case entry.properties["Redact"]["rich_text"].first
+        case page.properties["Redact"]["rich_text"].first
         in { plain_text: }
           property = T.let(plain_text, String)
           property.strip.split(",").map(&:strip)

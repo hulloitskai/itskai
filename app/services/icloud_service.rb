@@ -7,6 +7,7 @@ class ICloudService < ApplicationService
     sig { override.returns(T::Boolean) }
     def enabled?
       return @enabled if defined?(@enabled)
+
       @enabled = !!(super && !ENV["ICLOUD_ENABLED"].falsy?)
     end
 
@@ -47,6 +48,7 @@ class ICloudService < ApplicationService
   def start
     super
     return if disabled?
+
     Thread.new do
       @credentials = ICloudCredentials.first
       authenticate if @credentials.present?
@@ -65,7 +67,7 @@ class ICloudService < ApplicationService
   sig { params(code: T.nilable(String)).returns(T::Boolean) }
   def verify_security_code(code)
     client.verify_security_code(code).tap do
-      ObsidianNote.sync_all_later
+      ObsidianNote.import_later
     end
   end
 

@@ -7,7 +7,7 @@ class ObsidianNotePolicy < ApplicationPolicy
     true
   end
 
-  def sync?
+  def import?
     false
   end
 

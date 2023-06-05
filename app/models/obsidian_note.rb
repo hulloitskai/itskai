@@ -5,32 +5,32 @@
 #
 # Table name: obsidian_notes
 #
-#  id              :uuid             not null, primary key
-#  aliases         :string           default([]), not null, is an Array
-#  analyzed_at     :datetime
-#  blurb           :text
-#  content         :text             not null
-#  hidden          :boolean          default(FALSE), not null
-#  modified_at     :datetime         not null
-#  name            :string           not null
-#  plain_blurb     :text
-#  published       :boolean          default(FALSE), not null
-#  slug            :string           not null
-#  synchronized_at :datetime
-#  tags            :string           default([]), not null, is an Array
-#  title           :string           not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id          :uuid             not null, primary key
+#  aliases     :string           default([]), not null, is an Array
+#  analyzed_at :datetime
+#  blurb       :text
+#  content     :text             not null
+#  hidden      :boolean          default(FALSE), not null
+#  imported_at :datetime
+#  modified_at :datetime         not null
+#  name        :string           not null
+#  plain_blurb :text
+#  published   :boolean          default(FALSE), not null
+#  slug        :string           not null
+#  tags        :string           default([]), not null, is an Array
+#  title       :string           not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 # Indexes
 #
-#  index_obsidian_notes_on_aliases          (aliases)
-#  index_obsidian_notes_on_analyzed_at      (analyzed_at)
-#  index_obsidian_notes_on_modified_at      (modified_at)
-#  index_obsidian_notes_on_name             (name) UNIQUE
-#  index_obsidian_notes_on_slug             (slug) UNIQUE
-#  index_obsidian_notes_on_synchronized_at  (synchronized_at)
-#  index_obsidian_notes_on_tags             (tags)
+#  index_obsidian_notes_on_aliases      (aliases)
+#  index_obsidian_notes_on_analyzed_at  (analyzed_at)
+#  index_obsidian_notes_on_imported_at  (imported_at)
+#  index_obsidian_notes_on_modified_at  (modified_at)
+#  index_obsidian_notes_on_name         (name) UNIQUE
+#  index_obsidian_notes_on_slug         (slug) UNIQUE
+#  index_obsidian_notes_on_tags         (tags)
 #
 class ObsidianNote < ApplicationRecord
   include Identifiable
@@ -48,27 +48,12 @@ class ObsidianNote < ApplicationRecord
   sig { returns(T::Array[String]) }
   def tags = super
 
-  # == Attributes: Analysis
+  # == Attributes
   sig { returns(T::Boolean) }
   def analyzed? = analyzed_at?
 
   sig { returns(T::Boolean) }
-  def analysis_required?
-    synchronized_at = self.synchronized_at or return false
-    analyzed_at = self.analyzed_at or return true
-    analyzed_at <= synchronized_at
-  end
-
-  # == Attributes: Synchronization
-  sig { returns(T::Boolean) }
-  def synchronized? = synchronized_at?
-
-  sig { returns(T::Boolean) }
-  def synchronization_required?
-    return false unless ObsidianService.ready?
-    file = ObsidianService.note_file(name)
-    file.nil? || file.modified_at! > modified_at
-  end
+  def imported? = imported_at?
 
   # == Associations
   has_many :outgoing_relations,
@@ -107,18 +92,33 @@ class ObsidianNote < ApplicationRecord
 
   # == Methods: Analysis
   sig { params(force: T::Boolean).void }
-  def self.analyze_all(force: false)
-    AnalyzeRemainingObsidianNotesJob.perform_now(force:)
+  def self.analyze(force: false)
+    notes = all
+    unless force
+      notes = notes
+        .where(analyzed_at: nil)
+        .or(where("analyzed_at < modified_at"))
+    end
+    notes.find_each(&:analyze_later)
   end
 
   sig { params(force: T::Boolean).void }
-  def self.analyze_all_later(force: false)
-    AnalyzeRemainingObsidianNotesJob.perform_later(force: force)
+  def self.analyze_later(force: false)
+    AnalyzeObsidianNotesJob.perform_later(force: force)
+  end
+
+  sig { returns(T::Boolean) }
+  def analysis_required?
+    imported_at = self.imported_at or return false
+    analyzed_at = self.analyzed_at or return true
+    analyzed_at <= imported_at
   end
 
   sig { void }
   def analyze
-    AnalyzeObsidianNoteJob.perform_now(self)
+    analyze_references
+    analyze_blurb
+    update!(analyzed_at: Time.current)
   end
 
   sig { void }
@@ -126,29 +126,103 @@ class ObsidianNote < ApplicationRecord
     AnalyzeObsidianNoteJob.perform_later(self)
   end
 
-  # == Methods: Sync
+  # == Methods: Importing
   sig { params(force: T::Boolean).void }
-  def self.sync_all(force: false)
-    SyncAllObsidianNotesJob.perform_now(force:)
+  def self.import(force: false)
+    note_names = ObsidianService.note_names
+    imported_notes = note_names.map do |name|
+      Rails.error.handle(context: { name: }) do
+        parsed_note = ObsidianService.note!(name)
+        find_or_initialize_by(name:).tap do |note|
+          note = T.let(note, ObsidianNote)
+          note.update_from_obsidian(parsed_note)
+          note.analyzed_at = nil if force
+        end
+      rescue => error
+        tag_logger do
+          logger.error("Failed to import `#{name}': #{error}")
+        end
+        raise error
+      end
+    end
+    imported_notes = T.cast(imported_notes, T::Array[ObsidianNote])
+    imported_notes.compact!
+    where.not(id: imported_notes.map(&:id!)).destroy_all
   end
 
   sig { params(force: T::Boolean).void }
-  def self.sync_all_later(force: false)
-    SyncAllObsidianNotesJob.perform_later(force:)
+  def self.import_later(force: false)
+    ImportObsidianNotesJob.perform_later(force:)
+  end
+
+  sig { returns(T::Boolean) }
+  def import_required?
+    if ObsidianService.ready?
+      file = ObsidianService.note_file(name)
+      file.nil? || file.modified_at! > modified_at
+    else
+      false
+    end
   end
 
   sig { params(force: T::Boolean).void }
-  def sync(force: false)
-    return if !force && !synchronization_required?
-    SyncObsidianNoteJob.perform_now(self, force:)
+  def import(force: false)
+    return if !force && !import_required?
+    parsed_note = ObsidianService.note(name)
+    if parsed_note.nil?
+      destroy!
+    else
+      update_from_obsidian(parsed_note)
+    end
   end
 
   sig { params(force: T::Boolean).void }
-  def sync_later(force: false)
-    SyncObsidianNoteJob.perform_later(self, force:)
+  def import_later(force: false)
+    ImportObsidianNoteJob.perform_later(self, force:)
+  end
+
+  # == Helpers: Importing
+  sig { params(parsed_note: ObsidianService::ParsedNote).void }
+  def update_from_obsidian(parsed_note)
+    meta, content = parsed_note.meta, parsed_note.content
+    update!(
+      imported_at: Time.current,
+      content:,
+      **meta.serialize.symbolize_keys,
+    )
   end
 
   private
+
+  # == Helpers: Analysis
+  sig { void }
+  def analyze_references
+    links = T.cast(content.scan(/(?<!\!)\[\[[^\[\]]+\]\]/),
+                   T::Array[String])
+    links.map! do |link|
+      link.delete_prefix("[[").delete_suffix("]]").split("|").first!
+    end
+    links.uniq!
+    references = ObsidianNote.where(name: links).select(:id, :name)
+    referenced_names = references.map(&:name)
+    unresolved_reference_names = links - referenced_names
+    unresolved_references = unresolved_reference_names.map do |name|
+      ObsidianStub.find_or_initialize_by(name:)
+    end
+    self.references = references
+    self.unresolved_references = unresolved_references
+  end
+
+  sig { void }
+  def analyze_blurb
+    return if content.blank? || blurb.present?
+    root = Markly.parse(content)
+    node = T.let(root.first, T.nilable(Markly::Node))
+    if node.present? && node.type.in?(%i[paragraph quote])
+      blurb = T.let(node.to_plaintext, String)
+      self.blurb = blurb.strip.tr("\n", " ").presence
+    end
+  end
 
   # == Callback Handlers
   sig { void }
