@@ -32,7 +32,8 @@ class ObsidianStub < ApplicationRecord
   # == Methods: Cleanup
   sig { void }
   def self.cleanup
-    CleanupObsidianStubsJob.perform_now
+    where.missing(:incoming_relations)
+      .find_each(&:destroy!)
   end
 
   sig { void }

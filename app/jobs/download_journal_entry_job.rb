@@ -1,13 +1,13 @@
 # typed: strict
 # frozen_string_literal: true
 
-class ImportJournalEntryBlocksJob < ApplicationJob
+class DownloadJournalEntryJob < ApplicationJob
   # == Configuration
   good_job_control_concurrency_with(
     key: -> {
-      T.bind(self, ImportJournalEntryBlocksJob)
+      T.bind(self, DownloadJournalEntryJob)
       entry = T.let(arguments.first!, JournalEntry)
-      "#{self.class.name}:#{entry.id}"
+      "#{self.class.name}(#{entry.to_gid})"
     },
     total_limit: 1,
   )
@@ -18,7 +18,7 @@ class ImportJournalEntryBlocksJob < ApplicationJob
   # == Job
   sig { params(entry: JournalEntry).void }
   def perform(entry)
-    entry.import_blocks
+    entry.download
   end
 
   private
@@ -27,6 +27,8 @@ class ImportJournalEntryBlocksJob < ApplicationJob
   sig { void }
   def update_activity_status
     entry = T.let(arguments.first!, JournalEntry)
-    ActivityService.update_status("Importing journal entry: #{entry.title}")
+    ActivityService.update_status(
+      "Downloading journal entry: #{entry.title}",
+    )
   end
 end

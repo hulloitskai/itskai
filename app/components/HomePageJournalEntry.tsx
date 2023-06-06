@@ -26,7 +26,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
 
   // == Query
   const onError = useApolloAlertCallback("Failed to load journal entry");
-  const { data, previousData, loading, refetch } = usePreloadedQuery<
+  const { coalescedData, loading, refetch } = usePreloadedQuery<
     HomePageJournalEntryQuery,
     HomePageJournalEntryQueryVariables
   >(HomePageJournalEntryQueryDocument, {
@@ -37,7 +37,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
     skip: !initialEntry,
     onError,
   });
-  const { entry } = data ?? previousData ?? {};
+  const { entry } = coalescedData;
   const { nextEntryId } = entry ?? {};
   const hasNextEntry = !!nextEntryId;
 

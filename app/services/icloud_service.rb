@@ -3,14 +3,6 @@
 
 class ICloudService < ApplicationService
   class << self
-    # == Service
-    sig { override.returns(T::Boolean) }
-    def enabled?
-      return @enabled if defined?(@enabled)
-
-      @enabled = !!(super && !ENV["ICLOUD_ENABLED"].falsy?)
-    end
-
     # == Methods
     sig { returns(Client) }
     def client
@@ -48,7 +40,6 @@ class ICloudService < ApplicationService
   def start
     super
     return if disabled?
-
     Thread.new do
       @credentials = ICloudCredentials.first
       authenticate if @credentials.present?

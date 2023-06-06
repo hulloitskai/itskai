@@ -5,7 +5,10 @@ class CurrentlyPlayingService < ApplicationService
   class << self
     # == Service
     sig { override.returns(T::Boolean) }
-    def enabled? = T.let(super, T::Boolean) && SpotifyService.enabled?
+    def disabled?
+      return @disabled if defined?(@disabled)
+      @disabled = !!(super || SpotifyService.disabled?)
+    end
 
     sig { returns(T::Boolean) }
     def debug?

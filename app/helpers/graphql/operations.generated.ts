@@ -167,7 +167,7 @@ export type HomePageGraphQuery = (
 
 export type HomePageJournalEntryEntryFragment = (
   { __typename?: 'JournalEntry' }
-  & Pick<Types.JournalEntry, 'id' | 'nextEntryId' | 'url' | 'createdAt' | 'title' | 'blocks'>
+  & Pick<Types.JournalEntry, 'id' | 'nextEntryId' | 'url' | 'startedAt' | 'title' | 'content'>
 );
 
 export type HomePageJournalEntryQueryVariables = Types.Exact<{
@@ -179,7 +179,7 @@ export type HomePageJournalEntryQuery = (
   { __typename?: 'Query' }
   & { entry: Types.Maybe<(
     { __typename?: 'JournalEntry' }
-    & Pick<Types.JournalEntry, 'id' | 'nextEntryId' | 'url' | 'createdAt' | 'title' | 'blocks'>
+    & Pick<Types.JournalEntry, 'id' | 'nextEntryId' | 'url' | 'startedAt' | 'title' | 'content'>
   )> }
 );
 
@@ -195,7 +195,7 @@ export type HomePageQuery = (
     & Pick<Types.User, 'id' | 'isOwner' | 'name'>
   )>, entry: Types.Maybe<(
     { __typename?: 'JournalEntry' }
-    & Pick<Types.JournalEntry, 'id' | 'nextEntryId' | 'url' | 'createdAt' | 'title' | 'blocks'>
+    & Pick<Types.JournalEntry, 'id' | 'nextEntryId' | 'url' | 'startedAt' | 'title' | 'content'>
   )> }
 );
 
@@ -240,7 +240,7 @@ export type JournalEntryCommentsQuery = (
 
 export type JournalEntryEntryFragment = (
   { __typename?: 'JournalEntry' }
-  & Pick<Types.JournalEntry, 'id' | 'url' | 'createdAt' | 'title' | 'blocks'>
+  & Pick<Types.JournalEntry, 'id' | 'url' | 'startedAt' | 'title' | 'content'>
 );
 
 type ObsidianGraphEntryFragment_ObsidianNote_ = (
@@ -689,7 +689,7 @@ export type WorkPageQuery = (
 export const AppViewerFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AppViewerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isOwner"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]} as unknown as DocumentNode<AppViewerFragment, unknown>;
 export const CurrentlyPlayingIslandTrackFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CurrentlyPlayingIslandTrackFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SpotifyTrack"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"album"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}},{"kind":"Field","name":{"kind":"Name","value":"artists"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"durationMilliseconds"}}]}}]} as unknown as DocumentNode<CurrentlyPlayingIslandTrackFragment, unknown>;
 export const CurrentlyPlayingLyricsTooltipLyricLineFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CurrentlyPlayingLyricsTooltipLyricLineFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SpotifyLyricLine"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"isExplicit"}},{"kind":"Field","name":{"kind":"Name","value":"startTimeMilliseconds"}},{"kind":"Field","name":{"kind":"Name","value":"words"}}]}}]} as unknown as DocumentNode<CurrentlyPlayingLyricsTooltipLyricLineFragment, unknown>;
-export const JournalEntryEntryFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JournalEntryEntryFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"JournalEntry"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"blocks"}}]}}]} as unknown as DocumentNode<JournalEntryEntryFragment, unknown>;
+export const JournalEntryEntryFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JournalEntryEntryFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"JournalEntry"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"startedAt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]} as unknown as DocumentNode<JournalEntryEntryFragment, unknown>;
 export const HomePageJournalEntryEntryFragment = {"kind":"Document", "definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HomePageJournalEntryEntryFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"JournalEntry"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nextEntryId"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"JournalEntryEntryFragment"}}]}},...JournalEntryEntryFragment.definitions]} as unknown as DocumentNode<HomePageJournalEntryEntryFragment, unknown>;
 export const ObsidianGraphNoteFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ObsidianGraphNoteFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ObsidianNote"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"referencedBy"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"modifiedAt"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"tags"}},{"kind":"Field","alias":{"kind":"Name","value":"blurb"},"name":{"kind":"Name","value":"plainBlurb"}},{"kind":"Field","name":{"kind":"Name","value":"references"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<ObsidianGraphNoteFragment, unknown>;
 export const ObsidianGraphEntryFragment = {"kind":"Document", "definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ObsidianGraphEntryFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ObsidianEntry"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","alias":{"kind":"Name","value":"type"},"name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"referencedBy"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ObsidianGraphNoteFragment"}}]}},...ObsidianGraphNoteFragment.definitions]} as unknown as DocumentNode<ObsidianGraphEntryFragment, unknown>;

@@ -19,8 +19,8 @@ module Queries
       params(entry: T.nilable(JournalEntry)).returns(T.nilable(JournalEntry))
     end
     def resolve(entry:)
-      return entry if entry&.blocks?
-      JournalEntry.with_blocks.order(started_at: :desc).first
+      return entry if entry&.content?
+      JournalEntry.with_content.order(started_at: :desc).first
     end
   end
 end

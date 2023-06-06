@@ -7,9 +7,11 @@ import "@9gustin/react-notion-render/dist/index.css";
 
 type RenderProps = ComponentPropsWithoutRef<typeof Render>;
 
-export type NotionContentProps = Pick<RenderProps, "blocks">;
+export type NotionContentProps = {
+  readonly content: RenderProps["blocks"];
+};
 
-const NotionContent: FC<NotionContentProps> = ({ blocks }) => {
+const NotionContent: FC<NotionContentProps> = ({ content }) => {
   return (
     <Box
       sx={({ fontFamilyMonospace, fontSizes }) => ({
@@ -26,9 +28,9 @@ const NotionContent: FC<NotionContentProps> = ({ blocks }) => {
         blockComponentsMapper={{
           divider: NotionContentDivider,
         }}
+        blocks={content}
         useStyles
         emptyBlocks
-        {...{ blocks }}
       />
     </Box>
   );

@@ -15,7 +15,7 @@ export type JournalEntryProps = BoxProps & {
 };
 
 const JournalEntry: FC<JournalEntryProps> = ({
-  entry: { id: entryId, url, title, createdAt, blocks },
+  entry: { id: entryId, url, title, startedAt, content },
   ...otherProps
 }) => {
   const theme = useMantineTheme();
@@ -41,10 +41,10 @@ const JournalEntry: FC<JournalEntryProps> = ({
             <Text size="xs" color="dimmed">
               written{" "}
               <Time format={time => formatTimeAgo(time.toJSDate())}>
-                {createdAt}
+                {startedAt}
               </Time>{" "}
             </Text>
-            <NotionContent {...{ blocks }} />
+            <NotionContent {...{ content }} />
           </Stack>
         </Stack>
         <Card.Section withBorder inheritPadding mt="sm" py="sm">

@@ -6,10 +6,10 @@
 
 class ImportObsidianNotesJob
   class << self
-    sig { params(force: T::Boolean).returns(T.any(ImportObsidianNotesJob, FalseClass)) }
+    sig { params(force: T.nilable(T::Boolean)).returns(T.any(ImportObsidianNotesJob, FalseClass)) }
     def perform_later(force: T.unsafe(nil)); end
 
-    sig { params(force: T::Boolean).void }
+    sig { params(force: T.nilable(T::Boolean)).void }
     def perform_now(force: T.unsafe(nil)); end
   end
 end

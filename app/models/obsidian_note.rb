@@ -11,7 +11,7 @@
 #  blurb       :text
 #  content     :text             not null
 #  hidden      :boolean          default(FALSE), not null
-#  imported_at :datetime
+#  imported_at :datetime         not null
 #  modified_at :datetime         not null
 #  name        :string           not null
 #  plain_blurb :text
@@ -52,9 +52,6 @@ class ObsidianNote < ApplicationRecord
   sig { returns(T::Boolean) }
   def analyzed? = analyzed_at?
 
-  sig { returns(T::Boolean) }
-  def imported? = imported_at?
-
   # == Associations
   has_many :outgoing_relations,
            class_name: "ObsidianRelation",
@@ -75,6 +72,12 @@ class ObsidianNote < ApplicationRecord
            as: :to,
            dependent: :destroy
   has_many :referenced_by, through: :incoming_relations, source: :from
+
+  # == Scopes
+  scope :for_import, -> {
+    T.bind(self, PrivateRelation)
+    select(:id, :name, :imported_at)
+  }
 
   # == Normalizations
   removes_blanks :blurb
@@ -109,9 +112,8 @@ class ObsidianNote < ApplicationRecord
 
   sig { returns(T::Boolean) }
   def analysis_required?
-    imported_at = self.imported_at or return false
     analyzed_at = self.analyzed_at or return true
-    analyzed_at <= imported_at
+    analyzed_at < modified_at
   end
 
   sig { void }
@@ -130,13 +132,18 @@ class ObsidianNote < ApplicationRecord
   sig { params(force: T::Boolean).void }
   def self.import(force: false)
     note_names = ObsidianService.note_names
-    imported_notes = note_names.map do |name|
+    note_names.each do |name|
       Rails.error.handle(context: { name: }) do
-        parsed_note = ObsidianService.note!(name)
-        find_or_initialize_by(name:).tap do |note|
-          note = T.let(note, ObsidianNote)
-          note.update_from_obsidian(parsed_note)
-          note.analyzed_at = nil if force
+        existing_note = for_import.find_by(name:)
+        if existing_note
+          if force || existing_note.import_required?
+            existing_note.import_later(force:)
+          end
+        else
+          parsed_note = ObsidianService.note!(name)
+          new_note = new(name:)
+          new_note.import_attributes_from_obsidian(parsed_note:)
+          new_note.save!
         end
       rescue => error
         tag_logger do
@@ -145,9 +152,7 @@ class ObsidianNote < ApplicationRecord
         raise error
       end
     end
-    imported_notes = T.cast(imported_notes, T::Array[ObsidianNote])
-    imported_notes.compact!
-    where.not(id: imported_notes.map(&:id!)).destroy_all
+    where.not(name: note_names).destroy_all
   end
 
   sig { params(force: T::Boolean).void }
@@ -157,6 +162,7 @@ class ObsidianNote < ApplicationRecord
 
   sig { returns(T::Boolean) }
   def import_required?
+    return false if imported_at > 5.minutes.ago
     if ObsidianService.ready?
       file = ObsidianService.note_file(name)
       file.nil? || file.modified_at! > modified_at
@@ -172,7 +178,8 @@ class ObsidianNote < ApplicationRecord
     if parsed_note.nil?
       destroy!
     else
-      update_from_obsidian(parsed_note)
+      import_attributes_from_obsidian(parsed_note:)
+      save!
     end
   end
 
@@ -183,13 +190,10 @@ class ObsidianNote < ApplicationRecord
 
   # == Helpers: Importing
   sig { params(parsed_note: ObsidianService::ParsedNote).void }
-  def update_from_obsidian(parsed_note)
-    meta, content = parsed_note.meta, parsed_note.content
-    update!(
-      imported_at: Time.current,
-      content:,
-      **meta.serialize.symbolize_keys,
-    )
+  def import_attributes_from_obsidian(parsed_note:)
+    self.imported_at = Time.current
+    self.content = parsed_note.content
+    self.attributes = parsed_note.meta.serialize
   end
 
   private

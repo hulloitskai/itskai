@@ -6,7 +6,7 @@
 # Table name: journal_entries
 #
 #  id             :uuid             not null, primary key
-#  blocks         :jsonb
+#  content        :jsonb
 #  imported_at    :datetime         not null
 #  last_edited_at :datetime         not null
 #  started_at     :datetime         not null
@@ -23,9 +23,14 @@ class JournalEntry < ApplicationRecord
   include Identifiable
 
   # == Scopes
-  scope :with_blocks, -> {
+  scope :with_content, -> {
     T.bind(self, PrivateRelation)
-    where.not(blocks: nil)
+    where.not(content: nil)
+  }
+
+  scope :for_import, -> {
+    T.bind(self, PrivateRelation)
+    select(:id, :imported_at)
   }
 
   # == Validation
@@ -34,33 +39,29 @@ class JournalEntry < ApplicationRecord
   validates :started_at, :last_edited_at, presence: true
 
   # == Callbacks
-  after_commit :import_blocks_later,
-               on: %i[create update],
-               if: :blocks_import_required?
+  after_commit :download_later, on: %i[create update], if: :download_required?
 
-  # == Methods: Importing
+  # == Methods: Import
   sig { void }
   def self.import
     pages = JournalService.list_pages(published: true)
-    imported_entries = pages.map do |page|
-      Rails.error.handle(context: { notion_page_id: page.id }) do
-        find_or_initialize_by(notion_page_id: page.id).tap do |entry|
-          entry = T.let(entry, JournalEntry)
-          entry.update_from_notion(page)
-        end
+    pages.each do |page|
+      notion_page_id = page.id
+      Rails.error.handle(context: { notion_page_id: }) do
+        entry = find_or_initialize_by(notion_page_id:)
+        entry.import_attributes_from_notion(page:)
+        entry.save!
       rescue => error
         tag_logger do
           logger.error(
-            "Failed to import entry with Notion page ID `#{page.id}'`: " \
-              "#{error}",
+            "Failed to import entry with Notion page ID " \
+              "`#{notion_page_id}'`: #{error}",
           )
         end
         raise error
       end
     end
-    imported_entries = T.cast(imported_entries, T::Array[JournalEntry])
-    imported_entries.compact!
-    where.not(id: imported_entries.map(&:id!)).destroy_all
+    where.not(notion_page_id: pages.map(&:id)).destroy_all
   end
 
   sig { void }
@@ -68,38 +69,48 @@ class JournalEntry < ApplicationRecord
     ImportJournalEntriesJob.perform_later
   end
 
-  sig { void }
-  def import
-    page = JournalService.retrieve_page(notion_page_id)
-    update_from_notion(page)
-  end
-
-  # == Methods: Blocks Importing
   sig { returns(T::Boolean) }
-  def blocks_import_required?
-    saved_change_to_last_edited_at? || blocks.nil?
+  def import_required?
+    imported_at < 5.minutes.ago
+  end
+
+  sig { params(force: T::Boolean).void }
+  def import(force: false)
+    return if !force && !import_required?
+    page = JournalService.retrieve_page(notion_page_id)
+    import_attributes_from_notion(page)
+    save!
+  end
+
+  sig { params(force: T::Boolean).void }
+  def import_later(force: false)
+    ImportJournalEntryJob.perform_later(self, force:)
+  end
+
+  # == Methods: Download
+  sig { returns(T::Boolean) }
+  def download_required?
+    saved_change_to_last_edited_at? || content.nil?
   end
 
   sig { void }
-  def import_blocks
-    blocks = JournalService.retrieve_blocks(notion_page_id)
-    update!(blocks:)
+  def download
+    content = JournalService.retrieve_blocks(notion_page_id)
+    update!(content:)
   end
 
   sig { void }
-  def import_blocks_later
-    ImportJournalEntryBlocksJob.perform_later(self)
+  def download_later
+    DownloadJournalEntryJob.perform_later(self)
   end
 
-  # == Helpers: Importing
+  # == Helpers: Import
   sig { params(page: T.untyped).void }
-  def update_from_notion(page)
+  def import_attributes_from_notion(page:)
     properties = page.properties
-    update!(
-      imported_at: Time.current,
-      title: properties["Name"].title.first!.plain_text,
-      started_at: properties["Created At"].created_time.to_time,
-      last_edited_at: properties["Modified At"].last_edited_time.to_time,
-    )
+    self.imported_at = Time.current
+    self.title = properties["Name"].title.first!.plain_text
+    self.started_at = properties["Created At"].created_time.to_time
+    self.last_edited_at = properties["Modified At"].last_edited_time.to_time
   end
 end

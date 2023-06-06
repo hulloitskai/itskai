@@ -7,7 +7,7 @@ class ImportObsidianNoteJob < ApplicationJob
     key: -> {
       T.bind(self, AnalyzeObsidianNoteJob)
       note = T.let(arguments.first!, ObsidianNote)
-      "#{self.class.name}:#{note.id}"
+      "#{self.class.name}(#{note.to_gid})"
     },
     total_limit: 1,
   )

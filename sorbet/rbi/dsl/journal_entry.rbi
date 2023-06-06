@@ -297,6 +297,9 @@ class JournalEntry
     def extract_associated(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def for_import(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def from(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -445,7 +448,7 @@ class JournalEntry
     def where(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def with_blocks(*args, &blk); end
+    def with_content(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
@@ -453,49 +456,49 @@ class JournalEntry
 
   module GeneratedAttributeMethods
     sig { returns(T.untyped) }
-    def blocks; end
+    def content; end
 
     sig { params(value: T.untyped).returns(T.untyped) }
-    def blocks=(value); end
+    def content=(value); end
 
     sig { returns(T::Boolean) }
-    def blocks?; end
+    def content?; end
 
     sig { returns(T.untyped) }
-    def blocks_before_last_save; end
+    def content_before_last_save; end
 
     sig { returns(T.untyped) }
-    def blocks_before_type_cast; end
+    def content_before_type_cast; end
 
     sig { returns(T::Boolean) }
-    def blocks_came_from_user?; end
+    def content_came_from_user?; end
 
     sig { returns(T.nilable([T.untyped, T.untyped])) }
-    def blocks_change; end
+    def content_change; end
 
     sig { returns(T.nilable([T.untyped, T.untyped])) }
-    def blocks_change_to_be_saved; end
+    def content_change_to_be_saved; end
 
     sig { returns(T::Boolean) }
-    def blocks_changed?; end
+    def content_changed?; end
 
     sig { returns(T.untyped) }
-    def blocks_in_database; end
+    def content_in_database; end
 
     sig { returns(T.nilable([T.untyped, T.untyped])) }
-    def blocks_previous_change; end
+    def content_previous_change; end
 
     sig { returns(T::Boolean) }
-    def blocks_previously_changed?; end
+    def content_previously_changed?; end
 
     sig { returns(T.untyped) }
-    def blocks_previously_was; end
+    def content_previously_was; end
 
     sig { returns(T.untyped) }
-    def blocks_was; end
+    def content_was; end
 
     sig { void }
-    def blocks_will_change!; end
+    def content_will_change!; end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at; end
@@ -723,7 +726,7 @@ class JournalEntry
     def notion_page_id_will_change!; end
 
     sig { void }
-    def restore_blocks!; end
+    def restore_content!; end
 
     sig { void }
     def restore_created_at!; end
@@ -750,10 +753,10 @@ class JournalEntry
     def restore_updated_at!; end
 
     sig { returns(T.nilable([T.untyped, T.untyped])) }
-    def saved_change_to_blocks; end
+    def saved_change_to_content; end
 
     sig { returns(T::Boolean) }
-    def saved_change_to_blocks?; end
+    def saved_change_to_content?; end
 
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def saved_change_to_created_at; end
@@ -939,7 +942,7 @@ class JournalEntry
     def updated_at_will_change!; end
 
     sig { returns(T::Boolean) }
-    def will_save_change_to_blocks?; end
+    def will_save_change_to_content?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_created_at?; end
@@ -999,6 +1002,9 @@ class JournalEntry
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def extract_associated(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def for_import(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def from(*args, &blk); end
@@ -1097,7 +1103,7 @@ class JournalEntry
     def where(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def with_blocks(*args, &blk); end
+    def with_content(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end

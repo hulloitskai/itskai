@@ -9,9 +9,10 @@ class ImportObsidianNotesJob < ApplicationJob
   around_perform :with_activity_logging
 
   # == Job
-  sig { params(force: T::Boolean).void }
-  def perform(force: false)
-    ObsidianNote.import(force:)
+  sig { params(force: T.nilable(T::Boolean)).void }
+  def perform(force: nil)
+    options = { force: }
+    ObsidianNote.import(**options.compact)
   end
 
   private

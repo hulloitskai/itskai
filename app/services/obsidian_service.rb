@@ -5,9 +5,9 @@ class ObsidianService < ApplicationService
   class << self
     # == Service
     sig { override.returns(T::Boolean) }
-    def enabled?
-      return @enabled if defined?(@enabled)
-      @enabled = !!(super && ICloudService.enabled?)
+    def disabled?
+      return @disabled if defined?(@disabled)
+      @disabled = !!(super || ICloudService.disabled?)
     end
 
     # == Methods

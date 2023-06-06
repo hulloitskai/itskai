@@ -37,13 +37,13 @@ export type InputFieldErrorFieldPolicy = {
 	field?: FieldPolicy<any> | FieldReadFunction<any>,
 	message?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type JournalEntryKeySpecifier = ('blocks' | 'createdAt' | 'id' | 'modifiedAt' | 'nextEntryId' | 'title' | 'url' | JournalEntryKeySpecifier)[];
+export type JournalEntryKeySpecifier = ('content' | 'id' | 'modifiedAt' | 'nextEntryId' | 'startedAt' | 'title' | 'url' | JournalEntryKeySpecifier)[];
 export type JournalEntryFieldPolicy = {
-	blocks?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	content?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	modifiedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	nextEntryId?: FieldPolicy<any> | FieldReadFunction<any>,
+	startedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };

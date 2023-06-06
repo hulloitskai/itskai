@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_05_160108) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_06_031536) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -148,7 +148,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_160108) do
     t.datetime "last_edited_at", precision: nil, null: false
     t.string "title", null: false
     t.string "notion_page_id", null: false
-    t.jsonb "blocks"
+    t.jsonb "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "imported_at", precision: nil, null: false
@@ -181,7 +181,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_160108) do
     t.string "slug", null: false
     t.text "plain_blurb"
     t.string "title", null: false
-    t.datetime "imported_at", precision: nil
+    t.datetime "imported_at", precision: nil, null: false
     t.index ["aliases"], name: "index_obsidian_notes_on_aliases"
     t.index ["analyzed_at"], name: "index_obsidian_notes_on_analyzed_at"
     t.index ["imported_at"], name: "index_obsidian_notes_on_imported_at"

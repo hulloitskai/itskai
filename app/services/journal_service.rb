@@ -6,8 +6,8 @@ class JournalService < ApplicationService
     # == Service
     sig { override.returns(T::Boolean) }
     def enabled?
-      return !!@enabled if defined?(@enabled)
-      @enabled = !!(super && notion_ready? && database_id.present?)
+      return @disabled if defined?(@disabled)
+      @disabled = !!(super || !notion_ready? || database_id.blank?)
     end
 
     # == Methods

@@ -123,12 +123,12 @@ export type InputFieldError = {
 
 export type JournalEntry = Node & {
   __typename?: 'JournalEntry';
-  blocks: Array<Scalars['JSON']>;
-  createdAt: Scalars['DateTime'];
+  content: Array<Scalars['JSON']>;
   /** ID of the object. */
   id: Scalars['ID'];
   modifiedAt: Scalars['DateTime'];
   nextEntryId?: Maybe<Scalars['ID']>;
+  startedAt: Scalars['DateTime'];
   title: Scalars['String'];
   url: Scalars['String'];
 };

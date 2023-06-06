@@ -32,7 +32,7 @@ Rails.application.configure do
       import_journal_entries: {
         class: "ImportJournalEntriesJob",
         description: "Import journal entries from Notion.",
-        cron: "*/5 * * * *",
+        cron: "3-59/5 * * * *",
       },
     }
 

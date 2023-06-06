@@ -1,7 +1,7 @@
 fragment JournalEntryEntryFragment on JournalEntry {
   id
   url
-  createdAt
+  startedAt
   title
-  blocks
+  content
 }

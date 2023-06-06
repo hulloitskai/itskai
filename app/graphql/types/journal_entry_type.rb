@@ -7,10 +7,10 @@ module Types
     implements NodeType
 
     # == Fields
-    field :blocks, [GraphQL::Types::JSON], null: false
-    field :created_at, DateTimeType, null: false
+    field :content, [GraphQL::Types::JSON], null: false
     field :modified_at, DateTimeType, null: false
     field :next_entry_id, ID
+    field :started_at, DateTimeType, null: false
     field :title, String, null: false
     field :url, String, null: false
 
@@ -22,7 +22,7 @@ module Types
 
     sig { returns(T.nilable(String)) }
     def next_entry_id
-      next_entry = JournalEntry.with_blocks
+      next_entry = JournalEntry.with_content
         .where("started_at < ?", object.started_at)
         .order(started_at: :desc)
         .first

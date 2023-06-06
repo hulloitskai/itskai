@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 class ApplicationService
@@ -30,16 +30,20 @@ class ApplicationService
     def restart = instance.tap(&:restart)
 
     sig { overridable.returns(T::Boolean) }
-    def enabled? = true
+    def disabled?
+      ENV["#{env_prefix}_DISABLED"].truthy?
+    end
 
     sig { returns(T::Boolean) }
-    def disabled? = !enabled?
+    def enabled? = !disabled?
 
     sig { returns(T::Boolean) }
     def started? = instance.started?
 
     sig { returns(T::Boolean) }
     def ready? = enabled? && instance.ready?
+
+    private
 
     # == Helpers
     sig do
@@ -51,6 +55,12 @@ class ApplicationService
       raise "#{name} is disabled" if disabled?
       raise "#{name} is not ready" unless ready?
       yield
+    end
+
+    sig { returns(String) }
+    def env_prefix
+      return @env_prefix if defined?(@env_prefix)
+      @env_prefix = T.must(name).underscore.upcase
     end
   end
 
