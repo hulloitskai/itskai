@@ -22,6 +22,6 @@ class ImportObsidianNotesJob < ApplicationJob
   def with_activity_logging(&block)
     ActivityService.update_status("Importing Obsidian notes")
     yield
-    ActivityService.update_status("Obsidian notes import complete")
+    ActivityService.update_status("Obsidian notes imported")
   end
 end

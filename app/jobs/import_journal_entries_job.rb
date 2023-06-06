@@ -21,6 +21,6 @@ class ImportJournalEntriesJob < ApplicationJob
   def with_activity_logging(&block)
     ActivityService.update_status("Importing journal entries")
     yield
-    ActivityService.update_status("Journal import complete")
+    ActivityService.update_status("Journal entries imported")
   end
 end
