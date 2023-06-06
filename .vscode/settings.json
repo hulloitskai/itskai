@@ -1,8 +1,14 @@
 {
+  // == Associations
   "files.associations": {
     "Procfile.dev": "procfile",
     "Gemfile.lock": "plaintext",
     "Aptfile": "plaintext"
+  },
+
+  // == YAML
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "${workspaceFolder}/.github/workflows/deploy.yml"
   },
 
   // == Ruby
@@ -40,8 +46,5 @@
   },
   "[ignore]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "yaml.schemas": {
-    "https://json.schemastore.org/github-workflow.json": "${workspaceFolder}/.github/workflows/deploy.yml"
   }
 }

@@ -37,7 +37,7 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
             remember_me: rememberMe,
           },
         };
-        router.post("/user/login", data, {
+        router.post("/login", data, {
           onBefore: () => {
             setLoading(true);
           },

@@ -13,24 +13,21 @@ Rails.application.routes.draw do
 
   # == Devise
   devise_for :users,
-             skip: %i[confirmations passwords],
+             skip: %i[sessions confirmations passwords],
              controllers: {
-               sessions: "users/sessions",
                registrations: "users/registrations",
-               confirmations: "users/confirmations",
-               passwords: "users/passwords",
-               omniauth_callbacks: "users/omniauth_callbacks",
              },
-             path: "user",
+             path: "/user",
              path_names: {
-               sign_in: "login",
-               sign_out: "logout",
                sign_up: "register",
                edit: "settings",
-               confirmation: "verification",
              }
   devise_scope :user do
-    get :login, to: "users/sessions#new"
+    scope module: "users", controller: "sessions", as: :user_session do
+      get :login, action: :new
+      post :login, action: :create
+      delete :logout, action: :destroy
+    end
     scope :user, module: "users", as: :user do
       resource :confirmation,
                only: %i[new show],
