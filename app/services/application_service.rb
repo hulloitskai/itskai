@@ -1,4 +1,4 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 class ApplicationService
@@ -59,7 +59,8 @@ class ApplicationService
 
     sig { returns(String) }
     def env_prefix
-      return @env_prefix if defined?(@env_prefix)
+      return T.must(@env_prefix) if defined?(@env_prefix)
+      @env_prefix = T.let(@env_prefix, T.nilable(String))
       @env_prefix = T.must(name).underscore.upcase
     end
   end
