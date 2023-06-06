@@ -210,8 +210,11 @@ class ObsidianNote < ApplicationRecord
     references = ObsidianNote.where(name: links).select(:id, :name)
     referenced_names = references.map(&:name)
     unresolved_reference_names = links - referenced_names
-    unresolved_references = unresolved_reference_names.map do |name|
-      ObsidianStub.find_or_initialize_by(name:)
+    unresolved_references = scoped do
+      existing_stubs = ObsidianStub.where(name: unresolved_reference_names).to_a
+      new_stub_names = unresolved_reference_names - existing_stubs.map(&:name)
+      new_stubs = new_stub_names.map { |name| ObsidianStub.new(name:) }
+      existing_stubs + new_stubs
     end
     self.references = references
     self.unresolved_references = unresolved_references
