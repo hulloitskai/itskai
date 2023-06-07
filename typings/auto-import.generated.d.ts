@@ -64,6 +64,7 @@ declare global {
   const isEmpty: typeof import('lodash-es')['isEmpty']
   const isEqual: typeof import('lodash-es')['isEqual']
   const isFSInitialized: typeof import('@fullstory/browser')['isInitialized']
+  const isUrl: typeof import('~/helpers/utils')['isUrl']
   const keyBy: typeof import('lodash-es')['keyBy']
   const lazy: typeof import('react')['lazy']
   const mapKeys: typeof import('lodash-es')['mapKeys']

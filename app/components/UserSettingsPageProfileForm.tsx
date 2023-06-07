@@ -3,8 +3,11 @@ import type { FC } from "react";
 import { UpdateUserProfileMutationDocument } from "~/helpers/graphql";
 import type { UserSettingsPageViewerFragment } from "~/helpers/graphql";
 
+import AvatarField from "./AvatarField";
+
 export type UserSettingsPageProfileFormValues = {
   readonly name: string;
+  readonly avatar: string;
 };
 
 export type UserSettingsPageProfileFormProps = {
@@ -17,10 +20,13 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
   const router = useRouter();
 
   // == Form
-  const initialValues = useMemo<UserSettingsPageProfileFormValues>(
-    () => pick(viewer, "name"),
-    [viewer],
-  );
+  const initialValues = useMemo<UserSettingsPageProfileFormValues>(() => {
+    const { name, avatar } = viewer;
+    return {
+      name,
+      avatar: avatar?.url ?? "",
+    };
+  }, [viewer]);
   const { getInputProps, onSubmit, setErrors, isDirty, setValues, resetDirty } =
     useForm<UserSettingsPageProfileFormValues>({
       initialValues,
@@ -57,7 +63,11 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
   return (
     <form
       onSubmit={onSubmit(values => {
-        runMutation({ variables: { input: { ...values } } });
+        runMutation({
+          variables: {
+            input: { ...values },
+          },
+        });
       })}
     >
       <Stack spacing="xs">
@@ -67,6 +77,7 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
           required
           {...getInputProps("name")}
         />
+        <AvatarField label="Avatar" {...getInputProps("avatar")} />
         <Button type="submit" disabled={!isDirty()} {...{ loading }}>
           Save
         </Button>

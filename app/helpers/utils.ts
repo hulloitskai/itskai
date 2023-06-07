@@ -1,3 +1,5 @@
+export { default as isUrl } from "is-url";
+
 export const resolve = <T>(f: () => T): T => f();
 
 type AllKeys<T> = T extends any ? keyof T : never;

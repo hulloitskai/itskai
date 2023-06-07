@@ -15,9 +15,6 @@ module GeneratedPathHelpersModule
   def cancel_user_registration_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def destroy_user_session_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def edit_rails_conductor_inbound_email_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -42,9 +39,6 @@ module GeneratedPathHelpersModule
   def jen_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def login_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def mailcatcher_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -61,9 +55,6 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def new_user_registration_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def new_user_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_path(*args); end
@@ -168,7 +159,10 @@ module GeneratedPathHelpersModule
   def user_registration_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def user_session_path(*args); end
+  def user_session_login_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def user_session_logout_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def user_spotify_omniauth_authorize_path(*args); end

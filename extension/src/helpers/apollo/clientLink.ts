@@ -5,7 +5,7 @@ import { getOperationDefinition } from "@apollo/client/utilities/index";
 
 import ActionCableLink from "graphql-ruby-client/subscriptions/ActionCableLink";
 
-import { cable } from "../cable";
+import { cable } from "../actioncable";
 import { requireMeta } from "../meta";
 
 export type ClientLinkOptions = {

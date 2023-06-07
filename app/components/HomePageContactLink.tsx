@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import type { AnchorProps } from "@mantine/core";
 
-import { useContactMe } from "~/helpers/contactMe";
+import { useContactMe } from "~/helpers/contact";
 
 const HomePageContactLink: FC<AnchorProps> = ({ ...otherProps }) => {
   const [contactMe] = useContactMe();

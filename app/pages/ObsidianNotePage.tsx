@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from "react";
 import type { PageComponent, PageProps } from "~/helpers/inertia";
 import type { DeepRequired } from "~/helpers/utils";
-import { useContactMe } from "~/helpers/contactMe";
+import { useContactMe } from "~/helpers/contact";
 
 import { Code, Text } from "@mantine/core";
 

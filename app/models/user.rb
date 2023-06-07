@@ -48,6 +48,9 @@ class User < ApplicationRecord
     super(value)
   end
 
+  # == Associations
+  has_one_attached :avatar
+
   # == Validations
   validates :name, presence: true, length: { maximum: 64, minimum: 2 }
   validates :email,

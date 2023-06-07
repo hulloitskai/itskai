@@ -15,11 +15,15 @@
     <%# == Viewport %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <%# == Content Security Policy %>
+    <%# == Content Security Policy & CSRF %>
     <%= csp_meta_tag %>
+    <%= csrf_meta_tags %>
 
     <%# == Action Cable %>
     <%= action_cable_meta_tag %>
+
+    <%# == Active Storage %>
+    <meta name="active-storage-direct-uploads-url" content="<%= rails_direct_uploads_path %>">
 
     <%# == Environment %>
     <meta name="env" content="<%= Rails.env %>">

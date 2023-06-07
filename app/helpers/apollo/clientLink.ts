@@ -5,7 +5,8 @@ import { getOperationDefinition } from "@apollo/client/utilities/index";
 
 import ActionCableLink from "graphql-ruby-client/subscriptions/ActionCableLink";
 
-import { cable } from "~/helpers/cable";
+import { cable } from "~/helpers/actioncable";
+import { requireMeta } from "~/helpers/meta";
 
 export type ClientLinkOptions = {
   readonly csrfToken: string;

@@ -15,9 +15,6 @@ module GeneratedUrlHelpersModule
   def cancel_user_registration_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def destroy_user_session_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def edit_rails_conductor_inbound_email_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -42,9 +39,6 @@ module GeneratedUrlHelpersModule
   def jen_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def login_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def mailcatcher_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -61,9 +55,6 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def new_user_registration_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def new_user_session_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_representation_proxy_url(*args); end
@@ -168,7 +159,10 @@ module GeneratedUrlHelpersModule
   def user_registration_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def user_session_url(*args); end
+  def user_session_login_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def user_session_logout_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def user_spotify_omniauth_authorize_url(*args); end

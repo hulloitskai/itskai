@@ -2,4 +2,8 @@ fragment UserSettingsPageViewerFragment on User {
   name
   email
   unverifiedEmail
+  avatar {
+    id
+    url(size: SM)
+  }
 }

@@ -17,6 +17,11 @@ export type ICloudCredentialsFieldPolicy = {
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
 	session?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type ImageKeySpecifier = ('id' | 'url' | ImageKeySpecifier)[];
+export type ImageFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	url?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type ImportCookiesPayloadKeySpecifier = ('clientMutationId' | 'success' | ImportCookiesPayloadKeySpecifier)[];
 export type ImportCookiesPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -138,13 +143,14 @@ export type PageInfoFieldPolicy = {
 	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
 	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('activityStatus' | 'contactEmail' | 'currentlyPlaying' | 'homepageJournalEntry' | 'icloudCredentials' | 'journalEntryComments' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('activityStatus' | 'contactEmail' | 'currentlyPlaying' | 'homepageJournalEntry' | 'icloudCredentials' | 'imageBySignedId' | 'journalEntryComments' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	contactEmail?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
 	homepageJournalEntry?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	imageBySignedId?: FieldPolicy<any> | FieldReadFunction<any>,
 	journalEntryComments?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNote?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNoteByName?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -257,8 +263,9 @@ export type UpdateUserProfilePayloadFieldPolicy = {
 	success?: FieldPolicy<any> | FieldReadFunction<any>,
 	user?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserKeySpecifier = ('email' | 'id' | 'isOwner' | 'name' | 'unverifiedEmail' | UserKeySpecifier)[];
+export type UserKeySpecifier = ('avatar' | 'email' | 'id' | 'isOwner' | 'name' | 'unverifiedEmail' | UserKeySpecifier)[];
 export type UserFieldPolicy = {
+	avatar?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	isOwner?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -283,6 +290,10 @@ export type StrictTypedTypePolicies = {
 	ICloudCredentials?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ICloudCredentialsKeySpecifier | (() => undefined | ICloudCredentialsKeySpecifier),
 		fields?: ICloudCredentialsFieldPolicy,
+	},
+	Image?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ImageKeySpecifier | (() => undefined | ImageKeySpecifier),
+		fields?: ImageFieldPolicy,
 	},
 	ImportCookiesPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ImportCookiesPayloadKeySpecifier | (() => undefined | ImportCookiesPayloadKeySpecifier),

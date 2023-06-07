@@ -14,6 +14,7 @@ module Mutations
     field :user, Types::UserType
 
     # == Arguments
+    argument :avatar, String, required: false
     argument :name, String
 
     # == Resolver

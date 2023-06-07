@@ -1,14 +1,17 @@
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";
-import { setupLuxon } from "~/helpers/luxon";
 
 import type { PageComponent } from "~/helpers/inertia";
 import { setupApp, pagesFromFiles, preparePage } from "~/helpers/inertia";
+
+import { setupActiveStorage } from "~/helpers/activestorage";
+import { setupLuxon } from "~/helpers/luxon";
 
 // == Polyfills
 import "requestidlecallback-polyfill";
 
 // == Setup
+setupActiveStorage();
 setupLuxon();
 
 // == Pages
