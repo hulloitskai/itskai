@@ -35,6 +35,9 @@ const AvatarField: FC<AvatarFieldProps> = ({
   required,
   withAsterisk,
 }) => {
+  // == Uploading
+  const [uploading, setUploading] = useState(false);
+
   // == Query
   const onError = useApolloAlertCallback("Failed to load avatar");
   const variables = useMemo<AvatarFieldQueryVariables | undefined>(() => {
@@ -65,15 +68,11 @@ const AvatarField: FC<AvatarFieldProps> = ({
       }
     }
   }, [value, data, previousData]);
-  useEffect(() => {
-    console.log({ src });
-  }, [src]);
 
   // == Image Loading
   const previousSrc = usePreviousDistinct(src);
   const [imageLoading, setImageLoading] = useState(false);
   useEffect(() => {
-    console.log({ src, previousSrc });
     if (src && src !== previousSrc) {
       setImageLoading(true);
     } else {
@@ -82,7 +81,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
   }, [src, previousSrc]);
 
   // == Loading
-  const loading = queryLoading || imageLoading;
+  const loading = uploading || queryLoading || imageLoading;
 
   // == Markup
   return (
@@ -118,7 +117,9 @@ const AvatarField: FC<AvatarFieldProps> = ({
                 backgroundColor: "unset",
               },
             }}
-            onLoad={() => setImageLoading(false)}
+            onLoad={() => {
+              setImageLoading(false);
+            }}
             {...{ src }}
           />
           <Dropzone
@@ -126,6 +127,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
             onDrop={files => {
               const file = first(files);
               if (file) {
+                setUploading(true);
                 uploadFile(file)
                   .then(blob => {
                     if (onChange) {
@@ -137,6 +139,9 @@ const AvatarField: FC<AvatarFieldProps> = ({
                       title: "Failed to upload file",
                       message,
                     });
+                  })
+                  .finally(() => {
+                    setUploading(false);
                   });
               }
             }}
