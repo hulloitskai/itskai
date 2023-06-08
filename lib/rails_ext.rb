@@ -13,7 +13,12 @@ module Rails
     def console?
       const_defined?(:Console)
     end
-   end
+
+    T::Sig::WithoutRuntime.sig { returns(T::Boolean) }
+    def test?
+      const_defined?(:TestUnitReporter)
+    end
+  end
 end
 
 # Ensure generators defined in 'lib/generators' are prioritized over

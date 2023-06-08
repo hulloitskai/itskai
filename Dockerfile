@@ -52,7 +52,7 @@ RUN apt-get update -qq \
 
 # Install Overmind
 RUN apt-get update -qq \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends tmux \
+  DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends tmux \
   && apt-get clean \
   && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log \

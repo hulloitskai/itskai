@@ -4,6 +4,8 @@
 require "test_helper"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+  extend T::Sig
+  extend T::Helpers
   include Devise::Test::IntegrationHelpers
   include Routing
 

@@ -15,7 +15,6 @@ Rails.application.configure do
         ScottbotService.start
       end
     end
-
     reloader.before_class_unload do
       if Rails.server?
         ScottbotService.stop
@@ -26,6 +25,15 @@ Rails.application.configure do
       SpotifyService.stop
       ObsidianService.stop
       ICloudService.stop
+      ActivityService.stop
+    end
+  end
+
+  if Rails.test?
+    reloader.to_prepare do
+      ActivityService.start
+    end
+    reloader.before_class_unload do
       ActivityService.stop
     end
   end

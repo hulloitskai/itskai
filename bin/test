@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+echo "=> Building SSR bundle"
+bin/vite build --ssr -m prod
+
+echo "\n=> Running tests"
+bin/overmind start -f Procfile.test --no-port "$@"
