@@ -48,7 +48,7 @@ class User < ApplicationRecord
     super(value)
   end
 
-  # == Associations
+  # == Attachments
   has_one_attached :avatar
 
   # == Validations
