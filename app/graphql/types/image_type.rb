@@ -29,8 +29,8 @@ module Types
     def limit_for_size(size)
       case size
       when :sm then [400, 400]
-      when :md then [900, 900]
-      when :lg then [2400, 2400]
+      when :md then [940, 940]
+      when :lg then [1400, 2400]
       else
         raise "Invalid image size: #{size}"
       end
