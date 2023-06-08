@@ -5,10 +5,13 @@ import PhotoIcon from "~icons/heroicons/photo-20-solid";
 import { Image, Input, Text } from "@mantine/core";
 import type { InputWrapperProps } from "@mantine/core";
 
-import { uploadFile } from "~/helpers/activestorage";
 import { AvatarFieldQueryDocument } from "~/helpers/graphql";
-import { ApolloError } from "@apollo/client";
-import { useHover } from "@mantine/hooks";
+import type { AvatarFieldQueryVariables } from "~/helpers/graphql";
+
+import { usePreviousDistinct } from "~/helpers/hooks";
+import { uploadFile } from "~/helpers/activestorage";
+
+const AVATAR_FIELD_IMAGE_SIZE = 140;
 
 export type AvatarFieldProps = Omit<
   InputWrapperProps,
@@ -32,50 +35,56 @@ const AvatarField: FC<AvatarFieldProps> = ({
   required,
   withAsterisk,
 }) => {
-  const { ref, hovered } = useHover();
-  const client = useApolloClient();
-  const size = 140;
-
-  // == Image Src
-  const valueIsSrc = useMemo(() => (value ? isUrl(value) : false), [value]);
-  const [src, setSrc] = useState(() => (valueIsSrc ? value : undefined));
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
+  // == Query
+  const onError = useApolloAlertCallback("Failed to load avatar");
+  const variables = useMemo<AvatarFieldQueryVariables | undefined>(() => {
     if (value) {
-      if (valueIsSrc) {
-        setSrc(value);
-      } else {
-        setLoading(true);
-        client
-          .query({
-            query: AvatarFieldQueryDocument,
-            variables: { signedId: value },
-          })
-          .then(({ data: { image } }) => {
-            if (image) {
-              setSrc(image.url);
-            } else {
-              setLoading(false);
-              console.error("Image not found", { signedId: value });
-              showAlert({
-                title: "Image not found",
-                message: "Unable to load image preview for avatar.",
-              });
-            }
-          })
-          .catch((error: ApolloError) => {
-            const title = "Failed to load avatar";
-            const message = formatApolloError(error);
-            console.error(title, { error });
-            showAlert({ title, message });
-            setLoading(false);
-          });
-      }
-    } else {
-      setSrc(undefined);
+      return { signedId: value };
     }
-  }, [value, valueIsSrc]);
+  }, [value]);
+  const skip = !value;
+  const { data, previousData } = useQuery(AvatarFieldQueryDocument, {
+    variables,
+    skip,
+    onError,
+  });
+  const queryLoading = !data && !previousData && !skip;
 
+  // == Image Source
+  const src = useMemo<string | undefined>(() => {
+    if (value && (data || previousData)) {
+      const { image } = data ?? previousData ?? {};
+      if (image) {
+        return image.url;
+      } else {
+        console.error("Image not found", { signedId: value });
+        showAlert({
+          title: "Image not found",
+          message: "Unable to load image preview for avatar.",
+        });
+      }
+    }
+  }, [value, data, previousData]);
+  useEffect(() => {
+    console.log({ src });
+  }, [src]);
+
+  // == Image Loading
+  const previousSrc = usePreviousDistinct(src);
+  const [imageLoading, setImageLoading] = useState(false);
+  useEffect(() => {
+    console.log({ src, previousSrc });
+    if (src && src !== previousSrc) {
+      setImageLoading(true);
+    } else {
+      setImageLoading(false);
+    }
+  }, [src, previousSrc]);
+
+  // == Loading
+  const loading = queryLoading || imageLoading;
+
+  // == Markup
   return (
     <Input.Wrapper
       {...{
@@ -92,10 +101,10 @@ const AvatarField: FC<AvatarFieldProps> = ({
       }}
     >
       <Stack align="center" spacing={8} py="sm">
-        <Box pos="relative" sx={{ borderRadius: "100%" }} {...{ ref }}>
+        <Box pos="relative">
           <Image
-            height={size}
-            width={size}
+            height={AVATAR_FIELD_IMAGE_SIZE}
+            width={AVATAR_FIELD_IMAGE_SIZE}
             m={4}
             styles={{
               root: {
@@ -109,9 +118,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
                 backgroundColor: "unset",
               },
             }}
-            onLoad={() => {
-              setLoading(false);
-            }}
+            onLoad={() => setImageLoading(false)}
             {...{ src }}
           />
           <Dropzone
@@ -137,18 +144,24 @@ const AvatarField: FC<AvatarFieldProps> = ({
             pos="absolute"
             inset={0}
             styles={({ colors, transitionTimingFunction, fn }) => {
-              const hoveredBackgroundColor = fn.rgba(colors.dark[5], 0.9);
+              const hoveredBackgroundColor = fn.rgba(colors.dark[5], 0.8);
               return {
                 root: {
-                  ...(src &&
-                    !loading && {
-                      backgroundColor: hovered
-                        ? hoveredBackgroundColor
-                        : "transparent",
-                      "&:hover": {
-                        backgroundColor: hoveredBackgroundColor,
+                  ".mantine-LoadingOverlay-root": {
+                    borderRadius: "100%",
+                  },
+                  ...(src && {
+                    backgroundColor: "transparent",
+                    "&[data-loading]": {
+                      backgroundColor: "transparent !important",
+                    },
+                    "&:not([data-loading]):hover": {
+                      backgroundColor: hoveredBackgroundColor,
+                      ".mantine-Dropzone-inner": {
+                        opacity: 1,
                       },
-                    }),
+                    },
+                  }),
                 },
                 inner: {
                   width: "100%",
@@ -158,10 +171,9 @@ const AvatarField: FC<AvatarFieldProps> = ({
                   alignItems: "center",
                   justifyContent: "center",
                   transition: `opacity 150ms ${transitionTimingFunction}`,
-                  ...(src &&
-                    !loading && {
-                      opacity: hovered ? 1 : 0,
-                    }),
+                  ...(src && {
+                    opacity: 0,
+                  }),
                 },
               };
             }}
@@ -180,10 +192,11 @@ const AvatarField: FC<AvatarFieldProps> = ({
             </Stack>
           </Dropzone>
         </Box>
-        {src && !loading && (
+        {src && (
           <Anchor
             component="button"
             size="xs"
+            disabled={queryLoading}
             onClick={() => {
               if (onChange) {
                 onChange(null);

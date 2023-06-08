@@ -17,9 +17,10 @@ export type ICloudCredentialsFieldPolicy = {
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
 	session?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ImageKeySpecifier = ('id' | 'url' | ImageKeySpecifier)[];
+export type ImageKeySpecifier = ('id' | 'signedId' | 'url' | ImageKeySpecifier)[];
 export type ImageFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	signedId?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type ImportCookiesPayloadKeySpecifier = ('clientMutationId' | 'success' | ImportCookiesPayloadKeySpecifier)[];

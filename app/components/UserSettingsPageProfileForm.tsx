@@ -7,7 +7,7 @@ import AvatarField from "./AvatarField";
 
 export type UserSettingsPageProfileFormValues = {
   readonly name: string;
-  readonly avatar: string;
+  readonly avatar: string | null;
 };
 
 export type UserSettingsPageProfileFormProps = {
@@ -24,7 +24,7 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
     const { name, avatar } = viewer;
     return {
       name,
-      avatar: avatar?.url ?? "",
+      avatar: avatar ? avatar.signedId : null,
     };
   }, [viewer]);
   const { getInputProps, onSubmit, setErrors, isDirty, setValues, resetDirty } =

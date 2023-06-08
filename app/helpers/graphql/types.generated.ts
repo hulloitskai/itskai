@@ -76,6 +76,7 @@ export type Image = Node & {
   __typename?: 'Image';
   /** ID of the object. */
   id: Scalars['ID'];
+  signedId: Scalars['String'];
   url: Scalars['String'];
 };
 

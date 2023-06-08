@@ -7,6 +7,7 @@ module Types
     implements NodeType
 
     # == Fields
+    field :signed_id, String, null: false
     field :url, String, null: false do
       argument :size, ImageSizeType, required: false, default_value: :md
     end

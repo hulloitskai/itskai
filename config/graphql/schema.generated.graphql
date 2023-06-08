@@ -64,6 +64,7 @@ type ICloudCredentials implements Node {
 type Image implements Node {
   """ID of the object."""
   id: ID!
+  signedId: String!
   url(size: ImageSize = MD): String!
 }
 
