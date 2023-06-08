@@ -71,7 +71,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
         <Menu.Item
           icon={<SignOutIcon />}
           onClick={() => {
-            router.post("/user/logout", undefined, {
+            router.post("/logout", undefined, {
               onSuccess: ({ props: { csrf } }) => {
                 const csrfToken = (csrf as any).token;
                 const link = createApolloLink({ csrfToken });

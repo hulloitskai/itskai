@@ -23,11 +23,15 @@ Rails.application.routes.draw do
                edit: "settings",
              }
   devise_scope :user do
-    scope module: "users", controller: "sessions", as: :user_session do
-      get :login, action: :new
-      post :login, action: :create
-      delete :logout, action: :destroy
-    end
+    resource :sessions,
+             path: "/",
+             module: "users",
+             as: :user_session,
+             only: [] do
+               get :login, action: :new, as: :new
+               post :login, action: :create, as: ""
+               post :logout, action: :destroy, as: :destroy
+             end
     scope :user, module: "users", as: :user do
       resource :confirmation,
                only: %i[new show],
