@@ -96,7 +96,6 @@ declare global {
   const useDidUpdate: typeof import('@mantine/hooks')['useDidUpdate']
   const useEffect: typeof import('react')['useEffect']
   const useElementSize: typeof import('@mantine/hooks')['useElementSize']
-  const useEvent: typeof import('react-use')['useEvent']
   const useForm: typeof import('@mantine/form')['useForm']
   const useId: typeof import('react')['useId']
   const useImperativeHandle: typeof import('react')['useImperativeHandle']

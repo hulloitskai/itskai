@@ -35,6 +35,9 @@ const AvatarField: FC<AvatarFieldProps> = ({
   required,
   withAsterisk,
 }) => {
+  // == Value
+  const previousValue = usePreviousDistinct(value);
+
   // == Uploading
   const [uploading, setUploading] = useState(false);
 
@@ -45,43 +48,38 @@ const AvatarField: FC<AvatarFieldProps> = ({
       return { signedId: value };
     }
   }, [value]);
-  const skip = !value;
-  const { data, previousData } = useQuery(AvatarFieldQueryDocument, {
+  const skipQuery = !value;
+  const { data } = useQuery(AvatarFieldQueryDocument, {
     variables,
-    skip,
+    skip: skipQuery,
     onError,
   });
-  const queryLoading = !data && !previousData && !skip;
+  const queryLoading = !data && !skipQuery;
 
-  // == Image Source
-  const src = useMemo<string | undefined>(() => {
-    if (value && (data || previousData)) {
-      const { image } = data ?? previousData ?? {};
-      if (image) {
-        return image.url;
-      } else {
-        console.error("Image not found", { signedId: value });
-        showAlert({
-          title: "Image not found",
-          message: "Unable to load image preview for avatar.",
-        });
-      }
-    }
-  }, [value, data, previousData]);
-
-  // == Image Loading
-  const previousSrc = usePreviousDistinct(src);
-  const [imageLoading, setImageLoading] = useState(false);
+  // == Image
+  const [src, setSrc] = useState("");
   useEffect(() => {
-    if (src && src !== previousSrc) {
-      setImageLoading(true);
+    if (value) {
+      if (data) {
+        const { image } = data ?? {};
+        if (image) {
+          setSrc(image.url);
+        } else {
+          console.error("Image not found", { signedId: value });
+          showAlert({
+            title: "Image not found",
+            message: "Unable to load image preview for avatar.",
+          });
+        }
+      }
     } else {
-      setImageLoading(false);
+      setSrc("");
     }
-  }, [src, previousSrc]);
+  }, [value, data]);
 
   // == Loading
-  const loading = uploading || queryLoading || imageLoading;
+  const loading =
+    uploading || ((!src || value !== previousValue) && queryLoading);
 
   // == Markup
   return (
@@ -102,8 +100,10 @@ const AvatarField: FC<AvatarFieldProps> = ({
       <Stack align="center" spacing={8} py="sm">
         <Box pos="relative">
           <Image
-            height={AVATAR_FIELD_IMAGE_SIZE}
             width={AVATAR_FIELD_IMAGE_SIZE}
+            height={AVATAR_FIELD_IMAGE_SIZE}
+            withPlaceholder
+            placeholder={<Skeleton radius="100%" width="100%" height="100%" />}
             m={4}
             styles={{
               root: {
@@ -111,14 +111,8 @@ const AvatarField: FC<AvatarFieldProps> = ({
                 borderRadius: "100%",
               },
               figure: {
-                transform: "scale(1.01)",
+                transform: "scale(1.02)",
               },
-              placeholder: {
-                backgroundColor: "unset",
-              },
-            }}
-            onLoad={() => {
-              setImageLoading(false);
             }}
             {...{ src }}
           />

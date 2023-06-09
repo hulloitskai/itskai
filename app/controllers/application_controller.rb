@@ -4,6 +4,7 @@
 class ApplicationController < ActionController::Base
   extend T::Sig
   extend T::Helpers
+  include ActiveStorage::SetCurrent
   include GraphQL::Querying
 
   # == Filters: Devise

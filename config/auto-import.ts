@@ -107,7 +107,6 @@ export const imports: Array<ImportsMap | PresetName> = [
       "uniqBy",
     ],
     luxon: ["DateTime", "Duration"],
-    "react-use": ["useEvent"],
     "tiny-invariant": [["default", "invariant"]],
   },
 ];

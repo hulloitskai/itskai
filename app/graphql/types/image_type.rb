@@ -16,7 +16,7 @@ module Types
     def url(size:)
       limit = limit_for_size(size)
       representation = object.representation(resize_to_limit: limit)
-      polymorphic_url(representation)
+      representation.processed.url
     end
 
     # == Helpers
