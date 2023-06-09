@@ -2,12 +2,13 @@ import type { FC } from "react";
 
 import { UpdateUserProfileMutationDocument } from "~/helpers/graphql";
 import type { UserSettingsPageViewerFragment } from "~/helpers/graphql";
+import type { ImageInput, Maybe } from "~/helpers/graphql";
 
 import AvatarField from "./AvatarField";
 
 export type UserSettingsPageProfileFormValues = {
   readonly name: string;
-  readonly avatar: string | null;
+  readonly avatar: Maybe<ImageInput>;
 };
 
 export type UserSettingsPageProfileFormProps = {
@@ -24,7 +25,7 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
     const { name, avatar } = viewer;
     return {
       name,
-      avatar: avatar ? avatar.signedId : null,
+      avatar: avatar ? { signedId: avatar.signedId } : null,
     };
   }, [viewer]);
   const { getInputProps, onSubmit, setErrors, isDirty, setValues, resetDirty } =

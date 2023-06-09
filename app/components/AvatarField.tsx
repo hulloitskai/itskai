@@ -6,9 +6,10 @@ import { Image, Input, Text } from "@mantine/core";
 import type { InputWrapperProps } from "@mantine/core";
 
 import { AvatarFieldQueryDocument } from "~/helpers/graphql";
+import type { ImageInput, Maybe } from "~/helpers/graphql";
 import type { AvatarFieldQueryVariables } from "~/helpers/graphql";
 
-import { usePreviousDistinct } from "~/helpers/hooks";
+import { usePrevious } from "~/helpers/hooks";
 import { uploadFile } from "~/helpers/activestorage";
 
 const AVATAR_FIELD_IMAGE_SIZE = 140;
@@ -17,8 +18,8 @@ export type AvatarFieldProps = Omit<
   InputWrapperProps,
   "inputContainer" | "inputWrapperOrder" | "size" | "children"
 > & {
-  readonly value?: string | null;
-  readonly onChange?: (value: string | null) => void;
+  readonly value?: Maybe<ImageInput>;
+  readonly onChange?: (value: Maybe<ImageInput>) => void;
 };
 
 const AvatarField: FC<AvatarFieldProps> = ({
@@ -36,7 +37,11 @@ const AvatarField: FC<AvatarFieldProps> = ({
   withAsterisk,
 }) => {
   // == Value
-  const previousValue = usePreviousDistinct(value);
+  const previousValue = usePrevious(value);
+  const valueChanged = useMemo(
+    () => !isEqual(value, previousValue),
+    [value, previousValue],
+  );
 
   // == Uploading
   const [uploading, setUploading] = useState(false);
@@ -45,16 +50,15 @@ const AvatarField: FC<AvatarFieldProps> = ({
   const onError = useApolloAlertCallback("Failed to load avatar");
   const variables = useMemo<AvatarFieldQueryVariables | undefined>(() => {
     if (value) {
-      return { signedId: value };
+      return value;
     }
   }, [value]);
   const skipQuery = !value;
-  const { data } = useQuery(AvatarFieldQueryDocument, {
+  const { data, loading: queryLoading } = useQuery(AvatarFieldQueryDocument, {
     variables,
     skip: skipQuery,
     onError,
   });
-  const queryLoading = !data && !skipQuery;
 
   // == Image
   const [src, setSrc] = useState("");
@@ -78,8 +82,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
   }, [value, data]);
 
   // == Loading
-  const loading =
-    uploading || ((!src || value !== previousValue) && queryLoading);
+  const loading = uploading || ((!src || valueChanged) && queryLoading);
 
   // == Markup
   return (
@@ -125,7 +128,10 @@ const AvatarField: FC<AvatarFieldProps> = ({
                 uploadFile(file)
                   .then(blob => {
                     if (onChange) {
-                      onChange(blob.signed_id);
+                      const value: ImageInput = {
+                        signedId: blob.signed_id,
+                      };
+                      onChange(value);
                     }
                   })
                   .catch(({ message }: Error) => {
@@ -185,7 +191,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
                   color: colors[primaryColor]![4],
                 })}
               />
-              <Text size="xs" align="center" lh={1.3} color="gray.5">
+              <Text size="xs" align="center" lh={1.3} color="dark.1">
                 Drag an image or click to upload
               </Text>
             </Stack>
@@ -195,7 +201,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
           <Anchor
             component="button"
             size="xs"
-            disabled={queryLoading}
+            disabled={loading}
             onClick={() => {
               if (onChange) {
                 onChange(null);

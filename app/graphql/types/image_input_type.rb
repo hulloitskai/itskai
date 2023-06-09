@@ -1,0 +1,15 @@
+# typed: true
+# frozen_string_literal: true
+
+module Types
+  class ImageInputType < BaseInputObject
+    # == Arguments
+    argument :signed_id, String
+
+    # == Prepare
+    sig { returns(String) }
+    def prepare
+      signed_id
+    end
+  end
+end

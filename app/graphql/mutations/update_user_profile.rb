@@ -14,14 +14,14 @@ module Mutations
     field :user, Types::UserType
 
     # == Arguments
-    argument :avatar, String, required: false
+    argument :avatar, Types::ImageInputType, required: false
     argument :name, String
 
     # == Resolver
     sig { override.params(attributes: T.untyped).returns(Payload) }
     def resolve(**attributes)
       user = current_user!
-      if user.update_without_password(attributes)
+      if user.update_without_password(**attributes)
         Payload.new(user:)
       else
         Payload.new(errors: user.input_field_errors)
