@@ -79,6 +79,10 @@ Rails.application.routes.draw do
   get "/test" => "test#show"
   get "/resume" => "resume#show"
   get "/jen" => redirect("/entries/birthday-writings-for-jen", status: 302)
+  get "/toronto" => redirect(
+    "https://www.notion.so/itskai/kai-s-favorite-toronto-places-c83f5ba7a1f242ee8d75706b1e2269f2?pvs=4",
+    status: 302,
+  )
 
   # == Development
   if Rails.env.development?
