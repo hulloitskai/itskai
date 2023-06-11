@@ -25,8 +25,10 @@ const AppFlash: FC = () => {
       });
     }
   }, [flash]);
-  useWindowEvent("popstate", ({ state }) => {
-    delete state.props.flash;
+  useWindowEvent("popstate", ({ state: { props } }) => {
+    if (props && "flash" in props) {
+      delete props.flash;
+    }
   });
   return null;
 };
