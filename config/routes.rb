@@ -1,4 +1,4 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -57,9 +57,6 @@ Rails.application.routes.draw do
     post :/, action: :execute, as: :graphql
   end
 
-  # == Obsidian
-  # resources :obsidian_notes, path: "entries", only: :show
-
   # == Calendly
   get "/calendly" => "calendly#show"
   get "/hangout" => "calendly#show"
@@ -73,20 +70,11 @@ Rails.application.routes.draw do
 
   # == Pages
   root "homepage#show"
-  # inertia "/work" => "WorkPage"
-  # inertia "/scottkit" => "ScottkitPage"
   get "/scottkit" => "scottkit#show"
   get "/test" => "test#show"
   get "/resume" => "resume#show"
-  get "/jen" => redirect("/entries/birthday-writings-for-jen", status: 302)
-  get "/toronto" => redirect(
-    "https://www.notion.so/itskai/kai-s-favorite-toronto-places-c83f5ba7a1f242ee8d75706b1e2269f2",
-    status: 302,
-  )
-  get "/☕️" => redirect(
-    "https://www.notion.so/itskai/kai-s-favorite-toronto-places-c83f5ba7a1f242ee8d75706b1e2269f2",
-    status: 302,
-  )
+  get "/toronto" => "places#toronto"
+  get "/☕️" => "places#toronto"
 
   # == Development
   if Rails.env.development?

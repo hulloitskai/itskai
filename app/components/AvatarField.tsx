@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { Dropzone } from "@mantine/dropzone";
 import PhotoIcon from "~icons/heroicons/photo-20-solid";
 
 import { Image, Input, Text } from "@mantine/core";
@@ -120,7 +120,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
             {...{ src }}
           />
           <Dropzone
-            accept={IMAGE_MIME_TYPE}
+            accept={["image/png", "image/jpeg"]}
             onDrop={files => {
               const file = first(files);
               if (file) {
