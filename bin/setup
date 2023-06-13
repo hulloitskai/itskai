@@ -12,6 +12,11 @@ def system!(*args)
 end
 
 # == Command
+if ["", nil].include?(ENV["CI"]) && \
+    !system("docker info", out: File::NULL, err: File::NULL)
+  abort("Docker isn't running! Please start Docker and try again.")
+end
+
 FileUtils.chdir APP_ROOT do
   # This script is a way to set up or update your development environment
   # automatically. This script is idempotent, so that you can run it at any time
@@ -41,8 +46,8 @@ FileUtils.chdir APP_ROOT do
   puts "\n=> Starting database"
   case ENV["CI"]
   when "", nil
-    system! "docker compose up -d postgres --no-log-prefix"
-    sleep(2)
+    system! "docker compose up --wait --no-log-prefix postgres"
+    sleep 2
   else
     puts "Running on CI; skipping"
   end
