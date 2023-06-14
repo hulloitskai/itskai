@@ -57,6 +57,7 @@ declare global {
   const first: typeof import('lodash-es')['first']
   const formatApolloError: typeof import('~/helpers/apollo/errors')['formatApolloError']
   const formatError: typeof import('~/helpers/errors')['formatError']
+  const formatJSON: typeof import('~/helpers/utils')['formatJSON']
   const forwardRef: typeof import('react')['forwardRef']
   const get: typeof import('lodash-es')['get']
   const getMeta: typeof import('~/helpers/meta')['getMeta']

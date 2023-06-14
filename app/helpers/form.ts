@@ -31,7 +31,7 @@ export const showFormErrorsAlert = (
       }
     }
   }, 100);
-  console.warn(title, { errors });
+  console.warn(title, formatJSON({ errors }));
 };
 
 const formErrorsMessage = (errors: Record<string, string>): string => {

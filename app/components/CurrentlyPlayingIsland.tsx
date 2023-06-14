@@ -31,7 +31,10 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
       fetchPolicy: "no-cache",
       variables: {},
       onError: error => {
-        console.error("Failed to load currently playing details", { error });
+        console.error(
+          "Failed to load currently playing details",
+          formatJSON({ error }),
+        );
       },
     },
   );
@@ -51,9 +54,10 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
         }
       },
       onError: error => {
-        console.error("Failed to subscribe to currently playing info", {
-          error,
-        });
+        console.error(
+          "Failed to subscribe to currently playing info",
+          formatJSON({ error }),
+        );
       },
     },
   );

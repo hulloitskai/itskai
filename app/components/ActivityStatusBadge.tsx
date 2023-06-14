@@ -20,9 +20,10 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
   const { data } = useSubscription(ActivityStatusBadgeSubscriptionDocument, {
     variables: {},
     onError: error => {
-      console.error("Failed to subscribe to activity status updates", {
-        error,
-      });
+      console.error(
+        "Failed to subscribe to activity status updates",
+        formatJSON({ error }),
+      );
     },
   });
   const { activityStatus } = data ?? {};

@@ -2,6 +2,9 @@ export { default as isUrl } from "is-url";
 
 export const resolve = <T>(f: () => T): T => f();
 
+export const formatJSON = (value: any): string =>
+  JSON.stringify(value, undefined, 2);
+
 type AllKeys<T> = T extends any ? keyof T : never;
 
 type OptionalKeys<T> = T extends any

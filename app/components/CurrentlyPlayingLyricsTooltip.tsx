@@ -50,9 +50,10 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
       fetchPolicy: "no-cache",
       variables: {},
       onError: error => {
-        console.error("Failed to load lyrics for currently playing track", {
-          error,
-        });
+        console.error(
+          "Failed to load lyrics for currently playing track",
+          formatJSON({ error }),
+        );
       },
     },
   );

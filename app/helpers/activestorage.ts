@@ -14,7 +14,10 @@ export const uploadFile = async (file: File): Promise<Blob> => {
     const upload: DirectUpload = new ClientDirectUpload(file, url);
     upload.create((error, blob) => {
       if (error) {
-        console.error(`Error uploading file '${file.name}'`, error);
+        console.error(
+          `Error uploading file '${file.name}'`,
+          formatJSON({ error }),
+        );
         reject(error);
       } else {
         resolve(blob);

@@ -84,7 +84,10 @@ Rails.application.routes.draw do
 
   # == Administration
   unless Rails.env.development?
-    authenticate :user, ->(user) { user.owner? } do
+    authenticate :user, ->(user) {
+      user = T.let(user, User)
+      user.owner?
+    } do
       mount GoodJob::Engine => "/good_job"
     end
   end

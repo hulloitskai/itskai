@@ -20,7 +20,7 @@ export const useApolloAlertCallback = (
   return useCallback(
     error => {
       const message = formatApolloError(error);
-      console.error(title, { error });
+      console.error(title, formatJSON({ error }));
       showAlert({ title, message });
     },
     [title],

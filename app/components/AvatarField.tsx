@@ -69,7 +69,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
         if (image) {
           setSrc(image.url);
         } else {
-          console.error("Image not found", { signedId: value });
+          console.error("Image not found", formatJSON({ signedId: value }));
           showAlert({
             title: "Image not found",
             message: "Unable to load image preview for avatar.",

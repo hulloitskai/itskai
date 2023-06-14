@@ -30,7 +30,10 @@ const PasswordWithStrengthCheckInput: FC<
         }
       },
       onError: error => {
-        console.error("Failed to check password strength", { error });
+        console.error(
+          "Failed to check password strength",
+          formatJSON({ error }),
+        );
       },
     },
   );
