@@ -99,35 +99,37 @@ class User < ApplicationRecord
     super(params)
   end
 
-  # == Sentry
-  sig { returns(T::Hash[String, T.untyped]) }
-  def sentry_info
-    { "id" => id, "email" => email }
-  end
+  # == Ownership
+  class << self
+    sig { returns(String) }
+    def owner_email
+      return @owner_email if defined?(@owner_email)
+      @owner_email = ENV.fetch("OWNER_LOGIN_EMAIL")
+    end
 
-  # == Fullstory
-  sig { returns(T::Hash[String, T.untyped]) }
-  def fullstory_identity
-    { "uid" => id, "email" => email, "displayName" => name }
-  end
+    sig { returns(T.nilable(User)) }
+    def owner = find_by(email: owner_email)
 
-  # == Owner
-  sig { returns(String) }
-  def self.owner_email
-    return @owner_email if defined?(@owner_email)
-    @owner_email = ENV.fetch("OWNER_LOGIN_EMAIL")
-  end
-
-  sig { returns(T.nilable(User)) }
-  def self.owner = find_by(email: owner_email)
-
-  sig { returns(User) }
-  def self.owner!
-    owner or raise ActiveRecord::RecordNotFound, "Missing owner"
+    sig { returns(User) }
+    def owner!
+      owner or raise ActiveRecord::RecordNotFound, "Missing owner"
+    end
   end
 
   sig { returns(T::Boolean) }
   def owner?
     email == User.owner_email
+  end
+
+  # == Methods: Sentry
+  sig { returns(T::Hash[String, T.untyped]) }
+  def sentry_info
+    { "id" => id, "email" => email }
+  end
+
+  # == Methods: Fullstory
+  sig { returns(T::Hash[String, T.untyped]) }
+  def fullstory_identity
+    { "uid" => id, "email" => email, "displayName" => name }
   end
 end
