@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import { format as formatTimeAgo } from "timeago.js";
 import { RenderText } from "@9gustin/react-notion-render";
+
 import CommentIcon from "~icons/heroicons/chat-bubble-bottom-center-text-20-solid";
 import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
 
@@ -39,7 +40,14 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
   const { comments } = data ?? {};
 
   // == Mutation
-  const onAddError = useApolloAlertCallback("Failed to add comment");
+  const addErrorContext = useMemo(
+    () => ({ entryId, comment: commentText }),
+    [commentText, entryId],
+  );
+  const onAddError = useApolloAlertCallback(
+    "Failed to add comment",
+    addErrorContext,
+  );
   const [runAddMutation, { loading: mutating }] = useMutation(
     AddJournalEntryCommentMutationDocument,
     {

@@ -1,4 +1,6 @@
-import { NetworkStatus, useApolloClient, useQuery } from "@apollo/client/index";
+import { useEffect } from "react";
+
+import { NetworkStatus, useApolloClient, useQuery } from "@apollo/client";
 import type {
   DocumentNode,
   OperationVariables,
