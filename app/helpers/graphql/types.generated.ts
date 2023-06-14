@@ -37,7 +37,7 @@ export type ActivateScottkitSignalPayload = {
 export type AddJournalEntryCommentInput = {
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: InputMaybe<Scalars['String']>;
-  entryId: Scalars['String'];
+  entryId: Scalars['ID'];
   text: Scalars['String'];
 };
 

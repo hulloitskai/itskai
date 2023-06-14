@@ -5,7 +5,7 @@ class JournalService < ApplicationService
   class << self
     # == Service
     sig { override.returns(T::Boolean) }
-    def enabled?
+    def disabled?
       return @disabled if defined?(@disabled)
       @disabled = !!(super || !notion_ready? || database_id.blank?)
     end

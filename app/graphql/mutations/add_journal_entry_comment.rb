@@ -9,13 +9,13 @@ module Mutations
     end
 
     # == Arguments
-    argument :entry_id, String
+    argument :entry_id, ID, loads: Types::JournalEntryType
     argument :text, String
 
     # == Resolver
-    sig { override.params(entry_id: String, text: String).returns(Payload) }
-    def resolve(entry_id:, text:)
-      comment = JournalService.create_comment(entry_id, text:)
+    sig { override.params(entry: JournalEntry, text: String).returns(Payload) }
+    def resolve(entry:, text:)
+      comment = JournalService.create_comment(entry.notion_page_id, text:)
       Payload.new(comment:)
     end
   end
