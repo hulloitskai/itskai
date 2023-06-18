@@ -2,20 +2,18 @@ import { defineConfig } from "vite";
 import { join } from "path";
 
 import rubyPlugin from "vite-plugin-ruby";
-import gzipPlugin from "rollup-plugin-gzip";
 import fullReloadPlugin from "vite-plugin-full-reload";
 import autoImportPlugin from "unplugin-auto-import/vite";
 import iconsPlugin from "unplugin-icons/vite";
 import reactPlugin from "@vitejs/plugin-react";
 import graphqlCodegenPlugin from "vite-plugin-graphql-codegen";
-import { isoImport as isoImportPlugin } from "vite-plugin-iso-import";
+import { isoImport as isomorphicImportPlugin } from "vite-plugin-iso-import";
 import { visualizer as visualizerPlugin } from "rollup-plugin-visualizer";
 
 import { imports } from "./config/auto-import";
 
 const plugins = [
-  rubyPlugin(),
-  isoImportPlugin(),
+  isomorphicImportPlugin(),
   autoImportPlugin({
     dts: join(__dirname, "typings/auto-import.generated.d.ts"),
     imports,
@@ -30,14 +28,14 @@ const plugins = [
       errorsOnly: true,
     },
   }),
+  rubyPlugin(),
   reactPlugin(),
-  gzipPlugin(),
   fullReloadPlugin([
     "config/routes.rb",
     "config/routes/**/*.rb",
     "app/views/**/*.{html,html.erb}",
+    "app/**/*.generated.*",
   ]),
-  fullReloadPlugin(["app/queries/**/*.graphql"], { delay: 500 }),
 ];
 
 if (process.env.VITE_VISUALIZE) {
@@ -51,9 +49,27 @@ if (process.env.VITE_VISUALIZE) {
 
 export default defineConfig({
   clearScreen: false,
+  resolve: {
+    alias: [
+      {
+        find: /^@react-email\/components$/,
+        replacement: "@react-email/components/dist",
+      },
+      {
+        find: /^@apollo\/client$/,
+        replacement: "@apollo/client/index",
+      },
+    ],
+  },
   build: {
     emptyOutDir: true,
     sourcemap: true,
   },
+  // optimizeDeps: {
+  //   include: ["@react-email/components"],
+  // },
+  // legacy: {
+  //   buildSsrCjsExternalHeuristics: true,
+  // },
   plugins,
 });

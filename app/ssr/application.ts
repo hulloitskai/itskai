@@ -1,53 +1,98 @@
 import { createElement } from "react";
-import type { ReactElement } from "react";
 import { renderToString, renderToStaticMarkup } from "react-dom/server";
+
 import { createStylesServer, ServerStyles } from "@mantine/ssr";
+import { render as renderEmail } from "@react-email/render";
 import { setupLuxon } from "~/helpers/luxon";
 
-import { setupApp, pagesFromFiles, preparePage } from "~/helpers/inertia";
+import {
+  PageType,
+  pagesFromFiles,
+  preparePage,
+  resolvePageType,
+} from "~/helpers/inertia";
+import { setupApp } from "~/helpers/inertia/app/server";
 import type { PageComponent } from "~/helpers/inertia";
 
-import createServer from "@inertiajs/react/server";
 import { createInertiaApp } from "@inertiajs/react";
-import type { Page, PageProps } from "@inertiajs/core";
+import createServer from "@inertiajs/react/server";
 
 // == Setup
 setupLuxon();
 
 // == Pages
 const pages = resolve(() => {
-  const files = import.meta.glob("~/pages/*.tsx", {
-    import: "default",
-    eager: true,
-  });
+  const files: Record<string, PageComponent> = import.meta.glob(
+    "~/pages/*.tsx",
+    { import: "default", eager: true },
+  );
+  return pagesFromFiles(files);
+});
+
+// == Emails
+const emails = resolve(() => {
+  const files: Record<string, PageComponent> = import.meta.glob(
+    "~/emails/*.tsx",
+    { import: "default", eager: true },
+  );
   return pagesFromFiles(files);
 });
 
 // == Entrypoint
 const stylesServer = createStylesServer();
 
-createServer(async (page: Page<PageProps>) => {
-  let stylesMarkup = "";
+createServer(async page => {
+  const type = resolvePageType(page.component);
+  let stylesMarkup: string | undefined = undefined;
   const { head, body } = await createInertiaApp({
     page,
-    render: (element: ReactElement): string => {
-      const content = renderToString(element);
-      const styles = createElement(ServerStyles, {
-        html: content,
-        server: stylesServer,
-      });
-      stylesMarkup = renderToStaticMarkup(styles);
-      return content;
+    render: page => {
+      stylesMarkup = undefined;
+      switch (type) {
+        case PageType.Page: {
+          const html = renderToString(page);
+          const styles = createElement(ServerStyles, {
+            html,
+            server: stylesServer,
+          });
+          stylesMarkup = renderToStaticMarkup(styles);
+          return html;
+        }
+        case PageType.Email: {
+          const html = renderEmail(page);
+          const styles = createElement(ServerStyles, {
+            html,
+            server: stylesServer,
+          });
+          stylesMarkup = renderToStaticMarkup(styles);
+          return html;
+        }
+      }
     },
     resolve: async name => {
-      const page = pages[name] as PageComponent | undefined;
-      if (!page) {
-        throw new Error(`Missing page '${name}'`);
+      switch (type) {
+        case PageType.Page: {
+          const page = pages[name];
+          if (!page) {
+            throw new Error(`Missing page '${name}'`);
+          }
+          preparePage(page, type);
+          return page;
+        }
+        case PageType.Email: {
+          const email = emails[name];
+          if (!email) {
+            throw new Error(`Missing email '${name}'`);
+          }
+          preparePage(email, type);
+          return email;
+        }
       }
-      preparePage(page);
-      return page;
     },
     setup: setupApp,
   });
-  return { head: [...head, stylesMarkup], body };
+  if (stylesMarkup) {
+    head.push(stylesMarkup);
+  }
+  return { head, body };
 });

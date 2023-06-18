@@ -9,6 +9,9 @@ class Devise::Mailer
     sig { params(record: T.untyped, token: T.untyped, opts: T.untyped).returns(::ActionMailer::MessageDelivery) }
     def confirmation_instructions(record, token, opts = T.unsafe(nil)); end
 
+    sig { returns(::ActionMailer::MessageDelivery) }
+    def current_user; end
+
     sig { params(record: T.untyped, opts: T.untyped).returns(::ActionMailer::MessageDelivery) }
     def email_changed(record, opts = T.unsafe(nil)); end
 

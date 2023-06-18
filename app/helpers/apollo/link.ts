@@ -1,4 +1,4 @@
-import { empty as emptyLink } from "@apollo/client/index";
+import { empty as emptyLink } from "@apollo/client";
 import type { ApolloLink } from "@apollo/client";
 
 import { createClientLink } from "./clientLink?client";

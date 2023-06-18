@@ -46,3 +46,14 @@ export const theme: MantineThemeOverride = {
     },
   },
 };
+
+export const emailTheme: MantineThemeOverride = {
+  ...theme,
+  colorScheme: "light",
+  globalStyles: () => ({
+    body: {
+      margin: 8,
+      fontSize: 14,
+    },
+  }),
+};

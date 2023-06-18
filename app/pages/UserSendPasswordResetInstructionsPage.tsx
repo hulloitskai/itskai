@@ -1,4 +1,4 @@
-import type { PageComponent, PageProps } from "~/helpers/inertia";
+import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
 import UserSendPasswordResetInstructionsPageForm from "~/components/UserSendPasswordResetInstructionsPageForm";
@@ -6,7 +6,7 @@ import UserSendPasswordResetInstructionsPageForm from "~/components/UserSendPass
 import type { UserSendPasswordResetInstructionsPageQuery } from "~/helpers/graphql";
 
 export type UserSendPasswordResetInstructionsPageProps =
-  PageProps<UserSendPasswordResetInstructionsPageQuery>;
+  PagePropsWithData<UserSendPasswordResetInstructionsPageQuery>;
 
 const UserSendPasswordResetInstructionsPage: PageComponent<
   UserSendPasswordResetInstructionsPageProps

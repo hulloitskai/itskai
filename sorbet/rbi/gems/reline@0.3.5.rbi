@@ -10,19 +10,19 @@ module Reline
   extend ::SingleForwardable
 
   class << self
-    # source://reline//lib/reline.rb#560
+    # source://reline//lib/reline.rb#564
     def core; end
 
-    # source://reline//lib/reline.rb#556
+    # source://reline//lib/reline.rb#560
     def encoding_system_needs; end
 
-    # source://reline//lib/reline.rb#537
+    # source://reline//lib/reline.rb#541
     def insert_text(*args, &block); end
 
-    # source://reline//lib/reline.rb#580
+    # source://reline//lib/reline.rb#584
     def line_editor; end
 
-    # source://reline//lib/reline.rb#576
+    # source://reline//lib/reline.rb#580
     def ungetc(c); end
   end
 end
@@ -469,7 +469,7 @@ class Reline::Core
   # source://reline//lib/reline.rb#168
   def add_dialog_proc(name_sym, p, context = T.unsafe(nil)); end
 
-  # source://reline//lib/reline.rb#483
+  # source://reline//lib/reline.rb#487
   def ambiguous_width; end
 
   # source://reline//lib/reline.rb#65
@@ -539,7 +539,7 @@ class Reline::Core
   # source://reline//lib/reline.rb#67
   def config=(_arg0); end
 
-  # source://reline//lib/reline.rb#174
+  # source://reline//lib/reline.rb#178
   def dialog_proc(name_sym); end
 
   # source://reline//lib/reline.rb#65
@@ -550,12 +550,12 @@ class Reline::Core
   # source://reline//lib/reline.rb#162
   def dig_perfect_match_proc=(p); end
 
-  # source://reline//lib/reline.rb#202
+  # source://reline//lib/reline.rb#206
   def emacs_editing_mode; end
 
   # @return [Boolean]
   #
-  # source://reline//lib/reline.rb#211
+  # source://reline//lib/reline.rb#215
   def emacs_editing_mode?; end
 
   # source://reline//lib/reline.rb#86
@@ -567,12 +567,12 @@ class Reline::Core
   # source://reline//lib/reline.rb#118
   def filename_quote_characters=(v); end
 
-  # source://reline//lib/reline.rb#215
+  # source://reline//lib/reline.rb#219
   def get_screen_size; end
 
   # @raise [TypeError]
   #
-  # source://reline//lib/reline.rb#178
+  # source://reline//lib/reline.rb#182
   def input=(val); end
 
   # Returns the value of attribute key_stroke.
@@ -618,7 +618,7 @@ class Reline::Core
 
   # @raise [TypeError]
   #
-  # source://reline//lib/reline.rb#189
+  # source://reline//lib/reline.rb#193
   def output=(val); end
 
   # source://reline//lib/reline.rb#65
@@ -643,10 +643,10 @@ class Reline::Core
   # source://reline//lib/reline.rb#148
   def prompt_proc=(p); end
 
-  # source://reline//lib/reline.rb#286
+  # source://reline//lib/reline.rb#290
   def readline(prompt = T.unsafe(nil), add_hist = T.unsafe(nil)); end
 
-  # source://reline//lib/reline.rb#268
+  # source://reline//lib/reline.rb#272
   def readmultiline(prompt = T.unsafe(nil), add_hist = T.unsafe(nil), &confirm_multiline_termination); end
 
   # source://reline//lib/reline.rb#65
@@ -655,26 +655,26 @@ class Reline::Core
   # source://reline//lib/reline.rb#122
   def special_prefixes=(v); end
 
-  # source://reline//lib/reline.rb#197
+  # source://reline//lib/reline.rb#201
   def vi_editing_mode; end
 
   # @return [Boolean]
   #
-  # source://reline//lib/reline.rb#207
+  # source://reline//lib/reline.rb#211
   def vi_editing_mode?; end
 
   private
 
-  # source://reline//lib/reline.rb#299
+  # source://reline//lib/reline.rb#303
   def inner_readline(prompt, add_hist, multiline, &confirm_multiline_termination); end
 
-  # source://reline//lib/reline.rb#488
+  # source://reline//lib/reline.rb#492
   def may_req_ambiguous_char_width; end
 
-  # source://reline//lib/reline.rb#430
+  # source://reline//lib/reline.rb#434
   def read_2nd_character_of_key_sequence(keyseq_timeout, buffer, c, block); end
 
-  # source://reline//lib/reline.rb#462
+  # source://reline//lib/reline.rb#466
   def read_escaped_key(keyseq_timeout, c, block); end
 
   # GNU Readline waits for "keyseq-timeout" milliseconds to see if the ESC
@@ -687,17 +687,17 @@ class Reline::Core
   # GNU Readline will wait for the 2nd character with "keyseq-timeout"
   # milli-seconds but wait forever after 3rd characters.
   #
-  # source://reline//lib/reline.rb#391
+  # source://reline//lib/reline.rb#395
   def read_io(keyseq_timeout, &block); end
 end
 
 # source://reline//lib/reline.rb#51
 Reline::Core::ATTR_READER_NAMES = T.let(T.unsafe(nil), Array)
 
-# source://reline//lib/reline.rb#266
+# source://reline//lib/reline.rb#270
 Reline::DEFAULT_DIALOG_CONTEXT = T.let(T.unsafe(nil), Array)
 
-# source://reline//lib/reline.rb#219
+# source://reline//lib/reline.rb#223
 Reline::DEFAULT_DIALOG_PROC_AUTOCOMPLETE = T.let(T.unsafe(nil), Proc)
 
 # NOTE: For making compatible with the rb-readline gem
@@ -789,7 +789,7 @@ class Reline::GeneralIO
   end
 end
 
-# source://reline//lib/reline.rb#603
+# source://reline//lib/reline.rb#607
 Reline::HISTORY = T.let(T.unsafe(nil), Reline::History)
 
 # source://reline//lib/reline/history.rb#1
@@ -828,7 +828,7 @@ class Reline::History < ::Array
   def check_index(index); end
 end
 
-# source://reline//lib/reline.rb#596
+# source://reline//lib/reline.rb#600
 Reline::IOGate = Reline::ANSI
 
 # source://reline//lib/reline.rb#20
@@ -976,7 +976,7 @@ class Reline::LineEditor
   # source://reline//lib/reline/line_editor.rb#57
   def initialize(config, encoding); end
 
-  # source://reline//lib/reline/line_editor.rb#634
+  # source://reline//lib/reline/line_editor.rb#635
   def add_dialog_proc(name, p, context = T.unsafe(nil)); end
 
   # Returns the value of attribute auto_indent_proc.
@@ -996,13 +996,13 @@ class Reline::LineEditor
   # source://reline//lib/reline/line_editor.rb#10
   def byte_pointer; end
 
-  # source://reline//lib/reline/line_editor.rb#1893
+  # source://reline//lib/reline/line_editor.rb#1836
   def byte_pointer=(val); end
 
-  # source://reline//lib/reline/line_editor.rb#1664
+  # source://reline//lib/reline/line_editor.rb#1607
   def call_completion_proc; end
 
-  # source://reline//lib/reline/line_editor.rb#1672
+  # source://reline//lib/reline/line_editor.rb#1615
   def call_completion_proc_with_checking_args(pre, target, post); end
 
   # Returns the value of attribute completion_append_character.
@@ -1029,7 +1029,7 @@ class Reline::LineEditor
   # source://reline//lib/reline/line_editor.rb#12
   def completion_proc=(_arg0); end
 
-  # source://reline//lib/reline/line_editor.rb#1811
+  # source://reline//lib/reline/line_editor.rb#1754
   def confirm_multiline_termination; end
 
   # Returns the value of attribute confirm_multiline_termination_proc.
@@ -1044,7 +1044,7 @@ class Reline::LineEditor
   # source://reline//lib/reline/line_editor.rb#11
   def confirm_multiline_termination_proc=(_arg0); end
 
-  # source://reline//lib/reline/line_editor.rb#1833
+  # source://reline//lib/reline/line_editor.rb#1776
   def delete_text(start = T.unsafe(nil), length = T.unsafe(nil)); end
 
   # Returns the value of attribute dig_perfect_match_proc.
@@ -1059,32 +1059,32 @@ class Reline::LineEditor
   # source://reline//lib/reline/line_editor.rb#18
   def dig_perfect_match_proc=(_arg0); end
 
-  # source://reline//lib/reline/line_editor.rb#1282
+  # source://reline//lib/reline/line_editor.rb#1225
   def editing_mode; end
 
   # @return [Boolean]
   #
-  # source://reline//lib/reline/line_editor.rb#259
+  # source://reline//lib/reline/line_editor.rb#248
   def eof?; end
 
-  # source://reline//lib/reline/line_editor.rb#251
+  # source://reline//lib/reline/line_editor.rb#244
   def finalize; end
 
-  # source://reline//lib/reline/line_editor.rb#1919
+  # source://reline//lib/reline/line_editor.rb#1862
   def finish; end
 
   # @return [Boolean]
   #
-  # source://reline//lib/reline/line_editor.rb#1915
+  # source://reline//lib/reline/line_editor.rb#1858
   def finished?; end
 
-  # source://reline//lib/reline/line_editor.rb#1589
+  # source://reline//lib/reline/line_editor.rb#1532
   def input_key(key); end
 
-  # source://reline//lib/reline/line_editor.rb#1821
+  # source://reline//lib/reline/line_editor.rb#1764
   def insert_text(text); end
 
-  # source://reline//lib/reline/line_editor.rb#988
+  # source://reline//lib/reline/line_editor.rb#931
   def just_move_cursor; end
 
   # TODO: undo
@@ -1093,10 +1093,10 @@ class Reline::LineEditor
   # source://reline//lib/reline/line_editor.rb#9
   def line; end
 
-  # source://reline//lib/reline/line_editor.rb#324
+  # source://reline//lib/reline/line_editor.rb#314
   def multiline_off; end
 
-  # source://reline//lib/reline/line_editor.rb#320
+  # source://reline//lib/reline/line_editor.rb#310
   def multiline_on; end
 
   # Sets the attribute output
@@ -1142,25 +1142,25 @@ class Reline::LineEditor
   # source://reline//lib/reline/line_editor.rb#15
   def prompt_proc=(_arg0); end
 
-  # source://reline//lib/reline/line_editor.rb#432
+  # source://reline//lib/reline/line_editor.rb#422
   def rerender; end
 
-  # source://reline//lib/reline/line_editor.rb#426
+  # source://reline//lib/reline/line_editor.rb#416
   def rerender_all; end
 
   # source://reline//lib/reline/line_editor.rb#150
   def reset(prompt = T.unsafe(nil), encoding:); end
 
-  # source://reline//lib/reline/line_editor.rb#302
+  # source://reline//lib/reline/line_editor.rb#292
   def reset_line; end
 
-  # source://reline//lib/reline/line_editor.rb#263
+  # source://reline//lib/reline/line_editor.rb#252
   def reset_variables(prompt = T.unsafe(nil), encoding:); end
 
   # source://reline//lib/reline/line_editor.rb#181
   def resize; end
 
-  # source://reline//lib/reline/line_editor.rb#1733
+  # source://reline//lib/reline/line_editor.rb#1676
   def retrieve_completion_block(set_completion_quote_character = T.unsafe(nil)); end
 
   # source://reline//lib/reline/line_editor.rb#63
@@ -1174,110 +1174,110 @@ class Reline::LineEditor
   # source://reline//lib/reline/line_editor.rb#67
   def simplified_rendering?; end
 
-  # source://reline//lib/reline/line_editor.rb#1907
+  # source://reline//lib/reline/line_editor.rb#1850
   def whole_buffer; end
 
-  # source://reline//lib/reline/line_editor.rb#1900
+  # source://reline//lib/reline/line_editor.rb#1843
   # def whole_lines; end
 
-  # source://reline//lib/reline/line_editor.rb#1474
+  # source://reline//lib/reline/line_editor.rb#1417
   def wrap_method_call(method_symbol, method_obj, key, with_operator = T.unsafe(nil)); end
 
   private
 
   # @return [Boolean]
   #
-  # source://reline//lib/reline/line_editor.rb#1464
+  # source://reline//lib/reline/line_editor.rb#1407
   def argumentable?(method_obj); end
 
-  # source://reline//lib/reline/line_editor.rb#2084
+  # source://reline//lib/reline/line_editor.rb#2027
   def backward_char(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2574
+  # source://reline//lib/reline/line_editor.rb#2517
   def backward_delete_char(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2733
+  # source://reline//lib/reline/line_editor.rb#2676
   def backward_word(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2108
+  # source://reline//lib/reline/line_editor.rb#2051
   def beginning_of_line(key); end
 
-  # source://reline//lib/reline/line_editor.rb#1931
+  # source://reline//lib/reline/line_editor.rb#1874
   def byteinsert(str, byte_pointer, other); end
 
-  # source://reline//lib/reline/line_editor.rb#1925
+  # source://reline//lib/reline/line_editor.rb#1868
   def byteslice!(str, byte_pointer, size); end
 
-  # source://reline//lib/reline/line_editor.rb#328
+  # source://reline//lib/reline/line_editor.rb#318
   def calculate_height_by_lines(lines, prompt); end
 
-  # source://reline//lib/reline/line_editor.rb#346
+  # source://reline//lib/reline/line_editor.rb#336
   def calculate_height_by_width(width); end
 
-  # source://reline//lib/reline/line_editor.rb#384
+  # source://reline//lib/reline/line_editor.rb#374
   def calculate_nearest_cursor(line_to_calc = T.unsafe(nil), cursor = T.unsafe(nil), started_from = T.unsafe(nil), byte_pointer = T.unsafe(nil), update = T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#931
+  # source://reline//lib/reline/line_editor.rb#874
   def calculate_scroll_partial_screen(highest_in_all, cursor_y); end
 
-  # source://reline//lib/reline/line_editor.rb#1938
+  # source://reline//lib/reline/line_editor.rb#1881
   def calculate_width(str, allow_escape_code = T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2797
+  # source://reline//lib/reline/line_editor.rb#2740
   def capitalize_word(key); end
 
   # source://reline//lib/reline/line_editor.rb#77
   def check_mode_string; end
 
   # source://reline//lib/reline/line_editor.rb#97
-  def check_multiline_prompt(buffer); end
+  # def check_multiline_prompt(buffer, force_recalc: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#879
-  def clear_dialog; end
+  # source://reline//lib/reline/line_editor.rb#858
+  # def clear_dialog(cursor_column); end
 
-  # source://reline//lib/reline/line_editor.rb#885
-  def clear_dialog_with_content; end
+  # source://reline//lib/reline/line_editor.rb#867
+  def clear_dialog_with_trap_key(cursor_column); end
 
-  # source://reline//lib/reline/line_editor.rb#893
-  def clear_each_dialog(dialog); end
-
-  # source://reline//lib/reline/line_editor.rb#2719
+  # source://reline//lib/reline/line_editor.rb#2662
   def clear_screen(key); end
 
-  # source://reline//lib/reline/line_editor.rb#1261
+  # source://reline//lib/reline/line_editor.rb#1204
   def clear_screen_buffer(prompt, prompt_list, prompt_width); end
 
-  # source://reline//lib/reline/line_editor.rb#1336
+  # source://reline//lib/reline/line_editor.rb#1279
   def complete(list, just_show_list = T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#1290
+  # source://reline//lib/reline/line_editor.rb#1233
   def complete_internal_proc(list, is_menu); end
 
-  # source://reline//lib/reline/line_editor.rb#2853
+  # source://reline//lib/reline/line_editor.rb#2796
   def copy_for_vi(text); end
 
-  # source://reline//lib/reline/line_editor.rb#2651
+  # source://reline//lib/reline/line_editor.rb#2594
   def delete_char(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2678
+  # source://reline//lib/reline/line_editor.rb#2621
   def delete_char_or_list(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2809
+  # source://reline//lib/reline/line_editor.rb#667
+  def dialog_range(dialog, dialog_y); end
+
+  # source://reline//lib/reline/line_editor.rb#2752
   def downcase_word(key); end
 
-  # source://reline//lib/reline/line_editor.rb#3152
+  # source://reline//lib/reline/line_editor.rb#3095
   def ed_argument_digit(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2719
+  # source://reline//lib/reline/line_editor.rb#2662
   def ed_clear_screen(key); end
 
-  # source://reline//lib/reline/line_editor.rb#3064
+  # source://reline//lib/reline/line_editor.rb#3007
   def ed_delete_next_char(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2982
+  # source://reline//lib/reline/line_editor.rb#2925
   def ed_delete_prev_char(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2751
+  # source://reline//lib/reline/line_editor.rb#2694
   def ed_delete_prev_word(key); end
 
   # Editline:: +ed-insert+ (vi input: almost all; emacs: printable characters)
@@ -1294,7 +1294,7 @@ class Reline::LineEditor
   #            million.
   # GNU Readline:: +self-insert+ (a, b, A, 1, !, …) Insert yourself.
   #
-  # source://reline//lib/reline/line_editor.rb#1995
+  # source://reline//lib/reline/line_editor.rb#1938
   def ed_digit(key); end
 
   # Editline:: +ed-insert+ (vi input: almost all; emacs: printable characters)
@@ -1311,7 +1311,7 @@ class Reline::LineEditor
   #            million.
   # GNU Readline:: +self-insert+ (a, b, A, 1, !, …) Insert yourself.
   #
-  # source://reline//lib/reline/line_editor.rb#1995
+  # source://reline//lib/reline/line_editor.rb#1938
   def ed_insert(key); end
 
   # Editline:: +ed-kill-line+ (vi command: +D+, +Ctrl-K+; emacs: +Ctrl-K+,
@@ -1320,69 +1320,69 @@ class Reline::LineEditor
   #                the line. With a negative numeric argument, kill backward
   #                from the cursor to the beginning of the current line.
   #
-  # source://reline//lib/reline/line_editor.rb#2602
+  # source://reline//lib/reline/line_editor.rb#2545
   def ed_kill_line(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2108
+  # source://reline//lib/reline/line_editor.rb#2051
   def ed_move_to_beg(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2113
+  # source://reline//lib/reline/line_editor.rb#2056
   def ed_move_to_end(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2541
+  # source://reline//lib/reline/line_editor.rb#2484
   def ed_newline(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2064
+  # source://reline//lib/reline/line_editor.rb#2007
   def ed_next_char(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2493
+  # source://reline//lib/reline/line_editor.rb#2436
   def ed_next_history(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2084
+  # source://reline//lib/reline/line_editor.rb#2027
   def ed_prev_char(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2442
+  # source://reline//lib/reline/line_editor.rb#2385
   def ed_prev_history(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2733
+  # source://reline//lib/reline/line_editor.rb#2676
   def ed_prev_word(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2048
+  # source://reline//lib/reline/line_editor.rb#1991
   def ed_quoted_insert(str, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2390
+  # source://reline//lib/reline/line_editor.rb#2333
   def ed_search_next_history(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2343
+  # source://reline//lib/reline/line_editor.rb#2286
   def ed_search_prev_history(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2762
+  # source://reline//lib/reline/line_editor.rb#2705
   def ed_transpose_chars(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2782
+  # source://reline//lib/reline/line_editor.rb#2725
   def ed_transpose_words(key); end
 
   # do nothing
   #
-  # source://reline//lib/reline/line_editor.rb#1965
+  # source://reline//lib/reline/line_editor.rb#1908
   def ed_unassigned(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2797
+  # source://reline//lib/reline/line_editor.rb#2740
   def em_capitol_case(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2651
+  # source://reline//lib/reline/line_editor.rb#2594
   def em_delete(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2742
+  # source://reline//lib/reline/line_editor.rb#2685
   def em_delete_next_word(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2678
+  # source://reline//lib/reline/line_editor.rb#2621
   def em_delete_or_list(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2574
+  # source://reline//lib/reline/line_editor.rb#2517
   def em_delete_prev_char(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#3336
+  # source://reline//lib/reline/line_editor.rb#3279
   def em_exchange_mark(key); end
 
   # Editline:: +em-kill-line+ (not bound) Delete the entire contents of the
@@ -1390,69 +1390,69 @@ class Reline::LineEditor
   # GNU Readline:: +kill-whole-line+ (not bound) Kill all characters on the
   #                current line, no matter where point is.
   #
-  # source://reline//lib/reline/line_editor.rb#2640
+  # source://reline//lib/reline/line_editor.rb#2583
   def em_kill_line(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2841
+  # source://reline//lib/reline/line_editor.rb#2784
   def em_kill_region(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2809
+  # source://reline//lib/reline/line_editor.rb#2752
   def em_lower_case(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2724
+  # source://reline//lib/reline/line_editor.rb#2667
   def em_next_word(key); end
 
-  # source://reline//lib/reline/line_editor.rb#3331
+  # source://reline//lib/reline/line_editor.rb#3274
   def em_set_mark(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2825
+  # source://reline//lib/reline/line_editor.rb#2768
   def em_upper_case(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2690
+  # source://reline//lib/reline/line_editor.rb#2633
   def em_yank(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2702
+  # source://reline//lib/reline/line_editor.rb#2645
   def em_yank_pop(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2113
+  # source://reline//lib/reline/line_editor.rb#2056
   def end_of_line(key); end
 
-  # source://reline//lib/reline/line_editor.rb#3336
+  # source://reline//lib/reline/line_editor.rb#3279
   def exchange_point_and_mark(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2064
+  # source://reline//lib/reline/line_editor.rb#2007
   def forward_char(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2338
+  # source://reline//lib/reline/line_editor.rb#2281
   def forward_search_history(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2724
+  # source://reline//lib/reline/line_editor.rb#2667
   def forward_word(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2128
+  # source://reline//lib/reline/line_editor.rb#2071
   def generate_searcher; end
 
-  # source://reline//lib/reline/line_editor.rb#2343
+  # source://reline//lib/reline/line_editor.rb#2286
   def history_search_backward(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2390
+  # source://reline//lib/reline/line_editor.rb#2333
   def history_search_forward(key, arg: T.unsafe(nil)); end
 
   # @return [Boolean]
   #
-  # source://reline//lib/reline/line_editor.rb#1468
+  # source://reline//lib/reline/line_editor.rb#1411
   def inclusive?(method_obj); end
 
-  # source://reline//lib/reline/line_editor.rb#2246
+  # source://reline//lib/reline/line_editor.rb#2189
   def incremental_search_history(key); end
 
-  # source://reline//lib/reline/line_editor.rb#338
+  # source://reline//lib/reline/line_editor.rb#328
   def insert_new_line(cursor_line, next_line); end
 
-  # source://reline//lib/reline/line_editor.rb#1942
+  # source://reline//lib/reline/line_editor.rb#1885
   def key_delete(key); end
 
-  # source://reline//lib/reline/line_editor.rb#1950
+  # source://reline//lib/reline/line_editor.rb#1893
   def key_newline(key); end
 
   # Editline:: +ed-kill-line+ (vi command: +D+, +Ctrl-K+; emacs: +Ctrl-K+,
@@ -1461,7 +1461,7 @@ class Reline::LineEditor
   #                the line. With a negative numeric argument, kill backward
   #                from the cursor to the beginning of the current line.
   #
-  # source://reline//lib/reline/line_editor.rb#2602
+  # source://reline//lib/reline/line_editor.rb#2545
   def kill_line(key); end
 
   # Editline:: +em-kill-line+ (not bound) Delete the entire contents of the
@@ -1469,85 +1469,85 @@ class Reline::LineEditor
   # GNU Readline:: +kill-whole-line+ (not bound) Kill all characters on the
   #                current line, no matter where point is.
   #
-  # source://reline//lib/reline/line_editor.rb#2640
+  # source://reline//lib/reline/line_editor.rb#2583
   def kill_whole_line(key); end
 
-  # source://reline//lib/reline/line_editor.rb#1286
+  # source://reline//lib/reline/line_editor.rb#1229
   def menu(target, list); end
 
-  # source://reline//lib/reline/line_editor.rb#1238
-  def modify_lines(before); end
+  # source://reline//lib/reline/line_editor.rb#1181
+  # def modify_lines(before, force_recalc: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#1380
+  # source://reline//lib/reline/line_editor.rb#1323
   def move_completed_list(list, direction); end
 
-  # source://reline//lib/reline/line_editor.rb#374
+  # source://reline//lib/reline/line_editor.rb#364
   def move_cursor_down(val); end
 
-  # source://reline//lib/reline/line_editor.rb#365
+  # source://reline//lib/reline/line_editor.rb#355
   def move_cursor_up(val); end
 
-  # source://reline//lib/reline/line_editor.rb#2493
+  # source://reline//lib/reline/line_editor.rb#2436
   def next_history(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#1551
+  # source://reline//lib/reline/line_editor.rb#1494
   def normal_char(key); end
 
-  # source://reline//lib/reline/line_editor.rb#650
+  # source://reline//lib/reline/line_editor.rb#654
   def padding_space_with_escape_sequences(str, width); end
 
-  # source://reline//lib/reline/line_editor.rb#2442
+  # source://reline//lib/reline/line_editor.rb#2385
   def previous_history(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#1694
+  # source://reline//lib/reline/line_editor.rb#1637
   def process_auto_indent; end
 
-  # source://reline//lib/reline/line_editor.rb#1967
+  # source://reline//lib/reline/line_editor.rb#1910
   def process_insert(force: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#1494
+  # source://reline//lib/reline/line_editor.rb#1437
   def process_key(key, method_symbol); end
 
-  # source://reline//lib/reline/line_editor.rb#2048
+  # source://reline//lib/reline/line_editor.rb#1991
   def quoted_insert(str, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#644
+  # source://reline//lib/reline/line_editor.rb#661
+  def range_subtract(base_ranges, subtract_ranges); end
+
+  # source://reline//lib/reline/line_editor.rb#645
   def render_dialog(cursor_column); end
 
-  # source://reline//lib/reline/line_editor.rb#657
-  def render_each_dialog(dialog, cursor_column); end
+  # source://reline//lib/reline/line_editor.rb#673
+  def render_dialog_changes(changes, cursor_column); end
 
-  # source://reline//lib/reline/line_editor.rb#1141
+  # source://reline//lib/reline/line_editor.rb#1084
   def render_partial(prompt, prompt_width, line_to_render, this_started_from, with_control: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#1115
+  # source://reline//lib/reline/line_editor.rb#1058
   def render_whole_lines(lines, prompt, prompt_width); end
 
-  # source://reline//lib/reline/line_editor.rb#964
+  # source://reline//lib/reline/line_editor.rb#907
   # def rerender_added_newline(prompt, prompt_width, prompt_list); end
 
-  # source://reline//lib/reline/line_editor.rb#1060
+  # source://reline//lib/reline/line_editor.rb#1003
   def rerender_all_lines; end
 
-  # source://reline//lib/reline/line_editor.rb#1016
+  # source://reline//lib/reline/line_editor.rb#959
   def rerender_changed_current_line; end
 
-  # source://reline//lib/reline/line_editor.rb#783
-  def reset_dialog(dialog, old_dialog); end
-
-  # source://reline//lib/reline/line_editor.rb#2333
+  # source://reline//lib/reline/line_editor.rb#2276
   def reverse_search_history(key); end
 
-  # source://reline//lib/reline/line_editor.rb#1426
+  # source://reline//lib/reline/line_editor.rb#1369
   def run_for_operators(key, method_symbol, &block); end
 
-  # source://reline//lib/reline/line_editor.rb#354
+  # source://reline//lib/reline/line_editor.rb#344
   def scroll_down(val); end
 
-  # source://reline//lib/reline/line_editor.rb#3220
+  # source://reline//lib/reline/line_editor.rb#3163
   def search_next_char(key, arg, need_prev_char: T.unsafe(nil), inclusive: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#3277
+  # source://reline//lib/reline/line_editor.rb#3220
   def search_prev_char(key, arg, need_next_char = T.unsafe(nil)); end
 
   # Editline:: +ed-insert+ (vi input: almost all; emacs: printable characters)
@@ -1564,22 +1564,22 @@ class Reline::LineEditor
   #            million.
   # GNU Readline:: +self-insert+ (a, b, A, 1, !, …) Insert yourself.
   #
-  # source://reline//lib/reline/line_editor.rb#1995
+  # source://reline//lib/reline/line_editor.rb#1938
   def self_insert(key); end
 
-  # source://reline//lib/reline/line_editor.rb#3331
+  # source://reline//lib/reline/line_editor.rb#3274
   def set_mark(key); end
 
-  # source://reline//lib/reline/line_editor.rb#1248
+  # source://reline//lib/reline/line_editor.rb#1191
   def show_menu; end
 
-  # source://reline//lib/reline/line_editor.rb#350
+  # source://reline//lib/reline/line_editor.rb#340
   def split_by_width(str, max_width); end
 
-  # source://reline//lib/reline/line_editor.rb#2762
+  # source://reline//lib/reline/line_editor.rb#2705
   def transpose_chars(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2782
+  # source://reline//lib/reline/line_editor.rb#2725
   def transpose_words(key); end
 
   # Editline:: +vi-kill-line-prev+ (vi: +Ctrl-U+) Delete the string from the
@@ -1588,58 +1588,61 @@ class Reline::LineEditor
   # GNU Readline:: +unix-line-discard+ (+C-u+) Kill backward from the cursor
   #                to the beginning of the current line.
   #
-  # source://reline//lib/reline/line_editor.rb#2625
+  # source://reline//lib/reline/line_editor.rb#2568
   def unix_line_discard(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2841
+  # source://reline//lib/reline/line_editor.rb#2784
   def unix_word_rubout(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2825
+  # source://reline//lib/reline/line_editor.rb#2768
   def upcase_word(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2863
+  # source://reline//lib/reline/line_editor.rb#765
+  def update_each_dialog(dialog, cursor_column); end
+
+  # source://reline//lib/reline/line_editor.rb#2806
   def vi_add(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2977
+  # source://reline//lib/reline/line_editor.rb#2920
   def vi_add_at_eol(key); end
 
-  # source://reline//lib/reline/line_editor.rb#3003
+  # source://reline//lib/reline/line_editor.rb#2946
   def vi_change_meta(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2868
+  # source://reline//lib/reline/line_editor.rb#2811
   def vi_command_mode(key); end
 
-  # source://reline//lib/reline/line_editor.rb#3021
+  # source://reline//lib/reline/line_editor.rb#2964
   def vi_delete_meta(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2952
+  # source://reline//lib/reline/line_editor.rb#2895
   def vi_delete_prev_char(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2933
+  # source://reline//lib/reline/line_editor.rb#2876
   def vi_end_big_word(key, arg: T.unsafe(nil), inclusive: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#3048
+  # source://reline//lib/reline/line_editor.rb#2991
   def vi_end_of_transmission(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2894
+  # source://reline//lib/reline/line_editor.rb#2837
   def vi_end_word(key, arg: T.unsafe(nil), inclusive: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#3048
+  # source://reline//lib/reline/line_editor.rb#2991
   def vi_eof_maybe(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2104
+  # source://reline//lib/reline/line_editor.rb#2047
   def vi_first_print(key); end
 
-  # source://reline//lib/reline/line_editor.rb#3106
+  # source://reline//lib/reline/line_editor.rb#3049
   def vi_histedit(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2859
+  # source://reline//lib/reline/line_editor.rb#2802
   def vi_insert(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2972
+  # source://reline//lib/reline/line_editor.rb#2915
   def vi_insert_at_bol(key); end
 
-  # source://reline//lib/reline/line_editor.rb#3317
+  # source://reline//lib/reline/line_editor.rb#3260
   def vi_join_lines(key, arg: T.unsafe(nil)); end
 
   # Editline:: +vi-kill-line-prev+ (vi: +Ctrl-U+) Delete the string from the
@@ -1648,70 +1651,70 @@ class Reline::LineEditor
   # GNU Readline:: +unix-line-discard+ (+C-u+) Kill backward from the cursor
   #                to the beginning of the current line.
   #
-  # source://reline//lib/reline/line_editor.rb#2625
+  # source://reline//lib/reline/line_editor.rb#2568
   def vi_kill_line_prev(key); end
 
-  # source://reline//lib/reline/line_editor.rb#3048
+  # source://reline//lib/reline/line_editor.rb#2991
   def vi_list_or_eof(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2868
+  # source://reline//lib/reline/line_editor.rb#2811
   def vi_movement_mode(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2913
+  # source://reline//lib/reline/line_editor.rb#2856
   def vi_next_big_word(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#3212
+  # source://reline//lib/reline/line_editor.rb#3155
   def vi_next_char(key, arg: T.unsafe(nil), inclusive: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2874
+  # source://reline//lib/reline/line_editor.rb#2817
   def vi_next_word(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#3140
+  # source://reline//lib/reline/line_editor.rb#3083
   def vi_paste_next(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#3128
+  # source://reline//lib/reline/line_editor.rb#3071
   def vi_paste_prev(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2923
+  # source://reline//lib/reline/line_editor.rb#2866
   def vi_prev_big_word(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#3269
+  # source://reline//lib/reline/line_editor.rb#3212
   def vi_prev_char(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2884
+  # source://reline//lib/reline/line_editor.rb#2827
   def vi_prev_word(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#3184
+  # source://reline//lib/reline/line_editor.rb#3127
   def vi_replace_char(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2338
+  # source://reline//lib/reline/line_editor.rb#2281
   def vi_search_next(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2333
+  # source://reline//lib/reline/line_editor.rb#2276
   def vi_search_prev(key); end
 
-  # source://reline//lib/reline/line_editor.rb#3169
+  # source://reline//lib/reline/line_editor.rb#3112
   def vi_to_column(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#3083
+  # source://reline//lib/reline/line_editor.rb#3026
   def vi_to_history_line(key); end
 
-  # source://reline//lib/reline/line_editor.rb#3216
+  # source://reline//lib/reline/line_editor.rb#3159
   def vi_to_next_char(key, arg: T.unsafe(nil), inclusive: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#3273
+  # source://reline//lib/reline/line_editor.rb#3216
   def vi_to_prev_char(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#3036
+  # source://reline//lib/reline/line_editor.rb#2979
   def vi_yank(key, arg: T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#2998
+  # source://reline//lib/reline/line_editor.rb#2941
   def vi_zero(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2690
+  # source://reline//lib/reline/line_editor.rb#2633
   def yank(key); end
 
-  # source://reline//lib/reline/line_editor.rb#2702
+  # source://reline//lib/reline/line_editor.rb#2645
   def yank_pop(key); end
 end
 
@@ -1736,175 +1739,157 @@ Reline::LineEditor::CompletionState::NORMAL = T.let(T.unsafe(nil), Symbol)
 # source://reline//lib/reline/line_editor.rb#48
 Reline::LineEditor::CompletionState::PERFECT_MATCH = T.let(T.unsafe(nil), Symbol)
 
-# source://reline//lib/reline/line_editor.rb#643
+# source://reline//lib/reline/line_editor.rb#644
 Reline::LineEditor::DIALOG_DEFAULT_HEIGHT = T.let(T.unsafe(nil), Integer)
 
-# source://reline//lib/reline/line_editor.rb#587
+# source://reline//lib/reline/line_editor.rb#588
 class Reline::LineEditor::Dialog
   # @return [Dialog] a new instance of Dialog
   #
-  # source://reline//lib/reline/line_editor.rb#591
+  # source://reline//lib/reline/line_editor.rb#592
   def initialize(name, config, proc_scope); end
 
-  # source://reline//lib/reline/line_editor.rb#615
+  # source://reline//lib/reline/line_editor.rb#616
   def call(key); end
 
   # Returns the value of attribute column.
   #
-  # source://reline//lib/reline/line_editor.rb#589
+  # source://reline//lib/reline/line_editor.rb#590
   def column; end
 
   # Sets the attribute column
   #
   # @param value the value to set the attribute column to.
   #
-  # source://reline//lib/reline/line_editor.rb#589
+  # source://reline//lib/reline/line_editor.rb#590
   def column=(_arg0); end
 
   # Returns the value of attribute contents.
   #
-  # source://reline//lib/reline/line_editor.rb#588
+  # source://reline//lib/reline/line_editor.rb#589
   def contents; end
 
-  # source://reline//lib/reline/line_editor.rb#608
+  # source://reline//lib/reline/line_editor.rb#609
   def contents=(contents); end
-
-  # Returns the value of attribute lines_backup.
-  #
-  # source://reline//lib/reline/line_editor.rb#589
-  def lines_backup; end
-
-  # Sets the attribute lines_backup
-  #
-  # @param value the value to set the attribute lines_backup to.
-  #
-  # source://reline//lib/reline/line_editor.rb#589
-  def lines_backup=(_arg0); end
 
   # Returns the value of attribute name.
   #
-  # source://reline//lib/reline/line_editor.rb#588
+  # source://reline//lib/reline/line_editor.rb#589
   def name; end
 
   # Returns the value of attribute pointer.
   #
-  # source://reline//lib/reline/line_editor.rb#589
+  # source://reline//lib/reline/line_editor.rb#590
   def pointer; end
 
   # Sets the attribute pointer
   #
   # @param value the value to set the attribute pointer to.
   #
-  # source://reline//lib/reline/line_editor.rb#589
+  # source://reline//lib/reline/line_editor.rb#590
   def pointer=(_arg0); end
 
   # Returns the value of attribute scroll_top.
   #
-  # source://reline//lib/reline/line_editor.rb#589
+  # source://reline//lib/reline/line_editor.rb#590
   def scroll_top; end
 
   # Sets the attribute scroll_top
   #
   # @param value the value to set the attribute scroll_top to.
   #
-  # source://reline//lib/reline/line_editor.rb#589
+  # source://reline//lib/reline/line_editor.rb#590
   def scroll_top=(_arg0); end
 
-  # Returns the value of attribute scrollbar_pos.
-  #
-  # source://reline//lib/reline/line_editor.rb#589
-  def scrollbar_pos; end
-
-  # Sets the attribute scrollbar_pos
-  #
-  # @param value the value to set the attribute scrollbar_pos to.
-  #
-  # source://reline//lib/reline/line_editor.rb#589
-  def scrollbar_pos=(_arg0); end
-
-  # source://reline//lib/reline/line_editor.rb#600
+  # source://reline//lib/reline/line_editor.rb#601
   def set_cursor_pos(col, row); end
 
   # Returns the value of attribute trap_key.
   #
-  # source://reline//lib/reline/line_editor.rb#589
+  # source://reline//lib/reline/line_editor.rb#590
   def trap_key; end
 
   # Sets the attribute trap_key
   #
   # @param value the value to set the attribute trap_key to.
   #
-  # source://reline//lib/reline/line_editor.rb#589
+  # source://reline//lib/reline/line_editor.rb#590
   def trap_key=(_arg0); end
 
   # Returns the value of attribute vertical_offset.
   #
-  # source://reline//lib/reline/line_editor.rb#589
+  # source://reline//lib/reline/line_editor.rb#590
   def vertical_offset; end
 
   # Sets the attribute vertical_offset
   #
   # @param value the value to set the attribute vertical_offset to.
   #
-  # source://reline//lib/reline/line_editor.rb#589
+  # source://reline//lib/reline/line_editor.rb#590
   def vertical_offset=(_arg0); end
 
   # Returns the value of attribute width.
   #
-  # source://reline//lib/reline/line_editor.rb#588
+  # source://reline//lib/reline/line_editor.rb#589
   def width; end
 
-  # source://reline//lib/reline/line_editor.rb#604
+  # source://reline//lib/reline/line_editor.rb#605
   def width=(v); end
 end
 
-# source://reline//lib/reline/line_editor.rb#520
+# source://reline//lib/reline/line_editor.rb#511
 class Reline::LineEditor::DialogProcScope
   # @return [DialogProcScope] a new instance of DialogProcScope
   #
-  # source://reline//lib/reline/line_editor.rb#521
+  # source://reline//lib/reline/line_editor.rb#512
   def initialize(line_editor, config, proc_to_exec, context); end
 
-  # source://reline//lib/reline/line_editor.rb#582
+  # source://reline//lib/reline/line_editor.rb#583
   def call; end
 
-  # source://reline//lib/reline/line_editor.rb#537
+  # source://reline//lib/reline/line_editor.rb#528
   def call_completion_proc_with_checking_args(pre, target, post); end
 
-  # source://reline//lib/reline/line_editor.rb#574
+  # source://reline//lib/reline/line_editor.rb#575
   def completion_journey_data; end
 
-  # source://reline//lib/reline/line_editor.rb#578
+  # source://reline//lib/reline/line_editor.rb#579
   def config; end
 
-  # source://reline//lib/reline/line_editor.rb#529
+  # source://reline//lib/reline/line_editor.rb#520
   def context; end
 
-  # source://reline//lib/reline/line_editor.rb#562
+  # source://reline//lib/reline/line_editor.rb#553
   def cursor_pos; end
 
-  # source://reline//lib/reline/line_editor.rb#545
+  # source://reline//lib/reline/line_editor.rb#536
   def dialog; end
 
-  # source://reline//lib/reline/line_editor.rb#566
+  # source://reline//lib/reline/line_editor.rb#557
   def just_cursor_moving; end
 
-  # source://reline//lib/reline/line_editor.rb#558
+  # source://reline//lib/reline/line_editor.rb#549
   def key; end
 
-  # source://reline//lib/reline/line_editor.rb#533
+  # source://reline//lib/reline/line_editor.rb#569
+  def preferred_dialog_height; end
+
+  # source://reline//lib/reline/line_editor.rb#524
   def retrieve_completion_block(set_completion_quote_character = T.unsafe(nil)); end
 
-  # source://reline//lib/reline/line_editor.rb#570
+  # source://reline//lib/reline/line_editor.rb#565
+  def screen_height; end
+
+  # source://reline//lib/reline/line_editor.rb#561
   def screen_width; end
 
-  # source://reline//lib/reline/line_editor.rb#549
+  # source://reline//lib/reline/line_editor.rb#540
   def set_cursor_pos(col, row); end
 
-  # source://reline//lib/reline/line_editor.rb#541
+  # source://reline//lib/reline/line_editor.rb#532
   def set_dialog(dialog); end
 
-  # source://reline//lib/reline/line_editor.rb#554
+  # source://reline//lib/reline/line_editor.rb#545
   def set_key(key); end
 end
 
@@ -1935,37 +1920,37 @@ module Reline::Terminfo
 
     # @return [Boolean]
     #
-    # source://reline//lib/reline/terminfo.rb#165
+    # source://reline//lib/reline/terminfo.rb#151
     def enabled?; end
 
-    # source://reline//lib/reline/terminfo.rb#94
+    # source://reline//lib/reline/terminfo.rb#80
     def setupterm(term, fildes); end
 
     # @raise [TerminfoError]
     #
-    # source://reline//lib/reline/terminfo.rb#141
+    # source://reline//lib/reline/terminfo.rb#127
     def tigetflag(capname); end
 
     # @raise [TerminfoError]
     #
-    # source://reline//lib/reline/terminfo.rb#153
+    # source://reline//lib/reline/terminfo.rb#139
     def tigetnum(capname); end
 
     # @raise [TerminfoError]
     #
-    # source://reline//lib/reline/terminfo.rb#123
+    # source://reline//lib/reline/terminfo.rb#109
     def tigetstr(capname); end
 
-    # source://reline//lib/reline/terminfo.rb#133
+    # source://reline//lib/reline/terminfo.rb#119
     def tiparm(str, *args); end
   end
 end
 
-# source://reline//lib/reline/terminfo.rb#117
+# source://reline//lib/reline/terminfo.rb#103
 class Reline::Terminfo::StringWithTiparm < ::String
   # for method chain
   #
-  # source://reline//lib/reline/terminfo.rb#118
+  # source://reline//lib/reline/terminfo.rb#104
   def tiparm(*args); end
 end
 
@@ -1975,75 +1960,72 @@ Reline::USERNAME_COMPLETION_PROC = T.let(T.unsafe(nil), T.untyped)
 # source://reline//lib/reline/unicode.rb#1
 class Reline::Unicode
   class << self
-    # source://reline//lib/reline/unicode.rb#130
+    # source://reline//lib/reline/unicode.rb#125
     def calculate_width(str, allow_escape_code = T.unsafe(nil)); end
 
-    # source://reline//lib/reline/unicode.rb#335
+    # source://reline//lib/reline/unicode.rb#327
     def ed_transpose_words(line, byte_pointer); end
 
-    # source://reline//lib/reline/unicode.rb#295
+    # source://reline//lib/reline/unicode.rb#287
     def em_backward_word(line, byte_pointer); end
 
-    # source://reline//lib/reline/unicode.rb#315
+    # source://reline//lib/reline/unicode.rb#307
     def em_big_backward_word(line, byte_pointer); end
 
-    # source://reline//lib/reline/unicode.rb#246
+    # source://reline//lib/reline/unicode.rb#238
     def em_forward_word(line, byte_pointer); end
 
-    # source://reline//lib/reline/unicode.rb#266
+    # source://reline//lib/reline/unicode.rb#258
     def em_forward_word_with_capitalization(line, byte_pointer); end
 
-    # source://reline//lib/reline/unicode.rb#69
+    # source://reline//lib/reline/unicode.rb#64
     def escape_for_print(str); end
 
-    # source://reline//lib/reline/unicode.rb#49
+    # source://reline//lib/reline/unicode.rb#44
     def get_mbchar_byte_size_by_first_char(c); end
 
-    # source://reline//lib/reline/unicode.rb#110
+    # source://reline//lib/reline/unicode.rb#105
     def get_mbchar_width(mbchar); end
 
-    # source://reline//lib/reline/unicode.rb#232
+    # source://reline//lib/reline/unicode.rb#224
     def get_next_mbchar_size(line, byte_pointer); end
 
-    # source://reline//lib/reline/unicode.rb#237
+    # source://reline//lib/reline/unicode.rb#229
     def get_prev_mbchar_size(line, byte_pointer); end
 
-    # source://reline//lib/reline/unicode.rb#157
+    # source://reline//lib/reline/unicode.rb#151
     def split_by_width(str, max_width, encoding = T.unsafe(nil)); end
 
     # Take a chunk of a String cut by width with escape sequences.
     #
-    # source://reline//lib/reline/unicode.rb#202
-    def take_range(str, start_col, max_width, encoding = T.unsafe(nil)); end
+    # source://reline//lib/reline/unicode.rb#195
+    # def take_range(str, start_col, max_width); end
 
-    # source://reline//lib/reline/unicode.rb#624
+    # source://reline//lib/reline/unicode.rb#616
     def vi_backward_word(line, byte_pointer); end
 
-    # source://reline//lib/reline/unicode.rb#486
+    # source://reline//lib/reline/unicode.rb#478
     def vi_big_backward_word(line, byte_pointer); end
 
-    # source://reline//lib/reline/unicode.rb#456
+    # source://reline//lib/reline/unicode.rb#448
     def vi_big_forward_end_word(line, byte_pointer); end
 
-    # source://reline//lib/reline/unicode.rb#436
+    # source://reline//lib/reline/unicode.rb#428
     def vi_big_forward_word(line, byte_pointer); end
 
-    # source://reline//lib/reline/unicode.rb#656
+    # source://reline//lib/reline/unicode.rb#648
     def vi_first_print(line); end
 
-    # source://reline//lib/reline/unicode.rb#547
+    # source://reline//lib/reline/unicode.rb#539
     def vi_forward_end_word(line, byte_pointer); end
 
-    # source://reline//lib/reline/unicode.rb#506
+    # source://reline//lib/reline/unicode.rb#498
     def vi_forward_word(line, byte_pointer, drop_terminate_spaces = T.unsafe(nil)); end
   end
 end
 
 # source://reline//lib/reline/unicode.rb#40
 Reline::Unicode::CSI_REGEXP = T.let(T.unsafe(nil), Regexp)
-
-# source://reline//lib/reline/unicode.rb#45
-Reline::Unicode::CSI_REGEXP_INDEX = T.let(T.unsafe(nil), Integer)
 
 # Ambiguous
 #
@@ -2083,32 +2065,20 @@ Reline::Unicode::EscapedChars = T.let(T.unsafe(nil), Array)
 # source://reline//lib/reline/unicode.rb#2
 Reline::Unicode::EscapedPairs = T.let(T.unsafe(nil), Hash)
 
-# source://reline//lib/reline/unicode.rb#47
-Reline::Unicode::GRAPHEME_CLUSTER_INDEX = T.let(T.unsafe(nil), Integer)
-
-# source://reline//lib/reline/unicode.rb#82
+# source://reline//lib/reline/unicode.rb#77
 Reline::Unicode::HalfwidthDakutenHandakuten = T.let(T.unsafe(nil), Regexp)
 
-# source://reline//lib/reline/unicode.rb#84
+# source://reline//lib/reline/unicode.rb#79
 Reline::Unicode::MBCharWidthRE = T.let(T.unsafe(nil), Regexp)
 
 # source://reline//lib/reline/unicode.rb#39
 Reline::Unicode::NON_PRINTING_END = T.let(T.unsafe(nil), String)
 
-# source://reline//lib/reline/unicode.rb#44
-Reline::Unicode::NON_PRINTING_END_INDEX = T.let(T.unsafe(nil), Integer)
-
 # source://reline//lib/reline/unicode.rb#38
 Reline::Unicode::NON_PRINTING_START = T.let(T.unsafe(nil), String)
 
-# source://reline//lib/reline/unicode.rb#43
-Reline::Unicode::NON_PRINTING_START_INDEX = T.let(T.unsafe(nil), Integer)
-
 # source://reline//lib/reline/unicode.rb#41
 Reline::Unicode::OSC_REGEXP = T.let(T.unsafe(nil), Regexp)
-
-# source://reline//lib/reline/unicode.rb#46
-Reline::Unicode::OSC_REGEXP_INDEX = T.let(T.unsafe(nil), Integer)
 
 # source://reline//lib/reline/unicode.rb#42
 Reline::Unicode::WIDTH_SCANNER = T.let(T.unsafe(nil), Regexp)

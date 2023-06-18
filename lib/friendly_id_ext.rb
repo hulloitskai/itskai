@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "friendly_id"
+
 module FriendlyId::Slugged
   module Extension
     extend T::Sig

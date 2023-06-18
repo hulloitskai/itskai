@@ -827,7 +827,7 @@ class IRB::Context
   # History values are available via <code>__</code> variable, see
   # IRB::History.
   #
-  # source://irb//lib/irb/extend-command.rb#339
+  # source://irb//lib/irb/extend-command.rb#343
   def eval_history=(*opts, &b); end
 
   # source://irb//lib/irb/context.rb#476
@@ -1187,7 +1187,7 @@ class IRB::Context
   #
   #     IRB.conf[:SAVE_HISTORY] = 1000
   #
-  # source://irb//lib/irb/extend-command.rb#339
+  # source://irb//lib/irb/extend-command.rb#343
   def save_history=(*opts, &b); end
 
   # Sets the return value from the last statement evaluated in this context
@@ -1237,7 +1237,7 @@ class IRB::Context
   #
   # See #use_loader for more information.
   #
-  # source://irb//lib/irb/extend-command.rb#339
+  # source://irb//lib/irb/extend-command.rb#343
   def use_loader=(*opts, &b); end
 
   # Whether multiline editor mode is enabled or not.
@@ -1307,7 +1307,7 @@ class IRB::Context
   #
   # See +lib/tracer.rb+ for more information.
   #
-  # source://irb//lib/irb/extend-command.rb#339
+  # source://irb//lib/irb/extend-command.rb#343
   def use_tracer=(*opts, &b); end
 
   # Whether verbose messages are displayed or not.
@@ -1358,7 +1358,7 @@ IRB::Context::NO_INSPECTING_IVARS = T.let(T.unsafe(nil), Array)
 
 # Extends methods for the Context module
 #
-# source://irb//lib/irb/extend-command.rb#311
+# source://irb//lib/irb/extend-command.rb#315
 module IRB::ContextExtender
   class << self
     # Evaluate the given +command+ from the given +load_file+ on the Context
@@ -1366,7 +1366,7 @@ module IRB::ContextExtender
     #
     # Will also define any given +aliases+ for the method.
     #
-    # source://irb//lib/irb/extend-command.rb#337
+    # source://irb//lib/irb/extend-command.rb#341
     def def_extend_command(cmd_name, load_file, *aliases); end
 
     # Installs the default context extensions as irb commands:
@@ -1376,7 +1376,7 @@ module IRB::ContextExtender
     # Context#use_loader=::     +irb/ext/use-loader.rb+
     # Context#save_history=::   +irb/ext/save-history.rb+
     #
-    # source://irb//lib/irb/extend-command.rb#327
+    # source://irb//lib/irb/extend-command.rb#331
     def install_extend_commands; end
   end
 end
@@ -1388,22 +1388,22 @@ module IRB::ExtendCommandBundle
   # Installs alias methods for the default irb commands, see
   # ::install_extend_commands.
   #
-  # source://irb//lib/irb/extend-command.rb#272
+  # source://irb//lib/irb/extend-command.rb#276
   def install_alias_method(to, from, override = T.unsafe(nil)); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_backtrace(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_break(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_catch(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_change_workspace(*opts, **kwargs, &b); end
 
   # Displays current configuration.
@@ -1413,22 +1413,22 @@ module IRB::ExtendCommandBundle
   # source://irb//lib/irb/extend-command.rb#31
   def irb_context; end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_continue(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_current_working_workspace(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_debug(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_debug_info(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_delete(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_edit(*opts, **kwargs, &b); end
 
   # Quits the current irb context
@@ -1440,69 +1440,72 @@ module IRB::ExtendCommandBundle
   # source://irb//lib/irb/extend-command.rb#24
   def irb_exit(ret = T.unsafe(nil)); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_fg(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_finish(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_help(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_info(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_jobs(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_kill(*opts, **kwargs, &b); end
 
   # Loads the given file similarly to Kernel#load, see IrbLoader#irb_load
   #
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   # def irb_load(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_ls(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_measure(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_next(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_pop_workspace(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_push_workspace(*opts, **kwargs, &b); end
 
   # Loads the given file similarly to Kernel#require
   #
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   # def irb_require(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_show_cmds(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
+  def irb_show_doc(*opts, **kwargs, &b); end
+
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_show_source(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_source(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_step(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_whereami(*opts, **kwargs, &b); end
 
-  # source://irb//lib/irb/extend-command.rb#259
+  # source://irb//lib/irb/extend-command.rb#263
   def irb_workspaces(*opts, **kwargs, &b); end
 
   class << self
-    # source://irb//lib/irb/extend-command.rb#196
+    # source://irb//lib/irb/extend-command.rb#200
     def all_commands_info; end
 
     # Evaluate the given +cmd_name+ on the given +cmd_class+ Class.
@@ -1512,26 +1515,26 @@ module IRB::ExtendCommandBundle
     # The optional +load_file+ parameter will be required within the method
     # definition.
     #
-    # source://irb//lib/irb/extend-command.rb#249
+    # source://irb//lib/irb/extend-command.rb#253
     def def_extend_command(cmd_name, cmd_class, load_file, *aliases); end
 
     # Installs alias methods for the default irb commands on the given object
     # using #install_alias_method.
     #
-    # source://irb//lib/irb/extend-command.rb#298
+    # source://irb//lib/irb/extend-command.rb#302
     def extend_object(obj); end
 
     # Installs the default irb commands.
     #
-    # source://irb//lib/irb/extend-command.rb#237
+    # source://irb//lib/irb/extend-command.rb#241
     def install_extend_commands; end
 
-    # source://irb//lib/irb/extend-command.rb#292
+    # source://irb//lib/irb/extend-command.rb#296
     def irb_original_method_name(method_name); end
 
     # Convert a command name to its implementation class if such command exists
     #
-    # source://irb//lib/irb/extend-command.rb#223
+    # source://irb//lib/irb/extend-command.rb#227
     def load_command(command); end
   end
 end
@@ -1541,21 +1544,21 @@ IRB::ExtendCommandBundle::EXCB = IRB::ExtendCommandBundle
 
 # Use a File for IO with irb, see InputMethod
 #
-# source://irb//lib/irb/input-method.rb#120
+# source://irb//lib/irb/input-method.rb#119
 class IRB::FileInputMethod < ::IRB::InputMethod
   # Creates a new input method object
   #
   # @return [FileInputMethod] a new instance of FileInputMethod
   #
-  # source://irb//lib/irb/input-method.rb#133
+  # source://irb//lib/irb/input-method.rb#132
   def initialize(file); end
 
-  # source://irb//lib/irb/input-method.rb#167
+  # source://irb//lib/irb/input-method.rb#166
   def close; end
 
   # The external encoding for standard input.
   #
-  # source://irb//lib/irb/input-method.rb#158
+  # source://irb//lib/irb/input-method.rb#157
   def encoding; end
 
   # Whether the end of this input method has been reached, returns +true+ if
@@ -1565,28 +1568,28 @@ class IRB::FileInputMethod < ::IRB::InputMethod
   #
   # @return [Boolean]
   #
-  # source://irb//lib/irb/input-method.rb#145
+  # source://irb//lib/irb/input-method.rb#144
   def eof?; end
 
   # The file name of this input method, usually given during initialization.
   #
-  # source://irb//lib/irb/input-method.rb#139
+  # source://irb//lib/irb/input-method.rb#138
   def file_name; end
 
   # Reads the next line from this input method.
   #
   # See IO#gets for more information.
   #
-  # source://irb//lib/irb/input-method.rb#152
+  # source://irb//lib/irb/input-method.rb#151
   def gets; end
 
   # For debug message
   #
-  # source://irb//lib/irb/input-method.rb#163
+  # source://irb//lib/irb/input-method.rb#162
   def inspect; end
 
   class << self
-    # source://irb//lib/irb/input-method.rb#122
+    # source://irb//lib/irb/input-method.rb#121
     def open(file, &block); end
   end
 end
@@ -1640,40 +1643,40 @@ IRB::InputCompletor::PerfectMatchedProc = T.let(T.unsafe(nil), Proc)
 # source://irb//lib/irb/completion.rb#38
 IRB::InputCompletor::ReservedWords = T.let(T.unsafe(nil), Array)
 
-# source://irb//lib/irb/input-method.rb#15
+# source://irb//lib/irb/input-method.rb#14
 class IRB::InputMethod
   # Creates a new input method object
   #
   # @return [InputMethod] a new instance of InputMethod
   #
-  # source://irb//lib/irb/input-method.rb#18
+  # source://irb//lib/irb/input-method.rb#17
   def initialize(file = T.unsafe(nil)); end
 
   # The file name of this input method, usually given during initialization.
   #
-  # source://irb//lib/irb/input-method.rb#22
+  # source://irb//lib/irb/input-method.rb#21
   def file_name; end
 
   # Reads the next line from this input method.
   #
   # See IO#gets for more information.
   #
-  # source://irb//lib/irb/input-method.rb#30
+  # source://irb//lib/irb/input-method.rb#29
   def gets; end
 
   # For debug message
   #
-  # source://irb//lib/irb/input-method.rb#52
+  # source://irb//lib/irb/input-method.rb#51
   def inspect; end
 
   # The irb prompt associated with this input method
   #
-  # source://irb//lib/irb/input-method.rb#25
+  # source://irb//lib/irb/input-method.rb#24
   def prompt; end
 
   # The irb prompt associated with this input method
   #
-  # source://irb//lib/irb/input-method.rb#25
+  # source://irb//lib/irb/input-method.rb#24
   def prompt=(_arg0); end
 
   # Whether this input method is still readable when there is no more data to
@@ -1683,10 +1686,10 @@ class IRB::InputMethod
   #
   # @return [Boolean]
   #
-  # source://irb//lib/irb/input-method.rb#47
+  # source://irb//lib/irb/input-method.rb#46
   def readable_after_eof?; end
 
-  # source://irb//lib/irb/input-method.rb#35
+  # source://irb//lib/irb/input-method.rb#34
   def winsize; end
 end
 
@@ -1879,69 +1882,56 @@ IRB::Irb::PROMPT_MAIN_TRUNCATE_OMISSION = T.let(T.unsafe(nil), String)
 class IRB::Locale
   # @return [Locale] a new instance of Locale
   #
-  # source://irb//lib/irb/locale.rb#21
+  # source://irb//lib/irb/locale.rb#25
   def initialize(locale = T.unsafe(nil)); end
 
-  # source://irb//lib/irb/locale.rb#45
+  # source://irb//lib/irb/locale.rb#49
   def String(mes); end
 
-  # source://irb//lib/irb/locale.rb#41
-  def encoding; end
-
-  # source://irb//lib/irb/locale.rb#120
-  def find(file, paths = T.unsafe(nil)); end
-
-  # source://irb//lib/irb/locale.rb#54
-  def format(*opts); end
-
-  # source://irb//lib/irb/locale.rb#58
-  def gets(*rs); end
-
-  # Returns the value of attribute lang.
-  #
-  # source://irb//lib/irb/locale.rb#39
-  def lang; end
-
-  # source://irb//lib/irb/locale.rb#108
-  def load(file, priv = T.unsafe(nil)); end
-
-  # Returns the value of attribute modifier.
-  #
-  # source://irb//lib/irb/locale.rb#39
-  def modifier; end
-
-  # source://irb//lib/irb/locale.rb#66
-  def print(*opts); end
-
-  # source://irb//lib/irb/locale.rb#71
-  def printf(*opts); end
-
-  # source://irb//lib/irb/locale.rb#76
-  def puts(*opts); end
-
-  # source://irb//lib/irb/locale.rb#62
-  def readline(*rs); end
-
-  # source://irb//lib/irb/locale.rb#81
-  def require(file, priv = T.unsafe(nil)); end
-
-  # Returns the value of attribute territory.
-  #
-  # source://irb//lib/irb/locale.rb#39
-  def territory; end
-
-  private
-
-  # source://irb//lib/irb/locale.rb#159
+  # source://irb//lib/irb/locale.rb#126
   def each_localized_path(dir, file); end
 
   # @yield [nil]
   #
-  # source://irb//lib/irb/locale.rb#166
+  # source://irb//lib/irb/locale.rb#133
   def each_sublocale; end
 
-  # source://irb//lib/irb/locale.rb#133
-  def real_load(path, priv); end
+  # source://irb//lib/irb/locale.rb#45
+  def encoding; end
+
+  # source://irb//lib/irb/locale.rb#97
+  def find(file, paths = T.unsafe(nil)); end
+
+  # source://irb//lib/irb/locale.rb#58
+  def format(*opts); end
+
+  # source://irb//lib/irb/locale.rb#62
+  def gets(*rs); end
+
+  # Returns the value of attribute lang.
+  #
+  # source://irb//lib/irb/locale.rb#43
+  def lang; end
+
+  # source://irb//lib/irb/locale.rb#85
+  def load(file); end
+
+  # Returns the value of attribute modifier.
+  #
+  # source://irb//lib/irb/locale.rb#43
+  def modifier; end
+
+  # source://irb//lib/irb/locale.rb#70
+  def print(*opts); end
+
+  # source://irb//lib/irb/locale.rb#75
+  def printf(*opts); end
+
+  # source://irb//lib/irb/locale.rb#80
+  def puts(*opts); end
+
+  # source://irb//lib/irb/locale.rb#66
+  def readline(*rs); end
 
   # typically, for the parameters and a <path> in paths, it searches
   #   <path>/<dir>/<locale>/<file>
@@ -1950,20 +1940,23 @@ class IRB::Locale
   # @param dir directory
   # @param file basename to be localized
   #
-  # source://irb//lib/irb/locale.rb#148
+  # source://irb//lib/irb/locale.rb#115
   def search_file(lib_paths, dir, file); end
 
-  def toplevel_load(*_arg0); end
+  # Returns the value of attribute territory.
+  #
+  # source://irb//lib/irb/locale.rb#43
+  def territory; end
 end
+
+# source://irb//lib/irb/locale.rb#18
+IRB::Locale::LEGACY_ENCODING_ALIAS_MAP = T.let(T.unsafe(nil), Hash)
 
 # source://irb//lib/irb/locale.rb#16
 IRB::Locale::LOCALE_DIR = T.let(T.unsafe(nil), String)
 
 # source://irb//lib/irb/locale.rb#10
 IRB::Locale::LOCALE_NAME_RE = T.let(T.unsafe(nil), Regexp)
-
-# source://irb//lib/irb/magic-file.rb#3
-IRB::MagicFile = T.let(T.unsafe(nil), Object)
 
 # An output formatter used internally by the lexer.
 #
@@ -2302,44 +2295,44 @@ class IRB::OutputMethod::NotImplementedError < ::StandardError
   def initialize(val); end
 end
 
-# source://irb//lib/irb/input-method.rb#173
+# source://irb//lib/irb/input-method.rb#172
 class IRB::ReadlineInputMethod < ::IRB::InputMethod
-  # source://irb//lib/irb/input-method.rb#182
+  # source://irb//lib/irb/input-method.rb#181
   def initialize; end
 
-  # source://irb//lib/irb/input-method.rb#244
+  # source://irb//lib/irb/input-method.rb#243
   def encoding; end
 
-  # source://irb//lib/irb/input-method.rb#222
+  # source://irb//lib/irb/input-method.rb#221
   def eof?; end
 
-  # source://irb//lib/irb/input-method.rb#206
+  # source://irb//lib/irb/input-method.rb#205
   def gets; end
 
-  # source://irb//lib/irb/input-method.rb#249
+  # source://irb//lib/irb/input-method.rb#248
   def inspect; end
 
-  # source://irb//lib/irb/input-method.rb#239
+  # source://irb//lib/irb/input-method.rb#238
   def line(line_no); end
 
-  # source://irb//lib/irb/input-method.rb#230
+  # source://irb//lib/irb/input-method.rb#229
   def readable_after_eof?; end
 
   class << self
-    # source://irb//lib/irb/input-method.rb#174
+    # source://irb//lib/irb/input-method.rb#173
     def initialize_readline; end
   end
 end
 
-# source://irb//lib/irb/input-method.rb#470
+# source://irb//lib/irb/input-method.rb#471
 class IRB::ReidlineInputMethod < ::IRB::RelineInputMethod
   # @return [ReidlineInputMethod] a new instance of ReidlineInputMethod
   #
-  # source://irb//lib/irb/input-method.rb#471
+  # source://irb//lib/irb/input-method.rb#472
   def initialize; end
 end
 
-# source://irb//lib/irb/input-method.rb#259
+# source://irb//lib/irb/input-method.rb#258
 class IRB::RelineInputMethod < ::IRB::InputMethod
   include ::Reline
 
@@ -2347,21 +2340,21 @@ class IRB::RelineInputMethod < ::IRB::InputMethod
   #
   # @return [RelineInputMethod] a new instance of RelineInputMethod
   #
-  # source://irb//lib/irb/input-method.rb#263
+  # source://irb//lib/irb/input-method.rb#262
   def initialize; end
 
-  # source://irb//lib/irb/input-method.rb#312
+  # source://irb//lib/irb/input-method.rb#311
   def auto_indent(&block); end
 
-  # source://irb//lib/irb/input-method.rb#304
+  # source://irb//lib/irb/input-method.rb#303
   def check_termination(&block); end
 
-  # source://irb//lib/irb/input-method.rb#308
+  # source://irb//lib/irb/input-method.rb#307
   def dynamic_prompt(&block); end
 
   # The external encoding for standard input.
   #
-  # source://irb//lib/irb/input-method.rb#452
+  # source://irb//lib/irb/input-method.rb#453
   def encoding; end
 
   # Whether the end of this input method has been reached, returns +true+
@@ -2371,19 +2364,19 @@ class IRB::RelineInputMethod < ::IRB::InputMethod
   #
   # @return [Boolean]
   #
-  # source://irb//lib/irb/input-method.rb#430
+  # source://irb//lib/irb/input-method.rb#431
   def eof?; end
 
   # Reads the next line from this input method.
   #
   # See IO#gets for more information.
   #
-  # source://irb//lib/irb/input-method.rb#412
+  # source://irb//lib/irb/input-method.rb#413
   def gets; end
 
   # For debug message
   #
-  # source://irb//lib/irb/input-method.rb#457
+  # source://irb//lib/irb/input-method.rb#458
   def inspect; end
 
   # Returns the current line number for #io.
@@ -2392,7 +2385,7 @@ class IRB::RelineInputMethod < ::IRB::InputMethod
   #
   # See IO#lineno for more information.
   #
-  # source://irb//lib/irb/input-method.rb#447
+  # source://irb//lib/irb/input-method.rb#448
   def line(line_no); end
 
   # Whether this input method is still readable when there is no more data to
@@ -2402,28 +2395,28 @@ class IRB::RelineInputMethod < ::IRB::InputMethod
   #
   # @return [Boolean]
   #
-  # source://irb//lib/irb/input-method.rb#438
+  # source://irb//lib/irb/input-method.rb#439
   def readable_after_eof?; end
 end
 
-# source://irb//lib/irb/input-method.rb#316
+# source://irb//lib/irb/input-method.rb#315
 IRB::RelineInputMethod::SHOW_DOC_DIALOG = T.let(T.unsafe(nil), Proc)
 
-# source://irb//lib/irb/input-method.rb#14
+# source://irb//lib/irb/input-method.rb#13
 IRB::STDIN_FILE_NAME = T.let(T.unsafe(nil), String)
 
-# source://irb//lib/irb/input-method.rb#57
+# source://irb//lib/irb/input-method.rb#56
 class IRB::StdioInputMethod < ::IRB::InputMethod
   # Creates a new input method object
   #
   # @return [StdioInputMethod] a new instance of StdioInputMethod
   #
-  # source://irb//lib/irb/input-method.rb#59
+  # source://irb//lib/irb/input-method.rb#58
   def initialize; end
 
   # The external encoding for standard input.
   #
-  # source://irb//lib/irb/input-method.rb#109
+  # source://irb//lib/irb/input-method.rb#108
   def encoding; end
 
   # Whether the end of this input method has been reached, returns +true+ if
@@ -2433,19 +2426,19 @@ class IRB::StdioInputMethod < ::IRB::InputMethod
   #
   # @return [Boolean]
   #
-  # source://irb//lib/irb/input-method.rb#80
+  # source://irb//lib/irb/input-method.rb#79
   def eof?; end
 
   # Reads the next line from this input method.
   #
   # See IO#gets for more information.
   #
-  # source://irb//lib/irb/input-method.rb#70
+  # source://irb//lib/irb/input-method.rb#69
   def gets; end
 
   # For debug message
   #
-  # source://irb//lib/irb/input-method.rb#114
+  # source://irb//lib/irb/input-method.rb#113
   def inspect; end
 
   # Returns the current line number for #io.
@@ -2454,7 +2447,7 @@ class IRB::StdioInputMethod < ::IRB::InputMethod
   #
   # See IO#lineno for more information.
   #
-  # source://irb//lib/irb/input-method.rb#104
+  # source://irb//lib/irb/input-method.rb#103
   def line(line_no); end
 
   # Whether this input method is still readable when there is no more data to
@@ -2464,7 +2457,7 @@ class IRB::StdioInputMethod < ::IRB::InputMethod
   #
   # @return [Boolean]
   #
-  # source://irb//lib/irb/input-method.rb#95
+  # source://irb//lib/irb/input-method.rb#94
   def readable_after_eof?; end
 end
 
@@ -2539,95 +2532,100 @@ class RubyLex
   # source://irb//lib/irb/ruby-lex.rb#19
   def initialize(context); end
 
-  # source://irb//lib/irb/ruby-lex.rb#301
+  # source://irb//lib/irb/ruby-lex.rb#283
   def check_code_block(code, tokens); end
 
-  # source://irb//lib/irb/ruby-lex.rb#590
+  # source://irb//lib/irb/ruby-lex.rb#210
+  def check_code_state(code); end
+
+  # source://irb//lib/irb/ruby-lex.rb#572
   def check_corresponding_token_depth(lines, line_index); end
 
-  # source://irb//lib/irb/ruby-lex.rb#520
+  # source://irb//lib/irb/ruby-lex.rb#502
   def check_newline_depth_difference; end
 
-  # source://irb//lib/irb/ruby-lex.rb#207
+  # source://irb//lib/irb/ruby-lex.rb#200
   def check_state(code, tokens); end
 
-  # source://irb//lib/irb/ruby-lex.rb#698
+  # source://irb//lib/irb/ruby-lex.rb#680
   def check_string_literal(tokens); end
 
-  # source://irb//lib/irb/ruby-lex.rb#777
+  # source://irb//lib/irb/ruby-lex.rb#759
   def check_termination_in_prev_line(code); end
 
-  # source://irb//lib/irb/ruby-lex.rb#232
+  # source://irb//lib/irb/ruby-lex.rb#52
+  def configure_io(io); end
+
+  # source://irb//lib/irb/ruby-lex.rb#248
   def each_top_level_statement; end
 
-  # source://irb//lib/irb/ruby-lex.rb#166
+  # source://irb//lib/irb/ruby-lex.rb#179
   def find_prev_spaces(line_index); end
-
-  # source://irb//lib/irb/ruby-lex.rb#223
-  def initialize_input; end
 
   # @return [Boolean]
   #
-  # source://irb//lib/irb/ruby-lex.rb#443
+  # source://irb//lib/irb/ruby-lex.rb#425
   def is_method_calling?(tokens, index); end
 
-  # source://irb//lib/irb/ruby-lex.rb#492
+  # source://irb//lib/irb/ruby-lex.rb#474
   def is_the_in_correspond_to_a_for(tokens, index); end
 
-  # source://irb//lib/irb/ruby-lex.rb#268
-  def lex; end
-
-  # source://irb//lib/irb/ruby-lex.rb#280
+  # source://irb//lib/irb/ruby-lex.rb#262
   def process_continue(tokens); end
 
-  # source://irb//lib/irb/ruby-lex.rb#749
+  # source://irb//lib/irb/ruby-lex.rb#731
   def process_literal_type(tokens); end
 
-  # source://irb//lib/irb/ruby-lex.rb#393
+  # source://irb//lib/irb/ruby-lex.rb#375
   def process_nesting_level(tokens); end
 
-  # source://irb//lib/irb/ruby-lex.rb#217
-  def prompt; end
+  # source://irb//lib/irb/ruby-lex.rb#221
+  def readmultiline; end
 
-  # source://irb//lib/irb/ruby-lex.rb#187
-  def set_auto_indent; end
+  # source://irb//lib/irb/ruby-lex.rb#216
+  def save_prompt_to_context_io(ltype, indent, continue, line_num_offset); end
 
   # io functions
   #
-  # source://irb//lib/irb/ruby-lex.rb#46
-  def set_input(io, &block); end
+  # source://irb//lib/irb/ruby-lex.rb#48
+  def set_input(&block); end
 
-  # source://irb//lib/irb/ruby-lex.rb#122
+  # source://irb//lib/irb/ruby-lex.rb#135
   def set_prompt(&block); end
 
-  # source://irb//lib/irb/ruby-lex.rb#461
+  # @return [Boolean]
+  #
+  # source://irb//lib/irb/ruby-lex.rb#42
+  def single_line_command?(code); end
+
+  # source://irb//lib/irb/ruby-lex.rb#443
   def take_corresponding_syntax_to_kw_do(tokens, index); end
 
   private
 
   # @return [Boolean]
   #
-  # source://irb//lib/irb/ruby-lex.rb#826
+  # source://irb//lib/irb/ruby-lex.rb#808
   def heredoc_scope?; end
 
   # @return [Boolean]
   #
-  # source://irb//lib/irb/ruby-lex.rb#831
+  # source://irb//lib/irb/ruby-lex.rb#813
   def in_keyword_case_scope?; end
 
   class << self
-    # source://irb//lib/irb/ruby-lex.rb#28
+    # source://irb//lib/irb/ruby-lex.rb#25
     def compile_with_errors_suppressed(code, line_no: T.unsafe(nil)); end
 
-    # source://irb//lib/irb/ruby-lex.rb#135
+    # source://irb//lib/irb/ruby-lex.rb#148
     def generate_local_variables_assign_code(local_variables); end
 
-    # source://irb//lib/irb/ruby-lex.rb#139
+    # source://irb//lib/irb/ruby-lex.rb#152
     def ripper_lex_without_warning(code, context: T.unsafe(nil)); end
   end
 end
 
-# source://irb//lib/irb/ruby-lex.rb#126
+# source://irb//lib/irb/ruby-lex.rb#139
 RubyLex::ERROR_TOKENS = T.let(T.unsafe(nil), Array)
 
 # source://irb//lib/irb/ruby-lex.rb#13

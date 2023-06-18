@@ -13,7 +13,7 @@ module Queries
     sig { params(password: String).returns(Float) }
     def resolve(password:)
       entropy = T.let(checker.calculate_entropy(password).to_f, Float)
-      [entropy / User::MIN_PASSWORD_ENTROPY, 1.0].min
+      [entropy / ::User::MIN_PASSWORD_ENTROPY, 1.0].min
     end
 
     private

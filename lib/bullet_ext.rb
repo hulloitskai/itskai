@@ -1,16 +1,22 @@
 # typed: strict
 # frozen_string_literal: true
 
-class Bullet::Notification::Base
-  module Extension
-    extend T::Sig
+require "active_support/core_ext"
 
-    # Don't log user.
-    sig { returns(T.nilable(String)) }
-    def whoami
-      nil
+suppress(LoadError) do
+  require "bullet"
+
+  class Bullet::Notification::Base
+    module Extension
+      extend T::Sig
+
+      # Don't log user.
+      sig { returns(T.nilable(String)) }
+      def whoami
+        nil
+      end
     end
-  end
 
-  prepend Extension
+    prepend Extension
+  end
 end

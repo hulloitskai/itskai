@@ -1,2 +1,2 @@
-vite: bin/vite ssr
+vite-ssr: bin/vite ssr
 rails: bin/rails test:all

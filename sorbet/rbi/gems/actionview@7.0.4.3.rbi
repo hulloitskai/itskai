@@ -584,12 +584,6 @@ class ActionController::Base < ::ActionController::Metal
   end
 end
 
-# source://actionpack/7.0.4.3/lib/action_controller/base.rb#206
-ActionController::Base::MODULES = T.let(T.unsafe(nil), Array)
-
-# source://actionpack/7.0.4.3/lib/action_controller/base.rb#261
-ActionController::Base::PROTECTED_IVARS = T.let(T.unsafe(nil), Array)
-
 # source://actionview//lib/action_view/gem_version.rb#3
 module ActionView
   extend ::ActiveSupport::Autoload
@@ -15543,7 +15537,6 @@ module ActionView::TestCase::TestController::HelperMethods
   include ::InertiaRails::Helper
   include ::ViteRails::TagHelpers
   include ::ActionController::Base::HelperMethods
-  include ::MailerHelper
   include ::DeviseHelper
 end
 

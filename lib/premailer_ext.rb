@@ -1,6 +1,9 @@
 # typed: true
 # frozen_string_literal: true
 
+require "premailer"
+require "premailer/rails"
+
 module Premailer::Rails::CSSLoaders::NetworkLoader
   extend T::Helpers
 

@@ -12,12 +12,13 @@ class ApplicationPolicy < ActionPolicy::Base
   #   authorize :account, optional: true
   #
   # Read more about authorization context: https://actionpolicy.evilmartians.io/#/authorization_context
-  authorize :user, optional: true
+  authorize :user, allow_nil: true
 
-  sig { returns(T.nilable(User)) }
+  sig { returns(T.nilable(T.any(User, Symbol))) }
   def user = super
 
   # == Pre-checks
+  pre_check :allow_system!
   pre_check :allow_owner!
 
   # == Aliases
@@ -37,13 +38,29 @@ class ApplicationPolicy < ActionPolicy::Base
   private
 
   # == Helpers
+  sig { returns(T.nilable(User)) }
+  def active_user
+    user = self.user
+    user if user.is_a?(User)
+  end
+
+  sig { returns(T::Boolean) }
+  def system_user?
+    user == :system
+  end
+
+  sig { void }
+  def allow_system!
+    allow! if system_user?
+  end
+
   sig { void }
   def allow_owner!
-    allow! if user&.owner?
+    allow! if active_user&.owner?
   end
 
   sig { returns(User) }
   def authenticate!
-    user or deny!
+    active_user or deny!
   end
 end

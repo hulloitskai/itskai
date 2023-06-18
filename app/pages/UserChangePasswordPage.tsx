@@ -1,4 +1,4 @@
-import type { PageComponent, PageProps } from "~/helpers/inertia";
+import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
 import UserChangePasswordPageForm from "~/components/UserChangePasswordPageForm";
@@ -6,7 +6,7 @@ import UserChangePasswordPageForm from "~/components/UserChangePasswordPageForm"
 import { UserChangePasswordPageQuery } from "~/helpers/graphql";
 
 export type UserChangePasswordPageProps =
-  PageProps<UserChangePasswordPageQuery> & {
+  PagePropsWithData<UserChangePasswordPageQuery> & {
     readonly resetPasswordToken: string;
   };
 

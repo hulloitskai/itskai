@@ -16,22 +16,22 @@ end
 
 # source://inertia_rails//lib/inertia_rails/lazy.rb#1
 module InertiaRails
-  # source://activesupport/7.0.4/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#56
+  # source://activesupport/7.0.4.3/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#56
   def threadsafe_html_headers; end
 
-  # source://activesupport/7.0.4/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#100
+  # source://activesupport/7.0.4.3/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#100
   def threadsafe_html_headers=(obj); end
 
-  # source://activesupport/7.0.4/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#56
+  # source://activesupport/7.0.4.3/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#56
   def threadsafe_shared_blocks; end
 
-  # source://activesupport/7.0.4/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#100
+  # source://activesupport/7.0.4.3/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#100
   def threadsafe_shared_blocks=(obj); end
 
-  # source://activesupport/7.0.4/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#56
+  # source://activesupport/7.0.4.3/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#56
   def threadsafe_shared_plain_data; end
 
-  # source://activesupport/7.0.4/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#100
+  # source://activesupport/7.0.4.3/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#100
   def threadsafe_shared_plain_data=(obj); end
 
   class << self
@@ -98,22 +98,22 @@ module InertiaRails
     # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#31
     def ssr_url; end
 
-    # source://activesupport/7.0.4/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#48
+    # source://activesupport/7.0.4.3/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#48
     def threadsafe_html_headers; end
 
-    # source://activesupport/7.0.4/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#92
+    # source://activesupport/7.0.4.3/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#92
     def threadsafe_html_headers=(obj); end
 
-    # source://activesupport/7.0.4/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#48
+    # source://activesupport/7.0.4.3/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#48
     def threadsafe_shared_blocks; end
 
-    # source://activesupport/7.0.4/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#92
+    # source://activesupport/7.0.4.3/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#92
     def threadsafe_shared_blocks=(obj); end
 
-    # source://activesupport/7.0.4/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#48
+    # source://activesupport/7.0.4.3/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#48
     def threadsafe_shared_plain_data; end
 
-    # source://activesupport/7.0.4/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#92
+    # source://activesupport/7.0.4.3/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#92
     def threadsafe_shared_plain_data=(obj); end
 
     # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#19
@@ -231,7 +231,7 @@ end
 # source://inertia_rails//lib/inertia_rails/engine.rb#5
 class InertiaRails::Engine < ::Rails::Engine
   class << self
-    # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
+    # source://activesupport/7.0.4.3/lib/active_support/callbacks.rb#68
     def __callbacks; end
   end
 end
@@ -346,9 +346,7 @@ end
 # source://inertia_rails//lib/inertia_rails/renderer.rb#6
 class InertiaRails::Renderer
   # @return [Renderer] a new instance of Renderer
-  #
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#9
-  def initialize(component, controller, request, response, render_method, props:, view_data:); end
+  def initialize(*_arg0, **_arg1, &_arg2); end
 
   # Returns the value of attribute component.
   #
@@ -394,17 +392,17 @@ class InertiaRails::StaticController < ::ApplicationController
 
   private
 
-  # source://actionview/7.0.4/lib/action_view/layouts.rb#328
+  # source://actionview/7.0.4.3/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
   class << self
-    # source://actionpack/7.0.4/lib/action_controller/metal/params_wrapper.rb#185
+    # source://actionpack/7.0.4.3/lib/action_controller/metal/params_wrapper.rb#185
     def _wrapper_options; end
 
-    # source://actionpack/7.0.4/lib/action_controller/metal/helpers.rb#63
+    # source://actionpack/7.0.4.3/lib/action_controller/metal/helpers.rb#63
     def helpers_path; end
 
-    # source://actionpack/7.0.4/lib/action_controller/metal.rb#210
+    # source://actionpack/7.0.4.3/lib/action_controller/metal.rb#210
     def middleware_stack; end
   end
 end

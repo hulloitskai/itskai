@@ -1,0 +1,7 @@
+query UserConfirmationEmailQuery($userId: ID!) {
+  user(id: $userId) {
+    id
+    name
+    email
+  }
+}

@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class GraphQLController < ApplicationController
-  include GraphQL::Helpers
+  include GraphQLHelpers
 
   # == Configuration
   protect_from_forgery with: :null_session, only: :execute

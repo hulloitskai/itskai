@@ -13,7 +13,7 @@ import type { AppMetaProps } from "./AppMeta";
 import AppHeader from "./AppHeader";
 import AppFooter from "./AppFooter";
 import AppFlash from "./AppFlash";
-import ContentContainer from "./ContentContainer";
+import PageLayout from "./PageLayout";
 import PageContainer from "./PageContainer";
 
 import type { Maybe } from "~/helpers/graphql";
@@ -58,13 +58,13 @@ const AppLayout: FC<AppLayoutProps> = ({
   const content = useMemo(
     () =>
       withContainer ? (
-        <ContentContainer
+        <PageContainer
           size={containerSize || containerProps?.size}
           {...{ withGutter }}
           {...containerProps}
         >
           {children}
-        </ContentContainer>
+        </PageContainer>
       ) : (
         children
       ),
@@ -73,7 +73,7 @@ const AppLayout: FC<AppLayoutProps> = ({
 
   // == Markup
   return (
-    <PageContainer>
+    <PageLayout>
       <AppMeta {...{ title, description, imageUrl }} />
       <AppShell
         header={<AppHeader {...{ viewer }} />}
@@ -121,7 +121,7 @@ const AppLayout: FC<AppLayoutProps> = ({
       </AppShell>
       <AppFooter />
       <AppFlash />
-    </PageContainer>
+    </PageLayout>
   );
 };
 

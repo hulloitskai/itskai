@@ -1,7 +1,7 @@
 import type { FC, PropsWithChildren } from "react";
 import { router } from "@inertiajs/react";
 
-import { ApolloProvider as _ApolloProvider } from "@apollo/client/index";
+import { ApolloProvider as _ApolloProvider } from "@apollo/client";
 import { createApolloClient, createApolloLink } from "~/helpers/apollo";
 
 export type ApolloProviderProps = PropsWithChildren<{

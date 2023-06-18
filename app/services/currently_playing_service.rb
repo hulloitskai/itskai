@@ -27,7 +27,7 @@ class CurrentlyPlayingService < ApplicationService
   def initialize
     super
     @task = T.let(
-      Concurrent::TimerTask.new(execution_interval: 2) do |task|
+      Concurrent::TimerTask.new(execution_interval: 4) do |task|
         Rails.application.reloader.wrap { poll(task:) }
       end,
       Concurrent::TimerTask,

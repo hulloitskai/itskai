@@ -13,17 +13,25 @@ require "./lib/actionview_ext"
 Bundler.require(*Rails.groups)
 
 module ItsKai
-  class << self
-    extend T::Sig
-
-    # == Methods
-    sig { returns(ItsKai::Application) }
-    def application = T.cast(Rails.application, ItsKai::Application)
-  end
+  extend T::Sig
 
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults(7.0)
+
+    # == Extensions
+    config.before_configuration do
+      require "./lib/action_policy_ext"
+      require "./lib/better_errors_ext"
+      require "./lib/bullet_ext"
+      require "./lib/graphql_ext"
+      require "./lib/inertia_rails_ext"
+      require "./lib/premailer_ext"
+      require "./lib/email_validator_ext"
+      require "./lib/devise_ext"
+      require "./lib/friendly_id_ext"
+      require "./lib/discordrb_ext"
+    end
 
     # == Code Loading
     # See: https://edgeguides.rubyonrails.org/autoloading_and_reloading_constants.html#load_path
@@ -98,4 +106,8 @@ module ItsKai
     # == Active Support
     config.active_support.remove_deprecated_time_with_zone_name = true
   end
+
+  # == Methods
+  sig { returns(ItsKai::Application) }
+  def self.application = T.cast(Rails.application, ItsKai::Application)
 end

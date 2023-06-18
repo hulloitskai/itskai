@@ -482,6 +482,7 @@ end
 #
 # source://actionmailer//lib/action_mailer/base.rb#466
 class ActionMailer::Base < ::AbstractController::Base
+  include ::InertiaRails::Mailer
   include ::ActionMailer::DeliveryMethods
   include ::ActiveSupport::Rescuable
   include ::ActionMailer::Rescuable
@@ -832,8 +833,7 @@ class ActionMailer::Base < ::AbstractController::Base
   #   mail(to: 'mikel@test.lindsaar.net') do |format|
   #     format.html
   #   end
-  #
-  # source://actionmailer//lib/action_mailer/base.rb#858
+  sig { params(headers: T::Hash[::Symbol, T.untyped], block: T.nilable(T.proc.void)).returns(::Mail::Message) }
   def mail(headers = T.unsafe(nil), &block); end
 
   # Returns the name of the mailer object.
@@ -1422,6 +1422,7 @@ module ActionMailer::Base::HelperMethods
   include ::ActionMailer::MailHelper
   include ::ActionText::ContentHelper
   include ::ActionText::TagHelper
+  include ::InertiaRails::Helper
 
   # source://actionpack/7.0.4.3/lib/abstract_controller/caching/fragments.rb#31
   def combined_fragment_cache_key(*args, **_arg1, &block); end

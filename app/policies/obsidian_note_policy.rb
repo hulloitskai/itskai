@@ -27,6 +27,6 @@ class ObsidianNotePolicy < ApplicationPolicy
 
   # == Scopes
   relation_scope do |relation|
-    user&.owner? ? relation : relation.where(hidden: false)
+    active_user&.owner? ? relation : relation.where(hidden: false)
   end
 end

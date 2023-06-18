@@ -1647,12 +1647,6 @@ class Mail::Message
   end
 end
 
-# source://mail/2.8.1/lib/mail/message.rb#1970
-Mail::Message::HEADER_SEPARATOR = T.let(T.unsafe(nil), Regexp)
-
-# source://mail/2.8.1/lib/mail/mail.rb#241
-Mail::RANDOM_TAG = T.let(T.unsafe(nil), String)
-
 module Rails
   class << self
     # source://railties/7.0.4.3/lib/rails.rb#38
@@ -1718,6 +1712,7 @@ module Rails
     def root; end
 
     def server?; end
+    def test?; end
 
     # source://railties/7.0.4.3/lib/rails/version.rb#7
     def version; end
@@ -1856,6 +1851,5 @@ module Rails::Conductor::BaseController::HelperMethods
   include ::InertiaRails::Helper
   include ::ViteRails::TagHelpers
   include ::ActionController::Base::HelperMethods
-  include ::MailerHelper
   include ::DeviseHelper
 end

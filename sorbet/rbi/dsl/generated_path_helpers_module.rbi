@@ -39,9 +39,6 @@ module GeneratedPathHelpersModule
   def hangout_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def jen_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def mailcatcher_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -151,6 +148,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def test_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def toronto_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def update_rails_disk_service_path(*args); end

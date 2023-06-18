@@ -1,4 +1,4 @@
-import type { PageComponent, PageProps } from "~/helpers/inertia";
+import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 import type { DeepRequired } from "~/helpers/utils";
 
@@ -11,7 +11,7 @@ import UserSettingsPageSpotifyCredentialsForm from "~/components/UserSettingsPag
 import type { UserSettingsPageQuery } from "~/helpers/graphql";
 import UserSettingsPageImportActions from "~/components/UserSettingsPageImportActions";
 
-export type UserSettingsPageProps = PageProps<
+export type UserSettingsPageProps = PagePropsWithData<
   DeepRequired<UserSettingsPageQuery, ["viewer"]>
 >;
 

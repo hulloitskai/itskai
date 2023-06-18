@@ -1,37 +1,42 @@
 # typed: false
 # frozen_string_literal: true
 
-return unless defined?(BetterErrors)
+require "active_support/core_ext"
 
-# Use VSCode as default editor.
-ENV["BETTER_ERRORS_EDITOR"] = "vscode"
+suppress(LoadError) do
+  require "better_errors"
 
-# Force open links in new tab.
-ENV["BETTER_ERRORS_INSIDE_FRAME"] = "1"
+  # Use VSCode as default editor.
+  ENV["BETTER_ERRORS_EDITOR"] = "vscode"
 
-class BetterErrors::StackFrame
-  module Extension
-    def application?
-      return false unless super
-      root = BetterErrors.application_root
-      root.present? &&
-        !(filename.start_with?("#{root}/lib") && filename.end_with?("_ext.rb"))
+  # Force open links in new tab.
+  ENV["BETTER_ERRORS_INSIDE_FRAME"] = "1"
+
+  class BetterErrors::StackFrame
+    module Extension
+      def application?
+        return false unless super
+        root = BetterErrors.application_root
+        root.present? &&
+          !(filename.start_with?("#{root}/lib") &&
+          filename.end_with?("_ext.rb"))
+      end
     end
+
+    prepend Extension
   end
 
-  prepend Extension
-end
+  class BetterErrors::Middleware
+    extend T::Sig
 
-class BetterErrors::Middleware
-  extend T::Sig
+    private
 
-  private
-
-  sig { params(env: T::Hash[String, T.untyped]).returns(T::Boolean) }
-  def text?(env)
-    (
-      env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest" &&
-        env["HTTP_X_INERTIA"] != "true"
-    ) || env["HTTP_ACCEPT"].exclude?("html")
+    sig { params(env: T::Hash[String, T.untyped]).returns(T::Boolean) }
+    def text?(env)
+      (
+        env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest" &&
+          env["HTTP_X_INERTIA"] != "true"
+      ) || env["HTTP_ACCEPT"].exclude?("html")
+    end
   end
 end

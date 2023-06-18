@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-module GraphQL::Querying
+module Querying
   extend T::Sig
   extend T::Helpers
 
@@ -12,7 +12,7 @@ module GraphQL::Querying
   private
 
   # == Interface
-  sig { abstract.returns(T.nilable(User)) }
+  sig { abstract.returns(T.nilable(T.any(User, Symbol))) }
   def current_user; end
 
   # == Helpers

@@ -1,6 +1,9 @@
 # typed: true
 # frozen_string_literal: true
 
+require "rails"
+require "discordrb"
+
 module Discordrb
   class Logger
     module RailsLogging

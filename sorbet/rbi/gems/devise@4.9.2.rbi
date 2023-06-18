@@ -588,6 +588,7 @@ class ActionDispatch::Routing::RouteSet
 end
 
 class ActiveRecord::Base
+  include ::StoreModel::ParentAssignment
   include ::ActiveModel::ForbiddenAttributesProtection
   include ::ActiveModel::AttributeAssignment
   include ::ActiveModel::Serialization
@@ -2016,6 +2017,7 @@ class Devise::FailureApp < ::ActionController::Metal
   # source://devise//lib/devise/failure_app.rb#195
   def http_auth_header?; end
 
+  sig { params(default: T.untyped).returns(::String) }
   def i18n_message(default = T.unsafe(nil)); end
 
   # source://devise//lib/devise/failure_app.rb#96
@@ -5054,7 +5056,6 @@ module DeviseController::HelperMethods
   include ::ViteRails::TagHelpers
   include ::ActionController::Base::HelperMethods
   include ::DeviseHelper
-  include ::MailerHelper
   include ::ApplicationController::HelperMethods
 
   # def devise_mapping(*args, **_arg1, &block); end

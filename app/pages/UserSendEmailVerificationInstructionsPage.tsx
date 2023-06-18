@@ -1,4 +1,4 @@
-import type { PageComponent, PageProps } from "~/helpers/inertia";
+import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
 import UserSendEmailVerificationInstructionsPageForm from "~/components/UserSendEmailVerificationInstructionsPageForm";
@@ -6,7 +6,7 @@ import UserSendEmailVerificationInstructionsPageForm from "~/components/UserSend
 import type { UserSendEmailVerificationInstructionsPageQuery } from "~/helpers/graphql";
 
 export type UserSendEmailVerificationInstructionsPageProps =
-  PageProps<UserSendEmailVerificationInstructionsPageQuery>;
+  PagePropsWithData<UserSendEmailVerificationInstructionsPageQuery>;
 
 const UserSendEmailVerificationInstructionsPage: PageComponent<
   UserSendEmailVerificationInstructionsPageProps

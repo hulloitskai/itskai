@@ -39,9 +39,6 @@ module GeneratedUrlHelpersModule
   def hangout_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def jen_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def mailcatcher_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -151,6 +148,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def test_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def toronto_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def update_rails_disk_service_url(*args); end

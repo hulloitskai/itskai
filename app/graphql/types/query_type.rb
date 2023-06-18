@@ -17,6 +17,7 @@ module Types
     field :password_strength, resolver: Queries::PasswordStrength
     field :resume, resolver: Queries::Resume
     field :timezone, resolver: Queries::Timezone
+    field :user, resolver: Queries::User
     field :viewer, resolver: Queries::Viewer
 
     field :icloud_credentials, resolver: Queries::ICloudCredentials

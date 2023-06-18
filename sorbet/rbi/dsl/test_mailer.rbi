@@ -7,6 +7,9 @@
 class TestMailer
   class << self
     sig { returns(::ActionMailer::MessageDelivery) }
+    def current_user; end
+
+    sig { returns(::ActionMailer::MessageDelivery) }
     def hello_world_email; end
   end
 end

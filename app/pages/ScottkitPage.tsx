@@ -1,5 +1,5 @@
 import type { FC, ReactNode } from "react";
-import type { PageComponent, PageProps } from "~/helpers/inertia";
+import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Code, Text } from "@mantine/core";
 import LightbulbIcon from "~icons/heroicons/light-bulb-20-solid";
 
@@ -16,10 +16,10 @@ import {
 } from "~/helpers/types/ScottkitSignalType";
 
 import AppMeta from "~/components/AppMeta";
-import BlankLayout from "~/components/BlankLayout";
-import ContentContainer from "~/components/ContentContainer";
+import PageLayout from "~/components/PageLayout";
+import PageContainer from "~/components/PageContainer";
 
-export type ScottkitPageProps = PageProps<ScottkitPageQuery>;
+export type ScottkitPageProps = PagePropsWithData<ScottkitPageQuery>;
 
 const ScottkitPage: PageComponent<ScottkitPageProps> = () => {
   return (
@@ -85,10 +85,10 @@ const ScottkitPage: PageComponent<ScottkitPageProps> = () => {
 };
 
 ScottkitPage.layout = buildLayout<ScottkitPageProps>(page => (
-  <BlankLayout>
+  <PageLayout>
     <AppMeta title="Scottkit" />
-    <ContentContainer withGutter>{page}</ContentContainer>
-  </BlankLayout>
+    <PageContainer withGutter>{page}</PageContainer>
+  </PageLayout>
 ));
 
 export default ScottkitPage;

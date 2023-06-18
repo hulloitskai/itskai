@@ -10,9 +10,7 @@ module Queries
     type Types::UserType, null: true
 
     # == Resolver
-    sig { returns(T.nilable(User)) }
-    def resolve
-      current_user
-    end
+    sig { returns(T.nilable(::User)) }
+    def resolve = active_user
   end
 end

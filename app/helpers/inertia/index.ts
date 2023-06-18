@@ -1,5 +1,2 @@
-export { pagesFromFiles, preparePage } from "./page";
-export type { PageComponent, PageProps, SharedPageProps } from "./page";
-
-export { setupApp } from "./app";
-export type { SetupAppOptions } from "./app";
+export { pagesFromFiles, preparePage, resolvePageType, PageType } from "./page";
+export type { PageComponent, PagePropsWithData, SharedPageProps } from "./page";

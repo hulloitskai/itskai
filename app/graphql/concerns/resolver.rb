@@ -54,14 +54,24 @@ module Resolver
     end
   end
 
-  sig { returns(T.nilable(User)) }
+  sig { returns(T.nilable(T.any(User, Symbol))) }
   def current_user
     context[:current_user]
   end
 
+  sig { returns(T.nilable(User)) }
+  def active_user
+    user = current_user
+    user if user.is_a?(User)
+  end
+
+  sig { returns(T::Boolean) }
+  def system_user?
+    current_user == :system
+  end
+
   sig { returns(User) }
   def current_user!
-    user = current_user
-    user or raise GraphQL::ExecutionError, "Not authenticated."
+    active_user or raise GraphQL::ExecutionError, "Not authenticated."
   end
 end

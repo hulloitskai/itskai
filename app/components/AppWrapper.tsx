@@ -3,20 +3,20 @@ import type { Page } from "@inertiajs/core";
 import type { SharedPageProps } from "~/helpers/inertia";
 
 import AppProgress from "./AppProgress";
-import MantineProvider from "./MantineProvider";
+import AppMantineProvider from "./AppMantineProvider";
 import ApolloProvider from "./ApolloProvider";
 
-export type AppContainerProps = PropsWithChildren<{
+export type AppWrapperProps = PropsWithChildren<{
   readonly initialPage: Page<SharedPageProps>;
 }>;
 
-const AppContainer: FC<AppContainerProps> = ({ initialPage, children }) => (
+const AppWrapper: FC<AppWrapperProps> = ({ initialPage, children }) => (
   <ApolloProvider csrfToken={initialPage.props.csrf.token}>
-    <MantineProvider>
+    <AppMantineProvider>
       {children}
       <AppProgress />
-    </MantineProvider>
+    </AppMantineProvider>
   </ApolloProvider>
 );
 
-export default AppContainer;
+export default AppWrapper;

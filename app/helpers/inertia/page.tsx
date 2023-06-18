@@ -1,9 +1,10 @@
-import type { ReactNode, ComponentType } from "react";
+import type { ReactNode, ComponentType, PropsWithChildren } from "react";
 
 import { usePage as _usePage } from "@inertiajs/react";
-import type { Page, Errors, ErrorBag } from "@inertiajs/core";
+import type { Page, Errors, ErrorBag, PageProps } from "@inertiajs/core";
 
-import BlankLayout from "~/components/BlankLayout";
+import PageLayout from "~/components/PageLayout";
+import EmailLayout from "~/components/EmailLayout";
 
 export const pagesFromFiles = <T,>(
   files: Record<string, T>,
@@ -28,7 +29,7 @@ export type SharedPageProps = {
   readonly flash?: Record<string, string>;
 };
 
-export type PageProps<Data = undefined> = SharedPageProps & {
+export type PagePropsWithData<Data = undefined> = SharedPageProps & {
   readonly data: Data;
 };
 
@@ -37,21 +38,30 @@ export const usePageErrors = (): Errors & ErrorBag => {
   return props.errors;
 };
 
-export const usePage = <
-  PageProps extends Record<string, any>,
->(): Page<PageProps> => {
-  return _usePage() as Page<PageProps>;
+export const usePage = <P extends PageProps>(): Page<P> => {
+  return _usePage() as Page<P>;
 };
 
-export const usePageProps = <
-  PageProps extends Record<string, any>,
->(): PageProps & SharedPageProps => {
-  const { props } = usePage<Page<SharedPageProps & PageProps>>();
-  return omit(props, "errors") as PageProps & SharedPageProps;
+export const usePageProps = <P extends PageProps>(): P & SharedPageProps => {
+  const { props } = usePage<SharedPageProps & P>();
+  return omit(props, "errors") as unknown as P & SharedPageProps;
 };
 
-export const preparePage = <P,>(page: PageComponent<P>): void => {
+export enum PageType {
+  Email = "email",
+  Page = "page",
+}
+
+export const resolvePageType = (name: string): PageType =>
+  name.endsWith("Email") ? PageType.Email : PageType.Page;
+
+export const preparePage = <P extends PageProps>(
+  page: PageComponent<P>,
+  type: PageType,
+): void => {
   if (!page.layout) {
-    page.layout = page => <BlankLayout>{page}</BlankLayout>;
+    const Layout: ComponentType<PropsWithChildren> =
+      type == PageType.Email ? EmailLayout : PageLayout;
+    page.layout = children => <Layout>{children}</Layout>;
   }
 };

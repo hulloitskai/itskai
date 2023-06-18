@@ -37,7 +37,7 @@ export const imports: Array<ImportsMap | PresetName> = [
     "~/helpers/notifications": ["showNotice", "showAlert"],
     "~/helpers/react": ["useMounted"],
     "~/helpers/utils": ["resolve", "formatJSON", "isUrl"],
-    "@apollo/client/index": [
+    "@apollo/client": [
       "useApolloClient",
       "useQuery",
       "useLazyQuery",

@@ -180,6 +180,9 @@ group :development do
   # Detect file changes for live reload
   gem "listen", "~> 3.8"
 
+  # Rerun programs when files change
+  gem "rerun", "~> 0.14.0"
+
   # Debug code with debug
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]

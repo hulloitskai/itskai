@@ -1,11 +1,11 @@
-import type { PageComponent, PageProps } from "~/helpers/inertia";
+import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
 import type { HomePageQuery } from "~/helpers/graphql";
 
 import HomePageJournalEntry from "~/components/HomePageJournalEntry";
 
-export type HomePageProps = PageProps<HomePageQuery>;
+export type HomePageProps = PagePropsWithData<HomePageQuery>;
 
 const HomePage: PageComponent<HomePageProps> = ({ data: { entry } }) => (
   <Stack spacing="xs">

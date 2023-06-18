@@ -1,5 +1,5 @@
 import type { FC, ReactNode } from "react";
-import type { PageComponent, PageProps } from "~/helpers/inertia";
+import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import type { DeepRequired } from "~/helpers/utils";
 import { useContactMe } from "~/helpers/contact";
 
@@ -17,7 +17,7 @@ import type {
   ObsidianNotePageQuery,
 } from "~/helpers/graphql";
 
-export type ObsidianNotePageProps = PageProps<
+export type ObsidianNotePageProps = PagePropsWithData<
   DeepRequired<ObsidianNotePageQuery, ["note"]>
 >;
 
