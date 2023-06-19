@@ -20,7 +20,7 @@ module Users
 
     # GET /<resource>/verification/resend
     def new
-      render(inertia: "UserSendEmailVerificationInstructionsPage")
+      render(inertia: "UserRequestEmailVerificationPage")
     end
   end
 end

@@ -5,7 +5,7 @@ import type { ButtonProps } from "@mantine/core";
 
 import {
   UpdateUserEmailMutationDocument,
-  SendUserEmailVerificationInstructionsMutationDocument,
+  RequestUserEmailVerificationMutationDocument,
 } from "~/helpers/graphql";
 import type { UserSettingsPageViewerFragment } from "~/helpers/graphql";
 
@@ -177,7 +177,7 @@ const ResendEmailVerificationInstructionsButton: FC<
     "Failed to re-send verification email",
   );
   const [runMutation, { loading }] = useMutation(
-    SendUserEmailVerificationInstructionsMutationDocument,
+    RequestUserEmailVerificationMutationDocument,
     {
       onCompleted: () => {
         showNotice({

@@ -1,21 +1,21 @@
 import type { FC } from "react";
 
-import { SendUserPasswordResetInstructionsMutationDocument } from "~/helpers/graphql";
+import { RequestUserPasswordResetMutationDocument } from "~/helpers/graphql";
 
-export type UserSendPasswordResetInstructionsPageFormValues = {
+export type UserRequestPasswordResetPageFormValues = {
   readonly email: string;
 };
 
-export type UserSendPasswordResetInstructionsPageFormProps = {};
+export type UserRequestPasswordResetPageFormProps = {};
 
-const UserSendPasswordResetInstructionsPageForm: FC<
-  UserSendPasswordResetInstructionsPageFormProps
+const UserRequestPasswordResetPageForm: FC<
+  UserRequestPasswordResetPageFormProps
 > = () => {
   const router = useRouter();
 
   // == Form
   const { getInputProps, onSubmit } =
-    useForm<UserSendPasswordResetInstructionsPageFormValues>({
+    useForm<UserRequestPasswordResetPageFormValues>({
       initialValues: {
         email: "",
       },
@@ -24,7 +24,7 @@ const UserSendPasswordResetInstructionsPageForm: FC<
   // == Mutation
   const onError = useApolloAlertCallback("Failed to send password reset email");
   const [runMutation, { loading }] = useMutation(
-    SendUserPasswordResetInstructionsMutationDocument,
+    RequestUserPasswordResetMutationDocument,
     {
       onCompleted: () => {
         router.visit("/login", {
@@ -70,4 +70,4 @@ const UserSendPasswordResetInstructionsPageForm: FC<
   );
 };
 
-export default UserSendPasswordResetInstructionsPageForm;
+export default UserRequestPasswordResetPageForm;

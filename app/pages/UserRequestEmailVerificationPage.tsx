@@ -1,28 +1,28 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
-import UserSendPasswordResetInstructionsPageForm from "~/components/UserSendPasswordResetInstructionsPageForm";
+import UserRequestEmailVerificationPageForm from "~/components/UserRequestEmailVerificationPageForm";
 
-import type { UserSendPasswordResetInstructionsPageQuery } from "~/helpers/graphql";
+import type { UserRequestEmailVerificationPageQuery } from "~/helpers/graphql";
 
-export type UserSendPasswordResetInstructionsPageProps =
-  PagePropsWithData<UserSendPasswordResetInstructionsPageQuery>;
+export type UserRequestEmailVerificationPageProps =
+  PagePropsWithData<UserRequestEmailVerificationPageQuery>;
 
-const UserSendPasswordResetInstructionsPage: PageComponent<
-  UserSendPasswordResetInstructionsPageProps
+const UserRequestEmailVerificationPage: PageComponent<
+  UserRequestEmailVerificationPageProps
 > = () => (
   <Card w={380} radius="md" withBorder>
     <Stack spacing="xs">
       <Stack spacing={4}>
         <Title size="h3" align="center">
-          Reset your password
+          Re-send verification email
         </Title>
         <Text size="sm" color="dimmed" sx={{ lineHeight: 1.4 }}>
           Enter the email address associated with your account and we&apos;ll
-          send you a link to reset your password.
+          send you a link to verify your account.
         </Text>
       </Stack>
-      <UserSendPasswordResetInstructionsPageForm />
+      <UserRequestEmailVerificationPageForm />
       <Divider />
       <Stack spacing={0} fz="xs">
         <Text color="gray.6">
@@ -34,16 +34,16 @@ const UserSendPasswordResetInstructionsPage: PageComponent<
             Sign Up
           </Anchor>
         </Text>
-        <Anchor component={Link} href="/user/verification/resend">
-          Didn&apos;t get a verification email?
+        <Anchor component={Link} href="/user/password/reset">
+          Forgot your password?
         </Anchor>
       </Stack>
     </Stack>
   </Card>
 );
 
-UserSendPasswordResetInstructionsPage.layout =
-  buildLayout<UserSendPasswordResetInstructionsPageProps>(
+UserRequestEmailVerificationPage.layout =
+  buildLayout<UserRequestEmailVerificationPageProps>(
     (page, { data: { viewer } }) => (
       <AppLayout title="Sign In" {...{ viewer }}>
         <Center h="100%">{page}</Center>
@@ -51,4 +51,4 @@ UserSendPasswordResetInstructionsPage.layout =
     ),
   );
 
-export default UserSendPasswordResetInstructionsPage;
+export default UserRequestEmailVerificationPage;

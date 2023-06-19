@@ -1,7 +1,0 @@
-mutation SendUserEmailVerificationInstructionsMutation(
-  $input: SendUserEmailVerificationInstructionsInput!
-) {
-  payload: sendUserEmailVerificationInstructions(input: $input) {
-    success
-  }
-}

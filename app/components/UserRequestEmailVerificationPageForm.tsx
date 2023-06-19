@@ -1,21 +1,21 @@
 import type { FC } from "react";
 
-import { SendUserEmailVerificationInstructionsMutationDocument } from "~/helpers/graphql";
+import { RequestUserEmailVerificationMutationDocument } from "~/helpers/graphql";
 
-export type UserSendEmailVerificationInstructionsPageFormValues = {
+export type UserRequestEmailVerificationPageFormValues = {
   readonly email: string;
 };
 
-export type UserSendEmailVerificationInstructionsPageFormProps = {};
+export type UserRequestEmailVerificationPageFormProps = {};
 
-const UserSendEmailVerificationInstructionsPageForm: FC<
-  UserSendEmailVerificationInstructionsPageFormProps
+const UserRequestEmailVerificationPageForm: FC<
+  UserRequestEmailVerificationPageFormProps
 > = () => {
   const router = useRouter();
 
   // == Form
   const { getInputProps, onSubmit } =
-    useForm<UserSendEmailVerificationInstructionsPageFormValues>({
+    useForm<UserRequestEmailVerificationPageFormValues>({
       initialValues: {
         email: "",
       },
@@ -24,7 +24,7 @@ const UserSendEmailVerificationInstructionsPageForm: FC<
   // == Mutation
   const onError = useApolloAlertCallback("Failed to resend verification email");
   const [runMutation, { loading }] = useMutation(
-    SendUserEmailVerificationInstructionsMutationDocument,
+    RequestUserEmailVerificationMutationDocument,
     {
       onCompleted: () => {
         router.visit("/login", {
@@ -70,4 +70,4 @@ const UserSendEmailVerificationInstructionsPageForm: FC<
   );
 };
 
-export default UserSendEmailVerificationInstructionsPageForm;
+export default UserRequestEmailVerificationPageForm;

@@ -11,12 +11,14 @@ module Types
     field :test_echo, resolver: Queries::TestEcho
 
     field :activity_status, resolver: Queries::ActivityStatus
-    field :contact_email, resolver: Queries::ContactEmail
     field :currently_playing, resolver: Queries::CurrentlyPlaying
     field :image_by_signed_id, resolver: Queries::ImageBySignedId
     field :password_strength, resolver: Queries::PasswordStrength
+
+    field :contact_email, resolver: Queries::ContactEmail
     field :resume, resolver: Queries::Resume
     field :timezone, resolver: Queries::Timezone
+
     field :user, resolver: Queries::User
     field :viewer, resolver: Queries::Viewer
 

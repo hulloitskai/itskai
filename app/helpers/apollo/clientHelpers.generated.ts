@@ -53,7 +53,7 @@ export type JournalEntryFieldPolicy = {
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'importCookies' | 'importJournalEntries' | 'importObsidianNotes' | 'removeICloudCredentials' | 'removeSpotifyCredentials' | 'sendUserEmailVerificationInstructions' | 'sendUserPasswordResetInstructions' | 'testMutation' | 'updateICloudCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'importCookies' | 'importJournalEntries' | 'importObsidianNotes' | 'removeICloudCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'testMutation' | 'updateICloudCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -62,8 +62,8 @@ export type MutationFieldPolicy = {
 	importObsidianNotes?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeSpotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
-	sendUserEmailVerificationInstructions?: FieldPolicy<any> | FieldReadFunction<any>,
-	sendUserPasswordResetInstructions?: FieldPolicy<any> | FieldReadFunction<any>,
+	requestUserEmailVerification?: FieldPolicy<any> | FieldReadFunction<any>,
+	requestUserPasswordReset?: FieldPolicy<any> | FieldReadFunction<any>,
 	testMutation?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateUserEmail?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -174,13 +174,13 @@ export type RemoveSpotifyCredentialsPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type SendUserEmailVerificationInstructionsPayloadKeySpecifier = ('clientMutationId' | 'success' | SendUserEmailVerificationInstructionsPayloadKeySpecifier)[];
-export type SendUserEmailVerificationInstructionsPayloadFieldPolicy = {
+export type RequestUserEmailVerificationPayloadKeySpecifier = ('clientMutationId' | 'success' | RequestUserEmailVerificationPayloadKeySpecifier)[];
+export type RequestUserEmailVerificationPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type SendUserPasswordResetInstructionsPayloadKeySpecifier = ('clientMutationId' | 'success' | SendUserPasswordResetInstructionsPayloadKeySpecifier)[];
-export type SendUserPasswordResetInstructionsPayloadFieldPolicy = {
+export type RequestUserPasswordResetPayloadKeySpecifier = ('clientMutationId' | 'success' | RequestUserPasswordResetPayloadKeySpecifier)[];
+export type RequestUserPasswordResetPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -369,13 +369,13 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | RemoveSpotifyCredentialsPayloadKeySpecifier | (() => undefined | RemoveSpotifyCredentialsPayloadKeySpecifier),
 		fields?: RemoveSpotifyCredentialsPayloadFieldPolicy,
 	},
-	SendUserEmailVerificationInstructionsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | SendUserEmailVerificationInstructionsPayloadKeySpecifier | (() => undefined | SendUserEmailVerificationInstructionsPayloadKeySpecifier),
-		fields?: SendUserEmailVerificationInstructionsPayloadFieldPolicy,
+	RequestUserEmailVerificationPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | RequestUserEmailVerificationPayloadKeySpecifier | (() => undefined | RequestUserEmailVerificationPayloadKeySpecifier),
+		fields?: RequestUserEmailVerificationPayloadFieldPolicy,
 	},
-	SendUserPasswordResetInstructionsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | SendUserPasswordResetInstructionsPayloadKeySpecifier | (() => undefined | SendUserPasswordResetInstructionsPayloadKeySpecifier),
-		fields?: SendUserPasswordResetInstructionsPayloadFieldPolicy,
+	RequestUserPasswordResetPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | RequestUserPasswordResetPayloadKeySpecifier | (() => undefined | RequestUserPasswordResetPayloadKeySpecifier),
+		fields?: RequestUserPasswordResetPayloadFieldPolicy,
 	},
 	SpotifyAlbum?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SpotifyAlbumKeySpecifier | (() => undefined | SpotifyAlbumKeySpecifier),

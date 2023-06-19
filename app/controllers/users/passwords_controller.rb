@@ -6,7 +6,7 @@ module Users
     # == Actions
     # GET /<resource>/password/reset
     def new
-      render(inertia: "UserSendPasswordResetInstructionsPage")
+      render(inertia: "UserRequestPasswordResetPage")
     end
 
     # GET /<resource>/password/change?reset_password_token=abcdef
