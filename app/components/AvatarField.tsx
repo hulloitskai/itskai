@@ -116,6 +116,10 @@ const AvatarField: FC<AvatarFieldProps> = ({
               figure: {
                 transform: "scale(1.02)",
               },
+              placeholder: {
+                borderRadius: "100%",
+                overflow: "hidden",
+              },
             }}
             {...{ src }}
           />
