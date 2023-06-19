@@ -11,7 +11,7 @@ declare module "@mantine/core" {
   }
 }
 
-export const theme: MantineThemeOverride = {
+export const APP_THEME: MantineThemeOverride = {
   colorScheme: "dark",
   colors: {
     brand: DEFAULT_THEME.colors.pink,
@@ -47,8 +47,8 @@ export const theme: MantineThemeOverride = {
   },
 };
 
-export const emailTheme: MantineThemeOverride = {
-  ...theme,
+export const EMAIL_THEME: MantineThemeOverride = {
+  ...APP_THEME,
   colorScheme: "light",
   globalStyles: () => ({
     body: {

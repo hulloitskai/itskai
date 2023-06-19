@@ -1,7 +1,7 @@
 import type { FC, PropsWithChildren } from "react";
 
 import { MantineProvider as MantineProvider } from "@mantine/core";
-import { theme } from "~/helpers/mantine";
+import { APP_THEME } from "~/helpers/mantine";
 
 export type AppMantineProviderProps = PropsWithChildren;
 
@@ -10,7 +10,7 @@ const AppMantineProvider: FC<AppMantineProviderProps> = ({ children }) => (
     withNormalizeCSS
     withGlobalStyles
     withCSSVariables
-    {...{ theme }}
+    theme={APP_THEME}
   >
     {children}
   </MantineProvider>
