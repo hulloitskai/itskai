@@ -85,6 +85,7 @@ class User < ApplicationRecord
          :confirmable,
          :trackable,
          :omniauthable,
+         :async_notifiable,
          reconfirmable: true
 
   self.filter_attributes += %i[
