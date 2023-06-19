@@ -50,10 +50,11 @@ export const APP_THEME: MantineThemeOverride = {
 export const EMAIL_THEME: MantineThemeOverride = {
   ...APP_THEME,
   colorScheme: "light",
-  globalStyles: () => ({
+  globalStyles: ({ white }) => ({
     body: {
       margin: 8,
       fontSize: 14,
+      backgroundColor: white,
     },
   }),
 };
