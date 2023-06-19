@@ -23,6 +23,16 @@ module Devise::Models
     # == Helpers
     sig { params(notification: Symbol, args: T.untyped).void }
     def send_devise_notification(notification, *args)
+      if new_record? || saved_changes?
+        pending_devise_notifications << [notification, args]
+      else
+        model = T.unsafe(self)
+        model.send_devise_notification_later(notification, *args)
+      end
+    end
+
+    sig { params(notification: Symbol, args: T.untyped).void }
+    def send_devise_notification_later(notification, *args)
       message = devise_mailer.send(notification, self, *args)
       message.deliver_later
     end
@@ -30,24 +40,21 @@ module Devise::Models
     private
 
     # == Helpers
-    sig { returns(T::Array[Symbol]) }
+    sig { returns(T::Array[[Symbol, T::Array[T.untyped]]]) }
     def pending_devise_notifications
-      @pending_devise_notifications = T.let(@pending_devise_notifications,
-                                            T.nilable(T::Array[Symbol]))
+      @pending_devise_notifications = T.let(
+        @pending_devise_notifications,
+        T.nilable(T::Array[[Symbol, T::Array[T.untyped]]]),
+      )
       @pending_devise_notifications ||= []
-    end
-
-    sig { params(notification: Symbol, args: T.untyped).void }
-    def render_and_send_devise_message(notification, *args)
-      message = devise_mailer.send(notification, self, *args)
-      message.deliver_later
     end
 
     # == Callbacks
     sig { void }
     def send_pending_devise_notifications
       pending_devise_notifications.each do |notification, args|
-        render_and_send_devise_message(notification, *args)
+        model = T.unsafe(self)
+        model.send_devise_notification_later(notification, *args)
       end
       pending_devise_notifications.clear
     end
