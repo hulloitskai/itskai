@@ -117,7 +117,7 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
             loading={mutating}
             onClick={createComment}
           >
-            <Box component={SendIcon} w={16} h={16} />
+            <Box component={SendIcon} fz={12} />
           </ActionIcon>
         }
         radius="xl"
