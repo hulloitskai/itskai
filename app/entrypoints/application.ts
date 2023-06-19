@@ -1,8 +1,8 @@
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";
 
-import { pagesFromFiles, preparePage, PageType } from "~/helpers/inertia";
-import { setupApp } from "~/helpers/inertia/app/client";
+import { pagesFromFiles } from "~/helpers/inertia";
+import { preparePage, setupApp } from "~/helpers/inertia/client";
 import type { PageComponent, SharedPageProps } from "~/helpers/inertia";
 
 import { setupActiveStorage } from "~/helpers/activestorage";
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!component) {
         throw new Error(`Missing default export for page '${name}'`);
       }
-      preparePage(component, PageType.Page);
+      preparePage(component);
       return component;
     },
     setup: ({ el, App, props }) => {

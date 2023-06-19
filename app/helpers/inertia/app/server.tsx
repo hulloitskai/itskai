@@ -2,8 +2,8 @@ import type { ReactElement } from "react";
 import AppWrapper from "~/components/AppWrapper";
 import EmailWrapper from "~/components/EmailWrapper";
 
-import { SetupAppOptions } from "~/helpers/inertia/app";
 import { PageType, resolvePageType } from "~/helpers/inertia/page";
+import type { SetupAppOptions } from "~/helpers/inertia/app";
 
 export const setupApp = ({ App, props }: SetupAppOptions): ReactElement => {
   const { initialPage } = props;

@@ -1,10 +1,7 @@
-import type { ReactNode, ComponentType, PropsWithChildren } from "react";
+import type { ReactNode, ComponentType } from "react";
 
 import { usePage as _usePage } from "@inertiajs/react";
 import type { Page, Errors, ErrorBag, PageProps } from "@inertiajs/core";
-
-import PageLayout from "~/components/PageLayout";
-import EmailLayout from "~/components/EmailLayout";
 
 export const pagesFromFiles = <T,>(
   files: Record<string, T>,
@@ -54,14 +51,3 @@ export enum PageType {
 
 export const resolvePageType = (name: string): PageType =>
   name.endsWith("Email") ? PageType.Email : PageType.Page;
-
-export const preparePage = <P extends PageProps>(
-  page: PageComponent<P>,
-  type: PageType,
-): void => {
-  if (!page.layout) {
-    const Layout: ComponentType<PropsWithChildren> =
-      type == PageType.Email ? EmailLayout : PageLayout;
-    page.layout = children => <Layout>{children}</Layout>;
-  }
-};
