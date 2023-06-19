@@ -1,4 +1,4 @@
-query UserConfirmationEmailQuery($userId: ID!) {
+query UserEmailChangedEmailQuery($userId: ID!) {
   user(id: $userId) {
     id
     name

@@ -43,10 +43,10 @@ module InertiaRails
     sig do
       params(
         component: String,
-        props: T.nilable(T::Hash[T.any(Symbol, String), T.untyped]),
+        props: T::Hash[T.any(Symbol, String), T.untyped],
       ).returns(T.untyped)
     end
-    def inertia_render(component, props:)
+    def inertia_render(component, props: {})
       raise "SSR must be enabled" unless InertiaRails.ssr_enabled?
       begin
         HTTParty.head(InertiaRails.ssr_url)

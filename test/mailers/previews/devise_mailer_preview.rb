@@ -26,10 +26,10 @@ class DeviseMailerPreview < ActionMailer::Preview
     Devise::Mailer.reset_password_instructions(record, token)
   end
 
-  def unlock_instructions
-    token = SecureRandom.hex
-    Devise::Mailer.unlock_instructions(record, token)
-  end
+  # def unlock_instructions
+  #   token = SecureRandom.hex
+  #   Devise::Mailer.unlock_instructions(record, token)
+  # end
 
   private
 

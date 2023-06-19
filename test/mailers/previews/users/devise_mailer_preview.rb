@@ -27,10 +27,10 @@ module Users
       Users::DeviseMailer.reset_password_instructions(record, token)
     end
 
-    def unlock_instructions
-      token = SecureRandom.hex
-      Users::DeviseMailer.unlock_instructions(record, token)
-    end
+    # def unlock_instructions
+    #   token = SecureRandom.hex
+    #   Users::DeviseMailer.unlock_instructions(record, token)
+    # end
 
     private
 

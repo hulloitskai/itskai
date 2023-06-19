@@ -69,6 +69,12 @@ class User < ApplicationRecord
             },
             allow_nil: true
 
+  # == Emails
+  sig { void }
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver_later
+  end
+
   # == Devise
   # Others modules are: :lockable, :timeoutable, and :omniauthable.
   devise :database_authenticatable,
@@ -131,5 +137,14 @@ class User < ApplicationRecord
   sig { returns(T::Hash[String, T.untyped]) }
   def fullstory_identity
     { "uid" => id, "email" => email, "displayName" => name }
+  end
+
+  protected
+
+  # == Callback Handlers
+  sig { void }
+  def after_confirmation
+    super
+    send_welcome_email
   end
 end

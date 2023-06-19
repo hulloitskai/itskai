@@ -3,28 +3,29 @@ import { Button, Text, Link } from "@react-email/components";
 
 import EmailLayout from "~/components/EmailLayout";
 
-import type { UserConfirmationEmailQuery } from "~/helpers/graphql";
+import type { UserEmailVerificationEmailQuery } from "~/helpers/graphql";
 import type { DeepRequired } from "~/helpers/utils";
 
-export type UserConfirmationEmailProps = PagePropsWithData<
-  DeepRequired<UserConfirmationEmailQuery, ["user"]>
+export type UserEmailVerificationEmailProps = PagePropsWithData<
+  DeepRequired<UserEmailVerificationEmailQuery, ["user"]>
 > & {
-  readonly confirmationUrl: string;
+  readonly verificationUrl: string;
 };
 
-const UserConfirmationEmail: PageComponent<UserConfirmationEmailProps> = ({
+const UserVerificationEmail: PageComponent<UserEmailVerificationEmailProps> = ({
   data: { user },
-  confirmationUrl,
+  verificationUrl,
 }) => {
+  const { name } = user;
   return (
     <>
-      <Text>Hi, {user.name}!</Text>
+      <Text>Hi, {name}!</Text>
       <Text style={{ marginBottom: 10 }}>
         To verify your email address, please click the button below:
       </Text>
       <Box
         component={Button}
-        href={confirmationUrl}
+        href={verificationUrl}
         target="_blank"
         pX={20}
         pY={10}
@@ -35,20 +36,20 @@ const UserConfirmationEmail: PageComponent<UserConfirmationEmailProps> = ({
           borderRadius: radius.sm,
         })}
       >
-        Verify
+        Verify Email
       </Box>
       <Text style={{ marginBottom: 6 }}>
         Or copy and paste this URL into a new tab of your browser:
       </Text>
-      <Link href={confirmationUrl} target="_blank">
-        {confirmationUrl}
+      <Link href={verificationUrl} target="_blank">
+        {verificationUrl}
       </Link>
     </>
   );
 };
 
-UserConfirmationEmail.layout = buildLayout<UserConfirmationEmailProps>(page => (
-  <EmailLayout header="Verify Your Email">{page}</EmailLayout>
-));
+UserVerificationEmail.layout = buildLayout<UserEmailVerificationEmailProps>(
+  page => <EmailLayout header="Verify Email">{page}</EmailLayout>,
+);
 
-export default UserConfirmationEmail;
+export default UserVerificationEmail;

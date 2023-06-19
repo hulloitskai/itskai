@@ -10,6 +10,6 @@ class UserMailer
     def current_user; end
 
     sig { params(user: ::User).returns(::ActionMailer::MessageDelivery) }
-    def welcome_email(user:); end
+    def welcome_email(user); end
   end
 end
