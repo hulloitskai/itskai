@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import usePrevious from "react-use/lib/usePrevious";
 import { Dropzone } from "@mantine/dropzone";
 import PhotoIcon from "~icons/heroicons/photo-20-solid";
 
@@ -6,10 +7,9 @@ import { Image, Input, Text } from "@mantine/core";
 import type { InputWrapperProps } from "@mantine/core";
 
 import { AvatarFieldQueryDocument } from "~/helpers/graphql";
-import type { ImageInput, Maybe } from "~/helpers/graphql";
 import type { AvatarFieldQueryVariables } from "~/helpers/graphql";
+import type { ImageInput, Maybe } from "~/helpers/graphql";
 
-import { usePrevious } from "~/helpers/hooks";
 import { uploadFile } from "~/helpers/activestorage";
 
 const AVATAR_FIELD_IMAGE_SIZE = 140;

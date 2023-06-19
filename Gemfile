@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.4"
+gem "rails", "~> 7.0.5"
 
 # JSON-backed, nestable models
 gem "store_model", "~> 1.6"
@@ -49,7 +49,7 @@ gem "image_processing", "~> 1.12"
 gem "ruby-vips", "~> 2.1", require: false
 
 # Use S3 as the backend for Active Storage
-gem "aws-sdk-s3", "~> 1.117", require: false
+gem "aws-sdk-s3", "~> 1.126", require: false
 
 # Use Good Job as the backend for Active Job
 gem "good_job", "~> 3.15"
@@ -189,7 +189,7 @@ group :development do
 
   # Typecheck code
   gem "sorbet", "0.5.10794", require: false
-  gem "tapioca", "~> 0.11.5", require: false
+  gem "tapioca", "~> 0.11.6", require: false
 
   # Use Rubocop to lint code
   #
