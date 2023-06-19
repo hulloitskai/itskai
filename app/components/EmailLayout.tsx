@@ -42,7 +42,7 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
           {children}
         </Box>
         <Box component={Section} mt={40}>
-          <Img src="/logo.png" width="32" height="32" alt="Logo" />
+          <Img src="/logo.png" width="32" height="32" />
           <Box
             component={Text}
             sx={({ fn }) => ({ color: fn.dimmed() })}
