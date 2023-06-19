@@ -146,6 +146,6 @@ class User < ApplicationRecord
   sig { void }
   def after_confirmation
     super
-    send_welcome_email
+    send_welcome_email if confirmed_at_previously_was.nil?
   end
 end
