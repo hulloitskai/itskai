@@ -1,5 +1,4 @@
 import type { FC } from "react";
-import usePrevious from "react-use/lib/usePrevious";
 import { Dropzone } from "@mantine/dropzone";
 import PhotoIcon from "~icons/heroicons/photo-20-solid";
 

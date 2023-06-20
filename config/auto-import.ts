@@ -27,7 +27,6 @@ export const imports: Array<ImportsMap | PresetName> = [
     ],
     "~/helpers/apollo/preloading": ["usePreloadedQuery"],
     "~/helpers/apollo/errors": ["formatApolloError", "useApolloAlertCallback"],
-    "~/helpers/errors": ["formatError"],
     "~/helpers/form": ["parseFormErrors", "showFormErrorsAlert"],
     "~/helpers/inertia/layout": ["buildLayout"],
     "~/helpers/inertia/page": ["usePage", "usePageErrors", "usePageProps"],
@@ -36,7 +35,13 @@ export const imports: Array<ImportsMap | PresetName> = [
     "~/helpers/meta": ["getMeta", "requireMeta"],
     "~/helpers/notifications": ["showNotice", "showAlert"],
     "~/helpers/react": ["useMounted"],
-    "~/helpers/utils": ["resolve", "formatJSON", "isUrl"],
+    "~/helpers/utils": [
+      "resolve",
+      "formatJSON",
+      "formatError",
+      "isUrl",
+      "usePrevious",
+    ],
     "@apollo/client": [
       "useApolloClient",
       "useQuery",
