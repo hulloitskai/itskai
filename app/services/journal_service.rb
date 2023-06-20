@@ -107,21 +107,12 @@ class JournalService < ApplicationService
     client.page(page_id:)
   end
 
-  sig do
-    params(page_id: String, cached: T::Boolean).returns(T::Array[T.untyped])
-  end
-  def retrieve_blocks(page_id, cached: !Rails.env.development?)
-    if cached
-      Rails.cache.fetch(
-        "journal/blocks:#{page_id}",
-        expires_in: 10.minutes,
-        race_condition_ttl: 10.seconds,
-      ) do
-        retrieve_blocks_uncached(page_id)
-      end
-    else
-      retrieve_blocks_uncached(page_id)
-    end
+  sig { params(page_id: String).returns(T::Array[T.untyped]) }
+  def retrieve_blocks(page_id)
+    page = retrieve_page(page_id)
+    redactor = Redactor.new(page)
+    message = client.block_children(block_id: page_id)
+    message.results.tap { |blocks| redactor.redact_blocks!(blocks) }
   end
 
   sig { params(page_id: String, text: String).returns(T.untyped) }
@@ -148,13 +139,5 @@ class JournalService < ApplicationService
   sig { returns(String) }
   def database_id
     T.must(self.class.database_id)
-  end
-
-  sig { params(page_id: String).returns(T::Array[T.untyped]) }
-  def retrieve_blocks_uncached(page_id)
-    page = retrieve_page(page_id)
-    redactor = Redactor.new(page)
-    message = client.block_children(block_id: page_id)
-    message.results.tap { |blocks| redactor.redact_blocks!(blocks) }
   end
 end

@@ -2,6 +2,6 @@ docker: docker compose up postgres mailcatcher > /dev/null
 postgres: docker compose logs -f --no-log-prefix postgres
 mailcatcher: docker compose logs -f --no-log-prefix mailcatcher
 vite-dev: bin/vite dev
-vite-build_ssr: bin/vite build --ssr -m dev --watch
-vite-ssr: bundle exec rerun --dir dist --quiet bin/vite ssr
+vite-build_ssr: bin/vite build --ssr -m dev --watch --force
+vite-ssr: bundle exec rerun -p ./dist/**/*.js -q -- bin/vite ssr
 rails: bin/rails server

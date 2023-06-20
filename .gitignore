@@ -6,6 +6,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# == Vite
+vite.config.ts.timestamp-*.mjs
+
 # == Vite Ruby
 /dist/
 /public/dist*
