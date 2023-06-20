@@ -1357,17 +1357,17 @@
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.5.tgz#b32366c89b43c6f8cefbdefac778b9c828e3ba8c"
   integrity sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==
 
-"@iconify-json/feather@^1.1.2":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@iconify-json/feather/-/feather-1.1.4.tgz#f1698b11f6ee5d3efe4022b8a28661986a1134b9"
-  integrity sha512-hXUt81nvCzKiPoyGPQP2gt0X7/IjjrCiGlJB5LH9qh8hR7CsVzT4Qumvb0nE9hmQ69FupLg+NaTqvNq3K4ICqg==
-  dependencies:
-    "@iconify/types" "*"
-
-"@iconify-json/heroicons@^1.1.4":
+"@iconify-json/heroicons@^1.1.11":
   version "1.1.11"
   resolved "https://registry.yarnpkg.com/@iconify-json/heroicons/-/heroicons-1.1.11.tgz#46a426c8bf4883d9dcf0af5f2dd9e77fc1754be6"
   integrity sha512-Autw98FvUTmBCgb4CuKZ7iQQ2633YBCmcCbAbVNU9hAo6vms9uVcbtrAQt/qlB+qzNi52PV3DWDiRtJgmPeZIw==
+  dependencies:
+    "@iconify/types" "*"
+
+"@iconify-json/lucide@^1.1.102":
+  version "1.1.102"
+  resolved "https://registry.yarnpkg.com/@iconify-json/lucide/-/lucide-1.1.102.tgz#08e7a64bb2178df43e37b510bf214b9e1d40d43c"
+  integrity sha512-B/elOdrHKfRPSk3nzvH6zI2JJP9OXSEhpC0CRdYOrf9/Ukk5EBrw/7z6PgYqCzavRhdB6cGCI+lXa05BAOZ9gw==
   dependencies:
     "@iconify/types" "*"
 

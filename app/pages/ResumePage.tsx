@@ -1,14 +1,13 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { MantineProvider, Text } from "@mantine/core";
+import EnvelopeIcon from "~icons/heroicons/envelope-20-solid";
+import GithubIcon from "~icons/lucide/github";
 
 import ResumeLayout from "~/components/ResumeLayout";
 import ResumeEducationSection from "~/components/ResumeEducationSection";
 import ResumeSkillsSection from "~/components/ResumeSkillsSection";
 import ResumeWorkSection from "~/components/ResumeWorkSection";
 import ResumePDFDownloadButton from "~/components/ResumePDFDownloadButton";
-
-import EnvelopeIcon from "~icons/heroicons/envelope-20-solid";
-import GithubIcon from "~icons/feather/github";
 
 import type { ResumePageQuery } from "~/helpers/graphql";
 
