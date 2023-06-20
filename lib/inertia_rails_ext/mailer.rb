@@ -47,13 +47,8 @@ module InertiaRails
       ).returns(T.untyped)
     end
     def inertia_render(component, props: {})
-      raise "SSR must be enabled" unless InertiaRails.ssr_enabled?
-      begin
-        HTTParty.head(InertiaRails.ssr_url)
-      rescue Errno::ECONNREFUSED
-        sleep(0.5)
-        retry
-      end
+      raise "Inertia SSR must be enabled" unless InertiaRails.ssr_enabled?
+      wait_for_inertia_ssr_ready
       request = ActionDispatch::Request.new({ "ORIGINAL_FULLPATH" => "/" })
       response = ActionDispatch::Response.new
       renderer = InertiaRails::Renderer.new(
@@ -66,6 +61,22 @@ module InertiaRails
         view_data: nil,
       )
       renderer.render
+    end
+
+    sig { void }
+    def wait_for_inertia_ssr_ready
+      attempts = 0
+      begin
+        attempts += 1
+        HTTParty.head(InertiaRails.ssr_url)
+      rescue Errno::ECONNREFUSED
+        sleep(1)
+        if attempts < 3
+          retry
+        else
+          raise "Inertia SSR server cannot be reached"
+        end
+      end
     end
 
     sig { returns(String) }
