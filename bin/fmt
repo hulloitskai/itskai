@@ -11,7 +11,7 @@ def scoped(&block) = yield
 # == Dependencies
 system("bundle", "install", "--quiet") ||
   abort("Failed to install Ruby dependencies")
-system("yarn", "install", "--silent") ||
+system("bin/yarn", "install", "--silent") ||
   abort("Failed to install Node dependencies")
 
 # == Options
@@ -32,7 +32,7 @@ scoped do
   args = []
   args << (options[:fix] ? "--write" : "--check")
   args << "."
-  system! "yarn", "--silent", "prettier", *args
+  system! "bin/yarn", "--silent", "prettier", *args
 end
 
 puts "\n=> Runnning Rubocop"
@@ -44,5 +44,5 @@ scoped do
     args << "--only"
     args << "Layout"
   end
-  system! "bundle", "exec", "rubocop", *args
+  system! "bin/rubocop", *args
 end

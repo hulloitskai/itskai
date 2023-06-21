@@ -3,6 +3,7 @@ import { Text } from "@mantine/core";
 
 import type { HomePageQuery } from "~/helpers/graphql";
 
+import ContactLink from "~/components/ContactLink";
 import HomePageJournalEntry from "~/components/HomePageJournalEntry";
 
 export type HomePageProps = PagePropsWithData<HomePageQuery>;
@@ -10,8 +11,8 @@ export type HomePageProps = PagePropsWithData<HomePageQuery>;
 const HomePage: PageComponent<HomePageProps> = ({ data: { entry } }) => (
   <Stack spacing="xs">
     <Space h="xs" />
-    <Center h={240}>
-      <Stack spacing="xs" align="center">
+    <Center h={275}>
+      <Stack align="center">
         <Title color="white">hi, it&apos;s kai</Title>
         <Text color="gray.6" align="center" maw={400}>
           welcome to my little corner of the internet :)
@@ -26,6 +27,10 @@ const HomePage: PageComponent<HomePageProps> = ({ data: { entry } }) => (
             do something together
           </Anchor>
           !
+        </Text>
+        <Text size="xs" opacity={0.7}>
+          (and also feel free to <ContactLink>hit me up anytime</ContactLink> &
+          let me know what&apos;s on your mind!)
         </Text>
       </Stack>
     </Center>

@@ -11,7 +11,7 @@ def scoped(&block) = yield
 # == Dependencies
 system("bundle", "install", "--quiet") ||
   abort("Failed to install Ruby dependencies")
-system("yarn", "install", "--silent") ||
+system("bin/yarn", "install", "--silent") ||
   abort("Failed to install Node dependencies")
 
 # == Options
@@ -31,7 +31,7 @@ puts "=> Running Rubocop"
 scoped do
   args = []
   args << "--autocorrect" if options[:fix]
-  system! "bundle", "exec", "rubocop", "--except", "Layout", *args
+  system! "bin/rubocop", "--except", "Layout", *args
 end
 
 puts "\n=> Running Eslint"
@@ -40,15 +40,15 @@ scoped do
   args << "--fix" if options[:fix]
   args << "."
   system!(
-    "yarn", "--silent",
+    "bin/yarn", "--silent",
     "eslint", "--cache", "--report-unused-disable-directives", *args,
   )
   puts "No problems or warnings"
 end
 
 puts "\n=> Running Typescript Compiler"
-system! "yarn", "--silent", "tsc"
+system! "bin/yarn", "--silent", "tsc"
 puts "No errors found"
 
 puts "\n=> Running Sorbet"
-system! "bundle", "exec", "srb", "tc"
+system! "bin/srb", "typecheck"

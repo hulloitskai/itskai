@@ -4,8 +4,5 @@ export default {
   "*.{js,mjs,cjs,jsx,ts,cts,mts,tsx,graphql}":
     "eslint --report-unused-disable-directives",
   "*.{ts,tsx,cts,mts}": () => "tsc",
-  "*.{rb,rbi}": [
-    () => "bundle exec srb tc",
-    "bundle exec rubocop --force-exclusion",
-  ],
+  "*.{rb,rbi}": [() => "bin/srb typecheck", "bin/rubocop --force-exclusion"],
 };
