@@ -16,6 +16,9 @@ module ItsKai
   extend T::Sig
 
   class Application < Rails::Application
+    extend T::Sig
+
+    # == Defaults
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults(7.0)
 
@@ -105,6 +108,12 @@ module ItsKai
 
     # == Active Support
     config.active_support.remove_deprecated_time_with_zone_name = true
+
+    # == Booted At
+    BOOTED_AT = T.let(Time.current, Time)
+
+    sig { returns(Time) }
+    def booted_at = BOOTED_AT
   end
 
   # == Methods

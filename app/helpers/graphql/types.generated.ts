@@ -347,6 +347,8 @@ export type PageInfo = {
 export type Query = {
   __typename?: 'Query';
   activityStatus?: Maybe<Scalars['String']>;
+  /** When the server was booted. */
+  bootedAt: Scalars['DateTime'];
   /** Kai's contact email. */
   contactEmail: Scalars['String'];
   /** What I'm currently listening to on Spotify! */

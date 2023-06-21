@@ -11,6 +11,7 @@ module Types
     field :test_echo, resolver: Queries::TestEcho
 
     field :activity_status, resolver: Queries::ActivityStatus
+    field :booted_at, resolver: Queries::BootedAt
     field :currently_playing, resolver: Queries::CurrentlyPlaying
     field :image_by_signed_id, resolver: Queries::ImageBySignedId
     field :password_strength, resolver: Queries::PasswordStrength
