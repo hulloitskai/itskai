@@ -22,6 +22,27 @@
 class JournalEntry < ApplicationRecord
   include Identifiable
 
+  # == Search
+  include Searchable
+
+  pg_search_scope :search,
+                  against: :title,
+                  using: {
+                    tsearch: {
+                      prefix: true,
+                    },
+                  }
+
+  sig { params(query: String).returns(PrivateRelation) }
+  def search(query) = super
+
+  module CommonRelationMethods
+    T::Sig::WithoutRuntime.sig do
+      params(query: String).returns(PrivateRelation)
+    end
+    def search(query) = super
+  end
+
   # == Scopes
   scope :with_content, -> {
     T.bind(self, PrivateRelation)

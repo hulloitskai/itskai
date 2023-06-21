@@ -12,10 +12,10 @@ module InertiaRails
     # == Annotations
     requires_ancestor { ActionMailer::Base }
 
-    # == Configuration
     prepended do
       T.bind(self, T.class_of(ActionMailer::Base))
 
+      # == Helpers
       helper Helper
     end
 

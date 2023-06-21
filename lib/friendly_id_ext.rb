@@ -12,6 +12,7 @@ module FriendlyId::Slugged
     requires_ancestor { FriendlyId::Base }
     requires_ancestor { FriendlyId::Slugged }
 
+    # == Methods
     # Apply additional normalization.
     sig { params(value: T.untyped).returns(String) }
     def normalize_friendly_id(value)

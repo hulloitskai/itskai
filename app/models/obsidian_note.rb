@@ -34,21 +34,21 @@
 #
 class ObsidianNote < ApplicationRecord
   include Identifiable
-  include FriendlyIdentifiable
-  include Slugged
   include ObsidianEntry
 
-  # == Configuration
+  # == FriendlyId
+  include Slugged
+  include FriendlyIdentifiable
+
   friendly_id :name
 
-  # == Attribute Annotations
+  # == Attributes
   sig { returns(T::Array[String]) }
   def aliases = super
 
   sig { returns(T::Array[String]) }
   def tags = super
 
-  # == Attributes
   sig { returns(T::Boolean) }
   def analyzed? = analyzed_at?
 

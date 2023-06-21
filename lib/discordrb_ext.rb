@@ -52,7 +52,6 @@ module Discordrb
       sig { returns(ActiveSupport::Logger) }
       def logger = Rails.logger
 
-      # == Helpers
       sig { overridable.params(tags: String, block: T.proc.void).void }
       def tag_logger(*tags, &block)
         tags.prepend("Discordrb")
