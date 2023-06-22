@@ -16,7 +16,7 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
   const [loading, setLoading] = useState(false);
 
   // == Form
-  const { getInputProps, onSubmit, values, setFieldValue } =
+  const { getInputProps, values, setFieldValue, isDirty, onSubmit } =
     useForm<UserLoginPageFormValues>({
       initialValues: {
         email: "",
@@ -90,7 +90,7 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
             }}
           />
         </Tooltip>
-        <Button type="submit" {...{ loading }}>
+        <Button type="submit" disabled={!isDirty()} {...{ loading }}>
           Sign In
         </Button>
       </Stack>

@@ -38,61 +38,61 @@ const UserSettingsPageSpotifyCredentialsForm: FC<
 
   // == Markup
   return (
-    <form action="/user/auth/spotify" method="post">
-      <FormAuthenticityField />
-      <Stack spacing="xs">
-        {spotifyCredentials &&
-          resolve(() => {
-            const { uid, accessToken, refreshToken } = spotifyCredentials;
-            return (
-              <>
-                <TextInput label="UID (read-only)" value={uid} readOnly />
-                {!!accessToken && (
-                  <TextInput
-                    label="Access Token (read-only)"
-                    value={accessToken}
-                    readOnly
-                  />
-                )}
-                {!!refreshToken && (
-                  <TextInput
-                    label="Refresh Token (read-only)"
-                    value={refreshToken}
-                    readOnly
-                  />
-                )}
-              </>
-            );
-          })}
-        <Stack spacing={6}>
+    <Stack spacing="xs">
+      {spotifyCredentials &&
+        resolve(() => {
+          const { uid, accessToken, refreshToken } = spotifyCredentials;
+          return (
+            <>
+              <TextInput label="UID (read-only)" value={uid} readOnly />
+              {!!accessToken && (
+                <TextInput
+                  label="Access Token (read-only)"
+                  value={accessToken}
+                  readOnly
+                />
+              )}
+              {!!refreshToken && (
+                <TextInput
+                  label="Refresh Token (read-only)"
+                  value={refreshToken}
+                  readOnly
+                />
+              )}
+            </>
+          );
+        })}
+      <Stack spacing={6}>
+        <form action="/user/auth/spotify" method="post">
+          <FormAuthenticityField />
           <Button type="submit">Authorize</Button>
-          {spotifyCredentials && (
-            <Menu withinPortal>
-              <Menu.Target>
-                <Button variant="outline" color="red" loading={removing}>
-                  Deactivate
-                </Button>
-              </Menu.Target>
-              <Menu.Dropdown>
-                <Menu.Item
-                  color="red"
-                  icon={<AlertIcon />}
-                  onClick={() => {
-                    runRemoveMutation({
-                      variables: {
-                        input: {},
-                      },
-                    });
-                  }}
-                >
-                  Really deactivate?
-                </Menu.Item>
-              </Menu.Dropdown>
-            </Menu>
-          )}
-        </Stack>
+        </form>
+        {spotifyCredentials && (
+          <Menu withinPortal>
+            <Menu.Target>
+              <Button variant="outline" color="red" loading={removing}>
+                Deactivate
+              </Button>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Item
+                color="red"
+                icon={<AlertIcon />}
+                onClick={() => {
+                  runRemoveMutation({
+                    variables: {
+                      input: {},
+                    },
+                  });
+                }}
+              >
+                Really deactivate?
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
+        )}
       </Stack>
-    </form>
+    </Stack>
   );
 };
 

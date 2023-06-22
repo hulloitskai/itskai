@@ -51,7 +51,7 @@ const UserSettingsPageICloudCredentialsForm: FC<
     }),
     [icloudCredentials],
   );
-  const { getInputProps, onSubmit, setValues, setErrors, resetDirty } =
+  const { getInputProps, setValues, setErrors, resetDirty, isDirty, onSubmit } =
     useForm<UserSettingsPageICloudCredentialsFormValues>({
       initialValues: initialValues,
     });
@@ -144,7 +144,7 @@ const UserSettingsPageICloudCredentialsForm: FC<
           {...getInputProps("password")}
         />
         <Stack spacing={6}>
-          <Button type="submit" loading={updating}>
+          <Button type="submit" disabled={!isDirty()} loading={updating}>
             Authenticate
           </Button>
           {icloudCredentials && (
@@ -217,7 +217,7 @@ const UserSettingsPageICloudCredentialsForm: FC<
 export default UserSettingsPageICloudCredentialsForm;
 
 const VerifySecurityCodeModalContent: FC = () => {
-  const { getInputProps, onSubmit } = useForm({
+  const { getInputProps, isDirty, onSubmit } = useForm({
     initialValues: { code: "" },
   });
   const onError = useApolloAlertCallback("Failed to verify code");
@@ -244,7 +244,7 @@ const VerifySecurityCodeModalContent: FC = () => {
           autoComplete="off"
           {...getInputProps("code")}
         />
-        <Button type="submit" {...{ loading }}>
+        <Button type="submit" disabled={!isDirty()} {...{ loading }}>
           Verify Code
         </Button>
       </Stack>

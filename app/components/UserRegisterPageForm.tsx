@@ -27,7 +27,7 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
     }),
     [],
   );
-  const { getInputProps, onSubmit, setFieldValue, setErrors } =
+  const { getInputProps, setFieldValue, setErrors, isDirty, onSubmit } =
     useForm<UserRegisterPageFormValues>({
       initialValues,
       validate: {
@@ -95,7 +95,7 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
           required
           {...getInputProps("passwordConfirmation")}
         />
-        <Button type="submit" {...{ loading }}>
+        <Button type="submit" disabled={!isDirty()} {...{ loading }}>
           Sign Up
         </Button>
       </Stack>

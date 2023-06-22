@@ -20,7 +20,7 @@ const UserChangePasswordPageForm: FC<UserChangePasswordPageFormProps> = ({
   const [passwordStrength, setPasswordStrength] = useState(0.0);
 
   // == Form
-  const { getInputProps, onSubmit, reset } =
+  const { getInputProps, reset, isDirty, onSubmit } =
     useForm<UserChangePasswordPageFormValues>({
       initialValues: {
         password: "",
@@ -78,7 +78,7 @@ const UserChangePasswordPageForm: FC<UserChangePasswordPageFormProps> = ({
           minLength={8}
           {...getInputProps("passwordConfirmation")}
         />
-        <Button type="submit" {...{ loading }}>
+        <Button type="submit" disabled={!isDirty()} {...{ loading }}>
           Continue
         </Button>
       </Stack>

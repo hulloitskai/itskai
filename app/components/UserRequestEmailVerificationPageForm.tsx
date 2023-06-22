@@ -14,7 +14,7 @@ const UserRequestEmailVerificationPageForm: FC<
   const router = useRouter();
 
   // == Form
-  const { getInputProps, onSubmit } =
+  const { getInputProps, isDirty, onSubmit } =
     useForm<UserRequestEmailVerificationPageFormValues>({
       initialValues: {
         email: "",
@@ -62,7 +62,7 @@ const UserRequestEmailVerificationPageForm: FC<
           required
           {...getInputProps("email")}
         />
-        <Button type="submit" {...{ loading }}>
+        <Button type="submit" disabled={!isDirty()} {...{ loading }}>
           Continue
         </Button>
       </Stack>
