@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import type { PluginOption } from "vite";
 import { join } from "path";
 
 import rubyPlugin from "vite-plugin-ruby";
@@ -12,7 +13,9 @@ import { visualizer as visualizerPlugin } from "rollup-plugin-visualizer";
 
 import { imports } from "./config/auto-import";
 
-const plugins = [
+const isSSRTarget = process.argv.includes("--ssr");
+
+const plugins: PluginOption = [
   isomorphicImportPlugin(),
   autoImportPlugin({
     dts: join(__dirname, "typings/auto-import.generated.d.ts"),
@@ -22,12 +25,13 @@ const plugins = [
     compiler: "jsx",
     jsx: "react",
   }),
-  graphqlCodegenPlugin({
-    configFilePathOverride: "config/graphql/codegen.helpers.ts",
-    configOverride: {
-      errorsOnly: true,
-    },
-  }),
+  !isSSRTarget &&
+    graphqlCodegenPlugin({
+      configFilePathOverride: "config/graphql/codegen.helpers.ts",
+      configOverride: {
+        errorsOnly: true,
+      },
+    }),
   rubyPlugin(),
   reactPlugin(),
   fullReloadPlugin([

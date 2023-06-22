@@ -33,16 +33,12 @@
 #  index_obsidian_notes_on_tags         (tags)
 #
 class ObsidianNote < ApplicationRecord
-  include Identifiable
   include ObsidianEntry
 
-  # == FriendlyId
-  include Slugged
-  include FriendlyIdentifiable
-
-  friendly_id :name
-
   # == Attributes
+  include Identifiable
+  include Slugged
+
   sig { returns(T::Array[String]) }
   def aliases = super
 
@@ -92,6 +88,11 @@ class ObsidianNote < ApplicationRecord
 
   # == Callbacks
   after_commit :analyze_later, on: %i[create update], if: :analysis_required?
+
+  # == FriendlyId
+  include FriendlyIdentifiable
+
+  friendly_id :name
 
   # == Methods: Analysis
   sig { params(force: T::Boolean).void }

@@ -23,5 +23,6 @@
 #  index_cookies_on_domain  (domain)
 #
 class Cookie < ApplicationRecord
+  # == Attributes
   include Identifiable
 end

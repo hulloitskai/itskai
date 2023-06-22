@@ -21,6 +21,7 @@
 #  fk_rails_...  (from_id => obsidian_notes.id)
 #
 class ObsidianRelation < ApplicationRecord
+  # == Attributes
   include Identifiable
 
   # == Associations

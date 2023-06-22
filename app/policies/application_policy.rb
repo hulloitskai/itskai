@@ -22,9 +22,7 @@ class ApplicationPolicy < ActionPolicy::Base
   pre_check :allow_owner!
 
   # == Aliases
-  alias_rule :edit?, to: :update?
-  alias_rule :delete?, to: :destroy?
-  alias_rule :destroy?, to: :update?
+  alias_rule :edit?, to: :manage?
 
   # == Rules
   sig { returns(T::Boolean) }

@@ -20,7 +20,19 @@
 #  index_journal_entries_on_notion_page_id  (notion_page_id) UNIQUE
 #
 class JournalEntry < ApplicationRecord
+  # == Attributes
   include Identifiable
+
+  # == Scopes
+  scope :with_content, -> {
+    T.bind(self, PrivateRelation)
+    where.not(content: nil)
+  }
+
+  scope :for_import, -> {
+    T.bind(self, PrivateRelation)
+    select(:id, :imported_at)
+  }
 
   # == Search
   include Searchable
@@ -42,17 +54,6 @@ class JournalEntry < ApplicationRecord
     end
     def search(query) = super
   end
-
-  # == Scopes
-  scope :with_content, -> {
-    T.bind(self, PrivateRelation)
-    where.not(content: nil)
-  }
-
-  scope :for_import, -> {
-    T.bind(self, PrivateRelation)
-    select(:id, :imported_at)
-  }
 
   # == Validation
   validates :notion_page_id, presence: true, uniqueness: true

@@ -30,33 +30,11 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
-  include Identifiable
-
   # == Configuration
   MIN_PASSWORD_ENTROPY = T.let(14, Integer)
 
-  # == Search
-  include Searchable
-
-  pg_search_scope :search,
-                  against: :name,
-                  using: {
-                    tsearch: {
-                      prefix: true,
-                    },
-                  }
-
-  sig { params(query: String).returns(PrivateRelation) }
-  def search(query) = super
-
-  module CommonRelationMethods
-    T::Sig::WithoutRuntime.sig do
-      params(query: String).returns(PrivateRelation)
-    end
-    def search(query) = super
-  end
-
   # == Attributes
+  include Identifiable
   include ::Named
 
   sig { returns(String) }

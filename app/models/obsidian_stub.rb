@@ -15,10 +15,11 @@
 #  index_obsidian_stubs_on_name  (name) UNIQUE
 #
 class ObsidianStub < ApplicationRecord
-  include Identifiable
   include ObsidianEntry
 
   # == Attributes
+  include Identifiable
+
   sig { override.returns(String) }
   def title = name
 
