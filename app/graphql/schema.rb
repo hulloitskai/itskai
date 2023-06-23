@@ -21,8 +21,26 @@ class Schema < GraphQL::Schema
   validate_max_errors 100
 
   # == Callback Handlers
+  rescue_from(
+    ActiveRecord::RecordInvalid,
+    ActiveRecord::RecordNotSaved,
+  ) do |error|
+    error = T.let(error, T.any(ActiveRecord::RecordInvalid,
+                               ActiveRecord::RecordNotSaved))
+    model_name = error.record.model_name.human.downcase
+    raise GraphQL::ExecutionError, "Couldn't save #{model_name}."
+  end
+  rescue_from ActiveRecord::RecordNotDestroyed do |error|
+    error = T.let(error, ActiveRecord::RecordNotDestroyed)
+    record = error.record
+    model_name = record.model_name.human.downcase
+    raise GraphQL::ExecutionError, "Couldn't destroy #{model_name}."
+  end
   rescue_from RuntimeError do |error|
-    raise GraphQL::ExecutionError, error.message
+    error = T.let(error, RuntimeError)
+    message = error.message
+    message += "." unless message.end_with?(".")
+    raise GraphQL::ExecutionError, message
   end
 
   # == Types

@@ -13,7 +13,7 @@ import { visualizer as visualizerPlugin } from "rollup-plugin-visualizer";
 
 import { imports } from "./config/auto-import";
 
-const isSSRTarget = process.argv.includes("--ssr");
+const ssr = process.argv.includes("--ssr");
 
 const plugins: PluginOption = [
   isomorphicImportPlugin(),
@@ -25,7 +25,7 @@ const plugins: PluginOption = [
     compiler: "jsx",
     jsx: "react",
   }),
-  !isSSRTarget &&
+  !ssr &&
     graphqlCodegenPlugin({
       configFilePathOverride: "config/graphql/codegen.helpers.ts",
       configOverride: {
