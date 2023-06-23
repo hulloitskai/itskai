@@ -13,7 +13,7 @@ import {
   scottkitSignalTypeLabel,
   scottkitSignalTypeIcon,
   scottkitSignalTypeColor,
-} from "~/helpers/types/ScottkitSignalType";
+} from "~/helpers/scottkitSignal";
 
 import AppMeta from "~/components/AppMeta";
 import PageLayout from "~/components/PageLayout";
