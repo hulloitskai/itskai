@@ -1,7 +1,7 @@
 {
   "all": {
     "sourceCodeDir": "app",
-    "additionalEntrypoints": ["~/assets/{images}/**/*"],
+    "additionalEntrypoints": ["~/assets/**/*"],
     "ssrBuildEnabled": true,
     "ssrEntrypoint": "~/ssr/application.{js,jsx,ts,tsx}",
     "ssrOutputDir": "dist"

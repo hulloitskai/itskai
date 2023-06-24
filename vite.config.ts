@@ -13,67 +13,72 @@ import { visualizer as visualizerPlugin } from "rollup-plugin-visualizer";
 
 import { imports } from "./config/auto-import";
 
-const ssr = process.argv.includes("--ssr");
-
-const plugins: PluginOption = [
-  isomorphicImportPlugin(),
-  autoImportPlugin({
-    dts: join(__dirname, "typings/auto-import.generated.d.ts"),
-    imports,
-  }),
-  iconsPlugin({
-    compiler: "jsx",
-    jsx: "react",
-  }),
-  !ssr &&
-    graphqlCodegenPlugin({
-      configFilePathOverride: "config/graphql/codegen.helpers.ts",
-      configOverride: {
-        errorsOnly: true,
-      },
+export default defineConfig(({ ssrBuild }) => {
+  // == Plugins
+  const plugins: PluginOption = [
+    isomorphicImportPlugin(),
+    autoImportPlugin({
+      dts: join(__dirname, "typings/auto-import.generated.d.ts"),
+      imports,
     }),
-  rubyPlugin(),
-  reactPlugin(),
-  fullReloadPlugin([
-    "config/routes.rb",
-    "config/routes/**/*.rb",
-    "app/views/**/*.{html,html.erb}",
-    "app/**/*.generated.*",
-  ]),
-];
-
-if (process.env.VITE_VISUALIZE) {
-  plugins.push(
-    visualizerPlugin({
-      filename: "dist/stats.html",
-      open: true,
+    iconsPlugin({
+      compiler: "jsx",
+      jsx: "react",
     }),
-  );
-}
+    !ssrBuild &&
+      graphqlCodegenPlugin({
+        configFilePathOverride: "config/graphql/codegen.helpers.ts",
+        configOverride: {
+          errorsOnly: true,
+        },
+      }),
+    rubyPlugin(),
+    reactPlugin(),
+    fullReloadPlugin([
+      "config/routes.rb",
+      "config/routes/**/*.rb",
+      "app/views/**/*.{html,html.erb}",
+      "app/**/*.generated.*",
+    ]),
+  ];
+  if (process.env.VITE_VISUALIZE) {
+    plugins.push(
+      visualizerPlugin({
+        filename: "dist/stats.html",
+        open: true,
+      }),
+    );
+  }
 
-export default defineConfig({
-  clearScreen: false,
-  resolve: {
-    alias: [
-      {
-        find: /^@react-email\/components$/,
-        replacement: "@react-email/components/dist",
-      },
-      {
-        find: /^@apollo\/client$/,
-        replacement: "@apollo/client/index",
-      },
-    ],
-  },
-  build: {
-    emptyOutDir: true,
-    sourcemap: true,
-  },
-  // optimizeDeps: {
-  //   include: ["@react-email/components"],
-  // },
-  // legacy: {
-  //   buildSsrCjsExternalHeuristics: true,
-  // },
-  plugins,
+  // ==
+  return {
+    clearScreen: false,
+    resolve: {
+      alias: [
+        {
+          find: /^@react-email\/components$/,
+          replacement: "@react-email/components/dist",
+        },
+        {
+          find: /^@apollo\/client$/,
+          replacement: "@apollo/client/index",
+        },
+      ],
+    },
+    build: {
+      emptyOutDir: true,
+      sourcemap: true,
+      ...(ssrBuild && {
+        rollupOptions: {
+          output: {
+            assetFileNames: "assets/[name][extname]",
+          },
+        },
+      }),
+    },
+    optimizeDeps: {
+      include: ["@react-email/components"],
+    },
+    plugins,
+  };
 });

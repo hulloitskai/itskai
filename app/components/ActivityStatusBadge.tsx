@@ -7,7 +7,7 @@ import type { BoxProps } from "@mantine/core";
 
 import { ActivityStatusBadgeSubscriptionDocument } from "~/helpers/graphql";
 
-import logoPath from "~/assets/images/logo-plain.png";
+import logoPath from "~/assets/logo-plain.png";
 
 export type ActivityStatusBadgeProps = Omit<BoxProps, "children">;
 
