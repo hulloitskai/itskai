@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require "inertia_rails"
+require_relative "mailer/renderer"
 
 module InertiaRails
   module Mailer
@@ -12,10 +13,10 @@ module InertiaRails
     # == Annotations
     requires_ancestor { ActionMailer::Base }
 
+    # == Configuration
     prepended do
       T.bind(self, T.class_of(ActionMailer::Base))
 
-      # == Helpers
       helper Helper
     end
 
@@ -51,7 +52,7 @@ module InertiaRails
       wait_for_inertia_ssr_ready
       request = ActionDispatch::Request.new({ "ORIGINAL_FULLPATH" => "/" })
       response = ActionDispatch::Response.new
-      renderer = InertiaRails::Renderer.new(
+      renderer = Renderer.new(
         component,
         self,
         request,

@@ -3,6 +3,9 @@
 
 module Users
   class DeviseMailer < Devise::Mailer
+    protected :default_sender
+
+    # == Emails
     sig do
       params(record: User, token: String, opts: T::Hash[Symbol, T.untyped])
         .returns(Mail::Message)
