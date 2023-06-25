@@ -28,7 +28,7 @@ const UserWelcomeEmail: PageComponent<UserWelcomeEmailProps> = ({
 };
 
 UserWelcomeEmail.layout = buildLayout<UserWelcomeEmailProps>(page => (
-  <EmailLayout header="Welcome :)">{page}</EmailLayout>
+  <EmailLayout header="Welcome to It's Kai!">{page}</EmailLayout>
 ));
 
 export default UserWelcomeEmail;
