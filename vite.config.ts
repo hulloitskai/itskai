@@ -13,7 +13,7 @@ import { visualizer as visualizerPlugin } from "rollup-plugin-visualizer";
 
 import { imports } from "./config/auto-import";
 
-export default defineConfig(({ ssrBuild }) => {
+export default defineConfig(({ ssrBuild, mode }) => {
   // == Plugins
   const plugins: PluginOption = [
     isomorphicImportPlugin(),
@@ -50,7 +50,7 @@ export default defineConfig(({ ssrBuild }) => {
     );
   }
 
-  // ==
+  // == Config
   return {
     clearScreen: false,
     resolve: {
@@ -68,13 +68,14 @@ export default defineConfig(({ ssrBuild }) => {
     build: {
       emptyOutDir: true,
       sourcemap: true,
-      ...(ssrBuild && {
-        rollupOptions: {
-          output: {
-            assetFileNames: "assets/[name][extname]",
+      ...(ssrBuild &&
+        mode === "development" && {
+          rollupOptions: {
+            output: {
+              assetFileNames: "assets/[name][extname]",
+            },
           },
-        },
-      }),
+        }),
     },
     optimizeDeps: {
       include: ["@react-email/components"],
