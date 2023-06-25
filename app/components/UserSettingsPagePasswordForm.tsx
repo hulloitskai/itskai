@@ -40,12 +40,12 @@ const UserSettingsPagePasswordForm: FC<
     validate: {
       password: () => {
         if (passwordStrength < 1.0) {
-          return "Too weak.";
+          return "Too weak";
         }
       },
       passwordConfirmation: (value, { password }) => {
         if (password != value) {
-          return "Does not match password.";
+          return "Does not match password";
         }
       },
     },
