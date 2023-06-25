@@ -92,10 +92,7 @@ const UserSettingsPageICloudCredentialsForm: FC<
           invariant(errors, "Missing input errors");
           const formErrors = parseFormErrors(errors);
           setErrors(formErrors);
-          showFormErrorsAlert(
-            formErrors,
-            "Could not update iCloud credentials",
-          );
+          showFormErrorsAlert(formErrors, "Couldn't update iCloud credentials");
         }
       },
       onError: onUpdateError,

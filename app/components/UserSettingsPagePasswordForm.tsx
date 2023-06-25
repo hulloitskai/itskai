@@ -28,13 +28,13 @@ const UserSettingsPagePasswordForm: FC<
     [],
   );
   const {
-    errors,
     getInputProps,
-    onSubmit,
-    reset,
     setFieldValue,
     setErrors,
     isDirty,
+    isValid,
+    reset,
+    onSubmit,
   } = useForm<UserSettingsPagePasswordFormValues>({
     initialValues,
     validate: {
@@ -80,7 +80,7 @@ const UserSettingsPagePasswordForm: FC<
                 setFieldValue("currentPassword", "");
               }
               setErrors(errors);
-              showFormErrorsAlert(errors, "Could not change password");
+              showFormErrorsAlert(errors, "Couldn't change password");
             },
             onFinish: () => setLoading(false),
           });
@@ -104,16 +104,13 @@ const UserSettingsPagePasswordForm: FC<
         />
         <Transition
           transition="fade"
-          mounted={
-            !isEmpty(errors) ||
-            (isDirty("password") && isDirty("passwordConfirmation"))
-          }
+          mounted={isDirty("password") && isDirty("passwordConfirmation")}
         >
           {style => (
             <PasswordInput
               label="Current Password"
               description="Please confirm your current password to make changes."
-              placeholder="potato-123"
+              placeholder="password"
               required
               {...{ style }}
               {...getInputProps("currentPassword")}
@@ -127,7 +124,7 @@ const UserSettingsPagePasswordForm: FC<
               isDirty("password") &&
               isDirty("passwordConfirmation") &&
               isDirty("currentPassword")
-            )
+            ) || !isValid()
           }
           {...{ loading }}
         >

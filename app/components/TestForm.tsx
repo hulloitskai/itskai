@@ -31,7 +31,7 @@ const TestForm: FC = () => {
         invariant(errors, "Missing input errors");
         const formErrors = parseFormErrors(errors);
         setErrors(formErrors);
-        showFormErrorsAlert(formErrors, "Could not run mutation");
+        showFormErrorsAlert(formErrors, "Couldn't run mutation");
       }
     },
     onError,
