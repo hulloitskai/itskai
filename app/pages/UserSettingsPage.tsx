@@ -1,6 +1,5 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
-import type { DeepRequired } from "~/helpers/utils";
 
 import UserSettingsPageProfileForm from "~/components/UserSettingsPageProfileForm";
 import UserSettingsPageEmailForm from "~/components/UserSettingsPageEmailForm";
@@ -11,14 +10,15 @@ import UserSettingsPageSpotifyCredentialsForm from "~/components/UserSettingsPag
 import type { UserSettingsPageQuery } from "~/helpers/graphql";
 import UserSettingsPageImportActions from "~/components/UserSettingsPageImportActions";
 
-export type UserSettingsPageProps = PagePropsWithData<
-  DeepRequired<UserSettingsPageQuery, ["viewer"]>
->;
+export type UserSettingsPageProps = PagePropsWithData<UserSettingsPageQuery>;
 
 const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
   data: { viewer, icloudCredentials, spotifyCredentials },
 }) => {
+  invariant(viewer, "Missing viewer");
   const { isOwner } = viewer;
+
+  // == Markup
   return (
     <Stack>
       <Card radius="md" withBorder>

@@ -4,19 +4,20 @@ import { Button, Text, Link } from "@react-email/components";
 import EmailLayout from "~/components/EmailLayout";
 
 import type { UserEmailVerificationEmailQuery } from "~/helpers/graphql";
-import type { DeepRequired } from "~/helpers/utils";
 
-export type UserEmailVerificationEmailProps = PagePropsWithData<
-  DeepRequired<UserEmailVerificationEmailQuery, ["user"]>
-> & {
-  readonly verificationUrl: string;
-};
+export type UserEmailVerificationEmailProps =
+  PagePropsWithData<UserEmailVerificationEmailQuery> & {
+    readonly verificationUrl: string;
+  };
 
 const UserVerificationEmail: PageComponent<UserEmailVerificationEmailProps> = ({
   data: { user },
   verificationUrl,
 }) => {
+  invariant(user, "Missing user");
   const { name } = user;
+
+  // == Markup
   return (
     <>
       <Text>Hi, {name}!</Text>

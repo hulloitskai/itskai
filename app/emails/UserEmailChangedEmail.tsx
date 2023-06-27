@@ -4,16 +4,17 @@ import { Text, Link } from "@react-email/components";
 import EmailLayout from "~/components/EmailLayout";
 
 import type { UserEmailChangedEmailQuery } from "~/helpers/graphql";
-import type { DeepRequired } from "~/helpers/utils";
 
-export type UserEmailChangedEmailProps = PagePropsWithData<
-  DeepRequired<UserEmailChangedEmailQuery, ["user"]>
->;
+export type UserEmailChangedEmailProps =
+  PagePropsWithData<UserEmailChangedEmailQuery>;
 
 const UserEmailChangedEmail: PageComponent<UserEmailChangedEmailProps> = ({
   data: { user },
 }) => {
+  invariant(user, "Missing user");
   const { name, email } = user;
+
+  // == Markup
   return (
     <>
       <Text>Hi, {name}!</Text>

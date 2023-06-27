@@ -4,16 +4,16 @@ import { Text } from "@react-email/components";
 import EmailLayout from "~/components/EmailLayout";
 
 import type { UserWelcomeEmailQuery } from "~/helpers/graphql";
-import type { DeepRequired } from "~/helpers/utils";
 
-export type UserWelcomeEmailProps = PagePropsWithData<
-  DeepRequired<UserWelcomeEmailQuery, ["user"]>
->;
+export type UserWelcomeEmailProps = PagePropsWithData<UserWelcomeEmailQuery>;
 
 const UserWelcomeEmail: PageComponent<UserWelcomeEmailProps> = ({
   data: { user },
 }) => {
+  invariant(user, "Missing user");
   const { name } = user;
+
+  // == Markup
   return (
     <>
       <Text>Hi, {name}!</Text>

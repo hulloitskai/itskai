@@ -4,19 +4,20 @@ import { Button, Text, Link } from "@react-email/components";
 import EmailLayout from "~/components/EmailLayout";
 
 import type { UserPasswordResetEmailQuery } from "~/helpers/graphql";
-import type { DeepRequired } from "~/helpers/utils";
 
-export type UserPasswordResetEmailProps = PagePropsWithData<
-  DeepRequired<UserPasswordResetEmailQuery, ["user"]>
-> & {
-  readonly resetUrl: string;
-};
+export type UserPasswordResetEmailProps =
+  PagePropsWithData<UserPasswordResetEmailQuery> & {
+    readonly resetUrl: string;
+  };
 
 const UserPasswordResetEmail: PageComponent<UserPasswordResetEmailProps> = ({
   data: { user },
   resetUrl,
 }) => {
+  invariant(user, "Missing user");
   const { name } = user;
+
+  // == Markup
   return (
     <>
       <Text>Hi, {name}!</Text>
