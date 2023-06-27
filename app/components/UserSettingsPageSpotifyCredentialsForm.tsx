@@ -65,7 +65,9 @@ const UserSettingsPageSpotifyCredentialsForm: FC<
       <Stack spacing={6}>
         <form action="/user/auth/spotify" method="post">
           <FormAuthenticityField />
-          <Button type="submit">Authorize</Button>
+          <Button type="submit" fullWidth>
+            Authorize
+          </Button>
         </form>
         {spotifyCredentials && (
           <Menu withinPortal>
