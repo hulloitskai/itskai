@@ -94,6 +94,10 @@ const AppLayout: FC<AppLayoutProps> = ({
             mx={10}
             mt={6}
             styles={{
+              root: {
+                flexWrap: "wrap",
+                rowGap: rem(4),
+              },
               separator: {
                 marginLeft: 6,
                 marginRight: 6,
