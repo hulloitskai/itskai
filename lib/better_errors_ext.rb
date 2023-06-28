@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 require "active_support/core_ext"
@@ -14,6 +14,12 @@ suppress(LoadError) do
 
   class BetterErrors::StackFrame
     module Extension
+      extend T::Sig
+      extend T::Helpers
+
+      requires_ancestor { BetterErrors::StackFrame }
+
+      sig { returns(T::Boolean) }
       def application?
         return false unless super
         root = BetterErrors.application_root
@@ -36,7 +42,7 @@ suppress(LoadError) do
       (
         env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest" &&
           env["HTTP_X_INERTIA"] != "true"
-      ) || env["HTTP_ACCEPT"].exclude?("html")
+      ) || env["HTTP_ACCEPT"].to_s.exclude?("html")
     end
   end
 end
