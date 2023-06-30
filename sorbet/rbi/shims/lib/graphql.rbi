@@ -36,7 +36,7 @@ end
 class GraphQL::Dataloader
   sig do
     params(
-      source_class: Class,
+      source_class: T::Class[T.anything],
       batch_args: T.untyped,
       batch_kwargs: T.untyped,
     ).returns(GraphQL::Dataloader::Source)

@@ -188,8 +188,8 @@ group :development do
   gem "debug", platforms: %i[mri mingw x64_mingw]
 
   # Typecheck code
-  gem "sorbet", "0.5.10794", require: false
-  gem "tapioca", "~> 0.11.6", require: false
+  gem "sorbet", "0.5.10894", require: false
+  gem "tapioca", "~> 0.11.7", require: false
 
   # Use Rubocop to lint code
   #

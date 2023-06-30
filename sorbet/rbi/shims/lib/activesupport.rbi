@@ -31,7 +31,7 @@ end
 class ActiveSupport::ErrorReporter
   sig do
     params(
-      error_class: Class,
+      error_class: T::Class[T.anything],
       severity: Symbol,
       context: T::Hash[Symbol, T.untyped],
       fallback: T.nilable(T.proc.returns(T.untyped)),
@@ -49,7 +49,7 @@ class ActiveSupport::ErrorReporter
   sig do
     type_parameters(:T).
       params(
-        error_class: Class,
+        error_class: T::Class[T.anything],
         severity: Symbol,
         context: T::Hash[Symbol, T.untyped],
         block: T.proc.returns(T.type_parameter(:T)),
@@ -89,7 +89,7 @@ module Kernel
   sig do
     type_parameters(:U)
       .params(
-        exception_classes: Class,
+        exception_classes: T::Class[T.anything],
         block: T.proc.returns(T.type_parameter(:U)),
       )
       .returns(T.nilable(T.type_parameter(:U)))

@@ -13,7 +13,7 @@ module Logging
     extend T::Sig
     extend T::Helpers
 
-    requires_ancestor { Class }
+    requires_ancestor { T.class_of(Object) }
 
     # == Class Methods
     sig { returns(ActiveSupport::Logger) }
