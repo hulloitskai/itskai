@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.5"
+gem "rails", "~> 7.0.6"
 
 # JSON-backed, nestable models
 gem "store_model", "~> 1.6"
@@ -24,7 +24,7 @@ gem "rgeo-activerecord", "~> 7.0"
 gem "activerecord-postgis-adapter", "~> 8.0"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 6.0.2"
+gem "puma", "~> 6.3.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails", "~> 3.4"
@@ -105,7 +105,7 @@ gem "addressable", "~> 2.8"
 gem "discard", "~> 1.2"
 
 # Typecheck code at runtime
-gem "sorbet-runtime", "~> 0.5.10626"
+gem "sorbet-runtime", "~> 0.5.10894"
 
 # Use Enumerize to enumerate attributes
 gem "enumerize", "~> 2.6"

@@ -3744,33 +3744,33 @@ class ActiveModel::Type::Binary < ::ActiveModel::Type::Value
 
   # @return [Boolean]
   #
-  # source://activemodel//lib/active_model/type/binary.rb#27
+  # source://activemodel//lib/active_model/type/binary.rb#29
   def changed_in_place?(raw_old_value, value); end
 
-  # source://activemodel//lib/active_model/type/binary.rb#22
+  # source://activemodel//lib/active_model/type/binary.rb#24
   def serialize(value); end
 
   # source://activemodel//lib/active_model/type/binary.rb#6
   def type; end
 end
 
-# source://activemodel//lib/active_model/type/binary.rb#32
+# source://activemodel//lib/active_model/type/binary.rb#34
 class ActiveModel::Type::Binary::Data
   # @return [Data] a new instance of Data
   #
-  # source://activemodel//lib/active_model/type/binary.rb#33
+  # source://activemodel//lib/active_model/type/binary.rb#35
   def initialize(value); end
 
-  # source://activemodel//lib/active_model/type/binary.rb#48
+  # source://activemodel//lib/active_model/type/binary.rb#50
   def ==(other); end
 
-  # source://activemodel//lib/active_model/type/binary.rb#44
+  # source://activemodel//lib/active_model/type/binary.rb#46
   def hex; end
 
-  # source://activemodel//lib/active_model/type/binary.rb#39
+  # source://activemodel//lib/active_model/type/binary.rb#41
   def to_s; end
 
-  # source://activemodel//lib/active_model/type/binary.rb#39
+  # source://activemodel//lib/active_model/type/binary.rb#41
   def to_str; end
 end
 

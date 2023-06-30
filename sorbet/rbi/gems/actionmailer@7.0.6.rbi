@@ -527,46 +527,46 @@ class ActionMailer::Base < ::AbstractController::Base
   # source://actionmailer//lib/action_mailer/base.rb#632
   def initialize; end
 
-  # source://activesupport/7.0.5/lib/active_support/callbacks.rb#68
+  # source://activesupport/7.0.6/lib/active_support/callbacks.rb#68
   def __callbacks; end
 
-  # source://activesupport/7.0.5/lib/active_support/callbacks.rb#68
+  # source://activesupport/7.0.6/lib/active_support/callbacks.rb#68
   def __callbacks?; end
 
-  # source://actionpack/7.0.5/lib/abstract_controller/helpers.rb#11
+  # source://actionpack/7.0.6/lib/abstract_controller/helpers.rb#11
   def _helper_methods; end
 
-  # source://actionpack/7.0.5/lib/abstract_controller/helpers.rb#11
+  # source://actionpack/7.0.6/lib/abstract_controller/helpers.rb#11
   def _helper_methods=(_arg0); end
 
-  # source://actionpack/7.0.5/lib/abstract_controller/helpers.rb#11
+  # source://actionpack/7.0.6/lib/abstract_controller/helpers.rb#11
   def _helper_methods?; end
 
-  # source://activesupport/7.0.5/lib/active_support/callbacks.rb#940
+  # source://activesupport/7.0.6/lib/active_support/callbacks.rb#940
   def _process_action_callbacks; end
 
-  # source://activesupport/7.0.5/lib/active_support/callbacks.rb#928
+  # source://activesupport/7.0.6/lib/active_support/callbacks.rb#928
   def _run_process_action_callbacks(&block); end
 
-  # source://actionpack/7.0.5/lib/abstract_controller/caching.rb#42
+  # source://actionpack/7.0.6/lib/abstract_controller/caching.rb#42
   def _view_cache_dependencies; end
 
-  # source://actionpack/7.0.5/lib/abstract_controller/caching.rb#42
+  # source://actionpack/7.0.6/lib/abstract_controller/caching.rb#42
   def _view_cache_dependencies=(_arg0); end
 
-  # source://actionpack/7.0.5/lib/abstract_controller/caching.rb#42
+  # source://actionpack/7.0.6/lib/abstract_controller/caching.rb#42
   def _view_cache_dependencies?; end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
   def asset_host; end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def asset_host=(value); end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
   def assets_dir; end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def assets_dir=(value); end
 
   # Allows you to add attachments to an email, like so:
@@ -601,10 +601,10 @@ class ActionMailer::Base < ::AbstractController::Base
   # source://actionmailer//lib/action_mailer/base.rb#749
   def attachments; end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
   def default_asset_host_protocol; end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def default_asset_host_protocol=(value); end
 
   # source://actionmailer//lib/action_mailer/base.rb#490
@@ -616,19 +616,19 @@ class ActionMailer::Base < ::AbstractController::Base
   # source://actionmailer//lib/action_mailer/base.rb#490
   def default_params?; end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
   def default_static_extension; end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def default_static_extension=(value); end
 
-  # source://actionpack/7.0.5/lib/action_dispatch/routing/url_for.rb#95
+  # source://actionpack/7.0.6/lib/action_dispatch/routing/url_for.rb#95
   def default_url_options; end
 
-  # source://actionpack/7.0.5/lib/action_dispatch/routing/url_for.rb#95
+  # source://actionpack/7.0.6/lib/action_dispatch/routing/url_for.rb#95
   def default_url_options=(_arg0); end
 
-  # source://actionpack/7.0.5/lib/action_dispatch/routing/url_for.rb#95
+  # source://actionpack/7.0.6/lib/action_dispatch/routing/url_for.rb#95
   def default_url_options?; end
 
   # source://actionmailer//lib/action_mailer/delivery_methods.rb#15
@@ -671,10 +671,10 @@ class ActionMailer::Base < ::AbstractController::Base
   # source://actionmailer//lib/action_mailer/base.rb#673
   def email_address_with_name(address, name); end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
   def enable_fragment_cache_logging; end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def enable_fragment_cache_logging=(value); end
 
   # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
@@ -686,13 +686,13 @@ class ActionMailer::Base < ::AbstractController::Base
   # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
   def file_settings?; end
 
-  # source://actionpack/7.0.5/lib/abstract_controller/caching/fragments.rb#23
+  # source://actionpack/7.0.6/lib/abstract_controller/caching/fragments.rb#23
   def fragment_cache_keys; end
 
-  # source://actionpack/7.0.5/lib/abstract_controller/caching/fragments.rb#23
+  # source://actionpack/7.0.6/lib/abstract_controller/caching/fragments.rb#23
   def fragment_cache_keys=(_arg0); end
 
-  # source://actionpack/7.0.5/lib/abstract_controller/caching/fragments.rb#23
+  # source://actionpack/7.0.6/lib/abstract_controller/caching/fragments.rb#23
   def fragment_cache_keys?; end
 
   # Allows you to pass random and unusual headers to the new <tt>Mail::Message</tt>
@@ -733,16 +733,16 @@ class ActionMailer::Base < ::AbstractController::Base
   # source://actionmailer//lib/action_mailer/base.rb#711
   def headers(args = T.unsafe(nil)); end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
   def javascripts_dir; end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def javascripts_dir=(value); end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
   def logger; end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def logger=(value); end
 
   # The main method that creates the message and renders the email templates. There are
@@ -859,10 +859,10 @@ class ActionMailer::Base < ::AbstractController::Base
   # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
   def mailjet_settings?; end
 
-  # source://activesupport/7.0.5/lib/active_support/core_ext/module/attr_internal.rb#33
+  # source://activesupport/7.0.6/lib/active_support/core_ext/module/attr_internal.rb#33
   def message; end
 
-  # source://activesupport/7.0.5/lib/active_support/core_ext/module/attr_internal.rb#33
+  # source://activesupport/7.0.6/lib/active_support/core_ext/module/attr_internal.rb#33
   def message=(_arg0); end
 
   # source://actionmailer//lib/action_mailer/parameterized.rb#91
@@ -871,10 +871,10 @@ class ActionMailer::Base < ::AbstractController::Base
   # source://actionmailer//lib/action_mailer/parameterized.rb#91
   def params=(_arg0); end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
   def perform_caching; end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def perform_caching=(value); end
 
   # source://actionmailer//lib/action_mailer/delivery_methods.rb#14
@@ -898,19 +898,19 @@ class ActionMailer::Base < ::AbstractController::Base
   # source://actionmailer//lib/action_mailer/delivery_methods.rb#13
   def raise_delivery_errors=(val); end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
   def relative_url_root; end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def relative_url_root=(value); end
 
-  # source://activesupport/7.0.5/lib/active_support/rescuable.rb#13
+  # source://activesupport/7.0.6/lib/active_support/rescuable.rb#13
   def rescue_handlers; end
 
-  # source://activesupport/7.0.5/lib/active_support/rescuable.rb#13
+  # source://activesupport/7.0.6/lib/active_support/rescuable.rb#13
   def rescue_handlers=(_arg0); end
 
-  # source://activesupport/7.0.5/lib/active_support/rescuable.rb#13
+  # source://activesupport/7.0.6/lib/active_support/rescuable.rb#13
   def rescue_handlers?; end
 
   # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
@@ -934,10 +934,10 @@ class ActionMailer::Base < ::AbstractController::Base
   # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
   def smtp_settings?; end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
   def stylesheets_dir; end
 
-  # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def stylesheets_dir=(value); end
 
   # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
@@ -951,7 +951,7 @@ class ActionMailer::Base < ::AbstractController::Base
 
   private
 
-  # source://actionview/7.0.5/lib/action_view/layouts.rb#328
+  # source://actionview/7.0.6/lib/action_view/layouts.rb#328
   def _layout(lookup_context, formats); end
 
   # source://actionmailer//lib/action_mailer/base.rb#1059
@@ -1022,70 +1022,70 @@ class ActionMailer::Base < ::AbstractController::Base
   def wrap_inline_attachments(message); end
 
   class << self
-    # source://activesupport/7.0.5/lib/active_support/callbacks.rb#68
+    # source://activesupport/7.0.6/lib/active_support/callbacks.rb#68
     def __callbacks; end
 
-    # source://activesupport/7.0.5/lib/active_support/callbacks.rb#68
+    # source://activesupport/7.0.6/lib/active_support/callbacks.rb#68
     def __callbacks=(value); end
 
-    # source://activesupport/7.0.5/lib/active_support/callbacks.rb#68
+    # source://activesupport/7.0.6/lib/active_support/callbacks.rb#68
     def __callbacks?; end
 
-    # source://actionpack/7.0.5/lib/abstract_controller/helpers.rb#11
+    # source://actionpack/7.0.6/lib/abstract_controller/helpers.rb#11
     def _helper_methods; end
 
-    # source://actionpack/7.0.5/lib/abstract_controller/helpers.rb#11
+    # source://actionpack/7.0.6/lib/abstract_controller/helpers.rb#11
     def _helper_methods=(value); end
 
-    # source://actionpack/7.0.5/lib/abstract_controller/helpers.rb#11
+    # source://actionpack/7.0.6/lib/abstract_controller/helpers.rb#11
     def _helper_methods?; end
 
-    # source://actionpack/7.0.5/lib/abstract_controller/helpers.rb#15
+    # source://actionpack/7.0.6/lib/abstract_controller/helpers.rb#15
     def _helpers; end
 
-    # source://actionview/7.0.5/lib/action_view/layouts.rb#209
+    # source://actionview/7.0.6/lib/action_view/layouts.rb#209
     def _layout; end
 
-    # source://actionview/7.0.5/lib/action_view/layouts.rb#209
+    # source://actionview/7.0.6/lib/action_view/layouts.rb#209
     def _layout=(value); end
 
-    # source://actionview/7.0.5/lib/action_view/layouts.rb#209
+    # source://actionview/7.0.6/lib/action_view/layouts.rb#209
     def _layout?; end
 
-    # source://actionview/7.0.5/lib/action_view/layouts.rb#210
+    # source://actionview/7.0.6/lib/action_view/layouts.rb#210
     def _layout_conditions; end
 
-    # source://actionview/7.0.5/lib/action_view/layouts.rb#210
+    # source://actionview/7.0.6/lib/action_view/layouts.rb#210
     def _layout_conditions=(value); end
 
-    # source://actionview/7.0.5/lib/action_view/layouts.rb#210
+    # source://actionview/7.0.6/lib/action_view/layouts.rb#210
     def _layout_conditions?; end
 
-    # source://activesupport/7.0.5/lib/active_support/callbacks.rb#932
+    # source://activesupport/7.0.6/lib/active_support/callbacks.rb#932
     def _process_action_callbacks; end
 
-    # source://activesupport/7.0.5/lib/active_support/callbacks.rb#936
+    # source://activesupport/7.0.6/lib/active_support/callbacks.rb#936
     def _process_action_callbacks=(value); end
 
-    # source://actionpack/7.0.5/lib/abstract_controller/caching.rb#42
+    # source://actionpack/7.0.6/lib/abstract_controller/caching.rb#42
     def _view_cache_dependencies; end
 
-    # source://actionpack/7.0.5/lib/abstract_controller/caching.rb#42
+    # source://actionpack/7.0.6/lib/abstract_controller/caching.rb#42
     def _view_cache_dependencies=(value); end
 
-    # source://actionpack/7.0.5/lib/abstract_controller/caching.rb#42
+    # source://actionpack/7.0.6/lib/abstract_controller/caching.rb#42
     def _view_cache_dependencies?; end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def asset_host; end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def asset_host=(value); end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def assets_dir; end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def assets_dir=(value); end
 
     # Returns the name of the current mailer. This method is also being used as a path for a view lookup.
@@ -1103,10 +1103,10 @@ class ActionMailer::Base < ::AbstractController::Base
     # source://actionmailer//lib/action_mailer/base.rb#570
     def default(value = T.unsafe(nil)); end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def default_asset_host_protocol; end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def default_asset_host_protocol=(value); end
 
     # Sets the defaults through app configuration:
@@ -1130,19 +1130,19 @@ class ActionMailer::Base < ::AbstractController::Base
     # source://actionmailer//lib/action_mailer/base.rb#490
     def default_params?; end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def default_static_extension; end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def default_static_extension=(value); end
 
-    # source://actionpack/7.0.5/lib/action_dispatch/routing/url_for.rb#95
+    # source://actionpack/7.0.6/lib/action_dispatch/routing/url_for.rb#95
     def default_url_options; end
 
-    # source://actionpack/7.0.5/lib/action_dispatch/routing/url_for.rb#95
+    # source://actionpack/7.0.6/lib/action_dispatch/routing/url_for.rb#95
     def default_url_options=(value); end
 
-    # source://actionpack/7.0.5/lib/action_dispatch/routing/url_for.rb#95
+    # source://actionpack/7.0.6/lib/action_dispatch/routing/url_for.rb#95
     def default_url_options?; end
 
     # source://actionmailer//lib/action_mailer/delivery_methods.rb#15
@@ -1195,10 +1195,10 @@ class ActionMailer::Base < ::AbstractController::Base
     # source://actionmailer//lib/action_mailer/base.rb#595
     def email_address_with_name(address, name); end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def enable_fragment_cache_logging; end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def enable_fragment_cache_logging=(value); end
 
     # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
@@ -1210,25 +1210,25 @@ class ActionMailer::Base < ::AbstractController::Base
     # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
     def file_settings?; end
 
-    # source://actionpack/7.0.5/lib/abstract_controller/caching/fragments.rb#23
+    # source://actionpack/7.0.6/lib/abstract_controller/caching/fragments.rb#23
     def fragment_cache_keys; end
 
-    # source://actionpack/7.0.5/lib/abstract_controller/caching/fragments.rb#23
+    # source://actionpack/7.0.6/lib/abstract_controller/caching/fragments.rb#23
     def fragment_cache_keys=(value); end
 
-    # source://actionpack/7.0.5/lib/abstract_controller/caching/fragments.rb#23
+    # source://actionpack/7.0.6/lib/abstract_controller/caching/fragments.rb#23
     def fragment_cache_keys?; end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def javascripts_dir; end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def javascripts_dir=(value); end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def logger; end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def logger=(value); end
 
     # Returns the name of the current mailer. This method is also being used as a path for a view lookup.
@@ -1260,10 +1260,10 @@ class ActionMailer::Base < ::AbstractController::Base
     # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
     def mailjet_settings?; end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def perform_caching; end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def perform_caching=(value); end
 
     # source://actionmailer//lib/action_mailer/delivery_methods.rb#14
@@ -1314,19 +1314,19 @@ class ActionMailer::Base < ::AbstractController::Base
     # source://actionmailer//lib/action_mailer/base.rb#499
     def register_observers(*observers); end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def relative_url_root; end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def relative_url_root=(value); end
 
-    # source://activesupport/7.0.5/lib/active_support/rescuable.rb#13
+    # source://activesupport/7.0.6/lib/active_support/rescuable.rb#13
     def rescue_handlers; end
 
-    # source://activesupport/7.0.5/lib/active_support/rescuable.rb#13
+    # source://activesupport/7.0.6/lib/active_support/rescuable.rb#13
     def rescue_handlers=(value); end
 
-    # source://activesupport/7.0.5/lib/active_support/rescuable.rb#13
+    # source://activesupport/7.0.6/lib/active_support/rescuable.rb#13
     def rescue_handlers?; end
 
     # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
@@ -1353,10 +1353,10 @@ class ActionMailer::Base < ::AbstractController::Base
     # source://actionmailer//lib/action_mailer/delivery_methods.rb#51
     def smtp_settings?; end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def stylesheets_dir; end
 
-    # source://activesupport/7.0.5/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def stylesheets_dir=(value); end
 
     # Emails do not support relative path links.
@@ -1424,10 +1424,10 @@ module ActionMailer::Base::HelperMethods
   include ::ActionText::TagHelper
   include ::InertiaRails::Helper
 
-  # source://actionpack/7.0.5/lib/abstract_controller/caching/fragments.rb#31
+  # source://actionpack/7.0.6/lib/abstract_controller/caching/fragments.rb#31
   def combined_fragment_cache_key(*args, **_arg1, &block); end
 
-  # source://actionpack/7.0.5/lib/abstract_controller/caching.rb#43
+  # source://actionpack/7.0.6/lib/abstract_controller/caching.rb#43
   def view_cache_dependencies(*args, **_arg1, &block); end
 end
 
@@ -1666,10 +1666,10 @@ class ActionMailer::MailDeliveryJob < ::ActiveJob::Base
   def mailer_class; end
 
   class << self
-    # source://activejob/7.0.5/lib/active_job/queue_name.rb#56
+    # source://activejob/7.0.6/lib/active_job/queue_name.rb#55
     def queue_name; end
 
-    # source://activesupport/7.0.5/lib/active_support/rescuable.rb#13
+    # source://activesupport/7.0.6/lib/active_support/rescuable.rb#13
     def rescue_handlers; end
   end
 end
@@ -2105,10 +2105,12 @@ end
 # source://actionmailer//lib/action_mailer/railtie.rb#9
 class ActionMailer::Railtie < ::Rails::Railtie; end
 
-# Provides +rescue_from+ for mailers. Wraps mailer action processing,
-# mail job processing, and mail delivery.
+# Provides
+# {rescue_from}[rdoc-ref:ActiveSupport::Rescuable::ClassMethods#rescue_from]
+# for mailers. Wraps mailer action processing, mail job processing, and mail
+# delivery to handle configured errors.
 #
-# source://actionmailer//lib/action_mailer/rescuable.rb#6
+# source://actionmailer//lib/action_mailer/rescuable.rb#8
 module ActionMailer::Rescuable
   extend ::ActiveSupport::Concern
   include GeneratedInstanceMethods
@@ -2118,12 +2120,12 @@ module ActionMailer::Rescuable
   mixes_in_class_methods ::ActiveSupport::Rescuable::ClassMethods
   mixes_in_class_methods ::ActionMailer::Rescuable::ClassMethods
 
-  # source://actionmailer//lib/action_mailer/rescuable.rb#16
+  # source://actionmailer//lib/action_mailer/rescuable.rb#18
   def handle_exceptions; end
 
   private
 
-  # source://actionmailer//lib/action_mailer/rescuable.rb#23
+  # source://actionmailer//lib/action_mailer/rescuable.rb#25
   def process(*_arg0, **_arg1, &_arg2); end
 
   module GeneratedClassMethods
@@ -2141,7 +2143,7 @@ end
 
 # source://actionmailer//lib/action_mailer/rescuable.rb#0
 module ActionMailer::Rescuable::ClassMethods
-  # source://actionmailer//lib/action_mailer/rescuable.rb#11
+  # source://actionmailer//lib/action_mailer/rescuable.rb#13
   def handle_exception(exception); end
 end
 
@@ -2167,7 +2169,7 @@ class ActionMailer::TestCase < ::ActiveSupport::TestCase
   def _mailer_class?; end
 
   class << self
-    # source://activesupport/7.0.5/lib/active_support/callbacks.rb#68
+    # source://activesupport/7.0.6/lib/active_support/callbacks.rb#68
     def __callbacks; end
 
     # source://actionmailer//lib/action_mailer/test_case.rb#41

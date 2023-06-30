@@ -373,6 +373,3 @@ end
 
 # source://rgeo-geojson//lib/rgeo/geo_json/version.rb#5
 RGeo::GeoJSON::VERSION = T.let(T.unsafe(nil), String)
-
-# source://rgeo/3.0.0/lib/rgeo/version.rb#4
-RGeo::VERSION = T.let(T.unsafe(nil), String)

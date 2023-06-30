@@ -5944,6 +5944,7 @@ end
 module RGeo::Feature::GeometryCollection
   include ::RGeo::Feature::Geometry
   include ::Enumerable
+  include ::ActiveSupport::ToJsonWithActiveSupportEncoder
   extend ::RGeo::Feature::Type
 
   # Returns the Nth geometry in this GeometryCollection, or nil if the
@@ -6175,6 +6176,7 @@ end
 module RGeo::Feature::MultiCurve
   include ::RGeo::Feature::Geometry
   include ::Enumerable
+  include ::ActiveSupport::ToJsonWithActiveSupportEncoder
   include ::RGeo::Feature::GeometryCollection
   extend ::RGeo::Feature::Type
 
@@ -6225,6 +6227,7 @@ end
 module RGeo::Feature::MultiLineString
   include ::RGeo::Feature::Geometry
   include ::Enumerable
+  include ::ActiveSupport::ToJsonWithActiveSupportEncoder
   include ::RGeo::Feature::GeometryCollection
   include ::RGeo::Feature::MultiCurve
   extend ::RGeo::Feature::Type
@@ -6253,6 +6256,7 @@ end
 module RGeo::Feature::MultiPoint
   include ::RGeo::Feature::Geometry
   include ::Enumerable
+  include ::ActiveSupport::ToJsonWithActiveSupportEncoder
   include ::RGeo::Feature::GeometryCollection
   extend ::RGeo::Feature::Type
 end
@@ -6304,6 +6308,7 @@ end
 module RGeo::Feature::MultiPolygon
   include ::RGeo::Feature::Geometry
   include ::Enumerable
+  include ::ActiveSupport::ToJsonWithActiveSupportEncoder
   include ::RGeo::Feature::GeometryCollection
   include ::RGeo::Feature::MultiSurface
   extend ::RGeo::Feature::Type
@@ -6334,6 +6339,7 @@ end
 module RGeo::Feature::MultiSurface
   include ::RGeo::Feature::Geometry
   include ::Enumerable
+  include ::ActiveSupport::ToJsonWithActiveSupportEncoder
   include ::RGeo::Feature::GeometryCollection
   extend ::RGeo::Feature::Type
 
@@ -11376,6 +11382,7 @@ end
 # source://rgeo//lib/rgeo/geos/zm_feature_methods.rb#319
 module RGeo::Geos::ZMGeometryCollectionMethods
   include ::Enumerable
+  include ::ActiveSupport::ToJsonWithActiveSupportEncoder
 
   # source://rgeo//lib/rgeo/geos/zm_feature_methods.rb#325
   def [](idx); end
@@ -11761,6 +11768,7 @@ module RGeo::ImplHelper; end
 # source://rgeo//lib/rgeo/impl_helper/basic_geometry_collection_methods.rb#11
 module RGeo::ImplHelper::BasicGeometryCollectionMethods
   include ::Enumerable
+  include ::ActiveSupport::ToJsonWithActiveSupportEncoder
 
   # source://rgeo//lib/rgeo/impl_helper/basic_geometry_collection_methods.rb#16
   def initialize(factory, elements); end

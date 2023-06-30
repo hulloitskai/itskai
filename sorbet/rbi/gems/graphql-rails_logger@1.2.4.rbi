@@ -14,13 +14,13 @@ module GraphQL
     def default_parser=(_arg0); end
 
     # source://graphql/2.0.16/lib/graphql.rb#45
-    def parse(graphql_string, tracer: T.unsafe(nil)); end
+    # def parse(graphql_string, tracer: T.unsafe(nil)); end
 
     # source://graphql/2.0.16/lib/graphql.rb#52
     def parse_file(filename); end
 
     # source://graphql/2.0.16/lib/graphql.rb#57
-    def parse_with_racc(string, filename: T.unsafe(nil), tracer: T.unsafe(nil)); end
+    # def parse_with_racc(string, filename: T.unsafe(nil), tracer: T.unsafe(nil)); end
 
     # source://graphql/2.0.16/lib/graphql.rb#62
     def scan(graphql_string); end

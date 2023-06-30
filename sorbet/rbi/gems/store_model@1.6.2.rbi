@@ -7,13 +7,13 @@
 # source://store_model//lib/active_model/validations/store_model_validator.rb#6
 module ActiveModel
   class << self
-    # source://activemodel/7.0.4.3/lib/active_model.rb#71
+    # source://activemodel/7.0.6/lib/active_model.rb#72
     def eager_load!; end
 
-    # source://activemodel/7.0.4.3/lib/active_model/gem_version.rb#5
+    # source://activemodel/7.0.6/lib/active_model/gem_version.rb#5
     def gem_version; end
 
-    # source://activemodel/7.0.4.3/lib/active_model/version.rb#7
+    # source://activemodel/7.0.6/lib/active_model/version.rb#7
     def version; end
   end
 end
@@ -27,30 +27,30 @@ module ActiveModel::Attributes
   mixes_in_class_methods ::ActiveModel::AttributeMethods::ClassMethods
   mixes_in_class_methods ::ActiveModel::Attributes::ClassMethods
 
-  # source://activemodel/7.0.4.3/lib/active_model/attributes.rb#78
+  # source://activemodel/7.0.6/lib/active_model/attributes.rb#78
   def initialize(*_arg0); end
 
-  # source://activemodel/7.0.4.3/lib/active_model/attributes.rb#116
+  # source://activemodel/7.0.6/lib/active_model/attributes.rb#116
   def attribute_names; end
 
-  # source://activemodel/7.0.4.3/lib/active_model/attributes.rb#100
+  # source://activemodel/7.0.6/lib/active_model/attributes.rb#100
   def attributes; end
 
-  # source://activemodel/7.0.4.3/lib/active_model/attributes.rb#120
+  # source://activemodel/7.0.6/lib/active_model/attributes.rb#120
   def freeze; end
 
   private
 
-  # # source://store_model//lib/store_model/ext/active_model/attributes.rb#19
-  # def _write_attribute(*_arg0); end
+  # source://store_model//lib/store_model/ext/active_model/attributes.rb#19
+  def _write_attribute(*_arg0); end
 
-  # # source://store_model//lib/store_model/ext/active_model/attributes.rb#12
-  # def attribute(*_arg0); end
+  # source://store_model//lib/store_model/ext/active_model/attributes.rb#12
+  def attribute(*_arg0); end
 
-  # source://activemodel/7.0.4.3/lib/active_model/attributes.rb#126
+  # source://activemodel/7.0.6/lib/active_model/attributes.rb#126
   def attribute=(attr_name, value); end
 
-  # source://activemodel/7.0.4.3/lib/active_model/attributes.rb#83
+  # source://activemodel/7.0.6/lib/active_model/attributes.rb#83
   def initialize_dup(other); end
 
   module GeneratedClassMethods
@@ -90,35 +90,35 @@ module ActiveModel::Validations
   mixes_in_class_methods ::ActiveModel::Translation
   mixes_in_class_methods ::ActiveModel::Validations::HelperMethods
 
-  # source://activemodel/7.0.4.3/lib/active_model/validations.rb#301
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#301
   def errors; end
 
-  # source://activemodel/7.0.4.3/lib/active_model/validations.rb#373
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#373
   def invalid?(context = T.unsafe(nil)); end
 
   def read_attribute_for_validation(*_arg0); end
 
-  # source://activemodel/7.0.4.3/lib/active_model/validations.rb#334
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#334
   def valid?(context = T.unsafe(nil)); end
 
-  # source://activemodel/7.0.4.3/lib/active_model/validations.rb#334
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#334
   def validate(context = T.unsafe(nil)); end
 
-  # source://activemodel/7.0.4.3/lib/active_model/validations.rb#382
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#382
   def validate!(context = T.unsafe(nil)); end
 
-  # source://activemodel/7.0.4.3/lib/active_model/validations/with.rb#137
+  # source://activemodel/7.0.6/lib/active_model/validations/with.rb#137
   def validates_with(*args, &block); end
 
   private
 
-  # source://activemodel/7.0.4.3/lib/active_model/validations.rb#283
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#283
   def initialize_dup(other); end
 
-  # source://activemodel/7.0.4.3/lib/active_model/validations.rb#410
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#410
   def raise_validation_error; end
 
-  # source://activemodel/7.0.4.3/lib/active_model/validations.rb#405
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#405
   def run_validations!; end
 
   module GeneratedClassMethods

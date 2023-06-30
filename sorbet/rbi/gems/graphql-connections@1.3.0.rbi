@@ -7,26 +7,26 @@
 # source://graphql-connections//lib/graphql/connections.rb#6
 module GraphQL
   class << self
-    # source://graphql/2.0.16/lib/graphql.rb#35
+    # source://graphql/2.0.24/lib/graphql.rb#35
     def default_parser; end
 
-    # source://graphql/2.0.16/lib/graphql.rb#39
+    # source://graphql/2.0.24/lib/graphql.rb#39
     def default_parser=(_arg0); end
 
-    # source://graphql/2.0.16/lib/graphql.rb#45
-    def parse(graphql_string, tracer: T.unsafe(nil)); end
+    # source://graphql/2.0.24/lib/graphql.rb#45
+    def parse(graphql_string, trace: T.unsafe(nil)); end
 
-    # source://graphql/2.0.16/lib/graphql.rb#52
+    # source://graphql/2.0.24/lib/graphql.rb#52
     def parse_file(filename); end
 
-    # source://graphql/2.0.16/lib/graphql.rb#57
-    def parse_with_racc(string, filename: T.unsafe(nil), tracer: T.unsafe(nil)); end
+    # source://graphql/2.0.24/lib/graphql.rb#62
+    def parse_with_racc(string, filename: T.unsafe(nil), trace: T.unsafe(nil)); end
 
-    # source://graphql/2.0.16/lib/graphql.rb#62
+    # source://graphql/2.0.24/lib/graphql.rb#58
     def scan(graphql_string); end
 
-    # source://graphql/2.0.16/lib/graphql.rb#66
-    def scan_with_ragel(graphql_string); end
+    # source://graphql/2.0.24/lib/graphql.rb#66
+    def scan_with_ruby(graphql_string); end
   end
 end
 
@@ -241,7 +241,7 @@ class GraphQL::Connections::PrimaryKey::Base < ::GraphQL::Connections::Base
   # source://graphql-connections//lib/graphql/connections/primary_key/base.rb#38
   def cursor_for(item); end
 
-  # source://graphql-connections//lib/graphql/connections/primary_key/base.rb#28
+  sig { returns(T::Boolean) }
   def has_next_page; end
 
   # source://graphql-connections//lib/graphql/connections/primary_key/base.rb#18
@@ -322,6 +322,3 @@ module GraphQL::Connections::Stable
     def use(defn, options = T.unsafe(nil)); end
   end
 end
-
-# source://graphql/2.0.16/lib/graphql/version.rb#3
-GraphQL::VERSION = T.let(T.unsafe(nil), String)
