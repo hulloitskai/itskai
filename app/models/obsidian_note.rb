@@ -92,7 +92,7 @@ class ObsidianNote < ApplicationRecord
   # == FriendlyId
   include FriendlyIdentifiable
 
-  friendly_id :name
+  friendly_id :name, slug_column: "slug"
 
   # == Methods: Analysis
   sig { params(force: T::Boolean).void }

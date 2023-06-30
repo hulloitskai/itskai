@@ -1,17 +1,17 @@
 import type { FC } from "react";
 import { format as formatTimeAgo } from "timeago.js";
+import CogIcon from "~icons/heroicons/cog-6-tooth-20-solid";
+import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
 
 import { Text } from "@mantine/core";
 import type { BoxProps, BadgeProps } from "@mantine/core";
 
-import CogIcon from "~icons/heroicons/cog-6-tooth-20-solid";
-import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
+import { createApolloLink } from "~/helpers/apollo";
+import type { SharedPageProps } from "~/helpers/inertia";
 
 import { AppMenuQueryDocument } from "~/helpers/graphql";
 import type { AppViewerFragment } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
-
-import { createApolloLink } from "~/helpers/apollo";
 
 export type AppMenuProps = Pick<BoxProps, "sx"> & {
   readonly viewer: Maybe<AppViewerFragment>;
@@ -91,9 +91,9 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
           icon={<SignOutIcon />}
           onClick={() => {
             router.post("/logout", undefined, {
-              onSuccess: ({ props: { csrf } }) => {
-                const csrfToken = (csrf as any).token;
-                const link = createApolloLink({ csrfToken });
+              onSuccess: ({ props }) => {
+                const { csrf } = props as unknown as SharedPageProps;
+                const link = createApolloLink({ csrfToken: csrf.token });
                 client.setLink(link);
                 client.resetStore();
               },

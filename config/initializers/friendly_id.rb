@@ -83,8 +83,8 @@ FriendlyId.defaults do |config|
   # By default, FriendlyId's :slugged addon expects the slug column to be named
   # 'slug', but you can change it if you wish.
   #
-  # config.slug_column = 'slug'
-  #
+  config.slug_column = "handle"
+
   # By default, slug has no size limit, but you can change it if you wish.
   #
   config.slug_limit = 64
