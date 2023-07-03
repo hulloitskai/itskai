@@ -1,14 +1,14 @@
 import type { ComponentPropsWithoutRef, FC } from "react";
 
-import { Render } from "@9gustin/react-notion-render";
-import type { WithContentValidationProps } from "@9gustin/react-notion-render/dist/hoc/withContentValidation";
+import { Render as NotionRenderer } from "@9gustin/react-notion-render";
+import type { WithContentValidationProps as NotionComponentProps } from "@9gustin/react-notion-render/dist/hoc/withContentValidation";
 
 import "@9gustin/react-notion-render/dist/index.css";
 
-type RenderProps = ComponentPropsWithoutRef<typeof Render>;
+type NotionRendererProps = ComponentPropsWithoutRef<typeof NotionRenderer>;
 
 export type NotionContentProps = {
-  readonly content: RenderProps["blocks"];
+  readonly content: NotionRendererProps["blocks"];
 };
 
 const NotionContent: FC<NotionContentProps> = ({ content }) => {
@@ -24,7 +24,7 @@ const NotionContent: FC<NotionContentProps> = ({ content }) => {
         },
       })}
     >
-      <Render
+      <NotionRenderer
         blockComponentsMapper={{
           divider: NotionContentDivider,
         }}
@@ -38,6 +38,6 @@ const NotionContent: FC<NotionContentProps> = ({ content }) => {
 
 export default NotionContent;
 
-const NotionContentDivider: FC<WithContentValidationProps> = () => {
-  return <Divider my="md" />;
-};
+const NotionContentDivider: FC<NotionComponentProps> = () => (
+  <Divider my="md" />
+);

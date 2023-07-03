@@ -111,8 +111,7 @@ class JournalService < ApplicationService
   def retrieve_blocks(page_id)
     page = retrieve_page(page_id)
     redactor = Redactor.new(page)
-    message = client.block_children(block_id: page_id)
-    message.results.tap { |blocks| redactor.redact_blocks!(blocks) }
+    recursively_retrieve_blocks(page_id, redactor:)
   end
 
   sig { params(page_id: String, text: String).returns(T.untyped) }
@@ -138,6 +137,23 @@ class JournalService < ApplicationService
   # == Helpers
   sig { returns(String) }
   def database_id
-    T.must(self.class.database_id)
+    self.class.database_id or raise "Missing database ID"
+  end
+
+  sig do
+    params(parent_block_id: String, redactor: Redactor)
+      .returns(T::Array[T.untyped])
+  end
+  def recursively_retrieve_blocks(parent_block_id, redactor:)
+    message = client.block_children(block_id: parent_block_id)
+    message.results.tap do |blocks|
+      blocks = T.let(blocks, T::Array[T.untyped])
+      redactor.redact_blocks!(blocks)
+      blocks.each do |block|
+        if block["has_children"]
+          block["children"] = recursively_retrieve_blocks(block.id, redactor:)
+        end
+      end
+    end
   end
 end

@@ -80,12 +80,12 @@ class ScottbotService < ApplicationService
   # == Helpers
   sig { returns(String) }
   def discord_token
-    T.must(self.class.discord_token)
+    self.class.discord_token or raise "Missing Discord token"
   end
 
   sig { returns(String) }
   def discord_channel_id
-    T.must(self.class.discord_channel_id)
+    self.class.discord_channel_id or raise "Missing Discord channel ID"
   end
 
   sig { params(message: String).void }

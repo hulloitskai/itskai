@@ -8,7 +8,7 @@ class ObsidianNotesController < ApplicationController
   # == Actions
   # GET /entries/1
   def show
-    note = T.must(@note)
+    note = @note or raise "Missing note"
     authorize!(note)
     note_id = note.to_gid.to_s
     data = query!("ObsidianNotePageQuery", { note_id: })
