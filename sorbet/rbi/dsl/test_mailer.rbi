@@ -9,7 +9,7 @@ class TestMailer
     sig { returns(::ActionMailer::MessageDelivery) }
     def current_user; end
 
-    sig { returns(::ActionMailer::MessageDelivery) }
-    def hello_world_email; end
+    sig { params(model: ::TestModel, current_user: T.nilable(::User)).returns(::ActionMailer::MessageDelivery) }
+    def test_email(model, current_user: T.unsafe(nil)); end
   end
 end

@@ -48,20 +48,20 @@ module InertiaRails
       ).returns(T.untyped)
     end
     def inertia_render(component, props: {})
-      raise "Inertia SSR must be enabled" unless InertiaRails.ssr_enabled?
       wait_for_inertia_ssr_ready
       request = ActionDispatch::Request.new({ "ORIGINAL_FULLPATH" => "/" })
-      response = ActionDispatch::Response.new
       renderer = Renderer.new(
         component,
         self,
         request,
-        response,
+        nil,
         method(:render),
         props:,
         view_data: nil,
       )
       renderer.render
+    rescue
+      raise "Failed to render email with Inertia"
     end
 
     sig { void }

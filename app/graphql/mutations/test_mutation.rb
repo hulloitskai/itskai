@@ -22,6 +22,12 @@ module Mutations
     def resolve(**attributes)
       model = TestModel.new(**attributes)
       if model.valid?
+        th = Thread.new do
+          TestMailer
+            .test_email(model, current_user: active_user)
+            .deliver_now
+        end
+        th.join
         Payload.new(model:)
       else
         Payload.new(errors: model.input_field_errors)

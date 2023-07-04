@@ -9,10 +9,11 @@ module Devise::Models
     module Extension
       extend T::Sig
 
+      # == Methods
       sig { params(notification: Symbol, args: T.untyped).void }
       def send_devise_notification(notification, *args)
-        thread = Thread.new { super }
-        thread.join
+        th = Thread.new { super }
+        th.join
       end
     end
 
