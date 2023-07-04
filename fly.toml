@@ -8,7 +8,6 @@ kill_timeout = 10
 
 [deploy]
   release_command = "bin/release"
-  strategy = "canary"
 
 [env]
   RAILS_DEFAULT_URL = "https://itskai.me"

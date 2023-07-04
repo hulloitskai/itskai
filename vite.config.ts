@@ -1,6 +1,7 @@
+import { join } from "path";
+
 import { defineConfig } from "vite";
 import type { PluginOption } from "vite";
-import { join } from "path";
 
 import rubyPlugin from "vite-plugin-ruby";
 import fullReloadPlugin from "vite-plugin-full-reload";
