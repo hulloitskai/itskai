@@ -60,8 +60,8 @@ module InertiaRails
         view_data: nil,
       )
       renderer.render
-    rescue
-      raise "Failed to render email with Inertia"
+    rescue => error
+      raise "Failed to render email with Inertia: #{error}"
     end
 
     sig { void }

@@ -28,6 +28,7 @@ module ItsKai
       require "./lib/better_errors_ext"
       require "./lib/bullet_ext"
       require "./lib/graphql_ext"
+      require "./lib/vite_ext"
       require "./lib/inertia_rails_ext"
       require "./lib/premailer_ext"
       require "./lib/email_validator_ext"

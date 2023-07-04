@@ -7,7 +7,7 @@ import type { BoxProps } from "@mantine/core";
 
 import { ActivityStatusBadgeSubscriptionDocument } from "~/helpers/graphql";
 
-import logoPath from "~/assets/logo-plain.png";
+import heartSrc from "~/assets/images/heart.png";
 
 export type ActivityStatusBadgeProps = Omit<BoxProps, "children">;
 
@@ -74,7 +74,7 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
           <Center h="100%" {...{ style }}>
             <HoverCard withArrow withinPortal>
               <HoverCard.Target>
-                <Flex align="center" sx={{ flexShrink: 0 }}>
+                <Group spacing={4}>
                   <Text size="xs" weight={500} color="gray.6">
                     made by{" "}
                     <Text span weight={700}>
@@ -82,8 +82,8 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
                     </Text>{" "}
                     with
                   </Text>
-                  <Image src={logoPath} width={24} height={24} />
-                </Flex>
+                  <Image src={heartSrc} width={12} height={12} />
+                </Group>
               </HoverCard.Target>
               <HoverCard.Dropdown
                 sx={({ radius }) => ({ borderRadius: radius.md })}
