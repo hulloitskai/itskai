@@ -49,6 +49,7 @@ AllCops:
     - "**/*.ru"
     - "**/Gemfile"
     - "**/Rakefile"
+  CacheRootDirectory: "tmp/cache/rubocop"
 
 Lint/MissingCopEnableDirective:
   Enabled: false
