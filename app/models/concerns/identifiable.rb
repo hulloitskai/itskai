@@ -23,6 +23,6 @@ module Identifiable
   # == Methods
   sig { returns(String) }
   def id!
-    self.id ||= SecureRandom.uuid
+    id || save!.then { T.must(id) }
   end
 end
