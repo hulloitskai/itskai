@@ -15,6 +15,7 @@ storage/
 tmp/
 typings/auto-import.d.ts
 vendor/
+vite.config.ts.timestamp-*.mjs
 package-lock.json
 yarn.lock
 *generated*

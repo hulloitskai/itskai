@@ -51,7 +51,7 @@ const UserLoginPage: PageComponent<UserLoginPageProps> = () => {
 UserLoginPage.layout = buildLayout<UserLoginPageProps>(
   (page, { data: { viewer } }) => (
     <AppLayout title="Sign In" {...{ viewer }}>
-      <Center h="100%">{page}</Center>
+      <Center sx={{ flexGrow: 1 }}>{page}</Center>
     </AppLayout>
   ),
 );

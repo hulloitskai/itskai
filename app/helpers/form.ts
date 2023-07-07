@@ -44,7 +44,10 @@ const formErrorsMessage = (errors: Record<string, string>): string => {
         remainingCount > 1 ? "s" : ""
       })`;
     }
-    return message + ".";
+    if (!message.endsWith(".")) {
+      message += ".";
+    }
+    return message;
   }
   return "An unknown error occurred.";
 };

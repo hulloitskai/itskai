@@ -21,14 +21,10 @@ class Schema < GraphQL::Schema
   validate_max_errors 100
 
   # == Callback Handlers
-  rescue_from(
-    ActiveRecord::RecordInvalid,
-    ActiveRecord::RecordNotSaved,
-  ) do |error|
-    error = T.let(error, T.any(ActiveRecord::RecordInvalid,
-                               ActiveRecord::RecordNotSaved))
+  rescue_from ActiveRecord::RecordInvalid do |error|
+    error = T.let(error, ActiveRecord::RecordInvalid)
     model_name = error.record.model_name.human.downcase
-    raise GraphQL::ExecutionError, "Couldn't save #{model_name}."
+    raise GraphQL::ExecutionError, "#{model_name} is invalid."
   end
   rescue_from ActiveRecord::RecordNotDestroyed do |error|
     error = T.let(error, ActiveRecord::RecordNotDestroyed)

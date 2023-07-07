@@ -49,7 +49,7 @@ const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => {
 UserRegisterPage.layout = buildLayout<UserRegisterPageProps>(
   (page, { data: { viewer } }) => (
     <AppLayout title="Sign Up" {...{ viewer }}>
-      <Center h="100%">{page}</Center>
+      <Center sx={{ flexGrow: 1 }}>{page}</Center>
     </AppLayout>
   ),
 );

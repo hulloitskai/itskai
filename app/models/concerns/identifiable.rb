@@ -23,6 +23,14 @@ module Identifiable
   # == Methods
   sig { returns(String) }
   def id!
-    id || save!.then { T.must(id) }
+    id or raise "Missing ID"
+  end
+
+  sig { returns(String) }
+  def saved_id!
+    id || scoped do
+      save!
+      T.must(id)
+    end
   end
 end
