@@ -110,6 +110,9 @@ module ItsKai
     # == Active Support
     config.active_support.remove_deprecated_time_with_zone_name = true
 
+    # == Assets
+    config.assets.prefix = "dist-sprockets/assets"
+
     # == Booted At
     BOOTED_AT = T.let(Time.current, Time)
 

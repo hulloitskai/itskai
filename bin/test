@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 export RAILS_ENV=test NODE_ENV=production
 
 echo "=> Compiling assets"

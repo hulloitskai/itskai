@@ -10,8 +10,8 @@ __pycache__/
 vite.config.ts.timestamp-*.mjs
 
 # == Vite Ruby
-/dist/
-/public/dist*
+/app/ssr/dist/
+/public/dist*/
 
 # == Ruby LSP
 .ruby-lsp/

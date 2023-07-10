@@ -16,8 +16,8 @@ tmp/
 !tmp/storage/.keep
 
 # Vite:
-dist*
-public/dist*
+/app/ssr/dist/
+/public/dist*/
 
 # == Dotenv
 .env

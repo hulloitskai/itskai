@@ -5,6 +5,13 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  # == Default URL Options
+  routes.default_url_options = {
+    protocol: "http",
+    host: "localhost",
+    port: 3000,
+  }
+
   # == Code Loading
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development

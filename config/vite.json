@@ -4,7 +4,7 @@
     "additionalEntrypoints": ["~/assets/**/*"],
     "ssrBuildEnabled": true,
     "ssrEntrypoint": "~/ssr/application.{js,jsx,ts,tsx}",
-    "ssrOutputDir": "dist"
+    "ssrOutputDir": "app/ssr/dist"
   },
   "development": {
     "publicOutputDir": "dist-dev",

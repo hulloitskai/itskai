@@ -75,6 +75,7 @@ Rails.application.routes.draw do
   get "/resume" => "resume#show"
   get "/toronto" => "places#toronto"
   get "/☕️" => "places#toronto"
+  get "/gh" => redirect("https://github.com/hulloitskai/itskai", status: 302)
 
   # == Development
   if Rails.env.development?

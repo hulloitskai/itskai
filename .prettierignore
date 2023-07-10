@@ -2,12 +2,12 @@ extension/
 .ruby-lsp/
 .husky/_/
 bin/
-dist/
+app/ssr/dist/
 db/schema.rb
 log/
 node_modules/
 public/assets/
-public/dist*
+public/dist*/
 sorbet/rbi/dsl/
 sorbet/rbi/gems/
 sorbet/rbi/annotations/
