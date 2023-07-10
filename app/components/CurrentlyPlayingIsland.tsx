@@ -1,10 +1,11 @@
 import type { FC, ReactNode } from "react";
 import { motion } from "framer-motion";
+import Marquee from "react-fast-marquee";
 import PlayIcon from "~icons/heroicons/play-circle-20-solid";
 
 import { Image, Text } from "@mantine/core";
 import { useNetwork } from "@mantine/hooks";
-import type { BoxProps } from "@mantine/core";
+import type { BoxProps, TextProps } from "@mantine/core";
 
 import {
   CurrentlyPlayingIslandQueryDocument,
@@ -216,7 +217,6 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
               );
               return {
                 root: {
-                  height: 30,
                   paddingRight: 10,
                   borderColor: hasLyrics
                     ? currentlyExplicit
@@ -238,25 +238,56 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
                 },
                 inner: {
                   maxWidth: 200,
-                  "> *": {
-                    textOverflow: "ellipsis",
-                    overflow: "hidden",
-                    whiteSpace: "nowrap",
-                  },
                 },
               };
             }}
             {...otherProps}
           >
-            <Text size="xs" color="gray.3">
+            <MarqueeText size="xs" color="gray.3">
               {name}
-            </Text>
-            <Text size={10} mt={-5.5} color="gray.6">
+            </MarqueeText>
+            <MarqueeText size={10} color="gray.6">
               {artistNames}
-            </Text>
+            </MarqueeText>
           </Badge>
         );
       }}
     </CurrentlyPlayingLyricsTooltip>
+  );
+};
+
+const MarqueeText: FC<TextProps> = ({ sx, children, ...otherProps }) => {
+  const textRef = useRef<HTMLDivElement>(null);
+
+  // == Play State
+  const [play, setPlay] = useState(false);
+  useLayoutEffect(() => {
+    const el = textRef.current;
+    if (el) {
+      if (el.clientWidth > 200) {
+        setPlay(true);
+      }
+    }
+  }, [textRef.current]);
+
+  // == Markup
+  return (
+    <Marquee pauseOnHover pauseOnClick speed={18} delay={1} {...{ play }}>
+      <Text
+        ref={textRef}
+        lh={1.1}
+        mr={play ? 24 : 0}
+        sx={[
+          ...packSx(sx),
+          {
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          },
+        ]}
+        {...otherProps}
+      >
+        {children}
+      </Text>
+    </Marquee>
   );
 };
