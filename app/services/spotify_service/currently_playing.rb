@@ -14,7 +14,7 @@ class SpotifyService
     def ==(other)
       case other
       when CurrentlyPlaying
-        other.track.id == track.id && \
+        other.track.id == track.id &&
           other.progress_milliseconds == progress_milliseconds
       else
         super

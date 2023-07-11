@@ -45,16 +45,6 @@ class JournalEntry < ApplicationRecord
                     },
                   }
 
-  sig { params(query: String).returns(PrivateRelation) }
-  def search(query) = super
-
-  module CommonRelationMethods
-    T::Sig::WithoutRuntime.sig do
-      params(query: String).returns(PrivateRelation)
-    end
-    def search(query) = super
-  end
-
   # == Validation
   validates :notion_page_id, presence: true, uniqueness: true
   validates :title, presence: true

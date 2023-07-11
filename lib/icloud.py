@@ -1,5 +1,7 @@
+from typing import List
 from pyicloud import PyiCloudService
 from pyicloud.services import DriveService
+from pyicloud.services.findmyiphone import AppleDevice
 
 
 class ICloud:
@@ -18,3 +20,7 @@ class ICloud:
 
     def drive(self) -> DriveService:
         return self.service.drive
+
+    def devices(self) -> List[AppleDevice]:
+        devices = self.service.devices._devices.values()
+        return list(devices)

@@ -39,12 +39,6 @@ class ObsidianNote < ApplicationRecord
   include Identifiable
   include Slugged
 
-  sig { returns(T::Array[String]) }
-  def aliases = super
-
-  sig { returns(T::Array[String]) }
-  def tags = super
-
   sig { returns(T::Boolean) }
   def analyzed? = analyzed_at?
 

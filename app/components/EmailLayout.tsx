@@ -12,8 +12,6 @@ import {
 } from "@react-email/components";
 import type { PreviewProps } from "@react-email/components";
 
-import logoSrc from "~/assets/images/logo.png";
-
 export type EmailLayoutProps = PropsWithChildren<{
   readonly header?: string;
   readonly preview?: PreviewProps["children"];
@@ -44,7 +42,7 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
           {children}
         </Box>
         <Box component={Section} mt={40}>
-          <Img src={logoSrc} width="32" height="32" />
+          <Img src="/logo.png" width="32" height="32" />
           <Box
             component={Text}
             sx={({ fn }) => ({ color: fn.dimmed() })}

@@ -14,7 +14,11 @@ class ICloudService
     def initialize(credentials:)
       super()
       @credentials = credentials
-      restore_credentials!
+      if Rails.console?
+        Rails.logger.silence { restore_credentials! }
+      else
+        restore_credentials!
+      end
       @pyicloud = T.let(
         PyICloud.new(
           email: @credentials.email,
@@ -23,7 +27,11 @@ class ICloudService
         ),
         T.untyped,
       )
-      save_credentials!
+      if Rails.console?
+        Rails.logger.silence { save_credentials! }
+      else
+        save_credentials!
+      end
     end
 
     # == Methods
@@ -40,6 +48,11 @@ class ICloudService
     sig { returns(Drive) }
     def drive
       Drive.new(@pyicloud.drive)
+    end
+
+    sig { returns(T::Array[T.untyped]) }
+    def devices
+      @pyicloud.devices
     end
 
     private

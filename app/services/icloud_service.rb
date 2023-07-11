@@ -32,8 +32,8 @@ class ICloudService < ApplicationService
   # == Service
   sig { override.returns(T::Boolean) }
   def ready?
-    !!(super && @credentials.present? && @client.present? && \
-        !@client.requires_security_code?)
+    !!(super && @credentials.present? && @client.present? &&
+      !@client.requires_security_code?)
   end
 
   sig { override.void }
@@ -41,7 +41,11 @@ class ICloudService < ApplicationService
     super
     return if disabled?
     Thread.new do
-      @credentials = ICloudCredentials.first
+      if Rails.console?
+        Rails.logger.silence { load_credentials }
+      else
+        load_credentials
+      end
       authenticate if @credentials.present?
     end
   end
@@ -64,27 +68,34 @@ class ICloudService < ApplicationService
 
   private
 
+  # == Attributes
+  sig { returns(T.nilable(ICloudCredentials)) }
+  attr_reader :credentials
+
   # == Helpers
   sig { void }
   def authenticate
-    @client = Client.new(credentials:)
+    @client = Client.new(credentials: credentials!)
   rescue PyCall::PyError => error
     type, message = error.type.__name__, error.value.to_s
     if type == "ConnectionError" &&
         message.include?("Failed to establish a new connection")
       tag_logger do
-        logger.warn(
-          "Failed to authenticate (bad connection); skipping",
-        )
+        logger.warn("Failed to authenticate (bad connection); skipping")
       end
     else
       raise
     end
   end
 
+  sig { void }
+  def load_credentials
+    @credentials = ICloudCredentials.first
+  end
+
   sig { returns(ICloudCredentials) }
-  def credentials
-    @credentials or raise "Not authenticated (missing credentials)"
+  def credentials!
+    credentials or raise "Not authenticated (missing credentials)"
   end
 
   sig { returns(Client) }

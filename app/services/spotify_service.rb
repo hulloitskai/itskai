@@ -69,7 +69,11 @@ class SpotifyService < ApplicationService
     super
     return if disabled?
     Thread.new do
-      @credentials = OAuthCredentials.spotify
+      if Rails.console?
+        Rails.logger.silence { load_credentials }
+      else
+        load_credentials
+      end
       authenticate if @credentials.present?
     end
   end
@@ -181,6 +185,11 @@ class SpotifyService < ApplicationService
     else
       raise
     end
+  end
+
+  sig { void }
+  def load_credentials
+    @credentials = OAuthCredentials.spotify
   end
 
   sig { params(words: String).returns(String) }
