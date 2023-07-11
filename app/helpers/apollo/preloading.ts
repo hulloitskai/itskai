@@ -36,7 +36,10 @@ export const usePreloadedQuery = <
       });
     }, [client, query, initialData]);
   }
-  const { loading, ...otherValues } = useQuery(query, queryOptions);
+  const { loading, ...otherValues } = useQuery(query, {
+    initialFetchPolicy: "cache-only",
+    ...queryOptions,
+  });
   const { data, previousData, networkStatus } = otherValues;
   return {
     coalescedData: data ?? previousData ?? initialData,
