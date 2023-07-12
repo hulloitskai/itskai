@@ -29,7 +29,7 @@ end.parse!
 # == Formatting
 puts "=> Running Prettier"
 scoped do
-  args = []
+  args = ["--cache"]
   args << (options[:fix] ? "--write" : "--check")
   args << "."
   system! "bin/yarn", "--silent", "prettier", *args
