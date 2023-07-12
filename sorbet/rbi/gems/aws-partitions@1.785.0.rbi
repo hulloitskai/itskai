@@ -7,28 +7,28 @@
 # source://aws-partitions//lib/aws-partitions/endpoint_provider.rb#3
 module Aws
   class << self
-    # source://aws-sdk-core/3.175.0/lib/aws-sdk-core.rb#133
+    # source://aws-sdk-core/3.178.0/lib/aws-sdk-core.rb#133
     def config; end
 
-    # source://aws-sdk-core/3.175.0/lib/aws-sdk-core.rb#136
+    # source://aws-sdk-core/3.178.0/lib/aws-sdk-core.rb#136
     def config=(config); end
 
-    # source://aws-sdk-core/3.175.0/lib/aws-sdk-core.rb#195
+    # source://aws-sdk-core/3.178.0/lib/aws-sdk-core.rb#195
     def eager_autoload!(*args); end
 
-    # source://aws-sdk-core/3.175.0/lib/aws-sdk-core.rb#188
+    # source://aws-sdk-core/3.178.0/lib/aws-sdk-core.rb#188
     def empty_connection_pools!; end
 
-    # source://aws-sdk-core/3.175.0/lib/aws-sdk-core.rb#145
+    # source://aws-sdk-core/3.178.0/lib/aws-sdk-core.rb#145
     def partition(partition_name); end
 
-    # source://aws-sdk-core/3.175.0/lib/aws-sdk-core.rb#150
+    # source://aws-sdk-core/3.178.0/lib/aws-sdk-core.rb#150
     def partitions; end
 
-    # source://aws-sdk-core/3.175.0/lib/aws-sdk-core.rb#126
+    # source://aws-sdk-core/3.178.0/lib/aws-sdk-core.rb#126
     def shared_config; end
 
-    # source://aws-sdk-core/3.175.0/lib/aws-sdk-core.rb#165
+    # source://aws-sdk-core/3.178.0/lib/aws-sdk-core.rb#165
     def use_bundled_cert!; end
   end
 end
@@ -189,7 +189,7 @@ module Aws::Partitions
     def each(&block); end
 
     # @api private For Internal use only
-    # @param partition [Hash] metadata
+    # @param partition_metadata [Hash]
     #
     # source://aws-partitions//lib/aws-partitions.rb#200
     def merge_metadata(partition_metadata); end
@@ -530,7 +530,7 @@ class Aws::Partitions::PartitionList
   def each(&block); end
 
   # @api private
-  # @param partition [Partition]
+  # @param partitions_metadata [Partition]
   #
   # source://aws-partitions//lib/aws-partitions/partition_list.rb#47
   def merge_metadata(partitions_metadata); end

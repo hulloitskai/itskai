@@ -22,10 +22,7 @@ export default defineConfig(({ ssrBuild }) => {
       dts: join(__dirname, "typings/auto-import.generated.d.ts"),
       imports,
     }),
-    iconsPlugin({
-      compiler: "jsx",
-      jsx: "react",
-    }),
+    iconsPlugin({ compiler: "jsx", jsx: "react" }),
     !ssrBuild &&
       graphqlCodegenPlugin({
         configFilePathOverride: "config/graphql/codegen.helpers.ts",
@@ -59,17 +56,10 @@ export default defineConfig(({ ssrBuild }) => {
     resolve: {
       alias: [
         {
-          find: /^@react-email\/components$/,
-          replacement: "@react-email/components/dist",
-        },
-        {
           find: /^@apollo\/client$/,
           replacement: "@apollo/client/index",
         },
       ],
-    },
-    optimizeDeps: {
-      include: ["@react-email/components"],
     },
     plugins,
   };

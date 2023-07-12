@@ -13,22 +13,22 @@ class ViteRuby
 
   # Public: Keeps track of watched files and triggers builds as needed.
   #
-  # source://vite_ruby//lib/vite_ruby.rb#119
+  # source://vite_ruby//lib/vite_ruby.rb#122
   def builder; end
 
   # Internal: Helper to run commands related with Vite.
   #
-  # source://vite_ruby//lib/vite_ruby.rb#124
+  # source://vite_ruby//lib/vite_ruby.rb#127
   def commands; end
 
   # Public: Current instance configuration for Vite.
   #
-  # source://vite_ruby//lib/vite_ruby.rb#129
+  # source://vite_ruby//lib/vite_ruby.rb#132
   def config; end
 
   # Public: Allows overriding the configuration for this instance.
   #
-  # source://vite_ruby//lib/vite_ruby.rb#139
+  # source://vite_ruby//lib/vite_ruby.rb#142
   def configure(**options); end
 
   # Public: Returns true if the Vite development server is currently running.
@@ -50,7 +50,7 @@ class ViteRuby
   # Example:
   #   ViteRuby.env['VITE_RUBY_CONFIG_PATH'] = 'config/alternate_vite.json'
   #
-  # source://vite_ruby//lib/vite_ruby.rb#101
+  # source://vite_ruby//lib/vite_ruby.rb#104
   def env; end
 
   # source://vite_ruby//lib/vite_ruby.rb#74
@@ -65,19 +65,19 @@ class ViteRuby
 
   # Public: Enables looking up assets managed by Vite using name and type.
   #
-  # source://vite_ruby//lib/vite_ruby.rb#144
+  # source://vite_ruby//lib/vite_ruby.rb#147
   def manifest; end
 
   # Internal: Executes the vite binary.
   #
-  # source://vite_ruby//lib/vite_ruby.rb#114
+  # source://vite_ruby//lib/vite_ruby.rb#117
   def run(argv, **options); end
 
   # Public: The proxy for assets should only run in development mode.
   #
   # @return [Boolean]
   #
-  # source://vite_ruby//lib/vite_ruby.rb#106
+  # source://vite_ruby//lib/vite_ruby.rb#109
   def run_proxy?; end
 
   class << self
@@ -269,7 +269,7 @@ end
 
 # source://vite_ruby//lib/vite_ruby/cli/build.rb#3
 class ViteRuby::CLI::Build < ::ViteRuby::CLI::Vite
-  # source://vite_rails/3.0.14/lib/vite_rails/cli.rb#9
+  # source://vite_rails/3.0.15/lib/vite_rails/cli.rb#9
   def call(**options); end
 end
 
@@ -408,12 +408,12 @@ class ViteRuby::CLI::Install < ::Dry::CLI::Command
 
   # Internal: Create a sample JS file and attempt to inject it in an HTML template.
   #
-  # source://vite_rails/3.0.14/lib/vite_rails/cli.rb#60
+  # source://vite_rails/3.0.15/lib/vite_rails/cli.rb#60
   def install_sample_files; end
 
   # Internal: Setup for a plain Rack application.
   #
-  # source://vite_rails/3.0.14/lib/vite_rails/cli.rb#28
+  # source://vite_rails/3.0.15/lib/vite_rails/cli.rb#28
   def setup_app_files; end
 
   protected
@@ -875,7 +875,7 @@ class ViteRuby::Config
 
     # Internal: Default values for a Ruby application.
     #
-    # source://vite_rails/3.0.14/lib/vite_rails/config.rb#7
+    # source://vite_rails/3.0.15/lib/vite_rails/config.rb#7
     def config_defaults; end
 
     # Internal: Extracts the configuration options provided as env vars.
@@ -1057,6 +1057,11 @@ class ViteRuby::Manifest
   # source://vite_ruby//lib/vite_ruby/manifest.rb#21
   def path_for(name, **options); end
 
+  # Public: Source script for the React Refresh plugin.
+  #
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#61
+  def react_preamble_code; end
+
   # Public: The content of the preamble needed by the React Refresh plugin.
   #
   # source://vite_ruby//lib/vite_ruby/manifest.rb#50
@@ -1088,31 +1093,31 @@ class ViteRuby::Manifest
   #   manifest.lookup('calendar.js')
   #   => { "file" => "/vite/assets/calendar-1016838bab065ae1e122.js", "imports" => [] }
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#80
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#89
   def lookup(name, **options); end
 
   # Internal: Strict version of lookup.
   #
   # Returns a relative path for the asset, or raises an error if not found.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#69
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#78
   def lookup!(name, **options); end
 
   private
 
   # Internal: Allows to receive :javascript and :stylesheet as :type in helpers.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#195
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#204
   def extension_for_type(entry_type); end
 
   # Internal: Finds the specified entry in the manifest.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#102
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#111
   def find_manifest_entry(name); end
 
   # Internal: Loads and merges the manifest files, resolving the asset paths.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#121
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#130
   def load_manifest; end
 
   # Internal: The parsed data from manifest.json.
@@ -1120,48 +1125,48 @@ class ViteRuby::Manifest
   # NOTE: When using build-on-demand in development and testing, the manifest
   # is reloaded automatically before each lookup, to ensure it's always fresh.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#114
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#123
   def manifest; end
 
   # Internal: Raises a detailed message when an entry is missing in the manifest.
   #
   # @raise [ViteRuby::MissingEntrypointError]
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#205
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#214
   def missing_entry_error(name, **options); end
 
   # Internal: Prefixes an asset with the `asset_host` for tags that do not use
   # the framework tag helpers.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#133
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#142
   def prefix_asset_with_host(path); end
 
   # Internal: Scopes an asset to the output folder in public, as a path.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#127
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#136
   def prefix_vite_asset(path); end
 
   # Internal: Entry names in the manifest are relative to the Vite.js.
   # During develoment, files outside the root must be requested explicitly.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#172
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#181
   def resolve_absolute_entry(name); end
 
   # Internal: Resolves the manifest entry name for the specified resource.
   #
   # @raise [ArgumentError]
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#154
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#163
   def resolve_entry_name(name, type: T.unsafe(nil)); end
 
   # Internal: Resolves the paths that reference a manifest entry.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#143
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#152
   def resolve_references(manifest); end
 
   # Internal: Resolves a virtual entry by walking all the manifest keys.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#181
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#190
   def resolve_virtual_entry(name); end
 
   # NOTE: Auto compilation is convenient when running tests, when the developer
@@ -1169,23 +1174,23 @@ class ViteRuby::Manifest
   #
   # @return [Boolean]
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#97
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#106
   def should_build?; end
 
   # Internal: The origin of assets managed by Vite.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#138
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#147
   def vite_asset_origin; end
 
   # Internal: Adds a file extension to the file name, unless it already has one.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#186
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#195
   def with_file_extension(name, entry_type); end
 end
 
 # Internal: The prefix used by Vite.js to request files with an absolute path.
 #
-# source://vite_ruby//lib/vite_ruby/manifest.rb#89
+# source://vite_ruby//lib/vite_ruby/manifest.rb#98
 ViteRuby::Manifest::FS_PREFIX = T.let(T.unsafe(nil), String)
 
 # Internal: Raised when an entry is not found in the build manifest.

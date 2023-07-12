@@ -99,7 +99,7 @@ class Enumerize::ActiveRecordSupport::Type < ::ActiveModel::Type::Value
   def as_json(options = T.unsafe(nil)); end
 
   # source://enumerize//lib/enumerize/activerecord.rb#118
-  def deserialize(value); end
+  def cast(value); end
 
   # source://enumerize//lib/enumerize/activerecord.rb#128
   def encode_with(coder); end
@@ -133,19 +133,19 @@ class Enumerize::Attribute
   # source://enumerize//lib/enumerize/attribute.rb#5
   def default_value; end
 
-  # source://enumerize//lib/enumerize/attribute.rb#94
+  # source://enumerize//lib/enumerize/attribute.rb#90
   def define_methods!(mod); end
 
-  # source://enumerize//lib/enumerize/attribute.rb#51
+  # source://enumerize//lib/enumerize/attribute.rb#47
   def each_value; end
 
-  # source://enumerize//lib/enumerize/attribute.rb#35
+  # source://enumerize//lib/enumerize/attribute.rb#31
   def find_default_value(value); end
 
-  # source://enumerize//lib/enumerize/attribute.rb#43
+  # source://enumerize//lib/enumerize/attribute.rb#39
   def find_value(value); end
 
-  # source://enumerize//lib/enumerize/attribute.rb#47
+  # source://enumerize//lib/enumerize/attribute.rb#43
   def find_values(*values); end
 
   # Returns the value of attribute i18n_scope.
@@ -153,7 +153,7 @@ class Enumerize::Attribute
   # source://enumerize//lib/enumerize/attribute.rb#5
   def i18n_scope; end
 
-  # source://enumerize//lib/enumerize/attribute.rb#59
+  # source://enumerize//lib/enumerize/attribute.rb#55
   def i18n_scopes; end
 
   # Returns the value of attribute klass.
@@ -166,7 +166,7 @@ class Enumerize::Attribute
   # source://enumerize//lib/enumerize/attribute.rb#5
   def name; end
 
-  # source://enumerize//lib/enumerize/attribute.rb#69
+  # source://enumerize//lib/enumerize/attribute.rb#65
   def options(options = T.unsafe(nil)); end
 
   # Returns the value of attribute skip_validations_value.
@@ -176,7 +176,7 @@ class Enumerize::Attribute
 
   # @return [Boolean]
   #
-  # source://enumerize//lib/enumerize/attribute.rb#55
+  # source://enumerize//lib/enumerize/attribute.rb#51
   def value?(value); end
 
   # Returns the value of attribute values.
@@ -186,12 +186,12 @@ class Enumerize::Attribute
 
   private
 
-  # source://enumerize//lib/enumerize/attribute.rb#139
+  # source://enumerize//lib/enumerize/attribute.rb#135
   def method_missing(method); end
 
   # @return [Boolean]
   #
-  # source://enumerize//lib/enumerize/attribute.rb#90
+  # source://enumerize//lib/enumerize/attribute.rb#86
   def respond_to_missing?(method, include_private = T.unsafe(nil)); end
 end
 
@@ -320,12 +320,12 @@ module Enumerize::MongoidSupport::InstanceMethods
   def _set_default_value_for_enumerized_attribute(attr); end
 end
 
-# source://enumerize//lib/enumerize/attribute.rb#148
+# source://enumerize//lib/enumerize/attribute.rb#144
 module Enumerize::Multiple
-  # source://enumerize//lib/enumerize/attribute.rb#157
+  # source://enumerize//lib/enumerize/attribute.rb#153
   def define_methods!(mod); end
 
-  # source://enumerize//lib/enumerize/attribute.rb#149
+  # source://enumerize//lib/enumerize/attribute.rb#145
   def find_default_value(value); end
 end
 
@@ -401,6 +401,9 @@ class Enumerize::Predicates::Builder
 
   # source://enumerize//lib/enumerize/predicates.rb#53
   def values; end
+
+  # source://enumerize//lib/enumerize/predicates.rb#77
+  def warn_on_already_defined_methods; end
 end
 
 # source://enumerize//lib/enumerize.rb#24

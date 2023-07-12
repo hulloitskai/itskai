@@ -58,7 +58,7 @@ end
 # source://vite_rails//lib/vite_rails/engine.rb#5
 class ViteRails::Engine < ::Rails::Engine
   class << self
-    # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
+    # source://activesupport/7.0.6/lib/active_support/callbacks.rb#68
     def __callbacks; end
   end
 end
@@ -72,7 +72,7 @@ module ViteRails::TagHelpers
   # Example:
   #   <%= vite_asset_path 'calendar.css' %> # => "/vite/assets/calendar-1016838bab065ae1e122.css"
   #
-  # source://vite_rails//lib/vite_rails/tag_helpers.rb#21
+  # source://vite_rails//lib/vite_rails/tag_helpers.rb#25
   def vite_asset_path(name, **options); end
 
   # Public: Resolves the url for the specified Vite asset.
@@ -80,7 +80,7 @@ module ViteRails::TagHelpers
   # Example:
   #   <%= vite_asset_url 'calendar.css' %> # => "https://example.com/vite/assets/calendar-1016838bab065ae1e122.css"
   #
-  # source://vite_rails//lib/vite_rails/tag_helpers.rb#29
+  # source://vite_rails//lib/vite_rails/tag_helpers.rb#33
   def vite_asset_url(name, **options); end
 
   # Public: Renders a script tag for vite/client to enable HMR in development.
@@ -90,39 +90,39 @@ module ViteRails::TagHelpers
 
   # Public: Renders an <img> tag for the specified Vite asset.
   #
-  # source://vite_rails//lib/vite_rails/tag_helpers.rb#68
+  # source://vite_rails//lib/vite_rails/tag_helpers.rb#72
   def vite_image_tag(name, **options); end
 
   # Public: Renders a <script> tag for the specified Vite entrypoints.
   #
-  # source://vite_rails//lib/vite_rails/tag_helpers.rb#34
+  # source://vite_rails//lib/vite_rails/tag_helpers.rb#38
   def vite_javascript_tag(*names, type: T.unsafe(nil), asset_type: T.unsafe(nil), skip_preload_tags: T.unsafe(nil), skip_style_tags: T.unsafe(nil), crossorigin: T.unsafe(nil), media: T.unsafe(nil), **options); end
 
   # Public: Renders a script tag to enable HMR with React Refresh.
   #
   # source://vite_rails//lib/vite_rails/tag_helpers.rb#13
-  def vite_react_refresh_tag; end
+  def vite_react_refresh_tag(**options); end
 
   # Public: Renders a <link> tag for the specified Vite entrypoints.
   #
-  # source://vite_rails//lib/vite_rails/tag_helpers.rb#59
+  # source://vite_rails//lib/vite_rails/tag_helpers.rb#63
   def vite_stylesheet_tag(*names, **options); end
 
   # Public: Renders a <script> tag for the specified Vite entrypoints.
   #
-  # source://vite_rails//lib/vite_rails/tag_helpers.rb#54
+  # source://vite_rails//lib/vite_rails/tag_helpers.rb#58
   def vite_typescript_tag(*names, **options); end
 
   private
 
   # Internal: Returns the current manifest loaded by Vite Ruby.
   #
-  # source://vite_rails//lib/vite_rails/tag_helpers.rb#81
+  # source://vite_rails//lib/vite_rails/tag_helpers.rb#85
   def vite_manifest; end
 
   # Internal: Renders a modulepreload link tag.
   #
-  # source://vite_rails//lib/vite_rails/tag_helpers.rb#86
+  # source://vite_rails//lib/vite_rails/tag_helpers.rb#90
   def vite_preload_tag(*sources, crossorigin:, **options); end
 end
 
