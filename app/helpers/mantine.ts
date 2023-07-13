@@ -1,4 +1,8 @@
-import type { DefaultMantineColor, MantineThemeOverride } from "@mantine/core";
+import type {
+  CSSObject,
+  DefaultMantineColor,
+  MantineThemeOverride,
+} from "@mantine/core";
 
 import { DEFAULT_THEME } from "@mantine/core";
 import type { Tuple } from "@mantine/core";
@@ -43,6 +47,14 @@ export const APP_THEME: MantineThemeOverride = {
       defaultProps: {
         variant: "default",
       },
+    },
+    Modal: {
+      styles: ({ headings: { fontFamily, sizes } }) => ({
+        title: {
+          fontFamily,
+          ...(sizes.h3 as CSSObject),
+        },
+      }),
     },
   },
 };

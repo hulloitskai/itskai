@@ -40,7 +40,7 @@ const TestPage: PageComponent<TestPageProps> = ({
   // == Callbacks
   const showModal = useCallback(() => {
     openModal({
-      title: <Title order={3}>I Am A Modal!</Title>,
+      title: "I'm a modal!",
       children: <TestPageModalContent {...{ name }} />,
     });
   }, [name]);
