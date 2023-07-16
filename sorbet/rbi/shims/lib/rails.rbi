@@ -1,8 +1,11 @@
 # typed: strong
 
 module Rails
-  class << self
-    sig {returns(ActiveSupport::ErrorReporter)}
-    def error; end
+  sig {returns(ActiveSupport::ErrorReporter) }
+  def self.error; end
+
+  class Application
+    sig { returns(ActionDispatch::Routing::RouteSet) }
+    def self.routes; end
   end
 end

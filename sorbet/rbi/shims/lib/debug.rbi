@@ -1,8 +1,7 @@
 # typed: strong
 
 module DEBUGGER__
-  module TrapInterceptor
-  end
+  module TrapInterceptor; end
 end
 
 class Binding

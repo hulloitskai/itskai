@@ -82,10 +82,9 @@ module ItsKai
     config.session_store(:cookie_store, key: "session")
 
     # == Exceptions
-    config.exceptions_app = T.unsafe(self).routes
-    config.action_dispatch.rescue_responses.merge!( # rubocop:disable Performance/RedundantMerge
-      "ActionPolicy::Unauthorized" => :unauthorized,
-    )
+    config.exceptions_app = routes
+    config.action_dispatch.rescue_responses["ActionPolicy::Unauthorized"] =
+      :unauthorized
 
     # == Action View
     config.action_view.frozen_string_literal = true

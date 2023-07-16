@@ -39,6 +39,7 @@ Rails.application.configure do
     # == Errors
     config.retry_on_unhandled_error = false
     config.on_thread_error = ->(error) do
+      error = T.let(error, Exception)
       Rails.error.report(error, handled: false)
     end
   end

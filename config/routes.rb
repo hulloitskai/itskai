@@ -63,9 +63,10 @@ Rails.application.routes.draw do
 
   # == Errors
   scope controller: :errors do
-    match "/404", action: :not_found, via: :all
-    match "/500", action: :internal_server_error, via: :all
     match "/401", action: :unauthorized, via: :all
+    match "/404", action: :not_found, via: :all
+    match "/422", action: :unprocessable_entity, via: :all
+    match "/500", action: :internal_server_error, via: :all
   end
 
   # == Pages

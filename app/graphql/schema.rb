@@ -22,18 +22,15 @@ class Schema < GraphQL::Schema
 
   # == Callback Handlers
   rescue_from ActiveRecord::RecordInvalid do |error|
-    error = T.let(error, ActiveRecord::RecordInvalid)
     model_name = error.record.model_name.human.downcase
     raise GraphQL::ExecutionError, "#{model_name} is invalid."
   end
   rescue_from ActiveRecord::RecordNotDestroyed do |error|
-    error = T.let(error, ActiveRecord::RecordNotDestroyed)
     record = error.record
     model_name = record.model_name.human.downcase
     raise GraphQL::ExecutionError, "Couldn't destroy #{model_name}."
   end
   rescue_from RuntimeError do |error|
-    error = T.let(error, RuntimeError)
     message = error.message
     message += "." unless message.end_with?(".")
     raise GraphQL::ExecutionError, message

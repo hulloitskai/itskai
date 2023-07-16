@@ -5,7 +5,7 @@ class JournalEntry
   def search(query); end
 
   module CommonRelationMethods
-    sig do params(query: String).returns(PrivateRelation) end
+    sig { params(query: String).returns(PrivateRelation) }
     def search(query); end
   end
 end

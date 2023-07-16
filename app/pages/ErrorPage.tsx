@@ -1,5 +1,5 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { Text } from "@mantine/core";
+import { Code, Text } from "@mantine/core";
 
 import type { ErrorPageQuery } from "~/helpers/graphql";
 
@@ -7,14 +7,16 @@ export type ErrorPageProps = PagePropsWithData<ErrorPageQuery> & {
   readonly title: string;
   readonly description: string;
   readonly code: number;
+  readonly error?: string;
 };
 
 const ErrorPage: PageComponent<ErrorPageProps> = ({
   title,
   description,
   code,
+  error,
 }) => (
-  <Container size="sm" my="xl">
+  <Container size="xs" my="xl">
     <Stack align="center">
       <Badge variant="outline" color="red">
         Status {code}
@@ -25,6 +27,11 @@ const ErrorPage: PageComponent<ErrorPageProps> = ({
           {description}
         </Text>
       </Stack>
+      {!!error && (
+        <Code block color="primary" sx={{ alignSelf: "stretch" }}>
+          Error: {error}
+        </Code>
+      )}
       <Button component={Link} href="/" mt={4}>
         Back to Home
       </Button>

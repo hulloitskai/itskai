@@ -1,4 +1,3 @@
 # typed: ignore
 
-class RailsPgExtras::Web::Engine
-end
+class RailsPgExtras::Web::Engine; end

@@ -26,7 +26,8 @@ Rails.application.configure do
 
   # == Security
   # Show full error reports.
-  config.consider_all_requests_local = true
+  config.consider_all_requests_local =
+    ENV.fetch("RAILS_SHOW_EXCEPTION_REPORTS", true).truthy?
 
   # == Metrics
   # Respond with server timing metrics.

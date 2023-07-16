@@ -69,7 +69,7 @@ class ApplicationController < ActionController::Base
 
   sig { params(block: T.proc.returns(T.untyped)).void }
   def with_error_context(&block)
-    context = error_context.compact
+    context = T.let(error_context.compact, T::Hash[String, T.untyped])
     Rails.error.set_context(**context)
     yield
   end
