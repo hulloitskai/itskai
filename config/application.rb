@@ -18,6 +18,9 @@ module ItsKai
   class Application < Rails::Application
     extend T::Sig
 
+    # == Constants: Booted At
+    BOOTED_AT = T.let(Time.current, Time)
+
     # == Defaults
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults(7.0)
@@ -113,8 +116,6 @@ module ItsKai
     config.assets.prefix = "dist-sprockets/assets"
 
     # == Booted At
-    BOOTED_AT = T.let(Time.current, Time)
-
     sig { returns(Time) }
     def booted_at = BOOTED_AT
   end

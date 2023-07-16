@@ -30,7 +30,7 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
-  # == Configuration
+  # == Constants
   MIN_PASSWORD_ENTROPY = T.let(14, Integer)
 
   # == Attributes

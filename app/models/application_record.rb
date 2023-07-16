@@ -8,13 +8,21 @@ class ApplicationRecord < ActiveRecord::Base
   include Routing
   include Logging
 
+  # == Constants
+  # Support runtime type-checking for Sorbet-generated types.
+  PrivateRelation = ActiveRecord::Relation
+  PrivateRelationWhereChain = ActiveRecord::Relation
+  PrivateAssociationRelation = ActiveRecord::AssociationRelation
+  PrivateAssociationRelationWhereChain = ActiveRecord::AssociationRelation
+  PrivateCollectionProxy = ActiveRecord::Associations::CollectionProxy
+
   class << self
     extend T::Sig
     extend T::Helpers
 
     private
 
-    # == Helpers
+    # == Class Helpers
     sig { params(column_names: T.any(Symbol, String)).void }
     def requires_columns(*column_names)
       return unless Rails.server? || Rails.console?
@@ -44,14 +52,6 @@ class ApplicationRecord < ActiveRecord::Base
     end
   end
 
-  # == Constants
-  # Support runtime type-checking for Sorbet-generated types.
-  PrivateRelation = ActiveRecord::Relation
-  PrivateRelationWhereChain = ActiveRecord::Relation
-  PrivateAssociationRelation = ActiveRecord::AssociationRelation
-  PrivateAssociationRelationWhereChain = ActiveRecord::AssociationRelation
-  PrivateCollectionProxy = ActiveRecord::Associations::CollectionProxy
-
   # == Configuration
   primary_abstract_class
 
@@ -75,7 +75,7 @@ class ApplicationRecord < ActiveRecord::Base
     serializable_hash(only: keys || []).symbolize_keys!
   end
 
-  # == GraphQL
+  # == Methods: GraphQL
   sig { returns(InputFieldErrors) }
   def input_field_errors = InputFieldErrors.from(errors)
 

@@ -7,7 +7,7 @@ class ICloudService
     include Logging
 
     # == Constants
-    PyICloud = T.let(PyCall.import_module("icloud").ICloud, T.untyped)
+    PyICloud = PyCall.import_module("client").Client
 
     # == Initialization
     sig { params(credentials: ICloudCredentials).void }

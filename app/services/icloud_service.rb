@@ -25,6 +25,7 @@ class ICloudService < ApplicationService
   sig { void }
   def initialize
     super
+    PyCall.sys.path.append(File.join(__dir__, "icloud_service"))
     @credentials = T.let(@credentials, T.nilable(ICloudCredentials))
     @client = T.let(@client, T.nilable(Client))
   end

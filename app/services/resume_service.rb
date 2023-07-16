@@ -2,15 +2,16 @@
 # frozen_string_literal: true
 
 class ResumeService < ApplicationService
+  # == Constants
+  RESUME_PATH = T.let(Rails.root.join("config/resume.yml"), Pathname)
+
   class << self
+    # == Methods
     sig { returns(T::Hash[String, T.untyped]) }
     def load_resume
       checked { instance.load_resume }
     end
   end
-
-  # == Constants
-  RESUME_PATH = T.let(Rails.root.join("config/resume.yml"), Pathname)
 
   # == Initialization
   sig { void }

@@ -124,8 +124,10 @@ end
 class Logger::Formatter
   extend T::Sig
 
+  # == Constants
   FORMAT = "%4s [%s #%d]: %s\n" unless const_defined?(:FORMAT)
 
+  # == Methods
   sig do
     params(
       severity: T.untyped,

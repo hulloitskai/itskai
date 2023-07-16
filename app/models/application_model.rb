@@ -4,6 +4,7 @@
 class ApplicationModel
   extend T::Sig
   extend T::Helpers
+  extend Enumerize
   include StoreModel::Model
 
   # == Serialization
@@ -24,7 +25,7 @@ class ApplicationModel
     attributes.symbolize_keys.slice(*keys)
   end
 
-  # == GraphQL
+  # == Methods: GraphQL
   sig { returns(InputFieldErrors) }
   def input_field_errors = InputFieldErrors.from(errors)
 end

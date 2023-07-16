@@ -4,7 +4,7 @@ from pyicloud.services import DriveService
 from pyicloud.services.findmyiphone import AppleDevice
 
 
-class ICloud:
+class Client:
     service: PyiCloudService
 
     def __init__(self, *, email: str, password: str, cookie_directory: str):
