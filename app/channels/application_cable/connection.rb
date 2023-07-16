@@ -20,7 +20,7 @@ module ApplicationCable
     # == Helpers
     sig { returns(T.nilable(User)) }
     def find_verified_user
-      cookies.signed["user.id"].try! do |id|
+      if (id = cookies.signed["user.id"])
         User.find_by(id:)
       end
     end

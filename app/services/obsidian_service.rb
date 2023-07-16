@@ -105,9 +105,9 @@ class ObsidianService < ApplicationService
       end,
       hidden: front_matter["hidden"].truthy?,
       title: front_matter["title"].presence,
-      slug: front_matter["publish"].presence.try! do |value|
-        value if value.is_a?(String)
-      end,
+      slug: if (publish = front_matter["publish"].presence)
+              publish if publish.is_a?(String)
+            end,
       aliases: parse_front_matter_list(front_matter["aliases"]),
       tags: parse_front_matter_list(front_matter["tags"]),
       blurb: front_matter["blurb"].presence,

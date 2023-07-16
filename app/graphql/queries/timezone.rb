@@ -14,8 +14,8 @@ module Queries
     def resolve
       unless defined?(@zone)
         @zone = T.let(@zone, T.nilable(TZInfo::DataTimezone))
-        @zone = ENV["OWNER_TIMEZONE"].presence.try! do |name|
-          TZInfo::Timezone.get(name)
+        @zone = if (zone = ENV["OWNER_TIMEZONE"].presence)
+          TZInfo::Timezone.get(zone)
         end
       end
       @zone or raise GraphQL::ExecutionError, "Missing contact zone"

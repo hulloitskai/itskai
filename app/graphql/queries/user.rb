@@ -14,8 +14,7 @@ module Queries
     # == Resolver
     sig { params(user: T.nilable(::User)).returns(T.nilable(::User)) }
     def resolve(user:)
-      user.try! do |user|
-        user = T.let(user, ::User)
+      if user
         user if allowed_to?(:show?, user)
       end
     end

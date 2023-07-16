@@ -7,7 +7,7 @@ InertiaRails.configure do |config|
     config.ssr_enabled = true
     config.version = ViteRuby.digest
   end
-  ENV["INERTIA_SSR"].try! do |enabled|
+  if (enabled = ENV["INERTIA_SSR"])
     config.ssr_enabled = enabled.truthy?
   end
 end

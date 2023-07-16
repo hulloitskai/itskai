@@ -20,6 +20,8 @@ class HomepageController < ApplicationController
   # == Filter Handlers
   def set_entry
     @entry = T.let(@entry, T.nilable(JournalEntry))
-    @entry = params["entryId"].try! { |id| JournalEntry.find(id.to_s) }
+    @entry = if (id = params["entryId"])
+      JournalEntry.find(id.to_s)
+    end
   end
 end

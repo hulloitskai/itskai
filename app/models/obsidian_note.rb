@@ -234,9 +234,8 @@ class ObsidianNote < ApplicationRecord
 
   sig { void }
   def set_plain_blurb
-    self.plain_blurb = blurb.try! do |text|
-      text = T.let(text, String)
-      text.gsub(/\[\[([^\[\]]+\|)?([^\[\]]+)\]\]/, '\2')
+    self.plain_blurb = if (plain_blurb = blurb)
+      plain_blurb.gsub(/\[\[([^\[\]]+\|)?([^\[\]]+)\]\]/, '\2')
     end
   end
 end

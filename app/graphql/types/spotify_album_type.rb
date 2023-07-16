@@ -12,8 +12,7 @@ module Types
     # == Resolvers
     sig { returns(T.nilable(String)) }
     def image_url
-      object.images.second_to_last.try! do |image|
-        T.let(image, T::Hash[String, T.untyped])
+      if (image = object.images.second_to_last)
         image.fetch("url")
       end
     end

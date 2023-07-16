@@ -1,14 +1,14 @@
 # typed: strict
 # frozen_string_literal: true
 
-ENV["RAILS_DEFAULT_URL"].try! do |default_url|
+if (url = ENV["RAILS_DEFAULT_URL"])
   Rails.application.configure do
     config.before_configuration do
-      url = Addressable::URI.parse(default_url)
+      uri = Addressable::URI.parse(url)
       routes.default_url_options = {
-        protocol: url.scheme,
-        host: url.hostname,
-        port: url.port,
+        protocol: uri.scheme,
+        host: uri.hostname,
+        port: uri.port,
       }
     end
   end

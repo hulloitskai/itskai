@@ -18,14 +18,18 @@ class ICloudService
 
       sig { returns(T::Array[Node]) }
       def children
-        @pynode.get_children.try! do |children|
+        if (children = @pynode.get_children)
           children.to_a.map { |node| Node.new(node) }
-        end || []
+        else
+          []
+        end
       end
 
       sig { params(name: T.untyped).returns(T.nilable(T.self_type)) }
       def get(name)
-        @pynode.get(name).try! { |pynode| Node.new(pynode) }
+        if (pynode = @pynode.get(name))
+          Node.new(pynode)
+        end
       end
 
       sig { returns(T.untyped) }
@@ -41,8 +45,8 @@ class ICloudService
 
       sig { returns(T.nilable(ActiveSupport::TimeWithZone)) }
       def modified_at
-        @pynode.date_modified.try! do |datetime|
-          Time.zone.at(datetime.timestamp)
+        if (date = @pynode.date_modified)
+          Time.zone.at(date.timestamp)
         end
       end
 
