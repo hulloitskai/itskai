@@ -90,24 +90,21 @@ class ObsidianService < ApplicationService
     file = note_file(name) or return nil
     parsed = parse_note_file(file)
     content, front_matter = parsed.content, parsed.front_matter
+    publish = front_matter["publish"].presence
+    published, slug = case publish
+    when TrueClass
+      true
+    when String
+      [publish.present?, publish]
+    else
+      false
+    end
     meta = NoteMeta.new(
       modified_at: file.modified_at!,
-      published: scoped do
-        value = front_matter["publish"].presence
-        case value
-        when TrueClass
-          true
-        when String
-          value.present?
-        else
-          false
-        end
-      end,
+      published:,
       hidden: front_matter["hidden"].truthy?,
       title: front_matter["title"].presence,
-      slug: if (publish = front_matter["publish"].presence)
-              publish if publish.is_a?(String)
-            end,
+      slug:,
       aliases: parse_front_matter_list(front_matter["aliases"]),
       tags: parse_front_matter_list(front_matter["tags"]),
       blurb: front_matter["blurb"].presence,

@@ -8,9 +8,19 @@ module ActionPolicy::GraphQL::Fields
   mixes_in_class_methods ClassMethods
 
   module ClassMethods
+    extend T::Sig
     include GraphQL::Schema::Member::GraphQLTypeNames
 
     # == Methods
+    sig do
+      params(
+        rules: Symbol,
+        field_name: T.untyped,
+        prefix: T.untyped,
+        field_options: T::Hash[Symbol, T.untyped],
+        options: T.untyped,
+      ).void
+    end
     def expose_authorization_rules(
       *rules,
       field_name: nil,

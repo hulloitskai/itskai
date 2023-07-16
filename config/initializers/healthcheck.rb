@@ -9,16 +9,16 @@ Healthcheck.configure do |config|
   config.method = :get
 
   # == Checks
-  config.add_check(
-    :database,
-    -> do
-      Rails.logger.silence { ActiveRecord::Base.connection.execute("select 1") }
-    end,
-  )
-  config.add_check(
-    :migrations,
-    -> { Rails.logger.silence { ActiveRecord::Migration.check_pending! } },
-  )
+  config.add_check(:database, -> do
+    Rails.logger.silence do
+      ActiveRecord::Base.connection.execute("select 1")
+    end
+  end)
+  config.add_check(:migrations, -> do
+    Rails.logger.silence do
+      ActiveRecord::Migration.check_pending!
+    end
+  end)
   config.add_check(:cache, -> { Rails.cache.read("some_key") })
 
   # config.add_check(

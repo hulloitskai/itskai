@@ -111,13 +111,11 @@ class GraphQL::Queries
     synchronize do
       query = query!(name)
       fragment_references = build_fragment_references(query)
+      fragment_definitions = fragment_references.map do |reference|
+        fragment!(reference).definition
+      end
       GraphQL::Language::Nodes::Document.new(
-        definitions: [
-          query.definition,
-          *fragment_references.map do |reference|
-            fragment!(reference).definition
-          end,
-        ],
+        definitions: [query.definition, *fragment_definitions],
       )
     end
   end
