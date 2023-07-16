@@ -27,8 +27,7 @@ module ActionPolicy::GraphQL::Fields
         gql_field_name = field_name || "#{prefix}#{rule.to_s.delete("?")}"
         field(gql_field_name, Boolean, null: false, **field_options)
         define_method(gql_field_name) do
-          T.bind(self,
-                 T.all(GraphQL::Schema::Object, ActionPolicy::Behaviour))
+          T.bind(self, T.all(GraphQL::Schema::Object, ActionPolicy::Behaviour))
           allowed_to?(rule, object, **options)
         end
       end
