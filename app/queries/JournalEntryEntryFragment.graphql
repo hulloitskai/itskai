@@ -1,7 +1,7 @@
 fragment JournalEntryEntryFragment on JournalEntry {
+  content
   id
-  url
   startedAt
   title
-  content
+  url
 }

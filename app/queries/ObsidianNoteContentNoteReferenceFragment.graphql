@@ -1,3 +1,0 @@
-fragment ObsidianNoteContentNoteReferenceFragment on ObsidianNote {
-  url
-}

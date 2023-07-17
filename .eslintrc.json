@@ -4,7 +4,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "prettier"
+    "plugin:prettier/recommended"
   ],
   "plugins": ["react-refresh"],
   "parser": "@typescript-eslint/parser",
@@ -43,9 +43,16 @@
   },
   "overrides": [
     {
-      "files": ["*.graphql"],
+      "files": ["**/*.graphql"],
       "extends": "plugin:@graphql-eslint/operations-recommended",
       "rules": {
+        "prettier/prettier": "error",
+        "@graphql-eslint/alphabetize": [
+          "warn",
+          {
+            "selections": ["OperationDefinition", "FragmentDefinition"]
+          }
+        ],
         "@graphql-eslint/naming-convention": [
           "error",
           {

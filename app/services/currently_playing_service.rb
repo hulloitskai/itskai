@@ -7,12 +7,7 @@ class CurrentlyPlayingService < ApplicationService
     sig { override.returns(T::Boolean) }
     def disabled?
       return @disabled if defined?(@disabled)
-      @disabled = !!(super || SpotifyService.disabled?)
-    end
-
-    sig { returns(T::Boolean) }
-    def debug?
-      checked { instance.debug? }
+      @disabled = super || SpotifyService.disabled?
     end
 
     # == Methods
@@ -38,7 +33,7 @@ class CurrentlyPlayingService < ApplicationService
   # == Service
   sig { override.returns(T::Boolean) }
   def ready?
-    !!(super && SpotifyService.ready?)
+    SpotifyService.ready? && super
   end
 
   sig { override.void }
@@ -51,13 +46,6 @@ class CurrentlyPlayingService < ApplicationService
   sig { override.void }
   def stop
     task.kill if started?
-  end
-
-  sig { returns(T::Boolean) }
-  def debug?
-    return !!@debug if defined?(@debug)
-    @debug = T.let(@debug, T.nilable(T::Boolean))
-    @debug = ENV["CURRENTLY_PLAYING_DEBUG"].truthy?
   end
 
   # == Methods

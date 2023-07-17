@@ -17,6 +17,7 @@ module Types
     field :password_strength, resolver: Queries::PasswordStrength
 
     field :contact_email, resolver: Queries::ContactEmail
+    field :location, resolver: Queries::Location
     field :resume, resolver: Queries::Resume
     field :timezone, resolver: Queries::Timezone
 

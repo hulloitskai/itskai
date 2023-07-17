@@ -124,16 +124,16 @@ class GraphQLChannel < ApplicationCable::Channel
     end
   end
 
-  sig { params(data: T.untyped).returns(T.untyped) }
   def indent(data)
     data.lines.map { |line| "    #{line}" }.join.chomp
   end
 
-  sig { params(data: T.untyped).returns(T.untyped) }
   def pretty(data)
-    return "" if data.blank?
-
-    data = JSON.parse(data) if data.is_a?(String)
-    PP.pp(data, +"")
+    if data.present?
+      data = JSON.parse(data) if data.is_a?(String)
+      PP.pp(data, +"")
+    else
+      ""
+    end
   end
 end

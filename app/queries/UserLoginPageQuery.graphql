@@ -1,6 +1,6 @@
 query UserLoginPageQuery {
   viewer {
-    id
     ...AppViewerFragment
+    id
   }
 }

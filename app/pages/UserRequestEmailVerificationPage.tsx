@@ -1,9 +1,9 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
-import UserRequestEmailVerificationPageForm from "~/components/UserRequestEmailVerificationPageForm";
-
 import type { UserRequestEmailVerificationPageQuery } from "~/helpers/graphql";
+
+import UserRequestEmailVerificationPageForm from "~/components/UserRequestEmailVerificationPageForm";
 
 export type UserRequestEmailVerificationPageProps =
   PagePropsWithData<UserRequestEmailVerificationPageQuery>;

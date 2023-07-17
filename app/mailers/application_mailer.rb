@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 class ApplicationMailer < ActionMailer::Base
@@ -17,7 +17,6 @@ class ApplicationMailer < ActionMailer::Base
   private
 
   # == Helpers
-  sig { override.params(value: T.untyped).returns(T.untyped) }
   def compute_default(value)
     value.is_a?(Symbol) ? send(value) : super
   end

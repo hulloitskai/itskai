@@ -25,10 +25,16 @@ class ApplicationPolicy < ActionPolicy::Base
   alias_rule :edit?, to: :manage?
 
   # == Rules
+  undef_method :create?
+
   sig { returns(T::Boolean) }
-  def show?
-    true
-  end
+  def index? = true
+
+  sig { returns(T::Boolean) }
+  def show? = true
+
+  sig { returns(T::Boolean) }
+  def administrate? = false
 
   # == Scopes
   relation_scope { |relation| relation }

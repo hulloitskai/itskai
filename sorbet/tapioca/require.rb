@@ -7,6 +7,7 @@ require "sprockets/rails/task"
 require "rails/all"
 require "rails/generators"
 require "rails/generators/app_base"
+require "geocoder/results/nominatim"
 
 # Initialize application.
 Rails.application.initialize!

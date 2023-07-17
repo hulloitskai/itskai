@@ -1,8 +1,8 @@
 subscription CurrentlyPlayingIslandSubscription {
   currentlyPlaying {
+    progressMilliseconds
     track {
       id
     }
-    progressMilliseconds
   }
 }

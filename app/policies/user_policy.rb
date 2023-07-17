@@ -3,7 +3,7 @@
 
 class UserPolicy < ApplicationPolicy
   # == Rules
-  def edit?
+  def manage?
     user = T.cast(record, User)
     authenticate! == user
   end

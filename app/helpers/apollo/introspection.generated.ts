@@ -10,6 +10,7 @@
       "ICloudCredentials",
       "Image",
       "JournalEntry",
+      "Location",
       "OAuthCredentials",
       "ObsidianNote",
       "ObsidianStub",

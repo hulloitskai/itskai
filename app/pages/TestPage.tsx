@@ -1,10 +1,6 @@
 import type { FC } from "react";
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-
 import { Code, Text } from "@mantine/core";
-
-import TestForm from "~/components/TestForm";
-import TestFeed from "~/components/TestFeed";
 
 import ExclamationCircleIcon from "~icons/heroicons/exclamation-circle-20-solid";
 import PencilSquareIcon from "~icons/heroicons/pencil-square-20-solid";
@@ -12,6 +8,9 @@ import BellAlertIcon from "~icons/heroicons/bell-alert-20-solid";
 import ArrowTopRightOnSquareIcon from "~icons/heroicons/arrow-top-right-on-square-20-solid";
 
 import type { TestPageQuery } from "~/helpers/graphql";
+
+import TestForm from "~/components/TestForm";
+import TestFeed from "~/components/TestFeed";
 
 export type TestPageProps = PagePropsWithData<TestPageQuery> & {
   readonly name: string;

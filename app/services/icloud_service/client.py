@@ -22,5 +22,4 @@ class Client:
         return self.service.drive
 
     def devices(self) -> List[AppleDevice]:
-        devices = self.service.devices._devices.values()
-        return list(devices)
+        return self.service.devices._devices

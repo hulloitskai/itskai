@@ -32,7 +32,6 @@ class ICloudService
         end
       end
 
-      sig { returns(T.untyped) }
       def open
         @pynode.open
       end

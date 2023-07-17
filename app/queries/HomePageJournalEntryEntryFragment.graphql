@@ -1,5 +1,5 @@
 fragment HomePageJournalEntryEntryFragment on JournalEntry {
   id
-  nextEntryId
   ...JournalEntryEntryFragment
+  nextEntryId
 }

@@ -1,9 +1,9 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
-import UserLoginPageForm from "~/components/UserLoginPageForm";
-
 import { UserLoginPageQuery } from "~/helpers/graphql";
+
+import UserLoginPageForm from "~/components/UserLoginPageForm";
 
 export type UserLoginPageProps = PagePropsWithData<UserLoginPageQuery> & {
   readonly failed: boolean;

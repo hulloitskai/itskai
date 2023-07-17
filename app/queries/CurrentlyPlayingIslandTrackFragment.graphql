@@ -1,7 +1,4 @@
 fragment CurrentlyPlayingIslandTrackFragment on SpotifyTrack {
-  id
-  url
-  name
   album {
     id
     imageUrl
@@ -11,4 +8,7 @@ fragment CurrentlyPlayingIslandTrackFragment on SpotifyTrack {
     name
   }
   durationMilliseconds
+  id
+  name
+  url
 }

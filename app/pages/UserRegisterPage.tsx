@@ -1,9 +1,9 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
-import UserRegisterPageForm from "~/components/UserRegisterPageForm";
-
 import type { UserRegisterPageQuery } from "~/helpers/graphql";
+
+import UserRegisterPageForm from "~/components/UserRegisterPageForm";
 
 export type UserRegisterPageProps = PagePropsWithData<UserRegisterPageQuery>;
 

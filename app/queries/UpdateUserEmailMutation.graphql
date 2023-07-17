@@ -1,12 +1,12 @@
 mutation UpdateUserEmailMutation($input: UpdateUserEmailInput!) {
   payload: updateUserEmail(input: $input) {
-    user {
-      id
-      unverifiedEmail
-    }
     errors {
       field
       message
+    }
+    user {
+      id
+      unverifiedEmail
     }
   }
 }

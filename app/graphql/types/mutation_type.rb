@@ -20,13 +20,15 @@ module Types
     field :verify_icloud_security_code,
           mutation: Mutations::VerifyICloudSecurityCode
 
-    field :activate_scottkit_signal, mutation: Mutations::ActivateScottkitSignal
     field :add_journal_entry_comment,
           mutation: Mutations::AddJournalEntryComment
-    field :import_cookies, mutation: Mutations::ImportCookies
-    field :import_journal_entries, mutation: Mutations::ImportJournalEntries
-    field :import_obsidian_notes, mutation: Mutations::ImportObsidianNotes
+    field :sync_journal, mutation: Mutations::SyncJournal
+
+    field :activate_scottkit_signal, mutation: Mutations::ActivateScottkitSignal
     field :remove_spotify_credentials,
           mutation: Mutations::RemoveSpotifyCredentials
+    field :sync_location, mutation: Mutations::SyncLocation
+
+    # field :import_cookies, mutation: Mutations::ImportCookies
   end
 end

@@ -1,6 +1,6 @@
 query UserRegisterPageQuery {
   viewer {
-    id
     ...AppViewerFragment
+    id
   }
 }

@@ -10,7 +10,7 @@ class SpotifyService < ApplicationService
     sig { override.returns(T::Boolean) }
     def disabled?
       return @disabled if defined?(@disabled)
-      @disabled = !!(super || [client_id, client_secret].any?(&:blank?))
+      @disabled = super || [client_id, client_secret].any?(&:blank?)
     end
 
     # == Methods
@@ -61,7 +61,7 @@ class SpotifyService < ApplicationService
   # == Service
   sig { override.returns(T::Boolean) }
   def ready?
-    !!(super && @user.present?)
+    @user.present? && super
   end
 
   sig { override.void }
@@ -194,13 +194,8 @@ class SpotifyService < ApplicationService
 
   sig { params(words: String).returns(String) }
   def normalize_lyric_line_words(words)
-    words.strip.then do |words|
-      if words == "♪"
-        ""
-      else
-        words
-      end
-    end
+    words = words.strip
+    words == "♪" ? "" : words
   end
 
   sig { returns(T::Array[String]) }

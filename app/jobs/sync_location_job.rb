@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class ImportJournalEntriesJob < ApplicationJob
+class SyncLocationJob < ApplicationJob
   # == Configuration
   good_job_control_concurrency_with key: name, total_limit: 1
 
@@ -11,7 +11,7 @@ class ImportJournalEntriesJob < ApplicationJob
   # == Job
   sig { void }
   def perform
-    JournalEntry.import
+    LocationService.sync
   end
 
   private
@@ -19,8 +19,8 @@ class ImportJournalEntriesJob < ApplicationJob
   # == Callback Handlers
   sig { params(block: T.proc.void).void }
   def with_activity_logging(&block)
-    ActivityService.update_status("Importing journal entries")
+    ActivityService.update_status("Syncing location")
     yield
-    ActivityService.update_status("Journal entries imported")
+    ActivityService.update_status("Location synced")
   end
 end

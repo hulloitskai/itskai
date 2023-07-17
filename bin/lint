@@ -40,10 +40,7 @@ scoped do
   args << "--fix" if options[:fix]
   args << "."
   system!(
-    "bin/yarn", "--silent", "eslint",
-    "--cache",
-    "--cache-location", "tmp/cache/eslint/",
-    "--report-unused-disable-directives",
+    "bin/yarn", "--silent", "eslint", "--report-unused-disable-directives",
     *args,
   )
   puts "No problems or warnings"

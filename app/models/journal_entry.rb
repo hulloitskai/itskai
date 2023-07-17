@@ -54,33 +54,6 @@ class JournalEntry < ApplicationRecord
   after_commit :download_later, on: %i[create update], if: :download_required?
 
   # == Methods: Import
-  sig { void }
-  def self.import
-    pages = JournalService.list_pages(published: true)
-    pages.each do |page|
-      notion_page_id = page.id
-      Rails.error.handle(context: { notion_page_id: }) do
-        entry = find_or_initialize_by(notion_page_id:)
-        entry.import_attributes_from_notion(page:)
-        entry.save!
-      rescue => error
-        tag_logger do
-          logger.error(
-            "Failed to import entry with Notion page ID " \
-              "`#{notion_page_id}'`: #{error}",
-          )
-        end
-        raise error
-      end
-    end
-    where.not(notion_page_id: pages.map(&:id)).destroy_all
-  end
-
-  sig { void }
-  def self.import_later
-    ImportJournalEntriesJob.perform_later
-  end
-
   sig { returns(T::Boolean) }
   def import_required?
     imported_at < 5.minutes.ago

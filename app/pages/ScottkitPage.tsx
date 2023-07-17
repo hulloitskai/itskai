@@ -1,12 +1,11 @@
 import type { FC, ReactNode } from "react";
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Code, Text } from "@mantine/core";
+
 import LightbulbIcon from "~icons/heroicons/light-bulb-20-solid";
 
-import {
-  ActivateScottkitSignalMutationDocument,
-  ScottkitSignalType,
-} from "~/helpers/graphql";
+import { ActivateScottkitSignalMutationDocument } from "~/helpers/graphql";
+import { ScottkitSignalType } from "~/helpers/graphql";
 import type { ScottkitPageQuery } from "~/helpers/graphql";
 
 import {

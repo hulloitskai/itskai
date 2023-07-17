@@ -7,7 +7,25 @@ class JournalService < ApplicationService
     sig { override.returns(T::Boolean) }
     def disabled?
       return @disabled if defined?(@disabled)
-      @disabled = !!(super || !notion_ready? || database_id.blank?)
+      @disabled = super || !notion_ready? || database_id.blank?
+    end
+
+    # == Accessors
+    sig { returns(T.nilable(String)) }
+    def database_id
+      return @database_id if defined?(@database_id)
+      @database_id = ENV["JOURNAL_DATABASE_ID"]
+    end
+
+    # == Methods: Sync
+    sig { void }
+    def sync
+      checked { instance.sync }
+    end
+
+    sig { void }
+    def sync_later
+      SyncJournalJob.perform_later
     end
 
     # == Methods
@@ -42,13 +60,6 @@ class JournalService < ApplicationService
       checked { instance.create_comment(page_id, text:) }
     end
 
-    # == Helpers
-    sig { returns(T.nilable(String)) }
-    def database_id
-      return @database_id if defined?(@database_id)
-      @database_id = ENV["JOURNAL_DATABASE_ID"]
-    end
-
     private
 
     # == Helpers
@@ -61,6 +72,12 @@ class JournalService < ApplicationService
   def initialize
     super
     @client = T.let(Notion::Client.new, Notion::Client)
+  end
+
+  # == Accessors
+  sig { returns(String) }
+  def database_id
+    self.class.database_id or raise "Missing database ID"
   end
 
   # == Methods
@@ -128,6 +145,28 @@ class JournalService < ApplicationService
     )
   end
 
+  sig { void }
+  def sync
+    pages = list_pages(published: true)
+    pages.each do |page|
+      notion_page_id = page.id
+      Rails.error.handle(context: { notion_page_id: }) do
+        entry = JournalEntry.find_or_initialize_by(notion_page_id:)
+        entry.import_attributes_from_notion(page:)
+        entry.save!
+      rescue => error
+        tag_logger do
+          logger.error(
+            "Failed to import entry with Notion page ID " \
+              "`#{notion_page_id}'`: #{error}",
+          )
+        end
+        raise error
+      end
+    end
+    JournalEntry.where.not(notion_page_id: pages.map(&:id)).destroy_all
+  end
+
   private
 
   # == Attributes
@@ -135,11 +174,6 @@ class JournalService < ApplicationService
   attr_reader :client
 
   # == Helpers
-  sig { returns(String) }
-  def database_id
-    self.class.database_id or raise "Missing database ID"
-  end
-
   sig do
     params(parent_block_id: String, redactor: Redactor)
       .returns(T::Array[T.untyped])

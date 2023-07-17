@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_02_170823) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_17_155048) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+  enable_extension "postgis"
 
   create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
@@ -155,6 +156,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_02_170823) do
     t.index ["notion_page_id"], name: "index_journal_entries_on_notion_page_id", unique: true
   end
 
+  create_table "location_log_addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "location_log_id", null: false
+    t.string "full_address", null: false
+    t.string "country", null: false
+    t.string "country_code", null: false
+    t.string "province", null: false
+    t.string "city"
+    t.string "neighbourhood"
+    t.string "postal_code"
+    t.datetime "created_at", precision: nil, null: false
+    t.index ["location_log_id"], name: "index_location_log_addresses_on_location_log_id"
+  end
+
+  create_table "location_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.geography "coordinates", limit: {:srid=>4326, :type=>"st_point", :has_z=>true, :geographic=>true}, null: false
+    t.integer "floor_level", null: false
+    t.float "horizontal_accuracy", null: false
+    t.float "vertical_accuracy", null: false
+    t.datetime "timestamp", precision: nil, null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["timestamp"], name: "index_location_logs_on_timestamp"
+  end
+
   create_table "oauth_credentials", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "provider", null: false
     t.string "uid", null: false
@@ -231,5 +256,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_02_170823) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "location_log_addresses", "location_logs"
   add_foreign_key "obsidian_relations", "obsidian_notes", column: "from_id"
 end

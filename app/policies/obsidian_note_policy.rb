@@ -3,14 +3,6 @@
 
 class ObsidianNotePolicy < ApplicationPolicy
   # == Rules
-  def index?
-    true
-  end
-
-  def import?
-    false
-  end
-
   def show?
     record = T.cast(self.record, ObsidianNote)
     !record.hidden?
@@ -21,11 +13,6 @@ class ObsidianNotePolicy < ApplicationPolicy
     record.published?
   end
 
-  def edit?
-    false
-  end
-
-  # == Scopes
   relation_scope do |relation|
     active_user&.owner? ? relation : relation.where(hidden: false)
   end

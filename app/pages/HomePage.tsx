@@ -1,5 +1,8 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import { format as formatTimeAgo } from "timeago.js";
 import { Text } from "@mantine/core";
+import LocationIcon from "~icons/heroicons/map-pin-20-solid";
+import ClockIcon from "~icons/heroicons/clock-20-solid";
 
 import type { HomePageQuery } from "~/helpers/graphql";
 
@@ -8,7 +11,9 @@ import HomePageJournalEntry from "~/components/HomePageJournalEntry";
 
 export type HomePageProps = PagePropsWithData<HomePageQuery>;
 
-const HomePage: PageComponent<HomePageProps> = ({ data: { entry } }) => (
+const HomePage: PageComponent<HomePageProps> = ({
+  data: { entry, location },
+}) => (
   <Stack spacing="xs">
     <Space h="xs" />
     <Center h={275}>
@@ -40,7 +45,56 @@ const HomePage: PageComponent<HomePageProps> = ({ data: { entry } }) => (
       </Title>
       <HomePageJournalEntry initialEntry={entry} w="100%" />
     </Stack>
-    <Space h="xs" />
+    {location &&
+      resolve(() => {
+        const { approximateAddress, googleMapsAreaUrl, timestamp } = location;
+        return (
+          <Alert
+            icon={<LocationIcon />}
+            title="Are you in the area?"
+            radius="md"
+            my="xl"
+            maw={540}
+            styles={{
+              root: {
+                alignSelf: "center",
+              },
+              title: {
+                marginBottom: rem(2),
+              },
+            }}
+          >
+            <Stack spacing={4}>
+              <Text>
+                I&apos;m currently around{" "}
+                <Anchor
+                  href={googleMapsAreaUrl}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  span
+                  weight={600}
+                >
+                  {approximateAddress}
+                </Anchor>
+                . If you&apos;re nearby, text me and come say hi!
+              </Text>
+              <Group spacing={6}>
+                <Box
+                  component={ClockIcon}
+                  fz="xs"
+                  sx={({ fn }) => ({ color: fn.dimmed() })}
+                />
+                <Text size="xs" color="dimmed">
+                  Last updated{" "}
+                  <Time inherit format={time => formatTimeAgo(time.toJSDate())}>
+                    {timestamp}
+                  </Time>
+                </Text>
+              </Group>
+            </Stack>
+          </Alert>
+        );
+      })}
   </Stack>
 );
 

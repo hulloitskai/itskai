@@ -14,6 +14,11 @@ class ICloudService < ApplicationService
       checked { instance.drive }
     end
 
+    sig { returns(Device) }
+    def iphone
+      checked { instance.iphone }
+    end
+
     sig { params(code: T.nilable(String)).returns(T::Boolean) }
     def verify_security_code(code) = instance.verify_security_code(code)
   end
@@ -33,8 +38,10 @@ class ICloudService < ApplicationService
   # == Service
   sig { override.returns(T::Boolean) }
   def ready?
-    !!(super && @credentials.present? && @client.present? &&
-      !@client.requires_security_code?)
+    @credentials.present? &&
+      @client.present? &&
+      !@client.requires_security_code? &&
+      super
   end
 
   sig { override.void }
@@ -52,19 +59,31 @@ class ICloudService < ApplicationService
   end
 
   # == Methods
+  sig { returns(String) }
+  def iphone_device_id
+    ENV["ICLOUD_IPHONE_DEVICE_ID"] or raise "Missing iCloud iPhone device ID"
+  end
+
   sig { returns(Client) }
   def client
     @client or raise "Not authenticated (missing client)"
   end
 
+  sig { params(code: T.nilable(String)).returns(T::Boolean) }
+  def verify_security_code(code)
+    client.verify_security_code(code)
+  end
+
   sig { returns(Drive) }
   def drive = authenticated_client.drive
 
-  sig { params(code: T.nilable(String)).returns(T::Boolean) }
-  def verify_security_code(code)
-    client.verify_security_code(code).tap do
-      ObsidianNote.import_later
-    end
+  sig { returns(T::Array[ICloudService::Device]) }
+  def devices = authenticated_client.devices
+
+  sig { returns(Device) }
+  def iphone
+    iphone = devices.find { |device| device.id == iphone_device_id }
+    iphone or raise "iPhone not found"
   end
 
   private
@@ -101,11 +120,9 @@ class ICloudService < ApplicationService
 
   sig { returns(Client) }
   def authenticated_client
-    client.tap do |client|
-      client = T.let(client, Client)
-      if client.requires_security_code?
-        raise "Not authenticated (requires security code)"
-      end
+    if client.requires_security_code?
+      raise "Not authenticated (requires security code)"
     end
+    client
   end
 end

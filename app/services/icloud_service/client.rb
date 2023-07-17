@@ -6,9 +6,6 @@ class ICloudService
     extend T::Sig
     include Logging
 
-    # == Constants
-    PyICloud = PyCall.import_module("client").Client
-
     # == Initialization
     sig { params(credentials: ICloudCredentials).void }
     def initialize(credentials:)
@@ -19,13 +16,10 @@ class ICloudService
       else
         restore_credentials!
       end
-      @pyicloud = T.let(
-        PyICloud.new(
-          email: @credentials.email,
-          password: @credentials.password,
-          cookie_directory: ICloudService.credentials_dir.to_s,
-        ),
-        T.untyped,
+      @pyclient = pyclient_class.new(
+        email: @credentials.email,
+        password: @credentials.password,
+        cookie_directory: ICloudService.credentials_dir.to_s,
       )
       if Rails.console?
         Rails.logger.silence { save_credentials! }
@@ -37,22 +31,27 @@ class ICloudService
     # == Methods
     sig { params(code: T.nilable(String)).returns(T::Boolean) }
     def verify_security_code(code)
-      @pyicloud.verify_security_code(code).tap { save_credentials! }
+      @pyclient.verify_security_code(code).tap { save_credentials! }
     end
 
     sig { returns(T::Boolean) }
     def requires_security_code?
-      @pyicloud.requires_security_code
+      @pyclient.requires_security_code
     end
 
     sig { returns(Drive) }
     def drive
-      Drive.new(@pyicloud.drive)
+      Drive.new(@pyclient.drive)
     end
 
-    sig { returns(T::Array[T.untyped]) }
+    sig { returns(T::Array[Device]) }
     def devices
-      @pyicloud.devices
+      devices_by_id.values
+    end
+
+    sig { params(id: String).returns(Device) }
+    def device(id)
+      devices_by_id[id] or raise "Device not found"
     end
 
     private
@@ -62,6 +61,11 @@ class ICloudService
     attr_reader :credentials
 
     # == Helpers
+    sig { returns(Class) }
+    def pyclient_class
+      PyCall.import_module("client").Client
+    end
+
     sig { returns(ICloudCredentials) }
     def credentials!
       credentials or raise "Missing credentials"
@@ -99,6 +103,11 @@ class ICloudService
     sig { returns(String) }
     def session_filename!
       cookies_filename! + ".session"
+    end
+
+    sig { returns(T::Hash[String, Device]) }
+    def devices_by_id
+      @pyclient.devices.to_h.transform_values { |value| Device.new(value) }
     end
   end
 end

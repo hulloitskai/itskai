@@ -1,9 +1,9 @@
 fragment UserSettingsPageViewerFragment on User {
-  name
-  email
-  unverifiedEmail
   avatar {
     id
     signedId
   }
+  email
+  name
+  unverifiedEmail
 }

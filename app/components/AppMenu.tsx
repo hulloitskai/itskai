@@ -109,7 +109,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
               <Text size="xs" color="dimmed">
                 Server booted{" "}
                 {bootedAt ? (
-                  <Time format={time => formatTimeAgo(time.toJSDate())} inherit>
+                  <Time inherit format={time => formatTimeAgo(time.toJSDate())}>
                     {bootedAt}
                   </Time>
                 ) : (

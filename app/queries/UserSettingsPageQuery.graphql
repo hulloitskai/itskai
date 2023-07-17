@@ -1,9 +1,4 @@
 query UserSettingsPageQuery {
-  viewer {
-    id
-    ...AppViewerFragment
-    ...UserSettingsPageViewerFragment
-  }
   icloudCredentials {
     id
     ...UserSettingsPageICloudCredentialsFragment
@@ -11,5 +6,10 @@ query UserSettingsPageQuery {
   spotifyCredentials {
     id
     ...UserSettingsPageOAuthCredentialsFragment
+  }
+  viewer {
+    ...AppViewerFragment
+    id
+    ...UserSettingsPageViewerFragment
   }
 }

@@ -7853,6 +7853,7 @@ class ActiveRecord::Base
   extend ::ActiveRecord::Suppressor::ClassMethods
   extend ::ActiveRecord::Encryption::EncryptableRecord::ClassMethods
   extend ::OrmAdapter::ToAdapter
+  extend ::Geocoder::Model::Base
 
   # source://activesupport/7.0.6/lib/active_support/callbacks.rb#68
   def __callbacks; end

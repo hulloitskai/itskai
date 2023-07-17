@@ -35,6 +35,11 @@ class ApplicationService
     end
 
     sig { returns(T::Boolean) }
+    def debug?
+      ENV["#{env_prefix}_DEBUG"].truthy?
+    end
+
+    sig { returns(T::Boolean) }
     def enabled? = !disabled?
 
     sig { returns(T::Boolean) }
@@ -77,6 +82,9 @@ class ApplicationService
 
   sig { returns(T::Boolean) }
   def disabled? = self.class.disabled?
+
+  sig { returns(T::Boolean) }
+  def debug? = self.class.debug?
 
   sig { returns(T::Boolean) }
   def started?

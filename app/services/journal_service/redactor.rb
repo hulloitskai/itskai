@@ -29,7 +29,6 @@ class JournalService
     private
 
     # == Attributes
-    sig { returns(T.untyped) }
     attr_reader :page
 
     # == Helpers

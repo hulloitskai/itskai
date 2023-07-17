@@ -6,6 +6,19 @@
     "Aptfile": "plaintext"
   },
 
+  // == ESLint
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "vue",
+    "markdown",
+    "graphql"
+  ],
+  "eslint.validate": ["graphql"],
+
   // == YAML
   "yaml.schemas": {
     "https://json.schemastore.org/github-workflow.json": "${workspaceFolder}/.github/workflows/deploy.yml"

@@ -3,11 +3,5 @@
 
 class OAuthCredentialsPolicy < ApplicationPolicy
   # == Rules
-  def show?
-    false
-  end
-
-  def edit?
-    false
-  end
+  def show? = false
 end

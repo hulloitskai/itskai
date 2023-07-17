@@ -6,10 +6,10 @@ Rails.application.configure do
     reloader.to_prepare do
       ActivityService.start
       ICloudService.start
-      ObsidianService.start
       SpotifyService.start
       JournalService.start
       ResumeService.start
+      LocationService.start
       if Rails.server?
         CurrentlyPlayingService.start
         ScottbotService.start
@@ -20,10 +20,10 @@ Rails.application.configure do
         ScottbotService.stop
         CurrentlyPlayingService.stop
       end
+      LocationService.stop
       ResumeService.stop
       JournalService.stop
       SpotifyService.stop
-      ObsidianService.stop
       ICloudService.stop
       ActivityService.stop
     end

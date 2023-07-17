@@ -23,21 +23,6 @@ export type ImageFieldPolicy = {
 	signedId?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ImportCookiesPayloadKeySpecifier = ('clientMutationId' | 'success' | ImportCookiesPayloadKeySpecifier)[];
-export type ImportCookiesPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type ImportJournalEntriesPayloadKeySpecifier = ('clientMutationId' | 'success' | ImportJournalEntriesPayloadKeySpecifier)[];
-export type ImportJournalEntriesPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type ImportObsidianNotesPayloadKeySpecifier = ('clientMutationId' | 'success' | ImportObsidianNotesPayloadKeySpecifier)[];
-export type ImportObsidianNotesPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
 export type InputFieldErrorKeySpecifier = ('field' | 'message' | InputFieldErrorKeySpecifier)[];
 export type InputFieldErrorFieldPolicy = {
 	field?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -53,17 +38,23 @@ export type JournalEntryFieldPolicy = {
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'importCookies' | 'importJournalEntries' | 'importObsidianNotes' | 'removeICloudCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'testMutation' | 'updateICloudCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type LocationKeySpecifier = ('approximateAddress' | 'googleMapsAreaUrl' | 'id' | 'timestamp' | LocationKeySpecifier)[];
+export type LocationFieldPolicy = {
+	approximateAddress?: FieldPolicy<any> | FieldReadFunction<any>,
+	googleMapsAreaUrl?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'removeICloudCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'syncJournal' | 'syncLocation' | 'testMutation' | 'updateICloudCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
-	importCookies?: FieldPolicy<any> | FieldReadFunction<any>,
-	importJournalEntries?: FieldPolicy<any> | FieldReadFunction<any>,
-	importObsidianNotes?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeSpotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	requestUserEmailVerification?: FieldPolicy<any> | FieldReadFunction<any>,
 	requestUserPasswordReset?: FieldPolicy<any> | FieldReadFunction<any>,
+	syncJournal?: FieldPolicy<any> | FieldReadFunction<any>,
+	syncLocation?: FieldPolicy<any> | FieldReadFunction<any>,
 	testMutation?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateUserEmail?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -144,7 +135,7 @@ export type PageInfoFieldPolicy = {
 	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
 	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('activityStatus' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'homepageJournalEntry' | 'icloudCredentials' | 'imageBySignedId' | 'journalEntryComments' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('activityStatus' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'homepageJournalEntry' | 'icloudCredentials' | 'imageBySignedId' | 'journalEntryComments' | 'location' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	bootedAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -154,6 +145,7 @@ export type QueryFieldPolicy = {
 	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	imageBySignedId?: FieldPolicy<any> | FieldReadFunction<any>,
 	journalEntryComments?: FieldPolicy<any> | FieldReadFunction<any>,
+	location?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNote?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNoteByName?: FieldPolicy<any> | FieldReadFunction<any>,
 	obsidianNotes?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -224,6 +216,16 @@ export type SubscriptionFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
 	testSubscription?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type SyncJournalPayloadKeySpecifier = ('clientMutationId' | 'success' | SyncJournalPayloadKeySpecifier)[];
+export type SyncJournalPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type SyncLocationPayloadKeySpecifier = ('clientMutationId' | 'success' | SyncLocationPayloadKeySpecifier)[];
+export type SyncLocationPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type TestModelKeySpecifier = ('birthday' | 'id' | 'name' | TestModelKeySpecifier)[];
 export type TestModelFieldPolicy = {
@@ -298,18 +300,6 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | ImageKeySpecifier | (() => undefined | ImageKeySpecifier),
 		fields?: ImageFieldPolicy,
 	},
-	ImportCookiesPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ImportCookiesPayloadKeySpecifier | (() => undefined | ImportCookiesPayloadKeySpecifier),
-		fields?: ImportCookiesPayloadFieldPolicy,
-	},
-	ImportJournalEntriesPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ImportJournalEntriesPayloadKeySpecifier | (() => undefined | ImportJournalEntriesPayloadKeySpecifier),
-		fields?: ImportJournalEntriesPayloadFieldPolicy,
-	},
-	ImportObsidianNotesPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ImportObsidianNotesPayloadKeySpecifier | (() => undefined | ImportObsidianNotesPayloadKeySpecifier),
-		fields?: ImportObsidianNotesPayloadFieldPolicy,
-	},
 	InputFieldError?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | InputFieldErrorKeySpecifier | (() => undefined | InputFieldErrorKeySpecifier),
 		fields?: InputFieldErrorFieldPolicy,
@@ -317,6 +307,10 @@ export type StrictTypedTypePolicies = {
 	JournalEntry?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | JournalEntryKeySpecifier | (() => undefined | JournalEntryKeySpecifier),
 		fields?: JournalEntryFieldPolicy,
+	},
+	Location?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | LocationKeySpecifier | (() => undefined | LocationKeySpecifier),
+		fields?: LocationFieldPolicy,
 	},
 	Mutation?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | MutationKeySpecifier | (() => undefined | MutationKeySpecifier),
@@ -401,6 +395,14 @@ export type StrictTypedTypePolicies = {
 	Subscription?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SubscriptionKeySpecifier | (() => undefined | SubscriptionKeySpecifier),
 		fields?: SubscriptionFieldPolicy,
+	},
+	SyncJournalPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SyncJournalPayloadKeySpecifier | (() => undefined | SyncJournalPayloadKeySpecifier),
+		fields?: SyncJournalPayloadFieldPolicy,
+	},
+	SyncLocationPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SyncLocationPayloadKeySpecifier | (() => undefined | SyncLocationPayloadKeySpecifier),
+		fields?: SyncLocationPayloadFieldPolicy,
 	},
 	TestModel?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | TestModelKeySpecifier | (() => undefined | TestModelKeySpecifier),

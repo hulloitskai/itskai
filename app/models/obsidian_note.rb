@@ -123,73 +123,73 @@ class ObsidianNote < ApplicationRecord
     AnalyzeObsidianNoteJob.perform_later(self)
   end
 
-  # == Methods: Importing
-  sig { params(force: T::Boolean).void }
-  def self.import(force: false)
-    note_names = ObsidianService.note_names
-    note_names.each do |name|
-      Rails.error.handle(context: { name: }) do
-        existing_note = for_import.find_by(name:)
-        if existing_note
-          if force || existing_note.import_required?
-            existing_note.import_later(force:)
-          end
-        else
-          parsed_note = ObsidianService.note!(name)
-          new_note = new(name:)
-          new_note.import_attributes_from_obsidian(parsed_note:)
-          new_note.save!
-        end
-      rescue => error
-        tag_logger do
-          logger.error("Failed to import `#{name}': #{error}")
-        end
-        raise error
-      end
-    end
-    where.not(name: note_names).destroy_all
-  end
+  # # == Methods: Import
+  # sig { params(force: T::Boolean).void }
+  # def self.import(force: false)
+  #   note_names = ObsidianService.note_names
+  #   note_names.each do |name|
+  #     Rails.error.handle(context: { name: }) do
+  #       existing_note = for_import.find_by(name:)
+  #       if existing_note
+  #         if force || existing_note.import_required?
+  #           existing_note.import_later(force:)
+  #         end
+  #       else
+  #         parsed_note = ObsidianService.note!(name)
+  #         new_note = new(name:)
+  #         new_note.import_attributes_from_obsidian(parsed_note:)
+  #         new_note.save!
+  #       end
+  #     rescue => error
+  #       tag_logger do
+  #         logger.error("Failed to import `#{name}': #{error}")
+  #       end
+  #       raise error
+  #     end
+  #   end
+  #   where.not(name: note_names).destroy_all
+  # end
 
-  sig { params(force: T::Boolean).void }
-  def self.import_later(force: false)
-    ImportObsidianNotesJob.perform_later(force:)
-  end
+  # sig { params(force: T::Boolean).void }
+  # def self.import_later(force: false)
+  #   ImportObsidianNotesJob.perform_later(force:)
+  # end
 
-  sig { returns(T::Boolean) }
-  def import_required?
-    return false if imported_at > 5.minutes.ago
-    if ObsidianService.ready?
-      file = ObsidianService.note_file(name)
-      file.nil? || file.modified_at! > modified_at
-    else
-      false
-    end
-  end
+  # sig { returns(T::Boolean) }
+  # def import_required?
+  #   return false if imported_at > 5.minutes.ago
+  #   if ObsidianService.ready?
+  #     file = ObsidianService.note_file(name)
+  #     file.nil? || file.modified_at! > modified_at
+  #   else
+  #     false
+  #   end
+  # end
 
-  sig { params(force: T::Boolean).void }
-  def import(force: false)
-    return if !force && !import_required?
-    parsed_note = ObsidianService.note(name)
-    if parsed_note.nil?
-      destroy!
-    else
-      import_attributes_from_obsidian(parsed_note:)
-      save!
-    end
-  end
+  # sig { params(force: T::Boolean).void }
+  # def import(force: false)
+  #   return if !force && !import_required?
+  #   parsed_note = ObsidianService.note(name)
+  #   if parsed_note.nil?
+  #     destroy!
+  #   else
+  #     import_attributes_from_obsidian(parsed_note:)
+  #     save!
+  #   end
+  # end
 
-  sig { params(force: T::Boolean).void }
-  def import_later(force: false)
-    ImportObsidianNoteJob.perform_later(self, force:)
-  end
+  # sig { params(force: T::Boolean).void }
+  # def import_later(force: false)
+  #   ImportObsidianNoteJob.perform_later(self, force:)
+  # end
 
   # == Helpers: Importing
-  sig { params(parsed_note: ObsidianService::ParsedNote).void }
-  def import_attributes_from_obsidian(parsed_note:)
-    self.imported_at = Time.current
-    self.content = parsed_note.content
-    self.attributes = parsed_note.meta.serialize
-  end
+  # sig { params(parsed_note: ObsidianService::ParsedNote).void }
+  # def import_attributes_from_obsidian(parsed_note:)
+  #   self.imported_at = Time.current
+  #   self.content = parsed_note.content
+  #   self.attributes = parsed_note.meta.serialize
+  # end
 
   private
 

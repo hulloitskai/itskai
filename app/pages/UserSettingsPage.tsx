@@ -1,14 +1,14 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
+import type { UserSettingsPageQuery } from "~/helpers/graphql";
+
 import UserSettingsPageProfileForm from "~/components/UserSettingsPageProfileForm";
 import UserSettingsPageEmailForm from "~/components/UserSettingsPageEmailForm";
 import UserSettingsPagePasswordForm from "~/components/UserSettingsPagePasswordForm";
 import UserSettingsPageICloudCredentialsForm from "~/components/UserSettingsPageICloudCredentialsForm";
 import UserSettingsPageSpotifyCredentialsForm from "~/components/UserSettingsPageSpotifyCredentialsForm";
-
-import type { UserSettingsPageQuery } from "~/helpers/graphql";
-import UserSettingsPageImportActions from "~/components/UserSettingsPageImportActions";
+import UserSettingsPageSyncActions from "~/components/UserSettingsPageSyncActions";
 
 export type UserSettingsPageProps = PagePropsWithData<UserSettingsPageQuery>;
 
@@ -93,13 +93,13 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
             <Stack spacing="xs">
               <Stack align="center" spacing={0}>
                 <Title order={2} size="h4">
-                  Import Actions
+                  Sync Actions
                 </Title>
                 <Text size="sm" color="dimmed" lh={1.3}>
-                  Manually import data from your services.
+                  Manually sync data from your services.
                 </Text>
               </Stack>
-              <UserSettingsPageImportActions />
+              <UserSettingsPageSyncActions />
             </Stack>
           </Card>
         </>
