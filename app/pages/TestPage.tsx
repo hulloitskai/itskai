@@ -97,7 +97,7 @@ type TestPageModalContentProps = {
 
 const TestPageModalContent: FC<TestPageModalContentProps> = ({ name }) => (
   <Stack spacing="xs">
-    <Text>I&apos;m magic! And, your name is:</Text>
+    <Text>Apparently, your name is:</Text>
     <TextInput value={name} readOnly />
     <Button onClick={() => closeAllModals()}>Uh-huh.</Button>
   </Stack>

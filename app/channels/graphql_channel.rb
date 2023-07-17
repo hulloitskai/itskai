@@ -24,8 +24,8 @@ class GraphQLChannel < ApplicationCable::Channel
     params(data: T::Hash[String, T.untyped]).returns(T.untyped)
   end
   def execute(data)
+    # == Parse data.
     params = data.with_indifferent_access
-
     operation_name = params["operationName"]
     unless operation_name.nil?
       raise "operationName must be a String" unless operation_name.is_a?(String)
@@ -35,12 +35,11 @@ class GraphQLChannel < ApplicationCable::Channel
       raise "query must be a String" unless query.is_a?(String)
     end
 
+    # Execute query.
     variables = prepare_variables(params["variables"])
     extensions = prepare_extensions(params["extensions"])
     context = { channel: self, extensions:, current_user: }
-
     result = Schema.execute(query, variables:, operation_name:, context:)
-    payload = { result: result.to_h, more: result.subscription? }
 
     # Track the subscription here so we can remove it
     # on unsubscribe.
@@ -48,6 +47,8 @@ class GraphQLChannel < ApplicationCable::Channel
       @subscription_ids << result.context[:subscription_id]
     end
 
+    # Transmit result.
+    payload = { result: result.to_h, more: result.subscription? }
     transmit(payload)
   end
 
@@ -117,7 +118,6 @@ class GraphQLChannel < ApplicationCable::Channel
       status << "\n\n"
       logger.debug(status)
     end
-
     payload = { channel_class: self.class.name, data:, via: }
     ActiveSupport::Notifications.instrument("transmit.action_cable", payload) do
       connection.transmit(identifier:, message: data)

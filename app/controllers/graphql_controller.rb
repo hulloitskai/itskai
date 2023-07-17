@@ -10,25 +10,26 @@ class GraphQLController < ApplicationController
   # == Actions
   # POST /graphql
   def execute
+    # Parse params.
     operation_name = params["operationName"]
     unless operation_name.nil?
       raise "operationName must be a String" unless operation_name.is_a?(String)
     end
-
     query = params[:query]
     unless query.nil?
       raise "query must be a String" unless query.is_a?(String)
     end
 
+    # Execute query.
     variables = prepare_variables(params[:variables])
     extensions = prepare_extensions(params[:extensions])
     context = { controller: self, extensions:, current_user: }
     result = Schema.execute(query, variables:, operation_name:, context:)
 
+    # Render result.
     render(json: result)
   rescue StandardError => e
     raise e unless Rails.env.development?
-
     handle_error_in_development(e)
   end
 

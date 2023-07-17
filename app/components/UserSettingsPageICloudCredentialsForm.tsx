@@ -6,8 +6,8 @@ import {
   UpdateICloudCredentialsMutationDocument,
   VerifyICloudSecurityCodeMutationDocument,
 } from "~/helpers/graphql";
-import type { UserSettingsPageICloudCredentialsFragment } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
+import type { UserSettingsPageICloudCredentialsFragment } from "~/helpers/graphql";
 
 export type UserSettingsPageICloudCredentialsFormValues = {
   readonly email: string;
@@ -29,10 +29,13 @@ const UserSettingsPageICloudCredentialsForm: FC<
     openModal({
       title: (
         <Box>
-          <Title order={2} size="h4">
-            Verify Security Code
-          </Title>
-          <Text size="sm" color="dimmed" sx={{ lineHeight: 1.3 }}>
+          <Text>Verify Security Code</Text>
+          <Text
+            weight="normal"
+            size="sm"
+            color="dimmed"
+            sx={{ lineHeight: 1.3 }}
+          >
             Enter the security code you received on your device to complete
             iCloud authentication.
           </Text>
@@ -75,10 +78,13 @@ const UserSettingsPageICloudCredentialsForm: FC<
               openModal({
                 title: (
                   <Box>
-                    <Title order={2} size="h4">
-                      Verify Security Code
-                    </Title>
-                    <Text size="sm" color="dimmed" sx={{ lineHeight: 1.3 }}>
+                    <Text>Verify Security Code</Text>
+                    <Text
+                      weight="normal"
+                      size="sm"
+                      color="dimmed"
+                      sx={{ lineHeight: 1.3 }}
+                    >
                       Enter the security code you received on your device to
                       complete iCloud authentication.
                     </Text>
@@ -157,13 +163,12 @@ const UserSettingsPageICloudCredentialsForm: FC<
                       openModal({
                         title: (
                           <Box>
-                            <Title order={2} size="h4">
-                              Session Information
-                            </Title>
+                            <Text>Session Information</Text>
                             <Text
+                              weight="normal"
                               size="sm"
                               color="dimmed"
-                              sx={{ lineHeight: 1.3 }}
+                              lh={1.3}
                             >
                               Details about the current iCloud login session.
                             </Text>
@@ -256,34 +261,20 @@ type SessionInformationModalContentProps = {
 const SessionInformationModalContent: FC<
   SessionInformationModalContentProps
 > = ({ icloudCredentials: { cookies, session } }) => {
+  const inputProps = useMemo(
+    () => ({ maxRows: 6, autosize: true, readOnly: true }),
+    [],
+  );
   return (
     <Stack spacing="xs">
       {!!cookies && (
-        <Textarea
-          label="Cookies"
-          value={cookies}
-          maxRows={6}
-          autosize
-          readOnly
-          styles={({ colors }) => ({
-            input: {
-              color: colors.gray[7],
-            },
-          })}
-        />
+        <Textarea label="Cookies" value={cookies} {...inputProps} />
       )}
       {!!session && (
         <JsonInput
           label="Session"
           value={JSON.stringify(session, undefined, 2)}
-          maxRows={6}
-          autosize
-          readOnly
-          styles={({ colors }) => ({
-            input: {
-              color: colors.gray[7],
-            },
-          })}
+          {...inputProps}
         />
       )}
     </Stack>
