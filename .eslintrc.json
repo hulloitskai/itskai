@@ -43,7 +43,7 @@
   },
   "overrides": [
     {
-      "files": ["**/*.graphql"],
+      "files": ["*.graphql"],
       "extends": "plugin:@graphql-eslint/operations-recommended",
       "rules": {
         "prettier/prettier": "error",

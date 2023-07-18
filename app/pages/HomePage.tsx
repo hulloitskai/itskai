@@ -50,7 +50,17 @@ const HomePage: PageComponent<HomePageProps> = ({
         const { approximateAddress, googleMapsAreaUrl, timestamp } = location;
         return (
           <Alert
-            icon={<LocationIcon />}
+            icon={
+              <>
+                <LocationIcon />
+                <Box
+                  component={ClockIcon}
+                  mb={2}
+                  fz="xs"
+                  sx={({ fn }) => ({ color: fn.dimmed() })}
+                />
+              </>
+            }
             title="Are you in the area?"
             radius="md"
             my="xl"
@@ -61,6 +71,11 @@ const HomePage: PageComponent<HomePageProps> = ({
               },
               title: {
                 marginBottom: rem(2),
+              },
+              icon: {
+                height: "unset",
+                flexDirection: "column",
+                justifyContent: "space-between",
               },
             }}
           >
@@ -78,19 +93,12 @@ const HomePage: PageComponent<HomePageProps> = ({
                 </Anchor>
                 . If you&apos;re nearby, text me and come say hi!
               </Text>
-              <Group spacing={6}>
-                <Box
-                  component={ClockIcon}
-                  fz="xs"
-                  sx={({ fn }) => ({ color: fn.dimmed() })}
-                />
-                <Text size="xs" color="dimmed">
-                  Last updated{" "}
-                  <Time inherit format={time => formatTimeAgo(time.toJSDate())}>
-                    {timestamp}
-                  </Time>
-                </Text>
-              </Group>
+              <Text size="xs" color="dimmed">
+                Last updated{" "}
+                <Time inherit format={time => formatTimeAgo(time.toJSDate())}>
+                  {timestamp}
+                </Time>
+              </Text>
             </Stack>
           </Alert>
         );
