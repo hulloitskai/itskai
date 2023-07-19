@@ -66,13 +66,15 @@ class LocationLog < ApplicationRecord
   reverse_geocoded_by :latitude, :longitude do |log, results|
     if (result = results.first)
       result = T.cast(result, Geocoder::Result::Nominatim)
+      quarter = T.let(result.data.dig("address", "quarter"),
+                      T.nilable(String))
       log.build_address(
         full_address: result.address,
         country: result.country,
         country_code: result.country_code,
         province: result.province,
         city: result.city,
-        neighbourhood: result.neighbourhood,
+        neighbourhood: result.neighbourhood || quarter,
         postal_code: result.postal_code,
       )
     end

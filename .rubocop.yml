@@ -68,7 +68,6 @@ Layout/FirstArgumentIndentation:
 #   Enabled: false
 Layout/LineLength:
   Max: 80
-  AllowedPatterns: ["# rubocop:disable"]
 
 Naming/InclusiveLanguage:
   Enabled: false
