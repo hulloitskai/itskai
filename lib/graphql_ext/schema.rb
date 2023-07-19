@@ -33,7 +33,7 @@ class GraphQL::Schema
         end
 
         def constantize(string)
-          ActiveSupport::Inflector.constantize(string) # rubocop:disable Sorbet/ConstantsFromStrings
+          ActiveSupport::Inflector.constantize(string) # rubocop:disable Sorbet/ConstantsFromStrings, Layout/LineLength
         end
       end
 

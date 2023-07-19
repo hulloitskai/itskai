@@ -50,21 +50,12 @@ const HomePage: PageComponent<HomePageProps> = ({
         const { approximateAddress, googleMapsAreaUrl, timestamp } = location;
         return (
           <Alert
-            icon={
-              <>
-                <LocationIcon />
-                <Box
-                  component={ClockIcon}
-                  mb={2}
-                  fz="xs"
-                  sx={({ fn }) => ({ color: fn.dimmed() })}
-                />
-              </>
-            }
+            icon={<LocationIcon />}
             title="Are you in the area?"
             radius="md"
             my="xl"
             maw={540}
+            pb={8}
             styles={{
               root: {
                 alignSelf: "center",
@@ -72,14 +63,9 @@ const HomePage: PageComponent<HomePageProps> = ({
               title: {
                 marginBottom: rem(2),
               },
-              icon: {
-                height: "unset",
-                flexDirection: "column",
-                justifyContent: "space-between",
-              },
             }}
           >
-            <Stack spacing={4}>
+            <Stack spacing="xs">
               <Text>
                 I&apos;m currently around{" "}
                 <Anchor
@@ -93,12 +79,20 @@ const HomePage: PageComponent<HomePageProps> = ({
                 </Anchor>
                 . If you&apos;re nearby, text me and come say hi!
               </Text>
-              <Text size="xs" color="dimmed">
-                Last updated{" "}
-                <Time inherit format={time => formatTimeAgo(time.toJSDate())}>
-                  {timestamp}
-                </Time>
-              </Text>
+              <Group spacing={4} sx={{ alignSelf: "end" }}>
+                <Box
+                  component={ClockIcon}
+                  mb={2}
+                  fz="xs"
+                  sx={({ fn }) => ({ color: fn.dimmed() })}
+                />
+                <Text size="xs" color="dimmed">
+                  Last updated{" "}
+                  <Time inherit format={time => formatTimeAgo(time.toJSDate())}>
+                    {timestamp}
+                  </Time>
+                </Text>
+              </Group>
             </Stack>
           </Alert>
         );
