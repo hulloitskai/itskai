@@ -25,9 +25,16 @@ const AppFlash: FC = () => {
       });
     }
   }, [flash]);
-  useWindowEvent("popstate", ({ state: { props } }) => {
-    if (props && "flash" in props) {
-      delete props.flash;
+  useWindowEvent("popstate", ({ state }) => {
+    if (typeof state === "object" && "props" in state) {
+      const { props } = state;
+      invariant(
+        typeof props === "object",
+        "Expected `state.props` to be an object",
+      );
+      if (props && "flash" in props) {
+        delete props.flash;
+      }
     }
   });
   return null;
