@@ -110,7 +110,7 @@ class User < ApplicationRecord
     sig { returns(String) }
     def owner_email
       return @owner_email if defined?(@owner_email)
-      @owner_email = ENV.fetch("OWNER_LOGIN_EMAIL")
+      @owner_email = ENV["OWNER_EMAIL"] or raise "Missing owner email"
     end
 
     sig { returns(T.nilable(User)) }

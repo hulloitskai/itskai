@@ -13,7 +13,8 @@ module Queries
     sig { returns(String) }
     def resolve
       return @email if defined?(@email)
-      @email = ENV.fetch("OWNER_CONTACT_EMAIL")
+      @email = ENV["CONTACT_EMAIL"] or
+        raise "Missing contact email"
     end
   end
 end
