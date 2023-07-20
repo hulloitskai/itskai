@@ -16,13 +16,14 @@ const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => {
           <Title size="h3">Sign Up</Title>
           <Text size="sm" color="dimmed">
             Create an account on{" "}
-            <Text
-              span
+            <Anchor
+              component={Link}
+              href="/"
               color={theme.colors[theme.primaryColor]![4]}
               weight={600}
             >
               it&apos;s kai
-            </Text>
+            </Anchor>
           </Text>
         </Stack>
         <UserRegisterPageForm />

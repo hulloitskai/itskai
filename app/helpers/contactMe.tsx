@@ -28,7 +28,7 @@ export const useContactMe = (
 };
 
 const contactUrl = (email: string, options?: ContactMeOptions): string => {
-  let url = `mailto:Kai<${email}>`;
+  let url = `mailto:${email}`;
   if (options?.subject) {
     url += `?subject=${encodeURIComponent(options.subject)}`;
   }

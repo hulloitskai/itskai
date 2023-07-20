@@ -2,11 +2,10 @@ import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { format as formatTimeAgo } from "timeago.js";
 import { Text } from "@mantine/core";
 import LocationIcon from "~icons/heroicons/map-pin-20-solid";
-import ClockIcon from "~icons/heroicons/clock-20-solid";
 
 import type { HomePageQuery } from "~/helpers/graphql";
 
-import ContactLink from "~/components/ContactLink";
+import ContactMeLink from "~/components/ContactMeLink";
 import HomePageJournalEntry from "~/components/HomePageJournalEntry";
 
 export type HomePageProps = PagePropsWithData<HomePageQuery>;
@@ -34,8 +33,9 @@ const HomePage: PageComponent<HomePageProps> = ({
           !
         </Text>
         <Text size="xs" opacity={0.7}>
-          (and also feel free to <ContactLink>hit me up anytime</ContactLink> &
-          let me know what&apos;s on your mind!)
+          (and also feel free to{" "}
+          <ContactMeLink>hit me up anytime</ContactMeLink> & let me know
+          what&apos;s on your mind!)
         </Text>
       </Stack>
     </Center>
@@ -51,7 +51,7 @@ const HomePage: PageComponent<HomePageProps> = ({
         return (
           <Alert
             icon={<LocationIcon />}
-            title="Are you in the area?"
+            title="In the area?"
             radius="md"
             my="xl"
             maw={540}
@@ -65,7 +65,7 @@ const HomePage: PageComponent<HomePageProps> = ({
               },
             }}
           >
-            <Stack spacing="xs">
+            <Stack spacing={4}>
               <Text>
                 I&apos;m currently around{" "}
                 <Anchor
@@ -79,20 +79,12 @@ const HomePage: PageComponent<HomePageProps> = ({
                 </Anchor>
                 . If you&apos;re nearby, text me and come say hi!
               </Text>
-              <Group spacing={4} sx={{ alignSelf: "end" }}>
-                <Box
-                  component={ClockIcon}
-                  mb={2}
-                  fz="xs"
-                  sx={({ fn }) => ({ color: fn.dimmed() })}
-                />
-                <Text size="xs" color="dimmed">
-                  Last updated{" "}
-                  <Time inherit format={time => formatTimeAgo(time.toJSDate())}>
-                    {timestamp}
-                  </Time>
-                </Text>
-              </Group>
+              <Text size="xs" color="dimmed">
+                last updated{" "}
+                <Time inherit format={time => formatTimeAgo(time.toJSDate())}>
+                  {timestamp}
+                </Time>
+              </Text>
             </Stack>
           </Alert>
         );
