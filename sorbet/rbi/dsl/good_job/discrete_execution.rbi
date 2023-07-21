@@ -698,10 +698,14 @@ class GoodJob::DiscreteExecution
     sig { returns(T::Boolean) }
     def error_changed?; end
 
-    sig { returns(::String) }
+    sig { returns(T.nilable(::String)) }
     def error_event; end
 
-    sig { params(value: T.any(::String, ::Symbol)).returns(T.any(::String, ::Symbol)) }
+    sig do
+      params(
+        value: T.nilable(T.any(::String, ::Symbol, ::Integer))
+      ).returns(T.nilable(T.any(::String, ::Symbol, ::Integer)))
+    end
     def error_event=(value); end
 
     sig { returns(T::Boolean) }
@@ -716,10 +720,10 @@ class GoodJob::DiscreteExecution
     sig { returns(T::Boolean) }
     def error_event_came_from_user?; end
 
-    sig { returns(T.nilable([::String, ::String])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def error_event_change; end
 
-    sig { returns(T.nilable([::String, ::String])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def error_event_change_to_be_saved; end
 
     sig { returns(T::Boolean) }
@@ -728,7 +732,7 @@ class GoodJob::DiscreteExecution
     sig { returns(T.nilable(::String)) }
     def error_event_in_database; end
 
-    sig { returns(T.nilable([::String, ::String])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def error_event_previous_change; end
 
     sig { returns(T::Boolean) }
@@ -1040,7 +1044,7 @@ class GoodJob::DiscreteExecution
     sig { returns(T::Boolean) }
     def saved_change_to_error?; end
 
-    sig { returns(T.nilable([::String, ::String])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_error_event; end
 
     sig { returns(T::Boolean) }
