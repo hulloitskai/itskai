@@ -9,7 +9,7 @@ module Shortcuts
     sig { returns(String) }
     def secret_key
       @secret_key ||= ENV["SHORTCUTS_SECRET_KEY"] or
-        raise "Missing secret key"
+        raise "Secret key not set"
     end
 
     # == Filter Handlers

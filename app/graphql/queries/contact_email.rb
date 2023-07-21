@@ -12,9 +12,7 @@ module Queries
     # == Resolver
     sig { returns(String) }
     def resolve
-      return @email if defined?(@email)
-      @email = ENV["CONTACT_EMAIL"] or
-        raise "Missing contact email"
+      @email ||= ENV["CONTACT_EMAIL"] or raise "Contact email not set."
     end
   end
 end

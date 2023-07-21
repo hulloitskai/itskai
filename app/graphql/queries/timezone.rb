@@ -12,13 +12,11 @@ module Queries
     # == Resolver
     sig { returns(TZInfo::DataTimezone) }
     def resolve
-      unless defined?(@zone)
-        @zone = T.let(@zone, T.nilable(TZInfo::DataTimezone))
-        @zone = if (zone = ENV["OWNER_TIMEZONE"].presence)
-          TZInfo::Timezone.get(zone)
-        end
+      @zone ||= if (zone = ENV["OWNER_TIMEZONE"].presence)
+        TZInfo::Timezone.get(zone)
+      else
+        raise GraphQL::ExecutionError, "Owner timezone not set."
       end
-      @zone or raise GraphQL::ExecutionError, "Missing contact zone"
     end
   end
 end

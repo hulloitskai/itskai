@@ -77,7 +77,7 @@ class JournalService < ApplicationService
   # == Accessors
   sig { returns(String) }
   def database_id
-    self.class.database_id or raise "Missing database ID"
+    self.class.database_id or raise "Database ID not set"
   end
 
   # == Methods: Sync

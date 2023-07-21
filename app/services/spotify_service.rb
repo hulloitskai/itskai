@@ -146,12 +146,12 @@ class SpotifyService < ApplicationService
   # == Helpers
   sig { returns(String) }
   def client_id
-    self.class.client_id or raise "Missing Spotify client ID"
+    self.class.client_id or raise "Client ID not set"
   end
 
   sig { returns(String) }
   def client_secret
-    self.class.client_secret or raise "Missing Spotify client secret"
+    self.class.client_secret or raise "Client secret not set"
   end
 
   sig { void }

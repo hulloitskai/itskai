@@ -78,12 +78,12 @@ class ScottbotService < ApplicationService
   # == Helpers
   sig { returns(String) }
   def discord_token
-    self.class.discord_token or raise "Missing Discord token"
+    self.class.discord_token or raise "Discord token not set"
   end
 
   sig { returns(String) }
   def discord_channel_id
-    self.class.discord_channel_id or raise "Missing Discord channel ID"
+    self.class.discord_channel_id or raise "Discord channel ID not set"
   end
 
   sig { params(message: String).void }
