@@ -5,6 +5,7 @@ module Shortcuts
   class ActionItemsController < ApplicationController
     # == Filters
     protect_from_forgery with: :null_session, only: :create
+    before_action :verify_secret_key, only: :create
 
     # == Actions
     # POST /shortcuts/action_items
@@ -21,6 +22,8 @@ module Shortcuts
         )
       end
     end
+
+    private
 
     # == Helpers
     sig { returns(ActionController::Parameters) }

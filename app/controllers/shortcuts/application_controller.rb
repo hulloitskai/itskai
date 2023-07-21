@@ -1,0 +1,23 @@
+# typed: true
+# frozen_string_literal: true
+
+module Shortcuts
+  class ApplicationController < ::ApplicationController
+    private
+
+    # == Helpers
+    sig { returns(String) }
+    def secret_key
+      @secret_key ||= ENV["SHORTCUTS_SECRET_KEY"] or
+        raise "Missing secret key"
+    end
+
+    # == Filter Handlers
+    sig { void }
+    def verify_secret_key
+      if request.headers["Secret-Key"] != secret_key
+        render(plain: "Invalid secret key", status: :unauthorized)
+      end
+    end
+  end
+end
