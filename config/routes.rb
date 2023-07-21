@@ -51,10 +51,15 @@ Rails.application.routes.draw do
   # == GraphQL
   scope :graphql, controller: :graphql do
     mount GraphiQL::Rails::Engine,
-          at: :/,
+          at: "/",
           as: :graphiql,
           graphql_path: "/graphql"
-    post :/, action: :execute, as: :graphql
+    post "/", action: :execute, as: :graphql
+  end
+
+  # == Shorcuts
+  namespace :shortcuts do
+    resource :action_items, only: :create
   end
 
   # == Calendly
@@ -72,15 +77,14 @@ Rails.application.routes.draw do
   # == Pages
   root "homepage#show"
   get "/scottkit" => "scottkit#show"
-  get "/test" => "test#show"
   get "/resume" => "resume#show"
   get "/toronto" => "places#toronto"
-  get "/☕️" => "places#toronto"
   get "/gh" => redirect("https://github.com/hulloitskai/itskai", status: 302)
 
   # == Development
   if Rails.env.development?
     mount GoodJob::Engine => "/good_job"
+    get "/test" => "test#show"
     get "/mailcatcher" => redirect("//localhost:1080", status: 302)
   end
 

@@ -147,6 +147,9 @@ module GeneratedPathHelpersModule
   def scottkit_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def shortcuts_action_items_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def status_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

@@ -8,6 +8,7 @@ Rails.application.configure do
       ICloudService.start
       SpotifyService.start
       JournalService.start
+      ActionItemsService.start
       ResumeService.start
       LocationService.start
       if Rails.server?
@@ -21,6 +22,7 @@ Rails.application.configure do
         CurrentlyPlayingService.stop
       end
       LocationService.stop
+      ActionItemsService.stop
       ResumeService.stop
       JournalService.stop
       SpotifyService.stop

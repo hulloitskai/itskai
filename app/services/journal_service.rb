@@ -80,6 +80,29 @@ class JournalService < ApplicationService
     self.class.database_id or raise "Missing database ID"
   end
 
+  # == Methods: Sync
+  sig { void }
+  def sync
+    pages = list_pages(published: true)
+    pages.each do |page|
+      notion_page_id = page.id
+      Rails.error.handle(context: { notion_page_id: }) do
+        entry = JournalEntry.find_or_initialize_by(notion_page_id:)
+        entry.import_attributes_from_notion(page:)
+        entry.save!
+      rescue => error
+        tag_logger do
+          logger.error(
+            "Failed to import entry with Notion page ID " \
+              "`#{notion_page_id}'`: #{error}",
+          )
+        end
+        raise error
+      end
+    end
+    JournalEntry.where.not(notion_page_id: pages.map(&:id)).destroy_all
+  end
+
   # == Methods
   sig do
     params(published: T.nilable(T::Boolean), options: T.untyped)
@@ -143,28 +166,6 @@ class JournalService < ApplicationService
         },
       }],
     )
-  end
-
-  sig { void }
-  def sync
-    pages = list_pages(published: true)
-    pages.each do |page|
-      notion_page_id = page.id
-      Rails.error.handle(context: { notion_page_id: }) do
-        entry = JournalEntry.find_or_initialize_by(notion_page_id:)
-        entry.import_attributes_from_notion(page:)
-        entry.save!
-      rescue => error
-        tag_logger do
-          logger.error(
-            "Failed to import entry with Notion page ID " \
-              "`#{notion_page_id}'`: #{error}",
-          )
-        end
-        raise error
-      end
-    end
-    JournalEntry.where.not(notion_page_id: pages.map(&:id)).destroy_all
   end
 
   private
