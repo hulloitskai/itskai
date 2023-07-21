@@ -12,8 +12,8 @@ module Shortcuts
     def create
       item = ActionItem.new(**action_item_params.to_h)
       if item.valid?
-        page = ActionItemsService.create_page(name: item.name!)
-        render(plain: page.url, status: :created)
+        ActionItemsService.create_page(name: item.name!)
+        render(plain: "Done", status: :created)
       else
         error_message = item.errors.full_messages.first!
         render(
