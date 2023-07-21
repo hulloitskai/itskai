@@ -16,7 +16,10 @@ module Shortcuts
     sig { void }
     def verify_secret_key
       if request.headers["Secret-Key"] != secret_key
-        render(plain: "Invalid secret key", status: :unauthorized)
+        render(
+          plain: "Not authorized: Invalid secret key",
+          status: :unauthorized,
+        )
       end
     end
   end
