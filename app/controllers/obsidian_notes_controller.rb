@@ -21,6 +21,6 @@ class ObsidianNotesController < ApplicationController
   sig { void }
   def set_note
     @note = T.let(@note, T.nilable(ObsidianNote))
-    @note = ObsidianNote.friendly.find(params[:id])
+    @note = ObsidianNote.friendly.find(params.fetch(:id))
   end
 end

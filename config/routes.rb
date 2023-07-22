@@ -62,6 +62,11 @@ Rails.application.routes.draw do
     resource :action_items, only: :create
   end
 
+  # == Poorly Drawn Lines
+  namespace :poorly_drawn_lines do
+    resources :comics, only: :show
+  end
+
   # == Calendly
   get "/calendly" => "calendly#show"
   get "/hangout" => "calendly#show"

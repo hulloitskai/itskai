@@ -611,6 +611,7 @@ DEPENDENCIES
   mailjet (~> 1.7)
   markly (~> 0.7.0)
   nanoid (~> 2.0)
+  nokogiri (~> 1.15)
   notion-ruby-client (~> 1.2)
   omniauth (~> 2.1)
   omniauth-rails_csrf_protection (~> 1.0)
