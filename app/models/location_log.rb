@@ -81,14 +81,18 @@ class LocationLog < ApplicationRecord
   end
 
   # == Methods: Latest
-  sig { returns(T.nilable(LocationLog)) }
-  def self.latest
-    _latest.first
+  sig { params(args: T.untyped).returns(T.nilable(LocationLog)) }
+  def self.latest(*args)
+    relation = _latest
+    relation = relation.where(*T.unsafe(args)) if args.present?
+    relation.first
   end
 
-  sig { returns(LocationLog) }
-  def self.latest!
-    _latest.first!
+  sig { params(args: T.untyped).returns(LocationLog) }
+  def self.latest!(*args)
+    relation = _latest
+    relation = relation.where(*T.unsafe(args)) if args.present?
+    relation.first!
   end
 
   # == Methods: Geocoding

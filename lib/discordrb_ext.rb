@@ -38,8 +38,10 @@ module Discordrb
         end
       end
 
+      sig { params(e: Exception).void }
       def log_exception(e)
-        T.unsafe(self).error(e.to_s)
+        T.bind(self, T.untyped)
+        error(e.to_s)
       end
 
       private
