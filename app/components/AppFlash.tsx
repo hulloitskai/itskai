@@ -26,11 +26,11 @@ const AppFlash: FC = () => {
     }
   }, [flash]);
   useWindowEvent("popstate", ({ state }) => {
-    if (typeof state === "object" && "props" in state) {
+    if (state instanceof Object && "props" in state) {
       const { props } = state;
       invariant(
-        typeof props === "object",
-        "Expected `state.props` to be an object",
+        props instanceof Object,
+        "Expected `state.props` to be an Object",
       );
       if (props && "flash" in props) {
         delete props.flash;
