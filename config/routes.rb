@@ -4,9 +4,9 @@
 # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
   # == Redirects
-  constraints subdomain: "www" do
-    get "(*any)" => redirect(subdomain: "", status: 302)
-  end
+  constraints NonCanonicalHostConstraint.new do
+    get "(*any)" => "non_canonical_host#redirect"
+  end if Rails.env.production?
 
   # == Healthcheck
   Healthcheck.routes(self)
