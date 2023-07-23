@@ -113,7 +113,7 @@ class TelnyxService < ApplicationService
     if (errors = response["errors"])
       errors = T.let(errors, T::Array[T::Hash[String, T.untyped]])
       message = errors.first!.fetch("detail")
-      raise "Telnyx error: #{message}}"
+      raise "Telnyx error: #{message}"
     end
   end
 end
