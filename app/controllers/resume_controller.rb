@@ -10,7 +10,9 @@ class ResumeController < ApplicationController
         printable = params["printable"].truthy?
         render(inertia: "ResumePage", props: { printable: })
       end
-      format.json { render(json: ResumeService.load_resume) }
+      format.json do
+        render(json: ResumeService.load_resume)
+      end
     end
   end
 end

@@ -22,6 +22,11 @@ class ICloudService
       end
     end
 
+    sig { void }
+    def play_sound
+      @pydevice.play_sound
+    end
+
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def attributes
       @attributes ||= @pydevice.content.to_h.transform_keys do |key|

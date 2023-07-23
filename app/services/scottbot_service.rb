@@ -12,8 +12,8 @@ class ScottbotService < ApplicationService
 
     # == Methods
     sig { params(type: Symbol).void }
-    def signal(type)
-      checked { instance.signal(type) }
+    def alert(type)
+      checked { instance.alert(type) }
     end
 
     # == Helpers
@@ -53,9 +53,9 @@ class ScottbotService < ApplicationService
   end
 
   # == Method
-  sig { params(type: Symbol).void }
-  def signal(type)
-    message = case type
+  sig { params(signal: Symbol).void }
+  def alert(signal)
+    message = case signal
     when :break
       "`break;` – Scott is caught in an unproductive cycle and would like to " \
         "exit it!"
@@ -64,7 +64,7 @@ class ScottbotService < ApplicationService
     when :panic
       "`panic!` – Something has not gone to plan for Scott in a major way!"
     else
-      raise "Unknown type: #{type}"
+      raise "Unknown type: #{signal}"
     end
     send_message(message)
   end

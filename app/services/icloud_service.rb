@@ -61,7 +61,8 @@ class ICloudService < ApplicationService
   # == Methods
   sig { returns(String) }
   def iphone_device_id
-    ENV["ICLOUD_IPHONE_DEVICE_ID"] or raise "iCloud iPhone device ID not set"
+    @phone_device_id ||= ENV["ICLOUD_IPHONE_DEVICE_ID"] or
+      raise "iCloud iPhone device ID not set"
   end
 
   sig { returns(Client) }

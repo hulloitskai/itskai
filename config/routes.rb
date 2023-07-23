@@ -79,6 +79,9 @@ Rails.application.routes.draw do
     match "/500", action: :internal_server_error, via: :all
   end
 
+  # == Scottcall
+  post "/scottcall" => "scottcalls#handle"
+
   # == Pages
   root "homepage#show"
   get "/scottkit" => "scottkit#show"

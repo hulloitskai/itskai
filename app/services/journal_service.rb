@@ -7,7 +7,7 @@ class JournalService < ApplicationService
     sig { override.returns(T::Boolean) }
     def disabled?
       return @disabled if defined?(@disabled)
-      @disabled = super || !notion_ready? || database_id.blank?
+      @disabled = super || !notion_available? || database_id.blank?
     end
 
     # == Accessors
@@ -64,7 +64,7 @@ class JournalService < ApplicationService
 
     # == Helpers
     sig { returns(T::Boolean) }
-    def notion_ready? = Notion.config.token.present?
+    def notion_available? = Notion.config.token.present?
   end
 
   # == Initialization

@@ -11,16 +11,20 @@ Rails.application.configure do
       ActionItemsService.start
       ResumeService.start
       LocationService.start
+      TelnyxService.start
       if Rails.server?
         CurrentlyPlayingService.start
         ScottbotService.start
+        ScottcallService.start
       end
     end
     reloader.before_class_unload do
       if Rails.server?
+        ScottcallService.stop
         ScottbotService.stop
         CurrentlyPlayingService.stop
       end
+      TelnyxService.stop
       LocationService.stop
       ActionItemsService.stop
       ResumeService.stop

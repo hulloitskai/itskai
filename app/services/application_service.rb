@@ -16,7 +16,10 @@ class ApplicationService
     # == Class Methods
     sig { returns(T.nilable(T.attached_class)) }
     def start
-      return if disabled?
+      if disabled?
+        puts "=> Skipping #{name} initialization (disabled)" # rubocop:disable Rails/Output, Layout/LineLength
+        return
+      end
       if !started? && Rails.server?
         puts "=> Initializing #{name}" # rubocop:disable Rails/Output
       end
@@ -64,9 +67,8 @@ class ApplicationService
 
     sig { returns(String) }
     def env_prefix
-      return T.must(@env_prefix) if defined?(@env_prefix)
       @env_prefix = T.let(@env_prefix, T.nilable(String))
-      @env_prefix = T.must(name).underscore.upcase
+      @env_prefix ||= T.must(name).delete_suffix("Service").underscore.upcase
     end
   end
 

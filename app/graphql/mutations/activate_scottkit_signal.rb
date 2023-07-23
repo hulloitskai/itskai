@@ -12,7 +12,8 @@ module Mutations
     # == Resolver
     sig { override.params(type: Symbol).returns(Payload) }
     def resolve(type:)
-      ScottbotService.signal(type)
+      # ScottbotService.alert(type)
+      ScottcallService.dial(type)
       Payload.new
     end
   end
