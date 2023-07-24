@@ -24,7 +24,7 @@ const SyncLocationButton: FC = () => {
   const [runMutation, { loading }] = useMutation(SyncLocationMutationDocument, {
     onCompleted: () => {
       showNotice({
-        message: "Location synced successfully",
+        message: "Location synced successfully.",
       });
     },
     onError,
@@ -54,7 +54,7 @@ const SyncJournalButton: FC = () => {
   const [runMutation, { loading }] = useMutation(SyncJournalMutationDocument, {
     onCompleted: () => {
       showNotice({
-        message: "Journal synced successfully",
+        message: "Journal synced successfully.",
       });
     },
     onError,
