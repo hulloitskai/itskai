@@ -6,8 +6,9 @@ class ActionItemsService < ApplicationService
     # == Service
     sig { override.returns(T::Boolean) }
     def disabled?
-      return @disabled if defined?(@disabled)
-      @disabled = super || !notion_available? || database_id.blank?
+      return !!@disabled if defined?(@disabled)
+      @disabled = T.let(@disabled, T.nilable(T::Boolean))
+      @disabled = !notion_available? || database_id.blank? || super
     end
 
     # == Accessors

@@ -6,8 +6,9 @@ class ScottcallService < ApplicationService
     # == Service
     sig { override.returns(T::Boolean) }
     def disabled?
-      return @disabled if defined?(@disabled)
-      @disabled = super || TelnyxService.disabled?
+      return !!@disabled if defined?(@disabled)
+      @disabled = T.let(@disabled, T.nilable(T::Boolean))
+      @disabled = TelnyxService.disabled? || super
     end
 
     # == Methods

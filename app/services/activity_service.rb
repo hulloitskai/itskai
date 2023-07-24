@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 class ActivityService < ApplicationService
+  include Concurrent
+
   class << self
     # == Methods
     sig { params(status: String).void }
@@ -19,9 +21,8 @@ class ActivityService < ApplicationService
   sig { void }
   def initialize
     super
-    @status_atom = T.let(Concurrent::Atom.new(nil), Concurrent::Atom)
-    @clear_status_task = T.let(build_clear_status_task,
-                               Concurrent::ScheduledTask)
+    @status_atom = T.let(Atom.new(nil), Atom)
+    @clear_status_task = T.let(build_clear_status_task, ScheduledTask)
   end
 
   # == Methods
@@ -38,10 +39,10 @@ class ActivityService < ApplicationService
   private
 
   # == Attributes
-  sig { returns(Concurrent::Atom) }
+  sig { returns(Atom) }
   attr_reader :status_atom
 
-  sig { returns(Concurrent::ScheduledTask) }
+  sig { returns(ScheduledTask) }
   attr_accessor :clear_status_task
 
   # == Helpers
@@ -57,9 +58,9 @@ class ActivityService < ApplicationService
     end
   end
 
-  sig { returns(Concurrent::ScheduledTask) }
+  sig { returns(ScheduledTask) }
   def build_clear_status_task
-    Concurrent::ScheduledTask.new(3) do
+    ScheduledTask.new(3) do
       if status_atom.value
         status_atom.reset(nil)
         Schema.subscriptions!.trigger(:activity_status, {}, nil)

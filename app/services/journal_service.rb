@@ -6,14 +6,16 @@ class JournalService < ApplicationService
     # == Service
     sig { override.returns(T::Boolean) }
     def disabled?
-      return @disabled if defined?(@disabled)
-      @disabled = super || !notion_available? || database_id.blank?
+      return !!@disabled if defined?(@disabled)
+      @disabled = T.let(@disabled, T.nilable(T::Boolean))
+      @disabled = !notion_available? || database_id.blank? || super
     end
 
     # == Accessors
     sig { returns(T.nilable(String)) }
     def database_id
       return @database_id if defined?(@database_id)
+      @database_id = T.let(@database_id, T.nilable(String))
       @database_id = ENV["JOURNAL_DATABASE_ID"]
     end
 
@@ -33,8 +35,8 @@ class JournalService < ApplicationService
       params(published: T.nilable(T::Boolean), options: T.untyped)
         .returns(T::Array[T.untyped])
     end
-    def list_pages(published: nil, **options)
-      checked { instance.list_pages(published:, **options) }
+    def list_entries(published: nil, **options)
+      checked { instance.list_entries(published:, **options) }
     end
 
     sig do
@@ -46,13 +48,13 @@ class JournalService < ApplicationService
     end
 
     sig { params(page_id: String).returns(T.untyped) }
-    def retrieve_page(page_id)
-      checked { instance.retrieve_page(page_id) }
+    def retrieve_entry(page_id)
+      checked { instance.retrieve_entry(page_id) }
     end
 
     sig { params(page_id: String).returns(T::Array[T.untyped]) }
-    def retrieve_blocks(page_id)
-      checked { instance.retrieve_blocks(page_id) }
+    def retrieve_entry_content(page_id)
+      checked { instance.retrieve_entry_content(page_id) }
     end
 
     sig { params(page_id: String, text: String).returns(T.untyped) }
@@ -83,7 +85,7 @@ class JournalService < ApplicationService
   # == Methods: Sync
   sig { void }
   def sync
-    pages = list_pages(published: true)
+    pages = list_entries(published: true)
     pages.each do |page|
       notion_page_id = page.id
       Rails.error.handle(context: { notion_page_id: }) do
@@ -108,7 +110,7 @@ class JournalService < ApplicationService
     params(published: T.nilable(T::Boolean), options: T.untyped)
       .returns(T::Array[T.untyped])
   end
-  def list_pages(published: nil, **options)
+  def list_entries(published: nil, **options)
     filter = T.let(nil, T.nilable(T::Hash[String, T.untyped]))
     unless published.nil?
       filter = {
@@ -143,13 +145,13 @@ class JournalService < ApplicationService
   end
 
   sig { params(page_id: String).returns(T.untyped) }
-  def retrieve_page(page_id)
+  def retrieve_entry(page_id)
     client.page(page_id:)
   end
 
   sig { params(page_id: String).returns(T::Array[T.untyped]) }
-  def retrieve_blocks(page_id)
-    page = retrieve_page(page_id)
+  def retrieve_entry_content(page_id)
+    page = retrieve_entry(page_id)
     redactor = Redactor.new(page)
     recursively_retrieve_blocks(page_id, redactor:)
   end
@@ -181,14 +183,13 @@ class JournalService < ApplicationService
   end
   def recursively_retrieve_blocks(parent_block_id, redactor:)
     message = client.block_children(block_id: parent_block_id)
-    message.results.tap do |blocks|
-      blocks = T.let(blocks, T::Array[T.untyped])
-      redactor.redact_blocks!(blocks)
-      blocks.each do |block|
-        if block["has_children"]
-          block["children"] = recursively_retrieve_blocks(block.id, redactor:)
-        end
+    blocks = T.let(message.results, T::Array[T.untyped])
+    redactor.redact_blocks!(blocks)
+    blocks.each do |block|
+      if block["has_children"]
+        block["children"] = recursively_retrieve_blocks(block.id, redactor:)
       end
     end
+    blocks
   end
 end

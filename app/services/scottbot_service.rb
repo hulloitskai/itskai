@@ -6,8 +6,9 @@ class ScottbotService < ApplicationService
     # == Service
     sig { override.returns(T::Boolean) }
     def disabled?
-      return @disabled if defined?(@disabled)
-      @disabled = super || [discord_token, discord_channel_id].any?(&:blank?)
+      return !!@disabled if defined?(@disabled)
+      @disabled = T.let(@disabled, T.nilable(T::Boolean))
+      @disabled = [discord_token, discord_channel_id].any?(&:blank?) || super
     end
 
     # == Methods

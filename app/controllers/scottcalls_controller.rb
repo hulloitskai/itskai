@@ -19,6 +19,6 @@ class ScottcallsController < ApplicationController
   sig { returns(T::Hash[String, T.untyped]) }
   def data
     @data = T.let(@data, T.nilable(T::Hash[String, T.untyped]))
-    @data ||= params.require(:data).permit!.to_h
+    @data ||= params.require(:data).to_unsafe_h
   end
 end

@@ -6,26 +6,30 @@ class TelnyxService < ApplicationService
     # == Service
     sig { override.returns(T::Boolean) }
     def disabled?
-      return @disabled if defined?(@disabled)
-      @disabled = super || [api_key, app_id, number].any?(&:blank?)
+      return !!@disabled if defined?(@disabled)
+      @disabled = T.let(@disabled, T.nilable(T::Boolean))
+      @disabled = [api_key, app_id, number].any?(&:blank?) || super
     end
 
     # == Methods
     sig { returns(T.nilable(String)) }
     def api_key
       return @api_key if defined?(@api_key)
+      @api_key = T.let(@api_key, T.nilable(String))
       @api_key = ENV["TELNYX_API_KEY"]
     end
 
     sig { returns(T.nilable(String)) }
     def app_id
       return @app_id if defined?(@app_id)
+      @app_id = T.let(@app_id, T.nilable(String))
       @app_id = ENV["TELNYX_APP_ID"]
     end
 
     sig { returns(T.nilable(String)) }
     def number
       return @number if defined?(@number)
+      @number = T.let(@number, T.nilable(String))
       @number = ENV["TELNYX_NUMBER"]
     end
 
