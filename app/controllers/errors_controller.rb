@@ -30,7 +30,7 @@ class ErrorsController < ApplicationController
       status: :unprocessable_entity,
       title: "Change Rejected",
       description:
-        "The change you wanted was rejected. Maybe you tried to change "\
+        "The change you wanted was rejected. Maybe you tried to change " \
         "something you didn't have access to?",
       error: exception,
     )

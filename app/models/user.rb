@@ -130,13 +130,13 @@ class User < ApplicationRecord
   # == Methods: Sentry
   sig { returns(T::Hash[String, T.untyped]) }
   def sentry_info
-    { "id" => id, "email" => email }
+    { "id" => to_gid.to_s, "email" => email }
   end
 
   # == Methods: Fullstory
   sig { returns(T::Hash[String, T.untyped]) }
   def fullstory_identity
-    { "uid" => id, "email" => email, "displayName" => name }
+    { "uid" => to_gid.to_s, "email" => email, "displayName" => name }
   end
 
   protected

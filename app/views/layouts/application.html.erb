@@ -46,8 +46,8 @@
     <%# == FullStory %>
     <% if (org_id = ENV["FULLSTORY_ORG_ID"].presence) %>
       <meta name="fullstory-org-id" content="<%= org_id %>">
-      <% if user_signed_in? %>
-        <meta name="fullstory-identity" content="<%= current_user.fullstory_identity.to_json %>">
+      <% if (user = current_user) %>
+        <meta name="fullstory-identity" content="<%= user.fullstory_identity.to_json %>">
       <% end %>
     <% end %>
 
@@ -61,13 +61,13 @@
     <% end %>
 
     <%# == Google Analytics %>
-    <% if (id = ENV["GOOGLE_ANALYTICS_MEASUREMENT_ID"].presence) %>
-      <script src="https://www.googletagmanager.com/gtag/js?id=<%= id %>" async></script>
+    <% if (measurement_id = ENV["GOOGLE_ANALYTICS_MEASUREMENT_ID"].presence) %>
+      <script src="https://www.googletagmanager.com/gtag/js?id=<%= measurement_id %>" async></script>
       <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){ dataLayer.push(arguments); }
         gtag("js", new Date());
-        gtag("config", "<%= id %>");
+        gtag("config", "<%= measurement_id %>");
       </script>
     <% end %>
 

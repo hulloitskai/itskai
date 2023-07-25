@@ -24,7 +24,7 @@ class GraphQLChannel < ApplicationCable::Channel
     params(data: T::Hash[String, T.untyped]).returns(T.untyped)
   end
   def execute(data)
-    # == Parse data.
+    # Parse data.
     params = data.with_indifferent_access
     operation_name = params["operationName"]
     unless operation_name.nil?

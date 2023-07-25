@@ -16,14 +16,16 @@ class ApplicationService
     # == Class Methods
     sig { returns(T.nilable(T.attached_class)) }
     def start
-      if disabled?
-        puts "=> Skipping #{name} initialization (disabled)" # rubocop:disable Rails/Output, Layout/LineLength
-        return
+      if Rails.server?
+        if disabled?
+          puts "=> Skipping #{name} initialization (disabled)" # rubocop:disable Rails/Output, Layout/LineLength
+        elsif !started?
+          puts "=> Initializing #{name}" # rubocop:disable Rails/Output
+        end
       end
-      if !started? && Rails.server?
-        puts "=> Initializing #{name}" # rubocop:disable Rails/Output
+      unless disabled?
+        instance.tap(&:start)
       end
-      instance.tap(&:start)
     end
 
     sig { returns(T.nilable(T.attached_class)) }
