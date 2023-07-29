@@ -54,7 +54,7 @@ const UserSettingsPageICloudCredentialsForm: FC<
     }),
     [icloudCredentials],
   );
-  const { getInputProps, setValues, setErrors, resetDirty, isDirty, onSubmit } =
+  const { getInputProps, setValues, setErrors, resetDirty, onSubmit } =
     useForm<UserSettingsPageICloudCredentialsFormValues>({
       initialValues: initialValues,
     });
@@ -147,7 +147,7 @@ const UserSettingsPageICloudCredentialsForm: FC<
           {...getInputProps("password")}
         />
         <Stack spacing={6}>
-          <Button type="submit" disabled={!isDirty()} loading={updating}>
+          <Button type="submit" loading={updating}>
             Authenticate
           </Button>
           {icloudCredentials && (
