@@ -12,7 +12,7 @@ module Queries
     # == Resolver
     sig { returns(T.nilable(LocationLog)) }
     def resolve
-      LocationLog.latest(timestamp: 6.hours.ago..)
+      LocationService.displayed_location
     end
   end
 end
