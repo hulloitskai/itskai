@@ -11,20 +11,18 @@ class SpotifyService < ApplicationService
     def disabled?
       return !!@disabled if defined?(@disabled)
       @disabled = T.let(@disabled, T.nilable(T::Boolean))
-      @disabled = [client_id, client_secret].any?(&:blank?) || super
+      @disabled = [client_id, client_secret].any?(&:nil?) || super
     end
 
     # == Methods
     sig { returns(T.nilable(String)) }
     def client_id
-      return @client_id if defined?(@client_id)
-      @client_id = ENV["SPOTIFY_CLIENT_ID"]
+      setting("CLIENT_ID")
     end
 
     sig { returns(T.nilable(String)) }
     def client_secret
-      return @client_secret if defined?(@client_secret)
-      @client_secret = ENV["SPOTIFY_CLIENT_SECRET"]
+      setting("CLIENT_SECRET")
     end
 
     sig { returns(OAuthCredentials) }

@@ -8,7 +8,7 @@ class ScottbotService < ApplicationService
     def disabled?
       return !!@disabled if defined?(@disabled)
       @disabled = T.let(@disabled, T.nilable(T::Boolean))
-      @disabled = [discord_token, discord_channel_id].any?(&:blank?) || super
+      @disabled = [discord_token, discord_channel_id].any?(&:nil?) || super
     end
 
     # == Methods
@@ -20,14 +20,12 @@ class ScottbotService < ApplicationService
     # == Helpers
     sig { returns(T.nilable(String)) }
     def discord_token
-      return @discord_token if defined?(@discord_token)
-      @discord_token = ENV["SCOTTBOT_DISCORD_TOKEN"]
+      setting("DISCORD_TOKEN")
     end
 
     sig { returns(T.nilable(String)) }
     def discord_channel_id
-      return @discord_channel_id if defined?(@discord_channel_id)
-      @discord_channel_id = ENV["SCOTTBOT_DISCORD_CHANNEL_ID"]
+      setting("DISCORD_CHANNEL_ID")
     end
   end
 

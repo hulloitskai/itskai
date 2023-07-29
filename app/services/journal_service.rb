@@ -8,15 +8,13 @@ class JournalService < ApplicationService
     def disabled?
       return !!@disabled if defined?(@disabled)
       @disabled = T.let(@disabled, T.nilable(T::Boolean))
-      @disabled = !notion_available? || database_id.blank? || super
+      @disabled = !notion_available? || database_id.nil? || super
     end
 
     # == Accessors
     sig { returns(T.nilable(String)) }
     def database_id
-      return @database_id if defined?(@database_id)
-      @database_id = T.let(@database_id, T.nilable(String))
-      @database_id = ENV["JOURNAL_DATABASE_ID"]
+      setting("DATABASE_ID")
     end
 
     # == Methods: Sync

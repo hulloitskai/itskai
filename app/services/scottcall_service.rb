@@ -8,14 +8,13 @@ class ScottcallService < ApplicationService
     def disabled?
       return !!@disabled if defined?(@disabled)
       @disabled = T.let(@disabled, T.nilable(T::Boolean))
-      @disabled = TelnyxService.disabled? || super
+      @disabled = TelnyxService.disabled? || number.nil? || super
     end
 
     # == Methods
     sig { returns(T.nilable(String)) }
     def number
-      return @number if defined?(@number)
-      @number = ENV["SCOTTCALL_NUMBER"]
+      setting("NUMBER")
     end
 
     sig { params(type: Symbol).void }

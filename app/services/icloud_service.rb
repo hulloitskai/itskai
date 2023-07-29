@@ -3,6 +3,13 @@
 
 class ICloudService < ApplicationService
   class << self
+    # == Service
+    def disabled?
+      return !!@disabled if defined?(@disabled)
+      @disabled = T.let(@disabled, T.nilable(T::Boolean))
+      @disabled = iphone_device_id.nil? || super
+    end
+
     # == Methods
     sig { returns(Client) }
     def client
@@ -21,10 +28,20 @@ class ICloudService < ApplicationService
 
     sig { params(code: T.nilable(String)).returns(T::Boolean) }
     def verify_security_code(code) = instance.verify_security_code(code)
+
+    protected
+
+    # == Helpers
+    sig { returns(T.nilable(String)) }
+    def iphone_device_id
+      setting("IPHONE_DEVICE_ID")
+    end
   end
 
   # == Configuration
-  config_accessor :credentials_dir, default: Rails.root.join("tmp/icloud")
+  config_accessor :credentials_dir do
+    Rails.root.join("tmp/icloud")
+  end
 
   # == Initialization
   sig { void }
@@ -59,12 +76,6 @@ class ICloudService < ApplicationService
   end
 
   # == Methods
-  sig { returns(String) }
-  def iphone_device_id
-    @phone_device_id ||= ENV["ICLOUD_IPHONE_DEVICE_ID"] or
-      raise "iCloud iPhone device ID not set"
-  end
-
   sig { returns(Client) }
   def client
     @client or raise "Not authenticated (missing client)"
@@ -94,6 +105,12 @@ class ICloudService < ApplicationService
   attr_reader :credentials
 
   # == Helpers
+  sig { returns(String) }
+  def iphone_device_id
+    self.class.iphone_device_id or
+      raise "iPhone device ID not set"
+  end
+
   sig { void }
   def authenticate
     @client = Client.new(credentials: credentials!)

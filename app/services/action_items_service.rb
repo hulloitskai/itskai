@@ -6,16 +6,13 @@ class ActionItemsService < ApplicationService
     # == Service
     sig { override.returns(T::Boolean) }
     def disabled?
-      return !!@disabled if defined?(@disabled)
-      @disabled = T.let(@disabled, T.nilable(T::Boolean))
-      @disabled = !notion_available? || database_id.blank? || super
+      !notion_available? || database_id.nil? || super
     end
 
     # == Accessors
     sig { returns(T.nilable(String)) }
     def database_id
-      return @database_id if defined?(@database_id)
-      @database_id = ENV["ACTION_ITEMS_DATABASE_ID"]
+      setting("DATABASE_ID")
     end
 
     # == Methods
@@ -28,7 +25,9 @@ class ActionItemsService < ApplicationService
 
     # == Helpers
     sig { returns(T::Boolean) }
-    def notion_available? = Notion.config.token.present?
+    def notion_available?
+      Notion.config.token.present?
+    end
   end
 
   # == Initialization

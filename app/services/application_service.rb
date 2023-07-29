@@ -36,12 +36,12 @@ class ApplicationService
 
     sig { overridable.returns(T::Boolean) }
     def disabled?
-      ENV["#{env_prefix}_DISABLED"].truthy?
+      setting("DISABLED").truthy?
     end
 
     sig { returns(T::Boolean) }
     def debug?
-      ENV["#{env_prefix}_DEBUG"].truthy?
+      setting("DEBUG").truthy?
     end
 
     sig { returns(T::Boolean) }
@@ -52,6 +52,14 @@ class ApplicationService
 
     sig { returns(T::Boolean) }
     def ready? = enabled? && instance.ready?
+
+    protected
+
+    # == Helpers
+    sig { params(name: String).returns(T.nilable(String)) }
+    def setting(name)
+      ENV["#{env_prefix}_#{name}"]
+    end
 
     private
 
