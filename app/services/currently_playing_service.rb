@@ -41,23 +41,21 @@ class CurrentlyPlayingService < ApplicationService
   def start
     super
     return if disabled?
-    task.execute unless task.running?
+    @task.execute unless @task.running?
   end
 
   sig { override.void }
   def stop
-    task.kill if started?
+    @task.kill if started?
   end
 
   # == Methods
   sig { returns(T.nilable(SpotifyService::CurrentlyPlaying)) }
-  def currently_playing = task.value
+  def currently_playing
+    @task.value
+  end
 
   private
-
-  # == Attributes
-  sig { returns(Concurrent::TimerTask) }
-  attr_reader :task
 
   # == Methods
   sig do

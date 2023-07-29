@@ -46,7 +46,7 @@ class ActionItemsService < ApplicationService
   # == Methods
   sig { params(name: String).returns(T.untyped) }
   def create_page(name:)
-    client.create_page(
+    @client.create_page(
       parent: {
         database_id:,
       },
@@ -61,10 +61,4 @@ class ActionItemsService < ApplicationService
       },
     )
   end
-
-  private
-
-  # == Attributes
-  sig { returns(Notion::Client) }
-  attr_reader :client
 end

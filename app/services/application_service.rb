@@ -58,7 +58,7 @@ class ApplicationService
     # == Helpers
     sig { params(name: String).returns(T.nilable(String)) }
     def setting(name)
-      ENV["#{env_prefix}_#{name}"]
+      ENV["#{service_name.upcase}_#{name}"]
     end
 
     private
@@ -76,9 +76,9 @@ class ApplicationService
     end
 
     sig { returns(String) }
-    def env_prefix
-      @env_prefix = T.let(@env_prefix, T.nilable(String))
-      @env_prefix ||= T.must(name).delete_suffix("Service").underscore.upcase
+    def service_name
+      @service_name = T.let(@service_name, T.nilable(String))
+      @service_name ||= T.must(name).delete_suffix("Service").underscore
     end
   end
 
@@ -122,5 +122,21 @@ class ApplicationService
   def restart
     stop
     start
+  end
+
+  private
+
+  # == Helpers
+  sig do
+    type_parameters(:U)
+      .params(block: T.proc.returns(T.type_parameter(:U)))
+      .returns(T.type_parameter(:U))
+  end
+  def silence_logger_in_console(&block)
+    if Rails.console?
+      Rails.logger.silence(&block)
+    else
+      yield
+    end
   end
 end

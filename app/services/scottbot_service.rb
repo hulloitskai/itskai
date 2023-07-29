@@ -43,12 +43,12 @@ class ScottbotService < ApplicationService
   def start
     super
     return if disabled?
-    bot.run(true)
+    @bot.run(true)
   end
 
   sig { override.void }
   def stop
-    bot.stop if started?
+    @bot.stop if started?
   end
 
   # == Method
@@ -70,10 +70,6 @@ class ScottbotService < ApplicationService
 
   private
 
-  # == Attributes
-  sig { returns(Discordrb::Bot) }
-  attr_reader :bot
-
   # == Helpers
   sig { returns(String) }
   def discord_token
@@ -87,6 +83,6 @@ class ScottbotService < ApplicationService
 
   sig { params(message: String).void }
   def send_message(message)
-    bot.send_message(discord_channel_id, message)
+    @bot.send_message(discord_channel_id, message)
   end
 end

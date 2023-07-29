@@ -11,6 +11,12 @@ class ICloudService < ApplicationService
     end
 
     # == Methods
+    sig { returns(Pathname) }
+    def credentials_dir
+      @credentials_dir = T.let(@credentials_dir, T.nilable(Pathname))
+      @credentials_dir ||= Rails.root.join("tmp/#{service_name}")
+    end
+
     sig { returns(Client) }
     def client
       checked { instance.client }
@@ -27,7 +33,9 @@ class ICloudService < ApplicationService
     end
 
     sig { params(code: T.nilable(String)).returns(T::Boolean) }
-    def verify_security_code(code) = instance.verify_security_code(code)
+    def verify_security_code(code)
+      instance.verify_security_code(code)
+    end
 
     protected
 
@@ -36,11 +44,6 @@ class ICloudService < ApplicationService
     def iphone_device_id
       setting("IPHONE_DEVICE_ID")
     end
-  end
-
-  # == Configuration
-  config_accessor :credentials_dir do
-    Rails.root.join("tmp/icloud")
   end
 
   # == Initialization
@@ -66,12 +69,10 @@ class ICloudService < ApplicationService
     super
     return if disabled?
     Thread.new do
-      if Rails.console?
-        Rails.logger.silence { load_credentials }
-      else
+      silence_logger_in_console do
         load_credentials
+        authenticate if @credentials.present?
       end
-      authenticate if @credentials.present?
     end
   end
 
@@ -100,10 +101,6 @@ class ICloudService < ApplicationService
 
   private
 
-  # == Attributes
-  sig { returns(T.nilable(ICloudCredentials)) }
-  attr_reader :credentials
-
   # == Helpers
   sig { returns(String) }
   def iphone_device_id
@@ -113,7 +110,7 @@ class ICloudService < ApplicationService
 
   sig { void }
   def authenticate
-    @client = Client.new(credentials: credentials!)
+    @client = Client.new(credentials:)
   rescue PyCall::PyError => error
     type, message = error.type.__name__, error.value.to_s
     if type == "ConnectionError" &&
@@ -132,8 +129,8 @@ class ICloudService < ApplicationService
   end
 
   sig { returns(ICloudCredentials) }
-  def credentials!
-    credentials or raise "Not authenticated (missing credentials)"
+  def credentials
+    @credentials or raise "Not authenticated (missing credentials)"
   end
 
   sig { returns(Client) }

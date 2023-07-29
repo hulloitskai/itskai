@@ -28,15 +28,12 @@ class JournalService
 
     private
 
-    # == Attributes
-    attr_reader :page
-
     # == Helpers
     sig { returns(T::Array[String]) }
     def redacted_phrases
       @redacted_phrases = T.let(@redacted_phrases, T.nilable(T::Array[String]))
       @redacted_phrases ||= scoped do
-        case page.properties["Redact"]["rich_text"].first
+        case @page.properties["Redact"]["rich_text"].first
         in { plain_text: }
           property = T.let(plain_text, String)
           property.strip.split(",").map(&:strip)

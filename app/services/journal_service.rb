@@ -124,7 +124,7 @@ class JournalService < ApplicationService
     }], T::Array[T::Hash[String, T.untyped]])
     options = { filter:, sorts:, **options }.compact
     results = T.let([], T::Array[T.untyped])
-    client.database_query(database_id:, **options) do |page|
+    @client.database_query(database_id:, **options) do |page|
       results.concat(page.results)
     end
     results
@@ -136,7 +136,7 @@ class JournalService < ApplicationService
   end
   def list_comments(page_id, **options)
     results = T.let([], T::Array[T.untyped])
-    client.retrieve_comments(block_id: page_id, **options) do |page|
+    @client.retrieve_comments(block_id: page_id, **options) do |page|
       results.concat(page.results)
     end
     results
@@ -144,7 +144,7 @@ class JournalService < ApplicationService
 
   sig { params(page_id: String).returns(T.untyped) }
   def retrieve_entry(page_id)
-    client.page(page_id:)
+    @client.page(page_id:)
   end
 
   sig { params(page_id: String).returns(T::Array[T.untyped]) }
@@ -156,7 +156,7 @@ class JournalService < ApplicationService
 
   sig { params(page_id: String, text: String).returns(T.untyped) }
   def create_comment(page_id, text:)
-    client.create_comment(
+    @client.create_comment(
       parent: {
         page_id:,
       },
@@ -170,17 +170,13 @@ class JournalService < ApplicationService
 
   private
 
-  # == Attributes
-  sig { returns(Notion::Client) }
-  attr_reader :client
-
   # == Helpers
   sig do
     params(parent_block_id: String, redactor: Redactor)
       .returns(T::Array[T.untyped])
   end
   def recursively_retrieve_blocks(parent_block_id, redactor:)
-    message = client.block_children(block_id: parent_block_id)
+    message = @client.block_children(block_id: parent_block_id)
     blocks = T.let(message.results, T::Array[T.untyped])
     redactor.redact_blocks!(blocks)
     blocks.each do |block|
