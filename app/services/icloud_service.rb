@@ -11,6 +11,11 @@ class ICloudService < ApplicationService
     end
 
     # == Methods
+    sig { returns(T.nilable(String)) }
+    def iphone_device_id
+      setting("IPHONE_DEVICE_ID")
+    end
+
     sig { returns(Pathname) }
     def credentials_dir
       @credentials_dir = T.let(@credentials_dir, T.nilable(Pathname))
@@ -35,14 +40,6 @@ class ICloudService < ApplicationService
     sig { params(code: T.nilable(String)).returns(T::Boolean) }
     def verify_security_code(code)
       instance.verify_security_code(code)
-    end
-
-    protected
-
-    # == Helpers
-    sig { returns(T.nilable(String)) }
-    def iphone_device_id
-      setting("IPHONE_DEVICE_ID")
     end
   end
 
