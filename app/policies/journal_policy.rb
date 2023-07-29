@@ -1,4 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class JournalPolicy < ApplicationPolicy; end
+class JournalPolicy < ApplicationPolicy
+  # == Rules
+  def index? = false
+end
