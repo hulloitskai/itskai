@@ -13,11 +13,10 @@
 #  updated_at :datetime         not null
 #
 class InstagramCredentials < ApplicationRecord
-  # == Configuration
-  self.filter_attributes += %i[password session]
+  include Identifiable
 
   # == Attributes
-  include Identifiable
+  self.filter_attributes += %i[password session]
 
   sig { returns(T.nilable(T::Hash[String, T.untyped])) }
   def session = super

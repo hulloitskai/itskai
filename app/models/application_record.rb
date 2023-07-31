@@ -16,13 +16,56 @@ class ApplicationRecord < ActiveRecord::Base
   PrivateAssociationRelationWhereChain = ActiveRecord::AssociationRelation
   PrivateCollectionProxy = ActiveRecord::Associations::CollectionProxy
 
+  # == Configuration
+  primary_abstract_class
+
+  # == Scopes
+  scope :chronological, -> { order(:created_at) }
+  scope :reverse_chronological, -> { order(created_at: :desc) }
+
+  # == Conversions
+  sig { overridable.returns(T::Hash[T.any(Symbol, String), T.untyped]) }
+  def to_hash = build_hash
+
+  sig { returns(T::Hash[T.any(Symbol, String), T.untyped]) }
+  def to_h = to_hash
+
+  # == Pattern matching
+  sig do
+    params(keys: T.nilable(T::Array[Symbol]))
+      .returns(T::Hash[Symbol, T.untyped])
+  end
+  def deconstruct_keys(keys)
+    serializable_hash(only: keys || []).symbolize_keys!
+  end
+
+  # == GraphQL
+  sig { returns(InputFieldErrors) }
+  def input_field_errors = InputFieldErrors.from(errors)
+
+  private
+
+  # == Conversions: Helpers
+  sig do
+    params(options: T.untyped)
+      .returns(T::Hash[T.any(Symbol, String), T.untyped])
+  end
+  def build_hash(**options)
+    default_options = { except: self.class.filter_attributes }
+    options = default_options.deep_merge(options)
+    hash = serializable_hash(options).with_indifferent_access
+    hash.deep_merge!(hash) if hash.present?
+    hash.compact_blank!
+    hash
+  end
+
   class << self
     extend T::Sig
     extend T::Helpers
 
     private
 
-    # == Class Helpers
+    # == Class helpers
     sig { params(column_names: T.any(Symbol, String)).void }
     def requires_columns(*column_names)
       return unless Rails.server? || Rails.console?
@@ -50,48 +93,5 @@ class ApplicationRecord < ActiveRecord::Base
         end
       end
     end
-  end
-
-  # == Configuration
-  primary_abstract_class
-
-  # == Scopes
-  scope :chronological, -> { order(:created_at) }
-  scope :reverse_chronological, -> { order(created_at: :desc) }
-
-  # == Serialization
-  sig { overridable.returns(T::Hash[T.any(Symbol, String), T.untyped]) }
-  def to_hash = build_hash
-
-  sig { returns(T::Hash[T.any(Symbol, String), T.untyped]) }
-  def to_h = to_hash
-
-  # == Pattern Matching
-  sig do
-    params(keys: T.nilable(T::Array[Symbol]))
-      .returns(T::Hash[Symbol, T.untyped])
-  end
-  def deconstruct_keys(keys)
-    serializable_hash(only: keys || []).symbolize_keys!
-  end
-
-  # == Methods: GraphQL
-  sig { returns(InputFieldErrors) }
-  def input_field_errors = InputFieldErrors.from(errors)
-
-  private
-
-  # == Helpers
-  sig do
-    params(options: T.untyped)
-      .returns(T::Hash[T.any(Symbol, String), T.untyped])
-  end
-  def build_hash(**options)
-    default_options = { except: self.class.filter_attributes }
-    options = default_options.deep_merge(options)
-    hash = serializable_hash(options).with_indifferent_access
-    hash.deep_merge!(hash) if hash.present?
-    hash.compact_blank!
-    hash
   end
 end

@@ -3,9 +3,6 @@
 
 module Queries
   class Resume < BaseQuery
-    # == Configuration
-    description "Kai's JSON Resume (https://jsonresume.org/)."
-
     # == Type
     type GraphQL::Types::JSON, null: false
 

@@ -23,12 +23,13 @@ class OAuthCredentials < ApplicationRecord
   validates :provider, presence: true, uniqueness: true
   validates :uid, presence: true, uniqueness: true
 
-  # == Methods: Spotify
+  # == Spotify: Finders
   sig { returns(T.nilable(OAuthCredentials)) }
   def self.spotify = find_by(provider: :spotify)
 
   sig { returns(OAuthCredentials) }
   def self.spotify!
-    spotify or raise ActiveRecord::RecordNotFound, "Missing Spotify credentials"
+    spotify or
+      raise ActiveRecord::RecordNotFound, "Spotify credentials not found"
   end
 end

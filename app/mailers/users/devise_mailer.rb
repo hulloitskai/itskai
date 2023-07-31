@@ -40,15 +40,6 @@ module Users
       }))
     end
 
-    # sig do
-    #   params(record: User, token: String, opts: T::Hash[Symbol, T.untyped])
-    #     .returns(Mail::Message)
-    # end
-    # def unlock_instructions(record, token, opts = {})
-    #   @token = token
-    #   devise_mail(record, :unlock_instructions, opts)
-    # end
-
     sig do
       params(record: User, opts: T::Hash[Symbol, T.untyped])
         .returns(Mail::Message)

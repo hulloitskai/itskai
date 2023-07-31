@@ -3,13 +3,13 @@
 
 class ActionItemsService < ApplicationService
   class << self
-    # == Service
+    # == Lifecycle
     sig { override.returns(T::Boolean) }
     def disabled?
       !notion_available? || database_id.nil? || super
     end
 
-    # == Accessors
+    # == Settings
     sig { returns(T.nilable(String)) }
     def database_id
       setting("DATABASE_ID")
@@ -37,7 +37,7 @@ class ActionItemsService < ApplicationService
     @client = T.let(Notion::Client.new, Notion::Client)
   end
 
-  # == Accessors
+  # == Settings
   sig { returns(String) }
   def database_id
     self.class.database_id or raise "Database ID not set"

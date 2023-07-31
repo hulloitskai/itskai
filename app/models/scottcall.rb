@@ -15,7 +15,6 @@
 #  index_scottcalls_on_telnyx_call_control_id  (telnyx_call_control_id) UNIQUE
 #
 class Scottcall < ApplicationRecord
-  # == Attributes
   include Identifiable
 
   # == Validations

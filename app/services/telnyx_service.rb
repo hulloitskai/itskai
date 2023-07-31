@@ -3,7 +3,7 @@
 
 class TelnyxService < ApplicationService
   class << self
-    # == Service
+    # == Lifecycle
     sig { override.returns(T::Boolean) }
     def disabled?
       return !!@disabled if defined?(@disabled)
@@ -11,7 +11,7 @@ class TelnyxService < ApplicationService
       @disabled = [api_key, app_id, number].any?(&:nil?) || super
     end
 
-    # == Methods
+    # == Settings
     sig { returns(T.nilable(String)) }
     def api_key
       setting("API_KEY")
@@ -27,6 +27,7 @@ class TelnyxService < ApplicationService
       setting("NUMBER")
     end
 
+    # == Methods
     sig do
       params(number: String, display_name: T.nilable(String)).returns(Call)
     end
@@ -40,7 +41,7 @@ class TelnyxService < ApplicationService
     end
   end
 
-  # == Methods
+  # == Settings
   sig { returns(String) }
   def api_key
     self.class.api_key or raise "API key not set"
@@ -56,6 +57,7 @@ class TelnyxService < ApplicationService
     self.class.number or raise "Number not set"
   end
 
+  # == Methods
   sig { params(number: String, display_name: T.nilable(String)).returns(Call) }
   def dial(number, display_name: nil)
     response = HTTParty.post(

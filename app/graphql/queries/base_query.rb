@@ -5,7 +5,6 @@ module Queries
   class BaseQuery < GraphQL::Schema::Resolver
     extend T::Sig
     extend T::Helpers
-
     include ActionPolicy::GraphQL::Behaviour
     include Resolver
 

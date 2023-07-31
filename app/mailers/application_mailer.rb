@@ -4,7 +4,7 @@
 class ApplicationMailer < ActionMailer::Base
   extend T::Sig
   extend T::Helpers
-  include Querying
+  include GraphQL::Querying
 
   # == Configuration
   default from: :default_sender, reply_to: ENV["RAILS_MAILER_REPLY_TO"]
@@ -17,6 +17,7 @@ class ApplicationMailer < ActionMailer::Base
   private
 
   # == Helpers
+  sig { params(value: T.any(String, Symbol)).returns(T.untyped) }
   def compute_default(value)
     value.is_a?(Symbol) ? send(value) : super
   end

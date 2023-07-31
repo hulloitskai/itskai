@@ -3,6 +3,8 @@
 
 module PoorlyDrawnLines
   class Comic < ApplicationModel
+    include GlobalID::Identification
+
     # == Attributes
     attribute :id, :string
     attribute :image_url, :string
@@ -28,9 +30,6 @@ module PoorlyDrawnLines
     def next_url!
       next_url or raise "Missing next URL"
     end
-
-    # == Identification
-    include GlobalID::Identification
 
     # == Validations
     validates :id, presence: true

@@ -3,6 +3,7 @@
 
 module Sources
   class RecordByGid < BaseSource
+    # == Fetching
     sig do
       params(ids: T::Array[String])
         .returns(T::Array[T.nilable(ActiveRecord::Base)])

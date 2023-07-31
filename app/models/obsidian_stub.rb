@@ -15,11 +15,10 @@
 #  index_obsidian_stubs_on_name  (name) UNIQUE
 #
 class ObsidianStub < ApplicationRecord
+  include Identifiable
   include ObsidianEntry
 
   # == Attributes
-  include Identifiable
-
   sig { override.returns(String) }
   def title = name
 
@@ -30,7 +29,7 @@ class ObsidianStub < ApplicationRecord
            dependent: :destroy
   has_many :referenced_by, through: :incoming_relations, source: :from
 
-  # == Methods: Cleanup
+  # == Cleanup
   sig { void }
   def self.cleanup
     where.missing(:incoming_relations)

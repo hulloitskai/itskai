@@ -3,21 +3,8 @@
 
 module Subscriptions
   class TestSubscription < BaseSubscription
+    # == Class variables
     @count = T.let(0, Integer)
-
-    class << self
-      extend T::Sig
-
-      # == Class Attributes
-      sig { returns(Integer) }
-      attr_reader :count
-
-      # == Class Methods
-      sig { returns(Integer) }
-      def increment!
-        @count += 1
-      end
-    end
 
     # == Configuration
     broadcastable true
@@ -25,11 +12,25 @@ module Subscriptions
     # == Type
     type Int
 
-    # == Callback Handlers
+    # == Callback handlers
     sig { returns(Integer) }
     def subscribe
       self.class.increment!.tap do |count|
         Schema.subscriptions!.trigger(:test_subscription, {}, count)
+      end
+    end
+
+    class << self
+      extend T::Sig
+
+      # == Class attributes
+      sig { returns(Integer) }
+      attr_reader :count
+
+      # == Class methods
+      sig { returns(Integer) }
+      def increment!
+        @count += 1
       end
     end
   end

@@ -18,7 +18,7 @@ module ItsKai
   class Application < Rails::Application
     extend T::Sig
 
-    # == Constants: Booted At
+    # == Constants
     BOOTED_AT = T.let(Time.current, Time)
 
     # == Defaults
@@ -27,17 +27,17 @@ module ItsKai
 
     # == Extensions
     config.before_configuration do
-      require "./lib/action_policy_ext"
-      require "./lib/better_errors_ext"
-      require "./lib/bullet_ext"
-      require "./lib/graphql_ext"
-      require "./lib/vite_ext"
-      require "./lib/inertia_rails_ext"
-      require "./lib/premailer_ext"
-      require "./lib/email_validator_ext"
-      require "./lib/devise_ext"
-      require "./lib/friendly_id_ext"
-      require "./lib/discordrb_ext"
+      require "action_policy_ext"
+      require "better_errors_ext"
+      require "bullet_ext"
+      require "graphql_ext"
+      require "vite_ext"
+      require "inertia_rails_ext"
+      require "premailer_ext"
+      require "email_validator_ext"
+      require "devise_ext"
+      require "friendly_id_ext"
+      require "discordrb_ext"
     end
 
     # == Code Loading

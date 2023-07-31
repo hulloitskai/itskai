@@ -25,7 +25,6 @@
 #  fk_rails_...  (location_log_id => location_logs.id)
 #
 class LocationLogAddress < ApplicationRecord
-  # == Attributes
   include Identifiable
 
   # == Associations

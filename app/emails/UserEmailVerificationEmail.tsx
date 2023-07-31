@@ -16,8 +16,6 @@ const UserVerificationEmail: PageComponent<UserEmailVerificationEmailProps> = ({
 }) => {
   invariant(user, "Missing user");
   const { name } = user;
-
-  // == Markup
   return (
     <>
       <Text>Hi, {name}!</Text>

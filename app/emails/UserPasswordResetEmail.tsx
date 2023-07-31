@@ -16,8 +16,6 @@ const UserPasswordResetEmail: PageComponent<UserPasswordResetEmailProps> = ({
 }) => {
   invariant(user, "Missing user");
   const { name } = user;
-
-  // == Markup
   return (
     <>
       <Text>Hi, {name}!</Text>

@@ -14,19 +14,17 @@
 #  updated_at :datetime         not null
 #
 class ICloudCredentials < ApplicationRecord
-  # == Configuration
-  self.filter_attributes += %i[password cookies session]
+  include Identifiable
 
   # == Attributes
-  include Identifiable
+  self.filter_attributes += %i[password cookies session]
 
   sig { returns(T.nilable(T::Hash[String, T.untyped])) }
   def session = super
 
   sig do
-    params(
-      value: T.nilable(T::Hash[String, T.untyped]),
-    ).returns(T.nilable(T::Hash[String, T.untyped]))
+    params(value: T.nilable(T::Hash[String, T.untyped]))
+      .returns(T.nilable(T::Hash[String, T.untyped]))
   end
   def session=(value)
     super

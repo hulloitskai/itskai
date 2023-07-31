@@ -3,6 +3,7 @@
 
 module Types
   class ImageSizeType < BaseEnum
+    # == Values
     value "SM", value: :sm
     value "MD", value: :md
     value "LG", value: :lg

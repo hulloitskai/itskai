@@ -3,7 +3,7 @@
 
 class JournalService < ApplicationService
   class << self
-    # == Service
+    # == Lifecycle
     sig { override.returns(T::Boolean) }
     def disabled?
       return !!@disabled if defined?(@disabled)
@@ -11,13 +11,13 @@ class JournalService < ApplicationService
       @disabled = !notion_available? || database_id.nil? || super
     end
 
-    # == Accessors
+    # == Settings
     sig { returns(T.nilable(String)) }
     def database_id
       setting("DATABASE_ID")
     end
 
-    # == Methods: Sync
+    # == Synchronization
     sig { void }
     def sync
       checked { instance.sync }
@@ -74,13 +74,13 @@ class JournalService < ApplicationService
     @client = T.let(Notion::Client.new, Notion::Client)
   end
 
-  # == Accessors
+  # == Settings
   sig { returns(String) }
   def database_id
     self.class.database_id or raise "Database ID not set"
   end
 
-  # == Methods: Sync
+  # == Synchronization
   sig { void }
   def sync
     pages = list_entries(published: true)

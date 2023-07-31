@@ -30,26 +30,43 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
-  # == Constants
-  MIN_PASSWORD_ENTROPY = T.let(14, Integer)
-
-  # == Attributes
   include Identifiable
   include ::Named
 
+  # == Constants
+  MIN_PASSWORD_ENTROPY = T.let(14, Integer)
+
+  # == Devise: Configuration
+  # Others modules are: :lockable, :timeoutable, and :omniauthable.
+  devise :database_authenticatable,
+         :registerable,
+         :recoverable,
+         :rememberable,
+         :validatable,
+         :confirmable,
+         :trackable,
+         :omniauthable,
+         reconfirmable: true
+
+  self.filter_attributes += %i[
+    encrypted_password
+    reset_password_token
+    confirmation_token
+    invitation_token
+  ]
+
+  # == Attributes
   sig { returns(String) }
   def email_with_name
     ActionMailer::Base.email_address_with_name(email, name)
   end
 
-  sig { override.params(value: String).returns(String) }
-  def email=(value)
-    self.unconfirmed_email = nil if value == email && unconfirmed_email?
-    super(value)
-  end
-
   # == Attachments
   has_one_attached :avatar
+
+  # == Normalizations
+  before_validation :remove_unconfirmed_email_if_matches_email,
+                    if: %i[unconfirmed_email? email_changed?]
 
   # == Validations
   validates :name, presence: true, length: { maximum: 64, minimum: 2 }
@@ -69,31 +86,40 @@ class User < ApplicationRecord
             },
             allow_nil: true
 
+  # == Ownership: Finders
+  sig { returns(T.nilable(User)) }
+  def self.owner = find_by(email: owner_email)
+
+  sig { returns(User) }
+  def self.owner!
+    owner or raise ActiveRecord::RecordNotFound, "Missing owner"
+  end
+
   # == Emails
   sig { void }
   def send_welcome_email
     UserMailer.welcome_email(self).deliver_later
   end
 
-  # == Devise
-  # Others modules are: :lockable, :timeoutable, and :omniauthable.
-  devise :database_authenticatable,
-         :registerable,
-         :recoverable,
-         :rememberable,
-         :validatable,
-         :confirmable,
-         :trackable,
-         :omniauthable,
-         reconfirmable: true
+  # == Sentry
+  sig { returns(T::Hash[String, T.untyped]) }
+  def sentry_info
+    { "id" => to_gid.to_s, "email" => email }
+  end
 
-  self.filter_attributes += %i[
-    encrypted_password
-    reset_password_token
-    confirmation_token
-    invitation_token
-  ]
+  # == Fullstory
+  sig { returns(T::Hash[String, T.untyped]) }
+  def fullstory_identity
+    { "uid" => to_gid.to_s, "email" => email, "displayName" => name }
+  end
 
+  # == Ownership: Methods
+  sig { returns(T::Boolean) }
+  def owner?
+    email == User.owner_email
+  end
+
+  # == Devise: Methods
   sig do
     params(
       params: T::Hash[Symbol, T.untyped],
@@ -105,46 +131,27 @@ class User < ApplicationRecord
     super(params)
   end
 
-  # == Ownership
-  class << self
-    sig { returns(String) }
-    def owner_email
-      return @owner_email if defined?(@owner_email)
-      @owner_email = ENV["OWNER_EMAIL"] or raise "Owner email not set"
-    end
-
-    sig { returns(T.nilable(User)) }
-    def owner = find_by(email: owner_email)
-
-    sig { returns(User) }
-    def owner!
-      owner or raise ActiveRecord::RecordNotFound, "Missing owner"
-    end
-  end
-
-  sig { returns(T::Boolean) }
-  def owner?
-    email == User.owner_email
-  end
-
-  # == Methods: Sentry
-  sig { returns(T::Hash[String, T.untyped]) }
-  def sentry_info
-    { "id" => to_gid.to_s, "email" => email }
-  end
-
-  # == Methods: Fullstory
-  sig { returns(T::Hash[String, T.untyped]) }
-  def fullstory_identity
-    { "uid" => to_gid.to_s, "email" => email, "displayName" => name }
+  # == Ownership: Helpers
+  sig { returns(String) }
+  def self.owner_email
+    @owner_email = T.let(@owner_email, T.nilable(String))
+    @owner_email ||= ENV["OWNER_EMAIL"] or raise "Owner email not set"
   end
 
   protected
 
-  # == Callback Handlers
+  # == Devise: Callback handlers
   sig { void }
   def after_confirmation
     super
     send_welcome_email if confirmed_at_previously_was.nil?
+  end
+
+  private
+
+  # == Normalization handlers
+  sig { void }
+  def remove_unconfirmed_email_if_matches_email
+    self.unconfirmed_email = nil if email == unconfirmed_email
   end
 end

@@ -5,7 +5,7 @@ class ActivityService < ApplicationService
   include Concurrent
 
   class << self
-    # == Methods
+    # == Class methods
     sig { params(status: String).void }
     def update_status(status)
       checked { instance.update_status(status) }

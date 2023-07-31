@@ -12,7 +12,7 @@ module Shortcuts
         raise "Secret key not set"
     end
 
-    # == Filter Handlers
+    # == Filter handlers
     sig { void }
     def verify_secret_key
       if request.headers["Secret-Key"] != secret_key

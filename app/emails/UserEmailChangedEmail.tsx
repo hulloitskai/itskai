@@ -13,8 +13,6 @@ const UserEmailChangedEmail: PageComponent<UserEmailChangedEmailProps> = ({
 }) => {
   invariant(user, "Missing user");
   const { name, email } = user;
-
-  // == Markup
   return (
     <>
       <Text>Hi, {name}!</Text>

@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class GraphQLController < ApplicationController
-  include GraphQLHelpers
+  include GraphQL::Helpers
 
   # == Configuration
   protect_from_forgery with: :null_session, only: :execute
@@ -10,7 +10,7 @@ class GraphQLController < ApplicationController
   # == Actions
   # POST /graphql
   def execute
-    # Parse params.
+    # Parse params
     operation_name = params["operationName"]
     unless operation_name.nil?
       raise "operationName must be a String" unless operation_name.is_a?(String)
@@ -20,13 +20,13 @@ class GraphQLController < ApplicationController
       raise "query must be a String" unless query.is_a?(String)
     end
 
-    # Execute query.
+    # Execute query
     variables = prepare_variables(params[:variables])
     extensions = prepare_extensions(params[:extensions])
     context = { controller: self, extensions:, current_user: }
     result = Schema.execute(query, variables:, operation_name:, context:)
 
-    # Render result.
+    # Render result
     render(json: result)
   rescue StandardError => e
     raise e unless Rails.env.development?

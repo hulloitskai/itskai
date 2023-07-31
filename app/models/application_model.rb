@@ -7,7 +7,7 @@ class ApplicationModel
   extend Enumerize
   include StoreModel::Model
 
-  # == Serialization
+  # == Conversions
   sig { overridable.returns(T::Hash[T.any(Symbol, String), T.untyped]) }
   def to_hash
     attributes.with_indifferent_access
@@ -16,7 +16,7 @@ class ApplicationModel
   sig { returns(T::Hash[T.any(Symbol, String), T.untyped]) }
   def to_h = to_hash
 
-  # == Pattern Matching
+  # == Pattern matching
   sig do
     params(keys: T.nilable(T::Array[Symbol]))
       .returns(T::Hash[Symbol, T.untyped])
@@ -25,7 +25,7 @@ class ApplicationModel
     attributes.symbolize_keys.slice(*keys)
   end
 
-  # == Methods: GraphQL
+  # == GraphQL
   sig { returns(InputFieldErrors) }
   def input_field_errors = InputFieldErrors.from(errors)
 end

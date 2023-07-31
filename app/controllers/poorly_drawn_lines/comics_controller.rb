@@ -14,7 +14,7 @@ module PoorlyDrawnLines
 
     private
 
-    # == Filter Handlers
+    # == Filter handlers
     sig { void }
     def set_comic
       @comic = T.let(@comic, T.nilable(Comic))

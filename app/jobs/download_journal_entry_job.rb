@@ -23,7 +23,7 @@ class DownloadJournalEntryJob < ApplicationJob
 
   private
 
-  # == Callback Handlers
+  # == Callback handlers
   sig { void }
   def update_activity_status
     entry = T.let(arguments.first!, JournalEntry)

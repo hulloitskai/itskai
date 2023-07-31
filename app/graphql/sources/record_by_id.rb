@@ -9,6 +9,7 @@ module Sources
       @model_class = model_class
     end
 
+    # == Fetching
     sig do
       params(ids: T::Array[String])
         .returns(T::Array[T.nilable(ActiveRecord::Base)])

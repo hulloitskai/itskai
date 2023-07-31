@@ -6,7 +6,7 @@ module Types
     # == Arguments
     argument :signed_id, String
 
-    # == Prepare
+    # == Preparation
     sig { returns(String) }
     def prepare
       signed_id

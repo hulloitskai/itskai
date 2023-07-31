@@ -17,8 +17,6 @@ const TestEmail: PageComponent<TestEmailProps> = ({
   data: { user },
 }) => {
   const { name } = user ?? {};
-
-  // == Markup
   return (
     <>
       <Text>Hi, {name || "anonymous user"}!</Text>

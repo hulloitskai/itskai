@@ -3,7 +3,7 @@
 
 class LocationService < ApplicationService
   class << self
-    # == Service
+    # == Lifecycle
     sig { override.returns(T::Boolean) }
     def disabled?
       return !!@disabled if defined?(@disabled)
@@ -11,7 +11,7 @@ class LocationService < ApplicationService
       @disabled = ICloudService.disabled? || super
     end
 
-    # == Methods: Sync
+    # == Synchronization
     sig { void }
     def sync
       checked { instance.sync }
@@ -36,18 +36,13 @@ class LocationService < ApplicationService
     def displayed_location = instance.displayed_location
   end
 
-  # == Service
+  # == Lifecycle
   sig { override.returns(T::Boolean) }
   def ready?
     ICloudService.ready? && super
   end
 
-  # == Methods
-  sig { returns(T.nilable(LocationLog)) }
-  def displayed_location
-    LocationLog.latest(timestamp: 6.hours.ago..) unless hide?
-  end
-
+  # == Synchronization
   sig { void }
   def sync
     location = ICloudService.iphone.location
@@ -63,6 +58,12 @@ class LocationService < ApplicationService
         :floor_level,
       )
     end
+  end
+
+  # == Methods
+  sig { returns(T.nilable(LocationLog)) }
+  def displayed_location
+    LocationLog.latest(timestamp: 6.hours.ago..) unless hide?
   end
 
   private

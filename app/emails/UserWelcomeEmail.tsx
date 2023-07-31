@@ -12,8 +12,6 @@ const UserWelcomeEmail: PageComponent<UserWelcomeEmailProps> = ({
 }) => {
   invariant(user, "Missing user");
   const { name } = user;
-
-  // == Markup
   return (
     <>
       <Text>Hi, {name}!</Text>

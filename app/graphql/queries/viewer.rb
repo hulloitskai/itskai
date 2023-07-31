@@ -3,9 +3,6 @@
 
 module Queries
   class Viewer < BaseQuery
-    # == Configuration
-    description "The currently authenticated user."
-
     # == Type
     type Types::UserType, null: true
 

@@ -16,7 +16,7 @@ class SyncLocationJob < ApplicationJob
 
   private
 
-  # == Callback Handlers
+  # == Callback handlers
   sig { params(block: T.proc.void).void }
   def with_activity_logging(&block)
     ActivityService.update_status("Syncing location")

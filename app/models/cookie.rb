@@ -24,8 +24,8 @@
 #  index_cookies_on_service  (service)
 #
 class Cookie < ApplicationRecord
-  # == Attributes
   include Identifiable
 
+  # == Attributes
   enumerize :service, in: %i[instagram]
 end

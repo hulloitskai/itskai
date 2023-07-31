@@ -33,12 +33,12 @@
 #  index_obsidian_notes_on_tags         (tags)
 #
 class ObsidianNote < ApplicationRecord
+  include Identifiable
+  include FriendlyIdentifiable
+  include Slugged
   include ObsidianEntry
 
   # == Attributes
-  include Identifiable
-  include Slugged
-
   sig { returns(T::Boolean) }
   def analyzed? = analyzed_at?
 
@@ -83,12 +83,10 @@ class ObsidianNote < ApplicationRecord
   # == Callbacks
   after_commit :analyze_later, on: %i[create update], if: :analysis_required?
 
-  # == FriendlyId
-  include FriendlyIdentifiable
-
+  # == FriendlyIdentifiable
   friendly_id :name, slug_column: "slug"
 
-  # == Methods: Analysis
+  # == Analysis
   sig { params(force: T::Boolean).void }
   def self.analyze(force: false)
     notes = all
@@ -123,7 +121,7 @@ class ObsidianNote < ApplicationRecord
     AnalyzeObsidianNoteJob.perform_later(self)
   end
 
-  # # == Methods: Import
+  # # == Importing
   # sig { params(force: T::Boolean).void }
   # def self.import(force: false)
   #   note_names = ObsidianService.note_names
@@ -183,7 +181,6 @@ class ObsidianNote < ApplicationRecord
   #   ImportObsidianNoteJob.perform_later(self, force:)
   # end
 
-  # == Helpers: Importing
   # sig { params(parsed_note: ObsidianService::ParsedNote).void }
   # def import_attributes_from_obsidian(parsed_note:)
   #   self.imported_at = Time.current
@@ -193,7 +190,7 @@ class ObsidianNote < ApplicationRecord
 
   private
 
-  # == Helpers: Analysis
+  # == Analysis helpers
   sig { void }
   def analyze_references
     links = T.cast(content.scan(/(?<!\!)\[\[[^\[\]]+\]\]/),
@@ -226,7 +223,7 @@ class ObsidianNote < ApplicationRecord
     end
   end
 
-  # == Callback Handlers
+  # == Callback handlers
   sig { void }
   def set_title
     self.title = aliases.first || name

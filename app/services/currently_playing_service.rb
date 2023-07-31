@@ -3,7 +3,7 @@
 
 class CurrentlyPlayingService < ApplicationService
   class << self
-    # == Service
+    # == Lifecycle
     sig { override.returns(T::Boolean) }
     def disabled?
       return !!@disabled if defined?(@disabled)
@@ -11,7 +11,7 @@ class CurrentlyPlayingService < ApplicationService
       @disabled = SpotifyService.disabled? || super
     end
 
-    # == Methods
+    # == Class methods
     sig { returns(T.nilable(SpotifyService::CurrentlyPlaying)) }
     def currently_playing
       instance.currently_playing if ready?
@@ -31,7 +31,7 @@ class CurrentlyPlayingService < ApplicationService
     @task.add_observer(SubscriptionsTrigger.new)
   end
 
-  # == Service
+  # == Lifecycle
   sig { override.returns(T::Boolean) }
   def ready?
     SpotifyService.ready? && super

@@ -9,6 +9,7 @@ module Types
     field :modified_at, DateTimeType, null: false
     field :rich_text, GraphQL::Types::JSON, null: false
 
+    # == Resolvers
     sig { returns(Time) }
     def created_at
       object.created_time.to_time

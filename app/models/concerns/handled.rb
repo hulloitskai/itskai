@@ -21,10 +21,10 @@ module Handled
     extend T::Sig
     extend T::Helpers
 
-    # == Class Annotations
+    # == Class annotations
     requires_ancestor { T.class_of(ApplicationRecord) }
 
-    # == Class Methods
+    # == Class methods
     sig { returns(Integer) }
     def generated_handle_length
       @generated_handle_length || 16

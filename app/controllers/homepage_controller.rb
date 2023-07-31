@@ -17,7 +17,7 @@ class HomepageController < ApplicationController
 
   private
 
-  # == Filter Handlers
+  # == Filter handlers
   def set_entry
     @entry = T.let(@entry, T.nilable(JournalEntry))
     @entry = if (id = params["entryId"])

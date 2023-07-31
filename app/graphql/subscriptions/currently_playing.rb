@@ -4,13 +4,12 @@
 module Subscriptions
   class CurrentlyPlaying < BaseSubscription
     # == Configuration
-    description "What I'm currently listening to on Spotify!"
     broadcastable true
 
     # == Type
     type Types::SpotifyCurrentlyPlayingType, null: true
 
-    # == Callback Handlers
+    # == Callback handlers
     sig { returns(T.nilable(SpotifyService::CurrentlyPlaying)) }
     def subscribe
       CurrentlyPlayingService.currently_playing

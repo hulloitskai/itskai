@@ -20,8 +20,8 @@
 #  index_journal_entries_on_notion_page_id  (notion_page_id) UNIQUE
 #
 class JournalEntry < ApplicationRecord
-  # == Attributes
   include Identifiable
+  include Searchable
 
   # == Scopes
   scope :with_content, -> {
@@ -34,9 +34,7 @@ class JournalEntry < ApplicationRecord
     select(:id, :imported_at)
   }
 
-  # == Search
-  include Searchable
-
+  # == Searchable
   pg_search_scope :search,
                   against: :title,
                   using: {
@@ -53,10 +51,19 @@ class JournalEntry < ApplicationRecord
   # == Callbacks
   after_commit :download_later, on: %i[create update], if: :download_required?
 
-  # == Methods: Import
+  # == Importing
   sig { returns(T::Boolean) }
   def import_required?
     imported_at < 5.minutes.ago
+  end
+
+  sig { params(page: T.untyped).void }
+  def import_attributes_from_notion(page:)
+    properties = page.properties
+    self.imported_at = Time.current
+    self.title = properties["Name"].title.first!.plain_text
+    self.started_at = properties["Created At"].created_time.to_time
+    self.last_edited_at = properties["Modified At"].last_edited_time.to_time
   end
 
   sig { params(force: T::Boolean).void }
@@ -72,7 +79,7 @@ class JournalEntry < ApplicationRecord
     ImportJournalEntryJob.perform_later(self, force:)
   end
 
-  # == Methods: Download
+  # == Downloading
   sig { returns(T::Boolean) }
   def download_required?
     saved_change_to_last_edited_at? || content.nil?
@@ -87,15 +94,5 @@ class JournalEntry < ApplicationRecord
   sig { void }
   def download_later
     DownloadJournalEntryJob.perform_later(self)
-  end
-
-  # == Helpers: Import
-  sig { params(page: T.untyped).void }
-  def import_attributes_from_notion(page:)
-    properties = page.properties
-    self.imported_at = Time.current
-    self.title = properties["Name"].title.first!.plain_text
-    self.started_at = properties["Created At"].created_time.to_time
-    self.last_edited_at = properties["Modified At"].last_edited_time.to_time
   end
 end

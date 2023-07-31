@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class GraphQLChannel < ApplicationCable::Channel
-  include GraphQLHelpers
+  include GraphQL::Helpers
 
   # == Initialization
   sig do
@@ -18,13 +18,14 @@ class GraphQLChannel < ApplicationCable::Channel
   end
 
   # == Action
+
   # Type signature must not have a runtime in order not to interfere with
   # ActionCable::Channel::Base's arity checks.
   T::Sig::WithoutRuntime.sig do
     params(data: T::Hash[String, T.untyped]).returns(T.untyped)
   end
   def execute(data)
-    # Parse data.
+    # Parse data
     params = data.with_indifferent_access
     operation_name = params["operationName"]
     unless operation_name.nil?
@@ -35,26 +36,25 @@ class GraphQLChannel < ApplicationCable::Channel
       raise "query must be a String" unless query.is_a?(String)
     end
 
-    # Execute query.
+    # Execute query
     variables = prepare_variables(params["variables"])
     extensions = prepare_extensions(params["extensions"])
     context = { channel: self, extensions:, current_user: }
     result = Schema.execute(query, variables:, operation_name:, context:)
 
-    # Track the subscription here so we can remove it
-    # on unsubscribe.
+    # Track the subscription here so we can remove it on unsubscribe
     if result.context[:subscription_id]
       @subscription_ids << result.context[:subscription_id]
     end
 
-    # Transmit result.
+    # Transmit result
     payload = { result: result.to_h, more: result.subscription? }
     transmit(payload)
   end
 
   private
 
-  # == Helpers: Subscriptions
+  # == Subscription helpers
   sig { void }
   def subscribed
     @subscription_ids = []
@@ -67,7 +67,8 @@ class GraphQLChannel < ApplicationCable::Channel
     end
   end
 
-  # == Helpers: Logging
+  # == Logging helpers
+
   # Log a pretty GraphQL call signature.
   sig { override.params(action: Symbol, data: T.untyped).returns(String) }
   def action_signature(action, data)

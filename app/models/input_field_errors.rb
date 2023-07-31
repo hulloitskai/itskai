@@ -17,7 +17,7 @@ class InputFieldErrors < Array
     new(errors)
   end
 
-  # == Methods
+  # == Conversions
   sig { returns(T::Hash[String, String]) }
   def to_h
     super do |error|

@@ -3,7 +3,7 @@
 
 class ScottcallService < ApplicationService
   class << self
-    # == Service
+    # == Lifecycle
     sig { override.returns(T::Boolean) }
     def disabled?
       return !!@disabled if defined?(@disabled)
@@ -11,12 +11,13 @@ class ScottcallService < ApplicationService
       @disabled = TelnyxService.disabled? || number.nil? || super
     end
 
-    # == Methods
+    # == Settings
     sig { returns(T.nilable(String)) }
     def number
       setting("NUMBER")
     end
 
+    # == Methods
     sig { params(type: Symbol).void }
     def dial(type)
       checked { instance.dial(type) }
@@ -28,24 +29,19 @@ class ScottcallService < ApplicationService
     end
   end
 
-  # == Service
+  # == Lifecycle
   sig { override.returns(T::Boolean) }
   def ready?
     TelnyxService.ready? && super
   end
 
-  # == Methods
+  # == Settings
   sig { returns(String) }
   def number
     self.class.number or raise "Number not set"
   end
 
-  sig { returns(String) }
-  def display_name
-    @display_name = T.let(@display_name, T.nilable(String))
-    @display_name ||= T.must(self.class.name).delete_suffix("Service")
-  end
-
+  # == Methods
   sig { params(signal: Symbol).void }
   def dial(signal)
     message = case signal
@@ -66,5 +62,14 @@ class ScottcallService < ApplicationService
   def respond(telnyx_call_control_id)
     call = Scottcall.find_by!(telnyx_call_control_id:)
     TelnyxService.speak(telnyx_call_control_id, call.message)
+  end
+
+  private
+
+  # == Helpers
+  sig { returns(String) }
+  def display_name
+    @display_name = T.let(@display_name, T.nilable(String))
+    @display_name ||= T.must(self.class.name).delete_suffix("Service")
   end
 end

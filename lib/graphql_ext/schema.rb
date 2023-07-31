@@ -3,41 +3,48 @@
 
 require "graphql"
 
-class GraphQL::Schema
-  class << self
-    extend T::Sig
-
-    sig { returns(T.nilable(GraphQL::Queries)) }
-    attr_accessor :queries
-
-    sig { returns(GraphQL::Queries) }
-    def queries!
-      queries or raise "Queries not installed"
-    end
-
-    sig { returns(GraphQL::Subscriptions) }
-    def subscriptions!
-      subscriptions or raise "Subscriptions not installed"
-    end
-  end
-
-  module Member::BuildType
+module GraphQL
+  class Schema
     class << self
-      module Extension
-        def camelize(string)
-          ActiveSupport::Inflector.camelize(string, false)
-        end
+      extend T::Sig
 
-        def underscore(string)
-          ActiveSupport::Inflector.underscore(string)
-        end
+      sig { returns(T.nilable(Queries)) }
+      attr_accessor :queries
 
-        def constantize(string)
-          ActiveSupport::Inflector.constantize(string) # rubocop:disable Sorbet/ConstantsFromStrings, Layout/LineLength
-        end
+      sig { returns(Queries) }
+      def queries!
+        queries or raise "Queries not installed"
       end
 
-      prepend Extension
-  end
+      sig { returns(Subscriptions) }
+      def subscriptions!
+        subscriptions or raise "Subscriptions not installed"
+      end
+    end
+
+    module Member::BuildType
+      class << self
+        module Extension
+          extend T::Sig
+
+          sig { params(string: String).returns(String) }
+          def camelize(string)
+            ActiveSupport::Inflector.camelize(string, false)
+          end
+
+          sig { params(string: String).returns(String) }
+          def underscore(string)
+            ActiveSupport::Inflector.underscore(string)
+          end
+
+          sig { params(string: String).returns(String) }
+          def constantize(string)
+            ActiveSupport::Inflector.constantize(string) # rubocop:disable Sorbet/ConstantsFromStrings, Layout/LineLength
+          end
+        end
+
+        prepend Extension
+      end
+    end
   end
 end

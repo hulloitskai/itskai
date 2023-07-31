@@ -1,12 +1,9 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 class SpotifyService < ApplicationService
-  # == Constants: Badwords
-  BADWORDS_FILE = Rails.root.join("config/badwords.txt")
-
   class << self
-    # == Service
+    # == Lifecycle
     sig { override.returns(T::Boolean) }
     def disabled?
       return !!@disabled if defined?(@disabled)
@@ -14,7 +11,7 @@ class SpotifyService < ApplicationService
       @disabled = [client_id, client_secret].any?(&:nil?) || super
     end
 
-    # == Methods
+    # == Settings
     sig { returns(T.nilable(String)) }
     def client_id
       setting("CLIENT_ID")
@@ -25,9 +22,10 @@ class SpotifyService < ApplicationService
       setting("CLIENT_SECRET")
     end
 
-    sig { returns(OAuthCredentials) }
-    def credentials
-      checked { instance.credentials }
+    # == Methods
+    sig { params(credentials: OAuthCredentials).returns(RSpotify::User) }
+    def authenticate(credentials)
+      instance.authenticate(credentials)
     end
 
     sig { returns(RSpotify::User) }
@@ -57,7 +55,7 @@ class SpotifyService < ApplicationService
     @user = T.let(@user, T.nilable(RSpotify::User))
   end
 
-  # == Service
+  # == Lifecycle
   sig { override.returns(T::Boolean) }
   def ready?
     @user.present? && super
@@ -68,16 +66,45 @@ class SpotifyService < ApplicationService
     super
     Thread.new do
       silence_logger_in_console do
-        load_credentials
-        authenticate if @credentials.present?
+        credentials = saved_credentials or break
+        begin
+          authenticate(credentials)
+        rescue SocketError => error
+          if error.message.include?("Failed to open TCP connection")
+            tag_logger do
+              logger.warn("Failed to authenticate (bad connection); skipping")
+            end
+            false
+          else
+            raise
+          end
+        end
       end
     end
   end
 
+  # == Settings
+  sig { returns(String) }
+  def client_id
+    self.class.client_id or raise "Client ID not set"
+  end
+
+  sig { returns(String) }
+  def client_secret
+    self.class.client_secret or raise "Client secret not set"
+  end
+
   # == Methods
-  sig { returns(OAuthCredentials) }
-  def credentials
-    @credentials or raise "Not authenticated (missing credentials)"
+  sig { params(credentials: OAuthCredentials).returns(RSpotify::User) }
+  def authenticate(credentials)
+    RSpotify.authenticate(client_id, client_secret)
+    @user = RSpotify::User.new({
+      "id" => credentials.uid,
+      "credentials" => {
+        "token" => credentials.access_token,
+        "refresh_token" => credentials.refresh_token,
+      },
+    })
   end
 
   sig { returns(RSpotify::User) }
@@ -126,11 +153,11 @@ class SpotifyService < ApplicationService
       lines = T.let(body["lines"], T::Array[T::Hash[String, T.untyped]])
       if sync_type == "LINE_SYNCED"
         lines.map do |line_hash|
-          words = normalize_lyric_line_words(line_hash["words"])
+          words = normalize_words(line_hash["words"])
           LyricLine.new(
             start_time_milliseconds: line_hash["startTimeMs"].to_i,
             words:,
-            explicit: explicit_lyric_line_words?(words),
+            explicit: explicit_words?(words),
           )
         end
       end
@@ -139,75 +166,34 @@ class SpotifyService < ApplicationService
 
   private
 
-  # == Helpers: Badwords
-  sig { returns(T::Array[String]) }
-  def badwords
-    @badwords ||= scoped do
-      body = File.read(BADWORDS_FILE)
-      body.lines.map { |word| word.strip.downcase }
-    end
-  end
-
   # == Helpers
-  sig { returns(String) }
-  def client_id
-    self.class.client_id or raise "Client ID not set"
-  end
-
-  sig { returns(String) }
-  def client_secret
-    self.class.client_secret or raise "Client secret not set"
-  end
-
-  sig { void }
-  def authenticate
-    if authenticate_client
-      @user = RSpotify::User.new({
-        "id" => credentials.uid,
-        "credentials" => {
-          "token" => credentials.access_token,
-          "refresh_token" => credentials.refresh_token,
-        },
-      })
-    end
-  end
-
-  sig { returns(T::Boolean) }
-  def authenticate_client
-    if client_id.present? && client_secret.present?
-      RSpotify.authenticate(client_id, client_secret)
-      true
-    else
-      false
-    end
-  rescue SocketError => error
-    if error.message.include?("Failed to open TCP connection")
-      tag_logger do
-        logger.warn("Failed to authenticate (bad connection); skipping")
-      end
-      false
-    else
-      raise
-    end
-  end
-
-  sig { void }
-  def load_credentials
-    @credentials = OAuthCredentials.spotify
+  sig { returns(T.nilable(OAuthCredentials)) }
+  def saved_credentials
+    OAuthCredentials.spotify
   end
 
   sig { params(words: String).returns(String) }
-  def normalize_lyric_line_words(words)
+  def normalize_words(words)
     words = words.strip
     words == "♪" ? "" : words
   end
 
+  sig { returns(T::Array[String]) }
+  def badwords
+    @badwords = T.let(@badwords, T.nilable(T::Array[String]))
+    @badwords ||= scoped do
+      body = Rails.root.join("config/#{service_name}/badwords.txt").read
+      body.lines.map { |word| word.strip.downcase }
+    end
+  end
+
   sig { params(words: String).returns(T::Boolean) }
-  def explicit_lyric_line_words?(words)
-    return false if words.blank?
-    downcased_words = words.downcase
-    badwords.any? do |badword|
-      downcased_words.include?(badword)
+  def explicit_words?(words)
+    if words.present?
+      normalized_words = words.downcase
+      badwords.any? { |word| normalized_words.include?(word) }
+    else
+      false
     end
   end
 end

@@ -46,7 +46,7 @@ scoped do
   puts "No problems or warnings"
 end
 
-puts "\n=> Running Typescript Compiler"
+puts "\n=> Running Typescript compiler"
 system! "bin/yarn", "--silent", "tsc"
 puts "No errors found"
 

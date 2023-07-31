@@ -4,7 +4,6 @@
 class ApplicationService
   extend T::Sig
   extend T::Helpers
-
   include ActiveSupport::Configurable
   include Singleton
   include Logging
@@ -13,7 +12,13 @@ class ApplicationService
     extend T::Sig
     extend T::Helpers
 
-    # == Class Methods
+    # == Class methods
+    sig { returns(String) }
+    def service_name
+      @service_name = T.let(@service_name, T.nilable(String))
+      @service_name ||= T.must(name).delete_suffix("Service").underscore
+    end
+
     sig { returns(T.nilable(T.attached_class)) }
     def start
       if Rails.server?
@@ -53,17 +58,14 @@ class ApplicationService
     sig { returns(T::Boolean) }
     def ready? = enabled? && instance.ready?
 
-    protected
+    private
 
-    # == Helpers
+    # == Class helpers
     sig { params(name: String).returns(T.nilable(String)) }
     def setting(name)
       ENV["#{service_name.upcase}_#{name}"]
     end
 
-    private
-
-    # == Helpers
     sig do
       type_parameters(:U).params(
         block: T.proc.returns(T.type_parameter((:U))),
@@ -74,12 +76,6 @@ class ApplicationService
       raise "#{name} is not ready" unless ready?
       yield
     end
-
-    sig { returns(String) }
-    def service_name
-      @service_name = T.let(@service_name, T.nilable(String))
-      @service_name ||= T.must(name).delete_suffix("Service").underscore
-    end
   end
 
   # == Initialization
@@ -88,7 +84,7 @@ class ApplicationService
     @started = T.let(false, T::Boolean)
   end
 
-  # == Methods
+  # == Lifecycle
   sig { returns(T::Boolean) }
   def enabled? = self.class.enabled?
 
@@ -127,6 +123,9 @@ class ApplicationService
   private
 
   # == Helpers
+  sig { returns(String) }
+  def service_name = self.class.service_name
+
   sig do
     type_parameters(:U)
       .params(block: T.proc.returns(T.type_parameter(:U)))

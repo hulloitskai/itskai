@@ -13,8 +13,6 @@ const UserPasswordChangedEmail: PageComponent<
 > = ({ data: { user } }) => {
   invariant(user, "Missing user");
   const { name } = user;
-
-  // == Markup
   return (
     <>
       <Text>Hi, {name}!</Text>

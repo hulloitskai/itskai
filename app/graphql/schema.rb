@@ -20,7 +20,7 @@ class Schema < GraphQL::Schema
   # Stop validation after 100 errors.
   validate_max_errors 100
 
-  # == Callback Handlers
+  # == Configuration: Error handling
   rescue_from ActiveRecord::RecordInvalid do |error|
     model_name = error.record.model_name.human.downcase
     raise GraphQL::ExecutionError, "#{model_name} is invalid."
@@ -36,7 +36,7 @@ class Schema < GraphQL::Schema
     raise GraphQL::ExecutionError, message
   end
 
-  # == Types
+  # == Configuration: Types
   query Types::QueryType
   mutation Types::MutationType
   subscription Types::SubscriptionType
@@ -60,7 +60,7 @@ class Schema < GraphQL::Schema
 
   # Return a string UUID for `object`.
   T::Sig::WithoutRuntime.sig do
-    params(
+    override.params(
       object: T.all(::Object, GlobalID::Identification),
       type_definition: T.untyped,
       context: GraphQL::Query::Context,
@@ -72,7 +72,10 @@ class Schema < GraphQL::Schema
 
   # Given a string UUID, find the object.
   T::Sig::WithoutRuntime.sig do
-    params(id: String, context: GraphQL::Query::Context).returns(T.untyped)
+    override.params(
+      id: String,
+      context: GraphQL::Query::Context,
+    ).returns(T.untyped)
   end
   def self.object_from_id(id, context)
     context.dataloader.with(Sources::RecordByGid).load(id)

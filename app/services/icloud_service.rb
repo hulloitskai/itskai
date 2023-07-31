@@ -3,14 +3,14 @@
 
 class ICloudService < ApplicationService
   class << self
-    # == Service
+    # == Lifecycle
     def disabled?
       return !!@disabled if defined?(@disabled)
       @disabled = T.let(@disabled, T.nilable(T::Boolean))
       @disabled = iphone_device_id.nil? || super
     end
 
-    # == Methods
+    # == Settings
     sig { returns(T.nilable(String)) }
     def iphone_device_id
       setting("IPHONE_DEVICE_ID")
@@ -22,6 +22,7 @@ class ICloudService < ApplicationService
       @credentials_dir ||= Rails.root.join("tmp/#{service_name}")
     end
 
+    # == Methods
     sig { params(credentials: ICloudCredentials).returns(Client) }
     def authenticate(credentials)
       instance.authenticate(credentials)
@@ -55,12 +56,10 @@ class ICloudService < ApplicationService
     @client = T.let(@client, T.nilable(Client))
   end
 
-  # == Service
+  # == Lifecycle
   sig { override.returns(T::Boolean) }
   def ready?
-    @client.present? &&
-      !@client.requires_security_code? &&
-      super
+    @client.present? && !@client.requires_security_code? && super
   end
 
   sig { override.void }
@@ -68,23 +67,28 @@ class ICloudService < ApplicationService
     super
     Thread.new do
       silence_logger_in_console do
-        if (credentials = saved_credentials)
-          begin
-            authenticate(credentials)
-          rescue PyCall::PyError => error
-            type, message = error.type.__name__, error.value.to_s
-            if type == "ConnectionError" &&
-                message.include?("Failed to establish a new connection")
-              tag_logger do
-                logger.warn("Failed to authenticate (bad connection); skipping")
-              end
-            else
-              raise
+        credentials = saved_credentials or break
+        begin
+          authenticate(credentials)
+        rescue PyCall::PyError => error
+          type, message = error.type.__name__, error.value.to_s
+          if type == "ConnectionError" &&
+              message.include?("Failed to establish a new connection")
+            tag_logger do
+              logger.warn("Failed to authenticate (bad connection); skipping")
             end
+          else
+            raise
           end
         end
       end
     end
+  end
+
+  # == Settings
+  sig { returns(String) }
+  def iphone_device_id
+    self.class.iphone_device_id or raise "iPhone device ID not set"
   end
 
   # == Methods
@@ -95,7 +99,7 @@ class ICloudService < ApplicationService
 
   sig { returns(Client) }
   def client
-    @client or raise "Mmissing client"
+    @client or raise "Missing client"
   end
 
   sig { params(code: T.nilable(String)).returns(T::Boolean) }
@@ -118,12 +122,6 @@ class ICloudService < ApplicationService
   private
 
   # == Helpers
-  sig { returns(String) }
-  def iphone_device_id
-    self.class.iphone_device_id or
-      raise "iPhone device ID not set"
-  end
-
   sig { returns(T.nilable(ICloudCredentials)) }
   def saved_credentials
     ICloudCredentials.first

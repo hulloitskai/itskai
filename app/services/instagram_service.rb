@@ -3,20 +3,21 @@
 
 class InstagramService < ApplicationService
   class << self
-    # == Service
+    # == Lifecycle
     # def disabled?
     #   return !!@disabled if defined?(@disabled)
     #   @disabled = T.let(@disabled, T.nilable(T::Boolean))
     #   @disabled = iphone_device_id.nil? || super
     # end
 
-    # == Methods
+    # == Settings
     sig { returns(Pathname) }
     def credentials_dir
       @credentials_dir = T.let(@credentials_dir, T.nilable(Pathname))
       @credentials_dir ||= Rails.root.join("tmp/#{service_name}")
     end
 
+    # == Methods
     sig do
       params(
         credentials: InstagramCredentials,
@@ -48,7 +49,7 @@ class InstagramService < ApplicationService
     @client = T.let(@client, T.nilable(Client))
   end
 
-  # == Service
+  # == Lifecycle
   sig { override.returns(T::Boolean) }
   def ready?
     @client.present? && super
@@ -59,36 +60,33 @@ class InstagramService < ApplicationService
     super
     Thread.new do
       silence_logger_in_console do
-        if (credentials = saved_credentials)
-          begin
-            authenticate(credentials)
-          rescue PyCall::PyError => error
-            type, message = error.type.__name__, error.value.to_s
-            if type == "ConnectionError" &&
-                message.include?("Failed to establish a new connection")
-              tag_logger do
-                logger.warn("Failed to authenticate (bad connection); skipping")
-              end
-            else
-              raise
+        credentials = saved_credentials or break
+        begin
+          authenticate(credentials)
+        rescue PyCall::PyError => error
+          type, message = error.type.__name__, error.value.to_s
+          if type == "ConnectionError" &&
+              message.include?("Failed to establish a new connection")
+            tag_logger do
+              logger.warn("Failed to authenticate (bad connection); skipping")
             end
+          else
+            raise
           end
         end
       end
     end
   end
 
+  # == Methods
   sig do
-    params(
-      credentials: InstagramCredentials,
-      security_code: T.nilable(String),
-    ).returns(Client)
+    params(credentials: InstagramCredentials, security_code: T.nilable(String))
+      .returns(Client)
   end
   def authenticate(credentials, security_code: nil)
     @client = Client.new(credentials:, security_code:)
   end
 
-  # == Methods
   sig { returns(Client) }
   def client
     @client or raise "Missing client"

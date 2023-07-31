@@ -15,13 +15,13 @@ module Logging
 
     requires_ancestor { T.class_of(Object) }
 
-    # == Class Methods
+    # == Class methods
     sig { returns(ActiveSupport::Logger) }
     def logger = Rails.logger
 
     private
 
-    # == Class Helpers
+    # == Class helpers
     sig { overridable.params(block: T.proc.void).void }
     def tag_logger(&block)
       logger = self.logger

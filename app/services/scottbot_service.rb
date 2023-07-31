@@ -3,7 +3,7 @@
 
 class ScottbotService < ApplicationService
   class << self
-    # == Service
+    # == Lifecycle
     sig { override.returns(T::Boolean) }
     def disabled?
       return !!@disabled if defined?(@disabled)
@@ -11,13 +11,7 @@ class ScottbotService < ApplicationService
       @disabled = [discord_token, discord_channel_id].any?(&:nil?) || super
     end
 
-    # == Methods
-    sig { params(type: Symbol).void }
-    def alert(type)
-      checked { instance.alert(type) }
-    end
-
-    # == Helpers
+    # == Settings
     sig { returns(T.nilable(String)) }
     def discord_token
       setting("DISCORD_TOKEN")
@@ -26,6 +20,12 @@ class ScottbotService < ApplicationService
     sig { returns(T.nilable(String)) }
     def discord_channel_id
       setting("DISCORD_CHANNEL_ID")
+    end
+
+    # == Methods
+    sig { params(type: Symbol).void }
+    def alert(type)
+      checked { instance.alert(type) }
     end
   end
 
@@ -39,6 +39,18 @@ class ScottbotService < ApplicationService
     )
   end
 
+  # == Settings
+  sig { returns(String) }
+  def discord_token
+    self.class.discord_token or raise "Discord token not set"
+  end
+
+  sig { returns(String) }
+  def discord_channel_id
+    self.class.discord_channel_id or raise "Discord channel ID not set"
+  end
+
+  # == Lifecycle
   sig { override.void }
   def start
     super
@@ -50,7 +62,7 @@ class ScottbotService < ApplicationService
     @bot.stop if started?
   end
 
-  # == Method
+  # == Methods
   sig { params(signal: Symbol).void }
   def alert(signal)
     message = case signal
@@ -70,16 +82,6 @@ class ScottbotService < ApplicationService
   private
 
   # == Helpers
-  sig { returns(String) }
-  def discord_token
-    self.class.discord_token or raise "Discord token not set"
-  end
-
-  sig { returns(String) }
-  def discord_channel_id
-    self.class.discord_channel_id or raise "Discord channel ID not set"
-  end
-
   sig { params(message: String).void }
   def send_message(message)
     @bot.send_message(discord_channel_id, message)

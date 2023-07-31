@@ -5,7 +5,6 @@ module Mutations
   class BaseMutation < GraphQL::Schema::RelayClassicMutation
     extend T::Sig
     extend T::Helpers
-
     include ActionPolicy::GraphQL::Behaviour
     include Resolver
 
@@ -29,6 +28,7 @@ module Mutations
 
     private
 
+    # == Helpers
     def transform_resolve_result(result)
       result = result.serialize if result.is_a?(T::Struct)
       if result.is_a?(Hash)

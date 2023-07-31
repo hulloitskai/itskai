@@ -3,6 +3,7 @@
 
 module Types
   class ScottkitSignalTypeType < BaseEnum
+    # == Values
     value "BREAK", value: :break
     value "RAND", value: :rand
     value "PANIC", value: :panic

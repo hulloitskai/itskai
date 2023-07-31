@@ -5,9 +5,9 @@ class ApplicationController < ActionController::Base
   extend T::Sig
   extend T::Helpers
   include ActiveStorage::SetCurrent
-  include Querying
+  include GraphQL::Querying
 
-  # == Filters: Devise
+  # == Devise: Filters
   before_action :store_user_location!, if: :storable_location?
 
   # == Filters
@@ -26,23 +26,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # == Helpers: Devise
-  sig { returns(User) }
-  def current_user!
-    authenticate_user!
-  end
-
-  sig { returns(T::Boolean) }
-  def storable_location?
-    request.get? && is_navigational_format? &&
-      (!request.xhr? || request.inertia?) && !devise_controller?
-  end
-
-  sig { void }
-  def store_user_location!
-    store_location_for(:user, request.fullpath)
-  end
-
   # == Helpers
   sig { returns(ItsKai::Application) }
   def app = ItsKai.application
@@ -57,7 +40,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # == Filters
+  # == Filter handlers
   # sig { void }
   # def debug_action
   #   targets = params[:debug]
@@ -72,5 +55,23 @@ class ApplicationController < ActionController::Base
     context = T.let(error_context.compact, T::Hash[String, T.untyped])
     Rails.error.set_context(**context)
     yield
+  end
+
+  # == Devise: Helpers
+  sig { returns(User) }
+  def current_user!
+    authenticate_user!
+  end
+
+  sig { returns(T::Boolean) }
+  def storable_location?
+    request.get? && is_navigational_format? &&
+      (!request.xhr? || request.inertia?) && !devise_controller?
+  end
+
+  # == Devise: Filter handlers
+  sig { void }
+  def store_user_location!
+    store_location_for(:user, request.fullpath)
   end
 end

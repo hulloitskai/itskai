@@ -19,15 +19,9 @@
 #  index_location_logs_on_timestamp  (timestamp)
 #
 class LocationLog < ApplicationRecord
-  # == Attributes
   include Identifiable
 
-  sig { returns(RGeo::Geographic::Factory) }
-  def self.coordinates_factory
-    RGeo::Geographic.spherical_factory(srid: 4326, has_z_coordinate: true)
-  end
-
-  # == Accessors
+  # == Attributes
   sig { returns(Float) }
   def latitude = coordinates.latitude
 
@@ -80,7 +74,7 @@ class LocationLog < ApplicationRecord
     end
   end
 
-  # == Methods: Latest
+  # == Finders
   sig { params(args: T.untyped).returns(T.nilable(LocationLog)) }
   def self.latest(*args)
     relation = _latest
@@ -95,9 +89,15 @@ class LocationLog < ApplicationRecord
     relation.first!
   end
 
-  # == Methods: Geocoding
+  # == Geocoding
   sig { void }
   def reverse_geocode_and_save!
     reverse_geocode.tap { save! }
+  end
+
+  # == Helpers
+  sig { returns(RGeo::Geographic::Factory) }
+  def self.coordinates_factory
+    RGeo::Geographic.spherical_factory(srid: 4326, has_z_coordinate: true)
   end
 end

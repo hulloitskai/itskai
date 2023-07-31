@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-module Querying
+module GraphQL::Querying
   extend T::Sig
   extend T::Helpers
 

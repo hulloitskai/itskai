@@ -3,9 +3,6 @@
 
 module Queries
   class Timezone < BaseQuery
-    # == Configuration
-    description "Kai's current timezone."
-
     # == Type
     type Types::TimezoneType, null: false
 

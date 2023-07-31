@@ -5,7 +5,6 @@ module Subscriptions
   class BaseSubscription < GraphQL::Schema::Subscription
     extend T::Sig
     extend T::Helpers
-
     include ActionPolicy::GraphQL::Behaviour
     include Resolver
 
