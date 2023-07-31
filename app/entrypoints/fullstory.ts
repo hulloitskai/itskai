@@ -1,9 +1,5 @@
 import { init, identify } from "@fullstory/browser";
 
-import { resolve } from "~/helpers/utils";
-import { getMeta } from "~/helpers/meta";
-import { omitBy, isNil } from "lodash-es";
-
 const orgId = getMeta("fullstory-org-id");
 if (orgId) {
   const devMode = getMeta("env") === "development";

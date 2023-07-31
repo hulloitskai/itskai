@@ -10,7 +10,8 @@ module Mutations
     sig { override.returns(Payload) }
     def resolve
       credentials = ICloudCredentials.first or
-        raise GraphQL::ExecutionError, "No existing ICloud credentials."
+        raise GraphQL::ExecutionError, "No existing iCloud credentials."
+      credentials = T.let(credentials, ICloudCredentials)
       credentials.destroy!
       ICloudService.restart
       Payload.new

@@ -1,0 +1,5 @@
+mutation ImportCookiesMutation($input: ImportCookiesInput!) {
+  payload: importCookies(input: $input) {
+    success
+  }
+}

@@ -3,9 +3,6 @@
 
 module Queries
   class ICloudCredentials < BaseQuery
-    # == Configuration
-    description "Kai's personal iCloud credentials (#securityStartsHere)."
-
     # == Type
     type Types::ICloudCredentialsType, null: true
 

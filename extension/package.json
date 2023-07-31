@@ -6,17 +6,19 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "generate": "graphql-codegen --config ./config/graphql-codegen.ts",
+    "graphql:generate": "graphql-codegen --config ./config/graphql/codegen.ts",
     "fmt": "prettier --write .",
-    "lint": "tsc && eslint src --ext .ts,.tsx --resolve-plugins-relative-to . --report-unused-disable-directives"
+    "lint": "tsc && eslint . --ext .ts,.tsx --resolve-plugins-relative-to . --report-unused-disable-directives"
   },
   "dependencies": {
     "@apollo/client": "^3.7.14",
     "@emotion/react": "^11.11.0",
-    "@mantine/core": "^6.0.11",
-    "@mantine/hooks": "^6.0.11",
+    "@mantine/core": "^6.0.17",
+    "@mantine/hooks": "^6.0.17",
+    "@mantine/notifications": "^6.0.17",
     "@rails/actioncable": "^7.0.5",
     "graphql": "^16.6.0",
+    "graphql-ruby-client": "^1.11.8",
     "lodash-es": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -50,6 +52,7 @@
     "typescript": "^5.0.4",
     "unplugin-auto-import": "^0.16.4",
     "unplugin-icons": "^0.16.2",
-    "vite": "^3.2.7"
+    "vite": "^3.2.7",
+    "vite-plugin-graphql-codegen": "^3.2.3"
   }
 }

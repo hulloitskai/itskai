@@ -6,6 +6,7 @@ Rails.application.configure do
     reloader.to_prepare do
       ActivityService.start
       ICloudService.start
+      InstagramService.start
       SpotifyService.start
       JournalService.start
       ActionItemsService.start
@@ -30,6 +31,7 @@ Rails.application.configure do
       ResumeService.stop
       JournalService.stop
       SpotifyService.stop
+      InstagramService.stop
       ICloudService.stop
       ActivityService.stop
     end

@@ -1,2 +1,2 @@
-schema: schema.generated.graphql
-documents: queries/*.graphql
+schema: config/graphql/schema.generated.graphql
+documents: app/queries/*.graphql

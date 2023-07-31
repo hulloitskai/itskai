@@ -3,7 +3,7 @@
     // == Paths
     "baseUrl": ".",
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": ["app/*"]
     },
 
     // == Language
@@ -31,6 +31,6 @@
     // == Plugins
     "plugins": [{ "name": "vite-plugin-iso-import" }]
   },
-  "include": ["src", "typings"],
+  "include": ["app", "typings"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

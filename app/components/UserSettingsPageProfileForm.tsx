@@ -66,7 +66,7 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
       onSubmit={onSubmit(values => {
         runMutation({
           variables: {
-            input: { ...values },
+            input: values,
           },
         });
       })}

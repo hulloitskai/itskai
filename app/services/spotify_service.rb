@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class SpotifyService < ApplicationService
-  # == Constants
+  # == Constants: Badwords
   BADWORDS_FILE = Rails.root.join("config/badwords.txt")
 
   class << self
@@ -66,14 +66,11 @@ class SpotifyService < ApplicationService
   sig { override.void }
   def start
     super
-    return if disabled?
     Thread.new do
-      if Rails.console?
-        Rails.logger.silence { load_credentials }
-      else
+      silence_logger_in_console do
         load_credentials
+        authenticate if @credentials.present?
       end
-      authenticate if @credentials.present?
     end
   end
 
@@ -142,6 +139,15 @@ class SpotifyService < ApplicationService
 
   private
 
+  # == Helpers: Badwords
+  sig { returns(T::Array[String]) }
+  def badwords
+    @badwords ||= scoped do
+      body = File.read(BADWORDS_FILE)
+      body.lines.map { |word| word.strip.downcase }
+    end
+  end
+
   # == Helpers
   sig { returns(String) }
   def client_id
@@ -155,16 +161,15 @@ class SpotifyService < ApplicationService
 
   sig { void }
   def authenticate
-    return unless authenticate_client
-    @user = RSpotify::User.new({
-      "id" => credentials.uid,
-      "credentials" => credentials
-        .slice(:access_token, :refresh_token)
-        .tap do |credentials|
-          credentials[:token] = credentials.delete(:access_token)
-        end
-        .stringify_keys,
-    })
+    if authenticate_client
+      @user = RSpotify::User.new({
+        "id" => credentials.uid,
+        "credentials" => {
+          "token" => credentials.access_token,
+          "refresh_token" => credentials.refresh_token,
+        },
+      })
+    end
   end
 
   sig { returns(T::Boolean) }
@@ -195,14 +200,6 @@ class SpotifyService < ApplicationService
   def normalize_lyric_line_words(words)
     words = words.strip
     words == "♪" ? "" : words
-  end
-
-  sig { returns(T::Array[String]) }
-  def badwords
-    @badwords ||= scoped do
-      body = File.read(BADWORDS_FILE)
-      body.lines.map { |word| word.strip.downcase }
-    end
   end
 
   sig { params(words: String).returns(T::Boolean) }

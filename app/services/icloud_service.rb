@@ -22,6 +22,11 @@ class ICloudService < ApplicationService
       @credentials_dir ||= Rails.root.join("tmp/#{service_name}")
     end
 
+    sig { params(credentials: ICloudCredentials).returns(Client) }
+    def authenticate(credentials)
+      instance.authenticate(credentials)
+    end
+
     sig { returns(Client) }
     def client
       checked { instance.client }
@@ -47,16 +52,13 @@ class ICloudService < ApplicationService
   sig { void }
   def initialize
     super
-    PyCall.sys.path.append(File.join(__dir__, "icloud_service"))
-    @credentials = T.let(@credentials, T.nilable(ICloudCredentials))
     @client = T.let(@client, T.nilable(Client))
   end
 
   # == Service
   sig { override.returns(T::Boolean) }
   def ready?
-    @credentials.present? &&
-      @client.present? &&
+    @client.present? &&
       !@client.requires_security_code? &&
       super
   end
@@ -64,19 +66,36 @@ class ICloudService < ApplicationService
   sig { override.void }
   def start
     super
-    return if disabled?
     Thread.new do
       silence_logger_in_console do
-        load_credentials
-        authenticate if @credentials.present?
+        if (credentials = saved_credentials)
+          begin
+            authenticate(credentials)
+          rescue PyCall::PyError => error
+            type, message = error.type.__name__, error.value.to_s
+            if type == "ConnectionError" &&
+                message.include?("Failed to establish a new connection")
+              tag_logger do
+                logger.warn("Failed to authenticate (bad connection); skipping")
+              end
+            else
+              raise
+            end
+          end
+        end
       end
     end
   end
 
   # == Methods
+  sig { params(credentials: ICloudCredentials).returns(Client) }
+  def authenticate(credentials)
+    @client = Client.new(credentials:)
+  end
+
   sig { returns(Client) }
   def client
-    @client or raise "Not authenticated (missing client)"
+    @client or raise "Mmissing client"
   end
 
   sig { params(code: T.nilable(String)).returns(T::Boolean) }
@@ -105,29 +124,9 @@ class ICloudService < ApplicationService
       raise "iPhone device ID not set"
   end
 
-  sig { void }
-  def authenticate
-    @client = Client.new(credentials:)
-  rescue PyCall::PyError => error
-    type, message = error.type.__name__, error.value.to_s
-    if type == "ConnectionError" &&
-        message.include?("Failed to establish a new connection")
-      tag_logger do
-        logger.warn("Failed to authenticate (bad connection); skipping")
-      end
-    else
-      raise
-    end
-  end
-
-  sig { void }
-  def load_credentials
-    @credentials = ICloudCredentials.first
-  end
-
-  sig { returns(ICloudCredentials) }
-  def credentials
-    @credentials or raise "Not authenticated (missing credentials)"
+  sig { returns(T.nilable(ICloudCredentials)) }
+  def saved_credentials
+    ICloudCredentials.first
   end
 
   sig { returns(Client) }

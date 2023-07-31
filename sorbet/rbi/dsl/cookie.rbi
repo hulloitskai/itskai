@@ -9,10 +9,18 @@ class Cookie
   extend CommonRelationMethods
   extend GeneratedRelationMethods
 
+  sig { returns(Enumerize::Value) }
+  def service; end
+
   private
 
   sig { returns(NilClass) }
   def to_ary; end
+
+  class << self
+    sig { returns(Enumerize::Attribute) }
+    def service; end
+  end
 
   module CommonRelationMethods
     sig { params(block: T.nilable(T.proc.params(record: ::Cookie).returns(T.untyped))).returns(T::Boolean) }
@@ -494,16 +502,16 @@ class Cookie
     sig { void }
     def domain_will_change!; end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(T.nilable(::Float)) }
     def expiration_date; end
 
-    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
+    sig { params(value: T.nilable(::Float)).returns(T.nilable(::Float)) }
     def expiration_date=(value); end
 
     sig { returns(T::Boolean) }
     def expiration_date?; end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(T.nilable(::Float)) }
     def expiration_date_before_last_save; end
 
     sig { returns(T.untyped) }
@@ -512,28 +520,28 @@ class Cookie
     sig { returns(T::Boolean) }
     def expiration_date_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def expiration_date_change; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def expiration_date_change_to_be_saved; end
 
     sig { returns(T::Boolean) }
     def expiration_date_changed?; end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(T.nilable(::Float)) }
     def expiration_date_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def expiration_date_previous_change; end
 
     sig { returns(T::Boolean) }
     def expiration_date_previously_changed?; end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(T.nilable(::Float)) }
     def expiration_date_previously_was; end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(T.nilable(::Float)) }
     def expiration_date_was; end
 
     sig { void }
@@ -795,6 +803,9 @@ class Cookie
     def restore_secure!; end
 
     sig { void }
+    def restore_service!; end
+
+    sig { void }
     def restore_session!; end
 
     sig { void }
@@ -857,7 +868,7 @@ class Cookie
     sig { returns(T::Boolean) }
     def saved_change_to_domain?; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def saved_change_to_expiration_date; end
 
     sig { returns(T::Boolean) }
@@ -904,6 +915,12 @@ class Cookie
 
     sig { returns(T::Boolean) }
     def saved_change_to_secure?; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def saved_change_to_service; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_service?; end
 
     sig { returns(T.nilable([T::Boolean, T::Boolean])) }
     def saved_change_to_session; end
@@ -961,6 +978,51 @@ class Cookie
 
     sig { void }
     def secure_will_change!; end
+
+    sig { returns(T.untyped) }
+    def service; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def service=(value); end
+
+    sig { returns(T::Boolean) }
+    def service?; end
+
+    sig { returns(T.untyped) }
+    def service_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def service_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def service_came_from_user?; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def service_change; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def service_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def service_changed?; end
+
+    sig { returns(T.untyped) }
+    def service_in_database; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def service_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def service_previously_changed?; end
+
+    sig { returns(T.untyped) }
+    def service_previously_was; end
+
+    sig { returns(T.untyped) }
+    def service_was; end
+
+    sig { void }
+    def service_will_change!; end
 
     sig { returns(T::Boolean) }
     def session; end
@@ -1081,6 +1143,9 @@ class Cookie
 
     sig { returns(T::Boolean) }
     def will_save_change_to_secure?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_service?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_session?; end

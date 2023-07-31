@@ -3,9 +3,6 @@
 
 module Queries
   class SpotifyCredentials < BaseQuery
-    # == Configuration
-    description "Spotify OAuth credentials."
-
     # == Type
     type Types::OAuthCredentialsType, null: true
 

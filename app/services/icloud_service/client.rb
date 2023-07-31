@@ -47,13 +47,16 @@ class ICloudService
     # == Helpers
     sig { returns(T.untyped) }
     def build_pyclient
-      klass = PyCall.import_module("client").Client
+      klass = PyCall.import_module("icloud").Client
       klass.new(
         email: @credentials.email,
         password: @credentials.password,
-        cookie_directory: ICloudService.credentials_dir.to_s,
+        credentials_dir: ICloudService.credentials_dir.to_s,
       )
     end
+
+    sig { returns(Pathname) }
+    def credentials_dir = ICloudService.credentials_dir
 
     sig { void }
     def save_credentials
@@ -64,13 +67,13 @@ class ICloudService
 
     sig { void }
     def restore_credentials
-      FileUtils.mkdir_p(ICloudService.credentials_dir)
+      FileUtils.mkdir_p(credentials_dir)
       cookies, session = @credentials.cookies, @credentials.session
       if cookies.present? && session.present?
         File.write(cookies_filename, cookies)
         File.write(session_filename, session.to_json)
       else
-        FileUtils.remove_dir(ICloudService.credentials_dir)
+        FileUtils.rm_rf(Dir.glob("#{credentials_dir}/*"))
       end
     end
 
@@ -78,7 +81,7 @@ class ICloudService
     def cookies_filename
       @cookies_filename = T.let(@cookies_filename, T.nilable(String))
       @cookies_filename ||= File.join(
-        ICloudService.credentials_dir,
+        credentials_dir,
         @credentials.email.gsub(/[^0-9a-z]/i, ""),
       )
     end

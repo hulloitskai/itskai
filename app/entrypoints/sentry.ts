@@ -1,12 +1,8 @@
-import { omit, omitBy, isNil } from "lodash-es";
 import { init, setUser } from "@sentry/react";
 import type { BrowserOptions } from "@sentry/react";
 
 import { CaptureConsole as CaptureConsoleIntegration } from "@sentry/integrations";
 import { HttpClient as HttpClientIntegration } from "@sentry/integrations";
-
-import { resolve } from "~/helpers/utils";
-import { getMeta } from "~/helpers/meta";
 
 const dsn = getMeta("sentry-dsn");
 if (dsn) {

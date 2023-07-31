@@ -5,13 +5,13 @@ module Mutations
   class UpdateICloudCredentials < BaseMutation
     # == Payload
     class Payload < T::Struct
-      const :icloud_credentials, T.nilable(ICloudCredentials)
+      const :credentials, T.nilable(ICloudCredentials)
       const :errors, T.nilable(InputFieldErrors)
     end
 
     # == Fields
+    field :credentials, Types::ICloudCredentialsType
     field :errors, [Types::InputFieldErrorType]
-    field :icloud_credentials, Types::ICloudCredentialsType
 
     # == Arguments
     argument :email, String
@@ -24,8 +24,8 @@ module Mutations
                           ICloudCredentials)
       authorize!(credentials, to: :update?)
       if credentials.update(cookies: nil, session: nil, **attributes)
-        ICloudService.restart
-        Payload.new(icloud_credentials: credentials)
+        ICloudService.authenticate(credentials)
+        Payload.new(credentials:)
       else
         Payload.new(errors: credentials.input_field_errors)
       end

@@ -32,7 +32,7 @@ const createHttpLink = () => {
   return new HttpLink({ uri });
 };
 
-export const createSubscriptionsLink = (link: ApolloLink): ApolloLink => {
+const createSubscriptionsLink = (link: ApolloLink): ApolloLink => {
   const cableLink = new ActionCableLink({
     cable,
     channelName: "GraphQLChannel",

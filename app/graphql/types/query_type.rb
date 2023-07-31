@@ -25,11 +25,8 @@ module Types
     field :viewer, resolver: Queries::Viewer
 
     field :icloud_credentials, resolver: Queries::ICloudCredentials
+    field :instagram_credentials, resolver: Queries::InstagramCredentials
     field :spotify_credentials, resolver: Queries::SpotifyCredentials
-
-    field :obsidian_note, resolver: Queries::ObsidianNote
-    field :obsidian_note_by_name, resolver: Queries::ObsidianNoteByName
-    field :obsidian_notes, resolver: Queries::ObsidianNotes
 
     field :homepage_journal_entry, resolver: Queries::HomepageJournalEntry
     field :journal_entry_comments, resolver: Queries::JournalEntryComments

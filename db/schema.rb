@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_23_195312) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_30_183633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -50,13 +50,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_23_195312) do
     t.string "value", null: false
     t.boolean "session", null: false
     t.boolean "host_only", null: false
-    t.integer "expiration_date"
+    t.float "expiration_date"
     t.string "path", null: false
     t.boolean "http_only", null: false
     t.boolean "secure", null: false
     t.string "same_site", null: false
     t.datetime "created_at", null: false
-    t.index ["domain"], name: "index_cookies_on_domain"
+    t.string "service", null: false
+    t.index ["service"], name: "index_cookies_on_service"
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -143,7 +144,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_23_195312) do
     t.datetime "updated_at", null: false
     t.jsonb "session"
     t.string "email", null: false
-    t.index ["email"], name: "index_icloud_credentials_on_email", unique: true
+  end
+
+  create_table "instagram_credentials", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "username", null: false
+    t.string "password", null: false
+    t.jsonb "session"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "journal_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

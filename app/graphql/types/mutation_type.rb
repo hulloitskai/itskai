@@ -20,6 +20,11 @@ module Types
     field :verify_icloud_security_code,
           mutation: Mutations::VerifyICloudSecurityCode
 
+    field :remove_instagram_credentials,
+          mutation: Mutations::RemoveInstagramCredentials
+    field :update_instagram_credentials,
+          mutation: Mutations::UpdateInstagramCredentials
+
     field :add_journal_entry_comment,
           mutation: Mutations::AddJournalEntryComment
     field :sync_journal, mutation: Mutations::SyncJournal
@@ -29,6 +34,6 @@ module Types
           mutation: Mutations::RemoveSpotifyCredentials
     field :sync_location, mutation: Mutations::SyncLocation
 
-    # field :import_cookies, mutation: Mutations::ImportCookies
+    field :import_cookies, mutation: Mutations::ImportCookies
   end
 end

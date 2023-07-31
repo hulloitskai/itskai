@@ -40,7 +40,6 @@ class CurrentlyPlayingService < ApplicationService
   sig { override.void }
   def start
     super
-    return if disabled?
     @task.execute unless @task.running?
   end
 

@@ -13,10 +13,6 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-# Indexes
-#
-#  index_icloud_credentials_on_email  (email) UNIQUE
-#
 class ICloudCredentials < ApplicationRecord
   # == Configuration
   self.filter_attributes += %i[password cookies session]
@@ -32,13 +28,8 @@ class ICloudCredentials < ApplicationRecord
       value: T.nilable(T::Hash[String, T.untyped]),
     ).returns(T.nilable(T::Hash[String, T.untyped]))
   end
-  def setters=(value)
+  def session=(value)
     super
-  end
-
-  sig { returns(ActiveSupport::TimeWithZone) }
-  def updated_at!
-    updated_at or raise "Missing `updated_at' attribute"
   end
 
   # == Validations
@@ -47,9 +38,6 @@ class ICloudCredentials < ApplicationRecord
             length: {
               maximum: 100,
             },
-            email: true,
-            uniqueness: {
-              case_sensitive: false,
-            }
+            email: true
   validates :password, presence: true
 end

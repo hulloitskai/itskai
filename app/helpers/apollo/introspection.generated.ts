@@ -9,16 +9,11 @@
     "Node": [
       "ICloudCredentials",
       "Image",
+      "InstagramCredentials",
       "JournalEntry",
       "Location",
       "OAuthCredentials",
-      "ObsidianNote",
-      "ObsidianStub",
       "User"
-    ],
-    "ObsidianEntry": [
-      "ObsidianNote",
-      "ObsidianStub"
     ]
   }
 };

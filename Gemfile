@@ -177,6 +177,9 @@ gem "geocoder", "~> 1.8"
 # Parse HTML with Nokogiri
 gem "nokogiri", "~> 1.15"
 
+# Handle CORS requests
+gem "rack-cors", "~> 2.0"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"

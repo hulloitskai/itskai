@@ -5,7 +5,7 @@ module Types
   class CookieInputType < BaseInputObject
     # == Arguments
     argument :domain, String
-    argument :expiration_date, Integer, required: false
+    argument :expiration_date, Float, required: false
     argument :host_only, Boolean
     argument :http_only, Boolean
     argument :name, String

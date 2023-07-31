@@ -23,10 +23,22 @@ export type ImageFieldPolicy = {
 	signedId?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type ImportCookiesPayloadKeySpecifier = ('clientMutationId' | 'success' | ImportCookiesPayloadKeySpecifier)[];
+export type ImportCookiesPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type InputFieldErrorKeySpecifier = ('field' | 'message' | InputFieldErrorKeySpecifier)[];
 export type InputFieldErrorFieldPolicy = {
 	field?: FieldPolicy<any> | FieldReadFunction<any>,
 	message?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type InstagramCredentialsKeySpecifier = ('id' | 'password' | 'session' | 'username' | InstagramCredentialsKeySpecifier)[];
+export type InstagramCredentialsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	password?: FieldPolicy<any> | FieldReadFunction<any>,
+	session?: FieldPolicy<any> | FieldReadFunction<any>,
+	username?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type JournalEntryKeySpecifier = ('content' | 'id' | 'modifiedAt' | 'nextEntryId' | 'startedAt' | 'title' | 'url' | JournalEntryKeySpecifier)[];
 export type JournalEntryFieldPolicy = {
@@ -45,11 +57,13 @@ export type LocationFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'removeICloudCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'syncJournal' | 'syncLocation' | 'testMutation' | 'updateICloudCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'importCookies' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'syncJournal' | 'syncLocation' | 'testMutation' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
+	importCookies?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	removeInstagramCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeSpotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	requestUserEmailVerification?: FieldPolicy<any> | FieldReadFunction<any>,
 	requestUserPasswordReset?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -57,6 +71,7 @@ export type MutationFieldPolicy = {
 	syncLocation?: FieldPolicy<any> | FieldReadFunction<any>,
 	testMutation?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateInstagramCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateUserEmail?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateUserProfile?: FieldPolicy<any> | FieldReadFunction<any>,
 	verifyICloudSecurityCode?: FieldPolicy<any> | FieldReadFunction<any>
@@ -80,62 +95,7 @@ export type OAuthCredentialsFieldPolicy = {
 	refreshToken?: FieldPolicy<any> | FieldReadFunction<any>,
 	uid?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ObsidianEntryKeySpecifier = ('createdAt' | 'id' | 'name' | 'referencedBy' | 'title' | 'updatedAt' | ObsidianEntryKeySpecifier)[];
-export type ObsidianEntryFieldPolicy = {
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	name?: FieldPolicy<any> | FieldReadFunction<any>,
-	referencedBy?: FieldPolicy<any> | FieldReadFunction<any>,
-	title?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type ObsidianNoteKeySpecifier = ('aliases' | 'blurb' | 'content' | 'createdAt' | 'id' | 'isPublished' | 'modifiedAt' | 'name' | 'plainBlurb' | 'referencedBy' | 'references' | 'tags' | 'title' | 'updatedAt' | 'url' | ObsidianNoteKeySpecifier)[];
-export type ObsidianNoteFieldPolicy = {
-	aliases?: FieldPolicy<any> | FieldReadFunction<any>,
-	blurb?: FieldPolicy<any> | FieldReadFunction<any>,
-	content?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	isPublished?: FieldPolicy<any> | FieldReadFunction<any>,
-	modifiedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	name?: FieldPolicy<any> | FieldReadFunction<any>,
-	plainBlurb?: FieldPolicy<any> | FieldReadFunction<any>,
-	referencedBy?: FieldPolicy<any> | FieldReadFunction<any>,
-	references?: FieldPolicy<any> | FieldReadFunction<any>,
-	tags?: FieldPolicy<any> | FieldReadFunction<any>,
-	title?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	url?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type ObsidianNoteConnectionKeySpecifier = ('edges' | 'nodes' | 'pageInfo' | 'totalCount' | ObsidianNoteConnectionKeySpecifier)[];
-export type ObsidianNoteConnectionFieldPolicy = {
-	edges?: FieldPolicy<any> | FieldReadFunction<any>,
-	nodes?: FieldPolicy<any> | FieldReadFunction<any>,
-	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>,
-	totalCount?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type ObsidianNoteEdgeKeySpecifier = ('cursor' | 'node' | ObsidianNoteEdgeKeySpecifier)[];
-export type ObsidianNoteEdgeFieldPolicy = {
-	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
-	node?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type ObsidianStubKeySpecifier = ('createdAt' | 'id' | 'name' | 'referencedBy' | 'title' | 'updatedAt' | ObsidianStubKeySpecifier)[];
-export type ObsidianStubFieldPolicy = {
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	name?: FieldPolicy<any> | FieldReadFunction<any>,
-	referencedBy?: FieldPolicy<any> | FieldReadFunction<any>,
-	title?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type PageInfoKeySpecifier = ('endCursor' | 'hasNextPage' | 'hasPreviousPage' | 'startCursor' | PageInfoKeySpecifier)[];
-export type PageInfoFieldPolicy = {
-	endCursor?: FieldPolicy<any> | FieldReadFunction<any>,
-	hasNextPage?: FieldPolicy<any> | FieldReadFunction<any>,
-	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
-	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type QueryKeySpecifier = ('activityStatus' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'homepageJournalEntry' | 'icloudCredentials' | 'imageBySignedId' | 'journalEntryComments' | 'location' | 'obsidianNote' | 'obsidianNoteByName' | 'obsidianNotes' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('activityStatus' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'homepageJournalEntry' | 'icloudCredentials' | 'imageBySignedId' | 'instagramCredentials' | 'journalEntryComments' | 'location' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	bootedAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -144,11 +104,9 @@ export type QueryFieldPolicy = {
 	homepageJournalEntry?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	imageBySignedId?: FieldPolicy<any> | FieldReadFunction<any>,
+	instagramCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	journalEntryComments?: FieldPolicy<any> | FieldReadFunction<any>,
 	location?: FieldPolicy<any> | FieldReadFunction<any>,
-	obsidianNote?: FieldPolicy<any> | FieldReadFunction<any>,
-	obsidianNoteByName?: FieldPolicy<any> | FieldReadFunction<any>,
-	obsidianNotes?: FieldPolicy<any> | FieldReadFunction<any>,
 	passwordStrength?: FieldPolicy<any> | FieldReadFunction<any>,
 	resume?: FieldPolicy<any> | FieldReadFunction<any>,
 	spotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -159,6 +117,11 @@ export type QueryFieldPolicy = {
 };
 export type RemoveICloudCredentialsPayloadKeySpecifier = ('clientMutationId' | 'success' | RemoveICloudCredentialsPayloadKeySpecifier)[];
 export type RemoveICloudCredentialsPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type RemoveInstagramCredentialsPayloadKeySpecifier = ('clientMutationId' | 'success' | RemoveInstagramCredentialsPayloadKeySpecifier)[];
+export type RemoveInstagramCredentialsPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -247,11 +210,18 @@ export type TimezoneFieldPolicy = {
 	offset?: FieldPolicy<any> | FieldReadFunction<any>,
 	offsetMinutes?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UpdateICloudCredentialsPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'icloudCredentials' | 'success' | UpdateICloudCredentialsPayloadKeySpecifier)[];
+export type UpdateICloudCredentialsPayloadKeySpecifier = ('clientMutationId' | 'credentials' | 'errors' | 'success' | UpdateICloudCredentialsPayloadKeySpecifier)[];
 export type UpdateICloudCredentialsPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	credentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	errors?: FieldPolicy<any> | FieldReadFunction<any>,
-	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type UpdateInstagramCredentialsPayloadKeySpecifier = ('clientMutationId' | 'credentials' | 'errors' | 'success' | UpdateInstagramCredentialsPayloadKeySpecifier)[];
+export type UpdateInstagramCredentialsPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	credentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	errors?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type UpdateUserEmailPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'success' | 'user' | UpdateUserEmailPayloadKeySpecifier)[];
@@ -277,10 +247,10 @@ export type UserFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	unverifiedEmail?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type VerifyICloudSecurityCodePayloadKeySpecifier = ('clientMutationId' | 'icloudCredentials' | 'success' | VerifyICloudSecurityCodePayloadKeySpecifier)[];
+export type VerifyICloudSecurityCodePayloadKeySpecifier = ('clientMutationId' | 'credentials' | 'success' | VerifyICloudSecurityCodePayloadKeySpecifier)[];
 export type VerifyICloudSecurityCodePayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	credentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type StrictTypedTypePolicies = {
@@ -300,9 +270,17 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | ImageKeySpecifier | (() => undefined | ImageKeySpecifier),
 		fields?: ImageFieldPolicy,
 	},
+	ImportCookiesPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ImportCookiesPayloadKeySpecifier | (() => undefined | ImportCookiesPayloadKeySpecifier),
+		fields?: ImportCookiesPayloadFieldPolicy,
+	},
 	InputFieldError?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | InputFieldErrorKeySpecifier | (() => undefined | InputFieldErrorKeySpecifier),
 		fields?: InputFieldErrorFieldPolicy,
+	},
+	InstagramCredentials?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | InstagramCredentialsKeySpecifier | (() => undefined | InstagramCredentialsKeySpecifier),
+		fields?: InstagramCredentialsFieldPolicy,
 	},
 	JournalEntry?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | JournalEntryKeySpecifier | (() => undefined | JournalEntryKeySpecifier),
@@ -328,30 +306,6 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | OAuthCredentialsKeySpecifier | (() => undefined | OAuthCredentialsKeySpecifier),
 		fields?: OAuthCredentialsFieldPolicy,
 	},
-	ObsidianEntry?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ObsidianEntryKeySpecifier | (() => undefined | ObsidianEntryKeySpecifier),
-		fields?: ObsidianEntryFieldPolicy,
-	},
-	ObsidianNote?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ObsidianNoteKeySpecifier | (() => undefined | ObsidianNoteKeySpecifier),
-		fields?: ObsidianNoteFieldPolicy,
-	},
-	ObsidianNoteConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ObsidianNoteConnectionKeySpecifier | (() => undefined | ObsidianNoteConnectionKeySpecifier),
-		fields?: ObsidianNoteConnectionFieldPolicy,
-	},
-	ObsidianNoteEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ObsidianNoteEdgeKeySpecifier | (() => undefined | ObsidianNoteEdgeKeySpecifier),
-		fields?: ObsidianNoteEdgeFieldPolicy,
-	},
-	ObsidianStub?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ObsidianStubKeySpecifier | (() => undefined | ObsidianStubKeySpecifier),
-		fields?: ObsidianStubFieldPolicy,
-	},
-	PageInfo?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | PageInfoKeySpecifier | (() => undefined | PageInfoKeySpecifier),
-		fields?: PageInfoFieldPolicy,
-	},
 	Query?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier),
 		fields?: QueryFieldPolicy,
@@ -359,6 +313,10 @@ export type StrictTypedTypePolicies = {
 	RemoveICloudCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | RemoveICloudCredentialsPayloadKeySpecifier | (() => undefined | RemoveICloudCredentialsPayloadKeySpecifier),
 		fields?: RemoveICloudCredentialsPayloadFieldPolicy,
+	},
+	RemoveInstagramCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | RemoveInstagramCredentialsPayloadKeySpecifier | (() => undefined | RemoveInstagramCredentialsPayloadKeySpecifier),
+		fields?: RemoveInstagramCredentialsPayloadFieldPolicy,
 	},
 	RemoveSpotifyCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | RemoveSpotifyCredentialsPayloadKeySpecifier | (() => undefined | RemoveSpotifyCredentialsPayloadKeySpecifier),
@@ -419,6 +377,10 @@ export type StrictTypedTypePolicies = {
 	UpdateICloudCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | UpdateICloudCredentialsPayloadKeySpecifier | (() => undefined | UpdateICloudCredentialsPayloadKeySpecifier),
 		fields?: UpdateICloudCredentialsPayloadFieldPolicy,
+	},
+	UpdateInstagramCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | UpdateInstagramCredentialsPayloadKeySpecifier | (() => undefined | UpdateInstagramCredentialsPayloadKeySpecifier),
+		fields?: UpdateInstagramCredentialsPayloadFieldPolicy,
 	},
 	UpdateUserEmailPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | UpdateUserEmailPayloadKeySpecifier | (() => undefined | UpdateUserEmailPayloadKeySpecifier),

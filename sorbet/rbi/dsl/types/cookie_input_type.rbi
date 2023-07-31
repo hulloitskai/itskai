@@ -8,7 +8,7 @@ class Types::CookieInputType
   sig { returns(::String) }
   def domain; end
 
-  sig { returns(T.nilable(::Integer)) }
+  sig { returns(T.nilable(::Float)) }
   def expiration_date; end
 
   sig { returns(T::Boolean) }

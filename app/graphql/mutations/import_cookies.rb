@@ -10,16 +10,21 @@ module Mutations
 
     # == Arguments
     argument :cookies, [Types::CookieInputType]
+    argument :service, String, required: true
 
     # == Resolver
-    sig { override.params(cookies: T::Array[Cookie]).returns(Payload) }
-    def resolve(cookies:)
-      domains = cookies.map(&:domain).uniq
-      if domains.present?
-        Cookie.destroy_by(domain: domains)
-      end
+    sig do
+      override
+        .params(service: String, cookies: T::Array[Cookie])
+        .returns(Payload)
+    end
+    def resolve(service:, cookies:)
       ActiveRecord::Base.transaction do
-        cookies.each(&:save!)
+        Cookie.destroy_by(service:)
+        cookies.each do |cookie|
+          cookie.service = service
+          cookie.save!
+        end
       end
       Payload.new(cookies:)
     end

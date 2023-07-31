@@ -356,6 +356,8 @@ GEM
     raabro (1.4.0)
     racc (1.7.1)
     rack (2.2.7)
+    rack-cors (2.0.1)
+      rack (>= 2.0.0)
     rack-protection (3.0.6)
       rack
     rack-proxy (0.7.6)
@@ -630,6 +632,7 @@ DEPENDENCIES
   psych (~> 4.0)
   puma (~> 6.3.0)
   pycall (~> 1.4)
+  rack-cors (~> 2.0)
   rails (~> 7.0.6)
   rails-healthcheck
   rerun (~> 0.14.0)

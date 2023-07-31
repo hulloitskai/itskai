@@ -54,9 +54,6 @@ export const APP_THEME: MantineThemeOverride = {
           ...(sizes.h3 as CSSObject),
           ...(style as CSSObject),
         },
-        content: {
-          maxHeight: `calc(100dvh - (5dvh * 2))`,
-        },
       }),
     },
   },

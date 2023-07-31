@@ -5,11 +5,11 @@ module Mutations
   class VerifyICloudSecurityCode < BaseMutation
     # == Payload
     class Payload < T::Struct
-      const :icloud_credentials, ICloudCredentials
+      const :credentials, ICloudCredentials
     end
 
     # == Fields
-    field :icloud_credentials, Types::ICloudCredentialsType, null: false
+    field :credentials, Types::ICloudCredentialsType, null: false
 
     # == Arguments
     argument :code, String
@@ -23,7 +23,7 @@ module Mutations
       unless ICloudService.verify_security_code(code)
         raise GraphQL::ExecutionError, "Invalid security code."
       end
-      Payload.new(icloud_credentials: credentials)
+      Payload.new(credentials:)
     end
   end
 end

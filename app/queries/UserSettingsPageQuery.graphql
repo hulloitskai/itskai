@@ -3,6 +3,10 @@ query UserSettingsPageQuery {
     id
     ...UserSettingsPageICloudCredentialsFragment
   }
+  instagramCredentials {
+    id
+    ...UserSettingsPageInstagramCredentialsFragment
+  }
   spotifyCredentials {
     id
     ...UserSettingsPageOAuthCredentialsFragment

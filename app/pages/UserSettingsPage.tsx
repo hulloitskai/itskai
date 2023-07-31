@@ -3,17 +3,18 @@ import { Text } from "@mantine/core";
 
 import type { UserSettingsPageQuery } from "~/helpers/graphql";
 
-import UserSettingsPageProfileForm from "~/components/UserSettingsPageProfileForm";
 import UserSettingsPageEmailForm from "~/components/UserSettingsPageEmailForm";
 import UserSettingsPagePasswordForm from "~/components/UserSettingsPagePasswordForm";
+import UserSettingsPageProfileForm from "~/components/UserSettingsPageProfileForm";
 import UserSettingsPageICloudCredentialsForm from "~/components/UserSettingsPageICloudCredentialsForm";
+import UserSettingsPageInstagramCredentialsForm from "~/components/UserSettingsPageInstagramCredentialsForm";
 import UserSettingsPageSpotifyCredentialsForm from "~/components/UserSettingsPageSpotifyCredentialsForm";
 import UserSettingsPageSyncActions from "~/components/UserSettingsPageSyncActions";
 
 export type UserSettingsPageProps = PagePropsWithData<UserSettingsPageQuery>;
 
 const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
-  data: { viewer, icloudCredentials, spotifyCredentials },
+  data: { viewer, icloudCredentials, instagramCredentials, spotifyCredentials },
 }) => {
   invariant(viewer, "Missing viewer");
   const { isOwner } = viewer;
@@ -66,11 +67,26 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
                   iCloud
                 </Title>
                 <Text size="sm" color="dimmed" lh={1.3}>
-                  Authenticate with iCloud to enable knowledge graph services.
+                  Authenticate with iCloud to enable location services.
                 </Text>
               </Stack>
               <UserSettingsPageICloudCredentialsForm
-                {...{ icloudCredentials }}
+                credentials={icloudCredentials}
+              />
+            </Stack>
+          </Card>
+          <Card radius="md" withBorder>
+            <Stack spacing="xs">
+              <Stack align="center" spacing={0}>
+                <Title order={2} size="h4">
+                  Instagram
+                </Title>
+                <Text size="sm" color="dimmed" lh={1.3}>
+                  Authenticate with Instagram to enable note updates.
+                </Text>
+              </Stack>
+              <UserSettingsPageInstagramCredentialsForm
+                credentials={instagramCredentials}
               />
             </Stack>
           </Card>
@@ -81,11 +97,11 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
                   Spotify
                 </Title>
                 <Text size="sm" color="dimmed" lh={1.3}>
-                  Authorize Spotify to enable music services.
+                  Authenticate with Spotify to enable music services.
                 </Text>
               </Stack>
               <UserSettingsPageSpotifyCredentialsForm
-                {...{ spotifyCredentials }}
+                credentials={spotifyCredentials}
               />
             </Stack>
           </Card>

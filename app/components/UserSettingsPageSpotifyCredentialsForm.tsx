@@ -7,12 +7,12 @@ import type { Maybe } from "~/helpers/graphql";
 import FormAuthenticityField from "./FormAuthenticityField";
 
 export type UserSettingsPageSpotifyCredentialsFormProps = {
-  readonly spotifyCredentials: Maybe<UserSettingsPageOAuthCredentialsFragment>;
+  readonly credentials: Maybe<UserSettingsPageOAuthCredentialsFragment>;
 };
 
 const UserSettingsPageSpotifyCredentialsForm: FC<
   UserSettingsPageSpotifyCredentialsFormProps
-> = ({ spotifyCredentials }) => {
+> = ({ credentials }) => {
   const router = useRouter();
 
   // == Remove Mutation
@@ -39,9 +39,9 @@ const UserSettingsPageSpotifyCredentialsForm: FC<
   // == Markup
   return (
     <Stack spacing="xs">
-      {spotifyCredentials &&
+      {credentials &&
         resolve(() => {
-          const { uid, accessToken, refreshToken } = spotifyCredentials;
+          const { uid, accessToken, refreshToken } = credentials;
           return (
             <>
               <TextInput label="UID (read-only)" value={uid} readOnly />
@@ -66,10 +66,10 @@ const UserSettingsPageSpotifyCredentialsForm: FC<
         <form action="/user/auth/spotify" method="post">
           <FormAuthenticityField />
           <Button type="submit" fullWidth>
-            Authorize
+            Authenciate
           </Button>
         </form>
-        {spotifyCredentials && (
+        {credentials && (
           <Menu withinPortal>
             <Menu.Target>
               <Button variant="outline" color="red" loading={removing}>

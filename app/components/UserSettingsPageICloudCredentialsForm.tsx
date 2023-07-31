@@ -15,13 +15,13 @@ export type UserSettingsPageICloudCredentialsFormValues = {
 };
 
 export type UserSettingsPageICloudCredentialsFormProps = {
-  readonly icloudCredentials: Maybe<UserSettingsPageICloudCredentialsFragment>;
+  readonly credentials: Maybe<UserSettingsPageICloudCredentialsFragment>;
 };
 
 const UserSettingsPageICloudCredentialsForm: FC<
   UserSettingsPageICloudCredentialsFormProps
-> = ({ icloudCredentials }) => {
-  const { cookies, session } = icloudCredentials || {};
+> = ({ credentials }) => {
+  const { cookies, session } = credentials ?? {};
   const router = useRouter();
 
   // == Callbacks
@@ -46,14 +46,14 @@ const UserSettingsPageICloudCredentialsForm: FC<
   }, []);
 
   // == Form
-  const initialValues = useMemo<UserSettingsPageICloudCredentialsFormValues>(
-    () => ({
-      email: "",
-      password: "",
-      ...pick(icloudCredentials, "email", "password"),
-    }),
-    [icloudCredentials],
-  );
+  const initialValues =
+    useMemo<UserSettingsPageICloudCredentialsFormValues>(() => {
+      const { email, password } = credentials ?? {};
+      return {
+        email: email ?? "",
+        password: password ?? "",
+      };
+    }, [credentials]);
   const { getInputProps, setValues, setErrors, resetDirty, onSubmit } =
     useForm<UserSettingsPageICloudCredentialsFormValues>({
       initialValues: initialValues,
@@ -70,8 +70,8 @@ const UserSettingsPageICloudCredentialsForm: FC<
   const [runUpdateMutation, { loading: updating }] = useMutation(
     UpdateICloudCredentialsMutationDocument,
     {
-      onCompleted: ({ payload: { icloudCredentials, errors } }) => {
-        if (icloudCredentials) {
+      onCompleted: ({ payload: { credentials, errors } }) => {
+        if (credentials) {
           router.reload({
             preserveScroll: true,
             onSuccess: () => {
@@ -130,7 +130,11 @@ const UserSettingsPageICloudCredentialsForm: FC<
   return (
     <form
       onSubmit={onSubmit(values => {
-        runUpdateMutation({ variables: { input: { ...values } } });
+        runUpdateMutation({
+          variables: {
+            input: values,
+          },
+        });
       })}
     >
       <Stack spacing="xs">
@@ -150,7 +154,7 @@ const UserSettingsPageICloudCredentialsForm: FC<
           <Button type="submit" loading={updating}>
             Authenticate
           </Button>
-          {icloudCredentials && (
+          {credentials && (
             <>
               <Group spacing={6} grow>
                 <Button variant="default" onClick={openVerifySecurityCodeModal}>
@@ -176,7 +180,7 @@ const UserSettingsPageICloudCredentialsForm: FC<
                         ),
                         children: (
                           <SessionInformationModalContent
-                            icloudCredentials={icloudCredentials}
+                            {...{ credentials }}
                           />
                         ),
                       });
@@ -236,7 +240,11 @@ const VerifySecurityCodeModalContent: FC = () => {
   return (
     <form
       onSubmit={onSubmit(values => {
-        runMutation({ variables: { input: { ...values } } });
+        runMutation({
+          variables: {
+            input: values,
+          },
+        });
       })}
     >
       <Stack spacing="xs">
@@ -255,12 +263,12 @@ const VerifySecurityCodeModalContent: FC = () => {
 };
 
 type SessionInformationModalContentProps = {
-  readonly icloudCredentials: UserSettingsPageICloudCredentialsFragment;
+  readonly credentials: UserSettingsPageICloudCredentialsFragment;
 };
 
 const SessionInformationModalContent: FC<
   SessionInformationModalContentProps
-> = ({ icloudCredentials: { cookies, session } }) => {
+> = ({ credentials: { cookies, session } }) => {
   const inputProps = useMemo(
     () => ({ maxRows: 6, autosize: true, readOnly: true }),
     [],
