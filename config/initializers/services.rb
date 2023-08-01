@@ -13,6 +13,7 @@ Rails.application.configure do
       ResumeService.start
       LocationService.start
       TelnyxService.start
+      AnnouncementsService.start
       if Rails.server?
         CurrentlyPlayingService.start
         ScottbotService.start
@@ -25,6 +26,7 @@ Rails.application.configure do
         ScottbotService.stop
         CurrentlyPlayingService.stop
       end
+      AnnouncementsService.stop
       TelnyxService.stop
       LocationService.stop
       ActionItemsService.stop
@@ -40,8 +42,10 @@ Rails.application.configure do
   if Rails.test?
     reloader.to_prepare do
       ActivityService.start
+      AnnouncementsService.start
     end
     reloader.before_class_unload do
+      AnnouncementsService.stop
       ActivityService.stop
     end
   end

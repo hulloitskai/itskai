@@ -1,4 +1,5 @@
 query HomePageQuery($entryId: ID) {
+  announcement
   entry: homepageJournalEntry(id: $entryId) {
     ...HomePageJournalEntryEntryFragment
     id

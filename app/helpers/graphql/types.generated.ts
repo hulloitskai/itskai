@@ -247,6 +247,7 @@ export type OAuthCredentials = Node & {
 export type Query = {
   __typename?: 'Query';
   activityStatus?: Maybe<Scalars['String']['output']>;
+  announcement?: Maybe<Scalars['String']['output']>;
   /** When the server was booted. */
   bootedAt: Scalars['DateTime']['output'];
   /** Kai's contact email. */

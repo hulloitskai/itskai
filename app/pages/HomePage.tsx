@@ -1,6 +1,7 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { format as formatTimeAgo } from "timeago.js";
 import { Text } from "@mantine/core";
+import BellIcon from "~icons/heroicons/bell-20-solid";
 import LocationIcon from "~icons/heroicons/map-pin-20-solid";
 
 import type { HomePageQuery } from "~/helpers/graphql";
@@ -11,10 +12,11 @@ import HomePageJournalEntry from "~/components/HomePageJournalEntry";
 export type HomePageProps = PagePropsWithData<HomePageQuery>;
 
 const HomePage: PageComponent<HomePageProps> = ({
-  data: { entry, location },
+  data: { announcement, entry, location },
 }) => (
   <Stack spacing="xs">
     <Space h="xs" />
+    {!!announcement && <Alert icon={<BellIcon />}>{announcement}</Alert>}
     <Center h={275}>
       <Stack align="center">
         <Title color="white">hi, it&apos;s kai</Title>
