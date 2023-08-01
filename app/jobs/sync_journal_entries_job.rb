@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class SyncJournalJob < ApplicationJob
+class SyncJournalEntriesJob < ApplicationJob
   # == Configuration
   good_job_control_concurrency_with key: name, total_limit: 1
 
@@ -11,7 +11,7 @@ class SyncJournalJob < ApplicationJob
   # == Job
   sig { void }
   def perform
-    JournalService.sync
+    JournalEntriesService.sync
   end
 
   private
@@ -19,8 +19,8 @@ class SyncJournalJob < ApplicationJob
   # == Callback handlers
   sig { params(block: T.proc.void).void }
   def with_activity_logging(&block)
-    ActivityService.update_status("Syncing journal")
+    ActivityService.update_status("Syncing journal entries")
     yield
-    ActivityService.update_status("Journal synced")
+    ActivityService.update_status("Journal entries synced")
   end
 end

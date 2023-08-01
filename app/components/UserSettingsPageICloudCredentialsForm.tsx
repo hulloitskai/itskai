@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { JsonInput, PasswordInput, Text } from "@mantine/core";
+import { JsonInput, MantineProvider, PasswordInput, Text } from "@mantine/core";
 
 import {
   RemoveICloudCredentialsMutationDocument,
@@ -269,22 +269,30 @@ type SessionInformationModalContentProps = {
 const SessionInformationModalContent: FC<
   SessionInformationModalContentProps
 > = ({ credentials: { cookies, session } }) => {
-  const inputProps = useMemo(
-    () => ({ maxRows: 6, autosize: true, readOnly: true }),
-    [],
-  );
   return (
-    <Stack spacing="xs">
-      {!!cookies && (
-        <Textarea label="Cookies" value={cookies} {...inputProps} />
-      )}
-      {!!session && (
-        <JsonInput
-          label="Session"
-          value={JSON.stringify(session, undefined, 2)}
-          {...inputProps}
-        />
-      )}
-    </Stack>
+    <MantineProvider
+      inherit
+      theme={{
+        components: {
+          Textarea: {
+            defaultProps: {
+              maxRows: 12,
+              autosize: true,
+              readOnly: true,
+            },
+          },
+        },
+      }}
+    >
+      <Stack spacing="xs">
+        {!!cookies && <Textarea label="Cookies" value={cookies} />}
+        {!!session && (
+          <JsonInput
+            label="Session"
+            value={JSON.stringify(session, undefined, 2)}
+          />
+        )}
+      </Stack>
+    </MantineProvider>
   );
 };

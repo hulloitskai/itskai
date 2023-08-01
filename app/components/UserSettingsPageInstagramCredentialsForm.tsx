@@ -230,20 +230,16 @@ type SessionInformationModalContentProps = {
 
 const SessionInformationModalContent: FC<
   SessionInformationModalContentProps
-> = ({ credentials: { session } }) => {
-  const inputProps = useMemo(
-    () => ({ maxRows: 6, autosize: true, readOnly: true }),
-    [],
-  );
-  return (
-    <Stack spacing="xs">
-      {!!session && (
-        <JsonInput
-          label="Session"
-          value={JSON.stringify(session, undefined, 2)}
-          {...inputProps}
-        />
-      )}
-    </Stack>
-  );
-};
+> = ({ credentials: { session } }) => (
+  <Stack spacing="xs">
+    {!!session && (
+      <JsonInput
+        label="Session"
+        value={JSON.stringify(session, undefined, 2)}
+        maxRows={12}
+        autosize
+        readOnly
+      />
+    )}
+  </Stack>
+);

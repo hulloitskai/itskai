@@ -1,4 +1,8 @@
 query UserSettingsPageQuery {
+  googleCredentials {
+    id
+    ...UserSettingsPageOAuthCredentialsFragment
+  }
   icloudCredentials {
     id
     ...UserSettingsPageICloudCredentialsFragment

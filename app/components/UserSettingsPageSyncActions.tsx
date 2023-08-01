@@ -1,7 +1,7 @@
 import type { FC } from "react";
 
 import {
-  SyncJournalMutationDocument,
+  SyncJournalEntriesMutationDocument,
   SyncLocationMutationDocument,
 } from "~/helpers/graphql";
 
@@ -51,14 +51,17 @@ const SyncLocationButton: FC = () => {
 const SyncJournalButton: FC = () => {
   // == Mutation
   const onError = useApolloAlertCallback("Failed to sync journal");
-  const [runMutation, { loading }] = useMutation(SyncJournalMutationDocument, {
-    onCompleted: () => {
-      showNotice({
-        message: "Journal synced successfully.",
-      });
+  const [runMutation, { loading }] = useMutation(
+    SyncJournalEntriesMutationDocument,
+    {
+      onCompleted: () => {
+        showNotice({
+          message: "Journal entries synced successfully.",
+        });
+      },
+      onError,
     },
-    onError,
-  });
+  );
 
   // == Markup
   return (
@@ -73,7 +76,7 @@ const SyncJournalButton: FC = () => {
       }}
       {...{ loading }}
     >
-      Sync Journal
+      Sync Journal Entries
     </Button>
   );
 };

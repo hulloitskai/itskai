@@ -90,14 +90,13 @@ class LocationLog < ApplicationRecord
   end
 
   # == Geocoding
-  sig { void }
-  def reverse_geocode_and_save!
-    reverse_geocode.tap { save! }
-  end
-
-  # == Helpers
   sig { returns(RGeo::Geographic::Factory) }
   def self.coordinates_factory
     RGeo::Geographic.spherical_factory(srid: 4326, has_z_coordinate: true)
+  end
+
+  sig { void }
+  def reverse_geocode_and_save!
+    reverse_geocode.tap { save! }
   end
 end

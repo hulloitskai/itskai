@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class JournalService < ApplicationService
+class JournalEntriesService < ApplicationService
   class << self
     # == Lifecycle
     sig { override.returns(T::Boolean) }
@@ -25,7 +25,7 @@ class JournalService < ApplicationService
 
     sig { void }
     def sync_later
-      SyncJournalJob.perform_later
+      SyncJournalEntriesJob.perform_later
     end
 
     # == Methods

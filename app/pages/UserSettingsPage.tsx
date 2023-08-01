@@ -8,13 +8,20 @@ import UserSettingsPagePasswordForm from "~/components/UserSettingsPagePasswordF
 import UserSettingsPageProfileForm from "~/components/UserSettingsPageProfileForm";
 import UserSettingsPageICloudCredentialsForm from "~/components/UserSettingsPageICloudCredentialsForm";
 import UserSettingsPageInstagramCredentialsForm from "~/components/UserSettingsPageInstagramCredentialsForm";
+import UserSettingsPageGoogleCredentialsForm from "~/components/UserSettingsPageGoogleCredentialsForm";
 import UserSettingsPageSpotifyCredentialsForm from "~/components/UserSettingsPageSpotifyCredentialsForm";
 import UserSettingsPageSyncActions from "~/components/UserSettingsPageSyncActions";
 
 export type UserSettingsPageProps = PagePropsWithData<UserSettingsPageQuery>;
 
 const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
-  data: { viewer, icloudCredentials, instagramCredentials, spotifyCredentials },
+  data: {
+    viewer,
+    icloudCredentials,
+    instagramCredentials,
+    googleCredentials,
+    spotifyCredentials,
+  },
 }) => {
   invariant(viewer, "Missing viewer");
   const { isOwner } = viewer;
@@ -87,6 +94,22 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
               </Stack>
               <UserSettingsPageInstagramCredentialsForm
                 credentials={instagramCredentials}
+              />
+            </Stack>
+          </Card>
+          <Card radius="md" withBorder>
+            <Stack spacing="xs">
+              <Stack align="center" spacing={0}>
+                <Title order={2} size="h4">
+                  Google
+                </Title>
+                <Text size="sm" color="dimmed" lh={1.3}>
+                  Authenticate with Google to enable calendar availability
+                  services.
+                </Text>
+              </Stack>
+              <UserSettingsPageGoogleCredentialsForm
+                credentials={googleCredentials}
               />
             </Stack>
           </Card>

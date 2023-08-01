@@ -23,7 +23,7 @@ class OAuthCredentials < ApplicationRecord
   validates :provider, presence: true, uniqueness: true
   validates :uid, presence: true, uniqueness: true
 
-  # == Spotify: Finders
+  # == Finders
   sig { returns(T.nilable(OAuthCredentials)) }
   def self.spotify = find_by(provider: :spotify)
 
@@ -31,5 +31,14 @@ class OAuthCredentials < ApplicationRecord
   def self.spotify!
     spotify or
       raise ActiveRecord::RecordNotFound, "Spotify credentials not found"
+  end
+
+  sig { returns(T.nilable(OAuthCredentials)) }
+  def self.google = find_by(provider: :google)
+
+  sig { returns(OAuthCredentials) }
+  def self.google!
+    google or
+      raise ActiveRecord::RecordNotFound, "Google credentials not found"
   end
 end

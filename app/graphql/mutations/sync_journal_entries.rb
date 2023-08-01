@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Mutations
-  class SyncJournal < BaseMutation
+  class SyncJournalEntries < BaseMutation
     # == Payload
     class Payload < T::Struct; end
 
@@ -10,7 +10,7 @@ module Mutations
     sig { override.returns(Payload) }
     def resolve
       authorize!(to: :sync?, with: JournalPolicy)
-      JournalService.sync
+      JournalEntriesService.sync
       Payload.new
     end
   end

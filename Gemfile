@@ -146,6 +146,7 @@ gem "strong_password", "~> 0.0.10"
 gem "omniauth", "~> 2.1"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem "omniauth-spotify", "~> 0.0.13"
+gem "omniauth-google-oauth2", "~> 1.1"
 
 # Use RSpotify to read currently playing data from Spotify
 gem "rspotify", "~> 2.11"
@@ -179,6 +180,9 @@ gem "nokogiri", "~> 1.15"
 
 # Handle CORS requests
 gem "rack-cors", "~> 2.0"
+
+# Load events from Google Calendar
+gem "google_calendar", "~> 0.6.4"
 
 group :development, :test do
   # Auto-detect and warn about N+1 queries

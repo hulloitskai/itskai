@@ -24,6 +24,7 @@ module Types
     field :user, resolver: Queries::User
     field :viewer, resolver: Queries::Viewer
 
+    field :google_credentials, resolver: Queries::GoogleCredentials
     field :icloud_credentials, resolver: Queries::ICloudCredentials
     field :instagram_credentials, resolver: Queries::InstagramCredentials
     field :spotify_credentials, resolver: Queries::SpotifyCredentials

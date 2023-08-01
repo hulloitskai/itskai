@@ -1,5 +1,0 @@
-mutation SyncJournalMutation($input: SyncJournalInput!) {
-  payload: syncJournal(input: $input) {
-    success
-  }
-}

@@ -12,7 +12,7 @@ module Queries
     # == Resolver
     sig { params(entry: JournalEntry).returns(T.untyped) }
     def resolve(entry:)
-      JournalService.list_comments(entry.notion_page_id)
+      JournalEntriesService.list_comments(entry.notion_page_id)
     end
   end
 end

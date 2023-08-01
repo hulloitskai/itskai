@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class JournalService
+class JournalEntriesService
   class Redactor
     extend T::Sig
 

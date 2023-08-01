@@ -25,15 +25,18 @@ module Types
     field :update_instagram_credentials,
           mutation: Mutations::UpdateInstagramCredentials
 
-    field :add_journal_entry_comment,
-          mutation: Mutations::AddJournalEntryComment
-    field :sync_journal, mutation: Mutations::SyncJournal
-
-    field :activate_scottkit_signal, mutation: Mutations::ActivateScottkitSignal
+    field :remove_google_credentials,
+          mutation: Mutations::RemoveGoogleCredentials
     field :remove_spotify_credentials,
           mutation: Mutations::RemoveSpotifyCredentials
+
+    field :add_journal_entry_comment,
+          mutation: Mutations::AddJournalEntryComment
+    field :sync_journal_entries, mutation: Mutations::SyncJournalEntries
+
+    field :activate_scottkit_signal, mutation: Mutations::ActivateScottkitSignal
     field :sync_location, mutation: Mutations::SyncLocation
 
-    field :import_cookies, mutation: Mutations::ImportCookies
+    # field :import_cookies, mutation: Mutations::ImportCookies
   end
 end

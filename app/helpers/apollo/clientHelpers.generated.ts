@@ -23,11 +23,6 @@ export type ImageFieldPolicy = {
 	signedId?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ImportCookiesPayloadKeySpecifier = ('clientMutationId' | 'success' | ImportCookiesPayloadKeySpecifier)[];
-export type ImportCookiesPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
 export type InputFieldErrorKeySpecifier = ('field' | 'message' | InputFieldErrorKeySpecifier)[];
 export type InputFieldErrorFieldPolicy = {
 	field?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -57,17 +52,17 @@ export type LocationFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'importCookies' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'syncJournal' | 'syncLocation' | 'testMutation' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'syncJournalEntries' | 'syncLocation' | 'testMutation' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
-	importCookies?: FieldPolicy<any> | FieldReadFunction<any>,
+	removeGoogleCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeInstagramCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeSpotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	requestUserEmailVerification?: FieldPolicy<any> | FieldReadFunction<any>,
 	requestUserPasswordReset?: FieldPolicy<any> | FieldReadFunction<any>,
-	syncJournal?: FieldPolicy<any> | FieldReadFunction<any>,
+	syncJournalEntries?: FieldPolicy<any> | FieldReadFunction<any>,
 	syncLocation?: FieldPolicy<any> | FieldReadFunction<any>,
 	testMutation?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -95,12 +90,13 @@ export type OAuthCredentialsFieldPolicy = {
 	refreshToken?: FieldPolicy<any> | FieldReadFunction<any>,
 	uid?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('activityStatus' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'homepageJournalEntry' | 'icloudCredentials' | 'imageBySignedId' | 'instagramCredentials' | 'journalEntryComments' | 'location' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('activityStatus' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'googleCredentials' | 'homepageJournalEntry' | 'icloudCredentials' | 'imageBySignedId' | 'instagramCredentials' | 'journalEntryComments' | 'location' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	bootedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	contactEmail?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
+	googleCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	homepageJournalEntry?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	imageBySignedId?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -114,6 +110,11 @@ export type QueryFieldPolicy = {
 	timezone?: FieldPolicy<any> | FieldReadFunction<any>,
 	user?: FieldPolicy<any> | FieldReadFunction<any>,
 	viewer?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type RemoveGoogleCredentialsPayloadKeySpecifier = ('clientMutationId' | 'success' | RemoveGoogleCredentialsPayloadKeySpecifier)[];
+export type RemoveGoogleCredentialsPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type RemoveICloudCredentialsPayloadKeySpecifier = ('clientMutationId' | 'success' | RemoveICloudCredentialsPayloadKeySpecifier)[];
 export type RemoveICloudCredentialsPayloadFieldPolicy = {
@@ -180,8 +181,8 @@ export type SubscriptionFieldPolicy = {
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
 	testSubscription?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type SyncJournalPayloadKeySpecifier = ('clientMutationId' | 'success' | SyncJournalPayloadKeySpecifier)[];
-export type SyncJournalPayloadFieldPolicy = {
+export type SyncJournalEntriesPayloadKeySpecifier = ('clientMutationId' | 'success' | SyncJournalEntriesPayloadKeySpecifier)[];
+export type SyncJournalEntriesPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -270,10 +271,6 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | ImageKeySpecifier | (() => undefined | ImageKeySpecifier),
 		fields?: ImageFieldPolicy,
 	},
-	ImportCookiesPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | ImportCookiesPayloadKeySpecifier | (() => undefined | ImportCookiesPayloadKeySpecifier),
-		fields?: ImportCookiesPayloadFieldPolicy,
-	},
 	InputFieldError?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | InputFieldErrorKeySpecifier | (() => undefined | InputFieldErrorKeySpecifier),
 		fields?: InputFieldErrorFieldPolicy,
@@ -309,6 +306,10 @@ export type StrictTypedTypePolicies = {
 	Query?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier),
 		fields?: QueryFieldPolicy,
+	},
+	RemoveGoogleCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | RemoveGoogleCredentialsPayloadKeySpecifier | (() => undefined | RemoveGoogleCredentialsPayloadKeySpecifier),
+		fields?: RemoveGoogleCredentialsPayloadFieldPolicy,
 	},
 	RemoveICloudCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | RemoveICloudCredentialsPayloadKeySpecifier | (() => undefined | RemoveICloudCredentialsPayloadKeySpecifier),
@@ -354,9 +355,9 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | SubscriptionKeySpecifier | (() => undefined | SubscriptionKeySpecifier),
 		fields?: SubscriptionFieldPolicy,
 	},
-	SyncJournalPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | SyncJournalPayloadKeySpecifier | (() => undefined | SyncJournalPayloadKeySpecifier),
-		fields?: SyncJournalPayloadFieldPolicy,
+	SyncJournalEntriesPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SyncJournalEntriesPayloadKeySpecifier | (() => undefined | SyncJournalEntriesPayloadKeySpecifier),
+		fields?: SyncJournalEntriesPayloadFieldPolicy,
 	},
 	SyncLocationPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SyncLocationPayloadKeySpecifier | (() => undefined | SyncLocationPayloadKeySpecifier),

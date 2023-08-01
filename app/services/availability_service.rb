@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class ActionItemsService < ApplicationService
+class AvailabilityService < ApplicationService
   class << self
     # == Lifecycle
     sig { override.returns(T::Boolean) }

@@ -1,33 +1,33 @@
 import type { FC } from "react";
 
-import { RemoveSpotifyCredentialsMutationDocument } from "~/helpers/graphql";
+import { RemoveGoogleCredentialsMutationDocument } from "~/helpers/graphql";
 import type { UserSettingsPageOAuthCredentialsFragment } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
 
 import FormAuthenticityField from "./FormAuthenticityField";
 
-export type UserSettingsPageSpotifyCredentialsFormProps = {
+export type UserSettingsPageGoogleCredentialsFormProps = {
   readonly credentials: Maybe<UserSettingsPageOAuthCredentialsFragment>;
 };
 
-const UserSettingsPageSpotifyCredentialsForm: FC<
-  UserSettingsPageSpotifyCredentialsFormProps
+const UserSettingsPageGoogleCredentialsForm: FC<
+  UserSettingsPageGoogleCredentialsFormProps
 > = ({ credentials }) => {
   const router = useRouter();
 
   // == Remove Mutation
   const onRemoveError = useApolloAlertCallback(
-    "Failed to remove Spotify credentials",
+    "Failed to remove Google credentials",
   );
   const [runRemoveMutation, { loading: removing }] = useMutation(
-    RemoveSpotifyCredentialsMutationDocument,
+    RemoveGoogleCredentialsMutationDocument,
     {
       onCompleted: () => {
         router.reload({
           preserveScroll: true,
           onSuccess: () => {
             showNotice({
-              message: "Spotify credentials removed successfully.",
+              message: "Google credentials removed successfully.",
             });
           },
         });
@@ -63,7 +63,7 @@ const UserSettingsPageSpotifyCredentialsForm: FC<
           );
         })}
       <Stack spacing={6}>
-        <form action="/user/auth/spotify" method="post">
+        <form action="/user/auth/google" method="post">
           <FormAuthenticityField />
           <Button type="submit" fullWidth>
             Authenticate
@@ -98,4 +98,4 @@ const UserSettingsPageSpotifyCredentialsForm: FC<
   );
 };
 
-export default UserSettingsPageSpotifyCredentialsForm;
+export default UserSettingsPageGoogleCredentialsForm;

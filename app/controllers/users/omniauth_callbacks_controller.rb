@@ -17,9 +17,6 @@ module Users
     # == Actions
     # GET /user/auth/spotify/callback
     def spotify
-      auth = T.let(request.env.fetch("omniauth.auth"), OmniAuth::AuthHash)
-      auth = T.let(auth.to_hash(symbolize_keys: true),
-                   T::Hash[Symbol, T.untyped])
       credentials = OAuthCredentials.find_or_initialize_by(
         auth.slice(:provider, :uid),
       )
@@ -40,10 +37,31 @@ module Users
       SpotifyService.authenticate(credentials)
       set_flash_message(:notice, :success, kind: "Spotify")
       redirect_to(edit_registration_path(current_user))
-      response.set_header(
-        "Location",
-        response.get_header("Location") + "#",
+      response.set_header("Location", response.get_header("Location") + "#")
+    end
+
+    # GET /user/auth/google/callback
+    def google
+      credentials = OAuthCredentials.find_or_initialize_by(
+        auth.slice(:provider, :uid),
       )
+      credentials.attributes = auth
+        .fetch(:credentials)
+        .slice(:token, :refresh_token)
+        .tap do |credentials|
+          credentials[:access_token] = credentials.delete(:token)
+        end
+      credentials.save!
+      scoped do
+        credentials => { uid:, refresh_token: }
+        logger.info(
+          "Authenticated with Google (uid: #{uid}, refresh_token: " \
+            "#{refresh_token})",
+        )
+      end
+      set_flash_message(:notice, :success, kind: "Google")
+      redirect_to(edit_registration_path(current_user))
+      # response.set_header("Location", response.get_header("Location") + "#")
     end
 
     # # GET /user/auth/facebook/callback
@@ -60,5 +78,14 @@ module Users
     #   # See: https://stackoverflow.com/questions/7131909/facebook-callback-appends-to-return-url
     #   response.set_header("Location", response.get_header("Location") + "#")
     # end
+
+    private
+
+    # == Helpers
+    sig { returns(T::Hash[Symbol, T.untyped]) }
+    def auth
+      @auth = T.let(@auth, T.nilable(T::Hash[Symbol, T.untyped]))
+      @auth ||= request.env.fetch("omniauth.auth").to_hash(symbolize_keys: true)
+    end
   end
 end

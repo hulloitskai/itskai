@@ -69,7 +69,7 @@ class JournalEntry < ApplicationRecord
   sig { params(force: T::Boolean).void }
   def import(force: false)
     return if !force && !import_required?
-    page = JournalService.retrieve_entry(notion_page_id)
+    page = JournalEntriesService.retrieve_entry(notion_page_id)
     import_attributes_from_notion(page)
     save!
   end
@@ -87,7 +87,7 @@ class JournalEntry < ApplicationRecord
 
   sig { void }
   def download
-    content = JournalService.retrieve_entry_content(notion_page_id)
+    content = JournalEntriesService.retrieve_entry_content(notion_page_id)
     update!(content:)
   end
 

@@ -14,8 +14,8 @@ Rails.application.configure do
         description: "Schedule purging of unattached ActiveStorage blobs.",
         cron: "0 */6 * * *",
       },
-      sync_journal: {
-        class: "SyncJournalJob",
+      sync_journal_entries: {
+        class: "SyncJournalEntriesJob",
         cron: "*/5 * * * *",
       },
       sync_location: {

@@ -8,7 +8,7 @@ Rails.application.configure do
       ICloudService.start
       InstagramService.start
       SpotifyService.start
-      JournalService.start
+      JournalEntriesService.start
       ActionItemsService.start
       ResumeService.start
       LocationService.start
@@ -28,8 +28,8 @@ Rails.application.configure do
       TelnyxService.stop
       LocationService.stop
       ActionItemsService.stop
+      JournalEntriesService.stop
       ResumeService.stop
-      JournalService.stop
       SpotifyService.stop
       InstagramService.stop
       ICloudService.stop
