@@ -86,15 +86,6 @@ class User < ApplicationRecord
             },
             allow_nil: true
 
-  # == Ownership: Finders
-  sig { returns(T.nilable(User)) }
-  def self.owner = find_by(email: owner_email)
-
-  sig { returns(User) }
-  def self.owner!
-    owner or raise ActiveRecord::RecordNotFound, "Missing owner"
-  end
-
   # == Emails
   sig { void }
   def send_welcome_email
@@ -113,12 +104,6 @@ class User < ApplicationRecord
     { "uid" => to_gid.to_s, "email" => email, "displayName" => name }
   end
 
-  # == Ownership: Methods
-  sig { returns(T::Boolean) }
-  def owner?
-    email == User.owner_email
-  end
-
   # == Devise: Methods
   sig do
     params(
@@ -131,11 +116,10 @@ class User < ApplicationRecord
     super(params)
   end
 
-  # == Ownership: Helpers
-  sig { returns(String) }
-  def self.owner_email
-    @owner_email = T.let(@owner_email, T.nilable(String))
-    @owner_email ||= ENV["OWNER_EMAIL"] or raise "Owner email not set"
+  # == Methods
+  sig { returns(T::Boolean) }
+  def owner?
+    email == Owner.email!
   end
 
   protected

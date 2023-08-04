@@ -15,8 +15,13 @@ const HomePage: PageComponent<HomePageProps> = ({
   data: { announcement, entry, location },
 }) => (
   <Stack spacing="xs">
-    <Space h="xs" />
-    {!!announcement && <Alert icon={<BellIcon />}>{announcement}</Alert>}
+    {announcement ? (
+      <Alert icon={<BellIcon />} mx="sm" mt="sm">
+        {announcement}
+      </Alert>
+    ) : (
+      <Space h="xs" />
+    )}
     <Center h={275}>
       <Stack align="center">
         <Title color="white">hi, it&apos;s kai</Title>
@@ -96,7 +101,7 @@ const HomePage: PageComponent<HomePageProps> = ({
 );
 
 HomePage.layout = buildLayout<HomePageProps>((page, { data: { viewer } }) => (
-  <AppLayout withContainer {...{ viewer }}>
+  <AppLayout withContainer withGutter {...{ viewer }}>
     {page}
   </AppLayout>
 ));

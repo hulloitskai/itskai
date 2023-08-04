@@ -7,17 +7,20 @@ module Subscriptions
     broadcastable true
 
     # == Type
-    type Types::SpotifyCurrentlyPlayingType, null: true
+    type Types::CurrentlyPlayingType, null: true
 
     # == Callback handlers
-    sig { returns(T.nilable(SpotifyService::CurrentlyPlaying)) }
+    sig { returns(T.nilable(::CurrentlyPlaying)) }
     def subscribe
-      CurrentlyPlayingService.currently_playing
+      ::CurrentlyPlaying.current
     end
 
-    sig { returns(T.nilable(SpotifyService::CurrentlyPlaying)) }
+    sig { override.returns(T.nilable(::CurrentlyPlaying)) }
     def update
-      CurrentlyPlayingService.currently_playing
+      if (json = object)
+        json = T.let(json, T::Hash[String, T.untyped])
+        ::CurrentlyPlaying.from_json(json)
+      end
     end
   end
 end

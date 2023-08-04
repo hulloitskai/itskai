@@ -84,7 +84,7 @@ Rails.application.routes.draw do
   post "/scottcall" => "scottcalls#handle"
 
   # == Pages
-  root "homepage#show"
+  root "homepages#show"
   get "/scottkit" => "scottkit#show"
   get "/resume" => "resume#show"
   get "/toronto" => "places#toronto"

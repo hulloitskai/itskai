@@ -65,7 +65,7 @@ class ApplicationRecord < ActiveRecord::Base
 
     private
 
-    # == Class helpers
+    # == Helpers
     sig { params(column_names: T.any(Symbol, String)).void }
     def requires_columns(*column_names)
       return unless Rails.server? || Rails.console?

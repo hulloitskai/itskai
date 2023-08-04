@@ -3,16 +3,13 @@
 
 module Queries
   class CurrentlyPlaying < BaseQuery
-    # == Configuration
-    description "What I'm currently listening to on Spotify!"
-
     # == Type
-    type Types::SpotifyCurrentlyPlayingType, null: true
+    type Types::CurrentlyPlayingType, null: true
 
     # == Resolver
-    sig { returns(T.nilable(SpotifyService::CurrentlyPlaying)) }
+    sig { override.returns(T.nilable(::CurrentlyPlaying)) }
     def resolve
-      CurrentlyPlayingService.currently_playing
+      ::CurrentlyPlaying.current
     end
   end
 end

@@ -11,7 +11,7 @@
       "Image",
       "InstagramCredentials",
       "JournalEntry",
-      "Location",
+      "LocationLog",
       "OAuthCredentials",
       "User"
     ]

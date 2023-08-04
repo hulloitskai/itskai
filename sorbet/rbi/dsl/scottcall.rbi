@@ -9,10 +9,18 @@ class Scottcall
   extend CommonRelationMethods
   extend GeneratedRelationMethods
 
+  sig { returns(Enumerize::Value) }
+  def signal; end
+
   private
 
   sig { returns(NilClass) }
   def to_ary; end
+
+  class << self
+    sig { returns(Enumerize::Attribute) }
+    def signal; end
+  end
 
   module CommonRelationMethods
     sig { params(block: T.nilable(T.proc.params(record: ::Scottcall).returns(T.untyped))).returns(T::Boolean) }
@@ -539,51 +547,6 @@ class Scottcall
     sig { void }
     def id_will_change!; end
 
-    sig { returns(::String) }
-    def message; end
-
-    sig { params(value: ::String).returns(::String) }
-    def message=(value); end
-
-    sig { returns(T::Boolean) }
-    def message?; end
-
-    sig { returns(T.nilable(::String)) }
-    def message_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def message_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def message_came_from_user?; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def message_change; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def message_change_to_be_saved; end
-
-    sig { returns(T::Boolean) }
-    def message_changed?; end
-
-    sig { returns(T.nilable(::String)) }
-    def message_in_database; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def message_previous_change; end
-
-    sig { returns(T::Boolean) }
-    def message_previously_changed?; end
-
-    sig { returns(T.nilable(::String)) }
-    def message_previously_was; end
-
-    sig { returns(T.nilable(::String)) }
-    def message_was; end
-
-    sig { void }
-    def message_will_change!; end
-
     sig { void }
     def restore_created_at!; end
 
@@ -591,7 +554,7 @@ class Scottcall
     def restore_id!; end
 
     sig { void }
-    def restore_message!; end
+    def restore_signal!; end
 
     sig { void }
     def restore_telnyx_call_control_id!; end
@@ -608,17 +571,62 @@ class Scottcall
     sig { returns(T::Boolean) }
     def saved_change_to_id?; end
 
-    sig { returns(T.nilable([::String, ::String])) }
-    def saved_change_to_message; end
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def saved_change_to_signal; end
 
     sig { returns(T::Boolean) }
-    def saved_change_to_message?; end
+    def saved_change_to_signal?; end
 
     sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_telnyx_call_control_id; end
 
     sig { returns(T::Boolean) }
     def saved_change_to_telnyx_call_control_id?; end
+
+    sig { returns(T.untyped) }
+    def signal; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def signal=(value); end
+
+    sig { returns(T::Boolean) }
+    def signal?; end
+
+    sig { returns(T.untyped) }
+    def signal_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def signal_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def signal_came_from_user?; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def signal_change; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def signal_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def signal_changed?; end
+
+    sig { returns(T.untyped) }
+    def signal_in_database; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def signal_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def signal_previously_changed?; end
+
+    sig { returns(T.untyped) }
+    def signal_previously_was; end
+
+    sig { returns(T.untyped) }
+    def signal_was; end
+
+    sig { void }
+    def signal_will_change!; end
 
     sig { returns(::String) }
     def telnyx_call_control_id; end
@@ -672,7 +680,7 @@ class Scottcall
     def will_save_change_to_id?; end
 
     sig { returns(T::Boolean) }
-    def will_save_change_to_message?; end
+    def will_save_change_to_signal?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_telnyx_call_control_id?; end

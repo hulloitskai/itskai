@@ -13,7 +13,7 @@ class AnalyzeObsidianNoteJob < ApplicationJob
   )
 
   # == Callbacks
-  before_perform :update_activity_status
+  before_perform :set_status
 
   # == Job
   sig { params(note: ObsidianNote).void }
@@ -25,8 +25,8 @@ class AnalyzeObsidianNoteJob < ApplicationJob
 
   # == Callback handlers
   sig { void }
-  def update_activity_status
+  def set_status
     note = T.let(arguments.first!, ObsidianNote)
-    ActivityService.update_status("Analyzing Obsidian note: #{note.name}")
+    Activity.status = "Analyzing Obsidian note: #{note.name}"
   end
 end

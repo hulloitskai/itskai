@@ -5,13 +5,13 @@ import { Code, Text } from "@mantine/core";
 import LightbulbIcon from "~icons/heroicons/light-bulb-20-solid";
 
 import { ActivateScottkitSignalMutationDocument } from "~/helpers/graphql";
-import { ScottkitSignalType } from "~/helpers/graphql";
+import { ScottkitSignal } from "~/helpers/graphql";
 import type { ScottkitPageQuery } from "~/helpers/graphql";
 
 import {
-  scottkitSignalTypeLabel,
-  scottkitSignalTypeIcon,
-  scottkitSignalTypeColor,
+  scottkitSignalLabel,
+  scottkitSignalIcon,
+  scottkitSignalColor,
 } from "~/helpers/scottkitSignal";
 
 import AppMeta from "~/components/AppMeta";
@@ -51,7 +51,7 @@ const ScottkitPage: PageComponent<ScottkitPageProps> = () => {
       </Stack>
       <Stack w="100%" maw={275}>
         <KitButton
-          type={ScottkitSignalType.Break}
+          signal={ScottkitSignal.Break}
           description={
             <>
               Signals that you&apos;re caught in an unproductive cycle and would
@@ -60,7 +60,7 @@ const ScottkitPage: PageComponent<ScottkitPageProps> = () => {
           }
         />
         <KitButton
-          type={ScottkitSignalType.Rand}
+          signal={ScottkitSignal.Rand}
           description={
             <>
               Signal a desire to try a different experience. Use when
@@ -70,7 +70,7 @@ const ScottkitPage: PageComponent<ScottkitPageProps> = () => {
           }
         />
         <KitButton
-          type={ScottkitSignalType.Panic}
+          signal={ScottkitSignal.Panic}
           description={
             <>
               Signals that something has not gone to plan in a major way. Use in
@@ -93,18 +93,18 @@ ScottkitPage.layout = buildLayout<ScottkitPageProps>(page => (
 export default ScottkitPage;
 
 export type KitButtonProps = {
-  readonly type: ScottkitSignalType;
+  readonly signal: ScottkitSignal;
   readonly description: ReactNode;
 };
 
-const KitButton: FC<KitButtonProps> = ({ type, description }) => {
+const KitButton: FC<KitButtonProps> = ({ signal: signal, description }) => {
   const [label, icon, color] = useMemo(
     () => [
-      scottkitSignalTypeLabel(type),
-      scottkitSignalTypeIcon(type),
-      scottkitSignalTypeColor(type),
+      scottkitSignalLabel(signal),
+      scottkitSignalIcon(signal),
+      scottkitSignalColor(signal),
     ],
-    [type],
+    [signal],
   );
 
   // == Mutation
@@ -151,7 +151,7 @@ const KitButton: FC<KitButtonProps> = ({ type, description }) => {
           runMutation({
             variables: {
               input: {
-                type,
+                signal,
               },
             },
           });

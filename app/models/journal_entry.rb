@@ -57,26 +57,54 @@ class JournalEntry < ApplicationRecord
     imported_at < 5.minutes.ago
   end
 
-  sig { params(page: T.untyped).void }
-  def import_attributes_from_notion(page:)
-    properties = page.properties
-    self.imported_at = Time.current
-    self.title = properties["Name"].title.first!.plain_text
-    self.started_at = properties["Created At"].created_time.to_time
-    self.last_edited_at = properties["Modified At"].last_edited_time.to_time
-  end
-
   sig { params(force: T::Boolean).void }
-  def import(force: false)
+  def import!(force: false)
     return if !force && !import_required?
-    page = JournalEntriesService.retrieve_entry(notion_page_id)
-    import_attributes_from_notion(page)
+    import_attributes(notion_page)
     save!
   end
 
   sig { params(force: T::Boolean).void }
   def import_later(force: false)
     ImportJournalEntryJob.perform_later(self, force:)
+  end
+
+  sig { void }
+  def self.import!
+    notion_pages = NotionService.list_pages(
+      notion_database_id,
+      filter: {
+        "property" => "Published",
+        "checkbox" => {
+          "equals" => true,
+        },
+      },
+      sort: [{
+        "timestamp" => "created_time",
+        "direction" => "descending",
+      }],
+    )
+    notion_pages.each do |notion_page|
+      notion_page_id = notion_page.id
+      entry = JournalEntry.find_or_initialize_by(notion_page_id:)
+      entry.import_attributes(notion_page)
+      entry.save!
+    rescue => error
+      tag_logger do
+        logger.error(
+          "Failed to import entry with Notion page ID `#{notion_page_id}'`: " \
+            "#{error}",
+        )
+      end
+      Rails.error.report(error, handled: true, context: { notion_page_id: })
+      raise error
+    end
+    JournalEntry.where.not(notion_page_id: notion_pages.map(&:id)).destroy_all
+  end
+
+  sig { void }
+  def self.import_later
+    ImportJournalEntriesJob.perform_later
   end
 
   # == Downloading
@@ -87,12 +115,51 @@ class JournalEntry < ApplicationRecord
 
   sig { void }
   def download
-    content = JournalEntriesService.retrieve_entry_content(notion_page_id)
+    content = NotionService.retrieve_content(notion_page_id)
+    redactor = Redactor.new(notion_page)
+    redactor.redact_blocks!(content)
     update!(content:)
   end
 
   sig { void }
   def download_later
     DownloadJournalEntryJob.perform_later(self)
+  end
+
+  # == Notion: Methods
+  sig { returns(String) }
+  def self.notion_database_id
+    ENV["JOURNAL_ENTRY_NOTION_DATABASE_ID"] or
+      raise "Missing Notion database ID"
+  end
+
+  sig { returns(String) }
+  def notion_database_id = self.class.notion_database_id
+
+  sig { returns(T.untyped) }
+  def notion_page
+    NotionService.retrieve_page(notion_page_id)
+  end
+
+  sig { returns(T::Array[T.untyped]) }
+  def notion_comments
+    NotionService.list_comments(notion_page_id)
+  end
+
+  sig { params(text: String).returns(T.untyped) }
+  def create_notion_comment(text)
+    NotionService.create_comment(notion_page_id, text:)
+  end
+
+  protected
+
+  # == Importing: Helpers
+  sig { params(notion_page: T.untyped).void }
+  def import_attributes(notion_page)
+    notion_page => { properties: }
+    self.imported_at = Time.current
+    self.title = properties["Name"].title.first!.plain_text
+    self.started_at = properties["Created At"].created_time.to_time
+    self.last_edited_at = properties["Modified At"].last_edited_time.to_time
   end
 end

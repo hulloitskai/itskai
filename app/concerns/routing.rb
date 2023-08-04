@@ -10,7 +10,7 @@ module Routing
   requires_ancestor { Kernel }
 
   included do
-    # == Class methods
+    # == Methods
     include Rails.application.routes.url_helpers
   end
 

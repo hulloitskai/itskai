@@ -35,15 +35,82 @@ class SpotifyService < ApplicationService
 
     sig { returns(T.nilable(CurrentlyPlaying)) }
     def retrieve_currently_playing
-      instance.retrieve_currently_playing if ready?
+      player = user.player
+      if player.playing?
+        # Suppress sporadic errors caused by weird bugs in the RSpotify library,
+        # as well as certain network errors.
+        suppress(NoMethodError, RestClient::BadGateway) do
+          RSpotify.raw_response = true
+          payload = JSON.parse(player.currently_playing)
+          if payload["is_playing"]
+            CurrentlyPlaying.new(
+              track: RSpotify::Track.new(payload["item"]),
+              progress_milliseconds: payload["progress_ms"],
+            )
+          end
+        ensure
+          RSpotify.raw_response = false
+        end
+      end
     end
 
-    sig do
-      params(track_id: String)
-        .returns(T.nilable(T::Array[SpotifyService::LyricLine]))
-    end
+    sig { params(track_id: String).returns(T.nilable(T::Array[LyricLine])) }
     def retrieve_lyrics(track_id:)
-      instance.retrieve_lyrics(track_id:) if ready?
+      response = HTTParty.get(
+        "https://spotify-lyric-api.herokuapp.com",
+        query: {
+          trackid: track_id,
+        },
+      )
+      body = T.let(response.parsed_response, T::Hash[String, T.untyped])
+      error = body.fetch("error", T::Boolean)
+      if error
+        message = T.let(body.fetch("message"), String)
+        if message != "lyrics for this track is not available on spotify!"
+          raise message
+        end
+      else
+        sync_type = T.let(body["syncType"], String)
+        lines = T.let(body["lines"], T::Array[T::Hash[String, T.untyped]])
+        if sync_type == "LINE_SYNCED"
+          lines.map do |line_hash|
+            words = normalize_words(line_hash["words"])
+            LyricLine.new(
+              start_time_milliseconds: line_hash["startTimeMs"].to_i,
+              words:,
+              explicit: explicit_words?(words),
+            )
+          end
+        end
+      end
+    end
+
+    private
+
+    # == Helpers
+    sig { params(words: String).returns(String) }
+    def normalize_words(words)
+      words = words.strip
+      words == "♪" ? "" : words
+    end
+
+    sig { returns(T::Array[String]) }
+    def badwords
+      @badwords = T.let(@badwords, T.nilable(T::Array[String]))
+      @badwords ||= scoped do
+        body = Rails.root.join("config/#{service_name}/badwords.txt").read
+        body.lines.map { |word| word.strip.downcase }
+      end
+    end
+
+    sig { params(words: String).returns(T::Boolean) }
+    def explicit_words?(words)
+      if words.present?
+        normalized_words = words.downcase
+        badwords.any? { |word| normalized_words.include?(word) }
+      else
+        false
+      end
     end
   end
 
@@ -112,88 +179,11 @@ class SpotifyService < ApplicationService
     @user or raise "Not authenticated (missing user)"
   end
 
-  sig { returns(T.nilable(CurrentlyPlaying)) }
-  def retrieve_currently_playing
-    player = user.player
-    if player.playing?
-      # Suppress sporadic errors caused by weird bugs in the RSpotify library,
-      # as well as certain network errors.
-      suppress(NoMethodError, RestClient::BadGateway) do
-        RSpotify.raw_response = true
-        payload = JSON.parse(player.currently_playing)
-        if payload["is_playing"]
-          CurrentlyPlaying.new(
-            track: RSpotify::Track.new(payload["item"]),
-            progress_milliseconds: payload["progress_ms"],
-          )
-        end
-      ensure
-        RSpotify.raw_response = false
-      end
-    end
-  end
-
-  sig { params(track_id: String).returns(T.nilable(T::Array[LyricLine])) }
-  def retrieve_lyrics(track_id:)
-    response = HTTParty.get(
-      "https://spotify-lyric-api.herokuapp.com",
-      query: {
-        trackid: track_id,
-      },
-    )
-    body = T.let(response.parsed_response, T::Hash[String, T.untyped])
-    error = body.fetch("error", T::Boolean)
-    if error
-      message = T.let(body.fetch("message"), String)
-      if message != "lyrics for this track is not available on spotify!"
-        raise message
-      end
-    else
-      sync_type = T.let(body["syncType"], String)
-      lines = T.let(body["lines"], T::Array[T::Hash[String, T.untyped]])
-      if sync_type == "LINE_SYNCED"
-        lines.map do |line_hash|
-          words = normalize_words(line_hash["words"])
-          LyricLine.new(
-            start_time_milliseconds: line_hash["startTimeMs"].to_i,
-            words:,
-            explicit: explicit_words?(words),
-          )
-        end
-      end
-    end
-  end
-
   private
 
   # == Helpers
   sig { returns(T.nilable(OAuthCredentials)) }
   def saved_credentials
     OAuthCredentials.spotify
-  end
-
-  sig { params(words: String).returns(String) }
-  def normalize_words(words)
-    words = words.strip
-    words == "♪" ? "" : words
-  end
-
-  sig { returns(T::Array[String]) }
-  def badwords
-    @badwords = T.let(@badwords, T.nilable(T::Array[String]))
-    @badwords ||= scoped do
-      body = Rails.root.join("config/#{service_name}/badwords.txt").read
-      body.lines.map { |word| word.strip.downcase }
-    end
-  end
-
-  sig { params(words: String).returns(T::Boolean) }
-  def explicit_words?(words)
-    if words.present?
-      normalized_words = words.downcase
-      badwords.any? { |word| normalized_words.include?(word) }
-    else
-      false
-    end
   end
 end

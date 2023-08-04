@@ -9,7 +9,7 @@ module Queries
     # == Resolver
     sig { returns(T::Hash[String, T.untyped]) }
     def resolve
-      ResumeService.load_resume
+      ::Resume.data
     end
   end
 end

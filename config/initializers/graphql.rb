@@ -9,7 +9,7 @@ Rails.application.configure do
     Schema.queries!.listen if Rails.server? && Rails.env.development?
   end
 
-  if server && Rails.env.development?
+  if Rails.server? && Rails.env.development?
     reloader.before_class_unload do
       Schema.queries!.unlisten
     end

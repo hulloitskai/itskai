@@ -12,7 +12,7 @@ module Shortcuts
     def create
       item = ActionItem.new(**action_item_params.to_h)
       if item.valid?
-        ActionItemsService.create_item(name: item.name!)
+        item.create_notion_page
         render(plain: "Done", status: :created)
       else
         error_message = item.errors.full_messages.first!

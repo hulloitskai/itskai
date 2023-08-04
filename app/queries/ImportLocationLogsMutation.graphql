@@ -1,0 +1,5 @@
+mutation ImportLocationLogsMutation($input: ImportLocationLogsInput!) {
+  payload: importLocationLogs(input: $input) {
+    success
+  }
+}

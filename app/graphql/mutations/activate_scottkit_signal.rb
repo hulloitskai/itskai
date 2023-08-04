@@ -7,13 +7,12 @@ module Mutations
     class Payload < T::Struct; end
 
     # == Arguments
-    argument :type, Types::ScottkitSignalTypeType
+    argument :signal, Types::ScottkitSignalType
 
     # == Resolver
-    sig { override.params(type: Symbol).returns(Payload) }
-    def resolve(type:)
-      # ScottbotService.alert(type)
-      ScottcallService.dial(type)
+    sig { override.params(signal: Symbol).returns(Payload) }
+    def resolve(signal:)
+      Scottcall.dial!(signal)
       Payload.new
     end
   end

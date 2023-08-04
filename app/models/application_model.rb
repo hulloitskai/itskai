@@ -7,6 +7,11 @@ class ApplicationModel
   extend Enumerize
   include StoreModel::Model
 
+  class << self
+    extend T::Sig
+    extend T::Helpers
+  end
+
   # == Conversions
   sig { overridable.returns(T::Hash[T.any(Symbol, String), T.untyped]) }
   def to_hash

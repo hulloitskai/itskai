@@ -1,4 +1,4 @@
-fragment CurrentlyPlayingLyricsTooltipLyricLineFragment on SpotifyLyricLine {
+fragment CurrentlyPlayingLyricsTooltipLyricLineFragment on LyricLine {
   isExplicit
   startTimeMilliseconds
   words

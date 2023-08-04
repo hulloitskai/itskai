@@ -9,6 +9,11 @@ export type AddJournalEntryCommentPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type CurrentlyPlayingKeySpecifier = ('progressMilliseconds' | 'track' | CurrentlyPlayingKeySpecifier)[];
+export type CurrentlyPlayingFieldPolicy = {
+	progressMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
+	track?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type ICloudCredentialsKeySpecifier = ('cookies' | 'email' | 'id' | 'password' | 'session' | ICloudCredentialsKeySpecifier)[];
 export type ICloudCredentialsFieldPolicy = {
 	cookies?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -22,6 +27,16 @@ export type ImageFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	signedId?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ImportJournalEntriesPayloadKeySpecifier = ('clientMutationId' | 'success' | ImportJournalEntriesPayloadKeySpecifier)[];
+export type ImportJournalEntriesPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ImportLocationLogsPayloadKeySpecifier = ('clientMutationId' | 'success' | ImportLocationLogsPayloadKeySpecifier)[];
+export type ImportLocationLogsPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type InputFieldErrorKeySpecifier = ('field' | 'message' | InputFieldErrorKeySpecifier)[];
 export type InputFieldErrorFieldPolicy = {
@@ -45,25 +60,31 @@ export type JournalEntryFieldPolicy = {
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type LocationKeySpecifier = ('approximateAddress' | 'googleMapsAreaUrl' | 'id' | 'timestamp' | LocationKeySpecifier)[];
-export type LocationFieldPolicy = {
+export type LocationLogKeySpecifier = ('approximateAddress' | 'googleMapsAreaUrl' | 'id' | 'timestamp' | LocationLogKeySpecifier)[];
+export type LocationLogFieldPolicy = {
 	approximateAddress?: FieldPolicy<any> | FieldReadFunction<any>,
 	googleMapsAreaUrl?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'syncJournalEntries' | 'syncLocation' | 'testMutation' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type LyricLineKeySpecifier = ('isExplicit' | 'startTimeMilliseconds' | 'words' | LyricLineKeySpecifier)[];
+export type LyricLineFieldPolicy = {
+	isExplicit?: FieldPolicy<any> | FieldReadFunction<any>,
+	startTimeMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
+	words?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'importJournalEntries' | 'importLocationLogs' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'testMutation' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
+	importJournalEntries?: FieldPolicy<any> | FieldReadFunction<any>,
+	importLocationLogs?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeGoogleCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeInstagramCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeSpotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	requestUserEmailVerification?: FieldPolicy<any> | FieldReadFunction<any>,
 	requestUserPasswordReset?: FieldPolicy<any> | FieldReadFunction<any>,
-	syncJournalEntries?: FieldPolicy<any> | FieldReadFunction<any>,
-	syncLocation?: FieldPolicy<any> | FieldReadFunction<any>,
 	testMutation?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateInstagramCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -155,42 +176,11 @@ export type SpotifyArtistFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type SpotifyCurrentlyPlayingKeySpecifier = ('progressMilliseconds' | 'track' | SpotifyCurrentlyPlayingKeySpecifier)[];
-export type SpotifyCurrentlyPlayingFieldPolicy = {
-	progressMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
-	track?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type SpotifyLyricLineKeySpecifier = ('isExplicit' | 'startTimeMilliseconds' | 'words' | SpotifyLyricLineKeySpecifier)[];
-export type SpotifyLyricLineFieldPolicy = {
-	isExplicit?: FieldPolicy<any> | FieldReadFunction<any>,
-	startTimeMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
-	words?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type SpotifyTrackKeySpecifier = ('album' | 'artists' | 'durationMilliseconds' | 'id' | 'lyrics' | 'name' | 'url' | SpotifyTrackKeySpecifier)[];
-export type SpotifyTrackFieldPolicy = {
-	album?: FieldPolicy<any> | FieldReadFunction<any>,
-	artists?: FieldPolicy<any> | FieldReadFunction<any>,
-	durationMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	lyrics?: FieldPolicy<any> | FieldReadFunction<any>,
-	name?: FieldPolicy<any> | FieldReadFunction<any>,
-	url?: FieldPolicy<any> | FieldReadFunction<any>
-};
 export type SubscriptionKeySpecifier = ('activityStatus' | 'currentlyPlaying' | 'testSubscription' | SubscriptionKeySpecifier)[];
 export type SubscriptionFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
 	testSubscription?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type SyncJournalEntriesPayloadKeySpecifier = ('clientMutationId' | 'success' | SyncJournalEntriesPayloadKeySpecifier)[];
-export type SyncJournalEntriesPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type SyncLocationPayloadKeySpecifier = ('clientMutationId' | 'success' | SyncLocationPayloadKeySpecifier)[];
-export type SyncLocationPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type TestModelKeySpecifier = ('birthday' | 'id' | 'name' | TestModelKeySpecifier)[];
 export type TestModelFieldPolicy = {
@@ -211,6 +201,16 @@ export type TimezoneFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	offset?: FieldPolicy<any> | FieldReadFunction<any>,
 	offsetMinutes?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type TrackKeySpecifier = ('album' | 'artists' | 'durationMilliseconds' | 'id' | 'lyrics' | 'name' | 'url' | TrackKeySpecifier)[];
+export type TrackFieldPolicy = {
+	album?: FieldPolicy<any> | FieldReadFunction<any>,
+	artists?: FieldPolicy<any> | FieldReadFunction<any>,
+	durationMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	lyrics?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type UpdateICloudCredentialsPayloadKeySpecifier = ('clientMutationId' | 'credentials' | 'errors' | 'success' | UpdateICloudCredentialsPayloadKeySpecifier)[];
 export type UpdateICloudCredentialsPayloadFieldPolicy = {
@@ -264,6 +264,10 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | AddJournalEntryCommentPayloadKeySpecifier | (() => undefined | AddJournalEntryCommentPayloadKeySpecifier),
 		fields?: AddJournalEntryCommentPayloadFieldPolicy,
 	},
+	CurrentlyPlaying?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | CurrentlyPlayingKeySpecifier | (() => undefined | CurrentlyPlayingKeySpecifier),
+		fields?: CurrentlyPlayingFieldPolicy,
+	},
 	ICloudCredentials?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ICloudCredentialsKeySpecifier | (() => undefined | ICloudCredentialsKeySpecifier),
 		fields?: ICloudCredentialsFieldPolicy,
@@ -271,6 +275,14 @@ export type StrictTypedTypePolicies = {
 	Image?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ImageKeySpecifier | (() => undefined | ImageKeySpecifier),
 		fields?: ImageFieldPolicy,
+	},
+	ImportJournalEntriesPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ImportJournalEntriesPayloadKeySpecifier | (() => undefined | ImportJournalEntriesPayloadKeySpecifier),
+		fields?: ImportJournalEntriesPayloadFieldPolicy,
+	},
+	ImportLocationLogsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ImportLocationLogsPayloadKeySpecifier | (() => undefined | ImportLocationLogsPayloadKeySpecifier),
+		fields?: ImportLocationLogsPayloadFieldPolicy,
 	},
 	InputFieldError?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | InputFieldErrorKeySpecifier | (() => undefined | InputFieldErrorKeySpecifier),
@@ -284,9 +296,13 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | JournalEntryKeySpecifier | (() => undefined | JournalEntryKeySpecifier),
 		fields?: JournalEntryFieldPolicy,
 	},
-	Location?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | LocationKeySpecifier | (() => undefined | LocationKeySpecifier),
-		fields?: LocationFieldPolicy,
+	LocationLog?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | LocationLogKeySpecifier | (() => undefined | LocationLogKeySpecifier),
+		fields?: LocationLogFieldPolicy,
+	},
+	LyricLine?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | LyricLineKeySpecifier | (() => undefined | LyricLineKeySpecifier),
+		fields?: LyricLineFieldPolicy,
 	},
 	Mutation?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | MutationKeySpecifier | (() => undefined | MutationKeySpecifier),
@@ -340,29 +356,9 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | SpotifyArtistKeySpecifier | (() => undefined | SpotifyArtistKeySpecifier),
 		fields?: SpotifyArtistFieldPolicy,
 	},
-	SpotifyCurrentlyPlaying?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | SpotifyCurrentlyPlayingKeySpecifier | (() => undefined | SpotifyCurrentlyPlayingKeySpecifier),
-		fields?: SpotifyCurrentlyPlayingFieldPolicy,
-	},
-	SpotifyLyricLine?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | SpotifyLyricLineKeySpecifier | (() => undefined | SpotifyLyricLineKeySpecifier),
-		fields?: SpotifyLyricLineFieldPolicy,
-	},
-	SpotifyTrack?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | SpotifyTrackKeySpecifier | (() => undefined | SpotifyTrackKeySpecifier),
-		fields?: SpotifyTrackFieldPolicy,
-	},
 	Subscription?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SubscriptionKeySpecifier | (() => undefined | SubscriptionKeySpecifier),
 		fields?: SubscriptionFieldPolicy,
-	},
-	SyncJournalEntriesPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | SyncJournalEntriesPayloadKeySpecifier | (() => undefined | SyncJournalEntriesPayloadKeySpecifier),
-		fields?: SyncJournalEntriesPayloadFieldPolicy,
-	},
-	SyncLocationPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | SyncLocationPayloadKeySpecifier | (() => undefined | SyncLocationPayloadKeySpecifier),
-		fields?: SyncLocationPayloadFieldPolicy,
 	},
 	TestModel?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | TestModelKeySpecifier | (() => undefined | TestModelKeySpecifier),
@@ -375,6 +371,10 @@ export type StrictTypedTypePolicies = {
 	Timezone?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | TimezoneKeySpecifier | (() => undefined | TimezoneKeySpecifier),
 		fields?: TimezoneFieldPolicy,
+	},
+	Track?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | TrackKeySpecifier | (() => undefined | TrackKeySpecifier),
+		fields?: TrackFieldPolicy,
 	},
 	UpdateICloudCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | UpdateICloudCredentialsPayloadKeySpecifier | (() => undefined | UpdateICloudCredentialsPayloadKeySpecifier),

@@ -9,7 +9,7 @@ module Queries
     # == Resolver
     sig { returns(T.nilable(String)) }
     def resolve
-      AnnouncementsService.announcement
+      Announcements.announcement
     end
   end
 end

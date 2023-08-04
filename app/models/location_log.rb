@@ -74,22 +74,52 @@ class LocationLog < ApplicationRecord
     end
   end
 
+  # == Importing
+  sig { void }
+  def self.import!
+    location = ICloudService.iphone.location
+    timestamp = Time.zone.at(location[:time_stamp] / 1000)
+    unless exists?(timestamp:)
+      coordinates = scoped do
+        location => { latitude:, longitude:, altitude: }
+        coordinates_factory.point(longitude, latitude, altitude)
+      end
+      other_attributes = location.slice(
+        :horizontal_accuracy,
+        :vertical_accuracy,
+        :floor_level,
+      )
+      create!(timestamp:, coordinates:, **other_attributes)
+    end
+  end
+
+  sig { void }
+  def import_later
+    ImportLocationLogsJob.perform_later
+  end
+
   # == Finders
   sig { params(args: T.untyped).returns(T.nilable(LocationLog)) }
   def self.latest(*args)
     relation = _latest
-    relation = relation.where(*T.unsafe(args)) if args.present?
+    if args.present?
+      relation = T.unsafe(relation).where(*args)
+      relation = T.cast(relation, PrivateRelation)
+    end
     relation.first
   end
 
   sig { params(args: T.untyped).returns(LocationLog) }
   def self.latest!(*args)
     relation = _latest
-    relation = relation.where(*T.unsafe(args)) if args.present?
+    if args.present?
+      relation = T.unsafe(relation).where(*args)
+      relation = T.cast(relation, PrivateRelation)
+    end
     relation.first!
   end
 
-  # == Geocoding
+  # == Methods
   sig { returns(RGeo::Geographic::Factory) }
   def self.coordinates_factory
     RGeo::Geographic.spherical_factory(srid: 4326, has_z_coordinate: true)

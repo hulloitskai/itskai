@@ -7,10 +7,7 @@ module Shortcuts
 
     # == Helpers
     sig { returns(String) }
-    def secret_key
-      @secret_key ||= ENV["SHORTCUTS_SECRET_KEY"] or
-        raise "Secret key not set"
-    end
+    def secret_key = Shortcuts.secret_key!
 
     # == Filter handlers
     sig { void }

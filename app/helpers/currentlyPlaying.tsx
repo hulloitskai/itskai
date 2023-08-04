@@ -1,4 +1,4 @@
-import type { SpotifyLyricLine } from "~/helpers/graphql";
+import type { LyricLine } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
 
 export type InterpolatedProgressMillisecondsParams = {
@@ -34,7 +34,7 @@ export const useInterpolatedProgressMilliseconds = ({
 
 export type ProgressLyricsIndexMappingParams = {
   readonly lyrics:
-    | Maybe<Pick<SpotifyLyricLine, "startTimeMilliseconds">[]>
+    | Maybe<Pick<LyricLine, "startTimeMilliseconds">[]>
     | undefined;
   readonly durationMilliseconds: number;
   readonly interpolationMilliseconds: number;

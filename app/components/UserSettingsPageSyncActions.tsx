@@ -1,62 +1,32 @@
 import type { FC } from "react";
 
 import {
-  SyncJournalEntriesMutationDocument,
-  SyncLocationMutationDocument,
+  ImportJournalEntriesMutationDocument,
+  ImportLocationLogsMutationDocument,
 } from "~/helpers/graphql";
 
-export type UserSettingsPageSyncActionsProps = {};
+export type UserSettingsPageImportActionsProps = {};
 
-const UserSettingsPageSyncActions: FC<
-  UserSettingsPageSyncActionsProps
+const UserSettingsPageImportActions: FC<
+  UserSettingsPageImportActionsProps
 > = () => (
   <Stack spacing={6}>
-    <SyncLocationButton />
-    <SyncJournalButton />
+    <ImportLocationButton />
+    <ImportJournalButton />
   </Stack>
 );
 
-export default UserSettingsPageSyncActions;
+export default UserSettingsPageImportActions;
 
-const SyncLocationButton: FC = () => {
+const ImportLocationButton: FC = () => {
   // == Mutation
-  const onError = useApolloAlertCallback("Failed to sync location");
-  const [runMutation, { loading }] = useMutation(SyncLocationMutationDocument, {
-    onCompleted: () => {
-      showNotice({
-        message: "Location synced successfully.",
-      });
-    },
-    onError,
-  });
-
-  // == Markup
-  return (
-    <Button
-      variant="default"
-      onClick={() => {
-        runMutation({
-          variables: {
-            input: {},
-          },
-        });
-      }}
-      {...{ loading }}
-    >
-      Sync Location
-    </Button>
-  );
-};
-
-const SyncJournalButton: FC = () => {
-  // == Mutation
-  const onError = useApolloAlertCallback("Failed to sync journal");
+  const onError = useApolloAlertCallback("Failed to import location logs");
   const [runMutation, { loading }] = useMutation(
-    SyncJournalEntriesMutationDocument,
+    ImportLocationLogsMutationDocument,
     {
       onCompleted: () => {
         showNotice({
-          message: "Journal entries synced successfully.",
+          message: "Location logs imported successfully.",
         });
       },
       onError,
@@ -76,7 +46,40 @@ const SyncJournalButton: FC = () => {
       }}
       {...{ loading }}
     >
-      Sync Journal Entries
+      Import Location
+    </Button>
+  );
+};
+
+const ImportJournalButton: FC = () => {
+  // == Mutation
+  const onError = useApolloAlertCallback("Failed to import journal entries");
+  const [runMutation, { loading }] = useMutation(
+    ImportJournalEntriesMutationDocument,
+    {
+      onCompleted: () => {
+        showNotice({
+          message: "Journal entries imported successfully.",
+        });
+      },
+      onError,
+    },
+  );
+
+  // == Markup
+  return (
+    <Button
+      variant="default"
+      onClick={() => {
+        runMutation({
+          variables: {
+            input: {},
+          },
+        });
+      }}
+      {...{ loading }}
+    >
+      Import Journal Entries
     </Button>
   );
 };

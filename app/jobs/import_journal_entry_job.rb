@@ -13,21 +13,20 @@ class ImportJournalEntryJob < ApplicationJob
   )
 
   # == Callbacks
-  before_perform :update_activity_status
+  before_perform :set_status
 
   # == Job
   sig { params(entry: JournalEntry, force: T.nilable(T::Boolean)).void }
   def perform(entry, force: nil)
-    options = { force: }
-    entry.import(**options.compact)
+    entry.import!(**{ force: }.compact)
   end
 
   private
 
   # == Callback handlers
   sig { void }
-  def update_activity_status
+  def set_status
     entry = T.let(arguments.first!, JournalEntry)
-    ActivityService.update_status("Importing journal entry: #{entry.title}")
+    Activity.status = "Importing journal entry: #{entry.title}"
   end
 end

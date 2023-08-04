@@ -12,7 +12,7 @@ class ApplicationService
     extend T::Sig
     extend T::Helpers
 
-    # == Class methods
+    # == Methods
     sig { returns(String) }
     def service_name
       @service_name = T.let(@service_name, T.nilable(String))
@@ -60,7 +60,7 @@ class ApplicationService
 
     private
 
-    # == Class helpers
+    # == Helpers
     sig { params(name: String).returns(T.nilable(String)) }
     def setting(name)
       ENV["#{service_name.upcase}_#{name}"]

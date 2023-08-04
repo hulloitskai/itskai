@@ -11,7 +11,7 @@ class ResumeController < ApplicationController
         render(inertia: "ResumePage", props: { printable: })
       end
       format.json do
-        render(json: ResumeService.load_resume)
+        render(json: Resume.data)
       end
     end
   end

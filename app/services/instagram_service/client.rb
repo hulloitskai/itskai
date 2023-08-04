@@ -23,7 +23,7 @@ class InstagramService
     sig { params(content: String, audience: Symbol).returns(T.untyped) }
     def create_note(content, audience: :close_friends)
       if content.length > 50
-        raise ArgumentError, "`content' must be 50 characters or less"
+        raise ArgumentError, "Must be 50 characters or less"
       end
       audience_code = case audience
       when :everyone

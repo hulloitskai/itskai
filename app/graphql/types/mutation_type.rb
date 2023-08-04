@@ -32,10 +32,10 @@ module Types
 
     field :add_journal_entry_comment,
           mutation: Mutations::AddJournalEntryComment
-    field :sync_journal_entries, mutation: Mutations::SyncJournalEntries
+    field :import_journal_entries, mutation: Mutations::ImportJournalEntries
 
     field :activate_scottkit_signal, mutation: Mutations::ActivateScottkitSignal
-    field :sync_location, mutation: Mutations::SyncLocation
+    field :import_location_logs, mutation: Mutations::ImportLocationLogs
 
     # field :import_cookies, mutation: Mutations::ImportCookies
   end

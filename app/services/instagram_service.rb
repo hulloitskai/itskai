@@ -3,13 +3,6 @@
 
 class InstagramService < ApplicationService
   class << self
-    # == Lifecycle
-    # def disabled?
-    #   return !!@disabled if defined?(@disabled)
-    #   @disabled = T.let(@disabled, T.nilable(T::Boolean))
-    #   @disabled = iphone_device_id.nil? || super
-    # end
-
     # == Settings
     sig { returns(Pathname) }
     def credentials_dir
@@ -33,11 +26,9 @@ class InstagramService < ApplicationService
       checked { instance.client }
     end
 
-    sig do
-      params(content: String, audience: Symbol).returns(T.untyped)
-    end
+    sig { params(content: String, audience: Symbol).returns(T.untyped) }
     def create_note(content, audience: :close_friends)
-      checked { instance.create_note(content, audience:) }
+      client.create_note(content, audience:)
     end
   end
 
@@ -92,24 +83,11 @@ class InstagramService < ApplicationService
     @client or raise "Missing client"
   end
 
-  sig { params(content: String, audience: Symbol).returns(T.untyped) }
-  def create_note(content, audience: :close_friends)
-    client.create_note(content, audience:)
-  end
-
   private
 
   # == Helpers
   sig { returns(T.nilable(InstagramCredentials)) }
   def saved_credentials
     InstagramCredentials.where.not(session: nil).first
-  end
-
-  sig { returns(Client) }
-  def authenticated_client
-    # if client.requires_security_code?
-    #   raise "Not authenticated (requires security code)"
-    # end
-    client
   end
 end

@@ -21,10 +21,10 @@ module Slugged
     extend T::Sig
     extend T::Helpers
 
-    # == Class annotations
+    # == Annotations
     requires_ancestor { T.class_of(ApplicationRecord) }
 
-    # == Class methods
+    # == Methods
     sig { returns(Integer) }
     def generated_slug_length
       @generated_slug_length || 16

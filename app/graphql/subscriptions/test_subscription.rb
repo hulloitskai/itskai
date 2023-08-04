@@ -3,7 +3,7 @@
 
 module Subscriptions
   class TestSubscription < BaseSubscription
-    # == Class variables
+    # == Variables
     @count = T.let(0, Integer)
 
     # == Configuration
@@ -23,11 +23,11 @@ module Subscriptions
     class << self
       extend T::Sig
 
-      # == Class attributes
+      # == Attributes
       sig { returns(Integer) }
       attr_reader :count
 
-      # == Class methods
+      # == Methods
       sig { returns(Integer) }
       def increment!
         @count += 1

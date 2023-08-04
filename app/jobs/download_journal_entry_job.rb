@@ -13,7 +13,7 @@ class DownloadJournalEntryJob < ApplicationJob
   )
 
   # == Callbacks
-  before_perform :update_activity_status
+  before_perform :set_status
 
   # == Job
   sig { params(entry: JournalEntry).void }
@@ -25,10 +25,8 @@ class DownloadJournalEntryJob < ApplicationJob
 
   # == Callback handlers
   sig { void }
-  def update_activity_status
+  def set_status
     entry = T.let(arguments.first!, JournalEntry)
-    ActivityService.update_status(
-      "Downloading journal entry: #{entry.title}",
-    )
+    Activity.status = "Downloading journal entry: #{entry.title}"
   end
 end
