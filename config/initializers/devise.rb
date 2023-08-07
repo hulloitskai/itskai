@@ -293,6 +293,7 @@ Devise.setup do |config|
     client_secret: Google.client_secret,
     name: :google,
     scope: %w[profile email https://www.googleapis.com/auth/calendar].join(","),
+    prompt: "consent",
   )
 
   # ==> Warden configuration

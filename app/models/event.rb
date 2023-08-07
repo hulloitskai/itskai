@@ -19,7 +19,11 @@ class Event < T::Struct
       @calendar ||= scoped do
         client_id = Google.client_id!
         client_secret = Google.client_secret!
-        refresh_token = OAuthCredentials.google!.refresh_token
+        refresh_token = begin
+          OAuthCredentials.google!.refresh_token
+        rescue ActiveRecord::RecordNotFound
+          raise "Missing Google OAuth credentials"
+        end
         Google::Calendar.new(
           client_id:,
           client_secret:,
