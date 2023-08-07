@@ -27,6 +27,9 @@ module GeneratedPathHelpersModule
   def edit_user_registration_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def events_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def gh_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

@@ -169,9 +169,6 @@ gem "sentry-rails", "~> 5.9"
 # Query Notion with Notion Ruby Client
 gem "notion-ruby-client", "~> 1.2"
 
-# Send and receive messages on Discord
-gem "discordrb", github: "shardlab/discordrb", ref: "2011ac63da2c5dde1ff3bea06e1b471325128575"
-
 # Forward and reverse geocode with Geocoder
 gem "geocoder", "~> 1.8"
 

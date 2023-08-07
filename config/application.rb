@@ -37,7 +37,7 @@ module ItsKai
       require "email_validator_ext"
       require "devise_ext"
       require "friendly_id_ext"
-      require "discordrb_ext"
+      # require "discordrb_ext"
     end
 
     # == Code Loading
