@@ -79,7 +79,7 @@ class JournalEntry < ApplicationRecord
           "equals" => true,
         },
       },
-      sort: [{
+      sorts: [{
         "timestamp" => "created_time",
         "direction" => "descending",
       }],
@@ -100,6 +100,15 @@ class JournalEntry < ApplicationRecord
       raise error
     end
     JournalEntry.where.not(notion_page_id: notion_pages.map(&:id)).destroy_all
+  end
+
+  sig { params(notion_page: T.untyped).void }
+  def import_attributes(notion_page)
+    notion_page => { properties: }
+    self.imported_at = Time.current
+    self.title = properties["Name"].title.first!.plain_text
+    self.started_at = properties["Created At"].created_time.to_time
+    self.last_edited_at = properties["Modified At"].last_edited_time.to_time
   end
 
   sig { void }
@@ -150,17 +159,5 @@ class JournalEntry < ApplicationRecord
   sig { params(text: String).returns(T.untyped) }
   def create_notion_comment(text)
     NotionService.create_comment(notion_page_id, text:)
-  end
-
-  protected
-
-  # == Importing: Helpers
-  sig { params(notion_page: T.untyped).void }
-  def import_attributes(notion_page)
-    notion_page => { properties: }
-    self.imported_at = Time.current
-    self.title = properties["Name"].title.first!.plain_text
-    self.started_at = properties["Created At"].created_time.to_time
-    self.last_edited_at = properties["Modified At"].last_edited_time.to_time
   end
 end

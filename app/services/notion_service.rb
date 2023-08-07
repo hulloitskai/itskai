@@ -23,7 +23,7 @@ class NotionService < ApplicationService
     end
     def list_pages(database_id, **options)
       results = T.let([], T::Array[T.untyped])
-      @client.database_query(database_id: database_id, **options) do |page|
+      client.database_query(database_id: database_id, **options) do |page|
         results.concat(page.results)
       end
       results
