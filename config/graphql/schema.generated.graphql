@@ -220,8 +220,6 @@ type NotionComment {
 }
 
 type OAuthCredentials implements Node {
-  accessToken: String
-
   """ID of the object."""
   id: ID!
   name: String!

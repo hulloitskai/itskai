@@ -41,17 +41,10 @@ const UserSettingsPageGoogleCredentialsForm: FC<
     <Stack spacing="xs">
       {credentials &&
         resolve(() => {
-          const { uid, accessToken, refreshToken } = credentials;
+          const { uid, refreshToken } = credentials;
           return (
-            <>
+            <Stack spacing={8}>
               <TextInput label="UID (read-only)" value={uid} readOnly />
-              {!!accessToken && (
-                <TextInput
-                  label="Access Token (read-only)"
-                  value={accessToken}
-                  readOnly
-                />
-              )}
               {!!refreshToken && (
                 <TextInput
                   label="Refresh Token (read-only)"
@@ -59,7 +52,7 @@ const UserSettingsPageGoogleCredentialsForm: FC<
                   readOnly
                 />
               )}
-            </>
+            </Stack>
           );
         })}
       <Stack spacing={6}>

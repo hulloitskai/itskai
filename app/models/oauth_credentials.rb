@@ -6,7 +6,6 @@
 # Table name: oauth_credentials
 #
 #  id            :uuid             not null, primary key
-#  access_token  :string           not null
 #  provider      :string           not null
 #  refresh_token :string           not null
 #  uid           :string           not null
@@ -15,17 +14,18 @@
 #
 # Indexes
 #
-#  index_oauth_credentials_on_provider  (provider) UNIQUE
-#  index_oauth_credentials_on_uid       (uid) UNIQUE
+#  index_oauth_credentials_on_provider_and_uid  (provider,uid) UNIQUE
 #
 class OAuthCredentials < ApplicationRecord
   # == Validations
-  validates :provider, presence: true, uniqueness: true
-  validates :uid, presence: true, uniqueness: true
+  validates :provider, :uid, presence: true
+  validates :refresh_token, presence: true
 
   # == Finders
   sig { returns(T.nilable(OAuthCredentials)) }
-  def self.spotify = find_by(provider: :spotify)
+  def self.spotify
+    find_by(provider: :spotify)
+  end
 
   sig { returns(OAuthCredentials) }
   def self.spotify!
@@ -34,7 +34,9 @@ class OAuthCredentials < ApplicationRecord
   end
 
   sig { returns(T.nilable(OAuthCredentials)) }
-  def self.google = find_by(provider: :google)
+  def self.google
+    find_by(provider: :google)
+  end
 
   sig { returns(OAuthCredentials) }
   def self.google!

@@ -1,7 +1,10 @@
 # typed: strong
 
 class RSpotify::User
-  sig {returns(RSpotify::Player)}
+  sig { returns(String) }
+  def id; end
+
+  sig { returns(RSpotify::Player) }
   def player
   end
 end
@@ -13,46 +16,46 @@ end
 # end
 
 class RSpotify::Track
-  sig {returns(String)}
+  sig { returns(String) }
   def id; end
 
-  sig {returns(String)}
+  sig { returns(String) }
   def name; end
 
-  sig {returns(T::Hash[String, String])}
+  sig { returns(T::Hash[String, String]) }
   def external_urls; end
 
-  sig {returns(RSpotify::Album)}
+  sig { returns(RSpotify::Album) }
   def album
   end
 
-  sig {returns(T::Array[RSpotify::Artist])}
+  sig { returns(T::Array[RSpotify::Artist]) }
   def artists
   end
 end
 
 class RSpotify::Album
-  sig {returns(String)}
+  sig { returns(String) }
   def id; end
 
-  sig {returns(String)}
+  sig { returns(String) }
   def name; end
 
-  sig {returns(T::Hash[String, String])}
+  sig { returns(T::Hash[String, String]) }
   def external_urls; end
 
-  sig {returns(T::Array[T::Hash[String, T.untyped]])}
+  sig { returns(T::Array[T::Hash[String, T.untyped]]) }
   def images
   end
 end
 
 class RSpotify::Artist
-  sig {returns(String)}
+  sig { returns(String) }
   def id; end
 
-  sig {returns(String)}
+  sig { returns(String) }
   def name; end
 
-  sig {returns(T::Hash[String, String])}
+  sig { returns(T::Hash[String, String]) }
   def external_urls; end
 end

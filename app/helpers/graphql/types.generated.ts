@@ -277,7 +277,6 @@ export type NotionComment = {
 
 export type OAuthCredentials = Node & {
   __typename?: 'OAuthCredentials';
-  accessToken?: Maybe<Scalars['String']['output']>;
   /** ID of the object. */
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];

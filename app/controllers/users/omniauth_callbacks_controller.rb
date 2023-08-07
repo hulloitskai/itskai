@@ -18,15 +18,12 @@ module Users
     # GET /user/auth/spotify/callback
     def spotify
       credentials = OAuthCredentials.find_or_initialize_by(
-        auth.slice(:provider, :uid),
+        auth.slice(:provider),
       )
-      credentials.attributes = auth
-        .fetch(:credentials)
-        .slice(:token, :refresh_token)
-        .tap do |credentials|
-          credentials[:access_token] = credentials.delete(:token)
-        end
-      credentials.save!
+      credentials.update!(
+        **auth.slice(:uid),
+        **auth.fetch(:credentials).slice(:refresh_token),
+      )
       scoped do
         credentials => { uid:, refresh_token: }
         logger.info(
@@ -43,15 +40,12 @@ module Users
     # GET /user/auth/google/callback
     def google
       credentials = OAuthCredentials.find_or_initialize_by(
-        auth.slice(:provider, :uid),
+        auth.slice(:provider),
       )
-      credentials.attributes = auth
-        .fetch(:credentials)
-        .slice(:token, :refresh_token)
-        .tap do |credentials|
-          credentials[:access_token] = credentials.delete(:token)
-        end
-      credentials.save!
+      credentials.update!(
+        **auth.slice(:uid),
+        **auth.fetch(:credentials).slice(:refresh_token),
+      )
       scoped do
         credentials => { uid:, refresh_token: }
         logger.info(

@@ -168,10 +168,11 @@ class SpotifyService < ApplicationService
     @user = RSpotify::User.new({
       "id" => credentials.uid,
       "credentials" => {
-        "token" => credentials.access_token,
         "refresh_token" => credentials.refresh_token,
       },
     })
+    RSpotify::User.send(:refresh_token, @user.id)
+    @user
   end
 
   sig { returns(RSpotify::User) }
