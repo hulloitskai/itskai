@@ -629,10 +629,10 @@ class OAuthCredentials
     sig { void }
     def provider_will_change!; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(::String) }
     def refresh_token; end
 
-    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    sig { params(value: ::String).returns(::String) }
     def refresh_token=(value); end
 
     sig { returns(T::Boolean) }
@@ -647,10 +647,10 @@ class OAuthCredentials
     sig { returns(T::Boolean) }
     def refresh_token_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def refresh_token_change; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def refresh_token_change_to_be_saved; end
 
     sig { returns(T::Boolean) }
@@ -659,7 +659,7 @@ class OAuthCredentials
     sig { returns(T.nilable(::String)) }
     def refresh_token_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def refresh_token_previous_change; end
 
     sig { returns(T::Boolean) }
@@ -719,7 +719,7 @@ class OAuthCredentials
     sig { returns(T::Boolean) }
     def saved_change_to_provider?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_refresh_token; end
 
     sig { returns(T::Boolean) }

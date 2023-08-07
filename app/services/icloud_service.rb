@@ -71,7 +71,7 @@ class ICloudService < ApplicationService
   # == Lifecycle
   sig { override.returns(T::Boolean) }
   def ready?
-    @client.present? && !@client.requires_security_code? && super
+    @client.present? && super
   end
 
   sig { override.void }

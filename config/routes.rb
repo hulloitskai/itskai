@@ -72,6 +72,9 @@ Rails.application.routes.draw do
   get "/calendly" => "calendly#show"
   get "/hangout" => "calendly#show"
 
+  # == Events
+  resources :events, only: :index
+
   # == Errors
   scope controller: :errors do
     match "/401", action: :unauthorized, via: :all

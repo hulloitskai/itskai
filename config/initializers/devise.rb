@@ -2,6 +2,9 @@
 # typed: true
 # frozen_string_literal: true
 
+require "./app/concerns/google"
+require "./app/concerns/spotify"
+
 # Assuming you have not yet modified this file, each configuration option below
 # is set to its default value. Note that some are commented out while others
 # are not: uncommented lines are intended to protect your configuration from
@@ -278,16 +281,16 @@ Devise.setup do |config|
   # Configure authentication with Spotify.
   config.omniauth(
     :spotify,
-    client_id: ENV["SPOTIFY_CLIENT_ID"],
-    client_secret: ENV["SPOTIFY_CLIENT_SECRET"],
+    client_id: Spotify.client_id,
+    client_secret: Spotify.client_secret,
     scope: %w[user-read-email user-read-playback-state].join(", "),
   )
 
   # Configure authentication with Google.
   config.omniauth(
     :google_oauth2,
-    client_id: ENV["GOOGLE_CLIENT_ID"],
-    client_secret: ENV["GOOGLE_CLIENT_SECRET"],
+    client_id: Google.client_id,
+    client_secret: Google.client_secret,
     name: :google,
     scope: %w[profile email https://www.googleapis.com/auth/calendar].join(","),
   )

@@ -1,88 +1,95 @@
 # typed: strong
 
-module ActiveSupport::Dependencies
-  sig { returns(Interlock) }
-  def self.interlock; end
-end
-
-class ActiveSupport::Duration
-  sig { returns(Float) }
-  def in_days; end
-
-  sig { returns(Float) }
-  def in_hours; end
-
-  sig { returns(Float) }
-  def in_minutes; end
-
-  sig { returns(Float) }
-  def in_months; end
-
-  sig { returns(Float) }
-  def in_seconds; end
-
-  sig { returns(Float) }
-  def in_weeks; end
-
-  sig { returns(Float) }
-  def in_years; end
-end
-
-class ActiveSupport::ErrorReporter
-  sig do
-    params(
-      error_class: T::Class[T.anything],
-      severity: Symbol,
-      context: T::Hash[Symbol, T.untyped],
-      fallback: T.nilable(T.proc.returns(T.untyped)),
-      block: T.proc.returns(T.untyped),
-    ).returns(T.untyped)
+module ActiveSupport
+  module Dependencies
+    sig { returns(Interlock) }
+    def self.interlock; end
   end
-  def handle(
-    error_class = StandardError,
-    severity: :warning,
-    context: {},
-    fallback: nil,
-    &block
-  ); end
 
-  sig do
-    type_parameters(:T).
+  class Duration
+    sig { returns(Float) }
+    def in_days; end
+
+    sig { returns(Float) }
+    def in_hours; end
+
+    sig { returns(Float) }
+    def in_minutes; end
+
+    sig { returns(Float) }
+    def in_months; end
+
+    sig { returns(Float) }
+    def in_seconds; end
+
+    sig { returns(Float) }
+    def in_weeks; end
+
+    sig { returns(Float) }
+    def in_years; end
+  end
+
+  class ErrorReporter
+    sig do
       params(
         error_class: T::Class[T.anything],
         severity: Symbol,
         context: T::Hash[Symbol, T.untyped],
-        block: T.proc.returns(T.type_parameter(:T)),
-      ).returns(T.type_parameter(:T))
-  end
-  def record(
-    error_class = StandardError,
-    severity: :error,
-    context: {},
-    &block
-  ); end
-end
+        fallback: T.nilable(T.proc.returns(T.untyped)),
+        block: T.proc.returns(T.untyped),
+      ).returns(T.untyped)
+    end
+    def handle(
+      error_class = StandardError,
+      severity: :warning,
+      context: {},
+      fallback: nil,
+      &block
+    ); end
 
-class ActiveSupport::TimeWithZone
-  sig { params(format: String).returns(String) }
-  def strftime(format); end
-
-  sig {returns(Time)}
-  def to_time
+    sig do
+      type_parameters(:T).
+        params(
+          error_class: T::Class[T.anything],
+          severity: Symbol,
+          context: T::Hash[Symbol, T.untyped],
+          block: T.proc.returns(T.type_parameter(:T)),
+        ).returns(T.type_parameter(:T))
+    end
+    def record(
+      error_class = StandardError,
+      severity: :error,
+      context: {},
+      &block
+    ); end
   end
-end
 
-module ActiveSupport::Tryable
-  sig do
-    type_parameters(:U)
-      .params(
-        args: T.untyped,
-        kwargs: T.untyped,
-        block: T.proc.params(arg0: T.self_type).returns(T.type_parameter(:U)),
-      )
-      .returns(T.nilable(T.type_parameter(:U)))
+  class TimeWithZone
+    sig { params(format: String).returns(String) }
+    def strftime(format); end
+
+    sig {returns(Time)}
+    def to_time
+    end
   end
-  def try!(*args, **kwargs, &block); end
+
+  class TimeZone
+    sig { returns(Time) }
+    def now; end
+  end
+
+  module Tryable
+    sig do
+      type_parameters(:U)
+        .params(
+          args: T.untyped,
+          kwargs: T.untyped,
+          block: T.proc.params(arg0: T.self_type).returns(T.type_parameter(:U)),
+        )
+        .returns(T.nilable(T.type_parameter(:U)))
+    end
+    def try!(*args, **kwargs, &block); end
+  end
 end
 
 module Kernel
@@ -164,6 +171,9 @@ class Hash
 end
 
 class Time
+  sig { returns(ActiveSupport::TimeZone) }
+  def self.zone; end
+
   sig { params(zone: T.untyped).returns(ActiveSupport::TimeWithZone) }
   def in_time_zone(zone = T.unsafe(nil)); end
 end

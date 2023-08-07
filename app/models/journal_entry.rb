@@ -126,16 +126,17 @@ class JournalEntry < ApplicationRecord
     DownloadJournalEntryJob.perform_later(self)
   end
 
-  # == Notion: Methods
+  # == Notion: Helpers
   sig { returns(String) }
   def self.notion_database_id
     ENV["JOURNAL_ENTRY_NOTION_DATABASE_ID"] or
-      raise "Missing Notion database ID"
+      raise "Missing journal entries Notion database ID"
   end
 
   sig { returns(String) }
   def notion_database_id = self.class.notion_database_id
 
+  # == Notion: Methods
   sig { returns(T.untyped) }
   def notion_page
     NotionService.retrieve_page(notion_page_id)

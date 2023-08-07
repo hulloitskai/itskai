@@ -11,20 +11,20 @@ class ActionItem < ApplicationModel
     name or "Missing name"
   end
 
-  # == Persistence
+  # == Notion: Helpers
+  sig { returns(String) }
+  def self.notion_database_id
+    ENV["ACTION_ITEM_NOTION_DATABASE_ID"] or
+      raise "Missing action items Notion database ID"
+  end
+
+  sig { returns(String) }
+  def notion_database_id = self.class.notion_database_id
+
+  # == Notion: Methods
   sig { returns(T.untyped) }
   def create_notion_page
     validate!
     NotionService.create_page(notion_database_id, name: name!)
   end
-
-  # == Notion: Methods
-  sig { returns(String) }
-  def self.notion_database_id
-    ENV["ACTION_ITEM_NOTION_DATABASE_ID"] or
-      raise "Missing Notion database ID"
-  end
-
-  sig { returns(String) }
-  def notion_database_id = self.class.notion_database_id
 end

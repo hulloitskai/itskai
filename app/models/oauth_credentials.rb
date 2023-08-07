@@ -8,7 +8,7 @@
 #  id            :uuid             not null, primary key
 #  access_token  :string           not null
 #  provider      :string           not null
-#  refresh_token :string
+#  refresh_token :string           not null
 #  uid           :string           not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null

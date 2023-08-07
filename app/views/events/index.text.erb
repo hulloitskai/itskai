@@ -1,0 +1,3 @@
+<% @events.each do |event| %>
+- <%= event.title %> [<%= l(event.start, format: :short) %> -> <%= l(event.end, format: :short) %>]
+<% end %>

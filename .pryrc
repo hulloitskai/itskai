@@ -6,8 +6,8 @@ require "pry-sorbet"
 require "pry-stack_explorer"
 require "break"
 
-# Apply patches.
-require_relative "lib/pry_ext"
+# Apply extensions.
+# require "pry_ext"
 
 # Fix control characters.
 #
