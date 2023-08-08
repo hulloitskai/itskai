@@ -83,13 +83,17 @@ Rails.application.routes.draw do
     match "/500", action: :internal_server_error, via: :all
   end
 
+  # == Resume
+  resource :resume, only: :show
+
+  # == Scottkit
+  resource :scottkit, only: :show
+
   # == Scottcall
   post "/scottcall" => "scottcalls#handle"
 
   # == Pages
   root "homepages#show"
-  get "/scottkit" => "scottkit#show"
-  get "/resume" => "resume#show"
   get "/toronto" => "places#toronto"
   get "/gh" => redirect("https://github.com/hulloitskai/itskai", status: 302)
 

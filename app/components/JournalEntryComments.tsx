@@ -86,12 +86,12 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
             >
               <Box component={CommentIcon} mt={2} />
               <Box sx={{ flex: 1 }}>
-                <Stack spacing={4}>
+                <Stack spacing={4} lh={1.5}>
                   {richText.map((props: any, index: number) => (
                     <RenderText key={index} {...props} />
                   ))}
                 </Stack>
-                <Box mt={-4}>
+                <Box>
                   <Time
                     size="xs"
                     color="dimmed"

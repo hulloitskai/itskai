@@ -3710,6 +3710,7 @@ end
 # source://selenium-webdriver//lib/selenium/webdriver/common/html5/shared_web_storage.rb#23
 module Selenium::WebDriver::HTML5::SharedWebStorage
   include ::Enumerable
+  include ::ActiveSupport::ToJsonWithActiveSupportEncoder
 
   # source://selenium-webdriver//lib/selenium/webdriver/common/html5/shared_web_storage.rb#43
   def each; end

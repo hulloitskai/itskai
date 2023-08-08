@@ -105,7 +105,7 @@ gem "addressable", "~> 2.8"
 gem "discard", "~> 1.2"
 
 # Typecheck code at runtime
-gem "sorbet-runtime", "~> 0.5.10914"
+gem "sorbet-runtime", "~> 0.5.10950"
 
 # Use Enumerize to enumerate attributes
 gem "enumerize", "~> 2.6"
@@ -181,6 +181,12 @@ gem "rack-cors", "~> 2.0"
 # Load events from Google Calendar
 gem "google_calendar", "~> 0.6.4"
 
+# Print resume as PDF with Selenium
+gem "selenium-webdriver", "~> 4.10", require: false
+
+# Detect what OS we are running on
+gem "os", "~> 1.1"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"
@@ -198,7 +204,7 @@ group :development do
   gem "debug", platforms: %i[mri mingw x64_mingw]
 
   # Typecheck code
-  gem "sorbet", "0.5.10914", require: false
+  gem "sorbet", "0.5.10950", require: false
   gem "tapioca", "~> 0.11.7", require: false
 
   # Use Rubocop to lint code
@@ -235,6 +241,5 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "selenium-webdriver"
   gem "webdrivers"
 end

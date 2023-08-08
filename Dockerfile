@@ -70,6 +70,16 @@ RUN apt-get update -qq \
   && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log
 
+# Install Google Chrome
+RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+  && echo deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main >> /etc/apt/sources.list.d/google-chrome.list
+RUN apt-get -y update -qq \
+  && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends google-chrome-stable \
+  && apt-get clean \
+  && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+  && truncate -s 0 /var/log/*log
+
 # Install programs
 COPY Aptfile /tmp/Aptfile
 RUN apt-get update -qq \

@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class ScottkitController < ApplicationController
+class ScottkitsController < ApplicationController
   # == Actions
   def show
     render(inertia: "ScottkitPage")

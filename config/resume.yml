@@ -1,8 +1,7 @@
 basics:
   name: Kai Xie
   summary: |-
-    I'm a generalist software engineer, amateur systems designer, a creative and
-    a tinkerer/hacker. I like to build things that make people smile!
+    Generalist software engineer, designer, and hacker.
   profiles:
     - network: GitHub
       username: hulloitskai
@@ -33,7 +32,7 @@ work:
         product and technology stack (Postgres, ElasticSearch, Kubernetes,
         HubSpot, Sentry, Stripe) as the sole engineering/product person.
   - name: Universe
-    position: Software Developer Intern
+    position: Software Developer (Co-op)
     url: http://universe.com
     startDate: 2019-01
     endDate: 2019-04
@@ -55,7 +54,7 @@ work:
         Investigated security concerns and implemented solutions to mitigate
         them.
   - name: ConsenSys
-    position: Software Developer Intern
+    position: Software Developer (Co-op)
     url: https://consensys.net
     startDate: 2018-05
     endDate: 2018-08
