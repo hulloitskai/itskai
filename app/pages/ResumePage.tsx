@@ -147,7 +147,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
             <Title order={2} size="h4" color="dark.3" lh={1.3}>
               Education
             </Title>
-            <Group spacing="xs" grow>
+            <Group spacing="xl">
               {education.map((educationInfo, index) => (
                 <ResumeEducationSection key={index} {...{ educationInfo }} />
               ))}

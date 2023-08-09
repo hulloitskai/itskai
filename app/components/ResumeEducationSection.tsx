@@ -17,7 +17,8 @@ const ResumeEducationSection: FC<ResumeEducationSectionProps> = ({
       </Title>
     </Group>
     <Text size="sm" color="dark" lh={1.2}>
-      {studyType} of {area}
+      {!!studyType && <>{studyType} of </>}
+      {area}
     </Text>
     <Badge
       variant="outline"

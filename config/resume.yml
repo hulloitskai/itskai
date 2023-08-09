@@ -8,19 +8,38 @@ basics:
       url: https://github.com/hulloitskai
   email: hello@itskai.me
 work:
+  - name: Prompt Labs
+    position: Co-Founder
+    url: https://askpromptly.ai
+    startDate: 2023-03
+    endDate: 2023-08
+    highlights:
+      - >-
+        Designed and built a platform that helps product teams understand their
+        users' behaviour, by talking to their users at scale with conversational
+        AI.
+      - >-
+        Engineered an AI system to conduct effective interviews; this includes
+        training multiple models, each with one area of responsibility (e.g. one
+        model decides whether to follow-up on an user's response or to move onto
+        the next question; another ensures questions are unbiased and
+        non-hypothetical).
+      - >-
+        Built an initial prototype in 2 weeks; got our first paying customer
+        after 4 weeks.
   - name: Playces
-    position: Chief Technology Officer
+    position: Co-Founder & CTO
     url: https://playces.in
     startDate: 2019-04
     endDate: 2022-10
     highlights:
       - >-
-        Designed and built a platform in Ruby on Rails and React to modernize
-        independent tourism businesses, enabling them to display availability
-        and receive bookings, accept payments and send invoices,
-        automate manual processes (booking questions, automatic emails, built-in
-        CRM, operations dashboard) and reach more customers (travel communities
-        with a social feed and media embeds).
+        Designed and built a platform to modernize independent tourism
+        businesses, enabling them to display availability and receive bookings,
+        accept payments and send invoices, automate manual processes (booking
+        questions, automatic emails, built-in CRM, operations dashboard) and
+        reach more customers (travel communities with a social feed and media
+        embeds).
       - >-
         Gave our partners observability into under-utilized resources and the
         operational agility to really grow; our customer champion increased
@@ -30,7 +49,7 @@ work:
       - >-
         Researched, designed, built, deployed, and iterated on
         product and technology stack (Postgres, ElasticSearch, Kubernetes,
-        HubSpot, Sentry, Stripe) as the sole engineering/product person.
+        HubSpot, Sentry, Stripe) as the sole engineering/product lead.
   - name: Universe
     position: Software Developer (Co-op)
     url: http://universe.com
@@ -38,21 +57,13 @@ work:
     endDate: 2019-04
     highlights:
       - >-
-        Wrote a CLI tool in Go for orchestrating on-demand staging environments
-        for our microservices stack on Kubernetes, which powered our code review
-        and QA flows. Investigated the operational limitations
-        of the existing Rundeck-based systems and used these insights to design
-        a spiritual successor.
+        Developed internal tooling for orchestrating on-demand staging
+        environments for Universe's microservices stack on Kubernetes, to power
+        code review and QA flows.
       - >-
         Researched and implemented optimizations to half the amount of time it
         took to launch a staging stack, reducing both wait times in our QA
         workflow, as well as our GCP bills.
-      - >-
-        Supported product development by troubleshooting unexpected deployment
-        failures.
-      - >-
-        Investigated security concerns and implemented solutions to mitigate
-        them.
   - name: ConsenSys
     position: Software Developer (Co-op)
     url: https://consensys.net
@@ -60,13 +71,17 @@ work:
     endDate: 2018-08
     highlights:
       - >-
-        Developed a team management webapp using React, MongoDB, and Neo4J to
+        Developed a team management app using React, MongoDB, and Neo4J to
         support the operation of decentralized organizations like ConsenSys.
       - >-
         Worked with relationship-heavy data sets using graph databases, and
-        architected a scalable data-heavy applications using Redux and
+        Architected a system to store and visualize relational using Redux and
         websockets.
 education:
+  - institution: Next 36
+    area: 2023 Cohort
+    startDate: 2023-03
+    endDate: 2023-08
   - institution: University of Waterloo
     area: Computer Science
     studyType: Bachelor
@@ -97,31 +112,16 @@ skills:
       - NodeJS
       - NextJS
       - Ruby On Rails
-      - SQL, NoSQL, Graph Databases
+      - PostgreSQL, MongoDB, Neo4J
       - ETL
       - Caching
-      - Performance
       - Parallellism
-      - APIs, Integrations
+      - APIs & Integrations
       - Webhooks
-      - Text & Geo Search
-      - Security, Permissions, XSS Prevention
-  - name: DevOps, Infra
-    keywords:
-      - Golang
-      - Kubernetes, CRDs, Operators, GitOps
-      - Docker
-      - Containerization
-      - CI & CD
-      - Terraform
-      - AWS
-      - GCP
-      - DigitalOcean
       - ElasticSearch
-      - Postgres
-      - Redis
-      - Site Reliability
-      - Security & Hardening
+      - Security & XSS Prevention
+      - Kubernetes
+      - CI/CD
   - name: Mobile
     keywords:
       - React Native
