@@ -84,6 +84,8 @@ Style/Documentation:
   Enabled: false
 Style/ParallelAssignment:
   Enabled: false
+Style/RescueModifier:
+  Enabled: false
 Style/SymbolArray:
   EnforcedStyle: percent
 Style/TrailingCommaInHashLiteral:

@@ -3,7 +3,11 @@
 
 class ResumesController < ApplicationController
   # == Actions
+
   # GET /resume
+  #
+  # FIXME: Loading the PDF resume immediately after the app boots in development
+  # causes the app to hang. Not sure why.
   def show
     respond_to do |format|
       format.html do

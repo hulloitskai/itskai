@@ -14,7 +14,8 @@ module InertiaRails
       requires_ancestor { Renderer }
 
       # == Initialization
-      def initialize(...)
+      sig { params(args: T.untyped, kwargs: T.untyped).void }
+      def initialize(*args, **kwargs)
         super
         @controller = T.let(@controller, ActionController::Base)
         @props.transform_keys! do |key|
