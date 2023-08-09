@@ -49,7 +49,7 @@ class InstagramService < ApplicationService
   sig { override.void }
   def start
     super
-    Thread.new do
+    wrapped_thread do
       silence_logger_in_console do
         credentials = saved_credentials or break
         begin

@@ -138,4 +138,11 @@ class ApplicationService
       yield
     end
   end
+
+  sig { params(block: T.proc.void).returns(Thread) }
+  def wrapped_thread(&block)
+    Thread.new do
+      Rails.application.executor.wrap(&block)
+    end
+  end
 end

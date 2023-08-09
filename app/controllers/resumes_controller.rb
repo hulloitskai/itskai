@@ -14,8 +14,7 @@ class ResumesController < ApplicationController
         render(json: Resume.data)
       end
       format.pdf do
-        thread = Thread.new { print_resume }
-        data = T.cast(thread.join.value, String)
+        data = print_resume
         send_data(
           data,
           filename: "kai-xie-resume.pdf",
@@ -29,26 +28,35 @@ class ResumesController < ApplicationController
   private
 
   # == Helpers
-  sig { returns(String) }
-  def print_resume
-    require "selenium-webdriver"
-    driver = Selenium::WebDriver.for(
+  sig do
+    returns(T.all(Selenium::WebDriver::Chrome::Driver,
+                  Selenium::WebDriver::DriverExtensions::PrintsPage))
+  end
+  def webdriver
+    @webdriver = T.let(
+      @webdriver,
+      T.nilable(T.all(Selenium::WebDriver::Chrome::Driver,
+                      Selenium::WebDriver::DriverExtensions::PrintsPage)),
+    )
+    @webdriver ||= Selenium::WebDriver.for(
       :chrome,
       options: Selenium::WebDriver::Chrome::Options.new.tap do |options|
         options = T.let(options, Selenium::WebDriver::Chrome::Options)
         options.add_argument("--headless")
         options.add_argument("--window-size=1400,1000")
+        options.add_argument("--kiosk-printing")
         if OS.linux?
           options.add_argument("--no-sandbox")
           options.add_argument("--disable-dev-shm-usage")
         end
       end,
     )
-    driver = T.let(
-      driver,
-      T.all(Selenium::WebDriver::Chrome::Driver,
-            Selenium::WebDriver::DriverExtensions::PrintsPage),
-    )
+  end
+
+  sig { returns(String) }
+  def print_resume
+    require "selenium-webdriver"
+    driver = webdriver
     driver.get(resume_url(printable: true))
     Selenium::WebDriver::Wait.new.until do
       driver.execute_script(
@@ -57,6 +65,7 @@ class ResumesController < ApplicationController
         'return window.performance.getEntriesByType("paint").length > 0',
       )
     end
-    Base64.decode64(driver.print_page)
+    page_str = driver.print_page
+    Base64.decode64(page_str)
   end
 end

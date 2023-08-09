@@ -29,7 +29,19 @@ const ResumePage: PageComponent<ResumePageProps> = ({
 
   // == Markup
   return (
-    <MantineProvider inherit theme={{ colorScheme: "light" }}>
+    <MantineProvider
+      inherit
+      theme={{
+        colorScheme: "light",
+        globalStyles: () => ({
+          "@media print": {
+            "@page": {
+              margin: 0,
+            },
+          },
+        }),
+      }}
+    >
       <ResumeLayout {...{ printable }}>
         <Box>
           <Group spacing="xs" position="apart">

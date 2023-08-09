@@ -23,9 +23,11 @@ module Mutations
       model = TestModel.new(**attributes)
       if model.valid?
         th = Thread.new do
-          TestMailer
-            .test_email(model, current_user: active_user)
-            .deliver_now
+          Rails.application.executor.wrap do
+            TestMailer
+              .test_email(model, current_user: active_user)
+              .deliver_now
+          end
         end
         th.join
         Payload.new(model:)
