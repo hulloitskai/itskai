@@ -6,7 +6,6 @@
 
 class GoodJob::BaseExecution
   include GeneratedAttributeMethods
-  include EnumMethodsModule
   extend CommonRelationMethods
   extend GeneratedRelationMethods
 
@@ -14,11 +13,6 @@ class GoodJob::BaseExecution
 
   sig { returns(NilClass) }
   def to_ary; end
-
-  class << self
-    sig { returns(T::Hash[T.any(String, Symbol), Integer]) }
-    def error_events; end
-  end
 
   module CommonRelationMethods
     sig do
@@ -284,45 +278,16 @@ class GoodJob::BaseExecution
     def third_to_last!; end
   end
 
-  module EnumMethodsModule
-    sig { void }
-    def error_event_discarded!; end
-
-    sig { returns(T::Boolean) }
-    def error_event_discarded?; end
-
-    sig { void }
-    def error_event_handled!; end
-
-    sig { returns(T::Boolean) }
-    def error_event_handled?; end
-
-    sig { void }
-    def error_event_interrupted!; end
-
-    sig { returns(T::Boolean) }
-    def error_event_interrupted?; end
-
-    sig { void }
-    def error_event_retried!; end
-
-    sig { returns(T::Boolean) }
-    def error_event_retried?; end
-
-    sig { void }
-    def error_event_retry_stopped!; end
-
-    sig { returns(T::Boolean) }
-    def error_event_retry_stopped?; end
-
-    sig { void }
-    def error_event_unhandled!; end
-
-    sig { returns(T::Boolean) }
-    def error_event_unhandled?; end
-  end
-
   module GeneratedAssociationRelationMethods
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def advisory_lock(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def advisory_locked(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def advisory_unlocked(*args, &blk); end
+
     sig { returns(PrivateAssociationRelation) }
     def all; end
 
@@ -336,28 +301,13 @@ class GoodJob::BaseExecution
     def create_with(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def display_all(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def distinct(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def eager_load(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def error_event_discarded(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def error_event_handled(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def error_event_interrupted(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def error_event_retried(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def error_event_retry_stopped(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def error_event_unhandled(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def except(*args, &blk); end
@@ -385,6 +335,9 @@ class GoodJob::BaseExecution
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def includes(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def includes_advisory_locks(*args, &blk); end
 
     sig do
       params(
@@ -430,6 +383,9 @@ class GoodJob::BaseExecution
     def joins(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def joins_advisory_locks(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def left_joins(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -448,24 +404,6 @@ class GoodJob::BaseExecution
     def none(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def not_error_event_discarded(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def not_error_event_handled(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def not_error_event_interrupted(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def not_error_event_retried(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def not_error_event_retry_stopped(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def not_error_event_unhandled(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def offset(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -479,6 +417,9 @@ class GoodJob::BaseExecution
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def order(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def owns_advisory_locked(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def preload(*args, &blk); end
@@ -500,6 +441,9 @@ class GoodJob::BaseExecution
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def rewhere(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def search_text(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def select(*args, &blk); end
@@ -884,20 +828,16 @@ class GoodJob::BaseExecution
     sig { returns(T::Boolean) }
     def error_changed?; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(T.nilable(::Integer)) }
     def error_event; end
 
-    sig do
-      params(
-        value: T.nilable(T.any(::String, ::Symbol, ::Integer))
-      ).returns(T.nilable(T.any(::String, ::Symbol, ::Integer)))
-    end
+    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
     def error_event=(value); end
 
     sig { returns(T::Boolean) }
     def error_event?; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(T.nilable(::Integer)) }
     def error_event_before_last_save; end
 
     sig { returns(T.untyped) }
@@ -906,28 +846,28 @@ class GoodJob::BaseExecution
     sig { returns(T::Boolean) }
     def error_event_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def error_event_change; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def error_event_change_to_be_saved; end
 
     sig { returns(T::Boolean) }
     def error_event_changed?; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(T.nilable(::Integer)) }
     def error_event_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def error_event_previous_change; end
 
     sig { returns(T::Boolean) }
     def error_event_previously_changed?; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(T.nilable(::Integer)) }
     def error_event_previously_was; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(T.nilable(::Integer)) }
     def error_event_was; end
 
     sig { void }
@@ -1467,7 +1407,7 @@ class GoodJob::BaseExecution
     sig { returns(T::Boolean) }
     def saved_change_to_error?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def saved_change_to_error_event; end
 
     sig { returns(T::Boolean) }
@@ -1745,6 +1685,15 @@ class GoodJob::BaseExecution
   end
 
   module GeneratedRelationMethods
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def advisory_lock(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def advisory_locked(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def advisory_unlocked(*args, &blk); end
+
     sig { returns(PrivateRelation) }
     def all; end
 
@@ -1758,28 +1707,13 @@ class GoodJob::BaseExecution
     def create_with(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def display_all(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def distinct(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def eager_load(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def error_event_discarded(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def error_event_handled(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def error_event_interrupted(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def error_event_retried(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def error_event_retry_stopped(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def error_event_unhandled(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def except(*args, &blk); end
@@ -1809,6 +1743,9 @@ class GoodJob::BaseExecution
     def includes(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def includes_advisory_locks(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def invert_where(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -1816,6 +1753,9 @@ class GoodJob::BaseExecution
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def joins(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def joins_advisory_locks(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def left_joins(*args, &blk); end
@@ -1836,24 +1776,6 @@ class GoodJob::BaseExecution
     def none(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def not_error_event_discarded(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def not_error_event_handled(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def not_error_event_interrupted(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def not_error_event_retried(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def not_error_event_retry_stopped(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def not_error_event_unhandled(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def offset(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -1867,6 +1789,9 @@ class GoodJob::BaseExecution
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def order(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def owns_advisory_locked(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def preload(*args, &blk); end
@@ -1888,6 +1813,9 @@ class GoodJob::BaseExecution
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def rewhere(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def search_text(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def select(*args, &blk); end
