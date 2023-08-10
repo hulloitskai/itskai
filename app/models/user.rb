@@ -69,7 +69,7 @@ class User < ApplicationRecord
                     if: %i[unconfirmed_email? email_changed?]
 
   # == Validations
-  validates :name, presence: true, length: { maximum: 64, minimum: 2 }
+  validates :name, length: { minimum: 2 }
   validates :email,
             presence: true,
             length: {
