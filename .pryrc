@@ -6,9 +6,6 @@ require "pry-sorbet"
 require "pry-stack_explorer"
 require "break"
 
-# Apply extensions.
-# require "pry_ext"
-
 # Fix control characters.
 #
 # TODO: No longer necessary when https://github.com/pry/pry/pull/2209 is merged.

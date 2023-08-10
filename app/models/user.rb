@@ -72,18 +72,12 @@ class User < ApplicationRecord
   validates :name, length: { minimum: 2 }
   validates :email,
             presence: true,
-            length: {
-              maximum: 100,
-            },
+            length: { maximum: 100 },
             email: true,
-            uniqueness: {
-              case_sensitive: false,
-            }
+            uniqueness: { case_sensitive: false }
   validates :password,
-            password_strength: {
-              min_entropy: MIN_PASSWORD_ENTROPY,
-              use_dictionary: true,
-            },
+            password_strength: { min_entropy: MIN_PASSWORD_ENTROPY,
+                                 use_dictionary: true },
             allow_nil: true
 
   # == Emails
