@@ -7,7 +7,7 @@ module Announcements
 
     sig { returns(T.nilable(String)) }
     def announcement
-      ENV["ANNOUNCEMENT"]
+      ENV["ANNOUNCEMENT"].presence
     end
   end
 end
