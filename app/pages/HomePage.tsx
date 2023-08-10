@@ -16,7 +16,7 @@ const HomePage: PageComponent<HomePageProps> = ({
 }) => (
   <Stack spacing="xs">
     {announcement ? (
-      <Alert icon={<BellIcon />} mx="sm" mt="sm">
+      <Alert icon={<BellIcon />} mt="md">
         {announcement}
       </Alert>
     ) : (
