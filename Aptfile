@@ -1,7 +1,6 @@
 # Libraries:
 build-essential
 libvips
-# mupdf
 
 # Programs:
 git

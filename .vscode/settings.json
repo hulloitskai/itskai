@@ -3,7 +3,8 @@
   "files.associations": {
     "Procfile.dev": "procfile",
     "Gemfile.lock": "plaintext",
-    "Aptfile": "plaintext"
+    "Aptfile": "shellscript",
+    ".inputrc": "plaintext"
   },
 
   // == ESLint

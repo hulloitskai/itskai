@@ -1,0 +1,26 @@
+# == Zsh
+# Configure completions
+if [ -d "$HOME/.zsh/zsh-completions" ]; then
+  fpath=("$HOME/.zsh/zsh-completions" $fpath)
+fi
+autoload -Uz compinit
+compinit
+
+# Configure autosuggestions
+if [ -s "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
+  source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
+
+# Configure Vim mode
+if [ -s "$HOME/.zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh" ]; then
+  source "$HOME/.zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+fi
+
+# Configure default text editor.
+export EDITOR=vim
+
+# Use emacs keybinds.
+bindkey -e
+
+# == Starship
+eval "$(starship init zsh)"
