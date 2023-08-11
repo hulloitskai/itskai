@@ -13,13 +13,13 @@ module Types
     field :activity_status, resolver: Queries::ActivityStatus
     field :announcement, resolver: Queries::Announcement
     field :booted_at, resolver: Queries::BootedAt
+    field :contact_email, resolver: Queries::ContactEmail
     field :image_by_signed_id, resolver: Queries::ImageBySignedId
     field :password_strength, resolver: Queries::PasswordStrength
 
     field :user, resolver: Queries::User
     field :viewer, resolver: Queries::Viewer
 
-    field :contact_email, resolver: Queries::ContactEmail
     field :currently_playing, resolver: Queries::CurrentlyPlaying
     field :location, resolver: Queries::Location
     field :resume, resolver: Queries::Resume

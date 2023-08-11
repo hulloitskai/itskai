@@ -10,5 +10,10 @@ module Contact
     def email
       ENV["CONTACT_EMAIL"]
     end
+
+    sig { returns(String) }
+    def email!
+      email or raise "Contact email not set"
+    end
   end
 end

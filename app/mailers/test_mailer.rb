@@ -12,7 +12,7 @@ class TestMailer < ApplicationMailer
       has_user: current_user.present?,
     })
     mail(
-      to: ENV.fetch("OWNER_CONTACT_EMAIL"),
+      to: Contact.email!,
       subject: "It's Kai!",
       inertia: "TestEmail",
       props: {

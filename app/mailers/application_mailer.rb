@@ -17,7 +17,7 @@ class ApplicationMailer < ActionMailer::Base
   private
 
   # == Helpers
-  sig { params(value: T.any(String, Symbol)).returns(T.untyped) }
+  sig { params(value: T.untyped).returns(T.untyped) }
   def compute_default(value)
     value.is_a?(Symbol) ? send(value) : super
   end

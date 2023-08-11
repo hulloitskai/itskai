@@ -17,7 +17,7 @@ module InertiaRails
       sig { params(args: T.untyped, kwargs: T.untyped).void }
       def initialize(*args, **kwargs)
         super
-        @controller = T.let(@controller, ActionController::Base)
+        @controller = T.let(@controller, AbstractController::Base)
         @props.transform_keys! do |key|
           if key.is_a?(Symbol)
             key.to_s.camelize(:lower).to_sym

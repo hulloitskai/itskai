@@ -1,9 +1,8 @@
 import type { FC } from "react";
 
 const FormAuthenticityField: FC = () => {
-  const {
-    csrf: { param, token },
-  } = usePageProps();
+  const { csrf } = usePageProps();
+  const { param, token } = csrf;
   return <input type="hidden" name={param} value={token} />;
 };
 
