@@ -12,7 +12,7 @@ def system!(*args)
 end
 
 # == Command
-if ["", nil].include?(ENV["CI"]) && \
+if ["", nil].include?(ENV["CI"]) &&
     !system("docker info", out: File::NULL, err: File::NULL)
   abort("Docker isn't running! Please start Docker and try again.")
 end
@@ -25,12 +25,10 @@ FileUtils.chdir APP_ROOT do
   # Add necessary setup steps to this file.
 
   puts "=> Installing Ruby dependencies"
-  system! "rbenv install"
   system! "gem install bundler --conservative"
   system("bundle check") || system!("bundle install")
 
   puts "\n=> Installing Node dependencies"
-  system! "nodenv install"
   system!("bin/yarn --silent install") &&
     puts("Node dependencies are installed")
 
