@@ -190,7 +190,7 @@ class ObsidianNote < ApplicationRecord
 
   private
 
-  # == Analysis helpers
+  # == Analysis: Helpers
   sig { void }
   def analyze_references
     links = T.cast(content.scan(/(?<!\!)\[\[[^\[\]]+\]\]/),
@@ -223,7 +223,7 @@ class ObsidianNote < ApplicationRecord
     end
   end
 
-  # == Callback handlers
+  # == Callback Handlers
   sig { void }
   def set_title
     self.title = aliases.first || name

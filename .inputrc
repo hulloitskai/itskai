@@ -1,12 +1,12 @@
 set editing-mode vi
 
-# == Command Mode mappings
+# == Command Mode
 set keymap vi-command
 
 "\C-p": history-search-backward
 "\C-n": history-search-forward
 
-# == Insert Mode mappings
+# == Insert Mode
 set keymap vi-insert
 
 "\C-p": previous-history

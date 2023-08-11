@@ -17,7 +17,7 @@ class ObsidianNotesController < ApplicationController
 
   private
 
-  # == Filter handlers
+  # == Filter Handlers
   sig { void }
   def set_note
     @note = T.let(@note, T.nilable(ObsidianNote))

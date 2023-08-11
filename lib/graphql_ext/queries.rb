@@ -9,7 +9,7 @@ module GraphQL
     extend T::Sig
 
     class Result < T::Struct
-      # == Type aliases
+      # == Type Aliases
       JSONObject = T.type_alias { T::Hash[String, T.untyped] }
 
       # == Properties
@@ -37,7 +37,7 @@ module GraphQL
       sig { returns(T::Array[LanguageNodesDefinition]) }
       attr_reader :definitions
 
-      # == Callback handlers
+      # == Callback Handlers
       sig do
         override.params(
           node: Language::Nodes::OperationDefinition,

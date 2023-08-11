@@ -9,7 +9,7 @@ module Subscriptions
     # == Type
     type Types::CurrentlyPlayingType, null: true
 
-    # == Callback handlers
+    # == Callback Handlers
     sig { returns(T.nilable(::CurrentlyPlaying)) }
     def subscribe
       ::CurrentlyPlaying.current

@@ -145,7 +145,7 @@ class JournalEntry < ApplicationRecord
   sig { returns(String) }
   def notion_database_id = self.class.notion_database_id
 
-  # == Notion: Methods
+  # == Notion
   sig { returns(T.untyped) }
   def notion_page
     NotionService.retrieve_page(notion_page_id)

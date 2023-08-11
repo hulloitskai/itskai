@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # == Filter handlers
+  # == Filter Handlers
   # sig { void }
   # def debug_action
   #   targets = params[:debug]

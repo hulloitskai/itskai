@@ -9,7 +9,7 @@ module Shortcuts
     sig { returns(String) }
     def secret_key = Shortcuts.secret_key!
 
-    # == Filter handlers
+    # == Filter Handlers
     sig { void }
     def verify_secret_key
       if request.headers["Secret-Key"] != secret_key

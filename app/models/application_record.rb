@@ -30,7 +30,7 @@ class ApplicationRecord < ActiveRecord::Base
   sig { returns(T::Hash[T.any(Symbol, String), T.untyped]) }
   def to_h = to_hash
 
-  # == Pattern matching
+  # == Pattern Matching
   sig do
     params(keys: T.nilable(T::Array[Symbol]))
       .returns(T::Hash[Symbol, T.untyped])

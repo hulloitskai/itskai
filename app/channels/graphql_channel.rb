@@ -54,7 +54,8 @@ class GraphQLChannel < ApplicationCable::Channel
 
   private
 
-  # == Subscription helpers
+  # == Subscription Helpers
+
   sig { void }
   def subscribed
     @subscription_ids = []
@@ -67,7 +68,7 @@ class GraphQLChannel < ApplicationCable::Channel
     end
   end
 
-  # == Logging helpers
+  # == Logging Helpers
 
   # Log a pretty GraphQL call signature.
   sig { override.params(action: Symbol, data: T.untyped).returns(String) }

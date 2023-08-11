@@ -21,7 +21,7 @@ class ActionItem < ApplicationModel
   sig { returns(String) }
   def notion_database_id = self.class.notion_database_id
 
-  # == Notion: Methods
+  # == Notion
   sig { returns(T.untyped) }
   def create_notion_page
     validate!

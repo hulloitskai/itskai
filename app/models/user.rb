@@ -98,7 +98,7 @@ class User < ApplicationRecord
     { "uid" => to_gid.to_s, "email" => email, "displayName" => name }
   end
 
-  # == Devise: Methods
+  # == Devise
   sig do
     params(
       params: T::Hash[Symbol, T.untyped],
@@ -118,7 +118,7 @@ class User < ApplicationRecord
 
   protected
 
-  # == Devise: Callback handlers
+  # == Devise: Callback Handlers
   sig { void }
   def after_confirmation
     super
@@ -127,7 +127,7 @@ class User < ApplicationRecord
 
   private
 
-  # == Normalization handlers
+  # == Normalization Handlers
   sig { void }
   def remove_unconfirmed_email_if_matches_email
     self.unconfirmed_email = nil if email == unconfirmed_email

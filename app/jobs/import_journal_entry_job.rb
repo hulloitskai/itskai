@@ -23,7 +23,7 @@ class ImportJournalEntryJob < ApplicationJob
 
   private
 
-  # == Callback handlers
+  # == Callback Handlers
   sig { void }
   def set_status
     entry = T.let(arguments.first!, JournalEntry)

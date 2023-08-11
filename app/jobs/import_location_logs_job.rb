@@ -16,7 +16,7 @@ class ImportLocationLogsJob < ApplicationJob
 
   private
 
-  # == Callback handlers
+  # == Callback Handlers
   sig { params(block: T.proc.void).void }
   def with_status(&block)
     Activity.status = "Importing location logs"
