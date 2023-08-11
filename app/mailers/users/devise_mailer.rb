@@ -7,7 +7,8 @@ module Users
 
     # == Emails
     sig do
-      params(record: User, token: String, opts: T::Hash[Symbol, T.untyped])
+      override
+        .params(record: User, token: String, opts: T::Hash[Symbol, T.untyped])
         .returns(Mail::Message)
     end
     def confirmation_instructions(record, token, opts = {})
@@ -24,7 +25,8 @@ module Users
     end
 
     sig do
-      params(record: User, token: String, opts: T::Hash[Symbol, T.untyped])
+      override
+        .params(record: User, token: String, opts: T::Hash[Symbol, T.untyped])
         .returns(Mail::Message)
     end
     def reset_password_instructions(record, token, opts = {})
@@ -41,7 +43,8 @@ module Users
     end
 
     sig do
-      params(record: User, opts: T::Hash[Symbol, T.untyped])
+      override
+        .params(record: User, opts: T::Hash[Symbol, T.untyped])
         .returns(Mail::Message)
     end
     def email_changed(record, opts = {})
@@ -56,7 +59,8 @@ module Users
     end
 
     sig do
-      params(record: User, opts: T::Hash[Symbol, T.untyped])
+      override
+        .params(record: User, opts: T::Hash[Symbol, T.untyped])
         .returns(Mail::Message)
     end
     def password_change(record, opts = {})
