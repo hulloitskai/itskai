@@ -2,13 +2,19 @@ import type { FC, ReactNode } from "react";
 import type { AnchorProps } from "@mantine/core";
 
 import { useContactMe } from "~/helpers/contactMe";
+import type { ContactMeOptions } from "~/helpers/contactMe";
 
-export type ContactMeLinkProps = Omit<AnchorProps, "children"> & {
-  readonly children: ReactNode;
-};
+export type ContactMeLinkProps = Omit<AnchorProps, "children"> &
+  ContactMeOptions & {
+    readonly children: ReactNode;
+  };
 
-const ContactMeLink: FC<ContactMeLinkProps> = ({ children, ...otherProps }) => {
-  const [contactMe] = useContactMe();
+const ContactMeLink: FC<ContactMeLinkProps> = ({
+  subject,
+  children,
+  ...otherProps
+}) => {
+  const [contactMe] = useContactMe({ subject });
   return (
     <Anchor component="button" weight={500} onClick={contactMe} {...otherProps}>
       {children}
