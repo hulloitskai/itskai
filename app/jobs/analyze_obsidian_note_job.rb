@@ -27,6 +27,6 @@ class AnalyzeObsidianNoteJob < ApplicationJob
   sig { void }
   def set_status
     note = T.let(arguments.first!, ObsidianNote)
-    Activity.status = "Analyzing Obsidian note: #{note.name}"
+    ActivityStatus.current = "Analyzing Obsidian note: #{note.name}"
   end
 end

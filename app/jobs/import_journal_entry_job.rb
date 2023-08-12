@@ -27,6 +27,6 @@ class ImportJournalEntryJob < ApplicationJob
   sig { void }
   def set_status
     entry = T.let(arguments.first!, JournalEntry)
-    Activity.status = "Importing journal entry: #{entry.title}"
+    ActivityStatus.current = "Importing journal entry: #{entry.title}"
   end
 end

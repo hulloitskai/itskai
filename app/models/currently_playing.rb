@@ -22,10 +22,10 @@ class CurrentlyPlaying < T::Struct
       end
     end
 
-    sig { params(value: T.nilable(CurrentlyPlaying)).void }
-    def current=(value)
-      Rails.cache.write(value_key, value.as_json)
-      trigger_subscriptions(value)
+    sig { params(currently_playing: T.nilable(CurrentlyPlaying)).void }
+    def current=(currently_playing)
+      Rails.cache.write(value_key, currently_playing.as_json)
+      trigger_subscriptions(currently_playing)
     end
 
     private

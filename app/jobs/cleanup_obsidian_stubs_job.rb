@@ -19,8 +19,8 @@ class CleanupObsidianStubsJob < ApplicationJob
   # == Callback Handlers
   sig { params(block: T.proc.void).void }
   def with_status(&block)
-    Activity.status = "Cleaning up Obsidian stubs"
+    ActivityStatus.current = "Cleaning up Obsidian stubs"
     yield
-    Activity.status = "Obsidian stub cleanup complete"
+    ActivityStatus.current = "Obsidian stub cleanup complete"
   end
 end

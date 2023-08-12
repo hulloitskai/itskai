@@ -20,8 +20,8 @@ class AnalyzeObsidianNotesJob < ApplicationJob
   # == Callback Handlers
   sig { params(block: T.proc.void).void }
   def with_status(&block)
-    Activity.status = "Analyzing Obsidian notes"
+    ActivityStatus.current = "Analyzing Obsidian notes"
     yield
-    Activity.status = "Obsidian note analysis complete"
+    ActivityStatus.current = "Obsidian note analysis complete"
   end
 end

@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-module Resume
+class Resume
   class << self
     extend T::Sig
 

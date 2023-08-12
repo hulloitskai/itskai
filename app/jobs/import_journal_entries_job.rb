@@ -19,8 +19,8 @@ class ImportJournalEntriesJob < ApplicationJob
   # == Callback Handlers
   sig { params(block: T.proc.void).void }
   def with_status(&block)
-    Activity.status = "Importing journal entries"
+    ActivityStatus.current = "Importing journal entries"
     yield
-    Activity.status = "Journal entries imported"
+    ActivityStatus.current = "Journal entries imported"
   end
 end

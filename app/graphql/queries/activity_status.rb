@@ -9,7 +9,7 @@ module Queries
     # == Resolver
     sig { returns(T.nilable(String)) }
     def resolve
-      Activity.status
+      ::ActivityStatus.current
     end
   end
 end

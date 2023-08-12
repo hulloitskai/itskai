@@ -27,6 +27,6 @@ class DownloadJournalEntryJob < ApplicationJob
   sig { void }
   def set_status
     entry = T.let(arguments.first!, JournalEntry)
-    Activity.status = "Downloading journal entry: #{entry.title}"
+    ActivityStatus.current = "Downloading journal entry: #{entry.title}"
   end
 end

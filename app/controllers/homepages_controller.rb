@@ -7,7 +7,7 @@ class HomepagesController < ApplicationController
 
   # == Actions
   def show
-    Activity.status = "Someone landed on the homepage!"
+    ActivityStatus.current = "Someone landed on the homepage!"
     entry_id = @entry&.to_gid&.to_s
     data = query!("HomePageQuery", { entry_id: })
     render(inertia: "HomePage", props: { data: })

@@ -7,7 +7,7 @@ class TestController < ApplicationController
   def show
     name = "Big Papa"
     data = query!("TestPageQuery", { name: })
-    Activity.status = "Displaying test page"
+    ActivityStatus.current = "Displaying test page"
     render(inertia: "TestPage", props: { name:, data: })
   end
 end
