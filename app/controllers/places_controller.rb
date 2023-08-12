@@ -12,7 +12,7 @@ class PlacesController < ApplicationController
   # == Helpers
   sig { params(page_id: String).void }
   def redirect_to_notion_page(page_id)
-    url = "https://www.notion.so/itskai/#{page_id}"
+    url = "https://itskai.notion.site/#{page_id}"
     redirect_to(url, allow_other_host: true)
   end
 end
