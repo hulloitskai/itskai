@@ -87,7 +87,7 @@ const HomePage: PageComponent<HomePageProps> = ({
                 . If you&apos;re nearby, text me and come say hi!
               </Text>
               <Text size="xs" color="dimmed">
-                Last updated{" "}
+                From Find My iPhone,{" "}
                 <Time inherit format={time => formatTimeAgo(time.toJSDate())}>
                   {timestamp}
                 </Time>
