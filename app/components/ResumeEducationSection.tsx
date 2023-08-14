@@ -18,7 +18,7 @@ const ResumeEducationSection: FC<ResumeEducationSectionProps> = ({
     >
       {institution}
     </Text>
-    <Text size="sm" weight={600} color="dark" lh={1.2}>
+    <Text size="sm" weight={600} color="dark">
       {!!studyType && <>{studyType} of </>}
       {area}
     </Text>

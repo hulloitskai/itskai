@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Text } from "@mantine/core";
+import { Highlight, Text } from "@mantine/core";
 import ArrowRightIcon from "~icons/heroicons/arrow-long-right-20-solid";
 
 import type { ResumeWorkInfo } from "~/helpers/resume";
@@ -9,6 +9,26 @@ import WebsiteBadge from "./WebsiteBadge";
 export type ResumeWorkSectionProps = {
   readonly workInfo: ResumeWorkInfo;
 };
+
+const HIGHLIGHT_WORDS = [
+  "Ruby on Rails",
+  "React",
+  "OpenAI",
+  "ElasticSearch",
+  "Kubernetes",
+  "Sentry",
+  "Stripe",
+  "Golang",
+  "MongoDB",
+  "Postgres",
+  "Neo4J",
+  "SAML",
+  "D3",
+  "Redux",
+  "Websockets",
+  "GCP",
+  "AWS",
+];
 
 const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({
   workInfo: { name, position, url, startDate, endDate, summary, highlights },
@@ -65,7 +85,18 @@ const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({
           }}
         >
           {highlights.map((highlight, index) => (
-            <List.Item key={index}>{highlight}</List.Item>
+            <List.Item key={index}>
+              <Highlight
+                highlight={HIGHLIGHT_WORDS}
+                highlightStyles={{
+                  fontWeight: 500,
+                  backgroundColor: "unset",
+                }}
+                inherit
+              >
+                {highlight}
+              </Highlight>
+            </List.Item>
           ))}
         </List>
       )}

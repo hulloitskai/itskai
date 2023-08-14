@@ -118,6 +118,16 @@ const ResumePage: PageComponent<ResumePageProps> = ({
             </Text>
           )}
         </Box>
+        {skills && (
+          <Box>
+            <Title order={2} size="h4" color="dark.4" lh={1.3}>
+              Skills
+            </Title>
+            {skills.map((skillInfo, index) => (
+              <ResumeSkillsSection key={index} {...{ skillInfo }} />
+            ))}
+          </Box>
+        )}
         {work && (
           <Box>
             <Title order={2} size="h4" color="dark.4" lh={1.3}>
@@ -130,24 +140,16 @@ const ResumePage: PageComponent<ResumePageProps> = ({
             </Stack>
           </Box>
         )}
-        {skills && (
-          <Box>
-            <Title order={2} size="h4" color="dark.4" lh={1.3}>
-              Skills
-            </Title>
-            {skills.map((skillInfo, index) => (
-              <ResumeSkillsSection key={index} {...{ skillInfo }} />
-            ))}
-          </Box>
-        )}
         {education && (
           <Box>
             <Title order={2} size="h4" color="dark.4" lh={1.3}>
               Education
             </Title>
-            {education.map((educationInfo, index) => (
-              <ResumeEducationSection key={index} {...{ educationInfo }} />
-            ))}
+            <Stack spacing={2}>
+              {education.map((educationInfo, index) => (
+                <ResumeEducationSection key={index} {...{ educationInfo }} />
+              ))}
+            </Stack>
           </Box>
         )}
       </ResumeLayout>
