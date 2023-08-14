@@ -11,13 +11,29 @@ module Geocoder
 
     sig do
       params(
+        address_attr: Symbol,
+        options: T.untyped,
+        block: T.nilable(
+          T.proc.params(
+            record: T.attached_class,
+            results: T::Array[T.all(Result, Result::Base)],
+          ).void,
+        ),
+      ).void
+    end
+    def geocoded_by(address_attr, options = T.unsafe(nil), &block); end
+
+    sig do
+      params(
         latitude_attr: Symbol,
         longitude_attr: Symbol,
         options: T.untyped,
-        block: T.proc.params(
-          record: T.attached_class,
-          results: T::Array[T.all(Result, Result::Base)],
-        ).void,
+        block: T.nilable(
+          T.proc.params(
+            record: T.attached_class,
+            results: T::Array[T.all(Result, Result::Base)],
+          ).void,
+        ),
       ).void
     end
     def reverse_geocoded_by(

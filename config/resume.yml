@@ -1,31 +1,58 @@
 basics:
   name: Kai Xie
   summary: |-
-    Generalist software engineer, designer, and hacker.
+    Full-stack software engineer, designer, and hacker.
   profiles:
     - network: GitHub
       username: hulloitskai
       url: https://github.com/hulloitskai
   email: hello@itskai.me
 work:
-  - name: Prompt Labs
-    position: Co-Founder
+  # - name: Next Canada
+  #   position: Next36 Entrepreneur (2023 Cohort)
+  #   url: https://www.nextcanada.com/next-36/
+  #   startDate: 2023-03
+  #   endDate: 2023-08
+  #   summary: >-
+  #     An intensive entrepreneurship program to grow Canada's most promising
+  #     founders.
+  #   highlights:
+  #     - Selected as one of the 36 entrepreneurs for the 2023 cohort from over
+  #       500 applicants.
+  #     - Founded an AI startup, while receiving coaching on
+  #       objective-setting, pitching, fundraising, and more.
+  - name: Freelance Software Consulting
+    position: Full-Stack Engineer
+    startDate: 2022-10
+    highlights:
+      - >-
+        Developed a touch interface for an aromatherapy medical device, used
+        in pain relief clinical trials.
+      - >-
+        Deployed & secured (SAML SSO) a data science toolkit for a Canadian
+        telecommunications network.
+      - >-
+        Conceptualized and built a website to help Canadian homeowners understand
+        their home's energy efficiency, explore potential retrofits (and
+        relevant government rebates), and find contractors.
+  - name: Promptly (NEXT36 2023)
+    position: Co-Founder & CTO
     url: https://askpromptly.ai
     startDate: 2023-03
     endDate: 2023-08
     highlights:
       - >-
-        Designed and built a platform that helps product teams understand their
-        users' behaviour, by talking to their users at scale with conversational
-        AI.
+        Designed and built a platform with Ruby on Rails, React, & OpenAI APIs
+        to help product teams understand their users' behaviours by talking to
+        their users at scale with conversational AI.
       - >-
-        Engineered an AI system to conduct effective interviews; this includes
+        Engineered an AI system to conduct effective interviews; this involved
         training multiple models, each with one area of responsibility (e.g. one
         model decides whether to follow-up on an user's response or to move onto
         the next question; another ensures questions are unbiased and
         non-hypothetical).
       - >-
-        Built an initial prototype in 2 weeks; got our first paying customer
+        Built an initial prototype in 2 weeks; secured first paying customer
         after 4 weeks.
   - name: Playces
     position: Co-Founder & CTO
@@ -34,15 +61,12 @@ work:
     endDate: 2022-10
     highlights:
       - >-
-        Designed and built a platform to modernize independent tourism
-        businesses, enabling them to display availability and receive bookings,
-        accept payments and send invoices, automate manual processes (booking
-        questions, automatic emails, built-in CRM, operations dashboard) and
-        reach more customers (travel communities with a social feed and media
-        embeds).
+        Conceptualized and built a platform to modernize independent tourism
+        businesses, enabling them to take bookings & accept payments online,
+        simplify operations, and reach more customers.
       - >-
-        Gave our partners observability into under-utilized resources and the
-        operational agility to really grow; our customer champion increased
+        Gave partners observability into under-utilized resources, and
+        improved operational agility; our customer champion increased
         bookings by 250%, tripled number of experiences offered, and
         increased revenue per booking by 40% after switching from AirBnB & Fare
         Harbor to Playces.
@@ -57,7 +81,7 @@ work:
     endDate: 2019-04
     highlights:
       - >-
-        Developed internal tooling for orchestrating on-demand staging
+        Developed internal tooling with Golang for orchestrating on-demand staging
         environments for Universe's microservices stack on Kubernetes, to power
         code review and QA flows.
       - >-
@@ -72,16 +96,13 @@ work:
     highlights:
       - >-
         Developed a team management app using React, MongoDB, and Neo4J to
-        support the operation of decentralized organizations like ConsenSys.
+        facilitate objective-setting and improve role clarity at large-scale
+        decentralized organizations.
       - >-
-        Worked with relationship-heavy data sets using graph databases, and
-        Architected a system to store and visualize relational using Redux and
-        websockets.
+        Architected a system to store and visualize a large, complex graph of
+        relational data using Neo4J (a graph database) and D3, while using redux
+        and websockets to synchronize state.
 education:
-  - institution: Next 36
-    area: 2023 Cohort
-    startDate: 2023-03
-    endDate: 2023-08
   - institution: University of Waterloo
     area: Computer Science
     studyType: Bachelor
@@ -93,7 +114,7 @@ education:
     startDate: 2017-09
     endDate: 2018-04
 skills:
-  - name: Front-End Web Development
+  - name: Front-End
     keywords:
       - HTML
       - CSS
@@ -105,18 +126,18 @@ skills:
       - SSR
       - SEO
       - PWA
-      - Realtime, Live
-  - name: Back-End Web Development
+      - Websockets
+  - name: Back-End
     keywords:
       - Golang
       - NodeJS
       - NextJS
       - Ruby On Rails
-      - PostgreSQL, MongoDB, Neo4J
+      - Postgres
+      - MongoDB
       - ETL
       - Caching
       - Parallellism
-      - APIs & Integrations
       - Webhooks
       - ElasticSearch
       - Security & XSS Prevention
@@ -131,10 +152,9 @@ skills:
       - Java & Kotlin
       - XCode
       - Android Studio
-  - name: Design, UX, UI
+  - name: Design
     keywords:
       - Figma
-      - Sketch
       - Design Systems
       - Animations
       - Human-Centered Design

@@ -15,6 +15,7 @@ module Handled
 
     # == Configuration
     requires_columns :handle
+    class_attribute :generated_handle_length, default: 16
   end
 
   class_methods do
@@ -25,18 +26,6 @@ module Handled
     requires_ancestor { T.class_of(ApplicationRecord) }
 
     # == Methods
-    sig { returns(Integer) }
-    def generated_handle_length
-      @generated_handle_length || 16
-    end
-
-    sig { params(size: Integer).returns(Integer) }
-    def generated_handle_length=(size)
-      @generated_handle_length = T.let(@generated_handle_length,
-                                       T.nilable(Integer))
-      @generated_handle_length = size
-    end
-
     sig { returns(String) }
     def generate_handle
       Nanoid.generate(

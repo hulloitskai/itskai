@@ -27,12 +27,12 @@ const ResumePage: PageComponent<ResumePageProps> = ({
   );
   const obfuscatedEmail = useMemo(() => email!.replace("@", " [at] "), [email]);
 
-  // == Markup
   return (
     <MantineProvider
       inherit
       theme={{
         colorScheme: "light",
+        primaryColor: "indigo",
         globalStyles: () => ({
           "@media print": {
             "@page": {
@@ -59,9 +59,9 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                 }
                 variant="outline"
                 color="dark"
-                styles={({ fontFamilyMonospace, colors, fn }) => ({
+                styles={({ fontFamilyMonospace, fn }) => ({
                   root: {
-                    borderColor: colors.indigo[fn.primaryShade()],
+                    borderColor: fn.primaryColor(),
                   },
                   inner: {
                     fontFamily: fontFamilyMonospace,
@@ -89,9 +89,9 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                     sx={({ fontFamilyMonospace }) => ({
                       fontFamily: fontFamilyMonospace,
                     })}
-                    styles={({ fontFamilyMonospace, colors, fn }) => ({
+                    styles={({ fontFamilyMonospace, fn }) => ({
                       root: {
-                        borderColor: colors.indigo[fn.primaryShade()],
+                        borderColor: fn.primaryColor(),
                       },
                       inner: {
                         fontFamily: fontFamilyMonospace,
@@ -120,7 +120,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
         </Box>
         {work && (
           <Box>
-            <Title order={2} size="h4" color="dark.3" lh={1.3}>
+            <Title order={2} size="h4" color="dark.4" lh={1.3}>
               Experience
             </Title>
             <Stack spacing={8}>
@@ -132,26 +132,22 @@ const ResumePage: PageComponent<ResumePageProps> = ({
         )}
         {skills && (
           <Box>
-            <Title order={2} size="h4" color="dark.3" lh={1.3}>
+            <Title order={2} size="h4" color="dark.4" lh={1.3}>
               Skills
             </Title>
-            <Stack spacing={4}>
-              {skills.map((skillInfo, index) => (
-                <ResumeSkillsSection key={index} {...{ skillInfo }} />
-              ))}
-            </Stack>
+            {skills.map((skillInfo, index) => (
+              <ResumeSkillsSection key={index} {...{ skillInfo }} />
+            ))}
           </Box>
         )}
         {education && (
           <Box>
-            <Title order={2} size="h4" color="dark.3" lh={1.3}>
+            <Title order={2} size="h4" color="dark.4" lh={1.3}>
               Education
             </Title>
-            <Group spacing="xl">
-              {education.map((educationInfo, index) => (
-                <ResumeEducationSection key={index} {...{ educationInfo }} />
-              ))}
-            </Group>
+            {education.map((educationInfo, index) => (
+              <ResumeEducationSection key={index} {...{ educationInfo }} />
+            ))}
           </Box>
         )}
       </ResumeLayout>

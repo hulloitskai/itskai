@@ -1,3 +1,4 @@
+import { Text } from "@mantine/core";
 import type { FC } from "react";
 import type { ResumeSkillInfo } from "~/helpers/resume";
 
@@ -8,20 +9,17 @@ export type ResumeSkillsSectionProps = {
 const ResumeSkillsSection: FC<ResumeSkillsSectionProps> = ({
   skillInfo: { name, keywords },
 }) => (
-  <Box>
-    <Title order={3} size="h6" color="dark.4" fz="xs">
+  <Group align="start" noWrap>
+    <Text
+      size="sm"
+      weight={600}
+      miw={72}
+      sx={({ fn }) => ({ color: fn.primaryColor() })}
+    >
       {name}
-    </Title>
-    {keywords && (
-      <Group spacing={2}>
-        {keywords.map((keyword, index) => (
-          <Badge key={index} size="xs" variant="outline" color="dark.3">
-            {keyword}
-          </Badge>
-        ))}
-      </Group>
-    )}
-  </Box>
+    </Text>
+    {keywords && <Text size="sm">{keywords.join(", ")}</Text>}
+  </Group>
 );
 
 export default ResumeSkillsSection;

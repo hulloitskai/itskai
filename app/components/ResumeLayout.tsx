@@ -8,8 +8,9 @@ type ResumeLayoutProps = PropsWithChildren<{
 const ResumeLayout: FC<ResumeLayoutProps> = ({ printable, children }) => (
   <>
     <Global
-      styles={({ colors }) => ({
+      styles={({ colors, black }) => ({
         body: {
+          color: black,
           backgroundColor: colors.dark[4],
         },
       })}

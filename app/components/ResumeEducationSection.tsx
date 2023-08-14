@@ -10,13 +10,15 @@ export type ResumeEducationSectionProps = {
 const ResumeEducationSection: FC<ResumeEducationSectionProps> = ({
   educationInfo: { institution, area, studyType, startDate, endDate },
 }) => (
-  <Box>
-    <Group spacing={8}>
-      <Title order={3} size="h5" color="indigo">
-        {institution}
-      </Title>
-    </Group>
-    <Text size="sm" color="dark" lh={1.2}>
+  <Group spacing={8}>
+    <Text
+      size="sm"
+      weight={600}
+      sx={({ fn }) => ({ flexGrow: 1, color: fn.primaryColor() })}
+    >
+      {institution}
+    </Text>
+    <Text size="sm" weight={600} color="dark" lh={1.2}>
       {!!studyType && <>{studyType} of </>}
       {area}
     </Text>
@@ -35,7 +37,7 @@ const ResumeEducationSection: FC<ResumeEducationSectionProps> = ({
     >
       {startDate} <ArrowRightIcon /> {endDate}
     </Badge>
-  </Box>
+  </Group>
 );
 
 export default ResumeEducationSection;

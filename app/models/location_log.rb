@@ -74,6 +74,11 @@ class LocationLog < ApplicationRecord
     end
   end
 
+  sig { returns(RGeo::Geographic::Factory) }
+  def self.coordinates_factory
+    RGeo::Geographic.spherical_factory(srid: 4326, has_z_coordinate: true)
+  end
+
   # == Importing
   sig { void }
   def self.import!
@@ -120,11 +125,6 @@ class LocationLog < ApplicationRecord
   end
 
   # == Methods
-  sig { returns(RGeo::Geographic::Factory) }
-  def self.coordinates_factory
-    RGeo::Geographic.spherical_factory(srid: 4326, has_z_coordinate: true)
-  end
-
   sig { void }
   def reverse_geocode_and_save!
     reverse_geocode.tap { save! }

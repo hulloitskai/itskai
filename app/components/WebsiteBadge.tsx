@@ -8,7 +8,13 @@ export type WebsiteBadgeProps = Omit<BadgeProps, "children"> & {
 };
 
 const WebsiteBadge: FC<WebsiteBadgeProps> = ({ url, ...otherProps }) => {
-  const host = useMemo(() => new URL(url).hostname, [url]);
+  const host = useMemo(() => {
+    const { hostname } = new URL(url);
+    if (hostname.startsWith("www.")) {
+      return hostname.slice(4);
+    }
+    return hostname;
+  }, [url]);
   return (
     <Anchor href={url} target="_blank" rel="noopener noreferrer nofollow">
       <Badge
