@@ -1,8 +1,10 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { MantineProvider, Text } from "@mantine/core";
+import type { Resume } from "~/helpers/resume";
+
 import EnvelopeIcon from "~icons/heroicons/envelope-20-solid";
 import GithubIcon from "~icons/lucide/github";
-import type { Resume } from "~/helpers/resume";
+import LinkedInIcon from "~icons/lucide/linkedin";
 
 import type { ResumePageQuery } from "~/helpers/graphql";
 
@@ -22,10 +24,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
 }) => {
   const { basics, work, education, skills } = resume as Resume;
   const { email, profiles } = basics ?? {};
-  const githubProfile = profiles?.find(
-    ({ network }) => network?.toLowerCase() === "github",
-  );
-  const obfuscatedEmail = useMemo(() => email!.replace("@", " [at] "), [email]);
+  const obfuscatedEmail = useMemo(() => email!.replace("@", "[at]"), [email]);
 
   return (
     <MantineProvider
@@ -45,12 +44,46 @@ const ResumePage: PageComponent<ResumePageProps> = ({
       <ResumeLayout {...{ printable }}>
         <Box>
           <Group spacing="xs" position="apart">
-            {basics && (
+            {!!basics?.name && (
               <Title size="h2" color="dark">
                 {basics.name}
               </Title>
             )}
-            <Group spacing="xs" align="center">
+            <Group spacing="sm">
+              {!!basics?.summary && (
+                <Text
+                  size="sm"
+                  color="dark"
+                  lh={1.45}
+                  sx={{ whiteSpace: "pre-line" }}
+                >
+                  {basics.summary}
+                </Text>
+              )}
+              {!!basics?.summary && !!basics?.location?.city && (
+                <Divider orientation="vertical" sx={{ borderWidth: rem(2) }} />
+              )}
+              {!!basics?.location?.city && (
+                <Text
+                  size="xs"
+                  weight={500}
+                  sx={({ fontFamilyMonospace }) => ({
+                    fontFamily: fontFamilyMonospace,
+                  })}
+                >
+                  {basics.location.city}
+                </Text>
+              )}
+            </Group>
+          </Group>
+          <Group spacing={8} align="center">
+            <Anchor
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              {...(printable && {
+                href: `mailto:Kai Xie<${email}>?subject=Let's%20work%20together!`,
+              })}
+            >
               <Badge
                 leftSection={
                   <Center>
@@ -71,18 +104,17 @@ const ResumePage: PageComponent<ResumePageProps> = ({
               >
                 {printable ? email : obfuscatedEmail}
               </Badge>
-              {githubProfile && (
+            </Anchor>
+            {profiles?.map(({ network, url }) => {
+              const parsedUrl = url ? new URL(url) : null;
+              return (
                 <Anchor
-                  href={githubProfile.url}
+                  key={network}
+                  href={url}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
                 >
                   <Badge
-                    leftSection={
-                      <Center>
-                        <GithubIcon />
-                      </Center>
-                    }
                     variant="outline"
                     color="dark"
                     px={6}
@@ -98,25 +130,29 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                         textTransform: "none",
                       },
                     })}
+                    {...(network === "GitHub" && {
+                      leftSection: (
+                        <Center>
+                          <GithubIcon />
+                        </Center>
+                      ),
+                    })}
+                    {...(network === "LinkedIn" && {
+                      leftSection: (
+                        <Center>
+                          <LinkedInIcon />
+                        </Center>
+                      ),
+                    })}
                   >
-                    github.com/{githubProfile.username}
+                    {parsedUrl
+                      ? `${parsedUrl.hostname}${parsedUrl.pathname}`
+                      : "(missing URL)"}
                   </Badge>
                 </Anchor>
-              )}
-            </Group>
+              );
+            })}
           </Group>
-          {basics && (
-            <Text
-              size="sm"
-              color="dark"
-              sx={{
-                whiteSpace: "pre-line",
-                lineHeight: 1.45,
-              }}
-            >
-              {basics.summary}
-            </Text>
-          )}
         </Box>
         {skills && (
           <Box>

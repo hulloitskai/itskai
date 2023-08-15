@@ -43,10 +43,11 @@ const Time: FC<TimeProps> = ({
       visible={!formattedTime}
       sx={{
         display: "inline",
+        height: "min-content",
+        width: "fit-content",
         ...(loading && {
           display: "inline-block",
-          height: "min-content",
-          width: "fit-content",
+          lineHeight: 1,
           verticalAlign: "middle",
         }),
       }}

@@ -28,6 +28,7 @@ const HIGHLIGHT_WORDS = [
   "Websockets",
   "GCP",
   "AWS",
+  "first paying customer",
 ];
 
 const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({
@@ -50,7 +51,7 @@ const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({
           {position}
         </Text>
         <Badge
-          color="yellow.9"
+          color="gray.6"
           variant="outline"
           radius="sm"
           px={6}
@@ -63,7 +64,19 @@ const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({
             },
           }}
         >
-          {startDate} <ArrowRightIcon /> {endDate ?? "Present"}
+          {startDate ? (
+            <Time format={{ month: "short", year: "numeric" }}>
+              {startDate}
+            </Time>
+          ) : (
+            <Text span>???</Text>
+          )}{" "}
+          <ArrowRightIcon />{" "}
+          {endDate ? (
+            <Time format={{ month: "short", year: "numeric" }}>{endDate}</Time>
+          ) : (
+            <Text span>Present</Text>
+          )}
         </Badge>
       </Group>
       {!!summary && (
@@ -78,11 +91,14 @@ const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({
         <List
           size="sm"
           spacing={4}
-          styles={{
+          styles={() => ({
+            root: {
+              listStylePosition: "unset",
+            },
             item: {
               lineHeight: 1.375,
             },
-          }}
+          })}
         >
           {highlights.map((highlight, index) => (
             <List.Item key={index}>

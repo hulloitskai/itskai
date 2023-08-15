@@ -1,12 +1,15 @@
 basics:
   name: Kai Xie
-  summary: |-
-    Full-stack software engineer, designer, and hacker.
+  summary: Full-stack software engineer, designer, and hacker
   profiles:
     - network: GitHub
       username: hulloitskai
       url: https://github.com/hulloitskai
+    - network: LinkedIn
+      username: hulloitskai
+      url: https://linkedin.com/in/hulloitskai
   email: hello@itskai.me
+  location: { city: "Vancouver/Remote" }
 work:
   # - name: Next Canada
   #   position: Next36 Entrepreneur (2023 Cohort)

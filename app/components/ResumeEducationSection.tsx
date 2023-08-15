@@ -24,7 +24,7 @@ const ResumeEducationSection: FC<ResumeEducationSectionProps> = ({
     </Text>
     <Badge
       variant="outline"
-      color="yellow.9"
+      color="gray.6"
       radius="sm"
       px={6}
       styles={{
@@ -32,10 +32,21 @@ const ResumeEducationSection: FC<ResumeEducationSectionProps> = ({
           display: "inline-flex",
           alignItems: "center",
           columnGap: 6,
+          textTransform: "none",
         },
       }}
     >
-      {startDate} <ArrowRightIcon /> {endDate}
+      {startDate ? (
+        <Time format={{ month: "short", year: "numeric" }}>{startDate}</Time>
+      ) : (
+        <Text span>???</Text>
+      )}{" "}
+      <ArrowRightIcon />{" "}
+      {endDate ? (
+        <Time format={{ month: "short", year: "numeric" }}>{endDate}</Time>
+      ) : (
+        <Text span>Present</Text>
+      )}
     </Badge>
   </Group>
 );
