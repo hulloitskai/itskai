@@ -22,11 +22,11 @@ work:
   #     - Founded an AI startup, while receiving coaching on
   #       objective-setting, pitching, fundraising, and more.
   - name: Freelance Software Consulting
-    position: Full-Stack Engineer
+    position: Full-stack Software Engineer
     startDate: 2022-10
     highlights:
       - >-
-        Developed the touch interface for an aromatherapy medical device, used
+        Developed touch interface for a novel aromatherapy medical device, used
         in pain relief clinical trials.
       - >-
         Deployed & secured (SAML SSO) a business intelligence toolkit for a
@@ -86,8 +86,8 @@ work:
         staging environments for Universe's microservices stack on Kubernetes,
         saving the QA team 10+ hours per week.
       - >-
-        Optimized GCP deployment process to half the time it takes to launch a
-        staging environment.
+        Optimized GCP deployment process to cut the time it takes to launch a
+        staging environment by 50%.
   - name: ConsenSys
     position: Software Developer (Co-op)
     url: https://consensys.net
