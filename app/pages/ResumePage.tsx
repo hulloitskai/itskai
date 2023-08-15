@@ -69,7 +69,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                   },
                 })}
               >
-                {obfuscatedEmail}
+                {printable ? email : obfuscatedEmail}
               </Badge>
               {githubProfile && (
                 <Anchor
