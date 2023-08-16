@@ -25,9 +25,9 @@ const WebsiteBadge: FC<WebsiteBadgeProps> = ({ url, ...otherProps }) => {
           </Center>
         }
         variant="outline"
-        color="gray"
+        color="gray.7"
         px={6}
-        sx={{ cursor: "pointer" }}
+        sx={({ fn }) => ({ cursor: "pointer", borderColor: fn.primaryColor() })}
         {...otherProps}
       >
         {host}

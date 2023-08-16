@@ -24,21 +24,19 @@ work:
   #       500 applicants.
   #     - Founded an AI startup, while receiving coaching on
   #       objective-setting, pitching, fundraising, and more.
-  - name: Freelance Software Consulting
+  - name: Freelance Consulting
     position: Full-stack Software Engineer
     startDate: 2022-10
+    endDate: 2023-02
     highlights:
       - >-
-        Developed touch interface for a novel aromatherapy medical device, used
-        in pain relief clinical trials.
+        Implemented an accessible touch and audio interface for a novel
+        medical device, to be used in an unpcoming NIH-funded
+        clinical trial to treat opioid use disorder.
       - >-
-        Deployed & secured (SAML SSO) a business intelligence toolkit for a
+        Deployed and secured (SAML SSO) a business intelligence toolkit for a
         Canadian telecommunications network, enabling sales teams to do
         market analysis supported by live data.
-      - >-
-        Designed and built a website to help Canadian homeowners understand
-        their home's energy efficiency, explore potential retrofits (and
-        relevant government rebates), and find contractors.
   - name: Promptly (NEXT36 2023)
     position: Co-Founder & CTO
     url: https://askpromptly.ai
@@ -50,23 +48,21 @@ work:
         to help product teams understand their users' behaviours by talking to
         their users at scale with conversational AI.
       - >-
-        Engineered an AI system to conduct effective interviews; this involved
-        training multiple models, each with one area of responsibility (e.g. one
-        model decides whether to follow-up on an user's response or to move onto
-        the next question; another ensures questions are unbiased and
-        non-hypothetical).
+        Engineered end-to-end system to conduct effective interviews; trained
+        and coordinated multiple models to handle different areas of
+        responsibility (e.g. user response analysis, bias avoidance, determining
+        follow-up approach) while interviewing users.
       - >-
         Built initial version in 2 weeks; secured first paying customer
         in 4 weeks.
   - name: Playces
     position: Co-Founder & CTO
-    url: https://playces.in
     startDate: 2019-04
     endDate: 2022-10
     highlights:
       - >-
         Designed and built a platform to modernize independent tourism
-        businesses, enabling them to take bookings & accept payments online,
+        businesses, enabling them to take bookings & accept payments with Stripe,
         simplify operations, and reach more customers.
       - >-
         Gave partners observability into under-utilized resources, and
@@ -77,22 +73,25 @@ work:
       - >-
         Researched, designed, built, deployed, and iterated on
         product and technology stack (Ruby on Rails, Postgres, ElasticSearch,
-        Kubernetes, Sentry, Stripe, AWS) as the sole engineering/product lead.
+        Kubernetes, Sentry, AWS) as the sole engineering/product lead.
   - name: Universe
-    position: Software Developer (Co-op)
+    position: Software Developer
     url: http://universe.com
     startDate: 2019-01
     endDate: 2019-04
     highlights:
       - >-
-        Developed internal tooling with Golang for orchestrating on-demand
-        staging environments for Universe's microservices stack on Kubernetes,
-        saving the QA team 10+ hours per week.
+        Led the development of an internal tool (written in Golang) for
+        orchestrating on-demand staging environments for our microservices stack
+        on Kubernetes, saving the QA team 10+ hours per week.
       - >-
         Optimized GCP deployment process to cut the time it takes to launch a
         staging environment by 50%.
+      - >-
+        Implemented XSS prevention and security hardening techniques to prevent
+        platform abuse.
   - name: ConsenSys
-    position: Software Developer (Co-op)
+    position: Software Developer
     url: https://consensys.net
     startDate: 2018-05
     endDate: 2018-08
@@ -117,47 +116,45 @@ education:
     startDate: 2017-09
     endDate: 2018-04
 skills:
-  - name: Front-End
+  - name: Front-end
     keywords:
-      - HTML
-      - CSS
-      - JavaScript
-      - React
-      - GraphQL
+      - React (6yoe)
+      - GraphQL (4yoe)
+      - SCSS
+      - PWA
+      - Mapbox
       - SSR
       - SEO
-      - PWA
-      - Embedded Maps
-      - Websockets
-  - name: Back-End
+      - Analytics / Heatmaps
+  - name: Back-end
     keywords:
-      - Golang
-      - NodeJS
-      - NextJS
-      - Ruby On Rails
-      - Postgres
+      - Ruby on Rails (4yoe)
+      - Postgres (4yoe)
+      - Kubernetes (2yoe)
+      - Golang (2yoe)
+      - NextJS (2yoe)
+      - OAuth
+      - ElasticSearch
       - MongoDB
       - ETL
-      - Caching
+      - Redis
       - Parallellism
-      - Webhooks
-      - ElasticSearch
-      - Security & XSS Prevention
-      - Kubernetes
       - CI/CD
+      - NodeJS
   - name: Mobile
     keywords:
+      - Flutter
       - React Native
       - Expo
-      - Flutter
-      - Swift
-      - Java & Kotlin
       - XCode
+      - Swift
+      - Java
+      - Kotlin
       - Android Studio
   - name: Design
     keywords:
       - Figma
-      - Design Systems
+      - Design Patterns
       - Animations
       - Human-Centered Design
-      - User Interviewing
+      - User Personas

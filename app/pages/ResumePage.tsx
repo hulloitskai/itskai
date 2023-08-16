@@ -54,6 +54,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                 <Text
                   size="sm"
                   color="dark"
+                  weight={500}
                   lh={1.45}
                   sx={{ whiteSpace: "pre-line" }}
                 >
@@ -76,35 +77,37 @@ const ResumePage: PageComponent<ResumePageProps> = ({
               )}
             </Group>
           </Group>
-          <Group spacing={8} align="center">
-            <Anchor
-              target="_blank"
-              rel="noopener noreferrer nofollow"
-              {...(printable && {
-                href: `mailto:Kai Xie<${email}>?subject=Let's%20work%20together!`,
-              })}
-            >
-              <Badge
-                leftSection={
-                  <Center>
-                    <EnvelopeIcon />
-                  </Center>
-                }
-                variant="outline"
-                color="dark"
-                styles={({ fontFamilyMonospace, fn }) => ({
-                  root: {
-                    borderColor: fn.primaryColor(),
-                  },
-                  inner: {
-                    fontFamily: fontFamilyMonospace,
-                    textTransform: "none",
-                  },
+          <Group spacing={8}>
+            <Box sx={{ flexGrow: 1 }}>
+              <Anchor
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                {...(printable && {
+                  href: `mailto:Kai Xie<${email}>?subject=Let's%20work%20together!`,
                 })}
               >
-                {printable ? email : obfuscatedEmail}
-              </Badge>
-            </Anchor>
+                <Badge
+                  leftSection={
+                    <Center>
+                      <EnvelopeIcon />
+                    </Center>
+                  }
+                  variant="outline"
+                  color="gray.7"
+                  styles={({ fontFamilyMonospace, fn }) => ({
+                    root: {
+                      borderColor: fn.primaryColor(),
+                    },
+                    inner: {
+                      fontFamily: fontFamilyMonospace,
+                      textTransform: "none",
+                    },
+                  })}
+                >
+                  {printable ? email : obfuscatedEmail}
+                </Badge>
+              </Anchor>
+            </Box>
             {profiles?.map(({ network, url }) => {
               const parsedUrl = url ? new URL(url) : null;
               return (
@@ -116,7 +119,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                 >
                   <Badge
                     variant="outline"
-                    color="dark"
+                    color="gray.7"
                     px={6}
                     sx={({ fontFamilyMonospace }) => ({
                       fontFamily: fontFamilyMonospace,
