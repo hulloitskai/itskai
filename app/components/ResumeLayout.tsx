@@ -19,7 +19,7 @@ const ResumeLayout: FC<ResumeLayoutProps> = ({ printable, children }) => (
       <Container
         px="0.75in"
         py="0.4in"
-        mb={printable ? 0 : 72}
+        mb={printable ? 0 : 135}
         sx={{ width: "8.5in", height: "11in", backgroundColor: "white" }}
       >
         <Stack spacing="xs">{children}</Stack>

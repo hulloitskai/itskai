@@ -12,7 +12,7 @@ import ResumeLayout from "~/components/ResumeLayout";
 import ResumeEducationSection from "~/components/ResumeEducationSection";
 import ResumeSkillsSection from "~/components/ResumeSkillsSection";
 import ResumeWorkSection from "~/components/ResumeWorkSection";
-import ResumePDFDownloadButton from "~/components/ResumePDFDownloadButton";
+import ResumeDialog from "~/components/ResumeDialog";
 
 export type ResumePageProps = PagePropsWithData<ResumePageQuery> & {
   readonly printable?: boolean;
@@ -192,7 +192,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
           </Box>
         )}
       </ResumeLayout>
-      {!printable && <ResumePDFDownloadButton />}
+      {!printable && <ResumeDialog />}
     </MantineProvider>
   );
 };
