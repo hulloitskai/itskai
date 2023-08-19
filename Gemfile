@@ -187,6 +187,9 @@ gem "selenium-webdriver", "~> 4.10", require: false
 # Detect what OS we are running on
 gem "os", "~> 1.1"
 
+# Interact with Kai on Telegram
+gem "telegram-bot-ruby", "~> 1.0", require: 'telegram/bot'
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"

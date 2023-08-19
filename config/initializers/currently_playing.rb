@@ -10,6 +10,7 @@ Rails.application.configure do
     end
 
     reloader.before_class_unload do
+      puts "=> Stopping currently playing poll" # rubocop:disable Rails/Output
       CurrentlyPlaying.unpoll
     end
   end

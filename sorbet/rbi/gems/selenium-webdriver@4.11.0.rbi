@@ -823,16 +823,16 @@ Selenium::WebDriver::Chrome::Options::KEY = T.let(T.unsafe(nil), String)
 # source://selenium-webdriver//lib/selenium/webdriver/chrome/profile.rb#29
 class Selenium::WebDriver::Chrome::Profile < ::Selenium::WebDriver::Chromium::Profile; end
 
-# source://selenium-webdriver//lib/selenium/webdriver/chrome/service.rb#25
-class Selenium::WebDriver::Chrome::Service < ::Selenium::WebDriver::Chromium::Service; end
+# source://selenium-webdriver//lib/selenium/webdriver/chrome/service.rb#23
+class Selenium::WebDriver::Chrome::Service < ::Selenium::WebDriver::Service; end
 
-# source://selenium-webdriver//lib/selenium/webdriver/chrome/service.rb#26
+# source://selenium-webdriver//lib/selenium/webdriver/chrome/service.rb#24
 Selenium::WebDriver::Chrome::Service::DEFAULT_PORT = T.let(T.unsafe(nil), Integer)
 
-# source://selenium-webdriver//lib/selenium/webdriver/chrome/service.rb#27
+# source://selenium-webdriver//lib/selenium/webdriver/chrome/service.rb#25
 Selenium::WebDriver::Chrome::Service::EXECUTABLE = T.let(T.unsafe(nil), String)
 
-# source://selenium-webdriver//lib/selenium/webdriver/chrome/service.rb#28
+# source://selenium-webdriver//lib/selenium/webdriver/chrome/service.rb#26
 Selenium::WebDriver::Chrome::Service::SHUTDOWN_SUPPORTED = T.let(T.unsafe(nil), TrueClass)
 
 # source://selenium-webdriver//lib/selenium/webdriver/chromium.rb#24
@@ -966,7 +966,7 @@ class Selenium::WebDriver::Chromium::Options < ::Selenium::WebDriver::Options
   # @option opts
   # @param opts [Hash] the pre-defined options for adding mobile emulation values
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/chromium/options.rb#199
+  # source://selenium-webdriver//lib/selenium/webdriver/chromium/options.rb#181
   def add_emulation(**opts); end
 
   # Add an extension by Base64-encoded string.
@@ -1009,7 +1009,7 @@ class Selenium::WebDriver::Chromium::Options < ::Selenium::WebDriver::Options
   # @param activity [String] Name of the Activity hosting the WebView (Not available on Chrome Apps).
   # @see https://chromedriver.chromium.org/getting-started/getting-started---android
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/chromium/options.rb#215
+  # source://selenium-webdriver//lib/selenium/webdriver/chromium/options.rb#197
   def enable_android(package: T.unsafe(nil), serial_number: T.unsafe(nil), use_running_app: T.unsafe(nil), activity: T.unsafe(nil)); end
 
   # NOTE: special handling of 'extensions' to validate when set instead of when used
@@ -1027,18 +1027,6 @@ class Selenium::WebDriver::Chromium::Options < ::Selenium::WebDriver::Options
   #
   # source://selenium-webdriver//lib/selenium/webdriver/chromium/options.rb#115
   def extensions=(extensions); end
-
-  # Run Chrome in headless mode.
-  # Old headless uses a non-production browser and is set with `--headless`
-  # Native headless from v86 - v108 is set with `--headless=chrome`
-  # Native headless from v109+ is set with `--headless=new`
-  #
-  # @example Enable headless mode
-  #   options = Selenium::WebDriver::Chrome::Options.new
-  #   options.headless!
-  #
-  # source://selenium-webdriver//lib/selenium/webdriver/chromium/options.rb#173
-  def headless!; end
 
   # Returns the value of attribute logging_prefs.
   #
@@ -1066,23 +1054,23 @@ class Selenium::WebDriver::Chromium::Options < ::Selenium::WebDriver::Options
 
   protected
 
-  # source://selenium-webdriver//lib/selenium/webdriver/chromium/options.rb#240
+  # source://selenium-webdriver//lib/selenium/webdriver/chromium/options.rb#222
   def binary_path; end
 
   # @return [Boolean]
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/chromium/options.rb#255
+  # source://selenium-webdriver//lib/selenium/webdriver/chromium/options.rb#237
   def camelize?(key); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/chromium/options.rb#244
+  # source://selenium-webdriver//lib/selenium/webdriver/chromium/options.rb#226
   def encode_extension(path); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/chromium/options.rb#224
+  # source://selenium-webdriver//lib/selenium/webdriver/chromium/options.rb#206
   def process_browser_options(browser_options); end
 
   # @raise [Error::WebDriverError]
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/chromium/options.rb#248
+  # source://selenium-webdriver//lib/selenium/webdriver/chromium/options.rb#230
   def validate_extension(path); end
 end
 
@@ -1143,14 +1131,6 @@ class Selenium::WebDriver::Chromium::Profile
 
   # source://selenium-webdriver//lib/selenium/webdriver/chromium/profile.rb#90
   def write_prefs_to(dir); end
-end
-
-# source://selenium-webdriver//lib/selenium/webdriver/chromium/service.rb#23
-class Selenium::WebDriver::Chromium::Service < ::Selenium::WebDriver::Service
-  protected
-
-  # source://selenium-webdriver//lib/selenium/webdriver/chromium/service.rb#26
-  def extract_service_args(driver_opts); end
 end
 
 # source://selenium-webdriver//lib/selenium/webdriver/common/virtual_authenticator/credential.rb#27
@@ -2576,16 +2556,16 @@ Selenium::WebDriver::Edge::Options::KEY = T.let(T.unsafe(nil), String)
 # source://selenium-webdriver//lib/selenium/webdriver/edge/profile.rb#29
 class Selenium::WebDriver::Edge::Profile < ::Selenium::WebDriver::Chromium::Profile; end
 
-# source://selenium-webdriver//lib/selenium/webdriver/edge/service.rb#25
-class Selenium::WebDriver::Edge::Service < ::Selenium::WebDriver::Chromium::Service; end
+# source://selenium-webdriver//lib/selenium/webdriver/edge/service.rb#23
+class Selenium::WebDriver::Edge::Service < ::Selenium::WebDriver::Service; end
 
-# source://selenium-webdriver//lib/selenium/webdriver/edge/service.rb#26
+# source://selenium-webdriver//lib/selenium/webdriver/edge/service.rb#24
 Selenium::WebDriver::Edge::Service::DEFAULT_PORT = T.let(T.unsafe(nil), Integer)
 
-# source://selenium-webdriver//lib/selenium/webdriver/edge/service.rb#27
+# source://selenium-webdriver//lib/selenium/webdriver/edge/service.rb#25
 Selenium::WebDriver::Edge::Service::EXECUTABLE = T.let(T.unsafe(nil), String)
 
-# source://selenium-webdriver//lib/selenium/webdriver/edge/service.rb#28
+# source://selenium-webdriver//lib/selenium/webdriver/edge/service.rb#26
 Selenium::WebDriver::Edge::Service::SHUTDOWN_SUPPORTED = T.let(T.unsafe(nil), TrueClass)
 
 # source://selenium-webdriver//lib/selenium/webdriver/common/element.rb#22
@@ -3380,22 +3360,13 @@ class Selenium::WebDriver::Firefox::Options < ::Selenium::WebDriver::Options
   # @param intent_arguments [Array] Arguments to launch the intent with.
   # @see https://developer.mozilla.org/en-US/docs/Web/WebDriver/Capabilities/firefoxOptions#android
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#156
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#141
   def enable_android(package: T.unsafe(nil), serial_number: T.unsafe(nil), activity: T.unsafe(nil), intent_arguments: T.unsafe(nil)); end
 
-  # Run Firefox in headless mode.
-  #
-  # @example Enable headless mode
-  #   options = Selenium::WebDriver::Firefox::Options.new
-  #   options.headless!
-  #
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#110
-  def headless!; end
-
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#136
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#121
   def log_level; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#140
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#125
   def log_level=(level); end
 
   # NOTE: special handling of 'profile' to validate when set instead of when used
@@ -3414,20 +3385,20 @@ class Selenium::WebDriver::Firefox::Options < ::Selenium::WebDriver::Options
   #   options.profile = 'myprofile'
   # @param profile [Profile, String] Profile to be used
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#132
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#117
   def profile=(profile); end
 
   private
 
   # @return [Boolean]
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#183
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#168
   def camelize?(key); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#165
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#150
   def process_browser_options(browser_options); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#172
+  # source://selenium-webdriver//lib/selenium/webdriver/firefox/options.rb#157
   def process_profile(profile); end
 end
 
@@ -3598,12 +3569,7 @@ class Selenium::WebDriver::Firefox::ProfilesIni
 end
 
 # source://selenium-webdriver//lib/selenium/webdriver/firefox/service.rb#23
-class Selenium::WebDriver::Firefox::Service < ::Selenium::WebDriver::Service
-  private
-
-  # source://selenium-webdriver//lib/selenium/webdriver/firefox/service.rb#30
-  def extract_service_args(driver_opts); end
-end
+class Selenium::WebDriver::Firefox::Service < ::Selenium::WebDriver::Service; end
 
 # source://selenium-webdriver//lib/selenium/webdriver/firefox/service.rb#24
 Selenium::WebDriver::Firefox::Service::DEFAULT_PORT = T.let(T.unsafe(nil), Integer)
@@ -3800,28 +3766,28 @@ class Selenium::WebDriver::IE::Options < ::Selenium::WebDriver::Options
   # @param opts [Hash] the pre-defined options
   # @return [Options] a new instance of Options
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/ie/options.rb#81
+  # source://selenium-webdriver//lib/selenium/webdriver/ie/options.rb#82
   def initialize(**opts); end
 
   # Add a command-line argument to use when starting Internet Explorer.
   #
   # @param arg [String] The command-line argument to add
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/ie/options.rb#94
+  # source://selenium-webdriver//lib/selenium/webdriver/ie/options.rb#95
   def add_argument(arg); end
 
   # Returns the value of attribute args.
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/ie/options.rb#48
+  # source://selenium-webdriver//lib/selenium/webdriver/ie/options.rb#49
   def args; end
 
   private
 
-  # source://selenium-webdriver//lib/selenium/webdriver/ie/options.rb#100
+  # source://selenium-webdriver//lib/selenium/webdriver/ie/options.rb#101
   def process_browser_options(browser_options); end
 end
 
-# source://selenium-webdriver//lib/selenium/webdriver/ie/options.rb#46
+# source://selenium-webdriver//lib/selenium/webdriver/ie/options.rb#47
 Selenium::WebDriver::IE::Options::BROWSER = T.let(T.unsafe(nil), String)
 
 # source://selenium-webdriver//lib/selenium/webdriver/ie/options.rb#27
@@ -3837,12 +3803,7 @@ Selenium::WebDriver::IE::Options::SCROLL_BOTTOM = T.let(T.unsafe(nil), Integer)
 Selenium::WebDriver::IE::Options::SCROLL_TOP = T.let(T.unsafe(nil), Integer)
 
 # source://selenium-webdriver//lib/selenium/webdriver/ie/service.rb#23
-class Selenium::WebDriver::IE::Service < ::Selenium::WebDriver::Service
-  private
-
-  # source://selenium-webdriver//lib/selenium/webdriver/ie/service.rb#30
-  def extract_service_args(driver_opts); end
-end
+class Selenium::WebDriver::IE::Service < ::Selenium::WebDriver::Service; end
 
 # source://selenium-webdriver//lib/selenium/webdriver/ie/service.rb#24
 Selenium::WebDriver::IE::Service::DEFAULT_PORT = T.let(T.unsafe(nil), Integer)
@@ -4709,7 +4670,7 @@ class Selenium::WebDriver::Options
   # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#69
   def initialize(**opts); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#98
+  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#92
   def ==(other); end
 
   # Add a new option not yet handled by bindings.
@@ -4724,11 +4685,12 @@ class Selenium::WebDriver::Options
   def add_option(name, value = T.unsafe(nil)); end
 
   # @api private
+  # @raise [Error::WebDriverError]
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#110
+  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#104
   def as_json(*_arg0); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#98
+  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#92
   def eql?(other); end
 
   # Returns the value of attribute options.
@@ -4745,34 +4707,34 @@ class Selenium::WebDriver::Options
 
   private
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#194
+  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#175
   def camel_case(str); end
 
   # @return [Boolean]
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#158
+  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#139
   def camelize?(_key); end
 
   # @raise [TypeError]
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#186
+  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#167
   def convert_json_key(key, camelize: T.unsafe(nil)); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#162
+  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#143
   def generate_as_json(value, camelize_keys: T.unsafe(nil)); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#154
+  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#135
   def process_browser_options(_browser_options); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#176
+  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#157
   def process_json_hash(value, camelize_keys); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#147
+  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#128
   def process_w3c_options(options); end
 
   # @return [Boolean]
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#143
+  # source://selenium-webdriver//lib/selenium/webdriver/common/options.rb#124
   def w3c?(key); end
 
   class << self
@@ -4818,18 +4780,13 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#147
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#135
   def assert_executable(path); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#141
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#129
   def assert_file(path); end
-
-  # @api private
-  #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#65
-  def bitsize; end
 
   # @api private
   #
@@ -4838,12 +4795,12 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#110
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#98
   def cygwin?; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#122
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#110
   def cygwin_path(path, **opts); end
 
   # @api private
@@ -4853,18 +4810,8 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#155
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#143
   def exit_hook; end
-
-  # @api private
-  #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#161
-  def find_binary(*binary_names); end
-
-  # @api private
-  #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#181
-  def find_in_program_files(*binary_names); end
 
   # @api private
   #
@@ -4873,42 +4820,42 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#222
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#173
   def interfaces; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#206
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#157
   def ip; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#77
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#65
   def jruby?; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#97
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#85
   def linux?; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#198
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#149
   def localhost; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#93
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#81
   def mac?; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#137
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#125
   def make_writable(file); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#114
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#102
   def null_device; end
 
   # @api private
@@ -4918,56 +4865,51 @@ module Selenium::WebDriver::Platform
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#85
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#73
   def ruby_version; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#81
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#69
   def truffleruby?; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#129
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#117
   def unix_path(path); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#89
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#77
   def windows?; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#133
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#121
   def windows_path(path); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#118
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#106
   def wrap_in_quotes_if_necessary(str); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#101
+  # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#89
   def wsl?; end
 
   class << self
     # @api private
     # @raise [Error::WebDriverError]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#147
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#135
     def assert_executable(path); end
 
     # @api private
     # @raise [Error::WebDriverError]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#141
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#129
     def assert_file(path); end
-
-    # @api private
-    #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#65
-    def bitsize; end
 
     # @api private
     #
@@ -4977,12 +4919,12 @@ module Selenium::WebDriver::Platform
     # @api private
     # @return [Boolean]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#110
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#98
     def cygwin?; end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#122
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#110
     def cygwin_path(path, **opts); end
 
     # @api private
@@ -4992,18 +4934,8 @@ module Selenium::WebDriver::Platform
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#155
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#143
     def exit_hook; end
-
-    # @api private
-    #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#161
-    def find_binary(*binary_names); end
-
-    # @api private
-    #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#181
-    def find_in_program_files(*binary_names); end
 
     # @api private
     #
@@ -5012,46 +4944,46 @@ module Selenium::WebDriver::Platform
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#222
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#173
     def interfaces; end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#206
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#157
     def ip; end
 
     # @api private
     # @return [Boolean]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#77
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#65
     def jruby?; end
 
     # @api private
     # @return [Boolean]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#97
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#85
     def linux?; end
 
     # @api private
     # @raise [Error::WebDriverError]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#198
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#149
     def localhost; end
 
     # @api private
     # @return [Boolean]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#93
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#81
     def mac?; end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#137
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#125
     def make_writable(file); end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#114
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#102
     def null_device; end
 
     # @api private
@@ -5061,40 +4993,40 @@ module Selenium::WebDriver::Platform
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#85
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#73
     def ruby_version; end
 
     # @api private
     # @return [Boolean]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#81
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#69
     def truffleruby?; end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#129
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#117
     def unix_path(path); end
 
     # @api private
     # @return [Boolean]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#89
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#77
     def windows?; end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#133
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#121
     def windows_path(path); end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#118
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#106
     def wrap_in_quotes_if_necessary(str); end
 
     # @api private
     # @return [Boolean]
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#101
+    # source://selenium-webdriver//lib/selenium/webdriver/common/platform.rb#89
     def wsl?; end
   end
 end
@@ -6255,18 +6187,18 @@ class Selenium::WebDriver::Remote::Capabilities
   # @param :proxy [Hash] a customizable set of options
   # @return [Capabilities] a new instance of Capabilities
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#199
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#127
   def initialize(opts = T.unsafe(nil)); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#288
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#216
   def ==(other); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#213
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#141
   def [](key); end
 
   # Allows setting arbitrary capabilities.
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#209
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#137
   def []=(key, value); end
 
   # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#47
@@ -6277,7 +6209,7 @@ class Selenium::WebDriver::Remote::Capabilities
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#278
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#206
   def as_json(*_arg0); end
 
   # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#47
@@ -6292,16 +6224,16 @@ class Selenium::WebDriver::Remote::Capabilities
   # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#51
   def browser_version=(value); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#288
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#216
   def eql?(other); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#250
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#178
   def implicit_timeout; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#254
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#182
   def implicit_timeout=(timeout); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#217
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#145
   def merge!(other); end
 
   # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#47
@@ -6310,17 +6242,11 @@ class Selenium::WebDriver::Remote::Capabilities
   # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#51
   def page_load_strategy=(value); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#258
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#186
   def page_load_timeout; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#262
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#190
   def page_load_timeout=(timeout); end
-
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#70
-  def platform; end
-
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#75
-  def platform=(value); end
 
   # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#47
   def platform_name; end
@@ -6328,10 +6254,10 @@ class Selenium::WebDriver::Remote::Capabilities
   # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#51
   def platform_name=(value); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#227
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#155
   def proxy; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#231
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#159
   def proxy=(proxy); end
 
   # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#47
@@ -6340,10 +6266,10 @@ class Selenium::WebDriver::Remote::Capabilities
   # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#51
   def remote_session_id=(value); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#266
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#194
   def script_timeout; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#270
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#198
   def script_timeout=(timeout); end
 
   # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#47
@@ -6358,13 +6284,13 @@ class Selenium::WebDriver::Remote::Capabilities
   # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#51
   def strict_file_interactability=(value); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#242
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#170
   def timeouts; end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#246
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#174
   def timeouts=(timeouts); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#284
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#212
   def to_json(*_arg0); end
 
   # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#47
@@ -6372,14 +6298,6 @@ class Selenium::WebDriver::Remote::Capabilities
 
   # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#51
   def unhandled_prompt_behavior=(value); end
-
-  # Backward compatibility
-  #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#60
-  def version; end
-
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#65
-  def version=(value); end
 
   # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#47
   def web_socket_url; end
@@ -6391,65 +6309,38 @@ class Selenium::WebDriver::Remote::Capabilities
 
   # Returns the value of attribute capabilities.
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#298
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#226
   def capabilities; end
 
   private
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#317
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#245
   def convert_key(key); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#328
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#256
   def convert_value(key, value); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#302
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#230
   def process_capabilities(key, value, hash); end
 
   class << self
-    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#133
+    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#61
     def always_match(capabilities); end
 
-    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#173
+    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#101
     def camel_case(str_or_sym); end
 
-    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#85
-    def chrome(opts = T.unsafe(nil)); end
-
-    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#92
-    def edge(opts = T.unsafe(nil)); end
-
-    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#100
-    def ff(opts = T.unsafe(nil)); end
-
-    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#100
-    def firefox(opts = T.unsafe(nil)); end
-
-    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#137
+    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#65
     def first_match(*capabilities); end
-
-    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#115
-    def htmlunit(opts = T.unsafe(nil)); end
-
-    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#124
-    def ie(opts = T.unsafe(nil)); end
-
-    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#124
-    def internet_explorer(opts = T.unsafe(nil)); end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#145
+    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#73
     def json_create(data); end
-
-    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#92
-    def microsoftedge(opts = T.unsafe(nil)); end
-
-    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#108
-    def safari(opts = T.unsafe(nil)); end
 
     private
 
-    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#179
+    # source://selenium-webdriver//lib/selenium/webdriver/remote/capabilities.rb#107
     def process_timeouts(caps, timeouts); end
   end
 end
@@ -6542,7 +6433,7 @@ Selenium::WebDriver::Remote::Http::Common::MAX_REDIRECTS = T.let(T.unsafe(nil), 
 
 # @api private
 #
-# source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#28
+# source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#26
 class Selenium::WebDriver::Remote::Http::Default < ::Selenium::WebDriver::Remote::Http::Common
   # Initializes object.
   # Warning: Setting {#open_timeout} to non-nil values will cause a separate thread to spawn.
@@ -6553,86 +6444,86 @@ class Selenium::WebDriver::Remote::Http::Default < ::Selenium::WebDriver::Remote
   # @param read_timeout [Numeric] - Read timeout (seconds) to apply to HTTP client.
   # @return [Default] a new instance of Default
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#38
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#36
   def initialize(open_timeout: T.unsafe(nil), read_timeout: T.unsafe(nil)); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#44
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#42
   def close; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#31
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#29
   def open_timeout; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#31
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#29
   def open_timeout=(_arg0); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#29
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#27
   def proxy=(_arg0); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#31
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#29
   def read_timeout; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#31
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#29
   def read_timeout=(_arg0); end
 
   private
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#50
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#48
   def http; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#122
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#121
   def new_http_client; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#108
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#107
   def new_request_for(verb, url, headers, payload); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#138
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#137
   def proxy; end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#72
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#70
   def request(verb, url, headers, payload, redirects = T.unsafe(nil)); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#118
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#117
   def response_for(request); end
 
   # @api private
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#66
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#64
   def start(http); end
 
   # @api private
   # @return [Boolean]
   #
-  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#150
+  # source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#149
   def use_proxy?; end
 end
 
 # @api private
 #
-# source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#70
+# source://selenium-webdriver//lib/selenium/webdriver/remote/http/default.rb#68
 Selenium::WebDriver::Remote::Http::Default::MAX_RETRIES = T.let(T.unsafe(nil), Integer)
 
 # @api private
@@ -6890,17 +6781,17 @@ class Selenium::WebDriver::SeleniumManager
     # @api private
     # @return [String] the path to the correct selenium manager
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#73
+    # source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#76
     def binary; end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#54
+    # source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#58
     def generate_command(binary, options); end
 
     # @api private
     #
-    # source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#100
+    # source://selenium-webdriver//lib/selenium/webdriver/common/selenium_manager.rb#103
     def run(*command); end
   end
 end
@@ -6960,7 +6851,7 @@ class Selenium::WebDriver::Service
   # source://selenium-webdriver//lib/selenium/webdriver/common/service.rb#60
   def host=(_arg0); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/service.rb#90
+  # source://selenium-webdriver//lib/selenium/webdriver/common/service.rb#89
   def launch; end
 
   # Returns the value of attribute log.
@@ -6987,13 +6878,8 @@ class Selenium::WebDriver::Service
   # source://selenium-webdriver//lib/selenium/webdriver/common/service.rb#60
   def port=(_arg0); end
 
-  # source://selenium-webdriver//lib/selenium/webdriver/common/service.rb#94
+  # source://selenium-webdriver//lib/selenium/webdriver/common/service.rb#93
   def shutdown_supported; end
-
-  protected
-
-  # source://selenium-webdriver//lib/selenium/webdriver/common/service.rb#100
-  def extract_service_args(driver_opts); end
 
   class << self
     # source://selenium-webdriver//lib/selenium/webdriver/common/service.rb#31

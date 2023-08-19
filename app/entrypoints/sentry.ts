@@ -23,6 +23,9 @@ if (dsn) {
       new CaptureConsoleIntegration({ levels: ["error", "assert"] }),
       new HttpClientIntegration(),
     ],
+    ignoreErrors: [
+      "ResizeObserver loop completed with undelivered notifications.",
+    ],
   };
   init(options);
   console.info(

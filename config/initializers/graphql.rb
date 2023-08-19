@@ -9,11 +9,10 @@ Rails.application.configure do
     Schema.queries!.listen if Rails.server? && Rails.env.development?
   end
 
-  if Rails.server? && Rails.env.development?
-    reloader.before_class_unload do
-      Schema.queries!.unlisten
-    end
-  end
+  reloader.before_class_unload do
+    puts "=> Unlistening to queries" # rubocop:disable Rails/Output
+    Schema.queries!.unlisten
+  end if Rails.server? && Rails.env.development?
 end
 
 # Don't show noisy introspection query in logs.
