@@ -15,7 +15,7 @@ export type HomePageProps = PagePropsWithData<HomePageQuery> & {
 };
 
 const HomePage: PageComponent<HomePageProps> = ({
-  data: { announcement, journalEntry, pensieveMessages, location },
+  data: { announcement, journalEntry, location },
   firstJournalEntryId,
 }) => (
   <Stack spacing="xs">
@@ -64,7 +64,7 @@ const HomePage: PageComponent<HomePageProps> = ({
       <Title order={2} size="h3">
         sometimes, kai thinks to himself.
       </Title>
-      <Pensieve initialMessages={pensieveMessages} />
+      <Pensieve />
     </Stack>
     {location &&
       resolve(() => {

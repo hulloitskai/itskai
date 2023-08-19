@@ -57,15 +57,14 @@ class Pensieve
 
     sig { params(text: String).void }
     def send_message!(text)
-      telegram_message = bot.api.send_message(text:, user_id: telegram_user_id!)
-      telegram_message = T.let(telegram_message, Telegram::Bot::Types::Message)
-      message = PensieveMessage.find_or_initialize_by(
-        telegram_message_id: telegram_message.message_id,
-      ) do |message|
-        message.from = :bot
-        message.timestamp = Time.zone.at(telegram_message.date)
-      end
-      message.update!(text: telegram_message.text)
+      message = bot.api.send_message(text:, user_id: telegram_user_id!)
+      message = T.let(message, Telegram::Bot::Types::Message)
+      PensieveMessage.create!(
+        telegram_message_id: message.message_id,
+        from: :user,
+        text: message.text,
+        timestamp: Time.zone.at(message.date),
+      )
     end
 
     private
@@ -79,31 +78,32 @@ class Pensieve
 
     sig do
       params(
-        message: Telegram::Bot::Types::Message,
+        telegram_message: Telegram::Bot::Types::Message,
         bot: Telegram::Bot::Client,
       ).void
     end
-    def handle_message!(message, bot:)
-      if message.from.id != telegram_user_id!
+    def handle_message!(telegram_message, bot:)
+      if telegram_message.from.id != telegram_user_id!
         bot.api.send_message(
-          chat_id: message.chat.id,
+          chat_id: telegram_message.chat.id,
           text:
             "Sorry, you have to be an allowlisted user to use this " \
-            "pensieve 😅 (your user ID is: #{message.from.id})",
+            "pensieve 😅 (your user ID is: #{telegram_message.from.id})",
         ) and return
       end
-      if (entity = message.entities&.first)
+      if (entity = telegram_message.entities&.first)
         return if entity.type == "bot_command"
       end
       tag_logger do
-        logger.info("Received message: #{message.text}")
+        logger.info("Received message: #{telegram_message.text}")
       end
-      PensieveMessage.create!(
-        telegram_message_id: message.message_id,
-        from: :user,
-        text: message.text,
-        timestamp: Time.zone.at(message.date),
-      )
+      message = PensieveMessage.find_or_initialize_by(
+        telegram_message_id: telegram_message.message_id,
+      ) do |message|
+        message.from = :bot
+        message.timestamp = Time.zone.at(telegram_message.date)
+      end
+      message.update!(text: telegram_message.text)
     end
   end
 end

@@ -14,7 +14,7 @@ module Queries
       PensieveMessage
         .where("timestamp > ?", 12.hours.ago)
         .order(:timestamp)
-        .limit(100)
+        .limit(200)
     end
   end
 end

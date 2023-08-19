@@ -1,24 +1,69 @@
 import type { FC } from "react";
+import { DateTime } from "luxon";
 
-import { Text } from "@mantine/core";
+import { ScrollArea, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
-// import { PensieveMessageFrom } from "~/helpers/graphql";
 import {
   PensieveSubscriptionDocument,
-  type PensieveMessageFragment,
+  PensieveQueryDocument,
 } from "~/helpers/graphql";
+import type { PensieveMessageFragment } from "~/helpers/graphql";
 
-export type PensieveProps = Omit<BoxProps, "children"> & {
-  readonly initialMessages: ReadonlyArray<PensieveMessageFragment>;
-};
+import PensieveMessage from "./PensieveMessage";
 
-const Pensieve: FC<PensieveProps> = ({
-  initialMessages,
-  sx,
-  ...otherProps
-}) => {
-  const [messages, setMessages] = useState(initialMessages);
+export type PensieveProps = Omit<BoxProps, "children">;
+
+const Pensieve: FC<PensieveProps> = ({ sx, ...otherProps }) => {
+  const [messages, setMessages] = useState<PensieveMessageFragment[]>([]);
+
+  // == Query
+  const onError = useApolloAlertCallback("Failed to load pensieve messages");
+  const { loading } = useQuery(PensieveQueryDocument, {
+    onCompleted: ({ messages }) => {
+      setMessages(prevMessages => [...prevMessages, ...messages]);
+    },
+    onError,
+  });
+
+  // == Autoscroll
+  const viewportRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    setTimeout(() => {
+      const viewportEl = viewportRef.current;
+      if (viewportEl) {
+        viewportEl.scrollTo({
+          top: viewportEl.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+    }, 120);
+  }, [messages]);
+
+  // == Groupings
+  const groups = useMemo(() => {
+    const groups = [];
+    let currentGroup: PensieveMessageFragment[] = [];
+    let lastTimestamp: DateTime | null = null;
+    messages.forEach(message => {
+      const timestamp = DateTime.fromISO(message.timestamp);
+      if (
+        lastTimestamp &&
+        timestamp.diff(lastTimestamp, "minutes").minutes > 2
+      ) {
+        groups.push(currentGroup);
+        currentGroup = [];
+        lastTimestamp = null;
+      } else {
+        currentGroup.push(message);
+        lastTimestamp = timestamp;
+      }
+    });
+    if (!isEmpty(currentGroup)) {
+      groups.push(currentGroup);
+    }
+    return groups;
+  }, [messages]);
 
   // == Subscription
   useSubscription(PensieveSubscriptionDocument, {
@@ -42,37 +87,43 @@ const Pensieve: FC<PensieveProps> = ({
   return (
     <Card
       withBorder
-      padding="lg"
+      padding={0}
       shadow="sm"
       radius="md"
-      mah={375}
       w="100%"
       maw={540}
       sx={[...packSx(sx), { overflowY: "auto" }]}
       {...otherProps}
     >
-      <Stack spacing={8}>
-        {messages.map(({ id: messageId, /* from, */ text, timestamp }) => (
-          <Group
-            key={messageId}
-            spacing="xs"
-            px={8}
-            py={4}
-            bg="dark.7"
-            sx={({ colors, radius }) => ({
-              border: `${rem(1)} solid ${colors.brand[5]}`,
-              borderRadius: radius.md,
-              alignSelf: "end",
+      <ScrollArea h={325} {...{ viewportRef }}>
+        {!isEmpty(groups) ? (
+          <Stack spacing="sm" m="lg">
+            {groups.map(messages => {
+              const firstMessage = first(messages);
+              invariant(firstMessage, "Group must have at least one message");
+              return (
+                <Stack key={firstMessage.id} align="end" spacing={6}>
+                  {messages.map(message => (
+                    <PensieveMessage key={message.id} {...{ message }} />
+                  ))}
+                </Stack>
+              );
             })}
-          >
-            {/* <Text>{from === PensieveMessageFrom.User ? "Kai" : "The World"}</Text> */}
-            <Text size="sm">{text}</Text>
-            <Text size="xs" color="dimmed">
-              <Time format={DateTime.TIME_SIMPLE}>{timestamp}</Time>
-            </Text>
-          </Group>
-        ))}
-      </Stack>
+          </Stack>
+        ) : loading ? (
+          <Stack align="start" spacing={6} m="lg">
+            {[...new Array(3)].map((_, index) => (
+              <Skeleton height="xs" key={index}>
+                <Text>Hi this is some placeholder text.</Text>
+              </Skeleton>
+            ))}
+          </Stack>
+        ) : (
+          <Text size="sm" color="dimmed" m="lg">
+            No recent messages.
+          </Text>
+        )}
+      </ScrollArea>
     </Card>
   );
 };

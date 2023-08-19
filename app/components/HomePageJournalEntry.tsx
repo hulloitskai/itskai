@@ -47,13 +47,11 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
   useDidUpdate(() => {
     if (ref.current && requiresScrolling) {
       setRequiresScrolling(false);
-      const headerElement = document.querySelector(
-        "header.mantine-Header-root",
-      );
+      const headerEl = document.querySelector("header.mantine-Header-root");
       scrollIntoView(ref.current, {
         align: {
           top: 0,
-          topOffset: headerElement?.clientHeight ?? 0,
+          topOffset: headerEl?.clientHeight ?? 0,
         },
       });
     }

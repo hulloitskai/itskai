@@ -1,6 +1,3 @@
 fragment PensieveMessageFragment on PensieveMessage {
-  from
-  id
-  text
-  timestamp
+  ...PensieveMessageMessageFragment
 }

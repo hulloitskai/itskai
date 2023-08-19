@@ -19,8 +19,9 @@ const JournalEntry: FC<JournalEntryProps> = ({
   ...otherProps
 }) => {
   const theme = useMantineTheme();
+
   return (
-    <Box pos="relative" w="100%" maw={540} mx={4} {...otherProps}>
+    <Box pos="relative" w="100%" maw={540} {...otherProps}>
       <Card withBorder padding="lg" shadow="sm" radius="md">
         <Stack spacing="xs">
           <Stack spacing={2}>

@@ -10,10 +10,6 @@ query HomePageQuery($journalEntryId: ID!, $showJournalEntry: Boolean!) {
     id
     timestamp
   }
-  pensieveMessages {
-    id
-    ...PensieveMessageFragment
-  }
   viewer {
     ...AppViewerFragment
     id
