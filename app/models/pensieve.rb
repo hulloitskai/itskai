@@ -92,6 +92,9 @@ class Pensieve
             "pensieve 😅 (your user ID is: #{message.from.id})",
         ) and return
       end
+      if (entity = message.entities.first)
+        return if entity.type == "bot_command"
+      end
       tag_logger do
         logger.info("Received message: #{message.text}")
       end
