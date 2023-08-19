@@ -30,7 +30,9 @@ module Types
     field :instagram_credentials, resolver: Queries::InstagramCredentials
     field :spotify_credentials, resolver: Queries::SpotifyCredentials
 
-    field :homepage_journal_entry, resolver: Queries::HomepageJournalEntry
+    field :journal_entry, resolver: Queries::JournalEntry
     field :journal_entry_comments, resolver: Queries::JournalEntryComments
+
+    field :pensieve_messages, resolver: Queries::PensieveMessages
   end
 end

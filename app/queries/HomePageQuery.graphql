@@ -1,6 +1,6 @@
-query HomePageQuery($entryId: ID) {
+query HomePageQuery($journalEntryId: ID!, $showJournalEntry: Boolean!) {
   announcement
-  entry: homepageJournalEntry(id: $entryId) {
+  journalEntry(id: $journalEntryId) @include(if: $showJournalEntry) {
     ...HomePageJournalEntryEntryFragment
     id
   }
@@ -9,6 +9,10 @@ query HomePageQuery($entryId: ID) {
     googleMapsAreaUrl
     id
     timestamp
+  }
+  pensieveMessages {
+    id
+    ...PensieveMessageFragment
   }
   viewer {
     ...AppViewerFragment

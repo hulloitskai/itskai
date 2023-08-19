@@ -1,5 +1,6 @@
-query HomePageJournalEntryQuery($entryId: ID) {
-  entry: homepageJournalEntry(id: $entryId) {
+query HomePageJournalEntryQuery($entryId: ID!) {
+  entry: journalEntry(id: $entryId) {
     ...HomePageJournalEntryEntryFragment
+    id
   }
 }

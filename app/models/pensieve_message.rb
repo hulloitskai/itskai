@@ -25,4 +25,15 @@ class PensieveMessage < ApplicationRecord
 
   # == Validations
   validates :text, presence: true
+
+  # == Callbacks
+  after_create_commit :trigger_subscriptions
+
+  private
+
+  # == Callback Handlers
+  sig { void }
+  def trigger_subscriptions
+    Schema.subscriptions!.trigger(:pensieve_message, {}, self)
+  end
 end

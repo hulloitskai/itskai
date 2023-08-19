@@ -227,6 +227,20 @@ type OAuthCredentials implements Node {
   uid: String!
 }
 
+type PensieveMessage implements Node {
+  from: PensieveMessageFrom!
+
+  """ID of the object."""
+  id: ID!
+  text: String!
+  timestamp: DateTime!
+}
+
+enum PensieveMessageFrom {
+  BOT
+  USER
+}
+
 type Query {
   activityStatus: String
   announcement: String
@@ -236,13 +250,14 @@ type Query {
   contactEmail: String!
   currentlyPlaying: CurrentlyPlaying
   googleCredentials: OAuthCredentials
-  homepageJournalEntry(id: ID): JournalEntry
   icloudCredentials: ICloudCredentials
   imageBySignedId(signedId: String!): Image
   instagramCredentials: InstagramCredentials
+  journalEntry(id: ID!): JournalEntry
   journalEntryComments(entryId: ID!): [NotionComment!]!
   location: LocationLog
   passwordStrength(password: String!): Float!
+  pensieveMessages: [PensieveMessage!]!
   resume: JSON!
   spotifyCredentials: OAuthCredentials
   testEcho(text: String): String!
@@ -353,6 +368,7 @@ type SpotifyArtist {
 type Subscription {
   activityStatus: String
   currentlyPlaying: CurrentlyPlaying
+  pensieveMessage: PensieveMessage
   testSubscription: Int!
 }
 

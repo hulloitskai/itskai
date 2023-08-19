@@ -10,7 +10,7 @@ module Queries
     type [Types::NotionCommentType], null: false
 
     # == Resolver
-    sig { params(entry: JournalEntry).returns(T.untyped) }
+    sig { params(entry: ::JournalEntry).returns(T.untyped) }
     def resolve(entry:)
       entry.notion_comments
     end

@@ -8,11 +8,15 @@ import type { HomePageQuery } from "~/helpers/graphql";
 
 import ContactMeLink from "~/components/ContactMeLink";
 import HomePageJournalEntry from "~/components/HomePageJournalEntry";
+import Pensieve from "~/components/Pensieve";
 
-export type HomePageProps = PagePropsWithData<HomePageQuery>;
+export type HomePageProps = PagePropsWithData<HomePageQuery> & {
+  readonly firstJournalEntryId: string;
+};
 
 const HomePage: PageComponent<HomePageProps> = ({
-  data: { announcement, entry, location },
+  data: { announcement, journalEntry, pensieveMessages, location },
+  firstJournalEntryId,
 }) => (
   <Stack spacing="xs">
     {announcement ? (
@@ -50,7 +54,17 @@ const HomePage: PageComponent<HomePageProps> = ({
       <Title order={2} size="h3">
         sometimes, kai writes.
       </Title>
-      <HomePageJournalEntry initialEntry={entry} w="100%" />
+      <HomePageJournalEntry
+        firstEntryId={firstJournalEntryId}
+        initialEntry={journalEntry}
+      />
+    </Stack>
+    <Space h="xl" />
+    <Stack align="center" spacing="xs">
+      <Title order={2} size="h3">
+        sometimes, kai thinks to himself.
+      </Title>
+      <Pensieve initialMessages={pensieveMessages} />
     </Stack>
     {location &&
       resolve(() => {

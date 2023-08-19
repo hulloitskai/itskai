@@ -110,7 +110,14 @@ export type OAuthCredentialsFieldPolicy = {
 	refreshToken?: FieldPolicy<any> | FieldReadFunction<any>,
 	uid?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('activityStatus' | 'announcement' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'googleCredentials' | 'homepageJournalEntry' | 'icloudCredentials' | 'imageBySignedId' | 'instagramCredentials' | 'journalEntryComments' | 'location' | 'passwordStrength' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
+export type PensieveMessageKeySpecifier = ('from' | 'id' | 'text' | 'timestamp' | PensieveMessageKeySpecifier)[];
+export type PensieveMessageFieldPolicy = {
+	from?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	text?: FieldPolicy<any> | FieldReadFunction<any>,
+	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type QueryKeySpecifier = ('activityStatus' | 'announcement' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'googleCredentials' | 'icloudCredentials' | 'imageBySignedId' | 'instagramCredentials' | 'journalEntry' | 'journalEntryComments' | 'location' | 'passwordStrength' | 'pensieveMessages' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	announcement?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -118,13 +125,14 @@ export type QueryFieldPolicy = {
 	contactEmail?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
 	googleCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
-	homepageJournalEntry?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	imageBySignedId?: FieldPolicy<any> | FieldReadFunction<any>,
 	instagramCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	journalEntry?: FieldPolicy<any> | FieldReadFunction<any>,
 	journalEntryComments?: FieldPolicy<any> | FieldReadFunction<any>,
 	location?: FieldPolicy<any> | FieldReadFunction<any>,
 	passwordStrength?: FieldPolicy<any> | FieldReadFunction<any>,
+	pensieveMessages?: FieldPolicy<any> | FieldReadFunction<any>,
 	resume?: FieldPolicy<any> | FieldReadFunction<any>,
 	spotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	testEcho?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -175,10 +183,11 @@ export type SpotifyArtistFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type SubscriptionKeySpecifier = ('activityStatus' | 'currentlyPlaying' | 'testSubscription' | SubscriptionKeySpecifier)[];
+export type SubscriptionKeySpecifier = ('activityStatus' | 'currentlyPlaying' | 'pensieveMessage' | 'testSubscription' | SubscriptionKeySpecifier)[];
 export type SubscriptionFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
+	pensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
 	testSubscription?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type TestModelKeySpecifier = ('birthday' | 'id' | 'name' | TestModelKeySpecifier)[];
@@ -318,6 +327,10 @@ export type StrictTypedTypePolicies = {
 	OAuthCredentials?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | OAuthCredentialsKeySpecifier | (() => undefined | OAuthCredentialsKeySpecifier),
 		fields?: OAuthCredentialsFieldPolicy,
+	},
+	PensieveMessage?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | PensieveMessageKeySpecifier | (() => undefined | PensieveMessageKeySpecifier),
+		fields?: PensieveMessageFieldPolicy,
 	},
 	Query?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier),

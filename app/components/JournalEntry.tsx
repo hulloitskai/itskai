@@ -10,7 +10,7 @@ import type { JournalEntryEntryFragment } from "~/helpers/graphql";
 import NotionContent from "./NotionContent";
 import JournalEntryComments from "./JournalEntryComments";
 
-export type JournalEntryProps = BoxProps & {
+export type JournalEntryProps = Omit<BoxProps, "children"> & {
   readonly entry: JournalEntryEntryFragment;
 };
 
@@ -19,10 +19,8 @@ const JournalEntry: FC<JournalEntryProps> = ({
   ...otherProps
 }) => {
   const theme = useMantineTheme();
-
-  // == Markup
   return (
-    <Box id={entryId} pos="relative" mx={4} {...otherProps}>
+    <Box pos="relative" w="100%" maw={540} mx={4} {...otherProps}>
       <Card withBorder padding="lg" shadow="sm" radius="md">
         <Stack spacing="xs">
           <Stack spacing={2}>

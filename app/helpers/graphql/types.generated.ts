@@ -284,6 +284,20 @@ export type OAuthCredentials = Node & {
   uid: Scalars['String']['output'];
 };
 
+export type PensieveMessage = Node & {
+  __typename?: 'PensieveMessage';
+  from: PensieveMessageFrom;
+  /** ID of the object. */
+  id: Scalars['ID']['output'];
+  text: Scalars['String']['output'];
+  timestamp: Scalars['DateTime']['output'];
+};
+
+export enum PensieveMessageFrom {
+  Bot = 'BOT',
+  User = 'USER'
+}
+
 export type Query = {
   __typename?: 'Query';
   activityStatus?: Maybe<Scalars['String']['output']>;
@@ -293,13 +307,14 @@ export type Query = {
   contactEmail: Scalars['String']['output'];
   currentlyPlaying?: Maybe<CurrentlyPlaying>;
   googleCredentials?: Maybe<OAuthCredentials>;
-  homepageJournalEntry?: Maybe<JournalEntry>;
   icloudCredentials?: Maybe<ICloudCredentials>;
   imageBySignedId?: Maybe<Image>;
   instagramCredentials?: Maybe<InstagramCredentials>;
+  journalEntry?: Maybe<JournalEntry>;
   journalEntryComments: Array<NotionComment>;
   location?: Maybe<LocationLog>;
   passwordStrength: Scalars['Float']['output'];
+  pensieveMessages: Array<PensieveMessage>;
   resume: Scalars['JSON']['output'];
   spotifyCredentials?: Maybe<OAuthCredentials>;
   testEcho: Scalars['String']['output'];
@@ -309,13 +324,13 @@ export type Query = {
 };
 
 
-export type QueryHomepageJournalEntryArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+export type QueryImageBySignedIdArgs = {
+  signedId: Scalars['String']['input'];
 };
 
 
-export type QueryImageBySignedIdArgs = {
-  signedId: Scalars['String']['input'];
+export type QueryJournalEntryArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -449,6 +464,7 @@ export type Subscription = {
   __typename?: 'Subscription';
   activityStatus?: Maybe<Scalars['String']['output']>;
   currentlyPlaying?: Maybe<CurrentlyPlaying>;
+  pensieveMessage?: Maybe<PensieveMessage>;
   testSubscription: Scalars['Int']['output'];
 };
 

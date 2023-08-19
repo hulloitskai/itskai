@@ -13,6 +13,7 @@
       "JournalEntry",
       "LocationLog",
       "OAuthCredentials",
+      "PensieveMessage",
       "User"
     ]
   }
