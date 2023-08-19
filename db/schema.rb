@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_07_050950) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_19_152802) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -238,6 +238,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_050950) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_obsidian_stubs_on_name", unique: true
+  end
+
+  create_table "pensieve_messages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "text", null: false
+    t.string "from", null: false
+    t.bigint "telegram_message_id", null: false
+    t.datetime "timestamp", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["telegram_message_id"], name: "index_pensieve_messages_on_telegram_message_id", unique: true
   end
 
   create_table "scottcalls", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
