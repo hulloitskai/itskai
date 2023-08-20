@@ -23,9 +23,27 @@ const Pensieve: FC<PensieveProps> = ({ sx, ...otherProps }) => {
     Map<string, PensieveMessageFragment>
   >(new Map());
 
+  // == Autoscroll
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const autoscroll = useCallback(
+    (timeout = 200) => {
+      setTimeout(() => {
+        const viewportEl = viewportRef.current;
+        if (viewportEl) {
+          viewportEl.scrollTo({
+            top: viewportEl.scrollHeight,
+            behavior: "smooth",
+          });
+        }
+      }, timeout);
+    },
+    [viewportRef],
+  );
+
   // == Query
   const onError = useApolloAlertCallback("Failed to load pensieve messages");
   const { loading } = useQuery(PensieveQueryDocument, {
+    nextFetchPolicy: "standby",
     onCompleted: ({ messages: incomingMessages }) => {
       setMessages(prevMessages => {
         const messages = new Map(prevMessages);
@@ -34,23 +52,10 @@ const Pensieve: FC<PensieveProps> = ({ sx, ...otherProps }) => {
         });
         return messages;
       });
+      autoscroll(300);
     },
     onError,
   });
-
-  // == Autoscroll
-  const viewportRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    setTimeout(() => {
-      const viewportEl = viewportRef.current;
-      if (viewportEl) {
-        viewportEl.scrollTo({
-          top: viewportEl.scrollHeight,
-          behavior: "smooth",
-        });
-      }
-    }, 150);
-  }, [messages]);
 
   // == Groupings
   const groups = useMemo(() => {
@@ -85,6 +90,9 @@ const Pensieve: FC<PensieveProps> = ({ sx, ...otherProps }) => {
         const { message: incomingMessage } = data;
         if (incomingMessage) {
           setMessages(prevMessages => {
+            if (!prevMessages.has(incomingMessage.id)) {
+              autoscroll();
+            }
             const messages = new Map(prevMessages);
             messages.set(incomingMessage.id, incomingMessage);
             return messages;
@@ -124,7 +132,6 @@ const Pensieve: FC<PensieveProps> = ({ sx, ...otherProps }) => {
                   key={messageId}
                   align={fromBot ? "start" : "end"}
                   spacing={6}
-                  {...(fromBot ? { pr: "xl" } : { pl: "xl" })}
                 >
                   {messages.map(message => (
                     <PensieveMessage key={message.id} {...{ message }} />

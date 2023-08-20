@@ -4,7 +4,7 @@
 module Subscriptions
   class PensieveMessage < BaseSubscription
     # == Configuration
-    broadcastable true
+    broadcastable false
 
     # == Type
     type Types::PensieveMessageType, null: true

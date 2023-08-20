@@ -6,9 +6,6 @@ module Subscriptions
     # == Variables
     @count = T.let(0, Integer)
 
-    # == Configuration
-    broadcastable true
-
     # == Type
     type Int
 

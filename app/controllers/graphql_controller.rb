@@ -23,7 +23,7 @@ class GraphQLController < ApplicationController
     # Execute query
     variables = prepare_variables(params[:variables])
     extensions = prepare_extensions(params[:extensions])
-    context = { controller: self, extensions:, current_user: }
+    context = { controller: self, extensions:, session:, current_user: }
     result = Schema.execute(query, variables:, operation_name:, context:)
 
     # Render result

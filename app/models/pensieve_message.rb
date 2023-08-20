@@ -27,11 +27,37 @@ class PensieveMessage < ApplicationRecord
   sig { returns(T::Boolean) }
   def edited? = edit_timestamp?
 
+  # == Associations
+  has_many :likes,
+           class_name: "PensieveMessageLike",
+           inverse_of: :message,
+           foreign_key: :message_id,
+           dependent: :destroy
+
   # == Validations
   validates :text, presence: true
 
   # == Callbacks
   after_commit :trigger_subscriptions, on: %i[create update]
+
+  # == Methods
+  sig { params(session: ActionDispatch::Request::Session).returns(T::Boolean) }
+  def liked_by?(session)
+    likes.exists?(session_id: session.id.to_s)
+  end
+
+  sig do
+    params(session: ActionDispatch::Request::Session)
+      .returns(PensieveMessageLike)
+  end
+  def like!(session:)
+    likes.create!(session_id: session.id.to_s)
+  end
+
+  sig { params(session: ActionDispatch::Request::Session).void }
+  def unlike!(session:)
+    likes.find_by(session_id: session.id.to_s)&.destroy!
+  end
 
   private
 

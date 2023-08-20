@@ -15,6 +15,10 @@ module ApplicationCable
       self.current_user = find_verified_user
     end
 
+    # == Methods
+    sig { returns(ActionDispatch::Request::Session) }
+    def session = request.session
+
     private
 
     # == Helpers

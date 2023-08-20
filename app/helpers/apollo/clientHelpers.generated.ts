@@ -61,6 +61,12 @@ export type JournalEntryFieldPolicy = {
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type LikePensieveMessagePayloadKeySpecifier = ('clientMutationId' | 'message' | 'success' | LikePensieveMessagePayloadKeySpecifier)[];
+export type LikePensieveMessagePayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	message?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type LocationLogKeySpecifier = ('approximateAddress' | 'googleMapsAreaUrl' | 'id' | 'timestamp' | LocationLogKeySpecifier)[];
 export type LocationLogFieldPolicy = {
 	approximateAddress?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -74,12 +80,13 @@ export type LyricLineFieldPolicy = {
 	startTimeMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	words?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'importJournalEntries' | 'importLocationLogs' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'testMutation' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'importJournalEntries' | 'importLocationLogs' | 'likePensieveMessage' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'testMutation' | 'unlikePensieveMessage' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
 	importJournalEntries?: FieldPolicy<any> | FieldReadFunction<any>,
 	importLocationLogs?: FieldPolicy<any> | FieldReadFunction<any>,
+	likePensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeGoogleCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeInstagramCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -88,6 +95,7 @@ export type MutationFieldPolicy = {
 	requestUserPasswordReset?: FieldPolicy<any> | FieldReadFunction<any>,
 	sendPensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
 	testMutation?: FieldPolicy<any> | FieldReadFunction<any>,
+	unlikePensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateInstagramCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateUserEmail?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -112,11 +120,13 @@ export type OAuthCredentialsFieldPolicy = {
 	refreshToken?: FieldPolicy<any> | FieldReadFunction<any>,
 	uid?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type PensieveMessageKeySpecifier = ('from' | 'id' | 'isEdited' | 'text' | 'timestamp' | PensieveMessageKeySpecifier)[];
+export type PensieveMessageKeySpecifier = ('from' | 'id' | 'isEdited' | 'likedByViewer' | 'likes' | 'text' | 'timestamp' | PensieveMessageKeySpecifier)[];
 export type PensieveMessageFieldPolicy = {
 	from?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	isEdited?: FieldPolicy<any> | FieldReadFunction<any>,
+	likedByViewer?: FieldPolicy<any> | FieldReadFunction<any>,
+	likes?: FieldPolicy<any> | FieldReadFunction<any>,
 	text?: FieldPolicy<any> | FieldReadFunction<any>,
 	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -229,6 +239,12 @@ export type TrackFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type UnlikePensieveMessagePayloadKeySpecifier = ('clientMutationId' | 'message' | 'success' | UnlikePensieveMessagePayloadKeySpecifier)[];
+export type UnlikePensieveMessagePayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	message?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type UpdateICloudCredentialsPayloadKeySpecifier = ('clientMutationId' | 'credentials' | 'errors' | 'success' | UpdateICloudCredentialsPayloadKeySpecifier)[];
 export type UpdateICloudCredentialsPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -312,6 +328,10 @@ export type StrictTypedTypePolicies = {
 	JournalEntry?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | JournalEntryKeySpecifier | (() => undefined | JournalEntryKeySpecifier),
 		fields?: JournalEntryFieldPolicy,
+	},
+	LikePensieveMessagePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | LikePensieveMessagePayloadKeySpecifier | (() => undefined | LikePensieveMessagePayloadKeySpecifier),
+		fields?: LikePensieveMessagePayloadFieldPolicy,
 	},
 	LocationLog?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | LocationLogKeySpecifier | (() => undefined | LocationLogKeySpecifier),
@@ -400,6 +420,10 @@ export type StrictTypedTypePolicies = {
 	Track?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | TrackKeySpecifier | (() => undefined | TrackKeySpecifier),
 		fields?: TrackFieldPolicy,
+	},
+	UnlikePensieveMessagePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | UnlikePensieveMessagePayloadKeySpecifier | (() => undefined | UnlikePensieveMessagePayloadKeySpecifier),
+		fields?: UnlikePensieveMessagePayloadFieldPolicy,
 	},
 	UpdateICloudCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | UpdateICloudCredentialsPayloadKeySpecifier | (() => undefined | UpdateICloudCredentialsPayloadKeySpecifier),

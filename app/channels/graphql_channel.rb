@@ -17,8 +17,7 @@ class GraphQLChannel < ApplicationCable::Channel
     @subscription_ids = T.let([], T::Array[String])
   end
 
-  # == Action
-
+  # == Subscription
   # Type signature must not have a runtime in order not to interfere with
   # ActionCable::Channel::Base's arity checks.
   T::Sig::WithoutRuntime.sig do
@@ -39,7 +38,7 @@ class GraphQLChannel < ApplicationCable::Channel
     # Execute query
     variables = prepare_variables(params["variables"])
     extensions = prepare_extensions(params["extensions"])
-    context = { channel: self, extensions:, current_user: }
+    context = { channel: self, extensions:, session:, current_user: }
     result = Schema.execute(query, variables:, operation_name:, context:)
 
     # Track the subscription here so we can remove it on unsubscribe
@@ -54,8 +53,11 @@ class GraphQLChannel < ApplicationCable::Channel
 
   private
 
-  # == Subscription Helpers
+  # == Helpers
+  sig { returns(ActionDispatch::Request::Session) }
+  def session = connection.session
 
+  # == Subscription: Helpers
   sig { void }
   def subscribed
     @subscription_ids = []
@@ -68,8 +70,7 @@ class GraphQLChannel < ApplicationCable::Channel
     end
   end
 
-  # == Logging Helpers
-
+  # == Logging
   # Log a pretty GraphQL call signature.
   sig { override.params(action: Symbol, data: T.untyped).returns(String) }
   def action_signature(action, data)

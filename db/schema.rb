@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_20_042312) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_20_171018) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -240,6 +240,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_20_042312) do
     t.index ["name"], name: "index_obsidian_stubs_on_name", unique: true
   end
 
+  create_table "pensieve_message_likes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "message_id", null: false
+    t.string "session_id", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.index ["message_id", "session_id"], name: "index_pensieve_message_likes_uniqueness", unique: true
+    t.index ["message_id"], name: "index_pensieve_message_likes_on_message_id"
+  end
+
   create_table "pensieve_messages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "text", null: false
     t.string "from", null: false
@@ -284,4 +292,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_20_042312) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "location_log_addresses", "location_logs"
   add_foreign_key "obsidian_relations", "obsidian_notes", column: "from_id"
+  add_foreign_key "pensieve_message_likes", "pensieve_messages", column: "message_id"
 end

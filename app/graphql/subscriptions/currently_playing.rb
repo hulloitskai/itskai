@@ -3,9 +3,6 @@
 
 module Subscriptions
   class CurrentlyPlaying < BaseSubscription
-    # == Configuration
-    broadcastable true
-
     # == Type
     type Types::CurrentlyPlayingType, null: true
 

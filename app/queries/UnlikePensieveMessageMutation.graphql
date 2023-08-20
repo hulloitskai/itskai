@@ -1,0 +1,5 @@
+mutation UnlikePensieveMessageMutation($input: UnlikePensieveMessageInput!) {
+  payload: unlikePensieveMessage(input: $input) {
+    success
+  }
+}

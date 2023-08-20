@@ -3,9 +3,6 @@
 
 module Subscriptions
   class ActivityStatus < BaseSubscription
-    # == Configuration
-    broadcastable true
-
     # == Type
     type String, null: true
 

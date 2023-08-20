@@ -34,9 +34,12 @@ module Types
           mutation: Mutations::AddJournalEntryComment
     field :import_journal_entries, mutation: Mutations::ImportJournalEntries
 
+    field :like_pensieve_message, mutation: Mutations::LikePensieveMessage
+    field :send_pensieve_message, mutation: Mutations::SendPensieveMessage
+    field :unlike_pensieve_message, mutation: Mutations::UnlikePensieveMessage
+
     field :activate_scottkit_signal, mutation: Mutations::ActivateScottkitSignal
     field :import_location_logs, mutation: Mutations::ImportLocationLogs
-    field :send_pensieve_message, mutation: Mutations::SendPensieveMessage
 
     # field :import_cookies, mutation: Mutations::ImportCookies
   end

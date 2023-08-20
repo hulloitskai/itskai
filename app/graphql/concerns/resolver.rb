@@ -54,6 +54,11 @@ module Resolver
     end
   end
 
+  sig { returns(ActionDispatch::Request::Session) }
+  def session
+    context[:session]
+  end
+
   sig { returns(T.nilable(T.any(User, Symbol))) }
   def current_user
     context[:current_user]
