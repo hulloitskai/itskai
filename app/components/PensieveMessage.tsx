@@ -5,7 +5,7 @@ import type { BoxProps } from "@mantine/core";
 import type { PensieveMessageMessageFragment } from "~/helpers/graphql";
 import { useTimeout } from "@mantine/hooks";
 
-export type PensieveMessageProps = Omit<BoxProps, "children"> & {
+export type PensieveMessageProps = Omit<BoxProps, "style" | "children"> & {
   readonly message: PensieveMessageMessageFragment;
 };
 
@@ -22,6 +22,7 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
         <Group
           id={`pensieve-message-${messageId}`}
           noWrap
+          align="start"
           spacing="xs"
           px={8}
           py={4}
