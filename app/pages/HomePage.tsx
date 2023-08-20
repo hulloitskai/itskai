@@ -52,6 +52,13 @@ const HomePage: PageComponent<HomePageProps> = ({
     </Center>
     <Stack align="center" spacing="xs">
       <Title order={2} size="h3">
+        sometimes, kai thinks out loud.
+      </Title>
+      <Pensieve />
+    </Stack>
+    <Space h="xl" />
+    <Stack align="center" spacing="xs">
+      <Title order={2} size="h3">
         sometimes, kai writes.
       </Title>
       <HomePageJournalEntry
@@ -59,13 +66,7 @@ const HomePage: PageComponent<HomePageProps> = ({
         initialEntry={journalEntry}
       />
     </Stack>
-    <Space h="xl" />
-    <Stack align="center" spacing="xs">
-      <Title order={2} size="h3">
-        sometimes, kai thinks out loud.
-      </Title>
-      <Pensieve />
-    </Stack>
+    <Space h="xs" />
     {location &&
       resolve(() => {
         const { approximateAddress, googleMapsAreaUrl, timestamp } = location;
