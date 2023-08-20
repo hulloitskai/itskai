@@ -20,28 +20,27 @@ kill_timeout = 10
   internal_port = 3000
   processes = ["app"]
 
-  [services.concurrency]
-    type = "connections"
-    hard_limit = 25
-    soft_limit = 20
+[services.concurrency]
+  type = "connections"
+  hard_limit = 25
+  soft_limit = 20
 
-  [[services.ports]]
-    port = 80
-    handlers = ["http"]
-    force_https = true
+[[services.ports]]
+  port = 80
+  handlers = ["http"]
+  force_https = true
 
-  [[services.ports]]
-    port = 443
-    handlers = ["tls", "http"]
+[[services.ports]]
+  port = 443
+  handlers = ["tls", "http"]
 
-  [[services.http_checks]]
-    interval = "15s"
-    timeout = "2s"
-    grace_period = "10s"
-    restart_limit = 3
-    method = "get"
-    path = "/status"
-    protocol = "http"
+[[services.http_checks]]
+  interval = "15s"
+  timeout = "2s"
+  grace_period = "10s"
+  method = "get"
+  path = "/status"
+  protocol = "http"
 
 [[statics]]
   guest_path = "/app/public"
