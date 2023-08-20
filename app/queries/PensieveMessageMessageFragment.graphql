@@ -1,6 +1,7 @@
 fragment PensieveMessageMessageFragment on PensieveMessage {
   from
   id
+  isEdited
   text
   timestamp
 }

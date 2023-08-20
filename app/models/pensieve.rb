@@ -55,13 +55,16 @@ class Pensieve
       end
     end
 
-    sig { params(text: String).void }
+    sig { params(text: String).returns(PensieveMessage) }
     def send_message!(text)
-      message = bot.api.send_message(text:, user_id: telegram_user_id!)
-      message = T.let(message, Telegram::Bot::Types::Message)
+      response = bot.api.send_message(text:, chat_id: telegram_user_id!)
+      if response["ok"] != true
+        raise "Failed to send message: #{response}"
+      end
+      message = Telegram::Bot::Types::Message.new(response["result"])
       PensieveMessage.create!(
         telegram_message_id: message.message_id,
-        from: :user,
+        from: :bot,
         text: message.text,
         timestamp: Time.zone.at(message.date),
       )
@@ -100,10 +103,13 @@ class Pensieve
       message = PensieveMessage.find_or_initialize_by(
         telegram_message_id: telegram_message.message_id,
       ) do |message|
-        message.from = :bot
+        message.from = :user
         message.timestamp = Time.zone.at(telegram_message.date)
       end
-      message.update!(text: telegram_message.text)
+      edit_timestamp = if (edit_date = telegram_message.edit_date)
+        Time.zone.at(edit_date)
+      end
+      message.update!(text: telegram_message.text, edit_timestamp:)
     end
   end
 end

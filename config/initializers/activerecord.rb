@@ -11,8 +11,8 @@ ActiveRecord::LogSubscriber.backtrace_cleaner =
   scoped do
     cleaner = ActiveSupport::BacktraceCleaner.new
     cleaner.add_silencer do |line|
-      line.starts_with?(Rails.root.join("lib").to_s) &&
-        line.ends_with?("_ext.rb")
+      line.start_with?(Rails.root.join("lib").to_s) &&
+        line.end_with?("_ext.rb")
     end
     cleaner.add_filter { |line| line.delete_prefix(Rails.root.to_s) }
     cleaner

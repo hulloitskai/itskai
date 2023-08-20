@@ -8,20 +8,32 @@ import {
   PensieveSubscriptionDocument,
   PensieveQueryDocument,
 } from "~/helpers/graphql";
-import type { PensieveMessageFragment } from "~/helpers/graphql";
+import {
+  PensieveMessageFragment,
+  PensieveMessageSender,
+} from "~/helpers/graphql";
 
 import PensieveMessage from "./PensieveMessage";
+import PensieveChatBox from "./PensieveChatBox";
 
 export type PensieveProps = Omit<BoxProps, "children">;
 
 const Pensieve: FC<PensieveProps> = ({ sx, ...otherProps }) => {
-  const [messages, setMessages] = useState<PensieveMessageFragment[]>([]);
+  const [messages, setMessages] = useState<
+    Map<string, PensieveMessageFragment>
+  >(new Map());
 
   // == Query
   const onError = useApolloAlertCallback("Failed to load pensieve messages");
   const { loading } = useQuery(PensieveQueryDocument, {
-    onCompleted: ({ messages }) => {
-      setMessages(prevMessages => [...prevMessages, ...messages]);
+    onCompleted: ({ messages: incomingMessages }) => {
+      setMessages(prevMessages => {
+        const messages = new Map(prevMessages);
+        incomingMessages.forEach(incomingMessage => {
+          messages.set(incomingMessage.id, incomingMessage);
+        });
+        return messages;
+      });
     },
     onError,
   });
@@ -45,18 +57,19 @@ const Pensieve: FC<PensieveProps> = ({ sx, ...otherProps }) => {
     const groups = [];
     let currentGroup: PensieveMessageFragment[] = [];
     let lastTimestamp: DateTime | null = null;
+    let lastFrom: PensieveMessageSender | null = null;
     messages.forEach(message => {
       const timestamp = DateTime.fromISO(message.timestamp);
-      if (
-        lastTimestamp &&
-        timestamp.diff(lastTimestamp, "minutes").minutes > 2
-      ) {
+      const timestampChanged =
+        lastTimestamp && timestamp.diff(lastTimestamp, "minutes").minutes > 2;
+      const fromChanged = lastFrom && lastFrom !== message.from;
+      if (timestampChanged || fromChanged) {
         groups.push(currentGroup);
         currentGroup = [];
-        lastTimestamp = null;
       }
       currentGroup.push(message);
       lastTimestamp = timestamp;
+      lastFrom = message.from;
     });
     if (lastTimestamp) {
       groups.push(currentGroup);
@@ -69,9 +82,13 @@ const Pensieve: FC<PensieveProps> = ({ sx, ...otherProps }) => {
     variables: {},
     onData: ({ data: { data } }) => {
       if (data) {
-        const { message } = data;
-        if (message) {
-          setMessages(prevMessages => [...prevMessages, message]);
+        const { message: incomingMessage } = data;
+        if (incomingMessage) {
+          setMessages(prevMessages => {
+            const messages = new Map(prevMessages);
+            messages.set(incomingMessage.id, incomingMessage);
+            return messages;
+          });
         }
       }
     },
@@ -100,8 +117,15 @@ const Pensieve: FC<PensieveProps> = ({ sx, ...otherProps }) => {
             {groups.map(messages => {
               const firstMessage = first(messages);
               invariant(firstMessage, "Group must have at least one message");
+              const { id: messageId, from } = firstMessage;
+              const fromBot = from === PensieveMessageSender.Bot;
               return (
-                <Stack key={firstMessage.id} align="end" spacing={6}>
+                <Stack
+                  key={messageId}
+                  align={fromBot ? "start" : "end"}
+                  spacing={6}
+                  {...(fromBot ? { pr: "xl" } : { pl: "xl" })}
+                >
                   {messages.map(message => (
                     <PensieveMessage key={message.id} {...{ message }} />
                   ))}
@@ -123,6 +147,9 @@ const Pensieve: FC<PensieveProps> = ({ sx, ...otherProps }) => {
           </Text>
         )}
       </ScrollArea>
+      <Card.Section withBorder px="sm" py="sm">
+        <PensieveChatBox />
+      </Card.Section>
     </Card>
   );
 };

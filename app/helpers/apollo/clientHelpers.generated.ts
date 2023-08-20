@@ -4,9 +4,10 @@ export type ActivateScottkitSignalPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type AddJournalEntryCommentPayloadKeySpecifier = ('clientMutationId' | 'success' | AddJournalEntryCommentPayloadKeySpecifier)[];
+export type AddJournalEntryCommentPayloadKeySpecifier = ('clientMutationId' | 'comment' | 'success' | AddJournalEntryCommentPayloadKeySpecifier)[];
 export type AddJournalEntryCommentPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	comment?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type CurrentlyPlayingKeySpecifier = ('progressMilliseconds' | 'track' | CurrentlyPlayingKeySpecifier)[];
@@ -73,7 +74,7 @@ export type LyricLineFieldPolicy = {
 	startTimeMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	words?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'importJournalEntries' | 'importLocationLogs' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'testMutation' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'importJournalEntries' | 'importLocationLogs' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'testMutation' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -85,6 +86,7 @@ export type MutationFieldPolicy = {
 	removeSpotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	requestUserEmailVerification?: FieldPolicy<any> | FieldReadFunction<any>,
 	requestUserPasswordReset?: FieldPolicy<any> | FieldReadFunction<any>,
+	sendPensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
 	testMutation?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateInstagramCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -110,10 +112,11 @@ export type OAuthCredentialsFieldPolicy = {
 	refreshToken?: FieldPolicy<any> | FieldReadFunction<any>,
 	uid?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type PensieveMessageKeySpecifier = ('from' | 'id' | 'text' | 'timestamp' | PensieveMessageKeySpecifier)[];
+export type PensieveMessageKeySpecifier = ('from' | 'id' | 'isEdited' | 'text' | 'timestamp' | PensieveMessageKeySpecifier)[];
 export type PensieveMessageFieldPolicy = {
 	from?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	isEdited?: FieldPolicy<any> | FieldReadFunction<any>,
 	text?: FieldPolicy<any> | FieldReadFunction<any>,
 	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -169,6 +172,12 @@ export type RequestUserPasswordResetPayloadKeySpecifier = ('clientMutationId' | 
 export type RequestUserPasswordResetPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type SendPensieveMessagePayloadKeySpecifier = ('clientMutationId' | 'success' | 'user' | SendPensieveMessagePayloadKeySpecifier)[];
+export type SendPensieveMessagePayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>,
+	user?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SpotifyAlbumKeySpecifier = ('id' | 'imageUrl' | 'name' | 'url' | SpotifyAlbumKeySpecifier)[];
 export type SpotifyAlbumFieldPolicy = {
@@ -359,6 +368,10 @@ export type StrictTypedTypePolicies = {
 	RequestUserPasswordResetPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | RequestUserPasswordResetPayloadKeySpecifier | (() => undefined | RequestUserPasswordResetPayloadKeySpecifier),
 		fields?: RequestUserPasswordResetPayloadFieldPolicy,
+	},
+	SendPensieveMessagePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SendPensieveMessagePayloadKeySpecifier | (() => undefined | SendPensieveMessagePayloadKeySpecifier),
+		fields?: SendPensieveMessagePayloadFieldPolicy,
 	},
 	SpotifyAlbum?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SpotifyAlbumKeySpecifier | (() => undefined | SpotifyAlbumKeySpecifier),

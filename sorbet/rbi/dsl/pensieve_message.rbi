@@ -502,6 +502,51 @@ class PensieveMessage
     sig { void }
     def created_at_will_change!; end
 
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def edit_timestamp; end
+
+    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def edit_timestamp=(value); end
+
+    sig { returns(T::Boolean) }
+    def edit_timestamp?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def edit_timestamp_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def edit_timestamp_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def edit_timestamp_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def edit_timestamp_change; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def edit_timestamp_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def edit_timestamp_changed?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def edit_timestamp_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def edit_timestamp_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def edit_timestamp_previously_changed?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def edit_timestamp_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def edit_timestamp_was; end
+
+    sig { void }
+    def edit_timestamp_will_change!; end
+
     sig { returns(T.untyped) }
     def from; end
 
@@ -596,6 +641,9 @@ class PensieveMessage
     def restore_created_at!; end
 
     sig { void }
+    def restore_edit_timestamp!; end
+
+    sig { void }
     def restore_from!; end
 
     sig { void }
@@ -618,6 +666,12 @@ class PensieveMessage
 
     sig { returns(T::Boolean) }
     def saved_change_to_created_at?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_edit_timestamp; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_edit_timestamp?; end
 
     sig { returns(T.nilable([T.untyped, T.untyped])) }
     def saved_change_to_from; end
@@ -837,6 +891,9 @@ class PensieveMessage
 
     sig { returns(T::Boolean) }
     def will_save_change_to_created_at?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_edit_timestamp?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_from?; end

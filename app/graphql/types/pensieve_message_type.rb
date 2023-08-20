@@ -7,7 +7,8 @@ module Types
     implements NodeType
 
     # == Fields
-    field :from, PensieveMessageFromType, null: false
+    field :from, PensieveMessageSenderType, null: false
+    field :is_edited, Boolean, null: false, method: :edited?
     field :text, String, null: false
     field :timestamp, Types::DateTimeType, null: false
 

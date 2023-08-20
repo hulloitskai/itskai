@@ -6,6 +6,7 @@
 # Table name: pensieve_messages
 #
 #  id                  :uuid             not null, primary key
+#  edit_timestamp      :datetime
 #  from                :string           not null
 #  text                :text             not null
 #  timestamp           :datetime         not null
@@ -23,11 +24,14 @@ class PensieveMessage < ApplicationRecord
   # == Attributes
   enumerize :from, in: %i[user bot]
 
+  sig { returns(T::Boolean) }
+  def edited? = edit_timestamp?
+
   # == Validations
   validates :text, presence: true
 
   # == Callbacks
-  after_create_commit :trigger_subscriptions
+  after_commit :trigger_subscriptions, on: %i[create update]
 
   private
 

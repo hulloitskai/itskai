@@ -1,0 +1,5 @@
+mutation SendPensieveMessageMutation($input: SendPensieveMessageInput!) {
+  payload: sendPensieveMessage(input: $input) {
+    success
+  }
+}

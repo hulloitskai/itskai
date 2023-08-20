@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Types
-  class PensieveMessageFromType < BaseEnum
+  class PensieveMessageSenderType < BaseEnum
     # == Values
     value "USER", value: :user
     value "BOT", value: :bot

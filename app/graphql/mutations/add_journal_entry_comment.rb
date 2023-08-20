@@ -8,6 +8,9 @@ module Mutations
       const :comment, Notion::Messages::Message
     end
 
+    # == Fields
+    field :comment, Types::NotionCommentType, null: false
+
     # == Arguments
     argument :entry_id, ID, loads: Types::JournalEntryType
     argument :text, String

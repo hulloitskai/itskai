@@ -127,7 +127,7 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
         onChange={({ currentTarget }) => {
           setCommentText(currentTarget.value);
         }}
-        onKeyDown={({ key }) => {
+        onKeyUp={({ key }) => {
           if (key === "Enter") {
             createComment();
           }
