@@ -54,12 +54,11 @@ const Pensieve: FC<PensieveProps> = ({ sx, ...otherProps }) => {
         groups.push(currentGroup);
         currentGroup = [];
         lastTimestamp = null;
-      } else {
-        currentGroup.push(message);
-        lastTimestamp = timestamp;
       }
+      currentGroup.push(message);
+      lastTimestamp = timestamp;
     });
-    if (!isEmpty(currentGroup)) {
+    if (lastTimestamp) {
       groups.push(currentGroup);
     }
     return groups;
