@@ -24,8 +24,7 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
         <Stack
           spacing={0}
           id={`pensieve-message-${messageId}`}
-          px={8}
-          py={4}
+          p={6}
           bg="dark.7"
           sx={[
             ...packSx(sx),
@@ -39,8 +38,9 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
         >
           <Group
             noWrap
-            align="start"
+            align="end"
             spacing="xs"
+            pl={2}
             {...{ style }}
             {...otherProps}
           >
