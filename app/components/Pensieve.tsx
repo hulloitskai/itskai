@@ -49,7 +49,7 @@ const Pensieve: FC<PensieveProps> = ({ sx, ...otherProps }) => {
           behavior: "smooth",
         });
       }
-    }, 120);
+    }, 150);
   }, [messages]);
 
   // == Groupings

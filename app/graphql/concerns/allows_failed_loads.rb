@@ -8,9 +8,7 @@ module AllowsFailedLoads
 
   # == Helpers
   sig do
-    params(
-      error: GraphQL::LoadApplicationObjectFailedError,
-    ).returns(NilClass)
+    params(error: GraphQL::LoadApplicationObjectFailedError).returns(NilClass)
   end
   def load_application_object_failed(error) = nil
 end
