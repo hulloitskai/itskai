@@ -96,7 +96,7 @@ const Pensieve: FC<PensieveProps> = ({ sx, ...otherProps }) => {
     >
       <ScrollArea h={325} {...{ viewportRef }}>
         {!isEmpty(groups) ? (
-          <Stack spacing="sm" m="lg">
+          <Stack m="lg">
             {groups.map(messages => {
               const firstMessage = first(messages);
               invariant(firstMessage, "Group must have at least one message");
@@ -110,7 +110,7 @@ const Pensieve: FC<PensieveProps> = ({ sx, ...otherProps }) => {
             })}
           </Stack>
         ) : loading ? (
-          <Stack align="start" spacing={6} m="lg">
+          <Stack align="start" spacing={4} m="lg">
             {[...new Array(3)].map((_, index) => (
               <Skeleton height="xs" key={index}>
                 <Text>Hi this is some placeholder text.</Text>
