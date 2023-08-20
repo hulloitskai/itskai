@@ -3,8 +3,6 @@
 
 module Queries
   class PensieveMessages < BaseQuery
-    include AllowsFailedLoads
-
     # == Type
     type [Types::PensieveMessageType], null: false
 
@@ -12,7 +10,7 @@ module Queries
     sig { returns(T::Enumerable[::PensieveMessage]) }
     def resolve
       PensieveMessage
-        .where("timestamp > ?", 12.hours.ago)
+        .where("timestamp > ?", 1.day.ago)
         .order(:timestamp)
         .limit(200)
     end
