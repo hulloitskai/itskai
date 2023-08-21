@@ -5,7 +5,7 @@ class GraphQLController < ApplicationController
   include GraphQL::Helpers
 
   # == Configuration
-  protect_from_forgery with: :null_session, only: :execute
+  protect_from_forgery with: :null_session
 
   # == Actions
   # POST /graphql

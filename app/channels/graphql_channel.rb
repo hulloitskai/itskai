@@ -54,7 +54,7 @@ class GraphQLChannel < ApplicationCable::Channel
   private
 
   # == Helpers
-  sig { returns(ActionDispatch::Request::Session) }
+  sig { returns(T.untyped) }
   def session = connection.session
 
   # == Subscription: Helpers

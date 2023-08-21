@@ -56,7 +56,12 @@ module Resolver
 
   sig { returns(ActionDispatch::Request::Session) }
   def session
-    context[:session]
+    session = context[:session]
+    unless session.is_a?(ActionDispatch::Request::Session)
+      raise GraphQL::ExecutionError,
+            "Invalid session; please refresh the page and try again."
+    end
+    session
   end
 
   sig { returns(T.nilable(T.any(User, Symbol))) }

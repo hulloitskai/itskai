@@ -16,7 +16,7 @@ module ApplicationCable
     end
 
     # == Methods
-    sig { returns(ActionDispatch::Request::Session) }
+    sig { returns(T.untyped) }
     def session = request.session
 
     private
