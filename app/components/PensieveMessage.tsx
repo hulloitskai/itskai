@@ -1,8 +1,9 @@
-import type { FC } from "react";
+import type { FC, JSXElementConstructor } from "react";
+import Linkify from "linkify-react";
 
 import { Text } from "@mantine/core";
 import { useTimeout } from "@mantine/hooks";
-import type { BoxProps } from "@mantine/core";
+import type { BoxProps, TextProps } from "@mantine/core";
 
 import { PensieveMessageSender } from "~/helpers/graphql";
 import type { PensieveMessageMessageFragment } from "~/helpers/graphql";
@@ -60,10 +61,25 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
             })}
           >
             <Group noWrap align="end" spacing="xs" pl={2}>
-              {/* <Text>{from === PensieveMessageFrom.User ? "Kai" : "The World"}</Text> */}
-              <Text size="sm" lh={1.3} sx={{ flexGrow: 1 }}>
+              <Linkify<TextProps, JSXElementConstructor<TextProps>>
+                as={Text}
+                options={{
+                  render: ({ content, attributes }) => (
+                    <Anchor
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      {...attributes}
+                    >
+                      {content}
+                    </Anchor>
+                  ),
+                }}
+                size="sm"
+                lh={1.3}
+                sx={{ flexGrow: 1, wordBreak: "break-word" }}
+              >
                 {text}
-              </Text>
+              </Linkify>
               <Text size="xs" color="dimmed" sx={{ flexShrink: 0 }}>
                 <Time format={DateTime.TIME_SIMPLE}>{timestamp}</Time>
               </Text>

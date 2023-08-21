@@ -35,6 +35,8 @@
     "graphql": "^16.7.1",
     "graphql-ruby-client": "^1.11.8",
     "is-url": "^1.2.4",
+    "linkify-react": "^4.1.1",
+    "linkifyjs": "^4.1.1",
     "lodash-es": "^4.17.21",
     "luxon": "^3.3.0",
     "react": "^18.2.0",
