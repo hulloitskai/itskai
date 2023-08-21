@@ -19,6 +19,7 @@ PensievePage.layout = buildLayout<PensievePageProps>(
     <AppLayout
       title="Pensieve"
       description="Sometimes, Kai thinks out loud."
+      imageUrl="/pensieve-banner.png"
       withContainer
       containerProps={{ sx: { flexGrow: 1 } }}
       withGutter
