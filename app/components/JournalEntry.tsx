@@ -69,7 +69,7 @@ const JournalEntry: FC<JournalEntryProps> = ({
                 radius="xl"
                 onClick={copy}
               >
-                <Box component={LinkIcon} fz={11} />
+                <Text component={LinkIcon} size={11} />
               </ActionIcon>
             </JournalEntryCopyTooltip>
           )}

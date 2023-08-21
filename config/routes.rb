@@ -86,6 +86,9 @@ Rails.application.routes.draw do
   # == Resume
   resource :resume, only: :show
 
+  # == Pensieve
+  resource :pensieve, only: :show
+
   # == Scottkit
   resource :scottkit, only: :show
 

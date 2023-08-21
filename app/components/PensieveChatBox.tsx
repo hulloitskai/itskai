@@ -1,8 +1,9 @@
 import type { FC } from "react";
 import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
 
-import { ActionIcon } from "@mantine/core";
+import { ActionIcon, Text } from "@mantine/core";
 import type { TextInputProps } from "@mantine/core";
+
 import { SendPensieveMessageMutationDocument } from "~/helpers/graphql";
 
 export type PensieveChatBoxProps = Omit<TextInputProps, "children">;
@@ -40,7 +41,7 @@ const PensieveChatBox: FC<PensieveChatBoxProps> = ({ ...otherProps }) => {
           loading={mutating}
           onClick={createComment}
         >
-          <Box component={SendIcon} fz={12} />
+          <Text component={SendIcon} size={12} />
         </ActionIcon>
       }
       radius="xl"

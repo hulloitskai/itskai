@@ -1,0 +1,6 @@
+query PensievePageQuery {
+  viewer {
+    ...AppViewerFragment
+    id
+  }
+}

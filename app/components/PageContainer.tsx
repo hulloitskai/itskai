@@ -12,6 +12,7 @@ const PageContainer: FC<PageContainerProps> = ({
   withGutter,
   children,
   size: sizeProp,
+  sx,
   ...otherProps
 }) => {
   const { spacing } = useMantineTheme();
@@ -22,6 +23,8 @@ const PageContainer: FC<PageContainerProps> = ({
       className={PageContainer.name}
       p="md"
       w="100%"
+      display="flex"
+      sx={[...packSx(sx), { flexDirection: "column" }]}
       {...{ size }}
       {...otherProps}
     >

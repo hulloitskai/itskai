@@ -5,7 +5,7 @@ import { RenderText } from "@9gustin/react-notion-render";
 import CommentIcon from "~icons/heroicons/chat-bubble-bottom-center-text-20-solid";
 import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
 
-import { ActionIcon } from "@mantine/core";
+import { ActionIcon, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
 import {
@@ -117,7 +117,7 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
             loading={mutating}
             onClick={createComment}
           >
-            <Box component={SendIcon} fz={12} />
+            <Text component={SendIcon} size={12} />
           </ActionIcon>
         }
         radius="xl"
