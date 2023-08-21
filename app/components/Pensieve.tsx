@@ -158,11 +158,9 @@ const Pensieve: FC<PensieveProps> = ({ expandable, sx, ...otherProps }) => {
               })}
             </Stack>
           ) : loading ? (
-            <Stack align="start" spacing={6} m="lg">
+            <Stack spacing={6} m="lg">
               {[...new Array(3)].map((_, index) => (
-                <Skeleton height="xs" radius="md" key={index}>
-                  <Text>Hi this is some placeholder text.</Text>
-                </Skeleton>
+                <Skeleton height="lg" radius="md" key={index} />
               ))}
             </Stack>
           ) : (
