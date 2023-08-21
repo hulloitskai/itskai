@@ -1,6 +1,8 @@
 import type { FC, PropsWithChildren } from "react";
 import { Global } from "@mantine/core";
 
+import AppMeta from "./AppMeta";
+
 type ResumeLayoutProps = PropsWithChildren<{
   readonly printable?: boolean;
 }>;
@@ -15,6 +17,7 @@ const ResumeLayout: FC<ResumeLayoutProps> = ({ printable, children }) => (
         },
       })}
     />
+    <AppMeta title="Resume" />
     <MediaQuery largerThan={920} styles={{ marginTop: printable ? 0 : 48 }}>
       <Container
         px="0.75in"

@@ -17,6 +17,8 @@ const PensievePage: PageComponent<PensievePageProps> = () => (
 PensievePage.layout = buildLayout<PensievePageProps>(
   (page, { data: { viewer } }) => (
     <AppLayout
+      title="Pensieve"
+      description="Sometimes, Kai thinks out loud."
       withContainer
       containerProps={{ sx: { flexGrow: 1 } }}
       withGutter

@@ -149,7 +149,13 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
 
 UserSettingsPage.layout = buildLayout<UserSettingsPageProps>(
   (page, { data: { viewer } }) => (
-    <AppLayout withContainer withGutter containerSize={440} {...{ viewer }}>
+    <AppLayout
+      title="Settings"
+      withContainer
+      withGutter
+      containerSize={440}
+      {...{ viewer }}
+    >
       {page}
     </AppLayout>
   ),
