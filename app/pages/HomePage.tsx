@@ -57,7 +57,7 @@ const HomePage: PageComponent<HomePageProps> = ({
         <Title order={2} size="h3">
           sometimes, kai thinks out loud.
         </Title>
-        <Pensieve expandable h={375} />
+        <Pensieve expandable h={400} />
       </Stack>
       <Space h="xl" />
       <Stack align="center" spacing="xs">
