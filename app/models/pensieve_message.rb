@@ -60,6 +60,17 @@ class PensieveMessage < ApplicationRecord
     likes.find_by(session_id: session.id.to_s)&.destroy!
   end
 
+  # == Recent
+  sig { returns(PrivateRelation) }
+  def self.recent
+    where("timestamp > ?", 1.day.ago).order(:timestamp).limit(100)
+  end
+
+  sig { returns(T::Boolean) }
+  def recent?
+    self.class.recent.include?(self)
+  end
+
   # == Methods
   sig { void }
   def send!
@@ -77,6 +88,8 @@ class PensieveMessage < ApplicationRecord
   # == Callback Handlers
   sig { void }
   def trigger_subscriptions
-    Schema.subscriptions!.trigger(:pensieve_message, {}, self)
+    if recent?
+      Schema.subscriptions!.trigger(:pensieve_message, {}, self)
+    end
   end
 end

@@ -9,10 +9,7 @@ module Queries
     # == Resolver
     sig { returns(T::Enumerable[::PensieveMessage]) }
     def resolve
-      PensieveMessage
-        .where("timestamp > ?", 1.day.ago)
-        .order(:timestamp)
-        .limit(100)
+      ::PensieveMessage.recent
     end
   end
 end
