@@ -66,6 +66,9 @@ module GeneratedPathHelpersModule
   def new_user_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def pensieve_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def poorly_drawn_lines_comic_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

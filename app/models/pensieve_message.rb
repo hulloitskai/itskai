@@ -17,6 +17,7 @@
 # Indexes
 #
 #  index_pensieve_messages_on_telegram_message_id  (telegram_message_id) UNIQUE
+#  index_pensieve_messages_on_timestamp            (timestamp)
 #
 class PensieveMessage < ApplicationRecord
   include Identifiable
@@ -68,7 +69,7 @@ class PensieveMessage < ApplicationRecord
 
   sig { returns(T::Boolean) }
   def recent?
-    self.class.recent.include?(self)
+    self.class.recent.exists?(id:)
   end
 
   # == Methods
