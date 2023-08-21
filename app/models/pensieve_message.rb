@@ -36,11 +36,12 @@ class PensieveMessage < ApplicationRecord
 
   # == Validations
   validates :text, presence: true
+  validates :from, presence: true
 
   # == Callbacks
   after_commit :trigger_subscriptions, on: %i[create update]
 
-  # == Methods
+  # == Likes
   sig { params(session: ActionDispatch::Request::Session).returns(T::Boolean) }
   def liked_by?(session)
     likes.exists?(session_id: session.id.to_s)
@@ -57,6 +58,18 @@ class PensieveMessage < ApplicationRecord
   sig { params(session: ActionDispatch::Request::Session).void }
   def unlike!(session:)
     likes.find_by(session_id: session.id.to_s)&.destroy!
+  end
+
+  # == Methods
+  sig { void }
+  def send!
+    validate!
+    raise "Can't send a message on behalf of a user" if from == :user
+    telegram_message = Pensieve.send_message(text)
+    update!(
+      telegram_message_id: telegram_message.message_id,
+      timestamp: Time.zone.at(telegram_message.date),
+    )
   end
 
   private

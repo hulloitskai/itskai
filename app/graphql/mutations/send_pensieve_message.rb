@@ -17,7 +17,8 @@ module Mutations
     # == Resolver
     sig { override.params(text: String).returns(Payload) }
     def resolve(text:)
-      message = Pensieve.send_message!(text)
+      message = PensieveMessage.new(text:, from: :bot)
+      message.send!
       Payload.new(message:)
     end
   end

@@ -69,13 +69,7 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
               </Text>
             </Group>
             {isEdited && (
-              <Text
-                size="xs"
-                color="dimmed"
-                weight={500}
-                lh={1}
-                sx={{ alignSelf: "end" }}
-              >
+              <Text size="xs" color="dimmed" lh={1} sx={{ alignSelf: "end" }}>
                 edited
               </Text>
             )}

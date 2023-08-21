@@ -6,7 +6,7 @@ class CleanupObsidianStubsJob < ApplicationJob
   good_job_control_concurrency_with key: name, total_limit: 1
 
   # == Callbacks
-  around_perform :with_status
+  around_perform :with_activity_status
 
   # == Job
   sig { void }
@@ -18,7 +18,7 @@ class CleanupObsidianStubsJob < ApplicationJob
 
   # == Callback Handlers
   sig { params(block: T.proc.void).void }
-  def with_status(&block)
+  def with_activity_status(&block)
     ActivityStatus.current = "Cleaning up Obsidian stubs"
     yield
     ActivityStatus.current = "Obsidian stub cleanup complete"

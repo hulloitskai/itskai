@@ -7,11 +7,9 @@ import type { BoxProps } from "@mantine/core";
 import {
   PensieveSubscriptionDocument,
   PensieveQueryDocument,
-} from "~/helpers/graphql";
-import {
-  PensieveMessageFragment,
   PensieveMessageSender,
 } from "~/helpers/graphql";
+import type { PensieveMessageFragment } from "~/helpers/graphql";
 
 import PensieveMessage from "./PensieveMessage";
 import PensieveChatBox from "./PensieveChatBox";
@@ -66,9 +64,10 @@ const Pensieve: FC<PensieveProps> = ({ sx, ...otherProps }) => {
     messages.forEach(message => {
       const timestamp = DateTime.fromISO(message.timestamp);
       const timestampChanged =
-        lastTimestamp && timestamp.diff(lastTimestamp, "minutes").minutes > 2;
-      const fromChanged = lastFrom && lastFrom !== message.from;
-      if (timestampChanged || fromChanged) {
+        lastTimestamp &&
+        timestamp.diff(lastTimestamp, "seconds").seconds > 3 * 60;
+      const senderChanged = lastFrom && lastFrom !== message.from;
+      if (timestampChanged || senderChanged) {
         groups.push(currentGroup);
         currentGroup = [];
       }

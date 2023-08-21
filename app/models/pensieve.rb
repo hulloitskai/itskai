@@ -55,19 +55,22 @@ class Pensieve
       end
     end
 
-    sig { params(text: String).returns(PensieveMessage) }
-    def send_message!(text)
-      response = bot.api.send_message(text:, chat_id: telegram_user_id!)
+    sig do
+      params(
+        text: String,
+        reply_to_message_id: T.nilable(Integer),
+      ).returns(Telegram::Bot::Types::Message)
+    end
+    def send_message(text, reply_to_message_id: nil)
+      response = bot.api.send_message(
+        text:,
+        chat_id: telegram_user_id!,
+        reply_to_message_id:,
+      )
       if response["ok"] != true
         raise "Failed to send message: #{response}"
       end
-      message = Telegram::Bot::Types::Message.new(response["result"])
-      PensieveMessage.create!(
-        telegram_message_id: message.message_id,
-        from: :bot,
-        text: message.text,
-        timestamp: Time.zone.at(message.date),
-      )
+      Telegram::Bot::Types::Message.new(response["result"])
     end
 
     private
