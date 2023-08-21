@@ -16,9 +16,10 @@ bin/setup
 
 ## TODO
 
-- [ ] Set a webhooks system for the pensieve bot.
+- [ ] Set up a fullscreen page for the Pensieve.
 - [ ] Switch to [Microsoft Clarity](https://clarity.microsoft.com) cuz it's
       free.
+- [x] Set a webhooks system for the pensieve bot.
 - [x] Upgrade to Vite 4 once https://github.com/ElMassimo/vite_ruby/issues/333
       is resolved.
 - [x] Import journal entries from Notion into application database
