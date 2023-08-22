@@ -8,6 +8,7 @@ kill_timeout = 10
 
 [deploy]
   release_command = "bin/release"
+  strategy = "canary"
 
 [env]
   RAILS_DEFAULT_URL = "https://itskai.me"
@@ -19,6 +20,8 @@ kill_timeout = 10
   protocol = "tcp"
   internal_port = 3000
   processes = ["app"]
+  auto_stop_machines = true
+  min_machines_running = 1
 
 [services.concurrency]
   type = "connections"
