@@ -14,7 +14,8 @@ if ! command -v overmind &> /dev/null; then
   brew install overmind
 fi
 
-export OVERMIND_SKIP_ENV=1 
-export OVERMIND_PORT=3000 
+export OVERMIND_SKIP_ENV=1
+export OVERMIND_NO_PORT=1
+export OVERMIND_SOCKET=tmp/sockets/overmind.sock
 
-overmind $@ -s tmp/sockets/overmind.sock
+overmind $@

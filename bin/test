@@ -7,5 +7,5 @@ export RAILS_ENV=test NODE_ENV=production
 echo "=> Compiling assets"
 bin/vite clobber && bin/rails assets:precompile
 
-echo "\n=> Running tests"
-bin/overmind start -f Procfile.test --no-port "$@"
+echo -e "\n=> Running tests"
+bin/overmind start -f Procfile.test "$@"
