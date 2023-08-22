@@ -25,10 +25,10 @@
     "alwaysStrict": true,
     "noUnusedLocals": true,
     "noUncheckedIndexedAccess": true,
-    "noFallthroughCasesInSwitch": true,
+    "noFallthroughCasesInSwitch": true
 
     // == Plugins
-    "plugins": [{ "name": "vite-plugin-iso-import" }]
+    // "plugins": [{ "name": "vite-plugin-iso-import" }]
   },
   "include": ["app", "typings"],
   "references": [{ "path": "./tsconfig.node.json" }]

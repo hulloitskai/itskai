@@ -1,7 +1,7 @@
 import { empty as emptyLink } from "@apollo/client";
 import type { ApolloLink } from "@apollo/client";
 
-import { createClientLink } from "./clientLink?client";
+import { createClientLink } from "~/helpers/apollo/clientLink?client";
 
 export type ApolloLinkOptions = {
   readonly csrfToken: string;
