@@ -23,6 +23,7 @@ Rails.application.configure do
 
   # == Development Hosts
   config.hosts << /[a-z0-9-]+\.ngrok\.io/
+  config.hosts << /[a-z0-9-]+\.ngrok-free\.app/
 
   # == Security
   # Show full error reports.

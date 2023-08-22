@@ -16,7 +16,13 @@ module Routing
 
   # == Methods
   T::Sig::WithoutRuntime.sig do
-    returns(T.all(GeneratedUrlHelpersModule, GeneratedPathHelpersModule))
+    returns(
+      T.all(
+        Module,
+        GeneratedUrlHelpersModule,
+        GeneratedPathHelpersModule,
+      ),
+    )
   end
   def url_helpers
     Rails.application.routes.url_helpers
