@@ -98,7 +98,7 @@ Rails.application.routes.draw do
   # == Pages
   root "homepages#show"
   get "/toronto" => "places#toronto"
-  get "/gh" => redirect("https://github.com/hulloitskai/itskai", status: 302)
+  get "/src" => redirect("https://github.com/hulloitskai/itskai", status: 302)
 
   # == Development
   if Rails.env.development?
