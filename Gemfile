@@ -182,7 +182,7 @@ gem "rack-cors", "~> 2.0"
 gem "google_calendar", "~> 0.6.4"
 
 # Print resume as PDF with Selenium
-gem "selenium-webdriver", "~> 4.10", require: false
+gem "selenium-webdriver", "~> 4.11"
 
 # Detect what OS we are running on
 gem "os", "~> 1.1"
@@ -244,5 +244,4 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "webdrivers"
 end

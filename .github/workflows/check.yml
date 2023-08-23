@@ -40,8 +40,6 @@ jobs:
           cache-dependency-path: "**/yarn.lock"
       - name: Set up Python
         uses: actions/setup-python@v4
-      - name: Set up Chromedriver
-        uses: nanasess/setup-chromedriver@v2
       - name: Set up Overmind
         run: >-
           sudo apt-get install tmux \

@@ -59,7 +59,6 @@ class ResumesController < ApplicationController
 
   sig { returns(String) }
   def print_resume
-    require "selenium-webdriver"
     driver = webdriver
     driver.get(resume_url(printable: true))
     Selenium::WebDriver::Wait.new.until do
