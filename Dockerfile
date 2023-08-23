@@ -80,6 +80,13 @@ RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-ke
   && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log
 
+# Install Chromedriver
+RUN curl -o /tmp/chromedriver.zip "https://chromedriver.storage.googleapis.com/$(google-chrome --version)/chromedriver_linux64.zip" \
+    && unzip /tmp/chromedriver.zip \
+    && mv /tmp/chromedriver /usr/bin/chromedriver \
+    && chmod u+x /usr/bin/chromedriver \
+    && rm /tmp/*
+
 # Install programs
 COPY Aptfile /tmp/Aptfile
 RUN apt-get update -qq \
