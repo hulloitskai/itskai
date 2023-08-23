@@ -13,17 +13,16 @@ FROM ruby:$RUBY_VERSION-slim-$DISTRO_NAME
 # Re-declare arguments, since they are reset by the FROM instructions
 #
 # See: https://github.com/moby/moby/issues/34129
-ARG DISTRO_NAME
-ARG RUBY_VERSION
 ARG PYTHON_MAJOR_VERSION
 ARG NODE_MAJOR_VERSION
 ARG YARN_VERSION
 ARG POSTGRES_MAJOR_VERSION
 ARG OVERMIND_VERSION
+ARG DEBIAN_FRONTEND=noninteractive
 
 # Install curl
 RUN apt-get update -qq \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends curl \
+  && apt-get install -yq --no-install-recommends curl \
   && apt-get clean \
   && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log
@@ -35,8 +34,8 @@ RUN gem update --system && gem install bundler
 # Install NodeJS and Yarn
 RUN curl -sL https://deb.nodesource.com/setup_$NODE_MAJOR_VERSION.x | bash -
 RUN apt-get update -qq \
-  && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends nodejs \
+  && apt-get -yq dist-upgrade \
+  && apt-get install -yq --no-install-recommends nodejs \
   && apt-get clean \
   && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log
@@ -44,15 +43,15 @@ RUN npm install -g yarn@$YARN_VERSION
 
 # Install Python and pip
 RUN apt-get update -qq \
-  && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends python${PYTHON_MAJOR_VERSION}-dev python${PYTHON_MAJOR_VERSION}-pip \
+  && apt-get -yq dist-upgrade \
+  && apt-get install -yq --no-install-recommends python${PYTHON_MAJOR_VERSION}-dev python${PYTHON_MAJOR_VERSION}-pip \
   && apt-get clean \
   && rm -rf /var/cache/apt/archives/* rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log
 
 # Install Overmind
 RUN apt-get update -qq \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends tmux \
+  && apt-get install -yq --no-install-recommends tmux \
   && apt-get clean \
   && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log \
@@ -64,8 +63,8 @@ RUN apt-get update -qq \
 RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
   && echo deb http://apt.postgresql.org/pub/repos/apt/ $DISTRO_NAME-pgdg main $POSTGRES_MAJOR_VERSION > /etc/apt/sources.list.d/pgdg.list
 RUN apt-get update -qq \
-  && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends libpq-dev postgresql-client-$POSTGRES_MAJOR_VERSION \
+  && apt-get -yq dist-upgrade \
+  && apt-get install -yq --no-install-recommends libpq-dev postgresql-client-$POSTGRES_MAJOR_VERSION \
   && apt-get clean \
   && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log
@@ -74,8 +73,8 @@ RUN apt-get update -qq \
 RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
   && echo deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main >> /etc/apt/sources.list.d/google-chrome.list \
   && apt-get -y update -qq \
-  && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends google-chrome-stable \
+  && apt-get -yq dist-upgrade \
+  && apt-get install -yq --no-install-recommends google-chrome-stable \
   && apt-get clean \
   && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log
@@ -90,8 +89,8 @@ RUN curl -o /tmp/chromedriver.zip "https://chromedriver.storage.googleapis.com/$
 # Install programs
 COPY Aptfile /tmp/Aptfile
 RUN apt-get update -qq \
-  && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends $(grep -Ev '^\s*#' /tmp/Aptfile | xargs) \
+  && apt-get -yq dist-upgrade \
+  && apt-get install -yq --no-install-recommends $(grep -Ev '^\s*#' /tmp/Aptfile | xargs) \
   && apt-get clean \
   && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log
