@@ -20,28 +20,24 @@ module Resolver
   sig { returns(ItsKai::Application) }
   def app = ItsKai.application
 
-  sig { returns(T.nilable(GraphQLController)) }
+  sig { returns(T.nilable(ActionController::Base)) }
   def controller
     context[:controller]
   end
 
-  sig { returns(GraphQLController) }
+  sig { returns(ActionController::Base) }
   def controller!
-    controller = self.controller
-    raise "not executing within a controller" if controller.nil?
-    controller
+    controller or raise "Not executing within a controller"
   end
 
-  sig { returns(T.nilable(GraphQLChannel)) }
+  sig { returns(T.nilable(ActionCable::Channel)) }
   def channel
     context[:channel]
   end
 
-  sig { returns(GraphQLChannel) }
+  sig { returns(ActionCable::Channel) }
   def channel!
-    channel = self.channel
-    raise "not executing within a channel" if channel.nil?
-    channel
+    channel or raise "Not executing within a channel"
   end
 
   sig { returns(ActionDispatch::Flash::FlashHash) }

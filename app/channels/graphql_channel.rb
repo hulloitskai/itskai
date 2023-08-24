@@ -38,7 +38,7 @@ class GraphQLChannel < ApplicationCable::Channel
     # Execute query
     variables = prepare_variables(params["variables"])
     extensions = prepare_extensions(params["extensions"])
-    context = { channel: self, extensions:, session:, current_user: }
+    context = { channel: self, session:, extensions:, current_user: }
     result = Schema.execute(query, variables:, operation_name:, context:)
 
     # Track the subscription here so we can remove it on unsubscribe
