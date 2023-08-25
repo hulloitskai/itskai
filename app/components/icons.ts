@@ -2,7 +2,6 @@ export { default as AddIcon } from "~icons/heroicons/plus-circle-20-solid";
 export { default as AlertIcon } from "~icons/heroicons/exclamation-triangle-20-solid";
 export { default as CheckCircleIcon } from "~icons/heroicons/check-circle-20-solid";
 export { default as CreateIcon } from "~icons/heroicons/document-plus-20-solid";
-export { default as DashboardIcon } from "~icons/heroicons/rectangle-stack-20-solid";
 export { default as DeleteIcon } from "~icons/heroicons/trash-20-solid";
 export { default as EditIcon } from "~icons/heroicons/pencil-20-solid";
 export { default as OpenExternalIcon } from "~icons/heroicons/arrow-top-right-on-square-20-solid";

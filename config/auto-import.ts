@@ -17,7 +17,6 @@ export const imports: Array<ImportsMap | PresetName> = [
       "CheckCircleIcon",
       "CreateIcon",
       "DeleteIcon",
-      "DashboardIcon",
       "EditIcon",
       "OpenExternalIcon",
       "SaveIcon",

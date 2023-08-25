@@ -1,6 +1,5 @@
 import type { FC } from "react";
 import { format as formatTimeAgo } from "timeago.js";
-import CogIcon from "~icons/heroicons/cog-6-tooth-20-solid";
 import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
 
 import { Text } from "@mantine/core";
@@ -84,7 +83,11 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
         </Badge>
       </Menu.Target>
       <Menu.Dropdown>
-        <Menu.Item component={Link} href="/user/settings" icon={<CogIcon />}>
+        <Menu.Item
+          component={Link}
+          href="/user/settings"
+          icon={<SettingsIcon />}
+        >
           Settings
         </Menu.Item>
         <Menu.Item

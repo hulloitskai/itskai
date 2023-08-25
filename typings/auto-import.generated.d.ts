@@ -21,7 +21,6 @@ declare global {
   const Chip: typeof import('@mantine/core')['Chip']
   const Container: typeof import('@mantine/core')['Container']
   const CreateIcon: typeof import('~/components/icons')['CreateIcon']
-  const DashboardIcon: typeof import('~/components/icons')['DashboardIcon']
   const DateTime: typeof import('luxon')['DateTime']
   const DeleteIcon: typeof import('~/components/icons')['DeleteIcon']
   const Divider: typeof import('@mantine/core')['Divider']
