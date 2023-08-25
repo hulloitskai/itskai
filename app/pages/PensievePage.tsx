@@ -5,14 +5,37 @@ import Pensieve from "~/components/Pensieve";
 
 export type PensievePageProps = PagePropsWithData<PensievePageQuery>;
 
-const PensievePage: PageComponent<PensievePageProps> = () => (
-  <Stack align="center" spacing="xs" sx={{ flexGrow: 1 }}>
-    <Title order={2} size="h3">
-      sometimes, kai thinks out loud.
-    </Title>
-    <Pensieve sx={{ flexGrow: 1 }} />
-  </Stack>
-);
+const PensievePage: PageComponent<PensievePageProps> = () => {
+  // == Auto Scroll
+  const autoScroll = useCallback((timeout = 200) => {
+    setTimeout(() => {
+      const viewportEl = document.body;
+      if (viewportEl.scrollHeight > innerHeight) {
+        scrollTo({
+          top: viewportEl.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+    }, timeout);
+  }, []);
+
+  return (
+    <Stack align="center" spacing="xs" sx={{ flexGrow: 1 }}>
+      <Title order={2} size="h3">
+        sometimes, kai thinks out loud.
+      </Title>
+      <Pensieve
+        sx={{ flexGrow: 1 }}
+        onLoadMessages={() => {
+          autoScroll(300);
+        }}
+        onNewMessage={() => {
+          autoScroll();
+        }}
+      />
+    </Stack>
+  );
+};
 
 PensievePage.layout = buildLayout<PensievePageProps>(
   (page, { data: { viewer } }) => (

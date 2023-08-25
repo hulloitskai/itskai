@@ -17,32 +17,33 @@ import PensieveChatBox from "./PensieveChatBox";
 
 export type PensieveProps = Omit<BoxProps, "children"> & {
   readonly expandable?: boolean;
+  readonly onLoadMessages?: () => void;
+  readonly onNewMessage?: () => void;
 };
 
-const Pensieve: FC<PensieveProps> = ({ expandable, sx, ...otherProps }) => {
+const Pensieve: FC<PensieveProps> = ({
+  expandable,
+  onLoadMessages,
+  onNewMessage,
+  sx,
+  ...otherProps
+}) => {
   const theme = useMantineTheme();
   const [messages, setMessages] = useState<
     Map<string, PensieveMessageFragment>
   >(new Map());
 
-  // == Autoscroll
+  // == Auto Scroll
   const viewportRef = useRef<HTMLDivElement>(null);
-  const autoscroll = useCallback(
+  const autoScroll = useCallback(
     (timeout = 200) => {
       setTimeout(() => {
         const viewportEl = viewportRef.current;
-        if (viewportEl) {
-          if (viewportEl.scrollHeight > viewportEl.clientHeight) {
-            viewportEl.scrollTo({
-              top: viewportEl.scrollHeight,
-              behavior: "smooth",
-            });
-          } else {
-            window.scrollTo({
-              top: document.body.scrollHeight,
-              behavior: "smooth",
-            });
-          }
+        if (viewportEl && viewportEl.scrollHeight > viewportEl.clientHeight) {
+          viewportEl.scrollTo({
+            top: viewportEl.scrollHeight,
+            behavior: "smooth",
+          });
         }
       }, timeout);
     },
@@ -61,7 +62,10 @@ const Pensieve: FC<PensieveProps> = ({ expandable, sx, ...otherProps }) => {
         });
         return messages;
       });
-      autoscroll(300);
+      autoScroll(300);
+      if (onLoadMessages) {
+        onLoadMessages();
+      }
     },
     onError,
   });
@@ -99,14 +103,18 @@ const Pensieve: FC<PensieveProps> = ({ expandable, sx, ...otherProps }) => {
       if (data) {
         const { message: incomingMessage } = data;
         if (incomingMessage) {
+          const isNewMessage = !messages.has(incomingMessage.id);
           setMessages(prevMessages => {
-            if (!prevMessages.has(incomingMessage.id)) {
-              autoscroll();
-            }
             const messages = new Map(prevMessages);
             messages.set(incomingMessage.id, incomingMessage);
             return messages;
           });
+          if (isNewMessage) {
+            autoScroll();
+            if (onNewMessage) {
+              onNewMessage();
+            }
+          }
         }
       }
     },
