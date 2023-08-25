@@ -6,7 +6,7 @@ export const imports: Array<ImportsMap | PresetName> = [
     "~/components": [
       "AppLayout",
       "AnchorContainer",
-      "Empty",
+      "EmptyCard",
       "Head",
       "PageHeader",
       "Time",

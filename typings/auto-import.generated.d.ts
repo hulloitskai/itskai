@@ -26,7 +26,7 @@ declare global {
   const Divider: typeof import('@mantine/core')['Divider']
   const Duration: typeof import('luxon')['Duration']
   const EditIcon: typeof import('~/components/icons')['EditIcon']
-  const Empty: typeof import('~/components')['Empty']
+  const EmptyCard: typeof import('~/components')['EmptyCard']
   const Flex: typeof import('@mantine/core')['Flex']
   const Group: typeof import('@mantine/core')['Group']
   const Head: typeof import('~/components')['Head']
