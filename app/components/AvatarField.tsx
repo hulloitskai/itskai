@@ -2,16 +2,21 @@ import type { FC } from "react";
 import { Dropzone } from "@mantine/dropzone";
 import PhotoIcon from "~icons/heroicons/photo-20-solid";
 
-import { Image, Input, Text } from "@mantine/core";
-import type { InputWrapperProps } from "@mantine/core";
+import { Image, Input, Text, getSize } from "@mantine/core";
+import type { InputWrapperProps, MantineNumberSize } from "@mantine/core";
 
 import { AvatarFieldQueryDocument } from "~/helpers/graphql";
 import type { AvatarFieldQueryVariables } from "~/helpers/graphql";
-import type { ImageInput, Maybe } from "~/helpers/graphql";
+import type { Maybe } from "~/helpers/graphql";
+
+export type ImageInput = {
+  readonly signedId: string;
+};
 
 import { uploadFile } from "~/helpers/activestorage";
 
-const AVATAR_FIELD_IMAGE_SIZE = 140;
+const AVATAR_FIELD_IMAGE_SIZE: MantineNumberSize = 140;
+const AVATAR_FIELD_RADIUS: MantineNumberSize = "100%";
 
 export type AvatarFieldProps = Omit<
   InputWrapperProps,
@@ -83,7 +88,6 @@ const AvatarField: FC<AvatarFieldProps> = ({
   // == Loading
   const loading = uploading || ((!src || valueChanged) && queryLoading);
 
-  // == Markup
   return (
     <Input.Wrapper
       {...{
@@ -105,20 +109,32 @@ const AvatarField: FC<AvatarFieldProps> = ({
             width={AVATAR_FIELD_IMAGE_SIZE}
             height={AVATAR_FIELD_IMAGE_SIZE}
             withPlaceholder
-            placeholder={<Skeleton radius="100%" width="100%" height="100%" />}
+            placeholder={
+              <Skeleton
+                radius={AVATAR_FIELD_RADIUS}
+                width="100%"
+                height="100%"
+              />
+            }
             m={4}
-            styles={{
-              root: {
-                overflow: "hidden",
-                borderRadius: "100%",
-              },
-              figure: {
-                transform: "scale(1.02)",
-              },
-              placeholder: {
-                borderRadius: "100%",
-                overflow: "hidden",
-              },
+            styles={({ radius }) => {
+              const borderRadius = getSize({
+                sizes: radius,
+                size: AVATAR_FIELD_RADIUS,
+              });
+              return {
+                root: {
+                  overflow: "hidden",
+                  borderRadius,
+                },
+                figure: {
+                  transform: "scale(1.02)",
+                },
+                placeholder: {
+                  borderRadius,
+                  overflow: "hidden",
+                },
+              };
             }}
             {...{ src }}
           />
@@ -148,15 +164,18 @@ const AvatarField: FC<AvatarFieldProps> = ({
                   });
               }
             }}
-            radius="100%"
+            radius={AVATAR_FIELD_RADIUS}
             pos="absolute"
             inset={0}
-            styles={({ colors, transitionTimingFunction, fn }) => {
+            styles={({ radius, colors, transitionTimingFunction, fn }) => {
               const hoveredBackgroundColor = fn.rgba(colors.dark[5], 0.8);
               return {
                 root: {
                   ".mantine-LoadingOverlay-root": {
-                    borderRadius: "100%",
+                    borderRadius: getSize({
+                      sizes: radius,
+                      size: AVATAR_FIELD_RADIUS,
+                    }),
                   },
                   ...(src && {
                     backgroundColor: "transparent",
