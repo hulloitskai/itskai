@@ -53,6 +53,7 @@ const HomePage: PageComponent<HomePageProps> = ({
           </Text>
         </Stack>
       </Center>
+      { /*
       <Stack align="center" spacing="xs">
         <Title order={2} size="h3">
           sometimes, kai thinks out loud.
@@ -60,6 +61,7 @@ const HomePage: PageComponent<HomePageProps> = ({
         <Pensieve expandable h={400} />
       </Stack>
       <Space h="xl" />
+      */ }
       <Stack align="center" spacing="xs">
         <Title order={2} size="h3">
           sometimes, kai writes.
