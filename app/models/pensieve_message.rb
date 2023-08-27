@@ -38,6 +38,7 @@ class PensieveMessage < ApplicationRecord
   # == Validations
   validates :text, presence: true
   validates :from, presence: true
+  validate :validate_text_profanity
 
   # == Callbacks
   after_commit :trigger_subscriptions, on: %i[create update]
@@ -85,6 +86,19 @@ class PensieveMessage < ApplicationRecord
   end
 
   private
+
+  # == Helpers
+  sig { returns(T::Array[String]) }
+  def badwords = Badwords.current
+
+  # == Validators
+  sig { void }
+  def validate_text_profanity
+    text = self.text.downcase
+    if badwords.any? { |word| text.include?(word) }
+      errors.add(:text, "contains profanity")
+    end
+  end
 
   # == Callback Handlers
   sig { void }

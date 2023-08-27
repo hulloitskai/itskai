@@ -95,13 +95,7 @@ class SpotifyService < ApplicationService
     end
 
     sig { returns(T::Array[String]) }
-    def badwords
-      @badwords = T.let(@badwords, T.nilable(T::Array[String]))
-      @badwords ||= scoped do
-        body = Rails.root.join("config/#{service_name}/badwords.txt").read
-        body.lines.map { |word| word.strip.downcase }
-      end
-    end
+    def badwords = Badwords.current
 
     sig { params(words: String).returns(T::Boolean) }
     def explicit_words?(words)

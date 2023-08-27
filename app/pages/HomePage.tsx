@@ -9,7 +9,7 @@ import type { HomePageQuery } from "~/helpers/graphql";
 
 import ContactMeLink from "~/components/ContactMeLink";
 import HomePageJournalEntry from "~/components/HomePageJournalEntry";
-// import Pensieve from "~/components/Pensieve";
+import Pensieve from "~/components/Pensieve";
 
 export type HomePageProps = PagePropsWithData<HomePageQuery> & {
   readonly firstJournalEntryId: string;
@@ -53,7 +53,6 @@ const HomePage: PageComponent<HomePageProps> = ({
           </Text>
         </Stack>
       </Center>
-      {/*
       <Stack align="center" spacing="xs">
         <Title order={2} size="h3">
           sometimes, kai thinks out loud.
@@ -61,7 +60,6 @@ const HomePage: PageComponent<HomePageProps> = ({
         <Pensieve expandable h={400} />
       </Stack>
       <Space h="xl" />
-      */}
       <Stack align="center" spacing="xs">
         <Title order={2} size="h3">
           sometimes, kai writes.

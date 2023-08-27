@@ -20,6 +20,8 @@ module Mutations
       message = PensieveMessage.new(text:, from: :bot)
       message.send!
       Payload.new(message:)
+    rescue ActiveRecord::RecordInvalid => error
+      raise GraphQL::ExecutionError, error.record.errors.full_messages.first!
     end
   end
 end
