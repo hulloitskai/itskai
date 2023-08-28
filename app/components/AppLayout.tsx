@@ -39,6 +39,7 @@ const AppLayout: FC<AppLayoutProps> = ({
   title,
   description,
   imageUrl,
+  noIndex,
   breadcrumbs,
   containerSize,
   containerProps,
@@ -74,7 +75,7 @@ const AppLayout: FC<AppLayoutProps> = ({
   // == Markup
   return (
     <PageLayout>
-      <AppMeta {...{ title, description, imageUrl }} />
+      <AppMeta {...{ title, description, imageUrl, noIndex }} />
       <AppShell
         header={<AppHeader {...{ viewer }} />}
         styles={{
