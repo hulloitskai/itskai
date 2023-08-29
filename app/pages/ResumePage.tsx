@@ -1,5 +1,5 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { MantineProvider, Text } from "@mantine/core";
+import { Global, MantineProvider, Text } from "@mantine/core";
 import type { Resume } from "~/helpers/resume";
 
 import EnvelopeIcon from "~icons/heroicons/envelope-20-solid";
@@ -29,18 +29,17 @@ const ResumePage: PageComponent<ResumePageProps> = ({
   return (
     <MantineProvider
       inherit
-      theme={{
-        colorScheme: "light",
-        primaryColor: "indigo",
-        globalStyles: () => ({
+      theme={{ colorScheme: "light", primaryColor: "indigo" }}
+    >
+      <Global
+        styles={{
           "@media print": {
             "@page": {
               margin: 0,
             },
           },
-        }),
-      }}
-    >
+        }}
+      />
       <ResumeLayout {...{ printable }}>
         <Box>
           <Group spacing="xs" position="apart">
