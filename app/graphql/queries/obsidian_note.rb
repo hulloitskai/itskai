@@ -18,9 +18,8 @@ module Queries
       ).returns(T.nilable(::ObsidianNote))
     end
     def resolve(note:)
-      if note
-        note if allowed_to?(:show?, note)
-      end
+      return unless note
+      note if allowed_to?(:show?, note)
     end
   end
 end

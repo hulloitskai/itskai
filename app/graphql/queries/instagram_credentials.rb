@@ -9,10 +9,9 @@ module Queries
     # == Resolver
     sig { returns(T.nilable(::InstagramCredentials)) }
     def resolve
-      if (credentials = ::InstagramCredentials.first)
-        credentials = T.let(credentials, ::InstagramCredentials)
-        credentials if allowed_to?(:show?, credentials)
-      end
+      credentials = ::InstagramCredentials.first or return
+      credentials = T.let(credentials, ::InstagramCredentials)
+      credentials if allowed_to?(:show?, credentials)
     end
   end
 end

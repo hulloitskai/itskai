@@ -7,13 +7,13 @@
 #
 #  id         :uuid             not null, primary key
 #  created_at :datetime         not null
+#  device_id  :uuid             not null
 #  message_id :uuid             not null
-#  session_id :string           not null
 #
 # Indexes
 #
 #  index_pensieve_message_likes_on_message_id  (message_id)
-#  index_pensieve_message_likes_uniqueness     (message_id,session_id) UNIQUE
+#  index_pensieve_message_likes_uniqueness     (message_id,device_id) UNIQUE
 #
 # Foreign Keys
 #

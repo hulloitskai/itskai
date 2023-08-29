@@ -38,7 +38,12 @@ class GraphQLChannel < ApplicationCable::Channel
     # Execute query
     variables = prepare_variables(params["variables"])
     extensions = prepare_extensions(params["extensions"])
-    context = { channel: self, session:, extensions:, current_user: }
+    context = {
+      channel: self,
+      extensions:,
+      current_user:,
+      device_id: cookies.signed[:device_id],
+    }
     result = Schema.execute(query, variables:, operation_name:, context:)
 
     # Track the subscription here so we can remove it on unsubscribe
@@ -54,8 +59,13 @@ class GraphQLChannel < ApplicationCable::Channel
   private
 
   # == Helpers
-  sig { returns(T.untyped) }
-  def session = connection.session
+  sig { returns(ActionDispatch::Request) }
+  def request = connection.request
+
+  sig { returns(ActionDispatch::Cookies::CookieJar) }
+  def cookies
+    ActionDispatch::Cookies::CookieJar.build(request, request.cookies)
+  end
 
   # == Subscription: Helpers
   sig { void }

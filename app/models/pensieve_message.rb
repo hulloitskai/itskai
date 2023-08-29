@@ -44,22 +44,21 @@ class PensieveMessage < ApplicationRecord
   after_commit :trigger_subscriptions, on: %i[create update]
 
   # == Likes
-  sig { params(session: ActionDispatch::Request::Session).returns(T::Boolean) }
-  def liked_by?(session)
-    likes.exists?(session_id: session.id.to_s)
+  sig { params(device_id: String).returns(T::Boolean) }
+  def liked_by?(device_id:)
+    likes.exists?(device_id:)
   end
 
   sig do
-    params(session: ActionDispatch::Request::Session)
-      .returns(PensieveMessageLike)
+    params(device_id: String).returns(PensieveMessageLike)
   end
-  def like!(session:)
-    likes.create!(session_id: session.id.to_s)
+  def like!(device_id:)
+    likes.create!(device_id:)
   end
 
-  sig { params(session: ActionDispatch::Request::Session).void }
-  def unlike!(session:)
-    likes.find_by(session_id: session.id.to_s)&.destroy!
+  sig { params(device_id: String).void }
+  def unlike!(device_id:)
+    likes.find_by(device_id:)&.destroy!
   end
 
   # == Recent

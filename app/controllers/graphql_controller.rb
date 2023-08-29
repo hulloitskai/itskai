@@ -23,7 +23,12 @@ class GraphQLController < ApplicationController
     # Execute query
     variables = prepare_variables(params[:variables])
     extensions = prepare_extensions(params[:extensions])
-    context = { controller: self, session:, extensions:, current_user: }
+    context = {
+      controller: self,
+      extensions:,
+      current_user:,
+      device_id: cookies.signed[:device_id],
+    }
     result = Schema.execute(query, variables:, operation_name:, context:)
 
     # Render result

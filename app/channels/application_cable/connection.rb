@@ -16,17 +16,18 @@ module ApplicationCable
     end
 
     # == Methods
-    sig { returns(T.untyped) }
-    def session = request.session
+    sig { returns(ActionDispatch::Request) }
+    def request
+      super
+    end
 
     private
 
     # == Helpers
     sig { returns(T.nilable(User)) }
     def find_verified_user
-      if (id = cookies.signed["user.id"])
-        User.find_by(id:)
-      end
+      id = cookies.signed["user.id"] or return
+      User.find_by(id:)
     end
   end
 end

@@ -9,9 +9,8 @@ module Queries
     # == Resolver
     sig { returns(T.nilable(OAuthCredentials)) }
     def resolve
-      if (credentials = OAuthCredentials.spotify)
-        credentials if allowed_to?(:show?, credentials)
-      end
+      credentials = OAuthCredentials.spotify or return
+      credentials if allowed_to?(:show?, credentials)
     end
   end
 end

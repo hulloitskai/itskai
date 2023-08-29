@@ -9,10 +9,9 @@ module Queries
     # == Resolver
     sig { returns(T.nilable(::ICloudCredentials)) }
     def resolve
-      if (credentials = ::ICloudCredentials.first)
-        credentials = T.let(credentials, ::ICloudCredentials)
-        credentials if allowed_to?(:show?, credentials)
-      end
+      credentials = ::ICloudCredentials.first or return
+      credentials = T.let(credentials, ::ICloudCredentials)
+      credentials if allowed_to?(:show?, credentials)
     end
   end
 end

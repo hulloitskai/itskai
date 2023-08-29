@@ -30,9 +30,6 @@ module GeneratedUrlHelpersModule
   def events_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def gh_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def good_job_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -160,6 +157,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def shortcuts_action_items_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def src_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def status_url(*args); end

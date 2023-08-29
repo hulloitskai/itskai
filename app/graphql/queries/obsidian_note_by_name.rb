@@ -12,9 +12,8 @@ module Queries
     # == Resolver
     sig { params(name: String).returns(T.nilable(::ObsidianNote)) }
     def resolve(name:)
-      if (note = ::ObsidianNote.find_by(name:))
-        note if allowed_to?(:show?, note)
-      end
+      note = ::ObsidianNote.find_by(name:) or return
+      note if allowed_to?(:show?, note)
     end
   end
 end

@@ -6,7 +6,7 @@ export type AnchorContainerProps = AnchorProps & {
 };
 
 const _AnchorContainer = forwardRef<HTMLAnchorElement, AnchorContainerProps>(
-  ({ borderColor, sx, children, ...otherProps }, ref) => (
+  ({ borderColor, display = "contents", sx, children, ...otherProps }, ref) => (
     <Anchor
       unstyled
       sx={[
@@ -36,7 +36,7 @@ const _AnchorContainer = forwardRef<HTMLAnchorElement, AnchorContainerProps>(
           };
         },
       ]}
-      {...{ ref }}
+      {...{ ref, display }}
       {...otherProps}
     >
       {children}

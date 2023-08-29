@@ -18,7 +18,7 @@ module Mutations
     sig { override.params(message: PensieveMessage).returns(Payload) }
     def resolve(message:)
       ActiveRecord::Base.transaction do
-        message.like!(session:) unless message.liked_by?(session)
+        message.like!(device_id:) unless message.liked_by?(device_id:)
       end
       Payload.new(message:)
     end

@@ -30,9 +30,6 @@ module GeneratedPathHelpersModule
   def events_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def gh_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def good_job_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -160,6 +157,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def shortcuts_action_items_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def src_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def status_path(*args); end

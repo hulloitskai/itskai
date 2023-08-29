@@ -531,6 +531,51 @@ class PensieveMessageLike
     sig { void }
     def created_at_will_change!; end
 
+    sig { returns(::String) }
+    def device_id; end
+
+    sig { params(value: ::String).returns(::String) }
+    def device_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def device_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def device_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def device_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def device_id_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def device_id_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def device_id_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def device_id_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def device_id_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def device_id_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def device_id_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def device_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def device_id_was; end
+
+    sig { void }
+    def device_id_will_change!; end
+
     sig { returns(T.nilable(::String)) }
     def id; end
 
@@ -625,19 +670,25 @@ class PensieveMessageLike
     def restore_created_at!; end
 
     sig { void }
+    def restore_device_id!; end
+
+    sig { void }
     def restore_id!; end
 
     sig { void }
     def restore_message_id!; end
-
-    sig { void }
-    def restore_session_id!; end
 
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def saved_change_to_created_at; end
 
     sig { returns(T::Boolean) }
     def saved_change_to_created_at?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_device_id; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_device_id?; end
 
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_id; end
@@ -651,68 +702,17 @@ class PensieveMessageLike
     sig { returns(T::Boolean) }
     def saved_change_to_message_id?; end
 
-    sig { returns(T.nilable([::String, ::String])) }
-    def saved_change_to_session_id; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_session_id?; end
-
-    sig { returns(::String) }
-    def session_id; end
-
-    sig { params(value: ::String).returns(::String) }
-    def session_id=(value); end
-
-    sig { returns(T::Boolean) }
-    def session_id?; end
-
-    sig { returns(T.nilable(::String)) }
-    def session_id_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def session_id_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def session_id_came_from_user?; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def session_id_change; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def session_id_change_to_be_saved; end
-
-    sig { returns(T::Boolean) }
-    def session_id_changed?; end
-
-    sig { returns(T.nilable(::String)) }
-    def session_id_in_database; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def session_id_previous_change; end
-
-    sig { returns(T::Boolean) }
-    def session_id_previously_changed?; end
-
-    sig { returns(T.nilable(::String)) }
-    def session_id_previously_was; end
-
-    sig { returns(T.nilable(::String)) }
-    def session_id_was; end
-
-    sig { void }
-    def session_id_will_change!; end
-
     sig { returns(T::Boolean) }
     def will_save_change_to_created_at?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_device_id?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_id?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_message_id?; end
-
-    sig { returns(T::Boolean) }
-    def will_save_change_to_session_id?; end
   end
 
   module GeneratedRelationMethods

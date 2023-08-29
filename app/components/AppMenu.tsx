@@ -65,6 +65,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
         dropdown: { padding: "0 !important" },
         item: {
           padding: "8px 10px",
+          borderRadius: 0,
         },
         itemIcon: {
           width: 16,

@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :store_user_location!, if: :storable_location?
 
   # == Filters
+  before_action :set_device_id
   around_action :with_error_context
 
   # == Inertia
@@ -50,6 +51,12 @@ class ApplicationController < ActionController::Base
   #   end
   # end
 
+  sig { void }
+  def set_device_id
+    return if cookies.key?(:device_id)
+    cookies.permanent.signed[:device_id] = current_user&.id || SecureRandom.uuid
+  end
+
   sig { params(block: T.proc.returns(T.untyped)).void }
   def with_error_context(&block)
     context = T.let(error_context.compact, T::Hash[String, T.untyped])
@@ -58,6 +65,9 @@ class ApplicationController < ActionController::Base
   end
 
   # == Devise: Helpers
+  sig { override.returns(T.nilable(User)) }
+  def current_user = super
+
   sig { returns(User) }
   def current_user!
     authenticate_user!

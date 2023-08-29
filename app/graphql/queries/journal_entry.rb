@@ -13,9 +13,11 @@ module Queries
 
     # == Resolver
     sig do
-      params(entry: ::JournalEntry).returns(T.nilable(::JournalEntry))
+      params(entry: T.nilable(::JournalEntry))
+        .returns(T.nilable(::JournalEntry))
     end
     def resolve(entry:)
+      return unless entry
       entry if entry.content?
     end
   end
