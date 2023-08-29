@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_29_045659) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_29_054514) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -243,8 +243,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_29_045659) do
   create_table "pensieve_message_likes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "message_id", null: false
     t.datetime "created_at", precision: nil, null: false
-    t.uuid "device_id", null: false
-    t.index ["message_id", "device_id"], name: "index_pensieve_message_likes_uniqueness", unique: true
+    t.uuid "actor_id", null: false
+    t.index ["message_id", "actor_id"], name: "index_pensieve_message_likes_uniqueness", unique: true
     t.index ["message_id"], name: "index_pensieve_message_likes_on_message_id"
   end
 

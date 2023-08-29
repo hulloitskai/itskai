@@ -26,7 +26,7 @@ module GraphQL::Querying
     context = { current_user: }
     if is_a?(ActionController::Base)
       context[:controller] = self
-      context[:device_id] = cookies.signed[:device_id]
+      context[:actor_id] = cookies.signed[:actor_id]
     end
     variables = variables.transform_keys do |key|
       if key.is_a?(Symbol)

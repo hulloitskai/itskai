@@ -27,7 +27,7 @@ module Types
 
     sig { returns(T::Boolean) }
     def liked_by_viewer
-      object.liked_by?(device_id:)
+      object.liked_by?(actor_id:)
     end
 
     # == Helpers

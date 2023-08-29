@@ -486,6 +486,51 @@ class PensieveMessageLike
   end
 
   module GeneratedAttributeMethods
+    sig { returns(::String) }
+    def actor_id; end
+
+    sig { params(value: ::String).returns(::String) }
+    def actor_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def actor_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def actor_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def actor_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def actor_id_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def actor_id_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def actor_id_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def actor_id_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def actor_id_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def actor_id_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def actor_id_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def actor_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def actor_id_was; end
+
+    sig { void }
+    def actor_id_will_change!; end
+
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at; end
 
@@ -530,51 +575,6 @@ class PensieveMessageLike
 
     sig { void }
     def created_at_will_change!; end
-
-    sig { returns(::String) }
-    def device_id; end
-
-    sig { params(value: ::String).returns(::String) }
-    def device_id=(value); end
-
-    sig { returns(T::Boolean) }
-    def device_id?; end
-
-    sig { returns(T.nilable(::String)) }
-    def device_id_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def device_id_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def device_id_came_from_user?; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def device_id_change; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def device_id_change_to_be_saved; end
-
-    sig { returns(T::Boolean) }
-    def device_id_changed?; end
-
-    sig { returns(T.nilable(::String)) }
-    def device_id_in_database; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def device_id_previous_change; end
-
-    sig { returns(T::Boolean) }
-    def device_id_previously_changed?; end
-
-    sig { returns(T.nilable(::String)) }
-    def device_id_previously_was; end
-
-    sig { returns(T.nilable(::String)) }
-    def device_id_was; end
-
-    sig { void }
-    def device_id_will_change!; end
 
     sig { returns(T.nilable(::String)) }
     def id; end
@@ -667,10 +667,10 @@ class PensieveMessageLike
     def message_id_will_change!; end
 
     sig { void }
-    def restore_created_at!; end
+    def restore_actor_id!; end
 
     sig { void }
-    def restore_device_id!; end
+    def restore_created_at!; end
 
     sig { void }
     def restore_id!; end
@@ -678,17 +678,17 @@ class PensieveMessageLike
     sig { void }
     def restore_message_id!; end
 
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_actor_id; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_actor_id?; end
+
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def saved_change_to_created_at; end
 
     sig { returns(T::Boolean) }
     def saved_change_to_created_at?; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def saved_change_to_device_id; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_device_id?; end
 
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_id; end
@@ -703,10 +703,10 @@ class PensieveMessageLike
     def saved_change_to_message_id?; end
 
     sig { returns(T::Boolean) }
-    def will_save_change_to_created_at?; end
+    def will_save_change_to_actor_id?; end
 
     sig { returns(T::Boolean) }
-    def will_save_change_to_device_id?; end
+    def will_save_change_to_created_at?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_id?; end

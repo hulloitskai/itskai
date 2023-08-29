@@ -42,7 +42,7 @@ class GraphQLChannel < ApplicationCable::Channel
       channel: self,
       extensions:,
       current_user:,
-      device_id: cookies.signed[:device_id],
+      actor_id: cookies.signed[:actor_id],
     }
     result = Schema.execute(query, variables:, operation_name:, context:)
 

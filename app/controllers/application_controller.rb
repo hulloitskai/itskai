@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :store_user_location!, if: :storable_location?
 
   # == Filters
-  before_action :set_device_id
+  before_action :set_actor_id
   around_action :with_error_context
 
   # == Inertia
@@ -52,9 +52,9 @@ class ApplicationController < ActionController::Base
   # end
 
   sig { void }
-  def set_device_id
-    return if cookies.key?(:device_id)
-    cookies.permanent.signed[:device_id] = current_user&.id || SecureRandom.uuid
+  def set_actor_id
+    return if cookies.key?(:actor_id)
+    cookies.permanent.signed[:actor_id] = current_user&.id || SecureRandom.uuid
   end
 
   sig { params(block: T.proc.returns(T.untyped)).void }

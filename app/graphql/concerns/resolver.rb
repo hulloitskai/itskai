@@ -51,8 +51,8 @@ module Resolver
   end
 
   sig { returns(String) }
-  def device_id
-    context[:device_id] or raise "Missing device ID"
+  def actor_id
+    context[:actor_id] or raise "Missing actor ID"
   end
 
   sig { returns(T.nilable(T.any(User, Symbol))) }

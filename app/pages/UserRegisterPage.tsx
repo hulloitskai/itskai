@@ -12,7 +12,7 @@ const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => (
     <Stack spacing="xs">
       <Stack align="center" spacing={2}>
         <Title size="h3">Sign Up</Title>
-        <Text size="sm" color="dimmed">
+        <Text size="sm" color="dimmed" lh={1.3}>
           Create an account on{" "}
           <Anchor component={Link} href="/" color="brand.4" weight={600}>
             it&apos;s kai

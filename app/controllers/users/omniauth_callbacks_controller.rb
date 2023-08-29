@@ -9,6 +9,7 @@ module Users
     # == Filters
     before_action :authenticate_user!
 
+    # == Initialization
     def initialize(*args)
       super
       @user = T.let(@user, T.nilable(User))
