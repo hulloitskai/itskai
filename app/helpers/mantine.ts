@@ -36,6 +36,41 @@ export const APP_THEME: MantineThemeOverride = {
     }),
   },
   components: {
+    Alert: {
+      styles: {
+        title: {
+          textTransform: "lowercase",
+        },
+      },
+    },
+    Badge: {
+      styles: {
+        inner: {
+          textTransform: "lowercase",
+        },
+      },
+    },
+    Button: {
+      styles: {
+        inner: {
+          textTransform: "lowercase",
+        },
+      },
+    },
+    Checkbox: {
+      styles: {
+        label: {
+          textTransform: "lowercase",
+        },
+      },
+    },
+    InputWrapper: {
+      styles: {
+        label: {
+          textTransform: "lowercase",
+        },
+      },
+    },
     LoadingOverlay: {
       defaultProps: {
         loaderProps: {
@@ -48,6 +83,13 @@ export const APP_THEME: MantineThemeOverride = {
         variant: "default",
       },
     },
+    Menu: {
+      styles: {
+        itemLabel: {
+          textTransform: "lowercase",
+        },
+      },
+    },
     Modal: {
       styles: ({ headings: { sizes, ...style } }) => ({
         title: {
@@ -55,6 +97,13 @@ export const APP_THEME: MantineThemeOverride = {
           ...(style as CSSObject),
         },
       }),
+    },
+    Text: {
+      styles: {
+        root: {
+          textTransform: "lowercase",
+        },
+      },
     },
   },
 };

@@ -15,7 +15,7 @@ const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => (
         <Text size="sm" color="dimmed" lh={1.3}>
           Create an account on{" "}
           <Anchor component={Link} href="/" color="brand.4" weight={600}>
-            it&apos;s kai
+            It&apos;s Kai
           </Anchor>
         </Text>
       </Stack>

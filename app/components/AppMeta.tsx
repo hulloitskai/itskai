@@ -1,8 +1,8 @@
 import type { FC } from "react";
 
 const AppMetaSiteType = "website";
-const AppMetaSiteName = "it's kai";
-const AppMetaSiteDescription = "welcome to my little corner of the internet :)";
+const AppMetaSiteName = "It's Kai";
+const AppMetaSiteDescription = "Welcome to my little corner of the internet :)";
 const AppMetaSiteImage = "/banner.png";
 const AppMetaTitleSeparator = "|";
 
@@ -31,19 +31,21 @@ const AppMeta: FC<AppMetaProps> = ({
   }, [title]);
   return (
     <Head>
-      <title>{fullTitle}</title>
-      {!!description && <meta name="description" content={description} />}
-      <meta property="og:site_name" content={AppMetaSiteName} />
+      <title>{fullTitle.toLowerCase()}</title>
+      {!!description && (
+        <meta name="description" content={description.toLowerCase()} />
+      )}
+      <meta property="og:site_name" content={AppMetaSiteName.toLowerCase()} />
       <meta property="og:type" content={AppMetaSiteType} />
       <meta property="og:title" content={title} />
       {!!description && (
-        <meta property="og:description" content={description} />
+        <meta property="og:description" content={description.toLowerCase()} />
       )}
       {!!imageUrl && <meta property="og:image" content={imageUrl} />}
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content={fullTitle} />
+      <meta name="twitter:title" content={fullTitle.toLowerCase()} />
       {!!description && (
-        <meta name="twitter:description" content={description} />
+        <meta name="twitter:description" content={description.toLowerCase()} />
       )}
       {!!imageUrl && <meta name="twitter:image" content={imageUrl} />}
       {noIndex && <meta name="robots" content="noindex" />}

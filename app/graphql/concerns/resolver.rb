@@ -42,12 +42,7 @@ module Resolver
 
   sig { returns(ActionDispatch::Flash::FlashHash) }
   def flash
-    controller = self.controller
-    if controller
-      controller.flash
-    else
-      ActionDispatch::Flash::FlashHash.new
-    end
+    controller&.flash || ActionDispatch::Flash::FlashHash.new
   end
 
   sig { returns(String) }

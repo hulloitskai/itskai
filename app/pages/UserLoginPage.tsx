@@ -17,7 +17,7 @@ const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
         <Text size="sm" color="dimmed" lh={1.3}>
           Welcome back to{" "}
           <Anchor component={Link} href="/" color="brand.4" weight={600}>
-            it&apos;s kai
+            It&apos;s Kai
           </Anchor>
         </Text>
       </Stack>

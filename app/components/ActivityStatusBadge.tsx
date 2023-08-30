@@ -76,9 +76,9 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
               <HoverCard.Target>
                 <Group spacing={4}>
                   <Text size="xs" weight={500} color="gray.6">
-                    made by{" "}
+                    Made by{" "}
                     <Text span weight={700}>
-                      kai
+                      Kai
                     </Text>{" "}
                     with
                   </Text>

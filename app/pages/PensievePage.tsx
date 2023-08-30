@@ -22,7 +22,7 @@ const PensievePage: PageComponent<PensievePageProps> = () => {
   return (
     <Stack align="center" spacing="xs" sx={{ flexGrow: 1 }}>
       <Title order={2} size="h3">
-        sometimes, kai thinks out loud.
+        Sometimes, Kai thinks out loud.
       </Title>
       <Pensieve
         sx={{ flexGrow: 1 }}

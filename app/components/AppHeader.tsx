@@ -38,7 +38,7 @@ const AppHeader: FC<AppHeaderProps> = ({ viewer }) => (
         },
       })}
     >
-      it&apos;s kai
+      It&apos;s Kai
     </Button>
     <CurrentlyPlayingIsland />
     <AppMenu sx={{ flexShrink: 0 }} {...{ viewer }} />

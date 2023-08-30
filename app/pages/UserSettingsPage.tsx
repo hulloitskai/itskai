@@ -33,7 +33,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
         <Stack spacing="xs">
           <Center>
             <Title order={2} size="h4">
-              Profile Information
+              Profile
             </Title>
           </Center>
           <UserSettingsPageProfileForm {...{ viewer }} />

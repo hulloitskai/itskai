@@ -30,11 +30,11 @@ const HomePage: PageComponent<HomePageProps> = ({
       )}
       <Center h={275}>
         <Stack align="center">
-          <Title color="white">hi, it&apos;s kai</Title>
+          <Title color="white">Hi, it&apos;s Kai</Title>
           <Text color="gray.6" align="center" maw={400}>
-            welcome to my little corner of the internet :)
+            Welcome to my little corner of the internet :)
             <br />
-            please enjoy your stay. if you&apos;re having a good time,
+            Wlease enjoy your stay. if you&apos;re having a good time,
             let&apos;s{" "}
             <Anchor
               href="http://cal.com/itskai"
@@ -46,7 +46,7 @@ const HomePage: PageComponent<HomePageProps> = ({
             </Anchor>
             !
           </Text>
-          <Text size="xs" opacity={0.7}>
+          <Text align="center" size="xs" opacity={0.7} lh={1.2} maw={225}>
             (and also feel free to{" "}
             <ContactMeLink>hit me up anytime</ContactMeLink> & let me know
             what&apos;s on your mind!)
@@ -55,14 +55,14 @@ const HomePage: PageComponent<HomePageProps> = ({
       </Center>
       <Stack align="center" spacing="xs">
         <Title order={2} size="h3">
-          sometimes, kai thinks out loud.
+          Sometimes, Kai thinks out loud.
         </Title>
         <Pensieve expandable h={400} />
       </Stack>
       <Space h="xl" />
       <Stack align="center" spacing="xs">
         <Title order={2} size="h3">
-          sometimes, kai writes.
+          Sometimes, Kai writes.
         </Title>
         <HomePageJournalEntry
           firstEntryId={firstJournalEntryId}

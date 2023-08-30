@@ -19,8 +19,10 @@ export type EmailLayoutProps = PropsWithChildren<{
 
 const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
   <>
-    {!!preview && <Preview>{preview}</Preview>}
-    <Box component={Body}>
+    {!!preview && (
+      <Preview style={{ textTransform: "lowercase" }}>{preview}</Preview>
+    )}
+    <Box component={Body} sx={{ textTransform: "lowercase" }}>
       <Box component={Container} mx="auto" px={12} py={16}>
         {!!header && (
           <Box
@@ -55,7 +57,7 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
               target="_blank"
               sx={({ colors }) => ({ color: colors.brand[5], fontWeight: 500 })}
             >
-              it&apos;s kai
+              It&apos;s Kai
             </Box>
             . This email loves you.
           </Box>
