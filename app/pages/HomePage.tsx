@@ -46,9 +46,9 @@ const HomePage: PageComponent<HomePageProps> = ({
             </Anchor>
             !
           </Text>
-          <Text align="center" size="xs" opacity={0.7} lh={1.2} maw={225}>
+          <Text align="center" size="xs" opacity={0.7} lh={1.2}>
             (and also feel free to{" "}
-            <ContactMeLink>hit me up anytime</ContactMeLink> & let me know
+            <ContactMeLink>hit me up anytime</ContactMeLink> & tell me
             what&apos;s on your mind!)
           </Text>
         </Stack>

@@ -76,7 +76,11 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
                 }}
                 size="sm"
                 lh={1.3}
-                sx={{ flexGrow: 1, wordBreak: "break-word" }}
+                sx={{
+                  flexGrow: 1,
+                  whiteSpace: "pre-wrap",
+                  wordBreak: "break-word",
+                }}
               >
                 {text}
               </Linkify>
