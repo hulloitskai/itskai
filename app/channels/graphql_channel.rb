@@ -1,4 +1,4 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 class GraphQLChannel < ApplicationCable::Channel
@@ -67,7 +67,6 @@ class GraphQLChannel < ApplicationCable::Channel
     ActionDispatch::Cookies::CookieJar.build(request, request.cookies)
   end
 
-  # == Subscription: Helpers
   sig { void }
   def subscribed
     @subscription_ids = []
@@ -137,10 +136,12 @@ class GraphQLChannel < ApplicationCable::Channel
     end
   end
 
+  sig { params(data: T.untyped).returns(String) }
   def indent(data)
     data.lines.map { |line| "    #{line}" }.join.chomp
   end
 
+  sig { params(data: T.untyped).returns(String) }
   def pretty(data)
     if data.present?
       data = JSON.parse(data) if data.is_a?(String)

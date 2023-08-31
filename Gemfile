@@ -105,7 +105,7 @@ gem "addressable", "~> 2.8"
 gem "discard", "~> 1.2"
 
 # Typecheck code at runtime
-gem "sorbet-runtime", "~> 0.5.10950"
+gem "sorbet-runtime", "0.5.10993"
 
 # Use Enumerize to enumerate attributes
 gem "enumerize", "~> 2.6"
@@ -207,7 +207,7 @@ group :development do
   gem "debug", platforms: %i[mri mingw x64_mingw]
 
   # Typecheck code
-  gem "sorbet", "0.5.10950", require: false
+  gem "sorbet", require: false
   gem "tapioca", "~> 0.11.7", require: false
 
   # Use Rubocop to lint code

@@ -36,7 +36,7 @@ class User < ApplicationRecord
   # == Constants
   MIN_PASSWORD_ENTROPY = T.let(14, Integer)
 
-  # == Devise: Configuration
+  # == Devise
   # Others modules are: :lockable, :timeoutable, and :omniauthable.
   devise :database_authenticatable,
          :registerable,
@@ -118,7 +118,7 @@ class User < ApplicationRecord
 
   protected
 
-  # == Devise: Callback Handlers
+  # == Callback Handlers
   sig { void }
   def after_confirmation
     super

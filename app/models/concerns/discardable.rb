@@ -1,4 +1,4 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 module Discardable
@@ -9,10 +9,12 @@ module Discardable
 
   # == Annotations
   abstract!
-  requires_ancestor { ApplicationRecord }
+  requires_ancestor { ActiveRecord::Base }
+  requires_ancestor { RequiresColumns }
 
   included do
-    T.bind(self, T.class_of(ApplicationRecord))
+    T.bind(self, T.all(T.class_of(ActiveRecord::Base),
+                       RequiresColumns::ClassMethods))
 
     # == Configuration
     requires_columns :discarded_at

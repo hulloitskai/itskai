@@ -11,7 +11,7 @@ class ActionItem < ApplicationModel
     name or "Missing name"
   end
 
-  # == Notion: Helpers
+  # == Notion
   sig { returns(String) }
   def self.notion_database_id
     ENV["ACTION_ITEM_NOTION_DATABASE_ID"] or
@@ -21,7 +21,6 @@ class ActionItem < ApplicationModel
   sig { returns(String) }
   def notion_database_id = self.class.notion_database_id
 
-  # == Notion
   sig { returns(T.untyped) }
   def create_notion_page
     validate!

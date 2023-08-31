@@ -8,10 +8,13 @@ module Handled
 
   # == Annotations
   abstract!
-  requires_ancestor { ApplicationRecord }
+  requires_ancestor { ActiveRecord::Base }
+  requires_ancestor { RequiresColumns }
 
   included do
-    T.bind(self, T.all(T.class_of(ApplicationRecord), ClassMethods))
+    T.bind(self, T.all(T.class_of(ActiveRecord::Base),
+                       ClassMethods,
+                       RequiresColumns::ClassMethods))
 
     # == Configuration
     requires_columns :handle
@@ -23,7 +26,7 @@ module Handled
     extend T::Helpers
 
     # == Annotations
-    requires_ancestor { T.class_of(ApplicationRecord) }
+    requires_ancestor { T.class_of(ActiveRecord::Base) }
 
     # == Methods
     sig { returns(String) }
@@ -49,7 +52,9 @@ module Handled
   # == Methods
   sig { returns(String) }
   def generate_handle
-    self[:handle] ||= T.cast(self.class, ClassMethods).generate_handle
+    klass = T.cast(self.class, T.all(T.class_of(ActiveRecord::Base),
+                                     ClassMethods))
+    self[:handle] ||= klass.generate_handle
   end
 
   sig { returns(String) }

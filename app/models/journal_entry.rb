@@ -135,7 +135,7 @@ class JournalEntry < ApplicationRecord
     DownloadJournalEntryJob.perform_later(self)
   end
 
-  # == Notion: Helpers
+  # == Notion
   sig { returns(String) }
   def self.notion_database_id
     ENV["JOURNAL_ENTRY_NOTION_DATABASE_ID"] or
@@ -145,7 +145,6 @@ class JournalEntry < ApplicationRecord
   sig { returns(String) }
   def notion_database_id = self.class.notion_database_id
 
-  # == Notion
   sig { returns(T.untyped) }
   def notion_page
     NotionService.retrieve_page(notion_page_id)

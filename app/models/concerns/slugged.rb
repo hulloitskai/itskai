@@ -8,10 +8,12 @@ module Slugged
 
   # == Annotations
   abstract!
-  requires_ancestor { ApplicationRecord }
+  requires_ancestor { ActiveRecord::Base }
+  requires_ancestor { RequiresColumns }
 
   included do
-    T.bind(self, T.all(T.class_of(ApplicationRecord), ClassMethods))
+    T.bind(self, T.all(T.class_of(ActiveRecord::Base),
+                       RequiresColumns::ClassMethods))
 
     # == Configuration
     requires_columns :slug
@@ -22,7 +24,7 @@ module Slugged
     extend T::Helpers
 
     # == Annotations
-    requires_ancestor { T.class_of(ApplicationRecord) }
+    requires_ancestor { T.class_of(ActiveRecord::Base) }
 
     # == Methods
     sig { returns(Integer) }

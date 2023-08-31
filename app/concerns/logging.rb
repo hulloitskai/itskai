@@ -13,6 +13,7 @@ module Logging
     extend T::Sig
     extend T::Helpers
 
+    # == Annotations
     requires_ancestor { T.class_of(Object) }
 
     # == Methods

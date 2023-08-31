@@ -4,11 +4,10 @@
 class ApplicationController < ActionController::Base
   extend T::Sig
   extend T::Helpers
+
   include ActiveStorage::SetCurrent
   include GraphQL::Querying
-
-  # == Devise: Filters
-  before_action :store_user_location!, if: :storable_location?
+  include RemembersUserLocation
 
   # == Filters
   before_action :set_actor_id
@@ -28,9 +27,6 @@ class ApplicationController < ActionController::Base
   private
 
   # == Helpers
-  sig { returns(ItsKai::Application) }
-  def app = ItsKai.application
-
   sig { returns(T::Hash[Symbol, T.untyped]) }
   def error_context
     case current_user
@@ -39,6 +35,14 @@ class ApplicationController < ActionController::Base
     else
       {}
     end
+  end
+
+  sig { override.returns(T.nilable(User)) }
+  def current_user = super
+
+  sig { returns(User) }
+  def current_user!
+    authenticate_user!
   end
 
   # == Filter Handlers
@@ -62,26 +66,5 @@ class ApplicationController < ActionController::Base
     context = T.let(error_context.compact, T::Hash[String, T.untyped])
     Rails.error.set_context(**context)
     yield
-  end
-
-  # == Devise: Helpers
-  sig { override.returns(T.nilable(User)) }
-  def current_user = super
-
-  sig { returns(User) }
-  def current_user!
-    authenticate_user!
-  end
-
-  sig { returns(T::Boolean) }
-  def storable_location?
-    request.get? && is_navigational_format? &&
-      (!request.xhr? || request.inertia?) && !devise_controller?
-  end
-
-  # == Devise: Filter handlers
-  sig { void }
-  def store_user_location!
-    store_location_for(:user, request.fullpath)
   end
 end

@@ -121,6 +121,38 @@ class ObsidianNote < ApplicationRecord
     AnalyzeObsidianNoteJob.perform_later(self)
   end
 
+  # == Analysis: Helpers
+  sig { void }
+  private def analyze_references
+    links = T.cast(content.scan(/(?<!\!)\[\[[^\[\]]+\]\]/), T::Array[String])
+    links.map! do |link|
+      link.delete_prefix("[[").delete_suffix("]]").split("|").first!
+    end
+    links.uniq!
+    references = ObsidianNote.where(name: links).select(:id, :name)
+    referenced_names = references.map(&:name)
+    unresolved_reference_names = links - referenced_names
+    unresolved_references = scoped do
+      existing_stubs = ObsidianStub.where(name: unresolved_reference_names).to_a
+      new_stub_names = unresolved_reference_names - existing_stubs.map(&:name)
+      new_stubs = new_stub_names.map { |name| ObsidianStub.new(name:) }
+      existing_stubs + new_stubs
+    end
+    self.references = references
+    self.unresolved_references = unresolved_references
+  end
+
+  sig { void }
+  private def analyze_blurb
+    return if content.blank? || blurb.present?
+    root = Markly.parse(content)
+    node = T.let(root.first, T.nilable(Markly::Node))
+    if node.present? && node.type.in?(%i[paragraph quote])
+      blurb = T.let(node.to_plaintext, String)
+      self.blurb = blurb.strip.tr("\n", " ").presence
+    end
+  end
+
   # # == Importing
   # sig { params(force: T::Boolean).void }
   # def self.import(force: false)
@@ -189,39 +221,6 @@ class ObsidianNote < ApplicationRecord
   # end
 
   private
-
-  # == Analysis: Helpers
-  sig { void }
-  def analyze_references
-    links = T.cast(content.scan(/(?<!\!)\[\[[^\[\]]+\]\]/),
-                   T::Array[String])
-    links.map! do |link|
-      link.delete_prefix("[[").delete_suffix("]]").split("|").first!
-    end
-    links.uniq!
-    references = ObsidianNote.where(name: links).select(:id, :name)
-    referenced_names = references.map(&:name)
-    unresolved_reference_names = links - referenced_names
-    unresolved_references = scoped do
-      existing_stubs = ObsidianStub.where(name: unresolved_reference_names).to_a
-      new_stub_names = unresolved_reference_names - existing_stubs.map(&:name)
-      new_stubs = new_stub_names.map { |name| ObsidianStub.new(name:) }
-      existing_stubs + new_stubs
-    end
-    self.references = references
-    self.unresolved_references = unresolved_references
-  end
-
-  sig { void }
-  def analyze_blurb
-    return if content.blank? || blurb.present?
-    root = Markly.parse(content)
-    node = T.let(root.first, T.nilable(Markly::Node))
-    if node.present? && node.type.in?(%i[paragraph quote])
-      blurb = T.let(node.to_plaintext, String)
-      self.blurb = blurb.strip.tr("\n", " ").presence
-    end
-  end
 
   # == Callback Handlers
   sig { void }
