@@ -3,5 +3,5 @@
 
 class EventPolicy < ApplicationPolicy
   # == Rules
-  def index = false
+  def index? = false
 end
