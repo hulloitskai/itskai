@@ -107,6 +107,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
       fz="xs"
       styles={{
         tooltip: {
+          textTransform: "none",
           lineHeight: 1.3,
         },
       }}

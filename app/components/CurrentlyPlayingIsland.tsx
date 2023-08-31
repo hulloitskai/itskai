@@ -281,6 +281,7 @@ const MarqueeText: FC<TextProps> = ({ sx, children, ...otherProps }) => {
           ...packSx(sx),
           {
             textOverflow: "ellipsis",
+            textTransform: "none",
             whiteSpace: "nowrap",
           },
         ]}

@@ -105,6 +105,13 @@ export const APP_THEME: MantineThemeOverride = {
         },
       },
     },
+    Tooltip: {
+      styles: {
+        tooltip: {
+          textTransform: "lowercase",
+        },
+      },
+    },
   },
 };
 
