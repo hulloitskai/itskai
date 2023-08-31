@@ -70,7 +70,7 @@ class ObsidianNote < ApplicationRecord
   }
 
   # == Normalizations
-  removes_blanks :blurb
+  removes_blank :blurb
   before_validation :set_title, unless: :title?
   before_validation :set_plain_blurb, if: :will_save_change_to_blurb?
 

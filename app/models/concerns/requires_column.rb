@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-module RequiresColumns
+module RequiresColumn
   extend T::Sig
   extend T::Helpers
   extend ActiveSupport::Concern
@@ -18,7 +18,7 @@ module RequiresColumns
 
     # == Helpers
     sig { params(column_names: T.any(Symbol, String)).void }
-    def requires_columns(*column_names)
+    def requires_column(*column_names)
       return unless Rails.server? || Rails.console?
       Kernel.suppress(ActiveRecord::ConnectionNotEstablished) do
         missing_columns = column_names.map(&:to_s) - self.column_names

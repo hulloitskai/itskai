@@ -24,6 +24,14 @@ class ApplicationController < ActionController::Base
     }.compact
   end
 
+  sig { override.returns(T.nilable(User)) }
+  def current_user = super
+
+  sig { returns(User) }
+  def current_user!
+    authenticate_user!
+  end
+
   private
 
   # == Helpers
@@ -35,14 +43,6 @@ class ApplicationController < ActionController::Base
     else
       {}
     end
-  end
-
-  sig { override.returns(T.nilable(User)) }
-  def current_user = super
-
-  sig { returns(User) }
-  def current_user!
-    authenticate_user!
   end
 
   # == Filter Handlers

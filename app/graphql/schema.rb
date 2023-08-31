@@ -20,6 +20,11 @@ class Schema < GraphQL::Schema
   # Stop validation after 100 errors.
   validate_max_errors 100
 
+  # == Types
+  query Types::QueryType
+  mutation Types::MutationType
+  subscription Types::SubscriptionType
+
   # == Error Handling
   rescue_from ActiveRecord::RecordInvalid do |error|
     model_name = error.record.model_name.human.downcase
@@ -35,11 +40,6 @@ class Schema < GraphQL::Schema
     message += "." unless message.end_with?(".")
     raise GraphQL::ExecutionError, message
   end
-
-  # == Types
-  query Types::QueryType
-  mutation Types::MutationType
-  subscription Types::SubscriptionType
 
   # == Resolvers
   # Resolve unions and interfaces.

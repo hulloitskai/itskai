@@ -9,15 +9,15 @@ module Handled
   # == Annotations
   abstract!
   requires_ancestor { ActiveRecord::Base }
-  requires_ancestor { RequiresColumns }
+  requires_ancestor { RequiresColumn }
 
   included do
     T.bind(self, T.all(T.class_of(ActiveRecord::Base),
                        ClassMethods,
-                       RequiresColumns::ClassMethods))
+                       RequiresColumn::ClassMethods))
 
     # == Configuration
-    requires_columns :handle
+    requires_column :handle
     class_attribute :generated_handle_length, default: 16
   end
 

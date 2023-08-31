@@ -9,14 +9,14 @@ module ObsidianEntry
   # == Annotations
   abstract!
   requires_ancestor { ActiveRecord::Base }
-  requires_ancestor { RequiresColumns }
+  requires_ancestor { RequiresColumn }
 
   included do
     T.bind(self, T.all(T.class_of(ActiveRecord::Base),
-                       RequiresColumns::ClassMethods))
+                       RequiresColumn::ClassMethods))
 
     # == Dependencies
-    requires_columns :name
+    requires_column :name
 
     # == Validations
     validates :name, presence: true

@@ -10,14 +10,14 @@ module Discardable
   # == Annotations
   abstract!
   requires_ancestor { ActiveRecord::Base }
-  requires_ancestor { RequiresColumns }
+  requires_ancestor { RequiresColumn }
 
   included do
     T.bind(self, T.all(T.class_of(ActiveRecord::Base),
-                       RequiresColumns::ClassMethods))
+                       RequiresColumn::ClassMethods))
 
     # == Configuration
-    requires_columns :discarded_at
+    requires_column :discarded_at
   end
 
   # == Interface

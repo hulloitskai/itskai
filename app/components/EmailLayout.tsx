@@ -22,7 +22,7 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
     {!!preview && (
       <Preview style={{ textTransform: "lowercase" }}>{preview}</Preview>
     )}
-    <Box component={Body} sx={{ textTransform: "lowercase" }}>
+    <Body style={{ textTransform: "lowercase" }}>
       <Box component={Container} mx="auto" px={12} py={16}>
         {!!header && (
           <Box
@@ -63,7 +63,7 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
           </Box>
         </Box>
       </Box>
-    </Box>
+    </Body>
   </>
 );
 

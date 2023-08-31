@@ -6,10 +6,10 @@ class ApplicationRecord < ActiveRecord::Base
   extend T::Helpers
   extend Enumerize
 
+  include RequiresColumn
+  include RemovesBlank
   include Routing
   include Logging
-  include RequiresColumns
-  include RemovesBlanks
 
   # == Constants
   # Support runtime type-checking for Sorbet-generated types.
