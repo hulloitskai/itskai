@@ -24,9 +24,6 @@ class ApplicationMailer < ActionMailer::Base
 
   sig { returns(String) }
   def default_sender
-    return T.must(@default_from) if defined?(@default_from)
-    @default_from = T.let(@default_from, T.nilable(String))
-    @default_from = ENV["RAILS_MAILER_FROM"] or
-      raise "Missing default from address"
+    ENV["RAILS_MAILER_FROM"] or raise "Missing default from address"
   end
 end

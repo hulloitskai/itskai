@@ -7,7 +7,7 @@ class ScottkitTest < ApplicationSystemTestCase
   test "renders" do
     visit(scottkit_path)
     assert_text(
-      "This is a toolkit for Scott, built and maintained by his boys.",
+      "this is a toolkit for scott, built and maintained by his boys.",
     )
   end
 end
