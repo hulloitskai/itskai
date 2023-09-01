@@ -1,5 +1,6 @@
 import type { FC } from "react";
-import { CardProps, Text } from "@mantine/core";
+import { Text } from "@mantine/core";
+import type { CardProps } from "@mantine/core";
 
 import EmptyIcon from "~icons/heroicons/inbox-20-solid";
 
