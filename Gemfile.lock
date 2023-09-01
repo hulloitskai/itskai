@@ -676,6 +676,7 @@ DEPENDENCIES
   silencer (~> 2.0)
   sorbet
   sorbet-runtime (= 0.5.10993)
+  spoom
   spring
   sprockets-rails (~> 3.4)
   store_model (~> 1.6)
