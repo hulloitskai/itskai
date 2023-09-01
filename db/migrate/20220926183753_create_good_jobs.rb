@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 class CreateGoodJobs < ActiveRecord::Migration[7.0]

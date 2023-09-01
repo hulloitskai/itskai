@@ -1,4 +1,4 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 require "inertia_rails"
@@ -17,7 +17,9 @@ module InertiaRails
       sig { params(args: T.untyped, kwargs: T.untyped).void }
       def initialize(*args, **kwargs)
         super
+        @component = T.let(@component, String)
         @controller = T.let(@controller, AbstractController::Base)
+        @props = T.let(@props, T::Hash[T.untyped, T.untyped])
         @props.transform_keys! do |key|
           if key.is_a?(Symbol)
             key.to_s.camelize(:lower).to_sym

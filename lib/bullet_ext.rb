@@ -3,20 +3,22 @@
 
 require "active_support/core_ext"
 
-suppress(LoadError) do
+begin
   require "bullet"
+rescue LoadError
+  return
+end
 
-  class Bullet::Notification::Base
-    module Extension
-      extend T::Sig
+class Bullet::Notification::Base
+  module Extension
+    extend T::Sig
 
-      # Don't log user.
-      sig { returns(T.nilable(String)) }
-      def whoami
-        nil
-      end
+    # Don't log user.
+    sig { returns(T.nilable(String)) }
+    def whoami
+      nil
     end
-
-    prepend Extension
   end
+
+  prepend Extension
 end

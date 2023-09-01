@@ -1,4 +1,4 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 require "rails"
@@ -38,10 +38,17 @@ module Discordrb
         end
       end
 
+      # == Initializer
+      sig { params(args: T.untyped, kwargs: T.untyped).void }
+      def initialize(*args, **kwargs)
+        super
+        @enabled_modes = T.let(@enabled_modes, T::Array[Symbol])
+      end
+
+      # == Methods
       sig { params(e: Exception).void }
       def log_exception(e)
-        T.bind(self, T.untyped)
-        error(e.to_s)
+        public_send(:error, e.to_s)
       end
 
       private
