@@ -126,6 +126,7 @@ export const EMAIL_THEME: MantineThemeOverride = {
       margin: 8,
       fontSize: 14,
       backgroundColor: white,
+      textTransform: "lowercase",
     },
   }),
 };

@@ -14,11 +14,11 @@ const UserWelcomeEmail: PageComponent<UserWelcomeEmailProps> = ({
   const { name } = user;
   return (
     <>
-      <Text>Hi, {name}!</Text>
+      <Text>hi, {name}!</Text>
       <Text>
-        Thanks for registering for an account on my website.
+        thanks for registering for an account on my website.
         <br />
-        I&apos;ll keep you posted when there&apos;s more stuff you can do on
+        i&apos;ll keep you posted when there&apos;s more stuff you can do on
         here :)
       </Text>
     </>
@@ -26,7 +26,7 @@ const UserWelcomeEmail: PageComponent<UserWelcomeEmailProps> = ({
 };
 
 UserWelcomeEmail.layout = buildLayout<UserWelcomeEmailProps>(page => (
-  <EmailLayout header="Welcome to It's Kai!">{page}</EmailLayout>
+  <EmailLayout header="welcome!!!">{page}</EmailLayout>
 ));
 
 export default UserWelcomeEmail;

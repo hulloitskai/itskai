@@ -19,30 +19,29 @@ export type EmailLayoutProps = PropsWithChildren<{
 
 const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
   <>
-    {!!preview && (
-      <Preview style={{ textTransform: "lowercase" }}>{preview}</Preview>
-    )}
-    <Body style={{ textTransform: "lowercase" }}>
+    {!!preview && <Preview>{preview}</Preview>}
+    <Box
+      component={Body}
+      sx={({ colors }) => ({
+        '[data-id="react-email-text"]': {
+          color: colors.gray[8],
+        },
+      })}
+    >
       <Box component={Container} mx="auto" px={12} py={16}>
         {!!header && (
           <Box
             component={Heading}
             my={24}
-            sx={({ headings }) => headings.sizes.h3 as CSSObject}
+            sx={({ headings: { sizes, ...style } }) => ({
+              ...(sizes.h3 as CSSObject),
+              ...(style as CSSObject),
+            })}
           >
             {header}
           </Box>
         )}
-        <Box
-          component={Section}
-          sx={({ colors }) => ({
-            '[data-id="react-email-text"]': {
-              color: colors.gray[8],
-            },
-          })}
-        >
-          {children}
-        </Box>
+        <Box component={Section}>{children}</Box>
         <Box component={Section} mt={40}>
           <Img src="/logo.png" width="32" height="32" />
           <Box
@@ -55,7 +54,10 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
               component={Link}
               href="/"
               target="_blank"
-              sx={({ colors }) => ({ color: colors.brand[5], fontWeight: 500 })}
+              sx={({ colors }) => ({
+                color: colors.brand[5],
+                fontWeight: 500,
+              })}
             >
               It&apos;s Kai
             </Box>
@@ -63,7 +65,7 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
           </Box>
         </Box>
       </Box>
-    </Body>
+    </Box>
   </>
 );
 

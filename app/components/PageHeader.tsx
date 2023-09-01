@@ -14,7 +14,10 @@ const PageHeader: FC<PageHeaderProps> = ({ title, description, small }) => (
     </MediaQuery>
     <MediaQuery
       smallerThan="xs"
-      styles={({ headings }) => headings.sizes.h2 as CSSObject}
+      styles={({ headings: { sizes, ...style } }) => ({
+        ...(style as CSSObject),
+        ...(sizes.h2 as CSSObject),
+      })}
     >
       <Title order={small ? 2 : 1}>{title}</Title>
     </MediaQuery>

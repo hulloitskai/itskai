@@ -10,7 +10,7 @@ class UserMailer < ApplicationMailer
       inertia: "UserWelcomeEmail",
       props: { data: },
       to: user.email_with_name,
-      subject: "Welcome :)",
+      subject: "welcome to my website :)",
     )
   end
 end
