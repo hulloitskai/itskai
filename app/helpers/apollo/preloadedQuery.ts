@@ -30,11 +30,11 @@ export const usePreloadedQuery = <
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       client.writeQuery({
-        query: query,
+        query,
         variables,
         data: initialData,
       });
-    }, [client, query, initialData]);
+    }, []);
   }
   const { loading, ...otherValues } = useQuery(query, {
     initialFetchPolicy: "cache-only",
