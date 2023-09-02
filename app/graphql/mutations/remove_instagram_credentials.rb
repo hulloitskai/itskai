@@ -13,7 +13,6 @@ module Mutations
         raise GraphQL::ExecutionError, "No existing Instagram credentials."
       credentials = T.let(credentials, InstagramCredentials)
       credentials.destroy!
-      InstagramService.restart
       Payload.new
     end
   end

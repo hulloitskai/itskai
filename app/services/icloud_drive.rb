@@ -4,16 +4,16 @@
 class ICloudDrive
   extend T::Sig
 
-  # == Initializers
-  sig { params(pydrive: T.untyped).void }
-  def initialize(pydrive)
-    @pydrive = pydrive
-  end
-
   # == Current
   sig { returns(T.nilable(ICloudDrive)) }
   def self.current
     ICloudClient.current&.drive
+  end
+
+  # == Initializers
+  sig { params(pydrive: T.untyped).void }
+  def initialize(pydrive)
+    @pydrive = pydrive
   end
 
   # == Methods

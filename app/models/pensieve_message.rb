@@ -77,7 +77,7 @@ class PensieveMessage < ApplicationRecord
   def send!
     validate!
     raise "Can't send a message on behalf of a user" if from == :user
-    telegram_message = Pensieve.send_message(text)
+    telegram_message = PensieveBot.current.send_message(text)
     update!(
       telegram_message_id: telegram_message.message_id,
       timestamp: Time.zone.at(telegram_message.date),
@@ -86,15 +86,11 @@ class PensieveMessage < ApplicationRecord
 
   private
 
-  # == Helpers
-  sig { returns(T::Array[String]) }
-  def badwords = Badwords.current
-
   # == Validators
   sig { void }
   def validate_text_profanity
     text = self.text.downcase
-    if badwords.any? { |word| text.include?(word) }
+    if Badwords.current.words.any? { |word| text.include?(word) }
       errors.add(:text, "contains profanity")
     end
   end

@@ -71,7 +71,7 @@ class JournalEntry < ApplicationRecord
 
   sig { void }
   def self.import!
-    notion_pages = NotionService.list_pages(
+    notion_pages = NotionClient.current.list_pages(
       notion_database_id,
       filter: {
         "property" => "Published",
@@ -124,7 +124,7 @@ class JournalEntry < ApplicationRecord
 
   sig { void }
   def download
-    content = NotionService.retrieve_content(notion_page_id)
+    content = NotionClient.current.retrieve_page_content(notion_page_id)
     redactor = Redactor.new(notion_page)
     redactor.redact_blocks!(content)
     update!(content:)
@@ -147,16 +147,16 @@ class JournalEntry < ApplicationRecord
 
   sig { returns(T.untyped) }
   def notion_page
-    NotionService.retrieve_page(notion_page_id)
+    NotionClient.current.retrieve_page(notion_page_id)
   end
 
   sig { returns(T::Array[T.untyped]) }
   def notion_comments
-    NotionService.list_comments(notion_page_id)
+    NotionClient.current.list_comments(notion_page_id)
   end
 
   sig { params(text: String).returns(T.untyped) }
   def create_notion_comment(text)
-    NotionService.create_comment(notion_page_id, text:)
+    NotionClient.current.create_comment(notion_page_id, text:)
   end
 end

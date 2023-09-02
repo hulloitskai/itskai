@@ -5,13 +5,13 @@
 Rails.application.configure do
   if Rails.server?
     reloader.to_prepare do
-      puts "=> Running pensieve" # rubocop:disable Rails/Output
-      Pensieve.run
+      puts "=> Starting Pensieve bot" # rubocop:disable Rails/Output
+      Pensieve.start_bot
     end
 
     reloader.before_class_unload do
-      puts "=> Stopping pensieve" # rubocop:disable Rails/Output
-      Pensieve.stop
+      puts "=> Stopping Pensieve bot" # rubocop:disable Rails/Output
+      Pensieve.stop_bot
     end
   end
 end

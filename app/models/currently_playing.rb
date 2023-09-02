@@ -4,54 +4,51 @@
 class CurrentlyPlaying < T::Struct
   extend T::Sig
 
-  class << self
-    extend T::Sig
-
-    # == Current
-    sig { returns(T.nilable(CurrentlyPlaying)) }
-    def current
-      if (json = Rails.cache.fetch(current_key))
-        CurrentlyPlaying.from_json(json)
-      end
-    end
-
-    sig { params(currently_playing: T.nilable(CurrentlyPlaying)).void }
-    def current=(currently_playing)
-      Rails.cache.write(current_key, currently_playing.as_json)
-      trigger_subscriptions(currently_playing)
-    end
-
-    # == Methods
-    sig { void }
-    def start_poll
-      Poll.start
-    end
-
-    sig { void }
-    def stop_poll
-      Poll.stop
-    end
-
-    private
-
-    sig { returns(T.anything) }
-    def current_key
-      %i[currently_playing current]
-    end
-
-    sig { params(currently_playing: T.nilable(CurrentlyPlaying)).void }
-    def trigger_subscriptions(currently_playing)
-      Schema.subscriptions!.trigger(
-        :currently_playing,
-        {},
-        currently_playing.as_json,
-      )
-    end
-  end
+  # == Constants
+  CACHE_KEY = T.let(%i[currently_playing], T.anything)
 
   # == Attributes
   const :progress_milliseconds, Integer
   const :track, RSpotify::Track
+
+  # == Current
+  sig { returns(T.nilable(CurrentlyPlaying)) }
+  def self.current
+    if (json = Rails.cache.fetch(CACHE_KEY))
+      CurrentlyPlaying.from_json(json)
+    end
+  end
+
+  sig { params(currently_playing: T.nilable(CurrentlyPlaying)).void }
+  def self.current=(currently_playing)
+    Rails.cache.write(CACHE_KEY, currently_playing.as_json)
+    trigger_subscriptions(currently_playing)
+  end
+
+  sig { params(currently_playing: T.nilable(CurrentlyPlaying)).void }
+  private_class_method def self.trigger_subscriptions(currently_playing)
+    Schema.subscriptions!.trigger(
+      :currently_playing,
+      {},
+      currently_playing.as_json,
+    )
+  end
+
+  # == Polling
+  sig { returns(CurrentlyPlayingPoll) }
+  def self.poll
+    CurrentlyPlayingPoll.current
+  end
+
+  sig { void }
+  def self.start_poll
+    poll.start
+  end
+
+  sig { void }
+  def self.stop_poll
+    poll.stop
+  end
 
   # == Methods
   sig { override.params(other: BasicObject).returns(T::Boolean) }

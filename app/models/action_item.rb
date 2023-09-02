@@ -24,6 +24,6 @@ class ActionItem < ApplicationModel
   sig { returns(T.untyped) }
   def create_notion_page
     validate!
-    NotionService.create_page(notion_database_id, name: name!)
+    NotionClient.current.create_page(notion_database_id, name: name!)
   end
 end

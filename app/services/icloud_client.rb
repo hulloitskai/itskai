@@ -122,6 +122,8 @@ class ICloudClient
 
   sig { returns(T::Hash[String, ICloudDevice]) }
   def devices_by_id
-    @pyclient.devices.to_h.transform_values { |value| ICloudDevice.new(value) }
+    @pyclient.devices.to_h.transform_values do |value|
+      ICloudDevice.new(value)
+    end
   end
 end

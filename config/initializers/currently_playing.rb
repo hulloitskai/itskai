@@ -5,7 +5,7 @@
 Rails.application.configure do
   if Rails.server?
     reloader.to_prepare do
-      puts "=> Polling currently playing" # rubocop:disable Rails/Output
+      puts "=> Polling for currently playing" # rubocop:disable Rails/Output
       CurrentlyPlaying.start_poll
     end
 

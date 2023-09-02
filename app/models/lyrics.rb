@@ -43,7 +43,6 @@ class Lyrics < Array
   end
 
   # == Helpers
-
   sig { params(words: String).returns(String) }
   private_class_method def self.normalize_words(words)
     words = words.strip
@@ -54,9 +53,14 @@ class Lyrics < Array
   private_class_method def self.explicit_words?(words)
     if words.present?
       normalized_words = words.downcase
-      Badwords.current.any? { |word| normalized_words.include?(word) }
+      badwords.any? { |word| normalized_words.include?(word) }
     else
       false
     end
+  end
+
+  sig { returns(T::Array[String]) }
+  private_class_method def self.badwords
+    Badwords.current.words
   end
 end

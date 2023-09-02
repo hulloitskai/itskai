@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-module Announcement
+class Announcement
   class << self
     extend T::Sig
 

@@ -96,6 +96,7 @@ export const APP_THEME: MantineThemeOverride = {
     Modal: {
       styles: ({ headings: { sizes, ...style } }) => ({
         title: {
+          textTransform: "lowercase",
           ...(sizes.h3 as CSSObject),
           ...(style as CSSObject),
         },

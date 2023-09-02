@@ -22,19 +22,24 @@ class Scottcall < ApplicationRecord
 
   # == Methods
   sig { returns(String) }
-  def self.contact_phone = Owner.phone!
+  def self.contact_phone
+    Owner.phone!
+  end
 
   sig do
     params(signal: T.any(Symbol, String, Enumerize::Value)).returns(Scottcall)
   end
   def self.dial!(signal)
-    call = TelnyxCall.dial(contact_phone, display_name: self.class.name)
+    call = TelnyxClient.current.dial(
+      contact_phone,
+      display_name: self.class.name,
+    )
     create!(signal:, telnyx_call_control_id: call.control_id)
   end
 
   sig { void }
   def respond
-    TelnyxCall.speak(telnyx_call_control_id, message)
+    TelnyxClient.current.speak(telnyx_call_control_id, message)
   end
 
   sig { returns(String) }

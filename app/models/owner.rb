@@ -26,7 +26,7 @@ module Owner
       phone or raise "Owner phone number not set"
     end
 
-    # == Methods
+    # == Current
     sig { returns(T.nilable(User)) }
     def current
       User.find_by(email: email!)

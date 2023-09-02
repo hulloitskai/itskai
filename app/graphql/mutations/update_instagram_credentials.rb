@@ -29,7 +29,7 @@ module Mutations
                           InstagramCredentials)
       authorize!(credentials, to: :update?)
       if credentials.update(session: nil, **attributes)
-        InstagramService.authenticate(credentials, security_code:)
+        InstagramClient.from_credentials(credentials, security_code:)
         Payload.new(credentials:)
       else
         Payload.new(errors: credentials.input_field_errors)
