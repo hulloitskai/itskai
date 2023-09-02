@@ -28,13 +28,13 @@ class Scottcall < ApplicationRecord
     params(signal: T.any(Symbol, String, Enumerize::Value)).returns(Scottcall)
   end
   def self.dial!(signal)
-    call = TelnyxService.dial(contact_phone, display_name: self.class.name)
+    call = TelnyxCall.dial(contact_phone, display_name: self.class.name)
     create!(signal:, telnyx_call_control_id: call.control_id)
   end
 
   sig { void }
   def respond
-    TelnyxService.speak(telnyx_call_control_id, message)
+    TelnyxCall.speak(telnyx_call_control_id, message)
   end
 
   sig { returns(String) }

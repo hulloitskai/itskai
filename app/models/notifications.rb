@@ -5,7 +5,7 @@ module Notifications
   class << self
     extend T::Sig
 
-    # == Methods
+    # == Accessors
     sig { returns(T.nilable(String)) }
     def email
       ENV["NOTIFICATIONS_EMAIL"]

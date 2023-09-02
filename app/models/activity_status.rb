@@ -1,19 +1,19 @@
 # typed: strict
 # frozen_string_literal: true
 
-class ActivityStatus
+module ActivityStatus
   class << self
     extend T::Sig
 
-    # == Methods
+    # == Current
     sig { returns(T.nilable(String)) }
     def current
-      Rails.cache.read(value_key)
+      Rails.cache.read(current_key)
     end
 
     sig { params(status: String).void }
     def current=(status)
-      Rails.cache.write(value_key, status, expires_in: duration)
+      Rails.cache.write(current_key, status, expires_in: duration)
       ClearActivityStatusJob.set(wait: duration).perform_later
       trigger_subscriptions(status)
     end
@@ -27,8 +27,8 @@ class ActivityStatus
 
     # == Helpers
     sig { returns(T.anything) }
-    def value_key
-      %i[activity_status value]
+    def current_key
+      %i[activity_status current]
     end
 
     sig { returns(ActiveSupport::Duration) }

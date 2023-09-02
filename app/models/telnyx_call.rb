@@ -1,35 +1,14 @@
 # typed: strict
 # frozen_string_literal: true
 
-class TelnyxService < ApplicationService
+class TelnyxCall < T::Struct
   class << self
-    # == Lifecycle
-    sig { override.returns(T::Boolean) }
-    def disabled?
-      return !!@disabled if defined?(@disabled)
-      @disabled = T.let(@disabled, T.nilable(T::Boolean))
-      @disabled = [api_key, app_id, number].any?(&:nil?) || super
-    end
-
-    # == Settings
-    sig { returns(T.nilable(String)) }
-    def api_key
-      setting("API_KEY")
-    end
-
-    sig { returns(T.nilable(String)) }
-    def app_id
-      setting("APP_ID")
-    end
-
-    sig { returns(T.nilable(String)) }
-    def number
-      setting("NUMBER")
-    end
+    extend T::Sig
 
     # == Methods
     sig do
-      params(number: String, display_name: T.nilable(String)).returns(Call)
+      params(number: String, display_name: T.nilable(String))
+        .returns(T.attached_class)
     end
     def dial(number, display_name: nil)
       response = HTTParty.post(
@@ -39,15 +18,15 @@ class TelnyxService < ApplicationService
             "Content-Type" => "application/json",
           },
           body: {
-            connection_id: app_id,
-            from: self.number,
+            connection_id: Telnyx.app_id!,
+            from: Telnyx.number!,
             from_display_name: display_name,
             to: number,
           }.to_json,
         }),
       )
       handle_response_errors(response)
-      Call.new(control_id: response.dig("data", "call_control_id"))
+      new(control_id: response.dig("data", "call_control_id"))
     end
 
     sig { params(call_control_id: String, message: String).void }
@@ -73,11 +52,7 @@ class TelnyxService < ApplicationService
     # == Helpers
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def default_request_options
-      {
-        headers: {
-          "Authorization" => "Bearer #{api_key}",
-        },
-      }
+      { headers: { "Authorization" => "Bearer #{Telnyx.api_key!}" } }
     end
 
     sig { params(response: T.untyped).returns(NilClass) }
@@ -89,4 +64,7 @@ class TelnyxService < ApplicationService
       end
     end
   end
+
+  # == Properties
+  const :control_id, String
 end

@@ -5,7 +5,7 @@ module Contact
   class << self
     extend T::Sig
 
-    # == Methods
+    # == Accessors
     sig { returns(T.nilable(String)) }
     def email
       ENV["CONTACT_EMAIL"]

@@ -10,7 +10,7 @@ class ScottcallsController < ApplicationController
     if data["event_type"] == "call.answered"
       call_control_id = T.let(data.dig("payload", "call_control_id"), String)
       call = Scottcall.find_by!(telnyx_call_control_id: call_control_id)
-      TelnyxService.speak(call_control_id, call.message)
+      TelnyxCall.speak(call_control_id, call.message)
     end
   end
 

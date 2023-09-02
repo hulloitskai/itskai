@@ -5,7 +5,7 @@ module Owner
   class << self
     extend T::Sig
 
-    # == Methods
+    # == Accessors
     sig { returns(T.nilable(String)) }
     def email
       ENV["OWNER_EMAIL"]
@@ -26,7 +26,7 @@ module Owner
       phone or raise "Owner phone number not set"
     end
 
-    # == Finders
+    # == Methods
     sig { returns(T.nilable(User)) }
     def current
       User.find_by(email: email!)

@@ -8,7 +8,7 @@ class InputFieldErrors < Array
   # == Annotations
   Elem = type_member { { fixed: InputFieldError } }
 
-  # == Initializers
+  # == Builders
   sig do
     params(model_errors: T::Enumerable[ActiveModel::Error])
       .returns(InputFieldErrors)

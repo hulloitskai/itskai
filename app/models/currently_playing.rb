@@ -7,32 +7,36 @@ class CurrentlyPlaying < T::Struct
   class << self
     extend T::Sig
 
-    # == Polling
-    sig { void }
-    def poll = Poll.start
-
-    sig { void }
-    def unpoll = Poll.stop
-
-    # == Methods
+    # == Current
     sig { returns(T.nilable(CurrentlyPlaying)) }
     def current
-      if (json = Rails.cache.fetch(value_key))
+      if (json = Rails.cache.fetch(current_key))
         CurrentlyPlaying.from_json(json)
       end
     end
 
     sig { params(currently_playing: T.nilable(CurrentlyPlaying)).void }
     def current=(currently_playing)
-      Rails.cache.write(value_key, currently_playing.as_json)
+      Rails.cache.write(current_key, currently_playing.as_json)
       trigger_subscriptions(currently_playing)
+    end
+
+    # == Methods
+    sig { void }
+    def start_poll
+      Poll.start
+    end
+
+    sig { void }
+    def stop_poll
+      Poll.stop
     end
 
     private
 
     sig { returns(T.anything) }
-    def value_key
-      %i[currently_playing value]
+    def current_key
+      %i[currently_playing current]
     end
 
     sig { params(currently_playing: T.nilable(CurrentlyPlaying)).void }

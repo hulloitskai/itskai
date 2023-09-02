@@ -7,12 +7,8 @@ Rails.application.configure do
       NotionService.start
       ICloudService.start
       InstagramService.start
-      SpotifyService.start
-      TelnyxService.start
     end
     reloader.before_class_unload do
-      TelnyxService.stop
-      SpotifyService.stop
       InstagramService.stop
       ICloudService.stop
       NotionService.stop

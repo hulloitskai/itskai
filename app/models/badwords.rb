@@ -5,6 +5,7 @@ module Badwords
   class << self
     extend T::Sig
 
+    # == Current
     sig { returns(T::Array[String]) }
     def current
       @value = T.let(@badwords, T.nilable(T::Array[String]))

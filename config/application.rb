@@ -25,8 +25,12 @@ module ItsKai
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults(7.0)
 
-    # == Extensions
+    # == Code Loading
     config.before_configuration do
+      # == Libraries
+      require "spotify"
+
+      # == Extensions
       require "action_policy_ext"
       require "better_errors_ext"
       require "bullet_ext"
@@ -37,10 +41,10 @@ module ItsKai
       require "email_validator_ext"
       require "devise_ext"
       require "friendly_id_ext"
+      require "google_ext"
       # require "discordrb_ext"
     end
 
-    # == Code Loading
     # See: https://edgeguides.rubyonrails.org/autoloading_and_reloading_constants.html#load_path
     config.add_autoload_paths_to_load_path = false
 

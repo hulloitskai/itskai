@@ -14,7 +14,7 @@ module Logging
     extend T::Helpers
 
     # == Annotations
-    requires_ancestor { T.class_of(Object) }
+    requires_ancestor { Module }
 
     # == Methods
     sig { returns(ActiveSupport::Logger) }

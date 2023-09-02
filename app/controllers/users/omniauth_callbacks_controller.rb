@@ -32,7 +32,6 @@ module Users
             "#{refresh_token})",
         )
       end
-      SpotifyService.authenticate(credentials)
       set_flash_message(:notice, :success, kind: "Spotify")
       redirect_to(edit_registration_path(current_user))
       response.set_header("Location", response.get_header("Location") + "#")

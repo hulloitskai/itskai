@@ -37,7 +37,7 @@ class CurrentlyPlaying
 
       sig { returns(T::Boolean) }
       def update
-        value = SpotifyService.retrieve_currently_playing
+        value = SpotifyUser.current&.currently_playing
         if value != CurrentlyPlaying.current
           CurrentlyPlaying.current = value
           tag_logger do

@@ -14,7 +14,6 @@ module Mutations
         raise GraphQL::ExecutionError, "No existing Spotify credentials."
       end
       credentials.destroy!
-      SpotifyService.restart
       Payload.new
     end
   end

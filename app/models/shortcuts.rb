@@ -5,7 +5,7 @@ module Shortcuts
   class << self
     extend T::Sig
 
-    # == Methods
+    # == Accessors
     sig { returns(T.nilable(String)) }
     def secret_key
       ENV["SHORTCUTS_SECRET_KEY"]

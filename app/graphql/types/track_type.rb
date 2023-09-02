@@ -15,7 +15,7 @@ module Types
     # == Resolvers
     sig { returns(T.nilable(T::Array[LyricLine])) }
     def lyrics
-      SpotifyService.retrieve_lyrics(track_id: object.id)
+      Lyrics.for_track(object.id)
     end
 
     sig { returns(String) }

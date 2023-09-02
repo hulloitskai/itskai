@@ -1,12 +1,13 @@
 # typed: strict
 # frozen_string_literal: true
 
-module Announcements
+module Announcement
   class << self
     extend T::Sig
 
+    # == Current
     sig { returns(T.nilable(String)) }
-    def announcement
+    def current
       ENV["ANNOUNCEMENT"].presence
     end
   end
