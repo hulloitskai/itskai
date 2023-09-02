@@ -5,9 +5,10 @@ class ApplicationMailer < ActionMailer::Base
   extend T::Sig
   extend T::Helpers
   include GraphQL::Querying
+  include Routing
 
   # == Configuration
-  default from: :default_sender, reply_to: ENV["RAILS_MAILER_REPLY_TO"]
+  default from: :default_sender, reply_to: :default_reply_to
   layout "mailer"
 
   # == Querying
@@ -25,5 +26,10 @@ class ApplicationMailer < ActionMailer::Base
   sig { returns(String) }
   def default_sender
     ENV["RAILS_MAILER_FROM"] or raise "Missing default from address"
+  end
+
+  sig { returns(T.nilable(String)) }
+  def default_reply_to
+    ENV["RAILS_MAILER_REPLY_TO"]
   end
 end
