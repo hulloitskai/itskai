@@ -21,7 +21,8 @@ module Mutations
         raise GraphQL::ExecutionError, "Missing iCloud credentials."
       credentials = T.let(credentials, ICloudCredentials)
       authorize!(credentials, to: :update?)
-      unless ICloudService.verify_security_code(code)
+      client = ICloudClient.from_credentials(credentials)
+      unless client.verify_security_code(code)
         raise GraphQL::ExecutionError, "Invalid security code."
       end
       Payload.new(credentials:)

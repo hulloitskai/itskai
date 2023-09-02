@@ -12,24 +12,9 @@ class SpotifyUser < RSpotify::User
     end
   end
 
-  # == Methods
-  sig { returns(T.nilable(CurrentlyPlaying)) }
-  def currently_playing
-    endpoint = "me/player/currently-playing"
-    result = RSpotify.resolve_auth_request(id, endpoint)
-    CurrentlyPlaying.new(
-      track: RSpotify::Track.new(result["item"]),
-      progress_milliseconds: result["progress_ms"],
-    ) if result["is_playing"]
-  rescue RestClient::BadGateway
-    # Suppress sporadic errors caused by weird bugs in the RSpotify library,
-    # as well as certain network errors.
-    nil
-  end
-
-  # == Helpers
+  # == Builders
   sig { params(credentials: OAuthCredentials).returns(SpotifyUser) }
-  private_class_method def self.from_credentials(credentials)
+  def self.from_credentials(credentials)
     @users = T.let(@users, T.nilable(T::Hash[OAuthCredentials, SpotifyUser]))
     @users ||= Hash.new do |hash, credentials|
       RSpotify.authenticate(Spotify.client_id!, Spotify.client_secret!)
@@ -43,5 +28,20 @@ class SpotifyUser < RSpotify::User
       hash[credentials] = user
     end
     @users[credentials]
+  end
+
+  # == Methods
+  sig { returns(T.nilable(CurrentlyPlaying)) }
+  def currently_playing
+    endpoint = "me/player/currently-playing"
+    result = RSpotify.resolve_auth_request(id, endpoint)
+    CurrentlyPlaying.new(
+      track: RSpotify::Track.new(result["item"]),
+      progress_milliseconds: result["progress_ms"],
+    ) if result["is_playing"]
+  rescue RestClient::BadGateway
+    # Suppress sporadic errors caused by weird bugs in the RSpotify library,
+    # as well as certain network errors.
+    nil
   end
 end

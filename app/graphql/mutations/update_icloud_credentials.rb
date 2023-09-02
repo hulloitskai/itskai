@@ -24,7 +24,6 @@ module Mutations
                           ICloudCredentials)
       authorize!(credentials, to: :update?)
       if credentials.update(cookies: nil, session: nil, **attributes)
-        ICloudService.authenticate(credentials)
         Payload.new(credentials:)
       else
         Payload.new(errors: credentials.input_field_errors)

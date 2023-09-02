@@ -13,7 +13,6 @@ module Mutations
         raise GraphQL::ExecutionError, "No existing iCloud credentials."
       credentials = T.let(credentials, ICloudCredentials)
       credentials.destroy!
-      ICloudService.restart
       Payload.new
     end
   end

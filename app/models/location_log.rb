@@ -80,7 +80,8 @@ class LocationLog < ApplicationRecord
   # == Importing
   sig { void }
   def self.import!
-    location = ICloudService.iphone.location
+    iphone = ICloudDevice.iphone or return
+    location = iphone.location
     timestamp = Time.zone.at(location[:time_stamp] / 1000)
     unless exists?(timestamp:)
       coordinates = scoped do
