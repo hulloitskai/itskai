@@ -32,4 +32,9 @@ class ApplicationMailer < ActionMailer::Base
   def default_reply_to
     ENV["RAILS_MAILER_REPLY_TO"]
   end
+
+  sig { returns(T.nilable(String)) }
+  def notifications_email
+    Notifications.email
+  end
 end

@@ -15,13 +15,13 @@ class InputFieldError < T::Struct
       field: model_error.attribute.to_s
         .camelize(:lower)
         .gsub(/\[([0-9]+)\]/, '.\1'),
-      message: model_error.full_message,
+      message: model_error.message,
     )
   end
 
-  # == Methods
-  sig { params(path: String).returns(InputFieldError) }
-  def within(path)
-    InputFieldError.new(field: "#{path}.#{field}", message:)
-  end
+  # # == Methods
+  # sig { params(path: String).returns(InputFieldError) }
+  # def within(path)
+  #   InputFieldError.new(field: "#{path}.#{field}", message:)
+  # end
 end
