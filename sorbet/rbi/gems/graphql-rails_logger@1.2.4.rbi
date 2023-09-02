@@ -7,26 +7,26 @@
 # source://graphql-rails_logger//lib/graphql/rails_logger/version.rb#1
 module GraphQL
   class << self
-    # source://graphql/2.0.16/lib/graphql.rb#35
+    # source://graphql/2.0.24/lib/graphql.rb#35
     def default_parser; end
 
-    # source://graphql/2.0.16/lib/graphql.rb#39
+    # source://graphql/2.0.24/lib/graphql.rb#39
     def default_parser=(_arg0); end
 
-    # source://graphql/2.0.16/lib/graphql.rb#45
-    # def parse(graphql_string, tracer: T.unsafe(nil)); end
+    # source://graphql/2.0.24/lib/graphql.rb#45
+    def parse(graphql_string, trace: T.unsafe(nil)); end
 
-    # source://graphql/2.0.16/lib/graphql.rb#52
+    # source://graphql/2.0.24/lib/graphql.rb#52
     def parse_file(filename); end
 
-    # source://graphql/2.0.16/lib/graphql.rb#57
-    # def parse_with_racc(string, filename: T.unsafe(nil), tracer: T.unsafe(nil)); end
+    # source://graphql/2.0.24/lib/graphql.rb#62
+    def parse_with_racc(string, filename: T.unsafe(nil), trace: T.unsafe(nil)); end
 
-    # source://graphql/2.0.16/lib/graphql.rb#62
+    # source://graphql/2.0.24/lib/graphql.rb#58
     def scan(graphql_string); end
 
-    # source://graphql/2.0.16/lib/graphql.rb#66
-    def scan_with_ragel(graphql_string); end
+    # source://graphql/2.0.24/lib/graphql.rb#66
+    def scan_with_ruby(graphql_string); end
   end
 end
 
@@ -113,6 +113,3 @@ end
 
 # source://graphql-rails_logger//lib/graphql/rails_logger/version.rb#3
 GraphQL::RailsLogger::VERSION = T.let(T.unsafe(nil), String)
-
-# source://graphql/2.0.16/lib/graphql/version.rb#3
-GraphQL::VERSION = T.let(T.unsafe(nil), String)

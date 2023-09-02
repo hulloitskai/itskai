@@ -7,13 +7,13 @@
 # source://strong_password//lib/active_model/validations/password_strength_validator.rb#3
 module ActiveModel
   class << self
-    # source://activemodel/7.0.4/lib/active_model.rb#71
+    # source://activemodel/7.0.6/lib/active_model.rb#72
     def eager_load!; end
 
-    # source://activemodel/7.0.4/lib/active_model/gem_version.rb#5
+    # source://activemodel/7.0.6/lib/active_model/gem_version.rb#5
     def gem_version; end
 
-    # source://activemodel/7.0.4/lib/active_model/version.rb#7
+    # source://activemodel/7.0.6/lib/active_model/version.rb#7
     def version; end
   end
 end
@@ -32,35 +32,35 @@ module ActiveModel::Validations
   mixes_in_class_methods ::ActiveModel::Translation
   mixes_in_class_methods ::ActiveModel::Validations::HelperMethods
 
-  # source://activemodel/7.0.4/lib/active_model/validations.rb#301
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#301
   def errors; end
 
-  # source://activemodel/7.0.4/lib/active_model/validations.rb#373
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#373
   def invalid?(context = T.unsafe(nil)); end
 
   def read_attribute_for_validation(*_arg0); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations.rb#334
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#334
   def valid?(context = T.unsafe(nil)); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations.rb#334
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#334
   def validate(context = T.unsafe(nil)); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations.rb#382
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#382
   def validate!(context = T.unsafe(nil)); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations/with.rb#137
+  # source://activemodel/7.0.6/lib/active_model/validations/with.rb#137
   def validates_with(*args, &block); end
 
   private
 
-  # source://activemodel/7.0.4/lib/active_model/validations.rb#283
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#283
   def initialize_dup(other); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations.rb#410
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#410
   def raise_validation_error; end
 
-  # source://activemodel/7.0.4/lib/active_model/validations.rb#405
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#405
   def run_validations!; end
 
   module GeneratedClassMethods
@@ -80,38 +80,36 @@ module ActiveModel::Validations
   end
 end
 
-ActiveModel::Validations::EmailValidator = EmailValidator
-
 # source://strong_password//lib/active_model/validations/password_strength_validator.rb#32
 module ActiveModel::Validations::HelperMethods
-  # source://activemodel/7.0.4/lib/active_model/validations/absence.rb#28
+  # source://activemodel/7.0.6/lib/active_model/validations/absence.rb#28
   def validates_absence_of(*attr_names); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations/acceptance.rb#108
+  # source://activemodel/7.0.6/lib/active_model/validations/acceptance.rb#108
   def validates_acceptance_of(*attr_names); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations/comparison.rb#77
+  # source://activemodel/7.0.6/lib/active_model/validations/comparison.rb#77
   def validates_comparison_of(*attr_names); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations/confirmation.rb#75
+  # source://activemodel/7.0.6/lib/active_model/validations/confirmation.rb#75
   def validates_confirmation_of(*attr_names); end
 
   # source://date_validator/0.12.0/lib/active_model/validations/date_validator.rb#126
   def validates_date_of(*attr_names); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations/exclusion.rb#44
+  # source://activemodel/7.0.6/lib/active_model/validations/exclusion.rb#44
   def validates_exclusion_of(*attr_names); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations/format.rb#108
+  # source://activemodel/7.0.6/lib/active_model/validations/format.rb#108
   def validates_format_of(*attr_names); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations/inclusion.rb#42
+  # source://activemodel/7.0.6/lib/active_model/validations/inclusion.rb#42
   def validates_inclusion_of(*attr_names); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations/length.rb#122
+  # source://activemodel/7.0.6/lib/active_model/validations/length.rb#121
   def validates_length_of(*attr_names); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations/numericality.rb#205
+  # source://activemodel/7.0.6/lib/active_model/validations/numericality.rb#205
   def validates_numericality_of(*attr_names); end
 
   # class User < ActiveRecord::Base
@@ -122,15 +120,15 @@ module ActiveModel::Validations::HelperMethods
   # source://strong_password//lib/active_model/validations/password_strength_validator.rb#38
   def validates_password_strength(*attr_names); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations/presence.rb#34
+  # source://activemodel/7.0.6/lib/active_model/validations/presence.rb#34
   def validates_presence_of(*attr_names); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations/length.rb#122
+  # source://activemodel/7.0.6/lib/active_model/validations/length.rb#121
   def validates_size_of(*attr_names); end
 
   private
 
-  # source://activemodel/7.0.4/lib/active_model/validations/helper_methods.rb#7
+  # source://activemodel/7.0.6/lib/active_model/validations/helper_methods.rb#7
   def _merge_attributes(attr_names); end
 end
 

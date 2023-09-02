@@ -6,91 +6,76 @@
 
 # source://premailer-rails//lib/premailer/rails/version.rb#1
 class Premailer
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#183
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#183
   def initialize(html, options = T.unsafe(nil)); end
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#358
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#358
   def append_query_string(doc, qs); end
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#119
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#119
   def base_dir; end
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#115
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#115
   def base_url; end
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#509
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#509
   def check_client_support; end
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#424
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#424
   def convert_inline_links(doc, base_uri); end
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#128
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#128
   def doc; end
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#112
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#112
   def html_file; end
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#409
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#409
   def is_xhtml?; end
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#344
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#344
   def local_uri?(uri); end
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#352
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#352
   def media_type_ok?(media_types); end
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#125
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#125
   def processed_doc; end
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#122
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#122
   def unmergable_rules; end
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#259
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#259
   def warnings; end
 
   protected
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#300
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#300
   def load_css_from_html!; end
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#266
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#266
   def load_css_from_local_file!(path); end
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#287
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#287
   def load_css_from_options!; end
 
-  # source://premailer/1.18.0/lib/premailer/premailer.rb#282
+  # source://premailer/1.21.0/lib/premailer/premailer.rb#282
   def load_css_from_string(css_string); end
 
   class << self
-    # source://premailer/1.18.0/lib/premailer/premailer.rb#502
+    # source://premailer/1.21.0/lib/premailer/premailer.rb#502
     def canonicalize(uri); end
 
-    # source://premailer/1.18.0/lib/premailer/premailer.rb#470
+    # source://premailer/1.21.0/lib/premailer/premailer.rb#470
     def is_media_query?(media_types); end
 
-    # source://premailer/1.18.0/lib/premailer/premailer.rb#496
+    # source://premailer/1.21.0/lib/premailer/premailer.rb#496
     def local_data?(data); end
 
-    # source://premailer/1.18.0/lib/premailer/premailer.rb#475
+    # source://premailer/1.21.0/lib/premailer/premailer.rb#475
     def resolve_link(path, base_path); end
   end
 end
-
-# source://premailer/1.18.0/lib/premailer/premailer.rb#38
-Premailer::CLIENT_SUPPORT_FILE = T.let(T.unsafe(nil), String)
-
-# source://premailer/1.18.0/lib/premailer/premailer.rb#47
-Premailer::HTML_ENTITIES = T.let(T.unsafe(nil), Hash)
-
-# source://premailer/1.18.0/lib/premailer/premailer.rb#65
-Premailer::RELATED_ATTRIBUTES = T.let(T.unsafe(nil), Hash)
-
-# source://premailer/1.18.0/lib/premailer/premailer.rb#43
-Premailer::RE_RESET_SELECTORS = T.let(T.unsafe(nil), Regexp)
-
-# source://premailer/1.18.0/lib/premailer/premailer.rb#41
-Premailer::RE_UNMERGABLE_SELECTORS = T.let(T.unsafe(nil), Regexp)
 
 # source://premailer-rails//lib/premailer/rails/version.rb#2
 module Premailer::Rails
@@ -211,11 +196,13 @@ module Premailer::Rails::CSSLoaders::NetworkLoader
   # source://premailer-rails//lib/premailer/rails/css_loaders/network_loader.rb#27
   def asset_host_present?; end
 
+  sig { returns(::String) }
   def base_url; end
 
   # source://premailer-rails//lib/premailer/rails/css_loaders/network_loader.rb#7
   def load(url); end
 
+  sig { params(url: ::String).returns(T.nilable(::URI::Generic)) }
   def uri_for_url(url); end
 end
 
@@ -333,9 +320,3 @@ class Premailer::Rails::Railtie < ::Rails::Railtie; end
 
 # source://premailer-rails//lib/premailer/rails/version.rb#3
 Premailer::Rails::VERSION = T.let(T.unsafe(nil), String)
-
-# source://premailer/1.18.0/lib/premailer/version.rb#3
-Premailer::VERSION = T.let(T.unsafe(nil), String)
-
-# source://premailer/1.18.0/lib/premailer/premailer.rb#144
-Premailer::WARN_LABEL = T.let(T.unsafe(nil), Array)

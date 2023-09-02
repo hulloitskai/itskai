@@ -26,13 +26,13 @@
 # source://can_has_validations//lib/can_has_validations/validators/array_validator.rb#35
 module ActiveModel
   class << self
-    # source://activemodel/7.0.4/lib/active_model.rb#71
+    # source://activemodel/7.0.6/lib/active_model.rb#72
     def eager_load!; end
 
-    # source://activemodel/7.0.4/lib/active_model/gem_version.rb#5
+    # source://activemodel/7.0.6/lib/active_model/gem_version.rb#5
     def gem_version; end
 
-    # source://activemodel/7.0.4/lib/active_model/version.rb#7
+    # source://activemodel/7.0.6/lib/active_model/version.rb#7
     def version; end
   end
 end
@@ -59,35 +59,35 @@ module ActiveModel::Validations
   mixes_in_class_methods ::ActiveModel::Translation
   mixes_in_class_methods ::ActiveModel::Validations::HelperMethods
 
-  # source://activemodel/7.0.4/lib/active_model/validations.rb#301
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#301
   def errors; end
 
-  # source://activemodel/7.0.4/lib/active_model/validations.rb#373
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#373
   def invalid?(context = T.unsafe(nil)); end
 
   def read_attribute_for_validation(*_arg0); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations.rb#334
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#334
   def valid?(context = T.unsafe(nil)); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations.rb#334
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#334
   def validate(context = T.unsafe(nil)); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations.rb#382
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#382
   def validate!(context = T.unsafe(nil)); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations/with.rb#137
+  # source://activemodel/7.0.6/lib/active_model/validations/with.rb#137
   def validates_with(*args, &block); end
 
   private
 
-  # source://activemodel/7.0.4/lib/active_model/validations.rb#283
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#283
   def initialize_dup(other); end
 
-  # source://activemodel/7.0.4/lib/active_model/validations.rb#410
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#410
   def raise_validation_error; end
 
-  # source://activemodel/7.0.4/lib/active_model/validations.rb#405
+  # source://activemodel/7.0.6/lib/active_model/validations.rb#405
   def run_validations!; end
 
   module GeneratedClassMethods
@@ -159,8 +159,6 @@ class ActiveModel::Validations::BeforeValidator < ::ActiveModel::EachValidator
   # source://can_has_validations//lib/can_has_validations/validators/ordering_validator.rb#12
   def validate_each(record, attribute, value); end
 end
-
-ActiveModel::Validations::EmailValidator = EmailValidator
 
 # source://can_has_validations//lib/can_has_validations/validators/existence_validator.rb#6
 class ActiveModel::Validations::ExistenceValidator < ::ActiveModel::Validations::PresenceValidator
@@ -258,9 +256,6 @@ class ActiveModel::Validations::UrlValidator < ::ActiveModel::EachValidator
   # source://validate_url/1.0.15/lib/validate_url.rb#52
   def validate_url(record, attribute, value, schemes); end
 end
-
-# source://validate_url/1.0.15/lib/validate_url.rb#9
-ActiveModel::Validations::UrlValidator::RESERVED_OPTIONS = T.let(T.unsafe(nil), Array)
 
 # source://can_has_validations//lib/can_has_validations/validators/write_once_validator.rb#10
 class ActiveModel::Validations::WriteOnceValidator < ::ActiveModel::EachValidator

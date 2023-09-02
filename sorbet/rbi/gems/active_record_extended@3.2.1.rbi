@@ -7,175 +7,183 @@
 # source://active_record_extended//lib/active_record_extended/query_methods/where_chain.rb#124
 module ActiveRecord
   class << self
-    # source://activerecord/7.0.4/lib/active_record.rb#277
+    # source://activerecord/7.0.6/lib/active_record.rb#277
     def action_on_strict_loading_violation; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#277
+    # source://activerecord/7.0.6/lib/active_record.rb#277
     def action_on_strict_loading_violation=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#270
+    # source://activerecord/7.0.6/lib/active_record.rb#270
     def application_record_class; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#270
+    # source://activerecord/7.0.6/lib/active_record.rb#270
     def application_record_class=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#213
+    # source://activerecord/7.0.6/lib/active_record.rb#213
     def async_query_executor; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#213
+    # source://activerecord/7.0.6/lib/active_record.rb#213
     def async_query_executor=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#183
+    # source://activerecord/7.0.6/lib/active_record.rb#183
     def default_timezone; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#187
+    # source://activerecord/7.0.6/lib/active_record.rb#187
     def default_timezone=(default_timezone); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#311
+    # source://activerecord/7.0.6/lib/active_record.rb#311
     def dump_schema_after_migration; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#311
+    # source://activerecord/7.0.6/lib/active_record.rb#311
     def dump_schema_after_migration=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#321
+    # source://activerecord/7.0.6/lib/active_record.rb#321
     def dump_schemas; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#321
+    # source://activerecord/7.0.6/lib/active_record.rb#321
     def dump_schemas=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#357
+    # source://activerecord/7.0.6/lib/active_record.rb#365
     def eager_load!; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#296
+    # source://activerecord/7.0.6/lib/active_record.rb#296
     def error_on_ignored_order; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#296
+    # source://activerecord/7.0.6/lib/active_record.rb#296
     def error_on_ignored_order=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record/gem_version.rb#5
+    # source://activerecord/7.0.6/lib/active_record/gem_version.rb#5
     def gem_version; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#236
+    # source://activerecord/7.0.6/lib/active_record.rb#236
     def global_executor_concurrency; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#228
+    # source://activerecord/7.0.6/lib/active_record.rb#228
     def global_executor_concurrency=(global_executor_concurrency); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#216
+    # source://activerecord/7.0.6/lib/active_record.rb#216
     def global_thread_pool_async_query_executor; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#240
+    # source://activerecord/7.0.6/lib/active_record.rb#240
     def index_nested_attribute_errors; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#240
+    # source://activerecord/7.0.6/lib/active_record.rb#240
     def index_nested_attribute_errors=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#171
+    # source://activerecord/7.0.6/lib/active_record.rb#171
     def lazily_load_schema_cache; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#171
+    # source://activerecord/7.0.6/lib/active_record.rb#171
     def lazily_load_schema_cache=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#180
+    # source://activerecord/7.0.6/lib/active_record.rb#180
     def legacy_connection_handling; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#180
+    # source://activerecord/7.0.6/lib/active_record.rb#180
     def legacy_connection_handling=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#258
+    # source://activerecord/7.0.6/lib/active_record.rb#258
     def maintain_test_schema; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#258
+    # source://activerecord/7.0.6/lib/active_record.rb#258
     def maintain_test_schema=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#340
+    # source://activerecord/7.0.6/lib/active_record.rb#340
     def query_transformers; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#340
+    # source://activerecord/7.0.6/lib/active_record.rb#340
     def query_transformers=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#255
+    # source://activerecord/7.0.6/lib/active_record.rb#255
     def queues; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#255
+    # source://activerecord/7.0.6/lib/active_record.rb#255
     def queues=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#200
+    # source://activerecord/7.0.6/lib/active_record.rb#355
+    def raise_int_wider_than_64bit; end
+
+    # source://activerecord/7.0.6/lib/active_record.rb#355
+    def raise_int_wider_than_64bit=(_arg0); end
+
+    # source://activerecord/7.0.6/lib/active_record.rb#200
     def reading_role; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#200
+    # source://activerecord/7.0.6/lib/active_record.rb#200
     def reading_role=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#177
+    # source://activerecord/7.0.6/lib/active_record.rb#177
     def schema_cache_ignored_tables; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#177
+    # source://activerecord/7.0.6/lib/active_record.rb#177
     def schema_cache_ignored_tables=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#288
+    # source://activerecord/7.0.6/lib/active_record.rb#288
     def schema_format; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#288
+    # source://activerecord/7.0.6/lib/active_record.rb#288
     def schema_format=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#328
+    # source://activerecord/7.0.6/lib/active_record.rb#328
     def suppress_multiple_database_warning; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#328
+    # source://activerecord/7.0.6/lib/active_record.rb#328
     def suppress_multiple_database_warning=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#302
+    # source://activerecord/7.0.6/lib/active_record.rb#302
     def timestamped_migrations; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#302
+    # source://activerecord/7.0.6/lib/active_record.rb#302
     def timestamped_migrations=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#347
+    # source://activerecord/7.0.6/lib/active_record.rb#347
     def use_yaml_unsafe_load; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#347
+    # source://activerecord/7.0.6/lib/active_record.rb#347
     def use_yaml_unsafe_load=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#248
+    # source://activerecord/7.0.6/lib/active_record.rb#248
     def verbose_query_logs; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#248
+    # source://activerecord/7.0.6/lib/active_record.rb#248
     def verbose_query_logs=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#337
+    # source://activerecord/7.0.6/lib/active_record.rb#337
     def verify_foreign_keys_for_fixtures; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#337
+    # source://activerecord/7.0.6/lib/active_record.rb#337
     def verify_foreign_keys_for_fixtures=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record/version.rb#7
+    # source://activerecord/7.0.6/lib/active_record/version.rb#7
     def version; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#267
+    # source://activerecord/7.0.6/lib/active_record.rb#267
     def warn_on_records_fetched_greater_than; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#267
+    # source://activerecord/7.0.6/lib/active_record.rb#267
     def warn_on_records_fetched_greater_than=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#197
+    # source://activerecord/7.0.6/lib/active_record.rb#197
     def writing_role; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#197
+    # source://activerecord/7.0.6/lib/active_record.rb#197
     def writing_role=(_arg0); end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#354
+    # source://activerecord/7.0.6/lib/active_record.rb#362
     def yaml_column_permitted_classes; end
 
-    # source://activerecord/7.0.4/lib/active_record.rb#354
+    # source://activerecord/7.0.6/lib/active_record.rb#362
     def yaml_column_permitted_classes=(_arg0); end
   end
 end
 
 class ActiveRecord::Base
+  include ::StoreModel::ParentAssignment
   include ::ActiveModel::ForbiddenAttributesProtection
   include ::ActiveModel::AttributeAssignment
   include ::ActiveModel::Serialization
   extend ::ActiveRecordExtended::Patch::RelationPatch::QueryDelegation
+  extend ::Geocoder::Model::Base
 end
 
 class ActiveRecord::PredicateBuilder::ArrayHandler
@@ -184,487 +192,472 @@ end
 
 # source://active_record_extended//lib/active_record_extended/query_methods/where_chain.rb#125
 module ActiveRecord::QueryMethods
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#317
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#325
   def _select!(*fields); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#845
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#853
   def and(other); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#853
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#861
   def and!(other); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1219
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1229
   def annotate(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1225
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1235
   def annotate!(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def annotate_values; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def annotate_values=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1280
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1290
   def arel(aliases = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1284
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1294
   def construct_join_dependency(associations, join_type); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1038
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1046
   def create_with(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1042
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1050
   def create_with!(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def create_with_value; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def create_with_value=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1102
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1110
   def distinct(value = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1107
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1115
   def distinct!(value = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def distinct_value; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def distinct_value=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#207
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#215
   def eager_load(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#212
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#220
   def eager_load!(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def eager_load_values; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def eager_load_values=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1261
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1271
   def excluding(*records); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1273
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1283
   def excluding!(records); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1148
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1156
   def extending(*modules, &block); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1156
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1164
   def extending!(*modules, &block); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def extending_values; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def extending_values=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def extensions; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#240
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#248
   def extract_associated(association); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1083
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1091
   def from(value, subquery_name = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1087
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1095
   def from!(value, subquery_name = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def from_clause; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def from_clause=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#363
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#371
   def group(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#368
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#376
   def group!(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def group_values; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def group_values=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#903
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#911
   def having(opts, *rest); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#907
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#915
   def having!(opts, *rest); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def having_clause; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def having_clause=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#447
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#455
   def in_order_of(column, values); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#191
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#199
   def includes(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#196
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#204
   def includes!(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def includes_values; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def includes_values=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#811
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#819
   def invert_where; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#815
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#823
   def invert_where!; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#586
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#594
   def joins(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#591
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#599
   def joins!(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def joins_values; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def joins_values=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#601
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#609
   def left_joins(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#601
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#609
   def left_outer_joins(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#607
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#615
   def left_outer_joins!(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def left_outer_joins_values; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def left_outer_joins_values=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#917
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#925
   def limit(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#921
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#929
   def limit!(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def limit_value; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def limit_value=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#944
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#952
   def lock(locks = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#948
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#956
   def lock!(locks = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def lock_value; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def lock_value=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#987
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#995
   def none; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#991
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#999
   def none!; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#933
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#941
   def offset(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#937
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#945
   def offset!(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def offset_value; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def offset_value=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1177
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1185
   def optimizer_hints(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1182
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1190
   def optimizer_hints!(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def optimizer_hints_values; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def optimizer_hints_values=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#877
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#885
   def or(other); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#885
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#893
   def or!(other); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#425
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#433
   def order(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#433
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#441
   def order!(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def order_values; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def order_values=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#221
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#229
   def preload(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#226
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#234
   def preload!(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def preload_values; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def preload_values=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1001
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1009
   def readonly(value = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1005
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1013
   def readonly!(value = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def readonly_value; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def readonly_value=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#254
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#262
   def references(*table_names); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#259
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#267
   def references!(*table_names); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def references_values; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def references_values=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#471
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#479
   def reorder(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#479
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#487
   def reorder!(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def reordering_value; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def reordering_value=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#332
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#340
   def reselect(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#338
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#346
   def reselect!(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1190
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1198
   def reverse_order; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1194
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1202
   def reverse_order!; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def reverse_order_value; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def reverse_order_value=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#773
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#781
   def rewhere(conditions); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#304
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#312
   def select(*fields); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def select_values; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def select_values=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1205
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1213
   def skip_preloading!; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1200
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1208
   def skip_query_cache!(value = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def skip_query_cache_value; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def skip_query_cache_value=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1016
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1024
   def strict_loading(value = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1020
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1028
   def strict_loading!(value = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def strict_loading_value; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def strict_loading_value=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#831
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#839
   def structurally_compatible?(other); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1231
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1241
   def uniq!(name); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#524
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#532
   def unscope(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#529
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#537
   def unscope!(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def unscope_values; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def unscope_values=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#745
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#753
   def where(*args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#755
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#763
   def where!(opts, *rest); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#139
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#147
   def where_clause; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#143
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#151
   def where_clause=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1261
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1271
   def without(*records); end
 
   protected
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1299
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1309
   def build_having_clause(opts, rest = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1291
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1301
   def build_subquery(subquery_alias, select_value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1299
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1309
   def build_where_clause(opts, rest = T.unsafe(nil)); end
 
   private
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1520
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1530
   def arel_column(field); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1503
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1513
   def arel_columns(columns); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1351
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1361
   def assert_mutability!; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1356
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1366
   def build_arel(aliases = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1384
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1394
   def build_cast_value(name, value); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1388
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1398
   def build_from; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1421
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1431
   def build_join_buckets; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1340
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1350
   def build_join_dependencies; end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1471
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1481
   def build_joins(join_sources, aliases = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1582
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1592
   def build_order(arel); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1493
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1503
   def build_select(arel); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1702
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1712
   def check_if_method_has_arguments!(method_name, args, message = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1639
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1649
   def column_references(order_args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1571
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1581
   def does_not_support_reverse?(order); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1334
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1344
   def each_join_dependencies(join_dependencies = T.unsafe(nil), &block); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1327
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1337
   def lookup_table_klass_from_join_dependencies(table_name); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1652
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1662
   def order_column(field); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1602
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1612
   def preprocess_order_args(order_args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1662
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1672
   def resolve_arel_attributes(attrs); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1542
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1552
   def reverse_sql_order(order_query); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1633
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1643
   def sanitize_order_arguments(order_args); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1403
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1413
   def select_association_list(associations, stashed_joins = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1718
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1728
   def structurally_incompatible_values_for(other); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1536
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1546
   def table_name_matches?(from); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1590
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#1600
   def validate_order_args(args); end
 end
-
-# source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#124
-ActiveRecord::QueryMethods::FROZEN_EMPTY_ARRAY = T.let(T.unsafe(nil), Array)
-
-# source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#125
-ActiveRecord::QueryMethods::FROZEN_EMPTY_HASH = T.let(T.unsafe(nil), Hash)
-
-# source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1713
-ActiveRecord::QueryMethods::STRUCTURAL_VALUE_METHODS = T.let(T.unsafe(nil), Array)
-
-# source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#1587
-ActiveRecord::QueryMethods::VALID_DIRECTIONS = T.let(T.unsafe(nil), Set)
-
-# source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#487
-ActiveRecord::QueryMethods::VALID_UNSCOPING_VALUES = T.let(T.unsafe(nil), Set)
 
 # source://active_record_extended//lib/active_record_extended/query_methods/where_chain.rb#126
 class ActiveRecord::QueryMethods::WhereChain
@@ -672,24 +665,24 @@ class ActiveRecord::QueryMethods::WhereChain
   include ::ActiveRecordExtended::QueryMethods::Inet
   include ::ActiveRecordExtended::QueryMethods::WhereChain
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#16
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#16
   def initialize(scope); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#76
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#76
   def associated(*associations); end
 
   # source://active_record_extended//lib/active_record_extended/query_methods/where_chain.rb#129
   def build_where_chain(opts, rest, &block); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#104
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#108
   def missing(*associations); end
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#50
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#50
   def not(opts, *rest); end
 
   private
 
-  # source://activerecord/7.0.4/lib/active_record/relation/query_methods.rb#115
+  # source://activerecord/7.0.6/lib/active_record/relation/query_methods.rb#123
   def scope_association_reflection(association); end
 end
 
@@ -711,9 +704,6 @@ end
 class ActiveRecord::Relation::WhereClause
   include ::ActiveRecordExtended::Patch::WhereClausePatch
 end
-
-# source://activerecord/7.0.4/lib/active_record/errors.rb#347
-ActiveRecord::UnknownAttributeError = ActiveModel::UnknownAttributeError
 
 # source://active_record_extended//lib/active_record_extended/version.rb#3
 module ActiveRecordExtended
@@ -1980,30 +1970,27 @@ end
 # source://active_record_extended//lib/active_record_extended/arel/nodes.rb#6
 module Arel
   class << self
-    # source://activerecord/7.0.4/lib/arel.rb#46
+    # source://activerecord/7.0.6/lib/arel.rb#46
     def arel_node?(value); end
 
-    # source://activerecord/7.0.4/lib/arel.rb#50
+    # source://activerecord/7.0.6/lib/arel.rb#50
     def fetch_attribute(value, &block); end
 
     # source://rgeo-activerecord/7.0.1/lib/rgeo/active_record/spatial_expressions.rb#253
     def spatial(arg); end
 
-    # source://activerecord/7.0.4/lib/arel.rb#38
+    # source://activerecord/7.0.6/lib/arel.rb#38
     def sql(raw_sql); end
 
-    # source://activerecord/7.0.4/lib/arel.rb#42
+    # source://activerecord/7.0.6/lib/arel.rb#42
     def star; end
   end
 end
 
-# source://activerecord/7.0.4/lib/arel/attributes/attribute.rb#32
-Arel::Attribute = Arel::Attributes::Attribute
-
 # source://active_record_extended//lib/active_record_extended/arel/nodes.rb#7
 module Arel::Nodes
   class << self
-    # source://activerecord/7.0.4/lib/arel/nodes/casted.rb#48
+    # source://activerecord/7.0.6/lib/arel/nodes/casted.rb#48
     def build_quoted(other, attribute = T.unsafe(nil)); end
   end
 end
@@ -2185,10 +2172,10 @@ module Arel::Predications
   # source://active_record_extended//lib/active_record_extended/arel/predications.rb#7
   def any(other); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#37
+  # source://activerecord/7.0.6/lib/arel/predications.rb#37
   def between(other); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#213
+  # source://activerecord/7.0.6/lib/arel/predications.rb#213
   def concat(other); end
 
   # source://active_record_extended//lib/active_record_extended/arel/predications.rb#26
@@ -2197,52 +2184,52 @@ module Arel::Predications
   # source://active_record_extended//lib/active_record_extended/arel/predications.rb#22
   def contains(other); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#145
+  # source://activerecord/7.0.6/lib/arel/predications.rb#145
   def does_not_match(other, escape = T.unsafe(nil), case_sensitive = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#157
+  # source://activerecord/7.0.6/lib/arel/predications.rb#157
   def does_not_match_all(others, escape = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#153
+  # source://activerecord/7.0.6/lib/arel/predications.rb#153
   def does_not_match_any(others, escape = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#149
+  # source://activerecord/7.0.6/lib/arel/predications.rb#149
   def does_not_match_regexp(other, case_sensitive = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#17
+  # source://activerecord/7.0.6/lib/arel/predications.rb#17
   def eq(other); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#33
+  # source://activerecord/7.0.6/lib/arel/predications.rb#33
   def eq_all(others); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#29
+  # source://activerecord/7.0.6/lib/arel/predications.rb#29
   def eq_any(others); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#173
+  # source://activerecord/7.0.6/lib/arel/predications.rb#173
   def gt(right); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#181
+  # source://activerecord/7.0.6/lib/arel/predications.rb#181
   def gt_all(others); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#177
+  # source://activerecord/7.0.6/lib/arel/predications.rb#177
   def gt_any(others); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#161
+  # source://activerecord/7.0.6/lib/arel/predications.rb#161
   def gteq(right); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#169
+  # source://activerecord/7.0.6/lib/arel/predications.rb#169
   def gteq_all(others); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#165
+  # source://activerecord/7.0.6/lib/arel/predications.rb#165
   def gteq_any(others); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#63
+  # source://activerecord/7.0.6/lib/arel/predications.rb#63
   def in(other); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#78
+  # source://activerecord/7.0.6/lib/arel/predications.rb#78
   def in_all(others); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#74
+  # source://activerecord/7.0.6/lib/arel/predications.rb#74
   def in_any(others); end
 
   # source://active_record_extended//lib/active_record_extended/arel/predications.rb#38
@@ -2260,61 +2247,61 @@ module Arel::Predications
   # source://active_record_extended//lib/active_record_extended/arel/predications.rb#34
   def inet_contains_or_is_contained_within(other); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#25
+  # source://activerecord/7.0.6/lib/arel/predications.rb#25
   def is_distinct_from(other); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#21
+  # source://activerecord/7.0.6/lib/arel/predications.rb#21
   def is_not_distinct_from(other); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#185
+  # source://activerecord/7.0.6/lib/arel/predications.rb#185
   def lt(right); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#193
+  # source://activerecord/7.0.6/lib/arel/predications.rb#193
   def lt_all(others); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#189
+  # source://activerecord/7.0.6/lib/arel/predications.rb#189
   def lt_any(others); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#197
+  # source://activerecord/7.0.6/lib/arel/predications.rb#197
   def lteq(right); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#205
+  # source://activerecord/7.0.6/lib/arel/predications.rb#205
   def lteq_all(others); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#201
+  # source://activerecord/7.0.6/lib/arel/predications.rb#201
   def lteq_any(others); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#129
+  # source://activerecord/7.0.6/lib/arel/predications.rb#129
   def matches(other, escape = T.unsafe(nil), case_sensitive = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#141
+  # source://activerecord/7.0.6/lib/arel/predications.rb#141
   def matches_all(others, escape = T.unsafe(nil), case_sensitive = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#137
+  # source://activerecord/7.0.6/lib/arel/predications.rb#137
   def matches_any(others, escape = T.unsafe(nil), case_sensitive = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#133
+  # source://activerecord/7.0.6/lib/arel/predications.rb#133
   def matches_regexp(other, case_sensitive = T.unsafe(nil)); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#82
+  # source://activerecord/7.0.6/lib/arel/predications.rb#82
   def not_between(other); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#5
+  # source://activerecord/7.0.6/lib/arel/predications.rb#5
   def not_eq(other); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#13
+  # source://activerecord/7.0.6/lib/arel/predications.rb#13
   def not_eq_all(others); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#9
+  # source://activerecord/7.0.6/lib/arel/predications.rb#9
   def not_eq_any(others); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#110
+  # source://activerecord/7.0.6/lib/arel/predications.rb#110
   def not_in(other); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#125
+  # source://activerecord/7.0.6/lib/arel/predications.rb#125
   def not_in_all(others); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#121
+  # source://activerecord/7.0.6/lib/arel/predications.rb#121
   def not_in_any(others); end
 
   # source://active_record_extended//lib/active_record_extended/arel/predications.rb#17
@@ -2323,35 +2310,32 @@ module Arel::Predications
   # source://active_record_extended//lib/active_record_extended/arel/predications.rb#17
   def overlaps(other); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#225
+  # source://activerecord/7.0.6/lib/arel/predications.rb#225
   def quoted_array(others); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#209
+  # source://activerecord/7.0.6/lib/arel/predications.rb#209
   def when(right); end
 
   private
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#237
+  # source://activerecord/7.0.6/lib/arel/predications.rb#237
   def grouping_all(method_id, others, *extras); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#230
+  # source://activerecord/7.0.6/lib/arel/predications.rb#230
   def grouping_any(method_id, others, *extras); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#246
+  # source://activerecord/7.0.6/lib/arel/predications.rb#246
   def infinity?(value); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#254
+  # source://activerecord/7.0.6/lib/arel/predications.rb#254
   def open_ended?(value); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#242
+  # source://activerecord/7.0.6/lib/arel/predications.rb#242
   def quoted_node(other); end
 
-  # source://activerecord/7.0.4/lib/arel/predications.rb#250
+  # source://activerecord/7.0.6/lib/arel/predications.rb#250
   def unboundable?(value); end
 end
-
-# source://activerecord/7.0.4/lib/arel.rb#29
-Arel::VERSION = T.let(T.unsafe(nil), String)
 
 class Arel::Visitors::PostgreSQL < ::Arel::Visitors::ToSql
   include ::ActiveRecordExtended::Visitors::PostgreSQLDecorator

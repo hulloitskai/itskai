@@ -10214,11 +10214,13 @@ module GraphQL::Schema::Member::BuildType
 
   class << self
     # @api private
+    sig { params(string: ::String).returns(::String) }
     def camelize(string); end
 
     # Resolves constant from string (based on Rails `ActiveSupport::Inflector.constantize`)
     #
     # @api private
+    sig { params(string: ::String).returns(::String) }
     def constantize(string); end
 
     # @api private
@@ -10234,6 +10236,7 @@ module GraphQL::Schema::Member::BuildType
     def to_type_name(something); end
 
     # @api private
+    sig { params(string: ::String).returns(::String) }
     def underscore(string); end
   end
 end

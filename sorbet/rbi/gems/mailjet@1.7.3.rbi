@@ -11555,27 +11555,3 @@ class RestClient::Payload::Base
   # source://rest-client/2.0.2/lib/restclient/payload.rb#79
   def to_s_inspect; end
 end
-
-# source://rest-client/2.0.2/lib/restclient/exceptions.rb#189
-RestClient::RequestEntityTooLarge = RestClient::PayloadTooLarge
-
-# source://rest-client/2.0.2/lib/restclient/exceptions.rb#189
-RestClient::RequestURITooLong = RestClient::URITooLong
-
-# source://rest-client/2.0.2/lib/restclient/exceptions.rb#189
-RestClient::RequestedRangeNotSatisfiable = RestClient::RangeNotSatisfiable
-
-# source://rest-client/2.0.2/lib/restclient/exceptions.rb#189
-RestClient::ResourceNotFound = RestClient::NotFound
-
-# source://rest-client/2.0.2/lib/restclient/exceptions.rb#17
-RestClient::STATUSES = T.let(T.unsafe(nil), Hash)
-
-# source://rest-client/2.0.2/lib/restclient/exceptions.rb#87
-RestClient::STATUSES_COMPATIBILITY = T.let(T.unsafe(nil), Hash)
-
-# source://rest-client/2.0.2/lib/restclient/version.rb#3
-RestClient::VERSION = T.let(T.unsafe(nil), String)
-
-# source://rest-client/2.0.2/lib/restclient/version.rb#2
-RestClient::VERSION_INFO = T.let(T.unsafe(nil), Array)

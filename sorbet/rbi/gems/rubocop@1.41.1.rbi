@@ -4796,7 +4796,7 @@ class RuboCop::Cop::Corrector < ::Parser::Source::TreeRewriter
 
   # Legacy
   #
-  # source://parser/3.2.0.0/lib/parser/source/tree_rewriter.rb#252
+  # source://parser/3.2.2.3/lib/parser/source/tree_rewriter.rb#252
   def rewrite; end
 
   private
@@ -53764,9 +53764,3 @@ end
 class String
   include ::Comparable
 end
-
-# source://activesupport/7.0.4/lib/active_support/core_ext/object/blank.rb#104
-String::BLANK_RE = T.let(T.unsafe(nil), Regexp)
-
-# source://activesupport/7.0.4/lib/active_support/core_ext/object/blank.rb#105
-String::ENCODED_BLANKS = T.let(T.unsafe(nil), Concurrent::Map)

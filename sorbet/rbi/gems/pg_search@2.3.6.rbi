@@ -232,20 +232,20 @@ class PgSearch::Document < ::ActiveRecord::Base
   include ::PgSearch::Model
   extend ::PgSearch::Model::ClassMethods
 
-  # source://activerecord/7.0.4/lib/active_record/autosave_association.rb#160
+  # source://activerecord/7.0.6/lib/active_record/autosave_association.rb#160
   def autosave_associated_records_for_searchable(*args); end
 
   class << self
-    # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
+    # source://activesupport/7.0.6/lib/active_support/callbacks.rb#68
     def __callbacks; end
 
-    # source://activerecord/7.0.4/lib/active_record/reflection.rb#11
+    # source://activerecord/7.0.6/lib/active_record/reflection.rb#11
     def _reflections; end
 
-    # source://activemodel/7.0.4/lib/active_model/validations.rb#52
+    # source://activemodel/7.0.6/lib/active_model/validations.rb#52
     def _validators; end
 
-    # source://activerecord/7.0.4/lib/active_record/enum.rb#116
+    # source://activerecord/7.0.6/lib/active_record/enum.rb#116
     def defined_enums; end
 
     # The logger might not have loaded yet.
@@ -261,19 +261,19 @@ end
 
 # source://pg_search//lib/pg_search/document.rb#0
 module PgSearch::Document::GeneratedAssociationMethods
-  # source://activerecord/7.0.4/lib/active_record/associations/builder/singular_association.rb#19
+  # source://activerecord/7.0.6/lib/active_record/associations/builder/singular_association.rb#19
   def reload_searchable; end
 
-  # source://activerecord/7.0.4/lib/active_record/associations/builder/association.rb#103
+  # source://activerecord/7.0.6/lib/active_record/associations/builder/association.rb#103
   def searchable; end
 
-  # source://activerecord/7.0.4/lib/active_record/associations/builder/association.rb#111
+  # source://activerecord/7.0.6/lib/active_record/associations/builder/association.rb#111
   def searchable=(value); end
 
-  # source://activerecord/7.0.4/lib/active_record/associations/builder/belongs_to.rb#132
+  # source://activerecord/7.0.6/lib/active_record/associations/builder/belongs_to.rb#132
   def searchable_changed?; end
 
-  # source://activerecord/7.0.4/lib/active_record/associations/builder/belongs_to.rb#136
+  # source://activerecord/7.0.6/lib/active_record/associations/builder/belongs_to.rb#136
   def searchable_previously_changed?; end
 end
 

@@ -531,7 +531,7 @@ GEM
     strong_password (0.0.10)
     syntax_tree (6.1.1)
       prettier_print (>= 1.2.0)
-    tapioca (0.11.7)
+    tapioca (0.11.8)
       bundler (>= 2.2.25)
       netrc (>= 0.11.0)
       parallel (>= 1.21.0)
@@ -681,7 +681,7 @@ DEPENDENCIES
   sprockets-rails (~> 3.4)
   store_model (~> 1.6)
   strong_password (~> 0.0.10)
-  tapioca (~> 0.11.7)
+  tapioca (~> 0.11.8)
   telegram-bot-ruby (~> 1.0)
   tzinfo-data
   validate_url (~> 1.0)

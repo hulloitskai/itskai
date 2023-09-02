@@ -36557,8 +36557,8 @@ class ActiveRecord::Validations::UniquenessValidator < ::ActiveModel::EachValida
   # source://activerecord//lib/active_record/validations/uniqueness.rb#6
   def initialize(options); end
 
-  # source://activerecord//lib/active_record/validations/uniqueness.rb#19
-  def validate_each(record, attribute, value); end
+  # source://enumerize/2.7.0/lib/enumerize/hooks/uniqueness.rb#9
+  def validate_each(record, name, value); end
 
   private
 

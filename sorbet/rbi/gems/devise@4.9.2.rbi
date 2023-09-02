@@ -592,6 +592,7 @@ class ActiveRecord::Base
   include ::ActiveModel::ForbiddenAttributesProtection
   include ::ActiveModel::AttributeAssignment
   include ::ActiveModel::Serialization
+  extend ::Geocoder::Model::Base
   extend ::Devise::Models
 end
 
@@ -2017,6 +2018,7 @@ class Devise::FailureApp < ::ActionController::Metal
   # source://devise//lib/devise/failure_app.rb#195
   def http_auth_header?; end
 
+  sig { params(default: T.nilable(T.any(::String, ::Symbol))).returns(::String) }
   def i18n_message(default = T.unsafe(nil)); end
 
   # source://devise//lib/devise/failure_app.rb#96

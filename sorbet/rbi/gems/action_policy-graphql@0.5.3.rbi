@@ -7,25 +7,22 @@
 # source://action_policy-graphql//lib/action_policy/graphql/types/failure_reasons.rb#3
 module ActionPolicy
   class << self
-    # source://action_policy/0.6.3/lib/action_policy.rb#35
+    # source://action_policy/0.6.5/lib/action_policy.rb#35
     def cache_store; end
 
-    # source://action_policy/0.6.3/lib/action_policy.rb#35
+    # source://action_policy/0.6.5/lib/action_policy.rb#35
     def cache_store=(_arg0); end
 
-    # source://action_policy/0.6.3/lib/action_policy.rb#37
+    # source://action_policy/0.6.5/lib/action_policy.rb#37
     def enforce_predicate_rules_naming; end
 
-    # source://action_policy/0.6.3/lib/action_policy.rb#37
+    # source://action_policy/0.6.5/lib/action_policy.rb#37
     def enforce_predicate_rules_naming=(_arg0); end
 
-    # source://action_policy/0.6.3/lib/action_policy.rb#40
+    # source://action_policy/0.6.5/lib/action_policy.rb#40
     def lookup(target, allow_nil: T.unsafe(nil), default: T.unsafe(nil), **options); end
   end
 end
-
-# source://action_policy/0.6.3/lib/action_policy/policy/cache.rb#9
-ActionPolicy::CACHE_NAMESPACE = T.let(T.unsafe(nil), String)
 
 # source://action_policy-graphql//lib/action_policy/graphql/types/failure_reasons.rb#4
 module ActionPolicy::GraphQL
@@ -251,8 +248,15 @@ end
 # source://action_policy-graphql//lib/action_policy/graphql/fields.rb#26
 module ActionPolicy::GraphQL::Fields::ClassMethods
   # @raise [ArgumentError]
-  #
-  # source://action_policy-graphql//lib/action_policy/graphql/fields.rb#27
+  sig do
+    params(
+      rules: ::Symbol,
+      field_name: T.untyped,
+      prefix: T.untyped,
+      field_options: T::Hash[::Symbol, T.untyped],
+      options: T.untyped
+    ).void
+  end
   def expose_authorization_rules(*rules, field_name: T.unsafe(nil), prefix: T.unsafe(nil), field_options: T.unsafe(nil), **options); end
 end
 
@@ -261,6 +265,8 @@ module ActionPolicy::GraphQL::Types; end
 
 # source://action_policy-graphql//lib/action_policy/graphql/types/authorization_result.rb#8
 class ActionPolicy::GraphQL::Types::AuthorizationResult < ::GraphQL::Schema::Object
+  extend ::GraphQL::Schema::Member::HasInterfaces::ClassConfigured::InheritedInterfaces
+
   # source://action_policy-graphql//lib/action_policy/graphql/types/authorization_result.rb#13
   def message; end
 
@@ -270,9 +276,8 @@ end
 
 # source://action_policy-graphql//lib/action_policy/graphql/types/failure_reasons.rb#6
 class ActionPolicy::GraphQL::Types::FailureReasons < ::GraphQL::Schema::Object
+  extend ::GraphQL::Schema::Member::HasInterfaces::ClassConfigured::InheritedInterfaces
+
   # source://action_policy-graphql//lib/action_policy/graphql/types/failure_reasons.rb#10
   def details; end
 end
-
-# source://action_policy/0.6.3/lib/action_policy/version.rb#4
-ActionPolicy::VERSION = T.let(T.unsafe(nil), String)

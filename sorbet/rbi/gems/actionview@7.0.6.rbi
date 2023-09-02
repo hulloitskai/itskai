@@ -14292,7 +14292,7 @@ class ActionView::StreamingTemplateRenderer::Body
 
   # This is the same logging logic as in ShowExceptions middleware.
   #
-  # source://sentry-rails/5.9.0/lib/sentry/rails/overrides/streaming_reporter.rb#5
+  # source://sentry-rails/5.10.0/lib/sentry/rails/overrides/streaming_reporter.rb#5
   def log_error(exception); end
 end
 
@@ -15135,14 +15135,6 @@ end
 #
 # source://actionview//lib/action_view/test_case.rb#12
 class ActionView::TestCase < ::ActiveSupport::TestCase
-  include ::ActionDispatch::TestProcess::FixtureFile
-  include ::ActionDispatch::TestProcess
-  include ::ActionDispatch::Assertions::ResponseAssertions
-  include ::ActionDispatch::Assertions::RoutingAssertions
-  include ::Rails::Dom::Testing::Assertions::DomAssertions
-  include ::Rails::Dom::Testing::Assertions::SelectorAssertions::CountDescribable
-  include ::Rails::Dom::Testing::Assertions::SelectorAssertions
-  include ::Rails::Dom::Testing::Assertions
   include ::AbstractController::Helpers
   include ::ActiveSupport::Benchmarkable
   include ::ActionView::Helpers::ActiveModelHelper
@@ -15162,6 +15154,14 @@ class ActionView::TestCase < ::ActiveSupport::TestCase
   include ::ActionView::Helpers::DebugHelper
   include ::ActionView::Helpers::TextHelper
   include ::ActionView::Helpers::FormTagHelper
+  include ::ActionDispatch::TestProcess::FixtureFile
+  include ::ActionDispatch::TestProcess
+  include ::ActionDispatch::Assertions::ResponseAssertions
+  include ::ActionDispatch::Assertions::RoutingAssertions
+  include ::Rails::Dom::Testing::Assertions::DomAssertions
+  include ::Rails::Dom::Testing::Assertions::SelectorAssertions::CountDescribable
+  include ::Rails::Dom::Testing::Assertions::SelectorAssertions
+  include ::Rails::Dom::Testing::Assertions
   include ::ActionDispatch::Assertions
   include ::ActionController::TemplateAssertions
   include ::ActionView::Context
@@ -15244,7 +15244,6 @@ module ActionView::TestCase::Behavior
   include ::ActionView::RoutingUrlFor
   extend ::ActiveSupport::Concern
   include GeneratedInstanceMethods
-  include ::Rails::Dom::Testing::Assertions
   include ::AbstractController::Helpers
   include ::ActionView::Helpers::UrlHelper
   include ::ActionView::Helpers::SanitizeHelper

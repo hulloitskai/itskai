@@ -9,6 +9,7 @@ class ActiveRecord::Base
   include ::ActiveModel::ForbiddenAttributesProtection
   include ::ActiveModel::AttributeAssignment
   include ::ActiveModel::Serialization
+  extend ::Geocoder::Model::Base
 
   # source://activesupport/7.0.6/lib/active_support/callbacks.rb#68
   def __callbacks; end

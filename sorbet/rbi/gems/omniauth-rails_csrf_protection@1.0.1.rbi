@@ -7,19 +7,19 @@
 # source://omniauth-rails_csrf_protection//lib/omniauth/rails_csrf_protection/version.rb#1
 module OmniAuth
   class << self
-    # source://omniauth/2.1.0/lib/omniauth.rb#130
+    # source://omniauth/2.1.1/lib/omniauth.rb#130
     def config; end
 
-    # source://omniauth/2.1.0/lib/omniauth.rb#134
+    # source://omniauth/2.1.1/lib/omniauth.rb#134
     def configure; end
 
-    # source://omniauth/2.1.0/lib/omniauth.rb#138
+    # source://omniauth/2.1.1/lib/omniauth.rb#138
     def logger; end
 
-    # source://omniauth/2.1.0/lib/omniauth.rb#142
+    # source://omniauth/2.1.1/lib/omniauth.rb#142
     def mock_auth_for(provider); end
 
-    # source://omniauth/2.1.0/lib/omniauth.rb#20
+    # source://omniauth/2.1.1/lib/omniauth.rb#20
     def strategies; end
   end
 end
@@ -54,31 +54,31 @@ class OmniAuth::RailsCsrfProtection::TokenVerifier
   extend ::AbstractController::Callbacks::ClassMethods
   extend ::ActionController::RequestForgeryProtection::ClassMethods
 
-  # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
+  # source://activesupport/7.0.6/lib/active_support/callbacks.rb#68
   def __callbacks; end
 
-  # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
+  # source://activesupport/7.0.6/lib/active_support/callbacks.rb#68
   def __callbacks?; end
 
-  # source://actionpack/7.0.4/lib/abstract_controller/helpers.rb#11
+  # source://actionpack/7.0.6/lib/abstract_controller/helpers.rb#11
   def _helper_methods; end
 
-  # source://actionpack/7.0.4/lib/abstract_controller/helpers.rb#11
+  # source://actionpack/7.0.6/lib/abstract_controller/helpers.rb#11
   def _helper_methods=(_arg0); end
 
-  # source://actionpack/7.0.4/lib/abstract_controller/helpers.rb#11
+  # source://actionpack/7.0.6/lib/abstract_controller/helpers.rb#11
   def _helper_methods?; end
 
-  # source://activesupport/7.0.4/lib/active_support/callbacks.rb#940
+  # source://activesupport/7.0.6/lib/active_support/callbacks.rb#940
   def _process_action_callbacks; end
 
-  # source://activesupport/7.0.4/lib/active_support/callbacks.rb#928
+  # source://activesupport/7.0.6/lib/active_support/callbacks.rb#928
   def _run_process_action_callbacks(&block); end
 
   # source://omniauth-rails_csrf_protection//lib/omniauth/rails_csrf_protection/token_verifier.rb#25
   def allow_forgery_protection; end
 
-  # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def allow_forgery_protection=(value); end
 
   # source://omniauth-rails_csrf_protection//lib/omniauth/rails_csrf_protection/token_verifier.rb#30
@@ -87,25 +87,25 @@ class OmniAuth::RailsCsrfProtection::TokenVerifier
   # source://omniauth-rails_csrf_protection//lib/omniauth/rails_csrf_protection/token_verifier.rb#25
   def default_protect_from_forgery; end
 
-  # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def default_protect_from_forgery=(value); end
 
   # source://omniauth-rails_csrf_protection//lib/omniauth/rails_csrf_protection/token_verifier.rb#25
   def forgery_protection_origin_check; end
 
-  # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def forgery_protection_origin_check=(value); end
 
   # source://omniauth-rails_csrf_protection//lib/omniauth/rails_csrf_protection/token_verifier.rb#25
   def forgery_protection_strategy; end
 
-  # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def forgery_protection_strategy=(value); end
 
   # source://omniauth-rails_csrf_protection//lib/omniauth/rails_csrf_protection/token_verifier.rb#25
   def log_warning_on_csrf_failure; end
 
-  # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def log_warning_on_csrf_failure=(value); end
 
   # source://omniauth-rails_csrf_protection//lib/omniauth/rails_csrf_protection/token_verifier.rb#41
@@ -114,13 +114,13 @@ class OmniAuth::RailsCsrfProtection::TokenVerifier
   # source://omniauth-rails_csrf_protection//lib/omniauth/rails_csrf_protection/token_verifier.rb#25
   def per_form_csrf_tokens; end
 
-  # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def per_form_csrf_tokens=(value); end
 
   # source://omniauth-rails_csrf_protection//lib/omniauth/rails_csrf_protection/token_verifier.rb#25
   def request_forgery_protection_token; end
 
-  # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
+  # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
   def request_forgery_protection_token=(value); end
 
   # source://omniauth-rails_csrf_protection//lib/omniauth/rails_csrf_protection/token_verifier.rb#41
@@ -137,89 +137,89 @@ class OmniAuth::RailsCsrfProtection::TokenVerifier
   def request; end
 
   class << self
-    # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
+    # source://activesupport/7.0.6/lib/active_support/callbacks.rb#68
     def __callbacks; end
 
-    # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
+    # source://activesupport/7.0.6/lib/active_support/callbacks.rb#68
     def __callbacks=(value); end
 
-    # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
+    # source://activesupport/7.0.6/lib/active_support/callbacks.rb#68
     def __callbacks?; end
 
-    # source://actionpack/7.0.4/lib/abstract_controller/helpers.rb#11
+    # source://actionpack/7.0.6/lib/abstract_controller/helpers.rb#11
     def _helper_methods; end
 
-    # source://actionpack/7.0.4/lib/abstract_controller/helpers.rb#11
+    # source://actionpack/7.0.6/lib/abstract_controller/helpers.rb#11
     def _helper_methods=(value); end
 
-    # source://actionpack/7.0.4/lib/abstract_controller/helpers.rb#11
+    # source://actionpack/7.0.6/lib/abstract_controller/helpers.rb#11
     def _helper_methods?; end
 
-    # source://actionpack/7.0.4/lib/abstract_controller/helpers.rb#15
+    # source://actionpack/7.0.6/lib/abstract_controller/helpers.rb#15
     def _helpers; end
 
-    # source://activesupport/7.0.4/lib/active_support/callbacks.rb#932
+    # source://activesupport/7.0.6/lib/active_support/callbacks.rb#932
     def _process_action_callbacks; end
 
-    # source://activesupport/7.0.4/lib/active_support/callbacks.rb#936
+    # source://activesupport/7.0.6/lib/active_support/callbacks.rb#936
     def _process_action_callbacks=(value); end
 
-    # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def allow_forgery_protection; end
 
-    # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def allow_forgery_protection=(value); end
 
-    # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def default_protect_from_forgery; end
 
-    # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def default_protect_from_forgery=(value); end
 
-    # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def forgery_protection_origin_check; end
 
-    # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def forgery_protection_origin_check=(value); end
 
-    # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def forgery_protection_strategy; end
 
-    # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def forgery_protection_strategy=(value); end
 
-    # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def log_warning_on_csrf_failure; end
 
-    # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def log_warning_on_csrf_failure=(value); end
 
-    # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def per_form_csrf_tokens; end
 
-    # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def per_form_csrf_tokens=(value); end
 
-    # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def request_forgery_protection_token; end
 
-    # source://activesupport/7.0.4/lib/active_support/configurable.rb#114
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#114
     def request_forgery_protection_token=(value); end
 
-    # source://activesupport/7.0.4/lib/active_support/configurable.rb#113
+    # source://activesupport/7.0.6/lib/active_support/configurable.rb#113
     def urlsafe_csrf_tokens; end
 
-    # source://actionpack/7.0.4/lib/action_controller/metal/request_forgery_protection.rb#97
+    # source://actionpack/7.0.6/lib/action_controller/metal/request_forgery_protection.rb#97
     def urlsafe_csrf_tokens=(urlsafe_csrf_tokens); end
   end
 end
 
 # source://omniauth-rails_csrf_protection//lib/omniauth/rails_csrf_protection/token_verifier.rb#0
 module OmniAuth::RailsCsrfProtection::TokenVerifier::HelperMethods
-  # source://actionpack/7.0.4/lib/action_controller/metal/request_forgery_protection.rb#106
+  # source://actionpack/7.0.6/lib/action_controller/metal/request_forgery_protection.rb#106
   def form_authenticity_token(*args, **_arg1, &block); end
 
-  # source://actionpack/7.0.4/lib/action_controller/metal/request_forgery_protection.rb#107
+  # source://actionpack/7.0.6/lib/action_controller/metal/request_forgery_protection.rb#107
   def protect_against_forgery?(*args, **_arg1, &block); end
 end
 

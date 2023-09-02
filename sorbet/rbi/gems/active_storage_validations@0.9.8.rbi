@@ -106,7 +106,7 @@ ActiveStorageValidations::DimensionValidator::AVAILABLE_CHECKS = T.let(T.unsafe(
 # source://active_storage_validations//lib/active_storage_validations/engine.rb#4
 class ActiveStorageValidations::Engine < ::Rails::Engine
   class << self
-    # source://activesupport/7.0.4/lib/active_support/callbacks.rb#68
+    # source://activesupport/7.0.6/lib/active_support/callbacks.rb#68
     def __callbacks; end
   end
 end

@@ -4023,7 +4023,7 @@ module ActionController::Live
 
   mixes_in_class_methods ::ActionController::Live::ClassMethods
 
-  # source://sentry-rails/5.9.0/lib/sentry/rails/overrides/streaming_reporter.rb#5
+  # source://sentry-rails/5.10.0/lib/sentry/rails/overrides/streaming_reporter.rb#5
   def log_error(exception); end
 
   # source://actionpack//lib/action_controller/test_case.rb#24
@@ -7787,14 +7787,14 @@ end
 # source://actionpack//lib/action_controller/test_case.rb#335
 class ActionController::TestCase < ::ActiveSupport::TestCase
   include ::ActiveSupport::Testing::ConstantLookup
+  include ::ActionDispatch::TestProcess::FixtureFile
+  include ::ActionDispatch::TestProcess
   include ::ActionDispatch::Assertions::ResponseAssertions
   include ::ActionDispatch::Assertions::RoutingAssertions
   include ::Rails::Dom::Testing::Assertions::DomAssertions
   include ::Rails::Dom::Testing::Assertions::SelectorAssertions::CountDescribable
   include ::Rails::Dom::Testing::Assertions::SelectorAssertions
   include ::Rails::Dom::Testing::Assertions
-  include ::ActionDispatch::TestProcess::FixtureFile
-  include ::ActionDispatch::TestProcess
   include ::ActionController::TestCase::Behavior
   include ::ActionController::TemplateAssertions
   include ::ActionDispatch::Assertions
@@ -7835,10 +7835,13 @@ end
 module ActionController::TestCase::Behavior
   include ::ActionDispatch::TestProcess::FixtureFile
   include ::ActionDispatch::TestProcess
+  include ::Rails::Dom::Testing::Assertions::DomAssertions
+  include ::Rails::Dom::Testing::Assertions::SelectorAssertions::CountDescribable
+  include ::Rails::Dom::Testing::Assertions::SelectorAssertions
+  include ::Rails::Dom::Testing::Assertions
   extend ::ActiveSupport::Concern
   include GeneratedInstanceMethods
   include ::ActiveSupport::Testing::ConstantLookup
-  include ::Rails::Dom::Testing::Assertions
   include ::ActionController::TemplateAssertions
   include ::ActionDispatch::Assertions
 
