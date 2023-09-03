@@ -19,8 +19,8 @@ export type ResumePageProps = PagePropsWithData<ResumePageQuery> & {
 };
 
 const ResumePage: PageComponent<ResumePageProps> = ({
-  data: { resume },
   printable,
+  data: { resume },
 }) => {
   const { basics, work, education, skills } = resume as Resume;
   const { email, profiles } = basics ?? {};

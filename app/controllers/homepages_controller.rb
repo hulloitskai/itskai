@@ -8,13 +8,15 @@ class HomepagesController < ApplicationController
   # == Actions
   def show
     ActivityStatus.current = "Someone landed on the homepage!"
-    journal_entry_id = @journal_entry&.to_gid&.to_s
+    journal_entry = @journal_entry || first_journal_entry
+    journal_entry_id = journal_entry&.to_gid&.to_s
     data = query!("HomePageQuery", {
       journal_entry_id: journal_entry_id || "",
       show_journal_entry: journal_entry_id.present?,
     })
     render(inertia: "HomePage", props: {
       data:,
+      autoscroll: @journal_entry.present?,
       first_journal_entry_id: first_journal_entry&.to_gid&.to_s,
     })
   end
@@ -32,8 +34,6 @@ class HomepagesController < ApplicationController
     @journal_entry = T.let(@entry, T.nilable(JournalEntry))
     @journal_entry = if (id = params["entryId"])
       JournalEntry.find(id.to_s)
-    else
-      first_journal_entry
     end
   end
 end

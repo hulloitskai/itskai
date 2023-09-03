@@ -11,8 +11,8 @@ export type UserEmailVerificationEmailProps =
   };
 
 const UserVerificationEmail: PageComponent<UserEmailVerificationEmailProps> = ({
-  data: { user },
   verificationUrl,
+  data: { user },
 }) => {
   invariant(user, "Missing user");
   const { name } = user;

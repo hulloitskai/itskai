@@ -13,11 +13,13 @@ import Pensieve from "~/components/Pensieve";
 
 export type HomePageProps = PagePropsWithData<HomePageQuery> & {
   readonly firstJournalEntryId: string;
+  readonly autoscroll: boolean;
 };
 
 const HomePage: PageComponent<HomePageProps> = ({
-  data: { announcement, journalEntry, location },
   firstJournalEntryId,
+  autoscroll,
+  data: { announcement, journalEntry, location },
 }) => {
   return (
     <Stack spacing="xs">
@@ -67,6 +69,7 @@ const HomePage: PageComponent<HomePageProps> = ({
         <HomePageJournalEntry
           firstEntryId={firstJournalEntryId}
           initialEntry={journalEntry}
+          {...{ autoscroll }}
         />
       </Stack>
       <Space h="xs" />

@@ -11,8 +11,8 @@ export type UserPasswordResetEmailProps =
   };
 
 const UserPasswordResetEmail: PageComponent<UserPasswordResetEmailProps> = ({
-  data: { user },
   resetUrl,
+  data: { user },
 }) => {
   invariant(user, "Missing user");
   const { name } = user;

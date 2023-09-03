@@ -1,9 +1,9 @@
 import type { FC } from "react";
-import scrollIntoView from "scroll-into-view";
+import type { BoxProps } from "@mantine/core";
 import NextIcon from "~icons/heroicons/arrow-path-rounded-square-20-solid";
 import ResetIcon from "~icons/heroicons/arrow-uturn-left-20-solid";
 
-import type { BoxProps } from "@mantine/core";
+import scrollIntoView from "scroll-into-view";
 
 import { HomePageJournalEntryQueryDocument } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
@@ -18,13 +18,17 @@ import JournalEntry from "./JournalEntry";
 export type HomePageJournalEntryProps = BoxProps & {
   readonly firstEntryId: string;
   readonly initialEntry: Maybe<HomePageJournalEntryEntryFragment> | undefined;
+  readonly autoscroll: boolean;
 };
 
 const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
   firstEntryId,
   initialEntry,
+  autoscroll,
   ...otherProps
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   // == Query
   const onError = useApolloAlertCallback("Failed to load journal entry");
   const { coalescedData, loading, refetch } = usePreloadedQuery<
@@ -40,26 +44,34 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
   const { nextEntryId } = entry ?? {};
   const hasNextEntry = !!nextEntryId;
 
-  // == Autoscroll
+  // == Scrolling
   const [requiresScrolling, setRequiresScrolling] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useDidUpdate(() => {
-    if (ref.current && requiresScrolling) {
-      setRequiresScrolling(false);
+  const scrollToContainerTop = useCallback(() => {
+    if (containerRef.current) {
       const headerEl = document.querySelector("header.mantine-Header-root");
-      scrollIntoView(ref.current, {
+      scrollIntoView(containerRef.current, {
         align: {
           top: 0,
           topOffset: headerEl?.clientHeight ?? 0,
         },
       });
     }
-  }, [ref.current, requiresScrolling]);
+  }, [containerRef]);
+  useDidUpdate(() => {
+    if (containerRef.current && requiresScrolling) {
+      setRequiresScrolling(false);
+      scrollToContainerTop();
+    }
+  }, [containerRef, requiresScrolling]);
+  useEffect(() => {
+    if (autoscroll) {
+      scrollToContainerTop();
+    }
+  }, []);
 
   // == Markup
   return (
-    <Stack align="center" {...{ ref }} {...otherProps}>
+    <Stack align="center" {...{ ref: containerRef }} {...otherProps}>
       {entry ? <JournalEntry {...{ entry }} /> : <CardSkeleton />}
       <Transition transition="fade" mounted={!loading}>
         {style => (
