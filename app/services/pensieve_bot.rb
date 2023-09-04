@@ -14,10 +14,6 @@ class PensieveBot
     @thread = T.let(nil, T.nilable(Thread))
   end
 
-  # == Current
-  sig { returns(PensieveBot) }
-  def self.current = instance
-
   # == Running
   sig { void }
   def start
@@ -34,11 +30,21 @@ class PensieveBot
   end
 
   sig { void }
+  def self.start
+    instance.start
+  end
+
+  sig { void }
   def stop
     if @thread
       @thread.kill if @thread.status
       @thread = nil
     end
+  end
+
+  sig { void }
+  def self.stop
+    instance.stop
   end
 
   # == Methods
@@ -58,6 +64,14 @@ class PensieveBot
       raise "Failed to send message: #{response}"
     end
     Telegram::Bot::Types::Message.new(response["result"])
+  end
+
+  sig do
+    params(text: String, reply_to_message_id: T.nilable(Integer))
+      .returns(Telegram::Bot::Types::Message)
+  end
+  def self.send_message(text, reply_to_message_id: nil)
+    instance.send_message(text, reply_to_message_id:)
   end
 
   private

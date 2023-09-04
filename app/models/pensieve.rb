@@ -33,12 +33,12 @@ class Pensieve
     # == Methods
     sig { void }
     def start_bot
-      PensieveBot.current.start
+      PensieveBot.start
     end
 
     sig { void }
     def stop_bot
-      PensieveBot.current.stop
+      PensieveBot.stop
     end
   end
 end

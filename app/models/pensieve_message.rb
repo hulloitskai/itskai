@@ -77,7 +77,7 @@ class PensieveMessage < ApplicationRecord
   def send!
     validate!
     raise "Can't send a message on behalf of a user" if from == :user
-    telegram_message = PensieveBot.current.send_message(text)
+    telegram_message = PensieveBot.send_message(text)
     update!(
       telegram_message_id: telegram_message.message_id,
       timestamp: Time.zone.at(telegram_message.date),

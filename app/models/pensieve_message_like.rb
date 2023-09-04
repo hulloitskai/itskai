@@ -35,7 +35,7 @@ class PensieveMessageLike < ApplicationRecord
   # == Methods
   sig { void }
   def send_notification
-    PensieveBot.current.send_message(
+    PensieveBot.send_message(
       "Someone liked your message.",
       reply_to_message_id: message!.telegram_message_id,
     )

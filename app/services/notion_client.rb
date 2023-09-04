@@ -5,10 +5,6 @@ class NotionClient
   extend T::Sig
   include Singleton
 
-  # == Current
-  sig { returns(NotionClient) }
-  def self.current = instance
-
   # == Initializer
   sig { void }
   def initialize
@@ -27,14 +23,29 @@ class NotionClient
     results
   end
 
+  sig { params(database_id: String, options: T.untyped).returns(T.untyped) }
+  def self.list_pages(database_id, **options)
+    instance.list_pages(database_id, **options)
+  end
+
   sig { params(id: String).returns(T.untyped) }
   def retrieve_page(id)
     @client.page(page_id: id)
   end
 
+  sig { params(id: String).returns(T.untyped) }
+  def self.retrieve_page(id)
+    instance.retrieve_page(id)
+  end
+
   sig { params(id: String).returns(T::Array[T.untyped]) }
   def retrieve_page_content(id)
     recursively_retrieve_blocks(id)
+  end
+
+  sig { params(id: String).returns(T::Array[T.untyped]) }
+  def self.retrieve_page_content(id)
+    instance.retrieve_page_content(id)
   end
 
   sig { params(database_id: String, name: String).returns(T.untyped) }
@@ -55,6 +66,11 @@ class NotionClient
     )
   end
 
+  sig { params(database_id: String, name: String).returns(T.untyped) }
+  def self.create_page(database_id, name:)
+    instance.create_page(database_id, name:)
+  end
+
   # == Comments
   sig do
     params(page_id: String, options: T.untyped).returns(T.untyped)
@@ -65,6 +81,11 @@ class NotionClient
       results.concat(page.results)
     end
     results
+  end
+
+  sig { params(page_id: String, options: T.untyped).returns(T.untyped) }
+  def self.list_comments(page_id, **options)
+    instance.list_comments(page_id, **options)
   end
 
   sig { params(page_id: String, text: String).returns(T.untyped) }
@@ -79,6 +100,11 @@ class NotionClient
         },
       }],
     )
+  end
+
+  sig { params(page_id: String, text: String).returns(T.untyped) }
+  def self.create_comment(page_id, text:)
+    instance.create_comment(page_id, text:)
   end
 
   private

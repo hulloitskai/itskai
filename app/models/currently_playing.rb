@@ -35,19 +35,14 @@ class CurrentlyPlaying < T::Struct
   end
 
   # == Polling
-  sig { returns(CurrentlyPlayingPoll) }
-  def self.poll
-    CurrentlyPlayingPoll.current
-  end
-
   sig { void }
   def self.start_poll
-    poll.start
+    CurrentlyPlayingPoll.start
   end
 
   sig { void }
   def self.stop_poll
-    poll.stop
+    CurrentlyPlayingPoll.stop
   end
 
   # == Methods

@@ -14,10 +14,6 @@ class CurrentlyPlayingPoll
     @task = T.let(@task, T.nilable(TimerTask))
   end
 
-  # == Current
-  sig { returns(CurrentlyPlayingPoll) }
-  def self.current = instance
-
   # == Running
   sig { void }
   def start
@@ -31,12 +27,18 @@ class CurrentlyPlayingPoll
   end
 
   sig { void }
+  def self.start = instance.start
+
+  sig { void }
   def stop
     if (task = @task)
       task.kill if task.running?
       @task = nil
     end
   end
+
+  sig { void }
+  def self.stop = instance.stop
 
   private
 

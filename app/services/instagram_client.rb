@@ -13,6 +13,11 @@ class InstagramClient
     end
   end
 
+  sig { returns(InstagramClient) }
+  def self.current!
+    current or raise "Instagram client not initialized"
+  end
+
   # == Builders
   sig do
     params(

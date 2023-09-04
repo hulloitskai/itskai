@@ -10,6 +10,11 @@ class ICloudDrive
     ICloudClient.current&.drive
   end
 
+  sig { returns(ICloudDrive) }
+  def self.current!
+    current or raise "iCloud drive not initialized"
+  end
+
   # == Initializers
   sig { params(pydrive: T.untyped).void }
   def initialize(pydrive)

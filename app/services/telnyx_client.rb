@@ -11,10 +11,6 @@ class TelnyxClient
   headers "Content-Type" => "application/json",
           "Authorization" => proc { "Bearer #{Telnyx.api_key!}" }
 
-  # == Current
-  sig { returns(TelnyxClient) }
-  def self.current = instance
-
   # == Methods
   sig do
     params(number: String, display_name: T.nilable(String)).returns(TelnyxCall)
@@ -32,6 +28,13 @@ class TelnyxClient
     TelnyxCall.new(control_id: response.dig("data", "call_control_id"))
   end
 
+  sig do
+    params(number: String, display_name: T.nilable(String)).returns(TelnyxCall)
+  end
+  def self.dial(number, display_name: nil)
+    instance.dial(number, display_name: display_name)
+  end
+
   sig { params(call_control_id: String, message: String).void }
   def speak(call_control_id, message)
     response = self.class.post("/calls/#{call_control_id}/actions/speak", {
@@ -42,6 +45,11 @@ class TelnyxClient
       }.to_json,
     })
     raise_response_errors(response)
+  end
+
+  sig { params(call_control_id: String, message: String).void }
+  def self.speak(call_control_id, message)
+    instance.speak(call_control_id, message)
   end
 
   private
