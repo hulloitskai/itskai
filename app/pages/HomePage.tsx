@@ -56,9 +56,14 @@ const HomePage: PageComponent<HomePageProps> = ({
         </Stack>
       </Center>
       <Stack align="center" spacing="xs">
-        <Title order={2} size="h3">
-          Sometimes, Kai thinks out loud.
-        </Title>
+        <Box sx={{ textAlign: "center" }}>
+          <Title order={2} size="h3">
+            Sometimes, Kai thinks out loud.
+          </Title>
+          <Text size="xs" color="dimmed" lh={1.3}>
+            (messages from the last 12 hours)
+          </Text>
+        </Box>
         <Pensieve expandable h={400} />
       </Stack>
       <Space h="xl" />

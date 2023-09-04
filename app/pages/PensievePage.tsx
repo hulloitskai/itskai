@@ -1,5 +1,6 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import type { PensievePageQuery } from "~/helpers/graphql";
+import { Text } from "@mantine/core";
 
 import Pensieve from "~/components/Pensieve";
 
@@ -21,9 +22,14 @@ const PensievePage: PageComponent<PensievePageProps> = () => {
 
   return (
     <Stack align="center" spacing="xs" sx={{ flexGrow: 1 }}>
-      <Title order={2} size="h3">
-        Sometimes, Kai thinks out loud.
-      </Title>
+      <Box sx={{ textAlign: "center" }}>
+        <Title order={2} size="h3">
+          Sometimes, Kai thinks out loud.
+        </Title>
+        <Text size="xs" color="dimmed" lh={1.3}>
+          (messages from the last 12 hours)
+        </Text>
+      </Box>{" "}
       <Pensieve
         sx={{ flexGrow: 1 }}
         onLoadMessages={() => {
