@@ -508,5 +508,16 @@ module ActiveRecord
 
     sig { params(_arg0: T.untyped).returns(TrueClass) }
     def save!(**_arg0); end
+
+    module ClassMethods
+      sig do
+        type_parameters(:U).
+          params(
+            options: T.untyped,
+            block: T.proc.returns(T.type_parameter((:U))),
+          ).returns(T.type_parameter((:U)))
+      end
+      def transaction(**options, &block); end
+    end
   end
 end
