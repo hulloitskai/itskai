@@ -35,12 +35,16 @@ const UserVerificationEmail: PageComponent<UserEmailVerificationEmailProps> = ({
           borderRadius: radius.sm,
         })}
       >
-        Verify Email
+        Verify email
       </Box>
       <Text style={{ marginBottom: 6 }}>
         Or copy and paste this URL into a new tab of your browser:
       </Text>
-      <Link href={verificationUrl} target="_blank">
+      <Link
+        href={verificationUrl}
+        target="_blank"
+        style={{ textTransform: "none" }}
+      >
         {verificationUrl}
       </Link>
     </>

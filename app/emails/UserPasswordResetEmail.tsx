@@ -36,12 +36,12 @@ const UserPasswordResetEmail: PageComponent<UserPasswordResetEmailProps> = ({
           borderRadius: radius.sm,
         })}
       >
-        Reset Password
+        Reset password
       </Box>
       <Text style={{ marginBottom: 6 }}>
         Or copy and paste this URL into a new tab of your browser:
       </Text>
-      <Link href={resetUrl} target="_blank">
+      <Link href={resetUrl} target="_blank" style={{ textTransform: "none" }}>
         {resetUrl}
       </Link>
     </>
