@@ -20,9 +20,10 @@ const AppMeta: FC<AppMetaProps> = ({
   noIndex,
 }) => {
   const title = useMemo<string>(() => {
-    return new Array(titleProp)
+    const components = Array.isArray(titleProp) ? titleProp : [titleProp];
+    return components
       .filter(component => !!component)
-      .join(` ${AppMetaTitleSeparator}`);
+      .join(` ${AppMetaTitleSeparator} `);
   }, [titleProp]);
   const fullTitle = useMemo<string>(() => {
     return [title, AppMetaSiteName]
