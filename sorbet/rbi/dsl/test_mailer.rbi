@@ -11,5 +11,8 @@ class TestMailer
 
     sig { params(model: ::TestModel, current_user: T.nilable(::User)).returns(::ActionMailer::MessageDelivery) }
     def test_email(model, current_user: T.unsafe(nil)); end
+
+    sig { returns(::ActionMailer::MessageDelivery) }
+    def url_helpers; end
   end
 end

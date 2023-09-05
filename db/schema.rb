@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_29_054514) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_05_171906) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -176,6 +176,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_29_054514) do
     t.string "neighbourhood"
     t.string "postal_code"
     t.datetime "created_at", precision: nil, null: false
+    t.string "place_name"
+    t.string "street_address"
     t.index ["location_log_id"], name: "index_location_log_addresses_on_location_log_id"
   end
 

@@ -8,6 +8,7 @@ require "rails/all"
 require "rails/generators"
 require "rails/generators/app_base"
 require "geocoder/results/nominatim"
+require "geocoder/results/here"
 
 # Initialize application.
 Rails.application.initialize!

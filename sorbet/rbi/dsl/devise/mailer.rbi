@@ -23,5 +23,8 @@ class Devise::Mailer
 
     sig { params(record: T.untyped, token: T.untyped, opts: T.untyped).returns(::ActionMailer::MessageDelivery) }
     def unlock_instructions(record, token, opts = T.unsafe(nil)); end
+
+    sig { returns(::ActionMailer::MessageDelivery) }
+    def url_helpers; end
   end
 end

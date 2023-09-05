@@ -847,6 +847,51 @@ class LocationLogAddress
     def neighbourhood_will_change!; end
 
     sig { returns(T.nilable(::String)) }
+    def place_name; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def place_name=(value); end
+
+    sig { returns(T::Boolean) }
+    def place_name?; end
+
+    sig { returns(T.nilable(::String)) }
+    def place_name_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def place_name_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def place_name_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def place_name_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def place_name_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def place_name_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def place_name_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def place_name_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def place_name_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def place_name_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def place_name_was; end
+
+    sig { void }
+    def place_name_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
     def postal_code; end
 
     sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
@@ -961,10 +1006,16 @@ class LocationLogAddress
     def restore_neighbourhood!; end
 
     sig { void }
+    def restore_place_name!; end
+
+    sig { void }
     def restore_postal_code!; end
 
     sig { void }
     def restore_province!; end
+
+    sig { void }
+    def restore_street_address!; end
 
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_city; end
@@ -1015,6 +1066,12 @@ class LocationLogAddress
     def saved_change_to_neighbourhood?; end
 
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_place_name; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_place_name?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_postal_code; end
 
     sig { returns(T::Boolean) }
@@ -1025,6 +1082,57 @@ class LocationLogAddress
 
     sig { returns(T::Boolean) }
     def saved_change_to_province?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_street_address; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_street_address?; end
+
+    sig { returns(T.nilable(::String)) }
+    def street_address; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def street_address=(value); end
+
+    sig { returns(T::Boolean) }
+    def street_address?; end
+
+    sig { returns(T.nilable(::String)) }
+    def street_address_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def street_address_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def street_address_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def street_address_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def street_address_change_to_be_saved; end
+
+    sig { returns(T::Boolean) }
+    def street_address_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def street_address_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def street_address_previous_change; end
+
+    sig { returns(T::Boolean) }
+    def street_address_previously_changed?; end
+
+    sig { returns(T.nilable(::String)) }
+    def street_address_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def street_address_was; end
+
+    sig { void }
+    def street_address_will_change!; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_city?; end
@@ -1051,10 +1159,16 @@ class LocationLogAddress
     def will_save_change_to_neighbourhood?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_place_name?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_postal_code?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_province?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_street_address?; end
   end
 
   module GeneratedRelationMethods

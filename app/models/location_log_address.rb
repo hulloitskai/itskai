@@ -11,8 +11,10 @@
 #  country_code    :string           not null
 #  full_address    :string           not null
 #  neighbourhood   :string
+#  place_name      :string
 #  postal_code     :string
 #  province        :string           not null
+#  street_address  :string
 #  created_at      :datetime         not null
 #  location_log_id :uuid             not null
 #
@@ -39,10 +41,7 @@ class LocationLogAddress < ApplicationRecord
   sig { returns(String) }
   def google_maps_area_url
     uri = Addressable::URI.parse("https://www.google.com/maps/search/")
-    uri.query_values = {
-      "api" => 1,
-      "query" => approximate_address,
-    }
+    uri.query_values = { "api" => 1, "query" => approximate_address }
     uri.to_s
   end
 end

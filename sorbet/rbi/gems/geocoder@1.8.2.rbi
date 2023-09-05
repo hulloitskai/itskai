@@ -1315,6 +1315,57 @@ class Geocoder::Result::Base
   def state_code; end
 end
 
+# source://geocoder//lib/geocoder/results/here.rb#4
+class Geocoder::Result::Here < ::Geocoder::Result::Base
+  # A string in the given format.
+  #
+  # source://geocoder//lib/geocoder/results/here.rb#9
+  def address(format = T.unsafe(nil)); end
+
+  # source://geocoder//lib/geocoder/results/here.rb#41
+  def city; end
+
+  # A two-element array: [lat, lon].
+  #
+  # source://geocoder//lib/geocoder/results/here.rb#16
+  def coordinates; end
+
+  # source://geocoder//lib/geocoder/results/here.rb#53
+  def country; end
+
+  # source://geocoder//lib/geocoder/results/here.rb#57
+  def country_code; end
+
+  # source://geocoder//lib/geocoder/results/here.rb#37
+  def postal_code; end
+
+  # source://geocoder//lib/geocoder/results/here.rb#33
+  def province; end
+
+  # source://geocoder//lib/geocoder/results/here.rb#49
+  def province_code; end
+
+  # source://geocoder//lib/geocoder/results/here.rb#21
+  def route; end
+
+  # source://geocoder//lib/geocoder/results/here.rb#29
+  def state; end
+
+  # source://geocoder//lib/geocoder/results/here.rb#45
+  def state_code; end
+
+  # source://geocoder//lib/geocoder/results/here.rb#25
+  def street_number; end
+
+  # source://geocoder//lib/geocoder/results/here.rb#61
+  def viewport; end
+
+  private
+
+  # source://geocoder//lib/geocoder/results/here.rb#73
+  def address_data; end
+end
+
 # source://geocoder//lib/geocoder/results/nominatim.rb#4
 class Geocoder::Result::Nominatim < ::Geocoder::Result::Base
   # source://geocoder//lib/geocoder/results/nominatim.rb#15

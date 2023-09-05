@@ -6,9 +6,13 @@
 
 class ApplicationMailer
   include GeneratedUrlHelpersModule
+  include GeneratedPathHelpersModule
 
   class << self
     sig { returns(::ActionMailer::MessageDelivery) }
     def current_user; end
+
+    sig { returns(::ActionMailer::MessageDelivery) }
+    def url_helpers; end
   end
 end
