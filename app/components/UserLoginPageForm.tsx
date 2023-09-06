@@ -91,7 +91,7 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
           />
         </Tooltip>
         <Button type="submit" disabled={!isDirty()} {...{ loading }}>
-          Sign In
+          Sign in
         </Button>
       </Stack>
     </form>

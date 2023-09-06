@@ -13,7 +13,7 @@ const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
   <Card w={380} radius="md" withBorder>
     <Stack spacing="xs">
       <Stack align="center" spacing={2}>
-        <Title size="h3">Sign In</Title>
+        <Title size="h3">Sign in</Title>
         <Text size="sm" color="dimmed" lh={1.3}>
           Welcome back to{" "}
           <Anchor component={Link} href="/" color="brand.4" weight={600}>
@@ -43,7 +43,7 @@ const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
 
 UserLoginPage.layout = buildLayout<UserLoginPageProps>(
   (page, { data: { viewer } }) => (
-    <AppLayout title="Sign In" {...{ viewer }}>
+    <AppLayout title="Sign in" {...{ viewer }}>
       <Center sx={{ flexGrow: 1 }}>{page}</Center>
     </AppLayout>
   ),

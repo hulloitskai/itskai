@@ -27,11 +27,11 @@ const UserRequestEmailVerificationPage: PageComponent<
       <Stack spacing={0} fz="xs">
         <Text color="gray.6">
           <Anchor component={Link} href="/login">
-            Sign In
+            Sign in
           </Anchor>{" "}
           or{" "}
           <Anchor component={Link} href="/user/register">
-            Sign Up
+            Sign up
           </Anchor>
         </Text>
         <Anchor component={Link} href="/user/password/reset">
@@ -45,7 +45,7 @@ const UserRequestEmailVerificationPage: PageComponent<
 UserRequestEmailVerificationPage.layout =
   buildLayout<UserRequestEmailVerificationPageProps>(
     (page, { data: { viewer } }) => (
-      <AppLayout title="Sign In" {...{ viewer }}>
+      <AppLayout title="Sign in" {...{ viewer }}>
         <Center sx={{ flexGrow: 1 }}>{page}</Center>
       </AppLayout>
     ),

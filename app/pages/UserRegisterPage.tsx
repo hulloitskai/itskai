@@ -11,7 +11,7 @@ const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => (
   <Card w={380} radius="md" withBorder>
     <Stack spacing="xs">
       <Stack align="center" spacing={2}>
-        <Title size="h3">Sign Up</Title>
+        <Title size="h3">Sign up</Title>
         <Text size="sm" color="dimmed" lh={1.3}>
           Create an account on{" "}
           <Anchor component={Link} href="/" color="brand.4" weight={600}>
@@ -41,7 +41,7 @@ const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => (
 
 UserRegisterPage.layout = buildLayout<UserRegisterPageProps>(
   (page, { data: { viewer } }) => (
-    <AppLayout title="Sign Up" {...{ viewer }}>
+    <AppLayout title="Sign up" {...{ viewer }}>
       <Center sx={{ flexGrow: 1 }}>{page}</Center>
     </AppLayout>
   ),
