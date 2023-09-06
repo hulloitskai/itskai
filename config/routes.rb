@@ -72,7 +72,9 @@ Rails.application.routes.draw do
   get "/calendly" => "calendly#show"
   get "/hangout" => "calendly#show"
   get "/walk" => "calendly#event", handle: "walk"
+  get "/opencal" => redirect("https://opencal.me/kai", status: 302)
   get "/opencal-intro" => "calendly#event", handle: "opencal-intro"
+  get "/atelier" => redirect("https://instagram.com/atelier.ubc", status: 302)
 
   # == Events
   resources :events, only: :index
