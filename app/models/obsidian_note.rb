@@ -83,7 +83,7 @@ class ObsidianNote < ApplicationRecord
   # == Callbacks
   after_commit :analyze_later, on: %i[create update], if: :analysis_required?
 
-  # == FriendlyIdentifiable
+  # == FriendlyId
   friendly_id :name, slug_column: "slug"
 
   # == Analysis

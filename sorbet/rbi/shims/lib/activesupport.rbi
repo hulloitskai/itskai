@@ -64,7 +64,7 @@ module ActiveSupport
     ); end
   end
 
-  class TimeWithZone
+  class TimeWithZone < Time
     sig { params(format: String).returns(String) }
     def strftime(format); end
 

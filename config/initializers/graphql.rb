@@ -4,8 +4,9 @@
 # Load queries and listen to changes.
 Rails.application.configure do
   reloader.to_prepare do
-    puts "=> Loading & listening queries" if Rails.server? # rubocop:disable Rails/Output, Layout/LineLength
+    puts "=> Loading queries" if Rails.server? # rubocop:disable Rails/Output, Layout/LineLength
     Schema.queries!.load
+    puts "=> Listening to queries" if Rails.server? # rubocop:disable Rails/Output, Layout/LineLength
     Schema.queries!.listen if Rails.server? && Rails.env.development?
   end
 
