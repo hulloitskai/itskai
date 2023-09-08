@@ -21,7 +21,7 @@ kill_timeout = 10
   internal_port = 3000
   processes = ["app"]
   auto_stop_machines = true
-  min_machines_running = 1
+  max_machines_running = 1
 
 [services.concurrency]
   type = "connections"
