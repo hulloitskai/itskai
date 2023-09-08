@@ -21,6 +21,9 @@ const HomePage: PageComponent<HomePageProps> = ({
   autoscroll,
   data: { announcement, journalEntry, location },
 }) => {
+  // == Pensieve
+  const [showPensieve, setShowPensieve] = useState(false);
+
   return (
     <Stack spacing="xs">
       {announcement ? (
@@ -55,18 +58,49 @@ const HomePage: PageComponent<HomePageProps> = ({
           </Text>
         </Stack>
       </Center>
-      <Stack align="center" spacing="xs">
-        <Box sx={{ textAlign: "center" }}>
-          <Title order={2} size="h3">
-            Sometimes, Kai thinks out loud.
-          </Title>
-          <Text size="xs" color="dimmed" lh={1.3}>
-            (messages from the last 12 hours)
-          </Text>
-        </Box>
-        <Pensieve expandable h={400} />
-      </Stack>
-      <Space h="xl" />
+      <Transition
+        transition={{
+          in: { opacity: 1, transform: "scale(1)", maxHeight: 500 },
+          out: {
+            opacity: 0,
+            transform: "scale(0)",
+            maxHeight: 0,
+          },
+          common: { transformOrigin: "top" },
+          transitionProperty: "transform, opacity, max-height",
+        }}
+        duration={400}
+        mounted={showPensieve}
+        keepMounted
+      >
+        {style => (
+          <Box {...{ style }}>
+            <Stack align="center" spacing="xs">
+              <Box sx={{ textAlign: "center" }}>
+                <Title order={2} size="h3">
+                  Sometimes, Kai thinks out loud.
+                </Title>
+                <Text size="xs" color="dimmed" lh={1.3}>
+                  (messages from the last 12 hours)
+                </Text>
+              </Box>
+              <Pensieve
+                expandable
+                h={400}
+                onLoadMessages={messages => {
+                  if (!isEmpty(messages)) {
+                    setShowPensieve(true);
+                  }
+                }}
+                onNewMessage={() => {
+                  setShowPensieve(true);
+                }}
+              />
+            </Stack>
+            <Space h="xl" />
+          </Box>
+        )}
+      </Transition>
       <Stack align="center" spacing="xs">
         <Title order={2} size="h3">
           Sometimes, Kai writes.
@@ -105,7 +139,6 @@ const HomePage: PageComponent<HomePageProps> = ({
                     href={googleMapsAreaUrl}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    span
                     weight={600}
                   >
                     {approximateAddress}

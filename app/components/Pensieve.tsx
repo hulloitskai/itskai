@@ -17,7 +17,9 @@ import PensieveChatBox from "./PensieveChatBox";
 
 export type PensieveProps = Omit<BoxProps, "children"> & {
   readonly expandable?: boolean;
-  readonly onLoadMessages?: () => void;
+  readonly onLoadMessages?: (
+    messages: ReadonlyArray<PensieveMessageFragment>,
+  ) => void;
   readonly onNewMessage?: () => void;
 };
 
@@ -64,7 +66,7 @@ const Pensieve: FC<PensieveProps> = ({
       });
       autoScroll(300);
       if (onLoadMessages) {
-        onLoadMessages();
+        onLoadMessages(incomingMessages);
       }
     },
     onError,
