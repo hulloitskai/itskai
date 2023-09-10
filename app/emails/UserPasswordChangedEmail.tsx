@@ -25,7 +25,7 @@ const UserPasswordChangedEmail: PageComponent<
 };
 
 UserPasswordChangedEmail.layout = buildLayout<UserPasswordChangedEmailProps>(
-  page => <EmailLayout header="Password Changed">{page}</EmailLayout>,
+  page => <EmailLayout header="Password changed">{page}</EmailLayout>,
 );
 
 export default UserPasswordChangedEmail;

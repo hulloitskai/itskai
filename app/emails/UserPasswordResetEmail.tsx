@@ -49,7 +49,7 @@ const UserPasswordResetEmail: PageComponent<UserPasswordResetEmailProps> = ({
 };
 
 UserPasswordResetEmail.layout = buildLayout<UserPasswordResetEmailProps>(
-  page => <EmailLayout header="Reset Password">{page}</EmailLayout>,
+  page => <EmailLayout header="Reset password">{page}</EmailLayout>,
 );
 
 export default UserPasswordResetEmail;

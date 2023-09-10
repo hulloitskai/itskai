@@ -52,7 +52,7 @@ const UserVerificationEmail: PageComponent<UserEmailVerificationEmailProps> = ({
 };
 
 UserVerificationEmail.layout = buildLayout<UserEmailVerificationEmailProps>(
-  page => <EmailLayout header="Verify Email">{page}</EmailLayout>,
+  page => <EmailLayout header="Verify email">{page}</EmailLayout>,
 );
 
 export default UserVerificationEmail;

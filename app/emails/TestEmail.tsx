@@ -49,7 +49,7 @@ const TestEmail: PageComponent<TestEmailProps> = ({
 };
 
 TestEmail.layout = buildLayout<TestEmailProps>(page => (
-  <EmailLayout header="Test Form Submission">{page}</EmailLayout>
+  <EmailLayout header="Test form submission">{page}</EmailLayout>
 ));
 
 export default TestEmail;

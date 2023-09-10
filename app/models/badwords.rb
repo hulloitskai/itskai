@@ -23,4 +23,7 @@ class Badwords
   # == Attributes
   sig { returns(T::Array[String]) }
   attr_reader :words
+
+  sig { returns(T::Array[String]) }
+  def self.words = instance.words
 end
