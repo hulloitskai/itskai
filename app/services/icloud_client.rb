@@ -15,7 +15,7 @@ class ICloudClient
 
   sig { returns(T.attached_class) }
   def self.current!
-    current or raise "iCloud client not initialized"
+    current or raise "Missing iCloud credentials"
   end
 
   # == Builders

@@ -12,7 +12,7 @@ class ICloudDrive
 
   sig { returns(ICloudDrive) }
   def self.current!
-    current or raise "iCloud drive not initialized"
+    ICloudClient.current!.drive
   end
 
   # == Initializers

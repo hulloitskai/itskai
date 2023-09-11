@@ -15,7 +15,7 @@ class InstagramClient
 
   sig { returns(InstagramClient) }
   def self.current!
-    current or raise "Instagram client not initialized"
+    current or raise "Missing Instagram credentials"
   end
 
   # == Builders
