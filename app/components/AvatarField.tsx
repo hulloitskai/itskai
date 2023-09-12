@@ -6,8 +6,8 @@ import { Image, Input, Text, getSize } from "@mantine/core";
 import type { InputWrapperProps, MantineNumberSize } from "@mantine/core";
 
 import { AvatarFieldQueryDocument } from "~/helpers/graphql";
-import type { AvatarFieldQueryVariables } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
+import type { AvatarFieldQueryVariables } from "~/helpers/graphql";
 
 export type ImageInput = {
   readonly signedId: string;

@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import { Text } from "@mantine/core";
 import ArrowRightIcon from "~icons/heroicons/arrow-long-right-20-solid";
+
 import type { ResumeEducationInfo } from "~/helpers/resume";
 
 export type ResumeEducationSectionProps = {

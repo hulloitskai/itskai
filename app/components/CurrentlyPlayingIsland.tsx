@@ -11,8 +11,8 @@ import {
   CurrentlyPlayingIslandQueryDocument,
   CurrentlyPlayingIslandSubscriptionDocument,
 } from "~/helpers/graphql";
-import type { CurrentlyPlayingIslandTrackFragment } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
+import type { CurrentlyPlayingIslandTrackFragment } from "~/helpers/graphql";
 
 import CurrentlyPlayingLyricsTooltip from "./CurrentlyPlayingLyricsTooltip";
 

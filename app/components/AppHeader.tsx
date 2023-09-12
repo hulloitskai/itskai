@@ -4,8 +4,8 @@ import { Header } from "@mantine/core";
 import AppMenu from "./AppMenu";
 import CurrentlyPlayingIsland from "./CurrentlyPlayingIsland";
 
-import type { AppViewerFragment } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
+import type { AppViewerFragment } from "~/helpers/graphql";
 
 export type AppHeaderProps = {
   readonly viewer: Maybe<AppViewerFragment>;

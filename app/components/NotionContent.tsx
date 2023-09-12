@@ -11,30 +11,28 @@ export type NotionContentProps = {
   readonly content: NotionRendererProps["blocks"];
 };
 
-const NotionContent: FC<NotionContentProps> = ({ content }) => {
-  return (
-    <Box
-      sx={({ fontFamilyMonospace, fontSizes }) => ({
-        fontFamily: fontFamilyMonospace,
-        "> .rnr-container *": {
-          fontSize: fontSizes.sm,
-        },
-        p: {
-          margin: `${rem(8)} 0`,
-        },
-      })}
-    >
-      <NotionRenderer
-        blockComponentsMapper={{
-          divider: NotionContentDivider,
-        }}
-        blocks={content}
-        useStyles
-        emptyBlocks
-      />
-    </Box>
-  );
-};
+const NotionContent: FC<NotionContentProps> = ({ content }) => (
+  <Box
+    sx={({ fontFamilyMonospace, fontSizes }) => ({
+      fontFamily: fontFamilyMonospace,
+      "> .rnr-container *": {
+        fontSize: fontSizes.sm,
+      },
+      p: {
+        margin: `${rem(8)} 0`,
+      },
+    })}
+  >
+    <NotionRenderer
+      blockComponentsMapper={{
+        divider: NotionContentDivider,
+      }}
+      blocks={content}
+      useStyles
+      emptyBlocks
+    />
+  </Box>
+);
 
 export default NotionContent;
 

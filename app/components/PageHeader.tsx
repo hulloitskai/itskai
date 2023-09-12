@@ -1,5 +1,6 @@
 import type { FC } from "react";
-import { CSSObject, Text } from "@mantine/core";
+import { Text } from "@mantine/core";
+import type { CSSObject } from "@mantine/core";
 
 export type PageHeaderProps = {
   readonly title: string;

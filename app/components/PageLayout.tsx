@@ -1,4 +1,5 @@
 import type { FC, PropsWithChildren } from "react";
+
 import PageWrapper from "./PageWrapper";
 
 export type PageLayoutProps = PropsWithChildren;

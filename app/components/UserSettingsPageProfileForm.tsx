@@ -1,8 +1,11 @@
 import type { FC } from "react";
 
 import { UpdateUserProfileMutationDocument } from "~/helpers/graphql";
-import type { UserSettingsPageViewerFragment } from "~/helpers/graphql";
-import type { ImageInput, Maybe } from "~/helpers/graphql";
+import type { Maybe } from "~/helpers/graphql";
+import type {
+  UserSettingsPageViewerFragment,
+  ImageInput,
+} from "~/helpers/graphql";
 
 import AvatarField from "./AvatarField";
 

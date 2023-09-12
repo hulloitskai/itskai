@@ -1,8 +1,8 @@
 import type { FC } from "react";
-import { useNetwork } from "@mantine/hooks";
 import CodeIcon from "~icons/heroicons/code-bracket-20-solid";
 
 import { DefaultMantineColor, HoverCard, Image, Text } from "@mantine/core";
+import { useNetwork } from "@mantine/hooks";
 import type { BoxProps } from "@mantine/core";
 
 import { ActivityStatusBadgeSubscriptionDocument } from "~/helpers/graphql";

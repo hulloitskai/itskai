@@ -1,5 +1,6 @@
-import { Text } from "@mantine/core";
 import type { FC } from "react";
+import { Text } from "@mantine/core";
+
 import type { ResumeSkillInfo } from "~/helpers/resume";
 
 export type ResumeSkillsSectionProps = {

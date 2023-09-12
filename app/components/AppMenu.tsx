@@ -9,8 +9,8 @@ import { createApolloLink } from "~/helpers/apollo";
 import type { SharedPageProps } from "~/helpers/inertia";
 
 import { AppMenuQueryDocument } from "~/helpers/graphql";
-import type { AppViewerFragment } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
+import type { AppViewerFragment } from "~/helpers/graphql";
 
 export type AppMenuProps = Pick<BoxProps, "sx"> & {
   readonly viewer: Maybe<AppViewerFragment>;

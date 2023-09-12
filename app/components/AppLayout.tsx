@@ -7,6 +7,9 @@ import type {
   MantineNumberSize,
 } from "@mantine/core";
 
+import type { Maybe } from "~/helpers/graphql";
+import type { AppViewerFragment } from "~/helpers/graphql";
+
 import AppMeta from "./AppMeta";
 import type { AppMetaProps } from "./AppMeta";
 
@@ -15,9 +18,6 @@ import AppFooter from "./AppFooter";
 import AppFlash from "./AppFlash";
 import PageLayout from "./PageLayout";
 import PageContainer from "./PageContainer";
-
-import type { Maybe } from "~/helpers/graphql";
-import type { AppViewerFragment } from "~/helpers/graphql";
 
 export type AppLayoutProps = AppMetaProps &
   AppShellProps & {
