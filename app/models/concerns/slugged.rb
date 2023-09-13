@@ -13,10 +13,12 @@ module Slugged
 
   included do
     T.bind(self, T.all(T.class_of(ActiveRecord::Base),
+                       ClassMethods,
                        RequiresColumn::ClassMethods))
 
     # == Configuration
     requires_column :slug
+    class_attribute :generated_slug_length, default: 16
   end
 
   class_methods do
@@ -27,17 +29,6 @@ module Slugged
     requires_ancestor { T.class_of(ActiveRecord::Base) }
 
     # == Methods
-    sig { returns(Integer) }
-    def generated_slug_length
-      @generated_slug_length || 16
-    end
-
-    sig { params(size: Integer).returns(Integer) }
-    def generated_slug_length=(size)
-      @generated_slug_length = T.let(@generated_slug_length, T.nilable(Integer))
-      @generated_slug_length = size
-    end
-
     sig { returns(String) }
     def generate_slug
       Nanoid.generate(
@@ -61,7 +52,10 @@ module Slugged
   # == Methods
   sig { returns(String) }
   def generate_slug
-    self[:slug] ||= T.cast(self.class, ClassMethods).generate_slug
+    self[:slug] ||= scoped do
+      klass = T.cast(self.class, ClassMethods)
+      klass.generate_slug
+    end
   end
 
   sig { returns(String) }
