@@ -518,6 +518,7 @@ export type Subscription = {
   __typename?: 'Subscription';
   activityStatus?: Maybe<Scalars['String']['output']>;
   currentlyPlaying?: Maybe<CurrentlyPlaying>;
+  location?: Maybe<LocationLog>;
   pensieveMessage?: Maybe<PensieveMessage>;
   testSubscription: Scalars['Int']['output'];
 };

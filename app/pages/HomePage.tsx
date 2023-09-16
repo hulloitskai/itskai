@@ -1,15 +1,13 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { format as formatTimeAgo } from "timeago.js";
 import { Text } from "@mantine/core";
-
 import BellIcon from "~icons/heroicons/bell-20-solid";
-import LocationIcon from "~icons/heroicons/map-pin-20-solid";
 
 import type { HomePageQuery } from "~/helpers/graphql";
 
 import ContactMeLink from "~/components/ContactMeLink";
 import HomePageJournalEntry from "~/components/HomePageJournalEntry";
 import Pensieve from "~/components/Pensieve";
+import LocationAlert from "~/components/LocationAlert";
 
 export type HomePageProps = PagePropsWithData<HomePageQuery> & {
   readonly firstJournalEntryId: string;
@@ -23,6 +21,9 @@ const HomePage: PageComponent<HomePageProps> = ({
 }) => {
   // == Pensieve
   const [showPensieve, setShowPensieve] = useState(false);
+
+  // == Location
+  const [showLocation, setShowLocation] = useState(!!location);
 
   return (
     <Stack spacing="xs">
@@ -112,50 +113,34 @@ const HomePage: PageComponent<HomePageProps> = ({
         />
       </Stack>
       <Space h="xs" />
-      {location &&
-        resolve(() => {
-          const { approximateAddress, googleMapsAreaUrl, timestamp } = location;
-          return (
-            <Alert
-              icon={<LocationIcon />}
-              title="In the area?"
-              radius="md"
-              my="xl"
-              maw={540}
-              pb={8}
-              styles={{
-                root: {
-                  alignSelf: "center",
-                },
-                title: {
-                  marginBottom: rem(2),
-                },
-              }}
-            >
-              <Stack spacing={4}>
-                <Text>
-                  I&apos;m currently around{" "}
-                  <Anchor
-                    href={googleMapsAreaUrl}
-                    target="_blank"
-                    rel="noopener noreferrer nofollow"
-                    weight={600}
-                  >
-                    {approximateAddress}
-                  </Anchor>
-                  . If you&apos;re nearby, text me and come say hi!
-                </Text>
-                <Text size="xs" color="dimmed">
-                  From Find My iPhone,{" "}
-                  <Time inherit format={time => formatTimeAgo(time.toJSDate())}>
-                    {timestamp}
-                  </Time>
-                  .
-                </Text>
-              </Stack>
-            </Alert>
-          );
-        })}
+      <Transition
+        transition={{
+          in: { opacity: 1, transform: "scale(1)", maxHeight: 140 },
+          out: {
+            opacity: 0,
+            transform: "scale(0)",
+            maxHeight: 0,
+          },
+          common: { transformOrigin: "top" },
+          transitionProperty: "transform, opacity, max-height",
+        }}
+        duration={320}
+        mounted={showLocation}
+        keepMounted
+      >
+        {style => (
+          <LocationAlert
+            initialLocation={location}
+            onUpdate={location => {
+              setShowLocation(!!location);
+            }}
+            my="xl"
+            w="100%"
+            maw={540}
+            {...{ style }}
+          />
+        )}
+      </Transition>
     </Stack>
   );
 };

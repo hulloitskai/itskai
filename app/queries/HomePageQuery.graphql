@@ -5,10 +5,8 @@ query HomePageQuery($journalEntryId: ID!, $showJournalEntry: Boolean!) {
     id
   }
   location {
-    approximateAddress
-    googleMapsAreaUrl
     id
-    timestamp
+    ...LocationAlertLocationFragment
   }
   viewer {
     ...AppViewerFragment

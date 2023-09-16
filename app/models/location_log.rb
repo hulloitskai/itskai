@@ -129,4 +129,14 @@ class LocationLog < ApplicationRecord
   def reverse_geocode_and_save!
     reverse_geocode.tap { save! }
   end
+
+  private
+
+  # == Callback Handlers
+  sig { void }
+  def trigger_subscriptions
+    unless Location.hide?
+      Schema.subscriptions!.trigger(:location, {}, self)
+    end
+  end
 end

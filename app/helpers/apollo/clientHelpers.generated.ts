@@ -202,10 +202,11 @@ export type SpotifyArtistFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type SubscriptionKeySpecifier = ('activityStatus' | 'currentlyPlaying' | 'pensieveMessage' | 'testSubscription' | SubscriptionKeySpecifier)[];
+export type SubscriptionKeySpecifier = ('activityStatus' | 'currentlyPlaying' | 'location' | 'pensieveMessage' | 'testSubscription' | SubscriptionKeySpecifier)[];
 export type SubscriptionFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
+	location?: FieldPolicy<any> | FieldReadFunction<any>,
 	pensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
 	testSubscription?: FieldPolicy<any> | FieldReadFunction<any>
 };

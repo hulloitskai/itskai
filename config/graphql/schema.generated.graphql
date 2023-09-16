@@ -414,6 +414,7 @@ type SpotifyArtist {
 type Subscription {
   activityStatus: String
   currentlyPlaying: CurrentlyPlaying
+  location: LocationLog
   pensieveMessage: PensieveMessage
   testSubscription: Int!
 }
