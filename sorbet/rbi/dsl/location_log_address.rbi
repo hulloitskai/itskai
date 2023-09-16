@@ -510,8 +510,8 @@ class LocationLogAddress
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def city_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def city_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def city_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def city_in_database; end
@@ -519,8 +519,8 @@ class LocationLogAddress
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def city_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def city_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def city_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def city_previously_was; end
@@ -555,8 +555,8 @@ class LocationLogAddress
     sig { returns(T.nilable([::String, ::String])) }
     def country_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def country_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def country_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(::String) }
     def country_code; end
@@ -582,8 +582,8 @@ class LocationLogAddress
     sig { returns(T.nilable([::String, ::String])) }
     def country_code_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def country_code_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def country_code_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def country_code_in_database; end
@@ -591,8 +591,8 @@ class LocationLogAddress
     sig { returns(T.nilable([::String, ::String])) }
     def country_code_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def country_code_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def country_code_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def country_code_previously_was; end
@@ -609,8 +609,8 @@ class LocationLogAddress
     sig { returns(T.nilable([::String, ::String])) }
     def country_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def country_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def country_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def country_previously_was; end
@@ -645,8 +645,8 @@ class LocationLogAddress
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def created_at_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def created_at_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def created_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at_in_database; end
@@ -654,8 +654,8 @@ class LocationLogAddress
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def created_at_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def created_at_previously_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def created_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at_previously_was; end
@@ -690,8 +690,8 @@ class LocationLogAddress
     sig { returns(T.nilable([::String, ::String])) }
     def full_address_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def full_address_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def full_address_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def full_address_in_database; end
@@ -699,8 +699,8 @@ class LocationLogAddress
     sig { returns(T.nilable([::String, ::String])) }
     def full_address_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def full_address_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def full_address_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def full_address_previously_was; end
@@ -735,8 +735,8 @@ class LocationLogAddress
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def id_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def id_in_database; end
@@ -744,8 +744,8 @@ class LocationLogAddress
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def id_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def id_previously_was; end
@@ -780,8 +780,8 @@ class LocationLogAddress
     sig { returns(T.nilable([::String, ::String])) }
     def location_log_id_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def location_log_id_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def location_log_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def location_log_id_in_database; end
@@ -789,8 +789,8 @@ class LocationLogAddress
     sig { returns(T.nilable([::String, ::String])) }
     def location_log_id_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def location_log_id_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def location_log_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def location_log_id_previously_was; end
@@ -825,8 +825,8 @@ class LocationLogAddress
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def neighbourhood_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def neighbourhood_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def neighbourhood_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def neighbourhood_in_database; end
@@ -834,8 +834,8 @@ class LocationLogAddress
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def neighbourhood_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def neighbourhood_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def neighbourhood_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def neighbourhood_previously_was; end
@@ -870,8 +870,8 @@ class LocationLogAddress
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def place_name_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def place_name_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def place_name_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def place_name_in_database; end
@@ -879,8 +879,8 @@ class LocationLogAddress
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def place_name_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def place_name_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def place_name_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def place_name_previously_was; end
@@ -915,8 +915,8 @@ class LocationLogAddress
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def postal_code_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def postal_code_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def postal_code_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def postal_code_in_database; end
@@ -924,8 +924,8 @@ class LocationLogAddress
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def postal_code_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def postal_code_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def postal_code_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def postal_code_previously_was; end
@@ -960,8 +960,8 @@ class LocationLogAddress
     sig { returns(T.nilable([::String, ::String])) }
     def province_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def province_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def province_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def province_in_database; end
@@ -969,8 +969,8 @@ class LocationLogAddress
     sig { returns(T.nilable([::String, ::String])) }
     def province_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def province_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def province_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def province_previously_was; end
@@ -1113,8 +1113,8 @@ class LocationLogAddress
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def street_address_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def street_address_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def street_address_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def street_address_in_database; end
@@ -1122,8 +1122,8 @@ class LocationLogAddress
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def street_address_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def street_address_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def street_address_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def street_address_previously_was; end

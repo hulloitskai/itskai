@@ -503,8 +503,8 @@ class ObsidianRelation
     sig { returns(T.nilable([::String, ::String])) }
     def from_id_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def from_id_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def from_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def from_id_in_database; end
@@ -512,8 +512,8 @@ class ObsidianRelation
     sig { returns(T.nilable([::String, ::String])) }
     def from_id_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def from_id_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def from_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def from_id_previously_was; end
@@ -548,8 +548,8 @@ class ObsidianRelation
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def id_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def id_in_database; end
@@ -557,8 +557,8 @@ class ObsidianRelation
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def id_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def id_previously_was; end
@@ -629,8 +629,8 @@ class ObsidianRelation
     sig { returns(T.nilable([::String, ::String])) }
     def to_id_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def to_id_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def to_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def to_id_in_database; end
@@ -638,8 +638,8 @@ class ObsidianRelation
     sig { returns(T.nilable([::String, ::String])) }
     def to_id_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def to_id_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def to_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def to_id_previously_was; end
@@ -674,8 +674,8 @@ class ObsidianRelation
     sig { returns(T.nilable([::String, ::String])) }
     def to_type_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def to_type_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def to_type_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def to_type_in_database; end
@@ -683,8 +683,8 @@ class ObsidianRelation
     sig { returns(T.nilable([::String, ::String])) }
     def to_type_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def to_type_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def to_type_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def to_type_previously_was; end

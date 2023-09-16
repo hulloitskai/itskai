@@ -436,8 +436,8 @@ class Cookie
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def created_at_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def created_at_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def created_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at_in_database; end
@@ -445,8 +445,8 @@ class Cookie
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def created_at_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def created_at_previously_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def created_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at_previously_was; end
@@ -481,8 +481,8 @@ class Cookie
     sig { returns(T.nilable([::String, ::String])) }
     def domain_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def domain_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def domain_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def domain_in_database; end
@@ -490,8 +490,8 @@ class Cookie
     sig { returns(T.nilable([::String, ::String])) }
     def domain_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def domain_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def domain_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def domain_previously_was; end
@@ -526,8 +526,8 @@ class Cookie
     sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def expiration_date_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def expiration_date_changed?; end
+    sig { params(from: T.nilable(::Float), to: T.nilable(::Float)).returns(T::Boolean) }
+    def expiration_date_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Float)) }
     def expiration_date_in_database; end
@@ -535,8 +535,8 @@ class Cookie
     sig { returns(T.nilable([T.nilable(::Float), T.nilable(::Float)])) }
     def expiration_date_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def expiration_date_previously_changed?; end
+    sig { params(from: T.nilable(::Float), to: T.nilable(::Float)).returns(T::Boolean) }
+    def expiration_date_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Float)) }
     def expiration_date_previously_was; end
@@ -571,8 +571,8 @@ class Cookie
     sig { returns(T.nilable([T::Boolean, T::Boolean])) }
     def host_only_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def host_only_changed?; end
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def host_only_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Boolean)) }
     def host_only_in_database; end
@@ -580,8 +580,8 @@ class Cookie
     sig { returns(T.nilable([T::Boolean, T::Boolean])) }
     def host_only_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def host_only_previously_changed?; end
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def host_only_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Boolean)) }
     def host_only_previously_was; end
@@ -616,8 +616,8 @@ class Cookie
     sig { returns(T.nilable([T::Boolean, T::Boolean])) }
     def http_only_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def http_only_changed?; end
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def http_only_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Boolean)) }
     def http_only_in_database; end
@@ -625,8 +625,8 @@ class Cookie
     sig { returns(T.nilable([T::Boolean, T::Boolean])) }
     def http_only_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def http_only_previously_changed?; end
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def http_only_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Boolean)) }
     def http_only_previously_was; end
@@ -661,8 +661,8 @@ class Cookie
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def id_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def id_in_database; end
@@ -670,8 +670,8 @@ class Cookie
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def id_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def id_previously_was; end
@@ -706,8 +706,8 @@ class Cookie
     sig { returns(T.nilable([::String, ::String])) }
     def name_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def name_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def name_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def name_in_database; end
@@ -715,8 +715,8 @@ class Cookie
     sig { returns(T.nilable([::String, ::String])) }
     def name_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def name_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def name_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def name_previously_was; end
@@ -751,8 +751,8 @@ class Cookie
     sig { returns(T.nilable([::String, ::String])) }
     def path_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def path_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def path_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def path_in_database; end
@@ -760,8 +760,8 @@ class Cookie
     sig { returns(T.nilable([::String, ::String])) }
     def path_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def path_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def path_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def path_previously_was; end
@@ -835,8 +835,8 @@ class Cookie
     sig { returns(T.nilable([::String, ::String])) }
     def same_site_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def same_site_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def same_site_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def same_site_in_database; end
@@ -844,8 +844,8 @@ class Cookie
     sig { returns(T.nilable([::String, ::String])) }
     def same_site_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def same_site_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def same_site_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def same_site_previously_was; end
@@ -958,8 +958,8 @@ class Cookie
     sig { returns(T.nilable([T::Boolean, T::Boolean])) }
     def secure_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def secure_changed?; end
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def secure_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Boolean)) }
     def secure_in_database; end
@@ -967,8 +967,8 @@ class Cookie
     sig { returns(T.nilable([T::Boolean, T::Boolean])) }
     def secure_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def secure_previously_changed?; end
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def secure_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Boolean)) }
     def secure_previously_was; end
@@ -1003,8 +1003,8 @@ class Cookie
     sig { returns(T.nilable([T.untyped, T.untyped])) }
     def service_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def service_changed?; end
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def service_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.untyped) }
     def service_in_database; end
@@ -1012,8 +1012,8 @@ class Cookie
     sig { returns(T.nilable([T.untyped, T.untyped])) }
     def service_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def service_previously_changed?; end
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def service_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.untyped) }
     def service_previously_was; end
@@ -1048,8 +1048,8 @@ class Cookie
     sig { returns(T.nilable([T::Boolean, T::Boolean])) }
     def session_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def session_changed?; end
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def session_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Boolean)) }
     def session_in_database; end
@@ -1057,8 +1057,8 @@ class Cookie
     sig { returns(T.nilable([T::Boolean, T::Boolean])) }
     def session_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def session_previously_changed?; end
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def session_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Boolean)) }
     def session_previously_was; end
@@ -1093,8 +1093,8 @@ class Cookie
     sig { returns(T.nilable([::String, ::String])) }
     def value_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def value_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def value_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def value_in_database; end
@@ -1102,8 +1102,8 @@ class Cookie
     sig { returns(T.nilable([::String, ::String])) }
     def value_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def value_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def value_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def value_previously_was; end

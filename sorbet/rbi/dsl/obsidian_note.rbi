@@ -549,8 +549,8 @@ class ObsidianNote
     sig { returns(T.nilable([T::Array[::String], T::Array[::String]])) }
     def aliases_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def aliases_changed?; end
+    sig { params(from: T::Array[::String], to: T::Array[::String]).returns(T::Boolean) }
+    def aliases_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Array[::String])) }
     def aliases_in_database; end
@@ -558,8 +558,8 @@ class ObsidianNote
     sig { returns(T.nilable([T::Array[::String], T::Array[::String]])) }
     def aliases_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def aliases_previously_changed?; end
+    sig { params(from: T::Array[::String], to: T::Array[::String]).returns(T::Boolean) }
+    def aliases_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Array[::String])) }
     def aliases_previously_was; end
@@ -594,8 +594,13 @@ class ObsidianNote
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def analyzed_at_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def analyzed_at_changed?; end
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def analyzed_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def analyzed_at_in_database; end
@@ -603,8 +608,13 @@ class ObsidianNote
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def analyzed_at_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def analyzed_at_previously_changed?; end
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def analyzed_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def analyzed_at_previously_was; end
@@ -639,8 +649,8 @@ class ObsidianNote
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def blurb_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def blurb_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def blurb_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def blurb_in_database; end
@@ -648,8 +658,8 @@ class ObsidianNote
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def blurb_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def blurb_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def blurb_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def blurb_previously_was; end
@@ -684,8 +694,8 @@ class ObsidianNote
     sig { returns(T.nilable([::String, ::String])) }
     def content_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def content_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def content_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def content_in_database; end
@@ -693,8 +703,8 @@ class ObsidianNote
     sig { returns(T.nilable([::String, ::String])) }
     def content_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def content_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def content_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def content_previously_was; end
@@ -729,8 +739,8 @@ class ObsidianNote
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def created_at_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def created_at_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def created_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at_in_database; end
@@ -738,8 +748,8 @@ class ObsidianNote
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def created_at_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def created_at_previously_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def created_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at_previously_was; end
@@ -774,8 +784,8 @@ class ObsidianNote
     sig { returns(T.nilable([T::Boolean, T::Boolean])) }
     def hidden_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def hidden_changed?; end
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def hidden_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Boolean)) }
     def hidden_in_database; end
@@ -783,8 +793,8 @@ class ObsidianNote
     sig { returns(T.nilable([T::Boolean, T::Boolean])) }
     def hidden_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def hidden_previously_changed?; end
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def hidden_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Boolean)) }
     def hidden_previously_was; end
@@ -819,8 +829,8 @@ class ObsidianNote
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def id_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def id_in_database; end
@@ -828,8 +838,8 @@ class ObsidianNote
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def id_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def id_previously_was; end
@@ -864,8 +874,8 @@ class ObsidianNote
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def imported_at_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def imported_at_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def imported_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def imported_at_in_database; end
@@ -873,8 +883,8 @@ class ObsidianNote
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def imported_at_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def imported_at_previously_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def imported_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def imported_at_previously_was; end
@@ -909,8 +919,8 @@ class ObsidianNote
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def modified_at_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def modified_at_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def modified_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def modified_at_in_database; end
@@ -918,8 +928,8 @@ class ObsidianNote
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def modified_at_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def modified_at_previously_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def modified_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def modified_at_previously_was; end
@@ -954,8 +964,8 @@ class ObsidianNote
     sig { returns(T.nilable([::String, ::String])) }
     def name_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def name_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def name_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def name_in_database; end
@@ -963,8 +973,8 @@ class ObsidianNote
     sig { returns(T.nilable([::String, ::String])) }
     def name_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def name_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def name_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def name_previously_was; end
@@ -999,8 +1009,8 @@ class ObsidianNote
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def plain_blurb_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def plain_blurb_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def plain_blurb_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def plain_blurb_in_database; end
@@ -1008,8 +1018,8 @@ class ObsidianNote
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def plain_blurb_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def plain_blurb_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def plain_blurb_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def plain_blurb_previously_was; end
@@ -1044,8 +1054,8 @@ class ObsidianNote
     sig { returns(T.nilable([T::Boolean, T::Boolean])) }
     def published_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def published_changed?; end
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def published_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Boolean)) }
     def published_in_database; end
@@ -1053,8 +1063,8 @@ class ObsidianNote
     sig { returns(T.nilable([T::Boolean, T::Boolean])) }
     def published_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def published_previously_changed?; end
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def published_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Boolean)) }
     def published_previously_was; end
@@ -1233,8 +1243,8 @@ class ObsidianNote
     sig { returns(T.nilable([::String, ::String])) }
     def slug_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def slug_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def slug_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def slug_in_database; end
@@ -1242,8 +1252,8 @@ class ObsidianNote
     sig { returns(T.nilable([::String, ::String])) }
     def slug_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def slug_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def slug_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def slug_previously_was; end
@@ -1278,8 +1288,8 @@ class ObsidianNote
     sig { returns(T.nilable([T::Array[::String], T::Array[::String]])) }
     def tags_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def tags_changed?; end
+    sig { params(from: T::Array[::String], to: T::Array[::String]).returns(T::Boolean) }
+    def tags_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Array[::String])) }
     def tags_in_database; end
@@ -1287,8 +1297,8 @@ class ObsidianNote
     sig { returns(T.nilable([T::Array[::String], T::Array[::String]])) }
     def tags_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def tags_previously_changed?; end
+    sig { params(from: T::Array[::String], to: T::Array[::String]).returns(T::Boolean) }
+    def tags_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(T::Array[::String])) }
     def tags_previously_was; end
@@ -1323,8 +1333,8 @@ class ObsidianNote
     sig { returns(T.nilable([::String, ::String])) }
     def title_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def title_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def title_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def title_in_database; end
@@ -1332,8 +1342,8 @@ class ObsidianNote
     sig { returns(T.nilable([::String, ::String])) }
     def title_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def title_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def title_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def title_previously_was; end
@@ -1368,8 +1378,8 @@ class ObsidianNote
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def updated_at_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def updated_at_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def updated_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def updated_at_in_database; end
@@ -1377,8 +1387,8 @@ class ObsidianNote
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def updated_at_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def updated_at_previously_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def updated_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def updated_at_previously_was; end

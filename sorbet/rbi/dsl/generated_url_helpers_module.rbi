@@ -9,6 +9,9 @@ module GeneratedUrlHelpersModule
   include ::ActionDispatch::Routing::PolymorphicRoutes
 
   sig { params(args: T.untyped).returns(String) }
+  def atelier_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def calendly_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -61,6 +64,12 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def new_user_session_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def opencal_intro_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def opencal_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def pensieve_url(*args); end
@@ -196,4 +205,7 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def user_spotify_omniauth_callback_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def walk_url(*args); end
 end

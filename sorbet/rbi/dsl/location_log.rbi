@@ -515,8 +515,8 @@ class LocationLog
     sig { returns(T.nilable([T.untyped, T.untyped])) }
     def coordinates_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def coordinates_changed?; end
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def coordinates_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.untyped) }
     def coordinates_in_database; end
@@ -524,8 +524,8 @@ class LocationLog
     sig { returns(T.nilable([T.untyped, T.untyped])) }
     def coordinates_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def coordinates_previously_changed?; end
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def coordinates_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.untyped) }
     def coordinates_previously_was; end
@@ -560,8 +560,8 @@ class LocationLog
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def created_at_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def created_at_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def created_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at_in_database; end
@@ -569,8 +569,8 @@ class LocationLog
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def created_at_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def created_at_previously_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def created_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at_previously_was; end
@@ -605,8 +605,8 @@ class LocationLog
     sig { returns(T.nilable([::Integer, ::Integer])) }
     def floor_level_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def floor_level_changed?; end
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def floor_level_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def floor_level_in_database; end
@@ -614,8 +614,8 @@ class LocationLog
     sig { returns(T.nilable([::Integer, ::Integer])) }
     def floor_level_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def floor_level_previously_changed?; end
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def floor_level_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def floor_level_previously_was; end
@@ -650,8 +650,8 @@ class LocationLog
     sig { returns(T.nilable([::Float, ::Float])) }
     def horizontal_accuracy_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def horizontal_accuracy_changed?; end
+    sig { params(from: ::Float, to: ::Float).returns(T::Boolean) }
+    def horizontal_accuracy_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Float)) }
     def horizontal_accuracy_in_database; end
@@ -659,8 +659,8 @@ class LocationLog
     sig { returns(T.nilable([::Float, ::Float])) }
     def horizontal_accuracy_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def horizontal_accuracy_previously_changed?; end
+    sig { params(from: ::Float, to: ::Float).returns(T::Boolean) }
+    def horizontal_accuracy_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Float)) }
     def horizontal_accuracy_previously_was; end
@@ -695,8 +695,8 @@ class LocationLog
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def id_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def id_in_database; end
@@ -704,8 +704,8 @@ class LocationLog
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def id_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def id_previously_was; end
@@ -812,8 +812,8 @@ class LocationLog
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def timestamp_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def timestamp_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def timestamp_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def timestamp_in_database; end
@@ -821,8 +821,8 @@ class LocationLog
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def timestamp_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def timestamp_previously_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def timestamp_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def timestamp_previously_was; end
@@ -857,8 +857,8 @@ class LocationLog
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def updated_at_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def updated_at_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def updated_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def updated_at_in_database; end
@@ -866,8 +866,8 @@ class LocationLog
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def updated_at_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def updated_at_previously_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def updated_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def updated_at_previously_was; end
@@ -902,8 +902,8 @@ class LocationLog
     sig { returns(T.nilable([::Float, ::Float])) }
     def vertical_accuracy_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def vertical_accuracy_changed?; end
+    sig { params(from: ::Float, to: ::Float).returns(T::Boolean) }
+    def vertical_accuracy_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Float)) }
     def vertical_accuracy_in_database; end
@@ -911,8 +911,8 @@ class LocationLog
     sig { returns(T.nilable([::Float, ::Float])) }
     def vertical_accuracy_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def vertical_accuracy_previously_changed?; end
+    sig { params(from: ::Float, to: ::Float).returns(T::Boolean) }
+    def vertical_accuracy_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Float)) }
     def vertical_accuracy_previously_was; end
