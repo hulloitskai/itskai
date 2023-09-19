@@ -32,6 +32,10 @@ class LocationLogAddress < ApplicationRecord
   # == Associations
   belongs_to :location_log, inverse_of: :address, touch: true
 
+  # == Normalizations
+  removes_blank :city, :neighbourhood, :place_name, :postal_code,
+                :street_address
+
   # == Methods
   sig { returns(String) }
   def approximate_address

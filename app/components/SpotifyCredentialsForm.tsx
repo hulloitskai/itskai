@@ -2,17 +2,17 @@ import type { FC } from "react";
 
 import { RemoveSpotifyCredentialsMutationDocument } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
-import type { UserSettingsPageOAuthCredentialsFragment } from "~/helpers/graphql";
+import type { OAuthCredentialsFormCredentialsFragment } from "~/helpers/graphql";
 
 import FormAuthenticityField from "./FormAuthenticityField";
 
-export type UserSettingsPageSpotifyCredentialsFormProps = {
-  readonly credentials: Maybe<UserSettingsPageOAuthCredentialsFragment>;
+export type SpotifyCredentialsFormProps = {
+  readonly credentials: Maybe<OAuthCredentialsFormCredentialsFragment>;
 };
 
-const UserSettingsPageSpotifyCredentialsForm: FC<
-  UserSettingsPageSpotifyCredentialsFormProps
-> = ({ credentials }) => {
+const SpotifyCredentialsForm: FC<SpotifyCredentialsFormProps> = ({
+  credentials,
+}) => {
   const router = useRouter();
 
   // == Remove Mutation
@@ -91,4 +91,4 @@ const UserSettingsPageSpotifyCredentialsForm: FC<
   );
 };
 
-export default UserSettingsPageSpotifyCredentialsForm;
+export default SpotifyCredentialsForm;

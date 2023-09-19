@@ -2,17 +2,17 @@ import type { FC } from "react";
 
 import { RemoveGoogleCredentialsMutationDocument } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
-import type { UserSettingsPageOAuthCredentialsFragment } from "~/helpers/graphql";
+import type { OAuthCredentialsFormCredentialsFragment } from "~/helpers/graphql";
 
 import FormAuthenticityField from "./FormAuthenticityField";
 
-export type UserSettingsPageGoogleCredentialsFormProps = {
-  readonly credentials: Maybe<UserSettingsPageOAuthCredentialsFragment>;
+export type GoogleCredentialsFormProps = {
+  readonly credentials: Maybe<OAuthCredentialsFormCredentialsFragment>;
 };
 
-const UserSettingsPageGoogleCredentialsForm: FC<
-  UserSettingsPageGoogleCredentialsFormProps
-> = ({ credentials }) => {
+const GoogleCredentialsForm: FC<GoogleCredentialsFormProps> = ({
+  credentials,
+}) => {
   const router = useRouter();
 
   // == Remove Mutation
@@ -91,4 +91,4 @@ const UserSettingsPageGoogleCredentialsForm: FC<
   );
 };
 
-export default UserSettingsPageGoogleCredentialsForm;
+export default GoogleCredentialsForm;

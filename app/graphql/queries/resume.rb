@@ -6,10 +6,15 @@ module Queries
     # == Type
     type GraphQL::Types::JSON, null: false
 
+    # == Arguments
+    argument :variant, String, required: false
+
     # == Resolver
-    sig { returns(T::Hash[String, T.untyped]) }
-    def resolve
-      ::Resume.data
+    sig do
+      params(variant: T.nilable(String)).returns(T::Hash[String, T.untyped])
+    end
+    def resolve(variant: nil)
+      ::Resume.data(variant: variant&.to_sym)
     end
   end
 end

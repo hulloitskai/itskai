@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class HomepagesController < ApplicationController
+class HomeController < ApplicationController
   # == Filters
   before_action :set_journal_entry
 

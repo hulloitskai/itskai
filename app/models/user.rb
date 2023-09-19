@@ -34,7 +34,7 @@ class User < ApplicationRecord
   include ::Named
 
   # == Constants
-  MIN_PASSWORD_ENTROPY = T.let(14, Integer)
+  MIN_PASSWORD_ENTROPY = 14
 
   # == Devise
   # Others modules are: :lockable, :timeoutable, and :omniauthable.

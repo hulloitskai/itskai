@@ -88,9 +88,6 @@ Rails.application.routes.draw do
   # == Resume
   resource :resume, only: :show
 
-  # == Pensieve
-  resource :pensieve, only: :show
-
   # == Scottkit
   resource :scottkit, only: :show
 
@@ -98,7 +95,9 @@ Rails.application.routes.draw do
   post "/scottcall" => "scottcalls#handle"
 
   # == Pages
-  root "homepages#show"
+  root "home#show"
+  get "/admin" => "admin#show"
+  get "/pensieve" => "pensieves#show"
   get "/toronto" => "places#toronto"
   get "/atelier" => redirect("https://instagram.com/atelier.ubc", status: 302)
   get "/opencal" => redirect("https://opencal.me/kai", status: 302)

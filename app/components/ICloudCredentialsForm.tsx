@@ -4,23 +4,24 @@ import { JsonInput, PasswordInput, Text } from "@mantine/core";
 import {
   RemoveICloudCredentialsMutationDocument,
   UpdateICloudCredentialsMutationDocument,
-  VerifyICloudSecurityCodeMutationDocument,
 } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
-import type { UserSettingsPageICloudCredentialsFragment } from "~/helpers/graphql";
+import type { ICloudCredentialsFormCredentialsFragment } from "~/helpers/graphql";
 
-export type UserSettingsPageICloudCredentialsFormValues = {
+import ICloudVerifySecurityCodeForm from "./ICloudVerifySecurityCodeForm";
+
+export type ICloudCredentialsFormValues = {
   readonly email: string;
   readonly password: string;
 };
 
-export type UserSettingsPageICloudCredentialsFormProps = {
-  readonly credentials: Maybe<UserSettingsPageICloudCredentialsFragment>;
+export type ICloudCredentialsFormProps = {
+  readonly credentials: Maybe<ICloudCredentialsFormCredentialsFragment>;
 };
 
-const UserSettingsPageICloudCredentialsForm: FC<
-  UserSettingsPageICloudCredentialsFormProps
-> = ({ credentials }) => {
+const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
+  credentials,
+}) => {
   const { cookies, session } = credentials ?? {};
   const router = useRouter();
 
@@ -41,21 +42,20 @@ const UserSettingsPageICloudCredentialsForm: FC<
           </Text>
         </Box>
       ),
-      children: <VerifySecurityCodeModalContent />,
+      children: <ICloudVerifySecurityCodeForm />,
     });
   }, []);
 
   // == Form
-  const initialValues =
-    useMemo<UserSettingsPageICloudCredentialsFormValues>(() => {
-      const { email, password } = credentials ?? {};
-      return {
-        email: email ?? "",
-        password: password ?? "",
-      };
-    }, [credentials]);
+  const initialValues = useMemo<ICloudCredentialsFormValues>(() => {
+    const { email, password } = credentials ?? {};
+    return {
+      email: email ?? "",
+      password: password ?? "",
+    };
+  }, [credentials]);
   const { getInputProps, setValues, setErrors, resetDirty, onSubmit } =
-    useForm<UserSettingsPageICloudCredentialsFormValues>({
+    useForm<ICloudCredentialsFormValues>({
       initialValues: initialValues,
     });
   useDidUpdate(() => {
@@ -90,7 +90,7 @@ const UserSettingsPageICloudCredentialsForm: FC<
                     </Text>
                   </Box>
                 ),
-                children: <VerifySecurityCodeModalContent />,
+                children: <ICloudVerifySecurityCodeForm />,
               });
             },
           });
@@ -179,9 +179,26 @@ const UserSettingsPageICloudCredentialsForm: FC<
                           </Box>
                         ),
                         children: (
-                          <SessionInformationModalContent
-                            {...{ credentials }}
-                          />
+                          <Stack spacing="xs">
+                            {!!cookies && (
+                              <Textarea
+                                label="Cookies"
+                                value={cookies}
+                                autosize
+                                maxRows={12}
+                                readOnly
+                              />
+                            )}
+                            {!!session && (
+                              <JsonInput
+                                label="Session"
+                                value={JSON.stringify(session, undefined, 2)}
+                                autosize
+                                maxRows={12}
+                                readOnly
+                              />
+                            )}
+                          </Stack>
                         ),
                       });
                     }}
@@ -220,75 +237,4 @@ const UserSettingsPageICloudCredentialsForm: FC<
   );
 };
 
-export default UserSettingsPageICloudCredentialsForm;
-
-const VerifySecurityCodeModalContent: FC = () => {
-  const { getInputProps, isDirty, onSubmit } = useForm({
-    initialValues: { code: "" },
-  });
-  const onError = useApolloAlertCallback("Failed to verify code");
-  const [runMutation, { loading }] = useMutation(
-    VerifyICloudSecurityCodeMutationDocument,
-    {
-      onCompleted: () => {
-        closeAllModals();
-        showNotice({ message: "Successfully authenticated with iCloud." });
-      },
-      onError,
-    },
-  );
-  return (
-    <form
-      onSubmit={onSubmit(values => {
-        runMutation({
-          variables: {
-            input: values,
-          },
-        });
-      })}
-    >
-      <Stack spacing="xs">
-        <TextInput
-          label="Security Code"
-          placeholder="123456"
-          autoComplete="off"
-          {...getInputProps("code")}
-        />
-        <Button type="submit" disabled={!isDirty()} {...{ loading }}>
-          Verify Code
-        </Button>
-      </Stack>
-    </form>
-  );
-};
-
-type SessionInformationModalContentProps = {
-  readonly credentials: UserSettingsPageICloudCredentialsFragment;
-};
-
-const SessionInformationModalContent: FC<
-  SessionInformationModalContentProps
-> = ({ credentials: { cookies, session } }) => {
-  return (
-    <Stack spacing="xs">
-      {!!cookies && (
-        <Textarea
-          label="Cookies"
-          value={cookies}
-          autosize
-          maxRows={12}
-          readOnly
-        />
-      )}
-      {!!session && (
-        <JsonInput
-          label="Session"
-          value={JSON.stringify(session, undefined, 2)}
-          autosize
-          maxRows={12}
-          readOnly
-        />
-      )}
-    </Stack>
-  );
-};
+export default ICloudCredentialsForm;

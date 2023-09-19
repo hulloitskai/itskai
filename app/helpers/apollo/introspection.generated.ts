@@ -11,6 +11,7 @@
       "Image",
       "InstagramCredentials",
       "JournalEntry",
+      "LocationAccessGrant",
       "LocationLog",
       "OAuthCredentials",
       "PensieveMessage",

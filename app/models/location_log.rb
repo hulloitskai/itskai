@@ -55,6 +55,7 @@ class LocationLog < ApplicationRecord
 
   # == Callbacks
   after_create :reverse_geocode_and_save!
+  after_create_commit :trigger_subscription
 
   # == Geocoding
   reverse_geocoded_by :latitude, :longitude do |log, results|
@@ -134,7 +135,7 @@ class LocationLog < ApplicationRecord
 
   # == Callback Handlers
   sig { void }
-  def trigger_subscriptions
+  def trigger_subscription
     unless Location.hide?
       Schema.subscriptions!.trigger(:location, {}, self)
     end

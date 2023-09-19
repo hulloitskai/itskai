@@ -15,6 +15,11 @@ const ResumeLayout: FC<ResumeLayoutProps> = ({ printable, children }) => (
           color: black,
           backgroundColor: colors.dark[4],
         },
+        "@media print": {
+          "@page": {
+            margin: 0,
+          },
+        },
       })}
     />
     <AppMeta title="Resume" />
@@ -25,7 +30,9 @@ const ResumeLayout: FC<ResumeLayoutProps> = ({ printable, children }) => (
         mb={printable ? 0 : 135}
         sx={{ width: "8.5in", height: "11in", backgroundColor: "white" }}
       >
-        <Stack spacing="xs">{children}</Stack>
+        <Stack spacing="xs" sx={{ textTransform: "none" }}>
+          {children}
+        </Stack>
       </Container>
     </MediaQuery>
   </>

@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class PensievesController < ApplicationController
+class PensieveController < ApplicationController
   # == Actions
   def show
     render(inertia: "PensievePage")

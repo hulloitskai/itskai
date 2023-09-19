@@ -4,10 +4,14 @@ import DocumentIcon from "~icons/heroicons/document-20-solid";
 import MenuIcon from "~icons/heroicons/bars-3-20-solid";
 import FeedbackIcon from "~icons/heroicons/megaphone-20-solid";
 
-import { ActionIcon, Affix, Dialog, Text } from "@mantine/core";
+import { ActionIcon, Affix, BoxProps, Dialog, Text } from "@mantine/core";
 import { useDisclosure, useWindowScroll } from "@mantine/hooks";
 
-const ResumeDialog: FC = () => {
+export type ResumeDialogProps = Omit<BoxProps, "children"> & {
+  readonly variant?: string;
+};
+
+const ResumeDialog: FC<ResumeDialogProps> = ({ variant, ...otherProps }) => {
   const [loadingPDF, setLoadingPDF] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
   const [scroll] = useWindowScroll();
@@ -19,6 +23,17 @@ const ResumeDialog: FC = () => {
       close();
     }
   }, [scroll.y > togglePosition]);
+
+  // == PDF
+  const pdfUrl = useMemo(() => {
+    let url = "/resume.pdf";
+    if (variant) {
+      const params = new URLSearchParams();
+      params.set("variant", variant);
+      url += "?" + params.toString();
+    }
+    return url;
+  }, [variant]);
 
   return (
     <>
@@ -32,6 +47,7 @@ const ResumeDialog: FC = () => {
         transition="slide-up"
         transitionDuration={250}
         {...{ opened }}
+        {...otherProps}
       >
         <Group spacing="sm">
           <Stack spacing={2}>
@@ -40,7 +56,7 @@ const ResumeDialog: FC = () => {
             </Text>
             <Button
               component="a"
-              href="/resume.pdf"
+              href={pdfUrl}
               leftIcon={<DocumentIcon />}
               variant="gradient"
               gradient={{ from: "indigo", to: "pink", deg: 45 }}

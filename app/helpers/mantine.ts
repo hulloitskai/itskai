@@ -35,45 +35,8 @@ export const APP_THEME: MantineThemeOverride = {
       outlineColor: colors[primaryColor]![colorScheme === "dark" ? 7 : 5],
     }),
   },
+  globalStyles: () => ({}),
   components: {
-    Alert: {
-      styles: {
-        title: {
-          textTransform: "lowercase",
-        },
-        message: {
-          textTransform: "lowercase",
-        },
-      },
-    },
-    Badge: {
-      styles: {
-        inner: {
-          textTransform: "lowercase",
-        },
-      },
-    },
-    Button: {
-      styles: {
-        inner: {
-          textTransform: "lowercase",
-        },
-      },
-    },
-    Checkbox: {
-      styles: {
-        label: {
-          textTransform: "lowercase",
-        },
-      },
-    },
-    InputWrapper: {
-      styles: {
-        label: {
-          textTransform: "lowercase",
-        },
-      },
-    },
     LoadingOverlay: {
       defaultProps: {
         loaderProps: {
@@ -86,35 +49,13 @@ export const APP_THEME: MantineThemeOverride = {
         variant: "default",
       },
     },
-    Menu: {
-      styles: {
-        itemLabel: {
-          textTransform: "lowercase",
-        },
-      },
-    },
     Modal: {
       styles: ({ headings: { sizes, ...style } }) => ({
         title: {
-          textTransform: "lowercase",
           ...(sizes.h3 as CSSObject),
           ...(style as CSSObject),
         },
       }),
-    },
-    Text: {
-      styles: {
-        root: {
-          textTransform: "lowercase",
-        },
-      },
-    },
-    Tooltip: {
-      styles: {
-        tooltip: {
-          textTransform: "lowercase",
-        },
-      },
     },
   },
 };
@@ -127,7 +68,6 @@ export const EMAIL_THEME: MantineThemeOverride = {
       margin: 8,
       fontSize: 14,
       backgroundColor: white,
-      textTransform: "lowercase",
     },
   }),
 };

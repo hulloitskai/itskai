@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import { format as formatTimeAgo } from "timeago.js";
+import AdminIcon from "~icons/heroicons/key-20-solid";
 import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
 
 import { Text } from "@mantine/core";
@@ -70,13 +71,14 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
         itemIcon: {
           width: 16,
           height: 16,
-          color: colors.black,
+          color: colors.brand[4],
         },
         itemLabel: {
           color: colors.gray[5],
           fontWeight: 500,
         },
       })}
+      {...{ opened }}
     >
       <Menu.Target>
         <Badge variant="dot" color={theme.primaryColor} {...badgeProps}>
@@ -106,6 +108,14 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
         >
           Sign Out
         </Menu.Item>
+        {viewer.isOwner && (
+          <>
+            <Menu.Divider />
+            <Menu.Item component={Link} href="/admin" icon={<AdminIcon />}>
+              Admin
+            </Menu.Item>
+          </>
+        )}
         {!skipQuery && (
           <>
             <Menu.Divider />

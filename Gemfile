@@ -190,6 +190,9 @@ gem "os", "~> 1.1"
 # Interact with Kai on Telegram
 gem "telegram-bot-ruby", "~> 1.0", require: 'telegram/bot'
 
+# Hash passwords with bcrypt
+gem "bcrypt", "~> 3.1"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"

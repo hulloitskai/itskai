@@ -1,20 +1,4 @@
 query UserSettingsPageQuery {
-  googleCredentials {
-    id
-    ...UserSettingsPageOAuthCredentialsFragment
-  }
-  icloudCredentials {
-    id
-    ...UserSettingsPageICloudCredentialsFragment
-  }
-  instagramCredentials {
-    id
-    ...UserSettingsPageInstagramCredentialsFragment
-  }
-  spotifyCredentials {
-    id
-    ...UserSettingsPageOAuthCredentialsFragment
-  }
   viewer {
     ...AppViewerFragment
     id

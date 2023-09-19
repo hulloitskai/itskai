@@ -1,0 +1,22 @@
+query AdminPageQuery {
+  googleCredentials {
+    id
+    ...OAuthCredentialsFormCredentialsFragment
+  }
+  icloudCredentials {
+    ...ICloudCredentialsFormCredentialsFragment
+    id
+  }
+  instagramCredentials {
+    id
+    ...InstagramCredentialsFormCredentialsFragment
+  }
+  spotifyCredentials {
+    id
+    ...OAuthCredentialsFormCredentialsFragment
+  }
+  viewer {
+    ...AppViewerFragment
+    id
+  }
+}

@@ -6,25 +6,13 @@ import type { UserSettingsPageQuery } from "~/helpers/graphql";
 import UserSettingsPageEmailForm from "~/components/UserSettingsPageEmailForm";
 import UserSettingsPagePasswordForm from "~/components/UserSettingsPagePasswordForm";
 import UserSettingsPageProfileForm from "~/components/UserSettingsPageProfileForm";
-import UserSettingsPageICloudCredentialsForm from "~/components/UserSettingsPageICloudCredentialsForm";
-import UserSettingsPageInstagramCredentialsForm from "~/components/UserSettingsPageInstagramCredentialsForm";
-import UserSettingsPageGoogleCredentialsForm from "~/components/UserSettingsPageGoogleCredentialsForm";
-import UserSettingsPageSpotifyCredentialsForm from "~/components/UserSettingsPageSpotifyCredentialsForm";
-import UserSettingsPageSyncActions from "~/components/UserSettingsPageSyncActions";
 
 export type UserSettingsPageProps = PagePropsWithData<UserSettingsPageQuery>;
 
 const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
-  data: {
-    viewer,
-    icloudCredentials,
-    instagramCredentials,
-    googleCredentials,
-    spotifyCredentials,
-  },
+  data: { viewer },
 }) => {
   invariant(viewer, "Missing viewer");
-  const { isOwner } = viewer;
 
   // == Markup
   return (
@@ -65,84 +53,6 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
           <UserSettingsPagePasswordForm />
         </Stack>
       </Card>
-      {isOwner && (
-        <>
-          <Card radius="md" withBorder>
-            <Stack spacing="xs">
-              <Stack align="center" spacing={0}>
-                <Title order={2} size="h4">
-                  iCloud
-                </Title>
-                <Text size="sm" color="dimmed" lh={1.3}>
-                  Authenticate with iCloud to enable location services.
-                </Text>
-              </Stack>
-              <UserSettingsPageICloudCredentialsForm
-                credentials={icloudCredentials}
-              />
-            </Stack>
-          </Card>
-          <Card radius="md" withBorder>
-            <Stack spacing="xs">
-              <Stack align="center" spacing={0}>
-                <Title order={2} size="h4">
-                  Instagram
-                </Title>
-                <Text size="sm" color="dimmed" lh={1.3}>
-                  Authenticate with Instagram to enable note updates.
-                </Text>
-              </Stack>
-              <UserSettingsPageInstagramCredentialsForm
-                credentials={instagramCredentials}
-              />
-            </Stack>
-          </Card>
-          <Card radius="md" withBorder>
-            <Stack spacing="xs">
-              <Stack align="center" spacing={0}>
-                <Title order={2} size="h4">
-                  Google
-                </Title>
-                <Text size="sm" color="dimmed" lh={1.3}>
-                  Authenticate with Google to enable calendar availability
-                  services.
-                </Text>
-              </Stack>
-              <UserSettingsPageGoogleCredentialsForm
-                credentials={googleCredentials}
-              />
-            </Stack>
-          </Card>
-          <Card radius="md" withBorder>
-            <Stack spacing="xs">
-              <Stack align="center" spacing={0}>
-                <Title order={2} size="h4">
-                  Spotify
-                </Title>
-                <Text size="sm" color="dimmed" lh={1.3}>
-                  Authenticate with Spotify to enable music services.
-                </Text>
-              </Stack>
-              <UserSettingsPageSpotifyCredentialsForm
-                credentials={spotifyCredentials}
-              />
-            </Stack>
-          </Card>
-          <Card radius="md" withBorder>
-            <Stack spacing="xs">
-              <Stack align="center" spacing={0}>
-                <Title order={2} size="h4">
-                  Sync Actions
-                </Title>
-                <Text size="sm" color="dimmed" lh={1.3}>
-                  Manually sync data from your services.
-                </Text>
-              </Stack>
-              <UserSettingsPageSyncActions />
-            </Stack>
-          </Card>
-        </>
-      )}
     </Stack>
   );
 };
@@ -151,6 +61,10 @@ UserSettingsPage.layout = buildLayout<UserSettingsPageProps>(
   (page, { data: { viewer } }) => (
     <AppLayout
       title="Settings"
+      breadcrumbs={[
+        { title: "Home", href: "/" },
+        { title: "Settings", href: "/user/settings" },
+      ]}
       withContainer
       withGutter
       containerSize={440}

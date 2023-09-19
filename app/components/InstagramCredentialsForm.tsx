@@ -6,36 +6,35 @@ import {
   UpdateInstagramCredentialsMutationDocument,
 } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
-import type { UserSettingsPageInstagramCredentialsFragment } from "~/helpers/graphql";
+import type { InstagramCredentialsFormCredentialsFragment } from "~/helpers/graphql";
 
-export type UserSettingsPageInstagramCredentialsFormValues = {
+export type InstagramCredentialsFormValues = {
   readonly username: string;
   readonly password: string;
   readonly securityCode: string;
 };
 
-export type UserSettingsPageInstagramCredentialsFormProps = {
-  readonly credentials: Maybe<UserSettingsPageInstagramCredentialsFragment>;
+export type InstagramCredentialsFormProps = {
+  readonly credentials: Maybe<InstagramCredentialsFormCredentialsFragment>;
 };
 
-const UserSettingsPageInstagramCredentialsForm: FC<
-  UserSettingsPageInstagramCredentialsFormProps
-> = ({ credentials }) => {
+const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
+  credentials,
+}) => {
   const { session } = credentials ?? {};
   const router = useRouter();
 
   // == Form
-  const initialValues =
-    useMemo<UserSettingsPageInstagramCredentialsFormValues>(() => {
-      const { username, password } = credentials ?? {};
-      return {
-        username: username ?? "",
-        password: password ?? "",
-        securityCode: "",
-      };
-    }, [credentials]);
+  const initialValues = useMemo<InstagramCredentialsFormValues>(() => {
+    const { username, password } = credentials ?? {};
+    return {
+      username: username ?? "",
+      password: password ?? "",
+      securityCode: "",
+    };
+  }, [credentials]);
   const { values, getInputProps, setValues, setErrors, resetDirty, onSubmit } =
-    useForm<UserSettingsPageInstagramCredentialsFormValues>({
+    useForm<InstagramCredentialsFormValues>({
       initialValues: initialValues,
     });
   useDidUpdate(() => {
@@ -148,7 +147,17 @@ const UserSettingsPageInstagramCredentialsForm: FC<
                         </Box>
                       ),
                       children: (
-                        <SessionInformationModalContent {...{ credentials }} />
+                        <Stack spacing="xs">
+                          {!!session && (
+                            <JsonInput
+                              label="Session"
+                              value={JSON.stringify(session, undefined, 2)}
+                              maxRows={12}
+                              autosize
+                              readOnly
+                            />
+                          )}
+                        </Stack>
                       ),
                     });
                   }}
@@ -186,60 +195,4 @@ const UserSettingsPageInstagramCredentialsForm: FC<
   );
 };
 
-export default UserSettingsPageInstagramCredentialsForm;
-
-// const VerifySecurityCodeModalContent: FC = () => {
-//   const { getInputProps, isDirty, onSubmit } = useForm({
-//     initialValues: { code: "" },
-//   });
-//   const onError = useApolloAlertCallback("Failed to verify code");
-//   const [runMutation, { loading }] = useMutation(
-//     VerifyInstagramSecurityCodeMutationDocument,
-//     {
-//       onCompleted: () => {
-//         closeAllModals();
-//         showNotice({ message: "Successfully authenticated with Instagram." });
-//       },
-//       onError,
-//     },
-//   );
-//   return (
-//     <form
-//       onSubmit={onSubmit(values => {
-//         runMutation({ variables: { input: { ...values } } });
-//       })}
-//     >
-//       <Stack spacing="xs">
-//         <TextInput
-//           label="Security Code"
-//           placeholder="123456"
-//           autoComplete="off"
-//           {...getInputProps("code")}
-//         />
-//         <Button type="submit" disabled={!isDirty()} {...{ loading }}>
-//           Verify Code
-//         </Button>
-//       </Stack>
-//     </form>
-//   );
-// };
-
-type SessionInformationModalContentProps = {
-  readonly credentials: UserSettingsPageInstagramCredentialsFragment;
-};
-
-const SessionInformationModalContent: FC<
-  SessionInformationModalContentProps
-> = ({ credentials: { session } }) => (
-  <Stack spacing="xs">
-    {!!session && (
-      <JsonInput
-        label="Session"
-        value={JSON.stringify(session, undefined, 2)}
-        maxRows={12}
-        autosize
-        readOnly
-      />
-    )}
-  </Stack>
-);
+export default InstagramCredentialsForm;

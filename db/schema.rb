@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_05_171906) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_17_015949) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -164,6 +164,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_171906) do
     t.datetime "updated_at", null: false
     t.datetime "imported_at", precision: nil, null: false
     t.index ["notion_page_id"], name: "index_journal_entries_on_notion_page_id", unique: true
+  end
+
+  create_table "location_access_grants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "recipient", null: false
+    t.string "password_digest", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "expires_at", precision: nil, null: false
   end
 
   create_table "location_log_addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

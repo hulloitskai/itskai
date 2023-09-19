@@ -9,19 +9,27 @@ class ResumesController < ApplicationController
   # FIXME: Loading the PDF resume immediately after the app boots in development
   # causes the app to hang. Not sure why.
   def show
+    variant = T.cast(params["variant"].presence, T.nilable(String))
     respond_to do |format|
       format.html do
         printable = params["printable"].truthy?
-        render(inertia: "ResumePage", props: { printable: })
+        data = query!("ResumePageQuery", { variant: })
+        props = {
+          data:,
+          variant:,
+          printable:,
+        }
+        render(inertia: "ResumePage", props: props.compact)
       end
       format.json do
-        render(json: Resume.data)
+        render(json: Resume.data(variant: variant&.to_sym))
       end
       format.pdf do
-        data = print_resume
+        data = print_resume(variant: variant&.to_sym)
+        name = ["kai-xie-resume", variant].compact.join("--")
         send_data(
           data,
-          filename: "kai-xie-resume.pdf",
+          filename: "#{name}.pdf",
           type: "application/pdf",
           disposition: "inline",
         )
@@ -57,10 +65,11 @@ class ResumesController < ApplicationController
     )
   end
 
-  sig { returns(String) }
-  def print_resume
+  sig { params(variant: T.nilable(Symbol)).returns(String) }
+  def print_resume(variant:)
+    params = { printable: true, variant: }
     driver = webdriver
-    driver.get(resume_url(printable: true))
+    driver.get(resume_url(params.compact))
     Selenium::WebDriver::Wait.new.until do
       driver.execute_script(
         "return window.performance.timing.loadEventEnd > 0",

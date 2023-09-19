@@ -6,30 +6,40 @@ module Resume
     extend T::Sig
 
     # == Methods
-    sig { returns(T::Hash[String, T.untyped]) }
-    def data
-      Rails.cache.fetch(file_key(File.mtime(file_path))) do
-        load
-      end
+    sig do
+      params(variant: T.nilable(Symbol)).returns(T::Hash[String, T.untyped])
     end
-
-    sig { returns(T::Hash[String, T.untyped]) }
-    def load
-      Psych.load_file(file_path)
+    def data(variant: nil)
+      modified_time = File.mtime(file_path(variant))
+      key = file_key(variant, modified_time)
+      Rails.cache.fetch(key) do
+        load(variant)
+      end
     end
 
     private
 
     # == Helpers
-    sig { returns(Pathname) }
-    def file_path
-      @file_path = T.let(@file_path, T.nilable(Pathname))
-      @file_path ||= Rails.root.join("config/resume.yml")
+    sig do
+      params(variant: T.nilable(Symbol)).returns(T::Hash[String, T.untyped])
+    end
+    def load(variant)
+      path = file_path(variant)
+      Psych.load_file(path)
     end
 
-    sig { params(modified_time: Time).returns(T.anything) }
-    def file_key(modified_time)
-      [:resume, :file, modified_time.to_i]
+    sig { params(variant: T.nilable(Symbol)).returns(Pathname) }
+    def file_path(variant)
+      name = ["resume", variant].compact.join("-")
+      Rails.root.join("config/#{name}.yml")
+    end
+
+    sig do
+      params(variant: T.nilable(Symbol), modified_time: Time)
+        .returns(T.anything)
+    end
+    def file_key(variant, modified_time)
+      [:resume, :file, variant, modified_time.to_i]
     end
   end
 end

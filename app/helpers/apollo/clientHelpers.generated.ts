@@ -10,6 +10,17 @@ export type AddJournalEntryCommentPayloadFieldPolicy = {
 	comment?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type CoordinatesKeySpecifier = ('latitude' | 'longitude' | CoordinatesKeySpecifier)[];
+export type CoordinatesFieldPolicy = {
+	latitude?: FieldPolicy<any> | FieldReadFunction<any>,
+	longitude?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type CreateLocationAccessGrantPayloadKeySpecifier = ('clientMutationId' | 'grant' | 'success' | CreateLocationAccessGrantPayloadKeySpecifier)[];
+export type CreateLocationAccessGrantPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	grant?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type CurrentlyPlayingKeySpecifier = ('progressMilliseconds' | 'track' | CurrentlyPlayingKeySpecifier)[];
 export type CurrentlyPlayingFieldPolicy = {
 	progressMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -67,9 +78,17 @@ export type LikePensieveMessagePayloadFieldPolicy = {
 	message?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type LocationLogKeySpecifier = ('approximateAddress' | 'googleMapsAreaUrl' | 'id' | 'timestamp' | LocationLogKeySpecifier)[];
+export type LocationAccessGrantKeySpecifier = ('createdAt' | 'expiresAt' | 'id' | 'recipient' | LocationAccessGrantKeySpecifier)[];
+export type LocationAccessGrantFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	expiresAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	recipient?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type LocationLogKeySpecifier = ('approximateAddress' | 'coordinates' | 'googleMapsAreaUrl' | 'id' | 'timestamp' | LocationLogKeySpecifier)[];
 export type LocationLogFieldPolicy = {
 	approximateAddress?: FieldPolicy<any> | FieldReadFunction<any>,
+	coordinates?: FieldPolicy<any> | FieldReadFunction<any>,
 	googleMapsAreaUrl?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
@@ -80,10 +99,11 @@ export type LyricLineFieldPolicy = {
 	startTimeMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	words?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'importJournalEntries' | 'importLocationLogs' | 'likePensieveMessage' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'testMutation' | 'unlikePensieveMessage' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'createLocationAccessGrant' | 'importJournalEntries' | 'importLocationLogs' | 'likePensieveMessage' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'testMutation' | 'unlikePensieveMessage' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
+	createLocationAccessGrant?: FieldPolicy<any> | FieldReadFunction<any>,
 	importJournalEntries?: FieldPolicy<any> | FieldReadFunction<any>,
 	importLocationLogs?: FieldPolicy<any> | FieldReadFunction<any>,
 	likePensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -130,7 +150,7 @@ export type PensieveMessageFieldPolicy = {
 	text?: FieldPolicy<any> | FieldReadFunction<any>,
 	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('activityStatus' | 'announcement' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'googleCredentials' | 'icloudCredentials' | 'imageBySignedId' | 'instagramCredentials' | 'journalEntry' | 'journalEntryComments' | 'location' | 'passwordStrength' | 'pensieveMessages' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('activityStatus' | 'announcement' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'googleCredentials' | 'icloudCredentials' | 'imageBySignedId' | 'instagramCredentials' | 'journalEntry' | 'journalEntryComments' | 'location' | 'locationAccessGrants' | 'passwordStrength' | 'pensieveMessages' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	announcement?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -144,6 +164,7 @@ export type QueryFieldPolicy = {
 	journalEntry?: FieldPolicy<any> | FieldReadFunction<any>,
 	journalEntryComments?: FieldPolicy<any> | FieldReadFunction<any>,
 	location?: FieldPolicy<any> | FieldReadFunction<any>,
+	locationAccessGrants?: FieldPolicy<any> | FieldReadFunction<any>,
 	passwordStrength?: FieldPolicy<any> | FieldReadFunction<any>,
 	pensieveMessages?: FieldPolicy<any> | FieldReadFunction<any>,
 	resume?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -298,6 +319,14 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | AddJournalEntryCommentPayloadKeySpecifier | (() => undefined | AddJournalEntryCommentPayloadKeySpecifier),
 		fields?: AddJournalEntryCommentPayloadFieldPolicy,
 	},
+	Coordinates?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | CoordinatesKeySpecifier | (() => undefined | CoordinatesKeySpecifier),
+		fields?: CoordinatesFieldPolicy,
+	},
+	CreateLocationAccessGrantPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | CreateLocationAccessGrantPayloadKeySpecifier | (() => undefined | CreateLocationAccessGrantPayloadKeySpecifier),
+		fields?: CreateLocationAccessGrantPayloadFieldPolicy,
+	},
 	CurrentlyPlaying?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | CurrentlyPlayingKeySpecifier | (() => undefined | CurrentlyPlayingKeySpecifier),
 		fields?: CurrentlyPlayingFieldPolicy,
@@ -333,6 +362,10 @@ export type StrictTypedTypePolicies = {
 	LikePensieveMessagePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | LikePensieveMessagePayloadKeySpecifier | (() => undefined | LikePensieveMessagePayloadKeySpecifier),
 		fields?: LikePensieveMessagePayloadFieldPolicy,
+	},
+	LocationAccessGrant?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | LocationAccessGrantKeySpecifier | (() => undefined | LocationAccessGrantKeySpecifier),
+		fields?: LocationAccessGrantFieldPolicy,
 	},
 	LocationLog?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | LocationLogKeySpecifier | (() => undefined | LocationLogKeySpecifier),

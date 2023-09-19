@@ -1,12 +1,12 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { Global, MantineProvider, Text } from "@mantine/core";
-import type { Resume } from "~/helpers/resume";
+import { MantineProvider, Text } from "@mantine/core";
 
 import EnvelopeIcon from "~icons/heroicons/envelope-20-solid";
 import GithubIcon from "~icons/lucide/github";
 import LinkedInIcon from "~icons/lucide/linkedin";
 
 import type { ResumePageQuery } from "~/helpers/graphql";
+import type { Resume } from "~/helpers/resume";
 
 import ResumeLayout from "~/components/ResumeLayout";
 import ResumeEducationSection from "~/components/ResumeEducationSection";
@@ -15,10 +15,12 @@ import ResumeWorkSection from "~/components/ResumeWorkSection";
 import ResumeDialog from "~/components/ResumeDialog";
 
 export type ResumePageProps = PagePropsWithData<ResumePageQuery> & {
+  readonly variant?: string;
   readonly printable?: boolean;
 };
 
 const ResumePage: PageComponent<ResumePageProps> = ({
+  variant,
   printable,
   data: { resume },
 }) => {
@@ -29,17 +31,11 @@ const ResumePage: PageComponent<ResumePageProps> = ({
   return (
     <MantineProvider
       inherit
-      theme={{ colorScheme: "light", primaryColor: "indigo" }}
+      theme={{
+        colorScheme: "light",
+        primaryColor: "indigo",
+      }}
     >
-      <Global
-        styles={{
-          "@media print": {
-            "@page": {
-              margin: 0,
-            },
-          },
-        }}
-      />
       <ResumeLayout {...{ printable }}>
         <Box>
           <Group spacing="xs" position="apart">
@@ -191,7 +187,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
           </Box>
         )}
       </ResumeLayout>
-      {!printable && <ResumeDialog />}
+      {!printable && <ResumeDialog {...{ variant }} />}
     </MantineProvider>
   );
 };

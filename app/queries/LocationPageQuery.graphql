@@ -1,0 +1,8 @@
+query LocationPageQuery {
+  viewer {
+    ...AppViewerFragment
+    id
+  }
+  # location {
+  # }
+}

@@ -39,6 +39,8 @@ module Types
     field :unlike_pensieve_message, mutation: Mutations::UnlikePensieveMessage
 
     field :activate_scottkit_signal, mutation: Mutations::ActivateScottkitSignal
+    field :create_location_access_grant,
+          mutation: Mutations::CreateLocationAccessGrant
     field :import_location_logs, mutation: Mutations::ImportLocationLogs
 
     # field :import_cookies, mutation: Mutations::ImportCookies

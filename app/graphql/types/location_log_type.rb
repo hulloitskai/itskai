@@ -8,6 +8,9 @@ module Types
 
     # == Fields
     field :approximate_address, String, null: false
+    field :coordinates, CoordinatesType, null: false do
+      argument :password, String, required: true
+    end
     field :google_maps_area_url, String, null: false
     field :timestamp, DateTimeType, null: false
 
