@@ -27,6 +27,7 @@ const JournalEntriesImportButton: FC<JournalEntriesImportButtonProps> = ({
   return (
     <Button
       variant="default"
+      leftIcon={<DownloadIcon />}
       onClick={() => {
         runMutation({
           variables: {
@@ -37,7 +38,7 @@ const JournalEntriesImportButton: FC<JournalEntriesImportButtonProps> = ({
       {...{ loading }}
       {...otherProps}
     >
-      {children ?? "Import Journal"}
+      {children ?? "Import journal entries"}
     </Button>
   );
 };

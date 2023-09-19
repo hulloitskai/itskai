@@ -24,6 +24,7 @@ declare global {
   const DateTime: typeof import('luxon')['DateTime']
   const DeleteIcon: typeof import('~/components/icons')['DeleteIcon']
   const Divider: typeof import('@mantine/core')['Divider']
+  const DownloadIcon: typeof import('~/components/icons')['DownloadIcon']
   const Duration: typeof import('luxon')['Duration']
   const EditIcon: typeof import('~/components/icons')['EditIcon']
   const EmptyCard: typeof import('~/components')['EmptyCard']

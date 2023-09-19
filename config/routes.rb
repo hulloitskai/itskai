@@ -97,7 +97,7 @@ Rails.application.routes.draw do
   # == Pages
   root "home#show"
   get "/admin" => "admin#show"
-  get "/pensieve" => "pensieves#show"
+  get "/pensieve" => "pensieve#show"
   get "/toronto" => "places#toronto"
   get "/atelier" => redirect("https://instagram.com/atelier.ubc", status: 302)
   get "/opencal" => redirect("https://opencal.me/kai", status: 302)

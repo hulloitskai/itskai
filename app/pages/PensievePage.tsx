@@ -49,6 +49,10 @@ PensievePage.layout = buildLayout<PensievePageProps>(
       title="Pensieve"
       description="Sometimes, Kai thinks out loud."
       imageUrl="/pensieve-banner.png"
+      breadcrumbs={[
+        { title: "Home", href: "/" },
+        { title: "Pensieve", href: "/pensieve" },
+      ]}
       withContainer
       containerProps={{ sx: { flexGrow: 1 } }}
       withGutter

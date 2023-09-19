@@ -34,7 +34,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
               Email Address
             </Title>
             <Text size="sm" color="dimmed" lh={1.3}>
-              Change your account email address.
+              Change your account email address
             </Text>
           </Stack>
           <UserSettingsPageEmailForm {...{ viewer }} />
@@ -47,7 +47,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
               Password
             </Title>
             <Text size="sm" color="dimmed" lh={1.3}>
-              Change your login password.
+              Change your login password
             </Text>
           </Stack>
           <UserSettingsPagePasswordForm />
@@ -60,10 +60,10 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
 UserSettingsPage.layout = buildLayout<UserSettingsPageProps>(
   (page, { data: { viewer } }) => (
     <AppLayout
-      title="Settings"
+      title="My settings"
       breadcrumbs={[
         { title: "Home", href: "/" },
-        { title: "Settings", href: "/user/settings" },
+        { title: "My settings", href: "/user/settings" },
       ]}
       withContainer
       withGutter

@@ -19,16 +19,10 @@ export type EmailLayoutProps = PropsWithChildren<{
 
 const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
   <>
-    {!!preview && (
-      <Preview style={{ textTransform: "lowercase" }}>{preview}</Preview>
-    )}
+    {!!preview && <Preview>{preview}</Preview>}
     <Box
       component={Body}
       sx={({ colors }) => ({
-        textTransform: "lowercase",
-        button: {
-          textTransform: "lowercase",
-        },
         '[data-id="react-email-text"]': {
           color: colors.gray[8],
         },

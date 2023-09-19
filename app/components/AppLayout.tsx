@@ -86,12 +86,6 @@ const AppLayout: FC<AppLayoutProps> = ({
             alignItems: "stretch",
             paddingBottom: 0,
           },
-          root: {
-            textTransform: "lowercase",
-            button: {
-              textTransform: "lowercase",
-            },
-          },
         }}
         padding={0}
         {...otherProps}

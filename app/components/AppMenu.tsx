@@ -91,7 +91,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
           href="/user/settings"
           icon={<SettingsIcon />}
         >
-          Settings
+          My settings
         </Menu.Item>
         <Menu.Item
           icon={<SignOutIcon />}
@@ -106,7 +106,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, sx }) => {
             });
           }}
         >
-          Sign Out
+          Sign out
         </Menu.Item>
         {viewer.isOwner && (
           <>

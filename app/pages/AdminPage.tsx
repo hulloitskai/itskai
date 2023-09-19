@@ -25,10 +25,10 @@ const AdminPage: PageComponent<AdminPageProps> = ({
       <Stack spacing="xs">
         <Stack align="center" spacing={0}>
           <Title order={2} size="h4">
-            Sync Actions
+            Data Controls
           </Title>
           <Text size="sm" color="dimmed" lh={1.3}>
-            Manually sync data from your services.
+            Import data from your services
           </Text>
         </Stack>
         <Stack spacing={6}>
@@ -44,7 +44,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
             iCloud
           </Title>
           <Text size="sm" color="dimmed" lh={1.3}>
-            Authenticate with iCloud to enable location services.
+            Enables location services & obsidian note imports
           </Text>
         </Stack>
         <ICloudCredentialsForm credentials={icloudCredentials} />
@@ -57,7 +57,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
             Instagram
           </Title>
           <Text size="sm" color="dimmed" lh={1.3}>
-            Authenticate with Instagram to enable note updates.
+            Enables automatic note updates
           </Text>
         </Stack>
         <InstagramCredentialsForm credentials={instagramCredentials} />
@@ -70,7 +70,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
             Google
           </Title>
           <Text size="sm" color="dimmed" lh={1.3}>
-            Authenticate with Google to enable calendar availability services.
+            Enables availability services
           </Text>
         </Stack>
         <GoogleCredentialsForm credentials={googleCredentials} />
@@ -83,7 +83,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
             Spotify
           </Title>
           <Text size="sm" color="dimmed" lh={1.3}>
-            Authenticate with Spotify to enable music services.
+            Enables currently-playing & lyrics services
           </Text>
         </Stack>
         <SpotifyCredentialsForm credentials={spotifyCredentials} />

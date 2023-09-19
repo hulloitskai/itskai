@@ -1,6 +1,6 @@
 basics:
   name: Kai Xie
-  summary: Full-stack software engineer, designer, and hacker
+  # summary: Full-stack software engineer, designer, and hacker
   profiles:
     - network: GitHub
       username: hulloitskai
@@ -118,12 +118,12 @@ education:
 skills:
   - name: Back-end
     keywords:
-      - Ruby on Rails (4yoe)
-      - NodeJS (4yoe)
-      - Postgres (4yoe)
-      - Golang (2yoe)
-      - NextJS (2yoe)
-      - OAuth (2yoe)
+      - Ruby on Rails
+      - NodeJS
+      - Postgres
+      - Golang
+      - NextJS
+      - OAuth
       - Python
       - Redis
       - ElasticSearch
@@ -132,8 +132,8 @@ skills:
       - GraphQL
   - name: Infra
     keywords:
-      - Docker (4yoe)
-      - Kubernetes (2yoe)
+      - Docker
+      - Kubernetes
       - Helm
       - AWS
       - Terraform

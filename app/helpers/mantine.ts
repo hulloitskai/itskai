@@ -35,7 +35,14 @@ export const APP_THEME: MantineThemeOverride = {
       outlineColor: colors[primaryColor]![colorScheme === "dark" ? 7 : 5],
     }),
   },
-  globalStyles: () => ({}),
+  globalStyles: () => ({
+    body: {
+      textTransform: "lowercase",
+      button: {
+        textTransform: "lowercase",
+      },
+    },
+  }),
   components: {
     LoadingOverlay: {
       defaultProps: {
@@ -68,6 +75,10 @@ export const EMAIL_THEME: MantineThemeOverride = {
       margin: 8,
       fontSize: 14,
       backgroundColor: white,
+      textTransform: "lowercase",
+      button: {
+        textTransform: "lowercase",
+      },
     },
   }),
 };
