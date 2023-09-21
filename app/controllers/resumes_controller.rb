@@ -45,23 +45,22 @@ class ResumesController < ApplicationController
                   Selenium::WebDriver::DriverExtensions::PrintsPage))
   end
   def webdriver
-    @webdriver = T.let(
-      @webdriver,
+    @webdriver ||= T.let(
+      Selenium::WebDriver.for(
+        :chrome,
+        options: Selenium::WebDriver::Chrome::Options.new.tap do |options|
+          options = T.let(options, Selenium::WebDriver::Chrome::Options)
+          options.add_argument("--headless")
+          options.add_argument("--window-size=1400,1000")
+          options.add_argument("--kiosk-printing")
+          if OS.linux?
+            options.add_argument("--no-sandbox")
+            options.add_argument("--disable-dev-shm-usage")
+          end
+        end,
+      ),
       T.nilable(T.all(Selenium::WebDriver::Chrome::Driver,
                       Selenium::WebDriver::DriverExtensions::PrintsPage)),
-    )
-    @webdriver ||= Selenium::WebDriver.for(
-      :chrome,
-      options: Selenium::WebDriver::Chrome::Options.new.tap do |options|
-        options = T.let(options, Selenium::WebDriver::Chrome::Options)
-        options.add_argument("--headless")
-        options.add_argument("--window-size=1400,1000")
-        options.add_argument("--kiosk-printing")
-        if OS.linux?
-          options.add_argument("--no-sandbox")
-          options.add_argument("--disable-dev-shm-usage")
-        end
-      end,
     )
   end
 

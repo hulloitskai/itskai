@@ -35,16 +35,16 @@ class JournalEntry
     # == Helpers
     sig { returns(T::Array[String]) }
     def redacted_phrases
-      @redacted_phrases = T.let(@redacted_phrases, T.nilable(T::Array[String]))
-      @redacted_phrases ||= scoped do
+      @redacted_phrases ||= T.let(
         case @notion_page.properties["Redact"]["rich_text"].first
         in { plain_text: }
           property = T.let(plain_text, String)
           property.strip.split(",").map(&:strip)
         else
           []
-        end
-      end
+        end,
+        T.nilable(T::Array[String]),
+      )
     end
 
     sig { params(paragraph: T.untyped).void }

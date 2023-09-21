@@ -15,23 +15,25 @@ class Event < T::Struct
 
     sig { returns(Google::Calendar) }
     def calendar
-      @calendar = T.let(@calendar, T.nilable(Google::Calendar))
-      @calendar ||= scoped do
-        client_id = Google.client_id!
-        client_secret = Google.client_secret!
-        refresh_token = begin
-          OAuthCredentials.google!.refresh_token
-        rescue ActiveRecord::RecordNotFound
-          raise "Missing Google OAuth credentials"
-        end
-        Google::Calendar.new(
-          client_id:,
-          client_secret:,
-          refresh_token:,
-          redirect_url: "urn:ietf:wg:oauth:2.0:oob",
-          calendar: calendar_id,
-        )
-      end
+      @calendar ||= T.let(
+        scoped do
+          client_id = Google.client_id!
+          client_secret = Google.client_secret!
+          refresh_token = begin
+            OAuthCredentials.google!.refresh_token
+          rescue ActiveRecord::RecordNotFound
+            raise "Missing Google OAuth credentials"
+          end
+          Google::Calendar.new(
+            client_id:,
+            client_secret:,
+            refresh_token:,
+            redirect_url: "urn:ietf:wg:oauth:2.0:oob",
+            calendar: calendar_id,
+          )
+        end,
+        T.nilable(Google::Calendar),
+      )
     end
 
     # == Finders

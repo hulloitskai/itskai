@@ -21,8 +21,10 @@ module Queries
     # == Helpers
     sig { returns(StrongPassword::StrengthChecker) }
     def checker
-      @checker = T.let(@checker, T.nilable(StrongPassword::StrengthChecker))
-      @checker ||= StrongPassword::StrengthChecker.new(use_dictionary: true)
+      @checker ||= T.let(
+        StrongPassword::StrengthChecker.new(use_dictionary: true),
+        T.nilable(StrongPassword::StrengthChecker),
+      )
     end
   end
 end

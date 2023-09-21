@@ -11,8 +11,8 @@ class DeviseController
   module HelperMethods
     include ::ActionText::ContentHelper
     include ::ActionText::TagHelper
-    include ::InertiaRails::Helper
     include ::ViteRails::TagHelpers
+    include ::InertiaRails::Helper
     include ::ActionController::Base::HelperMethods
     include ::DeviseHelper
     include ::ApplicationController::HelperMethods

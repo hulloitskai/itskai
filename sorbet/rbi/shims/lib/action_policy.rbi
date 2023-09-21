@@ -26,12 +26,13 @@ module ActionPolicy::ScopeMatchers::ActiveRecord
   sig do
     params(
       args: T.untyped,
+      kwargs: T.untyped,
       block: T.proc
         .params(relation: ActiveRecord::Relation)
         .returns(ActiveRecord::Relation),
     ).void
   end
-  def relation_scope(*args, &block); end
+  def relation_scope(*args, **kwargs, &block); end
 end
 
 module ActionPolicy::Behaviours::Scoping

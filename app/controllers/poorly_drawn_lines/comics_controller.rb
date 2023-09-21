@@ -19,8 +19,8 @@ module PoorlyDrawnLines
     def set_comic
       @comic = T.let(@comic, T.nilable(Comic))
       id = T.let(params.fetch(:id), String)
-      response = HTTParty.get("https://poorlydrawnlines.com/comic/#{id}/")
-      if response.ok?
+      response = Faraday.get("https://poorlydrawnlines.com/comic/#{id}/")
+      if response.success?
         html = T.let(response.body, String)
         doc = T.let(Nokogiri::HTML(html), Nokogiri::HTML::Document)
         img = T.let(doc.at_css(".post .wp-block-image img"),

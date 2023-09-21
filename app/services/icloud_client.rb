@@ -112,17 +112,19 @@ class ICloudClient
 
   sig { returns(String) }
   def cookies_filename
-    @cookies_filename = T.let(@cookies_filename, T.nilable(String))
-    @cookies_filename ||= File.join(
-      ICloud::CREDENTIALS_DIR,
-      @credentials.email.gsub(/[^0-9a-z]/i, ""),
+    @cookies_filename ||= T.let(
+      File.join(ICloud::CREDENTIALS_DIR,
+                @credentials.email.gsub(/[^0-9a-z]/i, "")),
+      T.nilable(String),
     )
   end
 
   sig { returns(String) }
   def session_filename
-    @session_filename = T.let(@session_filename, T.nilable(String))
-    @session_filename ||= cookies_filename + ".session"
+    @session_filename ||= T.let(
+      cookies_filename + ".session",
+      T.nilable(String),
+    )
   end
 
   sig { returns(T::Hash[String, ICloudDevice]) }

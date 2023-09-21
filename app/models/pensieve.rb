@@ -16,18 +16,17 @@ class Pensieve
       bot_token or raise "Pensieve bot token not set"
     end
 
-    sig { returns(T.nilable(String)) }
+    sig { returns(T.nilable(Integer)) }
     def telegram_user_id
-      ENV["PENSIEVE_TELEGRAM_USER_ID"]
+      @telegram_user_id ||= T.let(
+        ENV["PENSIEVE_TELEGRAM_USER_ID"].presence&.to_i,
+        T.nilable(Integer),
+      )
     end
 
     sig { returns(Integer) }
     def telegram_user_id!
-      @telegram_user_id = T.let(@telegram_user_id, T.nilable(Integer))
-      @telegram_user_id ||= scoped do
-        user_id = telegram_user_id or raise "Pensieve telegram user ID not set"
-        user_id.to_i
-      end
+      telegram_user_id or raise "Pensieve telegram user ID not set"
     end
 
     # == Methods

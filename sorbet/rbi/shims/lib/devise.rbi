@@ -1,8 +1,9 @@
 # typed: strong
 
-# class ActionController::Base
-#   include Devise::Controllers::Helpers
-# end
+class ActionController::Base
+  include Devise::Controllers::Helpers
+  include Devise::Controllers::UrlHelpers
+end
 
 # class Devise::OmniauthCallbacksController
 #   include Devise::OmniAuth::UrlHelpers

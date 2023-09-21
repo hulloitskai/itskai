@@ -69,7 +69,7 @@ module InertiaRails
       attempts = 0
       begin
         attempts += 1
-        HTTParty.head(InertiaRails.ssr_url)
+        Faraday.head(InertiaRails.ssr_url)
       rescue Errno::ECONNREFUSED
         sleep(1)
         if attempts < 3

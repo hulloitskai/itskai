@@ -109,7 +109,7 @@ class LocationLog < ApplicationRecord
   def self.latest(*args)
     relation = _latest
     if args.present?
-      relation = T.unsafe(relation).where(*args)
+      relation = relation.where(*T.unsafe(args))
       relation = T.cast(relation, PrivateRelation)
     end
     relation.first
@@ -119,7 +119,7 @@ class LocationLog < ApplicationRecord
   def self.latest!(*args)
     relation = _latest
     if args.present?
-      relation = T.unsafe(relation).where(*args)
+      relation = relation.where(*T.unsafe(args))
       relation = T.cast(relation, PrivateRelation)
     end
     relation.first!

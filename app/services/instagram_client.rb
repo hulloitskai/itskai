@@ -109,7 +109,9 @@ class InstagramClient
 
   sig { returns(String) }
   def session_filename
-    @session_filename = T.let(@session_filename, T.nilable(String))
-    @session_filename ||= File.join(Instagram::CREDENTIALS_DIR, "session.json")
+    @session_filename ||= T.let(
+      File.join(Instagram::CREDENTIALS_DIR, "session.json"),
+      T.nilable(String),
+    )
   end
 end

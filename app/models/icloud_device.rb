@@ -35,10 +35,10 @@ class ICloudDevice
 
   sig { returns(T::Hash[Symbol, T.untyped]) }
   def attributes
-    @attributes = T.let(@attributes, T.nilable(T::Hash[Symbol, T.untyped]))
-    @attributes ||= @pydevice.content.to_h.transform_keys do |key|
-      key.underscore.to_sym
-    end
+    @attributes ||= T.let(
+      @pydevice.content.to_h.transform_keys { |key| key.underscore.to_sym },
+      T.nilable(T::Hash[Symbol, T.untyped]),
+    )
   end
 
   protected

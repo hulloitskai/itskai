@@ -78,8 +78,10 @@ module Users
     # == Helpers
     sig { returns(T::Hash[Symbol, T.untyped]) }
     def auth
-      @auth = T.let(@auth, T.nilable(T::Hash[Symbol, T.untyped]))
-      @auth ||= request.env.fetch("omniauth.auth").to_hash(symbolize_keys: true)
+      @auth ||= T.let(
+        request.env.fetch("omniauth.auth").to_hash(symbolize_keys: true),
+        T.nilable(T::Hash[Symbol, T.untyped]),
+      )
     end
   end
 end

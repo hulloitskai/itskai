@@ -29,8 +29,10 @@ module Rails::Generators
 
     T::Sig::WithoutRuntime.sig { returns(T::Array[String]) }
     def lookup_paths
-      @lookup_paths = T.let(@lookup_paths, T.nilable(T::Array[String]))
-      @lookup_paths ||= %w[generators rails/generators]
+      @lookup_paths ||= T.let(
+        %w[generators rails/generators],
+        T.nilable(T::Array[String]),
+      )
     end
   end
 end
