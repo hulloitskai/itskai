@@ -8,6 +8,9 @@ export const typePolicies: StrictTypedTypePolicies = {
   LyricLine: {
     keyFields: false,
   },
+  Coordinates: {
+    keyFields: false,
+  },
 };
 
 export const { possibleTypes } = introspection;

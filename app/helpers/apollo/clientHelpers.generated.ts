@@ -15,9 +15,10 @@ export type CoordinatesFieldPolicy = {
 	latitude?: FieldPolicy<any> | FieldReadFunction<any>,
 	longitude?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type CreateLocationAccessGrantPayloadKeySpecifier = ('clientMutationId' | 'grant' | 'success' | CreateLocationAccessGrantPayloadKeySpecifier)[];
+export type CreateLocationAccessGrantPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'grant' | 'success' | CreateLocationAccessGrantPayloadKeySpecifier)[];
 export type CreateLocationAccessGrantPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	errors?: FieldPolicy<any> | FieldReadFunction<any>,
 	grant?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -25,6 +26,11 @@ export type CurrentlyPlayingKeySpecifier = ('progressMilliseconds' | 'track' | C
 export type CurrentlyPlayingFieldPolicy = {
 	progressMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	track?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type DeleteLocationAccessGrantPayloadKeySpecifier = ('clientMutationId' | 'success' | DeleteLocationAccessGrantPayloadKeySpecifier)[];
+export type DeleteLocationAccessGrantPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type ICloudCredentialsKeySpecifier = ('cookies' | 'email' | 'id' | 'password' | 'session' | ICloudCredentialsKeySpecifier)[];
 export type ICloudCredentialsFieldPolicy = {
@@ -78,16 +84,18 @@ export type LikePensieveMessagePayloadFieldPolicy = {
 	message?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type LocationAccessGrantKeySpecifier = ('createdAt' | 'expiresAt' | 'id' | 'recipient' | LocationAccessGrantKeySpecifier)[];
+export type LocationAccessGrantKeySpecifier = ('createdAt' | 'expiresAt' | 'id' | 'password' | 'recipient' | LocationAccessGrantKeySpecifier)[];
 export type LocationAccessGrantFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	expiresAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	password?: FieldPolicy<any> | FieldReadFunction<any>,
 	recipient?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type LocationLogKeySpecifier = ('approximateAddress' | 'coordinates' | 'googleMapsAreaUrl' | 'id' | 'timestamp' | LocationLogKeySpecifier)[];
+export type LocationLogKeySpecifier = ('approximateAddress' | 'approximateCoordinates' | 'coordinates' | 'googleMapsAreaUrl' | 'id' | 'timestamp' | LocationLogKeySpecifier)[];
 export type LocationLogFieldPolicy = {
 	approximateAddress?: FieldPolicy<any> | FieldReadFunction<any>,
+	approximateCoordinates?: FieldPolicy<any> | FieldReadFunction<any>,
 	coordinates?: FieldPolicy<any> | FieldReadFunction<any>,
 	googleMapsAreaUrl?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -99,11 +107,12 @@ export type LyricLineFieldPolicy = {
 	startTimeMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	words?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'createLocationAccessGrant' | 'importJournalEntries' | 'importLocationLogs' | 'likePensieveMessage' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'testMutation' | 'unlikePensieveMessage' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'createLocationAccessGrant' | 'deleteLocationAccessGrant' | 'importJournalEntries' | 'importLocationLogs' | 'likePensieveMessage' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'testMutation' | 'unlikePensieveMessage' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
 	createLocationAccessGrant?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteLocationAccessGrant?: FieldPolicy<any> | FieldReadFunction<any>,
 	importJournalEntries?: FieldPolicy<any> | FieldReadFunction<any>,
 	importLocationLogs?: FieldPolicy<any> | FieldReadFunction<any>,
 	likePensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -330,6 +339,10 @@ export type StrictTypedTypePolicies = {
 	CurrentlyPlaying?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | CurrentlyPlayingKeySpecifier | (() => undefined | CurrentlyPlayingKeySpecifier),
 		fields?: CurrentlyPlayingFieldPolicy,
+	},
+	DeleteLocationAccessGrantPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | DeleteLocationAccessGrantPayloadKeySpecifier | (() => undefined | DeleteLocationAccessGrantPayloadKeySpecifier),
+		fields?: DeleteLocationAccessGrantPayloadFieldPolicy,
 	},
 	ICloudCredentials?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ICloudCredentialsKeySpecifier | (() => undefined | ICloudCredentialsKeySpecifier),

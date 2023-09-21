@@ -18,7 +18,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
   return (
     <Stack>
       <Card radius="md" withBorder>
-        <Stack spacing="xs">
+        <Stack spacing="sm">
           <Center>
             <Title order={2} size="h4">
               Profile
@@ -28,7 +28,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
         </Stack>
       </Card>
       <Card radius="md" withBorder>
-        <Stack spacing="xs">
+        <Stack spacing="sm">
           <Stack align="center" spacing={0}>
             <Title order={2} size="h4">
               Email Address
@@ -41,7 +41,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
         </Stack>
       </Card>
       <Card radius="md" withBorder>
-        <Stack spacing="xs">
+        <Stack spacing="sm">
           <Stack align="center" spacing={0}>
             <Title order={2} size="h4">
               Password

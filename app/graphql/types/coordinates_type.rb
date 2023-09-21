@@ -4,7 +4,7 @@
 module Types
   class CoordinatesType < BaseObject
     # == Fields
-    field :latitude, Integer, null: false
-    field :longitude, Integer, null: false
+    field :latitude, Float, null: false
+    field :longitude, Float, null: false
   end
 end

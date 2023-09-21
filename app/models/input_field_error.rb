@@ -15,7 +15,7 @@ class InputFieldError < T::Struct
       field: model_error.attribute.to_s
         .camelize(:lower)
         .gsub(/\[([0-9]+)\]/, '.\1'),
-      message: model_error.message,
+      message: model_error.full_message,
     )
   end
 

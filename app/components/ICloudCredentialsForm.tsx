@@ -33,8 +33,8 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
           <Text>Verify Security Code</Text>
           <Text
             weight="normal"
-            size="sm"
             color="dimmed"
+            size="sm"
             sx={{ lineHeight: 1.3 }}
           >
             Enter the security code you received on your device to complete
@@ -75,23 +75,7 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
           router.reload({
             preserveScroll: true,
             onSuccess: () => {
-              openModal({
-                title: (
-                  <Box>
-                    <Text>Verify Security Code</Text>
-                    <Text
-                      weight="normal"
-                      size="sm"
-                      color="dimmed"
-                      sx={{ lineHeight: 1.3 }}
-                    >
-                      Enter the security code you received on your device to
-                      complete iCloud authentication.
-                    </Text>
-                  </Box>
-                ),
-                children: <ICloudVerifySecurityCodeForm />,
-              });
+              openVerifySecurityCodeModal();
             },
           });
         } else {

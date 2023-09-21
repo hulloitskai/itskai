@@ -1,0 +1,6 @@
+query LocationAccessGrantsQuery {
+  locationAccessGrants {
+    id
+    ...LocationAccessGrantCardGrantFragment
+  }
+}

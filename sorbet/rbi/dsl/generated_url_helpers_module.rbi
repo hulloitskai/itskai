@@ -9,6 +9,9 @@ module GeneratedUrlHelpersModule
   include ::ActionDispatch::Routing::PolymorphicRoutes
 
   sig { params(args: T.untyped).returns(String) }
+  def admin_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def atelier_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -178,6 +181,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def toronto_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def track_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def update_rails_disk_service_url(*args); end

@@ -9,6 +9,9 @@ module GeneratedPathHelpersModule
   include ::ActionDispatch::Routing::PolymorphicRoutes
 
   sig { params(args: T.untyped).returns(String) }
+  def admin_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def atelier_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -178,6 +181,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def toronto_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def track_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def update_rails_disk_service_path(*args); end

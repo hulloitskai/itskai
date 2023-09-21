@@ -2,7 +2,7 @@ import type { FC } from "react";
 import { Code, Text } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 
-import { TestMutationDocument } from "~/helpers/graphql";
+import { TestMutationMutationDocument } from "~/helpers/graphql";
 
 export type TestFormValues = {
   readonly name: string;
@@ -22,7 +22,7 @@ const TestForm: FC = () => {
 
   // == Mutation
   const onError = useApolloAlertCallback("Mutation failed!");
-  const [runMutation, { data }] = useMutation(TestMutationDocument, {
+  const [runMutation, { data }] = useMutation(TestMutationMutationDocument, {
     onCompleted: ({ payload: { model, errors } }) => {
       if (model) {
         showNotification({ message: "Mutation successful!" });

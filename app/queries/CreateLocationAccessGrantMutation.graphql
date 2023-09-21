@@ -1,0 +1,13 @@
+mutation CreateLocationAccessGrantMutation(
+  $input: CreateLocationAccessGrantInput!
+) {
+  payload: createLocationAccessGrant(input: $input) {
+    errors {
+      field
+      message
+    }
+    grant {
+      id
+    }
+  }
+}

@@ -1,0 +1,7 @@
+fragment LocationAccessGrantCardGrantFragment on LocationAccessGrant {
+  createdAt
+  expiresAt
+  id
+  password
+  recipient
+}

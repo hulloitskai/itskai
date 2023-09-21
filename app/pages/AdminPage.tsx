@@ -9,6 +9,7 @@ import GoogleCredentialsForm from "~/components/GoogleCredentialsForm";
 import SpotifyCredentialsForm from "~/components/SpotifyCredentialsForm";
 import LocationLogsImportButton from "~/components/LocationLogsImportButton";
 import JournalEntriesImportButton from "~/components/JournalEntriesImportButton";
+import LocationAccessGrants from "~/components/LocationAccessGrants";
 
 export type AdminPageProps = PagePropsWithData<AdminPageQuery>;
 
@@ -41,6 +42,19 @@ const AdminPage: PageComponent<AdminPageProps> = ({
       <Stack spacing="xs">
         <Stack align="center" spacing={0}>
           <Title order={2} size="h4">
+            Location Access Grants
+          </Title>
+          <Text size="sm" color="dimmed" lh={1.3}>
+            Grant access to your precise location
+          </Text>
+        </Stack>
+        <LocationAccessGrants />
+      </Stack>
+    </Card>
+    <Card radius="md" withBorder>
+      <Stack spacing="sm">
+        <Stack align="center" spacing={0}>
+          <Title order={2} size="h4">
             iCloud
           </Title>
           <Text size="sm" color="dimmed" lh={1.3}>
@@ -51,7 +65,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
       </Stack>
     </Card>
     <Card radius="md" withBorder>
-      <Stack spacing="xs">
+      <Stack spacing="sm">
         <Stack align="center" spacing={0}>
           <Title order={2} size="h4">
             Instagram
@@ -64,7 +78,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
       </Stack>
     </Card>
     <Card radius="md" withBorder>
-      <Stack spacing="xs">
+      <Stack spacing="sm">
         <Stack align="center" spacing={0}>
           <Title order={2} size="h4">
             Google
@@ -77,7 +91,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
       </Stack>
     </Card>
     <Card radius="md" withBorder>
-      <Stack spacing="xs">
+      <Stack spacing="sm">
         <Stack align="center" spacing={0}>
           <Title order={2} size="h4">
             Spotify
@@ -101,7 +115,7 @@ AdminPage.layout = buildLayout<AdminPageProps>((page, { data: { viewer } }) => (
     ]}
     withContainer
     withGutter
-    containerSize={440}
+    containerSize="xs"
     {...{ viewer }}
   >
     {page}

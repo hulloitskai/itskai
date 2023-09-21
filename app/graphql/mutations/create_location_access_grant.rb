@@ -5,14 +5,17 @@ module Mutations
   class CreateLocationAccessGrant < BaseMutation
     # == Payload
     class Payload < T::Struct
-      const :grant, LocationAccessGrant
+      const :grant, T.nilable(LocationAccessGrant)
+      const :errors, T.nilable(InputFieldErrors)
     end
 
     # == Fields
+    field :errors, [Types::InputFieldErrorType]
     field :grant, Types::LocationAccessGrantType
 
     # == Arguments
     argument :expires_in_seconds, Integer
+    argument :password, String
     argument :recipient, String
 
     # == Resolver
@@ -23,11 +26,15 @@ module Mutations
       ).returns(Payload)
     end
     def resolve(expires_in_seconds:, **attributes)
-      grant = LocationAccessGrant.create!(
+      grant = LocationAccessGrant.new(
         expires_in: expires_in_seconds.seconds,
         **attributes,
       )
-      Payload.new(grant:)
+      if grant.save
+        Payload.new(grant:)
+      else
+        Payload.new(errors: grant.input_field_errors)
+      end
     end
   end
 end

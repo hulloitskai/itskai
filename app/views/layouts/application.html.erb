@@ -71,6 +71,12 @@
       </script>
     <% end %>
 
+    <% # == Mapbox %>
+    <% if (token = ENV["MAPBOX_ACCESS_TOKEN"].presence) %>
+      <meta name="mapbox-access-token" content="<%= token %>">
+    <% end %>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+
     <%# == Inertia %>
     <%== inertia_headers %>
   </head>

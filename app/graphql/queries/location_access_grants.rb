@@ -9,7 +9,8 @@ module Queries
     # == Resolver
     sig { returns(T::Enumerable[::LocationAccessGrant]) }
     def resolve
-      ::LocationAccessGrant.where("expires_at > NOW()")
+      relation = ::LocationAccessGrant.valid
+      authorized_scope(relation)
     end
   end
 end

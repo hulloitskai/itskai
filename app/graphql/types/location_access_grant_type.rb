@@ -9,6 +9,7 @@ module Types
     # == Fields
     field :created_at, DateTimeType, null: false
     field :expires_at, DateTimeType, null: false
+    field :password, String, null: false
     field :recipient, String, null: false
 
     # == Helpers

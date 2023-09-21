@@ -39,7 +39,7 @@ class LocationLogAddress < ApplicationRecord
   # == Methods
   sig { returns(String) }
   def approximate_address
-    [neighbourhood, city, province, country].compact.join(", ")
+    [neighbourhood, city, province, country].compact.uniq.join(", ")
   end
 
   sig { returns(String) }

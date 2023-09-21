@@ -1,33 +1,60 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { Text } from "@mantine/core";
 
-import type { LocationPageQuery } from "~/helpers/graphql";
+import type { Coordinates, LocationPageQuery } from "~/helpers/graphql";
+
+import Map from "~/components/Map";
+import { GeolocateControl } from "react-map-gl";
 
 export type LocationPageProps = PagePropsWithData<LocationPageQuery>;
 
-const LocationPage: PageComponent<LocationPageProps> = () => {
+const TORONTO_COORDINATES: Coordinates = {
+  latitude: 43.6532,
+  longitude: -79.3832,
+};
+
+const LocationPage: PageComponent<LocationPageProps> = ({
+  data: { location },
+}) => {
+  const { latitude, longitude } =
+    location?.approximateCoordinates ?? TORONTO_COORDINATES;
+
   return (
-    <Stack align="center" spacing="xs" sx={{ flexGrow: 1 }}>
-      <Box sx={{ textAlign: "center" }}>
-        <Title order={2} size="h3">
-          Sometimes, Kai thinks out loud.
-        </Title>
-        <Text size="xs" color="dimmed" lh={1.3}>
-          (messages from the last 12 hours)
-        </Text>
-      </Box>{" "}
-    </Stack>
+    <Box pos="relative" sx={{ flexGrow: 1 }}>
+      <Map initialViewState={{ latitude, longitude, zoom: 11.5 }} scrollZoom>
+        <GeolocateControl />
+      </Map>
+      <Center
+        pos="absolute"
+        sx={({ spacing }) => ({
+          left: spacing.md,
+          right: spacing.md,
+          bottom: spacing.lg,
+          pointerEvents: "none",
+        })}
+      >
+        <Alert
+          title="Kai's somewhere around here..."
+          radius="md"
+          bg="dark"
+          styles={{
+            title: {
+              marginBottom: 0,
+            },
+          }}
+        >
+          Soon you&apos;ll be able to track Kai&apos;s location more precisely.
+        </Alert>
+      </Center>
+    </Box>
   );
 };
 
 LocationPage.layout = buildLayout<LocationPageProps>(
   (page, { data: { viewer } }) => (
     <AppLayout
-      title="Location"
+      title="Track"
       description="The ultimate Kai-stalking toolkit."
-      withContainer
-      containerProps={{ sx: { flexGrow: 1 } }}
-      withGutter
+      padding={0}
       {...{ viewer }}
     >
       {page}

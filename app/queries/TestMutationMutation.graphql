@@ -1,4 +1,4 @@
-mutation TestMutation($input: TestMutationInput!) {
+mutation TestMutationMutation($input: TestMutationInput!) {
   payload: testMutation(input: $input) {
     errors {
       field
