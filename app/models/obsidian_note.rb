@@ -33,8 +33,8 @@
 #  index_obsidian_notes_on_tags         (tags)
 #
 class ObsidianNote < ApplicationRecord
+  extend FriendlyId
   include Identifiable
-  include FriendlyIdentifiable
   include Slugged
   include ObsidianEntry
 
