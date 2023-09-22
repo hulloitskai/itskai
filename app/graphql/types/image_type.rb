@@ -1,4 +1,4 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 module Types
@@ -13,6 +13,7 @@ module Types
     end
 
     # == Resolvers
+    sig { params(size: Symbol).returns(String) }
     def url(size:)
       limit = limit_for_size(size)
       representation = object.representation(resize_to_limit: limit)

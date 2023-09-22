@@ -1,4 +1,4 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 module Mutations
@@ -17,6 +17,10 @@ module Mutations
     field :success, Boolean, null: false
 
     # == Resolver
+    sig do
+      params(args: T.untyped, kwargs: T.untyped, block: T.untyped)
+        .returns(T.untyped)
+    end
     def resolve_with_support(*args, **kwargs, &block)
       result = super
       if result.is_a?(GraphQL::Execution::Lazy)
@@ -29,6 +33,7 @@ module Mutations
     private
 
     # == Helpers
+    sig { params(result: T.untyped).returns(T.untyped) }
     def transform_resolve_result(result)
       result = result.serialize if result.is_a?(T::Struct)
       if result.is_a?(Hash)
