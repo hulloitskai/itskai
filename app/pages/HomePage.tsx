@@ -61,14 +61,10 @@ const HomePage: PageComponent<HomePageProps> = ({
       </Center>
       <Transition
         transition={{
-          in: { opacity: 1, transform: "scale(1)", maxHeight: 500 },
-          out: {
-            opacity: 0,
-            transform: "scale(0)",
-            maxHeight: 0,
-          },
-          common: { transformOrigin: "top" },
           transitionProperty: "transform, opacity, max-height",
+          common: { transformOrigin: "top" },
+          out: { opacity: 0, transform: "scale(0)", maxHeight: 0 },
+          in: { opacity: 1, transform: "scale(1)", maxHeight: 500 },
         }}
         duration={400}
         mounted={showPensieve}
@@ -115,14 +111,10 @@ const HomePage: PageComponent<HomePageProps> = ({
       <Space h="xs" />
       <Transition
         transition={{
-          in: { opacity: 1, transform: "scale(1)", maxHeight: 140 },
-          out: {
-            opacity: 0,
-            transform: "scale(0)",
-            maxHeight: 0,
-          },
-          common: { transformOrigin: "top" },
           transitionProperty: "transform, opacity, max-height",
+          common: { transformOrigin: "top" },
+          out: { opacity: 0, transform: "scale(0)", maxHeight: 0 },
+          in: { opacity: 1, transform: "scale(1)", maxHeight: 140 },
         }}
         duration={320}
         mounted={showLocation}

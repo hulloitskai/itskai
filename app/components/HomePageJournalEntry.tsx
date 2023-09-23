@@ -73,7 +73,14 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
   return (
     <Stack align="center" {...{ ref: containerRef }} {...otherProps}>
       {entry ? <JournalEntry {...{ entry }} /> : <CardSkeleton />}
-      <Transition transition="fade" mounted={!loading}>
+      <Transition
+        transition={{
+          transitionProperty: "transform, opacity, max-height",
+          out: { opacity: 0, transform: "scale(0)", maxHeight: 0 },
+          in: { opacity: 1, transform: "scale(1)", maxHeight: 140 },
+        }}
+        mounted={!loading}
+      >
         {style => (
           <Button
             variant="outline"
