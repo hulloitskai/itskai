@@ -100,9 +100,10 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
                     component="a"
                     href="https://github.com/hulloitskai/itskai"
                     target="_blank"
-                    size="xs"
                     compact
                     leftIcon={<CodeIcon />}
+                    size="xs"
+                    radius="xl"
                     h="unset"
                     py={4}
                   >
