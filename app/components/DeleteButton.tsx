@@ -33,7 +33,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({
     </Menu.Target>
     <Menu.Dropdown>
       <Menu.Item color="red" icon={<AlertIcon />} onClick={onConfirm}>
-        Confirm delete
+        Really delete?
       </Menu.Item>
     </Menu.Dropdown>
   </Menu>

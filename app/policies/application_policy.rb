@@ -21,9 +21,6 @@ class ApplicationPolicy < ActionPolicy::Base
   pre_check :allow_system!
   pre_check :allow_owner!
 
-  # == Aliases
-  alias_rule :edit?, to: :manage?
-
   # == Rules
   undef_method :create?
 
@@ -35,6 +32,9 @@ class ApplicationPolicy < ActionPolicy::Base
 
   sig { returns(T::Boolean) }
   def administrate? = false
+
+  # == Aliases
+  alias_rule :edit?, to: :manage?
 
   # == Scopes
   relation_scope { |relation| relation }

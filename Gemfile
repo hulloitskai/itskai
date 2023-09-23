@@ -197,6 +197,9 @@ gem "telegram-bot-ruby", "~> 1.0", require: 'telegram/bot'
 # Hash passwords with bcrypt
 gem "bcrypt", "~> 3.1"
 
+# Compare times
+gem "time_difference", "~> 0.5.0"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"
@@ -253,4 +256,3 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
 end
-

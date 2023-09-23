@@ -23,10 +23,11 @@ export type AppLayoutProps = AppMetaProps &
   AppShellProps & {
     readonly viewer: Maybe<AppViewerFragment>;
     readonly breadcrumbs?: ReadonlyArray<AppBreadcrumb | null | false>;
+    readonly withContainer?: boolean;
     readonly containerSize?: MantineNumberSize;
     readonly containerProps?: ContainerProps;
-    readonly withContainer?: boolean;
     readonly withGutter?: boolean;
+    readonly gutterSize?: MantineNumberSize;
   };
 
 export type AppBreadcrumb = {
@@ -41,10 +42,11 @@ const AppLayout: FC<AppLayoutProps> = ({
   imageUrl,
   noIndex,
   breadcrumbs,
+  withContainer,
   containerSize,
   containerProps,
-  withContainer,
   withGutter,
+  gutterSize,
   children,
   padding,
   ...otherProps
@@ -61,7 +63,7 @@ const AppLayout: FC<AppLayoutProps> = ({
       withContainer ? (
         <PageContainer
           size={containerSize || containerProps?.size}
-          {...{ withGutter }}
+          {...{ withGutter, gutterSize }}
           {...containerProps}
         >
           {children}

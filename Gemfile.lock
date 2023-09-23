@@ -548,6 +548,8 @@ GEM
       faraday-multipart (~> 1.0)
       zeitwerk (~> 2.6)
     thor (1.2.2)
+    time_difference (0.5.0)
+      activesupport
     timeout (0.4.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
@@ -686,6 +688,7 @@ DEPENDENCIES
   strong_password (~> 0.0.10)
   tapioca (~> 0.11.9)
   telegram-bot-ruby (~> 1.0)
+  time_difference (~> 0.5.0)
   tzinfo-data
   validate_url (~> 1.0)
   vite_rails (~> 3.0)
