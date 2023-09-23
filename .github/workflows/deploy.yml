@@ -8,7 +8,7 @@ on:
     types: [completed]
 
 concurrency:
-  group: ${{ github.event.workflow_run.head_branch }}
+  group: "${{ github.event.workflow_run.head_branch }}-${{ github.event.workflow_run.conclusion }}"
   cancel-in-progress: true
 
 jobs:
