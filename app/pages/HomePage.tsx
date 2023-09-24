@@ -54,8 +54,8 @@ const HomePage: PageComponent<HomePageProps> = ({
           </Text>
           <Text align="center" size="xs" opacity={0.7} lh={1.2}>
             (and also feel free to{" "}
-            <ContactMeLink>hit me up anytime</ContactMeLink> & tell me
-            what&apos;s on your mind!)
+            <ContactMeLink>hit me up anytime</ContactMeLink>
+            <br />& tell me what&apos;s on your mind!)
           </Text>
         </Stack>
       </Center>

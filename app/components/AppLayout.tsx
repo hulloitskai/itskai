@@ -117,7 +117,7 @@ const AppLayout: FC<AppLayoutProps> = ({
         <Box
           p={padding ?? (withContainer ? undefined : "md")}
           sx={{
-            flex: 1,
+            flexGrow: 1,
             display: "flex",
             flexDirection: "column",
             alignItems: "stretch",

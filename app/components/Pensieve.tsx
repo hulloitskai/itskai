@@ -170,7 +170,7 @@ const Pensieve: FC<PensieveProps> = ({
           ) : loading ? (
             <Stack spacing={6} m="lg">
               {[...new Array(3)].map((_, index) => (
-                <Skeleton height="lg" radius="md" key={index} />
+                <Skeleton height={36} radius="md" key={index} />
               ))}
             </Stack>
           ) : (
