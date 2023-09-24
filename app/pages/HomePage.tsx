@@ -40,7 +40,7 @@ const HomePage: PageComponent<HomePageProps> = ({
           <Text color="gray.6" align="center" maw={400}>
             Welcome to my little corner of the internet :)
             <br />
-            Wlease enjoy your stay. if you&apos;re having a good time,
+            Please enjoy your stay. if you&apos;re having a good time,
             let&apos;s{" "}
             <Anchor
               href="http://cal.com/itskai"
