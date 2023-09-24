@@ -18,7 +18,7 @@ class CurrentlyPlayingPoll
   sig { void }
   def start
     stop
-    @task = TimerTask.new(execution_interval: 4) do
+    @task = TimerTask.new(execution_interval: 3) do
       Rails.application.reloader.wrap do
         update
       end
