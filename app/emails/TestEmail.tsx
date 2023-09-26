@@ -21,23 +21,16 @@ const TestEmail: PageComponent<TestEmailProps> = ({
     <>
       <Text>Hi, {name || "anonymous user"}!</Text>
       <Text>This is a test email containing your form submission results:</Text>
-      <Box
-        component={Section}
-        sx={{
-          '[data-id="react-email-text"]': {
-            margin: `0 !important`,
-          },
-        }}
-      >
+      <Box className="results" component={Section}>
         <Row>
           <Column>
-            <Box component={Text} sx={{ fontWeight: 600 }}>
+            <Box component={Text} style={{ fontWeight: 600 }}>
               Name
             </Box>
             <Text>{model.name}</Text>
           </Column>
           <Column>
-            <Box component={Text} sx={{ fontWeight: 600 }}>
+            <Box component={Text} style={{ fontWeight: 600 }}>
               Birthday
             </Box>
             <Text>{model.birthday}</Text>
@@ -49,7 +42,9 @@ const TestEmail: PageComponent<TestEmailProps> = ({
 };
 
 TestEmail.layout = buildLayout<TestEmailProps>(page => (
-  <EmailLayout header="Test form submission">{page}</EmailLayout>
+  <EmailLayout emailName={TestEmail.name} header="Test form submission">
+    {page}
+  </EmailLayout>
 ));
 
 export default TestEmail;

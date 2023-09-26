@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import type { NotificationProps } from "@mantine/notifications";
+import type { NotificationProps } from "@mantine/core";
 
 import InformationCircleIcon from "~icons/heroicons/information-circle-20-solid";
 import ExclamationTriangleIcon from "~icons/heroicons/exclamation-triangle-20-solid";

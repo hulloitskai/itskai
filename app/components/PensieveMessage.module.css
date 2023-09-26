@@ -1,0 +1,13 @@
+.root {
+  &:not([data-has-likes]) {
+    .like {
+      opacity: 0;
+      transition: opacity 100ms ease;
+    }
+    &:hover {
+      .like {
+        opacity: 1;
+      }
+    }
+  }
+}

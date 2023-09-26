@@ -16,9 +16,10 @@ bin/setup
 
 ## TODO
 
-- [ ] Restrict users that send profanity from interacting with the site.
+- [ ] Lowercase preview text in emails
 - [ ] Switch to [Microsoft Clarity](https://clarity.microsoft.com) cuz it's
       free.
+- [x] Restrict users that send profanity from interacting with the site.
 - [x] Set up a fullscreen page for the Pensieve.
 - [x] Set a webhooks system for the pensieve bot.
 - [x] Upgrade to Vite 4 once https://github.com/ElMassimo/vite_ruby/issues/333

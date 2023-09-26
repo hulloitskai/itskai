@@ -1,0 +1,7 @@
+.root {
+  font-family: var(--mantine-font-family-monospace);
+  p {
+    font-size: var(--mantine-font-size-sm);
+    margin: rem(8px) 0;
+  }
+}

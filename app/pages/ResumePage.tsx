@@ -30,40 +30,42 @@ const ResumePage: PageComponent<ResumePageProps> = ({
 
   return (
     <MantineProvider
-      inherit
       theme={{
-        colorScheme: "light",
         primaryColor: "indigo",
       }}
+      forceColorScheme="light"
     >
       <ResumeLayout {...{ printable }}>
         <Box>
-          <Group spacing="xs" position="apart">
+          <Group justify="space-between" gap="xs" wrap="nowrap">
             {!!basics?.name && (
-              <Title size="h2" color="dark">
+              <Title size="h2" c="dark">
                 {basics.name}
               </Title>
             )}
-            <Group spacing="sm">
+            <Group gap="sm">
               {!!basics?.summary && (
                 <Text
                   size="sm"
-                  color="dark"
-                  weight={500}
+                  fw={500}
+                  c="dark"
                   lh={1.45}
-                  sx={{ whiteSpace: "pre-line" }}
+                  style={{ whiteSpace: "pre-line" }}
                 >
                   {basics.summary}
                 </Text>
               )}
               {!!basics?.summary && !!basics?.location?.city && (
-                <Divider orientation="vertical" sx={{ borderWidth: rem(2) }} />
+                <Divider
+                  orientation="vertical"
+                  style={{ borderWidth: rem(2) }}
+                />
               )}
               {!!basics?.location?.city && (
                 <Text
                   size="xs"
-                  weight={500}
-                  sx={({ fontFamilyMonospace }) => ({
+                  fw={500}
+                  style={({ fontFamilyMonospace }) => ({
                     fontFamily: fontFamilyMonospace,
                   })}
                 >
@@ -72,8 +74,8 @@ const ResumePage: PageComponent<ResumePageProps> = ({
               )}
             </Group>
           </Group>
-          <Group spacing={8}>
-            <Box sx={{ flexGrow: 1 }}>
+          <Group gap={8}>
+            <Box style={{ flexGrow: 1 }}>
               <Anchor
                 target="_blank"
                 rel="noopener noreferrer nofollow"
@@ -88,10 +90,10 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                     </Center>
                   }
                   variant="outline"
-                  color="gray.7"
-                  styles={({ fontFamilyMonospace, fn }) => ({
+                  c="gray.7"
+                  styles={({ fontFamilyMonospace }) => ({
                     root: {
-                      borderColor: fn.primaryColor(),
+                      borderColor: "var(--mantine-color-primary-border)",
                     },
                     inner: {
                       fontFamily: fontFamilyMonospace,
@@ -114,14 +116,14 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                 >
                   <Badge
                     variant="outline"
-                    color="gray.7"
+                    c="gray.7"
                     px={6}
-                    sx={({ fontFamilyMonospace }) => ({
+                    style={({ fontFamilyMonospace }) => ({
                       fontFamily: fontFamilyMonospace,
                     })}
-                    styles={({ fontFamilyMonospace, fn }) => ({
+                    styles={({ fontFamilyMonospace }) => ({
                       root: {
-                        borderColor: fn.primaryColor(),
+                        borderColor: "var(--mantine-color-primary-border)",
                       },
                       inner: {
                         fontFamily: fontFamilyMonospace,
@@ -154,7 +156,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
         </Box>
         {skills && (
           <Box>
-            <Title order={2} size="h4" color="dark.4" lh={1.3}>
+            <Title order={2} size="h4" c="dark.4" lh={1.3}>
               Skills
             </Title>
             {skills.map((skillInfo, index) => (
@@ -164,10 +166,10 @@ const ResumePage: PageComponent<ResumePageProps> = ({
         )}
         {work && (
           <Box>
-            <Title order={2} size="h4" color="dark.4" lh={1.3}>
+            <Title order={2} size="h4" c="dark.4" lh={1.3}>
               Experience
             </Title>
-            <Stack spacing={8}>
+            <Stack gap={8}>
               {work.map((workInfo, index) => (
                 <ResumeWorkSection key={index} {...{ workInfo }} />
               ))}
@@ -176,10 +178,10 @@ const ResumePage: PageComponent<ResumePageProps> = ({
         )}
         {education && (
           <Box>
-            <Title order={2} size="h4" color="dark.4" lh={1.3}>
+            <Title order={2} size="h4" c="dark.4" lh={1.3}>
               Education
             </Title>
-            <Stack spacing={2}>
+            <Stack gap={2}>
               {education.map((educationInfo, index) => (
                 <ResumeEducationSection key={index} {...{ educationInfo }} />
               ))}

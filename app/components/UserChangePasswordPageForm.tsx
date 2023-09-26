@@ -62,7 +62,7 @@ const UserChangePasswordPageForm: FC<UserChangePasswordPageFormProps> = ({
         });
       })}
     >
-      <Stack spacing="xs">
+      <Stack gap="xs">
         <PasswordWithStrengthCheckInput
           label="New Password"
           placeholder="new-password"

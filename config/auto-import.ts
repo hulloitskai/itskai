@@ -8,7 +8,6 @@ export const imports: Array<ImportsMap | PresetName> = [
       "AnchorContainer",
       "EmptyCard",
       "Head",
-      "PageHeader",
       "Time",
     ],
     "~/components/icons": [
@@ -52,10 +51,10 @@ export const imports: Array<ImportsMap | PresetName> = [
     ],
     "@inertiajs/react": ["Link"],
     "@mantine/core": [
-      "packSx",
       "rem",
       "useMantineTheme",
       "useMantineColorScheme",
+      "getThemeColor",
       "Alert",
       "Anchor",
       "Badge",
@@ -72,7 +71,6 @@ export const imports: Array<ImportsMap | PresetName> = [
       "List",
       "LoadingOverlay",
       "Menu",
-      "MediaQuery",
       "Skeleton",
       "Space",
       "Stack",
@@ -95,6 +93,7 @@ export const imports: Array<ImportsMap | PresetName> = [
     ],
     "@mantine/notifications": ["showNotification"],
     "@mantine/modals": ["openModal", "closeAllModals"],
+    clsx: [["clsx", "cx"]],
     "lodash-es": [
       "first",
       "get",

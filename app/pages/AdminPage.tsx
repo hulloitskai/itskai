@@ -23,28 +23,28 @@ const AdminPage: PageComponent<AdminPageProps> = ({
 }) => (
   <Stack>
     <Card radius="md" withBorder>
-      <Stack spacing="xs">
-        <Stack align="center" spacing={0}>
+      <Stack gap="xs">
+        <Stack align="center" gap={0}>
           <Title order={2} size="h4">
             Data Controls
           </Title>
-          <Text size="sm" color="dimmed" lh={1.3}>
+          <Text size="sm" c="dimmed" lh={1.3}>
             Import data from your services
           </Text>
         </Stack>
-        <Stack spacing={6}>
+        <Stack gap={6}>
           <LocationLogsImportButton />
           <JournalEntriesImportButton />
         </Stack>
       </Stack>
     </Card>
     <Card radius="md" withBorder>
-      <Stack spacing="xs">
-        <Stack align="center" spacing={0}>
+      <Stack gap="xs">
+        <Stack align="center" gap={0}>
           <Title order={2} size="h4">
             Location Access Grants
           </Title>
-          <Text size="sm" color="dimmed" lh={1.3}>
+          <Text size="sm" c="dimmed" lh={1.3}>
             Grant access to your precise location
           </Text>
         </Stack>
@@ -52,12 +52,12 @@ const AdminPage: PageComponent<AdminPageProps> = ({
       </Stack>
     </Card>
     <Card radius="md" withBorder>
-      <Stack spacing="sm">
-        <Stack align="center" spacing={0}>
+      <Stack gap="sm">
+        <Stack align="center" gap={0}>
           <Title order={2} size="h4">
             iCloud
           </Title>
-          <Text size="sm" color="dimmed" lh={1.3}>
+          <Text size="sm" c="dimmed" lh={1.3}>
             Enables location services & obsidian note imports
           </Text>
         </Stack>
@@ -65,12 +65,12 @@ const AdminPage: PageComponent<AdminPageProps> = ({
       </Stack>
     </Card>
     <Card radius="md" withBorder>
-      <Stack spacing="sm">
-        <Stack align="center" spacing={0}>
+      <Stack gap="sm">
+        <Stack align="center" gap={0}>
           <Title order={2} size="h4">
             Instagram
           </Title>
-          <Text size="sm" color="dimmed" lh={1.3}>
+          <Text size="sm" c="dimmed" lh={1.3}>
             Enables automatic note updates
           </Text>
         </Stack>
@@ -78,12 +78,12 @@ const AdminPage: PageComponent<AdminPageProps> = ({
       </Stack>
     </Card>
     <Card radius="md" withBorder>
-      <Stack spacing="sm">
-        <Stack align="center" spacing={0}>
+      <Stack gap="sm">
+        <Stack align="center" gap={0}>
           <Title order={2} size="h4">
             Google
           </Title>
-          <Text size="sm" color="dimmed" lh={1.3}>
+          <Text size="sm" c="dimmed" lh={1.3}>
             Enables availability services
           </Text>
         </Stack>
@@ -91,12 +91,12 @@ const AdminPage: PageComponent<AdminPageProps> = ({
       </Stack>
     </Card>
     <Card radius="md" withBorder>
-      <Stack spacing="sm">
-        <Stack align="center" spacing={0}>
+      <Stack gap="sm">
+        <Stack align="center" gap={0}>
           <Title order={2} size="h4">
             Spotify
           </Title>
-          <Text size="sm" color="dimmed" lh={1.3}>
+          <Text size="sm" c="dimmed" lh={1.3}>
             Enables currently-playing & lyrics services
           </Text>
         </Stack>

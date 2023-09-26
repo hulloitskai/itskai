@@ -2,12 +2,14 @@ import type { FC } from "react";
 import { Dropzone } from "@mantine/dropzone";
 import PhotoIcon from "~icons/heroicons/photo-20-solid";
 
-import { Image, Input, Text, getSize } from "@mantine/core";
-import type { InputWrapperProps, MantineNumberSize } from "@mantine/core";
+import { Image, Input, Text, rgba } from "@mantine/core";
+import type { InputWrapperProps } from "@mantine/core";
 
 import { AvatarFieldQueryDocument } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
 import type { AvatarFieldQueryVariables } from "~/helpers/graphql";
+
+import "@mantine/dropzone/styles.css";
 
 export type ImageInput = {
   readonly signedId: string;
@@ -15,8 +17,10 @@ export type ImageInput = {
 
 import { uploadFile } from "~/helpers/activestorage";
 
-const AVATAR_FIELD_IMAGE_SIZE: MantineNumberSize = 140;
-const AVATAR_FIELD_RADIUS: MantineNumberSize = "100%";
+import classes from "./AvatarField.module.css";
+
+const AVATAR_FIELD_IMAGE_SIZE = 140;
+const AVATAR_FIELD_RADIUS = 10000;
 
 export type AvatarFieldProps = Omit<
   InputWrapperProps,
@@ -103,39 +107,13 @@ const AvatarField: FC<AvatarFieldProps> = ({
         withAsterisk,
       }}
     >
-      <Stack align="center" spacing={8} py="sm">
+      <Stack align="center" gap={8} py="sm">
         <Box pos="relative">
           <Image
-            width={AVATAR_FIELD_IMAGE_SIZE}
-            height={AVATAR_FIELD_IMAGE_SIZE}
-            withPlaceholder
-            placeholder={
-              <Skeleton
-                radius={AVATAR_FIELD_RADIUS}
-                width="100%"
-                height="100%"
-              />
-            }
+            w={AVATAR_FIELD_IMAGE_SIZE}
+            h={AVATAR_FIELD_IMAGE_SIZE}
+            radius={AVATAR_FIELD_RADIUS}
             m={4}
-            styles={({ radius }) => {
-              const borderRadius = getSize({
-                sizes: radius,
-                size: AVATAR_FIELD_RADIUS,
-              });
-              return {
-                root: {
-                  overflow: "hidden",
-                  borderRadius,
-                },
-                figure: {
-                  transform: "scale(1.02)",
-                },
-                placeholder: {
-                  borderRadius,
-                  overflow: "hidden",
-                },
-              };
-            }}
             {...{ src }}
           />
           <Dropzone
@@ -167,53 +145,31 @@ const AvatarField: FC<AvatarFieldProps> = ({
             radius={AVATAR_FIELD_RADIUS}
             pos="absolute"
             inset={0}
-            styles={({ radius, colors, transitionTimingFunction, fn }) => {
-              const hoveredBackgroundColor = fn.rgba(colors.dark[5], 0.8);
+            classNames={{
+              root: classes.dropzone,
+              inner: classes.dropzoneInner,
+            }}
+            __vars={({ colors }) => {
               return {
-                root: {
-                  ".mantine-LoadingOverlay-root": {
-                    borderRadius: getSize({
-                      sizes: radius,
-                      size: AVATAR_FIELD_RADIUS,
-                    }),
-                  },
-                  ...(src && {
-                    backgroundColor: "transparent",
-                    "&[data-loading]": {
-                      backgroundColor: "transparent !important",
-                    },
-                    "&:not([data-loading]):hover": {
-                      backgroundColor: hoveredBackgroundColor,
-                      ".mantine-Dropzone-inner": {
-                        opacity: 1,
-                      },
-                    },
-                  }),
-                },
-                inner: {
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  transition: `opacity 150ms ${transitionTimingFunction}`,
-                  ...(src && {
-                    opacity: 0,
-                  }),
-                },
+                "--af-dropzone-backdrop": rgba(colors.dark[5], 0.8),
               };
             }}
+            {...(src && { "data-with-src": true })}
             {...{ loading }}
           >
-            <Stack align="center" spacing={8}>
+            <Stack align="center" gap={8}>
               <Box
                 component={PhotoIcon}
-                sx={({ colors, primaryColor }) => ({
+                style={({ colors, primaryColor }) => ({
                   color: colors[primaryColor]![4],
                 })}
               />
-              <Text size="xs" align="center" lh={1.3} color="dark.1">
+              <Text
+                size="xs"
+                c="dark.1"
+                lh={1.3}
+                style={{ textAlign: "center" }}
+              >
                 Drag an image or click to upload
               </Text>
             </Stack>
@@ -222,6 +178,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
         {src && (
           <Anchor
             component="button"
+            type="button"
             size="xs"
             disabled={loading}
             onClick={() => {

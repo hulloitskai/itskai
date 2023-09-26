@@ -1,0 +1,9 @@
+body {
+  text-transform: lowercase;
+  button {
+    text-transform: lowercase;
+  }
+  .mantine-Badge-label {
+    text-transform: lowercase;
+  }
+}

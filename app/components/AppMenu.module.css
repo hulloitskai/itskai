@@ -1,0 +1,8 @@
+.target {
+  &:hover {
+    border-color: var(--mantine-color-gray-7);
+  }
+  &[data-expanded] {
+    border-color: var(--mantine-color-gray-7);
+  }
+}

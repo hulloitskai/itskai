@@ -42,8 +42,7 @@ const PensieveMessageLike: FC<PensieveMessageLikeProps> = ({
     <Button
       variant="subtle"
       color="pink"
-      compact
-      size="xs"
+      size="compact-xs"
       radius="xl"
       pos="relative"
       onClick={() => {
@@ -67,9 +66,9 @@ const PensieveMessageLike: FC<PensieveMessageLikeProps> = ({
       }}
       {...otherProps}
     >
-      <Group spacing={4} noWrap>
+      <Group gap={4} wrap="nowrap">
         {loading ? (
-          <Loader size={14} color="brand.5" />
+          <Loader size={14} c="brand.5" />
         ) : (
           <Text
             component={likedByViewer ? HeartFilledIcon : HeartUnfilledIcon}
@@ -77,7 +76,7 @@ const PensieveMessageLike: FC<PensieveMessageLikeProps> = ({
           />
         )}
         {likes > 0 && (
-          <Text size="xs" color="brand.4">
+          <Text size="xs" c="brand.4">
             {likes}
           </Text>
         )}

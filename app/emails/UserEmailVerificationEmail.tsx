@@ -30,7 +30,7 @@ const UserVerificationEmail: PageComponent<UserEmailVerificationEmailProps> = ({
         pY={10}
         bg="brand"
         fw={600}
-        sx={({ white, radius }) => ({
+        style={({ white, radius }) => ({
           color: white,
           borderRadius: radius.sm,
         })}

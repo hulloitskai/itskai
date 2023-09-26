@@ -55,7 +55,7 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
         });
       })}
     >
-      <Stack spacing="xs">
+      <Stack gap="xs">
         <TextInput
           label="Email"
           placeholder="jon.snow@example.com"

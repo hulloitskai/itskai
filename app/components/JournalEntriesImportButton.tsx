@@ -27,7 +27,7 @@ const JournalEntriesImportButton: FC<JournalEntriesImportButtonProps> = ({
   return (
     <Button
       variant="default"
-      leftIcon={<DownloadIcon />}
+      leftSection={<DownloadIcon />}
       onClick={() => {
         runMutation({
           variables: {

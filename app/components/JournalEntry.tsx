@@ -23,21 +23,21 @@ const JournalEntry: FC<JournalEntryProps> = ({
   return (
     <Box pos="relative" w="100%" maw={540} {...otherProps}>
       <Card withBorder padding="lg" shadow="sm" radius="md">
-        <Stack spacing="xs">
-          <Stack spacing={2}>
+        <Stack gap="xs">
+          <Stack gap={2}>
             <Title
               order={3}
               size="h4"
-              weight={900}
-              color="white"
+              fw={900}
+              c="white"
               lh={1.3}
-              sx={({ fontFamilyMonospace }) => ({
+              style={({ fontFamilyMonospace }) => ({
                 fontFamily: fontFamilyMonospace,
               })}
             >
               {title}
             </Title>
-            <Text size="xs" color="dimmed">
+            <Text size="xs" c="dimmed">
               written{" "}
               <Time format={time => formatTimeAgo(time.toJSDate())}>
                 {startedAt}
@@ -55,7 +55,7 @@ const JournalEntry: FC<JournalEntryProps> = ({
         top={-10}
         right={-10}
         bg="dark.6"
-        sx={({ radius }) => ({
+        style={({ radius }) => ({
           borderRadius: radius.xl,
         })}
       >
@@ -69,7 +69,7 @@ const JournalEntry: FC<JournalEntryProps> = ({
                 radius="xl"
                 onClick={copy}
               >
-                <Text component={LinkIcon} size={11} />
+                <Text component={LinkIcon} fz={11} />
               </ActionIcon>
             </JournalEntryCopyTooltip>
           )}
@@ -106,6 +106,7 @@ const JournalEntryCopyTooltip: FC<JournalEntryCopyTooltipProps> = ({
     <Tooltip
       withArrow
       color="dark.9"
+      c="white"
       {...{ label }}
       {...(copied && { opened: true })}
     >

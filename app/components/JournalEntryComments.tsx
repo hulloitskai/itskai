@@ -13,6 +13,8 @@ import {
   JournalEntryCommentsQueryDocument,
 } from "~/helpers/graphql";
 
+import classes from "./JournalEntryComments.module.css";
+
 export type JournalEntryCommentsProps = BoxProps & {
   readonly entryId: string;
 };
@@ -21,8 +23,6 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
   entryId,
   ...otherProps
 }) => {
-  const theme = useMantineTheme();
-
   // == Input
   const [commentText, setCommentText] = useState("");
 
@@ -72,21 +72,15 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
 
   // == Markup
   return (
-    <Stack spacing={6} {...otherProps}>
+    <Stack gap={6} {...otherProps}>
       {!loading && comments ? (
         comments.map(comment => {
           const { id: commentId, createdAt, richText } = comment;
           return (
-            <Group
-              key={commentId}
-              align="start"
-              spacing={8}
-              fz="sm"
-              color="gray.5"
-            >
+            <Group key={commentId} align="start" gap={8} fz="sm" c="gray.5">
               <Box component={CommentIcon} mt={2} />
-              <Box sx={{ flex: 1 }}>
-                <Stack spacing={4} lh={1.5}>
+              <Box style={{ flex: 1 }}>
+                <Stack gap={4} lh={1.5}>
                   {richText.map((props: any, index: number) => (
                     <RenderText key={index} {...props} />
                   ))}
@@ -94,7 +88,8 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
                 <Box>
                   <Time
                     size="xs"
-                    color="dimmed"
+                    c="dimmed"
+                    lh={1.3}
                     format={time => formatTimeAgo(time.toJSDate())}
                   >
                     {createdAt}
@@ -112,16 +107,16 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
         rightSection={
           <ActionIcon
             variant="filled"
-            color={theme.colors[theme.primaryColor]![5]}
+            color="brand.6"
             radius="xl"
             loading={mutating}
             onClick={createComment}
           >
-            <Text component={SendIcon} size={12} />
+            <Text component={SendIcon} fz={12} />
           </ActionIcon>
         }
         radius="xl"
-        placeholder="write a comment..."
+        placeholder="Write a comment..."
         value={commentText}
         readOnly={mutating}
         onChange={({ currentTarget }) => {
@@ -133,20 +128,15 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
           }
         }}
         mt={2}
-        styles={({ colors }) => ({
-          input: {
-            minHeight: "unset",
-            height: "auto",
-            lineHeight: 2,
-            "&:focus": {
-              borderColor: colors.gray[7],
-            },
-          },
-          rightSection: {
+        classNames={{
+          input: classes.input,
+        }}
+        styles={{
+          section: {
             width: "unset",
-            marginRight: 2,
+            marginRight: 3,
           },
-        })}
+        }}
       />
     </Stack>
   );

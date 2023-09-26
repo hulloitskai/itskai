@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import CodeIcon from "~icons/heroicons/code-bracket-20-solid";
 
-import { DefaultMantineColor, HoverCard, Image, Text } from "@mantine/core";
+import { HoverCard, Image, Text } from "@mantine/core";
 import { useNetwork } from "@mantine/hooks";
 import type { BoxProps } from "@mantine/core";
 
@@ -9,11 +9,9 @@ import { ActivityStatusBadgeSubscriptionDocument } from "~/helpers/graphql";
 
 import heartSrc from "~/assets/images/heart.png";
 
-export type ActivityStatusBadgeProps = Omit<BoxProps, "children">;
+export type ActivityStatusProps = Omit<BoxProps, "children">;
 
-const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
-  ...otherProps
-}) => {
+const ActivityStatus: FC<ActivityStatusProps> = ({ ...otherProps }) => {
   const { online } = useNetwork();
 
   // == Query
@@ -33,7 +31,7 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
   const [statusText, setStatusText] = useState(activityStatus || "");
   useEffect(() => {
     if (!online) {
-      setStatusText("Offline");
+      setStatusText("You are offline :(");
     } else if (activityStatus) {
       setStatusText(activityStatus);
     }
@@ -52,19 +50,11 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
         onExited={() => setShowTagline(true)}
       >
         {style => {
-          const color: DefaultMantineColor = online ? "orange" : "red";
           return (
             <Center h="100%" {...{ style }}>
-              <Badge
-                size="xs"
-                variant="dot"
-                sx={({ colors, fn }) => ({
-                  borderColor: fn.darken(colors[color]![4], 0.3),
-                })}
-                {...{ color }}
-              >
+              <Text size="xs" c={online ? "gray.6" : "red.6"}>
                 {statusText}
-              </Badge>
+              </Text>
             </Center>
           );
         }}
@@ -74,10 +64,10 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
           <Center h="100%" {...{ style }}>
             <HoverCard withArrow withinPortal>
               <HoverCard.Target>
-                <Group spacing={4}>
-                  <Text size="xs" weight={500} color="gray.6">
+                <Group gap={4}>
+                  <Text size="xs" c="gray.6" fw={500}>
                     Made by{" "}
-                    <Text span weight={700}>
+                    <Text span fw={700}>
                       Kai
                     </Text>{" "}
                     with
@@ -86,12 +76,12 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
                 </Group>
               </HoverCard.Target>
               <HoverCard.Dropdown
-                sx={({ radius }) => ({ borderRadius: radius.md })}
+                style={({ radius }) => ({ borderRadius: radius.md })}
               >
-                <Stack spacing={6} align="center">
+                <Stack gap={6} align="center">
                   <Text size="sm" lh={1.4}>
                     Did you know this website is{" "}
-                    <Text span inherit weight={600}>
+                    <Text span inherit fw={700}>
                       open source
                     </Text>
                     ?
@@ -100,11 +90,10 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
                     component="a"
                     href="https://github.com/hulloitskai/itskai"
                     target="_blank"
-                    compact
-                    leftIcon={<CodeIcon />}
-                    size="xs"
+                    size="compact-xs"
+                    leftSection={<CodeIcon />}
                     radius="xl"
-                    h="unset"
+                    px={8}
                     py={4}
                   >
                     Take me to the code!
@@ -119,4 +108,4 @@ const ActivityStatusBadge: FC<ActivityStatusBadgeProps> = ({
   );
 };
 
-export default ActivityStatusBadge;
+export default ActivityStatus;

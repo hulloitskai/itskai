@@ -18,7 +18,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
   return (
     <Stack>
       <Card radius="md" withBorder>
-        <Stack spacing="sm">
+        <Stack gap="sm">
           <Center>
             <Title order={2} size="h4">
               Profile
@@ -28,12 +28,12 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
         </Stack>
       </Card>
       <Card radius="md" withBorder>
-        <Stack spacing="sm">
-          <Stack align="center" spacing={0}>
+        <Stack gap="sm">
+          <Stack align="center" gap={0}>
             <Title order={2} size="h4">
               Email Address
             </Title>
-            <Text size="sm" color="dimmed" lh={1.3}>
+            <Text size="sm" c="dimmed" lh={1.3}>
               Change your account email address
             </Text>
           </Stack>
@@ -41,12 +41,12 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
         </Stack>
       </Card>
       <Card radius="md" withBorder>
-        <Stack spacing="sm">
-          <Stack align="center" spacing={0}>
+        <Stack gap="sm">
+          <Stack align="center" gap={0}>
             <Title order={2} size="h4">
               Password
             </Title>
-            <Text size="sm" color="dimmed" lh={1.3}>
+            <Text size="sm" c="dimmed" lh={1.3}>
               Change your login password
             </Text>
           </Stack>

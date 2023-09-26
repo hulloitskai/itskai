@@ -27,10 +27,9 @@ const Pensieve: FC<PensieveProps> = ({
   expandable,
   onLoadMessages,
   onNewMessage,
-  sx,
+  style,
   ...otherProps
 }) => {
-  const theme = useMantineTheme();
   const [messages, setMessages] = useState<
     Map<string, PensieveMessageFragment>
   >(new Map());
@@ -134,7 +133,7 @@ const Pensieve: FC<PensieveProps> = ({
       w="100%"
       maw={540}
       display="flex"
-      sx={[...packSx(sx), { flexDirection: "column", alignItems: "stretch" }]}
+      style={[style, { flexDirection: "column", alignItems: "stretch" }]}
       {...otherProps}
     >
       <Card
@@ -144,9 +143,9 @@ const Pensieve: FC<PensieveProps> = ({
         radius="md"
         w="100%"
         display="flex"
-        sx={{ flexGrow: 1, flexDirection: "column", alignItems: "stretch" }}
+        style={{ flexGrow: 1, flexDirection: "column", alignItems: "stretch" }}
       >
-        <ScrollArea sx={{ flexGrow: 1 }} {...{ viewportRef }}>
+        <ScrollArea style={{ flexGrow: 1 }} {...{ viewportRef }}>
           {!isEmpty(groups) ? (
             <Stack m="lg">
               {groups.map(messages => {
@@ -158,7 +157,7 @@ const Pensieve: FC<PensieveProps> = ({
                   <Stack
                     key={messageId}
                     align={fromBot ? "start" : "end"}
-                    spacing={6}
+                    gap={6}
                   >
                     {messages.map(message => (
                       <PensieveMessage key={message.id} {...{ message }} />
@@ -168,13 +167,13 @@ const Pensieve: FC<PensieveProps> = ({
               })}
             </Stack>
           ) : loading ? (
-            <Stack spacing={6} m="lg">
+            <Stack gap={6} m="lg">
               {[...new Array(3)].map((_, index) => (
                 <Skeleton height={36} radius="md" key={index} />
               ))}
             </Stack>
           ) : (
-            <Text size="sm" color="dimmed" m="lg">
+            <Text size="sm" c="dimmed" m="lg">
               No recent messages.
             </Text>
           )}
@@ -189,20 +188,25 @@ const Pensieve: FC<PensieveProps> = ({
           top={-10}
           right={-10}
           bg="dark.6"
-          sx={({ radius }) => ({
+          style={({ radius }) => ({
             borderRadius: radius.xl,
           })}
         >
-          <Tooltip label="Open expanded view" withArrow color="dark.9">
+          <Tooltip
+            label="Open expanded view"
+            withArrow
+            color="dark.9"
+            c="white"
+          >
             <ActionIcon
               component={Link}
               href="/pensieve"
               size="sm"
               variant="outline"
-              color={theme.primaryColor}
+              color="brand"
               radius="xl"
             >
-              <Text component={ExpandIcon} size={11} />
+              <Text component={ExpandIcon} fz={11} />
             </ActionIcon>
           </Tooltip>
         </Box>

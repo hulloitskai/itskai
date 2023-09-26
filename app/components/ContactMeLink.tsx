@@ -16,7 +16,7 @@ const ContactMeLink: FC<ContactMeLinkProps> = ({
 }) => {
   const [contactMe] = useContactMe({ subject });
   return (
-    <Anchor component="button" weight={500} onClick={contactMe} {...otherProps}>
+    <Anchor component="button" fw={500} onClick={contactMe} {...otherProps}>
       {children}
     </Anchor>
   );

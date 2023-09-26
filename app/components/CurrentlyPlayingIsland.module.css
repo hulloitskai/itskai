@@ -1,0 +1,17 @@
+.badge {
+  transition-property: transform, opacity, border !important;
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &[data-with-lyrics] {
+    border-color: var(--cpi-border-color-active);
+
+    &[data-lyrics-explicit="true"] {
+      border-color: var(--cpi-border-color-muted);
+      &:hover {
+        border-color: var(--cpi-border-color-active);
+      }
+    }
+  }
+}

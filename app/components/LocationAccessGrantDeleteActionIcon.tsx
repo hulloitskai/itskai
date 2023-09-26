@@ -33,14 +33,14 @@ const LocationAccessGrantDeleteActionIcon: FC<
   return (
     <Menu withinPortal withArrow>
       <Menu.Target>
-        <ActionIcon color="red" {...otherProps}>
+        <ActionIcon c="red" {...otherProps}>
           <DeleteIcon />
         </ActionIcon>
       </Menu.Target>
       <Menu.Dropdown>
         <Menu.Item
-          color="red"
-          icon={<AlertIcon />}
+          leftSection={<AlertIcon />}
+          c="red"
           onClick={() => {
             runMutation({
               variables: {

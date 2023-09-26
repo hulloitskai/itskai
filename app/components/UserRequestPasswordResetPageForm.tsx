@@ -1,3 +1,4 @@
+import { BoxProps } from "@mantine/core";
 import type { FC } from "react";
 
 import { RequestUserPasswordResetMutationDocument } from "~/helpers/graphql";
@@ -6,11 +7,11 @@ export type UserRequestPasswordResetPageFormValues = {
   readonly email: string;
 };
 
-export type UserRequestPasswordResetPageFormProps = {};
+export type UserRequestPasswordResetPageFormProps = Omit<BoxProps, "children">;
 
 const UserRequestPasswordResetPageForm: FC<
   UserRequestPasswordResetPageFormProps
-> = () => {
+> = ({ ...otherProps }) => {
   const router = useRouter();
 
   // == Form
@@ -44,7 +45,8 @@ const UserRequestPasswordResetPageForm: FC<
 
   // == Markup
   return (
-    <form
+    <Box
+      component="form"
       onSubmit={onSubmit(({ email }) => {
         runMutation({
           variables: {
@@ -54,8 +56,9 @@ const UserRequestPasswordResetPageForm: FC<
           },
         });
       })}
+      {...otherProps}
     >
-      <Stack spacing="xs">
+      <Stack gap="xs">
         <TextInput
           label="Email"
           placeholder="friend@example.com"
@@ -66,7 +69,7 @@ const UserRequestPasswordResetPageForm: FC<
           Continue
         </Button>
       </Stack>
-    </form>
+    </Box>
   );
 };
 

@@ -55,7 +55,7 @@ const UserRequestEmailVerificationPageForm: FC<
         });
       })}
     >
-      <Stack spacing="xs">
+      <Stack gap="xs">
         <TextInput
           label="Email"
           placeholder="friend@example.com"

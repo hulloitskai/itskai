@@ -7,7 +7,7 @@ const ResumeButton: FC = () => (
     component="a"
     href="/resume"
     target="_blank"
-    leftIcon={<DocumentIcon />}
+    leftSection={<DocumentIcon />}
   >
     Resume, please!
   </Button>

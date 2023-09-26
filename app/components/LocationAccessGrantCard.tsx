@@ -21,53 +21,51 @@ const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
     withBorder
     padding="sm"
     radius="md"
-    sx={({ fn }) => ({
-      "&[data-with-border]": {
-        borderColor: fn.primaryColor(),
-      },
-    })}
+    style={{
+      borderColor: "var(--mantine-primary-color-filled)",
+    }}
     {...otherProps}
   >
-    <Group align="start" noWrap>
-      <Box sx={{ flexGrow: 1 }}>
-        <Text weight={600} lh={1.4}>
+    <Group align="start" wrap="nowrap">
+      <Box style={{ flexGrow: 1 }}>
+        <Text fw={600} lh={1.4}>
           {recipient}
         </Text>
-        <Text size="sm" color="dimmed" lh={1.4}>
+        <Text size="sm" c="dimmed" lh={1.4}>
           Created on{" "}
-          <Time inherit format={DateTime.DATETIME_MED} color="gray.5" fw={500}>
+          <Time inherit format={DateTime.DATETIME_MED} c="gray.5" fw={500}>
             {createdAt}
           </Time>
         </Text>
-        <Text size="sm" color="dimmed" lh={1.4}>
+        <Text size="sm" c="dimmed" lh={1.4}>
           Expires{" "}
           <Time
             inherit
             format={time => formatTimeAgo(time.toJSDate())}
-            color="gray.5"
+            c="gray.5"
             fw={500}
           >
             {expiresAt}
           </Time>
         </Text>
-        <Text size="sm" color="dimmed" lh={1.4}>
+        <Text size="sm" c="dimmed" lh={1.4}>
           Password is{" "}
           <CopyButton value={password}>
             {({ copy, copied }) => (
               <Tooltip
                 label={copied ? "Copied" : "Click to copy"}
-                color="brand"
+                c="brand"
                 withArrow
               >
                 <Code
-                  color="brand"
+                  c="brand"
                   onClick={copy}
-                  sx={({ colors, fn }) => ({
-                    cursor: "pointer",
-                    "&:hover": {
-                      backgroundColor: fn.darken(colors.brand[5], 0.5),
-                    },
-                  })}
+                  // style={({ colors, fn }) => ({
+                  //   cursor: "pointer",
+                  //   "&:hover": {
+                  //     backgroundColor: fn.darken(colors.brand[5], 0.5),
+                  //   },
+                  // })}
                 >
                   {password}
                 </Code>

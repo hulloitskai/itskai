@@ -1,84 +1,100 @@
-import type {
-  CSSObject,
-  DefaultMantineColor,
-  MantineThemeOverride,
+import {
+  DEFAULT_THEME,
+  Loader,
+  Modal,
+  NumberInput,
+  PasswordInput,
+  ThemeIcon,
+  createTheme,
 } from "@mantine/core";
-
-import { DEFAULT_THEME } from "@mantine/core";
-import type { Tuple } from "@mantine/core";
+import type { DefaultMantineColor, MantineColorsTuple } from "@mantine/core";
 
 export type CustomColor = "brand";
 
 declare module "@mantine/core" {
   export interface MantineThemeColorsOverride {
-    colors: Record<DefaultMantineColor | CustomColor, Tuple<string, 10>>;
+    colors: Record<DefaultMantineColor | CustomColor, MantineColorsTuple>;
   }
 }
 
-export const APP_THEME: MantineThemeOverride = {
-  colorScheme: "dark",
+export const THEME = createTheme({
   colors: {
     brand: DEFAULT_THEME.colors.pink,
   },
   primaryColor: "brand",
   fontFamily:
-    "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, " +
+    "Manrope, Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, " +
     "Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji",
   fontFamilyMonospace:
     "JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, " +
     "Liberation Mono, Courier New, monospace",
-  focusRingStyles: {
-    styles: ({ colors, colorScheme, primaryColor }) => ({
-      outlineOffset: 2,
-      outlineStyle: "solid",
-      outlineWidth: 1,
-      outlineColor: colors[primaryColor]![colorScheme === "dark" ? 7 : 5],
-    }),
-  },
-  globalStyles: () => ({
-    body: {
-      textTransform: "lowercase",
-      button: {
-        textTransform: "lowercase",
-      },
-    },
-  }),
   components: {
-    LoadingOverlay: {
+    Alert: Alert.extend({
+      styles: {
+        title: {
+          fontWeight: 800,
+        },
+      },
+    }),
+    Button: Button.extend({
+      defaultProps: {
+        radius: "md",
+      },
+      styles: {
+        label: {
+          fontWeight: 700,
+        },
+      },
+    }),
+    // Input: Input.extend({
+    //   defaultProps: {
+    //     radius: "md",
+    //   },
+    // }),
+    Loader: Loader.extend({
+      defaultProps: {
+        color: "brand.5",
+      },
+    }),
+    LoadingOverlay: LoadingOverlay.extend({
       defaultProps: {
         loaderProps: {
           size: "sm",
         },
       },
-    },
-    ThemeIcon: {
+    }),
+    Modal: Modal.extend({
+      styles: ({ headings: { sizes, ...style } }) => ({
+        title: {
+          ...sizes.h3,
+          ...style,
+        },
+      }),
+    }),
+    NumberInput: NumberInput.extend({
+      defaultProps: {
+        radius: "md",
+      },
+    }),
+    PasswordInput: PasswordInput.extend({
+      defaultProps: {
+        radius: "md",
+      },
+    }),
+    Textarea: Textarea.extend({
+      defaultProps: {
+        radius: "md",
+      },
+    }),
+    TextInput: TextInput.extend({
+      defaultProps: {
+        radius: "md",
+      },
+    }),
+    ThemeIcon: ThemeIcon.extend({
       defaultProps: {
         variant: "default",
       },
-    },
-    Modal: {
-      styles: ({ headings: { sizes, ...style } }) => ({
-        title: {
-          ...(sizes.h3 as CSSObject),
-          ...(style as CSSObject),
-        },
-      }),
-    },
+    }),
   },
-};
-
-export const EMAIL_THEME: MantineThemeOverride = {
-  ...APP_THEME,
-  colorScheme: "light",
-  globalStyles: ({ white }) => ({
-    body: {
-      margin: 8,
-      fontSize: 14,
-      backgroundColor: white,
-      textTransform: "lowercase",
-      button: {
-        textTransform: "lowercase",
-      },
-    },
-  }),
-};
+});

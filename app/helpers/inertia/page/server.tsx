@@ -1,4 +1,3 @@
-import type { ComponentType, PropsWithChildren } from "react";
 import type { PageProps } from "@inertiajs/core";
 import EmailLayout from "~/components/EmailLayout";
 import PageLayout from "~/components/PageLayout";
@@ -11,8 +10,10 @@ export const preparePage = <P extends PageProps>(
   type: PageType,
 ): void => {
   if (!page.layout) {
-    const Layout: ComponentType<PropsWithChildren> =
-      type == PageType.Email ? EmailLayout : PageLayout;
-    page.layout = children => <Layout>{children}</Layout>;
+    if (type == PageType.Email) {
+      page.layout = children => <EmailLayout>{children}</EmailLayout>;
+    } else {
+      page.layout = children => <PageLayout>{children}</PageLayout>;
+    }
   }
 };

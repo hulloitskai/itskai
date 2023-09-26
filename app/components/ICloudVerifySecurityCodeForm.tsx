@@ -36,7 +36,7 @@ const ICloudVerifySecurityCodeForm: FC<ICloudVerifySecurityCodeFormProps> = ({
       })}
       {...otherProps}
     >
-      <Stack spacing="xs">
+      <Stack gap="xs">
         <TextInput
           label="Security Code"
           placeholder="123456"

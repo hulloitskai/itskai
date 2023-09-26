@@ -74,7 +74,7 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
         });
       })}
     >
-      <Stack spacing="xs">
+      <Stack gap="xs">
         <TextInput
           label="Name"
           placeholder="A Friend"

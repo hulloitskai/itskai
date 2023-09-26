@@ -14,19 +14,19 @@ const UserChangePasswordPage: PageComponent<UserChangePasswordPageProps> = ({
   resetPasswordToken,
 }) => (
   <Card w={380} radius="md" withBorder>
-    <Stack spacing="xs">
-      <Stack spacing={4}>
-        <Title size="h3" align="center">
+    <Stack gap="xs">
+      <Stack gap={4}>
+        <Title size="h3" style={{ textAlign: "center" }}>
           Change password
         </Title>
-        <Text size="sm" color="dimmed" sx={{ lineHeight: 1.4 }}>
+        <Text size="sm" c="dimmed" style={{ lineHeight: 1.4 }}>
           Enter a new password that you will use to sign into your account.
         </Text>
       </Stack>
       <UserChangePasswordPageForm {...{ resetPasswordToken }} />
       <Divider />
-      <Stack spacing={0} fz="xs">
-        <Text color="gray.6">
+      <Stack gap={0} fz="xs">
+        <Text c="gray.6">
           <Anchor component={Link} href="/login">
             Sign in
           </Anchor>{" "}
@@ -46,7 +46,7 @@ const UserChangePasswordPage: PageComponent<UserChangePasswordPageProps> = ({
 UserChangePasswordPage.layout = buildLayout<UserChangePasswordPageProps>(
   (page, { data: { viewer } }) => (
     <AppLayout title="Sign in" {...{ viewer }}>
-      <Center sx={{ flexGrow: 1 }}>{page}</Center>
+      <Center style={{ flexGrow: 1 }}>{page}</Center>
     </AppLayout>
   ),
 );

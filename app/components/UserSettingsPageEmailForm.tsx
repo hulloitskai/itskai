@@ -97,7 +97,7 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
         });
       })}
     >
-      <Stack spacing="xs">
+      <Stack gap="xs">
         <Box>
           <TextInput
             label="Email"
@@ -108,7 +108,7 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
               ? {
                   rightSectionWidth: 110,
                   rightSection: (
-                    <Badge size="xs" variant="outline" color="yellow.8">
+                    <Badge size="xs" variant="outline" c="yellow.8">
                       Unverified
                     </Badge>
                   ),
@@ -116,9 +116,9 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
               : {})}
           />
           {email && unverifiedEmail && (
-            <Text size="xs" color="dimmed" mt={4}>
+            <Text size="xs" c="dimmed" mt={4}>
               Last verified email:{" "}
-              <Text color="gray.7" weight={500} span>
+              <Text c="gray.7" fw={500} span>
                 {email}
               </Text>
               <br />
@@ -141,7 +141,7 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
             />
           )}
         </Transition>
-        <Stack spacing={6}>
+        <Stack gap={6}>
           <Button
             type="submit"
             disabled={!(isDirty("email") && isDirty("currentPassword"))}

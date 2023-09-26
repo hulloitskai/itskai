@@ -87,7 +87,7 @@ const UserSettingsPagePasswordForm: FC<
         },
       )}
     >
-      <Stack spacing="xs">
+      <Stack gap="xs">
         <PasswordWithStrengthCheckInput
           label="Password"
           placeholder="applesauce"

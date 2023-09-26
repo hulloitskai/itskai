@@ -18,17 +18,17 @@ const ErrorPage: PageComponent<ErrorPageProps> = ({
 }) => (
   <Container size="xs" my="xl">
     <Stack align="center">
-      <Badge variant="outline" color="red">
+      <Badge variant="outline" c="red">
         Status {code}
       </Badge>
-      <Stack align="center" spacing={2}>
+      <Stack align="center" gap={2}>
         <Title size="h2">{title}</Title>
-        <Text color="dark.3" align="center">
+        <Text c="dark.3" style={{ textAlign: "center" }}>
           {description}
         </Text>
       </Stack>
       {!!error && (
-        <Code block color="primary" sx={{ alignSelf: "stretch" }}>
+        <Code block c="primary" style={{ alignSelf: "stretch" }}>
           Error: {error}
         </Code>
       )}

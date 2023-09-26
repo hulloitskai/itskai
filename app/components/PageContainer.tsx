@@ -1,61 +1,47 @@
-import type { ComponentPropsWithoutRef, FC, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
 
-import { getSize } from "@mantine/core";
-import type { ContainerProps, MantineNumberSize } from "@mantine/core";
+import { getSize, getSpacing } from "@mantine/core";
+import type { ContainerProps, MantineSize } from "@mantine/core";
 
 export type PageContainerProps = ContainerProps &
-  ComponentPropsWithoutRef<"div"> & {
+  Omit<ComponentPropsWithoutRef<"div">, "style"> & {
     readonly withGutter?: boolean;
-    readonly gutterSize?: MantineNumberSize;
+    readonly gutterSize?: MantineSize | (string & {}) | number;
   };
 
 const PageContainer: FC<PageContainerProps> = ({
   withGutter,
   gutterSize: gutterSizeProp,
-  children,
   size: sizeProp,
+  style,
+  children,
   ...otherProps
 }) => {
   const size = sizeProp || "sm";
-  const theme = useMantineTheme();
-  let content: ReactNode = children;
-  content = (
+  return (
     <Container
-      className={PageContainer.name}
       p="md"
       w="100%"
+      style={[
+        style,
+        withGutter
+          ? () => {
+              const containerSize = getSize(size, "container-size");
+              const gutterSize = getSpacing(gutterSizeProp ?? "md");
+              const margin = `clamp(0px, calc((100vw - ${containerSize}) / 2), ${gutterSize})`;
+              return {
+                marginTop: margin,
+                marginBottom: margin,
+              };
+            }
+          : undefined,
+      ]}
       {...{ size }}
       {...otherProps}
     >
-      {content}
+      {children}
     </Container>
   );
-  if (withGutter) {
-    const breakpoint = getSize({
-      sizes: {
-        xs: rem(540),
-        sm: rem(720),
-        md: rem(960),
-        lg: rem(1140),
-        xl: rem(1320),
-      },
-      size,
-    });
-    const gutterSize = getSize({
-      sizes: theme.spacing,
-      size: gutterSizeProp ?? "md",
-    });
-    const marginSize = `clamp(0px, calc((100vw - ${breakpoint}) / 2), ${gutterSize})`;
-    content = (
-      <MediaQuery
-        largerThan={breakpoint}
-        styles={{ marginTop: marginSize, marginBottom: marginSize }}
-      >
-        {content}
-      </MediaQuery>
-    );
-  }
-  return content;
 };
 
 export default PageContainer;

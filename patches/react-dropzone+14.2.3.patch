@@ -1,0 +1,50 @@
+diff --git a/node_modules/react-dropzone/dist/es/index.js b/node_modules/react-dropzone/dist/es/index.mjs
+similarity index 99%
+rename from node_modules/react-dropzone/dist/es/index.js
+rename to node_modules/react-dropzone/dist/es/index.mjs
+index 39d9345..34d6747 100755
+--- a/node_modules/react-dropzone/dist/es/index.js
++++ b/node_modules/react-dropzone/dist/es/index.mjs
+@@ -37,7 +37,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
+ import React, { forwardRef, Fragment, useCallback, useEffect, useImperativeHandle, useMemo, useReducer, useRef } from "react";
+ import PropTypes from "prop-types";
+ import { fromEvent } from "file-selector";
+-import { acceptPropAsAcceptAttr, allFilesAccepted, composeEventHandlers, fileAccepted, fileMatchSize, canUseFileSystemAccessAPI, isAbort, isEvtWithFiles, isIeOrEdge, isPropagationStopped, isSecurityError, onDocumentDragOver, pickerOptionsFromAccept, TOO_MANY_FILES_REJECTION } from "./utils/index";
++import { acceptPropAsAcceptAttr, allFilesAccepted, composeEventHandlers, fileAccepted, fileMatchSize, canUseFileSystemAccessAPI, isAbort, isEvtWithFiles, isIeOrEdge, isPropagationStopped, isSecurityError, onDocumentDragOver, pickerOptionsFromAccept, TOO_MANY_FILES_REJECTION } from "./utils/index.mjs";
+ /**
+  * Convenience wrapper component for the `useDropzone` hook
+  *
+@@ -383,7 +383,7 @@ var initialState = {
+  * @function useDropzone
+  *
+  * @param {object} props
+- * @param {import("./utils").AcceptProp} [props.accept] Set accepted file types.
++ * @param {import("./utils/index.mjs").AcceptProp} [props.accept] Set accepted file types.
+  * Checkout https://developer.mozilla.org/en-US/docs/Web/API/window/showOpenFilePicker types option for more information.
+  * Keep in mind that mime type determination is not reliable across platforms. CSV files,
+  * for example, are reported as text/plain under macOS but as application/vnd.ms-excel under
+@@ -969,4 +969,4 @@ function reducer(state, action) {
+ 
+ function noop() {}
+ 
+-export { ErrorCode } from "./utils";
+\ No newline at end of file
++export { ErrorCode } from "./utils/index.mjs";
+diff --git a/node_modules/react-dropzone/dist/es/utils/index.js b/node_modules/react-dropzone/dist/es/utils/index.mjs
+similarity index 98%
+rename from node_modules/react-dropzone/dist/es/utils/index.js
+rename to node_modules/react-dropzone/dist/es/utils/index.mjs
+index 8e5abd5..53a8dc4 100644
+--- a/node_modules/react-dropzone/dist/es/utils/index.js
++++ b/node_modules/react-dropzone/dist/es/utils/index.mjs
+@@ -26,7 +26,9 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
+ 
+ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+ 
+-import accepts from "attr-accept"; // Error codes
++import _accepts from "attr-accept"; // Error codes
++
++const accepts = typeof _accepts === "function" ? _accepts : _accepts.default;
+ 
+ export var FILE_INVALID_TYPE = "file-invalid-type";
+ export var FILE_TOO_LARGE = "file-too-large";

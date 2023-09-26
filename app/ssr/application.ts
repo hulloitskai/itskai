@@ -1,7 +1,5 @@
-import { createElement } from "react";
-import { renderToString, renderToStaticMarkup } from "react-dom/server";
+import { renderToString } from "react-dom/server";
 
-import { createStylesServer, ServerStyles } from "@mantine/ssr";
 import { render as renderEmail } from "@react-email/render";
 import { setupLuxon } from "~/helpers/luxon";
 
@@ -34,33 +32,17 @@ const emails = resolve(() => {
 });
 
 // == Entrypoint
-const stylesServer = createStylesServer();
-
 createServer(async page => {
   const type = resolvePageType(page.component);
-  let stylesMarkup: string | undefined = undefined;
   const { head, body } = await createInertiaApp({
     page,
     render: page => {
-      stylesMarkup = undefined;
       switch (type) {
         case PageType.Page: {
-          const html = renderToString(page);
-          const styles = createElement(ServerStyles, {
-            html,
-            server: stylesServer,
-          });
-          stylesMarkup = renderToStaticMarkup(styles);
-          return html;
+          return renderToString(page);
         }
         case PageType.Email: {
-          const html = renderEmail(page);
-          const styles = createElement(ServerStyles, {
-            html,
-            server: stylesServer,
-          });
-          stylesMarkup = renderToStaticMarkup(styles);
-          return html;
+          return renderEmail(page);
         }
       }
     },
@@ -86,8 +68,5 @@ createServer(async page => {
     },
     setup: setupApp,
   });
-  if (stylesMarkup) {
-    head.push(stylesMarkup);
-  }
   return { head, body };
 });

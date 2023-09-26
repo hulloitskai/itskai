@@ -1,0 +1,7 @@
+.container {
+  &:not([data-printable]) {
+    @media (min-width: 920px) {
+      margin-top: rem(48px);
+    }
+  }
+}

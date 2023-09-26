@@ -54,23 +54,26 @@ const TestPage: PageComponent<TestPageProps> = ({
 
   // == Markup
   return (
-    <Stack spacing="xl">
+    <Stack gap="xl">
       <Title>Test Page</Title>
-      <Stack spacing="xs">
+      <Stack gap="xs">
         <Title order={4}>Test Component Data</Title>
         <Code block>{JSON.stringify(data, undefined, 2)}</Code>
         <TextInput
-          icon={<PencilSquareIcon />}
           label="Name"
           description={nameDescription}
           placeholder="Some Input"
+          leftSection={<PencilSquareIcon />}
           {...getInputProps("name")}
         />
-        <Group spacing="xs" grow>
-          <Button leftIcon={<ArrowTopRightOnSquareIcon />} onClick={showModal}>
+        <Group gap="xs" grow>
+          <Button
+            leftSection={<ArrowTopRightOnSquareIcon />}
+            onClick={showModal}
+          >
             Open Modal
           </Button>
-          <Button leftIcon={<BellAlertIcon />} onClick={showAlert}>
+          <Button leftSection={<BellAlertIcon />} onClick={showAlert}>
             Notify Me
           </Button>
         </Group>
@@ -96,7 +99,7 @@ type TestPageModalContentProps = {
 };
 
 const TestPageModalContent: FC<TestPageModalContentProps> = ({ name }) => (
-  <Stack spacing="xs">
+  <Stack gap="xs">
     <Text>Apparently, your name is:</Text>
     <TextInput value={name} readOnly />
     <Button onClick={() => closeAllModals()}>Uh-huh.</Button>

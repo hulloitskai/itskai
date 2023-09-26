@@ -1,5 +1,4 @@
 import type { FC, PropsWithChildren } from "react";
-import type { CSSObject } from "@mantine/core";
 
 import {
   Body,
@@ -12,30 +11,37 @@ import {
 } from "@react-email/components";
 import type { PreviewProps } from "@react-email/components";
 
+import "./EmailLayout.css";
+
 export type EmailLayoutProps = PropsWithChildren<{
+  readonly emailName?: string;
   readonly header?: string;
   readonly preview?: PreviewProps["children"];
 }>;
 
-const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
+const EmailLayout: FC<EmailLayoutProps> = ({
+  emailName,
+  header,
+  preview,
+  children,
+}) => (
   <>
     {!!preview && <Preview>{preview}</Preview>}
-    <Box
-      component={Body}
-      sx={({ colors }) => ({
-        '[data-id="react-email-text"]': {
-          color: colors.gray[8],
-        },
-      })}
-    >
-      <Box component={Container} mx="auto" px={12} py={16}>
+    <Body>
+      <Box
+        component={Container}
+        mx="auto"
+        px={12}
+        py={16}
+        {...(emailName && { "data-email": emailName })}
+      >
         {!!header && (
           <Box
             component={Heading}
             my={24}
-            sx={({ headings: { sizes, ...style } }) => ({
-              ...(sizes.h3 as CSSObject),
-              ...(style as CSSObject),
+            style={({ headings: { sizes, ...style } }) => ({
+              ...sizes.h3,
+              ...style,
             })}
           >
             {header}
@@ -46,26 +52,20 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
           <Img src="/logo.png" width="32" height="32" />
           <Box
             component={Text}
-            sx={({ fn }) => ({ color: fn.dimmed() })}
-            style={{ margin: `${rem(4)} 0` }}
+            style={theme => ({
+              color: getThemeColor("dimmed", theme),
+              margin: `${rem(4)} 0`,
+            })}
           >
             Sent by{" "}
-            <Box
-              component={Link}
-              href="/"
-              target="_blank"
-              sx={({ colors }) => ({
-                color: colors.brand[5],
-                fontWeight: 500,
-              })}
-            >
+            <Box component={Link} href="/" target="_blank" c="brand.5" fw={800}>
               It&apos;s Kai
             </Box>
             . This email loves you.
           </Box>
         </Box>
       </Box>
-    </Box>
+    </Body>
   </>
 );
 

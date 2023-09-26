@@ -9,25 +9,25 @@ export type UserRegisterPageProps = PagePropsWithData<UserRegisterPageQuery>;
 
 const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => (
   <Card w={380} radius="md" withBorder>
-    <Stack spacing="xs">
-      <Stack align="center" spacing={2}>
+    <Stack gap="xs">
+      <Stack align="center" gap={2}>
         <Title size="h3">Sign up</Title>
-        <Text size="sm" color="dimmed" lh={1.3}>
+        <Text size="sm" c="dimmed" lh={1.3}>
           Create an account on{" "}
-          <Anchor component={Link} href="/" color="brand.4" weight={600}>
+          <Anchor component={Link} href="/" fw={600} c="brand.4">
             It&apos;s Kai
           </Anchor>
         </Text>
       </Stack>
       <UserRegisterPageForm />
-      <Text size="xs" color="gray.6">
+      <Text size="xs" c="gray.6">
         Already have an account?{" "}
         <Anchor component={Link} href="/login">
           Sign in instead.
         </Anchor>
       </Text>
       <Divider />
-      <Stack spacing={0} fz="xs">
+      <Stack gap={0} fz="xs">
         <Anchor component={Link} href="/user/password/reset">
           Forgot your password?
         </Anchor>
@@ -42,7 +42,7 @@ const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => (
 UserRegisterPage.layout = buildLayout<UserRegisterPageProps>(
   (page, { data: { viewer } }) => (
     <AppLayout title="Sign up" {...{ viewer }}>
-      <Center sx={{ flexGrow: 1 }}>{page}</Center>
+      <Center style={{ flexGrow: 1 }}>{page}</Center>
     </AppLayout>
   ),
 );

@@ -38,12 +38,12 @@ const SpotifyCredentialsForm: FC<SpotifyCredentialsFormProps> = ({
 
   // == Markup
   return (
-    <Stack spacing="xs">
+    <Stack gap="xs">
       {credentials &&
         resolve(() => {
           const { uid, refreshToken } = credentials;
           return (
-            <Stack spacing={8}>
+            <Stack gap={8}>
               <TextInput label="UID (read-only)" value={uid} readOnly />
               {!!refreshToken && (
                 <TextInput
@@ -55,7 +55,7 @@ const SpotifyCredentialsForm: FC<SpotifyCredentialsFormProps> = ({
             </Stack>
           );
         })}
-      <Stack spacing={6}>
+      <Stack gap={6}>
         <form action="/user/auth/spotify" method="post">
           <FormAuthenticityField />
           <Button type="submit" fullWidth>
@@ -63,7 +63,18 @@ const SpotifyCredentialsForm: FC<SpotifyCredentialsFormProps> = ({
           </Button>
         </form>
         {credentials && (
-          <Menu withinPortal>
+          <Menu
+            withinPortal
+            withArrow
+            styles={{
+              dropdown: {
+                borderColor: "var(--mantine-color-red-outline)",
+              },
+              arrow: {
+                borderColor: "var(--mantine-color-red-outline)",
+              },
+            }}
+          >
             <Menu.Target>
               <Button variant="outline" color="red" loading={removing}>
                 Deactivate
@@ -72,7 +83,7 @@ const SpotifyCredentialsForm: FC<SpotifyCredentialsFormProps> = ({
             <Menu.Dropdown>
               <Menu.Item
                 color="red"
-                icon={<AlertIcon />}
+                leftSection={<AlertIcon />}
                 onClick={() => {
                   runRemoveMutation({
                     variables: {

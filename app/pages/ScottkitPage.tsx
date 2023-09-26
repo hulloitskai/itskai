@@ -22,21 +22,21 @@ export type ScottkitPageProps = PagePropsWithData<ScottkitPageQuery>;
 
 const ScottkitPage: PageComponent<ScottkitPageProps> = () => {
   return (
-    <Stack align="center" spacing="xl">
-      <Stack align="center" spacing={8}>
-        <Title size="h4" color="white">
+    <Stack align="center" gap="xl">
+      <Stack align="center" gap={8}>
+        <Title size="h4" c="white">
           Scottkit™
         </Title>
         <Alert
           icon={
             <Box
               component={LightbulbIcon}
-              sx={({ colors }) => ({
+              style={({ colors }) => ({
                 color: colors.yellow[6],
               })}
             />
           }
-          color="indigo"
+          c="indigo"
           styles={({ colors }) => ({
             icon: {
               marginRight: 8,
@@ -128,10 +128,10 @@ const KitButton: FC<KitButtonProps> = ({ signal: signal, description }) => {
 
   // == Markup
   return (
-    <Stack spacing={4}>
+    <Stack gap={4}>
       <Button
         size="xl"
-        leftIcon={icon}
+        leftSection={icon}
         styles={{
           root: {
             height: 100,
@@ -139,7 +139,7 @@ const KitButton: FC<KitButtonProps> = ({ signal: signal, description }) => {
           inner: {
             flexDirection: "column",
           },
-          leftIcon: {
+          section: {
             marginRight: 0,
             marginBottom: 8,
           },
@@ -158,9 +158,9 @@ const KitButton: FC<KitButtonProps> = ({ signal: signal, description }) => {
         }}
         {...{ color, loading }}
       >
-        <Code color="gray">{label}</Code>
+        <Code c="gray">{label}</Code>
       </Button>
-      <Text size="xs" color="dimmed" lh={1.4}>
+      <Text size="xs" c="dimmed" lh={1.4}>
         {description}
       </Text>
     </Stack>

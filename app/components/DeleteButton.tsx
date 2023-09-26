@@ -14,25 +14,22 @@ const DeleteButton: FC<DeleteButtonProps> = ({
   <Menu
     withArrow
     radius="md"
-    styles={({ colors, fn }) => {
-      const borderColor = colors.red[fn.primaryShade()];
-      return {
-        dropdown: {
-          borderColor,
-        },
-        arrow: {
-          borderColor,
-        },
-      };
+    styles={{
+      dropdown: {
+        borderColor: "var(--mantine-color-red-outline)",
+      },
+      arrow: {
+        borderColor: "var(--mantine-color-red-outline)",
+      },
     }}
   >
     <Menu.Target>
-      <Button variant="default" leftIcon={<DeleteIcon />} {...otherProps}>
+      <Button variant="default" leftSection={<DeleteIcon />} {...otherProps}>
         {children}
       </Button>
     </Menu.Target>
     <Menu.Dropdown>
-      <Menu.Item color="red" icon={<AlertIcon />} onClick={onConfirm}>
+      <Menu.Item color="red" leftSection={<AlertIcon />} onClick={onConfirm}>
         Really delete?
       </Menu.Item>
     </Menu.Dropdown>

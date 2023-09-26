@@ -12,20 +12,20 @@ const UserRequestPasswordResetPage: PageComponent<
   UserRequestPasswordResetPageProps
 > = () => (
   <Card w={380} radius="md" withBorder>
-    <Stack spacing="xs">
-      <Stack spacing={4}>
-        <Title size="h3" align="center">
+    <Stack gap="xs">
+      <Stack gap={4}>
+        <Title size="h3" style={{ textAlign: "center" }}>
           Reset your password
         </Title>
-        <Text size="sm" color="dimmed" sx={{ lineHeight: 1.4 }}>
+        <Text size="sm" c="dimmed" style={{ lineHeight: 1.4 }}>
           Enter the email address associated with your account and we&apos;ll
           send you a link to reset your password.
         </Text>
       </Stack>
       <UserRequestPasswordResetPageForm />
       <Divider />
-      <Stack spacing={0} fz="xs">
-        <Text color="gray.6">
+      <Stack gap={0} fz="xs">
+        <Text c="gray.6">
           <Anchor component={Link} href="/login">
             Sign in
           </Anchor>{" "}
@@ -46,7 +46,7 @@ UserRequestPasswordResetPage.layout =
   buildLayout<UserRequestPasswordResetPageProps>(
     (page, { data: { viewer } }) => (
       <AppLayout title="Sign in" {...{ viewer }}>
-        <Center sx={{ flexGrow: 1 }}>{page}</Center>
+        <Center style={{ flexGrow: 1 }}>{page}</Center>
       </AppLayout>
     ),
   );

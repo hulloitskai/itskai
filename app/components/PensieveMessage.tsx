@@ -10,13 +10,14 @@ import type { PensieveMessageMessageFragment } from "~/helpers/graphql";
 
 import PensieveMessageLike from "./PensieveMessageLike";
 
+import classes from "./PensieveMessage.module.css";
+
 export type PensieveMessageProps = Omit<BoxProps, "style" | "children"> & {
   readonly message: PensieveMessageMessageFragment;
 };
 
 const PensieveMessage: FC<PensieveMessageProps> = ({
   message,
-  sx,
   ...otherProps
 }) => {
   const { id: messageId, from, text, timestamp, likes, isEdited } = message;
@@ -28,39 +29,25 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
       {style => (
         <Box
           pos="relative"
-          sx={[
-            ...packSx(sx),
-            ({ transitionTimingFunction }) => ({
-              ...(!likes && {
-                ".like": {
-                  opacity: 0,
-                },
-                "&:hover": {
-                  ".like": {
-                    opacity: 1,
-                    transition: `opacity 150ms ${transitionTimingFunction}`,
-                  },
-                },
-              }),
-            }),
-          ]}
+          className={classes.root}
           {...(fromBot ? { pr: "xl" } : { pl: 40 })}
+          {...(likes && { "data-has-likes": true })}
           {...{ style }}
           {...otherProps}
         >
           <Stack
-            spacing={0}
+            gap={0}
             id={`pensieve-message-${messageId}`}
             p={6}
             bg="dark.7"
-            sx={({ colors, radius }) => ({
+            style={({ colors, radius }) => ({
               border: `${rem(1)} solid ${
                 fromBot ? colors.gray[6] : colors.brand[5]
               }`,
               borderRadius: radius.md,
             })}
           >
-            <Group noWrap align="end" spacing="xs" pl={2}>
+            <Group align="end" gap="xs" wrap="nowrap" pl={2}>
               <Linkify<TextProps, JSXElementConstructor<TextProps>>
                 as={Text}
                 options={{
@@ -76,7 +63,7 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
                 }}
                 size="sm"
                 lh={1.3}
-                sx={{
+                style={{
                   flexGrow: 1,
                   whiteSpace: "pre-wrap",
                   wordBreak: "break-word",
@@ -84,19 +71,19 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
               >
                 {text}
               </Linkify>
-              <Text size="xs" color="dimmed" sx={{ flexShrink: 0 }}>
+              <Text size="xs" c="dimmed" style={{ flexShrink: 0 }}>
                 <Time format={DateTime.TIME_SIMPLE}>{timestamp}</Time>
               </Text>
             </Group>
             {isEdited && (
-              <Text size="xs" color="dimmed" lh={1} sx={{ alignSelf: "end" }}>
+              <Text size="xs" c="dimmed" lh={1} style={{ alignSelf: "end" }}>
                 edited
               </Text>
             )}
           </Stack>
           {!fromBot && (
             <Center
-              className="like"
+              className={classes.like}
               pos="absolute"
               left={34}
               top={0}

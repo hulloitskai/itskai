@@ -84,7 +84,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
         {style => (
           <Button
             variant="outline"
-            leftIcon={hasNextEntry ? <NextIcon /> : <ResetIcon />}
+            leftSection={hasNextEntry ? <NextIcon /> : <ResetIcon />}
             radius="xl"
             onClick={() => {
               refetch({ entryId: nextEntryId || firstEntryId }).then(

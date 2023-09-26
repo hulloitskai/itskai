@@ -13,6 +13,7 @@
     "itarato.byesig",
     "graphql.vscode-graphql",
     "graphql.vscode-graphql-syntax",
-    "github.vscode-github-actions"
+    "github.vscode-github-actions",
+    "clinyong.vscode-css-modules"
   ]
 }

@@ -10,13 +10,8 @@ export type ResumeSkillsSectionProps = {
 const ResumeSkillsSection: FC<ResumeSkillsSectionProps> = ({
   skillInfo: { name, keywords },
 }) => (
-  <Group align="start" noWrap>
-    <Text
-      size="sm"
-      weight={600}
-      miw={72}
-      sx={({ fn }) => ({ color: fn.primaryColor() })}
-    >
+  <Group align="start" wrap="nowrap">
+    <Text size="sm" c="brand" fw={600} miw={72}>
       {name}
     </Text>
     {keywords && <Text size="sm">{keywords.join(", ")}</Text>}

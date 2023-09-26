@@ -29,7 +29,7 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
 
   return (
     <PageContainer size="sm" withGutter>
-      <Text align="center">
+      <Text fw={500} style={{ textAlign: "center" }}>
         hi seneca
         <br />
         i&apos;ve known u for{" "}

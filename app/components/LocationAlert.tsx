@@ -56,15 +56,16 @@ const LocationAlert: FC<LocationAlertProps> = ({
       {...(location && { pb: 8 })}
       {...otherProps}
     >
-      <Stack spacing={4}>
+      <Stack gap={4}>
         {approximateAddress && googleMapsAreaUrl ? (
-          <Text>
+          <Text inherit>
             I&apos;m currently around{" "}
             <Anchor
               href={googleMapsAreaUrl}
               target="_blank"
               rel="noopener noreferrer nofollow"
-              weight={600}
+              inherit
+              fw={600}
             >
               {approximateAddress}
             </Anchor>
@@ -74,7 +75,7 @@ const LocationAlert: FC<LocationAlertProps> = ({
           <Text>My location could not be detected :(</Text>
         )}
         {timestamp && (
-          <Text size="xs" color="dimmed">
+          <Text size="xs" c="dimmed">
             From Find My iPhone,{" "}
             <Time inherit format={time => formatTimeAgo(time.toJSDate())}>
               {timestamp}

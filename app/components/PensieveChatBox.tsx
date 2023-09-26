@@ -6,10 +6,11 @@ import type { TextInputProps } from "@mantine/core";
 
 import { SendPensieveMessageMutationDocument } from "~/helpers/graphql";
 
+import classes from "./PensieveChatBox.module.css";
+
 export type PensieveChatBoxProps = Omit<TextInputProps, "children">;
 
 const PensieveChatBox: FC<PensieveChatBoxProps> = ({ ...otherProps }) => {
-  const theme = useMantineTheme();
   const [messageText, setMessageText] = useState("");
 
   // == Mutation
@@ -36,16 +37,16 @@ const PensieveChatBox: FC<PensieveChatBoxProps> = ({ ...otherProps }) => {
       rightSection={
         <ActionIcon
           variant="filled"
-          color={theme.colors[theme.primaryColor]![5]}
+          color="brand.6"
           radius="xl"
           loading={mutating}
           onClick={createComment}
         >
-          <Text component={SendIcon} size={12} />
+          <Text component={SendIcon} fz={12} />
         </ActionIcon>
       }
       radius="xl"
-      placeholder="write a message..."
+      placeholder="Write a message..."
       value={messageText}
       readOnly={mutating}
       onChange={({ target }) => setMessageText(target.value)}
@@ -54,20 +55,15 @@ const PensieveChatBox: FC<PensieveChatBoxProps> = ({ ...otherProps }) => {
           createComment();
         }
       }}
-      styles={({ colors }) => ({
-        input: {
-          minHeight: "unset",
-          height: "auto",
-          lineHeight: 2,
-          "&:focus": {
-            borderColor: colors.gray[7],
-          },
-        },
-        rightSection: {
+      classNames={{
+        input: classes.input,
+      }}
+      styles={{
+        section: {
           width: "unset",
-          marginRight: 2,
+          marginRight: 3,
         },
-      })}
+      }}
       {...otherProps}
     />
   );

@@ -36,26 +36,26 @@ const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({
   workInfo: { name, position, url, startDate, endDate, summary, highlights },
 }) => (
   <Box>
-    <Group spacing={8}>
+    <Group gap={8}>
       <Title
         order={3}
         size="h5"
-        sx={({ fn }) => ({ color: fn.primaryColor() })}
+        style={{ color: "var(--mantine-primary-color-filled)" }}
       >
         {name}
       </Title>
       {!!url && <WebsiteBadge {...{ url }} />}
-      <Space sx={{ flex: 1 }} />
-      <Text size="sm" weight={600} color="yellow.9">
+      <Space style={{ flex: 1 }} />
+      <Text size="sm" c="yellow.9" fw={600}>
         {position}
       </Text>
       <Badge
-        color="gray.6"
         variant="outline"
         radius="sm"
+        c="gray.6"
         px={6}
         styles={{
-          inner: {
+          label: {
             textTransform: "none",
             display: "inline-flex",
             alignItems: "center",
@@ -64,22 +64,30 @@ const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({
         }}
       >
         {startDate ? (
-          <Time format={{ month: "short", year: "numeric" }}>{startDate}</Time>
+          <Time inherit format={{ month: "short", year: "numeric" }}>
+            {startDate}
+          </Time>
         ) : (
-          <Text span>???</Text>
+          <Text span inherit>
+            ???
+          </Text>
         )}{" "}
         <ArrowRightIcon />{" "}
         {endDate ? (
-          <Time format={{ month: "short", year: "numeric" }}>{endDate}</Time>
+          <Time inherit format={{ month: "short", year: "numeric" }}>
+            {endDate}
+          </Time>
         ) : (
-          <Text span>Present</Text>
+          <Text span inherit>
+            Present
+          </Text>
         )}
       </Badge>
     </Group>
     {!!summary && (
-      <Group spacing="xs" my={4} noWrap>
+      <Group gap="xs" wrap="nowrap" my={4}>
         <Divider orientation="vertical" size="md" />
-        <Text size="sm" sx={{ flexGrow: 1 }}>
+        <Text size="sm" style={{ flexGrow: 1 }}>
           {summary}
         </Text>
       </Group>

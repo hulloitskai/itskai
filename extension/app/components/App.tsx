@@ -11,7 +11,7 @@ const App: FC = () => {
     <ApolloProvider>
       <MantineProvider>
         <Notifications position="bottom-center" />
-        <Box w={375} h={340} p="sm" sx={{ overflowY: "scroll" }}>
+        <Box w={375} h={340} p="sm" style={{ overflowY: "scroll" }}>
           <Cookies />
         </Box>
       </MantineProvider>

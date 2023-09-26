@@ -26,7 +26,7 @@ const HomePage: PageComponent<HomePageProps> = ({
   const [showLocation, setShowLocation] = useState(!!location);
 
   return (
-    <Stack spacing="xs">
+    <Stack gap="xs">
       {announcement ? (
         <Alert icon={<BellIcon />} mt="md">
           {announcement}
@@ -36,8 +36,10 @@ const HomePage: PageComponent<HomePageProps> = ({
       )}
       <Center h={275}>
         <Stack align="center">
-          <Title color="white">Hi, it&apos;s Kai</Title>
-          <Text color="gray.6" align="center" maw={400}>
+          <Title c="white" fw={900}>
+            Hi, it&apos;s Kai
+          </Title>
+          <Text c="gray.6" maw={400} style={{ textAlign: "center" }}>
             Welcome to my little corner of the internet :)
             <br />
             Please enjoy your stay. if you&apos;re having a good time,
@@ -46,13 +48,18 @@ const HomePage: PageComponent<HomePageProps> = ({
               href="http://cal.com/itskai"
               target="_blank"
               rel="noopener noreferrer nofollow"
-              weight={600}
+              fw={600}
             >
               do something together
             </Anchor>
             !
           </Text>
-          <Text align="center" size="xs" opacity={0.7} lh={1.2}>
+          <Text
+            size="xs"
+            opacity={0.7}
+            lh={1.2}
+            style={{ textAlign: "center" }}
+          >
             (and also feel free to{" "}
             <ContactMeLink>hit me up anytime</ContactMeLink>
             <br />& tell me what&apos;s on your mind!)
@@ -72,12 +79,12 @@ const HomePage: PageComponent<HomePageProps> = ({
       >
         {style => (
           <Box {...{ style }}>
-            <Stack align="center" spacing="xs">
-              <Box sx={{ textAlign: "center" }}>
+            <Stack align="center" gap="xs">
+              <Box style={{ textAlign: "center" }}>
                 <Title order={2} size="h3">
                   Sometimes, Kai thinks out loud.
                 </Title>
-                <Text size="xs" color="dimmed" lh={1.3}>
+                <Text size="xs" c="dimmed" lh={1.3}>
                   (messages from the last 12 hours)
                 </Text>
               </Box>
@@ -98,7 +105,7 @@ const HomePage: PageComponent<HomePageProps> = ({
           </Box>
         )}
       </Transition>
-      <Stack align="center" spacing="xs">
+      <Stack align="center" gap="xs">
         <Title order={2} size="h3">
           Sometimes, Kai writes.
         </Title>

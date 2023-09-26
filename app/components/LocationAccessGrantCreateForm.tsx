@@ -79,7 +79,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
       })}
       {...otherProps}
     >
-      <Stack spacing="xs">
+      <Stack gap="xs">
         <TextInput
           label="Recipient"
           placeholder="A friend"
@@ -95,7 +95,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
           label="Expires in"
           min={1}
           inputContainer={children => (
-            <Group spacing="sm" noWrap>
+            <Group gap="sm" wrap="nowrap">
               {children}
               <Text size="sm">hours</Text>
             </Group>
@@ -109,7 +109,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
         />
         <Button
           type="submit"
-          leftIcon={<AddIcon />}
+          leftSection={<AddIcon />}
           disabled={!isDirty()}
           {...{ loading }}
         >

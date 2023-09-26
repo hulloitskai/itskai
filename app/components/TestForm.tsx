@@ -39,7 +39,7 @@ const TestForm: FC = () => {
 
   // == Markup
   return (
-    <Stack spacing="xs">
+    <Stack gap="xs">
       <Title order={4}>Test Form</Title>
       <form
         onSubmit={onSubmit(({ name, birthday }) => {
@@ -53,15 +53,15 @@ const TestForm: FC = () => {
           });
         })}
       >
-        <Stack spacing="xs">
+        <Stack gap="xs">
           <TextInput label="Name" required {...getInputProps("name")} />
           <DatePickerInput label="Birthday" {...getInputProps("birthday")} />
           <Button type="submit">Submit</Button>
           {data && (
             <>
               <Divider />
-              <Stack spacing={4}>
-                <Text size="sm" weight={600}>
+              <Stack gap={4}>
+                <Text size="sm" fw={600}>
                   Response:
                 </Text>
                 <Code block>{JSON.stringify(data, undefined, 2)}</Code>

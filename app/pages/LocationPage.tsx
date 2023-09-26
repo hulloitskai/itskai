@@ -1,9 +1,9 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import { GeolocateControl } from "react-map-gl";
 
 import type { Coordinates, LocationPageQuery } from "~/helpers/graphql";
 
 import Map from "~/components/Map";
-import { GeolocateControl } from "react-map-gl";
 
 export type LocationPageProps = PagePropsWithData<LocationPageQuery>;
 
@@ -19,13 +19,13 @@ const LocationPage: PageComponent<LocationPageProps> = ({
     location?.approximateCoordinates ?? TORONTO_COORDINATES;
 
   return (
-    <Box pos="relative" sx={{ flexGrow: 1 }}>
+    <Box pos="relative" style={{ flexGrow: 1 }}>
       <Map initialViewState={{ latitude, longitude, zoom: 11.5 }} scrollZoom>
         <GeolocateControl />
       </Map>
       <Center
         pos="absolute"
-        sx={({ spacing }) => ({
+        style={({ spacing }) => ({
           left: spacing.md,
           right: spacing.md,
           bottom: spacing.lg,

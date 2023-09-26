@@ -31,12 +31,7 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
       title: (
         <Box>
           <Text>Verify Security Code</Text>
-          <Text
-            weight="normal"
-            color="dimmed"
-            size="sm"
-            sx={{ lineHeight: 1.3 }}
-          >
+          <Text size="sm" c="dimmed" fw="normal" style={{ lineHeight: 1.3 }}>
             Enter the security code you received on your device to complete
             iCloud authentication.
           </Text>
@@ -121,7 +116,7 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
         });
       })}
     >
-      <Stack spacing="xs">
+      <Stack gap="xs">
         <TextInput
           label="Email"
           placeholder="example@example.com"
@@ -134,13 +129,13 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
           required
           {...getInputProps("password")}
         />
-        <Stack spacing={6}>
+        <Stack gap={6}>
           <Button type="submit" loading={updating}>
             Authenticate
           </Button>
           {credentials && (
             <>
-              <Group spacing={6} grow>
+              <Group gap={6} grow>
                 <Button variant="default" onClick={openVerifySecurityCodeModal}>
                   Verify Security Code
                 </Button>
@@ -152,18 +147,13 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
                         title: (
                           <Box>
                             <Text>Session Information</Text>
-                            <Text
-                              weight="normal"
-                              size="sm"
-                              color="dimmed"
-                              lh={1.3}
-                            >
+                            <Text size="sm" c="dimmed" fw="normal" lh={1.3}>
                               Details about the current iCloud login session.
                             </Text>
                           </Box>
                         ),
                         children: (
-                          <Stack spacing="xs">
+                          <Stack gap="xs">
                             {!!cookies && (
                               <Textarea
                                 label="Cookies"
@@ -191,7 +181,18 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
                   </Button>
                 )}
               </Group>
-              <Menu withinPortal>
+              <Menu
+                withinPortal
+                withArrow
+                styles={{
+                  dropdown: {
+                    borderColor: "var(--mantine-color-red-outline)",
+                  },
+                  arrow: {
+                    borderColor: "var(--mantine-color-red-outline)",
+                  },
+                }}
+              >
                 <Menu.Target>
                   <Button variant="outline" color="red" loading={removing}>
                     Deactivate
@@ -199,8 +200,8 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
                 </Menu.Target>
                 <Menu.Dropdown>
                   <Menu.Item
+                    leftSection={<AlertIcon />}
                     color="red"
-                    icon={<AlertIcon />}
                     onClick={() => {
                       runRemoveMutation({
                         variables: {

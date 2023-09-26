@@ -24,7 +24,7 @@ const LocationAccessGrants: FC<LocationAccessGrantsProps> = ({
   const { locationAccessGrants } = data ?? previousData ?? {};
 
   return (
-    <Stack spacing="xs" {...otherProps}>
+    <Stack gap="xs" {...otherProps}>
       {locationAccessGrants ? (
         !isEmpty(locationAccessGrants) ? (
           locationAccessGrants.map(grant => (
@@ -45,7 +45,7 @@ const LocationAccessGrants: FC<LocationAccessGrantsProps> = ({
         ))
       )}
       <Button
-        leftIcon={<AddIcon />}
+        leftSection={<AddIcon />}
         onClick={() => {
           openModal({
             title: "Create grant",

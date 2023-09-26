@@ -98,7 +98,7 @@ const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
         });
       })}
     >
-      <Stack spacing="xs">
+      <Stack gap="xs">
         <TextInput
           label="Username"
           placeholder="example@example.com"
@@ -118,7 +118,7 @@ const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
           autoComplete="off"
           {...getInputProps("securityCode")}
         />
-        <Stack spacing={6}>
+        <Stack gap={6}>
           <Button
             type="submit"
             loading={updating}
@@ -136,18 +136,13 @@ const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
                       title: (
                         <Box>
                           <Text>Session Information</Text>
-                          <Text
-                            weight="normal"
-                            size="sm"
-                            color="dimmed"
-                            lh={1.3}
-                          >
+                          <Text size="sm" c="dimmed" fw={400} lh={1.3}>
                             Details about the current Instagram login session.
                           </Text>
                         </Box>
                       ),
                       children: (
-                        <Stack spacing="xs">
+                        <Stack gap="xs">
                           {!!session && (
                             <JsonInput
                               label="Session"
@@ -165,7 +160,18 @@ const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
                   Session Information
                 </Button>
               )}
-              <Menu withinPortal>
+              <Menu
+                withinPortal
+                withArrow
+                styles={{
+                  dropdown: {
+                    borderColor: "var(--mantine-color-red-outline)",
+                  },
+                  arrow: {
+                    borderColor: "var(--mantine-color-red-outline)",
+                  },
+                }}
+              >
                 <Menu.Target>
                   <Button variant="outline" color="red" loading={removing}>
                     Deactivate
@@ -174,7 +180,7 @@ const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
                 <Menu.Dropdown>
                   <Menu.Item
                     color="red"
-                    icon={<AlertIcon />}
+                    leftSection={<AlertIcon />}
                     onClick={() => {
                       runRemoveMutation({
                         variables: {

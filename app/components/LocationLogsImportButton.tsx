@@ -27,7 +27,7 @@ const LocationLogsImportButton: FC<LocationImportLogsButtonProps> = ({
   return (
     <Button
       variant="default"
-      leftIcon={<DownloadIcon />}
+      leftSection={<DownloadIcon />}
       onClick={() => {
         runMutation({
           variables: {

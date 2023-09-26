@@ -52,7 +52,6 @@ export const imports: Array<ImportsMap | PresetName> = [
       "List",
       "LoadingOverlay",
       "Menu",
-      "MediaQuery",
       "Skeleton",
       "Space",
       "Stack",
@@ -63,7 +62,7 @@ export const imports: Array<ImportsMap | PresetName> = [
       "Tooltip",
       "Transition",
     ],
-    // "@mantine/form": ["useForm"],
+    "@mantine/form": ["useForm"],
     "@mantine/hooks": [
       "useDebouncedValue",
       "useDidUpdate",

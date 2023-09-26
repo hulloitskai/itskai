@@ -12,9 +12,9 @@ const TestFeed: FC = () => {
   });
   const { testSubscription: value } = data ?? {};
   return (
-    <Stack spacing="xs">
+    <Stack gap="xs">
       <Title order={4}>Test Feed</Title>
-      <Box sx={{ position: "relative" }}>
+      <Box style={{ position: "relative" }}>
         <Code block>var data = {value}</Code>
         <LoadingOverlay
           loaderProps={{ size: "sm" }}

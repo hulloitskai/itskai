@@ -1,11 +1,7 @@
 import type { FC } from "react";
 
 import { AppShell, Breadcrumbs } from "@mantine/core";
-import type {
-  AppShellProps,
-  ContainerProps,
-  MantineNumberSize,
-} from "@mantine/core";
+import type { AppShellProps, ContainerProps, MantineSize } from "@mantine/core";
 
 import type { Maybe } from "~/helpers/graphql";
 import type { AppViewerFragment } from "~/helpers/graphql";
@@ -13,21 +9,22 @@ import type { AppViewerFragment } from "~/helpers/graphql";
 import AppMeta from "./AppMeta";
 import type { AppMetaProps } from "./AppMeta";
 
-import AppHeader from "./AppHeader";
-import AppFooter from "./AppFooter";
+import ActivityStatus from "./ActivityStatus";
+import AppMenu from "./AppMenu";
 import AppFlash from "./AppFlash";
-import PageLayout from "./PageLayout";
+import CurrentlyPlayingIsland from "./CurrentlyPlayingIsland";
 import PageContainer from "./PageContainer";
+import PageLayout from "./PageLayout";
 
 export type AppLayoutProps = AppMetaProps &
   AppShellProps & {
     readonly viewer: Maybe<AppViewerFragment>;
     readonly breadcrumbs?: ReadonlyArray<AppBreadcrumb | null | false>;
     readonly withContainer?: boolean;
-    readonly containerSize?: MantineNumberSize;
+    readonly containerSize?: MantineSize | (string & {}) | number;
     readonly containerProps?: ContainerProps;
     readonly withGutter?: boolean;
-    readonly gutterSize?: MantineNumberSize;
+    readonly gutterSize?: MantineSize | (string & {}) | number;
   };
 
 export type AppBreadcrumb = {
@@ -79,54 +76,90 @@ const AppLayout: FC<AppLayoutProps> = ({
     <PageLayout>
       <AppMeta {...{ title, description, imageUrl, noIndex }} />
       <AppShell
-        header={<AppHeader {...{ viewer }} />}
+        header={{ height: 38 }}
+        footer={{ height: 32 }}
         styles={{
           main: {
-            minHeight: "calc(100vh - var(--mantine-footer-height, 0px))",
+            minHeight: "calc(100vh - var(--app-shell-footer-height, 0))",
+            paddingBottom: 0,
             display: "flex",
             flexDirection: "column",
             alignItems: "stretch",
-            paddingBottom: 0,
           },
         }}
-        padding={0}
         {...otherProps}
       >
-        {!isEmpty(filteredBreadcrumbs) && (
-          <Breadcrumbs
-            mx={10}
-            mt={6}
-            styles={{
-              root: {
-                flexWrap: "wrap",
-                rowGap: rem(4),
-              },
-              separator: {
-                marginLeft: 6,
-                marginRight: 6,
-              },
-            }}
+        <AppShell.Header
+          p={8}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            columnGap: 6,
+          }}
+        >
+          <Button
+            component={Link}
+            href="/"
+            variant="subtle"
+            size="compact-md"
+            color="gray.0"
+            radius="md"
+            h="unset"
+            py={4}
+            px={6}
+            fw={800}
+            fz="md"
           >
-            {filteredBreadcrumbs.map(({ title, href }, index) => (
-              <Anchor component={Link} href={href} key={index} size="sm">
-                {title}
-              </Anchor>
-            ))}
-          </Breadcrumbs>
-        )}
-        <Box
+            It&apos;s Kai
+          </Button>
+          <CurrentlyPlayingIsland />
+          <AppMenu style={{ flexShrink: 0 }} {...{ viewer }} />
+        </AppShell.Header>
+        <AppShell.Main
           p={padding ?? (withContainer ? undefined : "md")}
-          sx={{
+          style={{
             flexGrow: 1,
             display: "flex",
             flexDirection: "column",
             alignItems: "stretch",
           }}
         >
+          {!isEmpty(filteredBreadcrumbs) && (
+            <Breadcrumbs
+              mx={10}
+              mt={6}
+              styles={{
+                root: {
+                  flexWrap: "wrap",
+                  rowGap: rem(4),
+                },
+                separator: {
+                  marginLeft: 6,
+                  marginRight: 6,
+                },
+              }}
+            >
+              {filteredBreadcrumbs.map(({ title, href }, index) => (
+                <Anchor component={Link} href={href} key={index} size="sm">
+                  {title}
+                </Anchor>
+              ))}
+            </Breadcrumbs>
+          )}
           {content}
+        </AppShell.Main>
+        <Box
+          h="var(--app-shell-footer-height)"
+          px={8}
+          style={({ colors }) => ({
+            overflow: "hidden",
+            borderTop: `${rem(1)} solid ${colors.dark[5]}`,
+          })}
+        >
+          <ActivityStatus h="100%" style={{ flexShrink: 1 }} />
         </Box>
       </AppShell>
-      <AppFooter />
       <AppFlash />
     </PageLayout>
   );

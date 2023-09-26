@@ -1,0 +1,16 @@
+body {
+  background-color: white;
+  margin: 8px;
+  font-size: 14px;
+  text-transform: lowercase;
+  button {
+    text-transform: lowercase;
+  }
+  .mantine-Badge-label {
+    text-transform: lowercase;
+  }
+
+  [data-id="react-email-text"] {
+    color: var(--mantine-color-gray-8);
+  }
+}

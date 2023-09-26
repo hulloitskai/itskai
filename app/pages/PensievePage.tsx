@@ -21,12 +21,12 @@ const PensievePage: PageComponent<PensievePageProps> = () => {
   }, []);
 
   return (
-    <Stack align="center" spacing="xs" sx={{ flexGrow: 1 }}>
-      <Box sx={{ textAlign: "center" }}>
+    <Stack align="center" gap="xs" style={{ flexGrow: 1 }}>
+      <Box style={{ textAlign: "center" }}>
         <Title order={2} size="h3">
           Sometimes, Kai thinks out loud.
         </Title>
-        <Text size="xs" color="dimmed" lh={1.3}>
+        <Text size="xs" c="dimmed" lh={1.3}>
           (messages from the last 12 hours)
         </Text>
       </Box>
@@ -37,7 +37,7 @@ const PensievePage: PageComponent<PensievePageProps> = () => {
         onNewMessage={() => {
           autoScroll();
         }}
-        sx={{ flexGrow: 1 }}
+        style={{ flexGrow: 1 }}
       />
     </Stack>
   );
@@ -55,7 +55,7 @@ PensievePage.layout = buildLayout<PensievePageProps>(
       ]}
       withContainer
       containerProps={{
-        sx: { flexGrow: 1, display: "flex", flexDirection: "column" },
+        style: { flexGrow: 1, display: "flex", flexDirection: "column" },
       }}
       withGutter
       {...{ viewer }}

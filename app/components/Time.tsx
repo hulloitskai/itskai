@@ -40,8 +40,7 @@ const Time: FC<TimeProps> = ({
   return (
     <Skeleton
       visible={!formattedTime}
-      sx={{
-        display: "inline",
+      style={{
         height: "min-content",
         width: "fit-content",
         ...(loading && {
@@ -50,9 +49,10 @@ const Time: FC<TimeProps> = ({
           verticalAlign: "middle",
         }),
       }}
+      {...{ component: "span" }}
       {...{ m, mt, mr, mb, ml, mx, my }}
     >
-      <Text display="inline-block" lh={loading ? 1 : lh} {...otherProps}>
+      <Text span display="inline-block" lh={loading ? 1 : lh} {...otherProps}>
         {formattedTime ?? placeholder}
       </Text>
     </Skeleton>

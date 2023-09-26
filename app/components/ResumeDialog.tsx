@@ -44,20 +44,19 @@ const ResumeDialog: FC<ResumeDialogProps> = ({ variant, ...otherProps }) => {
         position={{ bottom: rem(20), right: rem(20) }}
         size="lg"
         radius="md"
-        transition="slide-up"
-        transitionDuration={250}
+        transitionProps={{ transition: "slide-up", duration: 250 }}
         {...{ opened }}
         {...otherProps}
       >
-        <Group spacing="sm">
-          <Stack spacing={2}>
-            <Text size="sm" weight={500}>
+        <Group gap="sm">
+          <Stack gap={2}>
+            <Text size="sm" fw={500}>
               Prefer a PDF?
             </Text>
             <Button
               component="a"
               href={pdfUrl}
-              leftIcon={<DocumentIcon />}
+              leftSection={<DocumentIcon />}
               variant="gradient"
               gradient={{ from: "indigo", to: "pink", deg: 45 }}
               onClick={() => {
@@ -68,8 +67,8 @@ const ResumeDialog: FC<ResumeDialogProps> = ({ variant, ...otherProps }) => {
               {loadingPDF ? "Generating PDF..." : "Generate PDF"}
             </Button>
           </Stack>
-          <Stack spacing={2}>
-            <Text size="sm" weight={500}>
+          <Stack gap={2}>
+            <Text size="sm" fw={500}>
               Does this resume suck?
             </Text>
             <Button
@@ -77,7 +76,7 @@ const ResumeDialog: FC<ResumeDialogProps> = ({ variant, ...otherProps }) => {
               href="https://www.figma.com/file/QPUcyyc1GiAcRaY0Wh8unz/resume?type=design&mode=design&t=OPIiDsIvXnjxL9ff-1"
               target="_blank"
               rel="noopener noreferrer nofollow"
-              leftIcon={<FeedbackIcon />}
+              leftSection={<FeedbackIcon />}
               variant="gradient"
               gradient={{ from: "pink", to: "orange", deg: 45 }}
             >

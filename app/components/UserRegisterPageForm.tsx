@@ -69,7 +69,7 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
         });
       })}
     >
-      <Stack spacing="xs">
+      <Stack gap="xs">
         <TextInput
           label="Name"
           placeholder="Kai's Friend"

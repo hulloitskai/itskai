@@ -1,41 +1,27 @@
 import { createPolymorphicComponent } from "@mantine/core";
+import type { ComponentPropsWithRef } from "react";
 import type { AnchorProps, MantineColor } from "@mantine/core";
 
-export type AnchorContainerProps = AnchorProps & {
-  readonly borderColor?: MantineColor;
-};
+import classes from "./AnchorContainer.module.css";
+
+export type AnchorContainerProps = AnchorProps &
+  ComponentPropsWithRef<"a"> & {
+    readonly borderColor?: MantineColor;
+  };
 
 const _AnchorContainer = forwardRef<HTMLAnchorElement, AnchorContainerProps>(
-  ({ borderColor, display = "contents", sx, children, ...otherProps }, ref) => (
+  ({ borderColor, display = "contents", children, ...otherProps }, ref) => (
     <Anchor
       unstyled
-      sx={[
-        ...packSx(sx),
-        ({ colors, primaryColor, colorScheme, fn }) => {
-          const borderColors = colors[borderColor ?? primaryColor]!;
-          const activeBorder = `${rem(1)} solid ${
-            borderColors[fn.primaryShade()]
-          }`;
-          const inactiveBorder = `${rem(1)} solid ${
-            colorScheme === "dark" ? colors.dark[4] : colors.gray[3]
-          }`;
-          return {
-            "> *": {
-              border: inactiveBorder,
-              "&[data-with-border]": {
-                border: inactiveBorder,
-              },
-              "&:hover": {
-                textDecoration: "none",
-                border: activeBorder,
-                "&[data-with-border]": {
-                  border: activeBorder,
-                },
-              },
-            },
-          };
-        },
-      ]}
+      className={classes.root}
+      __vars={theme => ({
+        "--ac-inactive-border-color-light": "var(--mantine-color-gray-3)",
+        "--ac-inactive-border-color-dark": "var(--mantine-color-dark-4)",
+        "--ac-active-border-color": getThemeColor(
+          borderColor ?? theme.primaryColor,
+          theme,
+        ),
+      })}
       {...{ ref, display }}
       {...otherProps}
     >

@@ -1,11 +1,11 @@
-import type { FC, ReactNode } from "react";
-import { motion } from "framer-motion";
+import type { ComponentPropsWithoutRef, FC, ReactNode } from "react";
 import Marquee from "react-fast-marquee";
+import { motion } from "framer-motion";
 import PlayIcon from "~icons/heroicons/play-circle-20-solid";
 
-import { Image, Text } from "@mantine/core";
+import { Image, Text, darken } from "@mantine/core";
 import { useNetwork } from "@mantine/hooks";
-import type { BoxProps, TextProps } from "@mantine/core";
+import type { BoxProps, ImageProps, TextProps } from "@mantine/core";
 
 import {
   CurrentlyPlayingIslandQueryDocument,
@@ -16,7 +16,11 @@ import type { CurrentlyPlayingIslandTrackFragment } from "~/helpers/graphql";
 
 import CurrentlyPlayingLyricsTooltip from "./CurrentlyPlayingLyricsTooltip";
 
-const MotionImage = motion(Image);
+import classes from "./CurrentlyPlayingIsland.module.css";
+
+const MotionImage = motion<
+  ImageProps & Omit<ComponentPropsWithoutRef<"img">, "style" | "src">
+>(Image);
 
 export type CurrentlyPlayingIslandProps = Omit<BoxProps, "children">;
 
@@ -173,7 +177,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
       {...{ durationMilliseconds, progressMilliseconds }}
     >
       {currentLyricLine => {
-        const { words: currentWords, isExplicit: currentlyExplicit } =
+        const { words: currentWords, isExplicit: lyricsCurrentlyExplicit } =
           currentLyricLine ?? {};
         const hasLyrics = !!currentWords;
         return (
@@ -184,7 +188,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
             rel="noopener noreferrer nofollow"
             size="xl"
             leftSection={
-              <Box pos="relative" p={2}>
+              <Box pos="relative" p={2} mr={2}>
                 <MotionImage
                   src={imageUrl}
                   width={24}
@@ -196,57 +200,42 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
                 <Center
                   pos="absolute"
                   inset={0}
-                  sx={({ white }) => ({ color: white })}
+                  style={({ white }) => ({ color: white })}
                 >
                   <PlayIcon width={14} height={14} />
                 </Center>
               </Box>
             }
             variant="outline"
-            color="gray.5"
+            color="dark.3"
             pl={0}
-            styles={({ colors, primaryColor, fn }) => {
-              const borderColorNoLyrics = colors.dark[3];
-              const borderColorLyrics = fn.darken(
-                colors[primaryColor]![5],
-                0.1,
-              );
-              const borderColorLyricsExplicit = fn.darken(
-                colors[primaryColor]![5],
-                0.4,
-              );
+            className={classes.badge}
+            styles={{
+              root: {
+                cursor: "pointer",
+              },
+              section: {
+                margin: 0,
+              },
+              label: {
+                maxWidth: 200,
+              },
+            }}
+            __vars={({ colors }) => {
+              const borderColorActiveBase = colors.brand[5];
               return {
-                root: {
-                  paddingRight: 10,
-                  borderColor: hasLyrics
-                    ? currentlyExplicit
-                      ? borderColorLyricsExplicit
-                      : borderColorLyrics
-                    : borderColorNoLyrics,
-                  cursor: "pointer",
-                  transitionProperty: "transform, opacity, border !important",
-                  "&:hover": {
-                    textDecoration: "underline",
-                    ...(hasLyrics &&
-                      currentlyExplicit && {
-                        borderColor: borderColorLyrics,
-                      }),
-                  },
-                },
-                leftSection: {
-                  marginRight: 3,
-                },
-                inner: {
-                  maxWidth: 200,
-                },
+                "--cpi-border-color-active": darken(borderColorActiveBase, 0.1),
+                "--cpi-border-color-muted": darken(borderColorActiveBase, 0.4),
               };
             }}
+            data-lyrics-explicit={lyricsCurrentlyExplicit}
+            {...(hasLyrics && { "data-with-lyrics": true })}
             {...otherProps}
           >
-            <MarqueeText size="xs" color="gray.3">
+            <MarqueeText size="xs" fw={800} c="gray.3">
               {name}
             </MarqueeText>
-            <MarqueeText size={10} color="gray.6">
+            <MarqueeText fz={10} fw={700} c="gray.6">
               {artistNames}
             </MarqueeText>
           </Badge>
@@ -256,7 +245,9 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
   );
 };
 
-const MarqueeText: FC<TextProps> = ({ sx, children, ...otherProps }) => {
+type MarqueeTextProps = TextProps & ComponentPropsWithoutRef<"p">;
+
+const MarqueeText: FC<MarqueeTextProps> = ({ children, ...otherProps }) => {
   const textRef = useRef<HTMLDivElement>(null);
 
   // == Play State
@@ -277,14 +268,11 @@ const MarqueeText: FC<TextProps> = ({ sx, children, ...otherProps }) => {
         ref={textRef}
         lh={1.1}
         mr={play ? 24 : 0}
-        sx={[
-          ...packSx(sx),
-          {
-            textOverflow: "ellipsis",
-            textTransform: "none",
-            whiteSpace: "nowrap",
-          },
-        ]}
+        style={{
+          textOverflow: "ellipsis",
+          textTransform: "none",
+          whiteSpace: "nowrap",
+        }}
         {...otherProps}
       >
         {children}
