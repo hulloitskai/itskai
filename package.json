@@ -1,6 +1,5 @@
 {
   "license": "UNLICENSED",
-  "private": true,
   "type": "module",
   "resolutions": {
     "property-information": "6.0.0"
