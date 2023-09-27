@@ -46,6 +46,7 @@
     "postinstall-postinstall": "^2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dropzone": "14.2.3",
     "react-fast-marquee": "^1.6.0",
     "react-map-gl": "^7.1.6",
     "requestidlecallback-polyfill": "^1.0.2",

@@ -58,9 +58,6 @@
     <% if local_assigns.include?(:page) %>
       <%= vite_react_refresh_tag %>
       <%= vite_typescript_tag "application" %>
-      <% if Rails.env.development? && InertiaRails.ssr_enabled? %>
-        <%= vite_stylesheet_tag "application-preview" %>
-      <% end %>
     <% end %>
 
     <%# == Google Analytics %>

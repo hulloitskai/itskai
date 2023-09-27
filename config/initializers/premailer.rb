@@ -1,8 +1,6 @@
 # typed: true
 # frozen_string_literal: true
 
-Premailer::Rails.config[:css_to_attributes] = false
-
 Rails.application.configure do
   config.before_initialize do
     url_options = Rails.application.routes.default_url_options.dup

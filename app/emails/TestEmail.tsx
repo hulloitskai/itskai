@@ -3,6 +3,8 @@ import { Column, Row, Section, Text } from "@react-email/components";
 
 import EmailLayout from "~/components/EmailLayout";
 
+import classes from "./TestEmail.module.css";
+
 import type { TestEmailQuery } from "~/helpers/graphql";
 
 export type TestEmailProps = PagePropsWithData<TestEmailQuery> & {
@@ -21,7 +23,7 @@ const TestEmail: PageComponent<TestEmailProps> = ({
     <>
       <Text>Hi, {name || "anonymous user"}!</Text>
       <Text>This is a test email containing your form submission results:</Text>
-      <Box className="results" component={Section}>
+      <Box className={classes.results} component={Section}>
         <Row>
           <Column>
             <Box component={Text} style={{ fontWeight: 600 }}>
@@ -42,9 +44,7 @@ const TestEmail: PageComponent<TestEmailProps> = ({
 };
 
 TestEmail.layout = buildLayout<TestEmailProps>(page => (
-  <EmailLayout emailName={TestEmail.name} header="Test form submission">
-    {page}
-  </EmailLayout>
+  <EmailLayout header="Test form submission">{page}</EmailLayout>
 ));
 
 export default TestEmail;

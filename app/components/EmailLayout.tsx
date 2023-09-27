@@ -14,27 +14,15 @@ import type { PreviewProps } from "@react-email/components";
 import "./EmailLayout.css";
 
 export type EmailLayoutProps = PropsWithChildren<{
-  readonly emailName?: string;
   readonly header?: string;
   readonly preview?: PreviewProps["children"];
 }>;
 
-const EmailLayout: FC<EmailLayoutProps> = ({
-  emailName,
-  header,
-  preview,
-  children,
-}) => (
+const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
   <>
     {!!preview && <Preview>{preview}</Preview>}
     <Body>
-      <Box
-        component={Container}
-        mx="auto"
-        px={12}
-        py={16}
-        {...(emailName && { "data-email": emailName })}
-      >
+      <Box component={Container} mx="auto" px={12} py={16}>
         {!!header && (
           <Box
             component={Heading}

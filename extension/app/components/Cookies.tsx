@@ -1,7 +1,6 @@
 import { FC } from "react";
-import { takeRight } from "lodash-es";
-
 import { Table, Text } from "@mantine/core";
+import { takeRight } from "lodash-es";
 
 import { ImportCookiesMutationDocument } from "~/helpers/graphql";
 

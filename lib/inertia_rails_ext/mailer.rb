@@ -48,6 +48,7 @@ module InertiaRails
       ).returns(T.untyped)
     end
     def inertia_render(component, props: {})
+      build_assets
       wait_for_inertia_ssr_ready
       request = ActionDispatch::Request.new({ "ORIGINAL_FULLPATH" => "/" })
       renderer = Renderer.new(
@@ -59,7 +60,7 @@ module InertiaRails
         props:,
         view_data: nil,
       )
-      renderer.render
+      ViteRuby.without_dev_server { renderer.render }
     rescue => error
       raise "Failed to render email with Inertia: #{error}"
     end
@@ -78,6 +79,11 @@ module InertiaRails
           raise "Inertia SSR server cannot be reached"
         end
       end
+    end
+
+    sig { void }
+    def build_assets
+      ViteRuby.commands.build
     end
 
     sig { returns(String) }
