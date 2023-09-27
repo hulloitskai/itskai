@@ -29,14 +29,14 @@ FileUtils.chdir APP_ROOT do
   system("bundle check") || system!("bundle install")
 
   puts "\n=> Installing Node dependencies"
-  system!("bin/yarn --silent install") &&
+  system!("bin/yarn install") &&
     puts("Node dependencies are installed")
 
   puts "\n=> Install Python dependencies"
   system! "pip install -r requirements.txt"
 
   puts "\n=> Installing githooks"
-  system! "bin/yarn --silent husky install"
+  system! "bin/yarn husky install"
 
   # puts "\n=> Copying sample files"
   # unless File.exist?("config/database.yml")
