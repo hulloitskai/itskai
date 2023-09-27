@@ -23,10 +23,43 @@ index 39d9345..c62f23e 100755
 +export { ErrorCode } from "./utils/index.mjs";
 \ No newline at end of file
 diff --git a/node_modules/react-dropzone/dist/es/utils/index.js b/node_modules/react-dropzone/dist/es/utils/index.mjs
-similarity index 100%
+similarity index 98%
 rename from node_modules/react-dropzone/dist/es/utils/index.js
 rename to node_modules/react-dropzone/dist/es/utils/index.mjs
+index 8e5abd5..53a8dc4 100644
+--- a/node_modules/react-dropzone/dist/es/utils/index.js
++++ b/node_modules/react-dropzone/dist/es/utils/index.mjs
+@@ -26,7 +26,9 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
+ 
+ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+ 
+-import accepts from "attr-accept"; // Error codes
++import _accepts from "attr-accept"; // Error codes
++
++const accepts = typeof _accepts === "function" ? _accepts : _accepts.default;
+ 
+ export var FILE_INVALID_TYPE = "file-invalid-type";
+ export var FILE_TOO_LARGE = "file-too-large";
 diff --git a/node_modules/react-dropzone/dist/index.js b/node_modules/react-dropzone/dist/index.mjs
 similarity index 100%
 rename from node_modules/react-dropzone/dist/index.js
 rename to node_modules/react-dropzone/dist/index.mjs
+diff --git a/node_modules/react-dropzone/package.json b/node_modules/react-dropzone/package.json
+index 9409558..97b8175 100644
+--- a/node_modules/react-dropzone/package.json
++++ b/node_modules/react-dropzone/package.json
+@@ -2,7 +2,13 @@
+   "name": "react-dropzone",
+   "description": "Simple HTML5 drag-drop zone with React.js",
+   "main": "dist/index.js",
+-  "module": "dist/es/index.js",
++  "module": "dist/es/index.mjs",
++  "exports": {
++    ".": {
++      "import": "./dist/es/index.mjs",
++      "require": "./dist/index.js"
++    }
++  },
+   "sideEffects": false,
+   "scripts": {
+     "cz": "git-cz",
