@@ -17,10 +17,7 @@ module Users
       verification_url = user_confirmation_url(confirmation_token: token)
       devise_mail(record, :confirmation_instructions, opts.merge({
         inertia: "UserEmailVerificationEmail",
-        props: {
-          data:,
-          verification_url:,
-        },
+        props: { data:, verification_url: },
       }))
     end
 
@@ -35,10 +32,7 @@ module Users
       reset_url = edit_user_password_url(reset_password_token: token)
       devise_mail(record, :reset_password_instructions, opts.merge({
         inertia: "UserPasswordResetEmail",
-        props: {
-          data:,
-          reset_url:,
-        },
+        props: { data:, reset_url: },
       }))
     end
 
@@ -52,9 +46,7 @@ module Users
       data = query!("UserEmailChangedEmailQuery", { user_id: })
       devise_mail(record, :email_changed, opts.merge({
         inertia: "UserEmailChangedEmail",
-        props: {
-          data:,
-        },
+        props: { data: },
       }))
     end
 
@@ -68,9 +60,7 @@ module Users
       data = query!("UserPasswordChangedEmailQuery", { user_id: })
       devise_mail(record, :password_change, opts.merge({
         inertia: "UserPasswordChangedEmail",
-        props: {
-          data:,
-        },
+        props: { data: },
       }))
     end
   end

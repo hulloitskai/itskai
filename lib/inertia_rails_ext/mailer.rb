@@ -20,6 +20,19 @@ module InertiaRails
       helper Helper
     end
 
+    class_methods do
+      extend T::Sig
+
+      # == Helpers
+      sig { returns(Concurrent::Semaphore) }
+      def build_assets_semaphore
+        @build_assets_semaphore ||= T.let(
+          Concurrent::Semaphore.new(1),
+          T.nilable(Concurrent::Semaphore),
+        )
+      end
+    end
+
     # == Methods
     sig do
       params(
@@ -48,7 +61,7 @@ module InertiaRails
       ).returns(T.untyped)
     end
     def inertia_render(component, props: {})
-      build_assets
+      build_assets if Rails.env.development?
       wait_for_inertia_ssr_ready
       request = ActionDispatch::Request.new({ "ORIGINAL_FULLPATH" => "/" })
       renderer = Renderer.new(
@@ -83,7 +96,11 @@ module InertiaRails
 
     sig { void }
     def build_assets
-      ViteRuby.commands.build
+      klass = T.cast(self.class,
+                     T.all(T.class_of(ActionMailer::Base), ClassMethods))
+      klass.build_assets_semaphore.acquire do
+        ViteRuby.commands.build
+      end
     end
 
     sig { returns(String) }

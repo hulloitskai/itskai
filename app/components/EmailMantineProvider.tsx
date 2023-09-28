@@ -8,7 +8,11 @@ import "@mantine/core/styles.css";
 export type EmailMantineProviderProps = PropsWithChildren;
 
 const EmailMantineProvider: FC<EmailMantineProviderProps> = ({ children }) => (
-  <MantineProvider theme={THEME} forceColorScheme="light">
+  <MantineProvider
+    theme={THEME}
+    cssVariablesSelector="body"
+    forceColorScheme="light"
+  >
     {children}
   </MantineProvider>
 );

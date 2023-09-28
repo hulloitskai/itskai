@@ -145,7 +145,7 @@ module GraphQL
       @schema = schema
       @queries = T.let({}, T::Hash[String, ParsedQuery])
       @fragments = T.let({}, T::Hash[String, ParsedFragment])
-      @mutex = T.let(Mutex.new, Mutex)
+      @semaphore = T.let(Mutex.new, Mutex)
     end
 
     # == Plugin
@@ -171,7 +171,7 @@ module GraphQL
 
     sig { void }
     def load
-      @mutex.synchronize do
+      @semaphore.synchronize do
         @queries.clear
         @fragments.clear
       end
@@ -203,7 +203,7 @@ module GraphQL
     # == Helpers
     sig { params(filenames: String).void }
     def load_files(*filenames)
-      @mutex.synchronize do
+      @semaphore.synchronize do
         filenames.each do |filename|
           document = GraphQL.parse_file(filename)
           definitions = resolve_document_definitions(document)
@@ -242,7 +242,7 @@ module GraphQL
 
     sig { params(name: String).returns(Language::Nodes::Document) }
     def build_query_document(name)
-      @mutex.synchronize do
+      @semaphore.synchronize do
         query = query!(name)
         fragment_references = build_fragment_references(query)
         fragment_definitions = fragment_references.map do |reference|

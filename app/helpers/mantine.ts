@@ -9,11 +9,11 @@ import {
 } from "@mantine/core";
 import type { DefaultMantineColor, MantineColorsTuple } from "@mantine/core";
 
-export type CustomColor = "brand";
+export type CustomColors = "brand" | DefaultMantineColor;
 
 declare module "@mantine/core" {
   export interface MantineThemeColorsOverride {
-    colors: Record<DefaultMantineColor | CustomColor, MantineColorsTuple>;
+    colors: Record<CustomColors, MantineColorsTuple>;
   }
 }
 

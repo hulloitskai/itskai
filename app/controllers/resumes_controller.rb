@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 class ResumesController < ApplicationController
+  include Concurrent
+
   # == Actions
 
   # GET /resume
@@ -37,6 +39,12 @@ class ResumesController < ApplicationController
     end
   end
 
+  # == Helpers
+  sig { returns(Semaphore) }
+  def self.print_resume_semaphore
+    @print_resume_semaphore ||= T.let(Semaphore.new(1), T.nilable(Semaphore))
+  end
+
   private
 
   # == Helpers
@@ -66,17 +74,19 @@ class ResumesController < ApplicationController
 
   sig { params(variant: T.nilable(Symbol)).returns(String) }
   def print_resume(variant:)
-    params = { printable: true, variant: }
-    driver = webdriver
-    driver.get(resume_url(params.compact))
-    Selenium::WebDriver::Wait.new.until do
-      driver.execute_script(
-        "return window.performance.timing.loadEventEnd > 0",
-      ) && driver.execute_script(
-        'return window.performance.getEntriesByType("paint").length > 0',
-      )
+    self.class.print_resume_semaphore.acquire do
+      params = { printable: true, variant: }
+      driver = webdriver
+      driver.get(resume_url(params.compact))
+      Selenium::WebDriver::Wait.new.until do
+        driver.execute_script(
+          "return window.performance.timing.loadEventEnd > 0",
+        ) && driver.execute_script(
+          'return window.performance.getEntriesByType("paint").length > 0',
+        )
+      end
+      page_str = driver.print_page
+      Base64.decode64(page_str)
     end
-    page_str = driver.print_page
-    Base64.decode64(page_str)
   end
 end
