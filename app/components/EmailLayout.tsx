@@ -8,9 +8,11 @@ import {
   Preview,
   Section,
   Text,
+  Html,
 } from "@react-email/components";
 import type { PreviewProps } from "@react-email/components";
 
+import MantineCssVariables from "./MantineCssVariables";
 import "./EmailLayout.css";
 
 export type EmailLayoutProps = PropsWithChildren<{
@@ -19,7 +21,8 @@ export type EmailLayoutProps = PropsWithChildren<{
 }>;
 
 const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
-  <>
+  <Html>
+    <MantineCssVariables cssVariablesSelector="body" />
     {!!preview && <Preview>{preview}</Preview>}
     <Body>
       <Box component={Container} mx="auto" px={12} py={16}>
@@ -30,6 +33,7 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
             style={({ headings: { sizes, ...style } }) => ({
               ...sizes.h3,
               ...style,
+              fontWeight: 800,
             })}
           >
             {header}
@@ -46,7 +50,7 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
             })}
           >
             Sent by{" "}
-            <Box component={Link} href="/" target="_blank" c="brand.5" fw={800}>
+            <Box component={Link} href="/" target="_blank" c="brand.5" fw={600}>
               It&apos;s Kai
             </Box>
             . This email loves you.
@@ -54,7 +58,7 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
         </Box>
       </Box>
     </Body>
-  </>
+  </Html>
 );
 
 export default EmailLayout;

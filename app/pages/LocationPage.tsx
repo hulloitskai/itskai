@@ -3,6 +3,7 @@ import { GeolocateControl } from "react-map-gl";
 
 import type { Coordinates, LocationPageQuery } from "~/helpers/graphql";
 
+import AppLayout from "~/components/AppLayout";
 import Map from "~/components/Map";
 
 export type LocationPageProps = PagePropsWithData<LocationPageQuery>;

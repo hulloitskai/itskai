@@ -129,7 +129,7 @@ gem "graphiql-rails"
 gem "vite_rails", "~> 3.0"
 
 # Use Inertia framework for server-driven SPAs
-gem "inertia_rails", "~> 3.0"
+gem "inertia_rails", "~> 3.1"
 
 # Use Premailer to inline CSS into email templates
 gem "premailer-rails", "~> 1.12"

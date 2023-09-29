@@ -3,6 +3,7 @@ import { Text } from "@mantine/core";
 
 import type { UserSettingsPageQuery } from "~/helpers/graphql";
 
+import AppLayout from "~/components/AppLayout";
 import UserSettingsPageEmailForm from "~/components/UserSettingsPageEmailForm";
 import UserSettingsPagePasswordForm from "~/components/UserSettingsPagePasswordForm";
 import UserSettingsPageProfileForm from "~/components/UserSettingsPageProfileForm";

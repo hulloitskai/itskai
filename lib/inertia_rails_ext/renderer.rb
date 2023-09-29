@@ -19,13 +19,9 @@ module InertiaRails
         super
         @component = T.let(@component, String)
         @controller = T.let(@controller, AbstractController::Base)
-        @props = T.let(@props, T::Hash[T.untyped, T.untyped])
+        @props = T.let(@props, T::Hash[T.any(Symbol, String), T.untyped])
         @props.transform_keys! do |key|
-          if key.is_a?(Symbol)
-            key.to_s.camelize(:lower).to_sym
-          else
-            key
-          end
+          key.is_a?(Symbol) ? key.to_s.camelize(:lower) : key
         end
         set_data_prop
       end

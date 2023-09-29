@@ -9,6 +9,8 @@ import {
 } from "@mantine/core";
 import type { DefaultMantineColor, MantineColorsTuple } from "@mantine/core";
 
+import classes from "./mantine.module.css";
+
 export type CustomColors = "brand" | DefaultMantineColor;
 
 declare module "@mantine/core" {
@@ -40,17 +42,15 @@ export const THEME = createTheme({
       defaultProps: {
         radius: "md",
       },
+      classNames: {
+        root: classes.button,
+      },
       styles: {
         label: {
           fontWeight: 700,
         },
       },
     }),
-    // Input: Input.extend({
-    //   defaultProps: {
-    //     radius: "md",
-    //   },
-    // }),
     Loader: Loader.extend({
       defaultProps: {
         color: "brand.5",

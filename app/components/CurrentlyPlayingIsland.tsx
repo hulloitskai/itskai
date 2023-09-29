@@ -188,11 +188,11 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
             rel="noopener noreferrer nofollow"
             size="xl"
             leftSection={
-              <Box pos="relative" p={2} mr={2}>
+              <Box pos="relative" p={2} mr={3}>
                 <MotionImage
                   src={imageUrl}
-                  width={24}
-                  height={24}
+                  w={26}
+                  h={26}
                   radius="xl"
                   animate={{ rotate: 360 }}
                   transition={{ ease: "linear", duration: 4, repeat: Infinity }}

@@ -3,6 +3,7 @@ import { Text } from "@mantine/core";
 
 import type { AdminPageQuery } from "~/helpers/graphql";
 
+import AppLayout from "~/components/AppLayout";
 import ICloudCredentialsForm from "~/components/ICloudCredentialsForm";
 import InstagramCredentialsForm from "~/components/InstagramCredentialsForm";
 import GoogleCredentialsForm from "~/components/GoogleCredentialsForm";

@@ -9,6 +9,7 @@ import ArrowTopRightOnSquareIcon from "~icons/heroicons/arrow-top-right-on-squar
 
 import type { TestPageQuery } from "~/helpers/graphql";
 
+import AppLayout from "~/components/AppLayout";
 import TestForm from "~/components/TestForm";
 import TestFeed from "~/components/TestFeed";
 
@@ -19,6 +20,18 @@ export type TestPageProps = PagePropsWithData<TestPageQuery> & {
 type TestPageFormValues = {
   readonly name: string;
 };
+
+type TestPageModalContentProps = {
+  readonly name: string;
+};
+
+const TestPageModalContent: FC<TestPageModalContentProps> = ({ name }) => (
+  <Stack gap="xs">
+    <Text>Apparently, your name is:</Text>
+    <TextInput value={name} readOnly />
+    <Button onClick={() => closeAllModals()}>Uh-huh.</Button>
+  </Stack>
+);
 
 const TestPage: PageComponent<TestPageProps> = ({
   data,
@@ -93,15 +106,3 @@ TestPage.layout = buildLayout<TestPageProps>((page, { data: { viewer } }) => (
 ));
 
 export default TestPage;
-
-type TestPageModalContentProps = {
-  readonly name: string;
-};
-
-const TestPageModalContent: FC<TestPageModalContentProps> = ({ name }) => (
-  <Stack gap="xs">
-    <Text>Apparently, your name is:</Text>
-    <TextInput value={name} readOnly />
-    <Button onClick={() => closeAllModals()}>Uh-huh.</Button>
-  </Stack>
-);

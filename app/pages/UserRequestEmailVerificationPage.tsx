@@ -3,6 +3,7 @@ import { Text } from "@mantine/core";
 
 import type { UserRequestEmailVerificationPageQuery } from "~/helpers/graphql";
 
+import AppLayout from "~/components/AppLayout";
 import UserRequestEmailVerificationPageForm from "~/components/UserRequestEmailVerificationPageForm";
 
 export type UserRequestEmailVerificationPageProps =
@@ -25,16 +26,16 @@ const UserRequestEmailVerificationPage: PageComponent<
       <UserRequestEmailVerificationPageForm />
       <Divider />
       <Stack gap={0} fz="xs">
-        <Text c="gray.6">
-          <Anchor component={Link} href="/login">
+        <Text c="gray.6" inherit>
+          <Anchor component={Link} href="/login" inherit>
             Sign in
           </Anchor>{" "}
           or{" "}
-          <Anchor component={Link} href="/user/register">
+          <Anchor component={Link} href="/user/register" inherit>
             Sign up
           </Anchor>
         </Text>
-        <Anchor component={Link} href="/user/password/reset">
+        <Anchor component={Link} href="/user/password/reset" inherit>
           Forgot your password?
         </Anchor>
       </Stack>

@@ -1,6 +1,6 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { Button as MantineButton } from "@mantine/core";
-import { Button, Text, Link } from "@react-email/components";
+import { Button } from "@mantine/core";
+import { Text } from "@react-email/components";
 
 import EmailLayout from "~/components/EmailLayout";
 
@@ -24,15 +24,15 @@ const UserPasswordResetEmail: PageComponent<UserPasswordResetEmailProps> = ({
         A password change has been requested for your account. If this was you,
         please click the button below to reset your password:
       </Text>
-      <MantineButton component={Button} href={resetUrl} target="_blank">
+      <Button component="a" href={resetUrl} target="_blank">
         Reset password
-      </MantineButton>
+      </Button>
       <Text style={{ marginBottom: 6 }}>
         Or copy and paste this URL into a new tab of your browser:
       </Text>
-      <Link href={resetUrl} target="_blank" style={{ textTransform: "none" }}>
+      <Anchor href={resetUrl} target="_blank" style={{ textTransform: "none" }}>
         {resetUrl}
-      </Link>
+      </Anchor>
     </>
   );
 };

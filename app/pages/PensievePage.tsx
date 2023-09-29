@@ -2,6 +2,7 @@ import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import type { PensievePageQuery } from "~/helpers/graphql";
 import { Text } from "@mantine/core";
 
+import AppLayout from "~/components/AppLayout";
 import Pensieve from "~/components/Pensieve";
 
 export type PensievePageProps = PagePropsWithData<PensievePageQuery>;

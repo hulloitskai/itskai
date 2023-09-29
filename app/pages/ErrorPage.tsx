@@ -3,6 +3,8 @@ import { Code, Text } from "@mantine/core";
 
 import type { ErrorPageQuery } from "~/helpers/graphql";
 
+import AppLayout from "~/components/AppLayout";
+
 export type ErrorPageProps = PagePropsWithData<ErrorPageQuery> & {
   readonly title: string;
   readonly description: string;

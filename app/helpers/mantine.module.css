@@ -1,0 +1,3 @@
+[data-mantine-color-scheme="dark"] :global(.mantine-Card-root) .button {
+  --_disabled-bg: var(--mantine-color-dark-7);
+}

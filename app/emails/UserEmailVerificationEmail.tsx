@@ -1,6 +1,6 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { Button as MantineButton } from "@mantine/core";
-import { Button, Text, Link } from "@react-email/components";
+import { Button } from "@mantine/core";
+import { Text } from "@react-email/components";
 
 import EmailLayout from "~/components/EmailLayout";
 
@@ -23,31 +23,29 @@ const UserVerificationEmail: PageComponent<UserEmailVerificationEmailProps> = ({
       <Text style={{ marginBottom: 10 }}>
         To verify your email address, please click the button below:
       </Text>
-      <MantineButton
-        component={Button}
+      <Button
+        component="a"
         href={verificationUrl}
         target="_blank"
-        // pX={20}
-        // pY={10}
-        // bg="brand.7"
-        // fw={600}
-        // style={({ white, radius }) => ({
-        //   color: white,
-        //   borderRadius: radius.md,
-        // })}
+        fw={600}
+        style={({ white, radius }) => ({
+          color: white,
+          borderRadius: radius.md,
+        })}
       >
         Verify email
-      </MantineButton>
+      </Button>
       <Text style={{ marginBottom: 6 }}>
         Or copy and paste this URL into a new tab of your browser:
       </Text>
-      <Link
+      <Anchor
         href={verificationUrl}
         target="_blank"
+        inherit
         style={{ textTransform: "none" }}
       >
         {verificationUrl}
-      </Link>
+      </Anchor>
     </>
   );
 };

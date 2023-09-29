@@ -3,6 +3,7 @@ import { Text } from "@mantine/core";
 
 import { UserLoginPageQuery } from "~/helpers/graphql";
 
+import AppLayout from "~/components/AppLayout";
 import UserLoginPageForm from "~/components/UserLoginPageForm";
 
 export type UserLoginPageProps = PagePropsWithData<UserLoginPageQuery> & {
@@ -30,10 +31,10 @@ const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
       </Text>
       <Divider />
       <Stack gap={0} fz="xs">
-        <Anchor component={Link} href="/user/password/reset">
+        <Anchor component={Link} href="/user/password/reset" inherit>
           Forgot your password?
         </Anchor>
-        <Anchor component={Link} href="/user/verification/resend">
+        <Anchor component={Link} href="/user/verification/resend" inherit>
           Didn&apos;t get a verification email?
         </Anchor>
       </Stack>

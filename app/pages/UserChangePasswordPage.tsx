@@ -3,6 +3,7 @@ import { Text } from "@mantine/core";
 
 import { UserChangePasswordPageQuery } from "~/helpers/graphql";
 
+import AppLayout from "~/components/AppLayout";
 import UserChangePasswordPageForm from "~/components/UserChangePasswordPageForm";
 
 export type UserChangePasswordPageProps =
@@ -26,16 +27,16 @@ const UserChangePasswordPage: PageComponent<UserChangePasswordPageProps> = ({
       <UserChangePasswordPageForm {...{ resetPasswordToken }} />
       <Divider />
       <Stack gap={0} fz="xs">
-        <Text c="gray.6">
-          <Anchor component={Link} href="/login">
+        <Text inherit c="gray.6">
+          <Anchor component={Link} href="/login" inherit>
             Sign in
           </Anchor>{" "}
           or{" "}
-          <Anchor component={Link} href="/user/register">
+          <Anchor component={Link} href="/user/register" inherit>
             Sign up
           </Anchor>
         </Text>
-        <Anchor component={Link} href="/user/verification/resend">
+        <Anchor component={Link} href="/user/verification/resend" inherit>
           Didn&apos;t get a verification email?
         </Anchor>
       </Stack>

@@ -3,13 +3,7 @@ import type { ImportsMap, PresetName } from "unplugin-auto-import/types";
 export const imports: Array<ImportsMap | PresetName> = [
   "react",
   {
-    "~/components": [
-      "AppLayout",
-      "AnchorContainer",
-      "EmptyCard",
-      "Head",
-      "Time",
-    ],
+    "~/components": ["AnchorContainer", "EmptyCard", "Head", "Time"],
     "~/components/icons": [
       "AddIcon",
       "AlertIcon",

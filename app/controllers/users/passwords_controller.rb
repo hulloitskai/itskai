@@ -14,9 +14,7 @@ module Users
       reset_password_token = params.fetch(:reset_password_token)
       render(
         inertia: "UserChangePasswordPage",
-        props: {
-          "resetPasswordToken" => reset_password_token,
-        },
+        props: { reset_password_token: },
       )
     end
   end

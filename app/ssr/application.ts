@@ -1,4 +1,4 @@
-import { renderToString } from "react-dom/server";
+import { renderToString as renderPage } from "react-dom/server";
 
 import { render as renderEmail } from "@react-email/render";
 import { setupLuxon } from "~/helpers/luxon";
@@ -34,12 +34,12 @@ const emails = resolve(() => {
 // == Entrypoint
 createServer(async page => {
   const type = resolvePageType(page.component);
-  const { head, body } = await createInertiaApp({
+  return createInertiaApp({
     page,
     render: page => {
       switch (type) {
         case PageType.Page: {
-          return renderToString(page);
+          return renderPage(page);
         }
         case PageType.Email: {
           return renderEmail(page);
@@ -68,5 +68,4 @@ createServer(async page => {
     },
     setup: setupApp,
   });
-  return { head, body };
 });

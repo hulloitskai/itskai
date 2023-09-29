@@ -367,15 +367,21 @@ end
 
 # source://inertia_rails//lib/inertia_rails/renderer.rb#6
 class InertiaRails::Renderer
-  sig { params(args: T.untyped, kwargs: T.untyped).void }
-  def initialize(*args, **kwargs); end
+  sig do
+    params(
+      args: T.untyped,
+      props: T.nilable(T::Hash[T.any(::String, ::Symbol), T.untyped]),
+      kwargs: T.untyped
+    ).void
+  end
+  def initialize(*args, props: T.unsafe(nil), **kwargs); end
 
   # Returns the value of attribute component.
   #
   # source://inertia_rails//lib/inertia_rails/renderer.rb#7
   def component; end
 
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#20
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#21
   def render; end
 
   # Returns the value of attribute view_data.
@@ -385,30 +391,30 @@ class InertiaRails::Renderer
 
   private
 
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#45
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#46
   def computed_props; end
 
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#66
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#67
   def deep_transform_values(hash, proc); end
 
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#41
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#42
   def layout; end
 
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#57
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#58
   def page; end
 
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#72
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#73
   def partial_keys; end
 
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#80
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#81
   def prop_merge_method; end
 
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#33
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#34
   def render_ssr; end
 
   # @return [Boolean]
   #
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#76
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#77
   def rendering_partial_component?; end
 end
 

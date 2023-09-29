@@ -4,6 +4,7 @@ import BellIcon from "~icons/heroicons/bell-20-solid";
 
 import type { HomePageQuery } from "~/helpers/graphql";
 
+import AppLayout from "~/components/AppLayout";
 import ContactMeLink from "~/components/ContactMeLink";
 import HomePageJournalEntry from "~/components/HomePageJournalEntry";
 import Pensieve from "~/components/Pensieve";

@@ -1,7 +1,6 @@
 body {
   background-color: white;
   margin: 8px;
-  font-size: 14px;
   text-transform: lowercase;
   button {
     text-transform: lowercase;
@@ -13,4 +12,9 @@ body {
   [data-id="react-email-text"] {
     color: var(--mantine-color-gray-8);
   }
+}
+
+#app {
+  font-size: 14px;
+  --text-fz: var(--mantine-font-size-sm);
 }

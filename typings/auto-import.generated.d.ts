@@ -10,7 +10,6 @@ declare global {
   const AlertIcon: typeof import('~/components/icons')['AlertIcon']
   const Anchor: typeof import('@mantine/core')['Anchor']
   const AnchorContainer: typeof import('~/components')['AnchorContainer']
-  const AppLayout: typeof import('~/components')['AppLayout']
   const Badge: typeof import('@mantine/core')['Badge']
   const Box: typeof import('@mantine/core')['Box']
   const Button: typeof import('@mantine/core')['Button']
