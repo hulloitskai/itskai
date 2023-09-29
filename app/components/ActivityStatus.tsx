@@ -64,7 +64,7 @@ const ActivityStatus: FC<ActivityStatusProps> = ({ ...otherProps }) => {
           <Center h="100%" {...{ style }}>
             <HoverCard withArrow withinPortal>
               <HoverCard.Target>
-                <Group gap={4}>
+                <Group justify="center" gap={4} wrap="nowrap">
                   <Text size="xs" c="gray.6" fw={500}>
                     Made by{" "}
                     <Text span fw={700}>
