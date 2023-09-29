@@ -10,7 +10,11 @@ export type AppMantineProviderProps = PropsWithChildren;
 const AppMantineProvider: FC<AppMantineProviderProps> = ({ children }) => (
   <>
     {/* <ColorSchemeScript forceColorScheme="dark" /> */}
-    <MantineProvider theme={THEME} withCssVariables={false}>
+    <MantineProvider
+      theme={THEME}
+      forceColorScheme="dark"
+      withCssVariables={false}
+    >
       {children}
     </MantineProvider>
   </>

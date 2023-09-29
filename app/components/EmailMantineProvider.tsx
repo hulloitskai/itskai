@@ -10,7 +10,11 @@ export type EmailMantineProviderProps = PropsWithChildren;
 const EmailMantineProvider: FC<EmailMantineProviderProps> = ({ children }) => (
   <>
     {/* <ColorSchemeScript forceColorScheme="light" /> */}
-    <MantineProvider theme={THEME} withCssVariables={false}>
+    <MantineProvider
+      theme={THEME}
+      forceColorScheme="light"
+      withCssVariables={false}
+    >
       {children}
     </MantineProvider>
   </>
