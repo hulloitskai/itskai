@@ -12,6 +12,7 @@ const EmailMantineProvider: FC<EmailMantineProviderProps> = ({ children }) => (
     {/* <ColorSchemeScript forceColorScheme="light" /> */}
     <MantineProvider
       theme={THEME}
+      cssVariablesSelector="body"
       forceColorScheme="light"
       withCssVariables={false}
     >

@@ -12,7 +12,7 @@ export type PageLayoutProps = PropsWithChildren;
 
 const PageLayout: FC<PageLayoutProps> = ({ children }) => (
   <>
-    <MantineCssVariables />
+    <MantineCssVariables cssVariablesSelector="body" />
     <ModalsProvider modalProps={{ size: "md" }}>{children}</ModalsProvider>
     <Notifications position="top-center" />
     <PageTracking />
