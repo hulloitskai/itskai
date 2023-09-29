@@ -3,7 +3,7 @@
     "sourceCodeDir": "app",
     "additionalEntrypoints": ["~/assets/**/*"],
     "ssrBuildEnabled": true,
-    "ssrEntrypoint": "~/ssr/application.{js,jsx,ts,tsx}",
+    "ssrEntrypoint": "~/ssr/ssr.{js,jsx,ts,tsx}",
     "ssrOutputDir": "app/ssr/dist"
   },
   "development": {

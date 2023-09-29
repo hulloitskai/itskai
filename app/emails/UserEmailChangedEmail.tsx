@@ -1,5 +1,5 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { Text, Link } from "@react-email/components";
+import { Text } from "@mantine/core";
 
 import EmailLayout from "~/components/EmailLayout";
 
@@ -18,7 +18,8 @@ const UserEmailChangedEmail: PageComponent<UserEmailChangedEmailProps> = ({
       <Text>Hi, {name}!</Text>
       <Text>
         We&apos;re contacting you to let you know that your email has been
-        changed to <Link href={`mailto:${name}%20<${email}>`}>{email}</Link>.
+        changed to <Anchor href={`mailto:${name}%20<${email}>`}>{email}</Anchor>
+        .
       </Text>
     </>
   );

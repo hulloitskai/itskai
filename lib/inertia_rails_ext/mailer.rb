@@ -99,7 +99,7 @@ module InertiaRails
       klass = T.cast(self.class,
                      T.all(T.class_of(ActionMailer::Base), ClassMethods))
       klass.build_assets_semaphore.acquire do
-        ViteRuby.commands.build
+        ViteRuby.commands.build("--config", "./vite.config.mailer.ts")
       end
     end
 

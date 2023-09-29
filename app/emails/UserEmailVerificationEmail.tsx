@@ -1,6 +1,5 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { Button } from "@mantine/core";
-import { Text } from "@react-email/components";
+import { Button, Text } from "@mantine/core";
 
 import EmailLayout from "~/components/EmailLayout";
 
@@ -20,7 +19,7 @@ const UserVerificationEmail: PageComponent<UserEmailVerificationEmailProps> = ({
   return (
     <>
       <Text>Hi, {name}!</Text>
-      <Text style={{ marginBottom: 10 }}>
+      <Text mb={10}>
         To verify your email address, please click the button below:
       </Text>
       <Button
@@ -35,7 +34,8 @@ const UserVerificationEmail: PageComponent<UserEmailVerificationEmailProps> = ({
       >
         Verify email
       </Button>
-      <Text style={{ marginBottom: 6 }}>
+      <Space h="lg" />
+      <Text mb={4}>
         Or copy and paste this URL into a new tab of your browser:
       </Text>
       <Anchor
