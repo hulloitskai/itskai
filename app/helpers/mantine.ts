@@ -1,11 +1,19 @@
 import {
   DEFAULT_THEME,
+  Alert,
+  Anchor,
+  Button,
   Loader,
+  LoadingOverlay,
   Modal,
   NumberInput,
   PasswordInput,
+  TextInput,
+  Textarea,
   ThemeIcon,
   createTheme,
+  Text,
+  mergeThemeOverrides,
 } from "@mantine/core";
 import type { DefaultMantineColor, MantineColorsTuple } from "@mantine/core";
 
@@ -19,7 +27,7 @@ declare module "@mantine/core" {
   }
 }
 
-export const THEME = createTheme({
+export const APP_THEME = createTheme({
   colors: {
     brand: DEFAULT_THEME.colors.pink,
   },
@@ -98,3 +106,20 @@ export const THEME = createTheme({
     }),
   },
 });
+
+const EMAIL_THEME_OVERRIDE = createTheme({
+  components: {
+    Text: Text.extend({
+      defaultProps: {
+        size: "sm",
+      },
+    }),
+    Anchor: Anchor.extend({
+      defaultProps: {
+        underline: "always",
+      },
+    }),
+  },
+});
+
+export const EMAIL_THEME = mergeThemeOverrides(APP_THEME, EMAIL_THEME_OVERRIDE);

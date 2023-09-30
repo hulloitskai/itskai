@@ -8,13 +8,8 @@ body {
   .mantine-Badge-label {
     text-transform: lowercase;
   }
-
-  [data-id="react-email-text"] {
-    color: var(--mantine-color-gray-8);
-  }
 }
 
 #app {
   font-size: 14px;
-  --text-fz: var(--mantine-font-size-sm);
 }

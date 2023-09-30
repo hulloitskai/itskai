@@ -1,4 +1,5 @@
 import type { FC, PropsWithChildren } from "react";
+import { Text } from "@mantine/core";
 
 import {
   Body,
@@ -7,7 +8,6 @@ import {
   Img,
   Preview,
   Section,
-  Text,
   Html,
 } from "@react-email/components";
 import type { PreviewProps } from "@react-email/components";
@@ -42,19 +42,13 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
         <Box component={Section}>{children}</Box>
         <Box component={Section} mt={40}>
           <Img src="/logo.png" width="32" height="32" />
-          <Box
-            component={Text}
-            style={theme => ({
-              color: getThemeColor("dimmed", theme),
-              margin: `${rem(4)} 0`,
-            })}
-          >
+          <Text c="dimmed" mx={4} my={0}>
             Sent by{" "}
-            <Box component={Link} href="/" target="_blank" c="brand.5" fw={600}>
+            <Anchor href="/" target="_blank" c="brand.5" fw={600}>
               It&apos;s Kai
-            </Box>
+            </Anchor>
             . This email loves you.
-          </Box>
+          </Text>
         </Box>
       </Box>
     </Body>

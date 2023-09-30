@@ -22,16 +22,7 @@ const UserVerificationEmail: PageComponent<UserEmailVerificationEmailProps> = ({
       <Text mb={10}>
         To verify your email address, please click the button below:
       </Text>
-      <Button
-        component="a"
-        href={verificationUrl}
-        target="_blank"
-        fw={600}
-        style={({ white, radius }) => ({
-          color: white,
-          borderRadius: radius.md,
-        })}
-      >
+      <Button component="a" href={verificationUrl} target="_blank" fw={600}>
         Verify email
       </Button>
       <Space h="lg" />
@@ -41,7 +32,6 @@ const UserVerificationEmail: PageComponent<UserEmailVerificationEmailProps> = ({
       <Anchor
         href={verificationUrl}
         target="_blank"
-        inherit
         style={{ textTransform: "none" }}
       >
         {verificationUrl}

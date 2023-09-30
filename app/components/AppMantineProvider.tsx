@@ -1,7 +1,7 @@
 import type { FC, PropsWithChildren } from "react";
 
 import { /* ColorSchemeScript, */ MantineProvider } from "@mantine/core";
-import { THEME } from "~/helpers/mantine";
+import { APP_THEME } from "~/helpers/mantine";
 
 import "@mantine/core/styles.css";
 
@@ -11,7 +11,7 @@ const AppMantineProvider: FC<AppMantineProviderProps> = ({ children }) => (
   <>
     {/* <ColorSchemeScript forceColorScheme="dark" /> */}
     <MantineProvider
-      theme={THEME}
+      theme={APP_THEME}
       forceColorScheme="dark"
       withCssVariables={false}
     >
