@@ -71,7 +71,9 @@ Rails.application.routes.draw do
   # == Calendly
   get "/calendly" => "calendly#show"
   get "/hangout" => "calendly#show"
+  get "/coffee" => "calendly#event", handle: "coffee"
   get "/walk" => "calendly#event", handle: "walk"
+  get "/call" => "calendly#event", handle: "call"
   get "/opencal-intro" => "calendly#event", handle: "opencal-intro"
 
   # == Events
