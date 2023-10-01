@@ -182,7 +182,6 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
                 )}
               </Group>
               <Menu
-                withinPortal
                 withArrow
                 styles={{
                   dropdown: {

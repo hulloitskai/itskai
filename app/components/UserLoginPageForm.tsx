@@ -71,7 +71,6 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
         <Tooltip
           label="Uncheck this if you're signing in from a shared device."
           position="top-start"
-          withinPortal
           withArrow
         >
           <Checkbox

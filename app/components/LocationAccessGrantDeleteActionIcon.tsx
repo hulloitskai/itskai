@@ -31,7 +31,7 @@ const LocationAccessGrantDeleteActionIcon: FC<
 
   // == Markup
   return (
-    <Menu withinPortal withArrow>
+    <Menu withArrow>
       <Menu.Target>
         <ActionIcon color="red" {...otherProps}>
           <DeleteIcon />

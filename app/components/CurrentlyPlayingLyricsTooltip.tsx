@@ -12,9 +12,9 @@ import {
   useProgressLyricsIndexMapping,
 } from "~/helpers/currentlyPlaying";
 
-export type CurrentlyPlayingLyricsTooltipProps = Pick<
+export type CurrentlyPlayingLyricsTooltipProps = Omit<
   TooltipProps,
-  "disabled"
+  "label" | "children"
 > & {
   readonly durationMilliseconds: number;
   readonly progressMilliseconds: number | undefined;
@@ -100,9 +100,12 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
       withArrow
       multiline
       color="brand"
-      c="white"
       transitionProps={{ duration: transitionDuration }}
+      classNames={{
+        tooltip: "potato",
+      }}
       disabled={disabled ?? !hasWords}
+      c="white"
       maw={350}
       fz="xs"
       styles={{

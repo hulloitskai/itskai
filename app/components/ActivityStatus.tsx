@@ -62,7 +62,7 @@ const ActivityStatus: FC<ActivityStatusProps> = ({ ...otherProps }) => {
       <Transition transition="slide-up" mounted={showTagline}>
         {style => (
           <Center h="100%" {...{ style }}>
-            <HoverCard withArrow withinPortal>
+            <HoverCard withArrow>
               <HoverCard.Target>
                 <Group justify="center" gap={4} wrap="nowrap">
                   <Text size="xs" c="gray.6" fw={500}>

@@ -173,6 +173,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
   // == Markup
   return (
     <CurrentlyPlayingLyricsTooltip
+      withinPortal={false}
       {...(!transitioned && { disabled: true })}
       {...{ durationMilliseconds, progressMilliseconds }}
     >

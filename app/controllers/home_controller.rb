@@ -9,10 +9,9 @@ class HomeController < ApplicationController
   def show
     ActivityStatus.current = "Someone landed on the homepage!"
     journal_entry = @journal_entry || first_journal_entry
-    journal_entry_id = journal_entry&.to_gid&.to_s
     data = query!("HomePageQuery", {
-      journal_entry_id: journal_entry_id || "",
-      show_journal_entry: journal_entry_id.present?,
+      journal_entry_id: journal_entry&.to_gid&.to_s || "",
+      show_journal_entry: journal_entry.present?,
     })
     render(inertia: "HomePage", props: {
       data:,

@@ -161,7 +161,6 @@ const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
                 </Button>
               )}
               <Menu
-                withinPortal
                 withArrow
                 styles={{
                   dropdown: {

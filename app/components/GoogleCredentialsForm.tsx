@@ -64,7 +64,6 @@ const GoogleCredentialsForm: FC<GoogleCredentialsFormProps> = ({
         </form>
         {credentials && (
           <Menu
-            withinPortal
             withArrow
             styles={{
               dropdown: {

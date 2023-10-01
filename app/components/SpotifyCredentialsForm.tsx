@@ -64,7 +64,6 @@ const SpotifyCredentialsForm: FC<SpotifyCredentialsFormProps> = ({
         </form>
         {credentials && (
           <Menu
-            withinPortal
             withArrow
             styles={{
               dropdown: {
