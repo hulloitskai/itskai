@@ -11,6 +11,7 @@ import type { SenecaPageMessageFragment } from "~/helpers/graphql";
 
 import PageContainer from "~/components/PageContainer";
 import { FC } from "react";
+import PageLayout from "~/components/PageLayout";
 
 export type SenecaPageProps = PagePropsWithData<SenecaPageQuery> & {
   readonly whenWeMet: string;
@@ -44,18 +45,16 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
   }, [messages]);
 
   return (
-    <PageContainer size="xs" withGutter>
+    <PageContainer size="sm" withGutter>
       <Stack gap="xl">
         <Text fw={500}>
-          hi seneca
+          Hi Seneca
           <br />
-          i&apos;ve known u for:
+          I&apos;ve known u for <TimeSinceWeMet span {...{ whenWeMet }} />
           <br />
-          <TimeSinceWeMet span {...{ whenWeMet }} />
+          Ty for everything
           <br />
-          ty for everything
-          <br />
-          you mean so much to me.
+          You mean so much to me.
           <br />
           <Text span c="pink.4">
             &lt;3
@@ -112,6 +111,18 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
   );
 };
 
+SenecaPage.layout = page => (
+  <PageLayout>
+    <Head>
+      <title>hi seneca</title>
+      <meta name="robots" content="noindex" />
+    </Head>
+    {page}
+  </PageLayout>
+);
+
+export default SenecaPage;
+
 type TimeSinceWeMetProps = Omit<TextProps, "children"> & {
   readonly whenWeMet: string;
 };
@@ -142,5 +153,3 @@ const TimeSinceWeMet: FC<TimeSinceWeMetProps> = ({
     </Text>
   );
 };
-
-export default SenecaPage;
