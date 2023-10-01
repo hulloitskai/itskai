@@ -6,6 +6,9 @@ class PensieveBot
   include Singleton
   include Logging
 
+  # == Constants
+  MENTION_REGEXP = /^@(\w+) /
+
   # == Initialization
   sig { void }
   def initialize
@@ -22,7 +25,7 @@ class PensieveBot
         bot = T.let(bot, Telegram::Bot::Client)
         bot.listen do |message|
           Rails.application.reloader.wrap do
-            handle_message!(message, bot:)
+            handle_message!(message, bot)
           end
         end
       end
@@ -82,7 +85,7 @@ class PensieveBot
       bot: Telegram::Bot::Client,
     ).void
   end
-  def handle_message!(telegram_message, bot:)
+  def handle_message!(telegram_message, bot)
     if telegram_message.from.id != Pensieve.telegram_user_id!
       bot.api.send_message(
         chat_id: telegram_message.chat.id,
@@ -106,6 +109,12 @@ class PensieveBot
     edit_timestamp = if (edit_date = telegram_message.edit_date)
       Time.zone.at(edit_date)
     end
-    message.update!(text: telegram_message.text, edit_timestamp:)
+    text = T.let(telegram_message.text, String)
+    to = if (match = MENTION_REGEXP.match(text))
+      text.sub!(MENTION_REGEXP, "")
+      match.captures.first!
+    end
+    text.strip!
+    message.update!(to:, text:, edit_timestamp:)
   end
 end

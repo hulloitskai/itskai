@@ -416,6 +416,9 @@ class PensieveMessage
     def readonly(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def recent(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def references(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -686,6 +689,9 @@ class PensieveMessage
     def restore_timestamp!; end
 
     sig { void }
+    def restore_to!; end
+
+    sig { void }
     def restore_updated_at!; end
 
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
@@ -729,6 +735,12 @@ class PensieveMessage
 
     sig { returns(T::Boolean) }
     def saved_change_to_timestamp?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_to; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_to?; end
 
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def saved_change_to_updated_at; end
@@ -871,6 +883,51 @@ class PensieveMessage
     sig { void }
     def timestamp_will_change!; end
 
+    sig { returns(T.nilable(::String)) }
+    def to; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def to=(value); end
+
+    sig { returns(T::Boolean) }
+    def to?; end
+
+    sig { returns(T.nilable(::String)) }
+    def to_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def to_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def to_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def to_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def to_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def to_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def to_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def to_previous_change; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def to_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def to_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def to_was; end
+
+    sig { void }
+    def to_will_change!; end
+
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def updated_at; end
 
@@ -936,6 +993,9 @@ class PensieveMessage
 
     sig { returns(T::Boolean) }
     def will_save_change_to_timestamp?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_to?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_updated_at?; end
@@ -1034,6 +1094,9 @@ class PensieveMessage
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def readonly(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def recent(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def references(*args, &blk); end

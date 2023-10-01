@@ -5,7 +5,7 @@ import type { TextProps } from "@mantine/core";
 import { DateTime } from "luxon";
 import type { DateTimeFormatOptions } from "luxon";
 
-export type TimeProps = Omit<TextProps, "children"> &
+export type TimeProps = Omit<TextProps, "span" | "children"> &
   Omit<ComponentPropsWithoutRef<"div">, "children"> & {
     readonly format: DateTimeFormatOptions | ((time: DateTime) => string);
     readonly children: DateTime | string;

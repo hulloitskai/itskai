@@ -13,6 +13,12 @@ class ApplicationMailer
     def current_user; end
 
     sig { returns(::ActionMailer::MessageDelivery) }
+    def default_reply_to; end
+
+    sig { returns(::ActionMailer::MessageDelivery) }
+    def default_sender; end
+
+    sig { returns(::ActionMailer::MessageDelivery) }
     def url_helpers; end
   end
 end

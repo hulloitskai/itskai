@@ -10,6 +10,7 @@
 #  from                :string           not null
 #  text                :text             not null
 #  timestamp           :datetime         not null
+#  to                  :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  telegram_message_id :bigint           not null
@@ -18,6 +19,7 @@
 #
 #  index_pensieve_messages_on_telegram_message_id  (telegram_message_id) UNIQUE
 #  index_pensieve_messages_on_timestamp            (timestamp)
+#  index_pensieve_messages_on_to                   (to)
 #
 class PensieveMessage < ApplicationRecord
   include Identifiable
@@ -43,6 +45,12 @@ class PensieveMessage < ApplicationRecord
   # == Callbacks
   after_commit :trigger_subscriptions, on: %i[create update]
 
+  # == Scopes
+  scope :recent, -> {
+    T.bind(self, PrivateRelation)
+    where("timestamp > ?", 1.day.ago).order(:timestamp).limit(100)
+  }
+
   # == Likes
   sig { params(actor_id: String).returns(T::Boolean) }
   def liked_by?(actor_id:)
@@ -61,18 +69,12 @@ class PensieveMessage < ApplicationRecord
     likes.find_by(actor_id:)&.destroy!
   end
 
-  # == Recent
-  sig { returns(PrivateRelation) }
-  def self.recent
-    where("timestamp > ?", 1.day.ago).order(:timestamp).limit(100)
-  end
-
+  # == Methods
   sig { returns(T::Boolean) }
   def recent?
     self.class.recent.exists?(id:)
   end
 
-  # == Methods
   sig { void }
   def send!
     validate!

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_20_232735) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_01_062437) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -266,8 +266,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_20_232735) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "edit_timestamp", precision: nil
+    t.string "to"
     t.index ["telegram_message_id"], name: "index_pensieve_messages_on_telegram_message_id", unique: true
     t.index ["timestamp"], name: "index_pensieve_messages_on_timestamp"
+    t.index ["to"], name: "index_pensieve_messages_on_to"
   end
 
   create_table "scottcalls", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

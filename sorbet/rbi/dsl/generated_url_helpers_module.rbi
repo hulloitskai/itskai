@@ -168,6 +168,9 @@ module GeneratedUrlHelpersModule
   def scottkit_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def seneca_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def shortcuts_action_items_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

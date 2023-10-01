@@ -12,6 +12,12 @@ class Devise::Mailer
     sig { returns(::ActionMailer::MessageDelivery) }
     def current_user; end
 
+    sig { returns(::ActionMailer::MessageDelivery) }
+    def default_reply_to; end
+
+    sig { returns(::ActionMailer::MessageDelivery) }
+    def default_sender; end
+
     sig { params(record: T.untyped, opts: T.untyped).returns(::ActionMailer::MessageDelivery) }
     def email_changed(record, opts = T.unsafe(nil)); end
 

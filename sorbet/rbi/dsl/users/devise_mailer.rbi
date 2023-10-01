@@ -18,6 +18,9 @@ class Users::DeviseMailer
     sig { returns(::ActionMailer::MessageDelivery) }
     def current_user; end
 
+    sig { returns(::ActionMailer::MessageDelivery) }
+    def default_reply_to; end
+
     sig { params(record: ::User, opts: T::Hash[::Symbol, T.untyped]).returns(::ActionMailer::MessageDelivery) }
     def email_changed(record, opts = T.unsafe(nil)); end
 
