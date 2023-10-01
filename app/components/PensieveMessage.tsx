@@ -62,18 +62,22 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
                   ),
                 }}
                 size="sm"
+                display="block"
                 lh={1.3}
                 style={{
                   flexGrow: 1,
                   whiteSpace: "pre-wrap",
                   wordBreak: "break-word",
+                  textTransform: "none",
                 }}
               >
                 {text}
               </Linkify>
-              <Text size="xs" c="dimmed" style={{ flexShrink: 0 }}>
-                <Time format={DateTime.TIME_SIMPLE}>{timestamp}</Time>
-              </Text>
+              <Box style={{ flexShrink: 0 }}>
+                <Time format={DateTime.TIME_SIMPLE} size="xs" c="dimmed">
+                  {timestamp}
+                </Time>
+              </Box>
             </Group>
             {isEdited && (
               <Text size="xs" c="dimmed" lh={1} style={{ alignSelf: "end" }}>

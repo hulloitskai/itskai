@@ -114,6 +114,7 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
                             style={({ fontFamilyMonospace }) => ({
                               flexGrow: 1,
                               fontFamily: fontFamilyMonospace,
+                              textTransform: "none",
                             })}
                           >
                             {text}
