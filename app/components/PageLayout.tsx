@@ -6,6 +6,7 @@ import { Notifications } from "@mantine/notifications";
 import MantineCssVariables from "./MantineCssVariables";
 import PageTracking from "./PageTracking";
 
+import "@mantine/notifications/styles.css";
 import "./PageLayout.css";
 
 export type PageLayoutProps = PropsWithChildren;
