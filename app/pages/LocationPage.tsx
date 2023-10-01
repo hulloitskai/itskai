@@ -20,8 +20,15 @@ const LocationPage: PageComponent<LocationPageProps> = ({
     location?.approximateCoordinates ?? TORONTO_COORDINATES;
 
   return (
-    <Box pos="relative" style={{ flexGrow: 1 }}>
-      <Map initialViewState={{ latitude, longitude, zoom: 11.5 }} scrollZoom>
+    <Flex
+      pos="relative"
+      style={{ flexGrow: 1, alignItems: "stretch", flexDirection: "column" }}
+    >
+      <Map
+        initialViewState={{ latitude, longitude, zoom: 11.5 }}
+        scrollZoom
+        style={{ flexGrow: 1 }}
+      >
         <GeolocateControl />
       </Map>
       <Center
@@ -46,7 +53,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
           Soon you&apos;ll be able to track Kai&apos;s location more precisely.
         </Alert>
       </Center>
-    </Box>
+    </Flex>
   );
 };
 

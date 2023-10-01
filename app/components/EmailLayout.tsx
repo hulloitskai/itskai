@@ -5,10 +5,10 @@ import {
   Body,
   Container,
   Heading,
+  Html,
   Img,
   Preview,
   Section,
-  Html,
 } from "@react-email/components";
 import type { PreviewProps } from "@react-email/components";
 

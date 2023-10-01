@@ -49,8 +49,4 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
   );
 };
 
-// SenecaPage.layout = buildLayout<SenecaPageProps>(page => (
-//   <PageLayout>{page}</PageLayout>
-// ));
-
 export default SenecaPage;

@@ -49,6 +49,9 @@ class Premailer
     extend T::Helpers
     include AdapterHelper::RgbToHex
 
+    # == Types
+    CssVariables = T.type_alias { T::Hash[String, T.untyped] }
+
     # == Annotations
     requires_ancestor { Premailer }
 
@@ -58,9 +61,9 @@ class Premailer
     sig { returns(String) }
     def to_inline_css
       doc = T.let(@processed_doc, Nokogiri::HTML::Document)
-      css_variables_by_element = T.let(
+      element_variables = T.let(
         {},
-        T::Hash[Nokogiri::XML::Element, T::Hash[String, T.untyped]],
+        T::Hash[Nokogiri::XML::Element, CssVariables],
       )
       unmergable_rules = CssParser::Parser.new
 
@@ -125,7 +128,7 @@ class Premailer
         suppress(Nokogiri::SyntaxError) do
           doc.search(selector).each do |el|
             rules = CssParser::RuleSet.new(nil, declarations)
-            css_variables = T.let({}, T::Hash[String, T.untyped])
+            css_variables = T.let({}, CssVariables)
             rules.each_declaration do |property, value, important|
               next unless property.start_with?("--")
               if important
@@ -134,7 +137,7 @@ class Premailer
                 css_variables[property] ||= value
               end
             end
-            css_variables_by_element[el] = css_variables
+            element_variables[el] = css_variables
             css_variables.keys.each do |property|
               unmergable_rules.each_rule_set do |rules|
                 rules = T.let(rules, CssParser::RuleSet)
@@ -144,19 +147,6 @@ class Premailer
           end
         end
       end
-
-      # # Parse CSS variable declarations
-      # css_variables = T.let({}, T::Hash[String, T.untyped])
-      # rules.each_declaration do |property, value, important|
-      #   next unless property.start_with?("--")
-      #   if important
-      #     css_variables[property] = value
-      #   else
-      #     css_variables[property] ||= value
-      #   end
-      # end
-      # css_variables_by_element[el] = css_variables
-      # css_variables.keys.each { |property| rules.delete(property) }
 
       # Remove script tags
       doc.search("script").remove if @options[:remove_scripts]
@@ -186,7 +176,7 @@ class Premailer
         end
 
         # Parse CSS variable declarations
-        css_variables = T.let({}, T::Hash[String, T.untyped])
+        css_variables = T.let({}, CssVariables)
         rules.each_declaration do |property, value, important|
           next unless property.start_with?("--")
           if important
@@ -195,7 +185,7 @@ class Premailer
             css_variables[property] ||= value
           end
         end
-        css_variables_by_element[el] = css_variables
+        element_variables[el] = css_variables
         css_variables.keys.each { |property| rules.delete(property) }
 
         # Replace CSS variable references
@@ -223,7 +213,7 @@ class Premailer
           rules[property] = resolve_css_value(
             value,
             el,
-            css_variables_by_element,
+            element_variables,
           )
         end
 
@@ -314,13 +304,10 @@ class Premailer
       params(
         value: String,
         el: Nokogiri::XML::Element,
-        css_variables_by_element: T::Hash[
-          Nokogiri::XML::Element,
-          T::Hash[String, T.untyped],
-        ],
+        element_variables: T::Hash[Nokogiri::XML::Element, CssVariables],
       ).returns(String)
     end
-    def resolve_css_value(value, el, css_variables_by_element)
+    def resolve_css_value(value, el, element_variables)
       new_value = T.let(value.dup, String)
       while (match = new_value.match(/var\((--[\w-]+)(, ?(.+))?\)/))
         variable_name, fallback_literal, fallback = T.cast(
@@ -330,7 +317,7 @@ class Premailer
         replacement = resolve_css_variable(
           variable_name,
           el,
-          css_variables_by_element,
+          element_variables,
         ) || fallback
         break unless replacement
         reference = if fallback_literal
@@ -347,16 +334,13 @@ class Premailer
       params(
         name: String,
         el: Nokogiri::XML::Element,
-        css_variables_by_element: T::Hash[
-          Nokogiri::XML::Element,
-          T::Hash[String, T.untyped],
-        ],
+        element_variables: T::Hash[Nokogiri::XML::Element, CssVariables],
       ).returns(T.nilable(String))
     end
-    def resolve_css_variable(name, el, css_variables_by_element)
+    def resolve_css_variable(name, el, element_variables)
       node = T.let(el, Nokogiri::XML::Element)
       until node.is_a?(Nokogiri::HTML4::Document)
-        css_variables = css_variables_by_element[node] || {}
+        css_variables = element_variables[node] || {}
         if (replacement = css_variables[name])
           return replacement
         end

@@ -6,9 +6,9 @@ import { ActionIcon, ScrollArea, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
 import {
-  PensieveSubscriptionDocument,
-  PensieveQueryDocument,
   PensieveMessageSender,
+  PensieveQueryDocument,
+  PensieveSubscriptionDocument,
 } from "~/helpers/graphql";
 import type { PensieveMessageFragment } from "~/helpers/graphql";
 

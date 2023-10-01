@@ -1,4 +1,4 @@
-import { init, identify } from "@fullstory/browser";
+import { identify, init } from "@fullstory/browser";
 
 const orgId = getMeta("fullstory-org-id");
 if (orgId) {

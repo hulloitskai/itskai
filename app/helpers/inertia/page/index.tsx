@@ -1,7 +1,7 @@
-import type { ReactNode, ComponentType } from "react";
+import type { ComponentType, ReactNode } from "react";
 
 import { usePage as _usePage } from "@inertiajs/react";
-import type { Page, Errors, ErrorBag, PageProps } from "@inertiajs/core";
+import type { ErrorBag, Errors, Page, PageProps } from "@inertiajs/core";
 
 export const pagesFromFiles = <T,>(
   files: Record<string, T>,

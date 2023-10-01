@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { default as _Map, NavigationControl } from "react-map-gl";
+import { NavigationControl, default as _Map } from "react-map-gl";
 import type { MapProps as _MapProps } from "react-map-gl";
 
 export type MapProps = Omit<_MapProps, "mapboxAccessToken">;

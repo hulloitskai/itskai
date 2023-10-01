@@ -5,8 +5,8 @@ const PageTracking: FC = () => {
 
   // == FullStory
   useEffect(() => {
-    if (isFSInitialized()) {
-      setFSVars("page", {
+    if (isFsInitialized()) {
+      setFsVars("page", {
         pageName: component,
       });
     }

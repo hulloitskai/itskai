@@ -1,0 +1,5 @@
+.copyCode {
+  &:hover {
+    background-color: var(--lagc-copy-code-bg);
+  }
+}

@@ -4,7 +4,7 @@ import { render as renderEmail } from "@react-email/render";
 import { setupLuxon } from "~/helpers/luxon";
 
 import { PageType, pagesFromFiles, resolvePageType } from "~/helpers/inertia";
-import { setupApp, preparePage } from "~/helpers/inertia/server";
+import { preparePage, setupApp } from "~/helpers/inertia/server";
 import type { PageComponent } from "~/helpers/inertia";
 
 import { createInertiaApp } from "@inertiajs/react";

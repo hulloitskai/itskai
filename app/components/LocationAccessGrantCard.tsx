@@ -5,7 +5,10 @@ import { Code, CopyButton, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
 import type { LocationAccessGrantCardGrantFragment } from "~/helpers/graphql";
+
 import LocationAccessGrantDeleteActionIcon from "./LocationAccessGrantDeleteActionIcon";
+
+import classes from "./LocationAccessGrantCard.module.css";
 
 export type LocationAccessGrantCardProps = Omit<BoxProps, "children"> & {
   readonly grant: LocationAccessGrantCardGrantFragment;
@@ -54,18 +57,27 @@ const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
             {({ copy, copied }) => (
               <Tooltip
                 label={copied ? "Copied" : "Click to copy"}
-                c="brand"
+                color="dark"
+                c="white"
                 withArrow
               >
                 <Code
-                  c="brand"
+                  color="brand"
                   onClick={copy}
-                  // style={({ colors, fn }) => ({
-                  //   cursor: "pointer",
-                  //   "&:hover": {
-                  //     backgroundColor: fn.darken(colors.brand[5], 0.5),
-                  //   },
-                  // })}
+                  className={classes.copyCode}
+                  style={{
+                    cursor: "pointer",
+                    transition: "background 150ms ease",
+                  }}
+                  __vars={theme => {
+                    return {
+                      "--lagc-copy-code-bg": theme.variantColorResolver({
+                        color: "brand",
+                        variant: "filled",
+                        theme,
+                      }).hover,
+                    };
+                  }}
                 >
                   {password}
                 </Code>

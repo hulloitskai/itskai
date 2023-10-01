@@ -1,18 +1,19 @@
 import {
-  DEFAULT_THEME,
+  ActionIcon,
   Alert,
   Anchor,
   Button,
+  DEFAULT_THEME,
   Loader,
   LoadingOverlay,
   Modal,
   NumberInput,
   PasswordInput,
+  Text,
   TextInput,
   Textarea,
   ThemeIcon,
   createTheme,
-  Text,
   mergeThemeOverrides,
 } from "@mantine/core";
 import type { DefaultMantineColor, MantineColorsTuple } from "@mantine/core";
@@ -39,6 +40,11 @@ export const APP_THEME = createTheme({
     "JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, " +
     "Liberation Mono, Courier New, monospace",
   components: {
+    ActionIcon: ActionIcon.extend({
+      defaultProps: {
+        variant: "subtle",
+      },
+    }),
     Alert: Alert.extend({
       styles: {
         title: {
@@ -112,6 +118,9 @@ const EMAIL_THEME_OVERRIDE = createTheme({
     Text: Text.extend({
       defaultProps: {
         size: "sm",
+      },
+      classNames: {
+        root: classes.emailText,
       },
     }),
     Anchor: Anchor.extend({

@@ -1,3 +1,7 @@
 [data-mantine-color-scheme="dark"] :global(.mantine-Card-root) .button {
   --_disabled-bg: var(--mantine-color-dark-7);
 }
+
+.emailText {
+  --text-color: var(--mantine-color-gray-8);
+}

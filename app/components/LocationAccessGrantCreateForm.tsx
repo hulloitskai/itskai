@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { PasswordInput, type BoxProps, NumberInput, Text } from "@mantine/core";
+import { type BoxProps, NumberInput, PasswordInput, Text } from "@mantine/core";
 
 import { CreateLocationAccessGrantMutationDocument } from "~/helpers/graphql";
 

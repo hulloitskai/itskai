@@ -4,8 +4,8 @@ import { PasswordInput, Text } from "@mantine/core";
 import type { ButtonProps } from "@mantine/core";
 
 import {
-  UpdateUserEmailMutationDocument,
   RequestUserEmailVerificationMutationDocument,
+  UpdateUserEmailMutationDocument,
 } from "~/helpers/graphql";
 import type { UserSettingsPageViewerFragment } from "~/helpers/graphql";
 

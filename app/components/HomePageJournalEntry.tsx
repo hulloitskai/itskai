@@ -8,9 +8,9 @@ import scrollIntoView from "scroll-into-view";
 import { HomePageJournalEntryQueryDocument } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
 import type {
+  HomePageJournalEntryEntryFragment,
   HomePageJournalEntryQuery,
   HomePageJournalEntryQueryVariables,
-  HomePageJournalEntryEntryFragment,
 } from "~/helpers/graphql";
 
 import JournalEntry from "./JournalEntry";

@@ -49,7 +49,7 @@ const PasswordWithStrengthCheckInput: FC<
             {!!value && (
               <Progress
                 size="xs"
-                c={
+                color={
                   passwordStrength === 1.0
                     ? "green"
                     : passwordStrength > 0.25

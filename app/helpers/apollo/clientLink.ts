@@ -1,4 +1,4 @@
-import { ApolloLink, HttpLink, split, from } from "@apollo/client/index";
+import { ApolloLink, HttpLink, from, split } from "@apollo/client/index";
 import { setContext } from "@apollo/client/link/context/index";
 import { RetryLink } from "@apollo/client/link/retry/index";
 import { getOperationDefinition } from "@apollo/client/utilities/index";

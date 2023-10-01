@@ -222,10 +222,10 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
               },
             }}
             __vars={({ colors }) => {
-              const borderColorActiveBase = colors.brand[5];
+              const borderColor = colors.brand[5];
               return {
-                "--cpi-border-color-active": darken(borderColorActiveBase, 0.1),
-                "--cpi-border-color-muted": darken(borderColorActiveBase, 0.4),
+                "--cpi-border-color-active": darken(borderColor, 0.1),
+                "--cpi-border-color-muted": darken(borderColor, 0.4),
               };
             }}
             data-lyrics-explicit={lyricsCurrentlyExplicit}

@@ -9,9 +9,9 @@ import { ScottkitSignal } from "~/helpers/graphql";
 import type { ScottkitPageQuery } from "~/helpers/graphql";
 
 import {
-  scottkitSignalLabel,
-  scottkitSignalIcon,
   scottkitSignalColor,
+  scottkitSignalIcon,
+  scottkitSignalLabel,
 } from "~/helpers/scottkitSignal";
 
 import AppMeta from "~/components/AppMeta";

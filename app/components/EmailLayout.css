@@ -1,6 +1,7 @@
 body {
   background-color: white;
   margin: 8px;
+  font-size: 14px;
   text-transform: lowercase;
   button {
     text-transform: lowercase;
@@ -8,8 +9,4 @@ body {
   .mantine-Badge-label {
     text-transform: lowercase;
   }
-}
-
-#app {
-  font-size: 14px;
 }

@@ -40,8 +40,8 @@ export const imports: Array<ImportsMap | PresetName> = [
       "useMutation",
     ],
     "@fullstory/browser": [
-      ["setVars", "setFSVars"],
-      ["isInitialized", "isFSInitialized"],
+      ["setVars", "setFsVars"],
+      ["isInitialized", "isFsInitialized"],
     ],
     "@inertiajs/react": ["Link"],
     "@mantine/core": [
@@ -49,6 +49,7 @@ export const imports: Array<ImportsMap | PresetName> = [
       "useMantineTheme",
       "useMantineColorScheme",
       "getThemeColor",
+      "parseThemeColor",
       "Alert",
       "Anchor",
       "Badge",

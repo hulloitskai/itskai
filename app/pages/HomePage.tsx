@@ -7,8 +7,8 @@ import type { HomePageQuery } from "~/helpers/graphql";
 import AppLayout from "~/components/AppLayout";
 import ContactMeLink from "~/components/ContactMeLink";
 import HomePageJournalEntry from "~/components/HomePageJournalEntry";
-import Pensieve from "~/components/Pensieve";
 import LocationAlert from "~/components/LocationAlert";
+import Pensieve from "~/components/Pensieve";
 
 export type HomePageProps = PagePropsWithData<HomePageQuery> & {
   readonly firstJournalEntryId: string;
