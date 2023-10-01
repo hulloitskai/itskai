@@ -101,7 +101,7 @@ class PensieveMessage < ApplicationRecord
   sig { void }
   def trigger_subscriptions
     if recent?
-      Schema.subscriptions!.trigger(:pensieve_message, {}, self)
+      Schema.subscriptions!.trigger(:pensieve_message, { to: }, self)
     end
   end
 end

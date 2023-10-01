@@ -19,7 +19,7 @@ const ActivityStatus: FC<ActivityStatusProps> = ({ ...otherProps }) => {
     variables: {},
     onError: error => {
       console.error(
-        "Failed to subscribe to activity status updates",
+        "Error during activity status update",
         formatJSON({ error }),
       );
     },

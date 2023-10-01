@@ -1,0 +1,6 @@
+subscription SenecaPageMessageSubscription {
+  message: pensieveMessage(to: "seneca") {
+    id
+    ...SenecaPageMessageFragment
+  }
+}

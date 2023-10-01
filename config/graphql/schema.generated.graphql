@@ -473,7 +473,7 @@ type Subscription {
   activityStatus: String
   currentlyPlaying: CurrentlyPlaying
   location: LocationLog
-  pensieveMessage: PensieveMessage
+  pensieveMessage(to: String): PensieveMessage
   testSubscription: Int!
 }
 

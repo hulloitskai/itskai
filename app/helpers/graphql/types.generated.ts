@@ -603,6 +603,11 @@ export type Subscription = {
   testSubscription: Scalars['Int']['output'];
 };
 
+
+export type SubscriptionPensieveMessageArgs = {
+  to?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type TestModel = {
   __typename?: 'TestModel';
   birthday?: Maybe<Scalars['Date']['output']>;

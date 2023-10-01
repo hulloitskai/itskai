@@ -9,8 +9,11 @@ module Subscriptions
     # == Type
     type Types::PensieveMessageType, null: true
 
+    # == Arguments
+    argument :to, String, required: false
+
     # == Callback Handlers
-    sig { returns(T.nilable(::CurrentlyPlaying)) }
-    def subscribe = nil
+    sig { params(to: T.nilable(String)).returns(T.nilable(::CurrentlyPlaying)) }
+    def subscribe(to: nil) = nil
   end
 end

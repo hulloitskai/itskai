@@ -52,7 +52,7 @@ const Pensieve: FC<PensieveProps> = ({
   );
 
   // == Query
-  const onError = useApolloAlertCallback("Failed to load pensieve messages");
+  const onError = useApolloAlertCallback("Failed to load messages");
   const { loading } = useQuery(PensieveQueryDocument, {
     nextFetchPolicy: "standby",
     onCompleted: ({ messages: incomingMessages }) => {
@@ -120,10 +120,7 @@ const Pensieve: FC<PensieveProps> = ({
       }
     },
     onError: error => {
-      console.error(
-        "Failed to subscribe to pensieve message updates",
-        formatJSON({ error }),
-      );
+      console.error("Error during message update", formatJSON({ error }));
     },
   });
 

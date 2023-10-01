@@ -6,7 +6,10 @@ import humanizeDuration from "humanize-duration";
 import { Text } from "@mantine/core";
 import type { TextProps } from "@mantine/core";
 
-import type { SenecaPageQuery } from "~/helpers/graphql";
+import {
+  SenecaPageMessageSubscriptionDocument,
+  type SenecaPageQuery,
+} from "~/helpers/graphql";
 import type { SenecaPageMessageFragment } from "~/helpers/graphql";
 
 import PageContainer from "~/components/PageContainer";
@@ -21,6 +24,9 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
   whenWeMet,
   data: { messages },
 }) => {
+  // == Routing
+  const router = useRouter();
+
   // == Groupings
   const groups = useMemo(() => {
     const groups = [];
@@ -43,6 +49,22 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
     }
     return groups;
   }, [messages]);
+
+  // == Message Subscription
+  useSubscription(SenecaPageMessageSubscriptionDocument, {
+    variables: {},
+    onData: ({ data: { data } }) => {
+      if (data) {
+        const { message } = data;
+        if (message) {
+          router.reload({ preserveScroll: true });
+        }
+      }
+    },
+    onError: error => {
+      console.error("Error during message update", formatJSON({ error }));
+    },
+  });
 
   return (
     <PageContainer size="sm" withGutter>
@@ -85,7 +107,15 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
                     <Stack key={firstMessage.id} gap={4}>
                       {messages.map(({ id, text, timestamp }) => (
                         <Group key={id} align="start" wrap="nowrap">
-                          <Text lh={1.4} style={{ flexGrow: 1 }}>
+                          <Text
+                            size="sm"
+                            display="block"
+                            lh={1.4}
+                            style={({ fontFamilyMonospace }) => ({
+                              flexGrow: 1,
+                              fontFamily: fontFamilyMonospace,
+                            })}
+                          >
                             {text}
                           </Text>
                           <Box style={{ flexShrink: 0 }}>

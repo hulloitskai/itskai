@@ -7,7 +7,7 @@ const TestFeed: FC = () => {
   const { data, loading } = useSubscription(TestFeedSubscriptionDocument, {
     variables: {},
     onError: error => {
-      console.error("Test subscription failed", formatJSON({ error }));
+      console.error("Error during update", formatJSON({ error }));
     },
   });
   const { testSubscription: value } = data ?? {};

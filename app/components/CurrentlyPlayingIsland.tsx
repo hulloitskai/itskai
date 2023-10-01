@@ -60,7 +60,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
       },
       onError: error => {
         console.error(
-          "Failed to subscribe to currently playing info",
+          "Error during currently playing update",
           formatJSON({ error }),
         );
       },
