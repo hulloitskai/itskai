@@ -21,6 +21,6 @@ class SenecaMoodLog < ApplicationRecord
   # == Callback Handlers
   sig { void }
   def notify_kai
-    PensieveBot.send_notification("Seneca rated her mood #{valence}/10")
+    NotificationsBot.send_message("Seneca rated her mood #{valence}/10")
   end
 end

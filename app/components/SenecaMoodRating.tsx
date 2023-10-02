@@ -70,9 +70,9 @@ const SenecaMoodRating: FC<BoxProps> = ({ ...otherProps }) => {
         />
         {loading && <Loader type="dots" size="xs" />}
       </Group>
-      {log && (
+      {!log && (
         <Text size="xs" c="white">
-          Ok! Thanks for letting me know. &lt;3 xoxo
+          Ok! Thanks for letting me know &lt;3
         </Text>
       )}
     </InputWrapper>

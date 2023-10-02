@@ -80,7 +80,7 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
           You mean so much to me.
           <br />
           <Text span c="pink.4">
-            xoxo &lt;3 xoxo
+            &lt;3
           </Text>
         </Text>
         <Divider />
