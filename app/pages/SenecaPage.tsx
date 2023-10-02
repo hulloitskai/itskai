@@ -1,3 +1,4 @@
+import type { FC } from "react";
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { DateTime } from "luxon";
 import { format as formatTimeAgo } from "timeago.js";
@@ -6,15 +7,15 @@ import humanizeDuration from "humanize-duration";
 import { Text } from "@mantine/core";
 import type { TextProps } from "@mantine/core";
 
-import {
-  SenecaPageMessageSubscriptionDocument,
-  type SenecaPageQuery,
+import { SenecaPageMessageSubscriptionDocument } from "~/helpers/graphql";
+import type {
+  SenecaPageQuery,
+  SenecaPageMessageFragment,
 } from "~/helpers/graphql";
-import type { SenecaPageMessageFragment } from "~/helpers/graphql";
 
 import PageContainer from "~/components/PageContainer";
-import { FC } from "react";
 import PageLayout from "~/components/PageLayout";
+import SenecaMoodRating from "~/components/SenecaMoodRating";
 
 export type SenecaPageProps = PagePropsWithData<SenecaPageQuery> & {
   readonly whenWeMet: string;
@@ -69,7 +70,7 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
   return (
     <PageContainer size="sm" withGutter>
       <Stack gap="xl">
-        <Text fw={500}>
+        <Text>
           Hi Seneca
           <br />
           I&apos;ve known u for <TimeSinceWeMet span {...{ whenWeMet }} />
@@ -79,9 +80,19 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
           You mean so much to me.
           <br />
           <Text span c="pink.4">
-            &lt;3
+            xoxo &lt;3 xoxo
           </Text>
         </Text>
+        <Divider />
+        <Stack gap="xs">
+          <Box>
+            <Title order={2} size="h3" mb={2}>
+              Vibe check
+            </Title>
+            <Text>Thanks for stopping by today. How are u feeling?</Text>
+          </Box>
+          <SenecaMoodRating />
+        </Stack>
         {!isEmpty(groups) && (
           <>
             <Divider />

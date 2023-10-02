@@ -18,7 +18,13 @@ module GeneratedPathHelpersModule
   def calendly_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def call_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def cancel_user_registration_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def coffee_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def destroy_user_session_path(*args); end
@@ -168,7 +174,13 @@ module GeneratedPathHelpersModule
   def scottkit_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def sen_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def seneca_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def sensen_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def shortcuts_action_items_path(*args); end

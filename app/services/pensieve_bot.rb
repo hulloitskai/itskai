@@ -77,6 +77,11 @@ class PensieveBot
     instance.send_message(text, reply_to_message_id:)
   end
 
+  sig { params(text: String).void }
+  def self.send_notification(text)
+    send_message(["[system]", text.downcase].join(" "))
+  end
+
   private
 
   sig do

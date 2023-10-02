@@ -1,0 +1,11 @@
+mutation CreateSenecaMoodLogMutation($input: CreateSenecaMoodLogInput!) {
+  payload: createSenecaMoodLog(input: $input) {
+    errors {
+      field
+      message
+    }
+    log {
+      id
+    }
+  }
+}

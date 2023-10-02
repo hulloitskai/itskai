@@ -22,6 +22,13 @@ export type CreateLocationAccessGrantPayloadFieldPolicy = {
 	grant?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type CreateSenecaMoodLogPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'log' | 'success' | CreateSenecaMoodLogPayloadKeySpecifier)[];
+export type CreateSenecaMoodLogPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	errors?: FieldPolicy<any> | FieldReadFunction<any>,
+	log?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type CurrentlyPlayingKeySpecifier = ('progressMilliseconds' | 'track' | CurrentlyPlayingKeySpecifier)[];
 export type CurrentlyPlayingFieldPolicy = {
 	progressMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -107,11 +114,12 @@ export type LyricLineFieldPolicy = {
 	startTimeMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	words?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'createLocationAccessGrant' | 'deleteLocationAccessGrant' | 'importJournalEntries' | 'importLocationLogs' | 'likePensieveMessage' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'testMutation' | 'unlikePensieveMessage' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'createLocationAccessGrant' | 'createSenecaMoodLog' | 'deleteLocationAccessGrant' | 'importJournalEntries' | 'importLocationLogs' | 'likePensieveMessage' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'testMutation' | 'unlikePensieveMessage' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
 	createLocationAccessGrant?: FieldPolicy<any> | FieldReadFunction<any>,
+	createSenecaMoodLog?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteLocationAccessGrant?: FieldPolicy<any> | FieldReadFunction<any>,
 	importJournalEntries?: FieldPolicy<any> | FieldReadFunction<any>,
 	importLocationLogs?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -218,6 +226,12 @@ export type SendPensieveMessagePayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>,
 	user?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type SenecaMoodLogKeySpecifier = ('createdAt' | 'id' | 'valence' | SenecaMoodLogKeySpecifier)[];
+export type SenecaMoodLogFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	valence?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SpotifyAlbumKeySpecifier = ('id' | 'imageUrl' | 'name' | 'url' | SpotifyAlbumKeySpecifier)[];
 export type SpotifyAlbumFieldPolicy = {
@@ -336,6 +350,10 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | CreateLocationAccessGrantPayloadKeySpecifier | (() => undefined | CreateLocationAccessGrantPayloadKeySpecifier),
 		fields?: CreateLocationAccessGrantPayloadFieldPolicy,
 	},
+	CreateSenecaMoodLogPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | CreateSenecaMoodLogPayloadKeySpecifier | (() => undefined | CreateSenecaMoodLogPayloadKeySpecifier),
+		fields?: CreateSenecaMoodLogPayloadFieldPolicy,
+	},
 	CurrentlyPlaying?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | CurrentlyPlayingKeySpecifier | (() => undefined | CurrentlyPlayingKeySpecifier),
 		fields?: CurrentlyPlayingFieldPolicy,
@@ -439,6 +457,10 @@ export type StrictTypedTypePolicies = {
 	SendPensieveMessagePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SendPensieveMessagePayloadKeySpecifier | (() => undefined | SendPensieveMessagePayloadKeySpecifier),
 		fields?: SendPensieveMessagePayloadFieldPolicy,
+	},
+	SenecaMoodLog?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SenecaMoodLogKeySpecifier | (() => undefined | SenecaMoodLogKeySpecifier),
+		fields?: SenecaMoodLogFieldPolicy,
 	},
 	SpotifyAlbum?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SpotifyAlbumKeySpecifier | (() => undefined | SpotifyAlbumKeySpecifier),

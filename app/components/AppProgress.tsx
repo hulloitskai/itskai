@@ -2,7 +2,7 @@ import type { FC } from "react";
 import { router } from "@inertiajs/react";
 import { NavigationProgress, nprogress } from "@mantine/nprogress";
 
-import "@mantine/nprogress/styles.css";
+import "@mantine/nprogress/styles.layer.css";
 
 export type AppProgressProps = {};
 

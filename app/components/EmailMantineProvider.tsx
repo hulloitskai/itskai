@@ -2,7 +2,7 @@ import type { FC, PropsWithChildren } from "react";
 import { MantineProvider } from "@mantine/core";
 import { EMAIL_THEME } from "~/helpers/mantine";
 
-import "@mantine/core/styles.css";
+import "@mantine/core/styles.layer.css";
 
 export type EmailMantineProviderProps = PropsWithChildren;
 

@@ -9,7 +9,7 @@ import { AvatarFieldQueryDocument } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
 import type { AvatarFieldQueryVariables } from "~/helpers/graphql";
 
-import "@mantine/dropzone/styles.css";
+import "@mantine/dropzone/styles.layer.css";
 
 export type ImageInput = {
   readonly signedId: string;

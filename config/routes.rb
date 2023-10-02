@@ -96,6 +96,11 @@ Rails.application.routes.draw do
   # == Scottcall
   post "/scottcall" => "scottcalls#handle"
 
+  # == Seneca
+  get "/seneca" => "seneca#show"
+  get "/sen" => redirect("/seneca", status: 302)
+  get "/sensen" => redirect("/seneca", status: 302)
+
   # == Pages
   root "home#show"
   get "/admin" => "admin#show"
@@ -105,7 +110,6 @@ Rails.application.routes.draw do
   get "/atelier" => redirect("https://instagram.com/atelier.ubc", status: 302)
   get "/opencal" => redirect("https://opencal.me/kai", status: 302)
   get "/src" => redirect("https://github.com/hulloitskai/itskai", status: 302)
-  get "/seneca" => "seneca#show"
 
   # == Development
   if Rails.env.development?

@@ -15,6 +15,7 @@
       "LocationLog",
       "OAuthCredentials",
       "PensieveMessage",
+      "SenecaMoodLog",
       "User"
     ]
   }
