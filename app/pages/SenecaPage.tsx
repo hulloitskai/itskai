@@ -99,12 +99,13 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
             <Stack gap="xs">
               <Box>
                 <Title order={2} size="h3" mb={2}>
-                  Sweet nothings
+                  Gentle reminders
                 </Title>
-                <Text size="sm" c="dimmed">
-                  Sometimes, I have sentiments to share with Seneca. I&apos;ll
-                  write them here, so she can come back to read them whenever
-                  she needs them most.
+                <Text size="sm" c="dimmed" lh={1.3}>
+                  Sometimes, I have sentiments to share with Seneca.
+                  <br />
+                  I&apos;ll write them here, so she can come back to read them
+                  whenever she needs them most.
                 </Text>
               </Box>
               <Stack gap="sm">
