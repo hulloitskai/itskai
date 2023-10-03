@@ -18,34 +18,37 @@ const ErrorPage: PageComponent<ErrorPageProps> = ({
   code,
   error,
 }) => (
-  <Container size="xs" my="xl">
-    <Stack align="center">
-      <Badge variant="outline" c="red">
-        Status {code}
-      </Badge>
-      <Stack align="center" gap={2}>
-        <Title size="h2">{title}</Title>
-        <Text c="dark.3" style={{ textAlign: "center" }}>
-          {description}
-        </Text>
-      </Stack>
-      {!!error && (
-        <Code block c="primary" style={{ alignSelf: "stretch" }}>
-          Error: {error}
-        </Code>
-      )}
-      <Button component={Link} href="/" mt={4}>
-        Back to Home
-      </Button>
+  <Stack align="center">
+    <Badge variant="outline" color="red">
+      Status {code}
+    </Badge>
+    <Stack align="center" gap={2}>
+      <Title size="h2">{title}</Title>
+      <Text c="dark.3" style={{ textAlign: "center" }}>
+        {description}
+      </Text>
     </Stack>
-  </Container>
+    {!!error && (
+      <Code block color="primary" style={{ alignSelf: "stretch" }}>
+        Error: {error}
+      </Code>
+    )}
+    <Button component={Link} href="/" mt={4}>
+      Back to Home
+    </Button>
+  </Stack>
 );
 
 ErrorPage.layout = buildLayout<ErrorPageProps>(
   (page, { title, description, data }) => {
     const { viewer } = data;
     return (
-      <AppLayout {...{ title, description }} {...{ viewer }}>
+      <AppLayout
+        withContainer
+        containerSize="xs"
+        containerProps={{ my: "xl" }}
+        {...{ title, description, viewer }}
+      >
         {page}
       </AppLayout>
     );

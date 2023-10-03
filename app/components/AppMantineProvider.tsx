@@ -10,7 +10,6 @@ const AppMantineProvider: FC<AppMantineProviderProps> = ({ children }) => (
   <MantineProvider
     theme={APP_THEME}
     forceColorScheme="dark"
-    withCssVariables={false}
     cssVariablesSelector="body"
   >
     {children}
