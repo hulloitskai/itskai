@@ -6,7 +6,7 @@ module Users
     # == Actions
     # GET /<resource>/login
     def new
-      if (url = params[:redirect_url].presence)
+      if (url = params[:redirect_url].presence) && url.is_a?(String)
         store_location_for(:user, url)
       end
       render(

@@ -1,0 +1,9 @@
+subscription LocationPageSubscription($password: String!) {
+  location {
+    coordinates(password: $password) {
+      latitude
+      longitude
+    }
+    id
+  }
+}

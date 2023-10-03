@@ -27,6 +27,15 @@ module Types
       )
     end
 
+    sig { params(password: String).returns(T.untyped) }
+    def coordinates(password:)
+      if LocationAccessGrant.valid.exists?(password:)
+        object.coordinates
+      else
+        raise GraphQL::ExecutionError, "Password is invalid or expired."
+      end
+    end
+
     # == Helpers
     sig { override.returns(LocationLog) }
     def object = super

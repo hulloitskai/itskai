@@ -21,7 +21,7 @@ Rails.application.configure do
       },
       import_location_logs: {
         class: "ImportLocationLogsJob",
-        cron: "3-59/5 * * * *",
+        cron: "* * * * *",
       },
     }
 

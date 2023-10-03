@@ -113,6 +113,7 @@ const HomePage: PageComponent<HomePageProps> = ({
         <HomePageJournalEntry
           firstEntryId={firstJournalEntryId}
           initialEntry={journalEntry}
+          style={{ alignSelf: "stretch" }}
           {...{ autoscroll }}
         />
       </Stack>

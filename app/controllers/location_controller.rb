@@ -4,6 +4,8 @@
 class LocationController < ApplicationController
   # == Actions
   def show
-    render(inertia: "LocationPage")
+    params = LocationShowParams.new(self.params.permit(:password))
+    params.validate!
+    render(inertia: "LocationPage", props: { password: params.password })
   end
 end
