@@ -102,7 +102,12 @@ const LocationPage: PageComponent<LocationPageProps> = ({
         style={{ flexGrow: 1 }}
       >
         <GeolocateControl />
-        {location && <Marker {...location.details.coordinates}></Marker>}
+        {location && (
+          <Marker
+            color="var(--mantine-color-brand-6)"
+            {...location.details.coordinates}
+          />
+        )}
       </Map>
       <Center
         pos="absolute"
@@ -189,7 +194,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
               {...alertProps}
             >
               <Text inherit mb={8}>
-                Got a password? Punch it in here.
+                Got a password? Enter it here to find out where Kai is.
               </Text>
               <LocationTrackForm
                 onSubmit={password => {
