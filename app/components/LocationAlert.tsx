@@ -52,7 +52,7 @@ const LocationAlert: FC<LocationAlertProps> = ({
           marginBottom: rem(2),
         },
       }}
-      {...(location && { pb: 8 })}
+      {...(location && { pb: "sm" })}
       {...otherProps}
     >
       <Stack gap={4}>

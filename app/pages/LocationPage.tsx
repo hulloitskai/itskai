@@ -117,8 +117,6 @@ const LocationPage: PageComponent<LocationPageProps> = ({
               const { address, timestamp } = location;
               return (
                 <MotionAlert
-                  {...alertProps}
-                  layout
                   animate={{
                     border: alertPulse
                       ? `${rem(1)} solid var(--mantine-color-brand-5)`
@@ -131,6 +129,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
                       marginBottom: rem(8),
                     },
                   })}
+                  {...alertProps}
                 >
                   <Stack gap={8}>
                     <Text span lh={1.3}>
@@ -146,13 +145,13 @@ const LocationPage: PageComponent<LocationPageProps> = ({
             })
           ) : (
             <Alert
-              {...alertProps}
               title="Kai's somewhere around here..."
               styles={{
                 title: {
                   marginBottom: 0,
                 },
               }}
+              {...alertProps}
             >
               <LocationTrackForm
                 onSubmit={password => {
