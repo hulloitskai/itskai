@@ -3,7 +3,7 @@ import { format as formatTimeAgo } from "timeago.js";
 import LocationIcon from "~icons/heroicons/map-pin-20-solid";
 
 import { Text } from "@mantine/core";
-import type { AlertProps } from "@mantine/core";
+import type { AlertProps, TextProps } from "@mantine/core";
 
 import { LocationAlertSubscriptionDocument } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
@@ -77,10 +77,7 @@ const LocationAlert: FC<LocationAlertProps> = ({
         {timestamp && (
           <Text size="xs" c="dimmed">
             From Find My iPhone,{" "}
-            <Time inherit format={time => formatTimeAgo(time.toJSDate())}>
-              {timestamp}
-            </Time>
-            .
+            <CountingTime inherit>{timestamp}</CountingTime>.
           </Text>
         )}
       </Stack>
@@ -89,3 +86,26 @@ const LocationAlert: FC<LocationAlertProps> = ({
 };
 
 export default LocationAlert;
+
+type CountingTimeProps = TextProps & { readonly children: string };
+
+const CountingTime: FC<CountingTimeProps> = ({ children, ...otherProps }) => {
+  const date = useMemo(() => DateTime.fromISO(children).toJSDate(), [children]);
+  const [text, setText] = useState(() => formatTimeAgo(date));
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newText = formatTimeAgo(date);
+      if (newText !== text) {
+        setText(newText);
+      }
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [date]);
+  return (
+    <Text span {...otherProps}>
+      {text}
+    </Text>
+  );
+};
