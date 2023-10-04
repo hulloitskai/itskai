@@ -69,10 +69,10 @@ const AdminPage: PageComponent<AdminPageProps> = ({
           <ICloudCredentialsForm
             credentials={icloudCredentials}
             onUpdate={() => {
-              router.reload({ preserveState: true });
+              router.reload({ preserveScroll: true });
             }}
             onRemove={() => {
-              router.reload({ preserveState: true });
+              router.reload({ preserveScroll: true });
             }}
           />
         </Stack>
@@ -90,10 +90,10 @@ const AdminPage: PageComponent<AdminPageProps> = ({
           <InstagramCredentialsForm
             credentials={instagramCredentials}
             onUpdate={() => {
-              router.reload({ preserveState: true });
+              router.reload({ preserveScroll: true });
             }}
             onRemove={() => {
-              router.reload({ preserveState: true });
+              router.reload({ preserveScroll: true });
             }}
           />
         </Stack>
@@ -111,7 +111,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
           <GoogleCredentialsForm
             credentials={googleCredentials}
             onRemove={() => {
-              router.reload({ preserveState: true });
+              router.reload({ preserveScroll: true });
             }}
           />
         </Stack>
@@ -129,7 +129,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
           <SpotifyCredentialsForm
             credentials={spotifyCredentials}
             onRemove={() => {
-              router.reload({ preserveState: true });
+              router.reload({ preserveScroll: true });
             }}
           />
         </Stack>

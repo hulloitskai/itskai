@@ -35,6 +35,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
 }) => {
   // == Routing
   const router = useRouter();
+  const [pageLoading, setPageLoading] = useState(false);
 
   // == Map
   const mapRef = useRef<MapRef>(null);
@@ -55,7 +56,11 @@ const LocationPage: PageComponent<LocationPageProps> = ({
   // == Subscription
   const subscriptionVariables = useMemo<
     LocationPageSubscriptionVariables | undefined
-  >(() => (password ? { password } : undefined), [password]);
+  >(
+    () => (!pageLoading && password ? { password } : undefined),
+    [password, pageLoading],
+  );
+  const [subscriptionFirstLoad, setSubscriptionFirstLoad] = useState(true);
   const onSubscriptionError = useApolloAlertCallback(
     "Failed to subscribe to location updates",
   );
@@ -72,7 +77,10 @@ const LocationPage: PageComponent<LocationPageProps> = ({
             zoom: 16,
             animate: true,
           });
-          setAlertPulse(true);
+          if (subscriptionFirstLoad) {
+            setAlertPulse(true);
+          }
+          setSubscriptionFirstLoad(false);
         }
       } else if (error) {
         console.error("Error during location update", formatJSON({ error }));
@@ -188,6 +196,12 @@ const LocationPage: PageComponent<LocationPageProps> = ({
                   const params = new URLSearchParams([["password", password]]);
                   router.visit("/track?" + params.toString(), {
                     preserveState: true,
+                    onBefore: () => {
+                      setPageLoading(true);
+                    },
+                    onFinish: () => {
+                      setPageLoading(false);
+                    },
                   });
                 }}
               />
