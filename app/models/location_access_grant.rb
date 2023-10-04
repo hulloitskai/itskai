@@ -30,6 +30,14 @@ class LocationAccessGrant < ApplicationRecord
   end
 
   # == Validations
+  validates :password,
+            length: { minimum: 4 },
+            format: {
+              with: /\A[a-z0-9-]+\z/,
+              message:
+                "can only have lowercase letters, numbers, underscores, and " \
+                "and dashes",
+            }
   validate :validate_password_uniqueness
 
   # == Scopes
