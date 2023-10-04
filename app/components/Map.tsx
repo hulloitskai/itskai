@@ -2,6 +2,8 @@ import { NavigationControl, default as _Map } from "react-map-gl";
 import type { MapRef } from "react-map-gl";
 import type { MapProps as _MapProps } from "react-map-gl";
 
+import "mapbox-gl/dist/mapbox-gl.css";
+
 export type MapProps = Omit<_MapProps, "mapboxAccessToken">;
 
 const Map = forwardRef<MapRef, MapProps>(
