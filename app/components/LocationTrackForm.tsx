@@ -31,8 +31,11 @@ const LocationTrackForm: FC<LocationTrackFormProps> = ({
       <Group align="end" gap={8}>
         <TextInput
           label="Got a password?"
-          size="sm"
           placeholder="porcupine"
+          autoCapitalize="false"
+          autoCorrect="false"
+          autoComplete="false"
+          size="sm"
           styles={{
             root: {
               flexGrow: 1,

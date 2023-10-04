@@ -90,6 +90,9 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
         <TextInput
           label="Password"
           placeholder="porcupine"
+          autoCapitalize="false"
+          autoCorrect="false"
+          autoComplete="false"
           {...getInputProps("password")}
         />
         <NumberInput
