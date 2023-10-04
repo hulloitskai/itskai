@@ -77,7 +77,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
             zoom: 14,
             animate: true,
           });
-          if (subscriptionFirstLoad) {
+          if (!subscriptionFirstLoad) {
             setAlertPulse(true);
           }
           setSubscriptionFirstLoad(false);
