@@ -10,20 +10,23 @@ import type { ICloudCredentialsFormCredentialsFragment } from "~/helpers/graphql
 
 import ICloudVerifySecurityCodeForm from "./ICloudVerifySecurityCodeForm";
 
-export type ICloudCredentialsFormValues = {
+export type ICloudCredentialsFormProps = {
+  readonly credentials: Maybe<ICloudCredentialsFormCredentialsFragment>;
+  readonly onUpdate: () => void;
+  readonly onRemove: () => void;
+};
+
+type ICloudCredentialsFormValues = {
   readonly email: string;
   readonly password: string;
 };
 
-export type ICloudCredentialsFormProps = {
-  readonly credentials: Maybe<ICloudCredentialsFormCredentialsFragment>;
-};
-
 const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
   credentials,
+  onUpdate,
+  onRemove,
 }) => {
   const { cookies, session } = credentials ?? {};
-  const router = useRouter();
 
   // == Callbacks
   const openVerifySecurityCodeModal = useCallback(() => {
@@ -67,12 +70,8 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
     {
       onCompleted: ({ payload: { credentials, errors } }) => {
         if (credentials) {
-          router.reload({
-            preserveScroll: true,
-            onSuccess: () => {
-              openVerifySecurityCodeModal();
-            },
-          });
+          openVerifySecurityCodeModal();
+          onUpdate();
         } else {
           invariant(errors, "Missing input errors");
           const formErrors = parseFormErrors(errors);
@@ -92,14 +91,10 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
     RemoveICloudCredentialsMutationDocument,
     {
       onCompleted: () => {
-        router.reload({
-          preserveScroll: true,
-          onSuccess: () => {
-            showNotice({
-              message: "iCloud credentials removed successfully.",
-            });
-          },
+        showNotice({
+          message: "iCloud credentials removed successfully.",
         });
+        onRemove();
       },
       onError: onRemoveError,
     },

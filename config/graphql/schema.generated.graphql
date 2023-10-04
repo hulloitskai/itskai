@@ -204,6 +204,7 @@ type LocationAccessGrant implements Node {
 }
 
 type LocationLog implements Node {
+  address: String!
   approximateAddress: String!
   approximateCoordinates: Coordinates!
   coordinates(password: String!): Coordinates!

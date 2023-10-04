@@ -8,13 +8,13 @@ import FormAuthenticityField from "./FormAuthenticityField";
 
 export type SpotifyCredentialsFormProps = {
   readonly credentials: Maybe<OAuthCredentialsFormCredentialsFragment>;
+  readonly onRemove: () => void;
 };
 
 const SpotifyCredentialsForm: FC<SpotifyCredentialsFormProps> = ({
   credentials,
+  onRemove,
 }) => {
-  const router = useRouter();
-
   // == Remove Mutation
   const onRemoveError = useApolloAlertCallback(
     "Failed to remove Spotify credentials",
@@ -23,14 +23,10 @@ const SpotifyCredentialsForm: FC<SpotifyCredentialsFormProps> = ({
     RemoveSpotifyCredentialsMutationDocument,
     {
       onCompleted: () => {
-        router.reload({
-          preserveScroll: true,
-          onSuccess: () => {
-            showNotice({
-              message: "Spotify credentials removed successfully.",
-            });
-          },
+        showNotice({
+          message: "Spotify credentials removed successfully.",
         });
+        onRemove();
       },
       onError: onRemoveError,
     },

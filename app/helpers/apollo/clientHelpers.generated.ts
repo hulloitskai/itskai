@@ -99,8 +99,9 @@ export type LocationAccessGrantFieldPolicy = {
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
 	recipient?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type LocationLogKeySpecifier = ('approximateAddress' | 'approximateCoordinates' | 'coordinates' | 'googleMapsAreaUrl' | 'id' | 'timestamp' | LocationLogKeySpecifier)[];
+export type LocationLogKeySpecifier = ('address' | 'approximateAddress' | 'approximateCoordinates' | 'coordinates' | 'googleMapsAreaUrl' | 'id' | 'timestamp' | LocationLogKeySpecifier)[];
 export type LocationLogFieldPolicy = {
+	address?: FieldPolicy<any> | FieldReadFunction<any>,
 	approximateAddress?: FieldPolicy<any> | FieldReadFunction<any>,
 	approximateCoordinates?: FieldPolicy<any> | FieldReadFunction<any>,
 	coordinates?: FieldPolicy<any> | FieldReadFunction<any>,

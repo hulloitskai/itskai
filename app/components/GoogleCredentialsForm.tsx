@@ -8,13 +8,13 @@ import FormAuthenticityField from "./FormAuthenticityField";
 
 export type GoogleCredentialsFormProps = {
   readonly credentials: Maybe<OAuthCredentialsFormCredentialsFragment>;
+  readonly onRemove: () => void;
 };
 
 const GoogleCredentialsForm: FC<GoogleCredentialsFormProps> = ({
   credentials,
+  onRemove,
 }) => {
-  const router = useRouter();
-
   // == Remove Mutation
   const onRemoveError = useApolloAlertCallback(
     "Failed to remove Google credentials",
@@ -23,14 +23,10 @@ const GoogleCredentialsForm: FC<GoogleCredentialsFormProps> = ({
     RemoveGoogleCredentialsMutationDocument,
     {
       onCompleted: () => {
-        router.reload({
-          preserveScroll: true,
-          onSuccess: () => {
-            showNotice({
-              message: "Google credentials removed successfully.",
-            });
-          },
+        showNotice({
+          message: "Google credentials removed successfully.",
         });
+        onRemove();
       },
       onError: onRemoveError,
     },

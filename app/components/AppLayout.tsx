@@ -78,6 +78,7 @@ const AppLayout: FC<AppLayoutProps> = ({
       <AppShell
         header={{ height: 38 }}
         footer={{ height: 32 }}
+        padding={padding ?? (withContainer ? undefined : "md")}
         styles={{
           main: {
             minHeight: "calc(100vh - var(--app-shell-footer-height, 0))",
@@ -117,7 +118,6 @@ const AppLayout: FC<AppLayoutProps> = ({
           <AppMenu style={{ flexShrink: 0 }} {...{ viewer }} />
         </AppShell.Header>
         <AppShell.Main
-          p={padding ?? (withContainer ? undefined : "md")}
           style={{
             flexGrow: 1,
             display: "flex",

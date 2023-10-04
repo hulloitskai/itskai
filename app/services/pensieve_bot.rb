@@ -106,6 +106,7 @@ class PensieveBot
       logger.info("Received message: #{telegram_message.text}")
     end
     message = PensieveMessage.find_or_initialize_by(
+      telegram_chat_id: telegram_message.chat.id,
       telegram_message_id: telegram_message.message_id,
     ) do |message|
       message.from = :user

@@ -1,5 +1,6 @@
 import type { FC } from "react";
-import { type BoxProps, NumberInput, PasswordInput, Text } from "@mantine/core";
+import { NumberInput, Text } from "@mantine/core";
+import type { BoxProps } from "@mantine/core";
 
 import { CreateLocationAccessGrantMutationDocument } from "~/helpers/graphql";
 
@@ -86,9 +87,9 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
           autoComplete="off"
           {...getInputProps("recipient")}
         />
-        <PasswordInput
+        <TextInput
           label="Password"
-          placeholder="applesauce"
+          placeholder="porcupine"
           {...getInputProps("password")}
         />
         <NumberInput

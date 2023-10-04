@@ -46,6 +46,9 @@ export const APP_THEME = createTheme({
       },
     }),
     Alert: Alert.extend({
+      defaultProps: {
+        radius: "md",
+      },
       styles: {
         title: {
           fontWeight: 800,

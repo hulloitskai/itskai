@@ -7,6 +7,7 @@ module Types
     implements NodeType
 
     # == Fields
+    field :address, String, null: false, resolver_method: :full_address
     field :approximate_address, String, null: false
     field :approximate_coordinates, CoordinatesType, null: false
     field :coordinates, CoordinatesType, null: false do
@@ -16,7 +17,8 @@ module Types
     field :timestamp, DateTimeType, null: false
 
     # == Resolvers
-    delegate :approximate_address, :google_maps_area_url, to: :address
+    delegate :full_address, :approximate_address, :google_maps_area_url,
+             to: :address
 
     sig { returns(T.untyped) }
     def approximate_coordinates

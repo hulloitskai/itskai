@@ -100,7 +100,7 @@ const Pensieve: FC<PensieveProps> = ({
   // == Subscription
   useSubscription(PensieveSubscriptionDocument, {
     variables: {},
-    onData: ({ data: { data } }) => {
+    onData: ({ data: { data, error } }) => {
       if (data) {
         const { message: incomingMessage } = data;
         if (incomingMessage) {
@@ -116,11 +116,16 @@ const Pensieve: FC<PensieveProps> = ({
               onNewMessage();
             }
           }
+        } else if (error) {
+          console.error("Error during message update", formatJSON({ error }));
         }
       }
     },
     onError: error => {
-      console.error("Error during message update", formatJSON({ error }));
+      console.error(
+        "Failed to subscribe to message updates",
+        formatJSON({ error }),
+      );
     },
   });
 

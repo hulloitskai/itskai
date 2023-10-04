@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+# rubocop:disable Layout/LineLength
+#
 # == Schema Information
 #
 # Table name: pensieve_messages
@@ -13,14 +15,16 @@
 #  to                  :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  telegram_chat_id    :bigint           not null
 #  telegram_message_id :bigint           not null
 #
 # Indexes
 #
-#  index_pensieve_messages_on_telegram_message_id  (telegram_message_id) UNIQUE
-#  index_pensieve_messages_on_timestamp            (timestamp)
-#  index_pensieve_messages_on_to                   (to)
+#  index_pensieve_messages_on_timestamp  (timestamp)
+#  index_pensieve_messages_on_to         (to)
+#  index_pensieve_messages_uniqueness    (telegram_chat_id,telegram_message_id) UNIQUE
 #
+# rubocop:enable Layout/LineLength
 class PensieveMessage < ApplicationRecord
   include Identifiable
 
@@ -81,6 +85,7 @@ class PensieveMessage < ApplicationRecord
     raise "Can't send a message on behalf of a user" if from == :user
     telegram_message = PensieveBot.send_message(text)
     update!(
+      telegram_chat_id: telegram_message.chat.id,
       telegram_message_id: telegram_message.message_id,
       timestamp: Time.zone.at(telegram_message.date),
     )

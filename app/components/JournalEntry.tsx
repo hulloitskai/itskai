@@ -1,5 +1,4 @@
 import type { FC, PropsWithChildren } from "react";
-import { format as formatTimeAgo } from "timeago.js";
 import LinkIcon from "~icons/heroicons/link-20-solid";
 
 import { ActionIcon, CopyButton, Text } from "@mantine/core";
@@ -38,10 +37,7 @@ const JournalEntry: FC<JournalEntryProps> = ({
               {title}
             </Title>
             <Text size="xs" c="dimmed">
-              written{" "}
-              <Time format={time => formatTimeAgo(time.toJSDate())}>
-                {startedAt}
-              </Time>{" "}
+              written <TimeAgo>{startedAt}</TimeAgo>
             </Text>
             <NotionContent {...{ content }} />
           </Stack>

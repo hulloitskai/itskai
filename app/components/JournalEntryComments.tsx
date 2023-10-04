@@ -1,5 +1,4 @@
 import type { FC } from "react";
-import { format as formatTimeAgo } from "timeago.js";
 import { RenderText } from "@9gustin/react-notion-render";
 
 import CommentIcon from "~icons/heroicons/chat-bubble-bottom-center-text-20-solid";
@@ -86,14 +85,9 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
                   ))}
                 </Stack>
                 <Box>
-                  <Time
-                    size="xs"
-                    c="dimmed"
-                    lh={1.3}
-                    format={time => formatTimeAgo(time.toJSDate())}
-                  >
+                  <TimeAgo size="xs" c="dimmed" lh={1.3}>
                     {createdAt}
-                  </Time>
+                  </TimeAgo>
                 </Box>
               </Box>
             </Group>

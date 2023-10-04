@@ -1,5 +1,4 @@
 import type { FC } from "react";
-import { format as formatTimeAgo } from "timeago.js";
 
 import { Code, CopyButton, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
@@ -42,21 +41,16 @@ const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
         </Text>
         <Text size="sm" c="dimmed" lh={1.4}>
           Expires{" "}
-          <Time
-            inherit
-            format={time => formatTimeAgo(time.toJSDate())}
-            c="gray.5"
-            fw={500}
-          >
+          <TimeAgo inherit c="gray.5" fw={500}>
             {expiresAt}
-          </Time>
+          </TimeAgo>
         </Text>
         <Text size="sm" c="dimmed" lh={1.4}>
           Password is{" "}
           <CopyButton value={password}>
             {({ copy, copied }) => (
               <Tooltip
-                label={copied ? "Copied" : "Click to copy"}
+                label={copied ? "Copied!" : "Click to copy"}
                 color="dark"
                 c="white"
                 withArrow
@@ -64,6 +58,7 @@ const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
                 <Code
                   color="brand"
                   onClick={copy}
+                  ml={2}
                   className={classes.copyCode}
                   style={{
                     cursor: "pointer",

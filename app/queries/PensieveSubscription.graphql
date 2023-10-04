@@ -1,5 +1,5 @@
 subscription PensieveSubscription {
-  message: pensieveMessage {
+  message: pensieveMessage(to: null) {
     id
     ...PensieveMessageFragment
   }

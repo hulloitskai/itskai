@@ -50,17 +50,22 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
     CurrentlyPlayingIslandSubscriptionDocument,
     {
       variables: {},
-      onData: ({ data: { data } }) => {
+      onData: ({ data: { data, error } }) => {
         if (data) {
           const { track } = data?.currentlyPlaying ?? {};
           if (track?.id !== currentlyPlaying?.track?.id) {
             refetch();
           }
+        } else if (error) {
+          console.error(
+            "Error during currently playing update",
+            formatJSON({ error }),
+          );
         }
       },
       onError: error => {
         console.error(
-          "Error during currently playing update",
+          "Failed to subscribe to currently playing updates",
           formatJSON({ error }),
         );
       },

@@ -4,13 +4,19 @@ import { Code, LoadingOverlay } from "@mantine/core";
 import { TestFeedSubscriptionDocument } from "~/helpers/graphql";
 
 const TestFeed: FC = () => {
+  // == Subscription
+  const onError = useApolloAlertCallback("Failed to subscribe to updates");
   const { data, loading } = useSubscription(TestFeedSubscriptionDocument, {
     variables: {},
-    onError: error => {
-      console.error("Error during update", formatJSON({ error }));
+    onData: ({ data: { error } }) => {
+      if (error) {
+        console.error("Error during update", formatJSON({ error }));
+      }
     },
+    onError,
   });
   const { testSubscription: value } = data ?? {};
+
   return (
     <Stack gap="xs">
       <Title order={4}>Test Feed</Title>

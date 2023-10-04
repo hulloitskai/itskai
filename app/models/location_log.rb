@@ -61,8 +61,11 @@ class LocationLog < ApplicationRecord
   reverse_geocoded_by :latitude, :longitude do |log, results|
     result = results.first or next
     result = T.cast(result, Geocoder::Result::Here)
+    result_type = T.let(result.data.fetch("resultType"), String)
+    title = result.data["title"]
+    place_name = title if result_type == "place"
     log.build_address(
-      place_name: result.data["title"],
+      place_name:,
       full_address: result.address,
       street_address: [result.street_number, result.route].compact.join(" "),
       neighbourhood: result.data.dig("address", "district"),

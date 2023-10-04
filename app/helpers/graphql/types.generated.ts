@@ -231,6 +231,7 @@ export type LocationAccessGrant = Node & {
 
 export type LocationLog = Node & {
   __typename?: 'LocationLog';
+  address: Scalars['String']['output'];
   approximateAddress: Scalars['String']['output'];
   approximateCoordinates: Coordinates;
   coordinates: Coordinates;

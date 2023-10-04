@@ -21,91 +21,122 @@ const AdminPage: PageComponent<AdminPageProps> = ({
     googleCredentials,
     spotifyCredentials,
   },
-}) => (
-  <Stack>
-    <Card radius="md" withBorder>
-      <Stack gap="xs">
-        <Stack align="center" gap={0}>
-          <Title order={2} size="h4">
-            Data Controls
-          </Title>
-          <Text size="sm" c="dimmed" lh={1.3}>
-            Import data from your services
-          </Text>
+}) => {
+  // == Routing
+  const router = useRouter();
+
+  return (
+    <Stack>
+      <Card radius="md" withBorder>
+        <Stack gap="xs">
+          <Stack align="center" gap={0}>
+            <Title order={2} size="h4">
+              Data Controls
+            </Title>
+            <Text size="sm" c="dimmed" lh={1.3}>
+              Import data from your services
+            </Text>
+          </Stack>
+          <Stack gap={6}>
+            <LocationLogsImportButton />
+            <JournalEntriesImportButton />
+          </Stack>
         </Stack>
-        <Stack gap={6}>
-          <LocationLogsImportButton />
-          <JournalEntriesImportButton />
+      </Card>
+      <Card radius="md" withBorder>
+        <Stack gap="xs">
+          <Stack align="center" gap={0}>
+            <Title order={2} size="h4">
+              Location Access Grants
+            </Title>
+            <Text size="sm" c="dimmed" lh={1.3}>
+              Grant access to your precise location
+            </Text>
+          </Stack>
+          <LocationAccessGrants />
         </Stack>
-      </Stack>
-    </Card>
-    <Card radius="md" withBorder>
-      <Stack gap="xs">
-        <Stack align="center" gap={0}>
-          <Title order={2} size="h4">
-            Location Access Grants
-          </Title>
-          <Text size="sm" c="dimmed" lh={1.3}>
-            Grant access to your precise location
-          </Text>
+      </Card>
+      <Card radius="md" withBorder>
+        <Stack gap="sm">
+          <Stack align="center" gap={0}>
+            <Title order={2} size="h4">
+              iCloud
+            </Title>
+            <Text size="sm" c="dimmed" lh={1.3}>
+              Enables location services & obsidian note imports
+            </Text>
+          </Stack>
+          <ICloudCredentialsForm
+            credentials={icloudCredentials}
+            onUpdate={() => {
+              router.reload({ preserveState: true });
+            }}
+            onRemove={() => {
+              router.reload({ preserveState: true });
+            }}
+          />
         </Stack>
-        <LocationAccessGrants />
-      </Stack>
-    </Card>
-    <Card radius="md" withBorder>
-      <Stack gap="sm">
-        <Stack align="center" gap={0}>
-          <Title order={2} size="h4">
-            iCloud
-          </Title>
-          <Text size="sm" c="dimmed" lh={1.3}>
-            Enables location services & obsidian note imports
-          </Text>
+      </Card>
+      <Card radius="md" withBorder>
+        <Stack gap="sm">
+          <Stack align="center" gap={0}>
+            <Title order={2} size="h4">
+              Instagram
+            </Title>
+            <Text size="sm" c="dimmed" lh={1.3}>
+              Enables automatic note updates
+            </Text>
+          </Stack>
+          <InstagramCredentialsForm
+            credentials={instagramCredentials}
+            onUpdate={() => {
+              router.reload({ preserveState: true });
+            }}
+            onRemove={() => {
+              router.reload({ preserveState: true });
+            }}
+          />
         </Stack>
-        <ICloudCredentialsForm credentials={icloudCredentials} />
-      </Stack>
-    </Card>
-    <Card radius="md" withBorder>
-      <Stack gap="sm">
-        <Stack align="center" gap={0}>
-          <Title order={2} size="h4">
-            Instagram
-          </Title>
-          <Text size="sm" c="dimmed" lh={1.3}>
-            Enables automatic note updates
-          </Text>
+      </Card>
+      <Card radius="md" withBorder>
+        <Stack gap="sm">
+          <Stack align="center" gap={0}>
+            <Title order={2} size="h4">
+              Google
+            </Title>
+            <Text size="sm" c="dimmed" lh={1.3}>
+              Enables availability services
+            </Text>
+          </Stack>
+          <GoogleCredentialsForm
+            credentials={googleCredentials}
+            onRemove={() => {
+              router.reload({ preserveState: true });
+            }}
+          />
         </Stack>
-        <InstagramCredentialsForm credentials={instagramCredentials} />
-      </Stack>
-    </Card>
-    <Card radius="md" withBorder>
-      <Stack gap="sm">
-        <Stack align="center" gap={0}>
-          <Title order={2} size="h4">
-            Google
-          </Title>
-          <Text size="sm" c="dimmed" lh={1.3}>
-            Enables availability services
-          </Text>
+      </Card>
+      <Card radius="md" withBorder>
+        <Stack gap="sm">
+          <Stack align="center" gap={0}>
+            <Title order={2} size="h4">
+              Spotify
+            </Title>
+            <Text size="sm" c="dimmed" lh={1.3}>
+              Enables currently-playing & lyrics services
+            </Text>
+          </Stack>
+          <SpotifyCredentialsForm
+            credentials={spotifyCredentials}
+            onRemove={() => {
+              router.reload({ preserveState: true });
+            }}
+          />
         </Stack>
-        <GoogleCredentialsForm credentials={googleCredentials} />
-      </Stack>
-    </Card>
-    <Card radius="md" withBorder>
-      <Stack gap="sm">
-        <Stack align="center" gap={0}>
-          <Title order={2} size="h4">
-            Spotify
-          </Title>
-          <Text size="sm" c="dimmed" lh={1.3}>
-            Enables currently-playing & lyrics services
-          </Text>
-        </Stack>
-        <SpotifyCredentialsForm credentials={spotifyCredentials} />
-      </Stack>
-    </Card>
-  </Stack>
-);
+      </Card>
+    </Stack>
+  );
+};
 
 AdminPage.layout = buildLayout<AdminPageProps>((page, { data: { viewer } }) => (
   <AppLayout

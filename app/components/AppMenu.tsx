@@ -1,5 +1,4 @@
 import type { FC } from "react";
-import { format as formatTimeAgo } from "timeago.js";
 import AdminIcon from "~icons/heroicons/key-20-solid";
 import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
 
@@ -43,6 +42,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
       offset={4}
       width={220}
       radius="md"
+      withinPortal={false}
       onChange={setOpened}
       styles={({ colors }) => ({
         dropdown: {
@@ -115,21 +115,22 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
         {!skipQuery && (
           <>
             <Menu.Divider />
-            <Menu.Item disabled pt={4}>
-              <Text size="xs" c="dimmed">
+            <Menu.Item component="div" disabled pt={4}>
+              <Text span size="xs" c="gray.5">
                 Server booted{" "}
                 {bootedAt ? (
-                  <Time format={time => formatTimeAgo(time.toJSDate())}>
-                    {bootedAt}
-                  </Time>
+                  <TimeAgo>{bootedAt}</TimeAgo>
                 ) : (
                   <Skeleton
                     display="inline-block"
                     height="min-content"
                     width="fit-content"
+                    lh={1}
                     style={{ verticalAlign: "middle" }}
                   >
-                    <Text inherit>2 minutes ago</Text>
+                    <Text span inherit display="inline-block" lh={1}>
+                      2 minutes ago
+                    </Text>
                   </Skeleton>
                 )}
               </Text>

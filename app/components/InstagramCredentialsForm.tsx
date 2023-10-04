@@ -8,21 +8,24 @@ import {
 import type { Maybe } from "~/helpers/graphql";
 import type { InstagramCredentialsFormCredentialsFragment } from "~/helpers/graphql";
 
-export type InstagramCredentialsFormValues = {
+export type InstagramCredentialsFormProps = {
+  readonly credentials: Maybe<InstagramCredentialsFormCredentialsFragment>;
+  readonly onUpdate: () => void;
+  readonly onRemove: () => void;
+};
+
+type InstagramCredentialsFormValues = {
   readonly username: string;
   readonly password: string;
   readonly securityCode: string;
 };
 
-export type InstagramCredentialsFormProps = {
-  readonly credentials: Maybe<InstagramCredentialsFormCredentialsFragment>;
-};
-
 const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
   credentials,
+  onUpdate,
+  onRemove,
 }) => {
   const { session } = credentials ?? {};
-  const router = useRouter();
 
   // == Form
   const initialValues = useMemo<InstagramCredentialsFormValues>(() => {
@@ -51,7 +54,7 @@ const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
     {
       onCompleted: ({ payload: { credentials, errors } }) => {
         if (credentials) {
-          router.reload({ preserveScroll: true });
+          onUpdate();
         } else {
           invariant(errors, "Missing input errors");
           const formErrors = parseFormErrors(errors);
@@ -74,14 +77,10 @@ const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
     RemoveInstagramCredentialsMutationDocument,
     {
       onCompleted: () => {
-        router.reload({
-          preserveScroll: true,
-          onSuccess: () => {
-            showNotice({
-              message: "Instagram credentials removed successfully.",
-            });
-          },
+        showNotice({
+          message: "Instagram credentials removed successfully.",
         });
+        onRemove();
       },
       onError: onRemoveError,
     },

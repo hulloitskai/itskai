@@ -1,7 +1,6 @@
 import type { FC } from "react";
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { DateTime } from "luxon";
-import { format as formatTimeAgo } from "timeago.js";
 import humanizeDuration from "humanize-duration";
 
 import { Text } from "@mantine/core";
@@ -54,16 +53,21 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
   // == Message Subscription
   useSubscription(SenecaPageMessageSubscriptionDocument, {
     variables: {},
-    onData: ({ data: { data } }) => {
+    onData: ({ data: { data, error } }) => {
       if (data) {
         const { message } = data;
         if (message) {
-          router.reload({ preserveScroll: true });
+          router.reload({ preserveState: true });
         }
+      } else if (error) {
+        console.error("Error during message update", formatJSON({ error }));
       }
     },
     onError: error => {
-      console.error("Error during message update", formatJSON({ error }));
+      console.error(
+        "Failed to subscribe to message updates",
+        formatJSON({ error }),
+      );
     },
   });
 
@@ -132,13 +136,9 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
                             {text}
                           </Text>
                           <Box style={{ flexShrink: 0 }}>
-                            <Time
-                              format={time => formatTimeAgo(time.toJSDate())}
-                              size="xs"
-                              c="dimmed"
-                            >
+                            <TimeAgo size="xs" c="dimmed">
                               {timestamp}
-                            </Time>
+                            </TimeAgo>
                           </Box>
                         </Group>
                       ))}
