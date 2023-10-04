@@ -1,9 +1,12 @@
 subscription LocationPageSubscription($password: String!) {
   location {
-    address
-    coordinates(password: $password) {
-      latitude
-      longitude
+    details(password: $password) {
+      address
+      coordinates {
+        latitude
+        longitude
+      }
+      expiresAt
     }
     id
     timestamp

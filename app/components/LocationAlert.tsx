@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import LocationIcon from "~icons/heroicons/map-pin-20-solid";
 
-import { Text } from "@mantine/core";
+import { Text, rgba } from "@mantine/core";
 import type { AlertProps } from "@mantine/core";
 
 import { LocationAlertSubscriptionDocument } from "~/helpers/graphql";
@@ -75,7 +75,19 @@ const LocationAlert: FC<LocationAlertProps> = ({
         )}
         {timestamp && (
           <Text size="xs" c="dimmed">
-            From Find My iPhone, <TimeAgo inherit>{timestamp}</TimeAgo>.
+            From Find My iPhone, <TimeAgo inherit>{timestamp}</TimeAgo>.{" "}
+            <Anchor
+              component={Link}
+              href="/track"
+              style={theme => {
+                const color = parseThemeColor({ theme, color: "brand.4" });
+                return {
+                  color: rgba(color.value, 0.8),
+                };
+              }}
+            >
+              Need to find me?
+            </Anchor>
           </Text>
         )}
       </Stack>

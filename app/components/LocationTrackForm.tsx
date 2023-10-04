@@ -30,7 +30,6 @@ const LocationTrackForm: FC<LocationTrackFormProps> = ({
     >
       <Group align="end" gap={8}>
         <TextInput
-          label="Got a password?"
           placeholder="porcupine"
           autoCapitalize="false"
           autoCorrect="false"
@@ -40,14 +39,11 @@ const LocationTrackForm: FC<LocationTrackFormProps> = ({
             root: {
               flexGrow: 1,
             },
-            label: {
-              marginBottom: 4,
-            },
           }}
           {...getInputProps("password")}
         />
         <Button type="submit" size="sm">
-          Lock it in!
+          Nyoom in
         </Button>
       </Group>
     </Box>

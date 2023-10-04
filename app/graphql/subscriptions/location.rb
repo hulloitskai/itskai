@@ -3,7 +3,7 @@
 
 module Subscriptions
   class Location < BaseSubscription
-    # == Type
+    # == fields
     type Types::LocationLogType, null: true
 
     # == Callback Handlers

@@ -99,12 +99,17 @@ export type LocationAccessGrantFieldPolicy = {
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
 	recipient?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type LocationLogKeySpecifier = ('address' | 'approximateAddress' | 'approximateCoordinates' | 'coordinates' | 'googleMapsAreaUrl' | 'id' | 'timestamp' | LocationLogKeySpecifier)[];
-export type LocationLogFieldPolicy = {
+export type LocationDetailsKeySpecifier = ('address' | 'coordinates' | 'expiresAt' | LocationDetailsKeySpecifier)[];
+export type LocationDetailsFieldPolicy = {
 	address?: FieldPolicy<any> | FieldReadFunction<any>,
+	coordinates?: FieldPolicy<any> | FieldReadFunction<any>,
+	expiresAt?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type LocationLogKeySpecifier = ('approximateAddress' | 'approximateCoordinates' | 'details' | 'googleMapsAreaUrl' | 'id' | 'timestamp' | LocationLogKeySpecifier)[];
+export type LocationLogFieldPolicy = {
 	approximateAddress?: FieldPolicy<any> | FieldReadFunction<any>,
 	approximateCoordinates?: FieldPolicy<any> | FieldReadFunction<any>,
-	coordinates?: FieldPolicy<any> | FieldReadFunction<any>,
+	details?: FieldPolicy<any> | FieldReadFunction<any>,
 	googleMapsAreaUrl?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
@@ -398,6 +403,10 @@ export type StrictTypedTypePolicies = {
 	LocationAccessGrant?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | LocationAccessGrantKeySpecifier | (() => undefined | LocationAccessGrantKeySpecifier),
 		fields?: LocationAccessGrantFieldPolicy,
+	},
+	LocationDetails?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | LocationDetailsKeySpecifier | (() => undefined | LocationDetailsKeySpecifier),
+		fields?: LocationDetailsFieldPolicy,
 	},
 	LocationLog?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | LocationLogKeySpecifier | (() => undefined | LocationLogKeySpecifier),

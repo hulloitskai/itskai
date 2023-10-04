@@ -11,6 +11,9 @@ export const typePolicies: StrictTypedTypePolicies = {
   Coordinates: {
     keyFields: false,
   },
+  LocationDetails: {
+    keyFields: false,
+  },
 };
 
 export const { possibleTypes } = introspection;

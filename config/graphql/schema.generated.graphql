@@ -203,11 +203,16 @@ type LocationAccessGrant implements Node {
   recipient: String!
 }
 
-type LocationLog implements Node {
+type LocationDetails {
   address: String!
+  coordinates: Coordinates!
+  expiresAt: DateTime!
+}
+
+type LocationLog implements Node {
   approximateAddress: String!
   approximateCoordinates: Coordinates!
-  coordinates(password: String!): Coordinates!
+  details(password: String!): LocationDetails!
   googleMapsAreaUrl: String!
 
   """ID of the object."""

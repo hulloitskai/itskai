@@ -229,12 +229,18 @@ export type LocationAccessGrant = Node & {
   recipient: Scalars['String']['output'];
 };
 
+export type LocationDetails = {
+  __typename?: 'LocationDetails';
+  address: Scalars['String']['output'];
+  coordinates: Coordinates;
+  expiresAt: Scalars['DateTime']['output'];
+};
+
 export type LocationLog = Node & {
   __typename?: 'LocationLog';
-  address: Scalars['String']['output'];
   approximateAddress: Scalars['String']['output'];
   approximateCoordinates: Coordinates;
-  coordinates: Coordinates;
+  details: LocationDetails;
   googleMapsAreaUrl: Scalars['String']['output'];
   /** ID of the object. */
   id: Scalars['ID']['output'];
@@ -242,7 +248,7 @@ export type LocationLog = Node & {
 };
 
 
-export type LocationLogCoordinatesArgs = {
+export type LocationLogDetailsArgs = {
   password: Scalars['String']['input'];
 };
 

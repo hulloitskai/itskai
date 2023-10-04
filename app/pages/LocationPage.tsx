@@ -1,4 +1,5 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import ClockIcon from "~icons/heroicons/clock-20-solid";
 import { motion } from "framer-motion";
 import { Text } from "@mantine/core";
 
@@ -65,7 +66,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
       if (data) {
         const { location } = data;
         if (location && mapRef.current) {
-          const { coordinates } = location;
+          const { coordinates } = location.details;
           mapRef.current.flyTo({
             center: { lat: coordinates.latitude, lng: coordinates.longitude },
             zoom: 16,
@@ -93,7 +94,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
         style={{ flexGrow: 1 }}
       >
         <GeolocateControl />
-        {location && <Marker {...location.coordinates}></Marker>}
+        {location && <Marker {...location.details.coordinates}></Marker>}
       </Map>
       <Center
         pos="absolute"
@@ -114,7 +115,10 @@ const LocationPage: PageComponent<LocationPageProps> = ({
         >
           {location ? (
             resolve(() => {
-              const { address, timestamp } = location;
+              const {
+                timestamp,
+                details: { address, expiresAt },
+              } = location;
               return (
                 <MotionAlert
                   animate={{
@@ -123,22 +127,45 @@ const LocationPage: PageComponent<LocationPageProps> = ({
                       : `${rem(1)} solid transparent`,
                   }}
                   transition={{ duration: 250, ease: "easeInOut" }}
-                  title="Kai was last seen at"
-                  styles={() => ({
+                  title={
+                    <Group justify="space-between">
+                      <Text span inherit>
+                        Kai was last seen at
+                      </Text>
+                      <Badge
+                        variant="outline"
+                        size="xs"
+                        pl={2}
+                        leftSection={<ClockIcon />}
+                      >
+                        <TimeAgo inherit>{timestamp}</TimeAgo>
+                      </Badge>
+                    </Group>
+                  }
+                  styles={{
                     title: {
-                      marginBottom: rem(8),
+                      marginBottom: rem(4),
                     },
-                  })}
+                    label: {
+                      width: "100%",
+                    },
+                  }}
                   {...alertProps}
                 >
-                  <Stack gap={8}>
-                    <Text span lh={1.3}>
+                  <Stack gap={4}>
+                    <Text span fw={700} lh={1.3}>
                       {address}
                     </Text>
-                    <Text size="xs" c="gray.5">
-                      From Find My iPhone,{" "}
-                      <TimeAgo inherit>{timestamp}</TimeAgo>.
-                    </Text>
+                    <Box>
+                      <Text size="xs" c="gray.4">
+                        From Find My iPhone,{" "}
+                        <TimeAgo inherit>{timestamp}</TimeAgo>.
+                      </Text>
+                      <Text size="xs" c="gray.6">
+                        Location access expires{" "}
+                        <TimeAgo inherit>{expiresAt}</TimeAgo>.
+                      </Text>
+                    </Box>
                   </Stack>
                 </MotionAlert>
               );
@@ -148,11 +175,14 @@ const LocationPage: PageComponent<LocationPageProps> = ({
               title="Kai's somewhere around here..."
               styles={{
                 title: {
-                  marginBottom: 0,
+                  marginBottom: 2,
                 },
               }}
               {...alertProps}
             >
+              <Text inherit mb={8}>
+                Got a password? Punch it in here.
+              </Text>
               <LocationTrackForm
                 onSubmit={password => {
                   const params = new URLSearchParams([["password", password]]);

@@ -7,18 +7,16 @@ module Types
     implements NodeType
 
     # == Fields
-    field :address, String, null: false, resolver_method: :full_address
     field :approximate_address, String, null: false
     field :approximate_coordinates, CoordinatesType, null: false
-    field :coordinates, CoordinatesType, null: false do
+    field :details, LocationDetailsType, null: false do
       argument :password, String, required: true
     end
     field :google_maps_area_url, String, null: false
     field :timestamp, DateTimeType, null: false
 
     # == Resolvers
-    delegate :full_address, :approximate_address, :google_maps_area_url,
-             to: :address
+    delegate :approximate_address, :google_maps_area_url, to: :address
 
     sig { returns(T.untyped) }
     def approximate_coordinates
@@ -29,13 +27,11 @@ module Types
       )
     end
 
-    sig { params(password: String).returns(T.untyped) }
-    def coordinates(password:)
-      if LocationAccessGrant.valid.exists?(password:)
-        object.coordinates
-      else
+    sig { params(password: String).returns(LocationDetails) }
+    def details(password:)
+      access_grant = LocationAccessGrant.valid.find_by(password:) or
         raise GraphQL::ExecutionError, "Password is invalid or expired."
-      end
+      LocationDetails.new(log: object, access_grant:)
     end
 
     # == Helpers
