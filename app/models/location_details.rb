@@ -17,13 +17,12 @@ class LocationDetails < T::Struct
     log.address!.full_address
   end
 
-  sig { returns(T::Array[T.untyped]) }
+  sig { returns(T::Enumerable[LocationLog]) }
   def trail
     last_timestamp = log.timestamp
     first_timestamp = last_timestamp - 3.hours
     LocationLog
       .where(timestamp: first_timestamp..last_timestamp)
       .order(timestamp: :desc)
-      .pluck(:coordinates)
   end
 end

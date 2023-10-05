@@ -8,8 +8,8 @@ subscription LocationPageSubscription($password: String!) {
       }
       expiresAt
       trail {
-        latitude
-        longitude
+        id
+        ...LocationPageTrailMarkerFragment
       }
     }
     id

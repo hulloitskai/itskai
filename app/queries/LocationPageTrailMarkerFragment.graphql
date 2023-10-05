@@ -1,0 +1,7 @@
+fragment LocationPageTrailMarkerFragment on LocationTrailMarker {
+  coordinates {
+    latitude
+    longitude
+  }
+  timestamp
+}

@@ -70,6 +70,7 @@ declare global {
   const isUndefined: typeof import('lodash-es')['isUndefined']
   const isUrl: typeof import('is-url')['default']
   const keyBy: typeof import('lodash-es')['keyBy']
+  const last: typeof import('lodash-es')['last']
   const lazy: typeof import('react')['lazy']
   const mapKeys: typeof import('lodash-es')['mapKeys']
   const mapValues: typeof import('lodash-es')['mapValues']

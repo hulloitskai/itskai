@@ -7,7 +7,7 @@ module Types
     field :address, String, null: false
     field :coordinates, CoordinatesType, null: false
     field :expires_at, DateTimeType, null: false
-    field :trail, [CoordinatesType], null: false
+    field :trail, [LocationTrailMarkerType], null: false
 
     # == Helpers
     sig { override.returns(LocationDetails) }

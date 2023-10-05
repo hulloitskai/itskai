@@ -115,6 +115,12 @@ export type LocationLogFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type LocationTrailMarkerKeySpecifier = ('coordinates' | 'id' | 'timestamp' | LocationTrailMarkerKeySpecifier)[];
+export type LocationTrailMarkerFieldPolicy = {
+	coordinates?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type LyricLineKeySpecifier = ('isExplicit' | 'startTimeMilliseconds' | 'words' | LyricLineKeySpecifier)[];
 export type LyricLineFieldPolicy = {
 	isExplicit?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -412,6 +418,10 @@ export type StrictTypedTypePolicies = {
 	LocationLog?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | LocationLogKeySpecifier | (() => undefined | LocationLogKeySpecifier),
 		fields?: LocationLogFieldPolicy,
+	},
+	LocationTrailMarker?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | LocationTrailMarkerKeySpecifier | (() => undefined | LocationTrailMarkerKeySpecifier),
+		fields?: LocationTrailMarkerFieldPolicy,
 	},
 	LyricLine?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | LyricLineKeySpecifier | (() => undefined | LyricLineKeySpecifier),

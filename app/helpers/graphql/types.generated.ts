@@ -234,7 +234,7 @@ export type LocationDetails = {
   address: Scalars['String']['output'];
   coordinates: Coordinates;
   expiresAt: Scalars['DateTime']['output'];
-  trail: Array<Coordinates>;
+  trail: Array<LocationTrailMarker>;
 };
 
 export type LocationLog = Node & {
@@ -251,6 +251,13 @@ export type LocationLog = Node & {
 
 export type LocationLogDetailsArgs = {
   password: Scalars['String']['input'];
+};
+
+export type LocationTrailMarker = {
+  __typename?: 'LocationTrailMarker';
+  coordinates: Coordinates;
+  id: Scalars['ID']['output'];
+  timestamp: Scalars['DateTime']['output'];
 };
 
 export type LyricLine = {

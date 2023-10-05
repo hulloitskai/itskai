@@ -1,7 +1,7 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import type { FeatureCollection } from "geojson";
+import type { Feature, FeatureCollection, Point } from "geojson";
 import ClockIcon from "~icons/heroicons/clock-20-solid";
-import { Text } from "@mantine/core";
+import { Text, rgba } from "@mantine/core";
 import { motion } from "framer-motion";
 
 import type { MapRef } from "react-map-gl";
@@ -11,6 +11,7 @@ import { LocationPageSubscriptionDocument } from "~/helpers/graphql";
 import type {
   LocationPageQuery,
   LocationPageSubscriptionVariables,
+  LocationPageTrailMarkerFragment,
 } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
 import type { Coordinates } from "~/helpers/graphql";
@@ -34,7 +35,10 @@ const LocationPage: PageComponent<LocationPageProps> = ({
   password,
   data: { location: initialLocation },
 }) => {
+  // == Colors
   const theme = useMantineTheme();
+  const trailMarkerColor = theme.colors.brand[6];
+  const trailSegmentColor = theme.colors.brand[3];
 
   // == Routing
   const router = useRouter();
@@ -74,9 +78,9 @@ const LocationPage: PageComponent<LocationPageProps> = ({
       if (data) {
         const { location } = data;
         if (location && mapRef.current) {
-          const { coordinates } = location.details;
+          const { latitude, longitude } = location.details.coordinates;
           mapRef.current.flyTo({
-            center: { lat: coordinates.latitude, lng: coordinates.longitude },
+            center: [longitude, latitude],
             zoom: 15,
             animate: true,
           });
@@ -95,27 +99,95 @@ const LocationPage: PageComponent<LocationPageProps> = ({
   const { coordinates, trail } = location?.details ?? {};
 
   // == Trail
-  const trailData = useMemo<FeatureCollection | undefined>(() => {
+  const deriveTrailMarkerOpacity = useMemo<
+    (marker: LocationPageTrailMarkerFragment) => number
+  >(() => {
+    const firstTimestampISO = first(trail)?.timestamp;
+    const lastTimestampISO = last(trail)?.timestamp;
+    if (firstTimestampISO && lastTimestampISO) {
+      const firstTimestamp = DateTime.fromISO(firstTimestampISO);
+      const lastTimestamp = DateTime.fromISO(lastTimestampISO);
+      const totalDistance = lastTimestamp.diff(firstTimestamp).toMillis();
+      return ({ timestamp: timestampISO }) => {
+        const timestamp = DateTime.fromISO(timestampISO);
+        const markerDistance = lastTimestamp.diff(timestamp).toMillis();
+        const opacity = markerDistance / totalDistance + 0.1;
+        return Math.min(opacity, 1.0);
+      };
+    }
+    return () => 0.0;
+  }, [trail]);
+  const trailMarkersData = useMemo<
+    FeatureCollection<Point, { opacity: number }> | undefined
+  >(() => {
     if (trail) {
-      console.log({ trail });
       return {
         type: "FeatureCollection",
-        features: [
-          {
+        // features: [
+        //   {
+        //     type: "Feature",
+        //     properties: {},
+        //     geometry: {
+        //       type: "LineString",
+        //       coordinates: trail.map(
+        //         ({ coordinates: { latitude, longitude } }) => [
+        //           longitude,
+        //           latitude,
+        //         ],
+        //       ),
+        //     },
+        //   },
+        // ],
+        features: trail.map(marker => {
+          const { latitude, longitude } = marker.coordinates;
+          return {
             type: "Feature",
-            properties: {},
-            geometry: {
-              type: "LineString",
-              coordinates: trail.map(({ latitude, longitude }) => [
-                longitude,
-                latitude,
-              ]),
+            properties: {
+              opacity: deriveTrailMarkerOpacity(marker),
             },
-          },
-        ],
+            geometry: {
+              type: "Point",
+              coordinates: [longitude, latitude],
+            },
+          };
+        }),
       };
     }
   }, [trail]);
+  const trailSegmentsData = useMemo<FeatureCollection | undefined>(() => {
+    if (trailMarkersData) {
+      const markerFeatures = trailMarkersData.features;
+      const segmentFeatures: Feature[] = [];
+      for (let i = 0; i < markerFeatures.length - 1; i++) {
+        const startMarker = markerFeatures[i];
+        const endMarker = markerFeatures[i + 1];
+        invariant(startMarker && endMarker);
+        segmentFeatures.push({
+          type: "Feature",
+          properties: {
+            startColor: rgba(trailSegmentColor, startMarker.properties.opacity),
+            endColor: rgba(trailSegmentColor, endMarker.properties.opacity),
+            opacity:
+              (startMarker.properties.opacity + endMarker.properties.opacity) /
+              2,
+          },
+          geometry: {
+            type: "LineString",
+            coordinates: [
+              startMarker.geometry.coordinates,
+              endMarker.geometry.coordinates,
+            ],
+          },
+        });
+      }
+      return {
+        type: "FeatureCollection",
+        features: segmentFeatures,
+      };
+    }
+  }, [trailMarkersData]);
+
+  console.log({ trailSegmentsData });
 
   return (
     <Flex
@@ -132,23 +204,31 @@ const LocationPage: PageComponent<LocationPageProps> = ({
         {coordinates && (
           <Marker color="var(--mantine-color-brand-6)" {...coordinates} />
         )}
-        {trailData && (
-          <Source id="trail" type="geojson" data={trailData}>
+        {trailSegmentsData && (
+          <Source id="trail-segments" type="geojson" data={trailSegmentsData}>
             <Layer
-              id="trail-background"
+              id="trail-segments"
               type="line"
               paint={{
-                "line-color": theme.colors.brand[3],
+                "line-color": trailSegmentColor,
                 "line-width": 6,
-                "line-opacity": 1,
+                "line-opacity": ["get", "opacity"],
+              }}
+              layout={{
+                "line-cap": "round",
               }}
             />
+          </Source>
+        )}
+        {trailMarkersData && (
+          <Source id="trail-markers" type="geojson" data={trailMarkersData}>
             <Layer
-              id="trail-points"
+              id="trail-markers"
               type="circle"
               paint={{
-                "circle-radius": 6,
-                "circle-color": theme.colors.brand[6],
+                "circle-radius": 5,
+                "circle-color": trailMarkerColor,
+                "circle-opacity": ["get", "opacity"],
               }}
             />
           </Source>

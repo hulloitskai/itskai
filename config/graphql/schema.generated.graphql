@@ -207,7 +207,7 @@ type LocationDetails {
   address: String!
   coordinates: Coordinates!
   expiresAt: DateTime!
-  trail: [Coordinates!]!
+  trail: [LocationTrailMarker!]!
 }
 
 type LocationLog implements Node {
@@ -217,6 +217,12 @@ type LocationLog implements Node {
   googleMapsAreaUrl: String!
 
   """ID of the object."""
+  id: ID!
+  timestamp: DateTime!
+}
+
+type LocationTrailMarker {
+  coordinates: Coordinates!
   id: ID!
   timestamp: DateTime!
 }

@@ -91,6 +91,7 @@ export const imports: Array<ImportsMap | PresetName> = [
     clsx: [["clsx", "cx"]],
     "lodash-es": [
       "first",
+      "last",
       "get",
       "isEmpty",
       "isEqual",
