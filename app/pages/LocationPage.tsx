@@ -88,7 +88,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
           const { latitude, longitude } = location.details.coordinates;
           mapRef.current.flyTo({
             center: [longitude, latitude],
-            zoom: 15,
+            zoom: 14.5,
             animate: true,
           });
           if (!subscriptionFirstLoad) {
