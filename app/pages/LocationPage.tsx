@@ -37,8 +37,8 @@ const LocationPage: PageComponent<LocationPageProps> = ({
 }) => {
   // == Colors
   const theme = useMantineTheme();
-  const trailMarkerColor = theme.colors.brand[6];
-  const trailSegmentColor = theme.colors.brand[3];
+  const trailMarkerColor = theme.colors.brand[7];
+  const trailSegmentColor = theme.colors.brand[4];
 
   // == Routing
   const router = useRouter();
