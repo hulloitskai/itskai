@@ -111,8 +111,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
       return ({ timestamp: timestampISO }) => {
         const timestamp = DateTime.fromISO(timestampISO);
         const markerDistance = lastTimestamp.diff(timestamp).toMillis();
-        const opacity = markerDistance / totalDistance + 0.1;
-        return Math.min(opacity, 1.0);
+        return Math.min(markerDistance / totalDistance + 0.1, 1.0);
       };
     }
     return () => 0.0;
