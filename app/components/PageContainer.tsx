@@ -11,13 +11,12 @@ export type PageContainerProps = ContainerProps &
 
 const PageContainer: FC<PageContainerProps> = ({
   withGutter,
-  gutterSize: gutterSizeProp,
-  size: sizeProp,
+  gutterSize = "md",
+  size = "md",
   style,
   children,
   ...otherProps
 }) => {
-  const size = sizeProp || "sm";
   return (
     <Container
       p="md"
@@ -26,9 +25,9 @@ const PageContainer: FC<PageContainerProps> = ({
         style,
         withGutter
           ? () => {
-              const containerSize = getSize(size, "container-size");
-              const gutterSize = getSpacing(gutterSizeProp ?? "md");
-              const margin = `clamp(0px, calc((100vw - ${containerSize}) / 2), ${gutterSize})`;
+              const sizeValue = getSize(size, "container-size");
+              const gutterSizeValue = getSpacing(gutterSize);
+              const margin = `clamp(0px, calc((100vw - ${sizeValue}) / 2), ${gutterSizeValue})`;
               return {
                 marginTop: margin,
                 marginBottom: margin,

@@ -197,6 +197,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
                 Got a password? Enter it here to find out where Kai is.
               </Text>
               <LocationTrackForm
+                size="sm"
                 onSubmit={password => {
                   const params = new URLSearchParams([["password", password]]);
                   router.visit("/track?" + params.toString(), {

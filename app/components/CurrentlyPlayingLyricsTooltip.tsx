@@ -90,10 +90,6 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
   const currentlyExplicit = currentLyric?.isExplicit;
 
   // == Markup
-  const renderedChildren = useMemo<ReactNode>(
-    () => children(currentLyric),
-    [currentLyric],
-  );
   return (
     <Tooltip
       label={currentWords}
@@ -118,7 +114,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
       {...{ ref }}
       {...otherProps}
     >
-      {renderedChildren}
+      {children(currentLyric)}
     </Tooltip>
   );
 };

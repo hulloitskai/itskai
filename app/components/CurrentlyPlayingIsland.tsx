@@ -24,6 +24,11 @@ const MotionImage = motion<
 
 export type CurrentlyPlayingIslandProps = Omit<BoxProps, "children">;
 
+type TransitionState = {
+  readonly mounted: boolean;
+  readonly transitioned: boolean;
+};
+
 const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   ...otherProps
 }) => {
@@ -74,25 +79,34 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   const { progressMilliseconds } = subscriptionData?.currentlyPlaying ?? {};
 
   // == Transition
-  const [mounted, setMounted] = useState(false);
-  const [transitioned, setTransitioned] = useState(false);
+  const [{ mounted, transitioned }, setTransitionState] =
+    useState<TransitionState>({
+      mounted: false,
+      transitioned: false,
+    });
+  useEffect(() => {
+    console.log({ mounted, transitioned });
+  }, [mounted, transitioned]);
   const [track, setTrack] =
     useState<Maybe<CurrentlyPlayingIslandTrackFragment>>(null);
   useEffect(() => {
     if (online) {
       if (currentlyPlaying?.track?.id !== track?.id) {
         if (track) {
-          setMounted(false);
-          setTransitioned(false);
+          setTransitionState({ mounted: false, transitioned: false });
         } else if (currentlyPlaying) {
           setTrack(currentlyPlaying.track);
-          setMounted(true);
+          if (!mounted) {
+            setTransitionState({
+              mounted: true,
+              transitioned: false,
+            });
+          }
         }
       }
     } else {
       if (mounted) {
-        setMounted(false);
-        setTransitioned(false);
+        setTransitionState({ mounted: false, transitioned: false });
       }
     }
   }, [currentlyPlaying, online]);
@@ -101,11 +115,15 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   return (
     <Transition
       transition="slide-down"
-      onEntered={() => setTransitioned(true)}
+      onEntered={() =>
+        setTransitionState({ mounted: true, transitioned: true })
+      }
       onExited={() => {
         setTrack(currentlyPlaying?.track ?? null);
         if (currentlyPlaying && online) {
-          setMounted(true);
+          setTransitionState({ mounted: true, transitioned: false });
+        } else {
+          setTransitionState({ mounted: false, transitioned: true });
         }
       }}
       {...{ mounted }}
@@ -114,12 +132,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
         <TrackCoalescer {...{ track }}>
           {track => (
             <_CurrentlyPlayingIsland
-              {...{
-                track,
-                progressMilliseconds,
-                transitioned,
-                style,
-              }}
+              {...{ track, progressMilliseconds, transitioned, style }}
               {...otherProps}
             />
           )}
@@ -177,77 +190,83 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
 
   // == Markup
   return (
-    <CurrentlyPlayingLyricsTooltip
-      withinPortal={false}
-      {...(!transitioned && { disabled: true })}
-      {...{ durationMilliseconds, progressMilliseconds }}
-    >
-      {currentLyricLine => {
-        const { words: currentWords, isExplicit: lyricsCurrentlyExplicit } =
-          currentLyricLine ?? {};
-        const hasLyrics = !!currentWords;
-        return (
-          <Badge
-            component="a"
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            size="xl"
-            leftSection={
-              <Box pos="relative" p={2} mr={3}>
-                <MotionImage
-                  src={imageUrl}
-                  w={26}
-                  h={26}
-                  radius="xl"
-                  animate={{ rotate: 360 }}
-                  transition={{ ease: "linear", duration: 4, repeat: Infinity }}
-                />
-                <Center
-                  pos="absolute"
-                  inset={0}
-                  style={({ white }) => ({ color: white })}
-                >
-                  <PlayIcon width={14} height={14} />
-                </Center>
-              </Box>
-            }
-            variant="outline"
-            color="dark.3"
-            pl={0}
-            className={classes.badge}
-            styles={{
-              root: {
-                cursor: "pointer",
-              },
-              section: {
-                margin: 0,
-              },
-              label: {
-                maxWidth: 200,
-              },
-            }}
-            __vars={({ colors }) => {
-              const borderColor = colors.brand[5];
-              return {
-                "--cpi-border-color-active": darken(borderColor, 0.1),
-                "--cpi-border-color-muted": darken(borderColor, 0.4),
-              };
-            }}
-            data-lyrics-explicit={lyricsCurrentlyExplicit}
-            {...(hasLyrics && { "data-with-lyrics": true })}
-            {...otherProps}
-          >
-            <MarqueeText size="xs" fw={800} c="gray.3">
-              {name}
-            </MarqueeText>
-            <MarqueeText fz={10} fw={700} c="gray.6">
-              {artistNames}
-            </MarqueeText>
-          </Badge>
-        );
-      }}
-    </CurrentlyPlayingLyricsTooltip>
+    <>
+      <CurrentlyPlayingLyricsTooltip
+        withinPortal={false}
+        {...(!transitioned && { disabled: true })}
+        {...{ durationMilliseconds, progressMilliseconds }}
+      >
+        {currentLyricLine => {
+          const { words: currentWords, isExplicit: lyricsCurrentlyExplicit } =
+            currentLyricLine ?? {};
+          const hasLyrics = !!currentWords;
+          return (
+            <Badge
+              component="a"
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              size="xl"
+              leftSection={
+                <Box pos="relative" p={2} mr={3}>
+                  <MotionImage
+                    src={imageUrl}
+                    w={26}
+                    h={26}
+                    radius="xl"
+                    animate={{ rotate: 360 }}
+                    transition={{
+                      ease: "linear",
+                      duration: 4,
+                      repeat: Infinity,
+                    }}
+                  />
+                  <Center
+                    pos="absolute"
+                    inset={0}
+                    style={({ white }) => ({ color: white })}
+                  >
+                    <PlayIcon width={14} height={14} />
+                  </Center>
+                </Box>
+              }
+              variant="outline"
+              color="dark.3"
+              pl={0}
+              className={classes.badge}
+              styles={{
+                // root: {
+                //   cursor: "pointer",
+                // },
+                section: {
+                  margin: 0,
+                },
+                label: {
+                  maxWidth: 200,
+                },
+              }}
+              __vars={({ colors }) => {
+                const borderColor = colors.brand[5];
+                return {
+                  "--cpi-border-color-active": darken(borderColor, 0.1),
+                  "--cpi-border-color-muted": darken(borderColor, 0.4),
+                };
+              }}
+              data-lyrics-explicit={lyricsCurrentlyExplicit}
+              {...(hasLyrics && { "data-with-lyrics": true })}
+              {...otherProps}
+            >
+              <MarqueeText size="xs" fw={800} c="gray.3">
+                {name}
+              </MarqueeText>
+              <MarqueeText fz={10} fw={700} c="gray.6">
+                {artistNames}
+              </MarqueeText>
+            </Badge>
+          );
+        }}
+      </CurrentlyPlayingLyricsTooltip>
+    </>
   );
 };
 

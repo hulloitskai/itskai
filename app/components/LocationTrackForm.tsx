@@ -1,7 +1,8 @@
 import type { FC } from "react";
-import type { BoxProps } from "@mantine/core";
+import type { BoxProps, MantineSize } from "@mantine/core";
 
 export type LocationTrackFormProps = Omit<BoxProps, "children"> & {
+  readonly size?: MantineSize | (string & {});
   readonly onSubmit: (password: string) => void;
 };
 
@@ -11,6 +12,7 @@ type LocationTrackFormValues = {
 
 const LocationTrackForm: FC<LocationTrackFormProps> = ({
   onSubmit: handleSubmit,
+  size = "md",
   ...otherProps
 }) => {
   // == Form
@@ -34,12 +36,12 @@ const LocationTrackForm: FC<LocationTrackFormProps> = ({
           autoCapitalize="false"
           autoCorrect="false"
           autoComplete="false"
-          size="sm"
           styles={{
             root: {
               flexGrow: 1,
             },
           }}
+          {...{ size }}
           {...getInputProps("password")}
         />
         <Button type="submit" size="sm">
