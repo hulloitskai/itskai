@@ -241,15 +241,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
           bottom: spacing.lg,
         })}
       >
-        <Box
-          pos="relative"
-          w="100%"
-          maw={540}
-          style={({ radius }) => ({
-            borderRadius: radius.md,
-            overflow: "hidden",
-          })}
-        >
+        <Box pos="relative" w="100%" maw={540}>
           {location ? (
             resolve(() => {
               const {
@@ -337,7 +329,14 @@ const LocationPage: PageComponent<LocationPageProps> = ({
               />
             </Alert>
           )}
-          <LoadingOverlay visible={loading} />
+          <LoadingOverlay
+            visible={loading}
+            styles={({ radius }) => ({
+              overlay: {
+                borderRadius: radius.md,
+              },
+            })}
+          />
         </Box>
       </Center>
     </Flex>
