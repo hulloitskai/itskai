@@ -60,6 +60,7 @@
     "@graphql-eslint/eslint-plugin": "^3.20.1",
     "@iconify-json/heroicons": "^1.1.11",
     "@iconify-json/lucide": "^1.1.109",
+    "@types/geojson": "^7946.0.11",
     "@types/humanize-duration": "^3.27.1",
     "@types/is-url": "^1.2.30",
     "@types/lodash-es": "^4.17.7",

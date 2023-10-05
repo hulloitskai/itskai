@@ -1,10 +1,11 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import type { FeatureCollection } from "geojson";
 import ClockIcon from "~icons/heroicons/clock-20-solid";
-import { motion } from "framer-motion";
 import { Text } from "@mantine/core";
+import { motion } from "framer-motion";
 
 import type { MapRef } from "react-map-gl";
-import { GeolocateControl, Marker } from "react-map-gl";
+import { GeolocateControl, Marker, Source, Layer } from "react-map-gl";
 
 import { LocationPageSubscriptionDocument } from "~/helpers/graphql";
 import type {
@@ -33,6 +34,8 @@ const LocationPage: PageComponent<LocationPageProps> = ({
   password,
   data: { location: initialLocation },
 }) => {
+  const theme = useMantineTheme();
+
   // == Routing
   const router = useRouter();
   const [pageLoading, setPageLoading] = useState(false);
@@ -89,6 +92,30 @@ const LocationPage: PageComponent<LocationPageProps> = ({
     onError: onSubscriptionError,
   });
   const { location } = data ?? {};
+  const { coordinates, trail } = location?.details ?? {};
+
+  // == Trail
+  const trailData = useMemo<FeatureCollection | undefined>(() => {
+    if (trail) {
+      console.log({ trail });
+      return {
+        type: "FeatureCollection",
+        features: [
+          {
+            type: "Feature",
+            properties: {},
+            geometry: {
+              type: "LineString",
+              coordinates: trail.map(({ latitude, longitude }) => [
+                longitude,
+                latitude,
+              ]),
+            },
+          },
+        ],
+      };
+    }
+  }, [trail]);
 
   return (
     <Flex
@@ -102,11 +129,29 @@ const LocationPage: PageComponent<LocationPageProps> = ({
         style={{ flexGrow: 1 }}
       >
         <GeolocateControl />
-        {location && (
-          <Marker
-            color="var(--mantine-color-brand-6)"
-            {...location.details.coordinates}
-          />
+        {coordinates && (
+          <Marker color="var(--mantine-color-brand-6)" {...coordinates} />
+        )}
+        {trailData && (
+          <Source id="trail" type="geojson" data={trailData}>
+            <Layer
+              id="trail-background"
+              type="line"
+              paint={{
+                "line-color": theme.colors.brand[3],
+                "line-width": 6,
+                "line-opacity": 1,
+              }}
+            />
+            <Layer
+              id="trail-points"
+              type="circle"
+              paint={{
+                "circle-radius": 6,
+                "circle-color": theme.colors.brand[6],
+              }}
+            />
+          </Source>
         )}
       </Map>
       <Center

@@ -7,6 +7,10 @@ subscription LocationPageSubscription($password: String!) {
         longitude
       }
       expiresAt
+      trail {
+        latitude
+        longitude
+      }
     }
     id
     timestamp

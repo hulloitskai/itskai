@@ -16,4 +16,14 @@ class LocationDetails < T::Struct
   def address
     log.address!.full_address
   end
+
+  sig { returns(T::Array[T.untyped]) }
+  def trail
+    last_timestamp = log.timestamp
+    first_timestamp = last_timestamp - 3.hours
+    LocationLog
+      .where(timestamp: first_timestamp..last_timestamp)
+      .order(timestamp: :desc)
+      .pluck(:coordinates)
+  end
 end

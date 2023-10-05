@@ -84,9 +84,6 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
       mounted: false,
       transitioned: false,
     });
-  useEffect(() => {
-    console.log({ mounted, transitioned });
-  }, [mounted, transitioned]);
   const [track, setTrack] =
     useState<Maybe<CurrentlyPlayingIslandTrackFragment>>(null);
   useEffect(() => {

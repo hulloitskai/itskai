@@ -207,6 +207,7 @@ type LocationDetails {
   address: String!
   coordinates: Coordinates!
   expiresAt: DateTime!
+  trail: [Coordinates!]!
 }
 
 type LocationLog implements Node {

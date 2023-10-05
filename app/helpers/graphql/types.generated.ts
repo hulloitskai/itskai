@@ -234,6 +234,7 @@ export type LocationDetails = {
   address: Scalars['String']['output'];
   coordinates: Coordinates;
   expiresAt: Scalars['DateTime']['output'];
+  trail: Array<Coordinates>;
 };
 
 export type LocationLog = Node & {

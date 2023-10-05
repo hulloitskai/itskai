@@ -99,11 +99,12 @@ export type LocationAccessGrantFieldPolicy = {
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
 	recipient?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type LocationDetailsKeySpecifier = ('address' | 'coordinates' | 'expiresAt' | LocationDetailsKeySpecifier)[];
+export type LocationDetailsKeySpecifier = ('address' | 'coordinates' | 'expiresAt' | 'trail' | LocationDetailsKeySpecifier)[];
 export type LocationDetailsFieldPolicy = {
 	address?: FieldPolicy<any> | FieldReadFunction<any>,
 	coordinates?: FieldPolicy<any> | FieldReadFunction<any>,
-	expiresAt?: FieldPolicy<any> | FieldReadFunction<any>
+	expiresAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	trail?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type LocationLogKeySpecifier = ('approximateAddress' | 'approximateCoordinates' | 'details' | 'googleMapsAreaUrl' | 'id' | 'timestamp' | LocationLogKeySpecifier)[];
 export type LocationLogFieldPolicy = {
