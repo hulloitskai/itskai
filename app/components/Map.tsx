@@ -9,7 +9,7 @@ export type MapProps = Omit<_MapProps, "mapboxAccessToken">;
 const Map = forwardRef<MapRef, MapProps>(
   (
     {
-      mapStyle = "mapbox://styles/mapbox/streets-v12",
+      mapStyle = "mapbox://styles/mapbox/cj3kbeqzo00022smj7akz3o1e",
       children,
       ...otherProps
     },

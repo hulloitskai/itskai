@@ -2,7 +2,6 @@ import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import type { Feature, FeatureCollection, Point } from "geojson";
 import ClockIcon from "~icons/heroicons/clock-20-solid";
 import { Text, rgba } from "@mantine/core";
-import { motion } from "framer-motion";
 
 import type { MapRef } from "react-map-gl";
 import { GeolocateControl, Marker, Source, Layer } from "react-map-gl";
@@ -25,8 +24,6 @@ const TORONTO_COORDINATES: Readonly<Coordinates> = {
   longitude: -79.3832,
 };
 
-const MotionAlert = motion(Alert);
-
 export type LocationPageProps = PagePropsWithData<LocationPageQuery> & {
   readonly password: Maybe<string>;
 };
@@ -39,6 +36,9 @@ const LocationPage: PageComponent<LocationPageProps> = ({
   const theme = useMantineTheme();
   const trailMarkerColor = theme.colors.brand[7];
   const trailSegmentColor = theme.colors.brand[4];
+  const alertTitleColor = "#B9F4D7";
+  const alertBorderColor = "#5A7B6A";
+  const alertPulseBorderColor = theme.colors.brand[4];
 
   // == Routing
   const router = useRouter();
@@ -53,12 +53,19 @@ const LocationPage: PageComponent<LocationPageProps> = ({
   const alertProps = { bg: "dark", w: "100%" };
   const [alertPulse, setAlertPulse] = useState(false);
   useEffect(() => {
-    if (alertProps) {
+    if (alertPulse) {
       setTimeout(() => {
         setAlertPulse(false);
+        console.log("UNPULSE");
       }, 500);
     }
   }, [alertPulse]);
+  useEffect(() => {
+    setTimeout(() => {
+      console.log("PULSE");
+      setAlertPulse(true);
+    }, 1000);
+  }, []);
 
   // == Subscription
   const subscriptionVariables = useMemo<
@@ -186,8 +193,6 @@ const LocationPage: PageComponent<LocationPageProps> = ({
     }
   }, [trailMarkersData]);
 
-  console.log({ trailSegmentsData });
-
   return (
     <Flex
       pos="relative"
@@ -195,6 +200,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
     >
       <Map
         ref={mapRef}
+        mapStyle="mapbox://styles/mapbox-map-design/ck4014y110wt61ctt07egsel6"
         initialViewState={{ ...mapCenter, zoom: 11.5 }}
         scrollZoom
         style={{ flexGrow: 1 }}
@@ -249,13 +255,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
                 details: { address, expiresAt },
               } = location;
               return (
-                <MotionAlert
-                  animate={{
-                    border: alertPulse
-                      ? `${rem(1)} solid var(--mantine-color-brand-5)`
-                      : `${rem(1)} solid transparent`,
-                  }}
-                  transition={{ duration: 250, ease: "easeInOut" }}
+                <Alert
                   title={
                     <Group justify="space-between">
                       <Text span inherit>
@@ -272,7 +272,15 @@ const LocationPage: PageComponent<LocationPageProps> = ({
                     </Group>
                   }
                   styles={{
+                    root: {
+                      transition: "border 250ms ease",
+                      border: `${rem(1)} solid`,
+                      borderColor: alertPulse
+                        ? alertPulseBorderColor
+                        : alertBorderColor,
+                    },
                     title: {
+                      color: alertTitleColor,
                       marginBottom: rem(4),
                     },
                     label: {
@@ -296,7 +304,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
                       </Text>
                     </Box>
                   </Stack>
-                </MotionAlert>
+                </Alert>
               );
             })
           ) : (
@@ -304,6 +312,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
               title="Kai's somewhere around here..."
               styles={{
                 title: {
+                  color: alertTitleColor,
                   marginBottom: 2,
                 },
               }}
