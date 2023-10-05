@@ -77,7 +77,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
           const { coordinates } = location.details;
           mapRef.current.flyTo({
             center: { lat: coordinates.latitude, lng: coordinates.longitude },
-            zoom: 14,
+            zoom: 15,
             animate: true,
           });
           if (!subscriptionFirstLoad) {
