@@ -60,12 +60,12 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
     interpolationMilliseconds,
   });
 
-  // == Current Lyric & Words
+  // == Current Lyric
   const currentLyric = useMemo(() => {
     if (lyrics) {
       const currentLyricIndex =
         progressLyricsIndexMapping[interpolatedProgressMilliseconds];
-      if (currentLyricIndex) {
+      if (typeof currentLyricIndex === "number") {
         return lyrics[currentLyricIndex];
       }
       return null;
