@@ -56,16 +56,9 @@ const LocationPage: PageComponent<LocationPageProps> = ({
     if (alertPulse) {
       setTimeout(() => {
         setAlertPulse(false);
-        console.log("UNPULSE");
       }, 500);
     }
   }, [alertPulse]);
-  useEffect(() => {
-    setTimeout(() => {
-      console.log("PULSE");
-      setAlertPulse(true);
-    }, 1000);
-  }, []);
 
   // == Subscription
   const subscriptionVariables = useMemo<
