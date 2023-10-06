@@ -4,7 +4,7 @@
 module Queries
   class BootedAt < BaseQuery
     # == Configuration
-    description "When the server was booted."
+    # description "When the server was booted."
 
     # == Type
     type Types::DateTimeType, null: false

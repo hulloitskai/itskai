@@ -30,9 +30,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
 
   return (
     <MantineProvider
-      theme={{
-        primaryColor: "indigo",
-      }}
+      theme={{ primaryColor: "indigo" }}
       forceColorScheme="light"
     >
       <ResumeLayout {...{ printable }}>
