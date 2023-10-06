@@ -37,7 +37,7 @@ const LocationAccessGrants: FC<LocationAccessGrantsProps> = ({
             />
           ))
         ) : (
-          <EmptyCard itemLabel="grants" bg="dark.7" />
+          <EmptyCard itemLabel="grants" bg="var(--mantine-color-dark-filled)" />
         )
       ) : (
         [...new Array(3)].map((value, index) => (

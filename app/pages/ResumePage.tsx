@@ -31,6 +31,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
   return (
     <MantineProvider
       theme={{ primaryColor: "indigo" }}
+      cssVariablesSelector="body"
       forceColorScheme="light"
     >
       <ResumeLayout {...{ printable }}>
@@ -56,6 +57,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
               {!!basics?.summary && !!basics?.location?.city && (
                 <Divider
                   orientation="vertical"
+                  color="gray.4"
                   style={{ borderWidth: rem(2) }}
                 />
               )}
@@ -88,12 +90,12 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                     </Center>
                   }
                   variant="outline"
-                  c="gray.7"
+                  color="var(--mantine-color-gray-filled)"
                   styles={({ fontFamilyMonospace }) => ({
                     root: {
                       borderColor: "var(--mantine-color-primary-border)",
                     },
-                    inner: {
+                    label: {
                       fontFamily: fontFamilyMonospace,
                       textTransform: "none",
                     },
@@ -114,7 +116,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                 >
                   <Badge
                     variant="outline"
-                    c="gray.7"
+                    color="var(--mantine-color-gray-filled)"
                     px={6}
                     style={({ fontFamilyMonospace }) => ({
                       fontFamily: fontFamilyMonospace,
@@ -179,7 +181,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
             <Title order={2} size="h4" c="dark.4" lh={1.3}>
               Education
             </Title>
-            <Stack gap={2}>
+            <Stack gap={4}>
               {education.map((educationInfo, index) => (
                 <ResumeEducationSection key={index} {...{ educationInfo }} />
               ))}

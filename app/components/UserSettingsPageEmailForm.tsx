@@ -118,7 +118,7 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
           {email && unverifiedEmail && (
             <Text size="xs" c="dimmed" mt={4}>
               Last verified email:{" "}
-              <Text c="gray.7" fw={500} span>
+              <Text c="gray" fw={500} span>
                 {email}
               </Text>
               <br />

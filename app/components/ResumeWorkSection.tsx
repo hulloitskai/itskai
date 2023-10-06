@@ -46,13 +46,13 @@ const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({
       </Title>
       {!!url && <WebsiteBadge {...{ url }} />}
       <Space style={{ flex: 1 }} />
-      <Text size="sm" c="yellow.9" fw={600}>
+      <Text size="sm" c="pink" fw={600}>
         {position}
       </Text>
       <Badge
         variant="outline"
         radius="sm"
-        c="gray.6"
+        color="var(--mantine-color-pink-filled)"
         px={6}
         styles={{
           label: {

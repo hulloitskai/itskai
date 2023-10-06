@@ -39,7 +39,7 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
             gap={0}
             id={`pensieve-message-${messageId}`}
             p={6}
-            bg="dark.7"
+            bg="var(--mantine-color-dark-filled)"
             style={({ colors, radius }) => ({
               border: `${rem(1)} solid ${
                 fromBot ? colors.gray[6] : colors.brand[5]
