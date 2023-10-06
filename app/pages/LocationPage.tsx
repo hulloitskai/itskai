@@ -122,21 +122,6 @@ const LocationPage: PageComponent<LocationPageProps> = ({
     if (trail) {
       return {
         type: "FeatureCollection",
-        // features: [
-        //   {
-        //     type: "Feature",
-        //     properties: {},
-        //     geometry: {
-        //       type: "LineString",
-        //       coordinates: trail.map(
-        //         ({ coordinates: { latitude, longitude } }) => [
-        //           longitude,
-        //           latitude,
-        //         ],
-        //       ),
-        //     },
-        //   },
-        // ],
         features: trail.map(marker => {
           const { latitude, longitude } = marker.coordinates;
           return {
@@ -203,14 +188,20 @@ const LocationPage: PageComponent<LocationPageProps> = ({
           <Marker color="var(--mantine-color-brand-6)" {...coordinates} />
         )}
         {trailSegmentsData && (
-          <Source id="trail-segments" type="geojson" data={trailSegmentsData}>
+          <Source
+            id="trail-segments"
+            type="geojson"
+            data={trailSegmentsData}
+            lineMetrics
+          >
             <Layer
               id="trail-segments"
               type="line"
               paint={{
                 "line-color": trailSegmentColor,
-                "line-width": 6,
+                "line-width": 5,
                 "line-opacity": ["get", "opacity"],
+                "line-dasharray": [1, 1.5],
               }}
               layout={{
                 "line-cap": "round",
