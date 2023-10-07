@@ -51,10 +51,11 @@ Rails.application.routes.draw do
 
   # == GraphQL
   scope :graphql, controller: :graphql do
-    mount GraphiQL::Rails::Engine,
-          at: "/",
-          as: :graphiql,
-          graphql_path: "/graphql"
+    # mount GraphiQL::Rails::Engine,
+    #       at: "/",
+    #       as: :graphiql,
+    #       graphql_path: "/graphql"
+    get "/", action: :graphiql, as: :graphiql
     post "/", action: :execute, as: :graphql
   end
 

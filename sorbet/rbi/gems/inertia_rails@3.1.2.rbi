@@ -42,44 +42,44 @@ module InertiaRails
 
     # @return [Boolean]
     #
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#45
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#44
     def deep_merge_shared_data?; end
 
     # @return [Boolean]
     #
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#37
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#36
     def default_render?; end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#104
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#103
     def evaluated_blocks(controller, blocks); end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#41
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#40
     def html_headers; end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#58
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#57
     def html_headers=(headers); end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#25
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#24
     def layout; end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#68
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#67
     def lazy(value = T.unsafe(nil), &block); end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#62
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#61
     def reset!; end
 
     # "Setters"
     #
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#50
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#49
     def share(**args); end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#54
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#53
     def share_block(block); end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#96
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#95
     def shared_blocks; end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#100
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#99
     def shared_blocks=(val); end
 
     # "Getters"
@@ -89,18 +89,18 @@ module InertiaRails
 
     # Getters and setters to provide default values for the threadsafe attributes
     #
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#88
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#87
     def shared_plain_data; end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#92
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#91
     def shared_plain_data=(val); end
 
     # @return [Boolean]
     #
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#29
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#28
     def ssr_enabled?; end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#33
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#32
     def ssr_url; end
 
     # source://activesupport/7.0.8/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#48
@@ -121,87 +121,87 @@ module InertiaRails
     # source://activesupport/7.0.8/lib/active_support/core_ext/module/attribute_accessors_per_thread.rb#92
     def threadsafe_shared_plain_data=(obj); end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#21
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#20
     def version; end
   end
 end
 
-# source://inertia_rails//lib/inertia_rails/inertia_rails.rb#74
+# source://inertia_rails//lib/inertia_rails/inertia_rails.rb#73
 module InertiaRails::Configuration
-  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#80
+  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#79
   def deep_merge_shared_data; end
 
-  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#80
+  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#79
   def deep_merge_shared_data=(val); end
 
-  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#79
+  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#78
   def default_render; end
 
-  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#79
+  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#78
   def default_render=(val); end
 
-  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#75
+  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#74
   def layout; end
 
-  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#75
+  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#74
   def layout=(val); end
 
-  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#77
+  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#76
   def ssr_enabled; end
 
-  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#77
+  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#76
   def ssr_enabled=(val); end
 
-  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#78
+  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#77
   def ssr_url; end
 
-  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#78
+  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#77
   def ssr_url=(val); end
 
-  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#76
+  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#75
   def version; end
 
-  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#76
+  # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#75
   def version=(val); end
 
   class << self
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#80
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#79
     def deep_merge_shared_data; end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#80
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#79
     def deep_merge_shared_data=(val); end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#79
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#78
     def default_render; end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#79
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#78
     def default_render=(val); end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#82
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#81
     def evaluated_version; end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#75
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#74
     def layout; end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#75
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#74
     def layout=(val); end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#77
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#76
     def ssr_enabled; end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#77
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#76
     def ssr_enabled=(val); end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#78
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#77
     def ssr_url; end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#78
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#77
     def ssr_url=(val); end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#76
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#75
     def version; end
 
-    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#76
+    # source://inertia_rails//lib/inertia_rails/inertia_rails.rb#75
     def version=(val); end
   end
 end
@@ -367,21 +367,15 @@ end
 
 # source://inertia_rails//lib/inertia_rails/renderer.rb#6
 class InertiaRails::Renderer
-  sig do
-    params(
-      args: T.untyped,
-      props: T.nilable(T::Hash[T.any(::String, ::Symbol), T.untyped]),
-      kwargs: T.untyped
-    ).void
-  end
-  def initialize(*args, props: T.unsafe(nil), **kwargs); end
+  sig { params(args: T.untyped, kwargs: T.untyped).void }
+  def initialize(*args, **kwargs); end
 
   # Returns the value of attribute component.
   #
   # source://inertia_rails//lib/inertia_rails/renderer.rb#7
   def component; end
 
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#21
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#20
   def render; end
 
   # Returns the value of attribute view_data.
@@ -391,30 +385,30 @@ class InertiaRails::Renderer
 
   private
 
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#46
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#45
   def computed_props; end
 
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#67
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#76
   def deep_transform_values(hash, proc); end
 
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#42
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#41
   def layout; end
 
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#58
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#67
   def page; end
 
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#73
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#82
   def partial_keys; end
 
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#81
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#90
   def prop_merge_method; end
 
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#34
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#33
   def render_ssr; end
 
   # @return [Boolean]
   #
-  # source://inertia_rails//lib/inertia_rails/renderer.rb#77
+  # source://inertia_rails//lib/inertia_rails/renderer.rb#86
   def rendering_partial_component?; end
 end
 

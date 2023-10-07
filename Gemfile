@@ -123,7 +123,6 @@ gem "graphql", "~> 2.1"
 gem "graphql-connections", "~> 1.3"
 gem "graphql-persisted_queries", "~> 1.7"
 gem "graphql-rails_logger"
-gem "graphiql-rails"
 
 # Serve and bundle frontend with Vite
 gem "vite_rails", "~> 3.0"

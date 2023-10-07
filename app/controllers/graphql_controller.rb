@@ -8,6 +8,11 @@ class GraphQLController < ApplicationController
   protect_from_forgery with: :null_session
 
   # == Actions
+  # GET /graphiql
+  def graphiql
+    render(inertia: "GraphiQLPage")
+  end
+
   # POST /graphql
   def execute
     # Parse params
