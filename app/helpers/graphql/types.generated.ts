@@ -447,7 +447,6 @@ export type Query = {
   __typename?: 'Query';
   activityStatus?: Maybe<Scalars['String']['output']>;
   announcement?: Maybe<Scalars['String']['output']>;
-  /** When the server was booted. */
   bootedAt: Scalars['DateTime']['output'];
   contactEmail: Scalars['String']['output'];
   currentlyPlaying?: Maybe<CurrentlyPlaying>;
