@@ -1,5 +1,9 @@
 import type { FC } from "react";
+import SessionIcon from "~icons/heroicons/identification-20-solid";
+import SecurityCodeIcon from "~icons/heroicons/key-20-solid";
+
 import { JsonInput, PasswordInput, Text } from "@mantine/core";
+import type { BoxProps } from "@mantine/core";
 
 import {
   RemoveICloudCredentialsMutationDocument,
@@ -10,7 +14,7 @@ import type { ICloudCredentialsFormCredentialsFragment } from "~/helpers/graphql
 
 import ICloudVerifySecurityCodeForm from "./ICloudVerifySecurityCodeForm";
 
-export type ICloudCredentialsFormProps = {
+export type ICloudCredentialsFormProps = Omit<BoxProps, "children"> & {
   readonly credentials: Maybe<ICloudCredentialsFormCredentialsFragment>;
   readonly onUpdate: () => void;
   readonly onRemove: () => void;
@@ -25,24 +29,9 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
   credentials,
   onUpdate,
   onRemove,
+  ...otherProps
 }) => {
   const { cookies, session } = credentials ?? {};
-
-  // == Callbacks
-  const openVerifySecurityCodeModal = useCallback(() => {
-    openModal({
-      title: (
-        <Box>
-          <Text>Verify Security Code</Text>
-          <Text size="sm" c="dimmed" fw="normal" style={{ lineHeight: 1.3 }}>
-            Enter the security code you received on your device to complete
-            iCloud authentication.
-          </Text>
-        </Box>
-      ),
-      children: <ICloudVerifySecurityCodeForm />,
-    });
-  }, []);
 
   // == Form
   const initialValues = useMemo<ICloudCredentialsFormValues>(() => {
@@ -100,9 +89,62 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
     },
   );
 
+  // == Security Code
+  const openVerifySecurityCodeModal = useCallback(() => {
+    openModal({
+      title: (
+        <Box>
+          <Text>Verify Security Code</Text>
+          <Text size="sm" c="dimmed" fw="normal" style={{ lineHeight: 1.3 }}>
+            Enter the security code you received on your device to complete
+            iCloud authentication.
+          </Text>
+        </Box>
+      ),
+      children: <ICloudVerifySecurityCodeForm />,
+    });
+  }, []);
+
+  // == Session Info
+  const openSessionInfoModal = () => {
+    openModal({
+      title: (
+        <Box>
+          <Text>Session Information</Text>
+          <Text size="sm" c="dimmed" fw="normal" lh={1.3}>
+            Details about the current iCloud login session.
+          </Text>
+        </Box>
+      ),
+      children: (
+        <Stack gap="xs">
+          {!!cookies && (
+            <Textarea
+              label="Cookies"
+              value={cookies}
+              autosize
+              maxRows={12}
+              readOnly
+            />
+          )}
+          {!!session && (
+            <JsonInput
+              label="Session"
+              value={JSON.stringify(session, undefined, 2)}
+              autosize
+              maxRows={12}
+              readOnly
+            />
+          )}
+        </Stack>
+      ),
+    });
+  };
+
   // == Markup
   return (
-    <form
+    <Box
+      component="form"
       onSubmit={onSubmit(values => {
         runUpdateMutation({
           variables: {
@@ -110,6 +152,7 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
           },
         });
       })}
+      {...otherProps}
     >
       <Stack gap="xs">
         <TextInput
@@ -125,52 +168,28 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
           {...getInputProps("password")}
         />
         <Stack gap={6}>
-          <Button type="submit" loading={updating}>
+          <Button
+            type="submit"
+            leftSection={<AuthenticateIcon />}
+            loading={updating}
+          >
             Authenticate
           </Button>
           {credentials && (
             <>
               <Group gap={6} grow>
-                <Button variant="default" onClick={openVerifySecurityCodeModal}>
+                <Button
+                  variant="default"
+                  leftSection={<SecurityCodeIcon />}
+                  onClick={openVerifySecurityCodeModal}
+                >
                   Verify Security Code
                 </Button>
                 {!!(cookies || session) && (
                   <Button
                     variant="default"
-                    onClick={() => {
-                      openModal({
-                        title: (
-                          <Box>
-                            <Text>Session Information</Text>
-                            <Text size="sm" c="dimmed" fw="normal" lh={1.3}>
-                              Details about the current iCloud login session.
-                            </Text>
-                          </Box>
-                        ),
-                        children: (
-                          <Stack gap="xs">
-                            {!!cookies && (
-                              <Textarea
-                                label="Cookies"
-                                value={cookies}
-                                autosize
-                                maxRows={12}
-                                readOnly
-                              />
-                            )}
-                            {!!session && (
-                              <JsonInput
-                                label="Session"
-                                value={JSON.stringify(session, undefined, 2)}
-                                autosize
-                                maxRows={12}
-                                readOnly
-                              />
-                            )}
-                          </Stack>
-                        ),
-                      });
-                    }}
+                    leftSection={<SessionIcon />}
+                    onClick={openSessionInfoModal}
                   >
                     Session Information
                   </Button>
@@ -188,7 +207,12 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
                 }}
               >
                 <Menu.Target>
-                  <Button variant="outline" color="red" loading={removing}>
+                  <Button
+                    variant="outline"
+                    color="red"
+                    leftSection={<DeactivateIcon />}
+                    loading={removing}
+                  >
                     Deactivate
                   </Button>
                 </Menu.Target>
@@ -212,7 +236,7 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
           )}
         </Stack>
       </Stack>
-    </form>
+    </Box>
   );
 };
 

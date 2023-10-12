@@ -17,6 +17,8 @@ export const imports: Array<ImportsMap | PresetName> = [
       "SettingsIcon",
       "UserIcon",
       "DownloadIcon",
+      "AuthenticateIcon",
+      "DeactivateIcon",
     ],
     "~/helpers/apollo/preloadedQuery": ["usePreloadedQuery"],
     "~/helpers/apollo/notifications": ["useApolloAlertCallback"],

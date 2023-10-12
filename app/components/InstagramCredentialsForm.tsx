@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import { JsonInput, PasswordInput, Text } from "@mantine/core";
+import type { BoxProps } from "@mantine/core";
 
 import {
   RemoveInstagramCredentialsMutationDocument,
@@ -8,7 +9,7 @@ import {
 import type { Maybe } from "~/helpers/graphql";
 import type { InstagramCredentialsFormCredentialsFragment } from "~/helpers/graphql";
 
-export type InstagramCredentialsFormProps = {
+export type InstagramCredentialsFormProps = Omit<BoxProps, "children"> & {
   readonly credentials: Maybe<InstagramCredentialsFormCredentialsFragment>;
   readonly onUpdate: () => void;
   readonly onRemove: () => void;
@@ -24,6 +25,7 @@ const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
   credentials,
   onUpdate,
   onRemove,
+  ...otherProps
 }) => {
   const { session } = credentials ?? {};
 
@@ -88,7 +90,8 @@ const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
 
   // == Markup
   return (
-    <form
+    <Box
+      component="form"
       onSubmit={onSubmit(values => {
         runUpdateMutation({
           variables: {
@@ -96,6 +99,7 @@ const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
           },
         });
       })}
+      {...otherProps}
     >
       <Stack gap="xs">
         <TextInput
@@ -120,6 +124,7 @@ const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
         <Stack gap={6}>
           <Button
             type="submit"
+            leftSection={<AuthenticateIcon />}
             loading={updating}
             disabled={!values.securityCode}
           >
@@ -171,7 +176,12 @@ const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
                 }}
               >
                 <Menu.Target>
-                  <Button variant="outline" color="red" loading={removing}>
+                  <Button
+                    variant="outline"
+                    color="red"
+                    leftSection={<DeactivateIcon />}
+                    loading={removing}
+                  >
                     Deactivate
                   </Button>
                 </Menu.Target>
@@ -195,7 +205,7 @@ const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
           )}
         </Stack>
       </Stack>
-    </form>
+    </Box>
   );
 };
 

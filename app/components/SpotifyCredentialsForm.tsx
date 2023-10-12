@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import type { BoxProps } from "@mantine/core";
 
 import { RemoveSpotifyCredentialsMutationDocument } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
@@ -6,7 +7,7 @@ import type { OAuthCredentialsFormCredentialsFragment } from "~/helpers/graphql"
 
 import FormAuthenticityField from "./FormAuthenticityField";
 
-export type SpotifyCredentialsFormProps = {
+export type SpotifyCredentialsFormProps = Omit<BoxProps, "children"> & {
   readonly credentials: Maybe<OAuthCredentialsFormCredentialsFragment>;
   readonly onRemove: () => void;
 };
@@ -14,6 +15,7 @@ export type SpotifyCredentialsFormProps = {
 const SpotifyCredentialsForm: FC<SpotifyCredentialsFormProps> = ({
   credentials,
   onRemove,
+  ...otherProps
 }) => {
   // == Remove Mutation
   const onRemoveError = useApolloAlertCallback(
@@ -34,7 +36,7 @@ const SpotifyCredentialsForm: FC<SpotifyCredentialsFormProps> = ({
 
   // == Markup
   return (
-    <Stack gap="xs">
+    <Stack gap="xs" {...otherProps}>
       {credentials &&
         resolve(() => {
           const { uid, refreshToken } = credentials;
@@ -54,7 +56,7 @@ const SpotifyCredentialsForm: FC<SpotifyCredentialsFormProps> = ({
       <Stack gap={6}>
         <form action="/user/auth/spotify" method="post">
           <FormAuthenticityField />
-          <Button type="submit" fullWidth>
+          <Button type="submit" leftSection={<OpenExternalIcon />} fullWidth>
             Authenticate
           </Button>
         </form>
@@ -71,7 +73,12 @@ const SpotifyCredentialsForm: FC<SpotifyCredentialsFormProps> = ({
             }}
           >
             <Menu.Target>
-              <Button variant="outline" color="red" loading={removing}>
+              <Button
+                variant="outline"
+                color="red"
+                leftSection={<DeactivateIcon />}
+                loading={removing}
+              >
                 Deactivate
               </Button>
             </Menu.Target>
