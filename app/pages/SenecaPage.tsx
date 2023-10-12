@@ -7,6 +7,7 @@ import PageContainer from "~/components/PageContainer";
 import PageLayout from "~/components/PageLayout";
 
 import "~/components/AppLayout.css";
+import "./SenecaPage.css";
 import classes from "./SenecaPage.module.css";
 
 export type SenecaPageProps = PageProps & {
@@ -26,22 +27,37 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
     <PageContainer size="sm" withGutter>
       <Card
         radius="lg"
-        bg="#F8D448"
-        p={6}
+        bg="var(--mantine-color-black)"
+        p="md"
         className={classes.safetyCard}
-        style={({ black }) => ({
-          borderColor: black,
-          borderWidth: rem(16),
-        })}
       >
-        <Stack gap={36} pb="xl">
-          <Box bg="var(--mantine-color-black)" p="xs">
-            <Text c="#F8D448" fz={72} fw={900} style={{ textAlign: "center" }}>
+        <Stack
+          gap={36}
+          p="xs"
+          pb="xl"
+          bg="#F8D448"
+          style={({ radius }) => ({ borderRadius: radius.md })}
+        >
+          <Box
+            bg="var(--mantine-color-black)"
+            p="sm"
+            style={({ radius }) => ({
+              borderTopLeftRadius: radius.md,
+              borderTopRightRadius: radius.md,
+            })}
+          >
+            <Text
+              c="#F8D448"
+              fz={72}
+              fw={900}
+              lh={1.2}
+              style={{ textAlign: "center" }}
+            >
               Safety first
             </Text>
           </Box>
           <Center
-            py={24}
+            pb={24}
             px={60}
             bg="var(--mantine-color-white)"
             style={({ black }) => ({
@@ -49,14 +65,20 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
               alignSelf: "center",
             })}
           >
-            <Text fz={120} fw={900} lh={1.2} c="var(--mantine-color-black)">
+            <Text
+              ff="Pacifico, cursive"
+              fz={160}
+              fw={900}
+              lh={1}
+              c="var(--mantine-color-black)"
+            >
               {daysSinceLastIncident}
             </Text>
           </Center>
           <Text
             fz={48}
             fw={900}
-            lh={1.2}
+            lh={1.1}
             c="var(--mantine-color-black)"
             maw={400}
             style={{ alignSelf: "center", textAlign: "center" }}
