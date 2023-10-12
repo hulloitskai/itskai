@@ -54,6 +54,7 @@ const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
                 color="dark"
                 c="white"
                 withArrow
+                {...(copied && { opened: true })}
               >
                 <Code
                   color="brand"
