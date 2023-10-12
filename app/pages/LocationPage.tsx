@@ -18,6 +18,7 @@ import type { Coordinates } from "~/helpers/graphql";
 import AppLayout from "~/components/AppLayout";
 import Map from "~/components/Map";
 import LocationTrackForm from "~/components/LocationTrackForm";
+import circle from "@turf/circle";
 
 const TORONTO_COORDINATES: Readonly<Coordinates> = {
   latitude: 43.6532,
@@ -39,6 +40,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
   const alertTitleColor = "#B9F4D7";
   const alertBorderColor = "#5A7B6A";
   const alertPulseBorderColor = theme.colors.brand[4];
+  const regionColor = theme.colors.brand[5];
 
   // == Routing
   const router = useRouter();
@@ -97,6 +99,14 @@ const LocationPage: PageComponent<LocationPageProps> = ({
   });
   const { location } = data ?? {};
   const { coordinates, trail } = location?.details ?? {};
+
+  // == Region
+  const regionData = useMemo(() => {
+    if (initialLocation) {
+      const { latitude, longitude } = initialLocation.approximateCoordinates;
+      return circle([longitude, latitude], 3);
+    }
+  }, [initialLocation]);
 
   // == Trail
   const deriveTrailMarkerOpacity = useMemo<
@@ -186,6 +196,24 @@ const LocationPage: PageComponent<LocationPageProps> = ({
         <GeolocateControl />
         {coordinates && (
           <Marker color="var(--mantine-color-brand-6)" {...coordinates} />
+        )}
+        {regionData && !coordinates && (
+          <Source id="region" type="geojson" data={regionData}>
+            <Layer
+              id="region-fill"
+              type="fill"
+              paint={{
+                "fill-color": rgba(regionColor, 0.3),
+              }}
+            />
+            <Layer
+              id="region-outline"
+              type="line"
+              paint={{
+                "line-color": regionColor,
+              }}
+            />
+          </Source>
         )}
         {trailSegmentsData && (
           <Source
