@@ -15,7 +15,7 @@ const ResumeEducationSection: FC<ResumeEducationSectionProps> = ({
     <Text
       size="sm"
       fw={600}
-      c="var(--mantine-color-primary-filled)"
+      c="var(--mantine-primary-color-filled)"
       style={{ flexGrow: 1 }}
     >
       {institution}

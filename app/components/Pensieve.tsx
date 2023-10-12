@@ -198,7 +198,7 @@ const Pensieve: FC<PensieveProps> = ({
             label="Open expanded view"
             withArrow
             color="dark.9"
-            c="white"
+            c="var(--mantine-color-white)"
           >
             <ActionIcon
               component={Link}

@@ -18,70 +18,69 @@ import AppMeta from "~/components/AppMeta";
 import PageLayout from "~/components/PageLayout";
 import PageContainer from "~/components/PageContainer";
 
+import "~/components/AppLayout.css";
+
 export type ScottkitPageProps = PagePropsWithData<ScottkitPageQuery>;
 
-const ScottkitPage: PageComponent<ScottkitPageProps> = () => {
-  return (
-    <Stack align="center" gap="xl">
-      <Stack align="center" gap={8}>
-        <Title size="h4" c="white">
-          Scottkit™
-        </Title>
-        <Alert
-          icon={
-            <Box
-              component={LightbulbIcon}
-              style={({ colors }) => ({
-                color: colors.yellow[6],
-              })}
-            />
-          }
-          c="indigo"
-          styles={({ colors }) => ({
-            icon: {
-              marginRight: 8,
-            },
-            message: {
-              color: colors.indigo[1],
-            },
-          })}
-        >
-          This is a toolkit for Scott, built and maintained by his boys.
-        </Alert>
-      </Stack>
-      <Stack w="100%" maw={275}>
-        <KitButton
-          signal={ScottkitSignal.Break}
-          description={
-            <>
-              Signals that you&apos;re caught in an unproductive cycle and would
-              like to exit it. Use when you&apos;re feeling stuck.
-            </>
-          }
-        />
-        <KitButton
-          signal={ScottkitSignal.Rand}
-          description={
-            <>
-              Signal a desire to try a different experience. Use when
-              you&apos;re not feeling alive enough and want to sample some new
-              directions.
-            </>
-          }
-        />
-        <KitButton
-          signal={ScottkitSignal.Panic}
-          description={
-            <>
-              Signals that something has not gone to plan in a major way. Use in
-              case of emergency.
-            </>
-          }
-        />
-      </Stack>
+const ScottkitPage: PageComponent<ScottkitPageProps> = () => (
+  <Stack align="center" gap="xl">
+    <Stack align="center" gap={8}>
+      <Title size="h4" c="var(--mantine-color-white)">
+        Scottkit™
+      </Title>
+      <Alert
+        icon={
+          <Box
+            component={LightbulbIcon}
+            style={({ colors }) => ({
+              color: colors.yellow[6],
+            })}
+          />
+        }
+        c="indigo"
+        styles={({ colors }) => ({
+          icon: {
+            marginRight: 8,
+          },
+          message: {
+            color: colors.indigo[1],
+          },
+        })}
+      >
+        This is a toolkit for Scott, built and maintained by his boys.
+      </Alert>
     </Stack>
-  );
-};
+    <Stack w="100%" maw={275}>
+      <KitButton
+        signal={ScottkitSignal.Break}
+        description={
+          <>
+            Signals that you&apos;re caught in an unproductive cycle and would
+            like to exit it. Use when you&apos;re feeling stuck.
+          </>
+        }
+      />
+      <KitButton
+        signal={ScottkitSignal.Rand}
+        description={
+          <>
+            Signal a desire to try a different experience. Use when you&apos;re
+            not feeling alive enough and want to sample some new directions.
+          </>
+        }
+      />
+      <KitButton
+        signal={ScottkitSignal.Panic}
+        description={
+          <>
+            Signals that something has not gone to plan in a major way. Use in
+            case of emergency.
+          </>
+        }
+      />
+    </Stack>
+  </Stack>
+);
 
 ScottkitPage.layout = buildLayout<ScottkitPageProps>(page => (
   <PageLayout>
@@ -158,7 +157,7 @@ const KitButton: FC<KitButtonProps> = ({ signal: signal, description }) => {
         }}
         {...{ color, loading }}
       >
-        <Code c="gray">{label}</Code>
+        <Code color="gray">{label}</Code>
       </Button>
       <Text size="xs" c="dimmed" lh={1.4}>
         {description}

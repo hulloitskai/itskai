@@ -16,6 +16,8 @@ import CurrentlyPlayingIsland from "./CurrentlyPlayingIsland";
 import PageContainer from "./PageContainer";
 import PageLayout from "./PageLayout";
 
+import "./AppLayout.css";
+
 export type AppLayoutProps = AppMetaProps &
   AppShellProps & {
     readonly viewer: Maybe<AppViewerFragment>;

@@ -18,7 +18,11 @@ const ResumeLayout: FC<ResumeLayoutProps> = ({ printable, children }) => (
       mb={printable ? 0 : 135}
       c="var(--mantine-color-black)"
       className={classes.container}
-      style={{ width: "8.5in", height: "11in", backgroundColor: "white" }}
+      style={{
+        width: "8.5in",
+        height: "11in",
+        backgroundColor: "mantine-color-white",
+      }}
       {...(printable && { "data-printable": true })}
     >
       <Stack gap="xs">{children}</Stack>

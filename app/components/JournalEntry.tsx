@@ -28,7 +28,7 @@ const JournalEntry: FC<JournalEntryProps> = ({
               order={3}
               size="h4"
               fw={900}
-              c="white"
+              c="var(--mantine-color-white)"
               lh={1.3}
               style={({ fontFamilyMonospace }) => ({
                 fontFamily: fontFamilyMonospace,
@@ -102,7 +102,7 @@ const JournalEntryCopyTooltip: FC<JournalEntryCopyTooltipProps> = ({
     <Tooltip
       withArrow
       color="dark.9"
-      c="white"
+      c="var(--mantine-color-white)"
       {...{ label }}
       {...(copied && { opened: true })}
     >

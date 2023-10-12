@@ -68,7 +68,7 @@ const TestPage: PageComponent<TestPageProps> = ({
   // == Markup
   return (
     <Stack gap="xl">
-      <Title>Test Page</Title>
+      <Title fw={900}>Test Page</Title>
       <Stack gap="xs">
         <Title order={4}>Test Component Data</Title>
         <Code block>{JSON.stringify(data, undefined, 2)}</Code>
@@ -100,7 +100,7 @@ const TestPage: PageComponent<TestPageProps> = ({
 };
 
 TestPage.layout = buildLayout<TestPageProps>((page, { data: { viewer } }) => (
-  <AppLayout withContainer {...{ viewer }}>
+  <AppLayout withContainer withGutter {...{ viewer }}>
     {page}
   </AppLayout>
 ));

@@ -309,15 +309,18 @@ const LocationPage: PageComponent<LocationPageProps> = ({
                 size="sm"
                 onSubmit={password => {
                   const params = new URLSearchParams([["password", password]]);
-                  router.visit("/track?" + params.toString(), {
-                    preserveState: true,
-                    onBefore: () => {
-                      setPageLoading(true);
+                  router.visit(
+                    window.location.pathname + "?" + params.toString(),
+                    {
+                      preserveState: true,
+                      onBefore: () => {
+                        setPageLoading(true);
+                      },
+                      onFinish: () => {
+                        setPageLoading(false);
+                      },
                     },
-                    onFinish: () => {
-                      setPageLoading(false);
-                    },
-                  });
+                  );
                 }}
               />
             </Alert>

@@ -78,7 +78,7 @@ const LocationAlert: FC<LocationAlertProps> = ({
             From Find My iPhone, <TimeAgo inherit>{timestamp}</TimeAgo>.{" "}
             <Anchor
               component={Link}
-              href="/track"
+              href="/locate"
               style={theme => {
                 const color = parseThemeColor({ theme, color: "brand.4" });
                 return {

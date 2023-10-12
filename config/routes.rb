@@ -99,14 +99,15 @@ Rails.application.routes.draw do
 
   # == Seneca
   get "/seneca" => "seneca#show"
-  get "/sen" => redirect("/seneca", status: 302)
-  get "/sensen" => redirect("/seneca", status: 302)
+  get "/sen" => redirect(path: "/seneca", status: 302)
+  get "/sensen" => redirect(path: "/seneca", status: 302)
 
   # == Pages
   root "home#show"
   get "/admin" => "admin#show"
   get "/pensieve" => "pensieve#show"
-  get "/track" => "location#show"
+  get "/track" => redirect(path: "/locate", status: 302)
+  get "/locate" => "location#show"
   get "/toronto" => "places#toronto"
   get "/atelier" => redirect("https://instagram.com/atelier.ubc", status: 302)
   get "/opencal" => redirect("https://opencal.me/kai", status: 302)

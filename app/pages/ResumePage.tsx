@@ -125,7 +125,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                       root: {
                         borderColor: "var(--mantine-color-primary-border)",
                       },
-                      inner: {
+                      label: {
                         fontFamily: fontFamilyMonospace,
                         textTransform: "none",
                       },
@@ -156,7 +156,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
         </Box>
         {skills && (
           <Box>
-            <Title order={2} size="h4" c="dark.4" lh={1.3}>
+            <Title order={2} size="h4" c="dark.4" fw={800} lh={1.3}>
               Skills
             </Title>
             {skills.map((skillInfo, index) => (
@@ -166,7 +166,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
         )}
         {work && (
           <Box>
-            <Title order={2} size="h4" c="dark.4" lh={1.3}>
+            <Title order={2} size="h4" c="dark.4" fw={800} lh={1.3}>
               Experience
             </Title>
             <Stack gap={8}>
@@ -178,7 +178,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
         )}
         {education && (
           <Box>
-            <Title order={2} size="h4" c="dark.4" lh={1.3}>
+            <Title order={2} size="h4" c="dark.4" fw={800} lh={1.3}>
               Education
             </Title>
             <Stack gap={4}>

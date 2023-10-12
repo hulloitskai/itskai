@@ -1,7 +1,3 @@
-body {
-  text-transform: unset;
-
-  .graphiql-container {
-    height: 100dvh;
-  }
+body .graphiql-container {
+  height: 100dvh;
 }

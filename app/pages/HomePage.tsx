@@ -37,7 +37,7 @@ const HomePage: PageComponent<HomePageProps> = ({
       )}
       <Center h={275}>
         <Stack align="center">
-          <Title c="white" fw={900}>
+          <Title c="var(--mantine-color-white)" fw={900}>
             Hi, it&apos;s Kai
           </Title>
           <Text c="gray.6" maw={400} style={{ textAlign: "center" }}>

@@ -101,7 +101,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
         tooltip: "potato",
       }}
       disabled={disabled ?? !hasWords}
-      c="white"
+      c="var(--mantine-color-white)"
       maw={350}
       fz="xs"
       styles={{

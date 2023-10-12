@@ -71,7 +71,7 @@ const SenecaMoodRating: FC<BoxProps> = ({ ...otherProps }) => {
         {loading && <Loader type="dots" size="xs" />}
       </Group>
       {log && (
-        <Text size="xs" c="white">
+        <Text size="xs" c="var(--mantine-color-white)">
           Ok! Thanks for letting me know &lt;3
         </Text>
       )}
