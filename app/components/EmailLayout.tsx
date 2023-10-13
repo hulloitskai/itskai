@@ -12,7 +12,8 @@ import {
 } from "@react-email/components";
 import type { PreviewProps } from "@react-email/components";
 
-import MantineCssVariables from "./MantineCssVariables";
+// import MantineCssVariables from "./MantineCssVariables";
+
 import "./EmailLayout.css";
 
 export type EmailLayoutProps = PropsWithChildren<{
@@ -22,7 +23,7 @@ export type EmailLayoutProps = PropsWithChildren<{
 
 const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
   <Html>
-    <MantineCssVariables cssVariablesSelector="body" />
+    {/* <MantineCssVariables cssVariablesSelector="body" /> */}
     {!!preview && <Preview>{preview}</Preview>}
     <Body>
       <Box component={Container} mx="auto" px={12} py={16}>

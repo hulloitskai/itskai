@@ -1,7 +1,11 @@
 {
   "all": {
     "sourceCodeDir": "app",
-    "additionalEntrypoints": ["~/assets/**/*"],
+    "additionalEntrypoints": [
+      "~/assets/**/*",
+      "~/pages/*.tsx",
+      "~/emails/*.tsx"
+    ],
     "ssrBuildEnabled": true,
     "ssrEntrypoint": "~/ssr/ssr.{js,jsx,ts,tsx}",
     "ssrOutputDir": "app/ssr/dist"

@@ -72,6 +72,7 @@ class Premailer
       doc.search("*[@style]").each do |el|
         el["style"] = "[SPEC=1000[" + el.attributes["style"] + "]]"
       end
+
       # Iterate through the rules and merge them into the HTML
       @css_parser.each_selector(:all) do
         |selector, declaration, specificity, media_types|

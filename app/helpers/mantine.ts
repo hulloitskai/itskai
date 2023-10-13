@@ -18,6 +18,7 @@ import {
 } from "@mantine/core";
 import type { DefaultMantineColor, MantineColorsTuple } from "@mantine/core";
 
+import cx from "clsx";
 import classes from "./mantine.module.css";
 
 export type CustomColors = "brand" | DefaultMantineColor;
@@ -44,6 +45,7 @@ const BASE_THEME_OVERRIDE = createTheme({
       "Manrope, Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, " +
       "Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji",
   },
+  focusClassName: cx("mantine-focus-auto", classes.focus),
   components: {
     ActionIcon: ActionIcon.extend({
       defaultProps: {

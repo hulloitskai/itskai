@@ -21,11 +21,7 @@ const AppProgress: FC<AppProgressProps> = () => {
       removeFinishListener();
     };
   }, []);
-  return (
-    <NavigationProgress
-      size={1} /* color={theme.colors[theme.primaryColor]![3]} */
-    />
-  );
+  return <NavigationProgress size={1} />;
 };
 
 export default AppProgress;

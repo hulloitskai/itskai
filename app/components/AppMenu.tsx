@@ -44,7 +44,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
       radius="md"
       withinPortal={false}
       onChange={setOpened}
-      styles={({ colors }) => ({
+      styles={{
         dropdown: {
           padding: 0,
           overflow: "hidden",
@@ -53,16 +53,16 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
           padding: `${rem(8)} ${rem(10)}`,
           borderRadius: 0,
         },
-        itemIcon: {
+        itemSection: {
           width: 16,
           height: 16,
-          color: colors.brand[4],
+          color: "var(--mantine-color-brand-4)",
         },
         itemLabel: {
-          color: colors.gray[5],
+          color: "var(--mantine-color-gray-5)",
           fontWeight: 500,
         },
-      })}
+      }}
       {...{ opened }}
       {...otherProps}
     >

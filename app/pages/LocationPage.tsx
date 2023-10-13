@@ -33,6 +33,10 @@ const LocationPage: PageComponent<LocationPageProps> = ({
   password,
   data: { location: initialLocation },
 }) => {
+  const mounted = useMounted();
+  const router = useRouter();
+  const [pageLoading, setPageLoading] = useState(false);
+
   // == Colors
   const theme = useMantineTheme();
   const trailMarkerColor = theme.colors.brand[7];
@@ -41,10 +45,6 @@ const LocationPage: PageComponent<LocationPageProps> = ({
   const alertBorderColor = "#5A7B6A";
   const alertPulseBorderColor = theme.colors.brand[4];
   const regionColor = theme.colors.brand[5];
-
-  // == Routing
-  const router = useRouter();
-  const [pageLoading, setPageLoading] = useState(false);
 
   // == Map
   const mapRef = useRef<MapRef>(null);
@@ -186,71 +186,73 @@ const LocationPage: PageComponent<LocationPageProps> = ({
       pos="relative"
       style={{ flexGrow: 1, alignItems: "stretch", flexDirection: "column" }}
     >
-      <Map
-        ref={mapRef}
-        mapStyle="mapbox://styles/mapbox-map-design/ck4014y110wt61ctt07egsel6"
-        initialViewState={{ ...mapCenter, zoom: 11.5 }}
-        scrollZoom
-        style={{ flexGrow: 1 }}
-      >
-        <GeolocateControl />
-        {coordinates && (
-          <Marker color="var(--mantine-color-brand-6)" {...coordinates} />
-        )}
-        {regionData && !coordinates && (
-          <Source id="region" type="geojson" data={regionData}>
-            <Layer
-              id="region-fill"
-              type="fill"
-              paint={{
-                "fill-color": rgba(regionColor, 0.3),
-              }}
-            />
-            <Layer
-              id="region-outline"
-              type="line"
-              paint={{
-                "line-color": regionColor,
-              }}
-            />
-          </Source>
-        )}
-        {trailSegmentsData && (
-          <Source
-            id="trail-segments"
-            type="geojson"
-            data={trailSegmentsData}
-            lineMetrics
-          >
-            <Layer
+      {mounted && (
+        <Map
+          ref={mapRef}
+          mapStyle="mapbox://styles/mapbox-map-design/ck4014y110wt61ctt07egsel6"
+          initialViewState={{ ...mapCenter, zoom: 11.5 }}
+          scrollZoom
+          style={{ flexGrow: 1 }}
+        >
+          <GeolocateControl />
+          {coordinates && (
+            <Marker color="var(--mantine-color-brand-6)" {...coordinates} />
+          )}
+          {regionData && !coordinates && (
+            <Source id="region" type="geojson" data={regionData}>
+              <Layer
+                id="region-fill"
+                type="fill"
+                paint={{
+                  "fill-color": rgba(regionColor, 0.3),
+                }}
+              />
+              <Layer
+                id="region-outline"
+                type="line"
+                paint={{
+                  "line-color": regionColor,
+                }}
+              />
+            </Source>
+          )}
+          {trailSegmentsData && (
+            <Source
               id="trail-segments"
-              type="line"
-              paint={{
-                "line-color": trailSegmentColor,
-                "line-width": 5,
-                "line-opacity": ["get", "opacity"],
-                "line-dasharray": [1, 1.5],
-              }}
-              layout={{
-                "line-cap": "round",
-              }}
-            />
-          </Source>
-        )}
-        {trailMarkersData && (
-          <Source id="trail-markers" type="geojson" data={trailMarkersData}>
-            <Layer
-              id="trail-markers"
-              type="circle"
-              paint={{
-                "circle-radius": 5,
-                "circle-color": trailMarkerColor,
-                "circle-opacity": ["get", "opacity"],
-              }}
-            />
-          </Source>
-        )}
-      </Map>
+              type="geojson"
+              data={trailSegmentsData}
+              lineMetrics
+            >
+              <Layer
+                id="trail-segments"
+                type="line"
+                paint={{
+                  "line-color": trailSegmentColor,
+                  "line-width": 5,
+                  "line-opacity": ["get", "opacity"],
+                  "line-dasharray": [1, 1.5],
+                }}
+                layout={{
+                  "line-cap": "round",
+                }}
+              />
+            </Source>
+          )}
+          {trailMarkersData && (
+            <Source id="trail-markers" type="geojson" data={trailMarkersData}>
+              <Layer
+                id="trail-markers"
+                type="circle"
+                paint={{
+                  "circle-radius": 5,
+                  "circle-color": trailMarkerColor,
+                  "circle-opacity": ["get", "opacity"],
+                }}
+              />
+            </Source>
+          )}
+        </Map>
+      )}
       <Center
         pos="absolute"
         style={({ spacing }) => ({

@@ -61,19 +61,15 @@ const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
                   onClick={copy}
                   ml={2}
                   className={classes.copyCode}
-                  style={{
-                    cursor: "pointer",
+                  style={theme => ({
+                    "--lagc-copy-code-bg": theme.variantColorResolver({
+                      color: "brand",
+                      variant: "filled",
+                      theme,
+                    }).hover,
                     transition: "background 150ms ease",
-                  }}
-                  __vars={theme => {
-                    return {
-                      "--lagc-copy-code-bg": theme.variantColorResolver({
-                        color: "brand",
-                        variant: "filled",
-                        theme,
-                      }).hover,
-                    };
-                  }}
+                    cursor: "pointer",
+                  })}
                 >
                   {password}
                 </Code>

@@ -24,6 +24,7 @@ module InertiaRails
           key.is_a?(Symbol) ? key.to_s.camelize(:lower) : key
         end
         set_data_prop
+        ::InertiaRails.page = page
       end
 
       private

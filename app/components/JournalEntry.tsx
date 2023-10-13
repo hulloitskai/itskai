@@ -16,64 +16,60 @@ export type JournalEntryProps = Omit<BoxProps, "children"> & {
 const JournalEntry: FC<JournalEntryProps> = ({
   entry: { id: entryId, url, title, startedAt, content },
   ...otherProps
-}) => {
-  const theme = useMantineTheme();
-
-  return (
-    <Box pos="relative" w="100%" maw={540} {...otherProps}>
-      <Card withBorder padding="lg" shadow="sm" radius="md">
-        <Stack gap="xs">
-          <Stack gap={2}>
-            <Title
-              order={3}
-              size="h4"
-              fw={900}
-              c="var(--mantine-color-white)"
-              lh={1.3}
-              style={({ fontFamilyMonospace }) => ({
-                fontFamily: fontFamilyMonospace,
-              })}
-            >
-              {title}
-            </Title>
-            <Text size="xs" c="dimmed">
-              written <TimeAgo>{startedAt}</TimeAgo>
-            </Text>
-            <NotionContent {...{ content }} />
-          </Stack>
+}) => (
+  <Box pos="relative" w="100%" maw={540} {...otherProps}>
+    <Card withBorder padding="lg" shadow="sm" radius="md">
+      <Stack gap="xs">
+        <Stack gap={2}>
+          <Title
+            order={3}
+            size="h4"
+            fw={900}
+            c="var(--mantine-color-white)"
+            lh={1.3}
+            style={({ fontFamilyMonospace }) => ({
+              fontFamily: fontFamilyMonospace,
+            })}
+          >
+            {title}
+          </Title>
+          <Text size="xs" c="dimmed">
+            written <TimeAgo>{startedAt}</TimeAgo>
+          </Text>
+          <NotionContent {...{ content }} />
         </Stack>
-        <Card.Section withBorder inheritPadding mt="sm" py="sm">
-          <JournalEntryComments {...{ entryId }} />
-        </Card.Section>
-      </Card>
-      <Box
-        pos="absolute"
-        top={-10}
-        right={-10}
-        bg="dark.6"
-        style={({ radius }) => ({
-          borderRadius: radius.xl,
-        })}
-      >
-        <CopyButton value={url}>
-          {({ copied, copy }) => (
-            <JournalEntryCopyTooltip {...{ copied }}>
-              <ActionIcon
-                size="sm"
-                variant="outline"
-                color={theme.primaryColor}
-                radius="xl"
-                onClick={copy}
-              >
-                <Text component={LinkIcon} fz={11} />
-              </ActionIcon>
-            </JournalEntryCopyTooltip>
-          )}
-        </CopyButton>
-      </Box>
+      </Stack>
+      <Card.Section withBorder inheritPadding mt="sm" py="sm">
+        <JournalEntryComments {...{ entryId }} />
+      </Card.Section>
+    </Card>
+    <Box
+      pos="absolute"
+      top={-10}
+      right={-10}
+      bg="dark.6"
+      style={({ radius }) => ({
+        borderRadius: radius.xl,
+      })}
+    >
+      <CopyButton value={url}>
+        {({ copied, copy }) => (
+          <JournalEntryCopyTooltip {...{ copied }}>
+            <ActionIcon
+              size="sm"
+              variant="outline"
+              color="brand"
+              radius="xl"
+              onClick={copy}
+            >
+              <Text component={LinkIcon} fz={11} />
+            </ActionIcon>
+          </JournalEntryCopyTooltip>
+        )}
+      </CopyButton>
     </Box>
-  );
-};
+  </Box>
+);
 
 export default JournalEntry;
 

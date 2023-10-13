@@ -5,3 +5,7 @@
 .emailText {
   --text-color: var(--mantine-color-gray-8);
 }
+
+.focus {
+  outline-width: rem(1px);
+}

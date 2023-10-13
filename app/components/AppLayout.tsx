@@ -154,10 +154,10 @@ const AppLayout: FC<AppLayoutProps> = ({
         <Box
           h="var(--app-shell-footer-height)"
           px={8}
-          style={({ colors }) => ({
+          style={{
             overflow: "hidden",
-            borderTop: `${rem(1)} solid ${colors.dark[5]}`,
-          })}
+            borderTop: `${rem(1)} solid var(--mantine-color-dark-5)`,
+          }}
         >
           <ActivityStatus h="100%" style={{ flexShrink: 1 }} />
         </Box>

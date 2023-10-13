@@ -43,6 +43,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
   errorProps,
   required,
   withAsterisk,
+  style,
 }) => {
   // == Value
   const previousValue = usePrevious(value);
@@ -149,20 +150,19 @@ const AvatarField: FC<AvatarFieldProps> = ({
               root: classes.dropzone,
               inner: classes.dropzoneInner,
             }}
-            __vars={({ colors }) => {
-              return {
+            style={[
+              style,
+              ({ colors }) => ({
                 "--af-dropzone-backdrop": rgba(colors.dark[5], 0.8),
-              };
-            }}
+              }),
+            ]}
             {...(src && { "data-with-src": true })}
             {...{ loading }}
           >
             <Stack align="center" gap={8}>
               <Box
                 component={PhotoIcon}
-                style={({ colors, primaryColor }) => ({
-                  color: colors[primaryColor]![4],
-                })}
+                c="var(--mantine-primary-color-light-color)"
               />
               <Text
                 size="xs"

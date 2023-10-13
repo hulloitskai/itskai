@@ -1,6 +1,8 @@
 # typed: true
 # frozen_string_literal: true
 
+require "inertia_rails"
+
 module InertiaRails
   module Mailer
     class Renderer < ::InertiaRails::Renderer

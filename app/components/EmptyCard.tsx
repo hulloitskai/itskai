@@ -11,7 +11,7 @@ export type EmptyCardProps = Omit<CardProps, "children"> & {
 const EmptyCard: FC<EmptyCardProps> = ({ itemLabel, ...otherProps }) => (
   <Card withBorder py="lg" {...otherProps}>
     <Flex direction="column" align="center">
-      <Box style={({ colors }) => ({ color: colors.gray[6], lineHeight: 1.1 })}>
+      <Box c="var(--mantine-color-gray-6)" lh={1.1}>
         <EmptyIcon />
       </Box>
       <Text size="sm" c="dimmed">

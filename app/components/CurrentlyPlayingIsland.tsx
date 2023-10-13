@@ -171,6 +171,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
   track,
   progressMilliseconds,
   transitioned,
+  style,
   ...otherProps
 }) => {
   const {
@@ -231,6 +232,16 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
               color="dark.3"
               pl={0}
               className={classes.badge}
+              style={[
+                style,
+                ({ colors }) => {
+                  const borderColor = colors.brand[5];
+                  return {
+                    "--cpi-border-color-active": darken(borderColor, 0.1),
+                    "--cpi-border-color-muted": darken(borderColor, 0.4),
+                  };
+                },
+              ]}
               styles={{
                 // root: {
                 //   cursor: "pointer",
@@ -241,13 +252,6 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
                 label: {
                   maxWidth: 200,
                 },
-              }}
-              __vars={({ colors }) => {
-                const borderColor = colors.brand[5];
-                return {
-                  "--cpi-border-color-active": darken(borderColor, 0.1),
-                  "--cpi-border-color-muted": darken(borderColor, 0.4),
-                };
               }}
               data-lyrics-explicit={lyricsCurrentlyExplicit}
               {...(hasLyrics && { "data-with-lyrics": true })}
