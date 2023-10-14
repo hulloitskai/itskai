@@ -2,7 +2,7 @@
   &:hover {
     border-color: var(--mantine-color-gray-7);
   }
-  &[data-expanded] {
+  &[data-expanded="true"] {
     border-color: var(--mantine-color-gray-7);
   }
 }

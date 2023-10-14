@@ -67,8 +67,6 @@ const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
                       variant: "filled",
                       theme,
                     }).hover,
-                    transition: "background 150ms ease",
-                    cursor: "pointer",
                   })}
                 >
                   {password}

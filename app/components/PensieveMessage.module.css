@@ -1,5 +1,5 @@
 .root {
-  &:not([data-has-likes]) {
+  &:not([data-has-likes="true"]) {
     .like {
       opacity: 0;
       transition: opacity 100ms ease;
@@ -10,4 +10,11 @@
       }
     }
   }
+}
+
+.text {
+  flex-grow: 1;
+  white-space: pre-wrap;
+  word-break: break-word;
+  text-transform: none;
 }

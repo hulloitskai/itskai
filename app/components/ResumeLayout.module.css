@@ -1,5 +1,9 @@
 .container {
-  &:not([data-printable]) {
+  width: 8.5in;
+  height: 11in;
+  background-color: var(--mantine-color-white);
+
+  &:not([data-printable="true"]) {
     @media (min-width: 920px) {
       margin-top: rem(48px);
     }

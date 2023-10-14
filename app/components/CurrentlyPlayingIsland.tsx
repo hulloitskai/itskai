@@ -294,11 +294,7 @@ const MarqueeText: FC<MarqueeTextProps> = ({ children, ...otherProps }) => {
         ref={textRef}
         lh={1.1}
         mr={play ? 24 : 0}
-        style={{
-          textOverflow: "ellipsis",
-          textTransform: "none",
-          whiteSpace: "nowrap",
-        }}
+        className={classes.marqueeText}
         {...otherProps}
       >
         {children}

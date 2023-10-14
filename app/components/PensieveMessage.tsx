@@ -40,12 +40,13 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
             id={`pensieve-message-${messageId}`}
             p={6}
             bg="var(--mantine-color-dark-filled)"
-            style={({ colors, radius }) => ({
-              border: `${rem(1)} solid ${
-                fromBot ? colors.gray[6] : colors.brand[5]
-              }`,
-              borderRadius: radius.md,
-            })}
+            style={{
+              "--pm-border-color": fromBot
+                ? "var(--mantine-color-gray-6)"
+                : "var(--mantine-color-gray-5)",
+              border: `${rem(1)} solid var(--pm-border-color)`,
+              borderRadius: "var(--mantine-radius-md)",
+            }}
           >
             <Group align="end" gap="xs" wrap="nowrap" pl={2}>
               <Linkify<TextProps, JSXElementConstructor<TextProps>>
@@ -64,12 +65,7 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
                 size="sm"
                 display="block"
                 lh={1.3}
-                style={{
-                  flexGrow: 1,
-                  whiteSpace: "pre-wrap",
-                  wordBreak: "break-word",
-                  textTransform: "none",
-                }}
+                className={classes.text}
               >
                 {text}
               </Linkify>

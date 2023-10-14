@@ -1,4 +1,7 @@
 .copyCode {
+  transition: background 150ms ease;
+  cursor: pointer;
+
   &:hover {
     background-color: var(--lagc-copy-code-bg);
   }

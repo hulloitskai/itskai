@@ -4,7 +4,7 @@
     text-decoration: underline;
   }
 
-  &[data-with-lyrics] {
+  &[data-with-lyrics="true"] {
     border-color: var(--cpi-border-color-active);
 
     &[data-lyrics-explicit="true"] {
@@ -14,4 +14,10 @@
       }
     }
   }
+}
+
+.marqueeText {
+  text-overflow: ellipsis;
+  text-transform: none;
+  white-space: nowrap;
 }

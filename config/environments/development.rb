@@ -9,7 +9,7 @@ Rails.application.configure do
   routes.default_url_options = {
     protocol: "http",
     host: "localhost",
-    port: 3000,
+    port: ENV.fetch("RAILS_PORT") { 3000 }.to_i,
   }
 
   # == Code Loading

@@ -5,6 +5,8 @@ import type { TextProps } from "@mantine/core";
 import { DateTime } from "luxon";
 import type { DateTimeFormatOptions } from "luxon";
 
+import classes from "./Time.module.css";
+
 export type TimeProps = Omit<TextProps, "span" | "children"> &
   Omit<ComponentPropsWithoutRef<"div">, "children"> & {
     readonly format: DateTimeFormatOptions | ((time: DateTime) => string);
@@ -40,15 +42,7 @@ const Time: FC<TimeProps> = ({
   return (
     <Skeleton
       visible={!formattedTime}
-      style={{
-        height: "min-content",
-        width: "fit-content",
-        ...(loading && {
-          display: "inline-block",
-          lineHeight: 1,
-          verticalAlign: "middle",
-        }),
-      }}
+      className={classes.skeleton}
       {...{ component: "span" }}
       {...{ m, mt, mr, mb, ml, mx, my }}
     >

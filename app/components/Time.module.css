@@ -1,0 +1,10 @@
+.skeleton {
+  height: min-content;
+  width: fit-content;
+
+  &[data-visible="true"] {
+    display: inline-block;
+    line-height: 1;
+    vertical-align: middle;
+  }
+}

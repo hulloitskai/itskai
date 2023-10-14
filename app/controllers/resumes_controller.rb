@@ -76,8 +76,14 @@ class ResumesController < ApplicationController
   def print_resume(variant:)
     self.class.print_resume_semaphore.acquire do
       params = { printable: true, variant: }
+      url = resume_url(
+        protocol: "http",
+        host: "localhost",
+        port: ENV.fetch("RAILS_PORT") { 3000 }.to_i,
+        **params.compact,
+      )
       driver = webdriver
-      driver.get(resume_url(params.compact))
+      driver.get(url)
       Selenium::WebDriver::Wait.new.until do
         driver.execute_script(
           "return window.performance.timing.loadEventEnd > 0",

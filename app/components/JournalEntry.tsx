@@ -48,9 +48,7 @@ const JournalEntry: FC<JournalEntryProps> = ({
       top={-10}
       right={-10}
       bg="dark.6"
-      style={({ radius }) => ({
-        borderRadius: radius.xl,
-      })}
+      style={({ radius }) => ({ borderRadius: radius.xl })}
     >
       <CopyButton value={url}>
         {({ copied, copy }) => (

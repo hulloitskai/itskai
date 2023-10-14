@@ -190,9 +190,7 @@ const Pensieve: FC<PensieveProps> = ({
           top={-10}
           right={-10}
           bg="dark.6"
-          style={({ radius }) => ({
-            borderRadius: radius.xl,
-          })}
+          style={({ radius }) => ({ borderRadius: radius.xl })}
         >
           <Tooltip
             label="Open expanded view"
