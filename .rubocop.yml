@@ -21,7 +21,6 @@ inherit_gem:
 AllCops:
   NewCops: enable
   Exclude:
-    - extension/**/*
     - .github/**/*
     - .husky/**/*
     - .vscode/**/*
