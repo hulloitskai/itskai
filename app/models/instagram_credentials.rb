@@ -37,4 +37,13 @@ class InstagramCredentials < ApplicationRecord
               maximum: 100,
             }
   validates :password, presence: true
+  validate :validate_login
+
+  private
+
+  # == Validators
+  sig { void }
+  def validate_login
+    raise NotImplementedError, "should attempt to login with InstagramClient"
+  end
 end
