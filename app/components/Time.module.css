@@ -2,7 +2,7 @@
   height: min-content;
   width: fit-content;
 
-  &[data-visible="true"] {
+  &[data-visible] {
     display: inline-block;
     line-height: 1;
     vertical-align: middle;

@@ -4,10 +4,10 @@
     text-decoration: underline;
   }
 
-  &[data-with-lyrics="true"] {
+  &[data-with-lyrics] {
     border-color: var(--cpi-border-color-active);
 
-    &[data-lyrics-explicit="true"] {
+    &[data-lyrics-explicit] {
       border-color: var(--cpi-border-color-muted);
       &:hover {
         border-color: var(--cpi-border-color-active);

@@ -16,6 +16,7 @@ const ResumeLayout: FC<ResumeLayoutProps> = ({ printable, children }) => (
       px="0.75in"
       py="0.4in"
       mb={printable ? 0 : 135}
+      bg="var(--mantine-color-white)"
       c="var(--mantine-color-black)"
       className={classes.container}
       {...(printable && { "data-printable": true })}

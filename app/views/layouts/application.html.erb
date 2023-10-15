@@ -57,7 +57,7 @@
     <%= vite_typescript_tag "fullstory" %>
     <% if local_assigns.include?(:page) %>
       <%= vite_react_refresh_tag %>
-      <%= vite_typescript_tag "application" %>
+      <%= vite_typescript_tag "application", media: nil %>
     <% end %>
 
     <%# == Google Analytics %>
@@ -78,7 +78,7 @@
 
     <%# == Inertia %>
     <%== inertia_headers %>
-    <%== inertia_assets type: :page %>
+    <%== inertia_assets type: :page, media: nil %>
   </head>
 
   <body data-mantine-color-scheme="dark">

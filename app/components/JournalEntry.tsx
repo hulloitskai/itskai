@@ -24,12 +24,10 @@ const JournalEntry: FC<JournalEntryProps> = ({
           <Title
             order={3}
             size="h4"
+            ff="var(--mantine-font-family-monospace)"
             fw={900}
             c="var(--mantine-color-white)"
             lh={1.3}
-            style={({ fontFamilyMonospace }) => ({
-              fontFamily: fontFamilyMonospace,
-            })}
           >
             {title}
           </Title>

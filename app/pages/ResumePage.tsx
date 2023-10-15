@@ -64,10 +64,8 @@ const ResumePage: PageComponent<ResumePageProps> = ({
               {!!basics?.location?.city && (
                 <Text
                   size="xs"
+                  ff="var(--mantine-font-family-monospace)"
                   fw={500}
-                  style={({ fontFamilyMonospace }) => ({
-                    fontFamily: fontFamilyMonospace,
-                  })}
                 >
                   {basics.location.city}
                 </Text>
@@ -91,15 +89,15 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                   }
                   variant="outline"
                   color="var(--mantine-color-gray-filled)"
-                  styles={({ fontFamilyMonospace }) => ({
+                  styles={{
                     root: {
                       borderColor: "var(--mantine-color-primary-border)",
                     },
                     label: {
-                      fontFamily: fontFamilyMonospace,
+                      fontFamily: "var(--mantine-font-family-monospace)",
                       textTransform: "none",
                     },
-                  })}
+                  }}
                 >
                   {printable ? email : obfuscatedEmail}
                 </Badge>
@@ -118,18 +116,16 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                     variant="outline"
                     color="var(--mantine-color-gray-filled)"
                     px={6}
-                    style={({ fontFamilyMonospace }) => ({
-                      fontFamily: fontFamilyMonospace,
-                    })}
-                    styles={({ fontFamilyMonospace }) => ({
+                    ff="var(--mantine-font-family-monospace)"
+                    styles={{
                       root: {
                         borderColor: "var(--mantine-color-primary-border)",
                       },
                       label: {
-                        fontFamily: fontFamilyMonospace,
+                        fontFamily: "var(--mantine-font-family-monospace)",
                         textTransform: "none",
                       },
-                    })}
+                    }}
                     {...(network === "GitHub" && {
                       leftSection: (
                         <Center>
