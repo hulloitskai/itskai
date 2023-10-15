@@ -93,9 +93,9 @@ class ICloudClient
 
   sig { void }
   def save_credentials
-    cookies = File.read(cookies_filename)
-    session = File.read(session_filename)
-    @credentials.update!(cookies: cookies, session: JSON.parse(session))
+    @credentials.cookies = File.read(cookies_filename)
+    @credentials.session = JSON.parse(File.read(session_filename))
+    @credentials.save!(context: :initialize_client)
   end
 
   sig { void }
@@ -113,8 +113,10 @@ class ICloudClient
   sig { returns(String) }
   def cookies_filename
     @cookies_filename ||= T.let(
-      File.join(ICloud::CREDENTIALS_DIR,
-                @credentials.email.gsub(/[^0-9a-z]/i, "")),
+      File.join(
+        ICloud::CREDENTIALS_DIR,
+        @credentials.email.gsub(/[^0-9a-z]/i, ""),
+      ),
       T.nilable(String),
     )
   end

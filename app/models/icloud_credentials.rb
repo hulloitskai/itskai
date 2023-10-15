@@ -38,7 +38,7 @@ class ICloudCredentials < ApplicationRecord
             },
             email: true
   validates :password, presence: true
-  validate :validate_login
+  validate :validate_login, on: %i[create update]
 
   private
 

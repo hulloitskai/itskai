@@ -87,8 +87,8 @@ class InstagramClient
   sig { void }
   def save_credentials
     if File.exist?(session_filename)
-      session = File.read(session_filename)
-      @credentials.update!(session: JSON.parse(session))
+      @credentials.session = JSON.parse(File.read(session_filename))
+      @credentials.save!(context: :initialize_client)
     else
       tag_logger do
         logger.warn("Missing session after initializing Instagram client")

@@ -37,7 +37,7 @@ class InstagramCredentials < ApplicationRecord
               maximum: 100,
             }
   validates :password, presence: true
-  validate :validate_login
+  validate :validate_login, on: %i[create update]
 
   private
 
