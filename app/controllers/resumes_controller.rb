@@ -14,7 +14,7 @@ class ResumesController < ApplicationController
     variant = T.cast(params["variant"].presence, T.nilable(String))
     respond_to do |format|
       format.html do
-        printable = params["printable"].truthy?
+        printable = params["_printable"].truthy?
         data = query!("ResumePageQuery", { variant: })
         props = {
           data:,
@@ -75,7 +75,7 @@ class ResumesController < ApplicationController
   sig { params(variant: T.nilable(Symbol)).returns(String) }
   def print_resume(variant:)
     self.class.print_resume_semaphore.acquire do
-      params = { printable: true, variant: }
+      params = { variant:, _printable: true }
       url = resume_url(
         protocol: "http",
         host: "localhost",

@@ -331,6 +331,61 @@ export type LikePensieveMessageMutation = (
   ) }
 );
 
+export type LocatePageQueryVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type LocatePageQuery = (
+  { __typename?: 'Query' }
+  & { location: Types.Maybe<(
+    { __typename?: 'LocationLog' }
+    & Pick<Types.LocationLog, 'id'>
+    & { approximateCoordinates: (
+      { __typename?: 'Coordinates' }
+      & Pick<Types.Coordinates, 'latitude' | 'longitude'>
+    ) }
+  )>, viewer: Types.Maybe<(
+    { __typename?: 'User' }
+    & Pick<Types.User, 'id' | 'isOwner' | 'name'>
+  )> }
+);
+
+export type LocatePageSubscriptionVariables = Types.Exact<{
+  password: Types.Scalars['String']['input'];
+}>;
+
+
+export type LocatePageSubscription = (
+  { __typename?: 'Subscription' }
+  & { location: Types.Maybe<(
+    { __typename?: 'LocationLog' }
+    & Pick<Types.LocationLog, 'id' | 'timestamp'>
+    & { details: (
+      { __typename?: 'LocationDetails' }
+      & Pick<Types.LocationDetails, 'address' | 'expiresAt'>
+      & { coordinates: (
+        { __typename?: 'Coordinates' }
+        & Pick<Types.Coordinates, 'latitude' | 'longitude'>
+      ), trail: Array<(
+        { __typename?: 'LocationTrailMarker' }
+        & Pick<Types.LocationTrailMarker, 'id' | 'timestamp'>
+        & { coordinates: (
+          { __typename?: 'Coordinates' }
+          & Pick<Types.Coordinates, 'latitude' | 'longitude'>
+        ) }
+      )> }
+    ) }
+  )> }
+);
+
+export type LocatePageTrailMarkerFragment = (
+  { __typename?: 'LocationTrailMarker' }
+  & Pick<Types.LocationTrailMarker, 'timestamp'>
+  & { coordinates: (
+    { __typename?: 'Coordinates' }
+    & Pick<Types.Coordinates, 'latitude' | 'longitude'>
+  ) }
+);
+
 export type LocationAccessGrantCardGrantFragment = (
   { __typename?: 'LocationAccessGrant' }
   & Pick<Types.LocationAccessGrant, 'createdAt' | 'expiresAt' | 'id' | 'password' | 'recipient'>
@@ -361,61 +416,6 @@ export type LocationAlertSubscription = (
     { __typename?: 'LocationLog' }
     & Pick<Types.LocationLog, 'id' | 'approximateAddress' | 'googleMapsAreaUrl' | 'timestamp'>
   )> }
-);
-
-export type LocationPageQueryVariables = Types.Exact<{ [key: string]: never; }>;
-
-
-export type LocationPageQuery = (
-  { __typename?: 'Query' }
-  & { location: Types.Maybe<(
-    { __typename?: 'LocationLog' }
-    & Pick<Types.LocationLog, 'id'>
-    & { approximateCoordinates: (
-      { __typename?: 'Coordinates' }
-      & Pick<Types.Coordinates, 'latitude' | 'longitude'>
-    ) }
-  )>, viewer: Types.Maybe<(
-    { __typename?: 'User' }
-    & Pick<Types.User, 'id' | 'isOwner' | 'name'>
-  )> }
-);
-
-export type LocationPageSubscriptionVariables = Types.Exact<{
-  password: Types.Scalars['String']['input'];
-}>;
-
-
-export type LocationPageSubscription = (
-  { __typename?: 'Subscription' }
-  & { location: Types.Maybe<(
-    { __typename?: 'LocationLog' }
-    & Pick<Types.LocationLog, 'id' | 'timestamp'>
-    & { details: (
-      { __typename?: 'LocationDetails' }
-      & Pick<Types.LocationDetails, 'address' | 'expiresAt'>
-      & { coordinates: (
-        { __typename?: 'Coordinates' }
-        & Pick<Types.Coordinates, 'latitude' | 'longitude'>
-      ), trail: Array<(
-        { __typename?: 'LocationTrailMarker' }
-        & Pick<Types.LocationTrailMarker, 'id' | 'timestamp'>
-        & { coordinates: (
-          { __typename?: 'Coordinates' }
-          & Pick<Types.Coordinates, 'latitude' | 'longitude'>
-        ) }
-      )> }
-    ) }
-  )> }
-);
-
-export type LocationPageTrailMarkerFragment = (
-  { __typename?: 'LocationTrailMarker' }
-  & Pick<Types.LocationTrailMarker, 'timestamp'>
-  & { coordinates: (
-    { __typename?: 'Coordinates' }
-    & Pick<Types.Coordinates, 'latitude' | 'longitude'>
-  ) }
 );
 
 export type OAuthCredentialsFormCredentialsFragment = (
@@ -901,9 +901,9 @@ export const JournalEntryEntryFragment = {"kind":"Document","definitions":[{"kin
 export const HomePageJournalEntryEntryFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"HomePageJournalEntryEntryFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"JournalEntry"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"JournalEntryEntryFragment"}},{"kind":"Field","name":{"kind":"Name","value":"nextEntryId"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"JournalEntryEntryFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"JournalEntry"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"startedAt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]} as unknown as DocumentNode<HomePageJournalEntryEntryFragment, unknown>;
 export const ICloudCredentialsFormCredentialsFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ICloudCredentialsFormCredentialsFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ICloudCredentials"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cookies"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"password"}},{"kind":"Field","name":{"kind":"Name","value":"session"}}]}}]} as unknown as DocumentNode<ICloudCredentialsFormCredentialsFragment, unknown>;
 export const InstagramCredentialsFormCredentialsFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InstagramCredentialsFormCredentialsFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"InstagramCredentials"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"password"}},{"kind":"Field","name":{"kind":"Name","value":"session"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]} as unknown as DocumentNode<InstagramCredentialsFormCredentialsFragment, unknown>;
+export const LocatePageTrailMarkerFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LocatePageTrailMarkerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"LocationTrailMarker"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}},{"kind":"Field","name":{"kind":"Name","value":"timestamp"}}]}}]} as unknown as DocumentNode<LocatePageTrailMarkerFragment, unknown>;
 export const LocationAccessGrantCardGrantFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LocationAccessGrantCardGrantFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"LocationAccessGrant"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"expiresAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"password"}},{"kind":"Field","name":{"kind":"Name","value":"recipient"}}]}}]} as unknown as DocumentNode<LocationAccessGrantCardGrantFragment, unknown>;
 export const LocationAlertLocationFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LocationAlertLocationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"LocationLog"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"approximateAddress"}},{"kind":"Field","name":{"kind":"Name","value":"googleMapsAreaUrl"}},{"kind":"Field","name":{"kind":"Name","value":"timestamp"}}]}}]} as unknown as DocumentNode<LocationAlertLocationFragment, unknown>;
-export const LocationPageTrailMarkerFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LocationPageTrailMarkerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"LocationTrailMarker"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}},{"kind":"Field","name":{"kind":"Name","value":"timestamp"}}]}}]} as unknown as DocumentNode<LocationPageTrailMarkerFragment, unknown>;
 export const OAuthCredentialsFormCredentialsFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OAuthCredentialsFormCredentialsFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OAuthCredentials"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"refreshToken"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}}]}}]} as unknown as DocumentNode<OAuthCredentialsFormCredentialsFragment, unknown>;
 export const PensieveMessageLikeMessageFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PensieveMessageLikeMessageFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PensieveMessage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"likedByViewer"}},{"kind":"Field","name":{"kind":"Name","value":"likes"}}]}}]} as unknown as DocumentNode<PensieveMessageLikeMessageFragment, unknown>;
 export const PensieveMessageMessageFragment = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PensieveMessageMessageFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PensieveMessage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isEdited"}},{"kind":"Field","name":{"kind":"Name","value":"likes"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PensieveMessageLikeMessageFragment"}},{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"timestamp"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PensieveMessageLikeMessageFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PensieveMessage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"likedByViewer"}},{"kind":"Field","name":{"kind":"Name","value":"likes"}}]}}]} as unknown as DocumentNode<PensieveMessageMessageFragment, unknown>;
@@ -929,10 +929,10 @@ export const ImportJournalEntriesMutationDocument = {"kind":"Document","definiti
 export const ImportLocationLogsMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ImportLocationLogsMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ImportLocationLogsInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"payload"},"name":{"kind":"Name","value":"importLocationLogs"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"success"}}]}}]}}]} as unknown as DocumentNode<ImportLocationLogsMutation, ImportLocationLogsMutationVariables>;
 export const JournalEntryCommentsQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"JournalEntryCommentsQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"entryId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"comments"},"name":{"kind":"Name","value":"journalEntryComments"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"entryId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"entryId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"richText"}}]}}]}}]} as unknown as DocumentNode<JournalEntryCommentsQuery, JournalEntryCommentsQueryVariables>;
 export const LikePensieveMessageMutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"LikePensieveMessageMutation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"LikePensieveMessageInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"payload"},"name":{"kind":"Name","value":"likePensieveMessage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"success"}}]}}]}}]} as unknown as DocumentNode<LikePensieveMessageMutation, LikePensieveMessageMutationVariables>;
+export const LocatePageQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"LocatePageQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"approximateCoordinates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AppViewerFragment"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AppViewerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isOwner"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]} as unknown as DocumentNode<LocatePageQuery, LocatePageQueryVariables>;
+export const LocatePageSubscriptionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"LocatePageSubscription"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"details"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}},{"kind":"Field","name":{"kind":"Name","value":"expiresAt"}},{"kind":"Field","name":{"kind":"Name","value":"trail"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LocatePageTrailMarkerFragment"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"timestamp"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LocatePageTrailMarkerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"LocationTrailMarker"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}},{"kind":"Field","name":{"kind":"Name","value":"timestamp"}}]}}]} as unknown as DocumentNode<LocatePageSubscription, LocatePageSubscriptionVariables>;
 export const LocationAccessGrantsQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"LocationAccessGrantsQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"locationAccessGrants"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LocationAccessGrantCardGrantFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LocationAccessGrantCardGrantFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"LocationAccessGrant"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"expiresAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"password"}},{"kind":"Field","name":{"kind":"Name","value":"recipient"}}]}}]} as unknown as DocumentNode<LocationAccessGrantsQuery, LocationAccessGrantsQueryVariables>;
 export const LocationAlertSubscriptionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"LocationAlertSubscription"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LocationAlertLocationFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LocationAlertLocationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"LocationLog"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"approximateAddress"}},{"kind":"Field","name":{"kind":"Name","value":"googleMapsAreaUrl"}},{"kind":"Field","name":{"kind":"Name","value":"timestamp"}}]}}]} as unknown as DocumentNode<LocationAlertSubscription, LocationAlertSubscriptionVariables>;
-export const LocationPageQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"LocationPageQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"approximateCoordinates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AppViewerFragment"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AppViewerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isOwner"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]} as unknown as DocumentNode<LocationPageQuery, LocationPageQueryVariables>;
-export const LocationPageSubscriptionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"LocationPageSubscription"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"details"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"coordinates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}},{"kind":"Field","name":{"kind":"Name","value":"expiresAt"}},{"kind":"Field","name":{"kind":"Name","value":"trail"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"LocationPageTrailMarkerFragment"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"timestamp"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LocationPageTrailMarkerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"LocationTrailMarker"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coordinates"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}}]}},{"kind":"Field","name":{"kind":"Name","value":"timestamp"}}]}}]} as unknown as DocumentNode<LocationPageSubscription, LocationPageSubscriptionVariables>;
 export const PasswordWithStrengthCheckInputQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PasswordWithStrengthCheckInputQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"passwordStrength"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}}]}]}}]} as unknown as DocumentNode<PasswordWithStrengthCheckInputQuery, PasswordWithStrengthCheckInputQueryVariables>;
 export const PensievePageQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PensievePageQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"viewer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AppViewerFragment"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AppViewerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isOwner"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]} as unknown as DocumentNode<PensievePageQuery, PensievePageQueryVariables>;
 export const PensieveQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PensieveQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"messages"},"name":{"kind":"Name","value":"pensieveMessages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PensieveMessageFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PensieveMessageLikeMessageFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PensieveMessage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"likedByViewer"}},{"kind":"Field","name":{"kind":"Name","value":"likes"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PensieveMessageMessageFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PensieveMessage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isEdited"}},{"kind":"Field","name":{"kind":"Name","value":"likes"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PensieveMessageLikeMessageFragment"}},{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"timestamp"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PensieveMessageFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PensieveMessage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PensieveMessageMessageFragment"}},{"kind":"Field","name":{"kind":"Name","value":"timestamp"}}]}}]} as unknown as DocumentNode<PensieveQuery, PensieveQueryVariables>;

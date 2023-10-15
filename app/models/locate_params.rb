@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-class LocationShowParams < ApplicationModel
+class LocateParams < ApplicationModel
   # == Attributes
   attribute :password, :string
 end

@@ -1,4 +1,4 @@
-subscription LocationPageSubscription($password: String!) {
+subscription LocatePageSubscription($password: String!) {
   location {
     details(password: $password) {
       address
@@ -9,7 +9,7 @@ subscription LocationPageSubscription($password: String!) {
       expiresAt
       trail {
         id
-        ...LocationPageTrailMarkerFragment
+        ...LocatePageTrailMarkerFragment
       }
     }
     id

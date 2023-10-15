@@ -54,6 +54,9 @@ module GeneratedUrlHelpersModule
   def hangout_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def locate_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def mailcatcher_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

@@ -107,7 +107,7 @@ Rails.application.routes.draw do
   get "/admin" => "admin#show"
   get "/pensieve" => "pensieve#show"
   get "/track" => redirect(path: "/locate", status: 302)
-  get "/locate" => "location#show"
+  get "/locate" => "locate#show"
   get "/toronto" => "places#toronto"
   get "/atelier" => redirect("https://instagram.com/atelier.ubc", status: 302)
   get "/opencal" => redirect("https://opencal.me/kai", status: 302)

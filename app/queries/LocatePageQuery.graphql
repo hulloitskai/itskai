@@ -1,4 +1,4 @@
-query LocationPageQuery {
+query LocatePageQuery {
   location {
     approximateCoordinates {
       latitude

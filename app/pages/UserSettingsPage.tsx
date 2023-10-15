@@ -61,10 +61,10 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
 UserSettingsPage.layout = buildLayout<UserSettingsPageProps>(
   (page, { data: { viewer } }) => (
     <AppLayout
-      title="My settings"
+      title="My account"
       breadcrumbs={[
         { title: "Home", href: "/" },
-        { title: "My settings", href: "/user/settings" },
+        { title: "My account", href: "/user/settings" },
       ]}
       withContainer
       withGutter

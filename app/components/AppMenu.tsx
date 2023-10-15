@@ -71,7 +71,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
           variant="dot"
           color="brand.5"
           c="gray.2"
-          className={classes.target}
+          className={cx(classes.target, classes.activeTarget)}
           style={[style, { cursor: "pointer" }]}
         >
           {viewer.name}
@@ -83,7 +83,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
           href="/user/settings"
           leftSection={<SettingsIcon />}
         >
-          My settings
+          My account
         </Menu.Item>
         <Menu.Item
           leftSection={<SignOutIcon />}

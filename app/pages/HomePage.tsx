@@ -7,7 +7,7 @@ import type { HomePageQuery } from "~/helpers/graphql";
 import AppLayout from "~/components/AppLayout";
 import ContactMeLink from "~/components/ContactMeLink";
 import HomePageJournalEntry from "~/components/HomePageJournalEntry";
-import LocationAlert from "~/components/LocationAlert";
+import LocatePageAlert from "~/components/LocationAlert";
 import Pensieve from "~/components/Pensieve";
 
 export type HomePageProps = PagePropsWithData<HomePageQuery> & {
@@ -130,7 +130,7 @@ const HomePage: PageComponent<HomePageProps> = ({
         keepMounted
       >
         {style => (
-          <LocationAlert
+          <LocatePageAlert
             initialLocation={location}
             onUpdate={location => {
               setShowLocation(!!location);

@@ -7,11 +7,7 @@ import "@mantine/core/styles.layer.css";
 export type AppMantineProviderProps = PropsWithChildren;
 
 const AppMantineProvider: FC<AppMantineProviderProps> = ({ children }) => (
-  <MantineProvider
-    theme={APP_THEME}
-    forceColorScheme="dark"
-    cssVariablesSelector="body"
-  >
+  <MantineProvider theme={APP_THEME} forceColorScheme="dark">
     {children}
   </MantineProvider>
 );

@@ -1,8 +1,21 @@
 .target {
+  --badge-dot-size: calc(var(--badge-height) / 2.7);
+  padding-left: var(--badge-padding-x-sm);
+
   &:hover {
     border-color: var(--mantine-color-gray-7);
   }
   &[data-expanded] {
     border-color: var(--mantine-color-gray-7);
+  }
+}
+
+.activeTarget {
+  &::before {
+    background: linear-gradient(
+      45deg,
+      var(--mantine-color-pink-5),
+      var(--mantine-color-indigo-5)
+    );
   }
 }

@@ -6,11 +6,11 @@ import { Text, rgba } from "@mantine/core";
 import type { MapRef } from "react-map-gl";
 import { GeolocateControl, Marker, Source, Layer } from "react-map-gl";
 
-import { LocationPageSubscriptionDocument } from "~/helpers/graphql";
+import { LocatePageSubscriptionDocument } from "~/helpers/graphql";
 import type {
-  LocationPageQuery,
-  LocationPageSubscriptionVariables,
-  LocationPageTrailMarkerFragment,
+  LocatePageQuery,
+  LocatePageSubscriptionVariables,
+  LocatePageTrailMarkerFragment,
 } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
 import type { Coordinates } from "~/helpers/graphql";
@@ -25,11 +25,11 @@ const TORONTO_COORDINATES: Readonly<Coordinates> = {
   longitude: -79.3832,
 };
 
-export type LocationPageProps = PagePropsWithData<LocationPageQuery> & {
+export type LocatePageProps = PagePropsWithData<LocatePageQuery> & {
   readonly password: Maybe<string>;
 };
 
-const LocationPage: PageComponent<LocationPageProps> = ({
+const LocatePage: PageComponent<LocatePageProps> = ({
   password,
   data: { location: initialLocation },
 }) => {
@@ -64,7 +64,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
 
   // == Subscription
   const subscriptionVariables = useMemo<
-    LocationPageSubscriptionVariables | undefined
+    LocatePageSubscriptionVariables | undefined
   >(
     () => (!pageLoading && password ? { password } : undefined),
     [password, pageLoading],
@@ -73,7 +73,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
   const onSubscriptionError = useApolloAlertCallback(
     "Failed to subscribe to location updates",
   );
-  const { data, loading } = useSubscription(LocationPageSubscriptionDocument, {
+  const { data, loading } = useSubscription(LocatePageSubscriptionDocument, {
     variables: subscriptionVariables,
     skip: !subscriptionVariables,
     onData: ({ data: { data, error } }) => {
@@ -110,7 +110,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
 
   // == Trail
   const deriveTrailMarkerOpacity = useMemo<
-    (marker: LocationPageTrailMarkerFragment) => number
+    (marker: LocatePageTrailMarkerFragment) => number
   >(() => {
     const firstTimestampISO = first(trail)?.timestamp;
     const lastTimestampISO = last(trail)?.timestamp;
@@ -321,7 +321,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
                 </Alert>
               );
             })
-          ) : (
+          ) : initialLocation ? (
             <Alert
               title="Kai's somewhere around here..."
               styles={{
@@ -354,6 +354,23 @@ const LocationPage: PageComponent<LocationPageProps> = ({
                 }}
               />
             </Alert>
+          ) : (
+            <Alert
+              title="We couldn't locate Kai :("
+              color="red"
+              styles={{
+                title: {
+                  marginBottom: 2,
+                },
+                message: {
+                  color: "var(--mantine-color-dark-0)",
+                },
+              }}
+              {...alertProps}
+            >
+              Our radars aren&apos;t detecting anything! Where&apos;d this mans
+              go?
+            </Alert>
           )}
           <LoadingOverlay
             visible={loading}
@@ -369,7 +386,7 @@ const LocationPage: PageComponent<LocationPageProps> = ({
   );
 };
 
-LocationPage.layout = buildLayout<LocationPageProps>(
+LocatePage.layout = buildLayout<LocatePageProps>(
   (page, { data: { viewer } }) => (
     <AppLayout
       title="Track"
@@ -383,4 +400,4 @@ LocationPage.layout = buildLayout<LocationPageProps>(
   ),
 );
 
-export default LocationPage;
+export default LocatePage;
