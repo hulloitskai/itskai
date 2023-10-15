@@ -7,7 +7,6 @@ import PageContainer from "~/components/PageContainer";
 import PageLayout from "~/components/PageLayout";
 
 import "~/components/AppLayout.css";
-import "./SenecaPage.css";
 import classes from "./SenecaPage.module.css";
 
 export type SenecaPageProps = PageProps & {
@@ -100,6 +99,10 @@ SenecaPage.layout = page => (
     <Head>
       <title>hi seneca</title>
       <meta name="robots" content="noindex" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+        rel="stylesheet"
+      />
     </Head>
     {page}
   </PageLayout>
