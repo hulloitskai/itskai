@@ -48,11 +48,11 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
   const [requiresScrolling, setRequiresScrolling] = useState(false);
   const scrollToContainerTop = useCallback(() => {
     if (containerRef.current) {
-      const headerEl = document.querySelector("header.mantine-Header-root");
+      const headerEl = document.querySelector(".mantine-AppShell-header");
       scrollIntoView(containerRef.current, {
         align: {
           top: 0,
-          topOffset: headerEl?.clientHeight ?? 0,
+          topOffset: (headerEl?.clientHeight ?? 0) + 20,
         },
       });
     }
@@ -60,7 +60,9 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
   useDidUpdate(() => {
     if (containerRef.current && requiresScrolling) {
       setRequiresScrolling(false);
-      scrollToContainerTop();
+      setTimeout(() => {
+        scrollToContainerTop();
+      }, 100);
     }
   }, [containerRef, requiresScrolling]);
   useEffect(() => {
@@ -79,7 +81,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
           out: { opacity: 0, transform: "scale(0)", maxHeight: 0 },
           in: { opacity: 1, transform: "scale(1)", maxHeight: 140 },
         }}
-        mounted={!loading}
+        mounted={!!coalescedData}
       >
         {style => (
           <Button
@@ -95,7 +97,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
                 },
               );
             }}
-            {...{ style }}
+            {...{ style, loading }}
           >
             {hasNextEntry ? "more words pls" : "from the top!"}
           </Button>
