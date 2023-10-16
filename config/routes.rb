@@ -78,7 +78,7 @@ Rails.application.routes.draw do
   get "/opencal-intro" => "calendly#event", handle: "opencal-intro"
 
   # == Events
-  resources :events, only: :index
+  # resources :events, only: :index
 
   # == Errors
   scope controller: :errors do

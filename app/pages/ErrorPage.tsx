@@ -24,12 +24,12 @@ const ErrorPage: PageComponent<ErrorPageProps> = ({
     </Badge>
     <Stack align="center" gap={2}>
       <Title size="h2">{title}</Title>
-      <Text c="dark.3" style={{ textAlign: "center" }}>
+      <Text c="dimmed" style={{ textAlign: "center" }}>
         {description}
       </Text>
     </Stack>
     {!!error && (
-      <Code block color="primary" style={{ alignSelf: "stretch" }}>
+      <Code block style={{ alignSelf: "stretch", textTransform: "none" }}>
         Error: {error}
       </Code>
     )}

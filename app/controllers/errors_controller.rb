@@ -78,7 +78,7 @@ class ErrorsController < ApplicationController
     end
   end
 
-  sig { returns(Exception) }
+  sig { returns(T.nilable(Exception)) }
   def exception
     request.env["action_dispatch.exception"]
   end
