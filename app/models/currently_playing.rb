@@ -30,12 +30,14 @@ class CurrentlyPlaying < T::Struct
   sig { params(currently_playing: CurrentlyPlaying).void }
   private_class_method def self.record_listening_log(currently_playing)
     Thread.new do
-      ListeningLog.transaction do
-        last_track_id = ListeningLog
-          .reverse_chronological
-          .pick(:spotify_track_id)
-        if last_track_id != currently_playing.track.id
-          ListeningLog.create!(spotify_track_id: currently_playing.track.id)
+      Rails.application.executor.wrap do
+        ListeningLog.transaction do
+          last_track_id = ListeningLog
+            .reverse_chronological
+            .pick(:spotify_track_id)
+          if last_track_id != currently_playing.track.id
+            ListeningLog.create!(spotify_track_id: currently_playing.track.id)
+          end
         end
       end
     end
