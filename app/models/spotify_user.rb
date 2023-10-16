@@ -37,8 +37,9 @@ class SpotifyUser < RSpotify::User
     result = RSpotify.resolve_auth_request(id, endpoint)
     if result && result["is_playing"]
       CurrentlyPlaying.new(
-        track: RSpotify::Track.new(result["item"]),
-        progress_milliseconds: result["progress_ms"],
+        track: RSpotify::Track.new(result.fetch("item")),
+        progress_milliseconds: result.fetch("progress_ms"),
+        timestamp: result.fetch("timestamp"),
       )
     end
   rescue RestClient::BadGateway
