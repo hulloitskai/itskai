@@ -243,9 +243,6 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
                 },
               ]}
               styles={{
-                // root: {
-                //   cursor: "pointer",
-                // },
                 section: {
                   margin: 0,
                 },
@@ -253,8 +250,8 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
                   maxWidth: 200,
                 },
               }}
-              data-lyrics-explicit={lyricsCurrentlyExplicit}
               {...(hasLyrics && { "data-with-lyrics": true })}
+              {...(lyricsCurrentlyExplicit && { "data-lyrics-explicit": true })}
               {...otherProps}
             >
               <MarqueeText size="xs" fw={800} c="gray.3">

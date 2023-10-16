@@ -22,7 +22,6 @@ class PensieveBot
   def start
     @thread ||= Thread.new do
       @client.run do |bot|
-        bot = T.let(bot, Telegram::Bot::Client)
         bot.listen do |message|
           Rails.application.reloader.wrap do
             handle_message!(message, bot)

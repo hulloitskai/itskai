@@ -175,20 +175,16 @@ module GraphQL
         @queries.clear
         @fragments.clear
       end
-      filenames = Dir.glob(Rails.root.join("app/queries/**/*.graphql").to_s)
+      filenames = Dir.glob(queries_dir.join("**/*.graphql").to_s)
       load_files(*T.unsafe(filenames))
     end
 
     sig { void }
     def listen
       require "listen"
-
       @listener = T.let(@listener, T.nilable(Listen::Listener))
-      @listener ||= Listen.to(
-        Rails.root.join("app/queries"),
-        only: /\.graphql$/,
-      ) do
-        load
+      @listener ||= Listen.to(queries_dir, only: /\.graphql$/) do
+        Rails.application.reloader.wrap { load }
       end
       @listener.start
     end
@@ -201,6 +197,11 @@ module GraphQL
     private
 
     # == Helpers
+    sig { returns(Pathname) }
+    def queries_dir
+      Rails.root.join("app/queries/")
+    end
+
     sig { params(filenames: String).void }
     def load_files(*filenames)
       @semaphore.synchronize do

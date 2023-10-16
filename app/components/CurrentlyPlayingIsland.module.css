@@ -1,5 +1,7 @@
 .badge {
   transition-property: transform, opacity, border !important;
+  cursor: pointer;
+
   &:hover {
     text-decoration: underline;
   }
