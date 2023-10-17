@@ -1,21 +1,12 @@
 # typed: true
 # frozen_string_literal: true
 
-require "graphql"
-
 module GraphQL
   class Schema
     class << self
       extend T::Sig
 
-      sig { returns(T.nilable(Queries)) }
-      attr_accessor :queries
-
-      sig { returns(Queries) }
-      def queries!
-        queries or raise "Queries not installed"
-      end
-
+      # == Subscriptions
       sig { returns(Subscriptions) }
       def subscriptions!
         subscriptions or raise "Subscriptions not installed"

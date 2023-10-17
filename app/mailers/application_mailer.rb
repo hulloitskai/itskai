@@ -4,7 +4,7 @@
 class ApplicationMailer < ActionMailer::Base
   extend T::Sig
   extend T::Helpers
-  include GraphQL::Querying
+  include Querying
   include Routing
 
   # == Configuration

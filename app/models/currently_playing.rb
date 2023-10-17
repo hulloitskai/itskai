@@ -52,17 +52,6 @@ class CurrentlyPlaying < T::Struct
     )
   end
 
-  # == Polling
-  sig { void }
-  def self.start_poll
-    CurrentlyPlayingPoll.start
-  end
-
-  sig { void }
-  def self.stop_poll
-    CurrentlyPlayingPoll.stop
-  end
-
   # == Serialization
   sig { params(json: T::Hash[String, T.untyped]).returns(CurrentlyPlaying) }
   def self.from_json(json)

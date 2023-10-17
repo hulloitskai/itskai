@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require "graphql/connections"
-require "rails"
 
 module GraphQL::Connections
   module Stable

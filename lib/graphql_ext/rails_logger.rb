@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require "rails"
-require "graphql"
 
 module GraphQL::RailsLogger
   class Subscriber < ActionController::LogSubscriber

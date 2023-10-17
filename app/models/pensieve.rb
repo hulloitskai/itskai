@@ -28,16 +28,5 @@ class Pensieve
     def telegram_user_id!
       telegram_user_id or raise "Pensieve telegram user ID not set"
     end
-
-    # == Methods
-    sig { void }
-    def start_bot
-      PensieveBot.start
-    end
-
-    sig { void }
-    def stop_bot
-      PensieveBot.stop
-    end
   end
 end

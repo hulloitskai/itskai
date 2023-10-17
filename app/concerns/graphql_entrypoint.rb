@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-module GraphQL::Helpers
+module GraphQLEntrypoint
   extend T::Sig
   extend T::Helpers
 

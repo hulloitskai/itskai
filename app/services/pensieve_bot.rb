@@ -23,7 +23,7 @@ class PensieveBot
     @thread ||= Thread.new do
       @client.run do |bot|
         bot.listen do |message|
-          Rails.application.reloader.wrap do
+          Rails.application.executor.wrap do
             handle_message!(message, bot)
           end
         end
@@ -32,22 +32,20 @@ class PensieveBot
   end
 
   sig { void }
-  def self.start
-    instance.start
-  end
+  def self.start = instance.start
 
   sig { void }
   def stop
     if @thread
-      @thread.kill if @thread.status
+      ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
+        @thread.kill if @thread.status
+      end
       @thread = nil
     end
   end
 
   sig { void }
-  def self.stop
-    instance.stop
-  end
+  def self.stop = instance.stop
 
   # == Methods
   sig do

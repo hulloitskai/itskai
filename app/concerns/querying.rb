@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-module GraphQL::Querying
+module Querying
   extend T::Sig
   extend T::Helpers
 
@@ -20,7 +20,7 @@ module GraphQL::Querying
     params(
       name: String,
       variables: T::Hash[T.any(Symbol, String), T.untyped],
-    ).returns(GraphQL::Queries::Result)
+    ).returns(QueryManager::ExecutionResult)
   end
   def query(name, variables = {})
     context = { current_user: }
@@ -35,14 +35,14 @@ module GraphQL::Querying
         key
       end
     end
-    Schema.queries!.execute(name, variables:, context:)
+    QueryManager.execute(name, variables:, context:)
   end
 
   sig do
     params(
       name: String,
       variables: T::Hash[T.any(Symbol, String), T.untyped],
-    ).returns(GraphQL::Queries::Result::JSONObject)
+    ).returns(QueryManager::ExecutionResult::JSONObject)
   end
   def query!(name, variables = {})
     result = query(name, variables)
@@ -55,6 +55,6 @@ module GraphQL::Querying
 
   sig { params(name: String).returns(T::Boolean) }
   def query?(name)
-    Schema.queries!.include?(name)
+    QueryManager.include?(name)
   end
 end

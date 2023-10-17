@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   extend T::Helpers
 
   include ActiveStorage::SetCurrent
-  include GraphQL::Querying
+  include Querying
   include RemembersUserLocation
 
   # == Filters

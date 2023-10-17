@@ -12,7 +12,11 @@ module Devise::Models
       # == Methods
       sig { params(notification: Symbol, args: T.untyped).void }
       def send_devise_notification(notification, *args)
-        th = Thread.new { super }
+        th = Thread.new do
+          Rails.application.executor.wrap do
+            super
+          end
+        end
         th.join
       end
     end

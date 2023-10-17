@@ -11,7 +11,6 @@ class Schema < GraphQL::Schema
       default_broadcastable: true
   use GraphQL::PersistedQueries, compiled_queries: true
   use GraphQL::Dataloader
-  use GraphQL::Queries
 
   # == Configuration
   # By default, limit the maximum number of returned items in connections to 50.

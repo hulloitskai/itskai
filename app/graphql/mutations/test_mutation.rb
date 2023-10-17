@@ -29,7 +29,9 @@ module Mutations
               .deliver_now
           end
         end
-        th.join
+        ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
+          th.join
+        end
         Payload.new(model:)
       else
         Payload.new(errors: model.input_field_errors)

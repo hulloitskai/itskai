@@ -7706,14 +7706,6 @@ class GraphQL::Schema
     # source://graphql//lib/graphql/schema.rb#447
     def possible_types(type = T.unsafe(nil), context = T.unsafe(nil)); end
 
-    sig { returns(T.nilable(::GraphQL::Queries)) }
-    def queries; end
-
-    sig { returns(::GraphQL::Queries) }
-    def queries!; end
-
-    def queries=(_arg0); end
-
     # source://graphql//lib/graphql/schema.rb#370
     def query(new_query_object = T.unsafe(nil)); end
 

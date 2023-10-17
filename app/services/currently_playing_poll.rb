@@ -19,9 +19,13 @@ class CurrentlyPlayingPoll
   def start
     stop
     @task = TimerTask.new(execution_interval: 3) do
-      Rails.application.reloader.wrap { update }
+      Rails.application.executor.wrap do
+        update
+      end
     end
-    @task.execute
+    ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
+      @task.execute
+    end
   end
 
   sig { void }
@@ -29,8 +33,10 @@ class CurrentlyPlayingPoll
 
   sig { void }
   def stop
-    if (task = @task)
-      task.kill if task.running?
+    if @task
+      ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
+        @task.kill if @task.running?
+      end
       @task = nil
     end
   end
@@ -42,7 +48,11 @@ class CurrentlyPlayingPoll
 
   sig { returns(T::Boolean) }
   def update
-    value = SpotifyUser.current&.currently_playing
+    value = if (user = SpotifyUser.current)
+      ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
+        user.currently_playing
+      end
+    end
     if value != CurrentlyPlaying.current
       CurrentlyPlaying.current = value
       tag_logger do

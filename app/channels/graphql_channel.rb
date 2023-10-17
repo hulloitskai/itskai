@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class GraphQLChannel < ApplicationCable::Channel
-  include GraphQL::Helpers
+  include GraphQLEntrypoint
 
   # == Initialization
   sig do

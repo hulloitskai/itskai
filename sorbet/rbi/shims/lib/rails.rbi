@@ -7,5 +7,8 @@ module Rails
   class Application
     sig { returns(ActionDispatch::Routing::RouteSet) }
     def self.routes; end
+
+    sig { returns(T.class_of(ActiveSupport::Reloader)) }
+    def reloader; end
   end
 end
