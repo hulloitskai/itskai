@@ -10,7 +10,7 @@ module Mutations
     argument :email, String
 
     # == Resolver
-    sig { override.params(email: String).returns(Payload) }
+    sig { params(email: String).returns(Payload) }
     def resolve(email:)
       user = User.find_by(email: email)
       if user.nil?

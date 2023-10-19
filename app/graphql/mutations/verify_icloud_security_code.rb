@@ -15,7 +15,7 @@ module Mutations
     argument :code, String
 
     # == Resolver
-    sig { override.params(code: String).returns(Payload) }
+    sig { params(code: String).returns(Payload) }
     def resolve(code:)
       credentials = ICloudCredentials.first or
         raise GraphQL::ExecutionError, "Missing iCloud credentials."

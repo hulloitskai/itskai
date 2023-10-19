@@ -1,13 +1,15 @@
 # typed: strict
 # frozen_string_literal: true
 
-class TelnyxClient
-  extend T::Sig
+require "telnyx"
+
+class TelnyxClient < ApplicationService
   include Singleton
 
   # == Initialization
   sig { void }
   def initialize
+    super
     @conn = T.let(
       Faraday.new("https://api.telnyx.com/v2") do |conn|
         conn.request(:authentication, "Bearer", -> { Telnyx.api_key! })

@@ -14,6 +14,7 @@ require:
   - rubocop-performance
   - rubocop-rails
   - rubocop-sorbet
+  - rubocop-capybara
 
 inherit_gem:
   rubocop-shopify: rubocop.yml

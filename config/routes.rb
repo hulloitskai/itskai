@@ -59,11 +59,6 @@ Rails.application.routes.draw do
     post "/", action: :execute, as: :graphql
   end
 
-  # == Shorcuts
-  namespace :shortcuts do
-    resource :action_items, only: :create
-  end
-
   # == Poorly Drawn Lines
   namespace :poorly_drawn_lines do
     resources :comics, only: :show

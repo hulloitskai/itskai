@@ -1,13 +1,15 @@
 # typed: strict
 # frozen_string_literal: true
 
-class LyricsClient
-  extend T::Sig
+require "lyrics"
+
+class LyricsClient < ApplicationService
   include Singleton
 
   # == Initialization
   sig { void }
   def initialize
+    super
     @conn = T.let(
       Faraday.new(
         headers: {
@@ -27,7 +29,7 @@ class LyricsClient
   end
 
   # == Methods
-  sig { params(track_id: String).returns(T.nilable(Lyrics)) }
+  sig { params(track_id: String).returns(T.nilable(T::Array[LyricLine])) }
   def retrieve_lyrics(track_id)
     token = access_token
     response = @conn.get(
@@ -43,21 +45,19 @@ class LyricsClient
       sync_type = T.let(lyrics.fetch("syncType"), T.nilable(String))
       lines = T.let(lyrics.fetch("lines"), T::Array[T::Hash[String, T.untyped]])
       if sync_type == "LINE_SYNCED"
-        lyrics = Lyrics.new
-        lines.each do |line|
+        lines.map do |line|
           words = normalize_words(line.fetch("words"))
-          lyrics << LyricLine.new(
+          LyricLine.new(
             start_time_milliseconds: line.fetch("startTimeMs").to_i,
             words:,
             explicit: explicit_words?(words),
           )
         end
-        lyrics
       end
     end
   end
 
-  sig { params(track_id: String).returns(T.nilable(Lyrics)) }
+  sig { params(track_id: String).returns(T.nilable(T::Array[LyricLine])) }
   def self.retrieve_lyrics(track_id)
     instance.retrieve_lyrics(track_id)
   end

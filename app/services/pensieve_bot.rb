@@ -1,10 +1,10 @@
 # typed: strict
 # frozen_string_literal: true
 
-class PensieveBot
-  extend T::Sig
+require "pensieve"
+
+class PensieveBot < ApplicationService
   include Singleton
-  include Logging
 
   # == Constants
   MENTION_REGEXP = /^@(\w+) /
@@ -12,40 +12,9 @@ class PensieveBot
   # == Initialization
   sig { void }
   def initialize
-    @client = T.let(Telegram::Bot::Client.new(Pensieve.bot_token!),
-                    Telegram::Bot::Client)
-    @thread = T.let(nil, T.nilable(Thread))
+    super
+    @client = T.let(Pensieve.bot_client, Telegram::Bot::Client)
   end
-
-  # == Running
-  sig { void }
-  def start
-    @thread ||= Thread.new do
-      @client.run do |bot|
-        bot.listen do |message|
-          Rails.application.executor.wrap do
-            handle_message!(message, bot)
-          end
-        end
-      end
-    end
-  end
-
-  sig { void }
-  def self.start = instance.start
-
-  sig { void }
-  def stop
-    if @thread
-      ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
-        @thread.kill if @thread.status
-      end
-      @thread = nil
-    end
-  end
-
-  sig { void }
-  def self.stop = instance.stop
 
   # == Methods
   sig do
@@ -74,20 +43,13 @@ class PensieveBot
     instance.send_message(text, reply_to_message_id:)
   end
 
-  sig { params(text: String).void }
-  def self.send_notification(text)
-    send_message(["[system]", text.downcase].join(" "))
-  end
-
-  private
-
   sig do
     params(
       telegram_message: Telegram::Bot::Types::Message,
       bot: Telegram::Bot::Client,
     ).void
   end
-  def handle_message!(telegram_message, bot)
+  def receive_message(telegram_message, bot)
     if telegram_message.from.id != Pensieve.telegram_user_id!
       bot.api.send_message(
         chat_id: telegram_message.chat.id,
@@ -98,9 +60,6 @@ class PensieveBot
     end
     if (entity = telegram_message.entities&.first)
       return if entity.type == "bot_command"
-    end
-    tag_logger do
-      logger.info("Received message: #{telegram_message.text}")
     end
     message = PensieveMessage.find_or_initialize_by(
       telegram_chat_id: telegram_message.chat.id,
@@ -119,5 +78,15 @@ class PensieveBot
     end
     text.strip!
     message.update!(to:, text:, edit_timestamp:)
+  end
+
+  sig do
+    params(
+      telegram_message: Telegram::Bot::Types::Message,
+      bot: Telegram::Bot::Client,
+    ).void
+  end
+  def self.receive_message(telegram_message, bot)
+    instance.receive_message(telegram_message, bot)
   end
 end

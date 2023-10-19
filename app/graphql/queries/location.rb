@@ -9,7 +9,7 @@ module Queries
     # == Resolver
     sig { returns(T.nilable(LocationLog)) }
     def resolve
-      ::Location.current
+      LocationLog.latest_visible
     end
   end
 end

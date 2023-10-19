@@ -30,7 +30,7 @@ module GraphQL
 
           sig { params(string: String).returns(String) }
           def constantize(string)
-            ActiveSupport::Inflector.constantize(string) # rubocop:disable Sorbet/ConstantsFromStrings, Layout/LineLength
+            ActiveSupport::Inflector.constantize(string) # rubocop:disable Sorbet/ConstantsFromStrings
           end
         end
 

@@ -7,8 +7,10 @@ class QueryManager
 
     # == Constants
     LanguageNodesDefinition = T.type_alias do
-      T.any(GraphQL::Language::Nodes::OperationDefinition,
-            GraphQL::Language::Nodes::FragmentDefinition)
+      T.any(
+        GraphQL::Language::Nodes::OperationDefinition,
+        GraphQL::Language::Nodes::FragmentDefinition,
+      )
     end
 
     # == Initialization

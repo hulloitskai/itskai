@@ -1,19 +1,16 @@
 # typed: strict
 # frozen_string_literal: true
 
-class NotificationsBot
-  extend T::Sig
-  include Singleton
-  include Logging
+require "notifications"
 
-  # == Constants
-  MENTION_REGEXP = /^@(\w+) /
+class NotificationsBot < ApplicationService
+  include Singleton
 
   # == Initialization
   sig { void }
   def initialize
-    @client = T.let(Telegram::Bot::Client.new(Notifications.bot_token!),
-                    Telegram::Bot::Client)
+    super
+    @client = T.let(Notifications.bot_client, Telegram::Bot::Client)
   end
 
   # == Methods

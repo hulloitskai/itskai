@@ -7,7 +7,7 @@ module Mutations
     class Payload < T::Struct; end
 
     # == Resolver
-    sig { override.returns(Payload) }
+    sig { returns(Payload) }
     def resolve
       credentials = InstagramCredentials.first or
         raise GraphQL::ExecutionError, "No existing Instagram credentials."

@@ -1,8 +1,7 @@
-# rubocop:disable Layout/LineLength
 # typed: true
 # frozen_string_literal: true
 
-class CreateIndexGoodJobsJobsOnPriorityCreatedAtWhenUnfinished < ActiveRecord::Migration[
+class CreateIndexGoodJobsJobsOnPriorityCreatedAtWhenUnfinished < ActiveRecord::Migration[ # rubocop:disable Layout/LineLength
   7.0
 ]
   disable_ddl_transaction!

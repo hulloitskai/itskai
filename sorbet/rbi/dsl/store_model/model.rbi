@@ -13,21 +13,18 @@ module StoreModel::Model
     def __callbacks; end
     def __callbacks=(value); end
     def __callbacks?; end
-    def _default_attributes; end
-    def _default_attributes=(value); end
-    def _default_attributes?; end
     def _validators; end
     def _validators=(value); end
     def _validators?; end
     def attribute_aliases; end
     def attribute_aliases=(value); end
     def attribute_aliases?; end
-    def attribute_method_matchers; end
-    def attribute_method_matchers=(value); end
-    def attribute_method_matchers?; end
-    def attribute_types; end
-    def attribute_types=(value); end
-    def attribute_types?; end
+    def attribute_method_patterns; end
+    def attribute_method_patterns=(value); end
+    def attribute_method_patterns?; end
+    def param_delimiter; end
+    def param_delimiter=(value); end
+    def param_delimiter?; end
   end
 
   module GeneratedInstanceMethods
@@ -37,7 +34,8 @@ module StoreModel::Model
     def _validators?; end
     def attribute_aliases; end
     def attribute_aliases?; end
-    def attribute_method_matchers; end
-    def attribute_method_matchers?; end
+    def attribute_method_patterns; end
+    def attribute_method_patterns?; end
+    def param_delimiter=(value); end
   end
 end

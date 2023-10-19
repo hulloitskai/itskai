@@ -38,7 +38,7 @@ module Mutations
       result = result.serialize if result.is_a?(T::Struct)
       if result.is_a?(Hash)
         result = result.with_indifferent_access
-        unless result.include?(:success)
+        if result.exclude?(:success)
           result[:success] = result[:errors].blank?
         end
       end

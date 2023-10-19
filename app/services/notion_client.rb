@@ -1,13 +1,13 @@
 # typed: strict
 # frozen_string_literal: true
 
-class NotionClient
-  extend T::Sig
+class NotionClient < ApplicationService
   include Singleton
 
   # == Initializer
   sig { void }
   def initialize
+    super
     @client = T.let(Notion::Client.new, Notion::Client)
   end
 

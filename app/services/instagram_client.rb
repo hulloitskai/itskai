@@ -1,10 +1,10 @@
 # typed: strict
 # frozen_string_literal: true
 
-class InstagramClient
-  extend T::Sig
-  include Logging
+require "logging"
+require "instagram"
 
+class InstagramClient < ApplicationService
   # == Current
   sig { returns(T.nilable(InstagramClient)) }
   def self.current

@@ -49,8 +49,10 @@ class ResumesController < ApplicationController
 
   # == Helpers
   sig do
-    returns(T.all(Selenium::WebDriver::Chrome::Driver,
-                  Selenium::WebDriver::DriverExtensions::PrintsPage))
+    returns(T.all(
+      Selenium::WebDriver::Chrome::Driver,
+      Selenium::WebDriver::DriverExtensions::PrintsPage,
+    ))
   end
   def webdriver
     @webdriver ||= T.let(
@@ -67,8 +69,10 @@ class ResumesController < ApplicationController
           end
         end,
       ),
-      T.nilable(T.all(Selenium::WebDriver::Chrome::Driver,
-                      Selenium::WebDriver::DriverExtensions::PrintsPage)),
+      T.nilable(T.all(
+        Selenium::WebDriver::Chrome::Driver,
+        Selenium::WebDriver::DriverExtensions::PrintsPage,
+      )),
     )
   end
 

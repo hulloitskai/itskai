@@ -10,7 +10,7 @@ module Mutations
     argument :signal, Types::ScottkitSignalType
 
     # == Resolver
-    sig { override.params(signal: Symbol).returns(Payload) }
+    sig { params(signal: Symbol).returns(Payload) }
     def resolve(signal:)
       Scottcall.dial!(signal)
       Payload.new

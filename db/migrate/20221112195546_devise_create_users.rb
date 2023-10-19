@@ -1,6 +1,7 @@
-# rubocop:disable Layout/LineLength
 # typed: true
 # frozen_string_literal: true
+
+# rubocop:disable Layout/LineLength
 
 class DeviseCreateUsers < ActiveRecord::Migration[7.0]
   def change

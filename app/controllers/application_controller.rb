@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   extend T::Helpers
 
   include ActiveStorage::SetCurrent
-  include Querying
+  include Queryable
   include RemembersUserLocation
 
   # == Filters
@@ -25,7 +25,9 @@ class ApplicationController < ActionController::Base
   end
 
   sig { override.returns(T.nilable(User)) }
-  def current_user = super
+  def current_user
+    T.cast(super, T.nilable(User))
+  end
 
   sig { returns(User) }
   def current_user!

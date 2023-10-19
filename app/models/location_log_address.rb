@@ -33,14 +33,23 @@ class LocationLogAddress < ApplicationRecord
   belongs_to :location_log, inverse_of: :address, touch: true
 
   # == Normalizations
-  removes_blank :city, :neighbourhood, :place_name, :postal_code,
+  removes_blank :city,
+                :neighbourhood,
+                :place_name,
+                :postal_code,
                 :street_address
 
   # == Methods
   sig { returns(String) }
   def full_address
-    [place_name, street_address, neighbourhood, city, province,
-     country,].compact.uniq.join(", ")
+    [
+      place_name,
+      street_address,
+      neighbourhood,
+      city,
+      province,
+      country,
+    ].compact.uniq.join(", ")
   end
 
   sig { returns(String) }

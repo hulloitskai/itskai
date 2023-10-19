@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "owner"
+
 # == Schema Information
 #
 # Table name: users
@@ -76,9 +78,24 @@ class User < ApplicationRecord
             email: true,
             uniqueness: { case_sensitive: false }
   validates :password,
-            password_strength: { min_entropy: MIN_PASSWORD_ENTROPY,
-                                 use_dictionary: true },
+            password_strength: {
+              min_entropy: MIN_PASSWORD_ENTROPY,
+              use_dictionary: true,
+            },
             allow_nil: true
+
+  # == Finders
+  sig { returns(T.nilable(User)) }
+  def self.owner
+    if (email = Owner.email)
+      User.find_by(email:)
+    end
+  end
+
+  sig { returns(User) }
+  def self.owner!
+    User.find_by!(email: Owner.email!)
+  end
 
   # == Emails
   sig { void }

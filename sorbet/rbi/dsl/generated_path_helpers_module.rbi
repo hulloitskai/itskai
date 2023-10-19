@@ -30,9 +30,6 @@ module GeneratedPathHelpersModule
   def destroy_user_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def edit_rails_conductor_inbound_email_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def edit_user_password_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -181,9 +178,6 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def sensen_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def shortcuts_action_items_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def src_path(*args); end

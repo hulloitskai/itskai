@@ -1,6 +1,7 @@
-# rubocop:disable Layout/LineLength
 # typed: strict
 # frozen_string_literal: true
+
+# rubocop:disable Layout/LineLength
 
 # Be sure to restart your server when you modify this file.
 

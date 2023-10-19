@@ -7,10 +7,10 @@
 # source://rgeo-activerecord//lib/rgeo/active_record/spatial_expressions.rb#248
 module Arel
   class << self
-    # source://activerecord/7.0.6/lib/arel.rb#46
+    # source://activerecord/7.1.1/lib/arel.rb#60
     def arel_node?(value); end
 
-    # source://activerecord/7.0.6/lib/arel.rb#50
+    # source://activerecord/7.1.1/lib/arel.rb#64
     def fetch_attribute(value, &block); end
 
     # Create a spatial constant node.
@@ -21,10 +21,10 @@ module Arel
     # source://rgeo-activerecord//lib/rgeo/active_record/spatial_expressions.rb#253
     def spatial(arg); end
 
-    # source://activerecord/7.0.6/lib/arel.rb#38
-    def sql(raw_sql); end
+    # source://activerecord/7.1.1/lib/arel.rb#48
+    def sql(sql_string, *positional_binds, **named_binds); end
 
-    # source://activerecord/7.0.6/lib/arel.rb#42
+    # source://activerecord/7.1.1/lib/arel.rb#56
     def star; end
   end
 end
@@ -36,10 +36,10 @@ end
 module Arel::Visitors; end
 
 class Arel::Visitors::Visitor
-  # source://activerecord/7.0.6/lib/arel/visitors/visitor.rb#6
+  # source://activerecord/7.1.1/lib/arel/visitors/visitor.rb#6
   def initialize; end
 
-  # source://activerecord/7.0.6/lib/arel/visitors/visitor.rb#10
+  # source://activerecord/7.1.1/lib/arel/visitors/visitor.rb#10
   def accept(object, collector = T.unsafe(nil)); end
 
   # source://rgeo-activerecord//lib/rgeo/active_record/arel_spatial_queries.rb#79
@@ -47,17 +47,17 @@ class Arel::Visitors::Visitor
 
   private
 
-  # source://activerecord/7.0.6/lib/arel/visitors/visitor.rb#15
+  # source://activerecord/7.1.1/lib/arel/visitors/visitor.rb#15
   def dispatch; end
 
-  # source://activerecord/7.0.6/lib/arel/visitors/visitor.rb#23
+  # source://activerecord/7.1.1/lib/arel/visitors/visitor.rb#23
   def get_dispatch_cache; end
 
-  # source://activerecord/7.0.6/lib/arel/visitors/visitor.rb#27
+  # source://activerecord/7.1.1/lib/arel/visitors/visitor.rb#27
   def visit(object, collector = T.unsafe(nil)); end
 
   class << self
-    # source://activerecord/7.0.6/lib/arel/visitors/visitor.rb#17
+    # source://activerecord/7.1.1/lib/arel/visitors/visitor.rb#17
     def dispatch_cache; end
   end
 end
@@ -486,7 +486,7 @@ module RGeo::ActiveRecord::SpatialToSql
   # The node must be a string (in which case it is treated as WKT),
   # an RGeo feature, or a spatial attribute.
   #
-  # source://activerecord-postgis-adapter/8.0.2/lib/active_record/connection_adapters/postgis/arel_tosql.rb#8
+  # source://activerecord-postgis-adapter/9.0.1/lib/active_record/connection_adapters/postgis/arel_tosql.rb#8
   def visit_in_spatial_context(node, collector); end
 end
 

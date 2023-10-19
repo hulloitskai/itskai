@@ -1,33 +1,46 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "sorbet-runtime"
+
 # Add predicates to determine if Rails is running a console or a server.
 module Rails
-  class << self
-    T::Sig::WithoutRuntime.sig { returns(T::Boolean) }
+  module Extension
+    extend T::Sig
+    extend T::Helpers
+
+    # == Annotations
+    requires_ancestor { T.class_of(Rails) }
+
+    # == Methods
+    sig { returns(T::Boolean) }
     def server?
       const_defined?(:Server)
     end
 
-    T::Sig::WithoutRuntime.sig { returns(T::Boolean) }
+    sig { returns(T::Boolean) }
     def console?
       const_defined?(:Console)
     end
 
-    T::Sig::WithoutRuntime.sig { returns(T::Boolean) }
+    sig { returns(T::Boolean) }
     def test?
       const_defined?(:TestUnitReporter)
     end
   end
+
+  extend Extension
 end
 
 # Ensure generators defined in 'lib/generators' are prioritized over
 # generators in 'lib/rails/generators'.
 module Rails::Generators
-  class << self
+  module Extension
+    extend T::Sig
+
     private
 
-    T::Sig::WithoutRuntime.sig { returns(T::Array[String]) }
+    sig { returns(T::Array[String]) }
     def lookup_paths
       @lookup_paths ||= T.let(
         %w[generators rails/generators],
@@ -35,4 +48,6 @@ module Rails::Generators
       )
     end
   end
+
+  extend Extension
 end

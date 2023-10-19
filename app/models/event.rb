@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "google"
+
 class Event < T::Struct
   extend T::Sig
 

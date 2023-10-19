@@ -1,10 +1,9 @@
 # typed: strict
 # frozen_string_literal: true
 
-class ICloudClient
-  extend T::Sig
-  include Logging
+require "icloud"
 
+class ICloudClient < ApplicationService
   # == Current
   sig { returns(T.nilable(T.attached_class)) }
   def self.current
@@ -42,28 +41,28 @@ class ICloudClient
     @pyclient.requires_security_code
   end
 
-  sig { returns(ICloudDrive) }
+  sig { returns(Drive) }
   def drive
-    ICloudDrive.new(@pyclient.drive)
+    Drive.new(@pyclient.drive)
   end
 
-  sig { returns(T::Array[ICloudDevice]) }
+  sig { returns(T::Array[Device]) }
   def devices
     devices_by_id.values
   end
 
-  sig { params(id: String).returns(ICloudDevice) }
+  sig { params(id: String).returns(Device) }
   def device(id)
     devices_by_id[id] or raise "Device not found"
   end
 
-  sig { returns(T.nilable(ICloudDevice)) }
+  sig { returns(T.nilable(Device)) }
   def iphone
     device_id = ICloud.iphone_device_id or return
     devices_by_id[device_id]
   end
 
-  sig { returns(ICloudDevice) }
+  sig { returns(Device) }
   def iphone!
     devices_by_id.fetch(ICloud.iphone_device_id!)
   end
@@ -129,10 +128,10 @@ class ICloudClient
     )
   end
 
-  sig { returns(T::Hash[String, ICloudDevice]) }
+  sig { returns(T::Hash[String, Device]) }
   def devices_by_id
     @pyclient.devices.to_h.transform_values do |value|
-      ICloudDevice.new(value)
+      Device.new(value)
     end
   end
 end

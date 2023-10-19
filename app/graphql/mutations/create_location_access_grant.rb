@@ -20,7 +20,7 @@ module Mutations
 
     # == Resolver
     sig do
-      override.params(
+      params(
         expires_in_seconds: Integer,
         attributes: T.untyped,
       ).returns(Payload)

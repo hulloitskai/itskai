@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "location"
+
 # == Schema Information
 #
 # Table name: location_logs
@@ -41,6 +43,10 @@ class LocationLog < ApplicationRecord
     address or raise ActiveRecord::RecordNotFound, "Missing address"
   end
 
+  # == Callbacks
+  after_create :reverse_geocode_and_save!
+  after_create_commit :trigger_subscription
+
   # == Scopes
   scope :with_address, -> {
     T.bind(self, PrivateRelation)
@@ -52,10 +58,6 @@ class LocationLog < ApplicationRecord
     with_address.order(timestamp: :desc).limit(1)
   }
   private_class_method :_latest
-
-  # == Callbacks
-  after_create :reverse_geocode_and_save!
-  after_create_commit :trigger_subscription
 
   # == Geocoding
   reverse_geocoded_by :latitude, :longitude do |log, results|
@@ -85,8 +87,7 @@ class LocationLog < ApplicationRecord
   # == Importing
   sig { void }
   def self.import!
-    iphone = ICloudDevice.iphone or return
-    location = iphone.location
+    location = ICloudClient.current&.iphone&.location or return
     timestamp = Time.zone.at(location[:time_stamp] / 1000)
     unless exists?(timestamp:)
       coordinates = scoped do
@@ -126,6 +127,12 @@ class LocationLog < ApplicationRecord
       relation = T.cast(relation, PrivateRelation)
     end
     relation.first!
+  end
+
+  # == Finders
+  sig { returns(T.nilable(LocationLog)) }
+  def self.latest_visible
+    latest(timestamp: 6.hours.ago..) unless Location.hide?
   end
 
   # == Methods

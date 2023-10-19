@@ -10,7 +10,7 @@ module Mutations
     argument :grant_id, ID, loads: Types::LocationAccessGrantType
 
     # == Resolver
-    sig { override.params(grant: LocationAccessGrant).returns(Payload) }
+    sig { params(grant: LocationAccessGrant).returns(Payload) }
     def resolve(grant:)
       authorize!(grant, to: :destroy?)
       grant.destroy!

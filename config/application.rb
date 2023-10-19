@@ -3,50 +3,45 @@
 
 require_relative "boot"
 
-require "./lib/core_ext"
 require "rails/all"
-require "./lib/rails_ext"
-require "./lib/actionview_ext"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# == Configuration
 module ItsKai
   extend T::Sig
 
   class Application < Rails::Application
     extend T::Sig
 
+    # == Extensions
+    require "core_ext"
+    require "rails_ext"
+    require "actionview_ext"
+    require "action_policy_ext"
+    require "better_errors_ext"
+    require "bullet_ext"
+    require "graphql_ext"
+    require "vite_ext"
+    require "inertia_rails_ext"
+    require "premailer_ext"
+    require "email_validator_ext"
+    require "devise_ext"
+    require "friendly_id_ext"
+
     # == Constants
     BOOTED_AT = T.let(Time.current, Time)
 
     # == Defaults
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults(7.0)
+    config.load_defaults(7.1)
 
     # == Code Loading
-    config.before_configuration do
-      # == Libraries
-      require "spotify"
-
-      # == Extensions
-      require "action_policy_ext"
-      require "better_errors_ext"
-      require "bullet_ext"
-      require "graphql_ext"
-      require "vite_ext"
-      require "inertia_rails_ext"
-      require "premailer_ext"
-      require "email_validator_ext"
-      require "devise_ext"
-      require "friendly_id_ext"
-      require "google_ext"
-      # require "discordrb_ext"
-    end
-
-    # See: https://edgeguides.rubyonrails.org/autoloading_and_reloading_constants.html#load_path
-    config.add_autoload_paths_to_load_path = false
+    # Only autoload workers once.
+    Rails.autoloaders.main.ignore(Rails.root.join("app/workers"))
+    config.autoload_once_paths << Rails.root.join("app/workers")
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -105,13 +100,14 @@ module ItsKai
     config.active_record.index_nested_attribute_errors = true
 
     # == Action Cable
-    config.action_cable.mount_path = "/rails/action_cable/cable"
+    # config.action_cable.mount_path = "/cable"
 
     # == Active Job
     config.active_job.queue_adapter = :good_job
 
     # == Active Storage
     config.active_storage.variant_processor = :vips
+    config.active_storage.routes_prefix = "/files"
 
     # == Active Support
     config.active_support.remove_deprecated_time_with_zone_name = true

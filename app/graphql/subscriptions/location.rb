@@ -9,7 +9,7 @@ module Subscriptions
     # == Callback Handlers
     sig { returns(T.nilable(::LocationLog)) }
     def subscribe
-      ::Location.current
+      LocationLog.latest_visible
     end
   end
 end

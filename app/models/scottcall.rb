@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "owner"
+
 # == Schema Information
 #
 # Table name: scottcalls

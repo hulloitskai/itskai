@@ -13,8 +13,10 @@ module Discardable
   requires_ancestor { RequiresColumn }
 
   included do
-    T.bind(self, T.all(T.class_of(ActiveRecord::Base),
-                       RequiresColumn::ClassMethods))
+    T.bind(self, T.all(
+      T.class_of(ActiveRecord::Base),
+      RequiresColumn::ClassMethods,
+    ))
 
     # == Configuration
     requires_column :discarded_at

@@ -12,8 +12,10 @@ module ObsidianEntry
   requires_ancestor { RequiresColumn }
 
   included do
-    T.bind(self, T.all(T.class_of(ActiveRecord::Base),
-                       RequiresColumn::ClassMethods))
+    T.bind(self, T.all(
+      T.class_of(ActiveRecord::Base),
+      RequiresColumn::ClassMethods,
+    ))
 
     # == Dependencies
     requires_column :name

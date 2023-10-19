@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_16_035223) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_19_161210) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -42,22 +42,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_035223) do
     t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "cookies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "domain", null: false
-    t.string "name", null: false
-    t.string "value", null: false
-    t.boolean "session", null: false
-    t.boolean "host_only", null: false
-    t.float "expiration_date"
-    t.string "path", null: false
-    t.boolean "http_only", null: false
-    t.boolean "secure", null: false
-    t.string "same_site", null: false
-    t.datetime "created_at", null: false
-    t.string "service", null: false
-    t.index ["service"], name: "index_cookies_on_service"
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

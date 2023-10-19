@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "announcement"
+
 module Queries
   class Announcement < BaseQuery
     # == Type

@@ -1,6 +1,10 @@
-# rubocop:disable Layout/LineLength
 # typed: true
 # frozen_string_literal: true
+
+# rubocop:disable Layout/LineLength
+
+require "google"
+require "spotify"
 
 # Assuming you have not yet modified this file, each configuration option below
 # is set to its default value. Note that some are commented out while others

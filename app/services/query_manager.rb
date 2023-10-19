@@ -1,54 +1,35 @@
 # typed: strict
 # frozen_string_literal: true
 
-class QueryManager
-  extend T::Sig
+class QueryManager < ApplicationService
   include Singleton
+
+  # == Constants
+  FILES_DIR = T.let(Rails.root.join("app/queries"), Pathname)
 
   # == Initialization
   sig { void }
   def initialize
+    super
     @queries = T.let({}, T::Hash[String, ParsedQuery])
     @fragments = T.let({}, T::Hash[String, ParsedFragment])
     load
   end
 
-  # == Watching
+  # == Methods
   sig { void }
-  def watch
-    require "listen"
-    @watcher ||= T.let(
-      scoped do
-        watcher = Listen.to(files_dir, only: /\.graphql$/) do
-          Rails.application.executor.wrap do
-            load
-          end
-        end
-        ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
-          watcher.start
-        end
-        watcher
-      end,
-      T.nilable(Listen::Listener),
-    )
-  end
-
-  sig { void }
-  def self.watch = instance.watch
-
-  sig { void }
-  def unwatch
-    if @watcher
-      ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
-        @watcher.stop
-      end
+  def load
+    synchronize do
+      @queries.clear
+      @fragments.clear
+      filenames = Dir.glob(FILES_DIR.join("**/*.graphql").to_s)
+      load_files(*T.unsafe(filenames))
     end
   end
 
   sig { void }
-  def self.unwatch = instance.unwatch
+  def self.load = instance.load
 
-  # == Methods
   sig { params(name: String, kwargs: T.untyped).returns(ExecutionResult) }
   def execute(name, **kwargs)
     document = synchronize { build_query_document(name) }
@@ -100,21 +81,6 @@ class QueryManager
   end
 
   # == Loading
-  sig { returns(Pathname) }
-  def files_dir
-    Rails.root.join("app/queries")
-  end
-
-  sig { void }
-  def load
-    synchronize do
-      @queries.clear
-      @fragments.clear
-      filenames = Dir.glob(files_dir.join("**/*.graphql").to_s)
-      load_files(*T.unsafe(filenames))
-    end
-  end
-
   sig { params(filenames: String).void }
   def load_files(*filenames)
     filenames.each do |filename|
@@ -198,16 +164,5 @@ class QueryManager
     visitor = FragmentReferencesVisitor.new(node)
     visitor.visit
     visitor.references
-  end
-
-  sig { returns(ActiveSupport::Logger) }
-  def logger = Rails.logger
-
-  sig { params(block: T.proc.void).void }
-  def tag_logger(&block)
-    if logger.respond_to?(:tagged)
-      logger = T.cast(self.logger, ActiveSupport::TaggedLogging)
-      logger.tagged(self.class.name, &block)
-    end
   end
 end

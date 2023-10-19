@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "shortcuts"
+
 module Shortcuts
   class ApplicationController < ::ApplicationController
     private

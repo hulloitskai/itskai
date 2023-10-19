@@ -20,8 +20,10 @@ module Mutations
     # == Resolver
     sig { override.params(attributes: T.untyped).returns(Payload) }
     def resolve(**attributes)
-      credentials = T.let(ICloudCredentials.first_or_initialize,
-                          ICloudCredentials)
+      credentials = T.let(
+        ICloudCredentials.first_or_initialize,
+        ICloudCredentials,
+      )
       authorize!(credentials, to: :update?)
       if credentials.update(cookies: nil, session: nil, **attributes)
         Payload.new(credentials:)

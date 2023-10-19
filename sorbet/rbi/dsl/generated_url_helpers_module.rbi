@@ -30,9 +30,6 @@ module GeneratedUrlHelpersModule
   def destroy_user_session_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def edit_rails_conductor_inbound_email_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def edit_user_password_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -181,9 +178,6 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def sensen_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def shortcuts_action_items_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def src_url(*args); end

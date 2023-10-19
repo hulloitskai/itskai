@@ -25,8 +25,10 @@ module Mutations
         .returns(Payload)
     end
     def resolve(security_code: nil, **attributes)
-      credentials = T.let(InstagramCredentials.first_or_initialize,
-                          InstagramCredentials)
+      credentials = T.let(
+        InstagramCredentials.first_or_initialize,
+        InstagramCredentials,
+      )
       authorize!(credentials, to: :update?)
       if credentials.update(session: nil, **attributes)
         InstagramClient.from_credentials(credentials, security_code:)

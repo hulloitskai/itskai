@@ -23,10 +23,14 @@ module PoorlyDrawnLines
       if response.success?
         html = T.let(response.body, String)
         doc = T.let(Nokogiri::HTML(html), Nokogiri::HTML::Document)
-        img = T.let(doc.at_css(".post .wp-block-image img"),
-                    Nokogiri::XML::Node)
-        previous_link = T.let(doc.at_css(".post-nav .previous a"),
-                              Nokogiri::XML::Node)
+        img = T.let(
+          doc.at_css(".post .wp-block-image img"),
+          Nokogiri::XML::Node,
+        )
+        previous_link = T.let(
+          doc.at_css(".post-nav .previous a"),
+          Nokogiri::XML::Node,
+        )
         next_link = T.let(doc.at_css(".post-nav .next a"), Nokogiri::XML::Node)
         @comic = Comic.new(
           id:,

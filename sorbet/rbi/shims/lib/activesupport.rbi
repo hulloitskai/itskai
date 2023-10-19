@@ -32,34 +32,38 @@ module ActiveSupport
   class ErrorReporter
     sig do
       params(
-        error_class: T::Class[T.anything],
+        error_classes: T::Class[T.anything],
         severity: Symbol,
         context: T::Hash[Symbol, T.untyped],
         fallback: T.nilable(T.proc.returns(T.untyped)),
+        source: String,
         block: T.proc.returns(T.untyped),
       ).returns(T.untyped)
     end
     def handle(
-      error_class = StandardError,
+      *error_classes,
       severity: :warning,
       context: {},
       fallback: nil,
+      source: "application",
       &block
     ); end
 
     sig do
       type_parameters(:T).
         params(
-          error_class: T::Class[T.anything],
+          error_classses: T::Class[T.anything],
           severity: Symbol,
           context: T::Hash[Symbol, T.untyped],
+          source: String,
           block: T.proc.returns(T.type_parameter(:T)),
         ).returns(T.type_parameter(:T))
     end
     def record(
-      error_class = StandardError,
+      *error_classses,
       severity: :error,
       context: {},
+      source: "application",
       &block
     ); end
   end
@@ -171,11 +175,11 @@ class Hash
 end
 
 class Time
-  sig { returns(ActiveSupport::TimeZone) }
-  def self.zone; end
-
   sig { params(zone: T.untyped).returns(ActiveSupport::TimeWithZone) }
   def in_time_zone(zone = T.unsafe(nil)); end
+
+  sig { returns(ActiveSupport::TimeZone) }
+  def self.zone; end
 end
 
 module Enumerable

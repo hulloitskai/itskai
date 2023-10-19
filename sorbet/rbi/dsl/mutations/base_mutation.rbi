@@ -7,4 +7,7 @@
 class Mutations::BaseMutation
   include GeneratedUrlHelpersModule
   include GeneratedPathHelpersModule
+
+  sig { params(args: T.untyped).returns(T.untyped) }
+  def resolve(**args); end
 end

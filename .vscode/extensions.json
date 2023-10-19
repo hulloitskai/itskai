@@ -12,6 +12,7 @@
     "graphql.vscode-graphql",
     "graphql.vscode-graphql-syntax",
     "github.vscode-github-actions",
-    "clinyong.vscode-css-modules"
+    "clinyong.vscode-css-modules",
+    "rubocop.vscode-rubocop"
   ]
 }

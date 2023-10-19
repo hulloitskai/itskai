@@ -2,11 +2,8 @@
 
 module ActiveRecord
   class Base
-    sig do
-      params(_arg0: T.untyped, _arg1: T.untyped, _arg2: T.untyped)
-        .returns(ActiveModel::Name)
-    end
-    def model_name(*_arg0, **_arg1, &_arg2); end
+    sig { params(block: T.untyped).returns(ActiveModel::Name) }
+    def model_name(&block); end
   end
 
   module Calculations

@@ -15,7 +15,7 @@ module Mutations
     argument :message_id, ID, loads: Types::PensieveMessageType
 
     # == Resolver
-    sig { override.params(message: PensieveMessage).returns(Payload) }
+    sig { params(message: PensieveMessage).returns(Payload) }
     def resolve(message:)
       ActiveRecord::Base.transaction do
         message.like!(actor_id:) unless message.liked_by?(actor_id:)

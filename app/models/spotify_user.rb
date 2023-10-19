@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "spotify"
+
 class SpotifyUser < RSpotify::User
   extend T::Sig
 

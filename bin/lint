@@ -31,7 +31,12 @@ puts "=> Running Rubocop"
 scoped do
   args = []
   args << "--autocorrect" if options[:fix]
-  system! "bin/rubocop", "--except", "Layout", *args
+  system!(
+    "bin/rubocop",
+    "--except",
+    "Layout,Lint/RedundantCopDisableDirective",
+    *args,
+  )
 end
 
 puts "\n=> Running Eslint"

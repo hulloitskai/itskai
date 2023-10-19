@@ -16,7 +16,7 @@ module Mutations
     argument :text, String
 
     # == Resolver
-    sig { override.params(entry: JournalEntry, text: String).returns(Payload) }
+    sig { params(entry: JournalEntry, text: String).returns(Payload) }
     def resolve(entry:, text:)
       comment = entry.create_notion_comment(text)
       Payload.new(comment:)

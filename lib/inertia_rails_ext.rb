@@ -45,5 +45,5 @@ module InertiaRails
     end
 
     prepend Extension
-end
+  end
 end

@@ -1,10 +1,10 @@
 # typed: true
 # frozen_string_literal: true
 
-require "premailer"
 require "premailer/rails"
 require "nokogiri"
 require "core_ext"
+require "sorbet-runtime"
 
 # class Premailer
 #   module Rails::CSSLoaders::NetworkLoader
@@ -96,9 +96,7 @@ class Premailer
               # this is in place to preserve the MailChimp CSS reset: http://github.com/mailchimp/Email-Blueprints/
               # however, this doesn't mean for testing pur
               rules = CssParser::RuleSet.new(selector, declaration)
-              unless !@options[:preserve_reset]
-                unmergable_rules.add_rule_set!(rules)
-              end
+              unmergable_rules.add_rule_set!(rules) if @options[:preserve_reset]
             end
 
             # Change single ID CSS selectors into xpath so that we can match
@@ -233,7 +231,7 @@ class Premailer
               new_val.gsub!(/;$|\s*!important/, "").strip!
 
               # For width and height tags, remove px units
-              if %w[width height].include?(html_attr) # rubocop:disable Performance/CollectionLiteralInLoop, Layout/LineLength
+              if %w[width height].include?(html_attr) # rubocop:disable Performance/CollectionLiteralInLoop
                 new_val.gsub!(/(\d+)px/, '\1')
               end
 
@@ -313,7 +311,7 @@ class Premailer
       while (match = new_value.match(/var\((--[\w-]+)(, ?(.+))?\)/))
         variable_name, fallback_literal, fallback = T.cast(
           match.captures,
-          [String, T.nilable(String), T.nilable((String))],
+          [String, T.nilable(String), T.nilable(String)],
         )
         replacement = resolve_css_variable(
           variable_name,
@@ -423,7 +421,7 @@ class Premailer
       end
       thing = thing.read if thing.respond_to?(:read)
 
-      return nil unless thing
+      return unless thing
       doc = nil
 
       # Handle HTML entities
