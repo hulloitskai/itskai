@@ -14,6 +14,7 @@
   --icon-color: var(--badge-color, var(--mantine-color-white));
 
   height: rem(20px);
+  width: rem(20px);
   svg {
     path,
     g {
