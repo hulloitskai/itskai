@@ -1,6 +1,8 @@
 # typed: true
 # frozen_string_literal: true
 
+require "friendly_id_ext"
+
 # FriendlyId Global Configuration
 #
 # Use this to set up shared configuration options for your entire application.

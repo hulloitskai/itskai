@@ -16,20 +16,8 @@ module ItsKai
   class Application < Rails::Application
     extend T::Sig
 
-    # == Extensions
     require "core_ext"
     require "rails_ext"
-    require "actionview_ext"
-    require "action_policy_ext"
-    require "better_errors_ext"
-    require "bullet_ext"
-    require "graphql_ext"
-    require "vite_ext"
-    require "inertia_rails_ext"
-    require "premailer_ext"
-    require "email_validator_ext"
-    require "devise_ext"
-    require "friendly_id_ext"
 
     # == Constants
     BOOTED_AT = T.let(Time.current, Time)

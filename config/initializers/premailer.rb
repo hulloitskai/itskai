@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "premailer_ext"
+
 Rails.application.configure do
   config.before_initialize do
     url_options = Rails.application.routes.default_url_options.dup

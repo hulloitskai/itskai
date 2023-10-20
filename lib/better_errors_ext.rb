@@ -1,13 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
-require "active_support/core_ext"
-
-begin
-  require "better_errors"
-rescue LoadError
-  return
-end
+require "sorbet-runtime"
+require "better_errors"
 
 # Use VSCode as default editor.
 ENV["BETTER_ERRORS_EDITOR"] = "vscode"
@@ -20,8 +15,10 @@ class BetterErrors::StackFrame
     extend T::Sig
     extend T::Helpers
 
+    # == Annotations
     requires_ancestor { BetterErrors::StackFrame }
 
+    # == Methods
     sig { returns(T::Boolean) }
     def application?
       return false unless super
@@ -42,9 +39,8 @@ class BetterErrors::Middleware
 
   sig { params(env: T::Hash[String, T.untyped]).returns(T::Boolean) }
   def text?(env)
-    (
-      env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest" &&
-        env["HTTP_X_INERTIA"] != "true"
-    ) || env["HTTP_ACCEPT"].to_s.exclude?("html")
+    (env["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest" &&
+      env["HTTP_X_INERTIA"] != "true") ||
+      env["HTTP_ACCEPT"].to_s.exclude?("html")
   end
 end

@@ -1,6 +1,8 @@
 # typed: true
 # frozen_string_literal: true
 
+require "logging"
+
 class ApplicationWorker
   extend T::Sig
   extend T::Helpers
