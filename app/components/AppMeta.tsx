@@ -38,7 +38,7 @@ const AppMeta: FC<AppMetaProps> = ({
       )}
       <meta property="og:site_name" content={AppMetaSiteName.toLowerCase()} />
       <meta property="og:type" content={AppMetaSiteType} />
-      <meta property="og:title" content={title} />
+      {!!title && <meta property="og:title" content={title} />}
       {!!description && (
         <meta property="og:description" content={description.toLowerCase()} />
       )}

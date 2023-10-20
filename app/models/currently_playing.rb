@@ -24,7 +24,7 @@ class CurrentlyPlaying < T::Struct
   def self.current=(currently_playing)
     Rails.cache.write(CACHE_KEY, currently_playing.as_json)
     record_listening_log(currently_playing) if currently_playing
-    trigger_subscriptions(currently_playing)
+    Schema.subscriptions!.trigger(:currently_playing, {}, nil)
   end
 
   sig { params(currently_playing: CurrentlyPlaying).void }
@@ -43,15 +43,6 @@ class CurrentlyPlaying < T::Struct
     end
   end
 
-  sig { params(currently_playing: T.nilable(CurrentlyPlaying)).void }
-  private_class_method def self.trigger_subscriptions(currently_playing)
-    Schema.subscriptions!.trigger(
-      :currently_playing,
-      {},
-      currently_playing.as_json,
-    )
-  end
-
   # == Serialization
   sig { params(json: T::Hash[String, T.untyped]).returns(CurrentlyPlaying) }
   def self.from_json(json)
@@ -67,7 +58,8 @@ class CurrentlyPlaying < T::Struct
   def ==(other)
     case other
     when CurrentlyPlaying
-      other.timestamp == timestamp
+      other.track.id == track.id &&
+        other.progress_milliseconds == progress_milliseconds
     else
       super
     end

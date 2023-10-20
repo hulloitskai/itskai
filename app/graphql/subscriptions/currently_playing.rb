@@ -14,10 +14,7 @@ module Subscriptions
 
     sig { override.returns(T.nilable(::CurrentlyPlaying)) }
     def update
-      if (json = object)
-        json = T.let(json, T::Hash[String, T.untyped])
-        ::CurrentlyPlaying.from_json(json)
-      end
+      ::CurrentlyPlaying.current
     end
   end
 end
