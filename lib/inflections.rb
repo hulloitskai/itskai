@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "rails"
+
 # Be sure to restart your server when you modify this file.
 
 # Add new inflection rules using the following format. Inflections
@@ -18,8 +20,8 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym("GlobalID")
   inflect.acronym("GraphQL")
   inflect.acronym("ICloud")
-  inflect.acronym("ShortID")
   inflect.acronym("OAuth")
+  inflect.acronym("ItsKai")
 
   # == Others
   inflect.uncountable("credentials")

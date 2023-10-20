@@ -31,6 +31,9 @@ module ItsKai
     require "friendly_id_ext"
     require "email_validator_ext"
 
+    # == Inflections
+    require "inflections"
+
     # == Constants
     BOOTED_AT = T.let(Time.current, Time)
 
