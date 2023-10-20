@@ -4,6 +4,7 @@
   cursor: pointer;
   padding-left: var(--badge-padding-x-sm);
 
+  border-color: var(--mantine-color-gray-7);
   &[data-expanded] {
     border-color: var(--mantine-color-brand-outline);
   }
