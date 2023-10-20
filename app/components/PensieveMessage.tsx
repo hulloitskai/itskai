@@ -69,7 +69,7 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
               >
                 {text}
               </Linkify>
-              <Box style={{ flexShrink: 0 }}>
+              <Box lh={1} style={{ flexShrink: 0 }}>
                 <Time format={DateTime.TIME_SIMPLE} size="xs" c="dimmed">
                   {timestamp}
                 </Time>

@@ -30,14 +30,13 @@ module Logging
     def tag_logger(&block)
       logger = self.logger
       if logger.respond_to?(:tagged)
-        logger = T.cast(logger, ActiveSupport::TaggedLogging)
-        logger.tagged(name, &block)
+        logger.public_send(:tagged, name, &block)
       end
     end
   end
 
   # == Methods
-  sig { returns(ActiveSupport::Logger) }
+  sig { returns(T.any(ActiveSupport::Logger, ActiveSupport::BroadcastLogger)) }
   def logger = Rails.logger
 
   # == Helpers
@@ -45,8 +44,7 @@ module Logging
   def tag_logger(&block)
     logger = self.logger
     if logger.respond_to?(:tagged)
-      logger = T.cast(logger, ActiveSupport::TaggedLogging)
-      logger.tagged(self.class.name, &block)
+      logger.public_send(:tagged, self.class.name, &block)
     end
   end
 end
