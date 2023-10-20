@@ -9,7 +9,7 @@ import UserRegisterPageForm from "~/components/UserRegisterPageForm";
 export type UserRegisterPageProps = PagePropsWithData<UserRegisterPageQuery>;
 
 const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => (
-  <Card w={380} radius="md" withBorder>
+  <Card w={380} withBorder>
     <Stack gap="xs">
       <Stack align="center" gap={2}>
         <Title size="h3">Sign up</Title>

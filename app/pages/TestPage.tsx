@@ -60,8 +60,8 @@ const TestPage: PageComponent<TestPageProps> = ({
     showNotification({
       color: "yellow",
       icon: <ExclamationCircleIcon />,
-      title: "I hate Visual Programming",
-      message: "Miss me with that visual programming shit.",
+      title: "Graphic design is my passion",
+      message: "I love graphic design.",
     });
   }, []);
 
@@ -100,7 +100,7 @@ const TestPage: PageComponent<TestPageProps> = ({
 };
 
 TestPage.layout = buildLayout<TestPageProps>((page, { data: { viewer } }) => (
-  <AppLayout withContainer withGutter {...{ viewer }}>
+  <AppLayout withContainer containerSize="sm" withGutter {...{ viewer }}>
     {page}
   </AppLayout>
 ));

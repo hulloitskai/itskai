@@ -1,8 +1,11 @@
 import type { FC } from "react";
+
 import { Code, Text } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 
 import { TestMutationMutationDocument } from "~/helpers/graphql";
+
+import "@mantine/dates/styles.layer.css";
 
 export type TestFormValues = {
   readonly name: string;
@@ -54,7 +57,19 @@ const TestForm: FC = () => {
         })}
       >
         <Stack gap="xs">
-          <TextInput label="Name" required {...getInputProps("name")} />
+          <TextInput
+            label="Name"
+            description={
+              <>
+                The only accepted value is:{" "}
+                <Text span inherit style={{ textTransform: "none" }}>
+                  George
+                </Text>
+              </>
+            }
+            required
+            {...getInputProps("name")}
+          />
           <DatePickerInput label="Birthday" {...getInputProps("birthday")} />
           <Button type="submit">Submit</Button>
           {data && (

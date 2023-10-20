@@ -18,7 +18,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
   // == Markup
   return (
     <Stack>
-      <Card radius="md" withBorder>
+      <Card withBorder>
         <Stack gap="sm">
           <Center>
             <Title order={2} size="h4">
@@ -28,7 +28,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
           <UserSettingsPageProfileForm {...{ viewer }} />
         </Stack>
       </Card>
-      <Card radius="md" withBorder>
+      <Card withBorder>
         <Stack gap="sm">
           <Stack align="center" gap={0}>
             <Title order={2} size="h4">
@@ -41,7 +41,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
           <UserSettingsPageEmailForm {...{ viewer }} />
         </Stack>
       </Card>
-      <Card radius="md" withBorder>
+      <Card withBorder>
         <Stack gap="sm">
           <Stack align="center" gap={0}>
             <Title order={2} size="h4">

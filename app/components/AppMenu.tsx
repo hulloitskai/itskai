@@ -1,8 +1,15 @@
 import type { FC } from "react";
-import AdminIcon from "~icons/heroicons/key-20-solid";
-import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
+import Lottie from "lottie-react";
+import type { LottieRefCurrentProps } from "lottie-react";
 
-import { Text } from "@mantine/core";
+import AdminIcon from "~icons/heroicons/key-20-solid";
+// import SignInIcon from "~icons/heroicons/arrow-right-on-rectangle-20-solid";
+import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
+import SmileIcon from "~icons/heroicons/face-smile-20-solid";
+import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
+import LocateIcon from "~icons/lucide/locate";
+
+import { Loader, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
 import { createApolloLink } from "~/helpers/apollo";
@@ -12,6 +19,9 @@ import { AppMenuQueryDocument } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
 import type { AppViewerFragment } from "~/helpers/graphql";
 
+import { useContactMe } from "~/helpers/contactMe";
+
+import menuAnimationData from "~/assets/animations/menu.json";
 import classes from "./AppMenu.module.css";
 
 export type AppMenuProps = Omit<BoxProps, "children"> & {
@@ -21,9 +31,26 @@ export type AppMenuProps = Omit<BoxProps, "children"> & {
 const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
   const router = useRouter();
   const client = useApolloClient();
+  const [contactMe, { loading: contactMeLoading }] = useContactMe();
 
   // == State
   const [opened, setOpened] = useState(false);
+
+  // == Icon
+  const menuIconRef = useRef<LottieRefCurrentProps>(null);
+  useEffect(() => {
+    const menuIcon = menuIconRef.current;
+    if (menuIcon) {
+      menuIcon.setSpeed(2);
+      if (opened) {
+        menuIcon.setDirection(1);
+        menuIcon.play();
+      } else {
+        menuIcon.setDirection(-1);
+        menuIcon.play();
+      }
+    }
+  }, [opened]);
 
   // == Query
   const onError = useApolloAlertCallback("Failed to load server info");
@@ -35,13 +62,12 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
   const { bootedAt } = data ?? {};
 
   // == Markup
-  return viewer ? (
+  return (
     <Menu
       trigger="hover"
       position="bottom-end"
       offset={4}
       width={220}
-      radius="md"
       withinPortal={false}
       onChange={setOpened}
       styles={{
@@ -68,47 +94,78 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
     >
       <Menu.Target>
         <Badge
-          variant="dot"
-          color="brand.5"
-          c="gray.2"
-          className={cx(classes.target, classes.activeTarget)}
-          style={[style, { cursor: "pointer" }]}
+          variant="outline"
+          size="lg"
+          leftSection={
+            <Lottie
+              lottieRef={menuIconRef}
+              animationData={menuAnimationData}
+              loop={false}
+              autoplay={false}
+              className={classes.icon}
+            />
+          }
+          className={classes.target}
+          color="gray"
+          style={[style]}
         >
-          {viewer.name}
+          Menu
         </Badge>
       </Menu.Target>
       <Menu.Dropdown>
-        <Menu.Item
-          component={Link}
-          href="/user/settings"
-          leftSection={<SettingsIcon />}
-        >
-          My account
+        <Menu.Item component={Link} href="/locate" leftSection={<LocateIcon />}>
+          Locate Kai
         </Menu.Item>
         <Menu.Item
-          leftSection={<SignOutIcon />}
-          onClick={() => {
-            router.post("/logout", undefined, {
-              onSuccess: ({ props }) => {
-                const { csrf } = props as unknown as SharedPageProps;
-                const link = createApolloLink({ csrfToken: csrf.token });
-                client.setLink(link);
-                client.resetStore();
-              },
-            });
-          }}
+          component="a"
+          href="/hangout"
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+          leftSection={<SmileIcon />}
         >
-          Sign out
+          Hang out w/ Kai
         </Menu.Item>
-        {viewer.isOwner && (
+        <Menu.Item
+          leftSection={contactMeLoading ? <Loader size={12} /> : <SendIcon />}
+          onClick={contactMe}
+        >
+          Shoot Kai a msg
+        </Menu.Item>
+        {viewer && (
           <>
             <Menu.Divider />
             <Menu.Item
               component={Link}
-              href="/admin"
-              leftSection={<AdminIcon />}
+              href="/user/settings"
+              leftSection={<SettingsIcon />}
             >
-              Admin
+              My account
+            </Menu.Item>
+            {viewer.isOwner && (
+              <>
+                <Menu.Item
+                  component={Link}
+                  href="/admin"
+                  leftSection={<AdminIcon />}
+                >
+                  Admin
+                </Menu.Item>
+              </>
+            )}
+            <Menu.Item
+              leftSection={<SignOutIcon />}
+              onClick={() => {
+                router.post("/logout", undefined, {
+                  onSuccess: ({ props }) => {
+                    const { csrf } = props as unknown as SharedPageProps;
+                    const link = createApolloLink({ csrfToken: csrf.token });
+                    client.setLink(link);
+                    client.resetStore();
+                  },
+                });
+              }}
+            >
+              Sign out
             </Menu.Item>
           </>
         )}
@@ -139,18 +196,6 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
         )}
       </Menu.Dropdown>
     </Menu>
-  ) : (
-    <Badge
-      component={Link}
-      href="/login"
-      variant="dot"
-      color="gray.6"
-      className={classes.target}
-      style={[style, { cursor: "pointer" }]}
-      {...otherProps}
-    >
-      Sign in
-    </Badge>
   );
 };
 

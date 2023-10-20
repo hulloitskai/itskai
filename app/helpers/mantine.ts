@@ -75,6 +75,11 @@ const BASE_THEME_OVERRIDE = createTheme({
         },
       },
     }),
+    Card: Card.extend({
+      defaultProps: {
+        radius: "md",
+      },
+    }),
     Loader: Loader.extend({
       defaultProps: {
         color: "brand.5",

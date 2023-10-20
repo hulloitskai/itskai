@@ -18,7 +18,7 @@ const JournalEntry: FC<JournalEntryProps> = ({
   ...otherProps
 }) => (
   <Box pos="relative" w="100%" maw={540} {...otherProps}>
-    <Card withBorder padding="lg" shadow="sm" radius="md">
+    <Card withBorder padding="lg" shadow="sm">
       <Stack gap="xs">
         <Stack gap={2}>
           <Title

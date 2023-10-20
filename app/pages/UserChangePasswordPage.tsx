@@ -14,7 +14,7 @@ export type UserChangePasswordPageProps =
 const UserChangePasswordPage: PageComponent<UserChangePasswordPageProps> = ({
   resetPasswordToken,
 }) => (
-  <Card w={380} radius="md" withBorder>
+  <Card w={380} withBorder>
     <Stack gap="xs">
       <Stack gap={4}>
         <Title size="h3" style={{ textAlign: "center" }}>

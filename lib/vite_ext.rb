@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require "vite_ruby"
-require "vite_rails"
 
 class ViteRuby
   class_attribute :dev_server_enabled, default: true

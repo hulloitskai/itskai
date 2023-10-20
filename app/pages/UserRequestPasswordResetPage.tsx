@@ -12,7 +12,7 @@ export type UserRequestPasswordResetPageProps =
 const UserRequestPasswordResetPage: PageComponent<
   UserRequestPasswordResetPageProps
 > = () => (
-  <Card w={380} radius="md" withBorder>
+  <Card w={380} withBorder>
     <Stack gap="xs">
       <Stack gap={4}>
         <Title size="h3" style={{ textAlign: "center" }}>

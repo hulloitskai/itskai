@@ -3,7 +3,6 @@
 
 # rubocop:disable Layout/LineLength
 
-require "devise_ext"
 require "google"
 require "spotify"
 

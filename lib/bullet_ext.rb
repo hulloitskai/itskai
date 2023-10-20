@@ -1,8 +1,13 @@
 # typed: strict
 # frozen_string_literal: true
 
+begin
+  require "bullet"
+rescue LoadError
+  return
+end
+
 require "sorbet-runtime"
-require "bullet"
 
 class Bullet::Notification::Base
   module Extension

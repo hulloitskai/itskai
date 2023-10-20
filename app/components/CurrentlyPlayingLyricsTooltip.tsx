@@ -12,6 +12,8 @@ import {
   useProgressLyricsIndexMapping,
 } from "~/helpers/currentlyPlaying";
 
+import classes from "./CurrentlyPlayingLyricsTooltip.module.css";
+
 export type CurrentlyPlayingLyricsTooltipProps = Omit<
   TooltipProps,
   "label" | "children"
@@ -97,19 +99,11 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
       multiline
       color="brand"
       transitionProps={{ duration: transitionDuration }}
-      classNames={{
-        tooltip: "potato",
-      }}
       disabled={disabled ?? !hasWords}
       c="var(--mantine-color-white)"
       maw={350}
       fz="xs"
-      styles={{
-        tooltip: {
-          textTransform: "none",
-          lineHeight: 1.3,
-        },
-      }}
+      classNames={{ tooltip: classes.tooltip }}
       {...(currentlyExplicit === false && { opened: !disabled && hasWords })}
       {...{ ref }}
       {...otherProps}

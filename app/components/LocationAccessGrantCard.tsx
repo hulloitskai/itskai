@@ -22,7 +22,6 @@ const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
   <Card
     withBorder
     padding="sm"
-    radius="md"
     style={{
       borderColor: "var(--mantine-primary-color-filled)",
     }}

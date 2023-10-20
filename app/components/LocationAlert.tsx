@@ -43,7 +43,6 @@ const LocationAlert: FC<LocationAlertProps> = ({
     <Alert
       icon={<LocationIcon />}
       title="In the area?"
-      radius="md"
       styles={{
         root: {
           alignSelf: "center",

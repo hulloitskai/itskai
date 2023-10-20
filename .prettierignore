@@ -1,6 +1,7 @@
 .ruby-lsp/
 .husky/_/
 bin/
+app/assets/
 app/ssr/dist/
 db/schema.rb
 log/

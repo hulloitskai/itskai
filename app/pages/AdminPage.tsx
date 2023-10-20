@@ -27,7 +27,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
 
   return (
     <Stack>
-      <Card radius="md" withBorder>
+      <Card withBorder>
         <Stack gap="xs">
           <Stack align="center" gap={0}>
             <Title order={2} size="h4">
@@ -43,7 +43,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
           </Stack>
         </Stack>
       </Card>
-      <Card radius="md" withBorder>
+      <Card withBorder>
         <Stack gap="xs">
           <Stack align="center" gap={0}>
             <Title order={2} size="h4">
@@ -56,7 +56,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
           <LocationAccessGrants />
         </Stack>
       </Card>
-      <Card radius="md" withBorder>
+      <Card withBorder>
         <Stack gap="sm">
           <Stack align="center" gap={0}>
             <Title order={2} size="h4">
@@ -77,7 +77,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
           />
         </Stack>
       </Card>
-      <Card radius="md" withBorder>
+      <Card withBorder>
         <Stack gap="sm">
           <Stack align="center" gap={0}>
             <Title order={2} size="h4">
@@ -98,7 +98,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
           />
         </Stack>
       </Card>
-      <Card radius="md" withBorder>
+      <Card withBorder>
         <Stack gap="sm">
           <Stack align="center" gap={0}>
             <Title order={2} size="h4">
@@ -116,7 +116,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
           />
         </Stack>
       </Card>
-      <Card radius="md" withBorder>
+      <Card withBorder>
         <Stack gap="sm">
           <Stack align="center" gap={0}>
             <Title order={2} size="h4">

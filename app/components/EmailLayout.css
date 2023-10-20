@@ -6,6 +6,9 @@ body {
   button {
     text-transform: lowercase;
   }
+  pre {
+    text-transform: none;
+  }
   .mantine-Badge-label {
     text-transform: lowercase;
   }

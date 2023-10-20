@@ -1,8 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
-require "rails"
 require "discordrb"
+require "rails"
 
 module Discordrb
   class Logger

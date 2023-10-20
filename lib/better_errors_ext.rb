@@ -1,8 +1,13 @@
 # typed: strict
 # frozen_string_literal: true
 
+begin
+  require "better_errors"
+rescue LoadError
+  return
+end
+
 require "sorbet-runtime"
-require "better_errors"
 
 # Use VSCode as default editor.
 ENV["BETTER_ERRORS_EDITOR"] = "vscode"

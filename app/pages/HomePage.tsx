@@ -20,53 +20,38 @@ const HomePage: PageComponent<HomePageProps> = ({
   autoscroll,
   data: { announcement, journalEntry, location },
 }) => {
-  // == Pensieve
   const [showPensieve, setShowPensieve] = useState(false);
-
-  // == Location
   const [showLocation, setShowLocation] = useState(!!location);
 
   return (
-    <Stack gap="xs">
-      {announcement ? (
-        <Alert icon={<BellIcon />} mt="md">
-          {announcement}
-        </Alert>
-      ) : (
-        <Space h="xs" />
-      )}
-      <Center h={275}>
-        <Stack align="center">
-          <Title c="var(--mantine-color-white)" fw={900}>
-            Hi, it&apos;s Kai
-          </Title>
-          <Text c="gray.6" maw={400} style={{ textAlign: "center" }}>
-            Welcome to my little corner of the internet :)
-            <br />
-            Please enjoy your stay. if you&apos;re having a good time,
-            let&apos;s{" "}
-            <Anchor
-              href="http://cal.com/itskai"
-              target="_blank"
-              rel="noopener noreferrer nofollow"
-              fw={600}
-            >
-              do something together
-            </Anchor>
-            !
-          </Text>
-          <Text
-            size="xs"
-            opacity={0.7}
-            lh={1.2}
-            style={{ textAlign: "center" }}
+    <Stack gap={52}>
+      <Box pb="lg">
+        {!!announcement && <Alert icon={<BellIcon />}>{announcement}</Alert>}
+      </Box>
+      <Stack align="center">
+        <Title c="var(--mantine-color-white)" fw={900}>
+          Hi, it&apos;s Kai
+        </Title>
+        <Text c="gray.6" maw={400} style={{ textAlign: "center" }}>
+          Welcome to my little corner of the internet :)
+          <br />
+          Please enjoy your stay. if you&apos;re having a good time, let&apos;s{" "}
+          <Anchor
+            href="/hangout"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            fw={600}
           >
-            (and also feel free to{" "}
-            <ContactMeLink>hit me up anytime</ContactMeLink>
-            <br />& tell me what&apos;s on your mind!)
-          </Text>
-        </Stack>
-      </Center>
+            do something together
+          </Anchor>
+          !
+        </Text>
+        <Text size="xs" opacity={0.7} lh={1.2} style={{ textAlign: "center" }}>
+          (and also feel free to{" "}
+          <ContactMeLink>hit me up anytime</ContactMeLink>
+          <br />& tell me what&apos;s on your mind!)
+        </Text>
+      </Stack>
       <Transition
         transition={{
           transitionProperty: "transform, opacity, max-height",
@@ -102,10 +87,47 @@ const HomePage: PageComponent<HomePageProps> = ({
                 }}
               />
             </Stack>
-            <Space h="xl" />
           </Box>
         )}
       </Transition>
+      <Stack align="center" gap="xs">
+        <Title order={2} size="h3">
+          Some things I&apos;ve been exploring lately:
+        </Title>
+        <Card withBorder w="100%" maw={540}>
+          <List>
+            <List.Item>
+              startups and building something that people want
+            </List.Item>
+            <List.Item>the alternate life path</List.Item>
+            <List.Item>ruby on rails and programming</List.Item>
+            <List.Item>community-building and culture</List.Item>
+            <List.Item>
+              cultivating a continuous felt sense of love and playfulness
+            </List.Item>
+            <List.Item>
+              noticing that when i see the world with optimism, the world sees
+              me with optimism in return
+            </List.Item>
+            <List.Item>how to fight my insecurities</List.Item>
+            <List.Item>
+              how to deal with starting all over again, all the time
+            </List.Item>
+          </List>
+        </Card>
+        <Text inherit fz="var(--mantine-font-size-sm)" opacity={0.7}>
+          Do any of these resonate with you?{" "}
+          <Anchor
+            inherit
+            href="/walk"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            fw={500}
+          >
+            Let&apos;s go for a walk and talk about it :)
+          </Anchor>
+        </Text>
+      </Stack>
       <Stack align="center" gap="xs">
         <Title order={2} size="h3">
           Sometimes, Kai writes.
@@ -117,7 +139,6 @@ const HomePage: PageComponent<HomePageProps> = ({
           {...{ autoscroll }}
         />
       </Stack>
-      <Space h="xs" />
       <Transition
         transition={{
           transitionProperty: "transform, opacity, max-height",

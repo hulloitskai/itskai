@@ -11,7 +11,7 @@ export type UserLoginPageProps = PagePropsWithData<UserLoginPageQuery> & {
 };
 
 const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
-  <Card w={380} radius="md" withBorder>
+  <Card w={380} withBorder>
     <Stack gap="xs">
       <Stack align="center" gap={2}>
         <Title size="h3">Sign in</Title>
