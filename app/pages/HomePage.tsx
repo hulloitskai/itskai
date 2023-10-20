@@ -29,7 +29,7 @@ const HomePage: PageComponent<HomePageProps> = ({
         {!!announcement && <Alert icon={<BellIcon />}>{announcement}</Alert>}
       </Box>
       <Stack align="center">
-        <Title c="var(--mantine-color-white)" fw={900}>
+        <Title c="var(--mantine-color-white)" fw={900} fz={rem(44)}>
           Hi, it&apos;s Kai
         </Title>
         <Text c="gray.6" maw={400} style={{ textAlign: "center" }}>

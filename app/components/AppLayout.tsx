@@ -78,8 +78,8 @@ const AppLayout: FC<AppLayoutProps> = ({
     <PageLayout>
       <AppMeta {...{ title, description, imageUrl, noIndex }} />
       <AppShell
-        header={{ height: 38 }}
-        footer={{ height: 32 }}
+        header={{ height: 44 }}
+        footer={{ height: 44 }}
         padding={padding ?? (withContainer ? undefined : "md")}
         styles={{
           main: {

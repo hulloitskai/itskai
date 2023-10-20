@@ -7,7 +7,7 @@ import AdminIcon from "~icons/heroicons/key-20-solid";
 import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
 import SmileIcon from "~icons/heroicons/face-smile-20-solid";
 import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
-import LocateIcon from "~icons/lucide/locate";
+import LocateIcon from "~icons/lucide/locate-fixed";
 
 import { Loader, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
