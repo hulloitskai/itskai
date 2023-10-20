@@ -91,11 +91,12 @@ export type LikePensieveMessagePayloadFieldPolicy = {
 	message?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type LocationAccessGrantKeySpecifier = ('createdAt' | 'expiresAt' | 'id' | 'password' | 'recipient' | LocationAccessGrantKeySpecifier)[];
+export type LocationAccessGrantKeySpecifier = ('createdAt' | 'expiresAt' | 'id' | 'locateUrl' | 'password' | 'recipient' | LocationAccessGrantKeySpecifier)[];
 export type LocationAccessGrantFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	expiresAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	locateUrl?: FieldPolicy<any> | FieldReadFunction<any>,
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
 	recipient?: FieldPolicy<any> | FieldReadFunction<any>
 };

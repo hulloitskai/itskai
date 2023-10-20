@@ -43,7 +43,7 @@ input CreateLocationAccessGrantInput {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
   expiresInSeconds: Int!
-  password: String!
+  password: String
   recipient: String!
 }
 
@@ -199,6 +199,7 @@ type LocationAccessGrant implements Node {
 
   """ID of the object."""
   id: ID!
+  locateUrl: String!
   password: String!
   recipient: String!
 }

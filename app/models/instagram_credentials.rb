@@ -32,10 +32,8 @@ class InstagramCredentials < ApplicationRecord
 
   # == Validations
   validates :username,
-            presence: true,
-            length: {
-              maximum: 100,
-            }
+            length: { maximum: 100 },
+            presence: true
   validates :password, presence: true
   validate :validate_login, on: %i[create update]
 

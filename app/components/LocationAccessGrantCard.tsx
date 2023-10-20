@@ -5,9 +5,8 @@ import type { BoxProps } from "@mantine/core";
 
 import type { LocationAccessGrantCardGrantFragment } from "~/helpers/graphql";
 
-import LocationAccessGrantDeleteActionIcon from "./LocationAccessGrantDeleteActionIcon";
-
 import classes from "./LocationAccessGrantCard.module.css";
+import LocationAccessGrantDeleteButton from "./LocationAccessGrantDeleteButton";
 
 export type LocationAccessGrantCardProps = Omit<BoxProps, "children"> & {
   readonly grant: LocationAccessGrantCardGrantFragment;
@@ -15,7 +14,7 @@ export type LocationAccessGrantCardProps = Omit<BoxProps, "children"> & {
 };
 
 const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
-  grant: { id: grantId, recipient, password, createdAt, expiresAt },
+  grant: { id: grantId, recipient, password, createdAt, expiresAt, locateUrl },
   onDeleteGrant,
   ...otherProps
 }) => (
@@ -27,7 +26,7 @@ const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
     }}
     {...otherProps}
   >
-    <Group align="start" wrap="nowrap">
+    <Stack gap="xs">
       <Box style={{ flexGrow: 1 }}>
         <Text fw={600} lh={1.4}>
           {recipient}
@@ -75,11 +74,24 @@ const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
           </CopyButton>
         </Text>
       </Box>
-      <LocationAccessGrantDeleteActionIcon
-        onDelete={onDeleteGrant}
-        {...{ grantId }}
-      />
-    </Group>
+      <Group gap="xs" wrap="nowrap" grow>
+        <CopyButton value={locateUrl}>
+          {({ copy, copied }) => (
+            <Button
+              variant="default"
+              leftSection={<ClipboardIcon />}
+              onClick={copy}
+            >
+              {copied ? "Copied!" : "Copy locate URL"}
+            </Button>
+          )}
+        </CopyButton>
+        <LocationAccessGrantDeleteButton
+          onDelete={onDeleteGrant}
+          {...{ grantId }}
+        />
+      </Group>
+    </Stack>
   </Card>
 );
 

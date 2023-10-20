@@ -8,6 +8,7 @@ mutation CreateLocationAccessGrantMutation(
     }
     grant {
       id
+      locateUrl
     }
   }
 }

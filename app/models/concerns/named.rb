@@ -21,7 +21,7 @@ module Named
     requires_column :name
 
     # == Validations
-    validates :name, presence: true, length: { maximum: 64 }
+    validates :name, length: { maximum: 64 }, presence: true
   end
 
   # == Interface

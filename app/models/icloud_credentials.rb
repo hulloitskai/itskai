@@ -32,11 +32,9 @@ class ICloudCredentials < ApplicationRecord
 
   # == Validations
   validates :email,
-            presence: true,
-            length: {
-              maximum: 100,
-            },
-            email: true
+            email: true,
+            length: { maximum: 100 },
+            presence: true
   validates :password, presence: true
   validate :validate_login, on: %i[create update]
 

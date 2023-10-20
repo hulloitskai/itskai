@@ -44,7 +44,7 @@ class JournalEntry < ApplicationRecord
                   }
 
   # == Validation
-  validates :notion_page_id, presence: true, uniqueness: true
+  validates :notion_page_id, uniqueness: true, presence: true
   validates :title, presence: true
   validates :started_at, :last_edited_at, presence: true
 

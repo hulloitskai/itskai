@@ -1,5 +1,7 @@
 import type { FC } from "react";
+
 import { NumberInput, Text } from "@mantine/core";
+import { useClipboard } from "@mantine/hooks";
 import type { BoxProps } from "@mantine/core";
 
 import { CreateLocationAccessGrantMutationDocument } from "~/helpers/graphql";
@@ -25,6 +27,8 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
   onCreate,
   ...otherProps
 }) => {
+  const { copy } = useClipboard();
+
   // == Form
   const { getInputProps, isDirty, onSubmit, setErrors } = useForm<
     LocationAccessGrantCreateFormValues,
@@ -46,15 +50,17 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
   });
 
   // == Mutation
-  const onError = useApolloAlertCallback("Failed to create grant");
+  const onError = useApolloAlertCallback("Failed to create access grant");
   const [runMutation, { loading }] = useMutation(
     CreateLocationAccessGrantMutationDocument,
     {
       onCompleted: ({ payload: { grant, errors } }) => {
         if (grant) {
           closeAllModals();
+          copy(grant.locateUrl);
           showNotice({
-            message: "Grant created successfully.",
+            title: "Access grant created",
+            message: "Locate URL copied to clipboard!",
           });
           onCreate();
         } else {
@@ -84,11 +90,13 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
         <TextInput
           label="Recipient"
           placeholder="A friend"
+          required
           autoComplete="off"
           {...getInputProps("recipient")}
         />
         <TextInput
           label="Password"
+          description="Will be randomly generated if not set."
           placeholder="porcupine"
           autoCapitalize="false"
           autoCorrect="false"
@@ -97,6 +105,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
         />
         <NumberInput
           label="Expires in"
+          required
           min={1}
           inputContainer={children => (
             <Group gap="sm" wrap="nowrap">

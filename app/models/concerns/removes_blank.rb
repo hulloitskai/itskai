@@ -19,13 +19,7 @@ module RemovesBlank
     # == Helpers
     sig { params(attributes: T.any(Symbol, String)).void }
     def removes_blank(*attributes)
-      # Sorbet segfaults if this method is used directly :'(
-      public_send(:before_validation) do
-        attributes.each do |column_name|
-          value = send(column_name)
-          send("#{column_name}=", value.presence)
-        end
-      end
+      normalizes(*T.unsafe(attributes), with: ->(value) { value.presence })
     end
   end
 end

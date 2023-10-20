@@ -10,6 +10,6 @@ class TestModel < ApplicationModel
   attribute :birthday, :date
 
   # == Validations
-  validates :name, presence: true, inclusion: { in: %w[George] }
+  validates :name, inclusion: { in: %w[George] }, presence: true
   validates :id, presence: true
 end

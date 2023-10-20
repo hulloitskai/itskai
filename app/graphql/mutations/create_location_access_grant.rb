@@ -15,7 +15,7 @@ module Mutations
 
     # == Arguments
     argument :expires_in_seconds, Integer
-    argument :password, String
+    argument :password, String, required: false
     argument :recipient, String
 
     # == Resolver

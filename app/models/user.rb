@@ -66,10 +66,6 @@ class User < ApplicationRecord
   # == Attachments
   has_one_attached :avatar
 
-  # == Normalizations
-  before_validation :remove_unconfirmed_email_if_matches_email,
-                    if: %i[unconfirmed_email? email_changed?]
-
   # == Validations
   validates :name, length: { minimum: 2 }
   validates :email,
@@ -83,6 +79,10 @@ class User < ApplicationRecord
               use_dictionary: true,
             },
             allow_nil: true
+
+  # == Callbacks
+  before_validation :remove_unconfirmed_email_if_matches_email,
+                    if: %i[unconfirmed_email? email_changed?]
 
   # == Finders
   sig { returns(T.nilable(User)) }
@@ -144,7 +144,7 @@ class User < ApplicationRecord
 
   private
 
-  # == Normalization Handlers
+  # == Callback Handlers
   sig { void }
   def remove_unconfirmed_email_if_matches_email
     self.unconfirmed_email = nil if email == unconfirmed_email

@@ -71,8 +71,6 @@ class ObsidianNote < ApplicationRecord
 
   # == Normalizations
   removes_blank :blurb
-  before_validation :set_title, unless: :title?
-  before_validation :set_plain_blurb, if: :will_save_change_to_blurb?
 
   # == Validations
   validates :name, presence: true
@@ -81,6 +79,8 @@ class ObsidianNote < ApplicationRecord
   validates :aliases, :tags, array: { presence: true }
 
   # == Callbacks
+  before_validation :set_title, unless: :title?
+  before_validation :set_plain_blurb, if: :will_save_change_to_blurb?
   after_commit :analyze_later, on: %i[create update], if: :analysis_required?
 
   # == FriendlyId

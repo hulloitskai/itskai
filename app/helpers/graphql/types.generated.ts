@@ -63,7 +63,7 @@ export type CreateLocationAccessGrantInput = {
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   expiresInSeconds: Scalars['Int']['input'];
-  password: Scalars['String']['input'];
+  password?: InputMaybe<Scalars['String']['input']>;
   recipient: Scalars['String']['input'];
 };
 
@@ -225,6 +225,7 @@ export type LocationAccessGrant = Node & {
   expiresAt: Scalars['DateTime']['output'];
   /** ID of the object. */
   id: Scalars['ID']['output'];
+  locateUrl: Scalars['String']['output'];
   password: Scalars['String']['output'];
   recipient: Scalars['String']['output'];
 };

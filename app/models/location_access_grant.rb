@@ -16,6 +16,7 @@
 #  index_location_access_grants_on_password  (password)
 #
 class LocationAccessGrant < ApplicationRecord
+  # == Attributes
   sig { returns(Time) }
   def expires_in
     expires_at - Time.current
@@ -29,16 +30,23 @@ class LocationAccessGrant < ApplicationRecord
     duration
   end
 
+  # == Normalizations
+  removes_blank :password
+
   # == Validations
   validates :password,
-            length: { minimum: 4 },
             format: {
               with: /\A[a-z0-9-]+\z/,
               message:
                 "can only have lowercase letters, numbers, underscores, and " \
                 "and dashes",
-            }
+            },
+            length: { minimum: 4 },
+            allow_nil: true
   validate :validate_password_uniqueness
+
+  # == Callbacks
+  after_validation :set_default_password
 
   # == Scopes
   scope :valid, -> {
@@ -51,8 +59,18 @@ class LocationAccessGrant < ApplicationRecord
   # == Validation Handlers
   sig { void }
   def validate_password_uniqueness
-    if self.class.valid.exists?(password:)
-      errors.add(:password, :uniqueness, message: "already being used")
+    unless password.nil?
+      if self.class.valid.exists?(password:)
+        errors.add(:password, :uniqueness, message: "already being used")
+      end
+    end
+  end
+
+  # == Callback Handlers
+  sig { void }
+  def set_default_password
+    if password.nil?
+      self.password = SecureRandom.alphanumeric(8)
     end
   end
 end

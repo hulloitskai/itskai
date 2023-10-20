@@ -20,6 +20,7 @@ declare global {
   const CheckCircleIcon: typeof import('~/components/icons')['CheckCircleIcon']
   const Checkbox: typeof import('@mantine/core')['Checkbox']
   const Chip: typeof import('@mantine/core')['Chip']
+  const ClipboardIcon: typeof import('~/components/icons')['ClipboardIcon']
   const Container: typeof import('@mantine/core')['Container']
   const CreateIcon: typeof import('~/components/icons')['CreateIcon']
   const DateTime: typeof import('luxon')['DateTime']
