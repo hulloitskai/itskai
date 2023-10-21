@@ -234,10 +234,13 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
               className={classes.badge}
               style={[
                 style,
-                ({ colors }) => {
-                  const borderColor = colors.brand[5];
+                theme => {
+                  const borderColor = parseThemeColor({
+                    theme,
+                    color: theme.primaryColor,
+                  }).value;
                   return {
-                    "--cpi-border-color-active": darken(borderColor, 0.1),
+                    "--cpi-border-color-active": borderColor,
                     "--cpi-border-color-muted": darken(borderColor, 0.4),
                   };
                 },
