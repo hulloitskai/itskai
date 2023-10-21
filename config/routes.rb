@@ -11,6 +11,18 @@ Rails.application.routes.draw do
   # == Healthcheck
   Healthcheck.routes(self)
 
+  # == Good Job
+  if Rails.env.development?
+    mount GoodJob::Engine => "/good_job"
+  else
+    authenticate :user, ->(user) {
+      user = T.let(user, User)
+      user.owner?
+    } do
+      mount GoodJob::Engine => "/good_job"
+    end
+  end
+
   # == Devise
   devise_for :users,
              skip: %i[sessions confirmations passwords],
@@ -51,10 +63,6 @@ Rails.application.routes.draw do
 
   # == GraphQL
   scope :graphql, controller: :graphql do
-    # mount GraphiQL::Rails::Engine,
-    #       at: "/",
-    #       as: :graphiql,
-    #       graphql_path: "/graphql"
     get "/", action: :graphiql, as: :graphiql
     post "/", action: :execute, as: :graphql
   end
@@ -114,18 +122,7 @@ Rails.application.routes.draw do
 
   # == Development
   if Rails.env.development?
-    mount GoodJob::Engine => "/good_job"
     get "/test" => "test#show"
     get "/mailcatcher" => redirect("//localhost:1080", status: 302)
-  end
-
-  # == Administration
-  unless Rails.env.development?
-    authenticate :user, ->(user) {
-      user = T.let(user, User)
-      user.owner?
-    } do
-      mount GoodJob::Engine => "/good_job"
-    end
   end
 end

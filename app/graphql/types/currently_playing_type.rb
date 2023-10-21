@@ -5,7 +5,7 @@ module Types
   class CurrentlyPlayingType < BaseObject
     # == Fields
     field :progress_milliseconds, Integer, null: false
-    field :track, TrackType, null: false
+    field :track, SpotifyTrackType, null: false
 
     # == Helpers
     sig { override.returns(::CurrentlyPlaying) }

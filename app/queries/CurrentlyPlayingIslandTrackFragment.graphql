@@ -1,4 +1,4 @@
-fragment CurrentlyPlayingIslandTrackFragment on Track {
+fragment CurrentlyPlayingIslandTrackFragment on SpotifyTrack {
   album {
     id
     imageUrl

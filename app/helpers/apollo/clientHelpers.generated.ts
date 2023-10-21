@@ -260,6 +260,16 @@ export type SpotifyArtistFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type SpotifyTrackKeySpecifier = ('album' | 'artists' | 'durationMilliseconds' | 'id' | 'lyrics' | 'name' | 'url' | SpotifyTrackKeySpecifier)[];
+export type SpotifyTrackFieldPolicy = {
+	album?: FieldPolicy<any> | FieldReadFunction<any>,
+	artists?: FieldPolicy<any> | FieldReadFunction<any>,
+	durationMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	lyrics?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	url?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type SubscriptionKeySpecifier = ('activityStatus' | 'currentlyPlaying' | 'location' | 'pensieveMessage' | 'testSubscription' | SubscriptionKeySpecifier)[];
 export type SubscriptionFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -287,16 +297,6 @@ export type TimezoneFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	offset?: FieldPolicy<any> | FieldReadFunction<any>,
 	offsetMinutes?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TrackKeySpecifier = ('album' | 'artists' | 'durationMilliseconds' | 'id' | 'lyrics' | 'name' | 'url' | TrackKeySpecifier)[];
-export type TrackFieldPolicy = {
-	album?: FieldPolicy<any> | FieldReadFunction<any>,
-	artists?: FieldPolicy<any> | FieldReadFunction<any>,
-	durationMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	lyrics?: FieldPolicy<any> | FieldReadFunction<any>,
-	name?: FieldPolicy<any> | FieldReadFunction<any>,
-	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type UnlikePensieveMessagePayloadKeySpecifier = ('clientMutationId' | 'message' | 'success' | UnlikePensieveMessagePayloadKeySpecifier)[];
 export type UnlikePensieveMessagePayloadFieldPolicy = {
@@ -492,6 +492,10 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | SpotifyArtistKeySpecifier | (() => undefined | SpotifyArtistKeySpecifier),
 		fields?: SpotifyArtistFieldPolicy,
 	},
+	SpotifyTrack?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SpotifyTrackKeySpecifier | (() => undefined | SpotifyTrackKeySpecifier),
+		fields?: SpotifyTrackFieldPolicy,
+	},
 	Subscription?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SubscriptionKeySpecifier | (() => undefined | SubscriptionKeySpecifier),
 		fields?: SubscriptionFieldPolicy,
@@ -507,10 +511,6 @@ export type StrictTypedTypePolicies = {
 	Timezone?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | TimezoneKeySpecifier | (() => undefined | TimezoneKeySpecifier),
 		fields?: TimezoneFieldPolicy,
-	},
-	Track?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TrackKeySpecifier | (() => undefined | TrackKeySpecifier),
-		fields?: TrackFieldPolicy,
 	},
 	UnlikePensieveMessagePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | UnlikePensieveMessagePayloadKeySpecifier | (() => undefined | UnlikePensieveMessagePayloadKeySpecifier),

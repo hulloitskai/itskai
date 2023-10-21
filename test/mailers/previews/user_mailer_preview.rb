@@ -5,7 +5,6 @@
 class UserMailerPreview < ActionMailer::Preview
   def welcome_email
     user = User.owner || User.first!
-    user = T.cast(user, User)
     UserMailer.welcome_email(user)
   end
 end

@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Types
-  class TrackType < BaseObject
+  class SpotifyTrackType < BaseObject
     # == Fields
     field :album, SpotifyAlbumType, null: false
     field :artists, [SpotifyArtistType], null: false
