@@ -43,7 +43,7 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
             style={{
               "--pm-border-color": fromBot
                 ? "var(--mantine-color-gray-6)"
-                : "var(--mantine-color-gray-5)",
+                : "var(--mantine-color-brand-5)",
               border: `${rem(1)} solid var(--pm-border-color)`,
               borderRadius: "var(--mantine-radius-md)",
             }}

@@ -95,7 +95,6 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
       <Menu.Target>
         <Badge
           variant="outline"
-          size="lg"
           leftSection={
             <Lottie
               lottieRef={menuIconRef}
@@ -107,7 +106,12 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
           }
           className={classes.target}
           color="gray"
-          style={[style]}
+          style={[
+            style,
+            {
+              "--badge-height": "var(--badge-height-lg)",
+            },
+          ]}
         >
           Menu
         </Badge>
