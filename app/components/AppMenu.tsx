@@ -8,6 +8,7 @@ import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
 import SmileIcon from "~icons/heroicons/face-smile-20-solid";
 import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
 import LocateIcon from "~icons/lucide/locate-fixed";
+import HomeIcon from "~icons/heroicons/home-20-solid";
 
 import { Loader, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
@@ -117,6 +118,9 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
         </Badge>
       </Menu.Target>
       <Menu.Dropdown>
+        <Menu.Item component={Link} href="/" leftSection={<HomeIcon />}>
+          Home
+        </Menu.Item>
         <Menu.Item component={Link} href="/locate" leftSection={<LocateIcon />}>
           Locate Kai
         </Menu.Item>
