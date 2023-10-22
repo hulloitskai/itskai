@@ -29,9 +29,10 @@ export type CreateSenecaMoodLogPayloadFieldPolicy = {
 	log?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type CurrentlyPlayingKeySpecifier = ('progressMilliseconds' | 'track' | CurrentlyPlayingKeySpecifier)[];
+export type CurrentlyPlayingKeySpecifier = ('progressMilliseconds' | 'timestamp' | 'track' | CurrentlyPlayingKeySpecifier)[];
 export type CurrentlyPlayingFieldPolicy = {
 	progressMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
+	timestamp?: FieldPolicy<any> | FieldReadFunction<any>,
 	track?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type DeleteLocationAccessGrantPayloadKeySpecifier = ('clientMutationId' | 'success' | DeleteLocationAccessGrantPayloadKeySpecifier)[];

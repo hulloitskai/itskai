@@ -117,10 +117,12 @@ const LocatePage: PageComponent<LocatePageProps> = ({
     if (firstTimestampISO && lastTimestampISO) {
       const firstTimestamp = DateTime.fromISO(firstTimestampISO);
       const lastTimestamp = DateTime.fromISO(lastTimestampISO);
-      const totalDistance = lastTimestamp.diff(firstTimestamp).toMillis();
+      const totalDistance = lastTimestamp
+        .diff(firstTimestamp)
+        .as("milliseconds");
       return ({ timestamp: timestampISO }) => {
         const timestamp = DateTime.fromISO(timestampISO);
-        const markerDistance = lastTimestamp.diff(timestamp).toMillis();
+        const markerDistance = lastTimestamp.diff(timestamp).as("milliseconds");
         return Math.min(markerDistance / totalDistance + 0.1, 1.0);
       };
     }

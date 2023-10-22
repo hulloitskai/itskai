@@ -5,6 +5,7 @@ module Types
   class CurrentlyPlayingType < BaseObject
     # == Fields
     field :progress_milliseconds, Integer, null: false
+    field :timestamp, DateTimeType, null: false
     field :track, SpotifyTrackType, null: false
 
     # == Helpers

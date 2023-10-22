@@ -12,13 +12,11 @@ class CurrentlyPlayingPoll < ApplicationService
       CurrentlyPlaying.current = value
       tag_logger do
         if value.present?
-          tag_logger do
-            logger.info(
-              "Playing: #{value.track.name} (#{value.progress_milliseconds}ms)",
-            )
-          end
+          logger.info(
+            "Playing: #{value.track.name} (#{value.progress_milliseconds}ms)",
+          )
         else
-          tag_logger { logger.info("Stopped playing") }
+          logger.info("Stopped playing")
         end
       end
       true

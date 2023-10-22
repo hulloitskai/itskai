@@ -87,11 +87,8 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
     }
   }, [currentLyric]);
 
-  // == Helpers
   const hasWords = !!currentLyric?.words;
   const currentlyExplicit = currentLyric?.isExplicit;
-
-  // == Markup
   return (
     <Tooltip
       label={currentWords}

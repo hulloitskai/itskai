@@ -10,7 +10,7 @@ class CurrentlyPlaying < T::Struct
   # == Attributes
   const :progress_milliseconds, Integer
   const :track, RSpotify::Track
-  const :timestamp, Integer
+  const :timestamp, Time
 
   # == Current
   sig { returns(T.nilable(CurrentlyPlaying)) }
@@ -46,11 +46,12 @@ class CurrentlyPlaying < T::Struct
   # == Serialization
   sig { params(json: T::Hash[String, T.untyped]).returns(CurrentlyPlaying) }
   def self.from_json(json)
-    CurrentlyPlaying.new(
-      progress_milliseconds: json.fetch("progress_milliseconds"),
-      track: RSpotify::Track.new(json.fetch("track")),
-      timestamp: json.fetch("timestamp"),
-    )
+    track_data = T.cast(json.fetch("track"), T::Hash[String, T.untyped])
+    track = RSpotify::Track.new(track_data)
+    timestamp_iso = T.cast(json.fetch("timestamp"), String)
+    timestamp = Time.zone.parse(timestamp_iso)
+    progress_milliseconds = T.cast(json.fetch("progress_milliseconds"), Integer)
+    CurrentlyPlaying.new(track:, progress_milliseconds:, timestamp:)
   end
 
   # == Methods
@@ -58,8 +59,8 @@ class CurrentlyPlaying < T::Struct
   def ==(other)
     case other
     when CurrentlyPlaying
-      other.track.id == track.id &&
-        other.progress_milliseconds == progress_milliseconds
+      track.id == other.track.id &&
+        progress_milliseconds == other.progress_milliseconds
     else
       super
     end

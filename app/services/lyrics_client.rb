@@ -74,11 +74,12 @@ class LyricsClient < ApplicationService
         { "reason" => "transport", "productType" => "web_player" },
         { "Cookie" => cookie_header },
       )
-      value = response.body["accessToken"]
-      expiration_timestamp = response
-        .body["accessTokenExpirationTimestampMs"]
-        .to_i
-      expires_at = Time.zone.at(expiration_timestamp / 1000)
+      value = T.cast(response.body.fetch("accessToken"), String)
+      expiration_timestamp = T.cast(
+        response.body.fetch("accessTokenExpirationTimestampMs").to_i,
+        Integer,
+      )
+      expires_at = Time.zone.at(expiration_timestamp.to_f / 1000)
       SpotifyAccessToken.new(value:, expires_at: expires_at)
     end
     @access_token.value

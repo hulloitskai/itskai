@@ -88,7 +88,7 @@ class LocationLog < ApplicationRecord
   sig { void }
   def self.import!
     location = ICloudClient.current&.iphone&.location or return
-    timestamp = Time.zone.at(location[:time_stamp] / 1000)
+    timestamp = Time.zone.at(location.fetch(:time_stamp).to_f / 1000)
     unless exists?(timestamp:)
       coordinates = scoped do
         location => { latitude:, longitude:, altitude: }

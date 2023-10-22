@@ -74,6 +74,7 @@ type CreateSenecaMoodLogPayload {
 
 type CurrentlyPlaying {
   progressMilliseconds: Int!
+  timestamp: DateTime!
   track: SpotifyTrack!
 }
 

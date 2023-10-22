@@ -97,6 +97,7 @@ export type CreateSenecaMoodLogPayload = {
 export type CurrentlyPlaying = {
   __typename?: 'CurrentlyPlaying';
   progressMilliseconds: Scalars['Int']['output'];
+  timestamp: Scalars['DateTime']['output'];
   track: SpotifyTrack;
 };
 

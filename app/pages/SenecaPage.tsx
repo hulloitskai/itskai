@@ -19,8 +19,8 @@ const SenecaPage: PageComponent<SenecaPageProps> = ({
 }) => {
   const daysSinceLastIncident = useMemo(() => {
     const dateTime = DateTime.fromISO(lastIncidentISO);
-    const diff = DateTime.now().diff(dateTime, "days");
-    return Math.round(diff.days);
+    const diffDays = DateTime.now().diff(dateTime).as("days");
+    return Math.round(diffDays);
   }, [lastIncidentISO]);
   return (
     <PageContainer size="sm" withGutter>

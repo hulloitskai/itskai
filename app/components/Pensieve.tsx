@@ -80,8 +80,7 @@ const Pensieve: FC<PensieveProps> = ({
     messages.forEach(message => {
       const timestamp = DateTime.fromISO(message.timestamp);
       const timestampChanged =
-        lastTimestamp &&
-        timestamp.diff(lastTimestamp, "seconds").seconds > 3 * 60;
+        lastTimestamp && timestamp.diff(lastTimestamp).as("seconds") > 3 * 60;
       const senderChanged = lastFrom && lastFrom !== message.from;
       if (timestampChanged || senderChanged) {
         groups.push(currentGroup);

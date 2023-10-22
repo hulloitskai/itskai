@@ -35,20 +35,17 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   const { online } = useNetwork();
 
   // == Query
-  const { data: queryData, refetch } = useQuery(
-    CurrentlyPlayingIslandQueryDocument,
-    {
-      fetchPolicy: "no-cache",
-      variables: {},
-      onError: error => {
-        console.error(
-          "Failed to load currently playing details",
-          formatJSON({ error }),
-        );
-      },
+  const { data, refetch } = useQuery(CurrentlyPlayingIslandQueryDocument, {
+    fetchPolicy: "no-cache",
+    variables: {},
+    onError: error => {
+      console.error(
+        "Failed to load currently playing details",
+        formatJSON({ error }),
+      );
     },
-  );
-  const { currentlyPlaying } = queryData ?? {};
+  });
+  const { currentlyPlaying } = data ?? {};
 
   // == Subscription
   const { data: subscriptionData } = useSubscription(
@@ -76,7 +73,18 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
       },
     },
   );
-  const { progressMilliseconds } = subscriptionData?.currentlyPlaying ?? {};
+  const { currentlyPlaying: currentlyPlayingMetadata } = subscriptionData ?? {};
+  const progressMilliseconds = useMemo(() => {
+    if (currentlyPlayingMetadata) {
+      const { progressMilliseconds, timestamp: timestampISO } =
+        currentlyPlayingMetadata;
+      const timestamp = DateTime.fromISO(timestampISO);
+      const ellapsedMilliseconds = DateTime.now()
+        .diff(timestamp)
+        .as("milliseconds");
+      return progressMilliseconds + ellapsedMilliseconds - 1200;
+    }
+  }, [currentlyPlayingMetadata]);
 
   // == Transition
   const [{ mounted, transitioned }, setTransitionState] =
