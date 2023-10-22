@@ -6,6 +6,7 @@ import {
   DEFAULT_THEME,
   Loader,
   LoadingOverlay,
+  Menu,
   Modal,
   NumberInput,
   PasswordInput,
@@ -90,6 +91,11 @@ const BASE_THEME_OVERRIDE = createTheme({
         loaderProps: {
           size: "sm",
         },
+      },
+    }),
+    Menu: Menu.extend({
+      defaultProps: {
+        radius: "md",
       },
     }),
     Modal: Modal.extend({
