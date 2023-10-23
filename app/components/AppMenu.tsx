@@ -83,7 +83,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
         itemSection: {
           width: 16,
           height: 16,
-          color: "var(--mantine-color-brand-4)",
+          color: "var(--mantine-color-primary-4)",
         },
         itemLabel: {
           color: "var(--mantine-color-gray-5)",

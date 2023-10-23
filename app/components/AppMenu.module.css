@@ -6,7 +6,7 @@
 
   border-color: var(--mantine-color-gray-7);
   &[data-expanded] {
-    border-color: var(--mantine-color-brand-outline);
+    border-color: var(--mantine-primary-color-outline-hover);
   }
 }
 

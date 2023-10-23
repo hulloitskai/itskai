@@ -37,7 +37,7 @@ const PensieveChatBox: FC<PensieveChatBoxProps> = ({ ...otherProps }) => {
       rightSection={
         <ActionIcon
           variant="filled"
-          color="brand.6"
+          color="primary.6"
           radius="xl"
           loading={mutating}
           onClick={createComment}

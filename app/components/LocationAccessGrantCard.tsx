@@ -22,7 +22,7 @@ const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
     withBorder
     padding="sm"
     style={{
-      borderColor: "var(--mantine-primary-color-filled)",
+      borderColor: "var(--mantine-color-primary-filled)",
     }}
     {...otherProps}
   >
@@ -55,13 +55,13 @@ const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
                 {...(copied && { opened: true })}
               >
                 <Code
-                  color="brand"
+                  color="primary"
                   onClick={copy}
                   ml={2}
                   className={classes.copyCode}
                   style={theme => ({
                     "--lagc-copy-code-bg": theme.variantColorResolver({
-                      color: "brand",
+                      color: "primary",
                       variant: "filled",
                       theme,
                     }).hover,

@@ -79,7 +79,7 @@ const LocationAlert: FC<LocationAlertProps> = ({
               component={Link}
               href="/locate"
               style={theme => {
-                const color = parseThemeColor({ theme, color: "brand.4" });
+                const color = parseThemeColor({ theme, color: "primary.4" });
                 return {
                   color: rgba(color.value, 0.8),
                 };

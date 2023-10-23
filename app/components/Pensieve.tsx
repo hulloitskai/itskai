@@ -202,7 +202,7 @@ const Pensieve: FC<PensieveProps> = ({
               href="/pensieve"
               size="sm"
               variant="outline"
-              color="brand"
+              color="primary"
               radius="xl"
             >
               <Text component={ExpandIcon} fz={11} />

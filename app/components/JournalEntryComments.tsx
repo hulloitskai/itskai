@@ -101,7 +101,7 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
         rightSection={
           <ActionIcon
             variant="filled"
-            color="brand.6"
+            color="primary.6"
             radius="xl"
             loading={mutating}
             onClick={createComment}

@@ -17,7 +17,7 @@ const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
         <Title size="h3">Sign in</Title>
         <Text size="sm" c="dimmed" lh={1.3}>
           Welcome back to{" "}
-          <Anchor component={Link} href="/" fw={600} c="brand.4">
+          <Anchor component={Link} href="/" fw={600} c="primary.4">
             It&apos;s Kai
           </Anchor>
         </Text>

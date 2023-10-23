@@ -13,15 +13,13 @@ export type AppWrapperProps = PropsWithChildren<{
 const AppWrapper: FC<AppWrapperProps> = ({
   initialPage: { props },
   children,
-}) => {
-  return (
-    <ApolloProvider csrfToken={props.csrf.token}>
-      <AppMantineProvider>
-        <AppProgress />
-        {children}
-      </AppMantineProvider>
-    </ApolloProvider>
-  );
-};
+}) => (
+  <ApolloProvider csrfToken={props.csrf.token}>
+    <AppMantineProvider>
+      <AppProgress />
+      {children}
+    </AppMantineProvider>
+  </ApolloProvider>
+);
 
 export default AppWrapper;

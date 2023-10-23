@@ -40,7 +40,7 @@ const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({
       <Title
         order={3}
         size="h5"
-        style={{ color: "var(--mantine-primary-color-filled)" }}
+        style={{ color: "var(--mantine-color-primary-filled)" }}
       >
         {name}
       </Title>

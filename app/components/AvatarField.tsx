@@ -162,7 +162,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
             <Stack align="center" gap={8}>
               <Box
                 component={PhotoIcon}
-                c="var(--mantine-primary-color-light-color)"
+                c="var(--mantine-color-primary-light-color)"
               />
               <Text
                 size="xs"

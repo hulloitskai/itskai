@@ -14,7 +14,7 @@ export const showAlert = (props: NotificationData) => {
 
 export const showNotice = (props: NotificationData) => {
   showNotification({
-    color: "brand",
+    color: "primary",
     icon: <InformationCircleIcon />,
     ...props,
   });

@@ -41,7 +41,7 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
           <Img src="/logo.png" width="32" height="32" />
           <Text c="dimmed" mx={4} my={0}>
             Sent by{" "}
-            <Anchor href="/" target="_blank" c="brand.5" fw={600}>
+            <Anchor href="/" target="_blank" c="primary.5" fw={600}>
               It&apos;s Kai
             </Anchor>
             . This email loves you.

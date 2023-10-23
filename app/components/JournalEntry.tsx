@@ -54,7 +54,7 @@ const JournalEntry: FC<JournalEntryProps> = ({
             <ActionIcon
               size="sm"
               variant="outline"
-              color="brand"
+              color="primary"
               radius="xl"
               onClick={copy}
             >

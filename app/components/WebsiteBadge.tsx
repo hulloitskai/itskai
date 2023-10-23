@@ -25,7 +25,7 @@ const WebsiteBadge: FC<WebsiteBadgeProps> = ({ url, ...otherProps }) => {
           </Center>
         }
         variant="outline"
-        color="var(--mantine-primary-color-filled)"
+        color="var(--mantine-color-primary-filled)"
         px={6}
         styles={{
           root: {

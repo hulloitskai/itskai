@@ -39,12 +39,12 @@ const LocatePage: PageComponent<LocatePageProps> = ({
 
   // == Colors
   const theme = useMantineTheme();
-  const trailMarkerColor = theme.colors.brand[7];
-  const trailSegmentColor = theme.colors.brand[4];
+  const trailMarkerColor = theme.colors.primary[7];
+  const trailSegmentColor = theme.colors.primary[4];
   const alertTitleColor = "#B9F4D7";
   const alertBorderColor = "#5A7B6A";
-  const alertPulseBorderColor = theme.colors.brand[4];
-  const regionColor = theme.colors.brand[5];
+  const alertPulseBorderColor = theme.colors.primary[4];
+  const regionColor = theme.colors.primary[5];
 
   // == Map
   const mapRef = useRef<MapRef>(null);
@@ -198,7 +198,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
         >
           <GeolocateControl />
           {coordinates && (
-            <Marker color="var(--mantine-color-brand-6)" {...coordinates} />
+            <Marker color="var(--mantine-color-primary-6)" {...coordinates} />
           )}
           {regionData && !coordinates && (
             <Source id="region" type="geojson" data={regionData}>

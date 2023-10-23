@@ -94,7 +94,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
       label={currentWords}
       withArrow
       multiline
-      color="brand"
+      color="primary"
       transitionProps={{ duration: transitionDuration }}
       disabled={disabled ?? !hasWords}
       c="var(--mantine-color-white)"

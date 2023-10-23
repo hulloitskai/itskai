@@ -22,7 +22,7 @@ import type { DefaultMantineColor, MantineColorsTuple } from "@mantine/core";
 import cx from "clsx";
 import classes from "./mantine.module.css";
 
-export type CustomColors = "brand" | DefaultMantineColor;
+export type CustomColors = "primary" | DefaultMantineColor;
 
 declare module "@mantine/core" {
   export interface MantineThemeColorsOverride {
@@ -32,9 +32,9 @@ declare module "@mantine/core" {
 
 const BASE_THEME_OVERRIDE = createTheme({
   colors: {
-    brand: DEFAULT_THEME.colors.pink,
+    primary: DEFAULT_THEME.colors.pink,
   },
-  primaryColor: "brand",
+  primaryColor: "primary",
   fontFamily:
     "Manrope, Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, " +
     "Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji",
@@ -83,7 +83,7 @@ const BASE_THEME_OVERRIDE = createTheme({
     }),
     Loader: Loader.extend({
       defaultProps: {
-        color: "brand.5",
+        color: "primary.5",
       },
     }),
     LoadingOverlay: LoadingOverlay.extend({

@@ -6,7 +6,7 @@ import ExclamationTriangleIcon from "~icons/heroicons/exclamation-triangle-20-so
 
 const AppFlashNotificationProps: Record<string, Partial<NotificationProps>> = {
   notice: {
-    color: "var(--mantine-primary-color-filled)",
+    color: "var(--mantine-color-primary-filled)",
     icon: <InformationCircleIcon />,
   },
   alert: {

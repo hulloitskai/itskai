@@ -68,7 +68,7 @@ const PensieveMessageLike: FC<PensieveMessageLikeProps> = ({
     >
       <Group gap={4} wrap="nowrap">
         {loading ? (
-          <Loader size={14} c="brand.5" />
+          <Loader size={14} c="primary.5" />
         ) : (
           <Text
             component={likedByViewer ? HeartFilledIcon : HeartUnfilledIcon}
@@ -76,7 +76,7 @@ const PensieveMessageLike: FC<PensieveMessageLikeProps> = ({
           />
         )}
         {likes > 0 && (
-          <Text size="xs" c="brand.4">
+          <Text size="xs" c="primary.4">
             {likes}
           </Text>
         )}
