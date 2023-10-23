@@ -1,6 +1,8 @@
 import type { FC } from "react";
-import { Dropzone } from "@mantine/dropzone";
 import PhotoIcon from "~icons/heroicons/photo-20-solid";
+
+import { Dropzone } from "@mantine/dropzone";
+import type { DropzoneProps } from "@mantine/dropzone";
 
 import { Image, Input, Text, rgba } from "@mantine/core";
 import type { InputWrapperProps } from "@mantine/core";
@@ -25,10 +27,11 @@ const AVATAR_FIELD_RADIUS = 10000;
 export type AvatarFieldProps = Omit<
   InputWrapperProps,
   "inputContainer" | "inputWrapperOrder" | "size" | "children"
-> & {
-  readonly value?: Maybe<ImageInput>;
-  readonly onChange?: (value: Maybe<ImageInput>) => void;
-};
+> &
+  Pick<DropzoneProps, "disabled"> & {
+    readonly value?: Maybe<ImageInput>;
+    readonly onChange?: (value: Maybe<ImageInput>) => void;
+  };
 
 const AvatarField: FC<AvatarFieldProps> = ({
   value,
@@ -42,6 +45,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
   error,
   errorProps,
   required,
+  disabled,
   withAsterisk,
   style,
 }) => {
@@ -157,13 +161,11 @@ const AvatarField: FC<AvatarFieldProps> = ({
               }),
             ]}
             {...(src && { "data-with-src": true })}
-            {...{ loading }}
+            {...(disabled && { "data-disabled": true })}
+            {...{ loading, disabled }}
           >
             <Stack align="center" gap={8}>
-              <Box
-                component={PhotoIcon}
-                c="var(--mantine-color-primary-light-color)"
-              />
+              <Box component={PhotoIcon} className={classes.dropzoneIcon} />
               <Text
                 size="xs"
                 c="dark.1"

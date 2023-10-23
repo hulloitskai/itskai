@@ -13,6 +13,18 @@
       }
     }
   }
+
+  &[data-disabled] {
+    --_dropzone-bg: var(--mantine-color-gray-1);
+    cursor: not-allowed;
+    .dropzoneIcon {
+      color: var(--mantine-color-gray-6);
+    }
+  }
+}
+
+.dropzoneIcon {
+  color: var(--mantine-color-primary-light-color);
 }
 
 .dropzoneInner {
