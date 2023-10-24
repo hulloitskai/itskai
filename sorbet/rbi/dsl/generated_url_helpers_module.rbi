@@ -39,6 +39,9 @@ module GeneratedUrlHelpersModule
   def good_job_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def grant_locate_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def graphiql_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

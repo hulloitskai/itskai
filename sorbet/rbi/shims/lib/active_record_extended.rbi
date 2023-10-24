@@ -1,4 +1,4 @@
-# typed: strict
+# typed: strong
 
 class ActiveRecord::Relation
   include ActiveRecordExtended::QueryMethods::AnyOf

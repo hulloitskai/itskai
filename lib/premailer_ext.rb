@@ -1,37 +1,46 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
-require "premailer/rails"
+require "premailer"
 require "nokogiri"
+require "css_parser"
+require "css_parser_ext"
 require "sorbet-runtime"
 
-class Premailer
-  module Adapter::Nokogiri
+module Premailer::Adapter::Nokogiri
+  module Extension
     extend T::Sig
     extend T::Helpers
-    include AdapterHelper::RgbToHex
 
-    # == Types
+    # == Aliases
     CssVariables = T.type_alias { T::Hash[String, T.untyped] }
 
     # == Annotations
     requires_ancestor { Premailer }
+    requires_ancestor { Premailer::Adapter::Nokogiri }
 
-    # Merge CSS into the HTML document.
-    #
-    # @return [String] an HTML.
-    sig { returns(String) }
-    def to_inline_css
-      doc = T.let(@processed_doc, Nokogiri::HTML::Document)
-      element_variables = T.let(
+    # == Initializer
+    sig { params(args: T.untyped, kwargs: T.untyped).void }
+    def initialize(*args, **kwargs)
+      super
+      @processed_doc = T.let(@processed_doc, Nokogiri::XML::Document)
+      @css_parser = T.let(@css_parser, CssParser::Parser)
+      @options = T.let(@options, T::Hash[Symbol, T.untyped])
+      @element_css_variables = T.let(
         {},
         T::Hash[Nokogiri::XML::Element, CssVariables],
       )
-      unmergable_rules = CssParser::Parser.new
+    end
+
+    # == Methods
+    # Merge CSS into the HTML document.
+    sig { returns(String) }
+    def to_inline_css
+      unmergeable_rules = CssParser::Parser.new
 
       # Give all styles already in style attributes a specificity of 1000
       # per http://www.w3.org/TR/CSS21/cascade.html#specificity
-      doc.search("*[@style]").each do |el|
+      @processed_doc.search("*[@style]").each do |el|
         el["style"] = "[SPEC=1000[" + el.attributes["style"] + "]]"
       end
 
@@ -39,26 +48,30 @@ class Premailer
       @css_parser.each_selector(:all) do
         |selector, declaration, specificity, media_types|
         # Save un-mergable rules separately
-        selector.gsub!(/:link([\s]*)+/i) { |_m| ::Regexp.last_match(1) }
+        selector.gsub!(/:link([\s]*)+/i) { Regexp.last_match(1) }
 
         # Convert element names to lower case
-        selector.gsub!(/([\s]|^)([\w]+)/) do |_m|
-          ::Regexp.last_match(1).to_s + ::Regexp.last_match(2).to_s.downcase
+        selector.gsub!(/([\s]|^)([\w]+)/) do
+          Regexp.last_match(1).to_s + Regexp.last_match(2).to_s.downcase
         end
 
         if Premailer.is_media_query?(media_types) ||
             selector =~ Premailer::RE_UNMERGABLE_SELECTORS
           rules = CssParser::RuleSet.new(selector, declaration)
           unless @options[:preserve_styles]
-            unmergable_rules.add_rule_set!(rules, media_types)
+            unmergeable_rules.add_rule_set!(rules, media_types)
           end
         else
           begin
             if Premailer::RE_RESET_SELECTORS.match?(selector)
-              # this is in place to preserve the MailChimp CSS reset: http://github.com/mailchimp/Email-Blueprints/
+              # This is in place to preserve the MailChimp CSS reset:
+              # http://github.com/mailchimp/Email-Blueprints/
+              #
               # however, this doesn't mean for testing pur
               rules = CssParser::RuleSet.new(selector, declaration)
-              unmergable_rules.add_rule_set!(rules) if @options[:preserve_reset]
+              if @options[:preserve_reset]
+                unmergeable_rules.add_rule_set!(rules)
+              end
             end
 
             # Change single ID CSS selectors into xpath so that we can match
@@ -67,14 +80,14 @@ class Premailer
             # Added to work around dodgy generated code.
             selector.gsub!(/\A\#([\w_\-]+)\Z/, '*[@id=\1]')
 
-            doc.search(selector).each do |el|
+            @processed_doc.search(selector).each do |el|
               next unless el.elem? &&
                 ((el.name != "head") && (el.parent.name != "head"))
               # Add a style attribute or append to the existing one
               block = "[SPEC=#{specificity}[#{declaration}]]"
               el["style"] = (el.attributes["style"].to_s ||= "") + " " + block
             end
-          rescue ::Nokogiri::SyntaxError, RuntimeError, ArgumentError
+          rescue Nokogiri::SyntaxError, RuntimeError, ArgumentError
             if @options[:verbose]
               $stderr.puts "CSS syntax error with selector: #{selector}"
             end
@@ -84,10 +97,10 @@ class Premailer
       end
 
       # Parse CSS variable declarations from unmergeable rules
-      unmergable_rules.each_selector(:all) do |selector, declarations|
-        next if selector.match?(RE_UNMERGABLE_SELECTORS)
+      unmergeable_rules.each_selector(:all) do |selector, declarations|
+        next if selector.match?(Premailer::RE_UNMERGABLE_SELECTORS)
         suppress(Nokogiri::SyntaxError) do
-          doc.search(selector).each do |el|
+          @processed_doc.search(selector).each do |el|
             rules = CssParser::RuleSet.new(nil, declarations)
             css_variables = T.let({}, CssVariables)
             rules.each_declaration do |property, value, important|
@@ -98,9 +111,9 @@ class Premailer
                 css_variables[property] ||= value
               end
             end
-            element_variables[el] = css_variables
+            @element_css_variables[el] = css_variables
             css_variables.keys.each do |property|
-              unmergable_rules.each_rule_set do |rules|
+              unmergeable_rules.each_rule_set do |rules|
                 rules = T.let(rules, CssParser::RuleSet)
                 rules.delete(property)
               end
@@ -110,22 +123,44 @@ class Premailer
       end
 
       # Remove script tags
-      doc.search("script").remove if @options[:remove_scripts]
+      @processed_doc.search("script").remove if @options[:remove_scripts]
 
       # Read STYLE attributes and perform folding
-      doc.search("*[@style]").each do |el|
-        style = el.attributes["style"].to_s
-
-        declarations = []
+      @processed_doc.search("*[@style]").each do |element|
+        style = element.attributes["style"].to_s
+        declarations = T.let([], T::Array[CssParser::RuleSet])
         style.scan(/\[SPEC\=([\d]+)\[(.[^\]\]]*)\]\]/).each do |declaration|
-          rules = CssParser::RuleSet.new(
-            nil,
-            declaration[1].to_s,
-            declaration[0].to_i,
-          )
+          specificity, block = declaration
+          rules = CssParser::RuleSet.new(nil, block.to_s, specificity.to_i)
           declarations << rules
         rescue ArgumentError => e
           raise e if @options[:rule_set_exceptions]
+        end
+
+        # Parse CSS variable declarations
+        css_variables = T.let({}, CssVariables)
+        CssParser.merge(declarations).each_declaration do
+          |property, value, is_important|
+          next unless property.start_with?("--")
+          if is_important
+            css_variables[property] = value
+          else
+            css_variables[property] ||= value
+          end
+        end
+        @element_css_variables[element] = css_variables
+
+        # Resolve CSS variable references
+        declarations.each do |rules|
+          rules.each_declaration do |property, value, is_important|
+            if property.start_with?("--")
+              rules.delete(property)
+            else
+              value = resolve_css_value(value, element)
+              value = [value, "!important"].join(" ") if is_important
+              rules[property] = value
+            end
+          end
         end
 
         # Perform style folding
@@ -136,47 +171,22 @@ class Premailer
           raise e if @options[:rule_set_exceptions]
         end
 
-        # Parse CSS variable declarations
-        css_variables = T.let({}, CssVariables)
-        rules.each_declaration do |property, value, important|
-          next unless property.start_with?("--")
-          if important
-            css_variables[property] = value
-          else
-            css_variables[property] ||= value
-          end
-        end
-        element_variables[el] = css_variables
-        css_variables.keys.each { |property| rules.delete(property) }
-
-        # Replace CSS variable references
-        # merged.each_declaration do |property, value,|
-        #   merged[property] = resolve_css_variables(value)
-        # end
-
-        # Collapse multiple rules into one as much as possible.
+        # Collapse multiple rules into one as much as possible
         rules.create_shorthand! if @options[:create_shorthands]
 
         # Write the inline STYLE attribute
-        el["style"] = rules.declarations_to_s
+        element["style"] = rules.declarations_to_s
       end
 
       # Write unmergeable rules
       unless @options[:drop_unmergeable_css_rules]
-        write_unmergable_css_rules(doc, unmergable_rules)
+        write_unmergable_css_rules(@processed_doc, unmergeable_rules)
       end
 
       # Inline CSS variables and duplicate CSS attributes as HTML attributes
-      doc.search("*[@style]").each do |el|
+      @processed_doc.search("*[@style]").each do |el|
         style = el.attributes["style"].to_s
         rules = CssParser::RuleSet.new(nil, style)
-        rules.each_declaration do |property, value,|
-          rules[property] = resolve_css_value(
-            value,
-            el,
-            element_variables,
-          )
-        end
 
         # Duplicate CSS attributes as HTML attributes
         if Premailer::RELATED_ATTRIBUTES.key?(el.name) &&
@@ -216,7 +226,7 @@ class Premailer
       end
 
       if @options[:remove_classes] || @options[:remove_comments]
-        doc.traverse do |el|
+        @processed_doc.traverse do |el|
           if el.comment? && @options[:remove_comments]
             el.remove
           elsif el.element?
@@ -228,13 +238,13 @@ class Premailer
       if @options[:remove_ids]
         # find all anchor's targets and hash them
         targets = []
-        doc.search("a[@href^='#']").each do |el|
+        @processed_doc.search("a[@href^='#']").each do |el|
           target = el.get_attribute("href")[1..-1]
           targets << target
           el.set_attribute("href", "#" + Digest::SHA256.hexdigest(target))
         end
         # hash ids that are links target, delete others
-        doc.search("*[@id]").each do |el|
+        @processed_doc.search("*[@id]").each do |el|
           id = el.get_attribute("id")
           if targets.include?(id)
             el.set_attribute("id", Digest::SHA256.hexdigest(id))
@@ -245,12 +255,11 @@ class Premailer
       end
 
       if @options[:reset_contenteditable]
-        doc.search("*[@contenteditable]").each do |el|
+        @processed_doc.search("*[@contenteditable]").each do |el|
           el.remove_attribute("contenteditable")
         end
       end
 
-      @processed_doc = doc
       if is_xhtml?
         # we don't want to encode carriage returns
         @processed_doc.to_xhtml(encoding: @options[:output_encoding]).gsub(
@@ -261,24 +270,22 @@ class Premailer
       end
     end
 
+    private
+
+    # Resolve a CSS value that may contain CSS variables.
     sig do
-      params(
-        value: String,
-        el: Nokogiri::XML::Element,
-        element_variables: T::Hash[Nokogiri::XML::Element, CssVariables],
-      ).returns(String)
+      params(value: String, element: ::Nokogiri::XML::Element).returns(String)
     end
-    def resolve_css_value(value, el, element_variables)
+    def resolve_css_value(value, element)
       new_value = T.let(value.dup, String)
       while (match = new_value.match(/var\((--[\w-]+)(, ?(.+))?\)/))
         variable_name, fallback_literal, fallback = T.cast(
           match.captures,
           [String, T.nilable(String), T.nilable(String)],
         )
-        replacement = resolve_css_variable(
+        replacement = lookup_css_variable_value(
           variable_name,
-          el,
-          element_variables,
+          element,
         ) || fallback
         break unless replacement
         reference = if fallback_literal
@@ -291,126 +298,24 @@ class Premailer
       new_value
     end
 
+    # Looks up the value of a CSS variable.
     sig do
       params(
         name: String,
-        el: Nokogiri::XML::Element,
-        element_variables: T::Hash[Nokogiri::XML::Element, CssVariables],
+        element: Nokogiri::XML::Element,
       ).returns(T.nilable(String))
     end
-    def resolve_css_variable(name, el, element_variables)
-      node = T.let(el, Nokogiri::XML::Element)
+    def lookup_css_variable_value(name, element)
+      node = T.let(element, Nokogiri::XML::Element)
       until node.is_a?(Nokogiri::HTML4::Document)
-        css_variables = element_variables[node] || {}
+        css_variables = @element_css_variables[node] || {}
         if (replacement = css_variables[name])
           return replacement
         end
         node = node.parent
       end
     end
-
-    # Create a <tt>style</tt> element with un-mergable rules
-    # (e.g. <tt>:hover</tt>) and write it into the <tt>head</tt>.
-    #
-    # <tt>doc</tt> is an Nokogiri document and <tt>unmergeable_css_rules</tt> is
-    # a Css::RuleSet.
-    #
-    # @return [::Nokogiri::XML] a document.
-    def write_unmergable_css_rules(doc, unmergable_rules) # :nodoc:
-      styles = unmergable_rules.to_s
-      unless styles.empty?
-        if @options[:html_fragment]
-          style_tag = ::Nokogiri::XML::Node.new("style", doc)
-          style_tag.content = styles
-          doc.add_child(style_tag)
-        else
-          style_tag = doc.create_element("style", styles.to_s)
-          head = doc.at_css("head")
-          if doc.root&.first_element_child
-            head ||= doc.root.first_element_child.add_previous_sibling(
-              doc.create_element("head"),
-            )
-          end
-          head ||= doc.add_child(doc.create_element("head"))
-          head << style_tag
-        end
-      end
-      doc
-    end
-
-    # Converts the HTML document to a format suitable for plain-text e-mail.
-    #
-    # If present, uses the <body> element as its base; otherwise uses the whole
-    # document.
-    #
-    # @return [String] a plain text.
-    def to_plain_text
-      html_src = ""
-      begin
-        html_src = @doc.at("body").inner_html
-      rescue # rubocop:disable Lint/SuppressedException
-      end
-
-      html_src = @doc.to_html if html_src.blank?
-      convert_to_text(html_src, @options[:line_length], @html_encoding)
-    end
-
-    # Gets the original HTML as a string.
-    # @return [String] HTML.
-    def to_s
-      if is_xhtml?
-        @doc.to_xhtml(encoding: nil)
-      else
-        @doc.to_html(encoding: nil)
-      end
-    end
-
-    # Load the HTML file and convert it into an Nokogiri document.
-    #
-    # @return [::Nokogiri::XML] a document.
-    def load_html(input) # :nodoc:
-      thing = nil
-
-      # TODO: duplicate options
-      if @options[:with_html_string] || @options[:inline] ||
-          input.respond_to?(:read)
-        thing = input
-      elsif @is_local_file
-        @base_dir = File.dirname(input)
-        thing = File.open(input, "r")
-      else
-        thing = URI.open(input) # rubocop:disable Security/Open
-      end
-      thing = thing.read if thing.respond_to?(:read)
-
-      return unless thing
-      doc = nil
-
-      # Handle HTML entities
-      if (@options[:replace_html_entities] == true) && thing.is_a?(String)
-        HTML_ENTITIES.map do |entity, replacement|
-          thing.gsub!(entity, replacement)
-        end
-      end
-      encoding = @options[:input_encoding] ||
-        (RUBY_PLATFORM == "java" ? nil : "BINARY")
-      doc = if @options[:html_fragment]
-        ::Nokogiri::HTML.fragment(thing, encoding)
-      else
-        ::Nokogiri::HTML(thing, nil, encoding, &:recover)
-      end
-
-      # Fix for removing any CDATA tags from both style and script tags inserted
-      # per
-      # https://github.com/sparklemotion/nokogiri/issues/311 and
-      # https://github.com/premailer/premailer/issues/199
-      %w(style script).each do |tag|
-        doc.search(tag).children.each do |child|
-          child.swap(child.text) if child.cdata?
-        end
-      end
-
-      doc
-    end
   end
+
+  prepend Extension
 end

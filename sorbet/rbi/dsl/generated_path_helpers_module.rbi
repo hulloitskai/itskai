@@ -39,6 +39,9 @@ module GeneratedPathHelpersModule
   def good_job_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def grant_locate_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def graphiql_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
