@@ -32,6 +32,9 @@ const emails = resolve(() => {
 });
 
 // == Entrypoint
+const port = process.env.INERTIA_PORT
+  ? parseInt(process.env.INERTIA_PORT)
+  : undefined;
 createServer(async page => {
   const type = resolvePageType(page.component);
   return createInertiaApp({
@@ -68,4 +71,4 @@ createServer(async page => {
     },
     setup: setupApp,
   });
-});
+}, port);

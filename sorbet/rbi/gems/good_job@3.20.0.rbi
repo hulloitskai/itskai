@@ -530,7 +530,7 @@ class GoodJob::Adapter
   #
   # @return [Boolean]
   #
-  # source://good_job//lib/good_job/adapter.rb#216
+  # source://good_job//lib/good_job/adapter.rb#220
   def async_started?; end
 
   # Enqueues the ActiveJob job to be performed.
@@ -557,35 +557,35 @@ class GoodJob::Adapter
   # @param timestamp [Integer, nil] the epoch time to perform the job
   # @return [GoodJob::Execution]
   #
-  # source://good_job//lib/good_job/adapter.rb#133
+  # source://good_job//lib/good_job/adapter.rb#135
   def enqueue_at(active_job, timestamp); end
 
   # Whether in +:async+ execution mode.
   #
   # @return [Boolean]
   #
-  # source://good_job//lib/good_job/adapter.rb#186
+  # source://good_job//lib/good_job/adapter.rb#190
   def execute_async?; end
 
   # Whether in +:external+ execution mode.
   #
   # @return [Boolean]
   #
-  # source://good_job//lib/good_job/adapter.rb#193
+  # source://good_job//lib/good_job/adapter.rb#197
   def execute_externally?; end
 
   # Whether in +:inline+ execution mode.
   #
   # @return [Boolean]
   #
-  # source://good_job//lib/good_job/adapter.rb#201
+  # source://good_job//lib/good_job/adapter.rb#205
   def execute_inline?; end
 
   # This adapter's execution mode
   #
   # @return [Symbol, nil]
   #
-  # source://good_job//lib/good_job/adapter.rb#180
+  # source://good_job//lib/good_job/adapter.rb#184
   def execution_mode; end
 
   # Shut down the thread pool executors.
@@ -597,21 +597,21 @@ class GoodJob::Adapter
   #   * A positive number will wait that many seconds before stopping any remaining active threads.
   # @return [void]
   #
-  # source://good_job//lib/good_job/adapter.rb#173
+  # source://good_job//lib/good_job/adapter.rb#177
   def shutdown(timeout: T.unsafe(nil)); end
 
   # Start async executors
   #
   # @return [void]
   #
-  # source://good_job//lib/good_job/adapter.rb#207
+  # source://good_job//lib/good_job/adapter.rb#211
   def start_async; end
 
   private
 
   # @return [Boolean]
   #
-  # source://good_job//lib/good_job/adapter.rb#222
+  # source://good_job//lib/good_job/adapter.rb#226
   def send_notify?(active_job); end
 
   class << self
@@ -2745,9 +2745,6 @@ class GoodJob::Job < ::GoodJob::BaseExecution
     def _validators; end
 
     def advisory_lockable_column; end
-
-    # source://activemodel/7.1.1/lib/active_model/attribute_methods.rb#72
-    def attribute_aliases; end
 
     # source://activerecord/7.1.1/lib/active_record/scoping/default.rb#19
     def default_scopes; end

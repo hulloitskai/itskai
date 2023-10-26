@@ -1,24 +1,24 @@
 # typed: strict
 # frozen_string_literal: true
 
-class SubjectAndSenderLowercasingInterceptor
+class LowercasingInterceptor
   class << self
     extend T::Sig
 
     sig { params(message: Mail::Message).void }
     def delivering_email(message)
-      lowercase_subject_and_sender(message)
+      lowercase(message)
     end
 
     sig { params(delivery: ActionMailer::MessageDelivery).void }
     def previewing_email(delivery)
-      lowercase_subject_and_sender(delivery.message)
+      lowercase(delivery.message)
     end
 
     private
 
     sig { params(message: Mail::Message).void }
-    def lowercase_subject_and_sender(message)
+    def lowercase(message)
       message.subject.downcase!
       message.from_address.display_name.downcase!
     end

@@ -26,10 +26,6 @@ module Premailer::Adapter::Nokogiri
       @processed_doc = T.let(@processed_doc, Nokogiri::XML::Document)
       @css_parser = T.let(@css_parser, CssParser::Parser)
       @options = T.let(@options, T::Hash[Symbol, T.untyped])
-      @element_css_variables = T.let(
-        {},
-        T::Hash[Nokogiri::XML::Element, CssVariables],
-      )
     end
 
     # == Methods
@@ -111,7 +107,7 @@ module Premailer::Adapter::Nokogiri
                 css_variables[property] ||= value
               end
             end
-            @element_css_variables[el] = css_variables
+            element_css_variables[el] = css_variables
             css_variables.keys.each do |property|
               unmergeable_rules.each_rule_set do |rules|
                 rules = T.let(rules, CssParser::RuleSet)
@@ -148,7 +144,7 @@ module Premailer::Adapter::Nokogiri
             css_variables[property] ||= value
           end
         end
-        @element_css_variables[element] = css_variables
+        element_css_variables[element] = css_variables
 
         # Resolve CSS variable references
         declarations.each do |rules|
@@ -272,6 +268,14 @@ module Premailer::Adapter::Nokogiri
 
     private
 
+    sig { returns(T::Hash[Nokogiri::XML::Element, T::Hash[String, T.untyped]]) }
+    def element_css_variables
+      @element_css_variables ||= T.let(
+        {},
+        T.nilable(T::Hash[Nokogiri::XML::Element, CssVariables]),
+      )
+    end
+
     # Resolve a CSS value that may contain CSS variables.
     sig do
       params(value: String, element: ::Nokogiri::XML::Element).returns(String)
@@ -308,7 +312,7 @@ module Premailer::Adapter::Nokogiri
     def lookup_css_variable_value(name, element)
       node = T.let(element, Nokogiri::XML::Element)
       until node.is_a?(Nokogiri::HTML4::Document)
-        css_variables = @element_css_variables[node] || {}
+        css_variables = element_css_variables[node] || {}
         if (replacement = css_variables[name])
           return replacement
         end

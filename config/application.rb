@@ -42,9 +42,9 @@ module ItsKai
     config.load_defaults(7.1)
 
     # == Code Loading
-    # Only autoload workers once.
-    Rails.autoloaders.main.ignore(Rails.root.join("app/workers"))
-    config.autoload_once_paths << Rails.root.join("app/workers")
+    # Only autoload workers, interceptors once.
+    Rails.autoloaders.main.ignore("app/workers", "app/interceptors")
+    config.autoload_once_paths += ["app/workers", "app/interceptors"]
 
     # Configuration for the application, engines, and railties goes here.
     #
