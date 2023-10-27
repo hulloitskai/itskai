@@ -84,7 +84,11 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
-production:
+production: &production
   <<: *default
   database: <%= ENV.fetch("POSTGRES_DATABASE", "itskai_production") %>
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5).to_i + 1 + 2 + ENV.fetch("GOOD_JOB_MAX_THREADS", 2).to_i %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+
+worker:
+  <<: *production
+  pool: <%= 1 + 2 + ENV.fetch("GOOD_JOB_MAX_THREADS", 2).to_i %>

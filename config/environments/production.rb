@@ -105,8 +105,4 @@ Rails.application.configure do
   # == Action Mailbox
   # Prepare the ingress controller used to receive mail
   # config.action_mailbox.ingress = :relay
-
-  # == Good Job
-  config.good_job.execution_mode =
-    ENV.fetch("GOOD_JOB_EXECUTION_MODE", :async).to_sym
 end

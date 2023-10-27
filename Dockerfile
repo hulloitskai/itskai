@@ -123,6 +123,3 @@ EXPOSE 3000
 # Configure healthcheck
 HEALTHCHECK --interval=15s --timeout=2s --start-period=10s --retries=3 \
   CMD curl -f http://127.0.0.1:3000/status || exit 1
-
-# Set command
-CMD ["/app/bin/run"]
