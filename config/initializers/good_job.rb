@@ -30,6 +30,10 @@ Rails.application.configure do
     config.on_thread_error = ->(error) do
       error = T.let(error, Exception)
       Rails.error.report(error, handled: false)
+
+      # NOTE: This is an experiment to see if it helps with the crashes on
+      # fly.io that seem to be associated with Good Job.
+      raise error
     end
   end
 end

@@ -25,7 +25,7 @@ class CurrentlyPlayingPoll < ApplicationService
     end
   rescue => error
     tag_logger { logger.error("Error: #{error}") }
-    Rails.error.report(error, handled: true)
+    Rails.error.report(error)
     false
   end
 

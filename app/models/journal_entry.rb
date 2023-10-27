@@ -96,7 +96,7 @@ class JournalEntry < ApplicationRecord
             "#{error}",
         )
       end
-      Rails.error.report(error, handled: true, context: { notion_page_id: })
+      Rails.error.report(error, context: { notion_page_id: })
       raise error
     end
     JournalEntry.where.not(notion_page_id: notion_pages.map(&:id)).destroy_all
