@@ -3,10 +3,6 @@ primary_region = "sea"
 kill_signal = "SIGINT"
 kill_timeout = 10
 
-[processes]
-  web = "/app/bin/web"
-  worker = "/app/bin/worker"
-
 [experimental]
   auto_rollback = true
 
@@ -23,7 +19,8 @@ kill_timeout = 10
 [[services]]
   protocol = "tcp"
   internal_port = 3000
-  processes = ["web"]
+  processes = ["app"]
+  min_machines_running = 1
 
 [services.concurrency]
   type = "connections"
