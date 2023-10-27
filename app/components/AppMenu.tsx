@@ -32,6 +32,7 @@ export type AppMenuProps = Omit<BoxProps, "children"> & {
 const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
   const router = useRouter();
   const client = useApolloClient();
+  const mounted = useMounted();
   const [contactMe, { loading: contactMeLoading }] = useContactMe();
 
   // == State
@@ -97,13 +98,17 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
         <Badge
           variant="outline"
           leftSection={
-            <Lottie
-              lottieRef={menuIconRef}
-              animationData={menuAnimationData}
-              loop={false}
-              autoplay={false}
-              className={classes.icon}
-            />
+            <>
+              {mounted && (
+                <Lottie
+                  lottieRef={menuIconRef}
+                  animationData={menuAnimationData}
+                  loop={false}
+                  autoplay={false}
+                  className={classes.icon}
+                />
+              )}
+            </>
           }
           className={classes.target}
           color="gray"
@@ -139,7 +144,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
         >
           Shoot Kai a msg
         </Menu.Item>
-        {viewer && (
+        {!!viewer && (
           <>
             <Menu.Divider />
             <Menu.Item

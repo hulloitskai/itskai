@@ -30,8 +30,7 @@ class Schema < GraphQL::Schema
     raise GraphQL::ExecutionError, "#{model_name} is invalid."
   end
   rescue_from ActiveRecord::RecordNotDestroyed do |error|
-    record = error.record
-    model_name = record.model_name.human.downcase
+    model_name = error.record.model_name.human
     raise GraphQL::ExecutionError, "Couldn't destroy #{model_name}."
   end
   rescue_from RuntimeError do |error|

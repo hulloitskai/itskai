@@ -20,7 +20,7 @@ const AppMeta: FC<AppMetaProps> = ({
   imageUrl = AppMetaSiteImage,
   noIndex,
 }) => {
-  const pageVisible = useVisibilityChange();
+  const pageVisible = import.meta.env.SSR ? true : useVisibilityChange(); // eslint-disable-line react-hooks/rules-of-hooks
 
   const title = useMemo<string>(() => {
     const components = Array.isArray(titleProp) ? titleProp : [titleProp];
