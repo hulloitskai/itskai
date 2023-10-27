@@ -1,5 +1,5 @@
 # Declare arguments, with default values
-ARG DISTRO_NAME=bullseye
+ARG DISTRO=bullseye
 ARG RUBY_VERSION=3.2.2
 ARG PYTHON_MAJOR_VERSION=3
 ARG NODE_MAJOR_VERSION=18
@@ -8,23 +8,22 @@ ARG POSTGRES_MAJOR_VERSION=14
 ARG OVERMIND_VERSION=2.4.0
 
 # Configure base image
-FROM ruby:$RUBY_VERSION-slim-$DISTRO_NAME
+FROM ruby:$RUBY_VERSION-slim-$DISTRO
 
 # Re-declare arguments, since they are reset by the FROM instructions
 #
 # See: https://github.com/moby/moby/issues/34129
-ARG DISTRO_NAME
+ARG DISTRO
 ARG RUBY_VERSION
 ARG PYTHON_MAJOR_VERSION
 ARG NODE_MAJOR_VERSION
 ARG YARN_VERSION
 ARG POSTGRES_MAJOR_VERSION
 ARG OVERMIND_VERSION
-ARG DEBIAN_FRONTEND=noninteractive
 
-# Install curl
+# Install tools
 RUN apt-get update -qq \
-  && apt-get install -yq --no-install-recommends curl \
+  && apt-get install -yq --no-install-recommends ca-certificates curl gnupg \
   && apt-get clean \
   && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log
@@ -34,8 +33,10 @@ ENV LANG=C.UTF-8 BUNDLE_JOBS=4 BUNDLE_RETRY=3 BUNDLE_APP_CONFIG=.bundle
 RUN gem update --system && gem install bundler
 
 # Install NodeJS and Yarn
-RUN curl -sL https://deb.nodesource.com/setup_$NODE_MAJOR_VERSION.x | bash -
-RUN apt-get update -qq \
+RUN mkdir -p /etc/apt/keyrings \
+  && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
+  && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR_VERSION.x nodistro main" > /etc/apt/sources.list.d/nodesource.list \
+  && apt-get update -qq \
   && apt-get -yq dist-upgrade \
   && apt-get install -yq --no-install-recommends nodejs \
   && apt-get clean \
@@ -63,7 +64,7 @@ RUN apt-get update -qq \
 
 # Install Postgres client
 RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
-  && echo deb http://apt.postgresql.org/pub/repos/apt/ $DISTRO_NAME-pgdg main $POSTGRES_MAJOR_VERSION > /etc/apt/sources.list.d/pgdg.list
+  && echo deb http://apt.postgresql.org/pub/repos/apt/ $DISTRO-pgdg main $POSTGRES_MAJOR_VERSION > /etc/apt/sources.list.d/pgdg.list
 RUN apt-get update -qq \
   && apt-get -yq dist-upgrade \
   && apt-get install -yq --no-install-recommends libpq-dev postgresql-client-$POSTGRES_MAJOR_VERSION \
@@ -122,7 +123,7 @@ EXPOSE 3000
 
 # Configure healthcheck
 HEALTHCHECK --interval=15s --timeout=2s --start-period=10s --retries=3 \
-  CMD curl -f http://127.0.0.1:3000/status || exit 1
+  CMD curl -f http://127.0.0.1:3000/status
 
 # Set command
 CMD ["/app/bin/run"]
