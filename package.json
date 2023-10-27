@@ -7,6 +7,7 @@
   "dependencies": {
     "@9gustin/react-notion-render": "^3.11.2",
     "@apollo/client": "^3.7.17",
+    "@codemirror/language": "6.0.0",
     "@fullstory/browser": "^1.7.1",
     "@graphiql/toolkit": "^0.9.1",
     "@inertiajs/core": "^1.0.9",
@@ -103,7 +104,6 @@
     "unplugin-icons": "0.16.3",
     "vite": "^4.4.2",
     "vite-plugin-full-reload": "^1.0.5",
-    "vite-plugin-graphql-codegen": "^3.2.2",
     "vite-plugin-iso-import": "^1.0.0",
     "vite-plugin-ruby": "^3.2.2"
   }

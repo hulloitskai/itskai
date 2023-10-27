@@ -570,6 +570,32 @@
     "@babel/helper-validator-identifier" "^7.22.5"
     to-fast-properties "^2.0.0"
 
+"@codemirror/language@6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@codemirror/language/-/language-6.0.0.tgz#f590558447c01f430fb3ef3297c41b8cd3ae9190"
+  integrity sha512-rtjk5ifyMzOna1c7PBu7J1VCt0PvA5wy3o8eMVnxMKb7z8KA7JFecvD04dSn14vj/bBaAbqRsGed5OjtofEnLA==
+  dependencies:
+    "@codemirror/state" "^6.0.0"
+    "@codemirror/view" "^6.0.0"
+    "@lezer/common" "^1.0.0"
+    "@lezer/highlight" "^1.0.0"
+    "@lezer/lr" "^1.0.0"
+    style-mod "^4.0.0"
+
+"@codemirror/state@^6.0.0", "@codemirror/state@^6.1.4":
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/@codemirror/state/-/state-6.3.1.tgz#acabbbaeedcbfd31680704aba22102a75104f434"
+  integrity sha512-88e4HhMtKJyw6fKprGaN/yZfiaoGYOi2nM45YCUC6R/kex9sxFWBDGatS1vk4lMgnWmdIIB9tk8Gj1LmL8YfvA==
+
+"@codemirror/view@^6.0.0":
+  version "6.21.4"
+  resolved "https://registry.yarnpkg.com/@codemirror/view/-/view-6.21.4.tgz#6ec83ea238e16b2e1fc149ef9d1a36db2b1f3863"
+  integrity sha512-WKVZ7nvN0lwWPfAf05WxWqTpwjC8YN3q5goj3CsSig7//DD81LULgOx3nBegqpqP0iygBqRmW8z0KSc2QTAdAg==
+  dependencies:
+    "@codemirror/state" "^6.1.4"
+    style-mod "^4.1.0"
+    w3c-keyname "^2.2.4"
+
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/@cspotcode/source-map-support/-/source-map-support-0.8.1.tgz#00629c35a688e05a88b1cda684fb9d5e73f000a1"
@@ -1641,6 +1667,25 @@
   dependencies:
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
+
+"@lezer/common@^1.0.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@lezer/common/-/common-1.1.0.tgz#2e5bfe01d7a2ada6056d93c677bba4f1495e098a"
+  integrity sha512-XPIN3cYDXsoJI/oDWoR2tD++juVrhgIago9xyKhZ7IhGlzdDM9QgC8D8saKNCz5pindGcznFr2HBSsEQSWnSjw==
+
+"@lezer/highlight@^1.0.0":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@lezer/highlight/-/highlight-1.1.6.tgz#87e56468c0f43c2a8b3dc7f0b7c2804b34901556"
+  integrity sha512-cmSJYa2us+r3SePpRCjN5ymCqCPv+zyXmDl0ciWtVaNiORT/MxM7ZgOMQZADD0o51qOaOg24qc/zBViOIwAjJg==
+  dependencies:
+    "@lezer/common" "^1.0.0"
+
+"@lezer/lr@^1.0.0":
+  version "1.3.13"
+  resolved "https://registry.yarnpkg.com/@lezer/lr/-/lr-1.3.13.tgz#578e06c6c52e4dc38421368904585afa3eb82ec8"
+  integrity sha512-RLAbau/4uSzKgIKj96mI5WUtG1qtiR0Frn0Ei9zhPj8YOkHM+1Bb8SgdVvmR/aWJCFIzjo2KFnDiRZ75Xf5NdQ==
+  dependencies:
+    "@lezer/common" "^1.0.0"
 
 "@mantine/core@7.1.5":
   version "7.1.5"
@@ -7367,6 +7412,11 @@ strip-literal@^1.0.1:
   dependencies:
     acorn "^8.8.2"
 
+style-mod@^4.0.0, style-mod@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/style-mod/-/style-mod-4.1.0.tgz#a313a14f4ae8bb4d52878c0053c4327fb787ec09"
+  integrity sha512-Ca5ib8HrFn+f+0n4N4ScTIA9iTOQ7MaGS1ylHcoVqW9J7w2w8PzN6g9gKmTYgGEBH8e120+RCmhpje6jC5uGWA==
+
 style-to-js@1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/style-to-js/-/style-to-js-1.1.3.tgz#2012d75dc89bf400edc29c545ed61c8626b00184"
@@ -7895,11 +7945,6 @@ vite-plugin-full-reload@^1.0.5:
     picocolors "^1.0.0"
     picomatch "^2.3.1"
 
-vite-plugin-graphql-codegen@^3.2.2:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/vite-plugin-graphql-codegen/-/vite-plugin-graphql-codegen-3.2.2.tgz#3d1755606c0750fcb252b66ac2f041ab26170390"
-  integrity sha512-0XFjkdaeERNQ4ExhAhnU4gG2nceWNdPzazMUKw2f+WJCN2QlDqoe8ex1mFT0JAC0YeRWSIO3+1pwRRIm4dehIQ==
-
 vite-plugin-iso-import@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/vite-plugin-iso-import/-/vite-plugin-iso-import-1.0.0.tgz#71d83047d8dc77327278b56bff9e1e362edffbce"
@@ -7940,6 +7985,11 @@ vt-pbf@^3.1.3:
     "@mapbox/point-geometry" "0.1.0"
     "@mapbox/vector-tile" "^1.3.1"
     pbf "^3.2.1"
+
+w3c-keyname@^2.2.4:
+  version "2.2.8"
+  resolved "https://registry.yarnpkg.com/w3c-keyname/-/w3c-keyname-2.2.8.tgz#7b17c8c6883d4e8b86ac8aba79d39e880f8869c5"
+  integrity sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==
 
 wcwidth@^1.0.1:
   version "1.0.1"
