@@ -104,7 +104,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
   const regionData = useMemo(() => {
     if (initialLocation) {
       const { latitude, longitude } = initialLocation.approximateCoordinates;
-      return circle([longitude, latitude], 2);
+      return circle([longitude, latitude], 1);
     }
   }, [initialLocation]);
 
