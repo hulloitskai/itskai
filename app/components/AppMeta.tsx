@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { useVisibilityChange } from "@uidotdev/usehooks";
 
 const AppMetaSiteType = "website";
 const AppMetaSiteName = "It's Kai";
@@ -19,20 +20,26 @@ const AppMeta: FC<AppMetaProps> = ({
   imageUrl = AppMetaSiteImage,
   noIndex,
 }) => {
+  const pageVisible = useVisibilityChange();
+
   const title = useMemo<string>(() => {
     const components = Array.isArray(titleProp) ? titleProp : [titleProp];
     return components
       .filter(component => !!component)
       .join(` ${AppMetaTitleSeparator} `);
   }, [titleProp]);
-  const fullTitle = useMemo<string>(() => {
+  const titleTag = useMemo<string>(() => {
+    if (!pageVisible) {
+      return "🥺 come back";
+    }
     return [title, AppMetaSiteName]
       .filter(component => !!component)
       .join(` ${AppMetaTitleSeparator} `);
-  }, [title]);
+  }, [title, pageVisible]);
+
   return (
     <Head>
-      <title>{fullTitle.toLowerCase()}</title>
+      <title>{titleTag.toLowerCase()}</title>
       {!!description && (
         <meta name="description" content={description.toLowerCase()} />
       )}
@@ -44,7 +51,7 @@ const AppMeta: FC<AppMetaProps> = ({
       )}
       {!!imageUrl && <meta property="og:image" content={imageUrl} />}
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content={fullTitle.toLowerCase()} />
+      <meta name="twitter:title" content={titleTag.toLowerCase()} />
       {!!description && (
         <meta name="twitter:description" content={description.toLowerCase()} />
       )}

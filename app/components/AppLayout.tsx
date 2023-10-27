@@ -73,7 +73,6 @@ const AppLayout: FC<AppLayoutProps> = ({
     [withContainer, withGutter, containerSize, containerProps, children],
   );
 
-  // == Markup
   return (
     <PageLayout>
       <AppMeta {...{ title, description, imageUrl, noIndex }} />
