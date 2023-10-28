@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { useVisibilityChange } from "@uidotdev/usehooks";
+import { useVisibilityChange } from "~/helpers/hooks";
 
 const AppMetaSiteType = "website";
 const AppMetaSiteName = "It's Kai";
@@ -20,8 +20,7 @@ const AppMeta: FC<AppMetaProps> = ({
   imageUrl = AppMetaSiteImage,
   noIndex,
 }) => {
-  const pageVisible = import.meta.env.SSR ? true : useVisibilityChange(); // eslint-disable-line react-hooks/rules-of-hooks
-
+  const pageVisible = useVisibilityChange(true);
   const title = useMemo<string>(() => {
     const components = Array.isArray(titleProp) ? titleProp : [titleProp];
     return components
