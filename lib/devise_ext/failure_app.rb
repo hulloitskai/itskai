@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require "devise"
+require "sorbet-runtime"
 
 class Devise::FailureApp
   # Downcase first letter of the humanized attribute names when authentication

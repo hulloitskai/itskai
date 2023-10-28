@@ -29,7 +29,7 @@
     "@svgr/core": "^8.0.0",
     "@svgr/plugin-jsx": "^8.0.1",
     "@turf/circle": "^6.5.0",
-    "@uidotdev/usehooks": "uidotdev/usehooks",
+    "@uidotdev/usehooks": "^2.4.1",
     "clsx": "^2.0.0",
     "dayjs": "^1.11.9",
     "framer-motion": "^10.16.4",

@@ -2,7 +2,7 @@
 
 set -e
 
-# Install overmind.
+# Install overmind
 if ! command -v overmind &> /dev/null; then
   if ! command -v brew &> /dev/null; then
     echo "Please install overmind to continue!"
@@ -16,6 +16,6 @@ fi
 
 export OVERMIND_SKIP_ENV=1
 export OVERMIND_NO_PORT=1
-export OVERMIND_SOCKET=tmp/sockets/overmind.sock
+export OVERMIND_SOCKET=tmp/sockets/overmind.${RAILS_ENV:-development}.sock
 
 overmind $@

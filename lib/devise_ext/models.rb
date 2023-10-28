@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require "devise"
+require "sorbet-runtime"
 
 module Devise::Models
   module Authenticatable

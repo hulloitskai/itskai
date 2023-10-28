@@ -16,6 +16,7 @@ ENV["BETTER_ERRORS_EDITOR"] = "vscode"
 ENV["BETTER_ERRORS_INSIDE_FRAME"] = "1"
 
 class BetterErrors::StackFrame
+  # Ignore files in lib/ that are not application code.
   module Patch
     extend T::Sig
     extend T::Helpers

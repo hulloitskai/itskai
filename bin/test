@@ -2,7 +2,7 @@
 
 set -e
 
-export RAILS_ENV=test NODE_ENV=production
+export RAILS_ENV=test NODE_ENV=production INERTIA_PORT=13715
 
 echo "=> Compiling assets"
 bin/vite clobber && bin/rails assets:precompile

@@ -1,4 +1,5 @@
 import type { FC } from "react";
+
 import Lottie from "lottie-react";
 import type { LottieRefCurrentProps } from "lottie-react";
 

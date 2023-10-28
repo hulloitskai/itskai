@@ -1,6 +1,8 @@
 # typed: true
 # frozen_string_literal: true
 
+return unless defined?(Capybara)
+
 if Rails.env.test?
   Capybara.register_driver(:headless_chrome) do |app|
     Capybara::Selenium::Driver.new(
