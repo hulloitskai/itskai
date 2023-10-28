@@ -30,9 +30,9 @@ export type AppMenuProps = Omit<BoxProps, "children"> & {
 };
 
 const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
+  const isClient = useIsClient();
   const router = useRouter();
   const client = useApolloClient();
-  const mounted = useMounted();
   const [contactMe, { loading: contactMeLoading }] = useContactMe();
 
   // == State
@@ -99,7 +99,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
           variant="outline"
           leftSection={
             <>
-              {mounted && (
+              {isClient && (
                 <Lottie
                   lottieRef={menuIconRef}
                   animationData={menuAnimationData}

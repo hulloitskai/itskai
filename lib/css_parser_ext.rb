@@ -3,7 +3,8 @@
 
 module CssParser
   class << self
-    module Extension
+    # Don't mutate original rule sets when merging.
+    module Patch
       extend T::Sig
 
       sig do
@@ -16,7 +17,6 @@ module CssParser
         super(rule_sets)
       end
     end
-
-    prepend Extension
+    prepend Patch
   end
 end

@@ -4338,14 +4338,15 @@ class Net::IMAP::SASL::AnonymousAuthenticator
   # this, see Net::IMAP#authenticate or your client's authentication
   # method.
   #
-  # #anonymous_message is an optional message which is sent to the server.
-  # It may be sent as a positional argument or as a keyword argument.
+  # ==== Parameters
+  #
+  # * _optional_ #anonymous_message — a message to send to the server.
   #
   # Any other keyword arguments are silently ignored.
   #
   # @return [AnonymousAuthenticator] a new instance of AnonymousAuthenticator
   #
-  # source://net-imap//lib/net/imap/sasl/anonymous_authenticator.rb#36
+  # source://net-imap//lib/net/imap/sasl/anonymous_authenticator.rb#37
   def initialize(anon_msg = T.unsafe(nil), anonymous_message: T.unsafe(nil), **_arg2); end
 
   # An optional token sent for the +ANONYMOUS+ mechanism., up to 255 UTF-8
@@ -4368,7 +4369,7 @@ class Net::IMAP::SASL::AnonymousAuthenticator
   #
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/anonymous_authenticator.rb#63
+  # source://net-imap//lib/net/imap/sasl/anonymous_authenticator.rb#64
   def done?; end
 
   # :call-seq:
@@ -4378,12 +4379,12 @@ class Net::IMAP::SASL::AnonymousAuthenticator
   #
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/anonymous_authenticator.rb#50
+  # source://net-imap//lib/net/imap/sasl/anonymous_authenticator.rb#51
   def initial_response?; end
 
   # Returns #anonymous_message.
   #
-  # source://net-imap//lib/net/imap/sasl/anonymous_authenticator.rb#53
+  # source://net-imap//lib/net/imap/sasl/anonymous_authenticator.rb#54
   def process(_server_challenge_string); end
 end
 
@@ -4738,24 +4739,24 @@ class Net::IMAP::SASL::CramMD5Authenticator
   # @return [CramMD5Authenticator] a new instance of CramMD5Authenticator
   #
   # source://net-imap//lib/net/imap/sasl/cram_md5_authenticator.rb#17
-  def initialize(user, password, warn_deprecation: T.unsafe(nil), **_ignored); end
+  def initialize(user = T.unsafe(nil), pass = T.unsafe(nil), authcid: T.unsafe(nil), username: T.unsafe(nil), password: T.unsafe(nil), secret: T.unsafe(nil), warn_deprecation: T.unsafe(nil), **_arg7); end
 
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/cram_md5_authenticator.rb#36
+  # source://net-imap//lib/net/imap/sasl/cram_md5_authenticator.rb#40
   def done?; end
 
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/cram_md5_authenticator.rb#27
+  # source://net-imap//lib/net/imap/sasl/cram_md5_authenticator.rb#31
   def initial_response?; end
 
-  # source://net-imap//lib/net/imap/sasl/cram_md5_authenticator.rb#29
+  # source://net-imap//lib/net/imap/sasl/cram_md5_authenticator.rb#33
   def process(challenge); end
 
   private
 
-  # source://net-imap//lib/net/imap/sasl/cram_md5_authenticator.rb#40
+  # source://net-imap//lib/net/imap/sasl/cram_md5_authenticator.rb#44
   def hmac_md5(text, key); end
 end
 
@@ -4773,6 +4774,7 @@ class Net::IMAP::SASL::DigestMD5Authenticator
   # :call-seq:
   #   new(username,  password,  authzid = nil, **options) -> authenticator
   #   new(username:, password:, authzid:  nil, **options) -> authenticator
+  #   new(authcid:,  password:, authzid:  nil, **options) -> authenticator
   #
   # Creates an Authenticator for the "+DIGEST-MD5+" SASL mechanism.
   #
@@ -4780,17 +4782,36 @@ class Net::IMAP::SASL::DigestMD5Authenticator
   #
   # ==== Parameters
   #
-  # * #username — Identity whose #password is used.
-  # * #password — A password or passphrase associated with this #username.
-  # * #authzid ― Alternate identity to act as or on behalf of.  Optional.
-  # * +warn_deprecation+ — Set to +false+ to silence the warning.
+  # * #authcid  ― Authentication identity that is associated with #password.
   #
-  # See the documentation for each attribute for more details.
+  #   #username ― An alias for +authcid+.
+  #
+  # * #password ― A password or passphrase associated with this #authcid.
+  #
+  # * _optional_ #authzid  ― Authorization identity to act as or on behalf of.
+  #
+  #   When +authzid+ is not set, the server should derive the authorization
+  #   identity from the authentication identity.
+  #
+  # * _optional_ +warn_deprecation+ — Set to +false+ to silence the warning.
+  #
+  # Any other keyword arguments are silently ignored.
   #
   # @return [DigestMD5Authenticator] a new instance of DigestMD5Authenticator
   #
-  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#60
-  def initialize(user = T.unsafe(nil), pass = T.unsafe(nil), authz = T.unsafe(nil), username: T.unsafe(nil), password: T.unsafe(nil), authzid: T.unsafe(nil), warn_deprecation: T.unsafe(nil), **_arg7); end
+  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#70
+  def initialize(user = T.unsafe(nil), pass = T.unsafe(nil), authz = T.unsafe(nil), username: T.unsafe(nil), password: T.unsafe(nil), authzid: T.unsafe(nil), authcid: T.unsafe(nil), secret: T.unsafe(nil), warn_deprecation: T.unsafe(nil), **_arg9); end
+
+  # Authentication identity: the identity that matches the #password.
+  #
+  # RFC-2831[https://tools.ietf.org/html/rfc2831] uses the term +username+.
+  # "Authentication identity" is the generic term used by
+  # RFC-4422[https://tools.ietf.org/html/rfc4422].
+  # RFC-4616[https://tools.ietf.org/html/rfc4616] and many later RFCs abbreviate
+  # this to +authcid+.
+  #
+  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#24
+  def authcid; end
 
   # Authorization identity: an identity to act as or on behalf of.  The identity
   # form is application protocol specific.  If not provided or left blank, the
@@ -4803,29 +4824,29 @@ class Net::IMAP::SASL::DigestMD5Authenticator
   #
   #     imap.authenticate "DIGEST-MD5", "root", ->{passwd}, authzid: "user"
   #
-  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#42
+  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#43
   def authzid; end
 
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#144
+  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#156
   def done?; end
 
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#76
+  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#88
   def initial_response?; end
 
   # A password or passphrase that matches the #username.
   #
   # The +password+ will be used to create the response digest.
   #
-  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#29
+  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#30
   def password; end
 
   # Responds to server challenge in two stages.
   #
-  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#79
+  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#91
   def process(challenge); end
 
   # Authentication identity: the identity that matches the #password.
@@ -4834,19 +4855,19 @@ class Net::IMAP::SASL::DigestMD5Authenticator
   # "Authentication identity" is the generic term used by
   # RFC-4422[https://tools.ietf.org/html/rfc4422].
   # RFC-4616[https://tools.ietf.org/html/rfc4616] and many later RFCs abbreviate
-  # that to +authcid+.  So +authcid+ is available as an alias for #username.
+  # this to +authcid+.
   #
   # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#24
   def username; end
 
   private
 
-  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#148
+  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#160
   def nc(nonce); end
 
   # some responses need quoting
   #
-  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#158
+  # source://net-imap//lib/net/imap/sasl/digest_md5_authenticator.rb#170
   def qdval(k, v); end
 end
 
@@ -4885,27 +4906,45 @@ class Net::IMAP::SASL::Error < ::StandardError; end
 class Net::IMAP::SASL::ExternalAuthenticator
   # :call-seq:
   #   new(authzid: nil, **) -> authenticator
+  #   new(username: nil, **) -> authenticator
+  #   new(username = nil, **) -> authenticator
   #
   # Creates an Authenticator for the "+EXTERNAL+" SASL mechanism, as
   # specified in RFC-4422[https://tools.ietf.org/html/rfc4422].  To use
   # this, see Net::IMAP#authenticate or your client's authentication
   # method.
   #
-  # #authzid is an optional identity to act as or on behalf of.
+  # ==== Parameters
+  #
+  # * _optional_ #authzid  ― Authorization identity to act as or on behalf of.
+  #
+  #   _optional_ #username ― An alias for #authzid.
+  #
+  #   Note that, unlike some other authenticators, +username+ sets the
+  #   _authorization_ identity and not the _authentication_ identity.  The
+  #   authentication identity is established for the client by the
+  #   external credentials.
   #
   # Any other keyword parameters are quietly ignored.
   #
   # @return [ExternalAuthenticator] a new instance of ExternalAuthenticator
   #
-  # source://net-imap//lib/net/imap/sasl/external_authenticator.rb#32
-  def initialize(authzid: T.unsafe(nil), **_arg1); end
+  # source://net-imap//lib/net/imap/sasl/external_authenticator.rb#52
+  def initialize(user = T.unsafe(nil), authzid: T.unsafe(nil), username: T.unsafe(nil), **_arg3); end
 
-  # Authorization identity: an identity to act as or on behalf of.
+  # Authorization identity: an identity to act as or on behalf of.  The
+  # identity form is application protocol specific.  If not provided or
+  # left blank, the server derives an authorization identity from the
+  # authentication identity.  The server is responsible for verifying the
+  # client's credentials and verifying that the identity it associates
+  # with the client's authentication identity is allowed to act as (or on
+  # behalf of) the authorization identity.
   #
-  # If not explicitly provided, the server defaults to using the identity
-  # that was authenticated by the external credentials.
+  # For example, an administrator or superuser might take on another role:
   #
-  # source://net-imap//lib/net/imap/sasl/external_authenticator.rb#19
+  #     imap.authenticate "PLAIN", "root", passwd, authzid: "user"
+  #
+  # source://net-imap//lib/net/imap/sasl/external_authenticator.rb#27
   def authzid; end
 
   # Returns true when the initial client response was sent.
@@ -4915,7 +4954,7 @@ class Net::IMAP::SASL::ExternalAuthenticator
   #
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/external_authenticator.rb#57
+  # source://net-imap//lib/net/imap/sasl/external_authenticator.rb#78
   def done?; end
 
   # :call-seq:
@@ -4925,13 +4964,28 @@ class Net::IMAP::SASL::ExternalAuthenticator
   #
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/external_authenticator.rb#44
+  # source://net-imap//lib/net/imap/sasl/external_authenticator.rb#65
   def initial_response?; end
 
   # Returns #authzid, or an empty string if there is no authzid.
   #
-  # source://net-imap//lib/net/imap/sasl/external_authenticator.rb#47
+  # source://net-imap//lib/net/imap/sasl/external_authenticator.rb#68
   def process(_); end
+
+  # Authorization identity: an identity to act as or on behalf of.  The
+  # identity form is application protocol specific.  If not provided or
+  # left blank, the server derives an authorization identity from the
+  # authentication identity.  The server is responsible for verifying the
+  # client's credentials and verifying that the identity it associates
+  # with the client's authentication identity is allowed to act as (or on
+  # behalf of) the authorization identity.
+  #
+  # For example, an administrator or superuser might take on another role:
+  #
+  #     imap.authenticate "PLAIN", "root", passwd, authzid: "user"
+  #
+  # source://net-imap//lib/net/imap/sasl/external_authenticator.rb#27
+  def username; end
 end
 
 # Originally defined for the GS2 mechanism family in
@@ -5033,19 +5087,19 @@ class Net::IMAP::SASL::LoginAuthenticator
   # @return [LoginAuthenticator] a new instance of LoginAuthenticator
   #
   # source://net-imap//lib/net/imap/sasl/login_authenticator.rb#26
-  def initialize(user, password, warn_deprecation: T.unsafe(nil), **_ignored); end
+  def initialize(user = T.unsafe(nil), pass = T.unsafe(nil), authcid: T.unsafe(nil), username: T.unsafe(nil), password: T.unsafe(nil), secret: T.unsafe(nil), warn_deprecation: T.unsafe(nil), **_arg7); end
 
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/login_authenticator.rb#50
+  # source://net-imap//lib/net/imap/sasl/login_authenticator.rb#54
   def done?; end
 
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/login_authenticator.rb#35
+  # source://net-imap//lib/net/imap/sasl/login_authenticator.rb#39
   def initial_response?; end
 
-  # source://net-imap//lib/net/imap/sasl/login_authenticator.rb#37
+  # source://net-imap//lib/net/imap/sasl/login_authenticator.rb#41
   def process(data); end
 end
 
@@ -5071,40 +5125,58 @@ class Net::IMAP::SASL::OAuthAuthenticator
   # Creates an RFC7628[https://tools.ietf.org/html/rfc7628] OAuth
   # authenticator.
   #
-  # === Options
+  # ==== Parameters
   #
-  # See child classes for required configuration parameter(s).  The
-  # following parameters are all optional, but protocols or servers may
-  # add requirements for #authzid, #host, #port, or any other parameter.
+  # See child classes for required parameter(s).  The following parameters
+  # are all optional, but it is worth noting that <b>application protocols
+  # are allowed to require</b> #authzid (or other parameters, such as
+  # #host or #port) <b>as are specific server implementations</b>.
   #
-  # * #authzid ― Identity to act as or on behalf of.
-  # * #host — Hostname to which the client connected.
-  # * #port — Service port to which the client connected.
-  # * #mthd — HTTP method
-  # * #path — HTTP path data
-  # * #post — HTTP post data
-  # * #qs   — HTTP query string
+  # * _optional_ #authzid  ― Authorization identity to act as or on behalf of.
+  #
+  #   _optional_ #username — An alias for #authzid.
+  #
+  #   Note that, unlike some other authenticators, +username+ sets the
+  #   _authorization_ identity and not the _authentication_ identity.  The
+  #   authentication identity is established for the client by the OAuth
+  #   token.
+  #
+  # * _optional_ #host — Hostname to which the client connected.
+  # * _optional_ #port — Service port to which the client connected.
+  # * _optional_ #mthd — HTTP method
+  # * _optional_ #path — HTTP path data
+  # * _optional_ #post — HTTP post data
+  # * _optional_ #qs   — HTTP query string
+  #
+  #   _optional_ #query — An alias for #qs
+  #
+  # Any other keyword parameters are quietly ignored.
   #
   # @return [OAuthAuthenticator] a new instance of OAuthAuthenticator
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#64
-  def initialize(authzid: T.unsafe(nil), host: T.unsafe(nil), port: T.unsafe(nil), mthd: T.unsafe(nil), path: T.unsafe(nil), post: T.unsafe(nil), qs: T.unsafe(nil), **_arg7); end
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#84
+  def initialize(authzid: T.unsafe(nil), host: T.unsafe(nil), port: T.unsafe(nil), username: T.unsafe(nil), query: T.unsafe(nil), mthd: T.unsafe(nil), path: T.unsafe(nil), post: T.unsafe(nil), qs: T.unsafe(nil), **_arg9); end
 
   # Value of the HTTP Authorization header
   #
   # <b>Implemented by subclasses.</b>
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#103
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#124
   def authorization; end
 
-  # Authorization identity: an identity to act as or on behalf of.
+  # Authorization identity: an identity to act as or on behalf of.  The
+  # identity form is application protocol specific.  If not provided or
+  # left blank, the server derives an authorization identity from the
+  # authentication identity.  The server is responsible for verifying the
+  # client's credentials and verifying that the identity it associates
+  # with the client's authentication identity is allowed to act as (or on
+  # behalf of) the authorization identity.
   #
-  # If no explicit authorization identity is provided, it is usually
-  # derived from the authentication identity.  For the OAuth-based
-  # mechanisms, the authentication identity is the identity established by
-  # the OAuth credential.
+  # For example, an administrator or superuser might take on another role:
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#23
+  #     imap.authenticate "PLAIN", "root", passwd, authzid: "user"
+  #
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#29
   def authzid; end
 
   # Returns true when the initial client response was sent.
@@ -5114,55 +5186,75 @@ class Net::IMAP::SASL::OAuthAuthenticator
   #
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#98
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#119
   def done?; end
 
-  # Hostname to which the client connected.
+  # Hostname to which the client connected.  (optional)
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#26
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#33
   def host; end
 
   # The {RFC7628 §3.1}[https://www.rfc-editor.org/rfc/rfc7628#section-3.1]
   # formatted response.
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#78
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#99
   def initial_client_response; end
 
   # Stores the most recent server "challenge".  When authentication fails,
   # this may hold information about the failure reason, as JSON.
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#45
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#53
   def last_server_response; end
 
   # HTTP method.  (optional)
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#32
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#39
   def mthd; end
 
   # HTTP path data.  (optional)
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#35
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#42
   def path; end
 
-  # Service port to which the client connected.
+  # Service port to which the client connected.  (optional)
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#29
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#36
   def port; end
 
   # HTTP post data.  (optional)
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#38
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#45
   def post; end
 
   # Returns initial_client_response the first time, then "<tt>^A</tt>".
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#87
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#108
   def process(data); end
 
   # The query string.  (optional)
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#41
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#48
   def qs; end
+
+  # The query string.  (optional)
+  #
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#48
+  def query; end
+
+  # Authorization identity: an identity to act as or on behalf of.  The
+  # identity form is application protocol specific.  If not provided or
+  # left blank, the server derives an authorization identity from the
+  # authentication identity.  The server is responsible for verifying the
+  # client's credentials and verifying that the identity it associates
+  # with the client's authentication identity is allowed to act as (or on
+  # behalf of) the authorization identity.
+  #
+  # For example, an administrator or superuser might take on another role:
+  #
+  #     imap.authenticate "PLAIN", "root", passwd, authzid: "user"
+  #
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#29
+  def username; end
 end
 
 # Authenticator for the "+OAUTHBEARER+" SASL mechanism, specified in
@@ -5176,37 +5268,50 @@ end
 # the resource server.  TLS _MUST_ be used for +OAUTHBEARER+ to protect
 # the bearer token.
 #
-# source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#117
+# source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#138
 class Net::IMAP::SASL::OAuthBearerAuthenticator < ::Net::IMAP::SASL::OAuthAuthenticator
   # :call-seq:
-  #   new(oauth2_token,  **options) -> authenticator
-  #   new(oauth2_token:, **options) -> authenticator
+  #   new(oauth2_token,          **options) -> authenticator
+  #   new(authzid, oauth2_token, **options) -> authenticator
+  #   new(oauth2_token:,         **options) -> authenticator
   #
   # Creates an Authenticator for the "+OAUTHBEARER+" SASL mechanism.
   #
   # Called by Net::IMAP#authenticate and similar methods on other clients.
   #
-  # === Options
+  # ==== Parameters
   #
-  # Only +oauth2_token+ is required by the mechanism, however protocols
-  # and servers may add requirements for #authzid, #host, #port, or any
-  # other parameter.
+  # * #oauth2_token — An OAuth2 bearer token
   #
-  # * #oauth2_token — An OAuth2 bearer token or access token. *Required.*
-  #   May be provided as either regular or keyword argument.
-  # * #authzid ― Identity to act as or on behalf of.
-  # * #host — Hostname to which the client connected.
-  # * #port — Service port to which the client connected.
-  # * See OAuthAuthenticator documentation for less common parameters.
+  # All other keyword parameters are passed to
+  # {super}[rdoc-ref:OAuthAuthenticator::new] (see OAuthAuthenticator).
+  # The most common ones are:
+  #
+  # * _optional_ #authzid  ― Authorization identity to act as or on behalf of.
+  #
+  #   _optional_ #username — An alias for #authzid.
+  #
+  #   Note that, unlike some other authenticators, +username+ sets the
+  #   _authorization_ identity and not the _authentication_ identity.  The
+  #   authentication identity is established for the client by
+  #   #oauth2_token.
+  #
+  # * _optional_ #host — Hostname to which the client connected.
+  # * _optional_ #port — Service port to which the client connected.
+  #
+  # Although only oauth2_token is required by this mechanism, it is worth
+  # noting that <b><em>application protocols are allowed to
+  # require</em></b> #authzid (<em>or other parameters, such as</em> #host
+  # _or_ #port) <b><em>as are specific server implementations</em></b>.
   #
   # @return [OAuthBearerAuthenticator] a new instance of OAuthBearerAuthenticator
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#143
-  def initialize(oauth2_token_arg = T.unsafe(nil), oauth2_token: T.unsafe(nil), **args, &blk); end
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#177
+  def initialize(arg1 = T.unsafe(nil), arg2 = T.unsafe(nil), oauth2_token: T.unsafe(nil), secret: T.unsafe(nil), **args, &blk); end
 
   # Value of the HTTP Authorization header
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#158
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#193
   def authorization; end
 
   # :call-seq:
@@ -5216,13 +5321,18 @@ class Net::IMAP::SASL::OAuthBearerAuthenticator < ::Net::IMAP::SASL::OAuthAuthen
   #
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#155
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#190
   def initial_response?; end
 
-  # An OAuth2 bearer token, generally the access token.
+  # An OAuth 2.0 bearer token.  See {RFC-6750}[https://www.rfc-editor.org/rfc/rfc6750]
   #
-  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#120
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#141
   def oauth2_token; end
+
+  # An OAuth 2.0 bearer token.  See {RFC-6750}[https://www.rfc-editor.org/rfc/rfc6750]
+  #
+  # source://net-imap//lib/net/imap/sasl/oauthbearer_authenticator.rb#141
+  def secret; end
 end
 
 # Authenticator for the "+PLAIN+" SASL mechanism, specified in
@@ -5240,24 +5350,43 @@ class Net::IMAP::SASL::PlainAuthenticator
   # :call-seq:
   #   new(username,  password,  authzid: nil, **) -> authenticator
   #   new(username:, password:, authzid: nil, **) -> authenticator
+  #   new(authcid:,  password:, authzid: nil, **) -> authenticator
   #
   # Creates an Authenticator for the "+PLAIN+" SASL mechanism.
   #
   # Called by Net::IMAP#authenticate and similar methods on other clients.
   #
-  # === Parameters
+  # ==== Parameters
   #
-  # * #username ― Identity whose +password+ is used.
-  # * #password ― Password or passphrase associated with this username+.
-  # * #authzid ― Alternate identity to act as or on behalf of.  Optional.
+  # * #authcid ― Authentication identity that is associated with #password.
   #
-  # See attribute documentation for more details.
+  #   #username ― An alias for #authcid.
+  #
+  # * #password ― A password or passphrase associated with the #authcid.
+  #
+  # * _optional_ #authzid  ― Authorization identity to act as or on behalf of.
+  #
+  #   When +authzid+ is not set, the server should derive the authorization
+  #   identity from the authentication identity.
+  #
+  # Any other keyword parameters are quietly ignored.
   #
   # @raise [ArgumentError]
   # @return [PlainAuthenticator] a new instance of PlainAuthenticator
   #
-  # source://net-imap//lib/net/imap/sasl/plain_authenticator.rb#57
-  def initialize(user = T.unsafe(nil), pass = T.unsafe(nil), username: T.unsafe(nil), password: T.unsafe(nil), authzid: T.unsafe(nil), **_arg5); end
+  # source://net-imap//lib/net/imap/sasl/plain_authenticator.rb#67
+  def initialize(user = T.unsafe(nil), pass = T.unsafe(nil), authcid: T.unsafe(nil), secret: T.unsafe(nil), username: T.unsafe(nil), password: T.unsafe(nil), authzid: T.unsafe(nil), **_arg7); end
+
+  # Authentication identity: the identity that matches the #password.
+  #
+  # RFC-2831[https://tools.ietf.org/html/rfc2831] uses the term +username+.
+  # "Authentication identity" is the generic term used by
+  # RFC-4422[https://tools.ietf.org/html/rfc4422].
+  # RFC-4616[https://tools.ietf.org/html/rfc4616] and many later RFCs abbreviate
+  # this to +authcid+.
+  #
+  # source://net-imap//lib/net/imap/sasl/plain_authenticator.rb#24
+  def authcid; end
 
   # Authorization identity: an identity to act as or on behalf of.  The identity
   # form is application protocol specific.  If not provided or left blank, the
@@ -5270,7 +5399,7 @@ class Net::IMAP::SASL::PlainAuthenticator
   #
   #     imap.authenticate "PLAIN", "root", passwd, authzid: "user"
   #
-  # source://net-imap//lib/net/imap/sasl/plain_authenticator.rb#40
+  # source://net-imap//lib/net/imap/sasl/plain_authenticator.rb#42
   def authzid; end
 
   # Returns true when the initial client response was sent.
@@ -5280,7 +5409,7 @@ class Net::IMAP::SASL::PlainAuthenticator
   #
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/plain_authenticator.rb#91
+  # source://net-imap//lib/net/imap/sasl/plain_authenticator.rb#99
   def done?; end
 
   # :call-seq:
@@ -5290,18 +5419,23 @@ class Net::IMAP::SASL::PlainAuthenticator
   #
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/plain_authenticator.rb#78
+  # source://net-imap//lib/net/imap/sasl/plain_authenticator.rb#86
   def initial_response?; end
 
   # A password or passphrase that matches the #username.
   #
-  # source://net-imap//lib/net/imap/sasl/plain_authenticator.rb#27
+  # source://net-imap//lib/net/imap/sasl/plain_authenticator.rb#28
   def password; end
 
   # Responds with the client's credentials.
   #
-  # source://net-imap//lib/net/imap/sasl/plain_authenticator.rb#81
+  # source://net-imap//lib/net/imap/sasl/plain_authenticator.rb#89
   def process(data); end
+
+  # A password or passphrase that matches the #username.
+  #
+  # source://net-imap//lib/net/imap/sasl/plain_authenticator.rb#28
+  def secret; end
 
   # Authentication identity: the identity that matches the #password.
   #
@@ -5492,6 +5626,7 @@ class Net::IMAP::SASL::ScramAuthenticator
   # :call-seq:
   #   new(username,  password,  **options) -> auth_ctx
   #   new(username:, password:, **options) -> auth_ctx
+  #   new(authcid:,  password:, **options) -> auth_ctx
   #
   # Creates an authenticator for one of the "+SCRAM-*+" SASL mechanisms.
   # Each subclass defines #digest to match a specific mechanism.
@@ -5500,21 +5635,29 @@ class Net::IMAP::SASL::ScramAuthenticator
   #
   # === Parameters
   #
-  # * #username ― Identity whose #password is used.  Aliased as #authcid.
-  # * #password ― Password or passphrase associated with this #username.
-  # * #authzid ― Alternate identity to act as or on behalf of.  Optional.
-  # * #min_iterations - Overrides the default value (4096).  Optional.
+  # * #authcid  ― Identity whose #password is used.
   #
-  # See the documentation on the corresponding attributes for more.
+  #   #username - An alias for #authcid.
+  # * #password ― Password or passphrase associated with this #username.
+  # * _optional_ #authzid ― Alternate identity to act as or on behalf of.
+  # * _optional_ #min_iterations - Overrides the default value (4096).
+  #
+  # Any other keyword parameters are quietly ignored.
   #
   # @return [ScramAuthenticator] a new instance of ScramAuthenticator
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#77
-  def initialize(username_arg = T.unsafe(nil), password_arg = T.unsafe(nil), username: T.unsafe(nil), password: T.unsafe(nil), authcid: T.unsafe(nil), authzid: T.unsafe(nil), min_iterations: T.unsafe(nil), cnonce: T.unsafe(nil), **options); end
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#80
+  def initialize(username_arg = T.unsafe(nil), password_arg = T.unsafe(nil), authcid: T.unsafe(nil), username: T.unsafe(nil), authzid: T.unsafe(nil), password: T.unsafe(nil), secret: T.unsafe(nil), min_iterations: T.unsafe(nil), cnonce: T.unsafe(nil), **options); end
 
   # Authentication identity: the identity that matches the #password.
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#99
+  # RFC-2831[https://tools.ietf.org/html/rfc2831] uses the term +username+.
+  # "Authentication identity" is the generic term used by
+  # RFC-4422[https://tools.ietf.org/html/rfc4422].
+  # RFC-4616[https://tools.ietf.org/html/rfc4616] and many later RFCs abbreviate
+  # this to +authcid+.
+  #
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#107
   def authcid; end
 
   # Authorization identity: an identity to act as or on behalf of.  The
@@ -5530,7 +5673,7 @@ class Net::IMAP::SASL::ScramAuthenticator
   # authentication identity is allowed to act as (or on behalf of) the
   # authorization identity.
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#117
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#126
   def authzid; end
 
   # See {RFC5802 §7}[https://www.rfc-editor.org/rfc/rfc5802#section-7]
@@ -5544,7 +5687,7 @@ class Net::IMAP::SASL::ScramAuthenticator
 
   # The client nonce, generated by SecureRandom
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#124
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#133
   def cnonce; end
 
   # Returns a new OpenSSL::Digest object, set to the appropriate hash
@@ -5553,7 +5696,7 @@ class Net::IMAP::SASL::ScramAuthenticator
   # <em>The class's +DIGEST_NAME+ constant must be set to the name of an
   # algorithm supported by OpenSSL::Digest.</em>
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#146
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#155
   def digest; end
 
   # Is the authentication exchange complete?
@@ -5562,57 +5705,68 @@ class Net::IMAP::SASL::ScramAuthenticator
   #
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#176
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#185
   def done?; end
 
   # See {RFC5802 §7}[https://www.rfc-editor.org/rfc/rfc5802#section-7]
   # +client-first-message+.
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#150
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#159
   def initial_client_response; end
 
   # The iteration count for the selected hash function and user
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#133
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#142
   def iterations; end
 
   # The minimal allowed iteration count.  Lower #iterations will raise an
   # Error.
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#121
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#130
   def min_iterations; end
 
   # A password or passphrase that matches the #username.
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#103
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#111
   def password; end
 
   # responds to the server's challenges
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#155
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#164
   def process(challenge); end
 
   # The salt used by the server for this user
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#130
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#139
   def salt; end
+
+  # A password or passphrase that matches the #username.
+  #
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#111
+  def secret; end
 
   # An error reported by the server during the \SASL exchange.
   #
   # Does not include errors reported by the protocol, e.g.
   # Net::IMAP::NoResponseError.
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#139
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#148
   def server_error; end
 
   # The server nonce, which must start with #cnonce
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#127
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#136
   def snonce; end
 
   # Authentication identity: the identity that matches the #password.
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#99
+  # RFC-2831[https://tools.ietf.org/html/rfc2831] uses the term +username+.
+  # "Authentication identity" is the generic term used by
+  # RFC-4422[https://tools.ietf.org/html/rfc4422].
+  # RFC-4616[https://tools.ietf.org/html/rfc4616] and many later RFCs abbreviate
+  # this to +authcid+.
+  #
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#107
   def username; end
 
   private
@@ -5620,22 +5774,22 @@ class Net::IMAP::SASL::ScramAuthenticator
   # See {RFC5802 §7}[https://www.rfc-editor.org/rfc/rfc5802#section-7]
   # +client-final-message-without-proof+.
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#231
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#240
   def client_final_message_without_proof; end
 
   # See {RFC5802 §7}[https://www.rfc-editor.org/rfc/rfc5802#section-7]
   # +client-first-message-bare+.
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#216
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#225
   def client_first_message_bare; end
 
   # See {RFC5802 §7}[https://www.rfc-editor.org/rfc/rfc5802#section-7]
   # +client-final-message+.
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#224
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#233
   def final_message_with_proof; end
 
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#183
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#192
   def format_message(hash); end
 
   # RFC5802 specifies "that the order of attributes in client or server
@@ -5643,18 +5797,18 @@ class Net::IMAP::SASL::ScramAuthenticator
   # this parses it simply as a hash, without respect to order.  Note that
   # repeated keys (violating the spec) will use the last value.
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#248
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#257
   def parse_challenge(challenge); end
 
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#202
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#211
   def recv_server_final_message(server_final_message); end
 
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#185
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#194
   def recv_server_first_message(server_first_message); end
 
   # Need to store this for auth_message
   #
-  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#181
+  # source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#190
   def server_first_message; end
 end
 
@@ -5665,10 +5819,10 @@ end
 #
 # See ScramAuthenticator.
 #
-# source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#262
+# source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#271
 class Net::IMAP::SASL::ScramSHA1Authenticator < ::Net::IMAP::SASL::ScramAuthenticator; end
 
-# source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#263
+# source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#272
 Net::IMAP::SASL::ScramSHA1Authenticator::DIGEST_NAME = T.let(T.unsafe(nil), String)
 
 # Authenticator for the "+SCRAM-SHA-256+" SASL mechanism, defined in
@@ -5678,10 +5832,10 @@ Net::IMAP::SASL::ScramSHA1Authenticator::DIGEST_NAME = T.let(T.unsafe(nil), Stri
 #
 # See ScramAuthenticator.
 #
-# source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#272
+# source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#281
 class Net::IMAP::SASL::ScramSHA256Authenticator < ::Net::IMAP::SASL::ScramAuthenticator; end
 
-# source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#273
+# source://net-imap//lib/net/imap/sasl/scram_authenticator.rb#282
 Net::IMAP::SASL::ScramSHA256Authenticator::DIGEST_NAME = T.let(T.unsafe(nil), String)
 
 # source://net-imap//lib/net/imap/sasl/stringprep.rb#7
@@ -5696,20 +5850,22 @@ Net::IMAP::SASL::StringPrepError = Net::IMAP::StringPrep::StringPrepError
 # Google[https://developers.google.com/gmail/imap/xoauth2-protocol] and
 # Microsoft[https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth].
 #
-# This mechanism requires an OAuth2 +access_token+ which has been authorized
-# with the appropriate OAuth2 scopes to access IMAP.  These scopes are not
-# standardized---consult each email service provider's documentation.
+# This mechanism requires an OAuth2 access token which has been authorized
+# with the appropriate OAuth2 scopes to access the user's services.  Most of
+# these scopes are not standardized---consult each service provider's
+# documentation for their scopes.
 #
 # Although this mechanism was never standardized and has been obsoleted by
 # "+OAUTHBEARER+", it is still very widely supported.
 #
 # See Net::IMAP::SASL:: OAuthBearerAuthenticator.
 #
-# source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#17
+# source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#18
 class Net::IMAP::SASL::XOAuth2Authenticator
   # :call-seq:
   #   new(username,  oauth2_token,  **) -> authenticator
   #   new(username:, oauth2_token:, **) -> authenticator
+  #   new(authzid:,  oauth2_token:, **) -> authenticator
   #
   # Creates an Authenticator for the "+XOAUTH2+" SASL mechanism, as specified by
   # Google[https://developers.google.com/gmail/imap/xoauth2-protocol],
@@ -5719,15 +5875,44 @@ class Net::IMAP::SASL::XOAuth2Authenticator
   # === Properties
   #
   # * #username --- the username for the account being accessed.
+  #
+  #   #authzid  --- an alias for #username.
+  #
+  #   Note that, unlike some other authenticators, +username+ sets the
+  #   _authorization_ identity and not the _authentication_ identity.  The
+  #   authenticated identity is established for the client with the OAuth token.
+  #
   # * #oauth2_token --- An OAuth2.0 access token which is authorized to access
   #   the service for #username.
   #
-  # See the documentation for each attribute for more details.
+  # Any other keyword parameters are quietly ignored.
   #
   # @return [XOAuth2Authenticator] a new instance of XOAuth2Authenticator
   #
-  # source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#50
-  def initialize(user = T.unsafe(nil), token = T.unsafe(nil), username: T.unsafe(nil), oauth2_token: T.unsafe(nil), **_arg4); end
+  # source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#71
+  def initialize(user = T.unsafe(nil), token = T.unsafe(nil), username: T.unsafe(nil), oauth2_token: T.unsafe(nil), authzid: T.unsafe(nil), secret: T.unsafe(nil), **_arg6); end
+
+  # It is unclear from {Google's original XOAUTH2
+  # documentation}[https://developers.google.com/gmail/imap/xoauth2-protocol],
+  # whether "User" refers to the authentication identity (+authcid+) or the
+  # authorization identity (+authzid+).  The authentication identity is
+  # established for the client by the OAuth token, so it seems that +username+
+  # must be the authorization identity.
+  #
+  # {Microsoft's documentation for shared
+  # mailboxes}[https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth#sasl-xoauth2-authentication-for-shared-mailboxes-in-office-365]
+  # _clearly_ indicates that the Office 365 server interprets it as the
+  # authorization identity.
+  #
+  # Although they _should_ validate that the token has been authorized to access
+  # the service for +username+, _some_ servers appear to ignore this field,
+  # relying only the identity and scope authorized by the token.
+  # Note that, unlike most other authenticators, #username is an alias for the
+  # authorization identity and not the authentication identity.  The
+  # authenticated identity is established for the client by the #oauth2_token.
+  #
+  # source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#35
+  def authzid; end
 
   # Returns true when the initial client response was sent.
   #
@@ -5736,47 +5921,59 @@ class Net::IMAP::SASL::XOAuth2Authenticator
   #
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#80
+  # source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#98
   def done?; end
 
   # :call-seq:
   #   initial_response? -> true
   #
-  # +PLAIN+ can send an initial client response.
+  # +XOAUTH2+ can send an initial client response.
   #
   # @return [Boolean]
   #
-  # source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#66
+  # source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#84
   def initial_response?; end
 
   # An OAuth2 access token which has been authorized with the appropriate OAuth2
   # scopes to use the service for #username.
   #
-  # source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#32
+  # source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#44
   def oauth2_token; end
 
   # Returns the XOAUTH2 formatted response, which combines the +username+
   # with the +oauth2_token+.
   #
-  # source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#70
+  # source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#88
   def process(_data); end
+
+  # An OAuth2 access token which has been authorized with the appropriate OAuth2
+  # scopes to use the service for #username.
+  #
+  # source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#44
+  def secret; end
 
   # It is unclear from {Google's original XOAUTH2
   # documentation}[https://developers.google.com/gmail/imap/xoauth2-protocol],
   # whether "User" refers to the authentication identity (+authcid+) or the
-  # authorization identity (+authzid+).  It appears to behave as +authzid+.
+  # authorization identity (+authzid+).  The authentication identity is
+  # established for the client by the OAuth token, so it seems that +username+
+  # must be the authorization identity.
   #
   # {Microsoft's documentation for shared
   # mailboxes}[https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth#sasl-xoauth2-authentication-for-shared-mailboxes-in-office-365]
-  # clearly indicate that the Office 365 server interprets it as the
+  # _clearly_ indicates that the Office 365 server interprets it as the
   # authorization identity.
   #
-  # source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#28
+  # Although they _should_ validate that the token has been authorized to access
+  # the service for +username+, _some_ servers appear to ignore this field,
+  # relying only the identity and scope authorized by the token.
+  #
+  # source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#35
   def username; end
 
   private
 
-  # source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#84
+  # source://net-imap//lib/net/imap/sasl/xoauth2_authenticator.rb#102
   def build_oauth2_string(username, oauth2_token); end
 end
 

@@ -16,7 +16,7 @@ ENV["BETTER_ERRORS_EDITOR"] = "vscode"
 ENV["BETTER_ERRORS_INSIDE_FRAME"] = "1"
 
 class BetterErrors::StackFrame
-  module Extension
+  module Patch
     extend T::Sig
     extend T::Helpers
 
@@ -33,8 +33,7 @@ class BetterErrors::StackFrame
         filename.end_with?("_ext.rb"))
     end
   end
-
-  prepend Extension
+  prepend Patch
 end
 
 class BetterErrors::Middleware

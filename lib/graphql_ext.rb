@@ -1,7 +1,6 @@
 # typed: true
 # frozen_string_literal: true
 
-require "graphql"
-require "graphql_ext/rails_logger"
-require "graphql_ext/connections"
-require "graphql_ext/schema"
+require_relative "graphql_ext/rails_logger"
+require_relative "graphql_ext/connections"
+require_relative "graphql_ext/schema"

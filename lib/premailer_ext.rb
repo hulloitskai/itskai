@@ -8,7 +8,8 @@ require "css_parser_ext"
 require "sorbet-runtime"
 
 module Premailer::Adapter::Nokogiri
-  module Extension
+  # Add support for CSS variables.
+  module Patch
     extend T::Sig
     extend T::Helpers
 
@@ -320,6 +321,5 @@ module Premailer::Adapter::Nokogiri
       end
     end
   end
-
-  prepend Extension
+  prepend Patch
 end

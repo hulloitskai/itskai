@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { useVisibilityChange } from "~/helpers/hooks";
+import { usePageVisibilityChange } from "~/helpers/page";
 
 const AppMetaSiteType = "website";
 const AppMetaSiteName = "It's Kai";
@@ -20,7 +20,7 @@ const AppMeta: FC<AppMetaProps> = ({
   imageUrl = AppMetaSiteImage,
   noIndex,
 }) => {
-  const pageVisible = useVisibilityChange(true);
+  const pageVisible = usePageVisibilityChange(true);
   const title = useMemo<string>(() => {
     const components = Array.isArray(titleProp) ? titleProp : [titleProp];
     return components

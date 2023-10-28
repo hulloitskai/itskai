@@ -34,7 +34,7 @@ const emails = resolve(() => {
 // == Entrypoint
 const port = process.env.INERTIA_PORT
   ? parseInt(process.env.INERTIA_PORT)
-  : undefined;
+  : 13714;
 createServer(async page => {
   const type = resolvePageType(page.component);
   return createInertiaApp({

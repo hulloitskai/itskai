@@ -1,6 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "graphql"
 require "rails"
 
 module GraphQL::RailsLogger

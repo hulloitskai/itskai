@@ -1,10 +1,12 @@
 # typed: strict
 # frozen_string_literal: true
 
-# Downcase first letter of the humanized attribute names when authentication
-# fails.
+require "devise"
+
 class Devise::FailureApp
-  module Extension
+  # Downcase first letter of the humanized attribute names when authentication
+  # fails.
+  module Patch
     extend T::Sig
     extend T::Helpers
 
@@ -38,6 +40,5 @@ class Devise::FailureApp
       end
     end
   end
-
-  prepend Extension
+  prepend Patch
 end

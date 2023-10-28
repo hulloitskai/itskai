@@ -1,11 +1,12 @@
 # typed: strict
 # frozen_string_literal: true
 
-require "inertia_rails_ext/controller"
-require "inertia_rails_ext/engine"
-require "inertia_rails_ext/renderer"
-require "inertia_rails_ext/mailer"
-require "inertia_rails_ext/helper"
+require "inertia_rails"
+require_relative "inertia_rails_ext/controller"
+require_relative "inertia_rails_ext/engine"
+require_relative "inertia_rails_ext/renderer"
+require_relative "inertia_rails_ext/mailer"
+require_relative "inertia_rails_ext/helper"
 
 module InertiaRails
   extend T::Sig
@@ -28,8 +29,8 @@ module InertiaRails
   end
 
   class << self
-    # == Extension
-    module Extension
+    # Clear threadsafe page when resetting.
+    module Patch
       extend T::Sig
       extend T::Helpers
 
@@ -43,7 +44,6 @@ module InertiaRails
         self.threadsafe_page = nil
       end
     end
-
-    prepend Extension
+    prepend Patch
   end
 end

@@ -6,7 +6,8 @@ require "graphql_ext"
 
 module InertiaRails
   class Renderer
-    module Extension
+    # Perform relevant GraphQL queries before rendering.
+    module Patch
       extend T::Sig
       extend T::Helpers
 
@@ -41,7 +42,6 @@ module InertiaRails
         end
       end
     end
-
-    prepend Extension
+    prepend Patch
   end
 end

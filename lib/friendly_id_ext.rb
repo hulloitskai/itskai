@@ -4,7 +4,8 @@
 require "friendly_id"
 
 module FriendlyId::Slugged
-  module Extension
+  # Custom slug normalization and conflict resolution.
+  module Patch
     extend T::Sig
     extend T::Helpers
 
@@ -35,6 +36,5 @@ module FriendlyId::Slugged
         .join(friendly_id_config.sequence_separator)
     end
   end
-
-  prepend Extension
+  prepend Patch
 end

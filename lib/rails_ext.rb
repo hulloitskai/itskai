@@ -3,9 +3,9 @@
 
 require "sorbet-runtime"
 
-# Add predicates to determine if Rails is running a console or a server.
 module Rails
-  module Extension
+  # Add predicates to determine if Rails is running a console or a server.
+  module Patch
     extend T::Sig
     extend T::Helpers
 
@@ -28,14 +28,13 @@ module Rails
       const_defined?(:TestUnitReporter)
     end
   end
-
-  extend Extension
+  extend Patch
 end
 
-# Ensure generators defined in 'lib/generators' are prioritized over
-# generators in 'lib/rails/generators'.
 module Rails::Generators
-  module Extension
+  # Ensure generators defined in 'lib/generators' are prioritized over
+  # generators in 'lib/rails/generators'.
+  module Patch
     extend T::Sig
 
     private
@@ -48,6 +47,5 @@ module Rails::Generators
       )
     end
   end
-
-  extend Extension
+  extend Patch
 end

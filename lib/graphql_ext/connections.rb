@@ -1,13 +1,14 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "graphql"
 require "graphql/connections"
 
 module GraphQL::Connections
   module Stable
     extend T::Sig
 
-    # == Plugin
+    # == Methods
     sig { params(defn: T.untyped, options: T::Hash[Symbol, T.untyped]).void }
     def self.use(defn, options = {})
       schema = T.let(
@@ -20,12 +21,15 @@ module GraphQL::Connections
 
   module PrimaryKey
     class Base
-      module Extension
+      # Fix `has_next_page'.
+      module Patch
         extend T::Sig
         extend T::Helpers
 
+        # == Annotations
         requires_ancestor { Base }
 
+        # == Methods
         sig { returns(T::Boolean) }
         def has_next_page
           if first
@@ -45,8 +49,7 @@ module GraphQL::Connections
           end
         end
       end
-
-      prepend Extension
+      prepend Patch
     end
   end
 end

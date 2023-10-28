@@ -1,6 +1,8 @@
 # typed: true
 # frozen_string_literal: true
 
+require "graphql"
+
 module GraphQL
   class Schema
     class << self
@@ -15,7 +17,8 @@ module GraphQL
 
     module Member::BuildType
       class << self
-        module Extension
+        # Use application inflections.
+        module Patch
           extend T::Sig
 
           sig { params(string: String).returns(String) }
@@ -33,8 +36,7 @@ module GraphQL
             ActiveSupport::Inflector.constantize(string) # rubocop:disable Sorbet/ConstantsFromStrings
           end
         end
-
-        prepend Extension
+        prepend Patch
       end
     end
   end
