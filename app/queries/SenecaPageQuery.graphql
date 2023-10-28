@@ -1,0 +1,6 @@
+query SenecaPageQuery {
+  messages: pensieveMessages(to: "seneca") {
+    id
+    ...SenecaPageMessageFragment
+  }
+}
