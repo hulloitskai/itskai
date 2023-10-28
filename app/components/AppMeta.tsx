@@ -20,7 +20,7 @@ const AppMeta: FC<AppMetaProps> = ({
   imageUrl = AppMetaSiteImage,
   noIndex,
 }) => {
-  const pageVisible = usePageVisibilityChange(true);
+  const pageVisible = usePageVisibilityChange("visible");
   const title = useMemo<string>(() => {
     const components = Array.isArray(titleProp) ? titleProp : [titleProp];
     return components
