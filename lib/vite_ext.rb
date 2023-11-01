@@ -1,4 +1,4 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 require "vite_ruby"
@@ -47,6 +47,13 @@ class ViteRuby
       # == Annotations
       requires_ancestor { DevServerProxy }
 
+      # == Initializer
+      sig { params(args: T.untyped, kwargs: T.untyped).void }
+      def initialize(*args, **kwargs)
+        super
+        @app = T.let(@app, Rails::Application)
+      end
+
       # == Methods
       sig { params(env: T::Hash[String, T.untyped]).returns(T.untyped) }
       def perform_request(env)
@@ -63,6 +70,6 @@ class ViteRuby
         end
       end
     end
-    include Patch
+    prepend Patch
   end
 end
