@@ -19,10 +19,10 @@ class LocationDetails < T::Struct
 
   sig { returns(T::Enumerable[LocationLog]) }
   def trail
-    last_timestamp = log.timestamp
-    first_timestamp = last_timestamp - 30.minutes
+    latest = log.timestamp
+    earliest = latest - 1.hour
     LocationLog
-      .where(timestamp: first_timestamp..last_timestamp)
+      .where(timestamp: earliest..latest)
       .order(timestamp: :desc)
   end
 end

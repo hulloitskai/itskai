@@ -51,7 +51,7 @@ class ViteRuby
       sig { params(args: T.untyped, kwargs: T.untyped).void }
       def initialize(*args, **kwargs)
         super
-        @app = T.let(@app, Rails::Application)
+        @app = T.let(@app, T.untyped)
       end
 
       # == Methods
