@@ -57,11 +57,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
 
   // == Query
   const onError = useApolloAlertCallback("Failed to load server info");
-  const skipQuery = !viewer?.isOwner || !opened;
-  const { data } = useQuery(AppMenuQueryDocument, {
-    skip: skipQuery,
-    onError,
-  });
+  const { data } = useQuery(AppMenuQueryDocument, { skip: !opened, onError });
   const { bootedAt } = data ?? {};
 
   // == Markup
@@ -185,31 +181,27 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
             </Menu.Item>
           </>
         )}
-        {!skipQuery && (
-          <>
-            <Menu.Divider />
-            <Menu.Item component="div" disabled pt={4}>
-              <Text span size="xs" c="gray.5">
-                Server booted{" "}
-                {bootedAt ? (
-                  <TimeAgo>{bootedAt}</TimeAgo>
-                ) : (
-                  <Skeleton
-                    display="inline-block"
-                    height="min-content"
-                    width="fit-content"
-                    lh={1}
-                    style={{ verticalAlign: "middle" }}
-                  >
-                    <Text span inherit display="inline-block" lh={1}>
-                      2 minutes ago
-                    </Text>
-                  </Skeleton>
-                )}
-              </Text>
-            </Menu.Item>
-          </>
-        )}
+        <Menu.Divider />
+        <Menu.Item component="div" disabled pt={4}>
+          <Text span size="xs" c="gray.5">
+            Server booted{" "}
+            {bootedAt ? (
+              <TimeAgo>{bootedAt}</TimeAgo>
+            ) : (
+              <Skeleton
+                display="inline-block"
+                height="min-content"
+                width="fit-content"
+                lh={1}
+                style={{ verticalAlign: "middle" }}
+              >
+                <Text span inherit display="inline-block" lh={1}>
+                  2 minutes ago
+                </Text>
+              </Skeleton>
+            )}
+          </Text>
+        </Menu.Item>
       </Menu.Dropdown>
     </Menu>
   );
