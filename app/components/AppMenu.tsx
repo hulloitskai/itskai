@@ -141,7 +141,9 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
         </Menu.Item>
         <Menu.Item
           leftSection={contactMeLoading ? <Loader size={12} /> : <SendIcon />}
-          onClick={contactMe}
+          onClick={() => {
+            contactMe();
+          }}
         >
           Shoot Kai a msg
         </Menu.Item>

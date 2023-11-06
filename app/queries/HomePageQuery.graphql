@@ -1,5 +1,6 @@
 query HomePageQuery($journalEntryId: ID!, $showJournalEntry: Boolean!) {
   announcement
+  explorations
   journalEntry(id: $journalEntryId) @include(if: $showJournalEntry) {
     ...HomePageJournalEntryEntryFragment
     id

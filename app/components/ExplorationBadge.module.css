@@ -1,0 +1,5 @@
+.badge {
+  &:hover {
+    border-color: var(--mantine-color-primary-outline);
+  }
+}

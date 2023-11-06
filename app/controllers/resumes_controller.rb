@@ -1,6 +1,8 @@
 # typed: true
 # frozen_string_literal: true
 
+require "resume"
+
 class ResumesController < ApplicationController
   include Concurrent
 
@@ -24,7 +26,7 @@ class ResumesController < ApplicationController
         render(inertia: "ResumePage", props: props.compact)
       end
       format.json do
-        render(json: Resume.data(variant: variant&.to_sym))
+        render(json: Resume.current(variant: variant&.to_sym))
       end
       format.pdf do
         data = print_resume(variant: variant&.to_sym)

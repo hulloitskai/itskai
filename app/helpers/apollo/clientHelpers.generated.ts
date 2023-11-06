@@ -182,13 +182,14 @@ export type PensieveMessageFieldPolicy = {
 	text?: FieldPolicy<any> | FieldReadFunction<any>,
 	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('activityStatus' | 'announcement' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'googleCredentials' | 'icloudCredentials' | 'imageBySignedId' | 'instagramCredentials' | 'journalEntry' | 'journalEntryComments' | 'location' | 'locationAccessGrants' | 'passwordStrength' | 'pensieveMessages' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('activityStatus' | 'announcement' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'explorations' | 'googleCredentials' | 'icloudCredentials' | 'imageBySignedId' | 'instagramCredentials' | 'journalEntry' | 'journalEntryComments' | 'location' | 'locationAccessGrants' | 'passwordStrength' | 'pensieveMessages' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	announcement?: FieldPolicy<any> | FieldReadFunction<any>,
 	bootedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	contactEmail?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
+	explorations?: FieldPolicy<any> | FieldReadFunction<any>,
 	googleCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	imageBySignedId?: FieldPolicy<any> | FieldReadFunction<any>,

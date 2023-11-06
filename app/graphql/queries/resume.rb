@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "resume"
+
 module Queries
   class Resume < BaseQuery
     # == Type
@@ -14,7 +16,7 @@ module Queries
       params(variant: T.nilable(String)).returns(T::Hash[String, T.untyped])
     end
     def resolve(variant: nil)
-      ::Resume.data(variant: variant&.to_sym)
+      ::Resume.current(variant: variant&.to_sym)
     end
   end
 end

@@ -9,6 +9,7 @@ import ContactMeLink from "~/components/ContactMeLink";
 import HomePageJournalEntry from "~/components/HomePageJournalEntry";
 import LocatePageAlert from "~/components/LocationAlert";
 import Pensieve from "~/components/Pensieve";
+import ExplorationBadge from "~/components/ExplorationBadge";
 
 export type HomePageProps = PagePropsWithData<HomePageQuery> & {
   readonly firstJournalEntryId: string;
@@ -18,7 +19,7 @@ export type HomePageProps = PagePropsWithData<HomePageQuery> & {
 const HomePage: PageComponent<HomePageProps> = ({
   firstJournalEntryId,
   autoscroll,
-  data: { announcement, journalEntry, location },
+  data: { announcement, explorations, journalEntry, location },
 }) => {
   const [showPensieve, setShowPensieve] = useState(false);
   const [showLocation, setShowLocation] = useState(!!location);
@@ -94,27 +95,11 @@ const HomePage: PageComponent<HomePageProps> = ({
         <Title order={2} size="h3">
           Some things I&apos;ve been exploring lately:
         </Title>
-        <Card withBorder w="100%" maw={540}>
-          <List>
-            <List.Item>
-              startups and building something that people want
-            </List.Item>
-            <List.Item>the alternate life path</List.Item>
-            <List.Item>ruby on rails and programming</List.Item>
-            <List.Item>community-building and culture</List.Item>
-            <List.Item>
-              cultivating a continuous felt sense of love and playfulness
-            </List.Item>
-            <List.Item>
-              noticing that when i see the world with optimism, the world sees
-              me with optimism in return
-            </List.Item>
-            <List.Item>how to fight my insecurities</List.Item>
-            <List.Item>
-              how to deal with starting all over again, all the time
-            </List.Item>
-          </List>
-        </Card>
+        <Group justify="center" gap={8} maw={760}>
+          {explorations.map((exploration, index) => (
+            <ExplorationBadge key={index}>{exploration}</ExplorationBadge>
+          ))}
+        </Group>
         <Text inherit fz="var(--mantine-font-size-sm)" opacity={0.7}>
           Do any of these resonate with you?{" "}
           <Anchor

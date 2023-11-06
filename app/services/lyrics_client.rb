@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require "lyrics"
+require "badwords"
 
 class LyricsClient < ApplicationService
   include Singleton
@@ -101,7 +102,7 @@ class LyricsClient < ApplicationService
   def explicit_words?(words)
     if words.present?
       normalized_words = words.downcase
-      Badwords.words.any? { |word| normalized_words.include?(word) }
+      Badwords.current.any? { |word| normalized_words.include?(word) }
     else
       false
     end

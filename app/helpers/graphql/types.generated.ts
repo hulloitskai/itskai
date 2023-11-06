@@ -452,6 +452,7 @@ export type Query = {
   bootedAt: Scalars['DateTime']['output'];
   contactEmail: Scalars['String']['output'];
   currentlyPlaying?: Maybe<CurrentlyPlaying>;
+  explorations: Array<Scalars['String']['output']>;
   googleCredentials?: Maybe<OAuthCredentials>;
   icloudCredentials?: Maybe<ICloudCredentials>;
   imageBySignedId?: Maybe<Image>;

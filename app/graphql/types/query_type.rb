@@ -21,6 +21,7 @@ module Types
     field :viewer, resolver: Queries::Viewer
 
     field :currently_playing, resolver: Queries::CurrentlyPlaying
+    field :explorations, resolver: Queries::Explorations
     field :location, resolver: Queries::Location
     field :resume, resolver: Queries::Resume
     field :timezone, resolver: Queries::Timezone

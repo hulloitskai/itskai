@@ -370,6 +370,7 @@ type Query {
   bootedAt: DateTime!
   contactEmail: String!
   currentlyPlaying: CurrentlyPlaying
+  explorations: [String!]!
   googleCredentials: OAuthCredentials
   icloudCredentials: ICloudCredentials
   imageBySignedId(signedId: String!): Image

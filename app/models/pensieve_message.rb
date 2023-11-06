@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "badwords"
+
 # rubocop:disable Layout/LineLength
 #
 # == Schema Information
@@ -97,7 +99,7 @@ class PensieveMessage < ApplicationRecord
   sig { void }
   def validate_text_profanity
     text = self.text.downcase
-    if Badwords.current.words.any? { |word| text.include?(word) }
+    if Badwords.current.any? { |word| text.include?(word) }
       errors.add(:text, "contains profanity")
     end
   end
