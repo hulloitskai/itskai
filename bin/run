@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-bin/overmind start --no-port "$@"
+set -e
+
+bin/overmind start "$@"

@@ -21,8 +21,6 @@ class LocationDetails < T::Struct
   def trail
     latest = log.timestamp
     earliest = latest - 1.hour
-    LocationLog
-      .where(timestamp: earliest..latest)
-      .order(timestamp: :desc)
+    LocationLog.where(timestamp: earliest..latest).order(timestamp: :desc)
   end
 end
