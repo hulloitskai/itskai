@@ -31,7 +31,17 @@ const ExplorationBadge: FC<ExplorationBadgeProps> = ({
           size="lg"
           fw={600}
           className={classes.badge}
-          style={{ cursor: "pointer" }}
+          h="unset"
+          py={4}
+          styles={{
+            root: {
+              cursor: "pointer",
+            },
+            label: {
+              whiteSpace: "unset",
+              lineHeight: 1.4,
+            },
+          }}
           onClick={() => {
             contactMe({
               subject: `you mentioned you were exploring "${children}"`,
