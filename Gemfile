@@ -9,7 +9,7 @@ gem "rails", "~> 7.1.1"
 # JSON-backed, nestable models
 gem "store_model", "~> 1.6"
 
-# Use postgresql as the database for Active Record
+# Use PostgreSQL as the database for Active Record
 gem "pg", "~> 1.5"
 
 # Perform full text search with Postgres
@@ -28,6 +28,9 @@ gem "puma", "~> 6.3.1"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails", "~> 3.4"
+
+# Use enhanced PostgreSQL adapter for Action Cable
+gem "actioncable-enhanced-postgresql-adapter", "~> 1.0"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"

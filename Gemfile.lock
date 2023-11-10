@@ -16,6 +16,10 @@ GEM
       nio4r (~> 2.0)
       websocket-driver (>= 0.6.1)
       zeitwerk (~> 2.6)
+    actioncable-enhanced-postgresql-adapter (1.0.1)
+      actioncable (>= 6.0)
+      connection_pool (>= 2.2.5)
+      pg (~> 1.5)
     actionmailbox (7.1.1)
       actionpack (= 7.1.1)
       activejob (= 7.1.1)
@@ -619,6 +623,7 @@ PLATFORMS
 DEPENDENCIES
   action_policy (~> 0.6.5)
   action_policy-graphql (~> 0.5.3)
+  actioncable-enhanced-postgresql-adapter (~> 1.0)
   active_record_extended (~> 3.2)
   active_storage_validations (~> 0.9.6)
   activerecord-postgis-adapter (~> 9.0)
