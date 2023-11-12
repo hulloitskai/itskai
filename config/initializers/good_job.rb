@@ -6,6 +6,8 @@ Rails.application.configure do
     config.smaller_number_is_higher_priority = true
     config.poll_interval = ENV.fetch("GOOD_JOB_POLL_INTERVAL", 30).to_i
     config.max_threads = ENV.fetch("GOOD_JOB_MAX_THREADS", 2).to_i
+    config.queue_select_limit =
+      ENV.fetch("GOOD_JOB_QUEUE_SELECT_LIMIT", 1000).to_i
 
     # == Cron Jobs
     config.enable_cron = true
