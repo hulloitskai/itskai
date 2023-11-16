@@ -654,15 +654,18 @@ class ActiveSupport::BroadcastLogger
 
   private
 
-  # source://activesupport//lib/active_support/broadcast_logger.rb#222
+  # source://activesupport//lib/active_support/broadcast_logger.rb#230
   def dispatch(&block); end
 
-  # source://activesupport//lib/active_support/broadcast_logger.rb#226
+  # source://activesupport//lib/active_support/broadcast_logger.rb#221
+  def initialize_copy(other); end
+
+  # source://activesupport//lib/active_support/broadcast_logger.rb#234
   def method_missing(name, *args, **kwargs, &block); end
 
   # @return [Boolean]
   #
-  # source://activesupport//lib/active_support/broadcast_logger.rb#238
+  # source://activesupport//lib/active_support/broadcast_logger.rb#246
   def respond_to_missing?(method, include_all); end
 
   class << self
@@ -928,6 +931,9 @@ class ActiveSupport::Cache::Entry
   def version; end
 
   private
+
+  # source://activesupport//lib/active_support/cache/entry.rb#127
+  def marshal_load(payload); end
 
   # source://activesupport//lib/active_support/cache/entry.rb#123
   def uncompress(value); end
@@ -1246,19 +1252,19 @@ class ActiveSupport::Cache::NullStore < ::ActiveSupport::Cache::Store
   include ::ActiveSupport::Cache::Strategy::LocalCache
 
   # source://activesupport//lib/active_support/cache/strategy/local_cache.rb#85
-  # def cleanup(options = T.unsafe(nil)); end
+  def cleanup(options = T.unsafe(nil)); end
 
   # source://activesupport//lib/active_support/cache/strategy/local_cache.rb#79
-  # def clear(options = T.unsafe(nil)); end
+  def clear(options = T.unsafe(nil)); end
 
   # source://activesupport//lib/active_support/cache/strategy/local_cache.rb#108
-  # def decrement(name, amount = T.unsafe(nil), options = T.unsafe(nil)); end
+  def decrement(name, amount = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # source://activesupport//lib/active_support/cache/strategy/local_cache.rb#91
   def delete_matched(matcher, options = T.unsafe(nil)); end
 
   # source://activesupport//lib/active_support/cache/strategy/local_cache.rb#97
-  # def increment(name, amount = T.unsafe(nil), options = T.unsafe(nil)); end
+  def increment(name, amount = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # source://activesupport//lib/active_support/cache/null_store.rb#37
   def inspect; end
@@ -1561,7 +1567,7 @@ class ActiveSupport::Cache::Store
   #
   # @raise [NotImplementedError]
   #
-  # source://activesupport//lib/active_support/cache.rb#732
+  # source://activesupport//lib/active_support/cache.rb#747
   def cleanup(options = T.unsafe(nil)); end
 
   # Clears the entire cache. Be careful with this method since it could
@@ -1573,7 +1579,7 @@ class ActiveSupport::Cache::Store
   #
   # @raise [NotImplementedError]
   #
-  # source://activesupport//lib/active_support/cache.rb#742
+  # source://activesupport//lib/active_support/cache.rb#757
   def clear(options = T.unsafe(nil)); end
 
   # Decrements an integer value in the cache.
@@ -1584,7 +1590,7 @@ class ActiveSupport::Cache::Store
   #
   # @raise [NotImplementedError]
   #
-  # source://activesupport//lib/active_support/cache.rb#723
+  # source://activesupport//lib/active_support/cache.rb#738
   def decrement(name, amount = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # Deletes an entry in the cache. Returns +true+ if an entry is deleted
@@ -1592,7 +1598,7 @@ class ActiveSupport::Cache::Store
   #
   # Options are passed to the underlying cache implementation.
   #
-  # source://activesupport//lib/active_support/cache.rb#661
+  # source://activesupport//lib/active_support/cache.rb#676
   def delete(name, options = T.unsafe(nil)); end
 
   # Deletes all entries with keys matching the pattern.
@@ -1603,7 +1609,7 @@ class ActiveSupport::Cache::Store
   #
   # @raise [NotImplementedError]
   #
-  # source://activesupport//lib/active_support/cache.rb#705
+  # source://activesupport//lib/active_support/cache.rb#720
   def delete_matched(matcher, options = T.unsafe(nil)); end
 
   # Deletes multiple entries in the cache. Returns the number of deleted
@@ -1611,7 +1617,7 @@ class ActiveSupport::Cache::Store
   #
   # Options are passed to the underlying cache implementation.
   #
-  # source://activesupport//lib/active_support/cache.rb#673
+  # source://activesupport//lib/active_support/cache.rb#688
   def delete_multi(names, options = T.unsafe(nil)); end
 
   # Returns +true+ if the cache contains an entry for the given key.
@@ -1620,7 +1626,7 @@ class ActiveSupport::Cache::Store
   #
   # @return [Boolean]
   #
-  # source://activesupport//lib/active_support/cache.rb#687
+  # source://activesupport//lib/active_support/cache.rb#702
   def exist?(name, options = T.unsafe(nil)); end
 
   # Fetches data from the cache, using the given key. If there is data in
@@ -1757,7 +1763,7 @@ class ActiveSupport::Cache::Store
   #
   # @raise [ArgumentError]
   #
-  # source://activesupport//lib/active_support/cache.rb#586
+  # source://activesupport//lib/active_support/cache.rb#601
   def fetch_multi(*names); end
 
   # Increments an integer value in the cache.
@@ -1768,7 +1774,7 @@ class ActiveSupport::Cache::Store
   #
   # @raise [NotImplementedError]
   #
-  # source://activesupport//lib/active_support/cache.rb#714
+  # source://activesupport//lib/active_support/cache.rb#729
   def increment(name, amount = T.unsafe(nil), options = T.unsafe(nil)); end
 
   # source://activesupport//lib/active_support/cache.rb#195
@@ -1782,7 +1788,7 @@ class ActiveSupport::Cache::Store
   # source://activesupport//lib/active_support/cache.rb#346
   def mute; end
 
-  # source://activesupport//lib/active_support/cache.rb#696
+  # source://activesupport//lib/active_support/cache.rb#711
   def new_entry(value, options = T.unsafe(nil)); end
 
   # Returns the value of attribute options.
@@ -1813,7 +1819,7 @@ class ActiveSupport::Cache::Store
   #
   # Other options will be handled by the specific cache store implementation.
   #
-  # source://activesupport//lib/active_support/cache.rb#496
+  # source://activesupport//lib/active_support/cache.rb#506
   def read(name, options = T.unsafe(nil)); end
 
   # Reads multiple values at once from the cache. Options can be passed
@@ -1823,7 +1829,7 @@ class ActiveSupport::Cache::Store
   #
   # Returns a hash mapping the names provided to the values found.
   #
-  # source://activesupport//lib/active_support/cache.rb#529
+  # source://activesupport//lib/active_support/cache.rb#544
   def read_multi(*names); end
 
   # Returns the value of attribute silence.
@@ -1875,20 +1881,20 @@ class ActiveSupport::Cache::Store
   #
   # Other options will be handled by the specific cache store implementation.
   #
-  # source://activesupport//lib/active_support/cache.rb#648
+  # source://activesupport//lib/active_support/cache.rb#663
   def write(name, value, options = T.unsafe(nil)); end
 
   # Cache Storage API to write multiple values at once.
   #
-  # source://activesupport//lib/active_support/cache.rb#543
+  # source://activesupport//lib/active_support/cache.rb#558
   def write_multi(hash, options = T.unsafe(nil)); end
 
   private
 
-  # source://activesupport//lib/active_support/cache.rb#998
+  # source://activesupport//lib/active_support/cache.rb#1013
   def _instrument(operation, multi: T.unsafe(nil), options: T.unsafe(nil), **payload, &block); end
 
-  # source://activesupport//lib/active_support/cache.rb#747
+  # source://activesupport//lib/active_support/cache.rb#762
   def default_serializer; end
 
   # Deletes an entry from the cache implementation. Subclasses must
@@ -1896,41 +1902,41 @@ class ActiveSupport::Cache::Store
   #
   # @raise [NotImplementedError]
   #
-  # source://activesupport//lib/active_support/cache.rb#841
+  # source://activesupport//lib/active_support/cache.rb#856
   def delete_entry(key, **options); end
 
   # Deletes multiples entries in the cache implementation. Subclasses MAY
   # implement this method.
   #
-  # source://activesupport//lib/active_support/cache.rb#847
+  # source://activesupport//lib/active_support/cache.rb#862
   def delete_multi_entries(entries, **options); end
 
-  # source://activesupport//lib/active_support/cache.rb#806
+  # source://activesupport//lib/active_support/cache.rb#821
   def deserialize_entry(payload); end
 
   # Expands key to be a consistent string value. Invokes +cache_key+ if
   # object responds to +cache_key+. Otherwise, +to_param+ method will be
   # called. If the key is a Hash, then keys will be sorted alphabetically.
   #
-  # source://activesupport//lib/active_support/cache.rb#961
+  # source://activesupport//lib/active_support/cache.rb#976
   def expanded_key(key); end
 
-  # source://activesupport//lib/active_support/cache.rb#982
+  # source://activesupport//lib/active_support/cache.rb#997
   def expanded_version(key); end
 
-  # source://activesupport//lib/active_support/cache.rb#1035
+  # source://activesupport//lib/active_support/cache.rb#1050
   def get_entry_value(entry, name, options); end
 
-  # source://activesupport//lib/active_support/cache.rb#1019
+  # source://activesupport//lib/active_support/cache.rb#1034
   def handle_expired_entry(entry, key, options); end
 
-  # source://activesupport//lib/active_support/cache.rb#881
+  # source://activesupport//lib/active_support/cache.rb#896
   def handle_invalid_expires_in(message); end
 
-  # source://activesupport//lib/active_support/cache.rb#990
+  # source://activesupport//lib/active_support/cache.rb#1005
   def instrument(operation, key, options = T.unsafe(nil), &block); end
 
-  # source://activesupport//lib/active_support/cache.rb#994
+  # source://activesupport//lib/active_support/cache.rb#1009
   def instrument_multi(operation, keys, options = T.unsafe(nil), &block); end
 
   # Adds the namespace defined in the options to a pattern designed to
@@ -1938,12 +1944,12 @@ class ActiveSupport::Cache::Store
   # this method to translate a pattern that matches names into one that
   # matches namespaced keys.
   #
-  # source://activesupport//lib/active_support/cache.rb#770
+  # source://activesupport//lib/active_support/cache.rb#785
   def key_matcher(pattern, options); end
 
   # Merges the default options with ones specific to a method call.
   #
-  # source://activesupport//lib/active_support/cache.rb#852
+  # source://activesupport//lib/active_support/cache.rb#867
   def merged_options(call_options); end
 
   # Prefix the key with a namespace string:
@@ -1956,7 +1962,7 @@ class ActiveSupport::Cache::Store
   #   namespace_key 'foo', namespace: -> { 'cache' }
   #   # => 'cache:foo'
   #
-  # source://activesupport//lib/active_support/cache.rb#939
+  # source://activesupport//lib/active_support/cache.rb#954
   def namespace_key(key, options = T.unsafe(nil)); end
 
   # Expands and namespaces the cache key.
@@ -1965,15 +1971,15 @@ class ActiveSupport::Cache::Store
   #
   # @raise [ArgumentError]
   #
-  # source://activesupport//lib/active_support/cache.rb#923
+  # source://activesupport//lib/active_support/cache.rb#938
   def normalize_key(key, options = T.unsafe(nil)); end
 
   # Normalize aliased options to their canonical form
   #
-  # source://activesupport//lib/active_support/cache.rb#892
+  # source://activesupport//lib/active_support/cache.rb#907
   def normalize_options(options); end
 
-  # source://activesupport//lib/active_support/cache.rb#978
+  # source://activesupport//lib/active_support/cache.rb#993
   def normalize_version(key, options = T.unsafe(nil)); end
 
   # Reads an entry from the cache implementation. Subclasses must implement
@@ -1981,22 +1987,22 @@ class ActiveSupport::Cache::Store
   #
   # @raise [NotImplementedError]
   #
-  # source://activesupport//lib/active_support/cache.rb#787
+  # source://activesupport//lib/active_support/cache.rb#802
   def read_entry(key, **options); end
 
   # Reads multiple entries from the cache implementation. Subclasses MAY
   # implement this method.
   #
-  # source://activesupport//lib/active_support/cache.rb#814
+  # source://activesupport//lib/active_support/cache.rb#829
   def read_multi_entries(names, **options); end
 
-  # source://activesupport//lib/active_support/cache.rb#1040
+  # source://activesupport//lib/active_support/cache.rb#1055
   def save_block_result_to_cache(name, options); end
 
-  # source://activesupport//lib/active_support/cache.rb#797
+  # source://activesupport//lib/active_support/cache.rb#812
   def serialize_entry(entry, **options); end
 
-  # source://activesupport//lib/active_support/cache.rb#903
+  # source://activesupport//lib/active_support/cache.rb#918
   def validate_options(options); end
 
   # Writes an entry to the cache implementation. Subclasses must implement
@@ -2004,13 +2010,13 @@ class ActiveSupport::Cache::Store
   #
   # @raise [NotImplementedError]
   #
-  # source://activesupport//lib/active_support/cache.rb#793
+  # source://activesupport//lib/active_support/cache.rb#808
   def write_entry(key, entry, **options); end
 
   # Writes multiple entries to the cache implementation. Subclasses MAY
   # implement this method.
   #
-  # source://activesupport//lib/active_support/cache.rb#833
+  # source://activesupport//lib/active_support/cache.rb#848
   def write_multi_entries(hash, **options); end
 
   class << self
@@ -2174,29 +2180,29 @@ end
 # source://activesupport//lib/active_support/cache.rb#26
 ActiveSupport::Cache::UNIVERSAL_OPTIONS = T.let(T.unsafe(nil), Array)
 
-# source://activesupport//lib/active_support/cache.rb#1050
+# source://activesupport//lib/active_support/cache.rb#1067
 class ActiveSupport::Cache::WriteOptions
   # @return [WriteOptions] a new instance of WriteOptions
   #
-  # source://activesupport//lib/active_support/cache.rb#1051
+  # source://activesupport//lib/active_support/cache.rb#1068
   def initialize(options); end
 
-  # source://activesupport//lib/active_support/cache.rb#1072
+  # source://activesupport//lib/active_support/cache.rb#1089
   def expires_at; end
 
-  # source://activesupport//lib/active_support/cache.rb#1076
+  # source://activesupport//lib/active_support/cache.rb#1093
   def expires_at=(expires_at); end
 
-  # source://activesupport//lib/active_support/cache.rb#1063
+  # source://activesupport//lib/active_support/cache.rb#1080
   def expires_in; end
 
-  # source://activesupport//lib/active_support/cache.rb#1067
+  # source://activesupport//lib/active_support/cache.rb#1084
   def expires_in=(expires_in); end
 
-  # source://activesupport//lib/active_support/cache.rb#1055
+  # source://activesupport//lib/active_support/cache.rb#1072
   def version; end
 
-  # source://activesupport//lib/active_support/cache.rb#1059
+  # source://activesupport//lib/active_support/cache.rb#1076
   def version=(version); end
 end
 
@@ -7797,10 +7803,10 @@ end
 class ActiveSupport::LogSubscriber < ::ActiveSupport::Subscriber
   # @return [LogSubscriber] a new instance of LogSubscriber
   #
-  # source://activesupport//lib/active_support/log_subscriber.rb#130
+  # source://activesupport//lib/active_support/log_subscriber.rb#136
   def initialize; end
 
-  # source://activesupport//lib/active_support/log_subscriber.rb#143
+  # source://activesupport//lib/active_support/log_subscriber.rb#149
   def call(event); end
 
   # source://activesupport//lib/active_support/log_subscriber.rb#86
@@ -7809,36 +7815,36 @@ class ActiveSupport::LogSubscriber < ::ActiveSupport::Subscriber
   # source://activesupport//lib/active_support/log_subscriber.rb#86
   def colorize_logging=(val); end
 
-  # source://activesupport//lib/active_support/log_subscriber.rb#160
+  # source://activesupport//lib/active_support/log_subscriber.rb#166
   def debug(progname = T.unsafe(nil), &block); end
 
-  # source://activesupport//lib/active_support/log_subscriber.rb#160
+  # source://activesupport//lib/active_support/log_subscriber.rb#166
   def error(progname = T.unsafe(nil), &block); end
 
-  # source://activesupport//lib/active_support/log_subscriber.rb#155
+  # source://activesupport//lib/active_support/log_subscriber.rb#161
   def event_levels=(_arg0); end
 
-  # source://activesupport//lib/active_support/log_subscriber.rb#160
+  # source://activesupport//lib/active_support/log_subscriber.rb#166
   def fatal(progname = T.unsafe(nil), &block); end
 
-  # source://activesupport//lib/active_support/log_subscriber.rb#160
+  # source://activesupport//lib/active_support/log_subscriber.rb#166
   def info(progname = T.unsafe(nil), &block); end
 
-  # source://activesupport//lib/active_support/log_subscriber.rb#135
+  # source://activesupport//lib/active_support/log_subscriber.rb#141
   def logger; end
 
-  # source://activesupport//lib/active_support/log_subscriber.rb#149
+  # source://activesupport//lib/active_support/log_subscriber.rb#155
   def publish_event(event); end
 
   # @return [Boolean]
   #
-  # source://activesupport//lib/active_support/log_subscriber.rb#139
+  # source://activesupport//lib/active_support/log_subscriber.rb#145
   def silenced?(event); end
 
-  # source://activesupport//lib/active_support/log_subscriber.rb#160
+  # source://activesupport//lib/active_support/log_subscriber.rb#166
   def unknown(progname = T.unsafe(nil), &block); end
 
-  # source://activesupport//lib/active_support/log_subscriber.rb#160
+  # source://activesupport//lib/active_support/log_subscriber.rb#166
   def warn(progname = T.unsafe(nil), &block); end
 
   private
@@ -7847,17 +7853,17 @@ class ActiveSupport::LogSubscriber < ::ActiveSupport::Subscriber
   # by specifying bold, italic, or underline options. Inspired by Highline,
   # this method will automatically clear formatting at the end of the returned String.
   #
-  # source://activesupport//lib/active_support/log_subscriber.rb#169
+  # source://activesupport//lib/active_support/log_subscriber.rb#175
   def color(text, color, mode_options = T.unsafe(nil)); end
 
-  # source://activesupport//lib/active_support/log_subscriber.rb#191
+  # source://activesupport//lib/active_support/log_subscriber.rb#197
   def log_exception(name, e); end
 
-  # source://activesupport//lib/active_support/log_subscriber.rb#177
+  # source://activesupport//lib/active_support/log_subscriber.rb#183
   def mode_from(options); end
 
   class << self
-    # source://activesupport//lib/active_support/log_subscriber.rb#96
+    # source://activesupport//lib/active_support/log_subscriber.rb#102
     def attach_to(*_arg0, **_arg1, &_arg2); end
 
     # source://activesupport//lib/active_support/log_subscriber.rb#86
@@ -7868,7 +7874,7 @@ class ActiveSupport::LogSubscriber < ::ActiveSupport::Subscriber
 
     # Flush all log_subscribers' logger.
     #
-    # source://activesupport//lib/active_support/log_subscriber.rb#109
+    # source://activesupport//lib/active_support/log_subscriber.rb#115
     def flush_all!; end
 
     # source://activesupport//lib/active_support/log_subscriber.rb#87
@@ -7880,28 +7886,28 @@ class ActiveSupport::LogSubscriber < ::ActiveSupport::Subscriber
     # source://activesupport//lib/active_support/log_subscriber.rb#87
     def log_levels?; end
 
-    # source://activesupport//lib/active_support/log_subscriber.rb#104
+    # source://activesupport//lib/active_support/log_subscriber.rb#110
     def log_subscribers; end
 
-    # source://activesupport//lib/active_support/log_subscriber.rb#90
+    # source://activesupport//lib/active_support/log_subscriber.rb#96
     def logger; end
 
     # Sets the attribute logger
     #
     # @param value the value to set the attribute logger to.
     #
-    # source://activesupport//lib/active_support/log_subscriber.rb#102
+    # source://activesupport//lib/active_support/log_subscriber.rb#108
     def logger=(_arg0); end
 
     private
 
-    # source://activesupport//lib/active_support/log_subscriber.rb#114
+    # source://activesupport//lib/active_support/log_subscriber.rb#120
     def fetch_public_methods(subscriber, inherit_all); end
 
-    # source://activesupport//lib/active_support/log_subscriber.rb#118
+    # source://activesupport//lib/active_support/log_subscriber.rb#124
     def set_event_levels; end
 
-    # source://activesupport//lib/active_support/log_subscriber.rb#124
+    # source://activesupport//lib/active_support/log_subscriber.rb#130
     def subscribe_log_level(method, level); end
   end
 end
@@ -7927,6 +7933,9 @@ ActiveSupport::LogSubscriber::CYAN = T.let(T.unsafe(nil), String)
 
 # source://activesupport//lib/active_support/log_subscriber.rb#79
 ActiveSupport::LogSubscriber::GREEN = T.let(T.unsafe(nil), String)
+
+# source://activesupport//lib/active_support/log_subscriber.rb#89
+ActiveSupport::LogSubscriber::LEVEL_CHECKS = T.let(T.unsafe(nil), Hash)
 
 # source://activesupport//lib/active_support/log_subscriber.rb#82
 ActiveSupport::LogSubscriber::MAGENTA = T.let(T.unsafe(nil), String)
@@ -9657,40 +9666,40 @@ end
 #
 # This class is thread safe. All methods are reentrant.
 #
-# source://activesupport//lib/active_support/notifications/fanout.rb#47
+# source://activesupport//lib/active_support/notifications/fanout.rb#51
 class ActiveSupport::Notifications::Fanout
   include ::Mutex_m
   include ::ActiveSupport::Notifications::FanoutIteration
 
   # @return [Fanout] a new instance of Fanout
   #
-  # source://activesupport//lib/active_support/notifications/fanout.rb#50
+  # source://activesupport//lib/active_support/notifications/fanout.rb#54
   def initialize; end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#295
+  # source://activesupport//lib/active_support/notifications/fanout.rb#301
   def all_listeners_for(name); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#270
+  # source://activesupport//lib/active_support/notifications/fanout.rb#276
   def build_handle(name, id, payload); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#101
+  # source://activesupport//lib/active_support/notifications/fanout.rb#105
   def clear_cache(key = T.unsafe(nil)); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#281
+  # source://activesupport//lib/active_support/notifications/fanout.rb#287
   def finish(name, id, payload, listeners = T.unsafe(nil)); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#187
+  # source://activesupport//lib/active_support/notifications/fanout.rb#191
   def groups_for(name); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#59
+  # source://activesupport//lib/active_support/notifications/fanout.rb#63
   def inspect; end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#304
+  # source://activesupport//lib/active_support/notifications/fanout.rb#310
   def listeners_for(name); end
 
   # @return [Boolean]
   #
-  # source://activesupport//lib/active_support/notifications/fanout.rb#308
+  # source://activesupport//lib/active_support/notifications/fanout.rb#314
   def listening?(name); end
 
   # source://mutex_m/0.1.2/mutex_m.rb#93
@@ -9699,16 +9708,16 @@ class ActiveSupport::Notifications::Fanout
   # source://mutex_m/0.1.2/mutex_m.rb#83
   def locked?; end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#287
+  # source://activesupport//lib/active_support/notifications/fanout.rb#293
   def publish(name, *args); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#291
+  # source://activesupport//lib/active_support/notifications/fanout.rb#297
   def publish_event(event); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#274
+  # source://activesupport//lib/active_support/notifications/fanout.rb#280
   def start(name, id, payload); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#64
+  # source://activesupport//lib/active_support/notifications/fanout.rb#68
   def subscribe(pattern = T.unsafe(nil), callable = T.unsafe(nil), monotonic: T.unsafe(nil), &block); end
 
   # source://mutex_m/0.1.2/mutex_m.rb#78
@@ -9720,57 +9729,57 @@ class ActiveSupport::Notifications::Fanout
   # source://mutex_m/0.1.2/mutex_m.rb#98
   def unlock; end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#81
+  # source://activesupport//lib/active_support/notifications/fanout.rb#85
   def unsubscribe(subscriber_or_name); end
 
   # This is a sync queue, so there is no waiting.
   #
-  # source://activesupport//lib/active_support/notifications/fanout.rb#313
+  # source://activesupport//lib/active_support/notifications/fanout.rb#319
   def wait; end
 end
 
-# source://activesupport//lib/active_support/notifications/fanout.rb#113
+# source://activesupport//lib/active_support/notifications/fanout.rb#117
 class ActiveSupport::Notifications::Fanout::BaseGroup
   include ::ActiveSupport::Notifications::FanoutIteration
 
   # @return [BaseGroup] a new instance of BaseGroup
   #
-  # source://activesupport//lib/active_support/notifications/fanout.rb#116
+  # source://activesupport//lib/active_support/notifications/fanout.rb#120
   def initialize(listeners, name, id, payload); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#120
+  # source://activesupport//lib/active_support/notifications/fanout.rb#124
   def each(&block); end
 end
 
-# source://activesupport//lib/active_support/notifications/fanout.rb#125
+# source://activesupport//lib/active_support/notifications/fanout.rb#129
 class ActiveSupport::Notifications::Fanout::BaseTimeGroup < ::ActiveSupport::Notifications::Fanout::BaseGroup
-  # source://activesupport//lib/active_support/notifications/fanout.rb#130
+  # source://activesupport//lib/active_support/notifications/fanout.rb#134
   def finish(name, id, payload); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#126
+  # source://activesupport//lib/active_support/notifications/fanout.rb#130
   def start(name, id, payload); end
 end
 
-# source://activesupport//lib/active_support/notifications/fanout.rb#166
+# source://activesupport//lib/active_support/notifications/fanout.rb#170
 class ActiveSupport::Notifications::Fanout::EventObjectGroup < ::ActiveSupport::Notifications::Fanout::BaseGroup
-  # source://activesupport//lib/active_support/notifications/fanout.rb#172
+  # source://activesupport//lib/active_support/notifications/fanout.rb#176
   def finish(name, id, payload); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#167
+  # source://activesupport//lib/active_support/notifications/fanout.rb#171
   def start(name, id, payload); end
 
   private
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#182
+  # source://activesupport//lib/active_support/notifications/fanout.rb#186
   def build_event(name, id, payload); end
 end
 
-# source://activesupport//lib/active_support/notifications/fanout.rb#152
+# source://activesupport//lib/active_support/notifications/fanout.rb#156
 class ActiveSupport::Notifications::Fanout::EventedGroup < ::ActiveSupport::Notifications::Fanout::BaseGroup
-  # source://activesupport//lib/active_support/notifications/fanout.rb#159
+  # source://activesupport//lib/active_support/notifications/fanout.rb#163
   def finish(name, id, payload); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#153
+  # source://activesupport//lib/active_support/notifications/fanout.rb#157
   def start(name, id, payload); end
 end
 
@@ -9789,163 +9798,167 @@ end
 #     handle.finish
 #   end
 #
-# source://activesupport//lib/active_support/notifications/fanout.rb#227
+# source://activesupport//lib/active_support/notifications/fanout.rb#231
 class ActiveSupport::Notifications::Fanout::Handle
+  include ::ActiveSupport::Notifications::FanoutIteration
+
   # @return [Handle] a new instance of Handle
   #
-  # source://activesupport//lib/active_support/notifications/fanout.rb#228
+  # source://activesupport//lib/active_support/notifications/fanout.rb#234
   def initialize(notifier, name, id, payload); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#247
+  # source://activesupport//lib/active_support/notifications/fanout.rb#253
   def finish; end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#251
+  # source://activesupport//lib/active_support/notifications/fanout.rb#257
   def finish_with_values(name, id, payload); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#238
+  # source://activesupport//lib/active_support/notifications/fanout.rb#244
   def start; end
 
   private
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#261
+  # source://activesupport//lib/active_support/notifications/fanout.rb#267
   def ensure_state!(expected); end
 end
 
-# source://activesupport//lib/active_support/notifications/fanout.rb#138
+# source://activesupport//lib/active_support/notifications/fanout.rb#142
 class ActiveSupport::Notifications::Fanout::MonotonicTimedGroup < ::ActiveSupport::Notifications::Fanout::BaseTimeGroup
   private
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#140
+  # source://activesupport//lib/active_support/notifications/fanout.rb#144
   def now; end
 end
 
-# source://activesupport//lib/active_support/notifications/fanout.rb#316
+# source://activesupport//lib/active_support/notifications/fanout.rb#322
 module ActiveSupport::Notifications::Fanout::Subscribers
   class << self
-    # source://activesupport//lib/active_support/notifications/fanout.rb#317
+    # source://activesupport//lib/active_support/notifications/fanout.rb#323
     def new(pattern, listener, monotonic); end
   end
 end
 
-# source://activesupport//lib/active_support/notifications/fanout.rb#431
+# source://activesupport//lib/active_support/notifications/fanout.rb#437
 class ActiveSupport::Notifications::Fanout::Subscribers::EventObject < ::ActiveSupport::Notifications::Fanout::Subscribers::Evented
-  # source://activesupport//lib/active_support/notifications/fanout.rb#432
+  # source://activesupport//lib/active_support/notifications/fanout.rb#438
   def group_class; end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#436
+  # source://activesupport//lib/active_support/notifications/fanout.rb#442
   def publish_event(event); end
 end
 
-# source://activesupport//lib/active_support/notifications/fanout.rb#373
+# source://activesupport//lib/active_support/notifications/fanout.rb#379
 class ActiveSupport::Notifications::Fanout::Subscribers::Evented
   # @return [Evented] a new instance of Evented
   #
-  # source://activesupport//lib/active_support/notifications/fanout.rb#376
+  # source://activesupport//lib/active_support/notifications/fanout.rb#382
   def initialize(pattern, delegate); end
 
   # Returns the value of attribute delegate.
   #
-  # source://activesupport//lib/active_support/notifications/fanout.rb#374
+  # source://activesupport//lib/active_support/notifications/fanout.rb#380
   def delegate; end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#384
+  # source://activesupport//lib/active_support/notifications/fanout.rb#390
   def group_class; end
 
   # Returns the value of attribute pattern.
   #
-  # source://activesupport//lib/active_support/notifications/fanout.rb#374
+  # source://activesupport//lib/active_support/notifications/fanout.rb#380
   def pattern; end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#388
+  # source://activesupport//lib/active_support/notifications/fanout.rb#394
   def publish(name, *args); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#394
+  # source://activesupport//lib/active_support/notifications/fanout.rb#400
   def publish_event(event); end
 
   # Returns the value of attribute silenceable.
   #
-  # source://activesupport//lib/active_support/notifications/fanout.rb#374
+  # source://activesupport//lib/active_support/notifications/fanout.rb#380
   def silenceable; end
 
   # @return [Boolean]
   #
-  # source://activesupport//lib/active_support/notifications/fanout.rb#402
+  # source://activesupport//lib/active_support/notifications/fanout.rb#408
   def silenced?(name); end
 
   # @return [Boolean]
   #
-  # source://activesupport//lib/active_support/notifications/fanout.rb#406
+  # source://activesupport//lib/active_support/notifications/fanout.rb#412
   def subscribed_to?(name); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#410
+  # source://activesupport//lib/active_support/notifications/fanout.rb#416
   def unsubscribe!(name); end
 end
 
-# source://activesupport//lib/active_support/notifications/fanout.rb#336
+# source://activesupport//lib/active_support/notifications/fanout.rb#342
 class ActiveSupport::Notifications::Fanout::Subscribers::Matcher
   # @return [Matcher] a new instance of Matcher
   #
-  # source://activesupport//lib/active_support/notifications/fanout.rb#349
+  # source://activesupport//lib/active_support/notifications/fanout.rb#355
   def initialize(pattern); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#358
+  # source://activesupport//lib/active_support/notifications/fanout.rb#364
   def ===(name); end
 
   # Returns the value of attribute exclusions.
   #
-  # source://activesupport//lib/active_support/notifications/fanout.rb#337
+  # source://activesupport//lib/active_support/notifications/fanout.rb#343
   def exclusions; end
 
   # Returns the value of attribute pattern.
   #
-  # source://activesupport//lib/active_support/notifications/fanout.rb#337
+  # source://activesupport//lib/active_support/notifications/fanout.rb#343
   def pattern; end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#354
+  # source://activesupport//lib/active_support/notifications/fanout.rb#360
   def unsubscribe!(name); end
 
   class << self
-    # source://activesupport//lib/active_support/notifications/fanout.rb#339
+    # source://activesupport//lib/active_support/notifications/fanout.rb#345
     def wrap(pattern); end
   end
 end
 
-# source://activesupport//lib/active_support/notifications/fanout.rb#362
+# source://activesupport//lib/active_support/notifications/fanout.rb#368
 class ActiveSupport::Notifications::Fanout::Subscribers::Matcher::AllMessages
-  # source://activesupport//lib/active_support/notifications/fanout.rb#363
+  # source://activesupport//lib/active_support/notifications/fanout.rb#369
   def ===(name); end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#367
+  # source://activesupport//lib/active_support/notifications/fanout.rb#373
   def unsubscribe!(*_arg0); end
 end
 
-# source://activesupport//lib/active_support/notifications/fanout.rb#425
+# source://activesupport//lib/active_support/notifications/fanout.rb#431
 class ActiveSupport::Notifications::Fanout::Subscribers::MonotonicTimed < ::ActiveSupport::Notifications::Fanout::Subscribers::Timed
-  # source://activesupport//lib/active_support/notifications/fanout.rb#426
+  # source://activesupport//lib/active_support/notifications/fanout.rb#432
   def group_class; end
 end
 
-# source://activesupport//lib/active_support/notifications/fanout.rb#415
+# source://activesupport//lib/active_support/notifications/fanout.rb#421
 class ActiveSupport::Notifications::Fanout::Subscribers::Timed < ::ActiveSupport::Notifications::Fanout::Subscribers::Evented
-  # source://activesupport//lib/active_support/notifications/fanout.rb#416
+  # source://activesupport//lib/active_support/notifications/fanout.rb#422
   def group_class; end
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#420
+  # source://activesupport//lib/active_support/notifications/fanout.rb#426
   def publish(name, *args); end
 end
 
-# source://activesupport//lib/active_support/notifications/fanout.rb#145
+# source://activesupport//lib/active_support/notifications/fanout.rb#149
 class ActiveSupport::Notifications::Fanout::TimedGroup < ::ActiveSupport::Notifications::Fanout::BaseTimeGroup
   private
 
-  # source://activesupport//lib/active_support/notifications/fanout.rb#147
+  # source://activesupport//lib/active_support/notifications/fanout.rb#151
   def now; end
 end
 
 # source://activesupport//lib/active_support/notifications/fanout.rb#20
 module ActiveSupport::Notifications::FanoutIteration
-  # source://activesupport//lib/active_support/notifications/fanout.rb#21
-  def iterate_guarding_exceptions(listeners); end
+  private
+
+  # source://activesupport//lib/active_support/notifications/fanout.rb#22
+  def iterate_guarding_exceptions(collection); end
 end
 
 # source://activesupport//lib/active_support/notifications/fanout.rb#10
@@ -11045,7 +11058,7 @@ class ActiveSupport::OrderedOptions < ::Hash
   def []=(key, value); end
 
   # source://activesupport//lib/active_support/ordered_options.rb#45
-  def dig(*keys); end
+  def dig(key, *identifiers); end
 
   # @return [Boolean]
   #
@@ -15079,7 +15092,7 @@ class Array
   #   </messages>
   #
   # source://activesupport//lib/active_support/core_ext/array/conversions.rb#185
-  # def to_xml(options = T.unsafe(nil)); end
+  def to_xml(options = T.unsafe(nil)); end
 
   # Returns a copy of the Array excluding the specified elements.
   #
@@ -18830,7 +18843,7 @@ class Module
   end
 end
 
-# = Bite-sized separation of concerns
+# == Bite-sized separation of concerns
 #
 # We often find ourselves with a medium-sized chunk of behavior that we'd
 # like to extract, but only mix in to a single class.
@@ -18845,9 +18858,9 @@ end
 # with a comment, as a least-bad alternative. Using modules in separate files
 # means tedious sifting to get a big-picture view.
 #
-# = Dissatisfying ways to separate small concerns
+# == Dissatisfying ways to separate small concerns
 #
-# == Using comments:
+# === Using comments:
 #
 #   class Todo < ApplicationRecord
 #     # Other todo implementation
@@ -18864,7 +18877,7 @@ end
 #       end
 #   end
 #
-# == With an inline module:
+# === With an inline module:
 #
 # Noisy syntax.
 #
@@ -18888,7 +18901,7 @@ end
 #     include EventTracking
 #   end
 #
-# == Mix-in noise exiled to its own file:
+# === Mix-in noise exiled to its own file:
 #
 # Once our chunk of behavior starts pushing the scroll-to-understand-it
 # boundary, we give in and move it to a separate file. At this size, the
@@ -18902,7 +18915,7 @@ end
 #     include TodoEventTracking
 #   end
 #
-# = Introducing Module#concerning
+# == Introducing Module#concerning
 #
 # By quieting the mix-in noise, we arrive at a natural, low-ceremony way to
 # separate bite-sized concerns.
@@ -19659,6 +19672,7 @@ class Pathname
 end
 
 module Process
+  extend ::ConnectionPool::ForkTracker
   extend ::ActiveSupport::ForkTracker::ModernCoreExt
 
   class << self
