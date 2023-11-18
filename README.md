@@ -6,7 +6,7 @@ _kai's personal website :)_
 
 ```bash
 # install tools
-brew install docker rbenv nodenv pyenv yarn watchman overmind
+brew install docker rbenv nodenv pyenv poetry yarn watchman overmind
 
 # set up environment
 git clone git@github.com:hulloitskai/itskai

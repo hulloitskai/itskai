@@ -33,7 +33,7 @@ FileUtils.chdir APP_ROOT do
     puts("Node dependencies are installed")
 
   puts "\n=> Install Python dependencies"
-  system! "pip install -r requirements.txt"
+  system! "poetry install --no-root"
 
   puts "\n=> Installing githooks"
   system! "bin/yarn husky install"
