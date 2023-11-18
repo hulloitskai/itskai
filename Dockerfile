@@ -44,13 +44,14 @@ RUN mkdir -p /etc/apt/keyrings \
   && truncate -s 0 /var/log/*log
 RUN npm install -g yarn@$YARN_VERSION
 
-# Install Python and pip
+# Install Python and Poetry
 RUN apt-get update -qq \
   && apt-get -yq dist-upgrade \
-  && apt-get install -yq --no-install-recommends python${PYTHON_MAJOR_VERSION}-dev python${PYTHON_MAJOR_VERSION}-pip \
+  && apt-get install -yq --no-install-recommends python${PYTHON_MAJOR_VERSION}-dev \
   && apt-get clean \
   && rm -rf /var/cache/apt/archives/* rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log
+RUN curl -sSL https://install.python-poetry.org | python3 -
 
 # Install Overmind
 RUN apt-get update -qq \
@@ -104,10 +105,10 @@ WORKDIR /app
 ENV BUNDLE_WITHOUT="development test" RAILS_ENV=production RAILS_LOG_TO_STDOUT=true NODE_ENV=$RAILS_ENV
 
 # Copy dependency lists
-COPY Gemfile Gemfile.lock package.json yarn.lock requirements.txt ./
+COPY Gemfile Gemfile.lock package.json yarn.lock pyproject.toml poetry.toml poetry.lock ./
 
 # Install dependencies
-RUN bundle install && yarn install && pip install -r requirements.txt
+RUN bundle install && yarn install && poetry install --no-root
 
 # Copy application code
 COPY . ./
