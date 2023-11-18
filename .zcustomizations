@@ -22,11 +22,8 @@ export EDITOR=vim
 # Use emacs keybinds.
 bindkey -e
 
-<<<<<<< Updated upstream
-=======
 # == Poetry
-export PATH="/root/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
->>>>>>> Stashed changes
 # == Starship
 eval "$(starship init zsh)"

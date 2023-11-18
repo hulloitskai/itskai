@@ -6,4 +6,4 @@ if [ ! -z "$1" ]; then
   shift
 fi
 
-bin/yarn --silent graphql-codegen --config ./.graphqlrc.yml --project $PROJECT $@
+bin/yarn --silent graphql-codegen --config .graphqlrc.yml --project $PROJECT $@
