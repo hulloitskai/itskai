@@ -105,11 +105,6 @@ Rails.application.routes.draw do
   # == Scottcall
   post "/scottcall" => "scottcalls#handle"
 
-  # == Seneca
-  get "/seneca" => "seneca#show"
-  get "/sen" => redirect(path: "/seneca", status: 302)
-  get "/sensen" => redirect(path: "/seneca", status: 302)
-
   # == Pages
   root "home#show"
   get "/admin" => "admin#show"
