@@ -24,7 +24,7 @@ module PoorlyDrawnLines
         html = T.let(response.body, String)
         doc = T.let(Nokogiri::HTML(html), Nokogiri::HTML::Document)
         img = T.let(
-          doc.at_css(".post .wp-block-image img"),
+          doc.at_css(".post img"),
           Nokogiri::XML::Node,
         )
         previous_link = T.let(

@@ -3,7 +3,7 @@ import { renderToString as renderPage } from "react-dom/server";
 import { render as renderEmail } from "@react-email/render";
 import { setupLuxon } from "~/helpers/luxon";
 
-import { PageType, pagesFromFiles, resolvePageType } from "~/helpers/inertia";
+import { PageType, parsePageImports, resolvePageType } from "~/helpers/inertia";
 import { preparePage, setupApp } from "~/helpers/inertia/server";
 import type { PageComponent } from "~/helpers/inertia";
 
@@ -14,22 +14,18 @@ import createServer from "@inertiajs/react/server";
 setupLuxon();
 
 // == Pages
-const pages = resolve(() => {
-  const files: Record<string, PageComponent> = import.meta.glob(
-    "~/pages/*.tsx",
-    { import: "default", eager: true },
-  );
-  return pagesFromFiles(files);
-});
+const pageImports: Record<string, PageComponent> = import.meta.glob(
+  "~/pages/**/*.tsx",
+  { import: "default", eager: true },
+);
+const pages = parsePageImports(pageImports);
 
 // == Emails
-const emails = resolve(() => {
-  const files: Record<string, PageComponent> = import.meta.glob(
-    "~/emails/*.tsx",
-    { import: "default", eager: true },
-  );
-  return pagesFromFiles(files);
-});
+const emailImports: Record<string, PageComponent> = import.meta.glob(
+  "~/emails/**/*.tsx",
+  { import: "default", eager: true },
+);
+const emails = parsePageImports(emailImports);
 
 // == Entrypoint
 const port = process.env.INERTIA_PORT

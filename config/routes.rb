@@ -67,11 +67,6 @@ Rails.application.routes.draw do
     post "/", action: :execute, as: :graphql
   end
 
-  # == Poorly Drawn Lines
-  namespace :poorly_drawn_lines do
-    resources :comics, only: :show
-  end
-
   # == Calendly
   get "/calendly" => "calendly#show"
   get "/hangout" => "calendly#show"
@@ -82,6 +77,11 @@ Rails.application.routes.draw do
 
   # == Events
   # resources :events, only: :index
+
+  # == Poorly Drawn Lines
+  namespace :poorlydrawnlines do
+    resources :comics, only: :show
+  end
 
   # == Errors
   scope controller: :errors do

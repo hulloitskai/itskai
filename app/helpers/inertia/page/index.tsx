@@ -3,10 +3,10 @@ import type { ComponentType, ReactNode } from "react";
 import { usePage as _usePage } from "@inertiajs/react";
 import type { ErrorBag, Errors, Page, PageProps } from "@inertiajs/core";
 
-export const pagesFromFiles = <T,>(
-  files: Record<string, T>,
+export const parsePageImports = <T,>(
+  imports: Record<string, T>,
 ): Record<string, T> => {
-  return mapKeys(files, (file, path) => {
+  return mapKeys(imports, (file, path) => {
     const nameWithExtension = path.split(/[\\/]/).pop()!;
     return nameWithExtension.split(".").shift()!;
   });

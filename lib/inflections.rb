@@ -22,6 +22,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym("ICloud")
   inflect.acronym("OAuth")
   inflect.acronym("ItsKai")
+  inflect.acronym("PoorlyDrawnLines")
 
   # == Others
   inflect.uncountable("credentials")

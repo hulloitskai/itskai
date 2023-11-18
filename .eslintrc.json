@@ -1,6 +1,7 @@
 {
   "extends": [
     "eslint:recommended",
+    // "plugin:import/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
@@ -40,6 +41,7 @@
     "react/prop-types": "off",
     "react-hooks/exhaustive-deps": "off",
     "react-refresh/only-export-components": "warn"
+    // "import/no-unresolved": "off"
   },
   "overrides": [
     {
