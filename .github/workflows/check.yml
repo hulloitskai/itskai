@@ -40,7 +40,9 @@ jobs:
           cache-dependency-path: "**/yarn.lock"
       - name: Set up Python
         uses: actions/setup-python@v4
-      - name: Set up Overmind
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+      - name: Install Overmind
         run: |
           sudo apt-get install tmux \
             && sudo curl -Lo /usr/bin/overmind.gz https://github.com/DarthSim/overmind/releases/download/v$OVERMIND_VERSION/overmind-v$OVERMIND_VERSION-linux-amd64.gz \

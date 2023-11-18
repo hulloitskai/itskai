@@ -4,6 +4,7 @@ bin/
 app/assets/
 app/ssr/dist/
 db/schema.rb
+graphql/schema.graphql
 log/
 node_modules/
 public/assets/

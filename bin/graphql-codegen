@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-TARGET=schema
+PROJECT=schema
 if [ ! -z "$1" ]; then
-  TARGET="$1"
+  PROJECT="$1"
   shift
 fi
-CONFIG="config/graphql/codegen.$TARGET.ts"
 
-bin/yarn --silent graphql-codegen --config "$CONFIG" $@
+bin/yarn --silent graphql-codegen --config ./.graphqlrc.yml --project $PROJECT $@
