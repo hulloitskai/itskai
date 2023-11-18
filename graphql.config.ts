@@ -16,11 +16,11 @@ const config: IGraphQLConfig = {
     },
     helpers: {
       schema: "graphql/schema.graphql",
+      documents: ["app/queries/*.graphql"],
       extensions: {
         codegen: {
           generates: {
             "app/helpers/graphql/types.generated.ts": {
-              documents: ["app/queries/*.graphql"],
               config: {
                 scalars: {
                   DateTime: "string",
@@ -30,7 +30,6 @@ const config: IGraphQLConfig = {
               plugins: ["typescript"],
             },
             "app/helpers/graphql/operations.generated.ts": {
-              documents: ["app/queries/*.graphql"],
               preset: "import-types",
               config: {
                 avoidOptionals: {
@@ -45,11 +44,9 @@ const config: IGraphQLConfig = {
               },
             },
             "app/helpers/apollo/introspection.generated.ts": {
-              documents: ["app/queries/*.graphql"],
               plugins: ["fragment-matcher"],
             },
             "app/helpers/apollo/clientHelpers.generated.ts": {
-              documents: ["app/queries/*.graphql"],
               plugins: ["typescript-apollo-client-helpers"],
             },
           },

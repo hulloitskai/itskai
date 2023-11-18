@@ -1,2 +1,6 @@
-schema: config/graphql/schema.generated.graphql
-documents: app/queries/*.graphql
+projects:
+  schema:
+    schema: "http://localhost:3000/graphql"
+    extensions:
+      codegen:
+        # generates: "gra"
