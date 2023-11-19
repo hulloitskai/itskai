@@ -26,5 +26,5 @@ jobs:
         uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy
         run: |
-          flyctl scale count 1 \
-            && flyctl deploy --remote-only --ha=false --memory=1024
+          flyctl deploy --remote-only --ha=false --memory=1024 \
+            && flyctl scale count 1
