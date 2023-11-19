@@ -7,7 +7,7 @@ import type { OAuthCredentialsFormCredentialsFragment } from "~/helpers/graphql"
 
 import FormAuthenticityField from "./FormAuthenticityField";
 
-export type SpotifyCredentialsFormProps = Omit<BoxProps, "children"> & {
+export type SpotifyCredentialsFormProps = BoxProps & {
   readonly credentials: Maybe<OAuthCredentialsFormCredentialsFragment>;
   readonly onRemove: () => void;
 };

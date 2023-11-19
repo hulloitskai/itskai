@@ -7,7 +7,7 @@ import type { OAuthCredentialsFormCredentialsFragment } from "~/helpers/graphql"
 
 import FormAuthenticityField from "./FormAuthenticityField";
 
-export type GoogleCredentialsFormProps = Omit<BoxProps, "children"> & {
+export type GoogleCredentialsFormProps = BoxProps & {
   readonly credentials: Maybe<OAuthCredentialsFormCredentialsFragment>;
   readonly onRemove: () => void;
 };

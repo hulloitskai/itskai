@@ -14,7 +14,7 @@ import type { ICloudCredentialsFormCredentialsFragment } from "~/helpers/graphql
 
 import ICloudVerifySecurityCodeForm from "./ICloudVerifySecurityCodeForm";
 
-export type ICloudCredentialsFormProps = Omit<BoxProps, "children"> & {
+export type ICloudCredentialsFormProps = BoxProps & {
   readonly credentials: Maybe<ICloudCredentialsFormCredentialsFragment>;
   readonly onUpdate: () => void;
   readonly onRemove: () => void;

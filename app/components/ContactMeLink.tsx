@@ -4,7 +4,7 @@ import type { AnchorProps } from "@mantine/core";
 import { useContactMe } from "~/helpers/contactMe";
 import type { ContactMeOptions } from "~/helpers/contactMe";
 
-export type ContactMeLinkProps = Omit<AnchorProps, "children"> &
+export type ContactMeLinkProps = AnchorProps &
   ContactMeOptions & {
     readonly children: ReactNode;
   };

@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import type { BoxProps, MantineSize } from "@mantine/core";
 
-export type LocationTrackFormProps = Omit<BoxProps, "children"> & {
+export type LocationTrackFormProps = BoxProps & {
   readonly size?: MantineSize | (string & {});
   readonly onSubmit: (password: string) => void;
 };

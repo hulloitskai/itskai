@@ -9,7 +9,7 @@ import type { JournalEntryEntryFragment } from "~/helpers/graphql";
 import NotionContent from "./NotionContent";
 import JournalEntryComments from "./JournalEntryComments";
 
-export type JournalEntryProps = Omit<BoxProps, "children"> & {
+export type JournalEntryProps = BoxProps & {
   readonly entry: JournalEntryEntryFragment;
 };
 

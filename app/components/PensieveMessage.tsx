@@ -12,7 +12,7 @@ import PensieveMessageLike from "./PensieveMessageLike";
 
 import classes from "./PensieveMessage.module.css";
 
-export type PensieveMessageProps = Omit<BoxProps, "style" | "children"> & {
+export type PensieveMessageProps = Omit<BoxProps, "style"> & {
   readonly message: PensieveMessageMessageFragment;
 };
 

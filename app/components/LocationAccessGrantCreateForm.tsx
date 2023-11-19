@@ -6,7 +6,7 @@ import type { BoxProps } from "@mantine/core";
 
 import { CreateLocationAccessGrantMutationDocument } from "~/helpers/graphql";
 
-export type LocationAccessGrantCreateFormProps = Omit<BoxProps, "children"> & {
+export type LocationAccessGrantCreateFormProps = BoxProps & {
   readonly onCreate: () => void;
 };
 

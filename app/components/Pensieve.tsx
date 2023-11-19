@@ -15,7 +15,7 @@ import type { PensieveMessageFragment } from "~/helpers/graphql";
 import PensieveMessage from "./PensieveMessage";
 import PensieveChatBox from "./PensieveChatBox";
 
-export type PensieveProps = Omit<BoxProps, "children"> & {
+export type PensieveProps = BoxProps & {
   readonly expandable?: boolean;
   readonly onLoadMessages?: (
     messages: ReadonlyArray<PensieveMessageFragment>,

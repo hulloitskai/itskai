@@ -7,7 +7,7 @@ import type { DateTimeFormatOptions } from "luxon";
 
 import classes from "./Time.module.css";
 
-export type TimeProps = Omit<TextProps, "span" | "children"> &
+export type TimeProps = Omit<TextProps, "span"> &
   Omit<ComponentPropsWithoutRef<"div">, "children"> & {
     readonly format: DateTimeFormatOptions | ((time: DateTime) => string);
     readonly children: DateTime | string;

@@ -22,7 +22,7 @@ const MotionImage = motion<
   ImageProps & Omit<ComponentPropsWithoutRef<"img">, "style" | "src">
 >(Image);
 
-export type CurrentlyPlayingIslandProps = Omit<BoxProps, "children">;
+export type CurrentlyPlayingIslandProps = BoxProps;
 
 type TransitionState = {
   readonly mounted: boolean;
@@ -169,7 +169,7 @@ const TrackCoalescer: FC<TrackCoalescerProps> = ({
   return <>{!!track && children(track)}</>;
 };
 
-type _CurrentlyPlayingIslandProps = Omit<BoxProps, "children"> & {
+type _CurrentlyPlayingIslandProps = BoxProps & {
   readonly track: CurrentlyPlayingIslandTrackFragment;
   readonly progressMilliseconds?: number;
   readonly transitioned: boolean;

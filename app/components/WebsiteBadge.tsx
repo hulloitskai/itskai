@@ -3,7 +3,7 @@ import type { BadgeProps } from "@mantine/core";
 
 import LinkIcon from "~icons/heroicons/link-20-solid";
 
-export type WebsiteBadgeProps = Omit<BadgeProps, "children"> & {
+export type WebsiteBadgeProps = BadgeProps & {
   readonly url: string;
 };
 

@@ -8,7 +8,7 @@ import { SendPensieveMessageMutationDocument } from "~/helpers/graphql";
 
 import classes from "./PensieveChatBox.module.css";
 
-export type PensieveChatBoxProps = Omit<TextInputProps, "children">;
+export type PensieveChatBoxProps = TextInputProps;
 
 const PensieveChatBox: FC<PensieveChatBoxProps> = ({ ...otherProps }) => {
   const [messageText, setMessageText] = useState("");

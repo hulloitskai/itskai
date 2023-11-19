@@ -26,7 +26,7 @@ import { useContactMe } from "~/helpers/contactMe";
 import menuAnimationData from "~/assets/animations/menu.json";
 import classes from "./AppMenu.module.css";
 
-export type AppMenuProps = Omit<BoxProps, "children"> & {
+export type AppMenuProps = BoxProps & {
   readonly viewer: Maybe<AppViewerFragment>;
 };
 

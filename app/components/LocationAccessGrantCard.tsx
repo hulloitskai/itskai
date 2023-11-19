@@ -8,7 +8,7 @@ import type { LocationAccessGrantCardGrantFragment } from "~/helpers/graphql";
 import classes from "./LocationAccessGrantCard.module.css";
 import LocationAccessGrantDeleteButton from "./LocationAccessGrantDeleteButton";
 
-export type LocationAccessGrantCardProps = Omit<BoxProps, "children"> & {
+export type LocationAccessGrantCardProps = BoxProps & {
   readonly grant: LocationAccessGrantCardGrantFragment;
   readonly onDeleteGrant: () => void;
 };

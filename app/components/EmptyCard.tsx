@@ -4,7 +4,7 @@ import type { CardProps } from "@mantine/core";
 
 import EmptyIcon from "~icons/heroicons/inbox-20-solid";
 
-export type EmptyCardProps = Omit<CardProps, "children"> & {
+export type EmptyCardProps = CardProps & {
   readonly itemLabel: string;
 };
 

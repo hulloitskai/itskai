@@ -9,7 +9,7 @@ import "@9gustin/react-notion-render/dist/index.css";
 
 type NotionRendererProps = ComponentPropsWithoutRef<typeof NotionRenderer>;
 
-export type NotionContentProps = Omit<BoxProps, "children"> & {
+export type NotionContentProps = BoxProps & {
   readonly content: NotionRendererProps["blocks"];
 };
 

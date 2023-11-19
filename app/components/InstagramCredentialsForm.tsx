@@ -9,7 +9,7 @@ import {
 import type { Maybe } from "~/helpers/graphql";
 import type { InstagramCredentialsFormCredentialsFragment } from "~/helpers/graphql";
 
-export type InstagramCredentialsFormProps = Omit<BoxProps, "children"> & {
+export type InstagramCredentialsFormProps = BoxProps & {
   readonly credentials: Maybe<InstagramCredentialsFormCredentialsFragment>;
   readonly onUpdate: () => void;
   readonly onRemove: () => void;

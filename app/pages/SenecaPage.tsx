@@ -166,7 +166,7 @@ SenecaPage.layout = page => (
 
 export default SenecaPage;
 
-type TimeSinceWeMetProps = Omit<TextProps, "children"> & {
+type TimeSinceWeMetProps = TextProps & {
   readonly whenWeMet: string;
 };
 

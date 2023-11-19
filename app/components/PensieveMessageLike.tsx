@@ -11,7 +11,7 @@ import {
 } from "~/helpers/graphql";
 import type { PensieveMessageLikeMessageFragment } from "~/helpers/graphql";
 
-export type PensieveMessageLikeProps = Omit<BoxProps, "children"> & {
+export type PensieveMessageLikeProps = BoxProps & {
   readonly message: PensieveMessageLikeMessageFragment;
 };
 

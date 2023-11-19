@@ -9,7 +9,7 @@ import { ActivityStatusBadgeSubscriptionDocument } from "~/helpers/graphql";
 
 import heartSrc from "~/assets/images/heart.png";
 
-export type ActivityStatusProps = Omit<BoxProps, "children">;
+export type ActivityStatusProps = BoxProps;
 
 const ActivityStatus: FC<ActivityStatusProps> = ({ ...otherProps }) => {
   const { online } = useNetwork();

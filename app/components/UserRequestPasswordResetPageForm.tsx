@@ -7,7 +7,7 @@ export type UserRequestPasswordResetPageFormValues = {
   readonly email: string;
 };
 
-export type UserRequestPasswordResetPageFormProps = Omit<BoxProps, "children">;
+export type UserRequestPasswordResetPageFormProps = BoxProps;
 
 const UserRequestPasswordResetPageForm: FC<
   UserRequestPasswordResetPageFormProps

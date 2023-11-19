@@ -6,7 +6,7 @@ import { LocationAccessGrantsQueryDocument } from "~/helpers/graphql";
 import LocationAccessGrantCreateForm from "./LocationAccessGrantCreateForm";
 import LocationAccessGrantCard from "./LocationAccessGrantCard";
 
-export type LocationAccessGrantsProps = Omit<BoxProps, "children">;
+export type LocationAccessGrantsProps = BoxProps;
 
 const LocationAccessGrants: FC<LocationAccessGrantsProps> = ({
   ...otherProps

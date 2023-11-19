@@ -3,7 +3,7 @@ import type { BoxProps } from "@mantine/core";
 
 import { VerifyICloudSecurityCodeMutationDocument } from "~/helpers/graphql";
 
-export type ICloudVerifySecurityCodeFormProps = Omit<BoxProps, "children">;
+export type ICloudVerifySecurityCodeFormProps = BoxProps;
 
 const ICloudVerifySecurityCodeForm: FC<ICloudVerifySecurityCodeFormProps> = ({
   ...otherProps

@@ -7,7 +7,7 @@ import FeedbackIcon from "~icons/heroicons/megaphone-20-solid";
 import { ActionIcon, Affix, BoxProps, Dialog, Text } from "@mantine/core";
 import { useDisclosure, useWindowScroll } from "@mantine/hooks";
 
-export type ResumeDialogProps = Omit<BoxProps, "children"> & {
+export type ResumeDialogProps = BoxProps & {
   readonly variant?: string;
 };
 
