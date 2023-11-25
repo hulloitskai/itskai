@@ -2,10 +2,14 @@
 
 set -e
 
-export RAILS_ENV=test NODE_ENV=production INERTIA_PORT=13715
+export RAILS_ENV=test NODE_ENV=production INERTIA_PORT=13715 POSTGRES_PORT=5433
 
-echo "=> Compiling assets"
+echo -e "=> Compiling assets"
 bin/vite clobber && bin/rails assets:precompile
+bin/rails assets:clobber
+bin/rails assets:precompile
 
 echo -e "\n=> Running tests"
-bin/overmind start -f Procfile.test "$@"
+set +e
+bin/overmind start -f Procfile.test --no-port "$@"
+if [ "$?" -ne 130 ]; then exit $?; fi

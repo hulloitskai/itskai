@@ -2,5 +2,5 @@
 # frozen_string_literal: true
 
 Notion.configure do |config|
-  config.token = ENV["NOTION_API_TOKEN"]
+  config.token = ENV["NOTION_API_TOKEN"].presence
 end

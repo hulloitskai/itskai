@@ -20,12 +20,12 @@ class ApplicationMailer < ActionMailer::Base
   # == Helpers
   sig { returns(String) }
   def default_sender
-    ENV["RAILS_MAILER_FROM"] or raise "Missing default from address"
+    ENV["RAILS_MAILER_FROM"].presence or raise "Missing default from address"
   end
 
   sig { returns(T.nilable(String)) }
   def default_reply_to
-    ENV["RAILS_MAILER_REPLY_TO"]
+    ENV["RAILS_MAILER_REPLY_TO"].presence
   end
 
   private

@@ -2,7 +2,6 @@
 .env
 
 # == Python
-.venv/
 __pycache__/
 *.py[cod]
 *$py.class
@@ -112,10 +111,3 @@ vite.config.ts.timestamp-*.mjs
 
 # Windows:
 **/Thumbs.db
-
-/public/packs
-/public/packs-test
-/node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity

@@ -12,7 +12,7 @@ class Event < T::Struct
     # == Helpers
     sig { returns(String) }
     def calendar_id
-      ENV["EVENT_CALENDAR_ID"] or raise "Missing events calendar ID"
+      ENV["EVENT_CALENDAR_ID"].presence or raise "Missing events calendar ID"
     end
 
     sig { returns(Google::Calendar) }

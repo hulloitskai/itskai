@@ -181,6 +181,9 @@ gem "geocoder", "~> 1.8"
 # Parse HTML with Nokogiri
 gem "nokogiri", "~> 1.15"
 
+# Run post-deploy tasks with after_party
+gem "after_party", "~> 1.11"
+
 # Handle CORS requests
 gem "rack-cors", "~> 2.0"
 

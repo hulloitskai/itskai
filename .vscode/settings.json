@@ -53,7 +53,7 @@
     "editor.defaultFormatter": "Shopify.ruby-lsp"
   },
   "[dockerfile]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
   },
   "[dotenv]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

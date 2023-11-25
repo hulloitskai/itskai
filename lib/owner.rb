@@ -9,7 +9,7 @@ module Owner
   # == Accessors
   sig { returns(T.nilable(String)) }
   def self.email
-    ENV["OWNER_EMAIL"]
+    ENV["OWNER_EMAIL"].presence
   end
 
   sig { returns(String) }
@@ -19,7 +19,7 @@ module Owner
 
   sig { returns(T.nilable(String)) }
   def self.phone
-    ENV["OWNER_PHONE"]
+    ENV["OWNER_PHONE"].presence
   end
 
   sig { returns(String) }

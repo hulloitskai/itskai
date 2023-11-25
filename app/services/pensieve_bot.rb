@@ -13,7 +13,7 @@ class PensieveBot < ApplicationService
   sig { void }
   def initialize
     super
-    @client = T.let(Pensieve.bot_client, Telegram::Bot::Client)
+    @client = T.let(Pensieve.bot_client, T.nilable(Telegram::Bot::Client))
   end
 
   # == Methods
@@ -24,6 +24,7 @@ class PensieveBot < ApplicationService
     ).returns(Telegram::Bot::Types::Message)
   end
   def send_message(text, reply_to_message_id: nil)
+    raise "Telegram client not initialized" unless @client
     response = @client.api.send_message(
       text:,
       chat_id: Pensieve.telegram_user_id!,

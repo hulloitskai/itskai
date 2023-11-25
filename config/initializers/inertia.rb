@@ -3,7 +3,7 @@
 
 InertiaRails.configure do |config|
   config.ssr_url = scoped do
-    port = ENV.fetch("PORT", 13714).to_i
+    port = ENV.fetch("INERTIA_PORT", 13714).to_i
     "http://localhost:#{port}"
   end
   unless Rails.env.development?

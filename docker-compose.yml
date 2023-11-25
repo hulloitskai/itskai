@@ -1,15 +1,25 @@
 version: "3.9"
 
 services:
-  postgres:
+  postgres_dev:
     image: postgis/postgis:15-3.3
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - postgres_dev:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
       - 5432:5432
+
+  postgres_test:
+    image: postgis/postgis:15-3.3
+    volumes:
+      - postgres_test:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5433:5432
 
   mailcatcher:
     image: schickling/mailcatcher
@@ -18,4 +28,5 @@ services:
       - 1025:1025
 
 volumes:
-  postgres: null
+  postgres_dev: null
+  postgres_test: null

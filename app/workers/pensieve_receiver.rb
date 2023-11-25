@@ -8,13 +8,23 @@ class PensieveReceiver < ApplicationWorker
   sig { void }
   def initialize
     super
-    @client = T.let(Pensieve.bot_client, Telegram::Bot::Client)
+    @client = T.let(Pensieve.bot_client, T.nilable(Telegram::Bot::Client))
     @thread = T.let(nil, T.nilable(Thread))
   end
+
+  # == Methods
+  sig { returns(T::Boolean) }
+  def enabled?
+    @client.present?
+  end
+
+  sig { returns(T::Boolean) }
+  def self.enabled? = instance.enabled?
 
   # == Lifecycle
   sig { override.void }
   def start
+    raise "Telegram client not initialized" unless @client
     @thread ||= Thread.new do
       @client.run do |bot|
         bot.listen do |message|

@@ -10,7 +10,7 @@ module Pensieve
   # == Accessors
   sig { returns(T.nilable(String)) }
   def self.bot_token
-    ENV["PENSIEVE_BOT_TOKEN"]
+    ENV["PENSIEVE_BOT_TOKEN"].presence
   end
 
   sig { returns(String) }
@@ -18,8 +18,15 @@ module Pensieve
     bot_token or raise "Pensieve bot token not set"
   end
 
-  sig { returns(Telegram::Bot::Client) }
+  sig { returns(T.nilable(Telegram::Bot::Client)) }
   def self.bot_client
+    if (token = bot_token)
+      Telegram::Bot::Client.new(token)
+    end
+  end
+
+  sig { returns(Telegram::Bot::Client) }
+  def self.bot_client!
     Telegram::Bot::Client.new(bot_token!)
   end
 

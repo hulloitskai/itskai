@@ -10,7 +10,7 @@ module Notifications
   # == Accessors
   sig { returns(T.nilable(String)) }
   def self.email
-    ENV["NOTIFICATIONS_EMAIL"]
+    ENV["NOTIFICATIONS_EMAIL"].presence
   end
 
   sig { returns(String) }
@@ -20,7 +20,7 @@ module Notifications
 
   sig { returns(T.nilable(String)) }
   def self.bot_token
-    ENV["NOTIFICATIONS_BOT_TOKEN"]
+    ENV["NOTIFICATIONS_BOT_TOKEN"].presence
   end
 
   sig { returns(String) }

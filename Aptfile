@@ -1,9 +1,0 @@
-# Libraries:
-build-essential
-libvips
-
-# Programs:
-git
-less
-zsh
-vim

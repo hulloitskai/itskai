@@ -18,7 +18,8 @@ class ImportJournalEntryJob < ApplicationJob
   # == Job
   sig { params(entry: JournalEntry, force: T.nilable(T::Boolean)).void }
   def perform(entry, force: nil)
-    entry.import!(**{ force: }.compact)
+    options = { force: }
+    entry.import!(options.compact)
   end
 
   private
