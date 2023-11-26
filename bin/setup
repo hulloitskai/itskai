@@ -46,7 +46,7 @@ FileUtils.chdir APP_ROOT do
   puts "\n=> Starting database"
   case ENV["CI"]
   when "", nil
-    system! "docker compose up --wait --no-log-prefix postgres"
+    system! "docker compose up --wait --no-log-prefix postgres-dev"
     sleep 2
   else
     puts "Running on CI; skipping"

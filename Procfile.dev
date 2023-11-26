@@ -1,5 +1,5 @@
-docker: docker compose up --abort-on-container-exit postgres mailcatcher
-postgres: sleep 0.5 && docker compose logs -f --no-log-prefix postgres
+docker: docker compose up --abort-on-container-exit postgres-dev mailcatcher
+postgres: sleep 0.5 && docker compose logs -f --no-log-prefix postgres-dev
 mailcatcher: sleep 0.5 && docker compose logs -f --no-log-prefix mailcatcher
 vite-dev: bin/vite dev
 vite-build_ssr: bin/vite build --ssr -m dev --watch --force

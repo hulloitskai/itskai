@@ -1,4 +1,4 @@
-docker: docker compose up --abort-on-container-exit postgres_test
-postgres: sleep 0.5 && docker compose logs -f --no-log-prefix postgres_test
+docker: docker compose up --abort-on-container-exit postgres-test
+postgres: sleep 0.5 && docker compose logs -f --no-log-prefix postgres-test
 vite-ssr: bin/vite ssr
 rails: bin/rails db:prepare && bin/rails test:all || exit -1
