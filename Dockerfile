@@ -27,7 +27,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
   && sudo truncate -s 0 /var/log/*log
 
 # Configure shell
-RUN mv "$HOME/.bashrc" "$HOME/.bashrc.orig" && sudo chsh -s /bin/bash
+RUN mv "$HOME/.bashrc" "$HOME/.bashrc.orig"
 COPY --chown=linuxbrew .bashrc .inputrc /home/linuxbrew/
 COPY --chown=linuxbrew starship.toml /home/linuxbrew/.config/starship.toml
 SHELL ["/bin/bash", "--login", "-c"]
@@ -73,5 +73,6 @@ EXPOSE 3000
 HEALTHCHECK --interval=15s --timeout=2s --start-period=10s --retries=3 \
   CMD curl -f http://127.0.0.1:3000/status
 
-# Set command
-CMD ["bash", "--login", "-c", "./bin/run"]
+# Set entrypoint and default command
+ENTRYPOINT [ "bash", "--login", "-c" ]
+CMD [ "bin/run" ]

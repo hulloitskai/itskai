@@ -7,7 +7,7 @@ kill_timeout = 10
   auto_rollback = true
 
 [deploy]
-  release_command = "bash --login -c ./bin/release"
+  release_command = "bin/release"
   strategy = "bluegreen"
 
 [env]
