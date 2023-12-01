@@ -1,5 +1,0 @@
-black==22.10.0
-flake8==5.0.4
-pyicloud==1.0.0
-Pillow==10.0.0
-instagrapi==1.18.3

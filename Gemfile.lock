@@ -687,7 +687,7 @@ DEPENDENCIES
   pry-stack_explorer
   psych (~> 4.0)
   puma (~> 6.3.1)
-  pycall (~> 1.4)
+  pycall (~> 1.5)
   rack-cors (~> 2.0)
   rails (~> 7.1.2)
   rails-healthcheck

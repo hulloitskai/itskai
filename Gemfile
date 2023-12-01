@@ -158,7 +158,7 @@ gem "omniauth-google-oauth2", "~> 1.1"
 gem "rspotify", "~> 2.12"
 
 # Call Python from Ruby
-gem "pycall", "~> 1.4"
+gem "pycall", "~> 1.5"
 
 # Print objects with text wrappers for debugging
 gem "wrapped_print"

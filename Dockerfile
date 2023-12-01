@@ -55,7 +55,7 @@ RUN yarn install && yarn cache clean
 
 # Install Python dependencies
 COPY --chown=linuxbrew pyproject.toml poetry.toml poetry.lock ./
-RUN poetry install --no-root --no-cache
+RUN poetry install --no-root --no-cache --without=dev
 
 # Copy application code
 COPY --chown=linuxbrew . ./
