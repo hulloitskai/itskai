@@ -3,7 +3,8 @@ FROM homebrew/brew:4.1.21
 
 # Configure workdir and env
 WORKDIR /app
-ENV BUNDLE_WITHOUT="development test" RAILS_ENV=production RAILS_LOG_TO_STDOUT=true NODE_ENV=$RAILS_ENV
+ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true NODE_ENV=$RAILS_ENV
+ENV BUNDLE_WITHOUT="development test" PYTHON_CONFIGURE_OPTS="--enable-shared"
 
 # Install programs
 COPY --chown=linuxbrew Brewfile ./

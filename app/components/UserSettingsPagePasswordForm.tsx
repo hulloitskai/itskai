@@ -89,14 +89,14 @@ const UserSettingsPagePasswordForm: FC<
     >
       <Stack gap="xs">
         <PasswordWithStrengthCheckInput
-          label="Password"
+          label="New password"
           placeholder="applesauce"
           required
           onStrengthCheck={setPasswordStrength}
           {...getInputProps("password")}
         />
         <PasswordInput
-          label="New Password (confirm)"
+          label="New password (confirm)"
           placeholder="applesauce"
           required
           minLength={8}
@@ -108,7 +108,7 @@ const UserSettingsPagePasswordForm: FC<
         >
           {style => (
             <PasswordInput
-              label="Current Password"
+              label="Current password"
               description="Please confirm your current password to make changes."
               placeholder="password"
               required

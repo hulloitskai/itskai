@@ -14,7 +14,15 @@ namespace :fly do
   private
 
   def fly_exec(command, pty: false)
-    args = ["ssh", "console", pty ? "--pty" : nil, "-C", command].compact
+    args = [
+      "ssh",
+      "console",
+      pty ? "--pty" : nil,
+      "--user",
+      "linuxbrew",
+      "--command",
+      "bash --login -c \"#{command}\"",
+    ].compact
     exec("fly", *args)
   end
 end

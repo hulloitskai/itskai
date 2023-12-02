@@ -9,7 +9,7 @@ module Contact
   # == Accessors
   sig { returns(T.nilable(String)) }
   def self.email
-    ENV["CONTACT_EMAIL"]
+    ENV["CONTACT_EMAIL"].presence
   end
 
   sig { returns(String) }
