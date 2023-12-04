@@ -84,7 +84,7 @@ module GeneratedPathHelpersModule
   def pensieve_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def poorly_drawn_lines_comic_path(*args); end
+  def poorlydrawnlines_comic_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_path(*args); end
@@ -172,15 +172,6 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def scottkit_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def sen_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def seneca_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def sensen_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def src_path(*args); end

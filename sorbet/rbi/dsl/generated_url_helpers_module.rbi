@@ -84,7 +84,7 @@ module GeneratedUrlHelpersModule
   def pensieve_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def poorly_drawn_lines_comic_url(*args); end
+  def poorlydrawnlines_comic_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_representation_proxy_url(*args); end
@@ -172,15 +172,6 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def scottkit_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def sen_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def seneca_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def sensen_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def src_url(*args); end
