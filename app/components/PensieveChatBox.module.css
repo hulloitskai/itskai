@@ -1,5 +1,8 @@
 .input {
   &:focus {
-    border-color: var(--mantine-color-gray-7);
+    border-color: light-dark(
+      var(--mantine-color-gray-4),
+      var(--mantine-color-dark-3)
+    );
   }
 }

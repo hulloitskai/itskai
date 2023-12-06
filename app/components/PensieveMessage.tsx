@@ -39,11 +39,9 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
             gap={0}
             id={`pensieve-message-${messageId}`}
             p={6}
-            bg="var(--mantine-color-dark-filled)"
+            className={classes.message}
+            data-from={from.toLocaleLowerCase()}
             style={{
-              "--pm-border-color": fromBot
-                ? "var(--mantine-color-gray-6)"
-                : "var(--mantine-color-primary-5)",
               border: `${rem(1)} solid var(--pm-border-color)`,
               borderRadius: "var(--mantine-radius-md)",
             }}

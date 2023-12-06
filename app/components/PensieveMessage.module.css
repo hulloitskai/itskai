@@ -12,6 +12,26 @@
   }
 }
 
+.message {
+  background-color: light-dark(
+    var(--mantine-color-gray-0),
+    var(--mantine-color-dark-filled)
+  );
+
+  &[data-from="bot"] {
+    --pm-border-color: light-dark(
+      var(--mantine-color-gray-4),
+      var(--mantine-color-dark-3)
+    );
+  }
+  &[data-from="user"] {
+    --pm-border-color: light-dark(
+      var(--mantine-color-primary-5),
+      var(--mantine-color-primary-4)
+    );
+  }
+}
+
 .text {
   flex-grow: 1;
   white-space: pre-wrap;

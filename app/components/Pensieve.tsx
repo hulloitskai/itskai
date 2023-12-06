@@ -188,13 +188,12 @@ const Pensieve: FC<PensieveProps> = ({
           pos="absolute"
           top={-10}
           right={-10}
-          bg="dark.6"
           style={({ radius }) => ({ borderRadius: radius.xl })}
         >
           <Tooltip
             label="Open expanded view"
             withArrow
-            color="dark.9"
+            color="primary"
             c="var(--mantine-color-white)"
           >
             <ActionIcon
@@ -203,6 +202,7 @@ const Pensieve: FC<PensieveProps> = ({
               size="sm"
               variant="outline"
               color="primary"
+              bg="var(--mantine-color-body)"
               radius="xl"
             >
               <Text component={ExpandIcon} fz={11} />
