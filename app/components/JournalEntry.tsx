@@ -9,6 +9,8 @@ import type { JournalEntryEntryFragment } from "~/helpers/graphql";
 import NotionContent from "./NotionContent";
 import JournalEntryComments from "./JournalEntryComments";
 
+import classes from "./JournalEntry.module.css";
+
 export type JournalEntryProps = BoxProps & {
   readonly entry: JournalEntryEntryFragment;
 };
@@ -26,8 +28,8 @@ const JournalEntry: FC<JournalEntryProps> = ({
             size="h4"
             ff="var(--mantine-font-family-monospace)"
             fw={900}
-            c="var(--mantine-color-white)"
             lh={1.3}
+            className={classes.title}
           >
             {title}
           </Title>
@@ -41,26 +43,21 @@ const JournalEntry: FC<JournalEntryProps> = ({
         <JournalEntryComments {...{ entryId }} />
       </Card.Section>
     </Card>
-    <Box
-      pos="absolute"
-      top={-10}
-      right={-10}
-      bg="dark.6"
-      style={({ radius }) => ({ borderRadius: radius.xl })}
-    >
+    <Box pos="absolute" top={-10} right={-10}>
       <CopyButton value={url}>
         {({ copied, copy }) => (
-          <JournalEntryCopyTooltip {...{ copied }}>
+          <JournalEntryCopyLinkTooltip {...{ copied }}>
             <ActionIcon
               size="sm"
               variant="outline"
               color="primary"
+              bg="var(--mantine-color-body)"
               radius="xl"
               onClick={copy}
             >
               <Text component={LinkIcon} fz={11} />
             </ActionIcon>
-          </JournalEntryCopyTooltip>
+          </JournalEntryCopyLinkTooltip>
         )}
       </CopyButton>
     </Box>
@@ -69,11 +66,11 @@ const JournalEntry: FC<JournalEntryProps> = ({
 
 export default JournalEntry;
 
-type JournalEntryCopyTooltipProps = PropsWithChildren<{
+type JournalEntryCopyLinkTooltipProps = PropsWithChildren<{
   readonly copied: boolean;
 }>;
 
-const JournalEntryCopyTooltip: FC<JournalEntryCopyTooltipProps> = ({
+const JournalEntryCopyLinkTooltip: FC<JournalEntryCopyLinkTooltipProps> = ({
   copied,
   children,
 }) => {
@@ -93,7 +90,7 @@ const JournalEntryCopyTooltip: FC<JournalEntryCopyTooltipProps> = ({
   return (
     <Tooltip
       withArrow
-      color="dark.9"
+      color="primary"
       c="var(--mantine-color-white)"
       {...{ label }}
       {...(copied && { opened: true })}

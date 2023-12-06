@@ -6,6 +6,8 @@ import { LocationAccessGrantsQueryDocument } from "~/helpers/graphql";
 import LocationAccessGrantCreateForm from "./LocationAccessGrantCreateForm";
 import LocationAccessGrantCard from "./LocationAccessGrantCard";
 
+import classes from "./LocationAccessGrants.module.css";
+
 export type LocationAccessGrantsProps = BoxProps;
 
 const LocationAccessGrants: FC<LocationAccessGrantsProps> = ({
@@ -37,7 +39,7 @@ const LocationAccessGrants: FC<LocationAccessGrantsProps> = ({
             />
           ))
         ) : (
-          <EmptyCard itemLabel="grants" bg="var(--mantine-color-dark-filled)" />
+          <EmptyCard itemLabel="grants" className={classes.emptyCard} />
         )
       ) : (
         [...new Array(3)].map((value, index) => (

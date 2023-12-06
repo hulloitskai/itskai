@@ -2,6 +2,7 @@ import type { FC } from "react";
 import LocationIcon from "~icons/heroicons/map-pin-20-solid";
 
 import { Text, rgba } from "@mantine/core";
+import { useColorScheme } from "@mantine/hooks";
 import type { AlertProps } from "@mantine/core";
 
 import { LocationAlertSubscriptionDocument } from "~/helpers/graphql";
@@ -21,6 +22,8 @@ const LocationAlert: FC<LocationAlertProps> = ({
   onUpdate,
   ...otherProps
 }) => {
+  const colorScheme = useColorScheme();
+
   // == Subscription
   const onError = useApolloAlertCallback(
     "Failed to subscribe to location updates",
@@ -46,9 +49,10 @@ const LocationAlert: FC<LocationAlertProps> = ({
       styles={{
         root: {
           alignSelf: "center",
+          border: `${rem(1)} solid var(--mantine-color-primary-outline)`,
         },
-        title: {
-          marginBottom: rem(2),
+        body: {
+          rowGap: rem(2),
         },
       }}
       {...(location && { pb: "sm" })}
@@ -81,7 +85,7 @@ const LocationAlert: FC<LocationAlertProps> = ({
               style={theme => {
                 const color = parseThemeColor({ theme, color: "primary.4" });
                 return {
-                  color: rgba(color.value, 0.8),
+                  color: rgba(color.value, colorScheme === "dark" ? 0.8 : 1.0),
                 };
               }}
             >

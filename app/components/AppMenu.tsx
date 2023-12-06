@@ -69,6 +69,10 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
       width={220}
       withinPortal={false}
       onChange={setOpened}
+      classNames={{
+        itemSection: classes.itemSection,
+        itemLabel: classes.itemLabel,
+      }}
       styles={{
         dropdown: {
           padding: 0,
@@ -77,15 +81,6 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
         item: {
           padding: `${rem(8)} ${rem(10)}`,
           borderRadius: 0,
-        },
-        itemSection: {
-          width: 16,
-          height: 16,
-          color: "var(--mantine-color-primary-4)",
-        },
-        itemLabel: {
-          color: "var(--mantine-color-gray-5)",
-          fontWeight: 500,
         },
       }}
       {...{ opened }}
@@ -183,7 +178,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
         )}
         <Menu.Divider />
         <Menu.Item component="div" disabled pt={4}>
-          <Text span size="xs" c="gray.5">
+          <Text span size="xs">
             Server booted{" "}
             {bootedAt ? (
               <TimeAgo>{bootedAt}</TimeAgo>

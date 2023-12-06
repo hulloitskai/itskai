@@ -1,0 +1,14 @@
+.headline {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+}
+
+.subheadline {
+  color: var(--mantine-color-gray-6);
+  text-align: center;
+}
+
+.explorationsCallout {
+  @mixin light {
+    color: var(--mantine-color-gray-7);
+  }
+}

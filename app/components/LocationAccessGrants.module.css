@@ -1,0 +1,6 @@
+.emptyCard {
+  background-color: light-dark(
+    var(--mantine-color-gray-light),
+    var(--mantine-color-dark-filled)
+  );
+}

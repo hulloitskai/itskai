@@ -1,6 +1,8 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import type { Feature, FeatureCollection, Point } from "geojson";
 import ClockIcon from "~icons/heroicons/clock-20-solid";
+import circle from "@turf/circle";
+
 import { Text, rgba } from "@mantine/core";
 
 import type { MapRef } from "react-map-gl";
@@ -18,7 +20,8 @@ import type { Coordinates } from "~/helpers/graphql";
 import AppLayout from "~/components/AppLayout";
 import Map from "~/components/Map";
 import LocationTrackForm from "~/components/LocationTrackForm";
-import circle from "@turf/circle";
+
+import classes from "./LocatePage.module.css";
 
 const TORONTO_COORDINATES: Readonly<Coordinates> = {
   latitude: 43.6532,
@@ -41,7 +44,6 @@ const LocatePage: PageComponent<LocatePageProps> = ({
   const theme = useMantineTheme();
   const trailMarkerColor = theme.colors.primary[7];
   const trailSegmentColor = theme.colors.primary[4];
-  const alertTitleColor = "#B9F4D7";
   const alertBorderColor = "#5A7B6A";
   const alertPulseBorderColor = theme.colors.primary[4];
   const regionColor = theme.colors.primary[5];
@@ -52,7 +54,6 @@ const LocatePage: PageComponent<LocatePageProps> = ({
     initialLocation?.approximateCoordinates ?? TORONTO_COORDINATES;
 
   // == Alert
-  const alertProps = { bg: "dark", w: "100%" };
   const [alertPulse, setAlertPulse] = useState(false);
   useEffect(() => {
     if (alertPulse) {
@@ -287,6 +288,10 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                       </Badge>
                     </Group>
                   }
+                  classNames={{
+                    root: classes.alert,
+                    title: classes.alertTitle,
+                  }}
                   styles={{
                     root: {
                       transition: "border 250ms ease",
@@ -296,14 +301,12 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                         : alertBorderColor,
                     },
                     title: {
-                      color: alertTitleColor,
                       marginBottom: rem(4),
                     },
                     label: {
                       width: "100%",
                     },
                   }}
-                  {...alertProps}
                 >
                   <Stack gap={4}>
                     <Text span fw={700} lh={1.3}>
@@ -326,13 +329,15 @@ const LocatePage: PageComponent<LocatePageProps> = ({
           ) : initialLocation ? (
             <Alert
               title="Kai's somewhere around here..."
+              classNames={{
+                root: classes.alert,
+                title: classes.alertTitle,
+              }}
               styles={{
-                title: {
-                  color: alertTitleColor,
-                  marginBottom: 2,
+                body: {
+                  rowGap: rem(2),
                 },
               }}
-              {...alertProps}
             >
               <Text inherit mb={8}>
                 Got a password? Enter it here to find out where Kai is.
@@ -360,6 +365,10 @@ const LocatePage: PageComponent<LocatePageProps> = ({
             <Alert
               title="We couldn't locate Kai :("
               color="red"
+              classNames={{
+                root: classes.alert,
+                title: classes.alertTitle,
+              }}
               styles={{
                 title: {
                   marginBottom: 2,
@@ -368,7 +377,6 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                   color: "var(--mantine-color-dark-0)",
                 },
               }}
-              {...alertProps}
             >
               Our radars aren&apos;t detecting anything! Where&apos;d this mans
               go?

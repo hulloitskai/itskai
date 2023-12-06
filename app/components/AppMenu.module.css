@@ -4,7 +4,10 @@
   cursor: pointer;
   padding-left: var(--badge-padding-x-sm);
 
-  border-color: var(--mantine-color-gray-7);
+  border-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-4)
+  );
   &[data-expanded] {
     border-color: var(--mantine-primary-color-outline-hover);
   }
@@ -22,4 +25,18 @@
       stroke: var(--icon-color) !important;
     }
   }
+}
+
+.itemSection {
+  color: light-dark(
+    var(--mantine-color-primary-7),
+    var(--mantine-color-primary-4)
+  );
+  width: rem(16px);
+  height: rem(16px);
+}
+
+.itemLabel {
+  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-gray-5));
+  font-weight: 500;
 }

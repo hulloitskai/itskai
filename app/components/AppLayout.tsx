@@ -17,6 +17,7 @@ import PageContainer from "./PageContainer";
 import PageLayout from "./PageLayout";
 
 import "./AppLayout.css";
+import classes from "./AppLayout.module.css";
 
 export type AppLayoutProps = AppMetaProps &
   AppShellProps & {
@@ -105,13 +106,13 @@ const AppLayout: FC<AppLayoutProps> = ({
             href="/"
             variant="subtle"
             size="compact-md"
-            color="gray.0"
             radius="md"
             h="unset"
             py={4}
             px={6}
             fw={800}
             fz="md"
+            className={classes.logo}
           >
             It&apos;s Kai
           </Button>
@@ -130,6 +131,9 @@ const AppLayout: FC<AppLayoutProps> = ({
             <Breadcrumbs
               mx={10}
               mt={6}
+              classNames={{
+                separator: classes.breadcrumbSeparator,
+              }}
               styles={{
                 root: {
                   flexWrap: "wrap",
@@ -155,7 +159,7 @@ const AppLayout: FC<AppLayoutProps> = ({
           px={8}
           style={{
             overflow: "hidden",
-            borderTop: `${rem(1)} solid var(--mantine-color-dark-5)`,
+            borderTop: `${rem(1)} solid var(--_app-shell-border-color)`,
           }}
         >
           <ActivityStatus h="100%" style={{ flexShrink: 1 }} />

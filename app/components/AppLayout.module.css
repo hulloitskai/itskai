@@ -1,0 +1,9 @@
+.logo {
+  color: light-dark(var(--mantine-color-gray-8), var(--mantine-color-dark-0));
+}
+
+.breadcrumbSeparator {
+  @mixin light {
+    color: var(--mantine-color-gray-5);
+  }
+}

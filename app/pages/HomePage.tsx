@@ -11,6 +11,8 @@ import LocatePageAlert from "~/components/LocationAlert";
 import Pensieve from "~/components/Pensieve";
 import ExplorationBadge from "~/components/ExplorationBadge";
 
+import classes from "./HomePage.module.css";
+
 export type HomePageProps = PagePropsWithData<HomePageQuery> & {
   readonly firstJournalEntryId: string;
   readonly autoscroll: boolean;
@@ -30,10 +32,10 @@ const HomePage: PageComponent<HomePageProps> = ({
         {!!announcement && <Alert icon={<BellIcon />}>{announcement}</Alert>}
       </Box>
       <Stack align="center">
-        <Title c="var(--mantine-color-white)" fw={900} fz={rem(44)}>
+        <Title fw={900} fz={rem(44)} className={classes.headline}>
           Hi, it&apos;s Kai
         </Title>
-        <Text c="gray.6" maw={400} style={{ textAlign: "center" }}>
+        <Text maw={400} className={classes.subheadline}>
           Welcome to my little corner of the internet :)
           <br />
           Please enjoy your stay. if you&apos;re having a good time, let&apos;s{" "}
@@ -47,7 +49,7 @@ const HomePage: PageComponent<HomePageProps> = ({
           </Anchor>
           !
         </Text>
-        <Text size="xs" opacity={0.7} lh={1.2} style={{ textAlign: "center" }}>
+        <Text size="xs" opacity={0.8} lh={1.2} className={classes.subheadline}>
           (and also feel free to{" "}
           <ContactMeLink>hit me up anytime</ContactMeLink>
           <br />& tell me what&apos;s on your mind!)
@@ -100,7 +102,12 @@ const HomePage: PageComponent<HomePageProps> = ({
             <ExplorationBadge key={index}>{exploration}</ExplorationBadge>
           ))}
         </Group>
-        <Text inherit fz="var(--mantine-font-size-sm)" opacity={0.7}>
+        <Text
+          inherit
+          fz="var(--mantine-font-size-sm)"
+          opacity={0.8}
+          className={classes.explorationsCallout}
+        >
           Do any of these resonate with you?{" "}
           <Anchor
             inherit

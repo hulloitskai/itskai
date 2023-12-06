@@ -1,0 +1,11 @@
+.alert {
+  width: 100%;
+  background-color: light-dark(
+    var(--mantine-color-gray-1),
+    var(--mantine-color-dark-7)
+  );
+}
+
+.alertTitle {
+  color: light-dark(#4e6a5b, #b9f4d7);
+}

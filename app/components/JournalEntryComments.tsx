@@ -76,7 +76,13 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
         comments.map(comment => {
           const { id: commentId, createdAt, richText } = comment;
           return (
-            <Group key={commentId} align="start" gap={8} fz="sm" c="gray.5">
+            <Group
+              key={commentId}
+              align="start"
+              gap={8}
+              fz="sm"
+              className={classes.comment}
+            >
               <Box component={CommentIcon} mt={2} />
               <Box style={{ flex: 1 }}>
                 <Stack gap={4} lh={1.5}>
