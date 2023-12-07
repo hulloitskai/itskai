@@ -265,10 +265,10 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
               {...(lyricsCurrentlyExplicit && { "data-lyrics-explicit": true })}
               {...otherProps}
             >
-              <MarqueeText size="xs" fw={800} c="gray.3">
+              <MarqueeText size="xs" fw={800} className={classes.trackName}>
                 {name}
               </MarqueeText>
-              <MarqueeText fz={10} fw={700} c="gray.6">
+              <MarqueeText fz={10} fw={700} className={classes.artistNames}>
                 {artistNames}
               </MarqueeText>
             </Badge>

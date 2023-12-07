@@ -23,3 +23,11 @@
   text-transform: none;
   white-space: nowrap;
 }
+
+.trackName {
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+}
+
+.artistNames {
+  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-3));
+}

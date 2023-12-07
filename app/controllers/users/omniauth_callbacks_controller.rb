@@ -33,7 +33,7 @@ module Users
         )
       end
       set_flash_message(:notice, :success, kind: "Spotify")
-      redirect_to(edit_registration_path(current_user))
+      redirect_to(admin_path)
       response.set_header("Location", response.get_header("Location") + "#")
     end
 
@@ -54,7 +54,7 @@ module Users
         )
       end
       set_flash_message(:notice, :success, kind: "Google")
-      redirect_to(edit_registration_path(current_user))
+      redirect_to(admin_path)
       # response.set_header("Location", response.get_header("Location") + "#")
     end
 
