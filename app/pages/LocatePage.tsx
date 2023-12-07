@@ -44,8 +44,6 @@ const LocatePage: PageComponent<LocatePageProps> = ({
   const theme = useMantineTheme();
   const trailMarkerColor = theme.colors.primary[7];
   const trailSegmentColor = theme.colors.primary[4];
-  const alertBorderColor = "#5A7B6A";
-  const alertPulseBorderColor = theme.colors.primary[4];
   const regionColor = theme.colors.primary[5];
 
   // == Map
@@ -295,10 +293,6 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                   styles={{
                     root: {
                       transition: "border 250ms ease",
-                      border: `${rem(1)} solid`,
-                      borderColor: alertPulse
-                        ? alertPulseBorderColor
-                        : alertBorderColor,
                     },
                     title: {
                       marginBottom: rem(4),
@@ -307,17 +301,18 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                       width: "100%",
                     },
                   }}
+                  {...(alertPulse && { "data-pulse": true })}
                 >
                   <Stack gap={4}>
                     <Text span fw={700} lh={1.3}>
                       {address}
                     </Text>
                     <Box>
-                      <Text size="xs" c="gray.4">
+                      <Text size="xs" fw={500} className={classes.source}>
                         From Find My iPhone,{" "}
                         <TimeAgo inherit>{timestamp}</TimeAgo>.
                       </Text>
-                      <Text size="xs" c="gray.6">
+                      <Text size="xs" c="dimmed">
                         Location access expires{" "}
                         <TimeAgo inherit>{expiresAt}</TimeAgo>.
                       </Text>
