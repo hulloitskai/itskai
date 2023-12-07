@@ -49,7 +49,7 @@ const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
             {({ copy, copied }) => (
               <Tooltip
                 label={copied ? "Copied!" : "Click to copy"}
-                color="dark"
+                color="primary"
                 c="var(--mantine-color-white)"
                 withArrow
                 {...(copied && { opened: true })}
