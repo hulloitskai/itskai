@@ -55,44 +55,6 @@ const HomePage: PageComponent<HomePageProps> = ({
           <br />& tell me what&apos;s on your mind!)
         </Text>
       </Stack>
-      <Transition
-        transition={{
-          transitionProperty: "transform, opacity, max-height",
-          common: { transformOrigin: "top" },
-          out: { opacity: 0, transform: "scale(0)", maxHeight: 0 },
-          in: { opacity: 1, transform: "scale(1)", maxHeight: 500 },
-        }}
-        duration={400}
-        mounted={showPensieve}
-        keepMounted
-      >
-        {style => (
-          <Box {...{ style }}>
-            <Stack align="center" gap="xs">
-              <Box style={{ textAlign: "center" }}>
-                <Title order={2} size="h3">
-                  Sometimes, Kai thinks out loud.
-                </Title>
-                <Text size="xs" c="dimmed" lh={1.3}>
-                  (messages from the last 12 hours)
-                </Text>
-              </Box>
-              <Pensieve
-                expandable
-                h={400}
-                onLoadMessages={messages => {
-                  if (!isEmpty(messages)) {
-                    setShowPensieve(true);
-                  }
-                }}
-                onNewMessage={() => {
-                  setShowPensieve(true);
-                }}
-              />
-            </Stack>
-          </Box>
-        )}
-      </Transition>
       <Stack align="center" gap="xs">
         <Title order={2} size="h3">
           Some things I&apos;ve been exploring lately:
@@ -120,6 +82,42 @@ const HomePage: PageComponent<HomePageProps> = ({
           </Anchor>
         </Text>
       </Stack>
+      <Transition
+        transition={{
+          transitionProperty: "transform, opacity, max-height",
+          common: { transformOrigin: "top" },
+          out: { opacity: 0, transform: "scale(0)", maxHeight: 0 },
+          in: { opacity: 1, transform: "scale(1)", maxHeight: 500 },
+        }}
+        duration={400}
+        mounted={showPensieve}
+        keepMounted
+      >
+        {style => (
+          <Stack align="center" gap="xs" {...{ style }}>
+            <Box style={{ textAlign: "center" }}>
+              <Title order={2} size="h3">
+                Sometimes, Kai thinks out loud.
+              </Title>
+              <Text size="xs" c="dimmed" lh={1.3}>
+                (messages from the last 12 hours)
+              </Text>
+            </Box>
+            <Pensieve
+              expandable
+              h={400}
+              onLoadMessages={messages => {
+                if (!isEmpty(messages)) {
+                  setShowPensieve(true);
+                }
+              }}
+              onNewMessage={() => {
+                setShowPensieve(true);
+              }}
+            />
+          </Stack>
+        )}
+      </Transition>
       <Stack align="center" gap="xs">
         <Title order={2} size="h3">
           Sometimes, Kai writes.
