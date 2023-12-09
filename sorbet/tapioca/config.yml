@@ -2,18 +2,17 @@
 
 gem:
   doc: true
+  typed_overrides:
+    activesupport: "true"
   exclude:
     - pry-doc
     - pry-rails
     - pry-rescue
     - pry-stack_explorer
     - rails-pg-extras
-    - rbi
     - rubocop-rails
     - rubocop-shopify
     - rubocop-sorbet
-    - spoom
-    - tapioca
     - web-console
     - yard
     - yard-sorbet

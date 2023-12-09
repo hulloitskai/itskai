@@ -108,11 +108,6 @@ module Kernel
   def suppress(*exception_classes, &block); end
 end
 
-class Object
-  sig { returns(T::Boolean) }
-  def present?; end
-end
-
 class Numeric
   sig { returns(ActiveSupport::Duration) }
   def day; end

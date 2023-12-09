@@ -1,4 +1,4 @@
-# typed: ignore
+# typed: strict
 # frozen_string_literal: true
 
 begin
@@ -15,7 +15,13 @@ module Tapioca
 
         ConstantType =
           type_member do
-            { fixed: T.all(Class, ::Enumerize::Base::ClassMethods) }
+            {
+              fixed: T.all(
+                T::Class[T.anything],
+                ::ActiveRecord::ModelSchema::ClassMethods,
+                ::Enumerize::Base::ClassMethods,
+              ),
+            }
           end
 
         sig { override.returns(T::Enumerable[Module]) }
@@ -36,6 +42,9 @@ module Tapioca
 
         private
 
+        sig do
+          params(scope: RBI::Scope, attributes: T.untyped).returns(T.untyped)
+        end
         def generate_class_methods(scope, attributes)
           attributes.keys.each do |name|
             scope.create_method(
@@ -46,6 +55,9 @@ module Tapioca
           end
         end
 
+        sig do
+          params(scope: RBI::Scope, attributes: T.untyped).returns(T.untyped)
+        end
         def generate_instance_methods(scope, attributes)
           attributes.each do |name, attribute|
             multiple = attribute.is_a?(::Enumerize::Multiple)
