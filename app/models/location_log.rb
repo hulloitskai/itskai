@@ -34,9 +34,7 @@ class LocationLog < ApplicationRecord
   def altitude = coordinates.z
 
   # == Associations
-  has_one :address,
-          class_name: "LocationLogAddress",
-          dependent: :destroy
+  has_one :address, class_name: "LocationLogAddress", dependent: :destroy
 
   sig { returns(LocationLogAddress) }
   def address!
@@ -66,7 +64,7 @@ class LocationLog < ApplicationRecord
     result_type = T.let(result.data.fetch("resultType"), String)
     title = result.data["title"]
     place_name = title if result_type == "place"
-    log.build_address(
+    address = LocationLogAddress.new(
       place_name:,
       full_address: result.address,
       street_address: [result.street_number, result.route].compact.join(" "),
@@ -77,6 +75,16 @@ class LocationLog < ApplicationRecord
       country_code: result.country_code,
       postal_code: result.postal_code,
     )
+    if address.valid?
+      log.address = address
+    else
+      tag_logger do
+        logger.warn(
+          "Invalid address for location log with id '#{log.id}': " +
+            address.errors.to_s,
+        )
+      end
+    end
   end
 
   sig { returns(RGeo::Geographic::Factory) }

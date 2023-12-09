@@ -15,7 +15,6 @@ class Tapioca::Dsl::Compilers::ActiveRecordRelations
         RelationClassName,
         superclass_name: superclass,
       ) do |klass|
-        create_to_a_method(klass)
         create_friendly_method(klass)
       end
       super
@@ -27,7 +26,6 @@ class Tapioca::Dsl::Compilers::ActiveRecordRelations
         AssociationRelationClassName,
         superclass_name: superclass,
       ) do |klass|
-        create_to_a_method(klass)
         create_friendly_method(klass)
       end
       super
@@ -39,14 +37,9 @@ class Tapioca::Dsl::Compilers::ActiveRecordRelations
         AssociationsCollectionProxyClassName,
         superclass_name: superclass,
       ) do |klass|
-        create_to_a_method(klass)
         create_friendly_method(klass)
       end
       super
-    end
-
-    def create_to_a_method(klass)
-      klass.create_method("to_a", return_type: "T::Array[#{constant_name}]")
     end
 
     def create_friendly_method(klass)

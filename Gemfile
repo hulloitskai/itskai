@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.1"
+ruby "3.2.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.2"
@@ -55,7 +55,7 @@ gem "ruby-vips", "~> 2.1", require: false
 gem "aws-sdk-s3", "~> 1.126", require: false
 
 # Use Good Job as the backend for Active Job
-gem "good_job", "~> 3.20"
+gem "good_job", "~> 3.21"
 
 # Send emails with Mailjet.
 gem "mailjet", "~> 1.7"
@@ -224,7 +224,7 @@ group :development do
   # Typecheck code
   gem "sorbet", require: false
   gem "spoom", require: false
-  gem "tapioca", "~> 0.11.12", require: false
+  gem "tapioca", "~> 0.11.13", require: false
 
   # Use Rubocop to lint code
   gem "rubocop", "~> 1.57", require: false
