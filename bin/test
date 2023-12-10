@@ -10,6 +10,6 @@ bin/rails assets:clobber
 bin/rails assets:precompile
 
 echo -e "\n=> Running tests"
-set +e
-bin/overmind start -f Procfile.test --no-port "$@"
-if [ "$?" -ne 130 ]; then exit $?; fi
+EXIT_CODE=0
+bin/overmind start -f Procfile.test --no-port "$@" || EXIT_CODE=$?
+if [ "$EXIT_CODE" -ne 130 ]; then exit $EXIT_CODE; fi

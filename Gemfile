@@ -190,9 +190,6 @@ gem "rack-cors", "~> 2.0"
 # Load events from Google Calendar
 gem "google_calendar", "~> 0.6.4"
 
-# Print resume as PDF with Selenium
-gem "selenium-webdriver", "~> 4.11"
-
 # Detect what OS we are running on
 gem "os", "~> 1.1"
 
@@ -202,8 +199,11 @@ gem "telegram-bot-ruby", "~> 1.0", require: 'telegram/bot'
 # Hash passwords with bcrypt
 gem "bcrypt", "~> 3.1"
 
-# Compare times
+# Compare times with time_difference
 gem "time_difference", "~> 0.5.0"
+
+# Control the browser with Playwright
+gem "playwright-ruby-client", "~> 1.40", require: 'playwright'
 
 group :development, :test do
   # Auto-detect and warn about N+1 queries
@@ -258,4 +258,5 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
+  gem "capybara-playwright-driver"
 end

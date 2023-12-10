@@ -49,6 +49,8 @@ jobs:
             && sudo gzip -d /usr/bin/overmind.gz \
             && sudo chmod u+x /usr/bin/overmind \
             && sudo chown $(whoami) /usr/bin/overmind
+      - name: Install Playwright
+        run: yarn global add playwright && playwright install
       - name: Set up environment
         run: bin/setup
       - name: Check formatting

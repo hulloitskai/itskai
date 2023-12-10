@@ -29,14 +29,11 @@ class ResumesController < ApplicationController
         render(json: Resume.current(variant: variant&.to_sym))
       end
       format.pdf do
-        data = print_resume(variant: variant&.to_sym)
         name = ["kai-xie-resume", variant].compact.join("--")
-        send_data(
-          data,
-          filename: "#{name}.pdf",
-          type: "application/pdf",
-          disposition: "inline",
-        )
+        Tempfile.open([name, ".pdf"]) do |tempfile|
+          print_resume_to_tempfile(tempfile, variant: variant&.to_sym)
+          send_file(tempfile.path, disposition: "inline")
+        end
       end
     end
   end
@@ -51,54 +48,29 @@ class ResumesController < ApplicationController
 
   # == Helpers
   sig do
-    returns(T.all(
-      Selenium::WebDriver::Chrome::Driver,
-      Selenium::WebDriver::DriverExtensions::PrintsPage,
-    ))
+    params(tempfile: Tempfile, variant: T.nilable(Symbol)).void
   end
-  def webdriver
-    @webdriver ||= T.let(
-      Selenium::WebDriver.for(
-        :chrome,
-        options: Selenium::WebDriver::Chrome::Options.new.tap do |options|
-          options = T.let(options, Selenium::WebDriver::Chrome::Options)
-          options.add_argument("--headless")
-          options.add_argument("--window-size=1400,1000")
-          options.add_argument("--kiosk-printing")
-          if OS.linux?
-            options.add_argument("--no-sandbox")
-            options.add_argument("--disable-dev-shm-usage")
-          end
-        end,
-      ),
-      T.nilable(T.all(
-        Selenium::WebDriver::Chrome::Driver,
-        Selenium::WebDriver::DriverExtensions::PrintsPage,
-      )),
-    )
-  end
-
-  sig { params(variant: T.nilable(Symbol)).returns(String) }
-  def print_resume(variant:)
+  def print_resume_to_tempfile(tempfile, variant: nil)
+    server_options = "Rails::Server::Options".constantize.new.parse!(ARGV) # rubocop:disable Sorbet/ConstantsFromStrings
+    server_port = server_options[:Port]
     self.class.print_resume_semaphore.acquire do
-      params = { variant:, _printable: true }
-      url = resume_url(
-        protocol: "http",
-        host: "localhost",
-        port: ENV.fetch("RAILS_PORT") { 3000 }.to_i,
-        **params.compact,
-      )
-      driver = webdriver
-      driver.get(url)
-      Selenium::WebDriver::Wait.new.until do
-        driver.execute_script(
-          "return window.performance.timing.loadEventEnd > 0",
-        ) && driver.execute_script(
-          'return window.performance.getEntriesByType("paint").length > 0',
-        )
+      Playwright.create(
+        playwright_cli_executable_path: "playwright",
+      ) do |playwright|
+        playwright.chromium.launch do |browser|
+          page = T.let(browser.new_page, Playwright::Page)
+          params = { variant:, _printable: true }
+          url = resume_url(
+            protocol: "http",
+            host: "localhost",
+            port: server_port,
+            **params.compact,
+          )
+          page.goto(url)
+          page.wait_for_selector(".resume-layout")
+          page.pdf(path: tempfile.path)
+        end
       end
-      page_str = driver.print_page
-      Base64.decode64(page_str)
     end
   end
 end

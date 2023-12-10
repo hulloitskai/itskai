@@ -10,7 +10,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include Routing
 
   # == Configuration
-  driven_by :headless_chrome
+  driven_by :playwright
 
   # == Setup
   sig { void }

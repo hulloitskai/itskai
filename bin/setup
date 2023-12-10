@@ -35,8 +35,12 @@ FileUtils.chdir APP_ROOT do
   puts "\n=> Install Python dependencies"
   system! "poetry install --no-root"
 
-  puts "\n=> Installing githooks"
+  puts "\n=> Installing git hooks"
   system! "bin/yarn husky install"
+
+  puts "\n=> Installing Playwright"
+  system! "bin/yarn global add playwright"
+  system! "playwright install"
 
   # puts "\n=> Copying sample files"
   # unless File.exist?("config/database.yml")

@@ -17,15 +17,15 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
   && sudo apt-get install -yq --no-install-recommends libpq-dev libffi-dev libvips \
   && sudo truncate -s 0 /var/log/*log
 
-# Install Google Chrome
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-  --mount=type=cache,target=/var/lib/apt,sharing=locked \
-  curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - \
-  && sudo touch /etc/apt/sources.list.d/google-chrome.list \
-  && sudo echo deb \[arch=amd64\] http://dl.google.com/linux/chrome/deb/ stable main | sudo tee /etc/apt/sources.list.d/google-chrome.list \
-  && sudo apt-get -y update -q \
-  && sudo apt-get install -yq --no-install-recommends google-chrome-stable \
-  && sudo truncate -s 0 /var/log/*log
+# # Install Google Chrome
+# RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+#   --mount=type=cache,target=/var/lib/apt,sharing=locked \
+#   curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - \
+#   && sudo touch /etc/apt/sources.list.d/google-chrome.list \
+#   && sudo echo deb \[arch=amd64\] http://dl.google.com/linux/chrome/deb/ stable main | sudo tee /etc/apt/sources.list.d/google-chrome.list \
+#   && sudo apt-get -y update -q \
+#   && sudo apt-get install -yq --no-install-recommends google-chrome-stable \
+#   && sudo truncate -s 0 /var/log/*log
 
 # Configure shell
 RUN mv "$HOME/.bashrc" "$HOME/.bashrc.orig"
@@ -42,6 +42,9 @@ RUN rbenv install
 
 # Install NodeJS and Yarn
 RUN nodenv install && npm install -g yarn
+
+# Install Playwright
+RUN yarn global add playwright && playwright install --with-deps
 
 # Install Python and Poetry
 RUN pyenv install && pip3 install poetry

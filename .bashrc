@@ -8,6 +8,9 @@ export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
 # == Nodenv
 eval "$(nodenv init -)"
 
+# == Yarn
+export PATH="$(yarn global bin):$PATH"
+
 # == Rbenv
 eval "$(rbenv init -)"
 
