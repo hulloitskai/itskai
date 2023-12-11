@@ -51,6 +51,12 @@ module GeneratedUrlHelpersModule
   def hangout_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def journey_root_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def journey_transcriptions_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def locate_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

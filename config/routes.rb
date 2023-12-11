@@ -8,6 +8,16 @@ Rails.application.routes.draw do
     get "(*any)" => redirect(subdomain: "", status: 302)
   end
 
+  # == Journey
+  scope(
+    constraints: JourneySubdomainConstraint.new,
+    module: "journey",
+    as: "journey",
+  ) do
+    get "/" => "home#show", as: "root"
+    resource :transcriptions, only: :create
+  end
+
   # == Healthcheck
   Healthcheck.routes(self)
 

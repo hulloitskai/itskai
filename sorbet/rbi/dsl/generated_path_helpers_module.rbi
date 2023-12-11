@@ -51,6 +51,12 @@ module GeneratedPathHelpersModule
   def hangout_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def journey_root_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def journey_transcriptions_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def locate_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
