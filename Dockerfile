@@ -1,51 +1,99 @@
 # Configure base image
-FROM homebrew/brew:4.1.21
+FROM debian:bookworm-slim
 
-# Configure workdir and env
+# Configure workdir
 WORKDIR /app
-ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true NODE_ENV=$RAILS_ENV
-ENV BUNDLE_WITHOUT="development test" PYTHON_CONFIGURE_OPTS="--enable-shared"
 
-# Install Homebrew packages
-COPY --chown=linuxbrew Brewfile ./
-RUN brew bundle && brew cleanup
-
-# Configure shell
-RUN mv "$HOME/.bashrc" "$HOME/.bashrc.orig"
-COPY --chown=linuxbrew .bashrc .inputrc /home/linuxbrew/
-COPY --chown=linuxbrew starship.toml /home/linuxbrew/.config/starship.toml
-SHELL ["/bin/bash", "--login", "-c"]
-
-# Configure languages
-COPY --chown=linuxbrew .ruby-version .python-version .node-version ./
-
-# Install Ruby and Bundler
-# ENV LANG=C.UTF-8 BUNDLE_JOBS=4 BUNDLE_RETRY=3 BUNDLE_APP_CONFIG=.bundle
-RUN rbenv install
+# Install build dependencies
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+  --mount=type=cache,target=/var/lib/apt,sharing=locked \
+  apt-get -y update -q \
+  && apt-get install -yq --no-install-recommends --no-install-suggests curl tmux git build-essential ca-certificates libyaml-dev libssl-dev libffi-dev libreadline-dev zlib1g-dev \
+  && truncate -s 0 /var/log/*log
 
 # Install NodeJS and Yarn
-RUN nodenv install && npm install -g yarn
-
-# Install Playwright
-RUN yarn global add playwright && playwright install --with-deps
+COPY .node-version ./
+RUN git clone --depth 1 https://github.com/nodenv/node-build.git \
+  && PREFIX=/usr/local ./node-build/install.sh \
+  && node-build "$(cat .node-version)" /usr/local \
+  && npm install --global yarn \
+  && npm cache clean --force \
+  && rm -rf ./node-build \
+  && node --version && npm --version && yarn --version
 
 # Install Python and Poetry
-RUN pyenv install && pip3 install poetry
+COPY .python-version ./
+ENV PYTHON_CONFIGURE_OPTS=--enable-shared
+RUN git clone --depth 1 --no-checkout https://github.com/pyenv/pyenv.git \
+  && cd pyenv && git sparse-checkout set ./plugins/python-build \
+  && git checkout && cd .. \
+  && mv ./pyenv/plugins/python-build ./python-build && rm -r ./pyenv \
+  && PREFIX=/usr/local ./python-build/install.sh \
+  && python-build "$(cat .python-version)" /usr/local \
+  && pip3 install --no-cache-dir poetry \
+  && rm -rf ./python-build \
+  && python3 --version && pip3 --version
 
-# Install Ruby dependencies
-COPY --chown=linuxbrew Gemfile Gemfile.lock ./
-RUN bundle install --no-cache
+# Install Ruby and Bundler
+COPY .ruby-version ./
+ENV LANG=C.UTF-8 GEM_HOME=/usr/local/bundle
+ENV BUNDLE_SILENCE_ROOT_WARNING=1 BUNDLE_APP_CONFIG="$GEM_HOME" PATH="$GEM_HOME/bin:$PATH"
+RUN git clone --depth 1 https://github.com/rbenv/ruby-build.git \
+  && PREFIX=/usr/local ./ruby-build/install.sh \
+  && mkdir -p "$GEM_HOME" && chmod 1777 "$GEM_HOME" \
+  && ruby-build "$(cat .ruby-version)" /usr/local \
+  && rm -rf ./ruby-build \
+  && ruby --version && gem --version && bundle --version
+
+# Install runtime dependencies
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+  --mount=type=cache,target=/var/lib/apt,sharing=locked \
+  apt-get -y update -q \
+  && apt-get install -yq --no-install-recommends --no-install-suggests libpq-dev libvips ffmpeg \
+  && truncate -s 0 /var/log/*log
+
+# Install Overmind
+RUN curl -Lo /usr/bin/overmind.gz https://github.com/DarthSim/overmind/releases/download/v2.4.0/overmind-v2.4.0-linux-amd64.gz \
+  && gzip -d /usr/bin/overmind.gz \
+  && chmod u+x /usr/bin/overmind
+
+# Install Playwright
+RUN yarn global add playwright \
+  && playwright install --with-deps chromium \
+  && yarn cache clean
 
 # Install NodeJS dependencies
-COPY --chown=linuxbrew package.json yarn.lock ./
+COPY package.json yarn.lock ./
+ENV NODE_ENV="$RAILS_ENV"
 RUN yarn install && yarn cache clean
 
 # Install Python dependencies
-COPY --chown=linuxbrew pyproject.toml poetry.toml poetry.lock ./
+COPY pyproject.toml poetry.toml poetry.lock ./
 RUN poetry install --no-root --no-cache --without=dev
 
+# Install Ruby dependencies
+COPY Gemfile Gemfile.lock ./
+ENV BUNDLE_WITHOUT="development test"
+RUN bundle install --no-cache
+
+# Install devtools
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+  --mount=type=cache,target=/var/lib/apt,sharing=locked \
+  apt-get -y update -q \
+  && apt-get install -yq --no-install-recommends --no-install-suggests vim less \
+  && truncate -s 0 /var/log/*log
+
+# Configure shell
+ENV SHELL=/bin/bash
+RUN curl -sS https://starship.rs/install.sh | sh -s -- -y
+COPY .bash_profile .inputrc /root/
+COPY starship.toml /root/.config/starship.toml
+
+# Configure application environment
+ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true
+
 # Copy application code
-COPY --chown=linuxbrew . ./
+COPY . ./
 
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile --gemfile app/ lib/
@@ -61,5 +109,4 @@ HEALTHCHECK --interval=15s --timeout=2s --start-period=10s --retries=3 \
   CMD curl -f http://127.0.0.1:3000/status
 
 # Set entrypoint and default command
-ENTRYPOINT [ "bash", "--login", "-c" ]
 CMD [ "bin/run" ]
