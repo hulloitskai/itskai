@@ -13,5 +13,6 @@ brew "rbenv"
 brew "pyenv"
 
 # Libraries:
-brew "ffmpeg"
+brew "libpq"
 brew "libvips"
+brew "ffmpeg"

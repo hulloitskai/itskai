@@ -10,23 +10,6 @@ ENV BUNDLE_WITHOUT="development test" PYTHON_CONFIGURE_OPTS="--enable-shared"
 COPY --chown=linuxbrew Brewfile ./
 RUN brew bundle && brew cleanup
 
-# Install libraries
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-  --mount=type=cache,target=/var/lib/apt,sharing=locked \
-  sudo apt-get -y update -q \
-  && sudo apt-get install -yq --no-install-recommends libpq-dev libffi-dev \
-  && sudo truncate -s 0 /var/log/*log
-
-# # Install Google Chrome
-# RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-#   --mount=type=cache,target=/var/lib/apt,sharing=locked \
-#   curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - \
-#   && sudo touch /etc/apt/sources.list.d/google-chrome.list \
-#   && sudo echo deb \[arch=amd64\] http://dl.google.com/linux/chrome/deb/ stable main | sudo tee /etc/apt/sources.list.d/google-chrome.list \
-#   && sudo apt-get -y update -q \
-#   && sudo apt-get install -yq --no-install-recommends google-chrome-stable \
-#   && sudo truncate -s 0 /var/log/*log
-
 # Configure shell
 RUN mv "$HOME/.bashrc" "$HOME/.bashrc.orig"
 COPY --chown=linuxbrew .bashrc .inputrc /home/linuxbrew/
