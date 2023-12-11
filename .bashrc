@@ -6,24 +6,34 @@ set -o vi
 export HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
 
 # == Nodenv
-eval "$(nodenv init -)"
+if command -v nodenv > /dev/null; then
+  eval "$(nodenv init -)"
+fi
 
 # == Yarn
-export PATH="$(yarn global bin):$PATH"
+if command -v yarn > /dev/null; then
+  export PATH="$(yarn global bin):$PATH"
+fi
 
 # == Rbenv
-eval "$(rbenv init -)"
+if command -v rbenv > /dev/null; then
+  eval "$(rbenv init -)"
+fi
 
 # == Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv > /dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+if command -v pyenv > /dev/null; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+fi
 
 # == Poetry
 export PATH="$HOME/.local/bin:$PATH"
 
 # == Starship
-eval "$(starship init bash)"
+if command -v starship > /dev/null; then
+  eval "$(starship init bash)"
+fi
 
 # == Shell
 . ~/.bashrc.orig
