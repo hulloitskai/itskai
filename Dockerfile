@@ -14,11 +14,11 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 # Install NodeJS and Yarn
 COPY .node-version ./
 RUN git clone --depth 1 https://github.com/nodenv/node-build.git \
-  && PREFIX=/usr/local ./node-build/install.sh \
-  && node-build "$(cat .node-version)" /usr/local \
+  && PREFIX=/tmp ./node-build/install.sh \
+  && /tmp/bin/node-build "$(cat .node-version)" /usr/local \
   && npm install --global yarn \
   && npm cache clean --force \
-  && rm -rf ./node-build \
+  && rm -rf ./node-build /tmp/* \
   && node --version && npm --version && yarn --version
 
 # Install Python and Poetry
@@ -28,10 +28,10 @@ RUN git clone --depth 1 --no-checkout https://github.com/pyenv/pyenv.git \
   && cd pyenv && git sparse-checkout set ./plugins/python-build \
   && git checkout && cd .. \
   && mv ./pyenv/plugins/python-build ./python-build && rm -r ./pyenv \
-  && PREFIX=/usr/local ./python-build/install.sh \
-  && python-build "$(cat .python-version)" /usr/local \
+  && PREFIX=/tmp ./python-build/install.sh \
+  && /tmp/bin/python-build "$(cat .python-version)" /usr/local \
   && pip3 install --no-cache-dir poetry \
-  && rm -rf ./python-build \
+  && rm -rf ./python-build /tmp/* \
   && python3 --version && pip3 --version
 
 # Install Ruby and Bundler
@@ -39,10 +39,10 @@ COPY .ruby-version ./
 ENV LANG=C.UTF-8 GEM_HOME=/usr/local/bundle
 ENV BUNDLE_SILENCE_ROOT_WARNING=1 BUNDLE_APP_CONFIG="$GEM_HOME" PATH="$GEM_HOME/bin:$PATH"
 RUN git clone --depth 1 https://github.com/rbenv/ruby-build.git \
-  && PREFIX=/usr/local ./ruby-build/install.sh \
+  && PREFIX=/tmp ./ruby-build/install.sh \
   && mkdir -p "$GEM_HOME" && chmod 1777 "$GEM_HOME" \
-  && ruby-build "$(cat .ruby-version)" /usr/local \
-  && rm -rf ./ruby-build \
+  && /tmp/bin/ruby-build "$(cat .ruby-version)" /usr/local \
+  && rm -rf ./ruby-build /tmp/* \
   && ruby --version && gem --version && bundle --version
 
 # Install runtime dependencies
@@ -64,8 +64,8 @@ RUN yarn global add playwright \
 
 # Install NodeJS dependencies
 COPY package.json yarn.lock ./
-ENV NODE_ENV="$RAILS_ENV"
-RUN yarn install && yarn cache clean
+ENV NODE_ENV=production
+RUN yarn install --production && yarn cache clean
 
 # Install Python dependencies
 COPY pyproject.toml poetry.toml poetry.lock ./

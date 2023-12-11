@@ -40,7 +40,7 @@ FileUtils.chdir APP_ROOT do
 
   puts "\n=> Installing Playwright"
   system! "bin/yarn global add playwright"
-  system! "playwright install"
+  system! "playwright install chromium"
 
   # puts "\n=> Copying sample files"
   # unless File.exist?("config/database.yml")
