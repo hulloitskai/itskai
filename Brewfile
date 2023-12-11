@@ -11,3 +11,7 @@ brew "starship"
 brew "nodenv"
 brew "rbenv"
 brew "pyenv"
+
+# Libraries:
+brew "ffmpeg"
+brew "libvips"

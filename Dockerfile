@@ -6,7 +6,7 @@ WORKDIR /app
 ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true NODE_ENV=$RAILS_ENV
 ENV BUNDLE_WITHOUT="development test" PYTHON_CONFIGURE_OPTS="--enable-shared"
 
-# Install programs
+# Install Homebrew packages
 COPY --chown=linuxbrew Brewfile ./
 RUN brew bundle && brew cleanup
 
@@ -14,7 +14,7 @@ RUN brew bundle && brew cleanup
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
   --mount=type=cache,target=/var/lib/apt,sharing=locked \
   sudo apt-get -y update -q \
-  && sudo apt-get install -yq --no-install-recommends libpq-dev libffi-dev libvips \
+  && sudo apt-get install -yq --no-install-recommends libpq-dev libffi-dev \
   && sudo truncate -s 0 /var/log/*log
 
 # # Install Google Chrome
