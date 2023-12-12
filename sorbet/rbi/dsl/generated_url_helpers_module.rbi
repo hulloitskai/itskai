@@ -54,7 +54,13 @@ module GeneratedUrlHelpersModule
   def journey_root_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def journey_transcriptions_url(*args); end
+  def journey_session_join_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def journey_session_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def journey_sessions_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def locate_url(*args); end

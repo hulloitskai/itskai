@@ -30,9 +30,9 @@ class GraphQLController < ApplicationController
     extensions = prepare_extensions(params[:extensions])
     context = {
       controller: self,
+      cookies:,
       extensions:,
       current_user:,
-      actor_id: cookies.signed[:actor_id],
     }
     result = Schema.execute(query, variables:, operation_name:, context:)
 

@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+return if defined?(Tapioca)
+
 if (venv = `poetry env info --path`.strip.presence)
   version = PyCall.sys.version_info
   PyCall.sys.path.append(File.join(
@@ -10,4 +12,5 @@ if (venv = `poetry env info --path`.strip.presence)
     "site-packages",
   ))
 end
+
 PyCall.sys.path.append(Rails.root.join("pylib").to_s)

@@ -1,0 +1,16 @@
+query JourneySessionPageQuery($sessionId: ID!) {
+  session: journeySession(id: $sessionId) {
+    id
+    participations {
+      goal
+      id
+      participantIsViewer
+      participantName
+    }
+    startedAt
+  }
+  viewer {
+    ...AppViewerFragment
+    id
+  }
+}

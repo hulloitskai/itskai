@@ -26,7 +26,7 @@ module Queryable
     context = { current_user: }
     if is_a?(ActionController::Base)
       context[:controller] = self
-      context[:actor_id] = cookies.signed[:actor_id]
+      context[:cookies] = cookies
     end
     variables = variables.transform_keys do |key|
       if key.is_a?(Symbol)

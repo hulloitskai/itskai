@@ -1,0 +1,49 @@
+# typed: strict
+# frozen_string_literal: true
+
+# == Schema Information
+#
+# Table name: journey_sessions
+#
+#  id         :uuid             not null, primary key
+#  slug       :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_journey_sessions_on_slug  (slug) UNIQUE
+#
+module Journey
+  class Session < ApplicationRecord
+    extend FriendlyId
+    include Identifiable
+    include Slugged
+
+    # == Attributes
+    attribute :slug, :string, default: -> { generate_slug }
+
+    # == Associations
+    has_many :participations,
+             class_name: "SessionParticipation",
+             dependent: :destroy
+
+    # == Validations
+    validates :participations,
+              presence: true
+
+    # == Scopes
+    scope :active, -> {
+      T.bind(self, PrivateRelation)
+      where("created_at > ?", 1.hour.ago)
+    }
+
+    scope :joinable, -> {
+      T.bind(self, PrivateRelation)
+      where("created_at > ?", 10.minutes.ago)
+    }
+
+    # == FriendlyId
+    friendly_id :slug
+  end
+end

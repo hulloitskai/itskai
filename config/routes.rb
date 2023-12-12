@@ -15,7 +15,9 @@ Rails.application.routes.draw do
     as: "journey",
   ) do
     get "/" => "home#show", as: "root"
-    resource :transcriptions, only: :create
+    resources :sessions, only: %i[show create] do
+      post :join
+    end
   end
 
   # == Healthcheck

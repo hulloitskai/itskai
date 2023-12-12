@@ -47,6 +47,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  sig { returns(String) }
+  def actor_id
+    cookies.signed[:actor_id] or raise "Missing actor ID"
+  end
+
   # == Filter Handlers
   # sig { void }
   # def debug_action

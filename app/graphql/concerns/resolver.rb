@@ -45,11 +45,6 @@ module Resolver
     controller&.flash || ActionDispatch::Flash::FlashHash.new
   end
 
-  sig { returns(String) }
-  def actor_id
-    context[:actor_id] or raise "Missing actor ID"
-  end
-
   sig { returns(T.nilable(T.any(User, Symbol))) }
   def current_user
     context[:current_user]
@@ -69,5 +64,21 @@ module Resolver
   sig { returns(User) }
   def current_user!
     active_user or raise GraphQL::ExecutionError, "Not authenticated."
+  end
+
+  sig { returns(ActionDispatch::Cookies::CookieJar) }
+  def cookies
+    context.fetch(:cookies)
+  end
+
+  sig { returns(String) }
+  def actor_id
+    cookies.signed[:actor_id] or raise "Missing actor ID"
+  end
+
+  sig { returns(String) }
+  def journey_participant_id
+    cookies.signed[:journey_participant_id] or
+      raise "Missing journey participant ID"
   end
 end

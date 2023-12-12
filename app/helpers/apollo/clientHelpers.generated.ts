@@ -86,6 +86,21 @@ export type JournalEntryFieldPolicy = {
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type JourneySessionKeySpecifier = ('id' | 'participations' | 'startedAt' | 'url' | JourneySessionKeySpecifier)[];
+export type JourneySessionFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	participations?: FieldPolicy<any> | FieldReadFunction<any>,
+	startedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	url?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type JourneySessionParticipationKeySpecifier = ('goal' | 'id' | 'participantIsViewer' | 'participantName' | 'session' | JourneySessionParticipationKeySpecifier)[];
+export type JourneySessionParticipationFieldPolicy = {
+	goal?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	participantIsViewer?: FieldPolicy<any> | FieldReadFunction<any>,
+	participantName?: FieldPolicy<any> | FieldReadFunction<any>,
+	session?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type LikePensieveMessagePayloadKeySpecifier = ('clientMutationId' | 'message' | 'success' | LikePensieveMessagePayloadKeySpecifier)[];
 export type LikePensieveMessagePayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -182,7 +197,7 @@ export type PensieveMessageFieldPolicy = {
 	text?: FieldPolicy<any> | FieldReadFunction<any>,
 	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('activityStatus' | 'announcement' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'explorations' | 'googleCredentials' | 'icloudCredentials' | 'imageBySignedId' | 'instagramCredentials' | 'journalEntry' | 'journalEntryComments' | 'location' | 'locationAccessGrants' | 'passwordStrength' | 'pensieveMessages' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('activityStatus' | 'announcement' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'explorations' | 'googleCredentials' | 'icloudCredentials' | 'imageBySignedId' | 'instagramCredentials' | 'journalEntry' | 'journalEntryComments' | 'journeySession' | 'location' | 'locationAccessGrants' | 'passwordStrength' | 'pensieveMessages' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	announcement?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -196,6 +211,7 @@ export type QueryFieldPolicy = {
 	instagramCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	journalEntry?: FieldPolicy<any> | FieldReadFunction<any>,
 	journalEntryComments?: FieldPolicy<any> | FieldReadFunction<any>,
+	journeySession?: FieldPolicy<any> | FieldReadFunction<any>,
 	location?: FieldPolicy<any> | FieldReadFunction<any>,
 	locationAccessGrants?: FieldPolicy<any> | FieldReadFunction<any>,
 	passwordStrength?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -272,10 +288,11 @@ export type SpotifyTrackFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type SubscriptionKeySpecifier = ('activityStatus' | 'currentlyPlaying' | 'location' | 'pensieveMessage' | 'testSubscription' | SubscriptionKeySpecifier)[];
+export type SubscriptionKeySpecifier = ('activityStatus' | 'currentlyPlaying' | 'journeySessionParticipation' | 'location' | 'pensieveMessage' | 'testSubscription' | SubscriptionKeySpecifier)[];
 export type SubscriptionFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
+	journeySessionParticipation?: FieldPolicy<any> | FieldReadFunction<any>,
 	location?: FieldPolicy<any> | FieldReadFunction<any>,
 	pensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
 	testSubscription?: FieldPolicy<any> | FieldReadFunction<any>
@@ -405,6 +422,14 @@ export type StrictTypedTypePolicies = {
 	JournalEntry?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | JournalEntryKeySpecifier | (() => undefined | JournalEntryKeySpecifier),
 		fields?: JournalEntryFieldPolicy,
+	},
+	JourneySession?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | JourneySessionKeySpecifier | (() => undefined | JourneySessionKeySpecifier),
+		fields?: JourneySessionFieldPolicy,
+	},
+	JourneySessionParticipation?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | JourneySessionParticipationKeySpecifier | (() => undefined | JourneySessionParticipationKeySpecifier),
+		fields?: JourneySessionParticipationFieldPolicy,
 	},
 	LikePensieveMessagePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | LikePensieveMessagePayloadKeySpecifier | (() => undefined | LikePensieveMessagePayloadKeySpecifier),

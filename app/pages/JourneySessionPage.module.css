@@ -1,0 +1,5 @@
+.participationCard {
+  &[data-is-viewer] {
+    border-color: var(--mantine-color-primary-outline);
+  }
+}

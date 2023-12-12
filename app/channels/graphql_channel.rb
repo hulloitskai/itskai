@@ -40,9 +40,9 @@ class GraphQLChannel < ApplicationCable::Channel
     extensions = prepare_extensions(params["extensions"])
     context = {
       channel: self,
+      cookies:,
       extensions:,
       current_user:,
-      actor_id: cookies.signed[:actor_id],
     }
     result = Schema.execute(query, variables:, operation_name:, context:)
 

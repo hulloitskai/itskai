@@ -11,6 +11,8 @@
       "Image",
       "InstagramCredentials",
       "JournalEntry",
+      "JourneySession",
+      "JourneySessionParticipation",
       "LocationAccessGrant",
       "LocationLog",
       "OAuthCredentials",

@@ -54,7 +54,13 @@ module GeneratedPathHelpersModule
   def journey_root_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def journey_transcriptions_path(*args); end
+  def journey_session_join_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def journey_session_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def journey_sessions_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def locate_path(*args); end

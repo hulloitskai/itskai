@@ -50,7 +50,7 @@ class Schema < GraphQL::Schema
   end
   def self.resolve_type(abstract_type, object, context)
     if object.is_a?(ApplicationRecord)
-      name = object.model_name.to_s
+      name = object.model_name.to_s.split("::").join("")
       type = "::Types::#{name}Type".safe_constantize
       type or raise "Unexpected record type: #{name}"
     end
