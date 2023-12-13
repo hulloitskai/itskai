@@ -40,7 +40,7 @@ module Journeys
     sig { void }
     def trigger_subscriptions
       Schema.subscriptions!.trigger(
-        :journey_session_participation,
+        :journeys_session_participation,
         { session_id: session!.to_gid.to_s },
         self,
       )

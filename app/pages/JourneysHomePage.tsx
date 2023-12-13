@@ -16,9 +16,6 @@ const JourneysHomePage: PageComponent<JourneysHomePageProps> = () => {
   // == Audio Transcription
   const [isTranscribing, setIsTranscribing] = useState(false);
   const { startRecording, stopRecording, status } = useReactMediaRecorder({
-    onStart: () => {
-      setIsTranscribing(true);
-    },
     onStop: (blobUrl, blob) => {
       const animal = randomAnimal();
       const participantName = ["Anonymous", animal].join(" ");
@@ -26,6 +23,9 @@ const JourneysHomePage: PageComponent<JourneysHomePageProps> = () => {
       formData.set("goal_recording", blob);
       formData.set("participation[participant_name]", participantName);
       router.post("/sessions", formData, {
+        onStart: () => {
+          setIsTranscribing(true);
+        },
         onFinish: () => {
           setIsTranscribing(false);
         },

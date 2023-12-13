@@ -1,6 +1,8 @@
 # typed: strong
 
 class ActionController::Base
+  include InertiaRails::Controller
+
   class << self
     sig do
       params(args: T.untyped, block: T.proc.bind(T.attached_class).void).void

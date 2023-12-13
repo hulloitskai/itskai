@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require "inertia_rails"
-require_relative "inertia_rails_ext/controller"
+# require_relative "inertia_rails_ext/controller"
 require_relative "inertia_rails_ext/engine"
 require_relative "inertia_rails_ext/renderer"
 require_relative "inertia_rails_ext/mailer"

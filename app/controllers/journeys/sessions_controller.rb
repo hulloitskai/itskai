@@ -63,11 +63,11 @@ module Journeys
     sig { returns(String) }
     def transcribe_goal_recording
       recording = goal_recording
-      Tempfile.open(["recording", ".webm"], binmode: true) do |file|
+      ext = MIME::Types[recording.content_type].first&.preferred_extension or
+        raise "Could not determine recording file type"
+      Tempfile.open(["recording", ".#{ext}"], binmode: true) do |file|
         file.write(recording.read)
         file.flush
-        # movie = FFMPEG::Movie.new(file.path)
-        # movie.transcode(file.path, { audio_codec: "webm" })
         file.seek(0)
         response = client.audio.translate(
           parameters: {
