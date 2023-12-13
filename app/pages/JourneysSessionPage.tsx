@@ -54,6 +54,9 @@ const JourneySessionPage: PageComponent<JourneysSessionPageProps> = ({
 
   // == Participation
   useSubscription(JourneysSessionPageSubscriptionDocument, {
+    variables: {
+      sessionId: session.id,
+    },
     onData: ({ data: { data } }) => {
       if (data) {
         router.reload({ preserveScroll: true });
