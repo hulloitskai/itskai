@@ -4,6 +4,7 @@
 module Resolver
   extend T::Sig
   extend T::Helpers
+  extend ActiveSupport::Concern
   include Routing
 
   # == Annotations
@@ -77,7 +78,7 @@ module Resolver
   end
 
   sig { returns(String) }
-  def journey_participant_id
+  def journeys_participant_id
     cookies.signed[:journey_participant_id] or
       raise "Missing journey participant ID"
   end

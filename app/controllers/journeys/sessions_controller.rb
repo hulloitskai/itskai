@@ -1,24 +1,25 @@
 # typed: true
 # frozen_string_literal: true
 
-module Journey
+module Journeys
   class SessionsController < ApplicationController
     # == Filters
-    before_action :set_session_and_participation, only: :show
+    before_action :set_session, only: :show
 
     # == Actions
     def show
       session = @session or raise "Missing session"
-      if @participation
-        data = query!("JourneySessionPageQuery", {
+      if allowed_to?(:show?, session)
+        data = query!("JourneysSessionPageQuery", {
           session_id: session.to_gid.to_s,
         })
-        render(inertia: "JourneySessionPage", props: {
+        render(inertia: "JourneysSessionPage", props: {
+          homepage_url: journeys_root_url,
           data:,
         })
       else
         redirect_to(
-          journey_root_path,
+          journeys_root_path,
           alert: "You are not a participant in this session.",
         )
       end
@@ -33,10 +34,10 @@ module Journey
         **participation_params,
       )
       session.save!
-      redirect_to(journey_session_path(session))
+      redirect_to(journeys_session_path(session))
     rescue => error
       redirect_to(
-        journey_root_path,
+        journeys_root_path,
         alert: "Failed to start session: #{error.message}",
       )
     end
@@ -80,14 +81,10 @@ module Journey
 
     # == Filter Handlers
     sig { void }
-    def set_session_and_participation
+    def set_session
       @session = T.let(
         Session.friendly.find(params.fetch(:id)),
         T.nilable(Session),
-      )
-      @participation = T.let(
-        SessionParticipation.find_by(session: @session, participant_id:),
-        T.nilable(SessionParticipation),
       )
     end
   end

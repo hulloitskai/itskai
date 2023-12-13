@@ -1,13 +1,14 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 import { useAudioRecorder } from "react-audio-voice-recorder";
+import MicIcon from "~icons/heroicons/microphone-20-solid";
 
-import type { JourneyHomePageQuery } from "~/helpers/graphql";
+import type { JourneysHomePageQuery } from "~/helpers/graphql";
 
-import JourneyAppLayout from "~/components/JourneyAppLayout";
+import JourneysAppLayout from "~/components/JourneysAppLayout";
 import { randomAnimal } from "~/helpers/animals";
 
-export type JourneyHomePageProps = PagePropsWithData<JourneyHomePageQuery>;
+export type JourneyHomePageProps = PagePropsWithData<JourneysHomePageQuery>;
 
 const JourneyHomePage: PageComponent<JourneyHomePageProps> = () => {
   const router = useRouter();
@@ -37,13 +38,14 @@ const JourneyHomePage: PageComponent<JourneyHomePageProps> = () => {
 
   return (
     <Stack align="center" my="xl">
-      <Text>watchya gonna do for the next hour?</Text>
+      <Text fw={700}>watchya gonna do for the next hour?</Text>
       <Tooltip
         label="What do you want to get done?"
         opened={isRecording}
         withArrow
       >
         <Button
+          leftSection={<MicIcon />}
           onClick={() => {
             if (!isRecording) {
               startRecording();
@@ -51,24 +53,34 @@ const JourneyHomePage: PageComponent<JourneyHomePageProps> = () => {
               stopRecording();
             }
           }}
-          w={180}
+          miw={180}
         >
           {isTranscribing
             ? "Transcribing..."
             : isRecording
-            ? "Recording..."
-            : "Start"}
+            ? "Recording... (click again to end)"
+            : "Record your goal"}
         </Button>
       </Tooltip>
+      <Container size="xs" w="100%">
+        <Stack align="center" gap={0}>
+          <Text size="sm" c="dimmed" style={{ textAlign: "center" }}>
+            we&apos;ll start a 1-hour timer for you to do ur thing.
+            <br />
+            send this link to other ppl so they can join your session, to keep u
+            motivated & held accountable.
+          </Text>
+        </Stack>
+      </Container>
     </Stack>
   );
 };
 
 JourneyHomePage.layout = buildLayout<JourneyHomePageProps>(
   (page, { data: { viewer } }) => (
-    <JourneyAppLayout padding={0} {...{ viewer }}>
+    <JourneysAppLayout padding={0} {...{ viewer }}>
       {page}
-    </JourneyAppLayout>
+    </JourneysAppLayout>
   ),
 );
 

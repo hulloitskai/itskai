@@ -3,7 +3,7 @@
 
 # == Schema Information
 #
-# Table name: journey_sessions
+# Table name: journeys_sessions
 #
 #  id         :uuid             not null, primary key
 #  slug       :string           not null
@@ -12,9 +12,9 @@
 #
 # Indexes
 #
-#  index_journey_sessions_on_slug  (slug) UNIQUE
+#  index_journeys_sessions_on_slug  (slug) UNIQUE
 #
-module Journey
+module Journeys
   class Session < ApplicationRecord
     extend FriendlyId
     include Identifiable

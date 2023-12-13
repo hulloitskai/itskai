@@ -10,9 +10,9 @@ Rails.application.routes.draw do
 
   # == Journey
   scope(
-    constraints: JourneySubdomainConstraint.new,
-    module: "journey",
-    as: "journey",
+    constraints: JourneysSubdomainConstraint.new,
+    module: "journeys",
+    as: "journeys",
   ) do
     get "/" => "home#show", as: "root"
     resources :sessions, only: %i[show create] do

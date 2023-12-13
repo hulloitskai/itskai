@@ -2,23 +2,23 @@
 # frozen_string_literal: true
 
 module Types
-  class JourneySessionType < BaseObject
+  class JourneysSessionType < BaseObject
     # == Interfaces
     implements NodeType
 
     # == Fields
-    field :participations, [JourneySessionParticipationType], null: false
+    field :participations, [JourneysSessionParticipationType], null: false
     field :started_at, DateTimeType, null: false, method: :created_at
     field :url, String, null: false
 
     # == Resolvers
     sig { returns(String) }
     def url
-      journey_session_url(object)
+      journeys_session_url(object)
     end
 
     # == Helpers
-    sig { override.returns(::Journey::Session) }
+    sig { override.returns(::Journeys::Session) }
     def object = super
   end
 end

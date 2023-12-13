@@ -1,10 +1,13 @@
 # typed: strict
 # frozen_string_literal: true
 
-module Journey
+module Journeys
   class ApplicationController < ::ApplicationController
     # == Filters
     before_action :set_participant_id
+
+    # == Authorization
+    authorize :participant_id
 
     private
 

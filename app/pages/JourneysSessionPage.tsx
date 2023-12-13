@@ -1,21 +1,22 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { RingProgress, Text } from "@mantine/core";
+import { ActionIcon, CopyButton, RingProgress, Text } from "@mantine/core";
 
-import {
-  JourneySessionPageSubscriptionDocument,
-  type JourneySessionPageQuery,
-} from "~/helpers/graphql";
+import { JourneysSessionPageSubscriptionDocument } from "~/helpers/graphql";
+import type { JourneysSessionPageQuery } from "~/helpers/graphql";
 
-import JourneyAppLayout from "~/components/JourneyAppLayout";
+import JourneysAppLayout from "~/components/JourneysAppLayout";
 
-import classes from "./JourneySessionPage.module.css";
+import classes from "./JourneysSessionPage.module.css";
 
-export type JourneySessionPageProps =
-  PagePropsWithData<JourneySessionPageQuery>;
+export type JourneysSessionPageProps =
+  PagePropsWithData<JourneysSessionPageQuery> & {
+    readonly homepageUrl: string;
+  };
 
 const MAX_COUNTDOWN_SECONDS = 3600;
 
-const JourneySessionPage: PageComponent<JourneySessionPageProps> = ({
+const JourneySessionPage: PageComponent<JourneysSessionPageProps> = ({
+  homepageUrl,
   data: { session },
 }) => {
   invariant(session, "Missing session");
@@ -52,7 +53,7 @@ const JourneySessionPage: PageComponent<JourneySessionPageProps> = ({
   }, [countdownSeconds]);
 
   // == Participation
-  useSubscription(JourneySessionPageSubscriptionDocument, {
+  useSubscription(JourneysSessionPageSubscriptionDocument, {
     onData: ({ data: { data } }) => {
       if (data) {
         router.reload({ preserveScroll: true });
@@ -66,9 +67,18 @@ const JourneySessionPage: PageComponent<JourneySessionPageProps> = ({
     },
   });
 
+  // == Sharing
+  const sharingText = useMemo(() => {
+    return (
+      `heyo, i'm using ${homepageUrl} to be intentional about my time. ` +
+      `if u join in the next couple of minutes, you can be a part of my ` +
+      `session :)`
+    );
+  }, [homepageUrl]);
+
   return (
     <Stack align="center" my="xl">
-      <Text>go go go!</Text>
+      <Text fw={700}>go go go! u got thisss</Text>
       <RingProgress
         sections={[
           {
@@ -90,6 +100,55 @@ const JourneySessionPage: PageComponent<JourneySessionPageProps> = ({
         thickness={7}
         roundCaps
       />
+      <Container size="sm" w="100%">
+        <Stack
+          align="center"
+          gap={8}
+          fz="sm"
+          c="dimmed"
+          style={{ textAlign: "center" }}
+        >
+          <Text inherit>
+            Know someone who wants to be more intentional about how they spend
+            their time? send them a text:
+          </Text>
+          <Box pos="relative" style={{ alignSelf: "stretch" }}>
+            <Textarea
+              value={sharingText}
+              autosize
+              readOnly
+              styles={{
+                input: {
+                  paddingRight: rem(36),
+                },
+              }}
+            />
+            <Box pos="absolute" top={6} right={6}>
+              <CopyButton value={sharingText}>
+                {({ copy, copied }) => (
+                  <Tooltip
+                    label="Copied :)"
+                    opened={copied}
+                    color="primary"
+                    c="var(--mantine-color-white)"
+                    withArrow
+                  >
+                    <ActionIcon>
+                      <ClipboardIcon onClick={copy} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
+              </CopyButton>
+            </Box>
+          </Box>
+          <Text inherit>
+            if they join in the first 10 minutes, they&apos;ll be added to this
+            session
+            <br />
+            (otherwise, they&apos;ll be starting a new session)
+          </Text>
+        </Stack>
+      </Container>
       <Container size="xs" w="100%">
         <Stack gap="xs">
           {participations.map(
@@ -132,11 +191,11 @@ const JourneySessionPage: PageComponent<JourneySessionPageProps> = ({
   );
 };
 
-JourneySessionPage.layout = buildLayout<JourneySessionPageProps>(
+JourneySessionPage.layout = buildLayout<JourneysSessionPageProps>(
   (page, { data: { viewer } }) => (
-    <JourneyAppLayout padding={0} {...{ viewer }}>
+    <JourneysAppLayout padding={0} {...{ viewer }}>
       {page}
-    </JourneyAppLayout>
+    </JourneysAppLayout>
   ),
 );
 

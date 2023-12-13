@@ -1,19 +1,19 @@
 import type { FC } from "react";
 
 const JourneyAppMetaSiteType = "website";
-const JourneyAppMetaSiteName = "Journey";
+const JourneyAppMetaSiteName = "Journeys";
 const JourneyAppMetaSiteDescription = undefined; // "Welcome to my little corner of the internet :)";
 const JourneyAppMetaSiteImage = undefined; // "/banner.png";
 const JourneyAppMetaTitleSeparator = "|";
 
-export type JourneyAppMetaProps = {
+export type JourneysAppMetaProps = {
   readonly title?: string | string[];
   readonly description?: string | null;
   readonly imageUrl?: string | null;
   readonly noIndex?: boolean;
 };
 
-const JourneyAppMeta: FC<JourneyAppMetaProps> = ({
+const JourneysAppMeta: FC<JourneysAppMetaProps> = ({
   title: titleProp,
   description = JourneyAppMetaSiteDescription,
   imageUrl = JourneyAppMetaSiteImage,
@@ -60,4 +60,4 @@ const JourneyAppMeta: FC<JourneyAppMetaProps> = ({
   );
 };
 
-export default JourneyAppMeta;
+export default JourneysAppMeta;

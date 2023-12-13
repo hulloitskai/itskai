@@ -1,0 +1,2 @@
+vite-ssr: bin/vite ssr
+rails: bin/rails db:prepare && bin/rails test:all || exit -1

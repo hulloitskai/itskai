@@ -1,5 +1,0 @@
-subscription JourneySessionPageSubscription($sessionId: ID!) {
-  participation: journeySessionParticipation(sessionId: $sessionId) {
-    id
-  }
-}

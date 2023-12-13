@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_12_015325) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_12_230915) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -150,21 +150,21 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_12_015325) do
     t.index ["notion_page_id"], name: "index_journal_entries_on_notion_page_id", unique: true
   end
 
-  create_table "journey_session_participations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "journeys_session_participations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "session_id", null: false
     t.uuid "participant_id", null: false
     t.string "participant_name", null: false
     t.text "goal", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["session_id"], name: "index_journey_session_participations_on_session_id"
+    t.index ["session_id"], name: "index_journeys_session_participations_on_session_id"
   end
 
-  create_table "journey_sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "journeys_sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["slug"], name: "index_journey_sessions_on_slug", unique: true
+    t.index ["slug"], name: "index_journeys_sessions_on_slug", unique: true
   end
 
   create_table "listening_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -320,7 +320,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_12_015325) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "journey_session_participations", "journey_sessions", column: "session_id"
+  add_foreign_key "journeys_session_participations", "journeys_sessions", column: "session_id"
   add_foreign_key "location_log_addresses", "location_logs"
   add_foreign_key "obsidian_relations", "obsidian_notes", column: "from_id"
   add_foreign_key "pensieve_message_likes", "pensieve_messages", column: "message_id"

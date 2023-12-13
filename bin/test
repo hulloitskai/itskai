@@ -2,7 +2,12 @@
 
 set -e
 
-export RAILS_ENV=test NODE_ENV=production INERTIA_PORT=13715 POSTGRES_PORT=5433
+export RAILS_ENV=test NODE_ENV=production INERTIA_PORT=13715
+if [ -n "$CI" ]; then
+  export POSTGRES_PORT=5432
+else
+  export POSTGRES_PORT=5433
+fi
 
 echo -e "=> Compiling assets"
 bin/vite clobber && bin/rails assets:precompile
@@ -10,6 +15,12 @@ bin/rails assets:clobber
 bin/rails assets:precompile
 
 echo -e "\n=> Running tests"
+PROCFILE=Procfile.test
+if [ -n "$CI" ]; then
+  PROCFILE=Procfile.ci-test
+fi
 EXIT_CODE=0
-bin/overmind start -f Procfile.test --no-port "$@" || EXIT_CODE=$?
-if [ "$EXIT_CODE" -ne 130 ]; then exit $EXIT_CODE; fi
+bin/overmind start -f "$PROCFILE" --no-port "$@" || EXIT_CODE=$?
+if [ "$EXIT_CODE" -ne 130 ]; then
+exit $EXIT_CODE
+fi

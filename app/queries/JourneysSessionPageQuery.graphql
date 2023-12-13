@@ -1,5 +1,5 @@
-query JourneySessionPageQuery($sessionId: ID!) {
-  session: journeySession(id: $sessionId) {
+query JourneysSessionPageQuery($sessionId: ID!) {
+  session: journeysSession(id: $sessionId) {
     id
     participations {
       goal

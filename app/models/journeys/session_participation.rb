@@ -3,7 +3,7 @@
 
 # == Schema Information
 #
-# Table name: journey_session_participations
+# Table name: journeys_session_participations
 #
 #  id               :uuid             not null, primary key
 #  goal             :text             not null
@@ -15,18 +15,18 @@
 #
 # Indexes
 #
-#  index_journey_session_participations_on_session_id  (session_id)
+#  index_journeys_session_participations_on_session_id  (session_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (session_id => journey_sessions.id)
+#  fk_rails_...  (session_id => journeys_sessions.id)
 #
-module Journey
+module Journeys
   class SessionParticipation < ApplicationRecord
     # == Associations
     belongs_to :session, inverse_of: :participations
 
-    sig { returns(Journey::Session) }
+    sig { returns(Session) }
     def session!
       session or raise ActiveRecord::RecordNotFound, "missing session"
     end

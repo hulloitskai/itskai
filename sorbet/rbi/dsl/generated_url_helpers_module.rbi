@@ -51,16 +51,16 @@ module GeneratedUrlHelpersModule
   def hangout_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def journey_root_url(*args); end
+  def journeys_root_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def journey_session_join_url(*args); end
+  def journeys_session_join_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def journey_session_url(*args); end
+  def journeys_session_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def journey_sessions_url(*args); end
+  def journeys_sessions_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def locate_url(*args); end

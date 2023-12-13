@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Types
-  class JourneySessionParticipationType < BaseObject
+  class JourneysSessionParticipationType < BaseObject
     # == Interfaces
     implements NodeType
 
@@ -10,16 +10,16 @@ module Types
     field :goal, String, null: false
     field :participant_is_viewer, Boolean, null: false
     field :participant_name, String, null: false
-    field :session, [JourneySessionType], null: false
+    field :session, [JourneysSessionType], null: false
 
     # == Resolvers
     sig { returns(T::Boolean) }
     def participant_is_viewer
-      journey_participant_id == object.participant_id
+      journeys_participant_id == object.participant_id
     end
 
     # == Helpers
-    sig { override.returns(::Journey::SessionParticipation) }
+    sig { override.returns(::Journeys::SessionParticipation) }
     def object = super
   end
 end

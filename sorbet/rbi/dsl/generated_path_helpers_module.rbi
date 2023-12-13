@@ -51,16 +51,16 @@ module GeneratedPathHelpersModule
   def hangout_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def journey_root_path(*args); end
+  def journeys_root_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def journey_session_join_path(*args); end
+  def journeys_session_join_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def journey_session_path(*args); end
+  def journeys_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def journey_sessions_path(*args); end
+  def journeys_sessions_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def locate_path(*args); end

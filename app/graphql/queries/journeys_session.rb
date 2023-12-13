@@ -2,19 +2,19 @@
 # frozen_string_literal: true
 
 module Queries
-  class JourneySession < BaseQuery
+  class JourneysSession < JourneysBaseQuery
     include AllowsFailedLoads
 
     # == Type
-    type Types::JourneySessionType, null: true
+    type Types::JourneysSessionType, null: true
 
     # == Arguments
-    argument :id, ID, loads: Types::JourneySessionType, as: :session
+    argument :id, ID, loads: Types::JourneysSessionType, as: :session
 
     # == Resolver
     sig do
-      params(session: T.nilable(::Journey::Session))
-        .returns(T.nilable(::Journey::Session))
+      params(session: T.nilable(::Journeys::Session))
+        .returns(T.nilable(::Journeys::Session))
     end
     def resolve(session:)
       return unless session

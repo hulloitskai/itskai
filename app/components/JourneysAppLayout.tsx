@@ -6,8 +6,8 @@ import type { AppShellProps, ContainerProps, MantineSize } from "@mantine/core";
 import type { Maybe } from "~/helpers/graphql";
 import type { AppViewerFragment } from "~/helpers/graphql";
 
-import JourneyAppMeta from "./JourneyAppMeta";
-import type { JourneyAppMetaProps } from "./JourneyAppMeta";
+import JourneysAppMeta from "./JourneysAppMeta";
+import type { JourneysAppMetaProps } from "./JourneysAppMeta";
 
 // import AppMenu from "./AppMenu";
 import AppFlash from "./AppFlash";
@@ -17,10 +17,10 @@ import PageLayout from "./PageLayout";
 import "./AppLayout.css";
 import classes from "./AppLayout.module.css";
 
-export type JourneyAppLayoutProps = JourneyAppMetaProps &
+export type JourneysAppLayoutProps = JourneysAppMetaProps &
   AppShellProps & {
     readonly viewer: Maybe<AppViewerFragment>;
-    readonly breadcrumbs?: ReadonlyArray<JourneyAppBreadcrumb | null | false>;
+    readonly breadcrumbs?: ReadonlyArray<JourneysAppBreadcrumb | null | false>;
     readonly withContainer?: boolean;
     readonly containerSize?: MantineSize | (string & {}) | number;
     readonly containerProps?: ContainerProps;
@@ -28,12 +28,12 @@ export type JourneyAppLayoutProps = JourneyAppMetaProps &
     readonly gutterSize?: MantineSize | (string & {}) | number;
   };
 
-export type JourneyAppBreadcrumb = {
+export type JourneysAppBreadcrumb = {
   readonly title: string;
   readonly href: string;
 };
 
-const JourneyAppLayout: FC<JourneyAppLayoutProps> = ({
+const JourneysAppLayout: FC<JourneysAppLayoutProps> = ({
   // viewer,
   title,
   description,
@@ -51,7 +51,7 @@ const JourneyAppLayout: FC<JourneyAppLayoutProps> = ({
 }) => {
   // == Breadcrumbs
   const filteredBreadcrumbs = useMemo(
-    () => (breadcrumbs?.filter(x => !!x) || []) as JourneyAppBreadcrumb[],
+    () => (breadcrumbs?.filter(x => !!x) || []) as JourneysAppBreadcrumb[],
     [breadcrumbs],
   );
 
@@ -74,7 +74,7 @@ const JourneyAppLayout: FC<JourneyAppLayoutProps> = ({
 
   return (
     <PageLayout>
-      <JourneyAppMeta {...{ title, description, imageUrl, noIndex }} />
+      <JourneysAppMeta {...{ title, description, imageUrl, noIndex }} />
       <AppShell
         header={{ height: 44 }}
         footer={{ height: 44 }}
@@ -110,7 +110,7 @@ const JourneyAppLayout: FC<JourneyAppLayoutProps> = ({
             fz="md"
             className={classes.logo}
           >
-            Journey
+            Journeys
           </Button>
           {/* <AppMenu style={{ flexShrink: 0 }} {...{ viewer }} /> */}
         </AppShell.Header>
@@ -155,4 +155,4 @@ const JourneyAppLayout: FC<JourneyAppLayoutProps> = ({
   );
 };
 
-export default JourneyAppLayout;
+export default JourneysAppLayout;

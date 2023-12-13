@@ -1,11 +1,11 @@
 # typed: strict
 # frozen_string_literal: true
 
-module Journey
+module Journeys
   extend T::Sig
 
   sig { returns(String) }
   def self.table_name_prefix
-    "journey_"
+    "journeys_"
   end
 end

@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-module Journey
+module Journeys
   class HomeController < ApplicationController
     # == Filters
     before_action :set_active_session
@@ -9,9 +9,9 @@ module Journey
     # == Actions
     def show
       if (session = @active_session)
-        redirect_to(journey_session_path(session))
+        redirect_to(journeys_session_path(session))
       else
-        render(inertia: "JourneyHomePage")
+        render(inertia: "JourneysHomePage")
       end
     end
 

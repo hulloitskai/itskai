@@ -1,0 +1,5 @@
+subscription JourneysSessionPageSubscription($sessionId: ID!) {
+  participation: journeysSessionParticipation(sessionId: $sessionId) {
+    id
+  }
+}
