@@ -16,14 +16,25 @@ threads min_threads_count, max_threads_count
 #
 worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 
+# Specifies the `environment` that Puma will run in.
+#
+rails_env = ENV.fetch("RAILS_ENV") { "development" }
+environment rails_env
+
 # Specifies the `port` that Puma will listen on to receive requests; default is
 # 3000.
 #
-port ENV.fetch("RAILS_PORT") { 3000 }
+rails_port = ENV.fetch("RAILS_PORT") { 3000 }
+port rails_port
 
-# Specifies the `environment` that Puma will run in.
-#
-environment ENV.fetch("RAILS_ENV") { "development" }
+# Terminate SSL using a local certificate in development.
+if rails_env == "development"
+  ssl_bind "0.0.0.0", 443, {
+    cert: "config/ssl/cert.pem",
+    key: "config/ssl/key.pem",
+    verify_mode: "none",
+  }
+end
 
 # Specifies the `pidfile` that Puma will use.
 pidfile ENV.fetch("RAILS_PIDFILE") { "tmp/pids/server.pid" }

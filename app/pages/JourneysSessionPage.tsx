@@ -161,15 +161,7 @@ const JourneySessionPage: PageComponent<JourneysSessionPageProps> = ({
               participantIsViewer,
               goal,
             }) => (
-              <Tooltip
-                key={participationId}
-                label="You!"
-                color="primary"
-                c="var(--mantine-color-white)"
-                withArrow
-                position="right"
-                opened={participantIsViewer}
-              >
+              <Box key={participationId} pos="relative">
                 <Card
                   withBorder
                   padding="sm"
@@ -185,7 +177,12 @@ const JourneySessionPage: PageComponent<JourneysSessionPageProps> = ({
                     </Text>
                   </Stack>
                 </Card>
-              </Tooltip>
+                <Center pos="absolute" top={-7} left={0} right={0}>
+                  <Badge variant="outline" bg="var(--mantine-color-white)">
+                    You
+                  </Badge>
+                </Center>
+              </Box>
             ),
           )}
         </Stack>
