@@ -3,3 +3,9 @@
     border-color: var(--mantine-color-primary-outline);
   }
 }
+
+.timerContainer {
+  @mixin smaller-than 610px {
+    max-width: var(--container-size-xs);
+  }
+}

@@ -53,6 +53,7 @@ const JourneysSessionParticipationForm: FC<
     },
   );
 
+  const disabled = !data;
   return (
     <Box
       component="form"
@@ -74,20 +75,22 @@ const JourneysSessionParticipationForm: FC<
           <TextInput
             label="My name is"
             placeholder="anonymous monkey"
+            {...{ disabled }}
             {...getInputProps("participantName")}
           />
           <Textarea
             label="And for this session, I will"
             placeholder="learn how to draw!"
             autosize
+            minRows={2}
+            {...{ disabled }}
             {...getInputProps("goal")}
           />
         </Stack>
-        <Button type="submit" disabled={!data || !isDirty()}>
+        <Button type="submit" disabled={disabled || !isDirty()}>
           Save
         </Button>
       </Stack>
-      <LoadingOverlay visible={!data} />
     </Box>
   );
 };

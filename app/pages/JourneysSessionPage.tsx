@@ -1,5 +1,5 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { ActionIcon, CopyButton, RingProgress, Text } from "@mantine/core";
+import { CopyButton, RingProgress, Text } from "@mantine/core";
 
 import { JourneysSessionPageSubscriptionDocument } from "~/helpers/graphql";
 import type { JourneysSessionPageQuery } from "~/helpers/graphql";
@@ -83,44 +83,45 @@ const JourneySessionPage: PageComponent<JourneysSessionPageProps> = ({
   return (
     <Stack align="center" my="xl" gap="xl">
       <Title order={3}>go go go! u got thisss</Title>
-      <Container fluid w="100%">
-        <Group
-          justify="center"
-          gap="lg"
-          style={{ alignSelf: "stretch", rowGap: "var(--mantine-sizes-xs)" }}
-        >
-          <RingProgress
-            sections={[
-              {
-                color: "primary",
-                value:
-                  ((MAX_COUNTDOWN_SECONDS - countdownSeconds) /
-                    MAX_COUNTDOWN_SECONDS) *
-                  100,
-              },
-            ]}
-            label={
-              <Center>
-                <Text span fw={700}>
-                  {countdownTime}
-                </Text>
-              </Center>
-            }
-            size={200}
-            thickness={7}
-            roundCaps
-            style={{ flexGrow: 0 }}
-          />
-          {viewerParticipation && (
-            <JourneysSessionParticipationForm
-              participationId={viewerParticipation.id}
-              maw={508}
-              miw={320}
-              mb="xs"
-              style={{ flexGrow: 1 }}
+      <Container size="sm" w="100%" className={classes.timerContainer}>
+        <Card withBorder radius="lg" shadow="lg" mb="xs">
+          <Group
+            justify="center"
+            gap="lg"
+            style={{ alignSelf: "stretch", rowGap: "var(--mantine-sizes-xs)" }}
+          >
+            <RingProgress
+              sections={[
+                {
+                  color: "primary",
+                  value:
+                    ((MAX_COUNTDOWN_SECONDS - countdownSeconds) /
+                      MAX_COUNTDOWN_SECONDS) *
+                    100,
+                },
+              ]}
+              label={
+                <Center>
+                  <Text span fw={700}>
+                    {countdownTime}
+                  </Text>
+                </Center>
+              }
+              size={200}
+              thickness={7}
+              roundCaps
+              style={{ flexGrow: 0 }}
             />
-          )}
-        </Group>
+            {viewerParticipation && (
+              <JourneysSessionParticipationForm
+                participationId={viewerParticipation.id}
+                miw={320}
+                mb="xs"
+                style={{ flexGrow: 1 }}
+              />
+            )}
+          </Group>
+        </Card>
       </Container>
       <Container size="xs" w="100%">
         <Stack gap="xs">
@@ -168,35 +169,28 @@ const JourneySessionPage: PageComponent<JourneysSessionPageProps> = ({
             Know someone who wants to be more intentional about how they spend
             their time? send them a text:
           </Text>
-          <Box pos="relative" style={{ alignSelf: "stretch" }}>
-            <Textarea
-              value={sharingText}
-              autosize
-              readOnly
-              styles={{
-                input: {
-                  paddingRight: rem(36),
-                },
-              }}
-            />
-            <Box pos="absolute" top={6} right={6}>
-              <CopyButton value={sharingText}>
-                {({ copy, copied }) => (
-                  <Tooltip
-                    label="Copied :)"
-                    opened={copied}
-                    color="primary"
-                    c="var(--mantine-color-white)"
-                    withArrow
-                  >
-                    <ActionIcon>
-                      <ClipboardIcon onClick={copy} />
-                    </ActionIcon>
-                  </Tooltip>
-                )}
-              </CopyButton>
-            </Box>
-          </Box>
+          <Textarea
+            value={sharingText}
+            autosize
+            readOnly
+            styles={{
+              input: {
+                paddingRight: rem(36),
+              },
+            }}
+          />
+          <CopyButton value={sharingText}>
+            {({ copy, copied }) => (
+              <Button
+                size="xs"
+                leftSection={<ClipboardIcon />}
+                onClick={copy}
+                style={{ alignSelf: "center" }}
+              >
+                {copied ? "Copied!" : "Copy to clipboard"}
+              </Button>
+            )}
+          </CopyButton>
         </Stack>
       </Container>
     </Stack>
