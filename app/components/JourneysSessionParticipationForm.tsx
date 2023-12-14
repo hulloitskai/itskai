@@ -8,6 +8,7 @@ import {
 
 export type JourneysSessionParticipationFormProps = BoxProps & {
   readonly participationId: string;
+  readonly onUpdate?: () => void;
 };
 
 type JourneysSessionParticipationFormValues = {
@@ -17,9 +18,9 @@ type JourneysSessionParticipationFormValues = {
 
 const JourneysSessionParticipationForm: FC<
   JourneysSessionParticipationFormProps
-> = ({ participationId, ...otherProps }) => {
+> = ({ participationId, onUpdate, ...otherProps }) => {
   // == Form
-  const { getInputProps, onSubmit, setValues, resetDirty, isDirty } =
+  const { getInputProps, onSubmit, setValues, setErrors, resetDirty, isDirty } =
     useForm<JourneysSessionParticipationFormValues>({
       initialValues: {
         participantName: "",
@@ -49,6 +50,21 @@ const JourneysSessionParticipationForm: FC<
   const [runMutation] = useMutation(
     UpdateJourneysSessionParticipationMutationDocument,
     {
+      onCompleted: ({ payload: { participation, errors } }) => {
+        if (participation) {
+          if (onUpdate) {
+            onUpdate();
+          }
+        } else {
+          invariant(errors, "Missing input errors");
+          const formErrors = buildFormErrors(errors);
+          setErrors(formErrors);
+          showFormErrorsAlert(
+            formErrors,
+            "Couldn't update participation information",
+          );
+        }
+      },
       onError,
     },
   );

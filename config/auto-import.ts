@@ -24,7 +24,7 @@ export const imports: Array<ImportsMap | PresetName> = [
     "~/helpers/apollo/preloadedQuery": ["usePreloadedQuery"],
     "~/helpers/apollo/notifications": ["useApolloAlertCallback"],
     "~/helpers/errors": ["formatError"],
-    "~/helpers/form": ["parseFormErrors", "showFormErrorsAlert"],
+    "~/helpers/form": ["buildFormErrors", "showFormErrorsAlert"],
     "~/helpers/inertia/layout": ["buildLayout"],
     "~/helpers/inertia/page": ["usePage", "usePageErrors", "usePageProps"],
     "~/helpers/inertia/router": ["useRouter"],

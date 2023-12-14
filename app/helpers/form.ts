@@ -9,7 +9,7 @@ import type {
 
 import type { InputFieldError } from "~/helpers/graphql";
 
-export const parseFormErrors = (
+export const buildFormErrors = (
   errors: InputFieldError[],
 ): Record<string, string> => {
   return Object.fromEntries(

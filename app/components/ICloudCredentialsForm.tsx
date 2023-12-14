@@ -63,7 +63,7 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
           onUpdate();
         } else {
           invariant(errors, "Missing input errors");
-          const formErrors = parseFormErrors(errors);
+          const formErrors = buildFormErrors(errors);
           setErrors(formErrors);
           showFormErrorsAlert(formErrors, "Couldn't update iCloud credentials");
         }

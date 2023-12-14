@@ -54,7 +54,7 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
           });
         } else {
           invariant(errors, "Missing input errors");
-          const formErrors = parseFormErrors(errors);
+          const formErrors = buildFormErrors(errors);
           setErrors(formErrors);
           showFormErrorsAlert(formErrors, "Couldn't update profile");
         }

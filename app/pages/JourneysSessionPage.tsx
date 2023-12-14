@@ -118,6 +118,11 @@ const JourneySessionPage: PageComponent<JourneysSessionPageProps> = ({
                 miw={320}
                 mb="xs"
                 style={{ flexGrow: 1 }}
+                onUpdate={() => {
+                  router.reload({
+                    preserveScroll: true,
+                  });
+                }}
               />
             )}
           </Group>

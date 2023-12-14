@@ -32,7 +32,7 @@ const TestForm: FC = () => {
         reset();
       } else {
         invariant(errors, "Missing input errors");
-        const formErrors = parseFormErrors(errors);
+        const formErrors = buildFormErrors(errors);
         setErrors(formErrors);
         showFormErrorsAlert(formErrors, "Couldn't run mutation");
       }

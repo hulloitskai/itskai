@@ -37,7 +37,7 @@ const SenecaMoodRating: FC<BoxProps> = ({ ...otherProps }) => {
     {
       onCompleted: ({ payload: { errors } }) => {
         if (errors) {
-          const formErrors = parseFormErrors(errors);
+          const formErrors = buildFormErrors(errors);
           setErrors(formErrors);
           showFormErrorsAlert(formErrors, "Couldn't create mood log");
         }
