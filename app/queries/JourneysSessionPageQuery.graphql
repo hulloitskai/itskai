@@ -1,13 +1,17 @@
-query JourneysSessionPageQuery($sessionId: ID!) {
+query JourneysSessionPageQuery($sessionId: ID!, $participantId: String!) {
   session: journeysSession(id: $sessionId) {
     id
     participations {
       goal
       id
-      participantIsViewer
       participantName
     }
     startedAt
+    viewerParticipation: participation(participantId: $participantId) {
+      goal
+      id
+      participantName
+    }
   }
   viewer {
     ...AppViewerFragment

@@ -1,6 +1,5 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
-import { randomAnimal } from "~/helpers/animals";
 import { useMediaRecorder } from "~/helpers/mediaRecorder";
 import MicIcon from "~icons/heroicons/microphone-20-solid";
 
@@ -20,11 +19,8 @@ const JourneysHomePage: PageComponent<JourneysHomePageProps> = () => {
       mimeType: "audio/wav",
     },
     onStop: (blobUrl, blob) => {
-      const animal = randomAnimal();
-      const participantName = ["Anonymous", animal].join(" ");
       const formData = new FormData();
       formData.set("goal_recording", blob);
-      formData.set("participation[participant_name]", participantName);
       router.post("/sessions", formData, {
         onStart: () => {
           setIsTranscribing(true);
@@ -39,7 +35,7 @@ const JourneysHomePage: PageComponent<JourneysHomePageProps> = () => {
 
   return (
     <Stack align="center" my="xl">
-      <Text fw={700}>watchya gonna do for the next hour?</Text>
+      <Title order={3}>watchya gonna do for the next hour?</Title>
       <Button
         leftSection={<MicIcon />}
         onClick={() => {

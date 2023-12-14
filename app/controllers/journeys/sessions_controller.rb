@@ -9,29 +9,22 @@ module Journeys
     # == Actions
     def show
       session = @session or raise "Missing session"
-      if allowed_to?(:show?, session)
-        data = query!("JourneysSessionPageQuery", {
-          session_id: session.to_gid.to_s,
-        })
-        render(inertia: "JourneysSessionPage", props: {
-          homepage_url: journeys_root_url,
-          data:,
-        })
-      else
-        redirect_to(
-          journeys_root_path,
-          alert: "You are not a participant in this session.",
-        )
-      end
+      data = query!("JourneysSessionPageQuery", {
+        session_id: session.to_gid.to_s,
+        participant_id:,
+      })
+      render(inertia: "JourneysSessionPage", props: {
+        homepage_url: journeys_root_url,
+        data:,
+      })
     end
 
     def create
-      session = T.let(Session.joinable.first || Session.new, Session)
+      session = T.let(Session.active.first || Session.new, Session)
       goal = transcribe_goal_recording
       session.participations.build(
         participant_id:,
         goal:,
-        **participation_params,
       )
       session.save!
       redirect_to(journeys_session_path(session))
@@ -45,11 +38,6 @@ module Journeys
     private
 
     # == Helpers
-    sig { returns(ActionController::Parameters) }
-    def participation_params
-      params.require(:participation).permit(:participant_name)
-    end
-
     sig { returns(OpenAI::Client) }
     def client
       @client ||= T.let(OpenAI::Client.new, T.nilable(OpenAI::Client))
@@ -76,6 +64,9 @@ module Journeys
           parameters: {
             model: "whisper-1",
             file:,
+            prompt:
+              "today i'm going to learn how to draw. and then i'm going to " \
+              "share my drawing with 10 friends.",
           },
         )
         response.fetch("text")

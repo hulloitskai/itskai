@@ -5,6 +5,7 @@ import { JourneysSessionPageSubscriptionDocument } from "~/helpers/graphql";
 import type { JourneysSessionPageQuery } from "~/helpers/graphql";
 
 import JourneysAppLayout from "~/components/JourneysAppLayout";
+import JourneysSessionParticipationForm from "~/components/JourneysSessionParticipationForm";
 
 import classes from "./JourneysSessionPage.module.css";
 
@@ -20,7 +21,7 @@ const JourneySessionPage: PageComponent<JourneysSessionPageProps> = ({
   data: { session },
 }) => {
   invariant(session, "Missing session");
-  const { participations } = session;
+  const { participations, viewerParticipation } = session;
 
   // == Routing
   const router = useRouter();
@@ -80,37 +81,88 @@ const JourneySessionPage: PageComponent<JourneysSessionPageProps> = ({
   }, [homepageUrl]);
 
   return (
-    <Stack align="center" my="xl">
-      <Text fw={700}>go go go! u got thisss</Text>
-      <RingProgress
-        sections={[
-          {
-            color: "primary",
-            value:
-              (MAX_COUNTDOWN_SECONDS -
-                countdownSeconds / MAX_COUNTDOWN_SECONDS) *
-              100,
-          },
-        ]}
-        label={
-          <Center>
-            <Text span fw={700}>
-              {countdownTime}
-            </Text>
-          </Center>
-        }
-        size={240}
-        thickness={7}
-        roundCaps
-      />
-      <Container size="sm" w="100%">
-        <Stack
-          align="center"
-          gap={8}
-          fz="sm"
-          c="dimmed"
-          style={{ textAlign: "center" }}
+    <Stack align="center" my="xl" gap="xl">
+      <Title order={3}>go go go! u got thisss</Title>
+      <Container fluid w="100%">
+        <Group
+          justify="center"
+          gap="lg"
+          style={{ alignSelf: "stretch", rowGap: "var(--mantine-sizes-xs)" }}
         >
+          <RingProgress
+            sections={[
+              {
+                color: "primary",
+                value:
+                  (MAX_COUNTDOWN_SECONDS - countdownSeconds) /
+                  (MAX_COUNTDOWN_SECONDS * 100),
+              },
+            ]}
+            label={
+              <Center>
+                <Text span fw={700}>
+                  {countdownTime}
+                </Text>
+              </Center>
+            }
+            size={200}
+            thickness={7}
+            roundCaps
+            style={{ flexGrow: 0 }}
+          />
+          {viewerParticipation && (
+            <JourneysSessionParticipationForm
+              participationId={viewerParticipation.id}
+              maw={508}
+              miw={320}
+              mb="xs"
+              style={{ flexGrow: 1 }}
+            />
+          )}
+        </Group>
+      </Container>
+      <Container size="xs" w="100%">
+        <Stack gap="xs">
+          {participations.map(
+            ({ id: participationId, participantName, goal }) => {
+              const isViewer = participationId === viewerParticipation?.id;
+              return (
+                <Box key={participationId} pos="relative">
+                  <Card
+                    withBorder
+                    padding="sm"
+                    className={classes.participationCard}
+                    {...(isViewer && {
+                      "data-is-viewer": isViewer,
+                    })}
+                  >
+                    <Stack gap={4}>
+                      <Badge style={{ textTransform: "none" }}>
+                        {participantName}
+                      </Badge>
+                      <Text
+                        size="sm"
+                        style={{ flexGrow: 1, textTransform: "none" }}
+                      >
+                        {goal}
+                      </Text>
+                    </Stack>
+                  </Card>
+                  {isViewer && (
+                    <Center pos="absolute" top={-7} left={0} right={0}>
+                      <Badge variant="outline" bg="var(--mantine-color-white)">
+                        You
+                      </Badge>
+                    </Center>
+                  )}
+                </Box>
+              );
+            },
+          )}
+        </Stack>
+      </Container>
+      <Container size="xs" w="100%">
+        <Stack gap={8} fz="sm" c="dimmed">
           <Text inherit>
             Know someone who wants to be more intentional about how they spend
             their time? send them a text:
@@ -144,49 +196,6 @@ const JourneySessionPage: PageComponent<JourneysSessionPageProps> = ({
               </CopyButton>
             </Box>
           </Box>
-          <Text inherit>
-            if they join in the first 10 minutes, they&apos;ll be added to this
-            session
-            <br />
-            (otherwise, they&apos;ll be starting a new session)
-          </Text>
-        </Stack>
-      </Container>
-      <Container size="xs" w="100%">
-        <Stack gap="xs">
-          {participations.map(
-            ({
-              id: participationId,
-              participantName,
-              participantIsViewer,
-              goal,
-            }) => (
-              <Box key={participationId} pos="relative">
-                <Card
-                  withBorder
-                  padding="sm"
-                  className={classes.participationCard}
-                  {...(participantIsViewer && {
-                    "data-is-viewer": participantIsViewer,
-                  })}
-                >
-                  <Stack gap={4}>
-                    <Badge>{participantName}</Badge>
-                    <Text size="sm" style={{ flexGrow: 1 }}>
-                      {goal}
-                    </Text>
-                  </Stack>
-                </Card>
-                {participantIsViewer && (
-                  <Center pos="absolute" top={-7} left={0} right={0}>
-                    <Badge variant="outline" bg="var(--mantine-color-white)">
-                      You
-                    </Badge>
-                  </Center>
-                )}
-              </Box>
-            ),
-          )}
         </Stack>
       </Container>
     </Stack>

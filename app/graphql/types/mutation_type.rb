@@ -46,5 +46,7 @@ module Types
     field :activate_scottkit_signal, mutation: Mutations::ActivateScottkitSignal
     field :create_seneca_mood_log, mutation: Mutations::CreateSenecaMoodLog
     field :import_location_logs, mutation: Mutations::ImportLocationLogs
+    field :update_journeys_session_participation,
+          mutation: Mutations::UpdateJourneysSessionParticipation
   end
 end

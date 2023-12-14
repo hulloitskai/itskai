@@ -1,0 +1,7 @@
+query JourneysSessionParticipationFormQuery($participationId: ID!) {
+  participation: journeysSessionParticipation(id: $participationId) {
+    goal
+    id
+    participantName
+  }
+}

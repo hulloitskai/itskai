@@ -35,6 +35,9 @@ module Types
     field :journal_entry_comments, resolver: Queries::JournalEntryComments
 
     field :journeys_session, resolver: Queries::JourneysSession
+    field :journeys_session_participation,
+          resolver: Queries::JourneysSessionParticipation
+
     field :location_access_grants, resolver: Queries::LocationAccessGrants
     field :pensieve_messages, resolver: Queries::PensieveMessages
   end

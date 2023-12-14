@@ -211,6 +211,9 @@ gem "ruby-openai", "~> 6.3"
 # Process audio with ffmpeg
 gem "streamio-ffmpeg", "~> 3.0"
 
+# Generate fake data with Faker
+gem "faker", "~> 3.2"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"

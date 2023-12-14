@@ -38,11 +38,6 @@ module Journeys
       where("created_at > ?", 1.hour.ago)
     }
 
-    scope :joinable, -> {
-      T.bind(self, PrivateRelation)
-      where("created_at > ?", 10.minutes.ago)
-    }
-
     # == FriendlyId
     friendly_id :slug
   end

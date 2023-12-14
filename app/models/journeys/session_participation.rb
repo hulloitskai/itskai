@@ -23,6 +23,11 @@
 #
 module Journeys
   class SessionParticipation < ApplicationRecord
+    # == Attributes
+    attribute :participant_name, :string, default: -> {
+      generate_participant_name
+    }
+
     # == Associations
     belongs_to :session, inverse_of: :participations
 
@@ -31,8 +36,18 @@ module Journeys
       session or raise ActiveRecord::RecordNotFound, "missing session"
     end
 
+    # == Validators
+    validates :participant_name, :goal, presence: true
+
     # == Callbacks
     after_commit :trigger_subscriptions, on: %i[create update]
+
+    # == Methods
+    sig { returns(String) }
+    def self.generate_participant_name
+      animal_name = Faker::Creature::Animal.name
+      "anonymous #{animal_name}"
+    end
 
     private
 

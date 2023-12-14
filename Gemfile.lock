@@ -207,6 +207,8 @@ GEM
     et-orbi (1.2.7)
       tzinfo
     event_stream_parser (1.0.0)
+    faker (3.2.2)
+      i18n (>= 1.8.11, < 2)
     faraday (2.7.12)
       base64
       faraday-net_http (>= 2.0, < 3.1)
@@ -652,6 +654,7 @@ DEPENDENCIES
   dotenv (~> 2.7)
   email_validator (~> 2.2)
   enumerize (~> 2.6)
+  faker (~> 3.2)
   faraday (~> 2.7)
   faraday-cookie_jar (~> 0.0.7)
   friendly_id (~> 5.5)
