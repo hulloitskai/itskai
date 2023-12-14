@@ -7,8 +7,8 @@
 # the maximum value specified for Puma. Default is set to 5 threads for minimum
 # and maximum; this matches the default thread size of Active Record.
 #
-max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
-min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
+max_threads_count = ENV.fetch("RAILS_MAX_THREADS", 5)
+min_threads_count = ENV.fetch("RAILS_MIN_THREADS", max_threads_count)
 threads min_threads_count, max_threads_count
 
 # Specifies the `worker_timeout` threshold that Puma will use to wait before
@@ -16,28 +16,17 @@ threads min_threads_count, max_threads_count
 #
 worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 
-# Specifies the `environment` that Puma will run in.
-#
-rails_env = ENV.fetch("RAILS_ENV") { "development" }
-environment rails_env
-
 # Specifies the `port` that Puma will listen on to receive requests; default is
 # 3000.
 #
-rails_port = ENV.fetch("RAILS_PORT") { 3000 }
-port rails_port
+port ENV.fetch("RAILS_PORT") { 3000 }
 
-# Terminate SSL using a local certificate in development.
-if rails_env == "development"
-  ssl_bind "0.0.0.0", 443, {
-    cert: "config/ssl/cert.pem",
-    key: "config/ssl/key.pem",
-    verify_mode: "none",
-  }
-end
+# Specifies the `environment` that Puma will run in.
+#
+environment ENV.fetch("RAILS_ENV", "development")
 
 # Specifies the `pidfile` that Puma will use.
-pidfile ENV.fetch("RAILS_PIDFILE") { "tmp/pids/server.pid" }
+pidfile ENV.fetch("RAILS_PIDFILE", "tmp/pids/server.pid")
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked web server processes. If using threads and workers together

@@ -1,12 +1,12 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
+import { randomAnimal } from "~/helpers/animals";
 import { useMediaRecorder } from "~/helpers/mediaRecorder";
 import MicIcon from "~icons/heroicons/microphone-20-solid";
 
 import type { JourneysHomePageQuery } from "~/helpers/graphql";
 
 import JourneysAppLayout from "~/components/JourneysAppLayout";
-import { randomAnimal } from "~/helpers/animals";
 
 export type JourneysHomePageProps = PagePropsWithData<JourneysHomePageQuery>;
 
@@ -16,6 +16,9 @@ const JourneysHomePage: PageComponent<JourneysHomePageProps> = () => {
   // == Audio Transcription
   const [isTranscribing, setIsTranscribing] = useState(false);
   const { startRecording, stopRecording, status } = useMediaRecorder({
+    mediaRecorderOptions: {
+      mimeType: "audio/wav",
+    },
     onStop: (blobUrl, blob) => {
       const animal = randomAnimal();
       const participantName = ["Anonymous", animal].join(" ");

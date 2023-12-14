@@ -68,6 +68,9 @@ module Journeys
       Tempfile.open(["recording", ".#{ext}"], binmode: true) do |file|
         file.write(recording.read)
         file.flush
+        # Clean up bad recordings using FFMPEG
+        movie = FFMPEG::Movie.new(file.path)
+        movie.transcode(file.path)
         file.seek(0)
         response = client.audio.translate(
           parameters: {
