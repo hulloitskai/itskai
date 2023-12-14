@@ -177,11 +177,13 @@ const JourneySessionPage: PageComponent<JourneysSessionPageProps> = ({
                     </Text>
                   </Stack>
                 </Card>
-                <Center pos="absolute" top={-7} left={0} right={0}>
-                  <Badge variant="outline" bg="var(--mantine-color-white)">
-                    You
-                  </Badge>
-                </Center>
+                {participantIsViewer && (
+                  <Center pos="absolute" top={-7} left={0} right={0}>
+                    <Badge variant="outline" bg="var(--mantine-color-white)">
+                      You
+                    </Badge>
+                  </Center>
+                )}
               </Box>
             ),
           )}
