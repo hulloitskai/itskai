@@ -6,7 +6,7 @@ module Journeys
     # == Rules
     def index? = false
 
-    def update?
+    def manage?
       participation = T.let(record, SessionParticipation)
       participation.participant_id == participant_id
     end

@@ -23,6 +23,8 @@
 #
 module Journeys
   class SessionParticipation < ApplicationRecord
+    include Identifiable
+
     # == Attributes
     attribute :participant_name, :string, default: -> {
       generate_participant_name
@@ -40,7 +42,8 @@ module Journeys
     validates :participant_name, :goal, presence: true
 
     # == Callbacks
-    after_commit :trigger_subscriptions, on: %i[create update]
+    after_destroy :destroy_session_if_empty
+    after_commit :trigger_subscriptions, on: %i[create update destroy]
 
     # == Methods
     sig { returns(String) }
@@ -52,6 +55,12 @@ module Journeys
     private
 
     # == Callback Handlers
+    sig { void }
+    def destroy_session_if_empty
+      session = session!
+      session.destroy if session.participations.reload.empty?
+    end
+
     sig { void }
     def trigger_subscriptions
       Schema.subscriptions!.trigger(

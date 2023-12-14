@@ -21,7 +21,7 @@ module Journeys
 
     def create
       session = T.let(Session.active.first || Session.new, Session)
-      goal = transcribe_goal_recording
+      goal = transcribe_recording
       session.participations.build(
         participant_id:,
         goal:,
@@ -44,13 +44,13 @@ module Journeys
     end
 
     sig { returns(ActionDispatch::Http::UploadedFile) }
-    def goal_recording
-      params.fetch(:goal_recording)
+    def recording
+      params.fetch(:recording)
     end
 
     sig { returns(String) }
-    def transcribe_goal_recording
-      recording = goal_recording
+    def transcribe_recording
+      recording = self.recording
       ext = MIME::Types[recording.content_type].first&.preferred_extension or
         raise "Could not determine recording file type"
       Tempfile.open(["recording", ".#{ext}"], binmode: true) do |file|

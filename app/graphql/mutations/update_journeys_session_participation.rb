@@ -24,13 +24,12 @@ module Mutations
     sig do
       params(
         participation: Journeys::SessionParticipation,
-        participant_name: String,
-        goal: String,
+        attributes: T.untyped,
       ).returns(Payload)
     end
-    def resolve(participation:, participant_name:, goal:)
+    def resolve(participation:, **attributes)
       authorize!(participation, to: :update?)
-      if participation.update(participant_name:, goal:)
+      if participation.update(**attributes)
         Payload.new(participation:)
       else
         Payload.new(errors: participation.input_field_errors)

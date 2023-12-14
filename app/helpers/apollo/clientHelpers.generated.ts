@@ -102,6 +102,12 @@ export type JourneysSessionParticipationFieldPolicy = {
 	participantName?: FieldPolicy<any> | FieldReadFunction<any>,
 	session?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type LeaveJourneysSessionPayloadKeySpecifier = ('clientMutationId' | 'session' | 'success' | LeaveJourneysSessionPayloadKeySpecifier)[];
+export type LeaveJourneysSessionPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	session?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type LikePensieveMessagePayloadKeySpecifier = ('clientMutationId' | 'message' | 'success' | LikePensieveMessagePayloadKeySpecifier)[];
 export type LikePensieveMessagePayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -145,7 +151,7 @@ export type LyricLineFieldPolicy = {
 	startTimeMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	words?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'createLocationAccessGrant' | 'createSenecaMoodLog' | 'deleteLocationAccessGrant' | 'importJournalEntries' | 'importLocationLogs' | 'likePensieveMessage' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'testMutation' | 'unlikePensieveMessage' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateJourneysSessionParticipation' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'createLocationAccessGrant' | 'createSenecaMoodLog' | 'deleteLocationAccessGrant' | 'importJournalEntries' | 'importLocationLogs' | 'leaveJourneysSession' | 'likePensieveMessage' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'testMutation' | 'unlikePensieveMessage' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateJourneysSessionParticipation' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -154,6 +160,7 @@ export type MutationFieldPolicy = {
 	deleteLocationAccessGrant?: FieldPolicy<any> | FieldReadFunction<any>,
 	importJournalEntries?: FieldPolicy<any> | FieldReadFunction<any>,
 	importLocationLogs?: FieldPolicy<any> | FieldReadFunction<any>,
+	leaveJourneysSession?: FieldPolicy<any> | FieldReadFunction<any>,
 	likePensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeGoogleCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	removeICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -440,6 +447,10 @@ export type StrictTypedTypePolicies = {
 	JourneysSessionParticipation?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | JourneysSessionParticipationKeySpecifier | (() => undefined | JourneysSessionParticipationKeySpecifier),
 		fields?: JourneysSessionParticipationFieldPolicy,
+	},
+	LeaveJourneysSessionPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | LeaveJourneysSessionPayloadKeySpecifier | (() => undefined | LeaveJourneysSessionPayloadKeySpecifier),
+		fields?: LeaveJourneysSessionPayloadFieldPolicy,
 	},
 	LikePensieveMessagePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | LikePensieveMessagePayloadKeySpecifier | (() => undefined | LikePensieveMessagePayloadKeySpecifier),

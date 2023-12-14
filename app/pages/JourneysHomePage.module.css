@@ -1,0 +1,4 @@
+.recordingButton {
+  --_disabled-color: var(--button-color);
+  --_disabled-bg: var(--button-bg);
+}

@@ -8,6 +8,7 @@ import JourneysAppLayout from "~/components/JourneysAppLayout";
 import JourneysSessionParticipationForm from "~/components/JourneysSessionParticipationForm";
 
 import classes from "./JourneysSessionPage.module.css";
+import JourneysSessionLeaveButton from "~/components/JourneysSessionLeaveButton";
 
 export type JourneysSessionPageProps =
   PagePropsWithData<JourneysSessionPageQuery> & {
@@ -83,50 +84,64 @@ const JourneySessionPage: PageComponent<JourneysSessionPageProps> = ({
   return (
     <Stack align="center" my="xl" gap="xl">
       <Title order={3}>go go go! u got thisss</Title>
-      <Container size="sm" w="100%" className={classes.timerContainer}>
-        <Card withBorder radius="lg" shadow="lg" mb="xs">
-          <Group
-            justify="center"
-            gap="lg"
-            style={{ alignSelf: "stretch", rowGap: "var(--mantine-sizes-xs)" }}
-          >
-            <RingProgress
-              sections={[
-                {
-                  color: "primary",
-                  value:
-                    ((MAX_COUNTDOWN_SECONDS - countdownSeconds) /
-                      MAX_COUNTDOWN_SECONDS) *
-                    100,
-                },
-              ]}
-              label={
-                <Center>
-                  <Text span fw={700}>
-                    {countdownTime}
-                  </Text>
-                </Center>
-              }
-              size={200}
-              thickness={7}
-              roundCaps
-              style={{ flexGrow: 0 }}
-            />
-            {viewerParticipation && (
-              <JourneysSessionParticipationForm
-                participationId={viewerParticipation.id}
-                miw={320}
-                mb="xs"
-                style={{ flexGrow: 1 }}
-                onUpdate={() => {
-                  router.reload({
-                    preserveScroll: true,
-                  });
-                }}
+      <Container size="sm" w="100%" pb="xs" className={classes.timerContainer}>
+        <Stack gap={6}>
+          <Card withBorder radius="lg" shadow="lg">
+            <Group
+              justify="center"
+              gap="lg"
+              style={{
+                alignSelf: "stretch",
+                rowGap: "var(--mantine-sizes-xs)",
+              }}
+            >
+              <RingProgress
+                sections={[
+                  {
+                    color: "primary",
+                    value:
+                      ((MAX_COUNTDOWN_SECONDS - countdownSeconds) /
+                        MAX_COUNTDOWN_SECONDS) *
+                      100,
+                  },
+                ]}
+                label={
+                  <Center>
+                    <Text span fw={700}>
+                      {countdownTime}
+                    </Text>
+                  </Center>
+                }
+                size={200}
+                thickness={7}
+                roundCaps
+                style={{ flexGrow: 0 }}
               />
-            )}
-          </Group>
-        </Card>
+              {viewerParticipation && (
+                <JourneysSessionParticipationForm
+                  participationId={viewerParticipation.id}
+                  miw={320}
+                  style={{ flexGrow: 1 }}
+                  onUpdate={() => {
+                    router.reload({
+                      preserveScroll: true,
+                    });
+                  }}
+                />
+              )}
+            </Group>
+          </Card>
+          {viewerParticipation && (
+            <JourneysSessionLeaveButton
+              size="xs"
+              participationId={viewerParticipation.id}
+              style={{ alignSelf: "center" }}
+              onLeave={() => {
+                router.visit(homepageUrl);
+              }}
+            />
+          )}
+        </Stack>
       </Container>
       <Container size="xs" w="100%">
         <Stack gap="xs">
