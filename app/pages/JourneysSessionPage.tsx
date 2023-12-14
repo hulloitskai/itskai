@@ -94,8 +94,9 @@ const JourneySessionPage: PageComponent<JourneysSessionPageProps> = ({
               {
                 color: "primary",
                 value:
-                  (MAX_COUNTDOWN_SECONDS - countdownSeconds) /
-                  (MAX_COUNTDOWN_SECONDS * 100),
+                  ((MAX_COUNTDOWN_SECONDS - countdownSeconds) /
+                    MAX_COUNTDOWN_SECONDS) *
+                  100,
               },
             ]}
             label={
