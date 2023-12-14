@@ -1,6 +1,6 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
-import { useReactMediaRecorder } from "react-media-recorder?client";
+import { useMediaRecorder } from "~/helpers/mediaRecorder";
 import MicIcon from "~icons/heroicons/microphone-20-solid";
 
 import type { JourneysHomePageQuery } from "~/helpers/graphql";
@@ -15,7 +15,7 @@ const JourneysHomePage: PageComponent<JourneysHomePageProps> = () => {
 
   // == Audio Transcription
   const [isTranscribing, setIsTranscribing] = useState(false);
-  const { startRecording, stopRecording, status } = useReactMediaRecorder({
+  const { startRecording, stopRecording, status } = useMediaRecorder({
     onStop: (blobUrl, blob) => {
       const animal = randomAnimal();
       const participantName = ["Anonymous", animal].join(" ");
