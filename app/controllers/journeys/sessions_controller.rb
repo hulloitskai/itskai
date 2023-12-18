@@ -11,7 +11,6 @@ module Journeys
       session = @session or raise "Missing session"
       data = query!("JourneysSessionPageQuery", {
         session_id: session.to_gid.to_s,
-        participant_id:,
       })
       render(inertia: "JourneysSessionPage", props: {
         homepage_url: journeys_root_url,

@@ -14,6 +14,12 @@ class ImportLocationLogsJob < ApplicationJob
     LocationLog.import!
   end
 
+  # == Methods
+  sig { returns(T::Boolean) }
+  def self.enabled?
+    ICloudClient.enabled?
+  end
+
   private
 
   # == Callback Handlers

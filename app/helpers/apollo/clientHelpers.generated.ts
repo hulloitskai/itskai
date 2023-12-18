@@ -86,13 +86,25 @@ export type JournalEntryFieldPolicy = {
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type JourneysSessionKeySpecifier = ('id' | 'participation' | 'participations' | 'startedAt' | 'url' | JourneysSessionKeySpecifier)[];
+export type JourneysSessionKeySpecifier = ('id' | 'participations' | 'startedAt' | 'url' | 'viewerParticipation' | JourneysSessionKeySpecifier)[];
 export type JourneysSessionFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	participation?: FieldPolicy<any> | FieldReadFunction<any>,
 	participations?: FieldPolicy<any> | FieldReadFunction<any>,
 	startedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	url?: FieldPolicy<any> | FieldReadFunction<any>
+	url?: FieldPolicy<any> | FieldReadFunction<any>,
+	viewerParticipation?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type JourneysSessionConnectionKeySpecifier = ('edges' | 'nodes' | 'pageInfo' | 'totalCount' | JourneysSessionConnectionKeySpecifier)[];
+export type JourneysSessionConnectionFieldPolicy = {
+	edges?: FieldPolicy<any> | FieldReadFunction<any>,
+	nodes?: FieldPolicy<any> | FieldReadFunction<any>,
+	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>,
+	totalCount?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type JourneysSessionEdgeKeySpecifier = ('cursor' | 'node' | JourneysSessionEdgeKeySpecifier)[];
+export type JourneysSessionEdgeFieldPolicy = {
+	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type JourneysSessionParticipationKeySpecifier = ('goal' | 'id' | 'participantIsViewer' | 'participantName' | 'session' | JourneysSessionParticipationKeySpecifier)[];
 export type JourneysSessionParticipationFieldPolicy = {
@@ -196,6 +208,13 @@ export type OAuthCredentialsFieldPolicy = {
 	refreshToken?: FieldPolicy<any> | FieldReadFunction<any>,
 	uid?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type PageInfoKeySpecifier = ('endCursor' | 'hasNextPage' | 'hasPreviousPage' | 'startCursor' | PageInfoKeySpecifier)[];
+export type PageInfoFieldPolicy = {
+	endCursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	hasNextPage?: FieldPolicy<any> | FieldReadFunction<any>,
+	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
+	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type PensieveMessageKeySpecifier = ('from' | 'id' | 'isEdited' | 'likedByViewer' | 'likes' | 'text' | 'timestamp' | PensieveMessageKeySpecifier)[];
 export type PensieveMessageFieldPolicy = {
 	from?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -206,7 +225,7 @@ export type PensieveMessageFieldPolicy = {
 	text?: FieldPolicy<any> | FieldReadFunction<any>,
 	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('activityStatus' | 'announcement' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'explorations' | 'googleCredentials' | 'icloudCredentials' | 'imageBySignedId' | 'instagramCredentials' | 'journalEntry' | 'journalEntryComments' | 'journeysSession' | 'journeysSessionParticipation' | 'location' | 'locationAccessGrants' | 'passwordStrength' | 'pensieveMessages' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('activityStatus' | 'announcement' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'explorations' | 'googleCredentials' | 'icloudCredentials' | 'imageBySignedId' | 'instagramCredentials' | 'journalEntry' | 'journalEntryComments' | 'journeysSession' | 'journeysSessionParticipation' | 'journeysSessions' | 'location' | 'locationAccessGrants' | 'passwordStrength' | 'pensieveMessages' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	announcement?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -222,6 +241,7 @@ export type QueryFieldPolicy = {
 	journalEntryComments?: FieldPolicy<any> | FieldReadFunction<any>,
 	journeysSession?: FieldPolicy<any> | FieldReadFunction<any>,
 	journeysSessionParticipation?: FieldPolicy<any> | FieldReadFunction<any>,
+	journeysSessions?: FieldPolicy<any> | FieldReadFunction<any>,
 	location?: FieldPolicy<any> | FieldReadFunction<any>,
 	locationAccessGrants?: FieldPolicy<any> | FieldReadFunction<any>,
 	passwordStrength?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -444,6 +464,14 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | JourneysSessionKeySpecifier | (() => undefined | JourneysSessionKeySpecifier),
 		fields?: JourneysSessionFieldPolicy,
 	},
+	JourneysSessionConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | JourneysSessionConnectionKeySpecifier | (() => undefined | JourneysSessionConnectionKeySpecifier),
+		fields?: JourneysSessionConnectionFieldPolicy,
+	},
+	JourneysSessionEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | JourneysSessionEdgeKeySpecifier | (() => undefined | JourneysSessionEdgeKeySpecifier),
+		fields?: JourneysSessionEdgeFieldPolicy,
+	},
 	JourneysSessionParticipation?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | JourneysSessionParticipationKeySpecifier | (() => undefined | JourneysSessionParticipationKeySpecifier),
 		fields?: JourneysSessionParticipationFieldPolicy,
@@ -491,6 +519,10 @@ export type StrictTypedTypePolicies = {
 	OAuthCredentials?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | OAuthCredentialsKeySpecifier | (() => undefined | OAuthCredentialsKeySpecifier),
 		fields?: OAuthCredentialsFieldPolicy,
+	},
+	PageInfo?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | PageInfoKeySpecifier | (() => undefined | PageInfoKeySpecifier),
+		fields?: PageInfoFieldPolicy,
 	},
 	PensieveMessage?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | PensieveMessageKeySpecifier | (() => undefined | PensieveMessageKeySpecifier),

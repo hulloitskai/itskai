@@ -182,10 +182,32 @@ type JournalEntry implements Node {
 type JourneysSession implements Node {
   """ID of the object."""
   id: ID!
-  participation(participantId: String!): JourneysSessionParticipation
   participations: [JourneysSessionParticipation!]!
   startedAt: DateTime!
   url: String!
+  viewerParticipation: JourneysSessionParticipation
+}
+
+"""The connection type for JourneysSession."""
+type JourneysSessionConnection {
+  """A list of edges."""
+  edges: [JourneysSessionEdge!]!
+
+  """A list of nodes."""
+  nodes: [JourneysSession!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+"""An edge in a connection."""
+type JourneysSessionEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: JourneysSession!
 }
 
 type JourneysSessionParticipation implements Node {
@@ -389,6 +411,21 @@ type OAuthCredentials implements Node {
   uid: String!
 }
 
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+}
+
 type PensieveMessage implements Node {
   from: PensieveMessageSender!
 
@@ -421,6 +458,21 @@ type Query {
   journalEntryComments(entryId: ID!): [NotionComment!]!
   journeysSession(id: ID!): JourneysSession
   journeysSessionParticipation(id: ID!): JourneysSessionParticipation
+  journeysSessions(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): JourneysSessionConnection!
   location: LocationLog
   locationAccessGrants: [LocationAccessGrant!]!
   passwordStrength(password: String!): Float!

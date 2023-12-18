@@ -10,6 +10,7 @@ import type { JourneysHomePageQuery } from "~/helpers/graphql";
 import JourneysAppLayout from "~/components/JourneysAppLayout";
 
 import classes from "./JourneysHomePage.module.css";
+import JourneysHomePageSessions from "~/components/JourneysHomePageSessions";
 
 export type JourneysHomePageProps = PagePropsWithData<JourneysHomePageQuery>;
 
@@ -84,9 +85,7 @@ const JourneysHomePage: PageComponent<JourneysHomePageProps> = () => {
           remainingRecordingSeconds === 1 ? "second" : "seconds"
         }!`}
         withArrow
-        color="primary"
-        c="var(--mantine-color-white)"
-        disabled={!isRecording || canEndRecording}
+        opened={isRecording && !canEndRecording}
       >
         <Button
           leftSection={<MicIcon />}
@@ -119,6 +118,9 @@ const JourneysHomePage: PageComponent<JourneysHomePageProps> = () => {
             motivated & held accountable.
           </Text>
         </Stack>
+      </Container>
+      <Container size="xs" w="100%">
+        <JourneysHomePageSessions />
       </Container>
     </Stack>
   );

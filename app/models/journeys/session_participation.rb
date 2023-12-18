@@ -42,6 +42,7 @@ module Journeys
     validates :participant_name, :goal, presence: true
 
     # == Callbacks
+    before_destroy :abort_destroy_unless_session_active
     after_destroy :destroy_session_if_empty
     after_commit :trigger_subscriptions, on: %i[create update destroy]
 
@@ -55,6 +56,12 @@ module Journeys
     private
 
     # == Callback Handlers
+    sig { void }
+    def abort_destroy_unless_session_active
+      session = session!
+      throw(:abort) unless session.active?
+    end
+
     sig { void }
     def destroy_session_if_empty
       session = session!

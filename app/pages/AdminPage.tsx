@@ -63,7 +63,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
               iCloud
             </Title>
             <Text size="sm" c="dimmed" lh={1.3}>
-              Enables location services & obsidian note imports
+              Enables location services
             </Text>
           </Stack>
           <ICloudCredentialsForm

@@ -17,14 +17,6 @@ Rails.application.configure do
         description: "Schedule purging of unattached ActiveStorage blobs.",
         cron: "0 */6 * * *",
       },
-      import_journal_entries: {
-        class: "ImportJournalEntriesJob",
-        cron: "*/5 * * * *",
-      },
-      import_location_logs: {
-        class: "ImportLocationLogsJob",
-        cron: "* * * * *",
-      },
     }
 
     # == Errors
@@ -32,6 +24,19 @@ Rails.application.configure do
     config.on_thread_error = ->(error) do
       error = T.let(error, Exception)
       Rails.error.report(error, handled: false)
+    end
+  end
+
+  config.after_initialize do
+    config.good_job.tap do |config|
+      config.cron[:import_location_logs] = {
+        class: "ImportLocationLogsJob",
+        cron: "* * * * *",
+      } if ImportLocationLogsJob.enabled?
+      config.cron[:import_journal_entry] = {
+        class: "ImportJournalEntryJob",
+        cron: "*/5 * * * *",
+      } if ImportJournalEntriesJob.enabled?
     end
   end
 end

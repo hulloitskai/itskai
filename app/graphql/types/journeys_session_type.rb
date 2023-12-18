@@ -7,25 +7,20 @@ module Types
     implements NodeType
 
     # == Fields
-    field :participation, JourneysSessionParticipationType do
-      argument :participant_id, String
-    end
     field :participations, [JourneysSessionParticipationType], null: false
     field :started_at, DateTimeType, null: false, method: :created_at
     field :url, String, null: false
+    field :viewer_participation, JourneysSessionParticipationType
 
     # == Resolvers
     sig { returns(String) }
     def url
-      journeys_session_url(object)
+      journeys_session_path(object)
     end
 
-    sig do
-      params(participant_id: String)
-        .returns(T.nilable(Journeys::SessionParticipation))
-    end
-    def participation(participant_id:)
-      object.participations.find_by(participant_id:)
+    sig { returns(T.nilable(Journeys::SessionParticipation)) }
+    def viewer_participation
+      object.participations.find_by(participant_id: journeys_participant_id)
     end
 
     # == Helpers

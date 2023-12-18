@@ -14,6 +14,17 @@ class NotionClient < ApplicationService
     )
   end
 
+  # == Methods
+  sig { returns(T::Boolean) }
+  def active?
+    @client.present?
+  end
+
+  sig { returns(T::Boolean) }
+  def self.enabled?
+    instance.active?
+  end
+
   # == Pages
   sig do
     params(database_id: String, options: T.untyped).returns(T.untyped)

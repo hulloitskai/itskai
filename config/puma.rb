@@ -1,6 +1,7 @@
 # typed: false
 # frozen_string_literal: true
 
+# == Defaults
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers: a minimum and maximum.
 # Any libraries that use thread pools should be configured to match
@@ -45,3 +46,21 @@ pidfile ENV.fetch("RAILS_PIDFILE", "tmp/pids/server.pid")
 
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
+
+# == Good Job
+before_fork do
+  GoodJob.shutdown
+end
+
+on_worker_boot do
+  GoodJob.restart
+end
+
+on_worker_shutdown do
+  GoodJob.shutdown
+end
+
+MAIN_PID = Process.pid
+at_exit do
+  GoodJob.shutdown if Process.pid == MAIN_PID
+end

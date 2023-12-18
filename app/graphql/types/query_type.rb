@@ -37,6 +37,7 @@ module Types
     field :journeys_session, resolver: Queries::JourneysSession
     field :journeys_session_participation,
           resolver: Queries::JourneysSessionParticipation
+    field :journeys_sessions, resolver: Queries::JourneysSessions
 
     field :location_access_grants, resolver: Queries::LocationAccessGrants
     field :pensieve_messages, resolver: Queries::PensieveMessages

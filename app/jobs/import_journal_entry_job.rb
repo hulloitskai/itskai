@@ -22,6 +22,12 @@ class ImportJournalEntryJob < ApplicationJob
     entry.import!(options.compact)
   end
 
+  # == Methods
+  sig { returns(T::Boolean) }
+  def self.enabled?
+    NotionClient.enabled?
+  end
+
   private
 
   # == Callback Handlers

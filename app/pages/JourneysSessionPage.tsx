@@ -39,6 +39,7 @@ const JourneySessionPage: PageComponent<JourneysSessionPageProps> = ({
   const [countdownSeconds, setCountdownSeconds] = useState(
     countdownSecondsFromFinishesAt,
   );
+  const isFinished = countdownSeconds === 0;
   useEffect(() => {
     const interval = setInterval(() => {
       setCountdownSeconds(countdownSecondsFromFinishesAt());
@@ -131,7 +132,7 @@ const JourneySessionPage: PageComponent<JourneysSessionPageProps> = ({
               )}
             </Group>
           </Card>
-          {viewerParticipation && (
+          {viewerParticipation && !isFinished && (
             <JourneysSessionLeaveButton
               size="xs"
               participationId={viewerParticipation.id}

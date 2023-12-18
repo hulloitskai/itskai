@@ -17,6 +17,11 @@ class ICloudClient < ApplicationService
     current or raise "Missing iCloud credentials"
   end
 
+  sig { returns(T::Boolean) }
+  def self.enabled?
+    !!current
+  end
+
   # == Builders
   sig { params(credentials: ICloudCredentials).returns(T.attached_class) }
   def self.from_credentials(credentials)

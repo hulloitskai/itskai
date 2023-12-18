@@ -1,0 +1,32 @@
+query JourneysHomePageSessionsQuery(
+  $first: Int
+  $last: Int
+  $before: String
+  $after: String
+) {
+  sessions: journeysSessions(
+    first: $first
+    last: $last
+    before: $before
+    after: $after
+  ) {
+    edges {
+      node {
+        id
+        participations {
+          goal
+          id
+          participantName
+        }
+        startedAt
+        url
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
+  }
+}

@@ -1,4 +1,4 @@
-query JourneysSessionPageQuery($sessionId: ID!, $participantId: String!) {
+query JourneysSessionPageQuery($sessionId: ID!) {
   session: journeysSession(id: $sessionId) {
     id
     participations {
@@ -7,7 +7,7 @@ query JourneysSessionPageQuery($sessionId: ID!, $participantId: String!) {
       participantName
     }
     startedAt
-    viewerParticipation: participation(participantId: $participantId) {
+    viewerParticipation {
       goal
       id
       participantName

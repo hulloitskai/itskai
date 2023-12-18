@@ -20,6 +20,9 @@ module Journeys
     include Identifiable
     include Slugged
 
+    # == Constants
+    SESSION_DURATION = T.let(1.hour, ActiveSupport::Duration)
+
     # == Attributes
     attribute :slug, :string, default: -> { generate_slug }
 
@@ -35,8 +38,15 @@ module Journeys
     # == Scopes
     scope :active, -> {
       T.bind(self, PrivateRelation)
-      where("created_at > ?", 1.hour.ago)
+      where("created_at > ?", SESSION_DURATION.ago)
     }
+
+    # == Methods
+    sig { returns(T::Boolean) }
+    def active?
+      created_at = self.created_at || Time.current
+      created_at > SESSION_DURATION.ago
+    end
 
     # == FriendlyId
     friendly_id :slug

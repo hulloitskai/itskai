@@ -208,15 +208,31 @@ export type JourneysSession = Node & {
   __typename?: 'JourneysSession';
   /** ID of the object. */
   id: Scalars['ID']['output'];
-  participation?: Maybe<JourneysSessionParticipation>;
   participations: Array<JourneysSessionParticipation>;
   startedAt: Scalars['DateTime']['output'];
   url: Scalars['String']['output'];
+  viewerParticipation?: Maybe<JourneysSessionParticipation>;
 };
 
+/** The connection type for JourneysSession. */
+export type JourneysSessionConnection = {
+  __typename?: 'JourneysSessionConnection';
+  /** A list of edges. */
+  edges: Array<JourneysSessionEdge>;
+  /** A list of nodes. */
+  nodes: Array<JourneysSession>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
 
-export type JourneysSessionParticipationArgs = {
-  participantId: Scalars['String']['input'];
+/** An edge in a connection. */
+export type JourneysSessionEdge = {
+  __typename?: 'JourneysSessionEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String']['output'];
+  /** The item at the end of the edge. */
+  node: JourneysSession;
 };
 
 export type JourneysSessionParticipation = Node & {
@@ -481,6 +497,19 @@ export type OAuthCredentials = Node & {
   uid: Scalars['String']['output'];
 };
 
+/** Information about pagination in a connection. */
+export type PageInfo = {
+  __typename?: 'PageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
 export type PensieveMessage = Node & {
   __typename?: 'PensieveMessage';
   from: PensieveMessageSender;
@@ -514,6 +543,7 @@ export type Query = {
   journalEntryComments: Array<NotionComment>;
   journeysSession?: Maybe<JourneysSession>;
   journeysSessionParticipation?: Maybe<JourneysSessionParticipation>;
+  journeysSessions: JourneysSessionConnection;
   location?: Maybe<LocationLog>;
   locationAccessGrants: Array<LocationAccessGrant>;
   passwordStrength: Scalars['Float']['output'];
@@ -549,6 +579,14 @@ export type QueryJourneysSessionArgs = {
 
 export type QueryJourneysSessionParticipationArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryJourneysSessionsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
