@@ -26,15 +26,15 @@ class InstagramClient < ApplicationService
     ).returns(T.attached_class)
   end
   def self.from_credentials(credentials, security_code: nil)
-    @clients = T.let(
-      @clients,
-      T.nilable(T::Hash[InstagramCredentials, InstagramClient]),
+    @clients ||= T.let(
+      Hash.new do |hash, key|
+        credentials, _ = key
+        hash[key] = new(credentials:, security_code:)
+      end,
+      T.nilable(T::Hash[T.untyped, InstagramClient]),
     )
-    @clients ||= Hash.new do |hash, credentials|
-      hash[credentials] = new(credentials:, security_code:)
-    end
     @clients.clear if security_code.present?
-    @clients[credentials]
+    @clients[[credentials, credentials.updated_at]]
   end
 
   # == Methods
