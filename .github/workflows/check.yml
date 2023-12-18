@@ -5,7 +5,7 @@ on:
   - pull_request
 
 env:
-  OVERMIND_VERSION: "2.4.0"
+  RAILS_ENV: test
   OWNER_EMAIL: test@example.com
 
 jobs:
@@ -45,7 +45,7 @@ jobs:
       - name: Install Overmind
         run: |
           sudo apt-get install tmux \
-            && sudo curl -Lo /usr/bin/overmind.gz https://github.com/DarthSim/overmind/releases/download/v$OVERMIND_VERSION/overmind-v$OVERMIND_VERSION-linux-amd64.gz \
+            && sudo curl -Lo /usr/bin/overmind.gz https://github.com/DarthSim/overmind/releases/download/v2.4.0/overmind-v2.4.0-linux-amd64.gz \
             && sudo gzip -d /usr/bin/overmind.gz \
             && sudo chmod u+x /usr/bin/overmind \
             && sudo chown $(whoami) /usr/bin/overmind
@@ -53,6 +53,8 @@ jobs:
         run: yarn global add playwright && playwright install
       - name: Set up environment
         run: bin/setup
+        env:
+          POSTGRES_DB: postgres
       - name: Check formatting
         run: bin/fmt
       - name: Check lints

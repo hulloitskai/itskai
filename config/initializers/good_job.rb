@@ -27,16 +27,18 @@ Rails.application.configure do
     end
   end
 
-  config.after_initialize do
-    config.good_job.tap do |config|
-      config.cron[:import_location_logs] = {
-        class: "ImportLocationLogsJob",
-        cron: "* * * * *",
-      } if ImportLocationLogsJob.enabled?
-      config.cron[:import_journal_entry] = {
-        class: "ImportJournalEntryJob",
-        cron: "*/5 * * * *",
-      } if ImportJournalEntriesJob.enabled?
+  if Rails.server?
+    config.after_initialize do
+      config.good_job.tap do |config|
+        config.cron[:import_location_logs] = {
+          class: "ImportLocationLogsJob",
+          cron: "* * * * *",
+        } if ImportLocationLogsJob.enabled?
+        config.cron[:import_journal_entry] = {
+          class: "ImportJournalEntryJob",
+          cron: "*/5 * * * *",
+        } if ImportJournalEntriesJob.enabled?
+      end
     end
   end
 end

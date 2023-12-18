@@ -20,7 +20,9 @@ module Logging
     requires_ancestor { Module }
 
     # == Methods
-    sig { returns(T.any(ActiveSupport::Logger, ActiveSupport::BroadcastLogger)) }
+    sig do
+      returns(T.any(ActiveSupport::Logger, ActiveSupport::BroadcastLogger))
+    end
     def logger = Rails.logger
 
     private

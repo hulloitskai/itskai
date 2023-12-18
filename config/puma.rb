@@ -48,17 +48,17 @@ pidfile ENV.fetch("RAILS_PIDFILE", "tmp/pids/server.pid")
 plugin :tmp_restart
 
 # == Good Job
-before_fork do
-  GoodJob.shutdown
-end
+# before_fork do
+#   GoodJob.shutdown
+# end
 
-on_worker_boot do
-  GoodJob.restart
-end
+# on_worker_boot do
+#   GoodJob.restart
+# end
 
-on_worker_shutdown do
-  GoodJob.shutdown
-end
+# on_worker_shutdown do
+#   GoodJob.shutdown
+# end
 
 MAIN_PID = Process.pid
 at_exit do
