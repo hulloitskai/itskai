@@ -64,7 +64,7 @@ class LocationLog < ApplicationRecord
     result_type = T.let(result.data.fetch("resultType"), String)
     title = result.data["title"]
     place_name = title if result_type == "place"
-    address = LocationLogAddress.new(
+    address = log.build_address(
       place_name:,
       full_address: result.address,
       street_address: [result.street_number, result.route].compact.join(" "),
@@ -75,13 +75,12 @@ class LocationLog < ApplicationRecord
       country_code: result.country_code,
       postal_code: result.postal_code,
     )
-    if address.valid?
-      log.address = address
-    else
+    unless address.valid?
+      log.address = nil
       tag_logger do
         logger.warn(
-          "Invalid address for location log with id '#{log.id}': " +
-            address.errors.to_s,
+          "Invalid address for location log with id `#{log.id}': " +
+            address.errors.full_messages.to_sentence,
         )
       end
     end
