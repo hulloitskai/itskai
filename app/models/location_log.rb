@@ -118,22 +118,20 @@ class LocationLog < ApplicationRecord
   end
 
   # == Finders
-  sig { params(args: T.untyped).returns(T.nilable(LocationLog)) }
-  def self.latest(*args)
+  sig { params(where: T.untyped).returns(T.nilable(LocationLog)) }
+  def self.latest(*where)
     relation = _latest
-    if args.present?
-      relation = relation.where(*T.unsafe(args))
-      relation = T.cast(relation, PrivateRelation)
+    if where.present?
+      relation = T.cast(relation.where(*T.unsafe(where)), PrivateRelation)
     end
     relation.first
   end
 
-  sig { params(args: T.untyped).returns(LocationLog) }
-  def self.latest!(*args)
+  sig { params(where: T.untyped).returns(LocationLog) }
+  def self.latest!(*where)
     relation = _latest
-    if args.present?
-      relation = relation.where(*T.unsafe(args))
-      relation = T.cast(relation, PrivateRelation)
+    if where.present?
+      relation = T.cast(relation.where(*T.unsafe(where)), PrivateRelation)
     end
     relation.first!
   end

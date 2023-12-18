@@ -39,6 +39,13 @@ class LocationLogAddress < ApplicationRecord
                 :postal_code,
                 :street_address
 
+  # == Validations
+  validates :country,
+            :country_code,
+            :full_address,
+            :province,
+            presence: true
+
   # == Methods
   sig { returns(String) }
   def full_address
