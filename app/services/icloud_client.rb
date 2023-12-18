@@ -25,14 +25,14 @@ class ICloudClient < ApplicationService
   # == Builders
   sig { params(credentials: ICloudCredentials).returns(T.attached_class) }
   def self.from_credentials(credentials)
-    @clients = T.let(
-      @clients,
-      T.nilable(T::Hash[ICloudCredentials, ICloudClient]),
+    @clients ||= T.let(
+      Hash.new do |hash, key|
+        credentials, _ = key
+        hash[key] = new(credentials:)
+      end,
+      T.nilable(T::Hash[T.untyped, ICloudClient]),
     )
-    @clients ||= Hash.new do |hash, credentials|
-      hash[credentials] = new(credentials:)
-    end
-    @clients[credentials]
+    @clients[[credentials, credentials.updated_at]]
   end
 
   # == Methods
