@@ -289,13 +289,14 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                   classNames={{
                     root: classes.alert,
                     title: classes.alertTitle,
+                    message: classes.alertMessage,
                   }}
                   styles={{
                     root: {
                       transition: "border 250ms ease",
                     },
-                    title: {
-                      marginBottom: rem(4),
+                    body: {
+                      rowGap: rem(2),
                     },
                     label: {
                       width: "100%",
@@ -327,6 +328,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
               classNames={{
                 root: classes.alert,
                 title: classes.alertTitle,
+                message: classes.alertMessage,
               }}
               styles={{
                 body: {
@@ -363,13 +365,11 @@ const LocatePage: PageComponent<LocatePageProps> = ({
               classNames={{
                 root: classes.alert,
                 title: classes.alertTitle,
+                message: classes.alertMessage,
               }}
               styles={{
-                title: {
-                  marginBottom: 2,
-                },
-                message: {
-                  color: "var(--mantine-color-dark-0)",
+                body: {
+                  rowGap: rem(2),
                 },
               }}
             >
