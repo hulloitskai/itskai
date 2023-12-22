@@ -259,6 +259,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
                 },
                 label: {
                   maxWidth: 200,
+                  textTransform: "none",
                 },
               }}
               {...(hasLyrics && { "data-with-lyrics": true })}

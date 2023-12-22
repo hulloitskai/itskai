@@ -1,6 +1,9 @@
 .badge {
   transition-property: transform, opacity, border !important;
   cursor: pointer;
+  @mixin light {
+    border-color: var(--mantine-color-gray-4);
+  }
 
   &:hover {
     text-decoration: underline;
