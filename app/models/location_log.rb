@@ -98,17 +98,19 @@ class LocationLog < ApplicationRecord
     iphone = client.iphone or raise "Couldn't read iPhone details"
     location = iphone.location or return
     timestamp = Time.zone.at(location.fetch(:time_stamp).to_f / 1000)
-    unless exists?(timestamp:)
-      coordinates = scoped do
-        location => { latitude:, longitude:, altitude: }
-        coordinates_factory.point(longitude, latitude, altitude)
+    transaction do
+      unless exists?(timestamp:)
+        coordinates = scoped do
+          location => { latitude:, longitude:, altitude: }
+          coordinates_factory.point(longitude, latitude, altitude)
+        end
+        other_attributes = location.slice(
+          :horizontal_accuracy,
+          :vertical_accuracy,
+          :floor_level,
+        )
+        create!(timestamp:, coordinates:, **other_attributes)
       end
-      other_attributes = location.slice(
-        :horizontal_accuracy,
-        :vertical_accuracy,
-        :floor_level,
-      )
-      create!(timestamp:, coordinates:, **other_attributes)
     end
   end
 
