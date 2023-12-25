@@ -35,7 +35,6 @@ const JourneysSessionParticipationForm: FC<
     },
     onCompleted: ({ participation }) => {
       if (participation) {
-        console.log({ participation });
         const { participantName, goal } = participation;
         setValues({ participantName, goal });
         resetDirty();

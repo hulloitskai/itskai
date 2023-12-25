@@ -214,6 +214,10 @@ gem "streamio-ffmpeg", "~> 3.0"
 # Generate fake data with Faker
 gem "faker", "~> 3.2"
 
+# Analyze image metadata
+# gem "exif", "~> 2.2"
+gem "exiftool", "~> 1.2"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"

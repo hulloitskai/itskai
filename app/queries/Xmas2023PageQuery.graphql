@@ -1,0 +1,6 @@
+query Xmas2023PageQuery {
+  viewer {
+    ...AppViewerFragment
+    id
+  }
+}

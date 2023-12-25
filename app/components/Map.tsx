@@ -4,12 +4,15 @@ import type { MapProps as _MapProps } from "react-map-gl";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
-export type MapProps = Omit<_MapProps, "mapboxAccessToken">;
+export type MapProps = Omit<_MapProps, "mapboxAccessToken"> & {
+  readonly navigationControl?: boolean;
+};
 
 const Map = forwardRef<MapRef, MapProps>(
   (
     {
       mapStyle = "mapbox://styles/mapbox/cj3kbeqzo00022smj7akz3o1e",
+      navigationControl = true,
       children,
       ...otherProps
     },
@@ -23,7 +26,7 @@ const Map = forwardRef<MapRef, MapProps>(
         {...{ ref, mapboxAccessToken, mapStyle }}
         {...otherProps}
       >
-        <NavigationControl />
+        {navigationControl && <NavigationControl />}
         {children}
       </_Map>
     );

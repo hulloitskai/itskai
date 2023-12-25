@@ -49,7 +49,7 @@ RUN git clone --depth 1 https://github.com/rbenv/ruby-build.git \
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
   --mount=type=cache,target=/var/lib/apt,sharing=locked \
   apt-get -y update -q \
-  && apt-get install -yq --no-install-recommends --no-install-suggests libpq-dev libvips ffmpeg \
+  && apt-get install -yq --no-install-recommends --no-install-suggests libpq-dev libimage-exiftool-perl libvips ffmpeg \
   && truncate -s 0 /var/log/*log
 
 # Install Overmind

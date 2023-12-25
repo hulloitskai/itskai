@@ -121,6 +121,7 @@ Rails.application.routes.draw do
   root "home#show"
   get "/admin" => "admin#show"
   get "/pensieve" => "pensieve#show"
+  get "/xmas" => "xmas2023#show"
   get "/track" => redirect(path: "/locate", status: 302)
   get "/toronto" => "places#toronto"
   get "/atelier" => redirect("https://instagram.com/atelier.ubc", status: 302)

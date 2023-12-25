@@ -1,0 +1,13 @@
+query Xmas2023ActivitiesQuery {
+  activities: googleTimelineActivities {
+    endedAt
+    id
+    location
+    photos {
+      id
+      ...Xmas2023TimelinePhotoFragment
+    }
+    startedAt
+    type
+  }
+}

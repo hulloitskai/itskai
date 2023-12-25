@@ -7,6 +7,7 @@
       const result: PossibleTypesResultData = {
   "possibleTypes": {
     "Node": [
+      "GoogleTimelineActivity",
       "ICloudCredentials",
       "Image",
       "InstagramCredentials",
@@ -18,6 +19,7 @@
       "OAuthCredentials",
       "PensieveMessage",
       "SenecaMoodLog",
+      "TimelinePhoto",
       "User"
     ]
   }
