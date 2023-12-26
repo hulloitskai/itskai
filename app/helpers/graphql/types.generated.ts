@@ -819,6 +819,7 @@ export type TimelineActivity = Node & {
   photos: Array<TimelinePhoto>;
   startedAt: Scalars['DateTime']['output'];
   timezone: Timezone;
+  timezoneName: Scalars['String']['output'];
   type: TimelineActivityType;
 };
 

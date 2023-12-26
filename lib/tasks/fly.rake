@@ -18,10 +18,8 @@ namespace :fly do
       "ssh",
       "console",
       pty ? "--pty" : nil,
-      "--user",
-      "linuxbrew",
       "--command",
-      "bash --login -c \"#{command}\"",
+      command,
     ].compact
     exec("fly", *args)
   end

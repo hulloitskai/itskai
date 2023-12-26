@@ -662,6 +662,7 @@ type TimelineActivity implements Node {
   photos: [TimelinePhoto!]!
   startedAt: DateTime!
   timezone: Timezone!
+  timezoneName: String!
   type: TimelineActivityType!
 }
 

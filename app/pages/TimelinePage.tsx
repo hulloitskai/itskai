@@ -236,7 +236,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
         }
         const sharedProperties: TimelineSharedFeatureProperties = {
           opacity: deriveActivityOpacity(timestamp, startedAt),
-          timezone: activity.timezone.name,
+          timezone: activity.timezoneName,
         };
         if (activity.type === TimelineActivityType.PlaceVisit) {
           const feature: TimelinePlaceVisitFeature = {

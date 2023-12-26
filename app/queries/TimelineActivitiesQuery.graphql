@@ -9,9 +9,7 @@ query TimelineActivitiesQuery($after: DateTime!, $before: DateTime!) {
       ...TimelinePhotoFragment
     }
     startedAt
-    timezone {
-      name
-    }
+    timezoneName
     type
   }
 }

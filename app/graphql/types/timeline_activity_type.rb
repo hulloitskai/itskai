@@ -14,6 +14,7 @@ module Types
     field :photos, [TimelinePhotoType], null: false
     field :started_at, DateTimeType, null: false
     field :timezone, TimezoneType, null: false
+    field :timezone_name, String, null: false
     field :type, TimelineActivityTypeType, null: false
 
     # == Resolvers
