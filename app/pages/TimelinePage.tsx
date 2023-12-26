@@ -74,7 +74,7 @@ const deriveActivityOpacity = (
   startedAt: DateTime,
 ): number => {
   const x = timestamp.diff(startedAt).as("hours");
-  return Math.min(1.0, 1.03 ** -x);
+  return Math.min(1.0, 1.04 ** -x);
 };
 
 // const stringHash = (str: string): number => {
