@@ -1,6 +1,7 @@
 import type { PageProps } from "@inertiajs/core";
 import type { PageComponent } from "~/helpers/inertia";
 import type { Feature, FeatureCollection, LineString, Point } from "geojson";
+import { useAudioPlayer } from "react-use-audio-player";
 import { ActionIcon, Loader } from "@mantine/core";
 import { DateTime } from "luxon";
 
@@ -24,6 +25,8 @@ import type { Coordinates, TimelinePhotoFragment } from "~/helpers/graphql";
 import PageLayout from "~/components/PageLayout";
 import Map from "~/components/Map";
 import TimelinePhoto from "~/components/TimelinePhoto";
+
+import fallUnderneathSrc from "~/assets/sounds/fall-underneath.mp3";
 
 const TORONTO_COORDINATES: Readonly<Coordinates> = {
   latitude: 43.6532,
@@ -130,6 +133,19 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   );
   const speedRef = useRef(1);
 
+  // == Audio Player
+  const audioPlayer = useAudioPlayer();
+  useEffect(() => {
+    audioPlayer.load(fallUnderneathSrc, { loop: true });
+  }, []);
+  useEffect(() => {
+    if (paused) {
+      audioPlayer.pause();
+    } else {
+      audioPlayer.play();
+    }
+  }, [paused]);
+
   // == Activities
   const onError = useApolloAlertCallback("Failed to load activities");
   const previousWeekISO = useMemo(
@@ -161,12 +177,12 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   const coalescedData = data ?? previousData;
   const { activities } = coalescedData ?? {};
 
-  // == Advance Timeline
+  // == Timeline Progression
   useEffect(() => {
     if (!paused) {
       const interval = setInterval(() => {
         setTimestamp(prevTimestamp =>
-          prevTimestamp.plus({ seconds: speedRef.current * 12 }),
+          prevTimestamp.plus({ seconds: speedRef.current * 14 }),
         );
       }, 1.2);
       return () => {
@@ -183,10 +199,14 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   const [photos, setPhotos] = useState<ReadonlyArray<TimelinePhotoFragment>>(
     [],
   );
-  const photoCornerRef = useRef(0);
-  const nextPhotoCorner = useCallback(
-    () => (photoCornerRef.current = (photoCornerRef.current + 1) % 4),
-    [photoCornerRef],
+  const visiblePhotos = useMemo(
+    () =>
+      photos.filter(photo => {
+        const takenAt = DateTime.fromISO(photo.takenAt);
+        const hideAt = takenAt.plus({ hours: 3 });
+        return timestamp > takenAt && timestamp < hideAt;
+      }),
+    [timestamp, photos],
   );
 
   // == Features
@@ -265,6 +285,8 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
     () => lastActivityFeature?.properties.timezone,
     [lastActivityFeature],
   );
+
+  // == Map Following + Timeline Speed
   useEffect(() => {
     if (activityFeatures) {
       if (lastActivityFeature) {
@@ -275,7 +297,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
             center: lastCoordinate as [number, number],
             animate: false,
           });
-          if (timestamp > properties.endedAt) {
+          if (isEmpty(visiblePhotos) && timestamp > properties.endedAt) {
             speedRef.current = 12;
           } else {
             speedRef.current = 1;
@@ -283,8 +305,9 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
         }
       }
     }
-  }, [lastActivityFeature]);
+  }, [lastActivityFeature, visiblePhotos]);
 
+  const ready = !!coalescedData && audioPlayer.isReady;
   return (
     <Flex
       pos="relative"
@@ -341,11 +364,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
         </Map>
       )}
       {photos.map(photo => (
-        <TimelinePhoto
-          key={photo.id}
-          initialCorner={nextPhotoCorner()}
-          {...{ photo, timestamp }}
-        />
+        <TimelinePhoto key={photo.id} {...{ photo, timestamp }} />
       ))}
       <Center
         pos="absolute"
@@ -357,26 +376,56 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
       >
         <Card withBorder w={440} padding="xs">
           <Group gap={8}>
-            <Badge>
+            <Badge miw={170}>
               {timestamp.toLocaleString({
                 ...DateTime.DATETIME_MED,
                 timeZone: lastActivityTimezone,
                 timeZoneName: "short",
               })}
             </Badge>
-            <Box style={{ flexGrow: 1 }} />
             {loading && <Loader size="xs" />}
-            <Tooltip label={paused ? "Start" : "Stop"} withArrow>
-              <ActionIcon
-                variant="light"
-                onClick={() => {
-                  setPaused(prevPaused => !prevPaused);
-                }}
+            <Box style={{ flexGrow: 1 }} />
+            {paused && (
+              <Tooltip
+                color="primary"
+                c="var(--mantine-color-white)"
+                label="Start"
+                withArrow
               >
-                {paused ? <ResumeIcon /> : <PauseIcon />}
-              </ActionIcon>
-            </Tooltip>
-            <Tooltip label="Rewind 1 day" withArrow>
+                <ActionIcon
+                  variant="light"
+                  disabled={!ready}
+                  onClick={() => {
+                    setPaused(false);
+                  }}
+                >
+                  <ResumeIcon />
+                </ActionIcon>
+              </Tooltip>
+            )}
+            {!paused && (
+              <Tooltip
+                color="primary"
+                c="var(--mantine-color-white)"
+                label="Pause"
+                withArrow
+              >
+                <ActionIcon
+                  variant="light"
+                  onClick={() => {
+                    setPaused(true);
+                  }}
+                >
+                  <PauseIcon />
+                </ActionIcon>
+              </Tooltip>
+            )}
+            <Tooltip
+              label="Rewind 1 day"
+              color="primary"
+              c="var(--mantine-color-white)"
+              withArrow
+            >
               <ActionIcon
                 variant="light"
                 onClick={() => {
@@ -388,7 +437,12 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
                 <BackwardIcon />
               </ActionIcon>
             </Tooltip>
-            <Tooltip label="Skip ahead 1 day" withArrow>
+            <Tooltip
+              label="Skip ahead 1 day"
+              color="primary"
+              c="var(--mantine-color-white)"
+              withArrow
+            >
               <ActionIcon
                 variant="light"
                 onClick={() => {
@@ -401,7 +455,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
           </Group>
         </Card>
       </Center>
-      <LoadingOverlay visible={!coalescedData} loaderProps={{ size: "md" }} />
+      <LoadingOverlay visible={!ready} loaderProps={{ size: "md" }} />
     </Flex>
   );
 };

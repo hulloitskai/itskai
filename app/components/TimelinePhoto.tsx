@@ -7,24 +7,29 @@ import { DateTime } from "luxon";
 type TimelinePhotoProps = ImageProps & {
   readonly photo: TimelinePhotoFragment;
   readonly timestamp: DateTime;
-  readonly initialCorner: number;
+};
+
+let lastCorner = 0;
+
+const getNextCorner = () => {
+  lastCorner = (lastCorner + 1) % 4;
+  return lastCorner;
 };
 
 const TimelinePhoto: FC<TimelinePhotoProps> = ({
   photo,
   timestamp,
-  initialCorner,
   ...otherProps
 }) => {
-  const [corner] = useState(initialCorner);
   const { id: photoId, image } = photo;
   const takenAt = useParseDateTime(photo.takenAt);
-  const hideAt = useMemo(() => takenAt.plus({ day: 1 }), [takenAt]);
+  const hideAt = useMemo(() => takenAt.plus({ hours: 3 }), [takenAt]);
   const mounted = useMemo(
     () => timestamp > takenAt && timestamp < hideAt,
     [timestamp, takenAt, hideAt],
   );
   const size = 540;
+  const [corner] = useState(getNextCorner);
   const key = useMemo(() => Math.floor(Math.random() * 1_000_000), [photoId]);
   const rotation = useMemo(() => Math.floor(key % 18), [key]);
   const xOffset = useMemo(() => Math.floor(key % 60), [key]);
