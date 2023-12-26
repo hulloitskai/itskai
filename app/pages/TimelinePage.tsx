@@ -23,6 +23,7 @@ import {
 import type { Coordinates, TimelinePhotoFragment } from "~/helpers/graphql";
 
 import PageLayout from "~/components/PageLayout";
+import AppMeta from "~/components/AppMeta";
 import Map from "~/components/Map";
 import TimelinePhoto from "~/components/TimelinePhoto";
 
@@ -458,6 +459,11 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   );
 };
 
-TimelinePage.layout = page => <PageLayout>{page}</PageLayout>;
+TimelinePage.layout = page => (
+  <PageLayout>
+    <AppMeta title="Timeline" />
+    {page}
+  </PageLayout>
+);
 
 export default TimelinePage;
