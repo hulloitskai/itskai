@@ -1,7 +1,13 @@
 import type { PageProps } from "@inertiajs/core";
 import type { PageComponent } from "~/helpers/inertia";
 import type { Feature, FeatureCollection, LineString, Point } from "geojson";
+import { ActionIcon, Loader } from "@mantine/core";
 import { DateTime } from "luxon";
+
+import ResumeIcon from "~icons/heroicons/play-20-solid";
+import PauseIcon from "~icons/heroicons/pause-20-solid";
+import ForwardIcon from "~icons/heroicons/forward-20-solid";
+import BackwardIcon from "~icons/heroicons/backward-20-solid";
 
 import lineSliceAlong from "@turf/line-slice-along";
 import lineLength from "@turf/length";
@@ -18,9 +24,6 @@ import type { Coordinates, TimelinePhotoFragment } from "~/helpers/graphql";
 import PageLayout from "~/components/PageLayout";
 import Map from "~/components/Map";
 import TimelinePhoto from "~/components/TimelinePhoto";
-import { Loader, Text } from "@mantine/core";
-
-// import { AnimatePresence } from "framer-motion";
 
 const TORONTO_COORDINATES: Readonly<Coordinates> = {
   latitude: 43.6532,
@@ -30,22 +33,22 @@ const TORONTO_COORDINATES: Readonly<Coordinates> = {
 export type TimelinePageProps = PageProps;
 
 const truncateActivitySegmentIfNecessary = (
-  timestamp: DateTime,
-  cutoff: DateTime,
+  feature: TimelineActivitySegmentFeature,
   startedAt: DateTime,
   endedAt: DateTime,
-  feature: TimelineActivitySegmentFeature,
+  windowStart: DateTime,
+  windowEnd: DateTime,
 ): TimelineActivitySegmentFeature => {
   const durationSeconds = endedAt.diff(startedAt).as("seconds");
   const distance = lineLength(feature);
   let startDistance = 0;
   let stopDistance = distance;
-  if (cutoff > startedAt) {
-    const startSeconds = cutoff.diff(startedAt).as("seconds");
+  if (windowStart > startedAt) {
+    const startSeconds = windowStart.diff(startedAt).as("seconds");
     startDistance = distance * (startSeconds / durationSeconds);
   }
-  if (timestamp < endedAt) {
-    const endSeconds = endedAt.diff(timestamp).as("seconds");
+  if (windowEnd < endedAt) {
+    const endSeconds = endedAt.diff(windowEnd).as("seconds");
     stopDistance = distance * (1 - endSeconds / durationSeconds);
   }
   if (startDistance === 0 && stopDistance === distance) {
@@ -121,6 +124,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   const isClient = useIsClient();
 
   // == Timestamp
+  const [paused, setPaused] = useState(true);
   const [timestamp, setTimestamp] = useState(() =>
     DateTime.fromObject({ year: 2023, month: 1, day: 3 }),
   );
@@ -159,21 +163,17 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
 
   // == Advance Timeline
   useEffect(() => {
-    if (activities) {
-      const february = DateTime.fromObject({ year: 2023, month: 6, day: 1 });
+    if (!paused) {
       const interval = setInterval(() => {
-        setTimestamp(prevTimestamp => {
-          if (prevTimestamp < february) {
-            return prevTimestamp.plus({ seconds: speedRef.current * 12 });
-          }
-          return prevTimestamp;
-        });
+        setTimestamp(prevTimestamp =>
+          prevTimestamp.plus({ seconds: speedRef.current * 12 }),
+        );
       }, 1.2);
       return () => {
         clearInterval(interval);
       };
     }
-  }, [activities, speedRef]);
+  }, [paused, speedRef]);
 
   // == Map
   const mapRef = useRef<MapRef>(null);
@@ -183,28 +183,11 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   const [photos, setPhotos] = useState<ReadonlyArray<TimelinePhotoFragment>>(
     [],
   );
-  const [shownPhotosCount, setShownPhotosCount] = useState(photos.length);
-  const photosStateRef = useRef({
-    photosCount: photos.length,
-    shownPhotosCount,
-  });
-  useEffect(() => {
-    photosStateRef.current.photosCount = photos.length;
-    photosStateRef.current.shownPhotosCount = shownPhotosCount;
-  }, [photos, shownPhotosCount]);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (
-        photosStateRef.current.shownPhotosCount <
-        photosStateRef.current.photosCount
-      ) {
-        setShownPhotosCount(count => count + 1);
-      }
-    }, 1000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [photosStateRef]);
+  const photoCornerRef = useRef(0);
+  const nextPhotoCorner = useCallback(
+    () => (photoCornerRef.current = (photoCornerRef.current + 1) % 4),
+    [photoCornerRef],
+  );
 
   // == Features
   const [activityFeatures, setActivityFeatures] =
@@ -222,15 +205,15 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
         features: [],
       };
       const newPhotos: TimelinePhotoFragment[] = [];
+      const windowEnd = timestamp;
+      const windowStart = windowEnd.plus({ week: -1 });
       for (const activity of activities) {
         const startedAt = DateTime.fromISO(activity.startedAt);
         const endedAt = DateTime.fromISO(activity.endedAt);
-        const cutoff = timestamp.plus({ days: -3 });
-        if (startedAt > timestamp) {
+        if (startedAt > windowEnd) {
           continue;
         }
-        newPhotos.push(...activity.photos);
-        if (endedAt < cutoff) {
+        if (endedAt < windowStart) {
           continue;
         }
         const sharedProperties: TimelineSharedFeatureProperties = {
@@ -259,14 +242,15 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
           };
           newActivityFeatures.features.push(
             truncateActivitySegmentIfNecessary(
-              timestamp,
-              cutoff,
+              feature,
               startedAt,
               endedAt,
-              feature,
+              windowStart,
+              windowEnd,
             ),
           );
         }
+        newPhotos.push(...activity.photos);
       }
       setActivityFeatures(newActivityFeatures);
       setVisitFeatures(newVisitFeatures);
@@ -356,8 +340,12 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
           )}
         </Map>
       )}
-      {take(photos, shownPhotosCount).map(photo => (
-        <TimelinePhoto key={photo.id} {...{ photo }} />
+      {photos.map(photo => (
+        <TimelinePhoto
+          key={photo.id}
+          initialCorner={nextPhotoCorner()}
+          {...{ photo, timestamp }}
+        />
       ))}
       <Center
         pos="absolute"
@@ -367,32 +355,51 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
           bottom: spacing.lg,
         })}
       >
-        <Alert
-          title={
-            <>
-              <Text span inherit>
-                {timestamp.toLocaleString({
-                  ...DateTime.DATETIME_MED,
-                  timeZone: lastActivityTimezone,
-                  timeZoneName: "short",
-                })}
-              </Text>
-              {loading && <Loader size="xs" />}
-            </>
-          }
-          variant="white"
-          miw={440}
-          p="xs"
-          styles={{
-            label: {
-              width: "100%",
-              display: "flex",
-              gap: "var(--mantine-spacing-xs)",
-              justifyContent: "space-between",
-              alignItems: "center",
-            },
-          }}
-        ></Alert>
+        <Card withBorder w={440} padding="xs">
+          <Group gap={8}>
+            <Badge>
+              {timestamp.toLocaleString({
+                ...DateTime.DATETIME_MED,
+                timeZone: lastActivityTimezone,
+                timeZoneName: "short",
+              })}
+            </Badge>
+            <Box style={{ flexGrow: 1 }} />
+            {loading && <Loader size="xs" />}
+            <Tooltip label={paused ? "Start" : "Stop"} withArrow>
+              <ActionIcon
+                variant="light"
+                onClick={() => {
+                  setPaused(prevPaused => !prevPaused);
+                }}
+              >
+                {paused ? <ResumeIcon /> : <PauseIcon />}
+              </ActionIcon>
+            </Tooltip>
+            <Tooltip label="Rewind 1 day" withArrow>
+              <ActionIcon
+                variant="light"
+                onClick={() => {
+                  setTimestamp(prevTimestamp =>
+                    prevTimestamp.plus({ day: -1 }),
+                  );
+                }}
+              >
+                <BackwardIcon />
+              </ActionIcon>
+            </Tooltip>
+            <Tooltip label="Skip ahead 1 day" withArrow>
+              <ActionIcon
+                variant="light"
+                onClick={() => {
+                  setTimestamp(prevTimestamp => prevTimestamp.plus({ day: 1 }));
+                }}
+              >
+                <ForwardIcon />
+              </ActionIcon>
+            </Tooltip>
+          </Group>
+        </Card>
       </Center>
       <LoadingOverlay visible={!coalescedData} loaderProps={{ size: "md" }} />
     </Flex>
