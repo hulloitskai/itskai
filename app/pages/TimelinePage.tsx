@@ -74,7 +74,7 @@ const deriveActivityOpacity = (
   startedAt: DateTime,
 ): number => {
   const x = timestamp.diff(startedAt).as("hours");
-  return Math.min(1.0, 1.05 ** -x);
+  return Math.min(1.0, 1.03 ** -x);
 };
 
 // const stringHash = (str: string): number => {
@@ -184,9 +184,9 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
     if (!paused) {
       const interval = setInterval(() => {
         setTimestamp(prevTimestamp =>
-          prevTimestamp.plus({ seconds: speedRef.current * 14 }),
+          prevTimestamp.plus({ seconds: speedRef.current * 15 }),
         );
-      }, 1.2);
+      }, 5);
       return () => {
         clearInterval(interval);
       };
@@ -384,7 +384,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
       >
         <Card withBorder w={440} padding="xs">
           <Group gap={8}>
-            <Badge miw={170}>
+            <Badge miw={170} radius="sm">
               {timestamp.toLocaleString({
                 ...DateTime.DATETIME_MED,
                 timeZone: lastActivityTimezone,

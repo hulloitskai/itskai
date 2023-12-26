@@ -17,7 +17,7 @@ module Types
     def url(size:)
       limit = limit_for_size(size)
       representation = object.representation(resize_to_limit: limit)
-      representation.processed.url
+      rails_representation_url(representation)
     end
 
     # == Helpers
