@@ -148,18 +148,20 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
 
   // == Activities
   const onError = useApolloAlertCallback("Failed to load activities");
-  const previousWeekISO = useMemo(
+  const windowStart = useMemo(
     () =>
       timestamp
-        .plus({ weeks: -1 })
+        .startOf("week")
+        .plus({ day: -1 })
         .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
         .toISO(),
     [timestamp],
   );
-  const nextWeekISO = useMemo(
+  const windowEnd = useMemo(
     () =>
       timestamp
-        .plus({ weeks: 1 })
+        .endOf("week")
+        .plus({ day: 1 })
         .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
         .toISO(),
     [timestamp],
@@ -168,8 +170,8 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
     TimelineActivitiesQueryDocument,
     {
       variables: {
-        after: previousWeekISO,
-        before: nextWeekISO,
+        after: windowStart,
+        before: windowEnd,
       },
       onError,
     },
@@ -199,6 +201,12 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   const [photos, setPhotos] = useState<ReadonlyArray<TimelinePhotoFragment>>(
     [],
   );
+  useEffect(() => {
+    photos.forEach(({ image }) => {
+      // Preload photos by creating an Image object for each one.
+      new Image().src = image.url;
+    });
+  }, [photos]);
   const visiblePhotos = useMemo(
     () =>
       photos.filter(photo => {
