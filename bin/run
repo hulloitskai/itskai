@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
 
+OVERMIND_SOCKET=tmp/sockets/overmind.${RAILS_ENV:-development}.sock
+if [ -e "$OVERMIND_SOCKET" ]; then
+  rm "$OVERMIND_SOCKET"
+fi
+
 bin/overmind start "$@"
