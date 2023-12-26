@@ -149,21 +149,11 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   // == Activities
   const onError = useApolloAlertCallback("Failed to load activities");
   const windowStart = useMemo(
-    () =>
-      timestamp
-        .startOf("week")
-        .plus({ day: -1 })
-        .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
-        .toISO(),
+    () => timestamp.startOf("week").toISO(),
     [timestamp],
   );
   const windowEnd = useMemo(
-    () =>
-      timestamp
-        .endOf("week")
-        .plus({ day: 1 })
-        .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
-        .toISO(),
+    () => timestamp.endOf("week").plus({ days: 4 }).toISO(),
     [timestamp],
   );
   const { data, previousData, loading } = useQuery(
