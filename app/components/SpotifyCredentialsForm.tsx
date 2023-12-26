@@ -34,7 +34,6 @@ const SpotifyCredentialsForm: FC<SpotifyCredentialsFormProps> = ({
     },
   );
 
-  // == Markup
   return (
     <Stack gap="xs" {...otherProps}>
       {credentials &&

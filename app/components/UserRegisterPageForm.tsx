@@ -44,7 +44,6 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
       },
     });
 
-  // == Markup
   return (
     <form
       onSubmit={onSubmit(({ name, email, password, passwordConfirmation }) => {

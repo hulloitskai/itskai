@@ -116,24 +116,6 @@ export type DeleteLocationAccessGrantPayload = {
   success: Scalars['Boolean']['output'];
 };
 
-export type GoogleTimelineActivity = Node & {
-  __typename?: 'GoogleTimelineActivity';
-  address?: Maybe<Scalars['String']['output']>;
-  endedAt: Scalars['DateTime']['output'];
-  /** ID of the object. */
-  id: Scalars['ID']['output'];
-  location: Scalars['JSON']['output'];
-  name?: Maybe<Scalars['String']['output']>;
-  photos: Array<TimelinePhoto>;
-  startedAt: Scalars['DateTime']['output'];
-  type: GoogleTimelineActivityType;
-};
-
-export enum GoogleTimelineActivityType {
-  ActivitySegment = 'ACTIVITY_SEGMENT',
-  PlaceVisit = 'PLACE_VISIT'
-}
-
 export type ICloudCredentials = Node & {
   __typename?: 'ICloudCredentials';
   cookies?: Maybe<Scalars['String']['output']>;
@@ -554,7 +536,6 @@ export type Query = {
   currentlyPlaying?: Maybe<CurrentlyPlaying>;
   explorations: Array<Scalars['String']['output']>;
   googleCredentials?: Maybe<OAuthCredentials>;
-  googleTimelineActivities: Array<GoogleTimelineActivity>;
   icloudCredentials?: Maybe<ICloudCredentials>;
   imageBySignedId?: Maybe<Image>;
   instagramCredentials?: Maybe<InstagramCredentials>;
@@ -570,6 +551,7 @@ export type Query = {
   resume: Scalars['JSON']['output'];
   spotifyCredentials?: Maybe<OAuthCredentials>;
   testEcho: Scalars['String']['output'];
+  timelineActivities: Array<TimelineActivity>;
   timezone: Timezone;
   user?: Maybe<User>;
   viewer?: Maybe<User>;
@@ -819,6 +801,24 @@ export type TestMutationPayload = {
   model?: Maybe<TestModel>;
   success: Scalars['Boolean']['output'];
 };
+
+export type TimelineActivity = Node & {
+  __typename?: 'TimelineActivity';
+  address?: Maybe<Scalars['String']['output']>;
+  endedAt: Scalars['DateTime']['output'];
+  /** ID of the object. */
+  id: Scalars['ID']['output'];
+  location: Scalars['JSON']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  photos: Array<TimelinePhoto>;
+  startedAt: Scalars['DateTime']['output'];
+  type: TimelineActivityType;
+};
+
+export enum TimelineActivityType {
+  ActivitySegment = 'ACTIVITY_SEGMENT',
+  PlaceVisit = 'PLACE_VISIT'
+}
 
 export type TimelinePhoto = Node & {
   __typename?: 'TimelinePhoto';

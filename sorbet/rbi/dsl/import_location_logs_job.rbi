@@ -6,8 +6,12 @@
 
 class ImportLocationLogsJob
   class << self
-    sig { returns(T.any(ImportLocationLogsJob, FalseClass)) }
-    def perform_later; end
+    sig do
+      params(
+        block: T.nilable(T.proc.params(job: ImportLocationLogsJob).void)
+      ).returns(T.any(ImportLocationLogsJob, FalseClass))
+    end
+    def perform_later(&block); end
 
     sig { void }
     def perform_now; end

@@ -125,7 +125,6 @@ const KitButton: FC<KitButtonProps> = ({ signal: signal, description }) => {
     },
   );
 
-  // == Markup
   return (
     <Stack gap={4}>
       <Button

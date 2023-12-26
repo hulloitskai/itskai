@@ -65,7 +65,6 @@ const TestPage: PageComponent<TestPageProps> = ({
     });
   }, []);
 
-  // == Markup
   return (
     <Stack gap="xl">
       <Title fw={900}>Test Page</Title>

@@ -214,8 +214,7 @@ gem "streamio-ffmpeg", "~> 3.0"
 # Generate fake data with Faker
 gem "faker", "~> 3.2"
 
-# Analyze image metadata
-# gem "exif", "~> 2.2"
+# Analyze image metadata with Exiftool
 gem "exiftool", "~> 1.2"
 
 group :development, :test do

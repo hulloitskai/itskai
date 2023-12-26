@@ -6,8 +6,13 @@
 
 class AnalyzeObsidianNoteJob
   class << self
-    sig { params(note: ::ObsidianNote).returns(T.any(AnalyzeObsidianNoteJob, FalseClass)) }
-    def perform_later(note); end
+    sig do
+      params(
+        note: ::ObsidianNote,
+        block: T.nilable(T.proc.params(job: AnalyzeObsidianNoteJob).void)
+      ).returns(T.any(AnalyzeObsidianNoteJob, FalseClass))
+    end
+    def perform_later(note, &block); end
 
     sig { params(note: ::ObsidianNote).void }
     def perform_now(note); end

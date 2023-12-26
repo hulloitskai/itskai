@@ -6,8 +6,13 @@
 
 class SendPensieveMessageLikeNotificationJob
   class << self
-    sig { params(like: ::PensieveMessageLike).returns(T.any(SendPensieveMessageLikeNotificationJob, FalseClass)) }
-    def perform_later(like); end
+    sig do
+      params(
+        like: ::PensieveMessageLike,
+        block: T.nilable(T.proc.params(job: SendPensieveMessageLikeNotificationJob).void)
+      ).returns(T.any(SendPensieveMessageLikeNotificationJob, FalseClass))
+    end
+    def perform_later(like, &block); end
 
     sig { params(like: ::PensieveMessageLike).void }
     def perform_now(like); end

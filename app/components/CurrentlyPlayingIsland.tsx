@@ -116,7 +116,6 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
     }
   }, [currentlyPlaying, online]);
 
-  // == Markup
   return (
     <Transition
       transition="slide-down"
@@ -194,7 +193,6 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
     [artists],
   );
 
-  // == Markup
   return (
     <>
       <CurrentlyPlayingLyricsTooltip
@@ -296,7 +294,6 @@ const MarqueeText: FC<MarqueeTextProps> = ({ children, ...otherProps }) => {
     }
   }, [textRef.current]);
 
-  // == Markup
   return (
     <Marquee pauseOnHover pauseOnClick speed={18} delay={1} {...{ play }}>
       <Text

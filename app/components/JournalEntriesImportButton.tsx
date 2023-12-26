@@ -23,7 +23,6 @@ const JournalEntriesImportButton: FC<JournalEntriesImportButtonProps> = ({
     },
   );
 
-  // == Markup
   return (
     <Button
       variant="default"

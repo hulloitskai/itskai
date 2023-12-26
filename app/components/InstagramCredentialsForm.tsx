@@ -88,7 +88,6 @@ const InstagramCredentialsForm: FC<InstagramCredentialsFormProps> = ({
     },
   );
 
-  // == Markup
   return (
     <Box
       component="form"

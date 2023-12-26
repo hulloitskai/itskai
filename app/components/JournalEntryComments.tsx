@@ -69,7 +69,6 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
     });
   };
 
-  // == Markup
   return (
     <Stack gap={6} {...otherProps}>
       {!loading && comments ? (

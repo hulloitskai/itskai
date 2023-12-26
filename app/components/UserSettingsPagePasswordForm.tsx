@@ -51,7 +51,6 @@ const UserSettingsPagePasswordForm: FC<
     },
   });
 
-  // == Markup
   return (
     <form
       onSubmit={onSubmit(

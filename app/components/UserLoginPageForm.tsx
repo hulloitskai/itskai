@@ -26,7 +26,6 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
     });
   const { rememberMe } = values;
 
-  // == Markup
   return (
     <form
       onSubmit={onSubmit(({ email, password, rememberMe }) => {

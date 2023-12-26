@@ -83,7 +83,6 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
     },
   );
 
-  // == Markup
   return (
     <form
       onSubmit={onSubmit(({ email, currentPassword }) => {

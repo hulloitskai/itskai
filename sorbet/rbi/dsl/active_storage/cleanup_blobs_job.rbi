@@ -6,8 +6,12 @@
 
 class ActiveStorage::CleanupBlobsJob
   class << self
-    sig { returns(T.any(ActiveStorage::CleanupBlobsJob, FalseClass)) }
-    def perform_later; end
+    sig do
+      params(
+        block: T.nilable(T.proc.params(job: ActiveStorage::CleanupBlobsJob).void)
+      ).returns(T.any(ActiveStorage::CleanupBlobsJob, FalseClass))
+    end
+    def perform_later(&block); end
 
     sig { void }
     def perform_now; end

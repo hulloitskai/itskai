@@ -63,7 +63,6 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
     },
   );
 
-  // == Markup
   return (
     <form
       onSubmit={onSubmit(values => {

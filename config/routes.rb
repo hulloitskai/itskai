@@ -117,11 +117,17 @@ Rails.application.routes.draw do
   # == Scottcall
   post "/scottcall" => "scottcalls#handle"
 
+  # == Timeline
+  get "/timeline" => "timeline#show"
+  get "/timeline/admin" => "timeline_admin#show"
+  post "/timeline/admin/google_location_history" =>
+    "timeline_admin#google_location_history"
+  post "/timeline/admin/photos" => "timeline_admin#photos"
+
   # == Pages
   root "home#show"
   get "/admin" => "admin#show"
   get "/pensieve" => "pensieve#show"
-  get "/xmas" => "xmas2023#show"
   get "/track" => redirect(path: "/locate", status: 302)
   get "/toronto" => "places#toronto"
   get "/atelier" => redirect("https://instagram.com/atelier.ubc", status: 302)

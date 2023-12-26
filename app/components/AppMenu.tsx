@@ -60,7 +60,6 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
   const { data } = useQuery(AppMenuQueryDocument, { skip: !opened, onError });
   const { bootedAt } = data ?? {};
 
-  // == Markup
   return (
     <Menu
       trigger="hover"

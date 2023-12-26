@@ -6,8 +6,12 @@
 
 class ClearActivityStatusJob
   class << self
-    sig { returns(T.any(ClearActivityStatusJob, FalseClass)) }
-    def perform_later; end
+    sig do
+      params(
+        block: T.nilable(T.proc.params(job: ClearActivityStatusJob).void)
+      ).returns(T.any(ClearActivityStatusJob, FalseClass))
+    end
+    def perform_later(&block); end
 
     sig { void }
     def perform_now; end

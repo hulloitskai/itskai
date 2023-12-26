@@ -40,17 +40,6 @@ export type DeleteLocationAccessGrantPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type GoogleTimelineActivityKeySpecifier = ('address' | 'endedAt' | 'id' | 'location' | 'name' | 'photos' | 'startedAt' | 'type' | GoogleTimelineActivityKeySpecifier)[];
-export type GoogleTimelineActivityFieldPolicy = {
-	address?: FieldPolicy<any> | FieldReadFunction<any>,
-	endedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	location?: FieldPolicy<any> | FieldReadFunction<any>,
-	name?: FieldPolicy<any> | FieldReadFunction<any>,
-	photos?: FieldPolicy<any> | FieldReadFunction<any>,
-	startedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	type?: FieldPolicy<any> | FieldReadFunction<any>
-};
 export type ICloudCredentialsKeySpecifier = ('cookies' | 'email' | 'id' | 'password' | 'session' | ICloudCredentialsKeySpecifier)[];
 export type ICloudCredentialsFieldPolicy = {
 	cookies?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -236,7 +225,7 @@ export type PensieveMessageFieldPolicy = {
 	text?: FieldPolicy<any> | FieldReadFunction<any>,
 	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('activityStatus' | 'announcement' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'explorations' | 'googleCredentials' | 'googleTimelineActivities' | 'icloudCredentials' | 'imageBySignedId' | 'instagramCredentials' | 'journalEntry' | 'journalEntryComments' | 'journeysSession' | 'journeysSessionParticipation' | 'journeysSessions' | 'location' | 'locationAccessGrants' | 'passwordStrength' | 'pensieveMessages' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('activityStatus' | 'announcement' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'explorations' | 'googleCredentials' | 'icloudCredentials' | 'imageBySignedId' | 'instagramCredentials' | 'journalEntry' | 'journalEntryComments' | 'journeysSession' | 'journeysSessionParticipation' | 'journeysSessions' | 'location' | 'locationAccessGrants' | 'passwordStrength' | 'pensieveMessages' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timelineActivities' | 'timezone' | 'user' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	announcement?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -245,7 +234,6 @@ export type QueryFieldPolicy = {
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
 	explorations?: FieldPolicy<any> | FieldReadFunction<any>,
 	googleCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
-	googleTimelineActivities?: FieldPolicy<any> | FieldReadFunction<any>,
 	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	imageBySignedId?: FieldPolicy<any> | FieldReadFunction<any>,
 	instagramCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -261,6 +249,7 @@ export type QueryFieldPolicy = {
 	resume?: FieldPolicy<any> | FieldReadFunction<any>,
 	spotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	testEcho?: FieldPolicy<any> | FieldReadFunction<any>,
+	timelineActivities?: FieldPolicy<any> | FieldReadFunction<any>,
 	timezone?: FieldPolicy<any> | FieldReadFunction<any>,
 	user?: FieldPolicy<any> | FieldReadFunction<any>,
 	viewer?: FieldPolicy<any> | FieldReadFunction<any>
@@ -351,6 +340,17 @@ export type TestMutationPayloadFieldPolicy = {
 	errors?: FieldPolicy<any> | FieldReadFunction<any>,
 	model?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type TimelineActivityKeySpecifier = ('address' | 'endedAt' | 'id' | 'location' | 'name' | 'photos' | 'startedAt' | 'type' | TimelineActivityKeySpecifier)[];
+export type TimelineActivityFieldPolicy = {
+	address?: FieldPolicy<any> | FieldReadFunction<any>,
+	endedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	location?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	photos?: FieldPolicy<any> | FieldReadFunction<any>,
+	startedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	type?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type TimelinePhotoKeySpecifier = ('coordinates' | 'id' | 'image' | 'takenAt' | TimelinePhotoKeySpecifier)[];
 export type TimelinePhotoFieldPolicy = {
@@ -450,10 +450,6 @@ export type StrictTypedTypePolicies = {
 	DeleteLocationAccessGrantPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | DeleteLocationAccessGrantPayloadKeySpecifier | (() => undefined | DeleteLocationAccessGrantPayloadKeySpecifier),
 		fields?: DeleteLocationAccessGrantPayloadFieldPolicy,
-	},
-	GoogleTimelineActivity?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | GoogleTimelineActivityKeySpecifier | (() => undefined | GoogleTimelineActivityKeySpecifier),
-		fields?: GoogleTimelineActivityFieldPolicy,
 	},
 	ICloudCredentials?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ICloudCredentialsKeySpecifier | (() => undefined | ICloudCredentialsKeySpecifier),
@@ -610,6 +606,10 @@ export type StrictTypedTypePolicies = {
 	TestMutationPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | TestMutationPayloadKeySpecifier | (() => undefined | TestMutationPayloadKeySpecifier),
 		fields?: TestMutationPayloadFieldPolicy,
+	},
+	TimelineActivity?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | TimelineActivityKeySpecifier | (() => undefined | TimelineActivityKeySpecifier),
+		fields?: TimelineActivityFieldPolicy,
 	},
 	TimelinePhoto?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | TimelinePhotoKeySpecifier | (() => undefined | TimelinePhotoKeySpecifier),

@@ -1,0 +1,14 @@
+query TimelineActivitiesQuery {
+  activities: timelineActivities {
+    endedAt
+    id
+    location
+    name
+    photos {
+      id
+      ...TimelinePhotoFragment
+    }
+    startedAt
+    type
+  }
+}

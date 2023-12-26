@@ -28,6 +28,7 @@ module Journeys
       session.save!
       redirect_to(journeys_session_path(session))
     rescue => error
+      raise if Rails.env.development?
       redirect_to(
         journeys_root_path,
         alert: "Failed to start session: #{error.message}",
@@ -55,7 +56,8 @@ module Journeys
       Tempfile.open(["recording", ".#{ext}"], binmode: true) do |file|
         file.write(recording.read)
         file.flush
-        # Clean up bad recordings using FFMPEG
+
+        # Clean up bad recordings using FFMPEG.
         movie = FFMPEG::Movie.new(file.path)
         movie.transcode(file.path)
         file.seek(0)

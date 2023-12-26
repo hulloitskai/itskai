@@ -1,7 +1,0 @@
-fragment Xmas2023TimelinePhotoFragment on TimelinePhoto {
-  id
-  image {
-    id
-    url(size: MD)
-  }
-}

@@ -1,4 +1,4 @@
-query Xmas2023PageQuery {
+query TimelineAdminPageQuery {
   viewer {
     ...AppViewerFragment
     id

@@ -11,10 +11,10 @@ class TimelinePhoto
   extend GeneratedRelationMethods
 
   sig { returns(ActiveStorage::Attached::One) }
-  def photo; end
+  def image; end
 
   sig { params(attachable: T.untyped).returns(T.untyped) }
-  def photo=(attachable); end
+  def image=(attachable); end
 
   private
 
@@ -272,40 +272,40 @@ class TimelinePhoto
 
   module GeneratedAssociationMethods
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Attachment) }
-    def build_photo_attachment(*args, &blk); end
+    def build_image_attachment(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Blob) }
-    def build_photo_blob(*args, &blk); end
+    def build_image_blob(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Attachment) }
-    def create_photo_attachment(*args, &blk); end
+    def create_image_attachment(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Attachment) }
-    def create_photo_attachment!(*args, &blk); end
+    def create_image_attachment!(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Blob) }
-    def create_photo_blob(*args, &blk); end
+    def create_image_blob(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Blob) }
-    def create_photo_blob!(*args, &blk); end
+    def create_image_blob!(*args, &blk); end
 
     sig { returns(T.nilable(::ActiveStorage::Attachment)) }
-    def photo_attachment; end
+    def image_attachment; end
 
     sig { params(value: T.nilable(::ActiveStorage::Attachment)).void }
-    def photo_attachment=(value); end
+    def image_attachment=(value); end
 
     sig { returns(T.nilable(::ActiveStorage::Blob)) }
-    def photo_blob; end
+    def image_blob; end
 
     sig { params(value: T.nilable(::ActiveStorage::Blob)).void }
-    def photo_blob=(value); end
+    def image_blob=(value); end
 
     sig { returns(T.nilable(::ActiveStorage::Attachment)) }
-    def reload_photo_attachment; end
+    def reload_image_attachment; end
 
     sig { returns(T.nilable(::ActiveStorage::Blob)) }
-    def reload_photo_blob; end
+    def reload_image_blob; end
   end
 
   module GeneratedAssociationRelationMethods
@@ -500,7 +500,7 @@ class TimelinePhoto
     def with(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def with_attached_photo(*args, &blk); end
+    def with_attached_image(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
@@ -687,6 +687,51 @@ class TimelinePhoto
     sig { void }
     def id_will_change!; end
 
+    sig { returns(::String) }
+    def md5_hash; end
+
+    sig { params(value: ::String).returns(::String) }
+    def md5_hash=(value); end
+
+    sig { returns(T::Boolean) }
+    def md5_hash?; end
+
+    sig { returns(T.nilable(::String)) }
+    def md5_hash_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def md5_hash_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def md5_hash_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def md5_hash_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def md5_hash_change_to_be_saved; end
+
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def md5_hash_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def md5_hash_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def md5_hash_previous_change; end
+
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def md5_hash_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def md5_hash_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def md5_hash_was; end
+
+    sig { void }
+    def md5_hash_will_change!; end
+
     sig { void }
     def restore_coordinates!; end
 
@@ -698,6 +743,9 @@ class TimelinePhoto
 
     sig { void }
     def restore_id_value!; end
+
+    sig { void }
+    def restore_md5_hash!; end
 
     sig { void }
     def restore_timestamp!; end
@@ -728,6 +776,12 @@ class TimelinePhoto
 
     sig { returns(T::Boolean) }
     def saved_change_to_id_value?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_md5_hash; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_md5_hash?; end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_timestamp; end
@@ -842,6 +896,9 @@ class TimelinePhoto
 
     sig { returns(T::Boolean) }
     def will_save_change_to_id_value?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_md5_hash?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_timestamp?; end
@@ -990,7 +1047,7 @@ class TimelinePhoto
     def with(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def with_attached_photo(*args, &blk); end
+    def with_attached_image(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end

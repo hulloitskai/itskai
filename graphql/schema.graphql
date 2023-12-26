@@ -98,24 +98,6 @@ type DeleteLocationAccessGrantPayload {
   success: Boolean!
 }
 
-type GoogleTimelineActivity implements Node {
-  address: String
-  endedAt: DateTime!
-
-  """ID of the object."""
-  id: ID!
-  location: JSON!
-  name: String
-  photos: [TimelinePhoto!]!
-  startedAt: DateTime!
-  type: GoogleTimelineActivityType!
-}
-
-enum GoogleTimelineActivityType {
-  ACTIVITY_SEGMENT
-  PLACE_VISIT
-}
-
 type ICloudCredentials implements Node {
   cookies: String
   email: String!
@@ -469,7 +451,6 @@ type Query {
   currentlyPlaying: CurrentlyPlaying
   explorations: [String!]!
   googleCredentials: OAuthCredentials
-  googleTimelineActivities: [GoogleTimelineActivity!]!
   icloudCredentials: ICloudCredentials
   imageBySignedId(signedId: String!): Image
   instagramCredentials: InstagramCredentials
@@ -499,6 +480,7 @@ type Query {
   resume(variant: String): JSON!
   spotifyCredentials: OAuthCredentials
   testEcho(text: String): String!
+  timelineActivities: [TimelineActivity!]!
   timezone: Timezone!
   user(id: ID!): User
   viewer: User
@@ -667,6 +649,24 @@ type TestMutationPayload {
   errors: [InputFieldError!]
   model: TestModel
   success: Boolean!
+}
+
+type TimelineActivity implements Node {
+  address: String
+  endedAt: DateTime!
+
+  """ID of the object."""
+  id: ID!
+  location: JSON!
+  name: String
+  photos: [TimelinePhoto!]!
+  startedAt: DateTime!
+  type: TimelineActivityType!
+}
+
+enum TimelineActivityType {
+  ACTIVITY_SEGMENT
+  PLACE_VISIT
 }
 
 type TimelinePhoto implements Node {

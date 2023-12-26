@@ -7,15 +7,23 @@
 #
 #  id          :uuid             not null, primary key
 #  coordinates :geography        point, 4326
+#  md5_hash    :text             not null
 #  timestamp   :datetime         not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#
+# Indexes
+#
+#  index_timeline_photos_on_md5_hash  (md5_hash) UNIQUE
 #
 class TimelinePhoto < ApplicationRecord
   include Identifiable
 
   # == Attachment
   has_one_attached :image
+
+  # == Validations
+  validates :image, :timestamp, presence: true
 
   # == Geocoding
   sig { returns(RGeo::Geographic::Factory) }
@@ -24,40 +32,42 @@ class TimelinePhoto < ApplicationRecord
   end
 
   # == Methods
-  sig { params(file: File).returns(TimelinePhoto) }
-  def self.from_file(file)
-    data = Exiftool.new(file.path)
-    timestamp = data[:date_time_original_civil]
+  sig { params(f: T.any(File, Tempfile)).returns(TimelinePhoto) }
+  def self.from_file(f)
+    photo = find_or_initialize_by(
+      md5_hash: Digest::MD5.file(f.to_path).hexdigest,
+    )
+    return photo if photo.persisted?
+    data = Exiftool.new(f.to_path)
+    photo.image.attach(io: f, filename: f.to_path)
+    photo.timestamp = data[:sub_sec_date_time_original] ||
+      data[:sub_sec_create_date] or
+      raise "Couldn't detect timestamp"
     longitude, latitude = data[:gps_longitude], data[:gps_latitude]
     if [latitude, longitude].all?(:present?)
-      coordinates = coordinates_factory.point(latitude, longitude)
+      photo.coordinates = coordinates_factory.point(latitude, longitude)
     end
-    new(
-      image: {
-        io: file,
-        filename: File.basename(file.path),
-      },
-      timestamp:,
-      coordinates:,
-    )
+    photo
   end
 
-  sig { params(year: Integer, month: String).returns(T::Array[TimelinePhoto]) }
-  def self.import_period(year, month)
-    folder = Rails.root.join(
-      "tmp/google_timeline_data",
-      "#{year}_#{month.upcase}",
-    )
-    folder.children.map do |filename|
-      File.open(filename) do |file|
-        photo = from_file(file)
-        photo.save!
-        tag_logger do
-          logger.debug(
-            "Imported timeline photo: #{photo.inspect}",
-          )
+  sig do
+    params(
+      files: T::Enumerable[ActionDispatch::Http::UploadedFile],
+    ).returns(T::Array[TimelinePhoto])
+  end
+  def self.import_from_bulk_upload!(files)
+    transaction do
+      files.filter_map do |f|
+        photo = from_file(f.tempfile)
+        if photo.new_record?
+          photo.save!
+          tag_logger do
+            logger.debug(
+              "Imported timeline photo: #{photo.inspect}",
+            )
+          end
+          photo
         end
-        photo
       end
     end
   end

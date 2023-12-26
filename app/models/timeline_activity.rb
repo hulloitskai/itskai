@@ -3,7 +3,7 @@
 
 # == Schema Information
 #
-# Table name: google_timeline_activities
+# Table name: timeline_activities
 #
 #  id         :uuid             not null, primary key
 #  address    :string
@@ -15,7 +15,11 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class GoogleTimelineActivity < ApplicationRecord
+# Indexes
+#
+#  index_timeline_activities_uniqueness  (type,duration) UNIQUE
+#
+class TimelineActivity < ApplicationRecord
   # == Configuration
   self.inheritance_column = nil
 
@@ -24,6 +28,7 @@ class GoogleTimelineActivity < ApplicationRecord
 
   # == Validates
   validates :confidence, numericality: { only_integer: true, in: 0..3 }
+  validates :duration, uniqueness: { scope: :type }
 
   # == Geocoding
   sig { returns(RGeo::Geographic::Factory) }
@@ -33,16 +38,19 @@ class GoogleTimelineActivity < ApplicationRecord
 
   # == Methods
   sig do
-    params(filename: T.any(String, Pathname))
-      .returns(T::Array[GoogleTimelineActivity])
+    params(f: ActionDispatch::Http::UploadedFile)
+      .returns(T::Array[TimelineActivity])
   end
-  def self.import_from_file(filename)
-    File.open(filename) do |file|
-      data = JSON.parse(file.read)
-      timeline_objects = data.fetch("timelineObjects")
-      transaction do
-        timeline_objects.map do |object|
-          activity = from_timeline_object(object)
+  def self.import_from_google_location_history_upload!(f)
+    data = JSON.parse(f.read)
+    timeline_objects = T.let(
+      data.fetch("timelineObjects"),
+      T::Array[T::Hash[String, T.untyped]],
+    )
+    transaction do
+      timeline_objects.filter_map do |object|
+        activity = from_google_location_history_timeline_object(object)
+        if activity.new_record?
           activity.save!
           tag_logger do
             logger.debug(
@@ -50,50 +58,46 @@ class GoogleTimelineActivity < ApplicationRecord
             )
           end
           activity
+        else
+          tag_logger do
+            logger.warn(
+              "Already imported Google Timeline activity: #{activity.inspect}",
+            )
+          end
+          nil
         end
       end
     end
   end
 
   sig do
-    params(
-      year: Integer,
-      month: String,
-    ).returns(T::Array[GoogleTimelineActivity])
+    params(timeline_object: T::Hash[String, T.untyped])
+      .returns(TimelineActivity)
   end
-  def self.import_period(year, month)
-    filename = Rails.root.join(
-      "tmp/google_timeline_data",
-      "#{year}_#{month.upcase}.json",
-    )
-    import_from_file(filename)
-  end
-
-  sig do
-    params(object: T::Hash[String, T.untyped]).returns(GoogleTimelineActivity)
-  end
-  private_class_method def self.from_timeline_object(object)
-    activity = T.let(new, GoogleTimelineActivity)
-    if object.key?("activitySegment")
-      activity.type = :activity_segment
-      object = object.fetch("activitySegment")
-    elsif object.key?("placeVisit")
-      activity.type = :place_visit
-      object = object.fetch("placeVisit")
+  private_class_method def self.from_google_location_history_timeline_object(timeline_object) # rubocop:disable Layout/LineLength
+    type = if timeline_object.key?("activitySegment")
+      timeline_object = timeline_object.fetch("activitySegment")
+      :activity_segment
+    elsif timeline_object.key?("placeVisit")
+      timeline_object = timeline_object.fetch("placeVisit")
+      :place_visit
     else
-      raise "Couldn't detect activity type for timeline object: #{object}"
+      raise "Couldn't detect activity type for timeline object: " \
+        "#{timeline_object}"
     end
-    activity.duration = scoped do
-      duration = object.fetch("duration")
+    duration = scoped do |; duration| # rubocop:disable Layout/SpaceAroundBlockParameters
+      duration = timeline_object.fetch("duration")
       start_timestamp, end_timestamp = %w[
         startTimestamp
         endTimestamp
       ].map do |key|
         timestamp = duration.fetch(key)
-        Time.zone.parse(timestamp)
+        T.let(Time.zone.parse(timestamp), Time)
       end
       start_timestamp..end_timestamp
     end
+    activity = find_or_initialize_by(type:, duration:)
+    return activity if activity.persisted?
     case activity.type.to_sym
     when :activity_segment
       activity.location = scoped do
@@ -101,15 +105,18 @@ class GoogleTimelineActivity < ApplicationRecord
           startLocation
           endLocation
         ].map do |key|
-          location = object.fetch(key)
-          latitude, longitude = %w[latitudeE7 longitudeE7].map do |key| # rubocop:disable Performance
+          location = timeline_object.fetch(key)
+          latitude, longitude = %w[latitudeE7 longitudeE7].map do |key| # rubocop:disable Performance/CollectionLiteralInLoop
             location.fetch(key) * (10**-7)
           end
           location_factory.point(longitude, latitude)
         end
-        path_points = if (points = object.dig("simplifiedRawPath", "points"))
+        path_points = if (points = timeline_object.dig(
+          "simplifiedRawPath",
+          "points",
+        ))
           points.map do |point|
-            latitude, longitude = %w[latE7 lngE7].map do |key| # rubocop:disable Performance
+            latitude, longitude = %w[latE7 lngE7].map do |key| # rubocop:disable Performance/CollectionLiteralInLoop
               point.fetch(key) * (10**-7)
             end
             location_factory.point(longitude, latitude)
@@ -124,7 +131,7 @@ class GoogleTimelineActivity < ApplicationRecord
         ])
       end
       activity.confidence = scoped do
-        confidence = object.fetch("confidence")
+        confidence = timeline_object.fetch("confidence")
         case confidence
         when "HIGH"
           2
@@ -137,7 +144,7 @@ class GoogleTimelineActivity < ApplicationRecord
         end
       end
     when :place_visit
-      location = object.fetch("location")
+      location = timeline_object.fetch("location")
       activity.name = location["name"]
       activity.address = location["address"]
       activity.location = scoped do
@@ -150,7 +157,7 @@ class GoogleTimelineActivity < ApplicationRecord
         )
       end
       activity.confidence = scoped do
-        place_confidence = object.fetch("placeConfidence")
+        place_confidence = timeline_object.fetch("placeConfidence")
         case place_confidence
         when "USER_CONFIRMED"
           3

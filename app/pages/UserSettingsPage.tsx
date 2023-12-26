@@ -15,7 +15,6 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
 }) => {
   invariant(viewer, "Missing viewer");
 
-  // == Markup
   return (
     <Stack>
       <Card withBorder>

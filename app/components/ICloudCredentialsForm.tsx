@@ -141,7 +141,6 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
     });
   };
 
-  // == Markup
   return (
     <Box
       component="form"

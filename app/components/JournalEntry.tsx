@@ -86,7 +86,6 @@ const JournalEntryCopyLinkTooltip: FC<JournalEntryCopyLinkTooltipProps> = ({
     }
   }, [copied]);
 
-  // == Markup
   return (
     <Tooltip
       withArrow

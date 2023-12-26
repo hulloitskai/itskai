@@ -40,7 +40,6 @@ const UserChangePasswordPageForm: FC<UserChangePasswordPageFormProps> = ({
       },
     });
 
-  // == Markup
   return (
     <form
       onSubmit={onSubmit(({ password, passwordConfirmation }) => {

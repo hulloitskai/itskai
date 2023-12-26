@@ -6,8 +6,13 @@
 
 class DownloadJournalEntryJob
   class << self
-    sig { params(entry: ::JournalEntry).returns(T.any(DownloadJournalEntryJob, FalseClass)) }
-    def perform_later(entry); end
+    sig do
+      params(
+        entry: ::JournalEntry,
+        block: T.nilable(T.proc.params(job: DownloadJournalEntryJob).void)
+      ).returns(T.any(DownloadJournalEntryJob, FalseClass))
+    end
+    def perform_later(entry, &block); end
 
     sig { params(entry: ::JournalEntry).void }
     def perform_now(entry); end

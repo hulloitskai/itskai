@@ -6,8 +6,13 @@
 
 class AnalyzeObsidianNotesJob
   class << self
-    sig { params(force: T.nilable(T::Boolean)).returns(T.any(AnalyzeObsidianNotesJob, FalseClass)) }
-    def perform_later(force: T.unsafe(nil)); end
+    sig do
+      params(
+        force: T.nilable(T::Boolean),
+        block: T.nilable(T.proc.params(job: AnalyzeObsidianNotesJob).void)
+      ).returns(T.any(AnalyzeObsidianNotesJob, FalseClass))
+    end
+    def perform_later(force: T.unsafe(nil), &block); end
 
     sig { params(force: T.nilable(T::Boolean)).void }
     def perform_now(force: T.unsafe(nil)); end

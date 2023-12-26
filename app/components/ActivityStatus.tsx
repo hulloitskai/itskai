@@ -40,7 +40,6 @@ const ActivityStatus: FC<ActivityStatusProps> = ({ ...otherProps }) => {
   // == Tagline
   const [showTagline, setShowTagline] = useState(!showStatus);
 
-  // == Markup
   return (
     <Box {...otherProps}>
       <Transition

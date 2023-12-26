@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_25_095015) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_26_012437) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -119,17 +119,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_25_095015) do
     t.index ["priority", "created_at"], name: "index_good_jobs_jobs_on_priority_created_at_when_unfinished", order: { priority: "DESC NULLS LAST" }, where: "(finished_at IS NULL)"
     t.index ["queue_name", "scheduled_at"], name: "index_good_jobs_on_queue_name_and_scheduled_at", where: "(finished_at IS NULL)"
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
-  end
-
-  create_table "google_timeline_activities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "type", null: false
-    t.geography "location", limit: {:srid=>4326, :type=>"geometry", :geographic=>true}, null: false
-    t.tsrange "duration", null: false
-    t.string "name"
-    t.string "address"
-    t.integer "confidence", limit: 2, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "icloud_credentials", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -307,11 +296,25 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_25_095015) do
     t.string "version", null: false
   end
 
+  create_table "timeline_activities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "type", null: false
+    t.geography "location", limit: {:srid=>4326, :type=>"geometry", :geographic=>true}, null: false
+    t.tsrange "duration", null: false
+    t.string "name"
+    t.string "address"
+    t.integer "confidence", limit: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["type", "duration"], name: "index_timeline_activities_uniqueness", unique: true
+  end
+
   create_table "timeline_photos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "timestamp", precision: nil, null: false
     t.geography "coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "md5_hash", null: false
+    t.index ["md5_hash"], name: "index_timeline_photos_on_md5_hash", unique: true
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

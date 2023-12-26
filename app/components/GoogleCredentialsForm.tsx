@@ -34,7 +34,6 @@ const GoogleCredentialsForm: FC<GoogleCredentialsFormProps> = ({
     },
   );
 
-  // == Markup
   return (
     <Stack gap="xs" {...otherProps}>
       {credentials &&

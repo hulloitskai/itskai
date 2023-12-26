@@ -39,7 +39,6 @@ const PasswordWithStrengthCheckInput: FC<
   );
   const { passwordStrength = 0.0 } = data ?? previousData ?? {};
 
-  // == Markup
   return (
     <PasswordInput
       inputContainer={children => {

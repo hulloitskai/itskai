@@ -9,10 +9,11 @@ class ImportJournalEntryJob
     sig do
       params(
         entry: ::JournalEntry,
-        force: T.nilable(T::Boolean)
+        force: T.nilable(T::Boolean),
+        block: T.nilable(T.proc.params(job: ImportJournalEntryJob).void)
       ).returns(T.any(ImportJournalEntryJob, FalseClass))
     end
-    def perform_later(entry, force: T.unsafe(nil)); end
+    def perform_later(entry, force: T.unsafe(nil), &block); end
 
     sig { params(entry: ::JournalEntry, force: T.nilable(T::Boolean)).void }
     def perform_now(entry, force: T.unsafe(nil)); end

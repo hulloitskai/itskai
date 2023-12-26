@@ -23,7 +23,6 @@ const LocationLogsImportButton: FC<LocationImportLogsButtonProps> = ({
     },
   );
 
-  // == Markup
   return (
     <Button
       variant="default"

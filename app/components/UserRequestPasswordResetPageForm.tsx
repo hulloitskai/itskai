@@ -43,7 +43,6 @@ const UserRequestPasswordResetPageForm: FC<
     },
   );
 
-  // == Markup
   return (
     <Box
       component="form"

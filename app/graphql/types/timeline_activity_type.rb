@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Types
-  class GoogleTimelineActivityType < BaseObject
+  class TimelineActivityType < BaseObject
     # == Interfaces
     implements NodeType
 
@@ -13,7 +13,7 @@ module Types
     field :name, String
     field :photos, [TimelinePhotoType], null: false
     field :started_at, DateTimeType, null: false
-    field :type, GoogleTimelineActivityTypeType, null: false
+    field :type, TimelineActivityTypeType, null: false
 
     # == Resolvers
     sig { returns(Symbol) }
@@ -37,7 +37,7 @@ module Types
     end
 
     # == Helpers
-    sig { override.returns(GoogleTimelineActivity) }
+    sig { override.returns(TimelineActivity) }
     def object = super
   end
 end

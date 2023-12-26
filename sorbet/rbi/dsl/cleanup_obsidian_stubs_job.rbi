@@ -6,8 +6,12 @@
 
 class CleanupObsidianStubsJob
   class << self
-    sig { returns(T.any(CleanupObsidianStubsJob, FalseClass)) }
-    def perform_later; end
+    sig do
+      params(
+        block: T.nilable(T.proc.params(job: CleanupObsidianStubsJob).void)
+      ).returns(T.any(CleanupObsidianStubsJob, FalseClass))
+    end
+    def perform_later(&block); end
 
     sig { void }
     def perform_now; end

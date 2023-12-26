@@ -31,7 +31,6 @@ const LocationAccessGrantDeleteButton: FC<
     },
   );
 
-  // == Markup
   return (
     <DeleteButton
       onConfirm={() => {

@@ -42,7 +42,6 @@ const UserRequestEmailVerificationPageForm: FC<
     },
   );
 
-  // == Markup
   return (
     <form
       onSubmit={onSubmit(({ email }) => {

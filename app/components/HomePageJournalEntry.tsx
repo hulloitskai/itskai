@@ -71,7 +71,6 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
     }
   }, []);
 
-  // == Markup
   return (
     <Stack align="center" {...{ ref: containerRef }} {...otherProps}>
       {entry ? <JournalEntry {...{ entry }} /> : <CardSkeleton />}

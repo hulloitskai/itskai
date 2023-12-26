@@ -39,9 +39,9 @@ module Types
           resolver: Queries::JourneysSessionParticipation
     field :journeys_sessions, resolver: Queries::JourneysSessions
 
-    field :google_timeline_activities,
-          resolver: Queries::GoogleTimelineActivities
     field :location_access_grants, resolver: Queries::LocationAccessGrants
     field :pensieve_messages, resolver: Queries::PensieveMessages
+    field :timeline_activities,
+          resolver: Queries::TimelineActivities
   end
 end
