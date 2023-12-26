@@ -1,5 +1,5 @@
-query TimelineActivitiesQuery {
-  activities: timelineActivities {
+query TimelineActivitiesQuery($after: DateTime!, $before: DateTime!) {
+  activities: timelineActivities(before: $before, after: $after) {
     endedAt
     id
     location
@@ -9,6 +9,9 @@ query TimelineActivitiesQuery {
       ...TimelinePhotoFragment
     }
     startedAt
+    timezone {
+      name
+    }
     type
   }
 }

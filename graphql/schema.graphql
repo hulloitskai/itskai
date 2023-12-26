@@ -480,7 +480,7 @@ type Query {
   resume(variant: String): JSON!
   spotifyCredentials: OAuthCredentials
   testEcho(text: String): String!
-  timelineActivities: [TimelineActivity!]!
+  timelineActivities(after: DateTime!, before: DateTime!): [TimelineActivity!]!
   timezone: Timezone!
   user(id: ID!): User
   viewer: User
@@ -661,6 +661,7 @@ type TimelineActivity implements Node {
   name: String
   photos: [TimelinePhoto!]!
   startedAt: DateTime!
+  timezone: Timezone!
   type: TimelineActivityType!
 }
 

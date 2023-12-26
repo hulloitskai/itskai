@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_26_012437) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_26_024354) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -305,6 +305,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_26_012437) do
     t.integer "confidence", limit: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "timezone_name", null: false
     t.index ["type", "duration"], name: "index_timeline_activities_uniqueness", unique: true
   end
 

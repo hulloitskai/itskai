@@ -272,3 +272,5 @@ group :test do
   gem "capybara"
   gem "capybara-playwright-driver"
 end
+
+gem "timezone_finder", "~> 1.5"

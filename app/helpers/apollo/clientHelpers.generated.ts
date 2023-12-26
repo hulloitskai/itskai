@@ -341,7 +341,7 @@ export type TestMutationPayloadFieldPolicy = {
 	model?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TimelineActivityKeySpecifier = ('address' | 'endedAt' | 'id' | 'location' | 'name' | 'photos' | 'startedAt' | 'type' | TimelineActivityKeySpecifier)[];
+export type TimelineActivityKeySpecifier = ('address' | 'endedAt' | 'id' | 'location' | 'name' | 'photos' | 'startedAt' | 'timezone' | 'type' | TimelineActivityKeySpecifier)[];
 export type TimelineActivityFieldPolicy = {
 	address?: FieldPolicy<any> | FieldReadFunction<any>,
 	endedAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -350,6 +350,7 @@ export type TimelineActivityFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	photos?: FieldPolicy<any> | FieldReadFunction<any>,
 	startedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	timezone?: FieldPolicy<any> | FieldReadFunction<any>,
 	type?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type TimelinePhotoKeySpecifier = ('coordinates' | 'id' | 'image' | 'takenAt' | TimelinePhotoKeySpecifier)[];

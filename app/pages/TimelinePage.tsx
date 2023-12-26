@@ -1,11 +1,7 @@
-import type { FC } from "react";
 import type { PageProps } from "@inertiajs/core";
 import type { PageComponent } from "~/helpers/inertia";
 import type { Feature, FeatureCollection, LineString, Point } from "geojson";
 import { DateTime } from "luxon";
-
-import { Image } from "@mantine/core";
-import type { ImageProps } from "@mantine/core";
 
 import lineSliceAlong from "@turf/line-slice-along";
 import lineLength from "@turf/length";
@@ -21,6 +17,8 @@ import type { Coordinates, TimelinePhotoFragment } from "~/helpers/graphql";
 
 import PageLayout from "~/components/PageLayout";
 import Map from "~/components/Map";
+import TimelinePhoto from "~/components/TimelinePhoto";
+import { Loader, Text } from "@mantine/core";
 
 // import { AnimatePresence } from "framer-motion";
 
@@ -36,8 +34,8 @@ const truncateActivitySegmentIfNecessary = (
   cutoff: DateTime,
   startedAt: DateTime,
   endedAt: DateTime,
-  feature: XmasActivitySegmentFeature,
-): XmasActivitySegmentFeature => {
+  feature: TimelineActivitySegmentFeature,
+): TimelineActivitySegmentFeature => {
   const durationSeconds = endedAt.diff(startedAt).as("seconds");
   const distance = lineLength(feature);
   let startDistance = 0;
@@ -58,7 +56,7 @@ const truncateActivitySegmentIfNecessary = (
       feature,
       startDistance,
       stopDistance,
-    ) as XmasActivitySegmentFeature;
+    ) as TimelineActivitySegmentFeature;
   } catch (error) {
     console.warn(`Failed to slice LineString: ${error}`);
     return feature;
@@ -88,82 +86,103 @@ const deriveActivityOpacity = (
 //   return Math.abs(hash);
 // };
 
-type XmasActivitySegmentProperties = {
+type TimelineSharedFeatureProperties = {
+  readonly opacity: number;
+  readonly timezone: string;
+};
+
+type TimelineActivitySegmentProperties = TimelineSharedFeatureProperties & {
   readonly startedAt: DateTime;
   readonly endedAt: DateTime;
-  readonly opacity: number;
 };
 
-type XmasActivitySegmentFeature = Feature<
+type TimelineActivitySegmentFeature = Feature<
   LineString,
-  XmasActivitySegmentProperties
+  TimelineActivitySegmentProperties
 >;
 
-type XmasActivitySegmentFeatureCollection = FeatureCollection<
+type TimelineActivitySegmentFeatureCollection = FeatureCollection<
   LineString,
-  XmasActivitySegmentProperties
+  TimelineActivitySegmentProperties
 >;
 
-type XmasPlaceVisitProperties = {
+type TimelinePlaceVisitProperties = TimelineSharedFeatureProperties & {
   readonly name: string | null;
-  readonly opacity: number;
 };
 
-type XmasPlaceVisitFeature = Feature<Point, XmasPlaceVisitProperties>;
+type TimelinePlaceVisitFeature = Feature<Point, TimelinePlaceVisitProperties>;
 
-type XmasPlaceVisitFeatureCollection = FeatureCollection<
+type TimelinePlaceVisitFeatureCollection = FeatureCollection<
   Point,
-  XmasPlaceVisitProperties
+  TimelinePlaceVisitProperties
 >;
 
 const TimelinePage: PageComponent<TimelinePageProps> = () => {
   const isClient = useIsClient();
-
-  // == Activities
-  const onError = useApolloAlertCallback("Failed to load activities");
-  const { data, loading } = useQuery(TimelineActivitiesQueryDocument, {
-    variables: {},
-    onError,
-  });
-  const { activities } = data ?? {};
-
-  // == Map
-  const mapRef = useRef<MapRef>(null);
-  const mapCenter = TORONTO_COORDINATES;
 
   // == Timestamp
   const [timestamp, setTimestamp] = useState(() =>
     DateTime.fromObject({ year: 2023, month: 1, day: 3 }),
   );
   const speedRef = useRef(1);
+
+  // == Activities
+  const onError = useApolloAlertCallback("Failed to load activities");
+  const previousWeekISO = useMemo(
+    () =>
+      timestamp
+        .plus({ weeks: -1 })
+        .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
+        .toISO(),
+    [timestamp],
+  );
+  const nextWeekISO = useMemo(
+    () =>
+      timestamp
+        .plus({ weeks: 1 })
+        .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
+        .toISO(),
+    [timestamp],
+  );
+  const { data, previousData, loading } = useQuery(
+    TimelineActivitiesQueryDocument,
+    {
+      variables: {
+        after: previousWeekISO,
+        before: nextWeekISO,
+      },
+      onError,
+    },
+  );
+  const coalescedData = data ?? previousData;
+  const { activities } = coalescedData ?? {};
+
+  // == Advance Timeline
   useEffect(() => {
     if (activities) {
       const february = DateTime.fromObject({ year: 2023, month: 6, day: 1 });
       const interval = setInterval(() => {
         setTimestamp(prevTimestamp => {
           if (prevTimestamp < february) {
-            return prevTimestamp.plus({ minutes: speedRef.current });
+            return prevTimestamp.plus({ seconds: speedRef.current * 12 });
           }
           return prevTimestamp;
         });
-      }, 1.1);
+      }, 1.2);
       return () => {
         clearInterval(interval);
       };
     }
   }, [activities, speedRef]);
 
+  // == Map
+  const mapRef = useRef<MapRef>(null);
+  const mapCenter = TORONTO_COORDINATES;
+
   // == Photos
   const [photos, setPhotos] = useState<ReadonlyArray<TimelinePhotoFragment>>(
     [],
   );
-  const lastPhotoTimeZone = useMemo(() => {
-    const lastPhoto = last(photos);
-    if (lastPhoto) {
-      const takenAt = DateTime.fromISO(lastPhoto.takenAt);
-      return takenAt.zoneName;
-    }
-  }, [timestamp, photos]);
   const [shownPhotosCount, setShownPhotosCount] = useState(photos.length);
   const photosStateRef = useRef({
     photosCount: photos.length,
@@ -187,18 +206,18 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
     };
   }, [photosStateRef]);
 
-  // == Path
+  // == Features
   const [activityFeatures, setActivityFeatures] =
-    useState<XmasActivitySegmentFeatureCollection | null>(null);
+    useState<TimelineActivitySegmentFeatureCollection | null>(null);
   const [visitFeatures, setVisitFeatures] =
-    useState<XmasPlaceVisitFeatureCollection | null>(null);
+    useState<TimelinePlaceVisitFeatureCollection | null>(null);
   useEffect(() => {
     if (activities) {
-      const newActivityFeatures: XmasActivitySegmentFeatureCollection = {
+      const newActivityFeatures: TimelineActivitySegmentFeatureCollection = {
         type: "FeatureCollection",
         features: [],
       };
-      const newVisitFeatures: XmasPlaceVisitFeatureCollection = {
+      const newVisitFeatures: TimelinePlaceVisitFeatureCollection = {
         type: "FeatureCollection",
         features: [],
       };
@@ -214,24 +233,27 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
         if (endedAt < cutoff) {
           continue;
         }
-        const opacity = deriveActivityOpacity(timestamp, startedAt);
+        const sharedProperties: TimelineSharedFeatureProperties = {
+          opacity: deriveActivityOpacity(timestamp, startedAt),
+          timezone: activity.timezone.name,
+        };
         if (activity.type === TimelineActivityType.PlaceVisit) {
-          const feature: XmasPlaceVisitFeature = {
+          const feature: TimelinePlaceVisitFeature = {
             type: "Feature",
             properties: {
+              ...sharedProperties,
               name: activity.name ?? null,
-              opacity,
             },
             geometry: activity.location,
           };
           newVisitFeatures.features.push(feature);
         } else if (activity.type === TimelineActivityType.ActivitySegment) {
-          const feature: XmasActivitySegmentFeature = {
+          const feature: TimelineActivitySegmentFeature = {
             type: "Feature",
             properties: {
+              ...sharedProperties,
               startedAt,
               endedAt,
-              opacity,
             },
             geometry: activity.location,
           };
@@ -251,11 +273,18 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
       setPhotos(newPhotos);
     }
   }, [activities, timestamp]);
+  const lastActivityFeature = useMemo(
+    () => last(activityFeatures?.features),
+    [activityFeatures],
+  );
+  const lastActivityTimezone = useMemo(
+    () => lastActivityFeature?.properties.timezone,
+    [lastActivityFeature],
+  );
   useEffect(() => {
     if (activityFeatures) {
-      const lastFeature = last(activityFeatures.features);
-      if (lastFeature) {
-        const { properties, geometry } = lastFeature;
+      if (lastActivityFeature) {
+        const { properties, geometry } = lastActivityFeature;
         const lastCoordinate = last(geometry.coordinates);
         if (lastCoordinate) {
           mapRef.current?.flyTo({
@@ -263,20 +292,20 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
             animate: false,
           });
           if (timestamp > properties.endedAt) {
-            speedRef.current = 6;
+            speedRef.current = 12;
           } else {
             speedRef.current = 1;
           }
         }
       }
     }
-  }, [activityFeatures]);
+  }, [lastActivityFeature]);
 
   return (
     <Flex
       pos="relative"
       h="100dvh"
-      style={{ flexGrow: 1, alignItems: "stretch", flexDirection: "column" }}
+      style={{ alignItems: "stretch", flexDirection: "column" }}
     >
       {isClient && (
         <Map
@@ -327,7 +356,9 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
           )}
         </Map>
       )}
-      <LoadingOverlay visible={loading} loaderProps={{ size: "md" }} />
+      {take(photos, shownPhotosCount).map(photo => (
+        <TimelinePhoto key={photo.id} {...{ photo }} />
+      ))}
       <Center
         pos="absolute"
         style={({ spacing }) => ({
@@ -337,19 +368,33 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
         })}
       >
         <Alert
-          title={timestamp.toLocaleString({
-            ...DateTime.DATETIME_MED,
-            timeZone: lastPhotoTimeZone,
-            timeZoneName: "short",
-          })}
+          title={
+            <>
+              <Text span inherit>
+                {timestamp.toLocaleString({
+                  ...DateTime.DATETIME_MED,
+                  timeZone: lastActivityTimezone,
+                  timeZoneName: "short",
+                })}
+              </Text>
+              {loading && <Loader size="xs" />}
+            </>
+          }
           variant="white"
           miw={440}
           p="xs"
-        />
+          styles={{
+            label: {
+              width: "100%",
+              display: "flex",
+              gap: "var(--mantine-spacing-xs)",
+              justifyContent: "space-between",
+              alignItems: "center",
+            },
+          }}
+        ></Alert>
       </Center>
-      {take(photos, shownPhotosCount).map(photo => (
-        <TimelinePhoto key={photo.id} {...{ photo }} />
-      ))}
+      <LoadingOverlay visible={!coalescedData} loaderProps={{ size: "md" }} />
     </Flex>
   );
 };
@@ -357,48 +402,3 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
 TimelinePage.layout = page => <PageLayout>{page}</PageLayout>;
 
 export default TimelinePage;
-
-type TimelinePhotoProps = ImageProps & {
-  readonly photo: TimelinePhotoFragment;
-};
-
-const TimelinePhoto: FC<TimelinePhotoProps> = ({
-  photo: { id, image },
-  ...otherProps
-}) => {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-    setTimeout(() => {
-      setMounted(false);
-    }, 8000);
-  }, []);
-  const size = 540;
-  const key = useMemo(() => Math.floor(Math.random() * 1_000_000), [id]);
-  const rotation = useMemo(() => Math.floor(key % 18), [key]);
-  const xOffset = useMemo(() => Math.floor(key % 80), [key]);
-  const yOffset = useMemo(() => Math.floor((key + 30) % 80), [key]);
-  const corner = useMemo(() => Math.floor(key % 4), [key]);
-  return (
-    <Transition transition="pop" {...{ mounted }}>
-      {style => (
-        <Image
-          pos="absolute"
-          w={size}
-          h={size}
-          fit="contain"
-          src={image.url}
-          style={[
-            style,
-            { rotate: `${corner % 2 == 0 ? rotation : -rotation}deg` },
-          ]}
-          {...(corner === 0 && { left: xOffset, top: yOffset })}
-          {...(corner === 1 && { right: xOffset, top: yOffset })}
-          {...(corner === 2 && { right: xOffset, bottom: yOffset })}
-          {...(corner === 3 && { left: xOffset, bottom: yOffset })}
-          {...otherProps}
-        />
-      )}
-    </Transition>
-  );
-};

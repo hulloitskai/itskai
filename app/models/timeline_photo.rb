@@ -23,7 +23,8 @@ class TimelinePhoto < ApplicationRecord
   has_one_attached :image
 
   # == Validations
-  validates :image, :timestamp, presence: true
+  validates :image, :timestamp, :md5_hash, presence: true
+  validates :md5_hash, uniqueness: true
 
   # == Geocoding
   sig { returns(RGeo::Geographic::Factory) }

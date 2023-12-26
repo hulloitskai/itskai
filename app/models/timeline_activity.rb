@@ -5,15 +5,16 @@
 #
 # Table name: timeline_activities
 #
-#  id         :uuid             not null, primary key
-#  address    :string
-#  confidence :integer          not null
-#  duration   :tsrange          not null
-#  location   :geography        not null, geometry, 4326
-#  name       :string
-#  type       :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id            :uuid             not null, primary key
+#  address       :string
+#  confidence    :integer          not null
+#  duration      :tsrange          not null
+#  location      :geography        not null, geometry, 4326
+#  name          :string
+#  timezone_name :string           not null
+#  type          :string           not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 # Indexes
 #
@@ -26,9 +27,23 @@ class TimelineActivity < ApplicationRecord
   # == Attributes
   enumerize :type, in: %i[activity_segment place_visit]
 
+  sig { returns(TZInfo::Timezone) }
+  def timezone
+    if (name = timezone_name)
+      TZInfo::Timezone.get(name)
+    end
+  end
+
   # == Validates
-  validates :confidence, numericality: { only_integer: true, in: 0..3 }
-  validates :duration, uniqueness: { scope: :type }
+  validates :confidence,
+            presence: true,
+            numericality: { only_integer: true, in: 0..3 }
+  validates :duration, presence: true, uniqueness: { scope: :type }
+  validates :timezone_name, presence: true
+  validates :location, presence: true
+
+  # == Callbacks
+  before_validation :set_timezone_name_from_location, if: :location_changed?
 
   # == Geocoding
   sig { returns(RGeo::Geographic::Factory) }
@@ -68,6 +83,14 @@ class TimelineActivity < ApplicationRecord
         end
       end
     end
+  end
+
+  sig { returns(TimezoneFinder::TimezoneFinder) }
+  def self.timezone_finder
+    @timezone_finder ||= T.let(
+      TimezoneFinder.create,
+      T.nilable(TimezoneFinder::TimezoneFinder),
+    )
   end
 
   sig do
@@ -180,5 +203,24 @@ class TimelineActivity < ApplicationRecord
   sig { returns(TimelinePhoto::PrivateRelation) }
   def photos
     TimelinePhoto.where(timestamp: duration)
+  end
+
+  private
+
+  # == Callbacks
+  sig { void }
+  def set_timezone_name_from_location
+    point = case location.geometry_type
+    when RGeo::Feature::Point
+      location
+    when RGeo::Feature::LineString
+      location.point_n(0)
+    else
+      raise "Unknown geometry type: #{location.geometry_type}"
+    end
+    self.timezone_name = self.class.timezone_finder.timezone_at(
+      lat: point.latitude,
+      lng: point.longitude,
+    )
   end
 end

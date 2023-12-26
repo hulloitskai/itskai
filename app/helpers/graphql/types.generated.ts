@@ -611,6 +611,12 @@ export type QueryTestEchoArgs = {
 };
 
 
+export type QueryTimelineActivitiesArgs = {
+  after: Scalars['DateTime']['input'];
+  before: Scalars['DateTime']['input'];
+};
+
+
 export type QueryUserArgs = {
   id: Scalars['ID']['input'];
 };
@@ -812,6 +818,7 @@ export type TimelineActivity = Node & {
   name?: Maybe<Scalars['String']['output']>;
   photos: Array<TimelinePhoto>;
   startedAt: Scalars['DateTime']['output'];
+  timezone: Timezone;
   type: TimelineActivityType;
 };
 

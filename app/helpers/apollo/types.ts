@@ -14,6 +14,9 @@ export const typePolicies: StrictTypedTypePolicies = {
   LocationDetails: {
     keyFields: false,
   },
+  Timezone: {
+    keyFields: false,
+  },
 };
 
 export const { possibleTypes } = introspection;

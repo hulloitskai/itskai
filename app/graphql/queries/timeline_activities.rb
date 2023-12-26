@@ -6,10 +6,21 @@ module Queries
     # == Type
     type [Types::TimelineActivityType], null: false
 
+    # == Arguments
+    argument :after, Types::DateTimeType
+    argument :before, Types::DateTimeType
+
     # == Resolver
-    sig { returns(T::Enumerable[TimelineActivity]) }
-    def resolve
-      TimelineActivity.order(:duration)
+    sig do
+      params(after: Time, before: Time).returns(T::Enumerable[TimelineActivity])
+    end
+    def resolve(after:, before:)
+      unless after.before?(before)
+        raise GraphQL::ExecutionError, "`after' must occur prior to `before'."
+      end
+      TimelineActivity
+        .where("duration && tsrange(?, ?)", after, before)
+        .order(:duration)
     end
   end
 end
