@@ -3,7 +3,7 @@
 
 module Queries
   class GoogleCredentials < BaseQuery
-    # == Type
+    # == Definition
     type Types::OAuthCredentialsType, null: true
 
     # == Resolver

@@ -5,7 +5,7 @@ module Queries
   class User < BaseQuery
     include AllowsFailedLoads
 
-    # == Type
+    # == Definition
     type Types::UserType, null: true
 
     # == Arguments

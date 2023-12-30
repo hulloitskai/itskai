@@ -5,7 +5,7 @@ module Queries
   class JourneysSession < JourneysBaseQuery
     include AllowsFailedLoads
 
-    # == Type
+    # == Definition
     type Types::JourneysSessionType, null: true
 
     # == Arguments

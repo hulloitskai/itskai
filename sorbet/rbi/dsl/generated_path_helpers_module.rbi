@@ -195,13 +195,7 @@ module GeneratedPathHelpersModule
   def test_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def timeline_admin_google_location_history_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def timeline_admin_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def timeline_admin_photos_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def timeline_path(*args); end

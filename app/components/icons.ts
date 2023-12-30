@@ -1,6 +1,7 @@
 export { default as AddIcon } from "~icons/heroicons/plus-circle-20-solid";
+export { default as RemoveIcon } from "~icons/heroicons/minus-circle-20-solid";
 export { default as AlertIcon } from "~icons/heroicons/exclamation-triangle-20-solid";
-export { default as CheckCircleIcon } from "~icons/heroicons/check-circle-20-solid";
+export { default as SuccessIcon } from "~icons/heroicons/check-circle-20-solid";
 export { default as CreateIcon } from "~icons/heroicons/document-plus-20-solid";
 export { default as DeleteIcon } from "~icons/heroicons/trash-20-solid";
 export { default as EditIcon } from "~icons/heroicons/pencil-20-solid";
@@ -13,3 +14,4 @@ export { default as DownloadIcon } from "~icons/heroicons/arrow-down-tray-20-sol
 export { default as AuthenticateIcon } from "~icons/heroicons/finger-print-20-solid";
 export { default as DeactivateIcon } from "~icons/heroicons/power-20-solid";
 export { default as ClipboardIcon } from "~icons/heroicons/clipboard-20-solid";
+export { default as CancelIcon } from "~icons/heroicons/x-circle-20-solid";

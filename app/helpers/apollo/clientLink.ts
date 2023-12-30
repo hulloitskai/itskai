@@ -1,7 +1,9 @@
-import { ApolloLink, HttpLink, from, split } from "@apollo/client/index";
-import { setContext } from "@apollo/client/link/context/index";
-import { RetryLink } from "@apollo/client/link/retry/index";
-import { getOperationDefinition } from "@apollo/client/utilities/index";
+// import type { ServerError } from "@apollo/client";
+import { ApolloLink, HttpLink, from, split } from "@apollo/client";
+
+import { setContext } from "@apollo/client/link/context";
+// import { RetryLink } from "@apollo/client/link/retry";
+import { getOperationDefinition } from "@apollo/client/utilities";
 
 import ActionCableLink from "graphql-ruby-client/subscriptions/ActionCableLink";
 
@@ -16,7 +18,19 @@ export const createClientLink = ({
   csrfToken,
 }: ClientLinkOptions): ApolloLink => {
   return from([
-    new RetryLink(),
+    // new RetryLink({
+    //   attempts: {
+    //     retryIf: (error: ApolloError) => {
+    //       if (error.name === "ServerError") {
+    //         const { statusCode } = error as ServerError;
+    //         if (statusCode === 500) {
+    //           return false;
+    //         }
+    //       }
+    //       return true;
+    //     },
+    //   },
+    // }),
     createCSRFLink(csrfToken),
     createTerminatingLink(),
   ]);

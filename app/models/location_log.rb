@@ -91,9 +91,9 @@ class LocationLog < ApplicationRecord
     RGeo::Geographic.spherical_factory(srid: 4326, has_z_coordinate: true)
   end
 
-  # == Importing
+  # == Synchronization
   sig { void }
-  def self.import!
+  def self.sync!
     client = ICloudClient.current or raise "iCloud client not initialized"
     iphone = client.iphone or raise "Couldn't read iPhone details"
     location = iphone.location or return
@@ -115,8 +115,8 @@ class LocationLog < ApplicationRecord
   end
 
   sig { void }
-  def import_later
-    ImportLocationLogsJob.perform_later
+  def sync_later
+    SyncLocationLogsJob.perform_later
   end
 
   # == Finders

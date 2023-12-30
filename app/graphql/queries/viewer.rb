@@ -3,7 +3,7 @@
 
 module Queries
   class Viewer < BaseQuery
-    # == Type
+    # == Definition
     type Types::UserType, null: true
 
     # == Resolver

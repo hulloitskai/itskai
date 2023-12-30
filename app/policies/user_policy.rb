@@ -3,8 +3,6 @@
 
 class UserPolicy < ApplicationPolicy
   # == Rules
-  def index? = false
-
   def manage?
     user = T.cast(record, User)
     authenticate! == user

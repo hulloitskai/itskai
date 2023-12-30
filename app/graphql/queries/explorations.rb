@@ -5,7 +5,7 @@ require "explorations"
 
 module Queries
   class Explorations < BaseQuery
-    # == Type
+    # == Definition
     type [String], null: false
 
     # == Resolver

@@ -3,7 +3,7 @@ import type { FC } from "react";
 import { UpdateUserProfileMutationDocument } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
 import type {
-  ImageInput,
+  UploadInput,
   UserSettingsPageViewerFragment,
 } from "~/helpers/graphql";
 
@@ -11,7 +11,7 @@ import AvatarField from "./AvatarField";
 
 export type UserSettingsPageProfileFormValues = {
   readonly name: string;
-  readonly avatar: Maybe<ImageInput>;
+  readonly avatar: Maybe<UploadInput>;
 };
 
 export type UserSettingsPageProfileFormProps = {

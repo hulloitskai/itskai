@@ -1,0 +1,7 @@
+query FileFieldFileCardQuery($signedId: String!) {
+  file: uploadBySignedId(signedId: $signedId) {
+    byteSize
+    filename
+    id
+  }
+}

@@ -2,15 +2,15 @@
 # frozen_string_literal: true
 
 module Mutations
-  class ImportJournalEntries < BaseMutation
+  class SyncJournalEntries < BaseMutation
     # == Payload
     class Payload < T::Struct; end
 
     # == Resolver
     sig { returns(Payload) }
     def resolve
-      authorize!(to: :import?, with: JournalEntryPolicy)
-      JournalEntry.import!
+      authorize!(to: :sync?, with: JournalEntryPolicy)
+      JournalEntry.sync!
       Payload.new
     end
   end

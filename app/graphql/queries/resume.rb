@@ -5,7 +5,7 @@ require "resume"
 
 module Queries
   class Resume < BaseQuery
-    # == Type
+    # == Definition
     type GraphQL::Types::JSON, null: false
 
     # == Arguments

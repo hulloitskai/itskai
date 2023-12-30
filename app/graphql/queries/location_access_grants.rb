@@ -3,14 +3,17 @@
 
 module Queries
   class LocationAccessGrants < BaseQuery
-    # == Type
+    # == Definition
     type [Types::LocationAccessGrantType], null: false
 
     # == Resolver
     sig { returns(T::Enumerable[::LocationAccessGrant]) }
     def resolve
-      relation = ::LocationAccessGrant.valid
-      authorized_scope(relation)
+      grants = T.cast(
+        authorized_scope(::LocationAccessGrant.all),
+        ::LocationAccessGrant::PrivateRelation,
+      )
+      grants.valid
     end
   end
 end

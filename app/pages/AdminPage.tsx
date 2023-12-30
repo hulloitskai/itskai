@@ -8,8 +8,8 @@ import ICloudCredentialsForm from "~/components/ICloudCredentialsForm";
 import InstagramCredentialsForm from "~/components/InstagramCredentialsForm";
 import GoogleCredentialsForm from "~/components/GoogleCredentialsForm";
 import SpotifyCredentialsForm from "~/components/SpotifyCredentialsForm";
-import LocationLogsImportButton from "~/components/LocationLogsImportButton";
-import JournalEntriesImportButton from "~/components/JournalEntriesImportButton";
+import LocationLogsSyncButton from "~/components/LocationLogsSyncButton";
+import JournalEntriesSyncButton from "~/components/JournalEntriesSyncButton";
 import LocationAccessGrants from "~/components/LocationAccessGrants";
 
 export type AdminPageProps = PagePropsWithData<AdminPageQuery>;
@@ -34,12 +34,12 @@ const AdminPage: PageComponent<AdminPageProps> = ({
               Data Controls
             </Title>
             <Text size="sm" c="dimmed" lh={1.3}>
-              Import data from your services
+              Sync data from your services
             </Text>
           </Stack>
           <Stack gap={6}>
-            <LocationLogsImportButton />
-            <JournalEntriesImportButton />
+            <LocationLogsSyncButton />
+            <JournalEntriesSyncButton />
           </Stack>
         </Stack>
       </Card>

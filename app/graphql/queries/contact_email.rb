@@ -5,7 +5,7 @@ require "contact"
 
 module Queries
   class ContactEmail < BaseQuery
-    # == Type
+    # == Definition
     type String, null: false
 
     # == Resolver

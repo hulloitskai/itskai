@@ -3,7 +3,7 @@
 
 module Queries
   class TestEcho < BaseQuery
-    # == Type
+    # == Definition
     type String, null: false
 
     # == Arguments

@@ -1,0 +1,7 @@
+mutation ImportTimelineActivitiesMutation(
+  $input: ImportTimelineActivitiesInput!
+) {
+  payload: importTimelineActivities(input: $input) {
+    importCount
+  }
+}

@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "@9gustin/react-notion-render": "^3.11.2",
-    "@apollo/client": "^3.7.17",
+    "@apollo/client": "^3.8.8",
     "@fullstory/browser": "^1.7.1",
     "@graphiql/toolkit": "^0.9.1",
     "@graphql-typed-document-node/core": "^3.2.0",
@@ -45,6 +45,7 @@
     "lottie-react": "^2.4.0",
     "luxon": "^3.3.0",
     "mapbox-gl": "^2.15.0",
+    "pretty-bytes": "^6.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-fast-marquee": "^1.6.0",

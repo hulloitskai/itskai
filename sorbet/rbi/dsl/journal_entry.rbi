@@ -298,9 +298,6 @@ class JournalEntry
     def extract_associated(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def for_import(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def from(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -646,51 +643,6 @@ class JournalEntry
     def id_will_change!; end
 
     sig { returns(::ActiveSupport::TimeWithZone) }
-    def imported_at; end
-
-    sig { params(value: ::ActiveSupport::TimeWithZone).returns(::ActiveSupport::TimeWithZone) }
-    def imported_at=(value); end
-
-    sig { returns(T::Boolean) }
-    def imported_at?; end
-
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
-    def imported_at_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def imported_at_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def imported_at_came_from_user?; end
-
-    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
-    def imported_at_change; end
-
-    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
-    def imported_at_change_to_be_saved; end
-
-    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
-    def imported_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
-    def imported_at_in_database; end
-
-    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
-    def imported_at_previous_change; end
-
-    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
-    def imported_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
-    def imported_at_previously_was; end
-
-    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
-    def imported_at_was; end
-
-    sig { void }
-    def imported_at_will_change!; end
-
-    sig { returns(::ActiveSupport::TimeWithZone) }
     def last_edited_at; end
 
     sig { params(value: ::ActiveSupport::TimeWithZone).returns(::ActiveSupport::TimeWithZone) }
@@ -793,9 +745,6 @@ class JournalEntry
     def restore_id_value!; end
 
     sig { void }
-    def restore_imported_at!; end
-
-    sig { void }
     def restore_last_edited_at!; end
 
     sig { void }
@@ -803,6 +752,9 @@ class JournalEntry
 
     sig { void }
     def restore_started_at!; end
+
+    sig { void }
+    def restore_synced_at!; end
 
     sig { void }
     def restore_title!; end
@@ -835,12 +787,6 @@ class JournalEntry
     def saved_change_to_id_value?; end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
-    def saved_change_to_imported_at; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_imported_at?; end
-
-    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_last_edited_at; end
 
     sig { returns(T::Boolean) }
@@ -857,6 +803,12 @@ class JournalEntry
 
     sig { returns(T::Boolean) }
     def saved_change_to_started_at?; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def saved_change_to_synced_at; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_synced_at?; end
 
     sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_title; end
@@ -914,6 +866,51 @@ class JournalEntry
 
     sig { void }
     def started_at_will_change!; end
+
+    sig { returns(::ActiveSupport::TimeWithZone) }
+    def synced_at; end
+
+    sig { params(value: ::ActiveSupport::TimeWithZone).returns(::ActiveSupport::TimeWithZone) }
+    def synced_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def synced_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def synced_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def synced_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def synced_at_came_from_user?; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def synced_at_change; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def synced_at_change_to_be_saved; end
+
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def synced_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def synced_at_in_database; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def synced_at_previous_change; end
+
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def synced_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def synced_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def synced_at_was; end
+
+    sig { void }
+    def synced_at_will_change!; end
 
     sig { returns(::String) }
     def title; end
@@ -1018,9 +1015,6 @@ class JournalEntry
     def will_save_change_to_id_value?; end
 
     sig { returns(T::Boolean) }
-    def will_save_change_to_imported_at?; end
-
-    sig { returns(T::Boolean) }
     def will_save_change_to_last_edited_at?; end
 
     sig { returns(T::Boolean) }
@@ -1028,6 +1022,9 @@ class JournalEntry
 
     sig { returns(T::Boolean) }
     def will_save_change_to_started_at?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_synced_at?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_title?; end
@@ -1069,9 +1066,6 @@ class JournalEntry
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def extract_associated(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def for_import(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def from(*args, &blk); end

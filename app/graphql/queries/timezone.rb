@@ -3,7 +3,7 @@
 
 module Queries
   class Timezone < BaseQuery
-    # == Type
+    # == Definition
     type Types::TimezoneType, null: false
 
     # == Resolver

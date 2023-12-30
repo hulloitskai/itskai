@@ -3,7 +3,7 @@
 
 module Queries
   class ICloudCredentials < BaseQuery
-    # == Type
+    # == Definition
     type Types::ICloudCredentialsType, null: true
 
     # == Resolver

@@ -6,8 +6,9 @@ export const imports: Array<ImportsMap | PresetName> = [
     "~/components": ["AnchorContainer", "EmptyCard", "Head", "Time", "TimeAgo"],
     "~/components/icons": [
       "AddIcon",
+      "RemoveIcon",
       "AlertIcon",
-      "CheckCircleIcon",
+      "SuccessIcon",
       "CreateIcon",
       "DeleteIcon",
       "EditIcon",
@@ -20,6 +21,7 @@ export const imports: Array<ImportsMap | PresetName> = [
       "AuthenticateIcon",
       "DeactivateIcon",
       "ClipboardIcon",
+      "CancelIcon",
     ],
     "~/helpers/apollo/preloadedQuery": ["usePreloadedQuery"],
     "~/helpers/apollo/notifications": ["useApolloAlertCallback"],

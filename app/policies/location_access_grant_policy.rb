@@ -3,7 +3,6 @@
 
 class LocationAccessGrantPolicy < ApplicationPolicy
   # == Rules
-  def index? = false
   def show? = false
 
   # == Scopes

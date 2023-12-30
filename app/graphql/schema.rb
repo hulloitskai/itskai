@@ -4,6 +4,8 @@
 # TODO: Read up on other N+1 solutions:
 # https://evilmartians.com/chronicles/how-to-graphql-with-ruby-rails-active-record-and-no-n-plus-one
 class Schema < GraphQL::Schema
+  include Logging
+
   # == Plugins
   # use GraphQL::Connections::Stable
   use GraphQL::Subscriptions::ActionCableSubscriptions,
@@ -19,7 +21,7 @@ class Schema < GraphQL::Schema
   # Stop validation after 100 errors.
   validate_max_errors 100
 
-  # == Types
+  # == Definitions
   query Types::QueryType
   mutation Types::MutationType
   subscription Types::SubscriptionType

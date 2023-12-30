@@ -1,0 +1,5 @@
+mutation ImportTimelinePhotosMutation($input: ImportTimelinePhotosInput!) {
+  payload: importTimelinePhotos(input: $input) {
+    importCount
+  }
+}

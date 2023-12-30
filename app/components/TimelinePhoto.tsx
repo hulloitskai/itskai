@@ -42,7 +42,7 @@ const TimelinePhoto: FC<TimelinePhotoProps> = ({
           w={size}
           h={size}
           fit="contain"
-          src={image.url}
+          src={image.src}
           style={[
             style,
             { rotate: `${corner % 2 == 0 ? rotation : -rotation}deg` },

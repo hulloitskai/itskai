@@ -3,6 +3,5 @@
 
 class ICloudCredentialsPolicy < ApplicationPolicy
   # == Rules
-  def index? = false
   def show? = false
 end

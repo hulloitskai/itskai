@@ -1,22 +1,22 @@
 import type { FC } from "react";
 import type { ButtonProps } from "@mantine/core";
 
-import { ImportJournalEntriesMutationDocument } from "~/helpers/graphql";
+import { SyncLocationLogsMutationDocument } from "~/helpers/graphql";
 
-export type JournalEntriesImportButtonProps = Omit<ButtonProps, "onClick">;
+export type LocationSyncLogsButtonProps = Omit<ButtonProps, "onClick">;
 
-const JournalEntriesImportButton: FC<JournalEntriesImportButtonProps> = ({
+const LocationLogsSyncButton: FC<LocationSyncLogsButtonProps> = ({
   children,
   ...otherProps
 }) => {
   // == Mutation
-  const onError = useApolloAlertCallback("Failed to import journal entries");
+  const onError = useApolloAlertCallback("Failed to import location logs");
   const [runMutation, { loading }] = useMutation(
-    ImportJournalEntriesMutationDocument,
+    SyncLocationLogsMutationDocument,
     {
       onCompleted: () => {
         showNotice({
-          message: "Journal entries imported successfully.",
+          message: "Location logs synced successfully.",
         });
       },
       onError,
@@ -37,9 +37,9 @@ const JournalEntriesImportButton: FC<JournalEntriesImportButtonProps> = ({
       {...{ loading }}
       {...otherProps}
     >
-      {children ?? "Import journal entries"}
+      {children ?? "Sync location logs"}
     </Button>
   );
 };
 
-export default JournalEntriesImportButton;
+export default LocationLogsSyncButton;

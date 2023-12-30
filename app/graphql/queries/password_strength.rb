@@ -3,7 +3,7 @@
 
 module Queries
   class PasswordStrength < BaseQuery
-    # == Type
+    # == Definition
     type Float, null: false
 
     # == Arguments

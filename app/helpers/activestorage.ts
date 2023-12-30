@@ -1,17 +1,17 @@
-import { DirectUpload as ClientDirectUpload } from "@rails/activestorage?client";
-import { start as startClient } from "@rails/activestorage?client";
-import type { Blob, DirectUpload } from "@rails/activestorage";
+import type { Blob } from "@rails/activestorage";
+import { DirectUpload } from "@rails/activestorage?client";
+import { start } from "@rails/activestorage?client";
 
 import { requireMeta } from "./meta";
 
 export const setupActiveStorage = (): void => {
-  startClient();
+  start();
 };
 
 export const uploadFile = async (file: File): Promise<Blob> => {
   return new Promise((resolve, reject) => {
     const url = requireMeta("active-storage-direct-uploads-url");
-    const upload: DirectUpload = new ClientDirectUpload(file, url);
+    const upload = new DirectUpload(file, url);
     upload.create((error, blob) => {
       if (error) {
         console.error(

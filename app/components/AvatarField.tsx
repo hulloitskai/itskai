@@ -8,14 +8,10 @@ import { Image, Input, Text, rgba } from "@mantine/core";
 import type { InputWrapperProps } from "@mantine/core";
 
 import { AvatarFieldQueryDocument } from "~/helpers/graphql";
-import type { Maybe } from "~/helpers/graphql";
+import type { Maybe, UploadInput } from "~/helpers/graphql";
 import type { AvatarFieldQueryVariables } from "~/helpers/graphql";
 
 import "@mantine/dropzone/styles.layer.css";
-
-export type ImageInput = {
-  readonly signedId: string;
-};
 
 import { uploadFile } from "~/helpers/activestorage";
 
@@ -26,11 +22,11 @@ const AVATAR_FIELD_RADIUS = 10000;
 
 export type AvatarFieldProps = Omit<
   InputWrapperProps,
-  "inputContainer" | "inputWrapperOrder" | "size" | "children"
+  "inputContainer" | "inputWrapperOrder" | "size" | "children" | "onChange"
 > &
   Pick<DropzoneProps, "disabled"> & {
-    readonly value?: Maybe<ImageInput>;
-    readonly onChange?: (value: Maybe<ImageInput>) => void;
+    readonly value?: Maybe<UploadInput>;
+    readonly onChange?: (value: Maybe<UploadInput>) => void;
   };
 
 const AvatarField: FC<AvatarFieldProps> = ({
@@ -80,7 +76,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
       if (data) {
         const { image } = data ?? {};
         if (image) {
-          setSrc(image.url);
+          setSrc(image.src);
         } else {
           console.error("Image not found", formatJSON({ signedId: value }));
           showAlert({
@@ -130,7 +126,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
                 uploadFile(file)
                   .then(blob => {
                     if (onChange) {
-                      const value: ImageInput = {
+                      const value: UploadInput = {
                         signedId: blob.signed_id,
                       };
                       onChange(value);

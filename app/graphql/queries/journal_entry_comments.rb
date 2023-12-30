@@ -6,11 +6,11 @@ module Queries
     # == Arguments
     argument :entry_id, ID, loads: Types::JournalEntryType
 
-    # == Type
+    # == Definition
     type [Types::NotionCommentType], null: false
 
     # == Resolver
-    sig { params(entry: ::JournalEntry).returns(T.untyped) }
+    sig { params(entry: ::JournalEntry).returns(T::Enumerable[T.untyped]) }
     def resolve(entry:)
       entry.notion_comments
     end

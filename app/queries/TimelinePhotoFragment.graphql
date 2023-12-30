@@ -2,7 +2,7 @@ fragment TimelinePhotoFragment on TimelinePhoto {
   id
   image {
     id
-    url(size: MD)
+    src(size: MD)
   }
   takenAt
 }

@@ -6,7 +6,7 @@ module Queries
     # == Configuration
     # description "When the server was booted."
 
-    # == Type
+    # == Definition
     type Types::DateTimeType, null: false
 
     # == Resolver

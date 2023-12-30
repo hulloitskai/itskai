@@ -16,6 +16,7 @@ module Types
     field :contact_email, resolver: Queries::ContactEmail
     field :image_by_signed_id, resolver: Queries::ImageBySignedId
     field :password_strength, resolver: Queries::PasswordStrength
+    field :upload_by_signed_id, resolver: Queries::UploadBySignedId
 
     field :user, resolver: Queries::User
     field :viewer, resolver: Queries::Viewer

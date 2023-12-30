@@ -5,7 +5,7 @@ module Queries
   class ObsidianNote < BaseQuery
     include AllowsFailedLoads
 
-    # == Type
+    # == Definition
     type Types::ObsidianNoteType, null: true
 
     # == Arguments

@@ -20,7 +20,7 @@ import {
   TimelineActivityType,
   TimelineActivitiesQueryDocument,
 } from "~/helpers/graphql";
-import type { Coordinates, TimelinePhotoFragment } from "~/helpers/graphql";
+import type { TimelinePhotoFragment } from "~/helpers/graphql";
 
 import PageLayout from "~/components/PageLayout";
 import AppMeta from "~/components/AppMeta";
@@ -28,11 +28,6 @@ import Map from "~/components/Map";
 import TimelinePhoto from "~/components/TimelinePhoto";
 
 import fallUnderneathSrc from "~/assets/sounds/fall-underneath.mp3";
-
-const TORONTO_COORDINATES: Readonly<Coordinates> = {
-  latitude: 43.6532,
-  longitude: -79.3832,
-};
 
 export type TimelinePageProps = PageProps;
 
@@ -130,7 +125,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   // == Timestamp
   const [paused, setPaused] = useState(true);
   const [timestamp, setTimestamp] = useState(() =>
-    DateTime.fromObject({ year: 2023, month: 1, day: 3 }),
+    DateTime.fromObject({ year: 2023, month: 8, day: 28 }),
   );
   const speedRef = useRef(1);
 
@@ -186,7 +181,6 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
 
   // == Map
   const mapRef = useRef<MapRef>(null);
-  const mapCenter = TORONTO_COORDINATES;
 
   // == Photos
   const [photos, setPhotos] = useState<ReadonlyArray<TimelinePhotoFragment>>(
@@ -195,7 +189,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   useEffect(() => {
     photos.forEach(({ image }) => {
       // Preload photos by creating an Image object for each one.
-      new Image().src = image.url;
+      new Image().src = image.src;
     });
   }, [photos]);
   const visiblePhotos = useMemo(
@@ -317,7 +311,11 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
         <Map
           ref={mapRef}
           mapStyle="mapbox://styles/mapbox-map-design/ckshxkppe0gge18nz20i0nrwq"
-          initialViewState={{ ...mapCenter, zoom: 12.5 }}
+          initialViewState={{
+            latitude: 43.6532,
+            longitude: -79.3832,
+            zoom: 12.5,
+          }}
           navigationControl={false}
           style={{ flexGrow: 1 }}
         >

@@ -4,19 +4,12 @@ import { Text } from "@mantine/core";
 import type { TimelineAdminPageQuery } from "~/helpers/graphql";
 
 import AppLayout from "~/components/AppLayout";
-import TimelineAdminGoogleLocationHistoryImportButton from "~/components/TimelineAdminGoogleLocationHistoryImportButton";
-import TimelineAdminPhotosImportButton from "~/components/TimelineAdminPhotosImportButton";
+import TimelineActivitiesImportButton from "~/components/TimelineActivitiesImportButton";
+import TimelinePhotosImportButton from "~/components/TimelinePhotosImportButton";
 
-export type TimelineAdminPageProps =
-  PagePropsWithData<TimelineAdminPageQuery> & {
-    readonly googleLocationHistoryUploadUrl: string;
-    readonly photosUploadUrl: string;
-  };
+export type TimelineAdminPageProps = PagePropsWithData<TimelineAdminPageQuery>;
 
-const TimelineAdminPage: PageComponent<TimelineAdminPageProps> = ({
-  googleLocationHistoryUploadUrl,
-  photosUploadUrl,
-}) => {
+const TimelineAdminPage: PageComponent<TimelineAdminPageProps> = () => {
   return (
     <Stack>
       <Card withBorder>
@@ -30,10 +23,8 @@ const TimelineAdminPage: PageComponent<TimelineAdminPageProps> = ({
             </Text>
           </Stack>
           <Stack gap={6}>
-            <TimelineAdminGoogleLocationHistoryImportButton
-              uploadUrl={googleLocationHistoryUploadUrl}
-            />
-            <TimelineAdminPhotosImportButton uploadUrl={photosUploadUrl} />
+            <TimelineActivitiesImportButton />
+            <TimelinePhotosImportButton />
           </Stack>
         </Stack>
       </Card>

@@ -3,7 +3,7 @@
 
 module Queries
   class ActivityStatus < BaseQuery
-    # == Type
+    # == Definition
     type String, null: true
 
     # == Resolver

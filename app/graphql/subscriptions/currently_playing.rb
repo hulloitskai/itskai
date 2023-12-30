@@ -3,7 +3,7 @@
 
 module Subscriptions
   class CurrentlyPlaying < BaseSubscription
-    # == Type
+    # == Definition
     type Types::CurrentlyPlayingType, null: true
 
     # == Callback Handlers

@@ -25,7 +25,7 @@ class ApplicationPolicy < ActionPolicy::Base
   undef_method :create?
 
   sig { returns(T::Boolean) }
-  def index? = true
+  def index? = false
 
   sig { returns(T::Boolean) }
   def show? = true

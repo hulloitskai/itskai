@@ -1,6 +1,6 @@
 query AvatarFieldQuery($signedId: String!) {
   image: imageBySignedId(signedId: $signedId) {
     id
-    url
+    src
   }
 }

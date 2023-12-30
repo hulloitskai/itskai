@@ -3,7 +3,7 @@
 
 module Queries
   class CurrentlyPlaying < BaseQuery
-    # == Type
+    # == Definition
     type Types::CurrentlyPlayingType, null: true
 
     # == Resolver

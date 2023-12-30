@@ -6,7 +6,7 @@ module Subscriptions
     # == Configuration
     broadcastable false
 
-    # == Type
+    # == Definition
     type Types::JourneysSessionParticipationType, null: true
 
     # == Arguments

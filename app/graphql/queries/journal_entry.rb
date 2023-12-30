@@ -5,7 +5,7 @@ module Queries
   class JournalEntry < BaseQuery
     include AllowsFailedLoads
 
-    # == Type
+    # == Definition
     type Types::JournalEntryType, null: true
 
     # == Arguments

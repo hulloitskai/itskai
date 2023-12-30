@@ -3,7 +3,7 @@
 
 module Queries
   class PensieveMessages < BaseQuery
-    # == Type
+    # == Definition
     type [Types::PensieveMessageType], null: false
 
     # == Arguments
@@ -14,7 +14,11 @@ module Queries
       params(to: T.nilable(String)).returns(T::Enumerable[::PensieveMessage])
     end
     def resolve(to: nil)
-      messages = ::PensieveMessage.where(to:)
+      messages = T.cast(
+        authorized_scope(::PensieveMessage.all),
+        ::PensieveMessage::PrivateRelation,
+      )
+      messages = messages.where(to:)
       to ? messages.order(timestamp: :desc) : messages.recent
     end
   end

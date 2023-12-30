@@ -1,0 +1,5 @@
+mutation SyncLocationLogsMutation($input: SyncLocationLogsInput!) {
+  payload: syncLocationLogs(input: $input) {
+    success
+  }
+}

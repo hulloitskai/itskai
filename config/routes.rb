@@ -120,9 +120,6 @@ Rails.application.routes.draw do
   # == Timeline
   get "/timeline" => "timeline#show"
   get "/timeline/admin" => "timeline_admin#show"
-  post "/timeline/admin/google_location_history" =>
-    "timeline_admin#google_location_history"
-  post "/timeline/admin/photos" => "timeline_admin#photos"
 
   # == Pages
   root "home#show"

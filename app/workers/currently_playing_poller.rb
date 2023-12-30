@@ -14,7 +14,9 @@ class CurrentlyPlayingPoller < ApplicationWorker
   def start
     stop
     @task = Concurrent::TimerTask.new(execution_interval: 3) do
-      Rails.application.reloader.wrap { CurrentlyPlayingPoll.run }
+      Rails.application.reloader.wrap do
+        CurrentlyPlayingPoll.run
+      end
     end
     ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
       @task.execute

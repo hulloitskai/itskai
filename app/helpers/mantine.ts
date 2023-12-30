@@ -1,3 +1,4 @@
+import type { DefaultMantineColor, MantineColorsTuple } from "@mantine/core";
 import {
   ActionIcon,
   Alert,
@@ -17,7 +18,7 @@ import {
   createTheme,
   mergeThemeOverrides,
 } from "@mantine/core";
-import type { DefaultMantineColor, MantineColorsTuple } from "@mantine/core";
+import { Dropzone } from "@mantine/dropzone";
 
 import cx from "clsx";
 import classes from "./mantine.module.css";
@@ -51,6 +52,7 @@ const BASE_THEME_OVERRIDE = createTheme({
     ActionIcon: ActionIcon.extend({
       defaultProps: {
         variant: "subtle",
+        radius: "md",
       },
     }),
     Alert: Alert.extend({
@@ -99,6 +101,9 @@ const BASE_THEME_OVERRIDE = createTheme({
       },
     }),
     Modal: Modal.extend({
+      defaultProps: {
+        radius: "md",
+      },
       styles: ({ headings: { sizes, ...style } }) => ({
         title: {
           ...sizes.h3,
@@ -129,6 +134,11 @@ const BASE_THEME_OVERRIDE = createTheme({
     ThemeIcon: ThemeIcon.extend({
       defaultProps: {
         variant: "default",
+      },
+    }),
+    Dropzone: Dropzone.extend({
+      defaultProps: {
+        radius: "md",
       },
     }),
   },

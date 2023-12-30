@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-class ImportLocationLogsJob < ApplicationJob
+class SyncJournalEntriesJob < ApplicationJob
   # == Configuration
   good_job_control_concurrency_with key: name, total_limit: 1
 
@@ -11,13 +11,13 @@ class ImportLocationLogsJob < ApplicationJob
   # == Job
   sig { void }
   def perform
-    LocationLog.import!
+    JournalEntry.sync!
   end
 
   # == Methods
   sig { returns(T::Boolean) }
   def self.enabled?
-    ICloudClient.enabled?
+    NotionClient.enabled?
   end
 
   private
@@ -25,8 +25,8 @@ class ImportLocationLogsJob < ApplicationJob
   # == Callback Handlers
   sig { params(block: T.proc.void).void }
   def with_activity_status(&block)
-    ActivityStatus.current = "Importing location logs"
+    ActivityStatus.current = "Syncing journal entries"
     yield
-    ActivityStatus.current = "Location logs imported"
+    ActivityStatus.current = "Journal entries synced"
   end
 end

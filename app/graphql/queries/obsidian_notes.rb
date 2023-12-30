@@ -3,7 +3,7 @@
 
 module Queries
   class ObsidianNotes < BaseQuery
-    # == Type
+    # == Definition
     type Types::ObsidianNoteType.connection_type, null: false
 
     # == Arguments

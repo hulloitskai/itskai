@@ -9,12 +9,6 @@ end
 
 require "sorbet-runtime"
 
-# Use VSCode as default editor.
-ENV["BETTER_ERRORS_EDITOR"] = "vscode"
-
-# Force open links in new tab.
-ENV["BETTER_ERRORS_INSIDE_FRAME"] = "1"
-
 class BetterErrors::StackFrame
   # Ignore files in lib/ that are not application code.
   module Patch

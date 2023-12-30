@@ -1,11 +1,11 @@
 # typed: strict
 # frozen_string_literal: true
 
-class ImportJournalEntryJob < ApplicationJob
+class SyncJournalEntryJob < ApplicationJob
   # == Configuration
   good_job_control_concurrency_with(
     key: -> {
-      T.bind(self, ImportJournalEntryJob)
+      T.bind(self, SyncJournalEntryJob)
       entry = T.let(arguments.first!, JournalEntry)
       "#{self.class.name}(#{entry.to_gid})"
     },
@@ -19,7 +19,7 @@ class ImportJournalEntryJob < ApplicationJob
   sig { params(entry: JournalEntry, force: T.nilable(T::Boolean)).void }
   def perform(entry, force: nil)
     options = { force: }
-    entry.import!(options.compact)
+    entry.sync!(options.compact)
   end
 
   # == Methods
@@ -34,6 +34,6 @@ class ImportJournalEntryJob < ApplicationJob
   sig { void }
   def set_activity_status
     entry = T.let(arguments.first!, JournalEntry)
-    ActivityStatus.current = "Importing journal entry: #{entry.title}"
+    ActivityStatus.current = "Syncing journal entry: #{entry.title}"
   end
 end

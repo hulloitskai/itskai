@@ -3,7 +3,7 @@
 
 module Queries
   class SpotifyCredentials < BaseQuery
-    # == Type
+    # == Definition
     type Types::OAuthCredentialsType, null: true
 
     # == Resolver

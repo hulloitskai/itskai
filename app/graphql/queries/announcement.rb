@@ -5,7 +5,7 @@ require "announcement"
 
 module Queries
   class Announcement < BaseQuery
-    # == Type
+    # == Definition
     type String, null: true
 
     # == Resolver

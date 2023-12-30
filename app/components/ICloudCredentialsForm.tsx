@@ -101,7 +101,7 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
           </Text>
         </Box>
       ),
-      children: <ICloudVerifySecurityCodeForm />,
+      children: <ICloudVerifySecurityCodeForm mb="xs" />,
     });
   }, []);
 

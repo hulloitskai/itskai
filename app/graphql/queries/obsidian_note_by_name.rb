@@ -3,7 +3,7 @@
 
 module Queries
   class ObsidianNoteByName < BaseQuery
-    # == Type
+    # == Definition
     type Types::ObsidianNoteType, null: true
 
     # == Arguments

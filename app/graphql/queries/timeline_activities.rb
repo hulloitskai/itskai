@@ -3,7 +3,7 @@
 
 module Queries
   class TimelineActivities < BaseQuery
-    # == Type
+    # == Definition
     type [Types::TimelineActivityType], null: false
 
     # == Arguments
@@ -18,7 +18,11 @@ module Queries
       unless after.before?(before)
         raise GraphQL::ExecutionError, "`after' must occur prior to `before'."
       end
-      TimelineActivity
+      activities = T.cast(
+        authorized_scope(TimelineActivity.all),
+        TimelineActivity::PrivateRelation,
+      )
+      activities
         .where("duration && tsrange(?, ?)", after, before)
         .order(:duration)
     end

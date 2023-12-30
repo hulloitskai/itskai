@@ -3,7 +3,7 @@
 
 module Queries
   class InstagramCredentials < BaseQuery
-    # == Type
+    # == Definition
     type Types::InstagramCredentialsType, null: true
 
     # == Resolver

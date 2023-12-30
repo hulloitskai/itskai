@@ -3,7 +3,7 @@
 
 module Queries
   class Location < BaseQuery
-    # == Type
+    # == Definition
     type Types::LocationLogType, null: true
 
     # == Resolver

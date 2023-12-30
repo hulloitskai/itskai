@@ -32,7 +32,7 @@ module Types
 
     field :add_journal_entry_comment,
           mutation: Mutations::AddJournalEntryComment
-    field :import_journal_entries, mutation: Mutations::ImportJournalEntries
+    field :sync_journal_entries, mutation: Mutations::SyncJournalEntries
 
     field :like_pensieve_message, mutation: Mutations::LikePensieveMessage
     field :send_pensieve_message, mutation: Mutations::SendPensieveMessage
@@ -48,8 +48,12 @@ module Types
     field :update_journeys_session_participation,
           mutation: Mutations::UpdateJourneysSessionParticipation
 
+    field :import_timeline_activities,
+          mutation: Mutations::ImportTimelineActivities
+    field :import_timeline_photos, mutation: Mutations::ImportTimelinePhotos
+
     field :activate_scottkit_signal, mutation: Mutations::ActivateScottkitSignal
     field :create_seneca_mood_log, mutation: Mutations::CreateSenecaMoodLog
-    field :import_location_logs, mutation: Mutations::ImportLocationLogs
+    field :sync_location_logs, mutation: Mutations::SyncLocationLogs
   end
 end

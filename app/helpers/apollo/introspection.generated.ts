@@ -21,6 +21,9 @@
       "TimelineActivity",
       "TimelinePhoto",
       "User"
+    ],
+    "Upload": [
+      "Image"
     ]
   }
 };

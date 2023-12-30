@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_26_024354) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_29_030211) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -146,7 +146,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_26_024354) do
     t.jsonb "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "imported_at", precision: nil, null: false
+    t.datetime "synced_at", precision: nil, null: false
     t.index ["notion_page_id"], name: "index_journal_entries_on_notion_page_id", unique: true
   end
 
@@ -314,8 +314,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_26_024354) do
     t.geography "coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "md5_hash", null: false
-    t.index ["md5_hash"], name: "index_timeline_photos_on_md5_hash", unique: true
+    t.text "fingerprint", null: false
+    t.index ["fingerprint"], name: "index_timeline_photos_on_fingerprint", unique: true
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

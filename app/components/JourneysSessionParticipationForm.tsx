@@ -72,7 +72,6 @@ const JourneysSessionParticipationForm: FC<
   return (
     <Box
       component="form"
-      pos="relative"
       onSubmit={onSubmit(values => {
         runMutation({
           variables: {

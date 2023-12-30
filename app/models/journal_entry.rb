@@ -7,9 +7,9 @@
 #
 #  id             :uuid             not null, primary key
 #  content        :jsonb
-#  imported_at    :datetime         not null
 #  last_edited_at :datetime         not null
 #  started_at     :datetime         not null
+#  synced_at      :datetime         not null
 #  title          :string           not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
@@ -29,11 +29,6 @@ class JournalEntry < ApplicationRecord
     where.not(content: nil)
   }
 
-  scope :for_import, -> {
-    T.bind(self, PrivateRelation)
-    select(:id, :imported_at)
-  }
-
   # == Searchable
   pg_search_scope :search,
                   against: :title,
@@ -51,26 +46,26 @@ class JournalEntry < ApplicationRecord
   # == Callbacks
   after_commit :download_later, on: %i[create update], if: :download_required?
 
-  # == Importing
+  # == Synchronization
   sig { returns(T::Boolean) }
-  def import_required?
-    imported_at < 5.minutes.ago
+  def sync_required?
+    synced_at < 5.minutes.ago
   end
 
   sig { params(force: T::Boolean).void }
-  def import!(force: false)
-    return if !force && !import_required?
-    import_attributes(notion_page)
+  def sync!(force: false)
+    return if !force && !sync_required?
+    sync_attributes(notion_page)
     save!
   end
 
   sig { params(force: T::Boolean).void }
-  def import_later(force: false)
-    ImportJournalEntryJob.perform_later(self, force:)
+  def sync_later(force: false)
+    SyncJournalEntryJob.perform_later(self, force:)
   end
 
   sig { void }
-  def self.import!
+  def self.sync!
     notion_pages = NotionClient.list_pages(
       notion_database_id,
       filter: {
@@ -87,7 +82,7 @@ class JournalEntry < ApplicationRecord
     notion_pages.each do |notion_page|
       notion_page_id = notion_page.id
       entry = JournalEntry.find_or_initialize_by(notion_page_id:)
-      entry.import_attributes(notion_page)
+      entry.sync_attributes(notion_page)
       entry.save!
     rescue => error
       tag_logger do
@@ -103,17 +98,17 @@ class JournalEntry < ApplicationRecord
   end
 
   sig { params(notion_page: T.untyped).void }
-  def import_attributes(notion_page)
+  def sync_attributes(notion_page)
     notion_page => { properties: }
-    self.imported_at = Time.current
+    self.synced_at = Time.current
     self.title = properties["Name"].title.first!.plain_text
     self.started_at = properties["Created At"].created_time.to_time
     self.last_edited_at = properties["Modified At"].last_edited_time.to_time
   end
 
   sig { void }
-  def self.import_later
-    ImportJournalEntriesJob.perform_later
+  def self.sync_later
+    SyncJournalEntriesJob.perform_later
   end
 
   # == Downloading

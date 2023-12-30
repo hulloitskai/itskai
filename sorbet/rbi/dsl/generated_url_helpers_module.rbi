@@ -195,12 +195,6 @@ module GeneratedUrlHelpersModule
   def test_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def timeline_admin_google_location_history_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def timeline_admin_photos_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def timeline_admin_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

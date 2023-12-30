@@ -597,6 +597,51 @@ class TimelinePhoto
     sig { void }
     def created_at_will_change!; end
 
+    sig { returns(::String) }
+    def fingerprint; end
+
+    sig { params(value: ::String).returns(::String) }
+    def fingerprint=(value); end
+
+    sig { returns(T::Boolean) }
+    def fingerprint?; end
+
+    sig { returns(T.nilable(::String)) }
+    def fingerprint_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def fingerprint_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def fingerprint_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def fingerprint_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def fingerprint_change_to_be_saved; end
+
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def fingerprint_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def fingerprint_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def fingerprint_previous_change; end
+
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def fingerprint_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def fingerprint_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def fingerprint_was; end
+
+    sig { void }
+    def fingerprint_will_change!; end
+
     sig { returns(T.nilable(::String)) }
     def id; end
 
@@ -687,51 +732,6 @@ class TimelinePhoto
     sig { void }
     def id_will_change!; end
 
-    sig { returns(::String) }
-    def md5_hash; end
-
-    sig { params(value: ::String).returns(::String) }
-    def md5_hash=(value); end
-
-    sig { returns(T::Boolean) }
-    def md5_hash?; end
-
-    sig { returns(T.nilable(::String)) }
-    def md5_hash_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def md5_hash_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def md5_hash_came_from_user?; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def md5_hash_change; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def md5_hash_change_to_be_saved; end
-
-    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
-    def md5_hash_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def md5_hash_in_database; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def md5_hash_previous_change; end
-
-    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
-    def md5_hash_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def md5_hash_previously_was; end
-
-    sig { returns(T.nilable(::String)) }
-    def md5_hash_was; end
-
-    sig { void }
-    def md5_hash_will_change!; end
-
     sig { void }
     def restore_coordinates!; end
 
@@ -739,13 +739,13 @@ class TimelinePhoto
     def restore_created_at!; end
 
     sig { void }
+    def restore_fingerprint!; end
+
+    sig { void }
     def restore_id!; end
 
     sig { void }
     def restore_id_value!; end
-
-    sig { void }
-    def restore_md5_hash!; end
 
     sig { void }
     def restore_timestamp!; end
@@ -765,6 +765,12 @@ class TimelinePhoto
     sig { returns(T::Boolean) }
     def saved_change_to_created_at?; end
 
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_fingerprint; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_fingerprint?; end
+
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_id; end
 
@@ -776,12 +782,6 @@ class TimelinePhoto
 
     sig { returns(T::Boolean) }
     def saved_change_to_id_value?; end
-
-    sig { returns(T.nilable([::String, ::String])) }
-    def saved_change_to_md5_hash; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_md5_hash?; end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_timestamp; end
@@ -892,13 +892,13 @@ class TimelinePhoto
     def will_save_change_to_created_at?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_fingerprint?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_id?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_id_value?; end
-
-    sig { returns(T::Boolean) }
-    def will_save_change_to_md5_hash?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_timestamp?; end

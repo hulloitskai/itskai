@@ -5,17 +5,17 @@ module Types
   class ImageType < BaseObject
     # == Interfaces
     implements NodeType
+    implements UploadType
 
     # == Fields
-    field :signed_id, String, null: false
-    field :url, String, null: false do
+    field :src, String, null: false do
       argument :size, ImageSizeType, required: false, default_value: :md
     end
 
     # == Resolvers
     sig { params(size: Symbol).returns(String) }
-    def url(size:)
-      limit = limit_for_size(size)
+    def src(size:)
+      limit = resize_limit(size)
       representation = object.representation(resize_to_limit: limit)
       rails_representation_url(representation)
     end
@@ -28,7 +28,7 @@ module Types
 
     # == Helpers
     sig { params(size: Symbol).returns([Integer, Integer]) }
-    def limit_for_size(size)
+    def resize_limit(size)
       case size
       when :sm then [400, 400]
       when :md then [940, 940]

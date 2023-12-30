@@ -3,7 +3,7 @@
 
 module Subscriptions
   class ActivityStatus < BaseSubscription
-    # == Type
+    # == Definition
     type String, null: true
 
     # == Callbacks

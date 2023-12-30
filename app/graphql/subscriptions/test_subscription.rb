@@ -6,7 +6,7 @@ module Subscriptions
     # == Variables
     @count = T.let(0, Integer)
 
-    # == Type
+    # == Definition
     type Int
 
     # == Callback Handlers
