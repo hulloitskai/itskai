@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_29_030211) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_30_212447) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -299,13 +299,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_29_030211) do
   create_table "timeline_activities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "type", null: false
     t.geography "location", limit: {:srid=>4326, :type=>"geometry", :geographic=>true}, null: false
-    t.tsrange "duration", null: false
     t.string "name"
     t.string "address"
     t.integer "confidence", limit: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "timezone_name", null: false
+    t.tstzrange "duration"
     t.index ["type", "duration"], name: "index_timeline_activities_uniqueness", unique: true
   end
 
@@ -316,6 +316,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_29_030211) do
     t.datetime "updated_at", null: false
     t.text "fingerprint", null: false
     t.index ["fingerprint"], name: "index_timeline_photos_on_fingerprint", unique: true
+    t.index ["timestamp"], name: "index_timeline_photos_on_timestamp"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

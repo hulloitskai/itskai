@@ -71,7 +71,14 @@ const AppLayout: FC<AppLayoutProps> = ({
       ) : (
         children
       ),
-    [withContainer, withGutter, containerSize, containerProps, children],
+    [
+      withContainer,
+      containerSize,
+      withGutter,
+      gutterSize,
+      containerProps,
+      children,
+    ],
   );
 
   return (

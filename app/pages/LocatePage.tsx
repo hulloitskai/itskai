@@ -22,6 +22,7 @@ import Map from "~/components/Map";
 import LocationTrackForm from "~/components/LocationTrackForm";
 
 import classes from "./LocatePage.module.css";
+import { DateTime, Duration } from "luxon";
 
 const TORONTO_COORDINATES: Readonly<Coordinates> = {
   latitude: 43.6532,
@@ -38,13 +39,8 @@ const LocatePage: PageComponent<LocatePageProps> = ({
 }) => {
   const isClient = useIsClient();
   const router = useRouter();
-  const [pageLoading, setPageLoading] = useState(false);
-
-  // == Colors
   const theme = useMantineTheme();
-  const trailMarkerColor = theme.colors.primary[7];
-  const trailSegmentColor = theme.colors.primary[4];
-  const regionColor = theme.colors.primary[5];
+  const [pageLoading, setPageLoading] = useState(false);
 
   // == Map
   const mapRef = useRef<MapRef>(null);
@@ -108,25 +104,40 @@ const LocatePage: PageComponent<LocatePageProps> = ({
   }, [initialLocation]);
 
   // == Trail
-  const deriveTrailMarkerOpacity = useMemo<
-    (marker: LocatePageTrailMarkerFragment) => number
-  >(() => {
-    const firstTimestampISO = first(trail)?.timestamp;
-    const lastTimestampISO = last(trail)?.timestamp;
-    if (firstTimestampISO && lastTimestampISO) {
-      const firstTimestamp = DateTime.fromISO(firstTimestampISO);
-      const lastTimestamp = DateTime.fromISO(lastTimestampISO);
-      const totalDistance = lastTimestamp
-        .diff(firstTimestamp)
-        .as("milliseconds");
-      return ({ timestamp: timestampISO }) => {
-        const timestamp = DateTime.fromISO(timestampISO);
-        const markerDistance = lastTimestamp.diff(timestamp).as("milliseconds");
-        return Math.min(markerDistance / totalDistance + 0.1, 1.0);
-      };
+  const firstMarkerTimestamp = useMemo<DateTime | undefined>(() => {
+    const firstMarker = first(trail);
+    if (firstMarker) {
+      return DateTime.fromISO(firstMarker.timestamp);
     }
-    return () => 0.0;
   }, [trail]);
+  const lastMarkerTimestamp = useMemo<DateTime | undefined>(() => {
+    const lastMarker = last(trail);
+    if (lastMarker) {
+      return DateTime.fromISO(lastMarker.timestamp);
+    }
+  }, [trail]);
+  const trailDurationMilliseconds = useMemo<Duration | undefined>(() => {
+    if (firstMarkerTimestamp && lastMarkerTimestamp) {
+      return lastMarkerTimestamp.diff(firstMarkerTimestamp);
+    }
+  }, [firstMarkerTimestamp, lastMarkerTimestamp]);
+  const deriveTrailMarkerOpacity = useCallback(
+    (marker: LocatePageTrailMarkerFragment): number => {
+      if (trailDurationMilliseconds && lastMarkerTimestamp) {
+        const timestamp = DateTime.fromISO(marker.timestamp);
+        const markerOffset = lastMarkerTimestamp.diff(timestamp);
+        return Math.min(
+          markerOffset.as("milliseconds") /
+            trailDurationMilliseconds.as("milliseconds") +
+            0.1,
+          1.0,
+        );
+      } else {
+        return 0.0;
+      }
+    },
+    [trailDurationMilliseconds, lastMarkerTimestamp],
+  );
   const trailMarkersData = useMemo<
     FeatureCollection<Point, { opacity: number }> | undefined
   >(() => {
@@ -148,7 +159,8 @@ const LocatePage: PageComponent<LocatePageProps> = ({
         }),
       };
     }
-  }, [trail]);
+  }, [trail, deriveTrailMarkerOpacity]);
+  const trailSegmentColor = theme.colors.primary[4];
   const trailSegmentsData = useMemo<FeatureCollection | undefined>(() => {
     if (trailMarkersData) {
       const markerFeatures = trailMarkersData.features;
@@ -180,8 +192,9 @@ const LocatePage: PageComponent<LocatePageProps> = ({
         features: segmentFeatures,
       };
     }
-  }, [trailMarkersData]);
+  }, [trailMarkersData, trailSegmentColor]);
 
+  const regionColor = theme.colors.primary[5];
   return (
     <Flex
       pos="relative"
@@ -246,7 +259,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                 type="circle"
                 paint={{
                   "circle-radius": 5,
-                  "circle-color": trailMarkerColor,
+                  "circle-color": "var(--mantine-color-primary-filled)",
                   "circle-opacity": ["get", "opacity"],
                 }}
               />

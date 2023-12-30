@@ -93,7 +93,7 @@ export const useNestedForm = <Values>(
     nestedPath => form.isDirty(`${String(path)}.${String(nestedPath)}`),
     [form, path],
   );
-  const values = useMemo<Values>(() => get(form.values, path), [form]);
+  const values = useMemo<Values>(() => get(form.values, path), [form, path]);
   const insertListItem = useCallback(
     <Field extends LooseKeys<Values>>(
       nestedPath: Field,

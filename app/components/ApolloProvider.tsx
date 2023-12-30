@@ -10,13 +10,13 @@ export type ApolloProviderProps = PropsWithChildren<{
 
 const ApolloProvider: FC<ApolloProviderProps> = ({ csrfToken, children }) => {
   const link = useMemo(() => createApolloLink({ csrfToken }), [csrfToken]);
-  const client = useMemo(() => createApolloClient({ link }), []);
-  useDidUpdate(() => client.setLink(link), [link]);
+  const [client] = useState(() => createApolloClient({ link }));
+  useDidUpdate(() => client.setLink(link), [client, link]);
   useEffect(() => {
     return router.on("success", () => {
       client.resetStore();
     });
-  }, []);
+  }, [client]);
   return <_ApolloProvider {...{ client }}>{children}</_ApolloProvider>;
 };
 

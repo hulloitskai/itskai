@@ -23,7 +23,7 @@ module Queries
         TimelineActivity::PrivateRelation,
       )
       activities
-        .where("duration && tsrange(?, ?)", after, before)
+        .where("duration && tstzrange(?, ?)", after, before)
         .order(:duration)
     end
   end

@@ -18,7 +18,7 @@ import { Source, Layer } from "react-map-gl";
 
 import {
   TimelineActivityType,
-  TimelineActivitiesQueryDocument,
+  TimelinePageActivitiesQueryDocument,
 } from "~/helpers/graphql";
 import type { TimelinePhotoFragment } from "~/helpers/graphql";
 
@@ -122,38 +122,44 @@ type TimelinePlaceVisitFeatureCollection = FeatureCollection<
 const TimelinePage: PageComponent<TimelinePageProps> = () => {
   const isClient = useIsClient();
 
-  // == Timestamp
-  const [paused, setPaused] = useState(true);
-  const [timestamp, setTimestamp] = useState(() =>
-    DateTime.fromObject({ year: 2023, month: 8, day: 28 }),
+  // == Timeline
+  const [time, setTime] = useState(() =>
+    DateTime.fromObject({ year: 2023, month: 8, day: 30 }),
   );
+  const [paused, setPaused] = useState(true);
   const speedRef = useRef(1);
 
   // == Audio Player
   const audioPlayer = useAudioPlayer();
-  useEffect(() => {
-    audioPlayer.load(fallUnderneathSrc, { loop: true });
-  }, []);
-  useEffect(() => {
-    if (paused) {
-      audioPlayer.pause();
-    } else {
-      audioPlayer.play();
-    }
-  }, [paused]);
+  useEffect(
+    () => {
+      audioPlayer.load(fallUnderneathSrc, { loop: true });
+      return () => {
+        audioPlayer.cleanup();
+      };
+    },
+    [] /* eslint-disable-line react-hooks/exhaustive-deps */,
+  );
+  useEffect(
+    () => {
+      if (paused) {
+        audioPlayer.pause();
+      } else {
+        audioPlayer.play();
+      }
+    },
+    [paused] /* eslint-disable-line react-hooks/exhaustive-deps */,
+  );
 
   // == Activities
   const onError = useApolloAlertCallback("Failed to load activities");
-  const windowStart = useMemo(
-    () => timestamp.startOf("week").toISO(),
-    [timestamp],
-  );
+  const windowStart = useMemo(() => time.startOf("week").toISO(), [time]);
   const windowEnd = useMemo(
-    () => timestamp.endOf("week").plus({ days: 4 }).toISO(),
-    [timestamp],
+    () => time.endOf("week").plus({ days: 4 }).toISO(),
+    [time],
   );
   const { data, previousData, loading } = useQuery(
-    TimelineActivitiesQueryDocument,
+    TimelinePageActivitiesQueryDocument,
     {
       variables: {
         after: windowStart,
@@ -166,18 +172,29 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   const { activities } = coalescedData ?? {};
 
   // == Timeline Progression
+  const cancelProgressionRef = useRef(false);
   useEffect(() => {
     if (!paused) {
-      const interval = setInterval(() => {
-        setTimestamp(prevTimestamp =>
-          prevTimestamp.plus({ seconds: speedRef.current * 15 }),
-        );
-      }, 5);
+      cancelProgressionRef.current = false;
+      let lastTimeStamp: DOMHighResTimeStamp | null = null;
+      const step = (timeStamp: DOMHighResTimeStamp): void => {
+        if (lastTimeStamp) {
+          const elapsed = timeStamp - lastTimeStamp;
+          setTime(prevTime =>
+            prevTime.plus({ seconds: speedRef.current * elapsed * 3.5 }),
+          );
+        }
+        lastTimeStamp = timeStamp;
+        if (!cancelProgressionRef.current) {
+          requestAnimationFrame(step);
+        }
+      };
+      requestAnimationFrame(step);
       return () => {
-        clearInterval(interval);
+        cancelProgressionRef.current = true;
       };
     }
-  }, [paused, speedRef]);
+  }, [paused]);
 
   // == Map
   const mapRef = useRef<MapRef>(null);
@@ -197,9 +214,9 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
       photos.filter(photo => {
         const takenAt = DateTime.fromISO(photo.takenAt);
         const hideAt = takenAt.plus({ hours: 3 });
-        return timestamp > takenAt && timestamp < hideAt;
+        return time > takenAt && time < hideAt;
       }),
-    [timestamp, photos],
+    [time, photos],
   );
 
   // == Features
@@ -218,7 +235,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
         features: [],
       };
       const newPhotos: TimelinePhotoFragment[] = [];
-      const windowEnd = timestamp;
+      const windowEnd = time;
       const windowStart = windowEnd.plus({ week: -1 });
       for (const activity of activities) {
         const startedAt = DateTime.fromISO(activity.startedAt);
@@ -230,7 +247,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
           continue;
         }
         const sharedProperties: TimelineSharedFeatureProperties = {
-          opacity: deriveActivityOpacity(timestamp, startedAt),
+          opacity: deriveActivityOpacity(time, startedAt),
           timezone: activity.timezoneName,
         };
         if (activity.type === TimelineActivityType.PlaceVisit) {
@@ -269,7 +286,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
       setVisitFeatures(newVisitFeatures);
       setPhotos(newPhotos);
     }
-  }, [activities, timestamp]);
+  }, [activities, time]);
   const lastActivityFeature = useMemo(
     () => last(activityFeatures?.features),
     [activityFeatures],
@@ -281,24 +298,22 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
 
   // == Map Following + Timeline Speed
   useEffect(() => {
-    if (activityFeatures) {
-      if (lastActivityFeature) {
-        const { properties, geometry } = lastActivityFeature;
-        const lastCoordinate = last(geometry.coordinates);
-        if (lastCoordinate) {
-          mapRef.current?.flyTo({
-            center: lastCoordinate as [number, number],
-            animate: false,
-          });
-          if (isEmpty(visiblePhotos) && timestamp > properties.endedAt) {
-            speedRef.current = 12;
-          } else {
-            speedRef.current = 1;
-          }
+    if (lastActivityFeature) {
+      const { properties, geometry } = lastActivityFeature;
+      const lastCoordinate = last(geometry.coordinates);
+      if (lastCoordinate) {
+        mapRef.current?.flyTo({
+          center: lastCoordinate as [number, number],
+          animate: false,
+        });
+        if (isEmpty(visiblePhotos) && time > properties.endedAt) {
+          speedRef.current = 12;
+        } else {
+          speedRef.current = 1;
         }
       }
     }
-  }, [lastActivityFeature, visiblePhotos]);
+  }, [time, lastActivityFeature, visiblePhotos]);
 
   const ready = !!coalescedData && audioPlayer.isReady;
   return (
@@ -361,7 +376,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
         </Map>
       )}
       {photos.map(photo => (
-        <TimelinePhoto key={photo.id} {...{ photo, timestamp }} />
+        <TimelinePhoto key={photo.id} {...{ photo, timestamp: time }} />
       ))}
       <Center
         pos="absolute"
@@ -374,7 +389,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
         <Card withBorder w={440} padding="xs">
           <Group gap={8}>
             <Badge miw={170} radius="sm">
-              {timestamp.toLocaleString({
+              {time.toLocaleString({
                 ...DateTime.DATETIME_MED,
                 timeZone: lastActivityTimezone,
                 timeZoneName: "short",
@@ -426,9 +441,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
               <ActionIcon
                 variant="light"
                 onClick={() => {
-                  setTimestamp(prevTimestamp =>
-                    prevTimestamp.plus({ day: -1 }),
-                  );
+                  setTime(prevTimestamp => prevTimestamp.plus({ day: -1 }));
                 }}
               >
                 <BackwardIcon />
@@ -443,7 +456,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
               <ActionIcon
                 variant="light"
                 onClick={() => {
-                  setTimestamp(prevTimestamp => prevTimestamp.plus({ day: 1 }));
+                  setTime(prevTimestamp => prevTimestamp.plus({ day: 1 }));
                 }}
               >
                 <ForwardIcon />

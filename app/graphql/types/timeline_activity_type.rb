@@ -18,15 +18,6 @@ module Types
     field :type, TimelineActivityTypeType, null: false
 
     # == Resolvers
-    sig { returns(Symbol) }
-    def type
-      object.type.to_sym
-    end
-
-    sig { returns(Time) }
-    def started_at
-      object.duration.begin
-    end
 
     sig { returns(Time) }
     def ended_at
@@ -36,6 +27,23 @@ module Types
     sig { returns(T::Hash[String, T.untyped]) }
     def location
       RGeo::GeoJSON.encode(object.location)
+    end
+
+    sig { returns(GraphQL::Dataloader::Request) }
+    def photos
+      dataloader
+        .with(Sources::TimelinePhotosDuringActivity)
+        .request(object.id)
+    end
+
+    sig { returns(Time) }
+    def started_at
+      object.duration.begin
+    end
+
+    sig { returns(Symbol) }
+    def type
+      object.type.to_sym
     end
 
     # == Helpers

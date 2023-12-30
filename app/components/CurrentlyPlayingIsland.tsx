@@ -76,9 +76,8 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   const { currentlyPlaying: currentlyPlayingMetadata } = subscriptionData ?? {};
   const progressMilliseconds = useMemo(() => {
     if (currentlyPlayingMetadata) {
-      const { progressMilliseconds, timestamp: timestampISO } =
-        currentlyPlayingMetadata;
-      const timestamp = DateTime.fromISO(timestampISO);
+      const { progressMilliseconds } = currentlyPlayingMetadata;
+      const timestamp = DateTime.fromISO(currentlyPlayingMetadata.timestamp);
       const ellapsedMilliseconds = DateTime.now()
         .diff(timestamp)
         .as("milliseconds");
@@ -114,7 +113,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
         setTransitionState({ mounted: false, transitioned: false });
       }
     }
-  }, [currentlyPlaying, online]);
+  }, [online, currentlyPlaying, mounted, track]);
 
   return (
     <Transition
@@ -292,7 +291,7 @@ const MarqueeText: FC<MarqueeTextProps> = ({ children, ...otherProps }) => {
         setPlay(true);
       }
     }
-  }, [textRef.current]);
+  }, []);
 
   return (
     <Marquee pauseOnHover pauseOnClick speed={18} delay={1} {...{ play }}>

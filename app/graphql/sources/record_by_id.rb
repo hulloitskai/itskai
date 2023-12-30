@@ -15,7 +15,10 @@ module Sources
         .returns(T::Array[T.nilable(ActiveRecord::Base)])
     end
     def fetch(ids)
-      records = @model_class.where(id: ids)
+      records = T.let(
+        @model_class.where(id: ids).to_a,
+        T::Array[ActiveRecord::Base],
+      )
       records_by_id = records.index_by(&:id)
       ids.map { |id| records_by_id[id] }
     end

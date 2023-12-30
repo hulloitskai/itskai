@@ -36,20 +36,17 @@ const Pensieve: FC<PensieveProps> = ({
 
   // == Auto Scroll
   const viewportRef = useRef<HTMLDivElement>(null);
-  const autoScroll = useCallback(
-    (timeout = 200) => {
-      setTimeout(() => {
-        const viewportEl = viewportRef.current;
-        if (viewportEl && viewportEl.scrollHeight > viewportEl.clientHeight) {
-          viewportEl.scrollTo({
-            top: viewportEl.scrollHeight,
-            behavior: "smooth",
-          });
-        }
-      }, timeout);
-    },
-    [viewportRef],
-  );
+  const autoScroll = useCallback((timeout = 200) => {
+    setTimeout(() => {
+      const viewportEl = viewportRef.current;
+      if (viewportEl && viewportEl.scrollHeight > viewportEl.clientHeight) {
+        viewportEl.scrollTo({
+          top: viewportEl.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+    }, timeout);
+  }, []);
 
   // == Query
   const onError = useApolloAlertCallback("Failed to load messages");

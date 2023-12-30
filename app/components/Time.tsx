@@ -26,11 +26,14 @@ const Time: FC<TimeProps> = ({
   children,
   ...otherProps
 }) => {
-  const applyFormat = (time: DateTime) =>
-    typeof format === "function" ? format(time) : time.toLocaleString(format);
+  const applyFormat = useCallback(
+    (time: DateTime) =>
+      typeof format === "function" ? format(time) : time.toLocaleString(format),
+    [format],
+  );
   const placeholder = useMemo(
     () => applyFormat(DateTime.fromSeconds(0, { zone: "utc" })),
-    [format],
+    [applyFormat],
   );
   const [formattedTime, setFormattedTime] = useState<string | undefined>();
   const loading = !formattedTime;
@@ -38,7 +41,7 @@ const Time: FC<TimeProps> = ({
     const time =
       typeof children === "string" ? DateTime.fromISO(children) : children;
     setFormattedTime(applyFormat(time));
-  }, [children, format]);
+  }, [children, applyFormat]);
   return (
     <Skeleton
       visible={!formattedTime}

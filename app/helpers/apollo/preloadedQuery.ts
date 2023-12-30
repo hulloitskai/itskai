@@ -24,18 +24,15 @@ export const usePreloadedQuery = <
   options: PreloadedQueryHookOptions<TData, TVariables>,
 ): QueryResult<TData, TVariables> & { coalescedData: TData } => {
   const { initialData, ...queryOptions } = options;
-  const { variables } = queryOptions;
   const client = useApolloClient();
-  if (!import.meta.env.SSR) {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      client.writeQuery({
-        query,
-        variables,
-        data: initialData,
-      });
-    }, []);
-  }
+  useEffect(() => {
+    const { variables } = queryOptions;
+    client.writeQuery({
+      query,
+      variables,
+      data: initialData,
+    });
+  }, [client, query, queryOptions, initialData]);
   const { loading, ...otherValues } = useQuery(query, {
     initialFetchPolicy: "cache-only",
     ...queryOptions,

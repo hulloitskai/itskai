@@ -19,7 +19,7 @@ class ICloudClient < ApplicationService
 
   sig { returns(T::Boolean) }
   def self.enabled?
-    !!current
+    ICloudCredentials.any?
   end
 
   # == Builders

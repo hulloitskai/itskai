@@ -21,7 +21,7 @@ const TimelinePhoto: FC<TimelinePhotoProps> = ({
   timestamp,
   ...otherProps
 }) => {
-  const { id: photoId, image } = photo;
+  const { image } = photo;
   const takenAt = useParseDateTime(photo.takenAt);
   const hideAt = useMemo(() => takenAt.plus({ hours: 3 }), [takenAt]);
   const mounted = useMemo(
@@ -30,7 +30,7 @@ const TimelinePhoto: FC<TimelinePhotoProps> = ({
   );
   const size = 540;
   const [corner] = useState(getNextCorner);
-  const key = useMemo(() => Math.floor(Math.random() * 1_000_000), [photoId]);
+  const [key] = useState(() => Math.floor(Math.random() * 1_000_000));
   const rotation = useMemo(() => Math.floor(key % 18), [key]);
   const xOffset = useMemo(() => Math.floor(key % 60), [key]);
   const yOffset = useMemo(() => Math.floor((key + 30) % 60), [key]);

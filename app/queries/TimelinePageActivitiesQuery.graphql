@@ -1,4 +1,4 @@
-query TimelineActivitiesQuery($after: DateTime!, $before: DateTime!) {
+query TimelinePageActivitiesQuery($after: DateTime!, $before: DateTime!) {
   activities: timelineActivities(before: $before, after: $after) {
     endedAt
     id

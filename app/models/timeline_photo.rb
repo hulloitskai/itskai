@@ -15,6 +15,7 @@
 # Indexes
 #
 #  index_timeline_photos_on_fingerprint  (fingerprint) UNIQUE
+#  index_timeline_photos_on_timestamp    (timestamp)
 #
 class TimelinePhoto < ApplicationRecord
   include Identifiable
@@ -53,6 +54,7 @@ class TimelinePhoto < ApplicationRecord
     end
   end
 
+  # == Importing
   sig do
     params(blobs: T::Enumerable[ActiveStorage::Blob])
       .returns(T::Array[TimelinePhoto])

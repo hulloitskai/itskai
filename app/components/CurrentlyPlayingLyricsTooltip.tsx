@@ -85,7 +85,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
         }, transitionDuration + 50);
       }
     }
-  }, [currentLyric]);
+  }, [currentLyric, hovered]);
 
   const hasWords = !!currentLyric?.words;
   const currentlyExplicit = currentLyric?.isExplicit;

@@ -13,13 +13,15 @@ export const useApolloAlertCallback = (
 ): ((error: ApolloError) => void) => {
   return useCallback(
     error => {
-      context = omitBy({ ...context, error }, isUndefined);
-      console.error(title, formatJSON(context));
+      console.error(
+        title,
+        formatJSON(omitBy({ ...context, error }, isUndefined)),
+      );
       showAlert({
         title,
         message: <ApolloErrorMessage>{error}</ApolloErrorMessage>,
       });
     },
-    [title],
+    [title, context],
   );
 };

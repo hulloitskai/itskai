@@ -21,17 +21,17 @@ export type UserSettingsPageEmailFormProps = {
 const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
   viewer,
 }) => {
-  const { email, unverifiedEmail } = viewer;
   const router = useRouter();
+  const { email, unverifiedEmail } = viewer;
 
   // == Form
-  const initialValues = useMemo<UserSettingsPageEmailFormValues>(
-    () => ({
+  const initialValues = useMemo<UserSettingsPageEmailFormValues>(() => {
+    const { email, unverifiedEmail } = viewer;
+    return {
       email: unverifiedEmail || email,
       currentPassword: "",
-    }),
-    [viewer],
-  );
+    };
+  }, [viewer]);
   const {
     errors,
     getInputProps,

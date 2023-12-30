@@ -39,9 +39,7 @@
     "react/react-in-jsx-scope": "off",
     "react/jsx-no-undef": "off",
     "react/prop-types": "off",
-    "react-hooks/exhaustive-deps": "off",
     "react-refresh/only-export-components": "warn"
-    // "import/no-unresolved": "off"
   },
   "overrides": [
     {

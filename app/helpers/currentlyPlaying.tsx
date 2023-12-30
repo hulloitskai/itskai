@@ -69,7 +69,7 @@ export const useProgressLyricsIndexMapping = ({
         }
         setMapping(mapping);
       });
-    } else if (!isEmpty(mapping)) {
+    } else {
       setMapping({});
     }
   }, [lyrics, durationMilliseconds, interpolationMilliseconds]);

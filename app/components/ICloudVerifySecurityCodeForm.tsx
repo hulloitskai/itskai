@@ -40,7 +40,7 @@ const ICloudVerifySecurityCodeForm: FC<ICloudVerifySecurityCodeFormProps> = ({
     if (code.length === 6) {
       handleSubmit();
     }
-  }, [code]);
+  }, [code, handleSubmit]);
 
   return (
     <Box pos="relative" {...otherProps}>

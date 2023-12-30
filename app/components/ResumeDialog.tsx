@@ -22,7 +22,7 @@ const ResumeDialog: FC<ResumeDialogProps> = ({ variant, ...otherProps }) => {
     } else {
       close();
     }
-  }, [scroll.y > togglePosition]);
+  }, [scroll, togglePosition, open, close]);
 
   // == PDF
   const pdfUrl = useMemo(() => {

@@ -56,7 +56,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
         },
       });
     }
-  }, [containerRef]);
+  }, []);
   useDidUpdate(() => {
     if (containerRef.current && requiresScrolling) {
       setRequiresScrolling(false);
@@ -64,12 +64,12 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
         scrollToContainerTop();
       }, 100);
     }
-  }, [containerRef, requiresScrolling]);
+  }, [requiresScrolling]);
   useEffect(() => {
     if (autoscroll) {
       scrollToContainerTop();
     }
-  }, []);
+  }, [autoscroll, scrollToContainerTop]);
 
   return (
     <Stack align="center" {...{ ref: containerRef }} {...otherProps}>

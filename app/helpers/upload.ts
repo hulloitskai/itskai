@@ -18,9 +18,8 @@ export type UploadState = {
 };
 
 export const useLazyUpload = (
-  params?: UseUploadParams,
+  params: UseUploadParams = {},
 ): [(file: File) => Promise<Blob>, UploadState] => {
-  const { onProgress, onCompleted, onError } = params ?? {};
   const [state, setState] = useState<UploadState>(() => ({
     blob: null,
     error: null,
@@ -28,73 +27,77 @@ export const useLazyUpload = (
     uploading: false,
     cancel: () => {},
   }));
-  const upload = useCallback((file: File): Promise<Blob> => {
-    setState(prevState => {
-      if (prevState.uploading) {
-        prevState.cancel();
-      }
-      return {
-        blob: null,
-        error: null,
-        progress: 0,
-        uploading: false,
-        cancel: () => {},
-      };
-    });
-    const url = requireMeta("active-storage-direct-uploads-url");
-    const upload = new DirectUpload(file, url, {
-      directUploadWillStoreFileWithXHR: request => {
-        request.upload.addEventListener("progress", event => {
-          const { loaded, total } = event;
-          const progress = (loaded / total) * 100;
-          setState(prevState => ({
-            ...prevState,
-            progress,
-            cancel: () => {
-              request.abort();
-              setState({
-                blob: null,
-                error: null,
-                progress: 0,
-                uploading: false,
-                cancel: () => {},
-              });
-            },
-          }));
-          onProgress?.(progress);
-        });
-      },
-    });
-    return new Promise((resolve, reject) => {
-      upload.create((error, blob) => {
-        if (error) {
-          console.error(
-            `Error uploading file '${file.name}'`,
-            formatJSON({ error }),
-          );
-          setState(prevState => ({
-            ...prevState,
-            error,
-            blob: null,
-            uploading: false,
-            cancel: () => {},
-          }));
-          reject(error);
-          onError?.(error);
-        } else {
-          setState({
-            blob,
-            error: null,
-            uploading: false,
-            progress: 100,
-            cancel: () => {},
-          });
-          resolve(error);
-          onCompleted?.(blob);
+  const upload = useCallback(
+    (file: File): Promise<Blob> => {
+      const { onProgress, onCompleted, onError } = params;
+      setState(prevState => {
+        if (prevState.uploading) {
+          prevState.cancel();
         }
+        return {
+          blob: null,
+          error: null,
+          progress: 0,
+          uploading: false,
+          cancel: () => {},
+        };
       });
-    });
-  }, []);
+      const url = requireMeta("active-storage-direct-uploads-url");
+      const upload = new DirectUpload(file, url, {
+        directUploadWillStoreFileWithXHR: request => {
+          request.upload.addEventListener("progress", event => {
+            const { loaded, total } = event;
+            const progress = (loaded / total) * 100;
+            setState(prevState => ({
+              ...prevState,
+              progress,
+              cancel: () => {
+                request.abort();
+                setState({
+                  blob: null,
+                  error: null,
+                  progress: 0,
+                  uploading: false,
+                  cancel: () => {},
+                });
+              },
+            }));
+            onProgress?.(progress);
+          });
+        },
+      });
+      return new Promise((resolve, reject) => {
+        upload.create((error, blob) => {
+          if (error) {
+            console.error(
+              `Error uploading file '${file.name}'`,
+              formatJSON({ error }),
+            );
+            setState(prevState => ({
+              ...prevState,
+              error,
+              blob: null,
+              uploading: false,
+              cancel: () => {},
+            }));
+            reject(error);
+            onError?.(error);
+          } else {
+            setState({
+              blob,
+              error: null,
+              uploading: false,
+              progress: 100,
+              cancel: () => {},
+            });
+            resolve(error);
+            onCompleted?.(blob);
+          }
+        });
+      });
+    },
+    [] /* eslint-disable-line react-hooks/exhaustive-deps */,
+  );
   return [upload, state];
 };
 
@@ -105,6 +108,6 @@ export const useUpload = (
   const [upload, state] = useLazyUpload(params);
   useEffect(() => {
     upload(file);
-  }, [file]);
+  }, [upload, file]);
   return state;
 };

@@ -8,7 +8,7 @@
 #  id            :uuid             not null, primary key
 #  address       :string
 #  confidence    :integer          not null
-#  duration      :tsrange          not null
+#  duration      :tstzrange
 #  location      :geography        not null, geometry, 4326
 #  name          :string
 #  timezone_name :string           not null

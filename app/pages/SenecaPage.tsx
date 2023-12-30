@@ -185,7 +185,7 @@ const TimeSinceWeMet: FC<TimeSinceWeMetProps> = ({
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [whenWeMet]);
   return (
     <Text c="pink.4" {...otherProps}>
       {humanizeDuration(millisecondsSinceWeMet, {

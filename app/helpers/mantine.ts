@@ -106,7 +106,7 @@ const BASE_THEME_OVERRIDE = createTheme({
       },
       styles: ({ headings: { sizes, ...style } }) => ({
         title: {
-          ...sizes.h3,
+          ...sizes.h4,
           ...style,
         },
       }),
