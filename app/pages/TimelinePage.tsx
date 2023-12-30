@@ -1,8 +1,8 @@
 import type { PageProps } from "@inertiajs/core";
 import type { PageComponent } from "~/helpers/inertia";
-import type { Feature, FeatureCollection, LineString, Point } from "geojson";
+import type { Feature, LineString, Point } from "geojson";
+import { countBy, maxBy } from "lodash-es";
 import { useAudioPlayer } from "react-use-audio-player";
-import { ActionIcon, Loader } from "@mantine/core";
 import { DateTime } from "luxon";
 
 import ResumeIcon from "~icons/heroicons/play-20-solid";
@@ -16,11 +16,16 @@ import lineLength from "@turf/length";
 import type { MapRef } from "react-map-gl";
 import { Source, Layer } from "react-map-gl";
 
+import { ActionIcon, Loader } from "@mantine/core";
+
+import type {
+  TimelinePageActivityFragment,
+  TimelinePhotoFragment,
+} from "~/helpers/graphql";
 import {
   TimelineActivityType,
   TimelinePageActivitiesQueryDocument,
 } from "~/helpers/graphql";
-import type { TimelinePhotoFragment } from "~/helpers/graphql";
 
 import PageLayout from "~/components/PageLayout";
 import AppMeta from "~/components/AppMeta";
@@ -31,7 +36,34 @@ import fallUnderneathSrc from "~/assets/sounds/fall-underneath.mp3";
 
 export type TimelinePageProps = PageProps;
 
-const truncateActivitySegmentIfNecessary = (
+type TimelineSharedFeatureProperties = {
+  readonly opacity: number;
+};
+
+type TimelineActivitySegmentProperties = TimelineSharedFeatureProperties & {
+  readonly startedAt: DateTime;
+  readonly endedAt: DateTime;
+};
+
+type TimelineActivitySegmentFeature = Feature<
+  LineString,
+  TimelineActivitySegmentProperties
+>;
+
+type TimelinePlaceVisitProperties = TimelineSharedFeatureProperties & {
+  readonly name: string | null;
+};
+
+type TimelinePlaceVisitFeature = Feature<Point, TimelinePlaceVisitProperties>;
+
+type TimelineMoment = {
+  readonly time: DateTime;
+  readonly activitySegmentFeatures: TimelineActivitySegmentFeature[];
+  readonly placeVisitFeatures: TimelinePlaceVisitFeature[];
+  readonly photos: TimelinePhotoFragment[];
+};
+
+const truncateTimelineActivitySegmentIfNecessary = (
   feature: TimelineActivitySegmentFeature,
   startedAt: DateTime,
   endedAt: DateTime,
@@ -65,67 +97,30 @@ const truncateActivitySegmentIfNecessary = (
   }
 };
 
-const deriveActivityOpacity = (
+const deriveTimelineActivityOpacity = (
   timestamp: DateTime,
   startedAt: DateTime,
 ): number => {
   const x = timestamp.diff(startedAt).as("hours");
-  return Math.min(1.0, 1.04 ** -x);
+  return Math.min(1.0, 1.035 ** -x);
 };
-
-// const stringHash = (str: string): number => {
-//   const hash = str
-//     .split("")
-//     .reduce(
-//       (hashCode, currentVal) =>
-//         (hashCode =
-//           currentVal.charCodeAt(0) +
-//           (hashCode << 6) +
-//           (hashCode << 16) -
-//           hashCode),
-//       0,
-//     );
-//   return Math.abs(hash);
-// };
-
-type TimelineSharedFeatureProperties = {
-  readonly opacity: number;
-  readonly timezone: string;
-};
-
-type TimelineActivitySegmentProperties = TimelineSharedFeatureProperties & {
-  readonly startedAt: DateTime;
-  readonly endedAt: DateTime;
-};
-
-type TimelineActivitySegmentFeature = Feature<
-  LineString,
-  TimelineActivitySegmentProperties
->;
-
-type TimelineActivitySegmentFeatureCollection = FeatureCollection<
-  LineString,
-  TimelineActivitySegmentProperties
->;
-
-type TimelinePlaceVisitProperties = TimelineSharedFeatureProperties & {
-  readonly name: string | null;
-};
-
-type TimelinePlaceVisitFeature = Feature<Point, TimelinePlaceVisitProperties>;
-
-type TimelinePlaceVisitFeatureCollection = FeatureCollection<
-  Point,
-  TimelinePlaceVisitProperties
->;
 
 const TimelinePage: PageComponent<TimelinePageProps> = () => {
   const isClient = useIsClient();
 
-  // == Timeline
-  const [time, setTime] = useState(() =>
-    DateTime.fromObject({ year: 2023, month: 8, day: 30 }),
-  );
+  // == Moment
+  const [moment, setMoment] = useState<TimelineMoment>(() => ({
+    time: DateTime.fromObject({ year: 2023, month: 8, day: 30 }).setZone(
+      "America/Toronto",
+      { keepLocalTime: true },
+    ),
+    activitySegmentFeatures: [],
+    placeVisitFeatures: [],
+    photos: [],
+  }));
+  const { time, activitySegmentFeatures, placeVisitFeatures, photos } = moment;
+
+  // == Controls
   const [paused, setPaused] = useState(true);
   const speedRef = useRef(1);
 
@@ -152,6 +147,13 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   );
 
   // == Activities
+  const activitiesRef = useRef<ReadonlyArray<TimelinePageActivityFragment>>([]);
+
+  // == Preloaded Photos
+  const [preloadedPhotoIdsInitialValue] = useState<Set<string>>(new Set());
+  const preloadedPhotoIdsRef = useRef(preloadedPhotoIdsInitialValue);
+
+  // == Query
   const onError = useApolloAlertCallback("Failed to load activities");
   const windowStart = useMemo(() => time.startOf("week").toISO(), [time]);
   const windowEnd = useMemo(
@@ -165,155 +167,140 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
         after: windowStart,
         before: windowEnd,
       },
+      onCompleted: ({ activities }) => {
+        activitiesRef.current = activities;
+      },
       onError,
     },
   );
   const coalescedData = data ?? previousData;
-  const { activities } = coalescedData ?? {};
 
-  // == Timeline Progression
+  // == Progression
   const cancelProgressionRef = useRef(false);
   useEffect(() => {
-    if (!paused) {
-      cancelProgressionRef.current = false;
-      let lastTimeStamp: DOMHighResTimeStamp | null = null;
-      const step = (timeStamp: DOMHighResTimeStamp): void => {
-        if (lastTimeStamp) {
-          const elapsed = timeStamp - lastTimeStamp;
-          setTime(prevTime =>
-            prevTime.plus({ seconds: speedRef.current * elapsed * 3.5 }),
-          );
-        }
-        lastTimeStamp = timeStamp;
-        if (!cancelProgressionRef.current) {
-          requestAnimationFrame(step);
-        }
-      };
-      requestAnimationFrame(step);
-      return () => {
-        cancelProgressionRef.current = true;
-      };
+    if (paused) {
+      return;
     }
+    cancelProgressionRef.current = false;
+    let lastTimeStamp: DOMHighResTimeStamp | null = null;
+    const step = (timeStamp: DOMHighResTimeStamp): void => {
+      if (cancelProgressionRef.current) {
+        return;
+      }
+      if (lastTimeStamp) {
+        const elapsedMilliseconds = timeStamp - lastTimeStamp;
+        setMoment(({ time: prevTime }) => {
+          const time = prevTime.plus({
+            seconds: speedRef.current * elapsedMilliseconds * 3,
+          });
+          const activitySegmentFeatures: TimelineActivitySegmentFeature[] = [];
+          const placeVisitFeatures: TimelinePlaceVisitFeature[] = [];
+          const photos: TimelinePhotoFragment[] = [];
+          const timezoneNames: string[] = [];
+          const windowEnd = time;
+          const windowStart = windowEnd.plus({ week: -1 });
+          for (const activity of activitiesRef.current) {
+            const startedAt = DateTime.fromISO(activity.startedAt);
+            const endedAt = DateTime.fromISO(activity.endedAt);
+            if (startedAt > windowEnd) {
+              continue;
+            }
+            if (endedAt < windowStart) {
+              continue;
+            }
+            const sharedProperties: TimelineSharedFeatureProperties = {
+              opacity: deriveTimelineActivityOpacity(time, startedAt),
+            };
+            if (activity.type === TimelineActivityType.PlaceVisit) {
+              const feature: TimelinePlaceVisitFeature = {
+                type: "Feature",
+                properties: {
+                  ...sharedProperties,
+                  name: activity.name ?? null,
+                },
+                geometry: activity.location,
+              };
+              placeVisitFeatures.push(feature);
+            } else if (activity.type === TimelineActivityType.ActivitySegment) {
+              const feature: TimelineActivitySegmentFeature = {
+                type: "Feature",
+                properties: {
+                  ...sharedProperties,
+                  startedAt,
+                  endedAt,
+                },
+                geometry: activity.location,
+              };
+              const maybeTruncatedFeature =
+                truncateTimelineActivitySegmentIfNecessary(
+                  feature,
+                  startedAt,
+                  endedAt,
+                  windowStart,
+                  windowEnd,
+                );
+              activitySegmentFeatures.push(maybeTruncatedFeature);
+            }
+            timezoneNames.push(activity.timezoneName);
+            photos.forEach(photo => {
+              const { id: photoId, image } = photo;
+              const takenAt = DateTime.fromISO(photo.takenAt);
+              const hideAt = takenAt.plus({ hours: 3 });
+              if (time > takenAt && time < hideAt) {
+                photos.push(photo);
+              }
+              if (!preloadedPhotoIdsRef.current.has(photoId)) {
+                // Preload photo by creating an in-memory image object.
+                new Image().src = image.src;
+                preloadedPhotoIdsRef.current.add(photoId);
+              }
+            });
+          }
+          const predominantTimezone = maxBy(
+            Object.entries(countBy(timezoneNames)),
+            last,
+          )?.[0];
+          return {
+            time: predominantTimezone
+              ? time.setZone(predominantTimezone, { keepLocalTime: true })
+              : time,
+            activitySegmentFeatures,
+            placeVisitFeatures,
+            photos,
+            predominantTimezone,
+          };
+        });
+      }
+      lastTimeStamp = timeStamp;
+      requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+    return () => {
+      cancelProgressionRef.current = true;
+    };
   }, [paused]);
 
   // == Map
   const mapRef = useRef<MapRef>(null);
-
-  // == Photos
-  const [photos, setPhotos] = useState<ReadonlyArray<TimelinePhotoFragment>>(
-    [],
-  );
   useEffect(() => {
-    photos.forEach(({ image }) => {
-      // Preload photos by creating an Image object for each one.
-      new Image().src = image.src;
-    });
-  }, [photos]);
-  const visiblePhotos = useMemo(
-    () =>
-      photos.filter(photo => {
-        const takenAt = DateTime.fromISO(photo.takenAt);
-        const hideAt = takenAt.plus({ hours: 3 });
-        return time > takenAt && time < hideAt;
-      }),
-    [time, photos],
-  );
-
-  // == Features
-  const [activityFeatures, setActivityFeatures] =
-    useState<TimelineActivitySegmentFeatureCollection | null>(null);
-  const [visitFeatures, setVisitFeatures] =
-    useState<TimelinePlaceVisitFeatureCollection | null>(null);
-  useEffect(() => {
-    if (activities) {
-      const newActivityFeatures: TimelineActivitySegmentFeatureCollection = {
-        type: "FeatureCollection",
-        features: [],
-      };
-      const newVisitFeatures: TimelinePlaceVisitFeatureCollection = {
-        type: "FeatureCollection",
-        features: [],
-      };
-      const newPhotos: TimelinePhotoFragment[] = [];
-      const windowEnd = time;
-      const windowStart = windowEnd.plus({ week: -1 });
-      for (const activity of activities) {
-        const startedAt = DateTime.fromISO(activity.startedAt);
-        const endedAt = DateTime.fromISO(activity.endedAt);
-        if (startedAt > windowEnd) {
-          continue;
-        }
-        if (endedAt < windowStart) {
-          continue;
-        }
-        const sharedProperties: TimelineSharedFeatureProperties = {
-          opacity: deriveActivityOpacity(time, startedAt),
-          timezone: activity.timezoneName,
-        };
-        if (activity.type === TimelineActivityType.PlaceVisit) {
-          const feature: TimelinePlaceVisitFeature = {
-            type: "Feature",
-            properties: {
-              ...sharedProperties,
-              name: activity.name ?? null,
-            },
-            geometry: activity.location,
-          };
-          newVisitFeatures.features.push(feature);
-        } else if (activity.type === TimelineActivityType.ActivitySegment) {
-          const feature: TimelineActivitySegmentFeature = {
-            type: "Feature",
-            properties: {
-              ...sharedProperties,
-              startedAt,
-              endedAt,
-            },
-            geometry: activity.location,
-          };
-          newActivityFeatures.features.push(
-            truncateActivitySegmentIfNecessary(
-              feature,
-              startedAt,
-              endedAt,
-              windowStart,
-              windowEnd,
-            ),
-          );
-        }
-        newPhotos.push(...activity.photos);
-      }
-      setActivityFeatures(newActivityFeatures);
-      setVisitFeatures(newVisitFeatures);
-      setPhotos(newPhotos);
-    }
-  }, [activities, time]);
-  const lastActivityFeature = useMemo(
-    () => last(activityFeatures?.features),
-    [activityFeatures],
-  );
-  const lastActivityTimezone = useMemo(
-    () => lastActivityFeature?.properties.timezone,
-    [lastActivityFeature],
-  );
-
-  // == Map Following + Timeline Speed
-  useEffect(() => {
-    if (lastActivityFeature) {
-      const { properties, geometry } = lastActivityFeature;
+    const { time, activitySegmentFeatures, photos } = moment;
+    const lastFeature = last(activitySegmentFeatures);
+    if (lastFeature) {
+      const { properties, geometry } = lastFeature;
       const lastCoordinate = last(geometry.coordinates);
       if (lastCoordinate) {
         mapRef.current?.flyTo({
           center: lastCoordinate as [number, number],
           animate: false,
         });
-        if (isEmpty(visiblePhotos) && time > properties.endedAt) {
+        if (isEmpty(photos) && time > properties.endedAt) {
           speedRef.current = 12;
         } else {
           speedRef.current = 1;
         }
       }
     }
-  }, [time, lastActivityFeature, visiblePhotos]);
+  }, [moment]);
 
   const ready = !!coalescedData && audioPlayer.isReady;
   return (
@@ -334,11 +321,14 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
           navigationControl={false}
           style={{ flexGrow: 1 }}
         >
-          {activityFeatures && (
+          {!isEmpty(activitySegmentFeatures) && (
             <Source
               id="activity-segments"
               type="geojson"
-              data={activityFeatures}
+              data={{
+                type: "FeatureCollection",
+                features: activitySegmentFeatures,
+              }}
               lineMetrics
             >
               <Layer
@@ -355,11 +345,14 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
               />
             </Source>
           )}
-          {visitFeatures && (
+          {!isEmpty(placeVisitFeatures) && (
             <Source
               id="place-visits"
               type="geojson"
-              data={visitFeatures}
+              data={{
+                type: "FeatureCollection",
+                features: placeVisitFeatures,
+              }}
               lineMetrics
             >
               <Layer
@@ -391,7 +384,6 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
             <Badge miw={170} radius="sm">
               {time.toLocaleString({
                 ...DateTime.DATETIME_MED,
-                timeZone: lastActivityTimezone,
                 timeZoneName: "short",
               })}
             </Badge>
@@ -441,7 +433,12 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
               <ActionIcon
                 variant="light"
                 onClick={() => {
-                  setTime(prevTimestamp => prevTimestamp.plus({ day: -1 }));
+                  setMoment(({ time: prevTime }) => ({
+                    time: prevTime.plus({ day: -1 }),
+                    activitySegmentFeatures: [],
+                    placeVisitFeatures: [],
+                    photos: [],
+                  }));
                 }}
               >
                 <BackwardIcon />
@@ -456,7 +453,12 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
               <ActionIcon
                 variant="light"
                 onClick={() => {
-                  setTime(prevTimestamp => prevTimestamp.plus({ day: 1 }));
+                  setMoment(({ time: prevTime }) => ({
+                    time: prevTime.plus({ day: 1 }),
+                    activitySegmentFeatures: [],
+                    placeVisitFeatures: [],
+                    photos: [],
+                  }));
                 }}
               >
                 <ForwardIcon />

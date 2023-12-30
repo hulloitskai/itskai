@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+return unless defined?(BetterErrors)
+
 # Use VSCode as default editor.
 BetterErrors.editor = :vscode
 

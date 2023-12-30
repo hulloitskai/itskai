@@ -1,0 +1,13 @@
+fragment TimelinePageActivityFragment on TimelineActivity {
+  endedAt
+  id
+  location
+  name
+  photos {
+    id
+    ...TimelinePhotoFragment
+  }
+  startedAt
+  timezoneName
+  type
+}
