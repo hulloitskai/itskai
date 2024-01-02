@@ -26,6 +26,7 @@ if (dsn) {
     ignoreErrors: [
       "ResizeObserver loop completed with undelivered notifications.",
     ],
+    enabled: environment !== "development",
   };
   init(options);
   console.info(

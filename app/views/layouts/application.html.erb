@@ -54,6 +54,7 @@
     <%# == Vite %>
     <%= vite_client_tag %>
     <%= vite_typescript_tag "sentry" %>
+    <%= vite_typescript_tag "spotlight" if Rails.env.development? %>
     <%= vite_typescript_tag "fullstory" %>
     <% if local_assigns.include?(:page) %>
       <%= vite_react_refresh_tag %>
