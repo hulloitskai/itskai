@@ -117,7 +117,7 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
         </Box>
       ),
       children: (
-        <Stack gap="xs">
+        <Stack gap={6}>
           {!!cookies && (
             <Textarea
               label="Cookies"
@@ -154,18 +154,20 @@ const ICloudCredentialsForm: FC<ICloudCredentialsFormProps> = ({
       {...otherProps}
     >
       <Stack gap="xs">
-        <TextInput
-          label="Email"
-          placeholder="example@example.com"
-          required
-          {...getInputProps("email")}
-        />
-        <PasswordInput
-          label="Password"
-          placeholder="applesauce"
-          required
-          {...getInputProps("password")}
-        />
+        <Stack gap={6}>
+          <TextInput
+            label="Email"
+            placeholder="example@example.com"
+            required
+            {...getInputProps("email")}
+          />
+          <PasswordInput
+            label="Password"
+            placeholder="applesauce"
+            required
+            {...getInputProps("password")}
+          />
+        </Stack>
         <Stack gap={6}>
           <Button
             type="submit"

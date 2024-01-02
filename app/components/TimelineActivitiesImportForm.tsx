@@ -37,7 +37,8 @@ const TimelineActivitiesImportForm: FC<TimelineActivitiesImportFormProps> = ({
       return { locationHistory };
     },
   });
-  const { onSubmit, reset, isDirty } = form;
+  const { values, onSubmit, reset } = form;
+  const { locationHistory } = values;
 
   // == Mutation
   const onError = useApolloAlertCallback(
@@ -79,10 +80,11 @@ const TimelineActivitiesImportForm: FC<TimelineActivitiesImportFormProps> = ({
           name="locationHistory"
           label="Google location history file"
           fileLabel="location history file"
+          required
           accept={["application/json"]}
           {...{ form }}
         />
-        <Button type="submit" disabled={!isDirty()} loading={mutating}>
+        <Button type="submit" disabled={!locationHistory} loading={mutating}>
           Import
         </Button>
       </Stack>

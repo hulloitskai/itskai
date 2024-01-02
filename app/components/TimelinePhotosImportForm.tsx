@@ -37,7 +37,8 @@ const TimelinePhotosImportForm: FC<TimelinePhotosImportFormProps> = ({
       return { photos: locationHistory };
     },
   });
-  const { onSubmit, reset, isDirty } = form;
+  const { values, onSubmit, reset } = form;
+  const { photos } = values;
 
   // == Mutation
   const onError = useApolloAlertCallback("Failed to import timeline photos");
@@ -77,11 +78,12 @@ const TimelinePhotosImportForm: FC<TimelinePhotosImportFormProps> = ({
           name="photos"
           label="Photos"
           fileLabel="photos"
+          required
           accept={["image/png", "image/jpeg"]}
           multiple
           {...{ form }}
         />
-        <Button type="submit" disabled={!isDirty()} loading={mutating}>
+        <Button type="submit" disabled={isEmpty(photos)} loading={mutating}>
           Import
         </Button>
       </Stack>

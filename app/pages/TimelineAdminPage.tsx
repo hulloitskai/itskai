@@ -6,6 +6,7 @@ import type { TimelineAdminPageQuery } from "~/helpers/graphql";
 import AppLayout from "~/components/AppLayout";
 import TimelineActivitiesImportButton from "~/components/TimelineActivitiesImportButton";
 import TimelinePhotosImportButton from "~/components/TimelinePhotosImportButton";
+// import TimelinePhotoCreateWithTimestampButton from "~/components/TimelinePhotoCreateWithTimestampButton";
 
 export type TimelineAdminPageProps = PagePropsWithData<TimelineAdminPageQuery>;
 
@@ -25,6 +26,7 @@ const TimelineAdminPage: PageComponent<TimelineAdminPageProps> = () => {
           <Stack gap={6}>
             <TimelineActivitiesImportButton />
             <TimelinePhotosImportButton />
+            {/* <TimelinePhotoCreateWithTimestampButton /> */}
           </Stack>
         </Stack>
       </Card>

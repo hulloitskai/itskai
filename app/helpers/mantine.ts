@@ -1,10 +1,10 @@
 import type { DefaultMantineColor, MantineColorsTuple } from "@mantine/core";
+import { DEFAULT_THEME } from "@mantine/core";
 import {
   ActionIcon,
   Alert,
   Anchor,
   Button,
-  DEFAULT_THEME,
   Loader,
   LoadingOverlay,
   Menu,
@@ -18,6 +18,7 @@ import {
   createTheme,
   mergeThemeOverrides,
 } from "@mantine/core";
+import { DateTimePicker } from "@mantine/dates";
 import { Dropzone } from "@mantine/dropzone";
 
 import cx from "clsx";
@@ -83,6 +84,11 @@ const BASE_THEME_OVERRIDE = createTheme({
         radius: "md",
       },
     }),
+    DateTimePicker: DateTimePicker.extend({
+      defaultProps: {
+        radius: "md",
+      },
+    }),
     Loader: Loader.extend({
       defaultProps: {
         color: "primary.5",
@@ -105,6 +111,9 @@ const BASE_THEME_OVERRIDE = createTheme({
         radius: "md",
       },
       styles: ({ headings: { sizes, ...style } }) => ({
+        header: {
+          alignItems: "start",
+        },
         title: {
           ...sizes.h4,
           ...style,

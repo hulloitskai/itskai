@@ -24,6 +24,14 @@ class TimelineActivity < ApplicationRecord
   # == Configuration
   self.inheritance_column = nil
 
+  # == Annotations
+  Location = T.type_alias do
+    T.any(
+      RGeo::Feature::Point,
+      RGeo::Feature::LineString,
+    )
+  end
+
   # == Attributes
   enumerize :type, in: %i[activity_segment place_visit]
 
@@ -142,14 +150,17 @@ class TimelineActivity < ApplicationRecord
     location_factory.line_string(points.compact)
   end
 
-  sig { params(duration: T::Hash[String, T.untyped]).returns(T::Range[Time]) }
+  sig do
+    params(duration: T::Hash[String, T.untyped])
+      .returns(T::Range[ActiveSupport::TimeWithZone])
+  end
   def self.parse_google_timeline_object_duration(duration)
     start_timestamp, end_timestamp = %w[
       startTimestamp
       endTimestamp
     ].map do |key|
       timestamp = duration.fetch(key)
-      T.let(Time.zone.parse(timestamp), Time)
+      T.let(Time.zone.parse(timestamp), ActiveSupport::TimeWithZone)
     end
     start_timestamp..end_timestamp
   end
@@ -220,6 +231,23 @@ class TimelineActivity < ApplicationRecord
     TimelinePhoto.where(timestamp: duration)
   end
 
+  sig { returns(Float) }
+  def distance_meters
+    case location.geometry_type
+    when RGeo::Feature::Point
+      0.0
+    when RGeo::Feature::LineString
+      T.cast(location, RGeo::Feature::LineString).length
+    else
+      raise "Unknown geometry type: #{location.geometry_type}"
+    end
+  end
+
+  sig { returns(Float) }
+  def movement_speed_meters_per_second
+    distance_meters / (duration.end - duration.begin)
+  end
+
   # == Helpers
   sig { returns(TimezoneFinder::TimezoneFinder) }
   def self.timezone_finder
@@ -238,7 +266,7 @@ class TimelineActivity < ApplicationRecord
     when RGeo::Feature::Point
       location
     when RGeo::Feature::LineString
-      location.point_n(0)
+      T.cast(location, RGeo::Feature::LineString).point_n(0)
     else
       raise "Unknown geometry type: #{location.geometry_type}"
     end

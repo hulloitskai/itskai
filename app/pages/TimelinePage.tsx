@@ -1,9 +1,10 @@
 import type { PageProps } from "@inertiajs/core";
 import type { PageComponent } from "~/helpers/inertia";
 import type { Feature, LineString, Point } from "geojson";
-import { countBy, maxBy } from "lodash-es";
-import { useAudioPlayer } from "react-use-audio-player";
 import { DateTime } from "luxon";
+import { AnimatePresence } from "framer-motion";
+import { useAudioPlayer } from "react-use-audio-player";
+import { countBy, maxBy } from "lodash-es";
 
 import ResumeIcon from "~icons/heroicons/play-20-solid";
 import PauseIcon from "~icons/heroicons/pause-20-solid";
@@ -30,7 +31,7 @@ import {
 import PageLayout from "~/components/PageLayout";
 import AppMeta from "~/components/AppMeta";
 import Map from "~/components/Map";
-import TimelinePhoto from "~/components/TimelinePhoto";
+import TimelinePagePhoto from "~/components/TimelinePagePhoto";
 
 import fallUnderneathSrc from "~/assets/sounds/fall-underneath.mp3";
 
@@ -38,6 +39,7 @@ export type TimelinePageProps = PageProps;
 
 type TimelineSharedFeatureProperties = {
   readonly opacity: number;
+  readonly zoom: number;
 };
 
 type TimelineActivitySegmentProperties = TimelineSharedFeatureProperties & {
@@ -60,6 +62,10 @@ type TimelineMoment = {
   readonly time: DateTime;
   readonly activitySegmentFeatures: TimelineActivitySegmentFeature[];
   readonly placeVisitFeatures: TimelinePlaceVisitFeature[];
+  readonly lastFeature:
+    | TimelineActivitySegmentFeature
+    | TimelinePlaceVisitFeature
+    | null;
   readonly photos: TimelinePhotoFragment[];
 };
 
@@ -86,11 +92,13 @@ const truncateTimelineActivitySegmentIfNecessary = (
     return feature;
   }
   try {
-    return lineSliceAlong(
+    const { type, geometry } = lineSliceAlong(
       feature,
       startDistance,
       stopDistance,
-    ) as TimelineActivitySegmentFeature;
+    );
+    const { properties } = feature;
+    return { type, properties, geometry };
   } catch (error) {
     console.warn(`Failed to slice LineString: ${error}`);
     return feature;
@@ -102,7 +110,16 @@ const deriveTimelineActivityOpacity = (
   startedAt: DateTime,
 ): number => {
   const x = timestamp.diff(startedAt).as("hours");
-  return Math.min(1.0, 1.035 ** -x);
+  return Math.min(1.0, 1.035 ** -x - 0.3);
+};
+
+const deriveTimelineActivityZoom = (
+  movementSpeedMetersPerSecond: number,
+): number => {
+  if (movementSpeedMetersPerSecond > 100) {
+    return 5;
+  }
+  return 12.5;
 };
 
 const TimelinePage: PageComponent<TimelinePageProps> = () => {
@@ -110,12 +127,13 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
 
   // == Moment
   const [moment, setMoment] = useState<TimelineMoment>(() => ({
-    time: DateTime.fromObject({ year: 2023, month: 8, day: 30 }).setZone(
+    time: DateTime.fromObject({ year: 2023, month: 9, day: 20 }).setZone(
       "America/Toronto",
       { keepLocalTime: true },
     ),
     activitySegmentFeatures: [],
     placeVisitFeatures: [],
+    lastFeature: null,
     photos: [],
   }));
   const { time, activitySegmentFeatures, placeVisitFeatures, photos } = moment;
@@ -123,6 +141,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   // == Controls
   const [paused, setPaused] = useState(true);
   const speedRef = useRef(1);
+  const zoomRef = useRef(12.5);
 
   // == Audio Player
   const audioPlayer = useAudioPlayer();
@@ -138,9 +157,11 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   useEffect(
     () => {
       if (paused) {
-        audioPlayer.pause();
+        if (audioPlayer.playing) {
+          audioPlayer.pause();
+        }
       } else {
-        audioPlayer.play();
+        // audioPlayer.play();
       }
     },
     [paused] /* eslint-disable-line react-hooks/exhaustive-deps */,
@@ -199,6 +220,10 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
           const timezoneNames: string[] = [];
           const windowEnd = time;
           const windowStart = windowEnd.plus({ week: -1 });
+          let lastFeature:
+            | TimelineActivitySegmentFeature
+            | TimelinePlaceVisitFeature
+            | null = null;
           for (const activity of activitiesRef.current) {
             const startedAt = DateTime.fromISO(activity.startedAt);
             const endedAt = DateTime.fromISO(activity.endedAt);
@@ -210,6 +235,9 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
             }
             const sharedProperties: TimelineSharedFeatureProperties = {
               opacity: deriveTimelineActivityOpacity(time, startedAt),
+              zoom: deriveTimelineActivityZoom(
+                activity.movementSpeedMetersPerSecond,
+              ),
             };
             if (activity.type === TimelineActivityType.PlaceVisit) {
               const feature: TimelinePlaceVisitFeature = {
@@ -220,6 +248,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
                 },
                 geometry: activity.location,
               };
+              lastFeature = feature;
               placeVisitFeatures.push(feature);
             } else if (activity.type === TimelineActivityType.ActivitySegment) {
               const feature: TimelineActivitySegmentFeature = {
@@ -239,10 +268,11 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
                   windowStart,
                   windowEnd,
                 );
+              lastFeature = maybeTruncatedFeature;
               activitySegmentFeatures.push(maybeTruncatedFeature);
             }
             timezoneNames.push(activity.timezoneName);
-            photos.forEach(photo => {
+            activity.photos.forEach(photo => {
               const { id: photoId, image } = photo;
               const takenAt = DateTime.fromISO(photo.takenAt);
               const hideAt = takenAt.plus({ hours: 3 });
@@ -266,8 +296,8 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
               : time,
             activitySegmentFeatures,
             placeVisitFeatures,
+            lastFeature,
             photos,
-            predominantTimezone,
           };
         });
       }
@@ -283,22 +313,36 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   // == Map
   const mapRef = useRef<MapRef>(null);
   useEffect(() => {
-    const { time, activitySegmentFeatures, photos } = moment;
-    const lastFeature = last(activitySegmentFeatures);
-    if (lastFeature) {
-      const { properties, geometry } = lastFeature;
-      const lastCoordinate = last(geometry.coordinates);
-      if (lastCoordinate) {
-        mapRef.current?.flyTo({
-          center: lastCoordinate as [number, number],
-          animate: false,
-        });
-        if (isEmpty(photos) && time > properties.endedAt) {
-          speedRef.current = 12;
-        } else {
-          speedRef.current = 1;
-        }
+    const { lastFeature, photos } = moment;
+    if (!lastFeature) {
+      return;
+    }
+    const {
+      properties: { zoom },
+      geometry,
+    } = lastFeature;
+    const lastPosition =
+      geometry.type === "Point"
+        ? geometry.coordinates
+        : last(geometry.coordinates);
+    if (!lastPosition) {
+      return;
+    }
+    const map = mapRef.current;
+    if (map) {
+      if (zoomRef.current !== zoom) {
+        zoomRef.current = zoom;
+        // map.zoomTo(zoom,);
       }
+      map.jumpTo({
+        center: lastPosition as [number, number],
+        zoom,
+      });
+    }
+    if (geometry.type === "Point" && isEmpty(photos)) {
+      speedRef.current = 12;
+    } else {
+      speedRef.current = 1;
     }
   }, [moment]);
 
@@ -307,16 +351,21 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
     <Flex
       pos="relative"
       h="100dvh"
-      style={{ alignItems: "stretch", flexDirection: "column" }}
+      style={{
+        alignItems: "stretch",
+        flexDirection: "column",
+        overflow: "hidden",
+      }}
     >
       {isClient && (
         <Map
           ref={mapRef}
           mapStyle="mapbox://styles/mapbox-map-design/ckshxkppe0gge18nz20i0nrwq"
+          // mapStyle="mapbox://styles/mapbox/satellite-streets-v12"
           initialViewState={{
             latitude: 43.6532,
             longitude: -79.3832,
-            zoom: 12.5,
+            zoom: zoomRef.current,
           }}
           navigationControl={false}
           style={{ flexGrow: 1 }}
@@ -368,9 +417,11 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
           )}
         </Map>
       )}
-      {photos.map(photo => (
-        <TimelinePhoto key={photo.id} {...{ photo, timestamp: time }} />
-      ))}
+      <AnimatePresence>
+        {photos.map(photo => (
+          <TimelinePagePhoto key={photo.id} {...{ photo }} />
+        ))}
+      </AnimatePresence>
       <Center
         pos="absolute"
         style={({ spacing }) => ({
@@ -381,7 +432,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
       >
         <Card withBorder w={440} padding="xs">
           <Group gap={8}>
-            <Badge miw={170} radius="sm">
+            <Badge size="lg" radius="sm" miw={220}>
               {time.toLocaleString({
                 ...DateTime.DATETIME_MED,
                 timeZoneName: "short",
@@ -437,6 +488,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
                     time: prevTime.plus({ day: -1 }),
                     activitySegmentFeatures: [],
                     placeVisitFeatures: [],
+                    lastFeature: null,
                     photos: [],
                   }));
                 }}
@@ -457,6 +509,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
                     time: prevTime.plus({ day: 1 }),
                     activitySegmentFeatures: [],
                     placeVisitFeatures: [],
+                    lastFeature: null,
                     photos: [],
                   }));
                 }}

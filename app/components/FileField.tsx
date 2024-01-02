@@ -83,6 +83,9 @@ const FileField: FC<FileFieldProps> = ({
         <Dropzone
           multiple={multiple ?? false}
           onDrop={files => {
+            if (!multiple) {
+              form.setFieldValue(name, null);
+            }
             setUploadingFiles(prevFiles =>
               uniqBy([...prevFiles, ...files], "name"),
             );

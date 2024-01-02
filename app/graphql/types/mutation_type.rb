@@ -48,6 +48,8 @@ module Types
     field :update_journeys_session_participation,
           mutation: Mutations::UpdateJourneysSessionParticipation
 
+    field :create_timeline_photo_with_timestamp,
+          mutation: Mutations::CreateTimelinePhotoWithTimestamp
     field :import_timeline_activities,
           mutation: Mutations::ImportTimelineActivities
     field :import_timeline_photos, mutation: Mutations::ImportTimelinePhotos

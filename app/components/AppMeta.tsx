@@ -1,11 +1,12 @@
 import type { FC } from "react";
 import { usePageVisibilityChange } from "~/helpers/page";
 
-const AppMetaSiteType = "website";
-const AppMetaSiteName = "It's Kai";
-const AppMetaSiteDescription = "Welcome to my little corner of the internet :)";
-const AppMetaSiteImage = "/banner.png";
-const AppMetaTitleSeparator = "|";
+const APP_META_SITE_TYPE = "website";
+const APP_META_SITE_NAME = "It's Kai";
+const APP_META_SITE_DESCRIPTION =
+  "Welcome to my little corner of the internet :)";
+const APP_META_SITE_IMAGE = "/banner.png";
+const APP_META_TITLE_SEPARATOR = "|";
 
 export type AppMetaProps = {
   readonly title?: string | string[];
@@ -16,41 +17,50 @@ export type AppMetaProps = {
 
 const AppMeta: FC<AppMetaProps> = ({
   title: titleProp,
-  description = AppMetaSiteDescription,
-  imageUrl = AppMetaSiteImage,
+  description = APP_META_SITE_DESCRIPTION,
+  imageUrl = APP_META_SITE_IMAGE,
   noIndex,
 }) => {
   const pageVisible = usePageVisibilityChange("visible");
-  const title = useMemo<string>(() => {
+  const pageTitle = useMemo<string>(() => {
     const components = Array.isArray(titleProp) ? titleProp : [titleProp];
     return components
       .filter(component => !!component)
-      .join(` ${AppMetaTitleSeparator} `);
+      .join(` ${APP_META_TITLE_SEPARATOR} `);
   }, [titleProp]);
-  const titleTag = useMemo<string>(() => {
-    if (!pageVisible) {
-      return "🥺 come back";
+  const siteTitle = useMemo<string>(
+    () =>
+      [pageTitle, APP_META_SITE_NAME]
+        .filter(component => !!component)
+        .join(` ${APP_META_TITLE_SEPARATOR} `),
+    [pageTitle],
+  );
+  const tabTitle = useMemo<string>(() => {
+    let title = pageTitle;
+    if (!pageVisible && !title) {
+      title = "🥺 come back";
     }
-    return [title, AppMetaSiteName]
-      .filter(component => !!component)
-      .join(` ${AppMetaTitleSeparator} `);
-  }, [title, pageVisible]);
+    return [title, APP_META_SITE_NAME].join(` ${APP_META_TITLE_SEPARATOR} `);
+  }, [pageTitle, pageVisible]);
 
   return (
     <Head>
-      <title>{titleTag.toLowerCase()}</title>
+      <title>{tabTitle.toLowerCase()}</title>
       {!!description && (
         <meta name="description" content={description.toLowerCase()} />
       )}
-      <meta property="og:site_name" content={AppMetaSiteName.toLowerCase()} />
-      <meta property="og:type" content={AppMetaSiteType} />
-      {!!title && <meta property="og:title" content={title} />}
+      <meta
+        property="og:site_name"
+        content={APP_META_SITE_NAME.toLowerCase()}
+      />
+      <meta property="og:type" content={APP_META_SITE_TYPE} />
+      {!!pageTitle && <meta property="og:title" content={pageTitle} />}
       {!!description && (
         <meta property="og:description" content={description.toLowerCase()} />
       )}
       {!!imageUrl && <meta property="og:image" content={imageUrl} />}
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content={titleTag.toLowerCase()} />
+      <meta name="twitter:title" content={siteTitle.toLowerCase()} />
       {!!description && (
         <meta name="twitter:description" content={description.toLowerCase()} />
       )}

@@ -6,7 +6,6 @@
 # Table name: timeline_photos
 #
 #  id          :uuid             not null, primary key
-#  coordinates :geography        point, 4326
 #  fingerprint :text             not null
 #  timestamp   :datetime         not null
 #  created_at  :datetime         not null
@@ -34,20 +33,26 @@ class TimelinePhoto < ApplicationRecord
   end
 
   # == Constructors
-  sig { params(blob: ActiveStorage::Blob).returns(TimelinePhoto) }
-  def self.from_blob(blob)
+  sig do
+    params(
+      blob: ActiveStorage::Blob,
+      timestamp: T.nilable(ActiveSupport::TimeWithZone),
+    )
+      .returns(TimelinePhoto)
+  end
+  def self.from_blob(blob, timestamp: nil)
     blob.open do |file|
       fingerprint = Digest::MD5.file(file.to_path).hexdigest
       photo = find_or_initialize_by(fingerprint:)
       if photo.new_record?
         data = Exiftool.new(file.to_path)
         photo.image.attach(blob)
-        photo.timestamp = data[:sub_sec_date_time_original] ||
-          data[:sub_sec_create_date] or
-          raise "Couldn't detect timestamp"
-        longitude, latitude = data[:gps_longitude], data[:gps_latitude]
-        if [latitude, longitude].all?(:present?)
-          photo.coordinates = coordinates_factory.point(latitude, longitude)
+        if timestamp.present?
+          photo.timestamp = timestamp
+        else
+          photo.timestamp = data[:sub_sec_date_time_original] ||
+            data[:sub_sec_create_date] or
+            raise "Couldn't detect timestamp"
         end
       end
       photo

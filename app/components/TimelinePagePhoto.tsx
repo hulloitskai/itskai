@@ -1,12 +1,13 @@
 import type { FC } from "react";
-import { Image, ImageProps } from "@mantine/core";
+import { usePresence } from "framer-motion";
+
+import type { ImageProps } from "@mantine/core";
+import { Image } from "@mantine/core";
 
 import type { TimelinePhotoFragment } from "~/helpers/graphql";
-import { DateTime } from "luxon";
 
-type TimelinePhotoProps = ImageProps & {
+type TimelinePagePhotoProps = ImageProps & {
   readonly photo: TimelinePhotoFragment;
-  readonly timestamp: DateTime;
 };
 
 let lastCorner = 0;
@@ -16,18 +17,21 @@ const getNextCorner = () => {
   return lastCorner;
 };
 
-const TimelinePhoto: FC<TimelinePhotoProps> = ({
-  photo,
-  timestamp,
+const TimelinePagePhoto: FC<TimelinePagePhotoProps> = ({
+  photo: { image },
   ...otherProps
 }) => {
-  const { image } = photo;
-  const takenAt = useParseDateTime(photo.takenAt);
-  const hideAt = useMemo(() => takenAt.plus({ hours: 3 }), [takenAt]);
-  const mounted = useMemo(
-    () => timestamp > takenAt && timestamp < hideAt,
-    [timestamp, takenAt, hideAt],
-  );
+  // == Transition
+  const [mounted, setMounted] = useState(false);
+  const [present, safeToRemove] = usePresence();
+  useEffect(() => {
+    if (present) {
+      setMounted(true);
+    } else {
+      setMounted(false);
+    }
+  }, [present]);
+
   const size = 540;
   const [corner] = useState(getNextCorner);
   const [key] = useState(() => Math.floor(Math.random() * 1_000_000));
@@ -35,7 +39,13 @@ const TimelinePhoto: FC<TimelinePhotoProps> = ({
   const xOffset = useMemo(() => Math.floor(key % 60), [key]);
   const yOffset = useMemo(() => Math.floor((key + 30) % 60), [key]);
   return (
-    <Transition transition="pop" {...{ mounted }}>
+    <Transition
+      transition="pop"
+      onExited={() => {
+        safeToRemove?.();
+      }}
+      {...{ mounted }}
+    >
       {style => (
         <Image
           pos="absolute"
@@ -58,4 +68,4 @@ const TimelinePhoto: FC<TimelinePhotoProps> = ({
   );
 };
 
-export default TimelinePhoto;
+export default TimelinePagePhoto;

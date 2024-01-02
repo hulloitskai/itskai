@@ -29,6 +29,13 @@ export type CreateSenecaMoodLogPayloadFieldPolicy = {
 	log?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type CreateTimelinePhotoWithTimestampPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'photo' | 'success' | CreateTimelinePhotoWithTimestampPayloadKeySpecifier)[];
+export type CreateTimelinePhotoWithTimestampPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	errors?: FieldPolicy<any> | FieldReadFunction<any>,
+	photo?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type CurrentlyPlayingKeySpecifier = ('progressMilliseconds' | 'timestamp' | 'track' | CurrentlyPlayingKeySpecifier)[];
 export type CurrentlyPlayingFieldPolicy = {
 	progressMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -168,12 +175,13 @@ export type LyricLineFieldPolicy = {
 	startTimeMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	words?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'createLocationAccessGrant' | 'createSenecaMoodLog' | 'deleteLocationAccessGrant' | 'importTimelineActivities' | 'importTimelinePhotos' | 'leaveJourneysSession' | 'likePensieveMessage' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'syncJournalEntries' | 'syncLocationLogs' | 'testMutation' | 'unlikePensieveMessage' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateJourneysSessionParticipation' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'createLocationAccessGrant' | 'createSenecaMoodLog' | 'createTimelinePhotoWithTimestamp' | 'deleteLocationAccessGrant' | 'importTimelineActivities' | 'importTimelinePhotos' | 'leaveJourneysSession' | 'likePensieveMessage' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'syncJournalEntries' | 'syncLocationLogs' | 'testMutation' | 'unlikePensieveMessage' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateJourneysSessionParticipation' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
 	createLocationAccessGrant?: FieldPolicy<any> | FieldReadFunction<any>,
 	createSenecaMoodLog?: FieldPolicy<any> | FieldReadFunction<any>,
+	createTimelinePhotoWithTimestamp?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteLocationAccessGrant?: FieldPolicy<any> | FieldReadFunction<any>,
 	importTimelineActivities?: FieldPolicy<any> | FieldReadFunction<any>,
 	importTimelinePhotos?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -359,12 +367,14 @@ export type TestMutationPayloadFieldPolicy = {
 	model?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TimelineActivityKeySpecifier = ('address' | 'endedAt' | 'id' | 'location' | 'name' | 'photos' | 'startedAt' | 'timezone' | 'timezoneName' | 'type' | TimelineActivityKeySpecifier)[];
+export type TimelineActivityKeySpecifier = ('address' | 'distanceMeters' | 'endedAt' | 'id' | 'location' | 'movementSpeedMetersPerSecond' | 'name' | 'photos' | 'startedAt' | 'timezone' | 'timezoneName' | 'type' | TimelineActivityKeySpecifier)[];
 export type TimelineActivityFieldPolicy = {
 	address?: FieldPolicy<any> | FieldReadFunction<any>,
+	distanceMeters?: FieldPolicy<any> | FieldReadFunction<any>,
 	endedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	location?: FieldPolicy<any> | FieldReadFunction<any>,
+	movementSpeedMetersPerSecond?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	photos?: FieldPolicy<any> | FieldReadFunction<any>,
 	startedAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -469,6 +479,10 @@ export type StrictTypedTypePolicies = {
 	CreateSenecaMoodLogPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | CreateSenecaMoodLogPayloadKeySpecifier | (() => undefined | CreateSenecaMoodLogPayloadKeySpecifier),
 		fields?: CreateSenecaMoodLogPayloadFieldPolicy,
+	},
+	CreateTimelinePhotoWithTimestampPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | CreateTimelinePhotoWithTimestampPayloadKeySpecifier | (() => undefined | CreateTimelinePhotoWithTimestampPayloadKeySpecifier),
+		fields?: CreateTimelinePhotoWithTimestampPayloadFieldPolicy,
 	},
 	CurrentlyPlaying?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | CurrentlyPlayingKeySpecifier | (() => undefined | CurrentlyPlayingKeySpecifier),

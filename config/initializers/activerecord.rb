@@ -6,6 +6,8 @@ require "active_record/connection_adapters/postgresql_adapter"
 # Use TIMESTAMPTZ as native type for :datetime columns.
 ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.datetime_type = :timestamptz
 
+ActiveRecord::Base.time_zone_aware_types << :tstzrange
+
 # Clean up backtraces!
 ActiveRecord::LogSubscriber.backtrace_cleaner =
   scoped do

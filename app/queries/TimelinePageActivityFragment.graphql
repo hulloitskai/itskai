@@ -2,6 +2,7 @@ fragment TimelinePageActivityFragment on TimelineActivity {
   endedAt
   id
   location
+  movementSpeedMetersPerSecond
   name
   photos {
     id

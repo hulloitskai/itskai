@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_30_212447) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_31_224949) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -307,11 +307,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_30_212447) do
     t.string "timezone_name", null: false
     t.tstzrange "duration"
     t.index ["type", "duration"], name: "index_timeline_activities_uniqueness", unique: true
+    t.check_constraint "confidence >= 0 AND confidence <= 3", name: "check_confidence"
   end
 
   create_table "timeline_photos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "timestamp", precision: nil, null: false
-    t.geography "coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "fingerprint", null: false

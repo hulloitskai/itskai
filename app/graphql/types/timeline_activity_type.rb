@@ -8,8 +8,10 @@ module Types
 
     # == Fields
     field :address, String
+    field :distance_meters, Float, null: false
     field :ended_at, DateTimeType, null: false
     field :location, GraphQL::Types::JSON, null: false
+    field :movement_speed_meters_per_second, Float, null: false
     field :name, String
     field :photos, [TimelinePhotoType], null: false
     field :started_at, DateTimeType, null: false
@@ -18,7 +20,6 @@ module Types
     field :type, TimelineActivityTypeType, null: false
 
     # == Resolvers
-
     sig { returns(Time) }
     def ended_at
       object.duration.end

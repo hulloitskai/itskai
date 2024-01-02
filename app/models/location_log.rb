@@ -25,10 +25,10 @@ class LocationLog < ApplicationRecord
 
   # == Attributes
   sig { returns(Float) }
-  def latitude = coordinates.latitude
+  def latitude = coordinates.x
 
   sig { returns(Float) }
-  def longitude = coordinates.longitude
+  def longitude = coordinates.y
 
   sig { returns(Float) }
   def altitude = coordinates.z
