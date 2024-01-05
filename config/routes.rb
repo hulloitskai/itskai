@@ -111,11 +111,11 @@ Rails.application.routes.draw do
   # == Resume
   resource :resume, only: :show
 
-  # == Scottkit
-  resource :scottkit, only: :show
+  # # == Scottkit
+  # resource :scottkit, only: :show
 
-  # == Scottcall
-  post "/scottcall" => "scottcalls#handle"
+  # # == Scottcall
+  # post "/scottcall" => "scottcalls#handle"
 
   # == Timeline
   get "/timeline" => "timeline#show"
