@@ -102,8 +102,9 @@ const LocatePage: PageComponent<LocatePageProps> = ({
       return circle([longitude, latitude], 1);
     }
   }, [initialLocation]);
+  const regionColor = theme.colors.primary[5];
 
-  // == Trail
+  // == Trail Markers
   const firstMarkerTimestamp = useMemo<DateTime | undefined>(() => {
     const firstMarker = first(trail);
     if (firstMarker) {
@@ -160,6 +161,16 @@ const LocatePage: PageComponent<LocatePageProps> = ({
       };
     }
   }, [trail, deriveTrailMarkerOpacity]);
+  const trailMarkerColor = useMemo(() => {
+    const { color } = theme.variantColorResolver({
+      theme,
+      color: "primary",
+      variant: "filled",
+    });
+    return color;
+  }, [theme]);
+
+  // == Trail Segments
   const trailSegmentColor = theme.colors.primary[4];
   const trailSegmentsData = useMemo<FeatureCollection | undefined>(() => {
     if (trailMarkersData) {
@@ -194,7 +205,6 @@ const LocatePage: PageComponent<LocatePageProps> = ({
     }
   }, [trailMarkersData, trailSegmentColor]);
 
-  const regionColor = theme.colors.primary[5];
   return (
     <Flex
       pos="relative"
@@ -259,7 +269,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                 type="circle"
                 paint={{
                   "circle-radius": 5,
-                  "circle-color": "var(--mantine-color-primary-filled)",
+                  "circle-color": trailMarkerColor,
                   "circle-opacity": ["get", "opacity"],
                 }}
               />
