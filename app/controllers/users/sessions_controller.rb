@@ -9,12 +9,7 @@ module Users
       if (url = params[:redirect_url].presence) && url.is_a?(String)
         store_location_for(:user, url)
       end
-      render(
-        inertia: "UserLoginPage",
-        props: {
-          failed: flash.alert.present?,
-        },
-      )
+      render(inertia: "UserLoginPage", props: { failed: flash.alert.present? })
     end
 
     # POST /<resource>/login

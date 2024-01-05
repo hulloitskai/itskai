@@ -6,7 +6,10 @@ module Users
     # == Actions
     # GET /<resource>/verification?confirmation_token=abcdef
     def show
-      resource = resource_class.confirm_by_token(params[:confirmation_token])
+      resource = T.let(
+        resource_class.confirm_by_token(params[:confirmation_token]),
+        User,
+      )
       if resource.errors.empty?
         set_flash_message!(:notice, :confirmed)
         respond_with_navigational(resource) do
@@ -22,5 +25,11 @@ module Users
     def new
       render(inertia: "UserRequestEmailVerificationPage")
     end
+
+    protected
+
+    # == Helpers
+    sig { override.returns(T.class_of(User)) }
+    def resource_class = super
   end
 end

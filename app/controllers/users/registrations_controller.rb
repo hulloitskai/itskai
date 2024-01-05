@@ -39,9 +39,7 @@ module Users
         set_minimum_password_length
         redirect_to(
           new_registration_path(resource_name),
-          inertia: {
-            errors: inertia_errors,
-          },
+          inertia: { errors: inertia_errors },
         )
       end
     end
@@ -59,12 +57,14 @@ module Users
       else
         clean_up_passwords(resource)
         set_minimum_password_length
-        redirect_to(
-          edit_registration_path(resource_name),
-          inertia: {
-            errors: inertia_errors,
-          },
-        )
+        if resource.encrypted_password_previously_changed?
+          inertia_location(edit_registration_path(resource_name))
+        else
+          redirect_to(
+            edit_registration_path(resource_name),
+            inertia: { errors: inertia_errors },
+          )
+        end
       end
     end
 
