@@ -18,8 +18,6 @@ import AppMeta from "~/components/AppMeta";
 import PageLayout from "~/components/PageLayout";
 import PageContainer from "~/components/PageContainer";
 
-import "~/components/AppLayout.css";
-
 export type ScottkitPageProps = PagePropsWithData<ScottkitPageQuery>;
 
 const ScottkitPage: PageComponent<ScottkitPageProps> = () => (

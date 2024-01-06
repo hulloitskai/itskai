@@ -14,7 +14,6 @@ import AppFlash from "./AppFlash";
 import PageContainer from "./PageContainer";
 import PageLayout from "./PageLayout";
 
-import "./AppLayout.css";
 import classes from "./AppLayout.module.css";
 
 export type JourneysAppLayoutProps = JourneysAppMetaProps &

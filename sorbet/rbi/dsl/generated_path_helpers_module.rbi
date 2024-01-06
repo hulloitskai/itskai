@@ -180,12 +180,6 @@ module GeneratedPathHelpersModule
   def root_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def scottcall_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def scottkit_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def src_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

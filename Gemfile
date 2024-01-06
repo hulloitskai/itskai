@@ -217,6 +217,9 @@ gem "faker", "~> 3.2"
 # Analyze image metadata with Exiftool
 gem "exiftool", "~> 1.2"
 
+# Find timezones by coordinate with TimezoneFinder
+gem "timezone_finder", "~> 1.5"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"
@@ -265,6 +268,10 @@ group :development do
 
   # Annotate models and routes
   gem "annotate", require: false
+
+  # Benchmark app with derailed_benchmarks
+  gem "derailed_benchmarks", "~> 2.1", require: false
+  gem "stackprof", "~> 0.2.25", require: false
 end
 
 group :test do
@@ -272,5 +279,3 @@ group :test do
   gem "capybara"
   gem "capybara-playwright-driver"
 end
-
-gem "timezone_finder", "~> 1.5"

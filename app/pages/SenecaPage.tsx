@@ -14,8 +14,6 @@ import { SenecaPageMessageSubscriptionDocument } from "~/helpers/graphql";
 import type { SenecaPageQuery } from "~/helpers/graphql";
 import type { SenecaPageMessageFragment } from "~/helpers/graphql";
 
-import "~/components/AppLayout.css";
-
 export type SenecaPageProps = PagePropsWithData<SenecaPageQuery> & {
   readonly whenWeMet: string;
 };

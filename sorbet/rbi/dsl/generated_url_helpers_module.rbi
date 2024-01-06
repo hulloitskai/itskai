@@ -180,12 +180,6 @@ module GeneratedUrlHelpersModule
   def root_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def scottcall_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def scottkit_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def src_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
