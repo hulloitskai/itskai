@@ -16,7 +16,7 @@ bin/setup
 
 ## todos
 
-- [ ] fix css shorthand processing in premailer
+- [x] fix css shorthand processing in premailer
 - [ ] lowercase preview text in emails
 - [ ] switch to [microsoft clarity](https://clarity.microsoft.com) cuz it's
       free
