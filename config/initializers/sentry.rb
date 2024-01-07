@@ -17,6 +17,9 @@ Sentry.init do |config|
   #
   # We recommend adjusting this value in production.
   config.traces_sample_rate = ENV.fetch("SENTRY_TRACES_SAMPLE_RATE", 0.0).to_f
+  config.profiles_sample_rate = ENV
+    .fetch("SENTRY_PROFILES_SAMPLE_RATE", 0.0)
+    .to_f
 
   # Ignore healthcheck route.
   config.before_send_transaction = proc do |event|

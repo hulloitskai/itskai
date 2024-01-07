@@ -14,7 +14,8 @@ kill_timeout = 10
   RAILS_DEFAULT_URL = "https://itskai.me"
   RAILS_MAILER_FROM = "It's Kai <robot@itskai.me>"
   RAILS_MAILER_REPLY_TO = "Kai <hullo@itskai.me>"
-  SENTRY_TRACES_SAMPLE_RATE = "0.02"
+  SENTRY_TRACES_SAMPLE_RATE = "0.1"
+  SENTRY_PROFILES_SAMPLE_RATE = "0.1"
 
 [[services]]
   protocol = "tcp"
