@@ -23,9 +23,6 @@ module Users
     protected
 
     # == Helpers
-    sig { override.returns(T.nilable(User)) }
-    def resource = super
-
     sig { void }
     def respond_to_on_destroy
       # We actually need to hardcode this as Rails default responder doesn't

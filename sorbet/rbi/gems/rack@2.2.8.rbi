@@ -1576,6 +1576,30 @@ end
 # source://rack//lib/rack/handler.rb#48
 Rack::Handler::SERVER_NAMES = T.let(T.unsafe(nil), Array)
 
+# source://rack//lib/rack/handler/webrick.rb#25
+class Rack::Handler::WEBrick < ::WEBrick::HTTPServlet::AbstractServlet
+  # @return [WEBrick] a new instance of WEBrick
+  #
+  # source://rack//lib/rack/handler/webrick.rb#61
+  def initialize(server, app); end
+
+  # source://rack//lib/rack/handler/webrick.rb#66
+  def service(req, res); end
+
+  class << self
+    # @yield [@server]
+    #
+    # source://rack//lib/rack/handler/webrick.rb#26
+    def run(app, **options); end
+
+    # source://rack//lib/rack/handler/webrick.rb#54
+    def shutdown; end
+
+    # source://rack//lib/rack/handler/webrick.rb#44
+    def valid_options; end
+  end
+end
+
 # Rack::Head returns an empty body for all HEAD requests. It leaves
 # all other requests unchanged.
 #
@@ -5628,3 +5652,24 @@ Rack::Utils::SYMBOL_TO_STATUS_CODE = T.let(T.unsafe(nil), Hash)
 #
 # source://rack//lib/rack/version.rb#16
 Rack::VERSION = T.let(T.unsafe(nil), Array)
+
+# This monkey patch allows for applications to perform their own chunking
+# through WEBrick::HTTPResponse if rack is set to true.
+#
+# source://rack//lib/rack/handler/webrick.rb#8
+class WEBrick::HTTPResponse
+  # Returns the value of attribute rack.
+  #
+  # source://rack//lib/rack/handler/webrick.rb#9
+  def rack; end
+
+  # Sets the attribute rack
+  #
+  # @param value the value to set the attribute rack to.
+  #
+  # source://rack//lib/rack/handler/webrick.rb#9
+  def rack=(_arg0); end
+
+  # source://rack//lib/rack/handler/webrick.rb#12
+  def setup_header; end
+end

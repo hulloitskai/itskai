@@ -220,6 +220,11 @@ gem "exiftool", "~> 1.2"
 # Find timezones by coordinate with TimezoneFinder
 gem "timezone_finder", "~> 1.5"
 
+# Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
+gem "rack-mini-profiler"
+gem "memory_profiler"
+gem "stackprof"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"
@@ -255,11 +260,6 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
-  # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  # gem "rack-mini-profiler"
-  # gem "memory_profiler"
-  # gem "stackprof"
-
   # Display better error pages during development
   gem "better_errors"
 
@@ -268,10 +268,6 @@ group :development do
 
   # Annotate models and routes
   gem "annotate", require: false
-
-  # Benchmark app with derailed_benchmarks
-  gem "derailed_benchmarks", "~> 2.1", require: false
-  gem "stackprof", "~> 0.2.25", require: false
 end
 
 group :test do

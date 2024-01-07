@@ -19,7 +19,7 @@ module Users
 
     # POST /<resource>
     def create
-      build_resource(sign_up_params)
+      resource = build_resource(sign_up_params)
       resource.save
       if resource.persisted?
         if resource.active_for_authentication?
@@ -46,8 +46,9 @@ module Users
 
     # PUT /<resource>
     def update
-      self.resource =
-        resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+      resource = self.resource = resource_class
+        .to_adapter
+        .get!(send(:"current_#{resource_name}").to_key)
       resource_updated = update_resource(resource, account_update_params)
       if resource_updated
         if sign_in_after_change_password?
@@ -85,9 +86,6 @@ module Users
     protected
 
     # == Helpers
-    sig { override.returns(User) }
-    def resource = super
-
     # sig { params(resource: User).returns(String) }
     # def after_sign_up_path_for(resource)
     #   dashboard_path
@@ -108,7 +106,7 @@ module Users
     sig { returns(T::Hash[String, T.untyped]) }
     def inertia_errors
       error_bag = request.headers["X-Inertia-Error-Bag"]
-      errors = resource.input_field_errors.to_h
+      errors = resource&.input_field_errors&.to_h || {}
       error_bag.present? ? { error_bag => errors } : errors
     end
 

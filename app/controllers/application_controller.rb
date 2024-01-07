@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
 
   # == Filters
   before_action :set_actor_id
+  before_action :authorize_rack_mini_profiler
   around_action :with_error_context
 
   # == Inertia
@@ -24,6 +25,7 @@ class ApplicationController < ActionController::Base
     }.compact
   end
 
+  # == Devise
   sig { override.returns(T.nilable(User)) }
   def current_user
     T.cast(super, T.nilable(User))
@@ -66,6 +68,11 @@ class ApplicationController < ActionController::Base
   def set_actor_id
     return if cookies.key?(:actor_id)
     cookies.permanent.signed[:actor_id] = current_user&.id || SecureRandom.uuid
+  end
+
+  sig { void }
+  def authorize_rack_mini_profiler
+    Rack::MiniProfiler.authorize_request if current_user&.owner?
   end
 
   sig { params(block: T.proc.returns(T.untyped)).void }

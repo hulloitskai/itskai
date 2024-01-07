@@ -25,11 +25,5 @@ module Users
     def new
       render(inertia: "UserRequestEmailVerificationPage")
     end
-
-    protected
-
-    # == Helpers
-    sig { override.returns(T.class_of(User)) }
-    def resource_class = super
   end
 end
