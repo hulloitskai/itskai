@@ -7,6 +7,12 @@ class CurrentlyPlayingPoll < ApplicationService
   # == Methods
   sig { returns(T::Boolean) }
   def run
+    report = MemoryProfiler.report { _run }
+    report.pretty_print
+  end
+
+  sig { returns(T::Boolean) }
+  private def _run
     value = SpotifyUser.current&.currently_playing
     if value != CurrentlyPlaying.current
       CurrentlyPlaying.current = value

@@ -24,9 +24,17 @@ FileUtils.chdir APP_ROOT do
   #
   # Add necessary setup steps to this file.
 
-  puts "=> Installing Ruby dependencies"
+  puts "=> Installing Ruby"
+  system("command -v rbenv", out: File::NULL) && \
+    system!("rbenv install --skip-existing")
+
+  puts "\n=> Installing Ruby dependencies"
   system! "gem install bundler --conservative"
   system("bundle check") || system!("bundle install")
+
+  puts "\n=> Installing Node"
+  system("command -v nodenv", out: File::NULL) && \
+    system!("nodenv install --skip-existing")
 
   puts "\n=> Installing Node dependencies"
   system!("bin/yarn install") &&

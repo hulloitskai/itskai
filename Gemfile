@@ -268,6 +268,9 @@ group :development do
 
   # Annotate models and routes
   gem "annotate", require: false
+
+  # Benchmark app and profile memory
+  gem "derailed_benchmarks", "~> 2.1"
 end
 
 group :test do

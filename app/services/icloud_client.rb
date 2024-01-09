@@ -27,6 +27,7 @@ class ICloudClient < ApplicationService
   def self.from_credentials(credentials)
     @clients ||= T.let(
       Hash.new do |hash, key; credentials|
+        tag_logger { logger.info("hash size: #{hash}") }
         credentials, _ = key
         hash[key] = new(credentials:)
       end,

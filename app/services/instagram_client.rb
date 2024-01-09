@@ -28,6 +28,7 @@ class InstagramClient < ApplicationService
   def self.from_credentials(credentials, security_code: nil)
     @clients ||= T.let(
       Hash.new do |hash, key; credentials|
+        tag_logger { logger.info("hash size: #{hash}") }
         credentials, _ = key
         hash[key] = new(credentials:, security_code:)
       end,
