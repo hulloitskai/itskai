@@ -1,5 +1,0 @@
-fragment SenecaPageMessageFragment on PensieveMessage {
-  id
-  text
-  timestamp
-}

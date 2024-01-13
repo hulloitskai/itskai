@@ -55,7 +55,6 @@ module Types
     field :import_timeline_photos, mutation: Mutations::ImportTimelinePhotos
 
     field :activate_scottkit_signal, mutation: Mutations::ActivateScottkitSignal
-    field :create_seneca_mood_log, mutation: Mutations::CreateSenecaMoodLog
     field :sync_location_logs, mutation: Mutations::SyncLocationLogs
   end
 end

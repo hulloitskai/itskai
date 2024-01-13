@@ -30,10 +30,11 @@ class InstagramClient < ApplicationService
       Hash.new do |hash, key; credentials|
         tag_logger { logger.info("hash size: #{hash}") }
         credentials, _ = key
-        hash[key] = new(credentials:, security_code:)
-        if (size = hash.size) > 100
-          tag_logger do
-            logger.warn("Large client cache size: #{size} entries")
+        hash[key] = new(credentials:, security_code:).tap do
+          if (size = hash.size) > 100
+            tag_logger do
+              logger.warn("Large client cache size: #{size} entries")
+            end
           end
         end
       end,
