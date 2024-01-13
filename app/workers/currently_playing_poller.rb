@@ -9,6 +9,12 @@ class CurrentlyPlayingPoller < ApplicationWorker
     @task = T.let(@task, T.nilable(Concurrent::TimerTask))
   end
 
+  # == Methods
+  sig { override.returns(T::Boolean) }
+  def self.enabled?
+    super && CurrentlyPlayingPoll.ready?
+  end
+
   # == Lifecycle
   sig { override.void }
   def start

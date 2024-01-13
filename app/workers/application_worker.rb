@@ -14,6 +14,11 @@ class ApplicationWorker
   abstract!
 
   # == Lifecycle
+  sig { returns(T::Boolean) }
+  def self.enabled?
+    ENV["#{env_prefix}_ENABLED"].present?
+  end
+
   sig { abstract.void }
   def start; end
 
@@ -25,4 +30,13 @@ class ApplicationWorker
 
   sig { void }
   def self.stop = instance.stop
+
+  # == Helpers
+  sig { returns(String) }
+  private_class_method def self.env_prefix
+    @env_key ||= T.let(
+      T.must(self.class.name).underscore.upcase,
+      T.nilable(String),
+    )
+  end
 end

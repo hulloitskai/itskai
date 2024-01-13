@@ -30,6 +30,11 @@ class ICloudClient < ApplicationService
         tag_logger { logger.info("hash size: #{hash}") }
         credentials, _ = key
         hash[key] = new(credentials:)
+        if (size = hash.size) > 100
+          tag_logger do
+            logger.warn("Large client cache size: #{size} entries")
+          end
+        end
       end,
       T.nilable(T::Hash[T.untyped, ICloudClient]),
     )

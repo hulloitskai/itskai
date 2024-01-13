@@ -14,14 +14,16 @@ class PensieveReceiver < ApplicationWorker
 
   # == Methods
   sig { returns(T::Boolean) }
-  def enabled?
+  def ready?
     @client.present?
   end
 
-  sig { returns(T::Boolean) }
-  def self.enabled? = instance.enabled?
-
   # == Lifecycle
+  sig { override.returns(T::Boolean) }
+  def self.enabled?
+    super && instance.ready?
+  end
+
   sig { override.void }
   def start
     raise "Telegram client not initialized" unless @client

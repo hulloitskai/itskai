@@ -16,12 +16,10 @@ class ICloudClient
       attributes[:name]
     end
 
-    sig { returns(T.nilable(T::Hash[Symbol, T.untyped])) }
+    sig { returns(T.nilable(ActiveSupport::HashWithIndifferentAccess)) }
     def location
       if (location = @pydevice.location)
-        location.to_h.transform_keys do |key|
-          key.underscore.to_sym
-        end
+        location.to_h.with_indifferent_access
       end
     end
 
@@ -30,10 +28,10 @@ class ICloudClient
       @pydevice.play_sound
     end
 
-    sig { returns(T::Hash[Symbol, T.untyped]) }
+    sig { returns(ActiveSupport::HashWithIndifferentAccess) }
     def attributes
       @attributes ||= T.let(
-        @pydevice.content.to_h.transform_keys { |key| key.underscore.to_sym },
+        @pydevice.content.to_h.with_indifferent_access,
         T.nilable(T::Hash[Symbol, T.untyped]),
       )
     end
