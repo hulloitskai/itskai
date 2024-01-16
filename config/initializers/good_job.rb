@@ -30,10 +30,10 @@ Rails.application.configure do
   if Rails.server?
     config.after_initialize do
       config.good_job.tap do |config|
-        # config.cron[:sync_location_logs] = {
-        #   class: SyncLocationLogsJob.name,
-        #   cron: "* * * * *",
-        # } if SyncLocationLogsJob.enabled?
+        config.cron[:sync_location_logs] = {
+          class: SyncLocationLogsJob.name,
+          cron: "* * * * *",
+        } if SyncLocationLogsJob.enabled?
         config.cron[:sync_journal_entry] = {
           class: SyncJournalEntryJob.name,
           cron: "*/5 * * * *",

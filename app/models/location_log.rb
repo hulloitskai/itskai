@@ -97,18 +97,22 @@ class LocationLog < ApplicationRecord
     client = ICloudClient.current or raise "iCloud client not initialized"
     iphone = client.iphone or raise "Couldn't read iPhone details"
     location = iphone.location or return
-    timestamp = Time.zone.at(location.fetch(:time_stamp).to_f / 1000)
+    timestamp = Time.zone.at(location.fetch("timeStamp").to_f / 1000)
     transaction do
       unless exists?(timestamp:)
         coordinates = scoped do
-          location => { latitude:, longitude:, altitude: }
+          latitude, longitude, altitude = location.fetch_values(
+            "latitude",
+            "longitude",
+            "altitude",
+          )
           coordinates_factory.point(longitude, latitude, altitude)
         end
         other_attributes = location.slice(
-          :horizontal_accuracy,
-          :vertical_accuracy,
-          :floor_level,
-        )
+          "horizontalAccuracy",
+          "verticalAccuracy",
+          "floorLevel",
+        ).transform_keys(&:underscore)
         create!(timestamp:, coordinates:, **other_attributes)
       end
     end

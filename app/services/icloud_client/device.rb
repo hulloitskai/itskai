@@ -8,18 +8,18 @@ class ICloudClient
     # == Methods
     sig { returns(String) }
     def id
-      attributes[:id]
+      attributes.fetch("id")
     end
 
     sig { returns(String) }
     def name
-      attributes[:name]
+      attributes.fetch("name")
     end
 
-    sig { returns(T.nilable(ActiveSupport::HashWithIndifferentAccess)) }
+    sig { returns(T.nilable(T::Hash[String, T.untyped])) }
     def location
       if (location = @pydevice.location)
-        location.to_h.with_indifferent_access
+        location.to_h
       end
     end
 
@@ -28,10 +28,10 @@ class ICloudClient
       @pydevice.play_sound
     end
 
-    sig { returns(ActiveSupport::HashWithIndifferentAccess) }
+    sig { returns(T::Hash[String, T.untyped]) }
     def attributes
       @attributes ||= T.let(
-        @pydevice.content.to_h.with_indifferent_access,
+        @pydevice.data.to_h,
         T.nilable(T::Hash[Symbol, T.untyped]),
       )
     end
