@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/mrkn/pycall.git
+  revision: 81360ace1ceb174abb2bba7ebe2dee1a56c364ac
+  branch: master
+  specs:
+    pycall (1.5.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -261,7 +268,7 @@ GEM
       TimezoneParser (~> 0.3.0)
       json (>= 1.8.3)
       signet (~> 0.7)
-    graphql (2.1.6)
+    graphql (2.2.5)
       racc (~> 1.4)
     graphql-connections (1.4.0)
       activerecord (>= 5)
@@ -419,7 +426,6 @@ GEM
     public_suffix (5.0.4)
     puma (6.3.1)
       nio4r (~> 2.0)
-    pycall (1.5.1)
     raabro (1.4.0)
     racc (1.7.3)
     rack (2.2.8)
@@ -724,7 +730,7 @@ DEPENDENCIES
   pry-stack_explorer
   psych (~> 4.0)
   puma (~> 6.3.1)
-  pycall (~> 1.5)
+  pycall!
   rack-cors (~> 2.0)
   rack-mini-profiler
   rails (~> 7.1.2)

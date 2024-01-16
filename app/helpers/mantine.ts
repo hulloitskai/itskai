@@ -39,14 +39,14 @@ const BASE_THEME_OVERRIDE = createTheme({
   primaryColor: "primary",
   fontFamily:
     "Manrope, Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, " +
-    "Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji",
+    "Arial, sans-serif",
   fontFamilyMonospace:
     "JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, " +
     "Liberation Mono, Courier New, monospace",
   headings: {
     fontFamily:
       "Manrope, Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, " +
-      "Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji",
+      "Arial, sans-serif",
   },
   focusClassName: cx("mantine-focus-auto", classes.focus),
   components: {

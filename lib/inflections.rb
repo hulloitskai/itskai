@@ -16,14 +16,14 @@ require "rails"
 # end
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
-  # == Acronyms
+  # == Global
   inflect.acronym("GlobalID")
   inflect.acronym("GraphQL")
-  inflect.acronym("ICloud")
   inflect.acronym("OAuth")
+  inflect.uncountable("credentials")
+
+  # == Application
+  inflect.acronym("ICloud")
   inflect.acronym("ItsKai")
   inflect.acronym("PoorlyDrawnLines")
-
-  # == Others
-  inflect.uncountable("credentials")
 end
