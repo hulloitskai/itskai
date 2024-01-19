@@ -16,7 +16,7 @@ class ApplicationWorker
   # == Lifecycle
   sig { returns(T::Boolean) }
   def self.enabled?
-    ENV["#{env_prefix}_ENABLED"].present?
+    !ENV["#{env_prefix}_DISABLED"].truthy?
   end
 
   sig { abstract.void }
