@@ -102,7 +102,11 @@ class JournalEntry < ApplicationRecord
     notion_page => { properties: }
     self.synced_at = Time.current
     self.title = properties["Name"].title.first!.plain_text
-    self.started_at = properties["Created At"].created_time.to_time
+    self.started_at = if (property = properties["Created At (Display)"].date)
+      property.start.to_time
+    else
+      properties["Created At"].created_time.to_time
+    end
     self.last_edited_at = properties["Modified At"].last_edited_time.to_time
   end
 
