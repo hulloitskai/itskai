@@ -26,6 +26,7 @@ module Mutations
       ).returns(Payload)
     end
     def resolve(expires_in_seconds:, **attributes)
+      authorize!(to: :create?, with: LocationAccessGrantPolicy)
       grant = LocationAccessGrant.new(
         expires_in: expires_in_seconds.seconds,
         **attributes,

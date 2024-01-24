@@ -16,7 +16,7 @@ class QueryWatcher < ApplicationWorker
     return if @watcher
     @watcher = Listen.to(QueryManager::FILES_DIR, only: /\.graphql$/) do
       Rails.application.reloader.wrap do
-        tag_logger do
+        with_log_tags do
           logger.info("Changes detected, reloading queries...")
         end
         QueryManager.load

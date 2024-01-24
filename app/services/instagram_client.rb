@@ -31,7 +31,7 @@ class InstagramClient < ApplicationService
         credentials, _ = key
         hash[key] = new(credentials:, security_code:).tap do
           if (size = hash.size) > 100
-            tag_logger do
+            with_log_tags do
               logger.warn("Large client cache size: #{size} entries")
             end
             hash.delete(hash.keys.first)
@@ -97,7 +97,7 @@ class InstagramClient < ApplicationService
       @credentials.session = JSON.parse(File.read(session_filename))
       @credentials.save!(context: :initialize_client)
     else
-      tag_logger do
+      with_log_tags do
         logger.warn("Missing session after initializing Instagram client")
       end
     end

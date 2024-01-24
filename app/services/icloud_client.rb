@@ -30,7 +30,7 @@ class ICloudClient < ApplicationService
         credentials, _ = key
         hash[key] = new(credentials:).tap do
           if (size = hash.size) > 100
-            tag_logger do
+            with_log_tags do
               logger.warn("Large client cache size: #{size} entries")
             end
             hash.delete(hash.keys.first)

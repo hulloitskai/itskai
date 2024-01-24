@@ -29,7 +29,7 @@ module Logging
 
     # == Helpers
     sig { overridable.params(block: T.proc.void).void }
-    def tag_logger(&block)
+    def with_log_tags(&block)
       logger = self.logger
       if logger.respond_to?(:tagged)
         logger.public_send(:tagged, name, &block)
@@ -43,7 +43,7 @@ module Logging
 
   # == Helpers
   sig { overridable.params(block: T.proc.void).void }
-  def tag_logger(&block)
+  def with_log_tags(&block)
     logger = self.logger
     if logger.respond_to?(:tagged)
       logger.public_send(:tagged, self.class.name, &block)

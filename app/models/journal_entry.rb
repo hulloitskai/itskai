@@ -85,7 +85,7 @@ class JournalEntry < ApplicationRecord
       entry.sync_attributes(notion_page)
       entry.save!
     rescue => error
-      tag_logger do
+      with_log_tags do
         logger.error(
           "Failed to import entry with Notion page ID `#{notion_page_id}'`: " \
             "#{error}",

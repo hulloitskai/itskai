@@ -31,7 +31,7 @@ class PensieveReceiver < ApplicationWorker
       @client.run do |bot|
         bot.listen do |message|
           Rails.application.reloader.wrap do
-            tag_logger do
+            with_log_tags do
               logger.info("Received message: #{message.text}")
             end
             PensieveBot.receive_message(message, bot)

@@ -67,6 +67,11 @@ module Resolver
     active_user or raise GraphQL::ExecutionError, "Not authenticated."
   end
 
+  sig { returns(ActionDispatch::Http::Headers) }
+  def headers
+    context.fetch(:headers)
+  end
+
   sig { returns(ActionDispatch::Cookies::CookieJar) }
   def cookies
     context.fetch(:cookies)
@@ -81,5 +86,10 @@ module Resolver
   def journeys_participant_id
     cookies.signed[:journey_participant_id] or
       raise "Missing journey participant ID"
+  end
+
+  sig { returns(T.nilable(String)) }
+  def dishwatch_device_secret_key
+    headers["Dishwatch-Device-Secret-Key"]
   end
 end

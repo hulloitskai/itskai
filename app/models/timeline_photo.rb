@@ -70,12 +70,12 @@ class TimelinePhoto < ApplicationRecord
         photo = from_blob(blob)
         if photo.new_record?
           photo.save!
-          tag_logger do
+          with_log_tags do
             logger.debug("Imported timeline photo: #{photo.inspect}")
           end
           photo
         else
-          tag_logger do
+          with_log_tags do
             logger.warn("Already timeline photo: #{photo.inspect}")
           end
           nil

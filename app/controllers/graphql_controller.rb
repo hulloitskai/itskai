@@ -30,6 +30,7 @@ class GraphQLController < ApplicationController
     extensions = prepare_extensions(params[:extensions])
     context = {
       controller: self,
+      headers: request.headers,
       cookies:,
       extensions:,
       current_user:,

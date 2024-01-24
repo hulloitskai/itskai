@@ -77,7 +77,7 @@ class LocationLog < ApplicationRecord
     )
     unless address.valid?
       log.address = nil
-      tag_logger do
+      with_log_tags do
         logger.warn(
           "Invalid address for location log with id `#{log.id}': " +
             address.errors.full_messages.to_sentence,
@@ -89,6 +89,12 @@ class LocationLog < ApplicationRecord
   sig { returns(RGeo::Geographic::Factory) }
   def self.coordinates_factory
     RGeo::Geographic.spherical_factory(srid: 4326, has_z_coordinate: true)
+  end
+
+  sig { override.returns(T.untyped) }
+  def reverse_geocode
+    with_log_tags { logger.info("Reverse-geocoding log with id `#{id}'") }
+    super
   end
 
   # == Synchronization

@@ -126,7 +126,7 @@ class TimelineActivity < ApplicationRecord
     ].map do |key|
       point_from_google_location(activity_segment.fetch(key))
     rescue
-      tag_logger do
+      with_log_tags do
         logger.warn(
           "Couldn't parse `#{key}' for activity segment: #{activity_segment}",
         )
@@ -211,12 +211,12 @@ class TimelineActivity < ApplicationRecord
           activity = from_google_timeline_object(object)
           if activity.new_record?
             activity.save!
-            tag_logger do
+            with_log_tags do
               logger.debug("Imported timeline activity: #{activity.inspect}")
             end
             activity
           else
-            tag_logger do
+            with_log_tags do
               logger.warn("Already timeline activity: #{activity.inspect}")
             end
             nil

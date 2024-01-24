@@ -15,7 +15,7 @@ class CurrentlyPlayingPoll < ApplicationService
     value = SpotifyUser.current&.currently_playing
     if value != CurrentlyPlaying.current
       CurrentlyPlaying.current = value
-      tag_logger do
+      with_log_tags do
         if value.present?
           logger.info(
             "Playing: #{value.track.name} (#{value.progress_milliseconds}ms)",
@@ -29,7 +29,7 @@ class CurrentlyPlayingPoll < ApplicationService
       false
     end
   rescue => error
-    tag_logger { logger.error("Error: #{error}") }
+    with_log_tags { logger.error("Error: #{error}") }
     Rails.error.report(error)
     false
   end

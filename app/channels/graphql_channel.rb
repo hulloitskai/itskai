@@ -41,6 +41,7 @@ class GraphQLChannel < ApplicationCable::Channel
     context = {
       channel: self,
       cookies:,
+      headers: request.headers,
       extensions:,
       current_user:,
     }
