@@ -28,13 +28,13 @@ class InstagramClient < ApplicationService
   def self.from_credentials(credentials, security_code: nil)
     @clients ||= T.let(
       Hash.new do |hash, key; credentials|
-        tag_logger { logger.info("hash size: #{hash}") }
         credentials, _ = key
         hash[key] = new(credentials:, security_code:).tap do
           if (size = hash.size) > 100
             tag_logger do
               logger.warn("Large client cache size: #{size} entries")
             end
+            hash.delete(hash.keys.first)
           end
         end
       end,

@@ -27,13 +27,13 @@ class ICloudClient < ApplicationService
   def self.from_credentials(credentials)
     @clients ||= T.let(
       Hash.new do |hash, key; credentials|
-        tag_logger { logger.info("hash size: #{hash}") }
         credentials, _ = key
         hash[key] = new(credentials:).tap do
           if (size = hash.size) > 100
             tag_logger do
               logger.warn("Large client cache size: #{size} entries")
             end
+            hash.delete(hash.keys.first)
           end
         end
       end,
@@ -135,7 +135,7 @@ class ICloudClient < ApplicationService
   sig { returns(String) }
   def session_filename
     @session_filename ||= T.let(
-      cookies_filename + ".session",
+      "#{cookies_filename}.session",
       T.nilable(String),
     )
   end
