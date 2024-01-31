@@ -32,7 +32,8 @@ declare module "@mantine/core" {
   }
 }
 
-const BASE_THEME_OVERRIDE = createTheme({
+const BASE_THEME = createTheme({
+  autoContrast: true,
   colors: {
     primary: DEFAULT_THEME.colors.pink,
   },
@@ -166,11 +167,7 @@ const APP_THEME_OVERRIDE = createTheme({
   },
 });
 
-export const APP_THEME = mergeThemeOverrides(
-  DEFAULT_THEME,
-  BASE_THEME_OVERRIDE,
-  APP_THEME_OVERRIDE,
-);
+export const APP_THEME = mergeThemeOverrides(BASE_THEME, APP_THEME_OVERRIDE);
 
 const EMAIL_THEME_OVERRIDE = createTheme({
   components: {
@@ -191,7 +188,6 @@ const EMAIL_THEME_OVERRIDE = createTheme({
 });
 
 export const EMAIL_THEME = mergeThemeOverrides(
-  DEFAULT_THEME,
-  BASE_THEME_OVERRIDE,
+  BASE_THEME,
   EMAIL_THEME_OVERRIDE,
 );

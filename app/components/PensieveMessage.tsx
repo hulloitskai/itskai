@@ -30,8 +30,8 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
         <Box
           pos="relative"
           className={classes.root}
+          mod={{ "has-likes": !!likes }}
           {...(fromBot ? { pr: "xl" } : { pl: 40 })}
-          {...(likes && { "data-has-likes": true })}
           {...{ style }}
           {...otherProps}
         >

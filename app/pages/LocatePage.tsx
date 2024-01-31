@@ -325,7 +325,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                       width: "100%",
                     },
                   }}
-                  {...(alertPulse && { "data-pulse": true })}
+                  mod={{ pulse: alertPulse }}
                 >
                   <Stack gap={4}>
                     <Text span fw={700} lh={1.3}>

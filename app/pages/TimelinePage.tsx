@@ -127,7 +127,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
 
   // == Moment
   const [moment, setMoment] = useState<TimelineMoment>(() => ({
-    time: DateTime.fromObject({ year: 2023, month: 9, day: 20 }).setZone(
+    time: DateTime.fromObject({ year: 2023, month: 8, day: 28 }).setZone(
       "America/Toronto",
       { keepLocalTime: true },
     ),
@@ -441,12 +441,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
             {loading && <Loader size="xs" />}
             <Box style={{ flexGrow: 1 }} />
             {paused && (
-              <Tooltip
-                color="primary"
-                c="var(--mantine-color-white)"
-                label="Start"
-                withArrow
-              >
+              <Tooltip color="primary" label="Start" withArrow>
                 <ActionIcon
                   variant="light"
                   disabled={!ready}
@@ -459,12 +454,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
               </Tooltip>
             )}
             {!paused && (
-              <Tooltip
-                color="primary"
-                c="var(--mantine-color-white)"
-                label="Pause"
-                withArrow
-              >
+              <Tooltip color="primary" label="Pause" withArrow>
                 <ActionIcon
                   variant="light"
                   onClick={() => {
@@ -475,12 +465,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
                 </ActionIcon>
               </Tooltip>
             )}
-            <Tooltip
-              label="Rewind 1 day"
-              color="primary"
-              c="var(--mantine-color-white)"
-              withArrow
-            >
+            <Tooltip label="Rewind 1 day" color="primary" withArrow>
               <ActionIcon
                 variant="light"
                 onClick={() => {
@@ -496,12 +481,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
                 <BackwardIcon />
               </ActionIcon>
             </Tooltip>
-            <Tooltip
-              label="Skip ahead 1 day"
-              color="primary"
-              c="var(--mantine-color-white)"
-              withArrow
-            >
+            <Tooltip label="Skip ahead 1 day" color="primary" withArrow>
               <ActionIcon
                 variant="light"
                 onClick={() => {

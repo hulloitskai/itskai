@@ -155,9 +155,7 @@ const JourneySessionPage: PageComponent<JourneysSessionPageProps> = ({
                     withBorder
                     padding="sm"
                     className={classes.participationCard}
-                    {...(isViewer && {
-                      "data-is-viewer": isViewer,
-                    })}
+                    mod={{ "is-viewer": isViewer }}
                   >
                     <Stack gap={4}>
                       <Badge style={{ textTransform: "none" }}>

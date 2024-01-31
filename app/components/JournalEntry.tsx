@@ -90,7 +90,6 @@ const JournalEntryCopyLinkTooltip: FC<JournalEntryCopyLinkTooltipProps> = ({
     <Tooltip
       withArrow
       color="primary"
-      c="var(--mantine-color-white)"
       {...{ label }}
       {...(copied && { opened: true })}
     >

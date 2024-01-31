@@ -187,12 +187,7 @@ const Pensieve: FC<PensieveProps> = ({
           right={-10}
           style={({ radius }) => ({ borderRadius: radius.xl })}
         >
-          <Tooltip
-            label="Open expanded view"
-            withArrow
-            color="primary"
-            c="var(--mantine-color-white)"
-          >
+          <Tooltip label="Open expanded view" withArrow color="primary">
             <ActionIcon
               component={Link}
               href="/pensieve"

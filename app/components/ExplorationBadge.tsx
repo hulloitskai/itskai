@@ -22,7 +22,6 @@ const ExplorationBadge: FC<ExplorationBadgeProps> = ({
       <Tooltip
         label="Have some thoughts to share?"
         color="primary"
-        c="var(--mantine-color-white)"
         withArrow
         openDelay={200}
       >

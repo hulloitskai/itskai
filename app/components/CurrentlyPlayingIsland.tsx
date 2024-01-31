@@ -259,8 +259,10 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
                   textTransform: "none",
                 },
               }}
-              {...(hasLyrics && { "data-with-lyrics": true })}
-              {...(lyricsCurrentlyExplicit && { "data-lyrics-explicit": true })}
+              mod={{
+                "with-lyrics": hasLyrics,
+                "lyrics-explicit": lyricsCurrentlyExplicit,
+              }}
               {...otherProps}
             >
               <MarqueeText size="xs" fw={800} className={classes.trackName}>

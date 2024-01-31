@@ -97,7 +97,6 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
       color="primary"
       transitionProps={{ duration: transitionDuration }}
       disabled={disabled ?? !hasWords}
-      c="var(--mantine-color-white)"
       maw={350}
       fz="xs"
       classNames={{ tooltip: classes.tooltip }}

@@ -19,7 +19,7 @@ const ResumeLayout: FC<ResumeLayoutProps> = ({ printable, children }) => (
       bg="var(--mantine-color-white)"
       c="var(--mantine-color-black)"
       className={cx("resume-layout", classes.container)}
-      {...(printable && { "data-printable": true })}
+      mod={{ printable }}
     >
       <Stack gap="xs">{children}</Stack>
     </Container>

@@ -156,8 +156,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
                 "--af-dropzone-backdrop": rgba(colors.dark[5], 0.8),
               }),
             ]}
-            {...(src && { "data-with-src": true })}
-            {...(disabled && { "data-disabled": true })}
+            mod={{ "with-src": !!src, disabled }}
             {...{ loading, disabled }}
           >
             <Stack align="center" gap={8}>
