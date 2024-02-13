@@ -1,0 +1,10 @@
+fragment ICloudConnectionFormConnectionFragment on ICloudConnection {
+  credentials {
+    cookies
+    email
+    id
+    password
+    session
+  }
+  status
+}

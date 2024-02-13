@@ -50,10 +50,13 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[ruby]": {
-    "editor.defaultFormatter": "rubocop.vscode-rubocop"
+    "editor.defaultFormatter": "Shopify.ruby-lsp"
   },
   "[dockerfile]": {
     "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
   },
   "[dotenv]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

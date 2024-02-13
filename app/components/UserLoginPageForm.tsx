@@ -83,9 +83,7 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
                 cursor: "pointer",
               },
             }}
-            onChange={() => {
-              setFieldValue("rememberMe", !rememberMe);
-            }}
+            {...getInputProps("rememberMe", { type: "checkbox" })}
           />
         </Tooltip>
         <Button type="submit" disabled={!isDirty()} {...{ loading }}>

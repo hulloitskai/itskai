@@ -25,9 +25,6 @@ module Logging
     end
     def logger = Rails.logger
 
-    private
-
-    # == Helpers
     sig { overridable.params(block: T.proc.void).void }
     def with_log_tags(&block)
       logger = self.logger
@@ -39,14 +36,12 @@ module Logging
 
   # == Methods
   sig { returns(T.any(ActiveSupport::Logger, ActiveSupport::BroadcastLogger)) }
-  def logger = Rails.logger
+  def logger
+    self.class.logger
+  end
 
-  # == Helpers
   sig { overridable.params(block: T.proc.void).void }
   def with_log_tags(&block)
-    logger = self.logger
-    if logger.respond_to?(:tagged)
-      logger.public_send(:tagged, self.class.name, &block)
-    end
+    self.class.with_log_tags(&block)
   end
 end

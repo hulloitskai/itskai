@@ -119,3 +119,6 @@ GraphQL/ExtractType:
   Enabled: false
 GraphQL/ExtractInputType:
   Enabled: false
+
+Sorbet/AllowIncompatibleOverride:
+  Enabled: false

@@ -13,22 +13,17 @@ module Types
     field :update_user_email, mutation: Mutations::UpdateUserEmail
     field :update_user_profile, mutation: Mutations::UpdateUserProfile
 
-    field :remove_icloud_credentials,
-          mutation: Mutations::RemoveICloudCredentials
-    field :update_icloud_credentials,
-          mutation: Mutations::UpdateICloudCredentials
+    field :create_icloud_connection,
+          mutation: Mutations::CreateICloudConnection
+    field :delete_icloud_connection,
+          mutation: Mutations::DeleteICloudConnection
     field :verify_icloud_security_code,
           mutation: Mutations::VerifyICloudSecurityCode
 
-    field :remove_instagram_credentials,
-          mutation: Mutations::RemoveInstagramCredentials
-    field :update_instagram_credentials,
-          mutation: Mutations::UpdateInstagramCredentials
-
-    field :remove_google_credentials,
-          mutation: Mutations::RemoveGoogleCredentials
-    field :remove_spotify_credentials,
-          mutation: Mutations::RemoveSpotifyCredentials
+    field :delete_google_connection,
+          mutation: Mutations::DeleteGoogleConnection
+    field :delete_spotify_connection,
+          mutation: Mutations::DeleteSpotifyConnection
 
     field :add_journal_entry_comment,
           mutation: Mutations::AddJournalEntryComment
@@ -53,6 +48,9 @@ module Types
     field :import_timeline_activities,
           mutation: Mutations::ImportTimelineActivities
     field :import_timeline_photos, mutation: Mutations::ImportTimelinePhotos
+
+    field :create_dishwatch_device, mutation: Mutations::CreateDishwatcherDevice
+    field :update_dishwatch_device, mutation: Mutations::UpdateDishwatchDevice
 
     field :activate_scottkit_signal, mutation: Mutations::ActivateScottkitSignal
     field :sync_location_logs, mutation: Mutations::SyncLocationLogs

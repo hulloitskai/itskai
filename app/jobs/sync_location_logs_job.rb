@@ -14,12 +14,6 @@ class SyncLocationLogsJob < ApplicationJob
     LocationLog.sync!
   end
 
-  # == Methods
-  sig { returns(T::Boolean) }
-  def self.enabled?
-    ICloudClient.enabled?
-  end
-
   private
 
   # == Callback Handlers

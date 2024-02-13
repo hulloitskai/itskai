@@ -16,16 +16,6 @@ Pry::Commands.block_command("clear", "Clear the screen.") do
   system("clear")
 end
 
-Pry::Commands.block_command(
-  "copy",
-  "Copy argument to the system clipboard.",
-) do |arg|
-  IO.popen("pbcopy", "w") do |f|
-    value = target.eval(arg)
-    f << value.to_s
-  end
-end
-
 Pry::Commands.block_command("debug", "Debug the current binding.") do
   run "exit-all binding.break(pre: 'finish 38 ;; up')"
 end
@@ -49,4 +39,14 @@ Pry::Commands.block_command(
     method = Regexp.last_match[3]
     output.puts [file, line, method]
   end
+end
+
+def pbcopy(input)
+  str = input.to_s
+  IO.popen("pbcopy", "w") { |f| f << str }
+  str
+end
+
+def pbpaste
+  `pbpaste`
 end

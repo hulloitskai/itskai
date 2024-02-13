@@ -4,10 +4,9 @@ import { Text } from "@mantine/core";
 import type { AdminPageQuery } from "~/helpers/graphql";
 
 import AppLayout from "~/components/AppLayout";
-import ICloudCredentialsForm from "~/components/ICloudCredentialsForm";
-import InstagramCredentialsForm from "~/components/InstagramCredentialsForm";
-import GoogleCredentialsForm from "~/components/GoogleCredentialsForm";
-import SpotifyCredentialsForm from "~/components/SpotifyCredentialsForm";
+import ICloudConnectionForm from "~/components/ICloudConnectionForm";
+import GoogleConnectionForm from "~/components/GoogleConnectionForm";
+import SpotifyConnectionForm from "~/components/SpotifyConnectionForm";
 import LocationLogsSyncButton from "~/components/LocationLogsSyncButton";
 import JournalEntriesSyncButton from "~/components/JournalEntriesSyncButton";
 import LocationAccessGrants from "~/components/LocationAccessGrants";
@@ -15,12 +14,7 @@ import LocationAccessGrants from "~/components/LocationAccessGrants";
 export type AdminPageProps = PagePropsWithData<AdminPageQuery>;
 
 const AdminPage: PageComponent<AdminPageProps> = ({
-  data: {
-    icloudCredentials,
-    instagramCredentials,
-    googleCredentials,
-    spotifyCredentials,
-  },
+  data: { icloudConnection, googleConnection, spotifyConnection },
 }) => {
   // == Routing
   const router = useRouter();
@@ -66,33 +60,15 @@ const AdminPage: PageComponent<AdminPageProps> = ({
               Enables location services
             </Text>
           </Stack>
-          <ICloudCredentialsForm
-            credentials={icloudCredentials}
-            onUpdate={() => {
+          <ICloudConnectionForm
+            connection={icloudConnection}
+            onCreate={() => {
               router.reload({ preserveScroll: true });
             }}
-            onRemove={() => {
+            onDelete={() => {
               router.reload({ preserveScroll: true });
             }}
-          />
-        </Stack>
-      </Card>
-      <Card withBorder>
-        <Stack gap="sm">
-          <Stack align="center" gap={0}>
-            <Title order={2} size="h4">
-              Instagram
-            </Title>
-            <Text size="sm" c="dimmed" lh={1.3}>
-              Enables automatic note updates
-            </Text>
-          </Stack>
-          <InstagramCredentialsForm
-            credentials={instagramCredentials}
-            onUpdate={() => {
-              router.reload({ preserveScroll: true });
-            }}
-            onRemove={() => {
+            onVerifySecurityCode={() => {
               router.reload({ preserveScroll: true });
             }}
           />
@@ -108,9 +84,9 @@ const AdminPage: PageComponent<AdminPageProps> = ({
               Enables availability services
             </Text>
           </Stack>
-          <GoogleCredentialsForm
-            credentials={googleCredentials}
-            onRemove={() => {
+          <GoogleConnectionForm
+            connection={googleConnection}
+            onDelete={() => {
               router.reload({ preserveScroll: true });
             }}
           />
@@ -126,9 +102,9 @@ const AdminPage: PageComponent<AdminPageProps> = ({
               Enables currently-playing & lyrics services
             </Text>
           </Stack>
-          <SpotifyCredentialsForm
-            credentials={spotifyCredentials}
-            onRemove={() => {
+          <SpotifyConnectionForm
+            connection={spotifyConnection}
+            onDelete={() => {
               router.reload({ preserveScroll: true });
             }}
           />

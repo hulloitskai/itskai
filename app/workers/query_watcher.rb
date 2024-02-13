@@ -10,11 +10,17 @@ class QueryWatcher < ApplicationWorker
     @watcher = T.let(@watcher, T.nilable(Listen::Listener))
   end
 
+  sig { returns(T.nilable(Listen::Listener)) }
+  attr_accessor :watcher
+
   # == Lifecycle
   sig { override.void }
-  def start
-    return if @watcher
-    @watcher = Listen.to(QueryManager::FILES_DIR, only: /\.graphql$/) do
+  def self.start
+    return if instance.watcher
+    watcher = instance.watcher = Listen.to(
+      QueryManager::FILES_DIR,
+      only: /\.graphql$/,
+    ) do
       Rails.application.reloader.wrap do
         with_log_tags do
           logger.info("Changes detected, reloading queries...")
@@ -23,17 +29,17 @@ class QueryWatcher < ApplicationWorker
       end
     end
     ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
-      @watcher.start
+      watcher.start
     end
   end
 
   sig { override.void }
-  def stop
-    if @watcher
+  def self.stop
+    if (watcher = instance.watcher)
       ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
-        @watcher.stop
+        watcher.stop
       end
-      @watcher = nil
+      instance.watcher = nil
     end
   end
 end

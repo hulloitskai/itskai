@@ -1,0 +1,5 @@
+mutation CreateICloudConnectionMutation($input: CreateICloudConnectionInput!) {
+  payload: createICloudConnection(input: $input) {
+    requires2fa
+  }
+}

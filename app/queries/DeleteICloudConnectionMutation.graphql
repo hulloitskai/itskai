@@ -1,0 +1,5 @@
+mutation DeleteICloudConnectionMutation($input: DeleteICloudConnectionInput!) {
+  payload: deleteICloudConnection(input: $input) {
+    success
+  }
+}

@@ -69,7 +69,7 @@ RUN yarn install --production && yarn cache clean
 
 # Install Python dependencies
 COPY pyproject.toml poetry.toml poetry.lock ./
-RUN poetry install --no-root --no-cache --without=dev
+RUN poetry install --no-cache --without=dev
 
 # Install Ruby dependencies
 COPY Gemfile Gemfile.lock ./

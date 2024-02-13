@@ -95,6 +95,11 @@ Rails.application.routes.draw do
     resources :comics, only: :show
   end
 
+  # == Dishwatch
+  # namespace :dishwatch do
+  #   resource :devices, only: :show
+  # end
+
   # == Errors
   scope controller: :errors do
     match "/401", action: :unauthorized, via: :all

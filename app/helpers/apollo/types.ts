@@ -17,6 +17,9 @@ export const typePolicies: StrictTypedTypePolicies = {
   Timezone: {
     keyFields: false,
   },
+  ICloudConnection: {
+    keyFields: false,
+  },
 };
 
 export const { possibleTypes } = introspection;

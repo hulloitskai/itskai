@@ -89,7 +89,7 @@ module Resolver
   end
 
   sig { returns(T.nilable(String)) }
-  def dishwatch_device_secret_key
-    headers["Dishwatch-Device-Secret-Key"]
+  def dishwatcher_device_secret_key
+    headers["Dishwatcher-Device-Secret-Key"]
   end
 end

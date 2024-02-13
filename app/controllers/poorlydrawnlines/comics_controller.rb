@@ -3,21 +3,16 @@
 
 module PoorlyDrawnLines
   class ComicsController < ApplicationController
-    # == Filters
-    before_action :set_comic
-
     # == Actions
     def show
-      comic = T.must(@comic)
       render(json: JSON.pretty_generate(comic.to_h))
     end
 
     private
 
-    # == Filter Handlers
-    sig { void }
-    def set_comic
-      @comic = T.let(@comic, T.nilable(Comic))
+    # == Helpers
+    sig { returns(Comic) }
+    def comic
       id = T.let(params.fetch(:id), String)
       response = Faraday.get("https://poorlydrawnlines.com/comic/#{id}/")
       if response.success?
@@ -39,6 +34,7 @@ module PoorlyDrawnLines
           next_url: next_link["href"],
         )
         @comic.validate!
+        @comic
       else
         raise "Failed to load comic `#{id}': #{response.body}"
       end

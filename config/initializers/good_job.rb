@@ -17,6 +17,14 @@ Rails.application.configure do
         description: "Schedule purging of unattached ActiveStorage blobs.",
         cron: "0 */6 * * *",
       },
+      "sync_location_logs": {
+        class: "SyncLocationLogsJob",
+        cron: "* * * * *",
+      },
+      "sync_journal_entry": {
+        class: "SyncJournalEntryJob",
+        cron: "*/5 * * * *",
+      },
     }
 
     # == Errors
@@ -24,21 +32,6 @@ Rails.application.configure do
     config.on_thread_error = ->(error) do
       error = T.let(error, Exception)
       Rails.error.report(error, handled: false)
-    end
-  end
-
-  if Rails.server?
-    config.after_initialize do
-      config.good_job.tap do |config|
-        config.cron[:sync_location_logs] = {
-          class: SyncLocationLogsJob.name,
-          cron: "* * * * *",
-        } if SyncLocationLogsJob.enabled?
-        config.cron[:sync_journal_entry] = {
-          class: SyncJournalEntryJob.name,
-          cron: "*/5 * * * *",
-        } if SyncJournalEntriesJob.enabled?
-      end
     end
   end
 end

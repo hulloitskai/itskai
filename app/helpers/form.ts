@@ -5,6 +5,7 @@ import type {
   GetFieldStatus,
   GetInputPropsType,
   LooseKeys,
+  SetFieldValue,
 } from "@mantine/form/lib/types";
 
 import type { InputFieldError } from "~/helpers/graphql";
@@ -77,12 +78,9 @@ export const useNestedForm = <Values>(
       form.getInputProps(`${String(path)}.${String(nestedPath)}`, options),
     [form, path],
   );
-  const setFieldValue = useCallback(
-    <Field extends LooseKeys<Values>>(
-      nestedPath: Field,
-      value: Field extends keyof Values ? Values[Field] : unknown,
-    ): any =>
-      form.setFieldValue(`${String(path)}.${String(nestedPath)}`, value),
+  const setFieldValue = useCallback<SetFieldValue<Values>>(
+    (nestedPath, value) =>
+      form.setFieldValue(`${String(path)}.${String(nestedPath)}` as any, value),
     [form, path],
   );
   const isTouched = useCallback<GetFieldStatus<Values>>(

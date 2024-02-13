@@ -15,18 +15,24 @@ export type CoordinatesFieldPolicy = {
 	latitude?: FieldPolicy<any> | FieldReadFunction<any>,
 	longitude?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type CreateDishwatcherDevicePayloadKeySpecifier = ('clientMutationId' | 'device' | 'errors' | 'success' | CreateDishwatcherDevicePayloadKeySpecifier)[];
+export type CreateDishwatcherDevicePayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	device?: FieldPolicy<any> | FieldReadFunction<any>,
+	errors?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type CreateICloudConnectionPayloadKeySpecifier = ('clientMutationId' | 'requires2fa' | 'success' | CreateICloudConnectionPayloadKeySpecifier)[];
+export type CreateICloudConnectionPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	requires2fa?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type CreateLocationAccessGrantPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'grant' | 'success' | CreateLocationAccessGrantPayloadKeySpecifier)[];
 export type CreateLocationAccessGrantPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	errors?: FieldPolicy<any> | FieldReadFunction<any>,
 	grant?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type CreateSenecaMoodLogPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'log' | 'success' | CreateSenecaMoodLogPayloadKeySpecifier)[];
-export type CreateSenecaMoodLogPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	errors?: FieldPolicy<any> | FieldReadFunction<any>,
-	log?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type CreateTimelinePhotoWithTimestampPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'photo' | 'success' | CreateTimelinePhotoWithTimestampPayloadKeySpecifier)[];
@@ -42,10 +48,37 @@ export type CurrentlyPlayingFieldPolicy = {
 	timestamp?: FieldPolicy<any> | FieldReadFunction<any>,
 	track?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type DeleteGoogleConnectionPayloadKeySpecifier = ('clientMutationId' | 'success' | DeleteGoogleConnectionPayloadKeySpecifier)[];
+export type DeleteGoogleConnectionPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type DeleteICloudConnectionPayloadKeySpecifier = ('clientMutationId' | 'success' | DeleteICloudConnectionPayloadKeySpecifier)[];
+export type DeleteICloudConnectionPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type DeleteLocationAccessGrantPayloadKeySpecifier = ('clientMutationId' | 'success' | DeleteLocationAccessGrantPayloadKeySpecifier)[];
 export type DeleteLocationAccessGrantPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type DeleteSpotifyConnectionPayloadKeySpecifier = ('clientMutationId' | 'success' | DeleteSpotifyConnectionPayloadKeySpecifier)[];
+export type DeleteSpotifyConnectionPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type DishwatcherDeviceKeySpecifier = ('createdAt' | 'id' | 'name' | 'secretKey' | DishwatcherDeviceKeySpecifier)[];
+export type DishwatcherDeviceFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	secretKey?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ICloudConnectionKeySpecifier = ('credentials' | 'status' | ICloudConnectionKeySpecifier)[];
+export type ICloudConnectionFieldPolicy = {
+	credentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	status?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type ICloudCredentialsKeySpecifier = ('cookies' | 'email' | 'id' | 'password' | 'session' | ICloudCredentialsKeySpecifier)[];
 export type ICloudCredentialsFieldPolicy = {
@@ -80,13 +113,6 @@ export type InputFieldErrorKeySpecifier = ('field' | 'message' | InputFieldError
 export type InputFieldErrorFieldPolicy = {
 	field?: FieldPolicy<any> | FieldReadFunction<any>,
 	message?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type InstagramCredentialsKeySpecifier = ('id' | 'password' | 'session' | 'username' | InstagramCredentialsKeySpecifier)[];
-export type InstagramCredentialsFieldPolicy = {
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	password?: FieldPolicy<any> | FieldReadFunction<any>,
-	session?: FieldPolicy<any> | FieldReadFunction<any>,
-	username?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type JournalEntryKeySpecifier = ('content' | 'id' | 'modifiedAt' | 'nextEntryId' | 'startedAt' | 'title' | 'url' | JournalEntryKeySpecifier)[];
 export type JournalEntryFieldPolicy = {
@@ -175,22 +201,22 @@ export type LyricLineFieldPolicy = {
 	startTimeMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	words?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'createLocationAccessGrant' | 'createSenecaMoodLog' | 'createTimelinePhotoWithTimestamp' | 'deleteLocationAccessGrant' | 'importTimelineActivities' | 'importTimelinePhotos' | 'leaveJourneysSession' | 'likePensieveMessage' | 'removeGoogleCredentials' | 'removeICloudCredentials' | 'removeInstagramCredentials' | 'removeSpotifyCredentials' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'syncJournalEntries' | 'syncLocationLogs' | 'testMutation' | 'unlikePensieveMessage' | 'updateICloudCredentials' | 'updateInstagramCredentials' | 'updateJourneysSessionParticipation' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'createDishwatchDevice' | 'createICloudConnection' | 'createLocationAccessGrant' | 'createTimelinePhotoWithTimestamp' | 'deleteGoogleConnection' | 'deleteICloudConnection' | 'deleteLocationAccessGrant' | 'deleteSpotifyConnection' | 'importTimelineActivities' | 'importTimelinePhotos' | 'leaveJourneysSession' | 'likePensieveMessage' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'syncJournalEntries' | 'syncLocationLogs' | 'testMutation' | 'unlikePensieveMessage' | 'updateDishwatchDevice' | 'updateJourneysSessionParticipation' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
+	createDishwatchDevice?: FieldPolicy<any> | FieldReadFunction<any>,
+	createICloudConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	createLocationAccessGrant?: FieldPolicy<any> | FieldReadFunction<any>,
-	createSenecaMoodLog?: FieldPolicy<any> | FieldReadFunction<any>,
 	createTimelinePhotoWithTimestamp?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteGoogleConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteICloudConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteLocationAccessGrant?: FieldPolicy<any> | FieldReadFunction<any>,
+	deleteSpotifyConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	importTimelineActivities?: FieldPolicy<any> | FieldReadFunction<any>,
 	importTimelinePhotos?: FieldPolicy<any> | FieldReadFunction<any>,
 	leaveJourneysSession?: FieldPolicy<any> | FieldReadFunction<any>,
 	likePensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
-	removeGoogleCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
-	removeICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
-	removeInstagramCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
-	removeSpotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	requestUserEmailVerification?: FieldPolicy<any> | FieldReadFunction<any>,
 	requestUserPasswordReset?: FieldPolicy<any> | FieldReadFunction<any>,
 	sendPensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -198,8 +224,7 @@ export type MutationFieldPolicy = {
 	syncLocationLogs?: FieldPolicy<any> | FieldReadFunction<any>,
 	testMutation?: FieldPolicy<any> | FieldReadFunction<any>,
 	unlikePensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
-	updateICloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
-	updateInstagramCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	updateDishwatchDevice?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateJourneysSessionParticipation?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateUserEmail?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateUserProfile?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -215,6 +240,11 @@ export type NotionCommentFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	modifiedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	richText?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type OAuthConnectionKeySpecifier = ('credentials' | 'status' | OAuthConnectionKeySpecifier)[];
+export type OAuthConnectionFieldPolicy = {
+	credentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	status?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type OAuthCredentialsKeySpecifier = ('id' | 'name' | 'refreshToken' | 'uid' | OAuthCredentialsKeySpecifier)[];
 export type OAuthCredentialsFieldPolicy = {
@@ -240,7 +270,7 @@ export type PensieveMessageFieldPolicy = {
 	text?: FieldPolicy<any> | FieldReadFunction<any>,
 	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('activityStatus' | 'announcement' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'explorations' | 'googleCredentials' | 'icloudCredentials' | 'imageBySignedId' | 'instagramCredentials' | 'journalEntry' | 'journalEntryComments' | 'journeysSession' | 'journeysSessionParticipation' | 'journeysSessions' | 'location' | 'locationAccessGrants' | 'passwordStrength' | 'pensieveMessages' | 'resume' | 'spotifyCredentials' | 'testEcho' | 'timelineActivities' | 'timezone' | 'uploadBySignedId' | 'user' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('activityStatus' | 'announcement' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'explorations' | 'googleConnection' | 'icloudConnection' | 'imageBySignedId' | 'journalEntry' | 'journalEntryComments' | 'journeysSession' | 'journeysSessionParticipation' | 'journeysSessions' | 'location' | 'locationAccessGrants' | 'passwordStrength' | 'pensieveMessages' | 'resume' | 'spotifyConnection' | 'testEcho' | 'timelineActivities' | 'timezone' | 'uploadBySignedId' | 'user' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	announcement?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -248,10 +278,9 @@ export type QueryFieldPolicy = {
 	contactEmail?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
 	explorations?: FieldPolicy<any> | FieldReadFunction<any>,
-	googleCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
-	icloudCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	googleConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	icloudConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	imageBySignedId?: FieldPolicy<any> | FieldReadFunction<any>,
-	instagramCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	journalEntry?: FieldPolicy<any> | FieldReadFunction<any>,
 	journalEntryComments?: FieldPolicy<any> | FieldReadFunction<any>,
 	journeysSession?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -262,33 +291,13 @@ export type QueryFieldPolicy = {
 	passwordStrength?: FieldPolicy<any> | FieldReadFunction<any>,
 	pensieveMessages?: FieldPolicy<any> | FieldReadFunction<any>,
 	resume?: FieldPolicy<any> | FieldReadFunction<any>,
-	spotifyCredentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	spotifyConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	testEcho?: FieldPolicy<any> | FieldReadFunction<any>,
 	timelineActivities?: FieldPolicy<any> | FieldReadFunction<any>,
 	timezone?: FieldPolicy<any> | FieldReadFunction<any>,
 	uploadBySignedId?: FieldPolicy<any> | FieldReadFunction<any>,
 	user?: FieldPolicy<any> | FieldReadFunction<any>,
 	viewer?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type RemoveGoogleCredentialsPayloadKeySpecifier = ('clientMutationId' | 'success' | RemoveGoogleCredentialsPayloadKeySpecifier)[];
-export type RemoveGoogleCredentialsPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type RemoveICloudCredentialsPayloadKeySpecifier = ('clientMutationId' | 'success' | RemoveICloudCredentialsPayloadKeySpecifier)[];
-export type RemoveICloudCredentialsPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type RemoveInstagramCredentialsPayloadKeySpecifier = ('clientMutationId' | 'success' | RemoveInstagramCredentialsPayloadKeySpecifier)[];
-export type RemoveInstagramCredentialsPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type RemoveSpotifyCredentialsPayloadKeySpecifier = ('clientMutationId' | 'success' | RemoveSpotifyCredentialsPayloadKeySpecifier)[];
-export type RemoveSpotifyCredentialsPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type RequestUserEmailVerificationPayloadKeySpecifier = ('clientMutationId' | 'success' | RequestUserEmailVerificationPayloadKeySpecifier)[];
 export type RequestUserEmailVerificationPayloadFieldPolicy = {
@@ -305,12 +314,6 @@ export type SendPensieveMessagePayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>,
 	user?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type SenecaMoodLogKeySpecifier = ('createdAt' | 'id' | 'valence' | SenecaMoodLogKeySpecifier)[];
-export type SenecaMoodLogFieldPolicy = {
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	valence?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SpotifyAlbumKeySpecifier = ('id' | 'imageUrl' | 'name' | 'url' | SpotifyAlbumKeySpecifier)[];
 export type SpotifyAlbumFieldPolicy = {
@@ -402,17 +405,10 @@ export type UnlikePensieveMessagePayloadFieldPolicy = {
 	message?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UpdateICloudCredentialsPayloadKeySpecifier = ('clientMutationId' | 'credentials' | 'errors' | 'success' | UpdateICloudCredentialsPayloadKeySpecifier)[];
-export type UpdateICloudCredentialsPayloadFieldPolicy = {
+export type UpdateDishwatchDevicePayloadKeySpecifier = ('clientMutationId' | 'device' | 'errors' | 'success' | UpdateDishwatchDevicePayloadKeySpecifier)[];
+export type UpdateDishwatchDevicePayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	credentials?: FieldPolicy<any> | FieldReadFunction<any>,
-	errors?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type UpdateInstagramCredentialsPayloadKeySpecifier = ('clientMutationId' | 'credentials' | 'errors' | 'success' | UpdateInstagramCredentialsPayloadKeySpecifier)[];
-export type UpdateInstagramCredentialsPayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	credentials?: FieldPolicy<any> | FieldReadFunction<any>,
+	device?: FieldPolicy<any> | FieldReadFunction<any>,
 	errors?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -453,10 +449,9 @@ export type UserFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	unverifiedEmail?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type VerifyICloudSecurityCodePayloadKeySpecifier = ('clientMutationId' | 'credentials' | 'success' | VerifyICloudSecurityCodePayloadKeySpecifier)[];
+export type VerifyICloudSecurityCodePayloadKeySpecifier = ('clientMutationId' | 'success' | VerifyICloudSecurityCodePayloadKeySpecifier)[];
 export type VerifyICloudSecurityCodePayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	credentials?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type StrictTypedTypePolicies = {
@@ -472,13 +467,17 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | CoordinatesKeySpecifier | (() => undefined | CoordinatesKeySpecifier),
 		fields?: CoordinatesFieldPolicy,
 	},
+	CreateDishwatcherDevicePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | CreateDishwatcherDevicePayloadKeySpecifier | (() => undefined | CreateDishwatcherDevicePayloadKeySpecifier),
+		fields?: CreateDishwatcherDevicePayloadFieldPolicy,
+	},
+	CreateICloudConnectionPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | CreateICloudConnectionPayloadKeySpecifier | (() => undefined | CreateICloudConnectionPayloadKeySpecifier),
+		fields?: CreateICloudConnectionPayloadFieldPolicy,
+	},
 	CreateLocationAccessGrantPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | CreateLocationAccessGrantPayloadKeySpecifier | (() => undefined | CreateLocationAccessGrantPayloadKeySpecifier),
 		fields?: CreateLocationAccessGrantPayloadFieldPolicy,
-	},
-	CreateSenecaMoodLogPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | CreateSenecaMoodLogPayloadKeySpecifier | (() => undefined | CreateSenecaMoodLogPayloadKeySpecifier),
-		fields?: CreateSenecaMoodLogPayloadFieldPolicy,
 	},
 	CreateTimelinePhotoWithTimestampPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | CreateTimelinePhotoWithTimestampPayloadKeySpecifier | (() => undefined | CreateTimelinePhotoWithTimestampPayloadKeySpecifier),
@@ -488,9 +487,29 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | CurrentlyPlayingKeySpecifier | (() => undefined | CurrentlyPlayingKeySpecifier),
 		fields?: CurrentlyPlayingFieldPolicy,
 	},
+	DeleteGoogleConnectionPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | DeleteGoogleConnectionPayloadKeySpecifier | (() => undefined | DeleteGoogleConnectionPayloadKeySpecifier),
+		fields?: DeleteGoogleConnectionPayloadFieldPolicy,
+	},
+	DeleteICloudConnectionPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | DeleteICloudConnectionPayloadKeySpecifier | (() => undefined | DeleteICloudConnectionPayloadKeySpecifier),
+		fields?: DeleteICloudConnectionPayloadFieldPolicy,
+	},
 	DeleteLocationAccessGrantPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | DeleteLocationAccessGrantPayloadKeySpecifier | (() => undefined | DeleteLocationAccessGrantPayloadKeySpecifier),
 		fields?: DeleteLocationAccessGrantPayloadFieldPolicy,
+	},
+	DeleteSpotifyConnectionPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | DeleteSpotifyConnectionPayloadKeySpecifier | (() => undefined | DeleteSpotifyConnectionPayloadKeySpecifier),
+		fields?: DeleteSpotifyConnectionPayloadFieldPolicy,
+	},
+	DishwatcherDevice?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | DishwatcherDeviceKeySpecifier | (() => undefined | DishwatcherDeviceKeySpecifier),
+		fields?: DishwatcherDeviceFieldPolicy,
+	},
+	ICloudConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ICloudConnectionKeySpecifier | (() => undefined | ICloudConnectionKeySpecifier),
+		fields?: ICloudConnectionFieldPolicy,
 	},
 	ICloudCredentials?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ICloudCredentialsKeySpecifier | (() => undefined | ICloudCredentialsKeySpecifier),
@@ -511,10 +530,6 @@ export type StrictTypedTypePolicies = {
 	InputFieldError?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | InputFieldErrorKeySpecifier | (() => undefined | InputFieldErrorKeySpecifier),
 		fields?: InputFieldErrorFieldPolicy,
-	},
-	InstagramCredentials?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | InstagramCredentialsKeySpecifier | (() => undefined | InstagramCredentialsKeySpecifier),
-		fields?: InstagramCredentialsFieldPolicy,
 	},
 	JournalEntry?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | JournalEntryKeySpecifier | (() => undefined | JournalEntryKeySpecifier),
@@ -576,6 +591,10 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | NotionCommentKeySpecifier | (() => undefined | NotionCommentKeySpecifier),
 		fields?: NotionCommentFieldPolicy,
 	},
+	OAuthConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | OAuthConnectionKeySpecifier | (() => undefined | OAuthConnectionKeySpecifier),
+		fields?: OAuthConnectionFieldPolicy,
+	},
 	OAuthCredentials?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | OAuthCredentialsKeySpecifier | (() => undefined | OAuthCredentialsKeySpecifier),
 		fields?: OAuthCredentialsFieldPolicy,
@@ -592,22 +611,6 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier),
 		fields?: QueryFieldPolicy,
 	},
-	RemoveGoogleCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | RemoveGoogleCredentialsPayloadKeySpecifier | (() => undefined | RemoveGoogleCredentialsPayloadKeySpecifier),
-		fields?: RemoveGoogleCredentialsPayloadFieldPolicy,
-	},
-	RemoveICloudCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | RemoveICloudCredentialsPayloadKeySpecifier | (() => undefined | RemoveICloudCredentialsPayloadKeySpecifier),
-		fields?: RemoveICloudCredentialsPayloadFieldPolicy,
-	},
-	RemoveInstagramCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | RemoveInstagramCredentialsPayloadKeySpecifier | (() => undefined | RemoveInstagramCredentialsPayloadKeySpecifier),
-		fields?: RemoveInstagramCredentialsPayloadFieldPolicy,
-	},
-	RemoveSpotifyCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | RemoveSpotifyCredentialsPayloadKeySpecifier | (() => undefined | RemoveSpotifyCredentialsPayloadKeySpecifier),
-		fields?: RemoveSpotifyCredentialsPayloadFieldPolicy,
-	},
 	RequestUserEmailVerificationPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | RequestUserEmailVerificationPayloadKeySpecifier | (() => undefined | RequestUserEmailVerificationPayloadKeySpecifier),
 		fields?: RequestUserEmailVerificationPayloadFieldPolicy,
@@ -619,10 +622,6 @@ export type StrictTypedTypePolicies = {
 	SendPensieveMessagePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SendPensieveMessagePayloadKeySpecifier | (() => undefined | SendPensieveMessagePayloadKeySpecifier),
 		fields?: SendPensieveMessagePayloadFieldPolicy,
-	},
-	SenecaMoodLog?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | SenecaMoodLogKeySpecifier | (() => undefined | SenecaMoodLogKeySpecifier),
-		fields?: SenecaMoodLogFieldPolicy,
 	},
 	SpotifyAlbum?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SpotifyAlbumKeySpecifier | (() => undefined | SpotifyAlbumKeySpecifier),
@@ -672,13 +671,9 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | UnlikePensieveMessagePayloadKeySpecifier | (() => undefined | UnlikePensieveMessagePayloadKeySpecifier),
 		fields?: UnlikePensieveMessagePayloadFieldPolicy,
 	},
-	UpdateICloudCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | UpdateICloudCredentialsPayloadKeySpecifier | (() => undefined | UpdateICloudCredentialsPayloadKeySpecifier),
-		fields?: UpdateICloudCredentialsPayloadFieldPolicy,
-	},
-	UpdateInstagramCredentialsPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | UpdateInstagramCredentialsPayloadKeySpecifier | (() => undefined | UpdateInstagramCredentialsPayloadKeySpecifier),
-		fields?: UpdateInstagramCredentialsPayloadFieldPolicy,
+	UpdateDishwatchDevicePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | UpdateDishwatchDevicePayloadKeySpecifier | (() => undefined | UpdateDishwatchDevicePayloadKeySpecifier),
+		fields?: UpdateDishwatchDevicePayloadFieldPolicy,
 	},
 	UpdateJourneysSessionParticipationPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | UpdateJourneysSessionParticipationPayloadKeySpecifier | (() => undefined | UpdateJourneysSessionParticipationPayloadKeySpecifier),

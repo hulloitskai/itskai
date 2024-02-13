@@ -5,9 +5,12 @@ import { InputWrapper, PinInput } from "@mantine/core";
 
 import { VerifyICloudSecurityCodeMutationDocument } from "~/helpers/graphql";
 
-export type ICloudVerifySecurityCodeFormProps = BoxProps;
+export type ICloudVerifySecurityCodeFormProps = BoxProps & {
+  readonly onVerify: () => void;
+};
 
 const ICloudVerifySecurityCodeForm: FC<ICloudVerifySecurityCodeFormProps> = ({
+  onVerify,
   ...otherProps
 }) => {
   // == Mutation
@@ -18,6 +21,7 @@ const ICloudVerifySecurityCodeForm: FC<ICloudVerifySecurityCodeFormProps> = ({
       onCompleted: () => {
         closeAllModals();
         showNotice({ message: "Successfully authenticated with iCloud." });
+        onVerify();
       },
       onError,
     },

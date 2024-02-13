@@ -16,6 +16,32 @@ class PensieveBot < ApplicationService
     @client = T.let(Pensieve.bot_client, T.nilable(Telegram::Bot::Client))
   end
 
+  # == Attributes
+  sig { returns(T.nilable(Telegram::Bot::Client)) }
+  attr_reader :client
+
+  sig { returns(Telegram::Bot::Client) }
+  def client!
+    @client or raise "Telegram client not initialized"
+  end
+
+  sig do
+    params(
+      text: String,
+      chat_id: Integer,
+      reply_to_message_id: T.nilable(Integer),
+    ).returns(T.untyped)
+  end
+  def send_message(text, chat_id:, reply_to_message_id: nil)
+    response = client!.api.send_message(
+      text:,
+      chat_id:,
+      reply_to_message_id:,
+    )
+    raise "Failed to send message: #{response}" if response["ok"] != true
+    response["result"]
+  end
+
   # == Methods
   sig do
     params(
@@ -23,25 +49,13 @@ class PensieveBot < ApplicationService
       reply_to_message_id: T.nilable(Integer),
     ).returns(Telegram::Bot::Types::Message)
   end
-  def send_message(text, reply_to_message_id: nil)
-    raise "Telegram client not initialized" unless @client
-    response = @client.api.send_message(
-      text:,
+  def self.send_message(text, reply_to_message_id: nil)
+    result = instance.send_message(
+      text,
       chat_id: Pensieve.telegram_user_id!,
       reply_to_message_id:,
     )
-    if response["ok"] != true
-      raise "Failed to send message: #{response}"
-    end
-    Telegram::Bot::Types::Message.new(response["result"])
-  end
-
-  sig do
-    params(text: String, reply_to_message_id: T.nilable(Integer))
-      .returns(Telegram::Bot::Types::Message)
-  end
-  def self.send_message(text, reply_to_message_id: nil)
-    instance.send_message(text, reply_to_message_id:)
+    Telegram::Bot::Types::Message.new(result)
   end
 
   sig do
@@ -50,13 +64,12 @@ class PensieveBot < ApplicationService
       bot: Telegram::Bot::Client,
     ).void
   end
-  def receive_message(telegram_message, bot)
+  def self.receive_message(telegram_message, bot)
     if telegram_message.from.id != Pensieve.telegram_user_id!
-      bot.api.send_message(
-        chat_id: telegram_message.chat.id,
-        text:
-          "Sorry, you have to be an allowlisted user to use this " \
+      instance.send_message(
+        "Sorry, you have to be an allowlisted user to use this " \
           "pensieve 😅 (your user ID is: #{telegram_message.from.id})",
+        chat_id: telegram_message.chat.id,
       ) and return
     end
     if (entity = telegram_message.entities&.first)
@@ -79,15 +92,5 @@ class PensieveBot < ApplicationService
     end
     text.strip!
     message.update!(to:, text:, edit_timestamp:)
-  end
-
-  sig do
-    params(
-      telegram_message: Telegram::Bot::Types::Message,
-      bot: Telegram::Bot::Client,
-    ).void
-  end
-  def self.receive_message(telegram_message, bot)
-    instance.receive_message(telegram_message, bot)
   end
 end

@@ -1,0 +1,7 @@
+mutation DeleteSpotifyConnectionMutation(
+  $input: DeleteSpotifyConnectionInput!
+) {
+  payload: deleteSpotifyConnection(input: $input) {
+    success
+  }
+}

@@ -13,6 +13,10 @@ class NotificationsBot < ApplicationService
     @client = T.let(Notifications.bot_client, Telegram::Bot::Client)
   end
 
+  # == Attributes
+  sig { returns(Telegram::Bot::Client) }
+  attr_reader :client
+
   # == Methods
   sig do
     params(
@@ -20,8 +24,8 @@ class NotificationsBot < ApplicationService
       reply_to_message_id: T.nilable(Integer),
     ).returns(Telegram::Bot::Types::Message)
   end
-  def send_message(text, reply_to_message_id: nil)
-    response = @client.api.send_message(
+  def self.send_message(text, reply_to_message_id: nil)
+    response = instance.client.api.send_message(
       text:,
       chat_id: Notifications.telegram_user_id!,
       reply_to_message_id:,
@@ -30,13 +34,5 @@ class NotificationsBot < ApplicationService
       raise "Failed to send message: #{response}"
     end
     Telegram::Bot::Types::Message.new(response["result"])
-  end
-
-  sig do
-    params(text: String, reply_to_message_id: T.nilable(Integer))
-      .returns(Telegram::Bot::Types::Message)
-  end
-  def self.send_message(text, reply_to_message_id: nil)
-    instance.send_message(text.downcase, reply_to_message_id:)
   end
 end

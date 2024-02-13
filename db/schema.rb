@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_31_224949) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_10_221829) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -42,6 +42,20 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_31_224949) do
     t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "dishwatcher_captures", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "device_id", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.index ["device_id"], name: "index_dishwatcher_captures_on_device_id"
+  end
+
+  create_table "dishwatcher_devices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "secret_key", null: false
+    t.index ["secret_key"], name: "index_dishwatcher_devices_on_secret_key", unique: true
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -128,14 +142,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_31_224949) do
     t.datetime "updated_at", null: false
     t.jsonb "session"
     t.string "email", null: false
-  end
-
-  create_table "instagram_credentials", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "username", null: false
-    t.string "password", null: false
-    t.jsonb "session"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "journal_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -343,6 +349,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_31_224949) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "dishwatcher_captures", "dishwatcher_devices", column: "device_id"
   add_foreign_key "journeys_session_participations", "journeys_sessions", column: "session_id"
   add_foreign_key "location_log_addresses", "location_logs"
   add_foreign_key "obsidian_relations", "obsidian_notes", column: "from_id"

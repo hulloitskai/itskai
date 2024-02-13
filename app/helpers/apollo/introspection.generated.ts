@@ -7,9 +7,9 @@
       const result: PossibleTypesResultData = {
   "possibleTypes": {
     "Node": [
+      "DishwatcherDevice",
       "ICloudCredentials",
       "Image",
-      "InstagramCredentials",
       "JournalEntry",
       "JourneysSession",
       "JourneysSessionParticipation",
@@ -17,7 +17,6 @@
       "LocationLog",
       "OAuthCredentials",
       "PensieveMessage",
-      "SenecaMoodLog",
       "TimelineActivity",
       "TimelinePhoto",
       "User"

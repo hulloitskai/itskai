@@ -36,24 +36,4 @@ class ICloudCredentials < ApplicationRecord
             length: { maximum: 100 },
             presence: true
   validates :password, presence: true
-  validate :validate_login, on: %i[create update]
-
-  private
-
-  # == Validators
-  sig { void }
-  def validate_login
-    ICloudClient.from_credentials(self)
-  rescue PyCall::PyError => error
-    if error.type.__name__ == "PyiCloudFailedLoginException"
-      errors.add(
-        :base,
-        :invalid,
-        message: "invalid email or password",
-      )
-      false
-    else
-      raise
-    end
-  end
 end

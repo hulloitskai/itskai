@@ -1,19 +1,12 @@
 query AdminPageQuery {
-  googleCredentials {
-    id
-    ...OAuthCredentialsFormCredentialsFragment
+  googleConnection {
+    ...OAuthConnectionFormConnectionFragment
   }
-  icloudCredentials {
-    ...ICloudCredentialsFormCredentialsFragment
-    id
+  icloudConnection {
+    ...ICloudConnectionFormConnectionFragment
   }
-  instagramCredentials {
-    id
-    ...InstagramCredentialsFormCredentialsFragment
-  }
-  spotifyCredentials {
-    id
-    ...OAuthCredentialsFormCredentialsFragment
+  spotifyConnection {
+    ...OAuthConnectionFormConnectionFragment
   }
   viewer {
     ...AppViewerFragment

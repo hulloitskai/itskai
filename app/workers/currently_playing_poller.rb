@@ -9,6 +9,10 @@ class CurrentlyPlayingPoller < ApplicationWorker
     @task = T.let(@task, T.nilable(Concurrent::TimerTask))
   end
 
+  # == Attributes
+  sig { returns(T.nilable(Concurrent::TimerTask)) }
+  attr_accessor :task
+
   # == Methods
   sig { override.returns(T::Boolean) }
   def self.enabled?
@@ -17,25 +21,25 @@ class CurrentlyPlayingPoller < ApplicationWorker
 
   # == Lifecycle
   sig { override.void }
-  def start
+  def self.start
     stop
-    @task = Concurrent::TimerTask.new(execution_interval: 3) do
+    task = instance.task = Concurrent::TimerTask.new(execution_interval: 3) do
       Rails.application.reloader.wrap do
         CurrentlyPlayingPoll.run
       end
     end
     ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
-      @task.execute
+      task.execute
     end
   end
 
   sig { override.void }
-  def stop
-    if @task
+  def self.stop
+    if (task = instance.task)
       ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
-        @task.kill if @task.running?
+        task.kill if task.running?
       end
-      @task = nil
+      instance.task = nil
     end
   end
 end

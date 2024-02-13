@@ -11,5 +11,9 @@ module Types
     field :email, String, null: false
     field :password, String, null: false
     field :session, GraphQL::Types::JSON
+
+    # == Helpers
+    sig { returns(ICloudCredentials) }
+    def object = super
   end
 end

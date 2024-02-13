@@ -27,10 +27,15 @@ module Types
     field :resume, resolver: Queries::Resume
     field :timezone, resolver: Queries::Timezone
 
-    field :google_credentials, resolver: Queries::GoogleCredentials
-    field :icloud_credentials, resolver: Queries::ICloudCredentials
-    field :instagram_credentials, resolver: Queries::InstagramCredentials
-    field :spotify_credentials, resolver: Queries::SpotifyCredentials
+    field :google_connection,
+          resolver: Queries::GoogleConnection,
+          connection: false
+    field :icloud_connection,
+          resolver: Queries::ICloudConnection,
+          connection: false
+    field :spotify_connection,
+          resolver: Queries::SpotifyConnection,
+          connection: false
 
     field :journal_entry, resolver: Queries::JournalEntry
     field :journal_entry_comments, resolver: Queries::JournalEntryComments

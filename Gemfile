@@ -157,9 +157,6 @@ gem "omniauth-google-oauth2", "~> 1.1"
 # Use RSpotify to read currently playing data from Spotify
 gem "rspotify", "~> 2.12"
 
-# Call Python from Ruby
-gem "pycall", github: "mrkn/pycall", branch: "master"
-
 # Print objects with text wrappers for debugging
 gem "wrapped_print"
 

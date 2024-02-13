@@ -20,16 +20,10 @@ class ApplicationWorker
   end
 
   sig { abstract.void }
-  def start; end
+  def self.start; end
 
-  sig { void }
-  def self.start = instance.start
-
-  sig { overridable.void }
-  def stop; end
-
-  sig { void }
-  def self.stop = instance.stop
+  sig { abstract.void }
+  def self.stop; end
 
   # == Helpers
   sig { returns(String) }

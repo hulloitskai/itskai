@@ -22,12 +22,6 @@ class SyncJournalEntryJob < ApplicationJob
     entry.sync!(options.compact)
   end
 
-  # == Methods
-  sig { returns(T::Boolean) }
-  def self.enabled?
-    NotionClient.enabled?
-  end
-
   private
 
   # == Callback Handlers

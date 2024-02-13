@@ -6,6 +6,7 @@ require "badwords"
 
 class LyricsClient < ApplicationService
   include Singleton
+  extend T::Sig
 
   # == Initialization
   sig { void }
@@ -26,14 +27,17 @@ class LyricsClient < ApplicationService
       end,
       Faraday::Connection,
     )
-    @access_token = T.let(nil, T.nilable(SpotifyAccessToken))
   end
+
+  # == Attributes
+  sig { returns(Faraday::Connection) }
+  attr_reader :conn
 
   # == Methods
   sig { params(track_id: String).returns(T.nilable(T::Array[LyricLine])) }
-  def retrieve_lyrics(track_id)
+  def self.retrieve_lyrics(track_id)
     token = access_token
-    response = @conn.get(
+    response = instance.conn.get(
       "https://spclient.wg.spotify.com/color-lyrics/v2/track/#{track_id}",
       { "format" => "json", "market" => "from_token" },
       {
@@ -58,19 +62,15 @@ class LyricsClient < ApplicationService
     end
   end
 
-  sig { params(track_id: String).returns(T.nilable(T::Array[LyricLine])) }
-  def self.retrieve_lyrics(track_id)
-    instance.retrieve_lyrics(track_id)
-  end
-
   private
 
   # == Helpers
   sig { returns(String) }
-  def access_token
+  private_class_method def self.access_token
+    @access_token = T.let(nil, T.nilable(SpotifyAccessToken))
     @access_token = nil if @access_token&.expired?
     @access_token ||= scoped do
-      response = @conn.get(
+      response = instance.conn.get(
         "https://open.spotify.com/get_access_token",
         { "reason" => "transport", "productType" => "web_player" },
         { "Cookie" => cookie_header },
@@ -87,19 +87,19 @@ class LyricsClient < ApplicationService
   end
 
   sig { returns(String) }
-  def cookie_header
+  private_class_method def self.cookie_header
     cookies = [HTTP::Cookie.new("sp_dc", Lyrics.sp_dc!)]
     HTTP::Cookie.cookie_value(cookies)
   end
 
   sig { params(words: String).returns(String) }
-  def normalize_words(words)
+  private_class_method def self.normalize_words(words)
     words = words.strip
     words == "♪" ? "" : words
   end
 
   sig { params(words: String).returns(T::Boolean) }
-  def explicit_words?(words)
+  private_class_method def self.explicit_words?(words)
     if words.present?
       normalized_words = words.downcase
       Badwords.current.any? { |word| normalized_words.include?(word) }

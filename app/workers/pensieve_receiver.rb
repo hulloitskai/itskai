@@ -12,23 +12,23 @@ class PensieveReceiver < ApplicationWorker
     @thread = T.let(nil, T.nilable(Thread))
   end
 
-  # == Methods
-  sig { returns(T::Boolean) }
-  def ready?
-    @client.present?
-  end
+  sig { returns(T.nilable(Telegram::Bot::Client)) }
+  attr_reader :client
+
+  sig { returns(T.nilable(Thread)) }
+  attr_accessor :thread
 
   # == Lifecycle
   sig { override.returns(T::Boolean) }
   def self.enabled?
-    super && instance.ready?
+    super && instance.client.present?
   end
 
   sig { override.void }
-  def start
-    raise "Telegram client not initialized" unless @client
-    @thread ||= Thread.new do
-      @client.run do |bot|
+  def self.start
+    client = instance.client or raise "Telegram client not initialized"
+    instance.thread ||= Thread.new do
+      client.run do |bot|
         bot.listen do |message|
           Rails.application.reloader.wrap do
             with_log_tags do
@@ -42,12 +42,12 @@ class PensieveReceiver < ApplicationWorker
   end
 
   sig { override.void }
-  def stop
-    if @thread
+  def self.stop
+    if (thread = instance.thread)
       ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
-        @thread.kill if @thread.status
+        thread.kill if thread.status.in?(%w[run sleep])
       end
-      @thread = nil
+      instance.thread = nil
     end
   end
 end
