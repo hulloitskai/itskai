@@ -1,7 +1,6 @@
 from flask import Flask, request
 import fastwsgi
 from os import environ
-from pprint import pp
 
 from pyicloud import PyiCloudService
 from pyicloud.exceptions import (
@@ -9,7 +8,6 @@ from pyicloud.exceptions import (
     PyiCloudAPIResponseException,
 )
 
-# from pyicloud.services.findmyiphone import AppleDevice
 
 app = Flask(__name__)
 service: PyiCloudService | None = None
@@ -86,7 +84,6 @@ def device():
     if not service:
         return {"error": "Service not connected"}, 400
     device = service.devices.get(id)
-    pp(device)
     data = {"device": dict(device)}
     return {"data": data}
 
