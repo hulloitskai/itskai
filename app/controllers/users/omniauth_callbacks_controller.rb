@@ -9,12 +9,6 @@ module Users
     # == Filters
     before_action :authenticate_user!
 
-    # == Initialization
-    def initialize(*args)
-      super
-      @user = T.let(@user, T.nilable(User))
-    end
-
     # == Actions
     # GET /user/auth/spotify/callback
     def spotify
@@ -33,7 +27,9 @@ module Users
             "#{refresh_token})",
         )
       end
-      set_flash_message(:notice, :success, kind: "Spotify")
+      if is_navigational_format?
+        set_flash_message(:notice, :success, kind: "Spotify")
+      end
       redirect_to(admin_path)
       response.set_header("Location", response.get_header("Location") + "#")
     end
@@ -55,7 +51,9 @@ module Users
             "#{refresh_token})",
         )
       end
-      set_flash_message(:notice, :success, kind: "Google")
+      if is_navigational_format?
+        set_flash_message(:notice, :success, kind: "Google")
+      end
       redirect_to(admin_path)
       # response.set_header("Location", response.get_header("Location") + "#")
     end

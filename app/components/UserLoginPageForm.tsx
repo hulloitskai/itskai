@@ -1,9 +1,10 @@
 import type { FC } from "react";
+import type { BoxProps } from "@mantine/core";
 import { PasswordInput } from "@mantine/core";
 
 import type { UserLoginPageProps } from "~/pages/UserLoginPage";
 
-export type UserLoginPageFormProps = {};
+export type UserLoginPageFormProps = BoxProps;
 
 export type UserLoginPageFormValues = {
   readonly email: string;
@@ -11,7 +12,7 @@ export type UserLoginPageFormValues = {
   readonly rememberMe: boolean;
 };
 
-const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
+const UserLoginPageForm: FC<UserLoginPageFormProps> = props => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -27,7 +28,8 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
   const { rememberMe } = values;
 
   return (
-    <form
+    <Box
+      component="form"
       onSubmit={onSubmit(({ email, password, rememberMe }) => {
         const data = {
           user: {
@@ -53,6 +55,7 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
           },
         });
       })}
+      {...props}
     >
       <Stack gap="xs">
         <TextInput
@@ -90,7 +93,7 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = () => {
           Sign in
         </Button>
       </Stack>
-    </form>
+    </Box>
   );
 };
 

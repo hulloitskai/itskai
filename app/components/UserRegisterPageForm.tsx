@@ -1,9 +1,10 @@
 import type { FC } from "react";
 import { PasswordInput } from "@mantine/core";
+import type { BoxProps } from "@mantine/core";
 
 import PasswordWithStrengthCheckInput from "./PasswordWithStrengthCheckInput";
 
-export type UserRegisterPageFormProps = {};
+export type UserRegisterPageFormProps = BoxProps;
 
 export type UserRegisterPageFormValues = {
   readonly name: string;
@@ -12,7 +13,7 @@ export type UserRegisterPageFormValues = {
   readonly passwordConfirmation: string;
 };
 
-const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
+const UserRegisterPageForm: FC<UserRegisterPageFormProps> = props => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0.0);
@@ -45,7 +46,8 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
     });
 
   return (
-    <form
+    <Box
+      component="form"
       onSubmit={onSubmit(({ name, email, password, passwordConfirmation }) => {
         const data = {
           user: {
@@ -67,6 +69,7 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
           onFinish: () => setLoading(false),
         });
       })}
+      {...props}
     >
       <Stack gap="xs">
         <TextInput
@@ -98,7 +101,7 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = () => {
           Sign up
         </Button>
       </Stack>
-    </form>
+    </Box>
   );
 };
 

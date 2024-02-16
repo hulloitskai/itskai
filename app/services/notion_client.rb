@@ -23,12 +23,6 @@ class NotionClient < ApplicationService
     client or raise "Notion client not initialized"
   end
 
-  # == Methods
-  sig { returns(T::Boolean) }
-  def self.enabled?
-    instance.client.present?
-  end
-
   # == Pages
   sig { params(database_id: String, options: T.untyped).returns(T.untyped) }
   def self.list_pages(database_id, **options)

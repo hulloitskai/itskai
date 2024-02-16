@@ -128,7 +128,8 @@ class ICloudClient < ApplicationService
   )
     return if response.success?
     error = response.body["error"] or return
-    raise error_class || ServiceError, error
+    error_class = ServiceError if error_class.nil?
+    raise error_class, error
   end
 
   sig do

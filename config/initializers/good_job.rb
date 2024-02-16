@@ -31,6 +31,7 @@ Rails.application.configure do
     config.retry_on_unhandled_error = false
     config.on_thread_error = ->(error) do
       error = T.let(error, Exception)
+      Rails.logger.error("Good Job thread error: #{error}")
       Rails.error.report(error, handled: false)
     end
   end
