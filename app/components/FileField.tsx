@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import type { ReactNode } from "react";
 import type { UseFormReturnType } from "@mantine/form";
 import type { UploadInput } from "~/helpers/graphql";
 
@@ -9,39 +9,49 @@ import { Dropzone } from "@mantine/dropzone";
 import type { DropzoneProps } from "@mantine/dropzone";
 
 import { Input, Text } from "@mantine/core";
-import type { InputWrapperProps } from "@mantine/core";
+import type { BoxProps, InputWrapperProps } from "@mantine/core";
+import type { LooseKeys } from "@mantine/form/lib/types";
 
 import FileFieldUploadCard from "./FileFieldUploadCard";
 import FileFieldFileCard from "./FileFieldFileCard";
 
 import "@mantine/dropzone/styles.layer.css";
 
-export type FileFieldProps = Omit<
-  InputWrapperProps,
-  "inputContainer" | "inputWrapperOrder" | "size" | "children" | "onChange"
-> &
+export type FileFieldProps<Values = Record<string, unknown>> = BoxProps &
+  Pick<
+    InputWrapperProps,
+    | "variant"
+    | "labelElement"
+    | "label"
+    | "labelProps"
+    | "description"
+    | "descriptionProps"
+    | "error"
+    | "errorProps"
+    | "required"
+    | "withAsterisk"
+  > &
   Pick<
     DropzoneProps,
     "accept" | "maxSize" | "maxFiles" | "disabled" | "children"
   > & {
     readonly multiple?: boolean;
     readonly fileLabel?: string;
-    readonly form: UseFormReturnType<any>;
-    readonly name: string;
+    readonly form: UseFormReturnType<Values, any>;
+    readonly name: LooseKeys<Values>;
   };
 
-const FileField: FC<FileFieldProps> = ({
+const FileField = <Values = Record<string, unknown>,>({
   variant,
   labelElement,
   label,
   labelProps,
   description,
   descriptionProps,
-  error,
+  error: errorProp,
   errorProps,
   required,
   withAsterisk,
-  style,
   multiple,
   accept,
   maxSize,
@@ -51,8 +61,16 @@ const FileField: FC<FileFieldProps> = ({
   fileLabel: fileLabelProp,
   form,
   name,
-}) => {
-  const value = useMemo(() => get(form.values, name), [form, name]);
+  ...otherProps
+}: FileFieldProps<Values>): ReactNode => {
+  const value = useMemo<UploadInput | UploadInput[] | null | undefined>(
+    () => get(form.values, name),
+    [form, name],
+  );
+  const error = useMemo<string | undefined>(
+    () => get(form.errors, name) || errorProp,
+    [form, name, errorProp],
+  );
 
   // == Uploading
   const [uploadingFiles, setUploadingFiles] = useState<File[]>([]);
@@ -64,27 +82,26 @@ const FileField: FC<FileFieldProps> = ({
   );
 
   return (
-    <Input.Wrapper
-      {...{
-        variant,
-        labelElement,
-        label,
-        labelProps,
-        description,
-        descriptionProps,
-        error,
-        errorProps,
-        required,
-        withAsterisk,
-        style,
-      }}
-    >
-      <Stack gap="xs" my={4}>
+    <Stack gap="xs" my={4} {...otherProps}>
+      <Input.Wrapper
+        {...{
+          variant,
+          labelElement,
+          label,
+          labelProps,
+          description,
+          descriptionProps,
+          error,
+          errorProps,
+          required,
+          withAsterisk,
+        }}
+      >
         <Dropzone
           multiple={multiple ?? false}
           onDrop={files => {
             if (!multiple) {
-              form.setFieldValue(name, null);
+              form.setFieldValue(name, null as any);
             }
             setUploadingFiles(prevFiles =>
               uniqBy([...prevFiles, ...files], "name"),
@@ -115,57 +132,57 @@ const FileField: FC<FileFieldProps> = ({
             </Text>
           </Stack>
         </Dropzone>
-        {!isEmpty(uploadingFiles) && (
-          <>
-            <Divider label="Uploading" />
-            <Stack gap={8}>
-              {uploadingFiles.map(file => (
-                <FileFieldUploadCard
-                  key={file.name}
-                  onUploaded={blob => {
-                    setUploadingFiles(prevFiles =>
-                      prevFiles.filter(({ name }) => name !== file.name),
-                    );
-                    const input: UploadInput = { signedId: blob.signed_id };
-                    if (multiple) {
-                      form.insertListItem(name, input);
-                    } else {
-                      form.setFieldValue(name, input);
-                    }
-                  }}
-                  {...{ file }}
-                />
-              ))}
-            </Stack>
-          </>
-        )}
-        {!isEmpty(value) && (
-          <>
-            <Divider label="Ready" />
-            <Stack gap={8}>
-              {multiple ? (
-                ((value ?? []) as UploadInput[]).map(({ signedId }, index) => (
-                  <FileFieldFileCard
-                    key={signedId}
-                    onRemove={() => {
-                      form.removeListItem(name, index);
-                    }}
-                    {...{ signedId }}
-                  />
-                ))
-              ) : (
+      </Input.Wrapper>
+      {!isEmpty(uploadingFiles) && (
+        <>
+          <Divider label="Uploading" />
+          <Stack gap={8}>
+            {uploadingFiles.map(file => (
+              <FileFieldUploadCard
+                key={file.name}
+                onUploaded={blob => {
+                  setUploadingFiles(prevFiles =>
+                    prevFiles.filter(({ name }) => name !== file.name),
+                  );
+                  const input: UploadInput = { signedId: blob.signed_id };
+                  if (multiple) {
+                    form.insertListItem(name, input);
+                  } else {
+                    form.setFieldValue(name, input as any);
+                  }
+                }}
+                {...{ file }}
+              />
+            ))}
+          </Stack>
+        </>
+      )}
+      {!isEmpty(value) && (
+        <>
+          <Divider label="Ready" />
+          <Stack gap={8}>
+            {multiple ? (
+              ((value ?? []) as UploadInput[]).map(({ signedId }, index) => (
                 <FileFieldFileCard
+                  key={signedId}
                   onRemove={() => {
-                    form.setFieldError(name, null);
+                    form.removeListItem(name, index);
                   }}
-                  signedId={(value as UploadInput).signedId}
+                  {...{ signedId }}
                 />
-              )}
-            </Stack>
-          </>
-        )}
-      </Stack>
-    </Input.Wrapper>
+              ))
+            ) : (
+              <FileFieldFileCard
+                onRemove={() => {
+                  form.setFieldError(name, null);
+                }}
+                signedId={(value as UploadInput).signedId}
+              />
+            )}
+          </Stack>
+        </>
+      )}
+    </Stack>
   );
 };
 

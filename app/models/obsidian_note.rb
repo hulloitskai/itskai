@@ -84,7 +84,7 @@ class ObsidianNote < ApplicationRecord
   after_commit :analyze_later, on: %i[create update], if: :analysis_required?
 
   # == FriendlyId
-  friendly_id :name, slug_column: "slug"
+  friendly_id :name
 
   # == Analysis
   sig { params(force: T::Boolean).void }

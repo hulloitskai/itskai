@@ -11,10 +11,7 @@ module Queries
     # == Resolver
     sig { returns(T::Enumerable[::Journeys::Session]) }
     def resolve
-      sessions = T.cast(
-        authorized_scope(Journeys::Session.all),
-        Journeys::Session::PrivateRelation,
-      )
+      sessions = authorized_scope(Journeys::Session.all)
       sessions.reverse_chronological
     end
   end

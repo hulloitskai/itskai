@@ -18,10 +18,7 @@ module Queries
       unless after.before?(before)
         raise GraphQL::ExecutionError, "`after' must occur prior to `before'."
       end
-      activities = T.cast(
-        authorized_scope(TimelineActivity.all),
-        TimelineActivity::PrivateRelation,
-      )
+      activities = authorized_scope(TimelineActivity.all)
       activities
         .where("duration && tstzrange(?, ?)", after, before)
         .order(:duration)

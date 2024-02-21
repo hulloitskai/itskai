@@ -9,10 +9,7 @@ module Queries
     # == Resolver
     sig { returns(T::Enumerable[::LocationAccessGrant]) }
     def resolve
-      grants = T.cast(
-        authorized_scope(::LocationAccessGrant.all),
-        ::LocationAccessGrant::PrivateRelation,
-      )
+      grants = authorized_scope(::LocationAccessGrant.all)
       grants.valid
     end
   end

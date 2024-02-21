@@ -40,7 +40,9 @@ const AppMeta: FC<AppMetaProps> = ({
     if (!pageVisible && !title) {
       title = "🥺 come back";
     }
-    return [title, APP_META_SITE_NAME].join(` ${APP_META_TITLE_SEPARATOR} `);
+    return [title, APP_META_SITE_NAME]
+      .filter(component => !!component)
+      .join(` ${APP_META_TITLE_SEPARATOR} `);
   }, [pageTitle, pageVisible]);
 
   return (
