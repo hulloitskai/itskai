@@ -26,7 +26,13 @@ class ResumesController < ApplicationController
         render(inertia: "ResumePage", props: props.compact)
       end
       format.json do
-        render(json: Resume.current(variant: variant&.to_sym))
+        data = Resume.current(variant: variant&.to_sym)
+        json = JSON.neat_generate(
+          data,
+          after_colon: 1,
+          object_padding: 1,
+        )
+        render(json:)
       end
       format.pdf do
         name = ["kai-xie-resume", variant].compact.join("--")

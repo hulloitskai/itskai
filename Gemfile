@@ -222,6 +222,9 @@ gem "rack-mini-profiler"
 gem "memory_profiler"
 gem "stackprof"
 
+# Render pretty JSON with NeatJSON
+gem "neatjson", "~> 0.10.5"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"
