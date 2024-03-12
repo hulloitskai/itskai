@@ -6,20 +6,20 @@ import "./ResumeLayout.css";
 import classes from "./ResumeLayout.module.css";
 
 type ResumeLayoutProps = PropsWithChildren<{
-  readonly printable?: boolean;
+  readonly printMode?: boolean;
 }>;
 
-const ResumeLayout: FC<ResumeLayoutProps> = ({ printable, children }) => (
+const ResumeLayout: FC<ResumeLayoutProps> = ({ printMode, children }) => (
   <>
     <AppMeta title="Resume" />
     <Container
       px="0.75in"
       py="0.4in"
-      mb={printable ? 0 : 135}
+      mb={printMode ? 0 : 135}
       bg="var(--mantine-color-white)"
       c="var(--mantine-color-black)"
       className={cx("resume-layout", classes.container)}
-      mod={{ printable }}
+      mod={{ "print-mode": printMode }}
     >
       <Stack gap="xs">{children}</Stack>
     </Container>

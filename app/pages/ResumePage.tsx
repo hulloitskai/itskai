@@ -16,12 +16,12 @@ import ResumeDialog from "~/components/ResumeDialog";
 
 export type ResumePageProps = PagePropsWithData<ResumePageQuery> & {
   readonly variant?: string;
-  readonly printable?: boolean;
+  readonly printMode?: boolean;
 };
 
 const ResumePage: PageComponent<ResumePageProps> = ({
   variant,
-  printable,
+  printMode,
   data: { resume },
 }) => {
   const { basics, work, education, skills } = resume as Resume;
@@ -33,7 +33,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
       theme={{ primaryColor: "indigo" }}
       forceColorScheme="light"
     >
-      <ResumeLayout {...{ printable }}>
+      <ResumeLayout {...{ printMode }}>
         <Box>
           <Group justify="space-between" gap="xs" wrap="nowrap">
             {!!basics?.name && (
@@ -76,7 +76,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
               <Anchor
                 target="_blank"
                 rel="noopener noreferrer nofollow"
-                {...(printable && {
+                {...(printMode && {
                   href: `mailto:Kai Xie<${email}>?subject=Let's%20work%20together!`,
                 })}
               >
@@ -98,7 +98,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                     },
                   }}
                 >
-                  {printable ? email : obfuscatedEmail}
+                  {printMode ? email : obfuscatedEmail}
                 </Badge>
               </Anchor>
             </Box>
@@ -184,7 +184,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
           </Box>
         )}
       </ResumeLayout>
-      {!printable && <ResumeDialog {...{ variant }} />}
+      {!printMode && <ResumeDialog {...{ variant }} />}
     </MantineProvider>
   );
 };

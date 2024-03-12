@@ -16,13 +16,9 @@ class ResumesController < ApplicationController
     variant = T.cast(params["variant"].presence, T.nilable(String))
     respond_to do |format|
       format.html do
-        printable = params["_printable"].truthy?
+        print_mode = request.headers["X-Print-Mode"].truthy?
         data = query!("ResumePageQuery", { variant: })
-        props = {
-          data:,
-          variant:,
-          printable:,
-        }
+        props = { data:, variant:, print_mode: }
         render(inertia: "ResumePage", props: props.compact)
       end
       format.json do
@@ -65,6 +61,7 @@ class ResumesController < ApplicationController
       ) do |playwright|
         playwright.chromium.launch do |browser|
           page = T.let(browser.new_page, Playwright::Page)
+          page.set_extra_http_headers("X-Print-Mode" => "true")
           params = { variant:, _printable: true }
           url = resume_url(
             protocol: "http",
