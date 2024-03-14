@@ -46,7 +46,6 @@ module Types
     field :journeys_sessions, resolver: Queries::JourneysSessions
 
     field :location_access_grants, resolver: Queries::LocationAccessGrants
-    field :pensieve_messages, resolver: Queries::PensieveMessages
     field :timeline_activities,
           resolver: Queries::TimelineActivities
   end

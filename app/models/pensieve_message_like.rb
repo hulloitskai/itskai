@@ -32,20 +32,6 @@ class PensieveMessageLike < ApplicationRecord
   after_create_commit :update_activity_status
   after_create_commit :send_notification_later
 
-  # == Methods
-  sig { void }
-  def send_notification
-    PensieveBot.send_message(
-      "Someone liked your message.",
-      reply_to_message_id: message!.telegram_message_id,
-    )
-  end
-
-  sig { void }
-  def send_notification_later
-    SendPensieveMessageLikeNotificationJob.perform_later(self)
-  end
-
   private
 
   # == Callback Handlers

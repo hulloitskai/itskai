@@ -1,6 +1,0 @@
-fragment PensieveMessageFragment on PensieveMessage {
-  from
-  id
-  ...PensieveMessageMessageFragment
-  timestamp
-}

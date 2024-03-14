@@ -29,10 +29,6 @@ module Types
           mutation: Mutations::AddJournalEntryComment
     field :sync_journal_entries, mutation: Mutations::SyncJournalEntries
 
-    field :like_pensieve_message, mutation: Mutations::LikePensieveMessage
-    field :send_pensieve_message, mutation: Mutations::SendPensieveMessage
-    field :unlike_pensieve_message, mutation: Mutations::UnlikePensieveMessage
-
     field :create_location_access_grant,
           mutation: Mutations::CreateLocationAccessGrant
     field :delete_location_access_grant,

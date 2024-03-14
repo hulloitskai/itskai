@@ -1,5 +1,0 @@
-fragment PensieveMessageLikeMessageFragment on PensieveMessage {
-  id
-  likedByViewer
-  likes
-}
