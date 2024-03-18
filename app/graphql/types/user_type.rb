@@ -14,6 +14,12 @@ module Types
     field :pensieve_recordings, [PensieveRecordingType], null: false
     field :unverified_email, String, method: :unconfirmed_email
 
+    # == Resolvers
+    sig { returns(T::Enumerable[PensieveRecording]) }
+    def pensieve_recordings
+      object.pensieve_recordings.reverse_chronological
+    end
+
     # == Helpers
     sig { override.returns(User) }
     def object = super

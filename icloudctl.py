@@ -91,6 +91,7 @@ def device():
 def main():
     debug = environ.get("DEBUG") or ""
     if debug.lower() in ("1", "y", "yes", "t", "true"):
+        environ["FLASK_SKIP_DOTENV"] = "true"
         app.run(port=3001, debug=True)
     else:
         fastwsgi.run(wsgi_app=app, port=3001)

@@ -5,11 +5,12 @@
 #
 # Table name: pensieve_recordings
 #
-#  id            :uuid             not null, primary key
-#  transcription :text
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  user_id       :uuid             not null
+#  id             :uuid             not null, primary key
+#  transcribed_at :datetime
+#  transcription  :text
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  user_id        :uuid             not null
 #
 # Indexes
 #
@@ -20,11 +21,15 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class PensieveRecording < ApplicationRecord
+  # == Attachments
+  has_one_attached :audio
+
   # == Associations
   belongs_to :user
 
-  # == Attachments
-  has_one_attached :audio
+  # == Scopes
+  scope :transcribed, -> { where.not(transcribed_at: nil) }
+  scope :untranscribed, -> { where(transcribed_at: nil) }
 
   sig { returns(ActiveStorage::Blob) }
   def audio_blob!
@@ -33,6 +38,7 @@ class PensieveRecording < ApplicationRecord
 
   # == Callbacks
   after_commit :trigger_subscriptions, on: %i[create update]
+  after_create_commit :transcribe_later
 
   # == Methods
   sig { returns(String) }
@@ -55,13 +61,18 @@ class PensieveRecording < ApplicationRecord
       })
       response.fetch("text")
     end
-    update!(transcription:)
+    update!(transcription:, transcribed_at: Time.current)
     transcription
   end
 
   sig { returns(String) }
   def transcribe!
     transcription or transcribe
+  end
+
+  sig { params(force: T.nilable(T::Boolean)).void }
+  def transcribe_later(force: nil)
+    TranscribePensieveRecordingJob.perform_later(self, force:)
   end
 
   private
