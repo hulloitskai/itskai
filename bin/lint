@@ -27,7 +27,7 @@ OptionParser.new do |opts|
 end.parse!
 
 # == Formatting
-puts "=> Running Rubocop"
+puts "=> Running RuboCop"
 scoped do
   args = []
   args << "--autocorrect" if options[:fix]
@@ -39,7 +39,7 @@ scoped do
   )
 end
 
-puts "\n=> Running Eslint"
+puts "\n=> Running ESLint"
 scoped do
   args = %w[--ext .js,.jsx,.ts,.tsx,.graphql]
   args << "--fix" if options[:fix]

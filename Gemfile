@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.2"
+ruby "3.3.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.2"
@@ -244,7 +244,7 @@ group :development do
   # Typecheck code
   gem "sorbet", require: false
   gem "spoom", require: false
-  gem "tapioca", "~> 0.11.13", require: false
+  gem "tapioca", "~> 0.12.0", require: false
 
   # Use Rubocop to lint code
   gem "rubocop", "~> 1.57", require: false

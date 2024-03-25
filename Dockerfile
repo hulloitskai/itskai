@@ -8,7 +8,7 @@ WORKDIR /app
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
   --mount=type=cache,target=/var/lib/apt,sharing=locked \
   apt-get -y update -q \
-  && apt-get install -yq --no-install-recommends --no-install-suggests curl tmux git build-essential ca-certificates libyaml-dev libssl-dev libffi-dev libreadline-dev zlib1g-dev \
+  && apt-get install -yq --no-install-recommends --no-install-suggests curl tmux git build-essential ca-certificates libyaml-dev libssl-dev libffi-dev libreadline-dev zlib1g-dev libjemalloc-dev \
   && truncate -s 0 /var/log/*log
 
 # Install NodeJS and Yarn
@@ -37,7 +37,7 @@ RUN git clone --depth 1 --no-checkout https://github.com/pyenv/pyenv.git \
 # Install Ruby and Bundler
 COPY .ruby-version ./
 ENV LANG=C.UTF-8 GEM_HOME=/usr/local/bundle
-ENV BUNDLE_SILENCE_ROOT_WARNING=1 BUNDLE_APP_CONFIG="$GEM_HOME" PATH="$GEM_HOME/bin:$PATH"
+ENV BUNDLE_SILENCE_ROOT_WARNING=1 BUNDLE_APP_CONFIG="$GEM_HOME" PATH="$GEM_HOME/bin:$PATH" RUBY_CONFIGURE_OPTS=--with-jemalloc
 RUN git clone --depth 1 https://github.com/rbenv/ruby-build.git \
   && PREFIX=/tmp ./ruby-build/install.sh \
   && mkdir -p "$GEM_HOME" && chmod 1777 "$GEM_HOME" \
@@ -90,7 +90,7 @@ COPY .bash_profile .inputrc /root/
 COPY starship.toml /root/.config/starship.toml
 
 # Configure application environment
-ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true
+ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true,stats_print:true"
 
 # Copy application code
 COPY . ./
