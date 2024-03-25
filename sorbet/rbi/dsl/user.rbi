@@ -262,6 +262,20 @@ class User
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Blob) }
     def create_avatar_blob!(*args, &blk); end
 
+    sig { returns(T::Array[T.untyped]) }
+    def pensieve_recording_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def pensieve_recording_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `User` class because it declared `has_many :pensieve_recordings`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::PensieveRecording::PrivateCollectionProxy) }
+    def pensieve_recordings; end
+
+    sig { params(value: T::Enumerable[::PensieveRecording]).void }
+    def pensieve_recordings=(value); end
+
     sig { returns(T.nilable(::ActiveStorage::Attachment)) }
     def reload_avatar_attachment; end
 

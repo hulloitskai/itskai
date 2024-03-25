@@ -1,15 +1,30 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import type { PensievePageQuery } from "~/helpers/graphql";
-import { Text } from "@mantine/core";
 
 import AppLayout from "~/components/AppLayout";
+import PensieveRecordingCreateForm from "~/components/PensieveRecordingCreateForm";
+import PensieveRecordingCard from "~/components/PensieveRecordingCard";
 
 export type PensievePageProps = PagePropsWithData<PensievePageQuery>;
 
-const PensievePage: PageComponent<PensievePageProps> = () => {
+const PensievePage: PageComponent<PensievePageProps> = ({
+  data: { viewer },
+}) => {
+  invariant(viewer, "Missing viewer");
+
+  // == Routing
+  const router = useRouter();
+
   return (
-    <Stack>
-      <Text>hi</Text>
+    <Stack gap="sm">
+      <PensieveRecordingCreateForm
+        onCreate={() => {
+          router.reload({ preserveScroll: true });
+        }}
+      />
+      {viewer.recordings.map(recording => (
+        <PensieveRecordingCard key={recording.id} {...{ recording }} />
+      ))}
     </Stack>
   );
 };
@@ -25,10 +40,8 @@ PensievePage.layout = buildLayout<PensievePageProps>(
         { title: "Pensieve", href: "/pensieve" },
       ]}
       withContainer
-      containerProps={{
-        style: { flexGrow: 1, display: "flex", flexDirection: "column" },
-      }}
       withGutter
+      containerSize="xs"
       {...{ viewer }}
     >
       {page}

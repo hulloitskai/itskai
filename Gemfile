@@ -190,6 +190,9 @@ gem "google_calendar", "~> 0.6.4"
 # Detect what OS we are running on
 gem "os", "~> 1.1"
 
+# Interact with Kai on Telegram
+gem "telegram-bot-ruby", "~> 1.0", require: 'telegram/bot'
+
 # Hash passwords with bcrypt
 gem "bcrypt", "~> 3.1"
 

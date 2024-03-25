@@ -9,6 +9,7 @@ module Types
     field :journeys_session_participation,
           subscription: Subscriptions::JourneysSessionParticipation
     field :location, subscription: Subscriptions::Location
+    field :pensieve_recording, subscription: Subscriptions::PensieveRecording
     field :test_subscription, subscription: Subscriptions::TestSubscription
   end
 end

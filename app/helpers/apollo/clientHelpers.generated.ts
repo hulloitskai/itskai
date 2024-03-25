@@ -35,6 +35,12 @@ export type CreateLocationAccessGrantPayloadFieldPolicy = {
 	grant?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type CreatePensieveRecordingPayloadKeySpecifier = ('clientMutationId' | 'recording' | 'success' | CreatePensieveRecordingPayloadKeySpecifier)[];
+export type CreatePensieveRecordingPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	recording?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type CreateTimelinePhotoWithTimestampPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'photo' | 'success' | CreateTimelinePhotoWithTimestampPayloadKeySpecifier)[];
 export type CreateTimelinePhotoWithTimestampPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -75,6 +81,15 @@ export type DishwatcherDeviceFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	secretKey?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type FileKeySpecifier = ('byteSize' | 'contentType' | 'filename' | 'id' | 'signedId' | 'url' | FileKeySpecifier)[];
+export type FileFieldPolicy = {
+	byteSize?: FieldPolicy<any> | FieldReadFunction<any>,
+	contentType?: FieldPolicy<any> | FieldReadFunction<any>,
+	filename?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	signedId?: FieldPolicy<any> | FieldReadFunction<any>,
+	url?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type ICloudConnectionKeySpecifier = ('credentials' | 'status' | ICloudConnectionKeySpecifier)[];
 export type ICloudConnectionFieldPolicy = {
 	credentials?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -88,9 +103,10 @@ export type ICloudCredentialsFieldPolicy = {
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
 	session?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ImageKeySpecifier = ('byteSize' | 'filename' | 'id' | 'signedId' | 'src' | 'url' | ImageKeySpecifier)[];
+export type ImageKeySpecifier = ('byteSize' | 'contentType' | 'filename' | 'id' | 'signedId' | 'src' | 'url' | ImageKeySpecifier)[];
 export type ImageFieldPolicy = {
 	byteSize?: FieldPolicy<any> | FieldReadFunction<any>,
+	contentType?: FieldPolicy<any> | FieldReadFunction<any>,
 	filename?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	signedId?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -158,12 +174,6 @@ export type LeaveJourneysSessionPayloadFieldPolicy = {
 	session?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type LikePensieveMessagePayloadKeySpecifier = ('clientMutationId' | 'message' | 'success' | LikePensieveMessagePayloadKeySpecifier)[];
-export type LikePensieveMessagePayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	message?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
 export type LocationAccessGrantKeySpecifier = ('createdAt' | 'expiresAt' | 'id' | 'locateUrl' | 'password' | 'recipient' | LocationAccessGrantKeySpecifier)[];
 export type LocationAccessGrantFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -201,13 +211,14 @@ export type LyricLineFieldPolicy = {
 	startTimeMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	words?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'createDishwatchDevice' | 'createICloudConnection' | 'createLocationAccessGrant' | 'createTimelinePhotoWithTimestamp' | 'deleteGoogleConnection' | 'deleteICloudConnection' | 'deleteLocationAccessGrant' | 'deleteSpotifyConnection' | 'importTimelineActivities' | 'importTimelinePhotos' | 'leaveJourneysSession' | 'likePensieveMessage' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'syncJournalEntries' | 'syncLocationLogs' | 'testMutation' | 'unlikePensieveMessage' | 'updateDishwatchDevice' | 'updateJourneysSessionParticipation' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'createDishwatchDevice' | 'createICloudConnection' | 'createLocationAccessGrant' | 'createPensieveRecording' | 'createTimelinePhotoWithTimestamp' | 'deleteGoogleConnection' | 'deleteICloudConnection' | 'deleteLocationAccessGrant' | 'deleteSpotifyConnection' | 'importTimelineActivities' | 'importTimelinePhotos' | 'leaveJourneysSession' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'syncJournalEntries' | 'syncLocationLogs' | 'testMutation' | 'updateDishwatchDevice' | 'updateJourneysSessionParticipation' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
 	createDishwatchDevice?: FieldPolicy<any> | FieldReadFunction<any>,
 	createICloudConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	createLocationAccessGrant?: FieldPolicy<any> | FieldReadFunction<any>,
+	createPensieveRecording?: FieldPolicy<any> | FieldReadFunction<any>,
 	createTimelinePhotoWithTimestamp?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteGoogleConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteICloudConnection?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -216,14 +227,11 @@ export type MutationFieldPolicy = {
 	importTimelineActivities?: FieldPolicy<any> | FieldReadFunction<any>,
 	importTimelinePhotos?: FieldPolicy<any> | FieldReadFunction<any>,
 	leaveJourneysSession?: FieldPolicy<any> | FieldReadFunction<any>,
-	likePensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
 	requestUserEmailVerification?: FieldPolicy<any> | FieldReadFunction<any>,
 	requestUserPasswordReset?: FieldPolicy<any> | FieldReadFunction<any>,
-	sendPensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
 	syncJournalEntries?: FieldPolicy<any> | FieldReadFunction<any>,
 	syncLocationLogs?: FieldPolicy<any> | FieldReadFunction<any>,
 	testMutation?: FieldPolicy<any> | FieldReadFunction<any>,
-	unlikePensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateDishwatchDevice?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateJourneysSessionParticipation?: FieldPolicy<any> | FieldReadFunction<any>,
 	updateUserEmail?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -260,17 +268,14 @@ export type PageInfoFieldPolicy = {
 	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
 	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type PensieveMessageKeySpecifier = ('from' | 'id' | 'isEdited' | 'likedByViewer' | 'likes' | 'text' | 'timestamp' | PensieveMessageKeySpecifier)[];
-export type PensieveMessageFieldPolicy = {
-	from?: FieldPolicy<any> | FieldReadFunction<any>,
+export type PensieveRecordingKeySpecifier = ('audio' | 'createdAt' | 'id' | 'transcription' | PensieveRecordingKeySpecifier)[];
+export type PensieveRecordingFieldPolicy = {
+	audio?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	isEdited?: FieldPolicy<any> | FieldReadFunction<any>,
-	likedByViewer?: FieldPolicy<any> | FieldReadFunction<any>,
-	likes?: FieldPolicy<any> | FieldReadFunction<any>,
-	text?: FieldPolicy<any> | FieldReadFunction<any>,
-	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
+	transcription?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('activityStatus' | 'announcement' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'explorations' | 'googleConnection' | 'icloudConnection' | 'imageBySignedId' | 'journalEntry' | 'journalEntryComments' | 'journeysSession' | 'journeysSessionParticipation' | 'journeysSessions' | 'location' | 'locationAccessGrants' | 'passwordStrength' | 'pensieveMessages' | 'resume' | 'spotifyConnection' | 'testEcho' | 'timelineActivities' | 'timezone' | 'uploadBySignedId' | 'user' | 'viewer' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('activityStatus' | 'announcement' | 'bootedAt' | 'contactEmail' | 'currentlyPlaying' | 'explorations' | 'googleConnection' | 'icloudConnection' | 'imageBySignedId' | 'journalEntry' | 'journalEntryComments' | 'journeysSession' | 'journeysSessionParticipation' | 'journeysSessions' | 'location' | 'locationAccessGrants' | 'passwordStrength' | 'resume' | 'spotifyConnection' | 'testEcho' | 'timelineActivities' | 'timezone' | 'uploadBySignedId' | 'user' | 'viewer' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	announcement?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -289,7 +294,6 @@ export type QueryFieldPolicy = {
 	location?: FieldPolicy<any> | FieldReadFunction<any>,
 	locationAccessGrants?: FieldPolicy<any> | FieldReadFunction<any>,
 	passwordStrength?: FieldPolicy<any> | FieldReadFunction<any>,
-	pensieveMessages?: FieldPolicy<any> | FieldReadFunction<any>,
 	resume?: FieldPolicy<any> | FieldReadFunction<any>,
 	spotifyConnection?: FieldPolicy<any> | FieldReadFunction<any>,
 	testEcho?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -308,12 +312,6 @@ export type RequestUserPasswordResetPayloadKeySpecifier = ('clientMutationId' | 
 export type RequestUserPasswordResetPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type SendPensieveMessagePayloadKeySpecifier = ('clientMutationId' | 'success' | 'user' | SendPensieveMessagePayloadKeySpecifier)[];
-export type SendPensieveMessagePayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>,
-	user?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SpotifyAlbumKeySpecifier = ('id' | 'imageUrl' | 'name' | 'url' | SpotifyAlbumKeySpecifier)[];
 export type SpotifyAlbumFieldPolicy = {
@@ -338,13 +336,13 @@ export type SpotifyTrackFieldPolicy = {
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type SubscriptionKeySpecifier = ('activityStatus' | 'currentlyPlaying' | 'journeysSessionParticipation' | 'location' | 'pensieveMessage' | 'testSubscription' | SubscriptionKeySpecifier)[];
+export type SubscriptionKeySpecifier = ('activityStatus' | 'currentlyPlaying' | 'journeysSessionParticipation' | 'location' | 'pensieveRecording' | 'testSubscription' | SubscriptionKeySpecifier)[];
 export type SubscriptionFieldPolicy = {
 	activityStatus?: FieldPolicy<any> | FieldReadFunction<any>,
 	currentlyPlaying?: FieldPolicy<any> | FieldReadFunction<any>,
 	journeysSessionParticipation?: FieldPolicy<any> | FieldReadFunction<any>,
 	location?: FieldPolicy<any> | FieldReadFunction<any>,
-	pensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
+	pensieveRecording?: FieldPolicy<any> | FieldReadFunction<any>,
 	testSubscription?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SyncJournalEntriesPayloadKeySpecifier = ('clientMutationId' | 'success' | SyncJournalEntriesPayloadKeySpecifier)[];
@@ -399,12 +397,6 @@ export type TimezoneFieldPolicy = {
 	offset?: FieldPolicy<any> | FieldReadFunction<any>,
 	offsetMinutes?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UnlikePensieveMessagePayloadKeySpecifier = ('clientMutationId' | 'message' | 'success' | UnlikePensieveMessagePayloadKeySpecifier)[];
-export type UnlikePensieveMessagePayloadFieldPolicy = {
-	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	message?: FieldPolicy<any> | FieldReadFunction<any>,
-	success?: FieldPolicy<any> | FieldReadFunction<any>
-};
 export type UpdateDishwatchDevicePayloadKeySpecifier = ('clientMutationId' | 'device' | 'errors' | 'success' | UpdateDishwatchDevicePayloadKeySpecifier)[];
 export type UpdateDishwatchDevicePayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -433,20 +425,22 @@ export type UpdateUserProfilePayloadFieldPolicy = {
 	success?: FieldPolicy<any> | FieldReadFunction<any>,
 	user?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UploadKeySpecifier = ('byteSize' | 'filename' | 'signedId' | 'url' | UploadKeySpecifier)[];
+export type UploadKeySpecifier = ('byteSize' | 'contentType' | 'filename' | 'signedId' | 'url' | UploadKeySpecifier)[];
 export type UploadFieldPolicy = {
 	byteSize?: FieldPolicy<any> | FieldReadFunction<any>,
+	contentType?: FieldPolicy<any> | FieldReadFunction<any>,
 	filename?: FieldPolicy<any> | FieldReadFunction<any>,
 	signedId?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserKeySpecifier = ('avatar' | 'email' | 'id' | 'isOwner' | 'name' | 'unverifiedEmail' | UserKeySpecifier)[];
+export type UserKeySpecifier = ('avatar' | 'email' | 'id' | 'isOwner' | 'name' | 'pensieveRecordings' | 'unverifiedEmail' | UserKeySpecifier)[];
 export type UserFieldPolicy = {
 	avatar?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	isOwner?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	pensieveRecordings?: FieldPolicy<any> | FieldReadFunction<any>,
 	unverifiedEmail?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type VerifyICloudSecurityCodePayloadKeySpecifier = ('clientMutationId' | 'success' | VerifyICloudSecurityCodePayloadKeySpecifier)[];
@@ -479,6 +473,10 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | CreateLocationAccessGrantPayloadKeySpecifier | (() => undefined | CreateLocationAccessGrantPayloadKeySpecifier),
 		fields?: CreateLocationAccessGrantPayloadFieldPolicy,
 	},
+	CreatePensieveRecordingPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | CreatePensieveRecordingPayloadKeySpecifier | (() => undefined | CreatePensieveRecordingPayloadKeySpecifier),
+		fields?: CreatePensieveRecordingPayloadFieldPolicy,
+	},
 	CreateTimelinePhotoWithTimestampPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | CreateTimelinePhotoWithTimestampPayloadKeySpecifier | (() => undefined | CreateTimelinePhotoWithTimestampPayloadKeySpecifier),
 		fields?: CreateTimelinePhotoWithTimestampPayloadFieldPolicy,
@@ -506,6 +504,10 @@ export type StrictTypedTypePolicies = {
 	DishwatcherDevice?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | DishwatcherDeviceKeySpecifier | (() => undefined | DishwatcherDeviceKeySpecifier),
 		fields?: DishwatcherDeviceFieldPolicy,
+	},
+	File?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | FileKeySpecifier | (() => undefined | FileKeySpecifier),
+		fields?: FileFieldPolicy,
 	},
 	ICloudConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ICloudConnectionKeySpecifier | (() => undefined | ICloudConnectionKeySpecifier),
@@ -555,10 +557,6 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | LeaveJourneysSessionPayloadKeySpecifier | (() => undefined | LeaveJourneysSessionPayloadKeySpecifier),
 		fields?: LeaveJourneysSessionPayloadFieldPolicy,
 	},
-	LikePensieveMessagePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | LikePensieveMessagePayloadKeySpecifier | (() => undefined | LikePensieveMessagePayloadKeySpecifier),
-		fields?: LikePensieveMessagePayloadFieldPolicy,
-	},
 	LocationAccessGrant?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | LocationAccessGrantKeySpecifier | (() => undefined | LocationAccessGrantKeySpecifier),
 		fields?: LocationAccessGrantFieldPolicy,
@@ -603,9 +601,9 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | PageInfoKeySpecifier | (() => undefined | PageInfoKeySpecifier),
 		fields?: PageInfoFieldPolicy,
 	},
-	PensieveMessage?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | PensieveMessageKeySpecifier | (() => undefined | PensieveMessageKeySpecifier),
-		fields?: PensieveMessageFieldPolicy,
+	PensieveRecording?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | PensieveRecordingKeySpecifier | (() => undefined | PensieveRecordingKeySpecifier),
+		fields?: PensieveRecordingFieldPolicy,
 	},
 	Query?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier),
@@ -618,10 +616,6 @@ export type StrictTypedTypePolicies = {
 	RequestUserPasswordResetPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | RequestUserPasswordResetPayloadKeySpecifier | (() => undefined | RequestUserPasswordResetPayloadKeySpecifier),
 		fields?: RequestUserPasswordResetPayloadFieldPolicy,
-	},
-	SendPensieveMessagePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | SendPensieveMessagePayloadKeySpecifier | (() => undefined | SendPensieveMessagePayloadKeySpecifier),
-		fields?: SendPensieveMessagePayloadFieldPolicy,
 	},
 	SpotifyAlbum?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SpotifyAlbumKeySpecifier | (() => undefined | SpotifyAlbumKeySpecifier),
@@ -666,10 +660,6 @@ export type StrictTypedTypePolicies = {
 	Timezone?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | TimezoneKeySpecifier | (() => undefined | TimezoneKeySpecifier),
 		fields?: TimezoneFieldPolicy,
-	},
-	UnlikePensieveMessagePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | UnlikePensieveMessagePayloadKeySpecifier | (() => undefined | UnlikePensieveMessagePayloadKeySpecifier),
-		fields?: UnlikePensieveMessagePayloadFieldPolicy,
 	},
 	UpdateDishwatchDevicePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | UpdateDishwatchDevicePayloadKeySpecifier | (() => undefined | UpdateDishwatchDevicePayloadKeySpecifier),

@@ -1,0 +1,9 @@
+fragment PensieveRecordingCardRecordingFragment on PensieveRecording {
+  audio {
+    contentType
+    id
+    url
+  }
+  createdAt
+  id
+}

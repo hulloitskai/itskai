@@ -1,0 +1,13 @@
+mutation CreatePensieveRecordingMutation(
+  $input: CreatePensieveRecordingInput!
+) {
+  payload: createPensieveRecording(input: $input) {
+    recording {
+      audio {
+        id
+        url
+      }
+      id
+    }
+  }
+}

@@ -1,0 +1,6 @@
+subscription PensieveRecordingCardSubscription($id: ID!) {
+  recording: pensieveRecording(id: $id) {
+    id
+    transcription
+  }
+}

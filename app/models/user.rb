@@ -63,6 +63,9 @@ class User < ApplicationRecord
     ActionMailer::Base.email_address_with_name(email, name)
   end
 
+  # == Associations
+  has_many :pensieve_recordings, dependent: :destroy
+
   # == Attachments
   has_one_attached :avatar
 

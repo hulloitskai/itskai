@@ -49,6 +49,8 @@ module Types
     field :update_dishwatch_device, mutation: Mutations::UpdateDishwatchDevice
 
     field :activate_scottkit_signal, mutation: Mutations::ActivateScottkitSignal
+    field :create_pensieve_recording,
+          mutation: Mutations::CreatePensieveRecording
     field :sync_location_logs, mutation: Mutations::SyncLocationLogs
   end
 end

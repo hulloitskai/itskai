@@ -2,5 +2,9 @@ query PensievePageQuery {
   viewer {
     ...AppViewerFragment
     id
+    recordings: pensieveRecordings {
+      id
+      ...PensieveRecordingCardRecordingFragment
+    }
   }
 }

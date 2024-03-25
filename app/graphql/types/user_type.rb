@@ -11,6 +11,7 @@ module Types
     field :email, String, null: false
     field :is_owner, Boolean, null: false, method: :owner?
     field :name, String, null: false
+    field :pensieve_recordings, [PensieveRecordingType], null: false
     field :unverified_email, String, method: :unconfirmed_email
 
     # == Helpers

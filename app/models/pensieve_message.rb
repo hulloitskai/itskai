@@ -49,7 +49,7 @@ class PensieveMessage < ApplicationRecord
   validate :validate_text_profanity
 
   # == Callbacks
-  after_commit :trigger_subscriptions, on: %i[create update]
+  # after_commit :trigger_subscriptions, on: %i[create update]
 
   # == Scopes
   scope :recent, -> {

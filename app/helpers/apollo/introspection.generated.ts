@@ -8,6 +8,7 @@
   "possibleTypes": {
     "Node": [
       "DishwatcherDevice",
+      "File",
       "ICloudCredentials",
       "Image",
       "JournalEntry",
@@ -16,12 +17,13 @@
       "LocationAccessGrant",
       "LocationLog",
       "OAuthCredentials",
-      "PensieveMessage",
+      "PensieveRecording",
       "TimelineActivity",
       "TimelinePhoto",
       "User"
     ],
     "Upload": [
+      "File",
       "Image"
     ]
   }

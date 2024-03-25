@@ -34,6 +34,7 @@ module Types
     field :filename, String, null: false
     field :byte_size, Integer, null: false
     field :url, String, null: false
+    field :content_type, String, null: false
 
     # == Resolvers
     sig { returns(String) }
