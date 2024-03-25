@@ -27,4 +27,4 @@ jobs:
       - name: Deploy
         run: |
           flyctl deploy --remote-only --ha=false --memory=1024 \
-            && flyctl scale count 1
+            && flyctl scale count 1 --yes
