@@ -475,8 +475,8 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rbi (0.1.6)
-      prism (>= 0.18.0, < 0.20)
+    rbi (0.1.9)
+      prism (>= 0.18.0, < 0.25)
       sorbet-runtime (>= 0.5.9204)
     rdoc (6.6.2)
       psych (>= 4.0.0)
@@ -564,14 +564,14 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
-    sorbet (0.5.11164)
-      sorbet-static (= 0.5.11164)
-    sorbet-runtime (0.5.11164)
-    sorbet-static (0.5.11164-universal-darwin)
-    sorbet-static (0.5.11164-x86_64-linux)
-    sorbet-static-and-runtime (0.5.11164)
-      sorbet (= 0.5.11164)
-      sorbet-runtime (= 0.5.11164)
+    sorbet (0.5.11305)
+      sorbet-static (= 0.5.11305)
+    sorbet-runtime (0.5.11305)
+    sorbet-static (0.5.11305-universal-darwin)
+    sorbet-static (0.5.11305-x86_64-linux)
+    sorbet-static-and-runtime (0.5.11305)
+      sorbet (= 0.5.11305)
+      sorbet-runtime (= 0.5.11305)
     spoom (1.2.4)
       erubi (>= 1.10.0)
       sorbet-static-and-runtime (>= 0.5.10187)
@@ -594,12 +594,12 @@ GEM
     strong_password (0.0.10)
     syntax_tree (6.2.0)
       prettier_print (>= 1.2.0)
-    tapioca (0.11.14)
+    tapioca (0.12.0)
       bundler (>= 2.2.25)
       netrc (>= 0.11.0)
       parallel (>= 1.21.0)
       rbi (>= 0.1.4, < 0.2)
-      sorbet-static-and-runtime (>= 0.5.10187)
+      sorbet-static-and-runtime (>= 0.5.10820)
       spoom (~> 1.2.0, >= 1.2.0)
       thor (>= 1.2.0)
       yard-sorbet
@@ -756,7 +756,7 @@ DEPENDENCIES
   store_model (~> 1.6)
   streamio-ffmpeg (~> 3.0)
   strong_password (~> 0.0.10)
-  tapioca (~> 0.11.13)
+  tapioca (~> 0.12.0)
   telegram-bot-ruby (~> 1.0)
   time_difference (~> 0.5.0)
   timezone_finder (~> 1.5)
@@ -767,7 +767,7 @@ DEPENDENCIES
   wrapped_print
 
 RUBY VERSION
-   ruby 3.2.2p53
+   ruby 3.3.0p0
 
 BUNDLED WITH
    2.5.5

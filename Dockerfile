@@ -49,8 +49,9 @@ RUN git clone --depth 1 https://github.com/rbenv/ruby-build.git \
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
   --mount=type=cache,target=/var/lib/apt,sharing=locked \
   apt-get -y update -q \
-  && apt-get install -yq --no-install-recommends --no-install-suggests libpq-dev libimage-exiftool-perl libvips ffmpeg \
+  && apt-get install -yq --no-install-recommends --no-install-suggests libpq-dev libjemalloc2 libimage-exiftool-perl libvips ffmpeg \
   && truncate -s 0 /var/log/*log
+ENV LD_PRELOAD="libjemalloc.so.2" MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true,stats_print:true"
 
 # Install Overmind
 RUN curl -Lo /usr/bin/overmind.gz https://github.com/DarthSim/overmind/releases/download/v2.4.0/overmind-v2.4.0-linux-amd64.gz \
