@@ -490,7 +490,10 @@ RuboCop::Cop::GraphQL::FieldName::RESTRICT_ON_SEND = T.let(T.unsafe(nil), Array)
 class RuboCop::Cop::GraphQL::FieldUniqueness < ::RuboCop::Cop::Base
   include ::RuboCop::GraphQL::NodeUniqueness
 
-  # source://rubocop-graphql//lib/rubocop/cop/graphql/field_uniqueness.rb#70
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/field_uniqueness.rb#72
+  def false_value?(param0 = T.unsafe(nil)); end
+
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/field_uniqueness.rb#77
   def field_declarations(param0); end
 
   # source://rubocop-graphql//lib/rubocop/cop/graphql/field_uniqueness.rb#35
@@ -964,6 +967,63 @@ end
 
 # source://rubocop-graphql//lib/rubocop/cop/graphql/ordered_fields.rb#39
 RuboCop::Cop::GraphQL::OrderedFields::MSG = T.let(T.unsafe(nil), String)
+
+# Checks that GraphQL Argument definitions prepare arguments use String or constants
+# instead of `prepare: CONST_REF`
+# This allows better Sorbet typing.
+#
+# Preference is given to an input object declaring a `def prepare(...); end` method
+#
+# @example
+#   # bad
+#   PREPARE = ->(input, context) { ... }
+#
+#   argument :input, prepare: PREPARE
+#
+#   # good
+#   def input_prepare(input); ...; end
+#
+#   argument :input, prepare: :input_prepare
+#
+# source://rubocop-graphql//lib/rubocop/cop/graphql/prepare_method.rb#25
+class RuboCop::Cop::GraphQL::PrepareMethod < ::RuboCop::Cop::Base
+  extend ::RuboCop::Cop::AutoCorrector
+
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/prepare_method.rb#37
+  def graphql_argument_with_prepare_block?(param0 = T.unsafe(nil)); end
+
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/prepare_method.rb#51
+  def on_send(node); end
+
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/prepare_method.rb#42
+  def prepare_method_string_name?(param0 = T.unsafe(nil)); end
+
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/prepare_method.rb#47
+  def prepare_method_symbol_name?(param0 = T.unsafe(nil)); end
+
+  private
+
+  # source://rubocop-graphql//lib/rubocop/cop/graphql/prepare_method.rb#87
+  def autocorrect(corrector, node, original_method_name, new_method_name); end
+end
+
+# source://rubocop-graphql//lib/rubocop/cop/graphql/prepare_method.rb#34
+RuboCop::Cop::GraphQL::PrepareMethod::ARGUMENT_METHODS = T.let(T.unsafe(nil), Set)
+
+# source://rubocop-graphql//lib/rubocop/cop/graphql/prepare_method.rb#27
+RuboCop::Cop::GraphQL::PrepareMethod::GENERAL_MSG = T.let(T.unsafe(nil), String)
+
+# source://rubocop-graphql//lib/rubocop/cop/graphql/prepare_method.rb#30
+RuboCop::Cop::GraphQL::PrepareMethod::PREFER_STRING_MSG = T.let(T.unsafe(nil), String)
+
+# source://rubocop-graphql//lib/rubocop/cop/graphql/prepare_method.rb#32
+RuboCop::Cop::GraphQL::PrepareMethod::PREFER_SYMBOL_MSG = T.let(T.unsafe(nil), String)
+
+# source://rubocop-graphql//lib/rubocop/cop/graphql/prepare_method.rb#29
+RuboCop::Cop::GraphQL::PrepareMethod::STRING_MSG = T.let(T.unsafe(nil), String)
+
+# source://rubocop-graphql//lib/rubocop/cop/graphql/prepare_method.rb#31
+RuboCop::Cop::GraphQL::PrepareMethod::SYMBOL_MSG = T.let(T.unsafe(nil), String)
 
 # Checks if the length of a resolver method exceeds some maximum value.
 # Comment lines can optionally be ignored.

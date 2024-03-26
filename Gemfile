@@ -247,7 +247,7 @@ group :development do
   gem "tapioca", "~> 0.12.0", require: false
 
   # Use Rubocop to lint code
-  gem "rubocop", "~> 1.57", require: false
+  gem "rubocop", "~> 1.62", require: false
   gem "rubocop-graphql", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
@@ -255,7 +255,7 @@ group :development do
   gem "rubocop-sorbet", require: false
   gem "rubocop-capybara", require: false
   gem "ruby-lsp", require: false
-  gem "parser", "~> 3.2.2.3", require: false
+  gem "parser", "~> 3.3.0.5", require: false
 
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
