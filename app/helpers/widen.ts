@@ -2,11 +2,11 @@
 export type Widen<T> = [T] extends [Array<infer E>]
   ? { [K in keyof T]: Widen<T[K]> }
   : [T] extends [object]
-  ? PartialKeys<
-      { [K in AllKeys<T>]: Widen<Idx<T, K>> },
-      Exclude<AllKeys<T>, keyof T> | OptionalKeys<T>
-    >
-  : T;
+    ? PartialKeys<
+        { [K in AllKeys<T>]: Widen<Idx<T, K>> },
+        Exclude<AllKeys<T>, keyof T> | OptionalKeys<T>
+      >
+    : T;
 
 type AllKeys<T> = T extends any ? keyof T : never;
 

@@ -52,8 +52,8 @@ const PasswordWithStrengthCheckInput: FC<
                   passwordStrength === 1.0
                     ? "green"
                     : passwordStrength > 0.25
-                    ? "yellow"
-                    : "red"
+                      ? "yellow"
+                      : "red"
                 }
                 value={value ? Math.round(passwordStrength * 100) : 0}
                 mt={6}

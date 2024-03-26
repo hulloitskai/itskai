@@ -510,7 +510,7 @@ class IO::Buffer
   def get_string(*_arg0); end
   def get_value(_arg0, _arg1); end
   def get_values(_arg0, _arg1); end
-  def hexdump; end
+  # def hexdump; end
   def inspect; end
   def internal?; end
   def locked; end

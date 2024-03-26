@@ -1,3 +1,4 @@
+import { isValidElement } from "react";
 import { renderToString as renderPage } from "react-dom/server";
 
 import { render as renderEmail } from "@react-email/render";
@@ -41,6 +42,7 @@ createServer(async page => {
           return renderPage(page);
         }
         case PageType.Email: {
+          invariant(isValidElement(page), "Page is not a valid element");
           return renderEmail(page);
         }
       }

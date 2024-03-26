@@ -317,7 +317,7 @@ module ActiveRecord
     sig do
       params(
         table_name: T.any(String, Symbol),
-        column: T.any(String, Symbol, T::Array[T.any(String, Symbol)]),
+        column: T.nilable(T.any(String, Symbol, T::Array[T.any(String, Symbol)])),
         using: T.untyped,
         unique: T::Boolean,
         where: T.untyped,
@@ -332,7 +332,7 @@ module ActiveRecord
     end
     def remove_index(
       table_name,
-      column,
+      column = nil,
       using: nil,
       unique: false,
       where: nil,

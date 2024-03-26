@@ -103,10 +103,10 @@ const JourneysHomePage: PageComponent<JourneysHomePageProps> = () => {
           {isTranscribing
             ? "Transcribing..."
             : isRecording
-            ? canEndRecording
-              ? "Recording... (click to end)"
-              : "Recording..."
-            : "Record your goal"}
+              ? canEndRecording
+                ? "Recording... (click to end)"
+                : "Recording..."
+              : "Record your goal"}
         </Button>
       </Tooltip>
       <Container size="xs" w="100%">

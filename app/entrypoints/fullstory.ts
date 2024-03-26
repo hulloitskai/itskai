@@ -1,4 +1,4 @@
-import { identify, init } from "@fullstory/browser";
+import { init, FullStory } from "@fullstory/browser";
 
 const orgId = getMeta("fullstory-org-id");
 if (orgId) {
@@ -15,8 +15,8 @@ if (orgId) {
   });
   init({ orgId, devMode }, () => {
     if (identity) {
-      const { uid, ...customVars } = identity;
-      identify(uid, customVars);
+      const { uid, ...properties } = identity;
+      FullStory("setIdentityAsync", { uid, properties });
     }
   });
   console.info(

@@ -43,10 +43,7 @@ export const imports: Array<ImportsMap | PresetName> = [
       "useSubscription",
       "useMutation",
     ],
-    "@fullstory/browser": [
-      ["setVars", "setFsVars"],
-      ["isInitialized", "isFsInitialized"],
-    ],
+    "@fullstory/browser": ["FullStory", ["isInitialized", "isFsInitialized"]],
     "@inertiajs/react": ["Link"],
     "@mantine/core": [
       "rem",
