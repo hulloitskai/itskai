@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+# typed: true
+# frozen_string_literal: true
+
+require "./config/application"
+
+autoloaded_constants = []
+
+Rails.autoloaders.each do |loader|
+  loader.on_load do |cpath, value, abspath|
+    location = Rails.backtrace_cleaner.clean(caller).first || abspath
+    autoloaded_constants << [cpath, location]
+  end
+end
+
+Rails.application.initialize!
+
+if autoloaded_constants.any?
+  puts "ERROR: Autoloaded constants were referenced during during boot."
+  puts "These files/constants were autoloaded during the boot process, which " \
+    "will result in inconsistent behavior and will slow down and may break " \
+    "development mode. Remove references to these constants from code loaded " \
+    "at boot."
+  puts
+
+  w = autoloaded_constants.map(&:first).map(&:length).max
+  autoloaded_constants.each do |name, location|
+    puts "#{name.ljust(w)} referenced by #{location}"
+  end
+
+  exit(1)
+end
