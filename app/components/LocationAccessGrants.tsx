@@ -26,7 +26,7 @@ const LocationAccessGrants: FC<LocationAccessGrantsProps> = ({
   const { locationAccessGrants } = data ?? previousData ?? {};
 
   return (
-    <Stack gap="xs" {...otherProps}>
+    <Stack id="location-access-grants" gap="xs" {...otherProps}>
       {locationAccessGrants ? (
         !isEmpty(locationAccessGrants) ? (
           locationAccessGrants.map(grant => (

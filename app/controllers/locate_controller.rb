@@ -18,7 +18,7 @@ class LocateController < ApplicationController
     expires_at = 3.hours.from_now
     LocationAccessGrant.create!(recipient:, expires_at:)
     redirect_to(
-      admin_path,
+      admin_path(anchor: "location-access-grants"),
       notice: "Location access granted until #{l(expires_at, format: :short)}",
     )
   end
