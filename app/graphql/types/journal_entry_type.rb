@@ -8,7 +8,7 @@ module Types
 
     # == Fields
     field :content, [GraphQL::Types::JSON], null: false
-    field :modified_at, DateTimeType, null: false
+    field :last_edited_at, DateTimeType, null: false
     field :next_entry_id, ID
     field :started_at, DateTimeType, null: false
     field :title, String, null: false

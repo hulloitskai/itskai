@@ -25,4 +25,14 @@ module Spotify
   def self.client_secret!
     client_secret or raise "Spotify client secret not set"
   end
+
+  sig { returns(T.nilable(String)) }
+  def self.sp_dc
+    ENV["SPOTIFY_SP_DC"]
+  end
+
+  sig { returns(String) }
+  def self.sp_dc!
+    sp_dc or raise "Spotify SP DC not set"
+  end
 end

@@ -20,6 +20,8 @@ module Types
     field :verify_icloud_security_code,
           mutation: Mutations::VerifyICloudSecurityCode
 
+    field :activate_spotify_jam_session,
+          mutation: Mutations::ActivateSpotifyJamSession
     field :delete_google_connection,
           mutation: Mutations::DeleteGoogleConnection
     field :delete_spotify_connection,

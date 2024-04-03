@@ -4,6 +4,12 @@ export type ActivateScottkitSignalPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type ActivateSpotifyJamSessionPayloadKeySpecifier = ('clientMutationId' | 'session' | 'success' | ActivateSpotifyJamSessionPayloadKeySpecifier)[];
+export type ActivateSpotifyJamSessionPayloadFieldPolicy = {
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	session?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type AddJournalEntryCommentPayloadKeySpecifier = ('clientMutationId' | 'comment' | 'success' | AddJournalEntryCommentPayloadKeySpecifier)[];
 export type AddJournalEntryCommentPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -120,11 +126,11 @@ export type InputFieldErrorFieldPolicy = {
 	field?: FieldPolicy<any> | FieldReadFunction<any>,
 	message?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type JournalEntryKeySpecifier = ('content' | 'id' | 'modifiedAt' | 'nextEntryId' | 'startedAt' | 'title' | 'url' | JournalEntryKeySpecifier)[];
+export type JournalEntryKeySpecifier = ('content' | 'id' | 'lastEditedAt' | 'nextEntryId' | 'startedAt' | 'title' | 'url' | JournalEntryKeySpecifier)[];
 export type JournalEntryFieldPolicy = {
 	content?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	modifiedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	lastEditedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	nextEntryId?: FieldPolicy<any> | FieldReadFunction<any>,
 	startedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -214,9 +220,10 @@ export type LyricLineFieldPolicy = {
 	startTimeMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	words?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'createDishwatchDevice' | 'createICloudConnection' | 'createLocationAccess' | 'createLocationAccessGrant' | 'createTimelinePhotoWithTimestamp' | 'deleteGoogleConnection' | 'deleteICloudConnection' | 'deleteLocationAccessGrant' | 'deleteSpotifyConnection' | 'importTimelineActivities' | 'importTimelinePhotos' | 'leaveJourneysSession' | 'likePensieveMessage' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'syncJournalEntries' | 'syncLocationLogs' | 'testMutation' | 'unlikePensieveMessage' | 'updateDishwatchDevice' | 'updateJourneysSessionParticipation' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'activateSpotifyJamSession' | 'addJournalEntryComment' | 'createDishwatchDevice' | 'createICloudConnection' | 'createLocationAccess' | 'createLocationAccessGrant' | 'createTimelinePhotoWithTimestamp' | 'deleteGoogleConnection' | 'deleteICloudConnection' | 'deleteLocationAccessGrant' | 'deleteSpotifyConnection' | 'importTimelineActivities' | 'importTimelinePhotos' | 'leaveJourneysSession' | 'likePensieveMessage' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'syncJournalEntries' | 'syncLocationLogs' | 'testMutation' | 'unlikePensieveMessage' | 'updateDishwatchDevice' | 'updateJourneysSessionParticipation' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
+	activateSpotifyJamSession?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
 	createDishwatchDevice?: FieldPolicy<any> | FieldReadFunction<any>,
 	createICloudConnection?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -341,6 +348,11 @@ export type SpotifyArtistFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	url?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type SpotifyJamSessionKeySpecifier = ('id' | 'joinUrl' | SpotifyJamSessionKeySpecifier)[];
+export type SpotifyJamSessionFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	joinUrl?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SpotifyTrackKeySpecifier = ('album' | 'artists' | 'durationMilliseconds' | 'id' | 'lyrics' | 'name' | 'url' | SpotifyTrackKeySpecifier)[];
 export type SpotifyTrackFieldPolicy = {
@@ -472,6 +484,10 @@ export type StrictTypedTypePolicies = {
 	ActivateScottkitSignalPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | ActivateScottkitSignalPayloadKeySpecifier | (() => undefined | ActivateScottkitSignalPayloadKeySpecifier),
 		fields?: ActivateScottkitSignalPayloadFieldPolicy,
+	},
+	ActivateSpotifyJamSessionPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ActivateSpotifyJamSessionPayloadKeySpecifier | (() => undefined | ActivateSpotifyJamSessionPayloadKeySpecifier),
+		fields?: ActivateSpotifyJamSessionPayloadFieldPolicy,
 	},
 	AddJournalEntryCommentPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | AddJournalEntryCommentPayloadKeySpecifier | (() => undefined | AddJournalEntryCommentPayloadKeySpecifier),
@@ -652,6 +668,10 @@ export type StrictTypedTypePolicies = {
 	SpotifyArtist?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SpotifyArtistKeySpecifier | (() => undefined | SpotifyArtistKeySpecifier),
 		fields?: SpotifyArtistFieldPolicy,
+	},
+	SpotifyJamSession?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SpotifyJamSessionKeySpecifier | (() => undefined | SpotifyJamSessionKeySpecifier),
+		fields?: SpotifyJamSessionFieldPolicy,
 	},
 	SpotifyTrack?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SpotifyTrackKeySpecifier | (() => undefined | SpotifyTrackKeySpecifier),

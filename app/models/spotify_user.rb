@@ -39,7 +39,7 @@ class SpotifyUser < RSpotify::User
     result = RSpotify.resolve_auth_request(id, endpoint)
     if result && result["is_playing"]
       track_data = T.cast(result.fetch("item"), T::Hash[String, T.untyped])
-      track = RSpotify::Track.new(track_data)
+      track = SpotifyTrack.new(track_data)
       progress_milliseconds = T.cast(result.fetch("progress_ms"), Integer)
       timestamp = Time.current
       CurrentlyPlaying.new(track:, progress_milliseconds:, timestamp:)

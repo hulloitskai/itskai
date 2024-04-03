@@ -1,0 +1,10 @@
+mutation ActivateSpotifyJamSessionMutation(
+  $input: ActivateSpotifyJamSessionInput!
+) {
+  payload: activateSpotifyJamSession(input: $input) {
+    session {
+      id
+      joinUrl
+    }
+  }
+}

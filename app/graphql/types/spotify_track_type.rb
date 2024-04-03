@@ -12,19 +12,8 @@ module Types
     field :name, String, null: false
     field :url, String, null: false
 
-    # == Resolvers
-    sig { returns(T.nilable(T::Array[LyricLine])) }
-    def lyrics
-      LyricsClient.retrieve_lyrics(object.id)
-    end
-
-    sig { returns(String) }
-    def url
-      object.external_urls.fetch("spotify")
-    end
-
     # == Helpers
-    sig { override.returns(RSpotify::Track) }
+    sig { override.returns(SpotifyTrack) }
     def object = super
   end
 end

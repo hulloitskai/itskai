@@ -10,5 +10,4 @@ fragment CurrentlyPlayingIslandTrackFragment on SpotifyTrack {
   durationMilliseconds
   id
   name
-  url
 }

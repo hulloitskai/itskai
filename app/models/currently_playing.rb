@@ -9,7 +9,7 @@ class CurrentlyPlaying < T::Struct
 
   # == Attributes
   const :progress_milliseconds, Integer
-  const :track, RSpotify::Track
+  const :track, SpotifyTrack
   const :timestamp, Time
 
   # == Current
@@ -47,7 +47,7 @@ class CurrentlyPlaying < T::Struct
   sig { params(json: T::Hash[String, T.untyped]).returns(CurrentlyPlaying) }
   def self.from_json(json)
     track_data = T.cast(json.fetch("track"), T::Hash[String, T.untyped])
-    track = RSpotify::Track.new(track_data)
+    track = SpotifyTrack.new(track_data)
     timestamp_iso = T.cast(json.fetch("timestamp"), String)
     timestamp = Time.zone.parse(timestamp_iso)
     progress_milliseconds = T.cast(json.fetch("progress_milliseconds"), Integer)

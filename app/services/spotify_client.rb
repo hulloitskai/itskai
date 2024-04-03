@@ -1,10 +1,10 @@
 # typed: strict
 # frozen_string_literal: true
 
-require "lyrics"
+require "spotify"
 require "badwords"
 
-class LyricsClient < ApplicationService
+class SpotifyClient < ApplicationService
   include Singleton
   extend T::Sig
 
@@ -59,6 +59,48 @@ class LyricsClient < ApplicationService
           )
         end
       end
+    else
+      with_log_tags do
+        logger.error(
+          "Failed to retrieve lyrics for track #{track_id}; bad response: " \
+            "#{response.body}",
+        )
+      end
+      raise "Bad response from Spotify API"
+    end
+  end
+
+  sig { returns(SpotifyJamSession) }
+  def self.retrieve_or_activate_jam_session
+    token = access_token
+    response = instance.conn.get(
+      "https://spclient.wg.spotify.com/social-connect/v2/sessions/current_or_new",
+      { "format" => "json", "active" => "true" },
+      {
+        "Authorization" => "Bearer #{token}",
+        "Cookie" => cookie_header,
+      },
+    )
+    if response.success?
+      payload = JSON.parse(response.body)
+      with_log_tags do
+        logger.debug("Retrieved currently active jam session: #{payload}")
+      end
+      join_url = generate_shareable_jam_session_url(
+        payload.fetch("join_session_uri"),
+      )
+      SpotifyJamSession.new(
+        id: payload.fetch("session_id"),
+        join_url:,
+      )
+    else
+      with_log_tags do
+        logger.error(
+          "Failed to retrieve or activate jam session; bad response: " \
+            "#{response.body}",
+        )
+      end
+      raise "Bad response from Spotify API"
     end
   end
 
@@ -88,7 +130,7 @@ class LyricsClient < ApplicationService
 
   sig { returns(String) }
   private_class_method def self.cookie_header
-    cookies = [HTTP::Cookie.new("sp_dc", Lyrics.sp_dc!)]
+    cookies = [HTTP::Cookie.new("sp_dc", Spotify.sp_dc!)]
     HTTP::Cookie.cookie_value(cookies)
   end
 
@@ -105,6 +147,45 @@ class LyricsClient < ApplicationService
       Badwords.current.any? { |word| normalized_words.include?(word) }
     else
       false
+    end
+  end
+
+  sig { params(spotify_uri: String).returns(String) }
+  private_class_method def self.generate_shareable_jam_session_url(spotify_uri)
+    token = access_token
+    response = instance.conn.post(
+      "https://spclient.wg.spotify.com/url-dispenser/v1/generate-url",
+      {
+        "spotify_uri" => spotify_uri,
+        "custom_data": [
+          { "key": "ssp", "value": "1" },
+          {
+            "key": "app_destination",
+            "value": "socialsession",
+          },
+        ],
+      },
+      {
+        "Authorization" => "Bearer #{token}",
+        "Cookie" => cookie_header,
+      },
+    ) do |req|
+      req.params["format"] = "json"
+    end
+    if response.success?
+      payload = response.body
+      with_log_tags do
+        logger.debug("Generated shareable jam session URL: #{payload}")
+      end
+      response.body.fetch("shareable_url")
+    else
+      with_log_tags do
+        logger.error(
+          "Failed to generate shareable jam session URL; bad response: " \
+            "#{response.body}",
+        )
+      end
+      raise "Bad response from Spotify API"
     end
   end
 end

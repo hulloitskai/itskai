@@ -8,6 +8,7 @@ import { useNetwork } from "@mantine/hooks";
 import type { BoxProps, ImageProps, TextProps } from "@mantine/core";
 
 import {
+  ActivateSpotifyJamSessionMutationDocument,
   CurrentlyPlayingIslandQueryDocument,
   CurrentlyPlayingIslandSubscriptionDocument,
 } from "~/helpers/graphql";
@@ -182,7 +183,6 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
 }) => {
   const {
     name,
-    url,
     album: { imageUrl },
     artists,
     durationMilliseconds,
@@ -190,6 +190,15 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
   const artistNames = useMemo(
     () => artists.map(({ name }) => name).join(", ") || "(missing artists)",
     [artists],
+  );
+
+  // == Activate Jam Session
+  const onError = useApolloAlertCallback("Failed to activate jam session");
+  const [runMutation, { loading }] = useMutation(
+    ActivateSpotifyJamSessionMutationDocument,
+    {
+      onError,
+    },
   );
 
   return (
@@ -205,10 +214,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
           const hasLyrics = !!currentWords;
           return (
             <Badge
-              component="a"
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer nofollow"
+              component="button"
               size="xl"
               leftSection={
                 <Box pos="relative" p={2} mr={3}>
@@ -263,6 +269,17 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
                 "with-lyrics": hasLyrics,
                 "lyrics-explicit": lyricsCurrentlyExplicit,
               }}
+              onClick={() => {
+                runMutation({
+                  variables: {
+                    input: {},
+                  },
+                }).then(({ data }) => {
+                  if (data) {
+                    open(data.payload.session.joinUrl, "_blank");
+                  }
+                });
+              }}
               {...otherProps}
             >
               <MarqueeText size="xs" fw={800} className={classes.trackName}>
@@ -271,6 +288,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
               <MarqueeText fz={10} fw={700} className={classes.artistNames}>
                 {artistNames}
               </MarqueeText>
+              <LoadingOverlay visible={loading} />
             </Badge>
           );
         }}

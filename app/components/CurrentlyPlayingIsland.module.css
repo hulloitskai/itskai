@@ -1,6 +1,8 @@
 .badge {
   transition-property: transform, opacity, border !important;
   cursor: pointer;
+  position: relative;
+
   @mixin light {
     border-color: var(--mantine-color-gray-4);
   }
