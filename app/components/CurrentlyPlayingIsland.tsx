@@ -270,13 +270,20 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
                 "lyrics-explicit": lyricsCurrentlyExplicit,
               }}
               onClick={() => {
+                const newTab = open(undefined, "_blank");
                 runMutation({
                   variables: {
                     input: {},
                   },
                 }).then(({ data }) => {
-                  if (data) {
-                    open(data.payload.session.joinUrl, "_blank");
+                  if (newTab) {
+                    if (data) {
+                      newTab.location.href = data.payload.session.joinUrl;
+                    } else {
+                      newTab.close();
+                    }
+                  } else {
+                    console.warn("Missing new tab reference");
                   }
                 });
               }}
