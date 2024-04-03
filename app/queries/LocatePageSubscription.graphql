@@ -1,6 +1,6 @@
-subscription LocatePageSubscription($password: String!) {
+subscription LocatePageSubscription($accessToken: String!) {
   location {
-    details(password: $password) {
+    details(accessToken: $accessToken) {
       address
       coordinates {
         latitude

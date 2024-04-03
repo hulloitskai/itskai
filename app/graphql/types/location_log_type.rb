@@ -10,7 +10,7 @@ module Types
     field :approximate_address, String, null: false
     field :approximate_coordinates, CoordinatesType, null: false
     field :details, LocationDetailsType, null: false do
-      argument :password, String, required: true
+      argument :access_token, String, required: true
     end
     field :google_maps_area_url, String, null: false
     field :timestamp, DateTimeType, null: false
@@ -27,11 +27,11 @@ module Types
       )
     end
 
-    sig { params(password: String).returns(LocationDetails) }
-    def details(password:)
-      access_grant = LocationAccessGrant.valid.find_by(password:) or
-        raise GraphQL::ExecutionError, "Password is invalid or expired."
-      LocationDetails.new(log: object, access_grant:)
+    sig { params(access_token: String).returns(LocationDetails) }
+    def details(access_token:)
+      access = LocationAccess.valid.find_by(token: access_token) or
+        raise GraphQL::ExecutionError, "Token is invalid or expired."
+      LocationDetails.new(log: object, access_grant: access.grant!)
     end
 
     # == Helpers

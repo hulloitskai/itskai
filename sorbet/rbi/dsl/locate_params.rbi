@@ -6,8 +6,8 @@
 
 class LocateParams
   sig { returns(T.nilable(::String)) }
-  def password; end
+  def access_token; end
 
   sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
-  def password=(value); end
+  def access_token=(value); end
 end

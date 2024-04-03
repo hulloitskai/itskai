@@ -124,7 +124,7 @@ gem "action_policy-graphql", "~> 0.5.3"
 # Expose a GraphQL API
 gem "graphql", "~> 2.1"
 gem "graphql-connections", "~> 1.3"
-gem "graphql-persisted_queries", "~> 1.7"
+gem "graphql-persisted_queries", "~> 1.8"
 gem "graphql-rails_logger"
 
 # Serve and bundle frontend with Vite

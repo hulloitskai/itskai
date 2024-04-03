@@ -165,7 +165,7 @@ const AppLayout: FC<AppLayoutProps> = ({
           px={8}
           style={{
             overflow: "hidden",
-            borderTop: `${rem(1)} solid var(--_app-shell-border-color)`,
+            borderTop: `${rem(1)} solid var(--app-shell-border-color)`,
           }}
         >
           <ActivityStatus h="100%" style={{ flexShrink: 1 }} />

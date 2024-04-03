@@ -35,6 +35,12 @@ export type CreateLocationAccessGrantPayloadFieldPolicy = {
 	grant?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type CreateLocationAccessPayloadKeySpecifier = ('access' | 'clientMutationId' | 'success' | CreateLocationAccessPayloadKeySpecifier)[];
+export type CreateLocationAccessPayloadFieldPolicy = {
+	access?: FieldPolicy<any> | FieldReadFunction<any>,
+	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	success?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type CreateTimelinePhotoWithTimestampPayloadKeySpecifier = ('clientMutationId' | 'errors' | 'photo' | 'success' | CreateTimelinePhotoWithTimestampPayloadKeySpecifier)[];
 export type CreateTimelinePhotoWithTimestampPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -164,6 +170,13 @@ export type LikePensieveMessagePayloadFieldPolicy = {
 	message?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type LocationAccessKeySpecifier = ('grant' | 'id' | 'timestamp' | 'token' | LocationAccessKeySpecifier)[];
+export type LocationAccessFieldPolicy = {
+	grant?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	timestamp?: FieldPolicy<any> | FieldReadFunction<any>,
+	token?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type LocationAccessGrantKeySpecifier = ('createdAt' | 'expiresAt' | 'id' | 'locateUrl' | 'password' | 'recipient' | LocationAccessGrantKeySpecifier)[];
 export type LocationAccessGrantFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -201,12 +214,13 @@ export type LyricLineFieldPolicy = {
 	startTimeMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	words?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'createDishwatchDevice' | 'createICloudConnection' | 'createLocationAccessGrant' | 'createTimelinePhotoWithTimestamp' | 'deleteGoogleConnection' | 'deleteICloudConnection' | 'deleteLocationAccessGrant' | 'deleteSpotifyConnection' | 'importTimelineActivities' | 'importTimelinePhotos' | 'leaveJourneysSession' | 'likePensieveMessage' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'syncJournalEntries' | 'syncLocationLogs' | 'testMutation' | 'unlikePensieveMessage' | 'updateDishwatchDevice' | 'updateJourneysSessionParticipation' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'addJournalEntryComment' | 'createDishwatchDevice' | 'createICloudConnection' | 'createLocationAccess' | 'createLocationAccessGrant' | 'createTimelinePhotoWithTimestamp' | 'deleteGoogleConnection' | 'deleteICloudConnection' | 'deleteLocationAccessGrant' | 'deleteSpotifyConnection' | 'importTimelineActivities' | 'importTimelinePhotos' | 'leaveJourneysSession' | 'likePensieveMessage' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'syncJournalEntries' | 'syncLocationLogs' | 'testMutation' | 'unlikePensieveMessage' | 'updateDishwatchDevice' | 'updateJourneysSessionParticipation' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	addJournalEntryComment?: FieldPolicy<any> | FieldReadFunction<any>,
 	createDishwatchDevice?: FieldPolicy<any> | FieldReadFunction<any>,
 	createICloudConnection?: FieldPolicy<any> | FieldReadFunction<any>,
+	createLocationAccess?: FieldPolicy<any> | FieldReadFunction<any>,
 	createLocationAccessGrant?: FieldPolicy<any> | FieldReadFunction<any>,
 	createTimelinePhotoWithTimestamp?: FieldPolicy<any> | FieldReadFunction<any>,
 	deleteGoogleConnection?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -479,6 +493,10 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | CreateLocationAccessGrantPayloadKeySpecifier | (() => undefined | CreateLocationAccessGrantPayloadKeySpecifier),
 		fields?: CreateLocationAccessGrantPayloadFieldPolicy,
 	},
+	CreateLocationAccessPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | CreateLocationAccessPayloadKeySpecifier | (() => undefined | CreateLocationAccessPayloadKeySpecifier),
+		fields?: CreateLocationAccessPayloadFieldPolicy,
+	},
 	CreateTimelinePhotoWithTimestampPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | CreateTimelinePhotoWithTimestampPayloadKeySpecifier | (() => undefined | CreateTimelinePhotoWithTimestampPayloadKeySpecifier),
 		fields?: CreateTimelinePhotoWithTimestampPayloadFieldPolicy,
@@ -558,6 +576,10 @@ export type StrictTypedTypePolicies = {
 	LikePensieveMessagePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | LikePensieveMessagePayloadKeySpecifier | (() => undefined | LikePensieveMessagePayloadKeySpecifier),
 		fields?: LikePensieveMessagePayloadFieldPolicy,
+	},
+	LocationAccess?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | LocationAccessKeySpecifier | (() => undefined | LocationAccessKeySpecifier),
+		fields?: LocationAccessFieldPolicy,
 	},
 	LocationAccessGrant?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | LocationAccessGrantKeySpecifier | (() => undefined | LocationAccessGrantKeySpecifier),

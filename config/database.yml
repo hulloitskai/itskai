@@ -16,7 +16,6 @@
 #
 default: &default
   adapter: postgis
-  encoding: unicode
   url: <%= ENV["POSTGRES_URL"] %>
   host: <%= ENV.fetch("POSTGRES_HOST", "localhost") %>
   port: <%= ENV.fetch("POSTGRES_PORT", 5432) %>

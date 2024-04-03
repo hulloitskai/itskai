@@ -11,9 +11,10 @@ class GoodJob::FrontendsController
   module HelperMethods
     include ::ActionText::ContentHelper
     include ::ActionText::TagHelper
-    include ::ViteRails::TagHelpers
     include ::InertiaRails::Helper
+    include ::ViteRails::TagHelpers
     include ::ActionController::Base::HelperMethods
+    include ::GoodJob::IconsHelper
     include ::GoodJob::ApplicationHelper
   end
 

@@ -3,5 +3,5 @@
 
 class LocateParams < ApplicationModel
   # == Attributes
-  attribute :password, :string
+  attribute :access_token, :string
 end

@@ -24,7 +24,7 @@ module Journeys
     SESSION_DURATION = T.let(1.hour, ActiveSupport::Duration)
 
     # == Attributes
-    attribute :slug, :string, default: -> { generate_slug }
+    attribute :slug, default: -> { generate_slug }
 
     # == Associations
     has_many :participations,

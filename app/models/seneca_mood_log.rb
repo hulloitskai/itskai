@@ -14,13 +14,13 @@ class SenecaMoodLog < ApplicationRecord
   validates :valence, numericality: { in: 1..10 }
 
   # == Callbacks
-  after_create_commit :notify_kai
+  after_create_commit :send_notification
 
   private
 
   # == Callback Handlers
   sig { void }
-  def notify_kai
+  def send_notification
     NotificationsBot.send_message("Seneca rated her mood #{valence}/10")
   end
 end

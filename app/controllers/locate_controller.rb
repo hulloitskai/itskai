@@ -7,9 +7,9 @@ class LocateController < ApplicationController
 
   # == Actions
   def show
-    params = LocateParams.new(self.params.permit(:password))
+    params = LocateParams.new(self.params.permit(:access_token))
     params.validate!
-    render(inertia: "LocatePage", props: { password: params.password })
+    render(inertia: "LocatePage", props: { access_token: params.access_token })
   end
 
   def grant

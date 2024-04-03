@@ -33,6 +33,7 @@ module Types
     field :send_pensieve_message, mutation: Mutations::SendPensieveMessage
     field :unlike_pensieve_message, mutation: Mutations::UnlikePensieveMessage
 
+    field :create_location_access, mutation: Mutations::CreateLocationAccess
     field :create_location_access_grant,
           mutation: Mutations::CreateLocationAccessGrant
     field :delete_location_access_grant,

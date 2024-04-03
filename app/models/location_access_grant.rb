@@ -30,6 +30,12 @@ class LocationAccessGrant < ApplicationRecord
     duration
   end
 
+  # == Associations
+  has_many :accesses,
+           class_name: "LocationAccess",
+           inverse_of: :grant,
+           dependent: :destroy
+
   # == Normalizations
   removes_blank :password
 
@@ -53,19 +59,6 @@ class LocationAccessGrant < ApplicationRecord
     T.bind(self, PrivateRelation)
     where("expires_at > NOW()")
   }
-
-  # == Methods
-  sig { params(password: String).returns(T.nilable(LocationAccessGrant)) }
-  def self.for_password(password)
-    valid.find_by(password:).tap do |grant|
-      grant = T.let(grant, T.nilable(LocationAccessGrant))
-      if grant
-        NotificationsBot.send_message(
-          "#{grant.recipient} accessed your location",
-        )
-      end
-    end
-  end
 
   private
 

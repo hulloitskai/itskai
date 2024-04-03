@@ -1,32 +1,45 @@
 import type { FC } from "react";
 import type { BoxProps, MantineSize } from "@mantine/core";
+import { CreateLocationAccessMutationDocument } from "~/helpers/graphql";
 
-export type LocationTrackFormProps = BoxProps & {
+export type LocationAccessFormProps = BoxProps & {
   readonly size?: MantineSize | (string & {});
-  readonly onSubmit: (password: string) => void;
+  readonly onCreate: (password: string) => void;
 };
 
-type LocationTrackFormValues = {
+type LocationAccessFormValues = {
   readonly password: string;
 };
 
-const LocationTrackForm: FC<LocationTrackFormProps> = ({
-  onSubmit: handleSubmit,
+const LocationAccessForm: FC<LocationAccessFormProps> = ({
   size = "md",
+  onCreate,
   ...otherProps
 }) => {
   // == Form
-  const { getInputProps, onSubmit } = useForm<LocationTrackFormValues>({
+  const { getInputProps, onSubmit } = useForm<LocationAccessFormValues>({
     initialValues: {
       password: "",
     },
   });
 
+  // == Mutation
+  const onError = useApolloAlertCallback("Failed to access location details");
+  const [runMutation, { loading }] = useMutation(
+    CreateLocationAccessMutationDocument,
+    {
+      onError,
+      onCompleted: ({ payload: { access } }) => {
+        onCreate(access.token);
+      },
+    },
+  );
+
   return (
     <Box
       component="form"
       onSubmit={onSubmit(({ password }) => {
-        handleSubmit(password);
+        runMutation({ variables: { input: { password } } });
       })}
       {...otherProps}
     >
@@ -44,7 +57,7 @@ const LocationTrackForm: FC<LocationTrackFormProps> = ({
           {...{ size }}
           {...getInputProps("password")}
         />
-        <Button type="submit" size="sm">
+        <Button type="submit" size="sm" {...{ loading }}>
           Nyoom in
         </Button>
       </Group>
@@ -52,4 +65,4 @@ const LocationTrackForm: FC<LocationTrackFormProps> = ({
   );
 };
 
-export default LocationTrackForm;
+export default LocationAccessForm;

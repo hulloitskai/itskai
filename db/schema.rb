@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_26_180261) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_03_062040) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -189,6 +189,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_26_180261) do
     t.index ["password"], name: "index_location_access_grants_on_password"
   end
 
+  create_table "location_accesses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "grant_id", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.string "token", null: false
+    t.index ["grant_id"], name: "index_location_accesses_on_grant_id"
+    t.index ["token"], name: "index_location_accesses_on_token", unique: true
+  end
+
   create_table "location_log_addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "location_log_id", null: false
     t.string "full_address", null: false
@@ -362,6 +370,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_26_180261) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "dishwatcher_captures", "dishwatcher_devices", column: "device_id"
   add_foreign_key "journeys_session_participations", "journeys_sessions", column: "session_id"
+  add_foreign_key "location_accesses", "location_access_grants", column: "grant_id"
   add_foreign_key "location_log_addresses", "location_logs"
   add_foreign_key "obsidian_relations", "obsidian_notes", column: "from_id"
   add_foreign_key "pensieve_message_likes", "pensieve_messages", column: "message_id"

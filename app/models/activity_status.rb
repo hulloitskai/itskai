@@ -42,7 +42,6 @@ class ActivityStatus
     instance.clear_task&.kill
     clear_task = instance.clear_task = Concurrent::TimerTask.new(
       execution_interval: DURATION,
-      timeout_interval: 1.second,
     ) do
       Rails.application.reloader.wrap do
         clear

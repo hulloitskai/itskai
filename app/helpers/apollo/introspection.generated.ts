@@ -13,6 +13,7 @@
       "JournalEntry",
       "JourneysSession",
       "JourneysSessionParticipation",
+      "LocationAccess",
       "LocationAccessGrant",
       "LocationLog",
       "OAuthCredentials",

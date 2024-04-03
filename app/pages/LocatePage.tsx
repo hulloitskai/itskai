@@ -19,7 +19,7 @@ import type { Coordinates } from "~/helpers/graphql";
 
 import AppLayout from "~/components/AppLayout";
 import Map from "~/components/Map";
-import LocationTrackForm from "~/components/LocationTrackForm";
+import LocationAccessForm from "~/components/LocationAccessForm";
 
 import classes from "./LocatePage.module.css";
 import { DateTime, Duration } from "luxon";
@@ -30,11 +30,11 @@ const TORONTO_COORDINATES: Readonly<Coordinates> = {
 };
 
 export type LocatePageProps = PagePropsWithData<LocatePageQuery> & {
-  readonly password: Maybe<string>;
+  readonly accessToken: Maybe<string>;
 };
 
 const LocatePage: PageComponent<LocatePageProps> = ({
-  password,
+  accessToken,
   data: { location: initialLocation },
 }) => {
   const isClient = useIsClient();
@@ -61,8 +61,8 @@ const LocatePage: PageComponent<LocatePageProps> = ({
   const subscriptionVariables = useMemo<
     LocatePageSubscriptionVariables | undefined
   >(
-    () => (!pageLoading && password ? { password } : undefined),
-    [password, pageLoading],
+    () => (!pageLoading && accessToken ? { accessToken } : undefined),
+    [accessToken, pageLoading],
   );
   const [subscriptionFirstLoad, setSubscriptionFirstLoad] = useState(true);
   const onSubscriptionError = useApolloAlertCallback(
@@ -72,6 +72,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
     variables: subscriptionVariables,
     skip: !subscriptionVariables,
     onData: ({ data: { data, error } }) => {
+      console.log({ data });
       if (data) {
         const { location } = data;
         if (location && mapRef.current) {
@@ -362,10 +363,10 @@ const LocatePage: PageComponent<LocatePageProps> = ({
               <Text inherit mb={8}>
                 Got a password? Enter it here to find out where Kai is.
               </Text>
-              <LocationTrackForm
+              <LocationAccessForm
                 size="sm"
-                onSubmit={password => {
-                  const params = new URLSearchParams([["password", password]]);
+                onCreate={token => {
+                  const params = new URLSearchParams([["access_token", token]]);
                   router.visit(
                     window.location.pathname + "?" + params.toString(),
                     {
