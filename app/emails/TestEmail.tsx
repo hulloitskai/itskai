@@ -24,6 +24,7 @@ const TestEmail: PageComponent<TestEmailProps> = ({
     <>
       <Text>Hi, {name || "anonymous user"}!</Text>
       <Text>This is a test email containing your form submission results:</Text>
+      <br />
       <Box className={classes.results} component={Section}>
         <Row>
           <Column>

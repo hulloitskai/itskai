@@ -270,7 +270,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
                 "lyrics-explicit": lyricsCurrentlyExplicit,
               }}
               onClick={() => {
-                const newTab = open(undefined, "_blank");
+                const newTab = open("./loading", "_blank");
                 runMutation({
                   variables: {
                     input: {},

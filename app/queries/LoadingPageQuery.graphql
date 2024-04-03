@@ -1,0 +1,6 @@
+query LoadingPageQuery {
+  viewer {
+    ...AppViewerFragment
+    id
+  }
+}
