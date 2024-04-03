@@ -184,6 +184,23 @@ const EMAIL_THEME_OVERRIDE = createTheme({
         underline: "always",
       },
     }),
+    Button: Button.extend({
+      defaultProps: {
+        radius: "md",
+      },
+      classNames: {
+        root: classes.button,
+      },
+      styles: {
+        root: {
+          paddingLeft: "var(--button-padding-x, var(--button-padding-x-sm))",
+          paddingRight: "var(--button-padding-x, var(--button-padding-x-sm))",
+        },
+        label: {
+          fontWeight: 700,
+        },
+      },
+    }),
   },
 });
 
