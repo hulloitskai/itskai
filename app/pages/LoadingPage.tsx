@@ -1,14 +1,22 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Loader, Text } from "@mantine/core";
 
-import type { LocatePageQuery } from "~/helpers/graphql";
 import AppLayout from "~/components/AppLayout";
-import { useTimeout } from "@mantine/hooks";
 
-export type LoadingPageProps = PagePropsWithData<LocatePageQuery>;
+import type { LocatePageQuery } from "~/helpers/graphql";
 
-const LoadingPage: PageComponent<LoadingPageProps> = () => {
-  useTimeout(close, 4000, { autoInvoke: true });
+export type LoadingPageProps = PagePropsWithData<LocatePageQuery> & {
+  readonly timeout: number;
+};
+
+const LoadingPage: PageComponent<LoadingPageProps> = ({ timeout }) => {
+  useEffect(() => {
+    if (opener) {
+      setTimeout(close, timeout);
+    } else {
+      location.href = "/";
+    }
+  }, [timeout]);
   return (
     <Center style={{ flexGrow: 1 }}>
       <Card w="100%" maw={280} pt="lg" withBorder>

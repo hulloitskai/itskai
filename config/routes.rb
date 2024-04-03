@@ -130,12 +130,12 @@ Rails.application.routes.draw do
   root "home#show"
   get "/admin" => "admin#show"
   get "/pensieve" => "pensieve#show"
+  get "/loading" => "loading#show"
   get "/track" => redirect(path: "/locate", status: 302)
   get "/toronto" => "places#toronto"
   get "/atelier" => redirect("https://instagram.com/atelier.ubc", status: 302)
   get "/opencal" => redirect("https://opencal.me/kai", status: 302)
   get "/src" => redirect("https://github.com/hulloitskai/itskai", status: 302)
-  inertia "/loading" => "LoadingPage"
 
   # == Development
   if Rails.env.development?
