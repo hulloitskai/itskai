@@ -90,7 +90,7 @@ COPY .bash_profile .inputrc /root/
 COPY starship.toml /root/.config/starship.toml
 
 # Configure application environment
-ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true,stats_print:true"
+ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true
 
 # Copy application code
 COPY . ./
@@ -107,6 +107,9 @@ EXPOSE 3000
 # Configure healthcheck
 HEALTHCHECK --interval=15s --timeout=2s --start-period=10s --retries=3 \
   CMD curl -f http://127.0.0.1:3000/status
+
+# Configure runtime environment
+ENV MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true,stats_print:true"
 
 # Set entrypoint and default command
 CMD [ "bin/run" ]
