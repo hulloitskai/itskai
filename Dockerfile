@@ -101,6 +101,9 @@ RUN bundle exec bootsnap precompile --gemfile app/ lib/
 # Precompile assets
 RUN bundle exec rails assets:precompile RAILS_SECRET_KEY_BASE=dummy
 
+# Install Python scripts
+RUN poetry install --no-cache --without=dev
+
 # Expose ports
 EXPOSE 3000
 
