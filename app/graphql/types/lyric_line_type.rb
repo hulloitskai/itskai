@@ -4,7 +4,6 @@
 module Types
   class LyricLineType < BaseObject
     # == Fields
-    field :is_explicit, Boolean, null: false, method: :explicit?
     field :start_time_milliseconds, Integer, null: false
     field :words, String, null: false
 

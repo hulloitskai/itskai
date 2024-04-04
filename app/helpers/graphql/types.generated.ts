@@ -453,7 +453,6 @@ export type LocationTrailMarker = {
 
 export type LyricLine = {
   __typename?: 'LyricLine';
-  isExplicit: Scalars['Boolean']['output'];
   startTimeMilliseconds: Scalars['Int']['output'];
   words: Scalars['String']['output'];
 };

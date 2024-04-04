@@ -51,11 +51,11 @@ class SpotifyClient < ApplicationService
       lines = T.let(lyrics.fetch("lines"), T::Array[T::Hash[String, T.untyped]])
       if sync_type == "LINE_SYNCED"
         lines.map do |line|
-          words = normalize_words(line.fetch("words"))
+          normalized_words = normalize_words(line.fetch("words"))
+          sanitized_words = sanitize_words(normalized_words)
           LyricLine.new(
             start_time_milliseconds: line.fetch("startTimeMs").to_i,
-            words:,
-            explicit: explicit_words?(words),
+            words: sanitized_words,
           )
         end
       end
@@ -140,14 +140,13 @@ class SpotifyClient < ApplicationService
     words == "♪" ? "" : words
   end
 
-  sig { params(words: String).returns(T::Boolean) }
-  private_class_method def self.explicit_words?(words)
-    if words.present?
-      normalized_words = words.downcase
-      Badwords.current.any? { |word| normalized_words.include?(word) }
-    else
-      false
+  sig { params(words: String).returns(String) }
+  private_class_method def self.sanitize_words(words)
+    sanitized_words = words.dup
+    Badwords.current.each do |word|
+      sanitized_words.gsub!(/#{Regexp.escape(word)}/i, "*" * word.length)
     end
+    sanitized_words
   end
 
   sig { params(spotify_uri: String).returns(String) }

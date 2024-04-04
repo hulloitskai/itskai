@@ -3,9 +3,9 @@ import type { FC, ReactNode } from "react";
 import { useHover } from "@mantine/hooks";
 import type { TooltipProps } from "@mantine/core";
 
-import { CurrentlyPlayingLyricsTooltipQueryDocument } from "~/helpers/graphql";
 import type { Maybe } from "~/helpers/graphql";
 import type { CurrentlyPlayingLyricsTooltipLyricLineFragment } from "~/helpers/graphql";
+import { CurrentlyPlayingLyricsTooltipQueryDocument } from "~/helpers/graphql";
 
 import {
   useInterpolatedProgressMilliseconds,
@@ -73,34 +73,25 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
       return null;
     }
   }, [lyrics, progressLyricsIndexMapping, interpolatedProgressMilliseconds]);
-  const [currentWords, setCurrentWords] = useState("");
-  useEffect(() => {
-    if (currentLyric?.words) {
-      const { words, isExplicit } = currentLyric;
-      if (!isExplicit || hovered) {
-        setCurrentWords(words);
-      } else {
-        setTimeout(() => {
-          setCurrentWords(words);
-        }, transitionDuration + 50);
-      }
-    }
-  }, [currentLyric, hovered]);
 
   const hasWords = !!currentLyric?.words;
-  const currentlyExplicit = currentLyric?.isExplicit;
+  const label = useMemo(
+    () => (hovered ? "Click to jam with me :)" : currentLyric?.words),
+    [currentLyric, hovered],
+  );
+  const prevLabel = usePrevious(label);
   return (
     <Tooltip
-      label={currentWords}
+      label={label || prevLabel}
       withArrow
       multiline
       color="primary"
       transitionProps={{ duration: transitionDuration }}
-      disabled={disabled ?? !hasWords}
+      disabled={disabled ?? (!hasWords && !hovered)}
+      opened={!disabled && (hasWords || hovered)}
       maw={350}
       fz="xs"
       classNames={{ tooltip: classes.tooltip }}
-      {...(currentlyExplicit === false && { opened: !disabled && hasWords })}
       {...{ ref }}
       {...otherProps}
     >

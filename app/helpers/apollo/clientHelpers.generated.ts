@@ -214,9 +214,8 @@ export type LocationTrailMarkerFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	timestamp?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type LyricLineKeySpecifier = ('isExplicit' | 'startTimeMilliseconds' | 'words' | LyricLineKeySpecifier)[];
+export type LyricLineKeySpecifier = ('startTimeMilliseconds' | 'words' | LyricLineKeySpecifier)[];
 export type LyricLineFieldPolicy = {
-	isExplicit?: FieldPolicy<any> | FieldReadFunction<any>,
 	startTimeMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	words?: FieldPolicy<any> | FieldReadFunction<any>
 };

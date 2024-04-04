@@ -413,7 +413,6 @@ type LocationTrailMarker {
 }
 
 type LyricLine {
-  isExplicit: Boolean!
   startTimeMilliseconds: Int!
   words: String!
 }

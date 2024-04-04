@@ -1,5 +1,4 @@
 fragment CurrentlyPlayingLyricsTooltipLyricLineFragment on LyricLine {
-  isExplicit
   startTimeMilliseconds
   words
 }

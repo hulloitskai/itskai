@@ -3,9 +3,9 @@ import Marquee from "react-fast-marquee";
 import { motion } from "framer-motion";
 import PlayIcon from "~icons/heroicons/play-circle-20-solid";
 
-import { Image, Text, darken } from "@mantine/core";
-import { useNetwork } from "@mantine/hooks";
 import type { BoxProps, ImageProps, TextProps } from "@mantine/core";
+import { Image, Text } from "@mantine/core";
+import { useNetwork } from "@mantine/hooks";
 
 import {
   ActivateSpotifyJamSessionMutationDocument,
@@ -209,8 +209,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
         {...{ durationMilliseconds, progressMilliseconds }}
       >
         {currentLyricLine => {
-          const { words: currentWords, isExplicit: lyricsCurrentlyExplicit } =
-            currentLyricLine ?? {};
+          const { words: currentWords } = currentLyricLine ?? {};
           const hasLyrics = !!currentWords;
           return (
             <Badge
@@ -252,7 +251,6 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
                   }).value;
                   return {
                     "--cpi-border-color-active": borderColor,
-                    "--cpi-border-color-muted": darken(borderColor, 0.3),
                   };
                 },
               ]}
@@ -267,7 +265,6 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
               }}
               mod={{
                 "with-lyrics": hasLyrics,
-                "lyrics-explicit": lyricsCurrentlyExplicit,
               }}
               onClick={() => {
                 const newTab = open("./loading", "_blank");
