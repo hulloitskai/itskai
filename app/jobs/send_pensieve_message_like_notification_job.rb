@@ -15,6 +15,6 @@ class SendPensieveMessageLikeNotificationJob < ApplicationJob
   # == Job
   sig { params(like: PensieveMessageLike).void }
   def perform(like)
-    like.send_notification
+    like.send_notification_and_update_reaction
   end
 end

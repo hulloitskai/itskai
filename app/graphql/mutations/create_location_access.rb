@@ -19,7 +19,6 @@ module Mutations
     def resolve(password:)
       grant = LocationAccessGrant.valid.find_by(password:) or
         raise GraphQL::ExecutionError, "Password is invalid or expired."
-      authorize!(grant, to: :show?)
       access = grant.accesses.create!
       Payload.new(access:)
     end

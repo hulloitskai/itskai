@@ -252,7 +252,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
                   }).value;
                   return {
                     "--cpi-border-color-active": borderColor,
-                    "--cpi-border-color-muted": darken(borderColor, 0.4),
+                    "--cpi-border-color-muted": darken(borderColor, 0.3),
                   };
                 },
               ]}

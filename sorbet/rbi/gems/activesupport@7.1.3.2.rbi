@@ -15173,7 +15173,7 @@ class Array
   #   </messages>
   #
   # source://activesupport//lib/active_support/core_ext/array/conversions.rb#185
-  def to_xml(options = T.unsafe(nil)); end
+  # def to_xml(options = T.unsafe(nil)); end
 
   # Returns a copy of the Array excluding the specified elements.
   #
@@ -19864,7 +19864,7 @@ class String
   def acts_like_string?; end
 
   # source://activesupport//lib/active_support/core_ext/object/json.rb#101
-  def as_json(options = T.unsafe(nil)); end
+  # def as_json(options = T.unsafe(nil)); end
 
   # If you pass a single integer, returns a substring of one character at that
   # position. The first character of the string is at position 0, the next at

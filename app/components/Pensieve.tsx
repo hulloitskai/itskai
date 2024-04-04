@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import type { CSSProperties, FC } from "react";
 import { DateTime } from "luxon";
 import ExpandIcon from "~icons/heroicons/arrows-pointing-out-20-solid";
 
@@ -127,6 +127,7 @@ const Pensieve: FC<PensieveProps> = ({
 
   return (
     <Box
+      id="pensieve"
       pos="relative"
       w="100%"
       maw={540}
@@ -151,15 +152,23 @@ const Pensieve: FC<PensieveProps> = ({
                 invariant(firstMessage, "Group must have at least one message");
                 const { id: messageId, from } = firstMessage;
                 const fromBot = from === PensieveMessageSender.Bot;
+                const align: CSSProperties["alignItems"] = fromBot
+                  ? "end"
+                  : "start";
                 return (
-                  <Stack
-                    key={messageId}
-                    align={fromBot ? "start" : "end"}
-                    gap={6}
-                  >
-                    {messages.map(message => (
-                      <PensieveMessage key={message.id} {...{ message }} />
-                    ))}
+                  <Stack key={messageId} gap={4} {...{ align }}>
+                    <Text
+                      size="xs"
+                      fw={800}
+                      c={fromBot ? "primary.6" : "gray."}
+                    >
+                      {fromBot ? "The Universe (you)" : "Kai"}
+                    </Text>
+                    <Stack gap={6} {...{ align }}>
+                      {messages.map(message => (
+                        <PensieveMessage key={message.id} {...{ message }} />
+                      ))}
+                    </Stack>
                   </Stack>
                 );
               })}

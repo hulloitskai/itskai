@@ -31,63 +31,65 @@ end
 class Telegram::Bot::Api
   # @return [Api] a new instance of Api
   #
-  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#36
+  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#8
   def initialize(token, url: T.unsafe(nil), environment: T.unsafe(nil)); end
 
-  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#56
+  # @raise [Exceptions::ResponseError]
+  #
+  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#44
   def call(endpoint, raw_params = T.unsafe(nil)); end
+
+  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#14
+  def connection; end
 
   # Returns the value of attribute environment.
   #
-  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#34
+  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#6
   def environment; end
 
-  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#42
+  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#24
   def method_missing(method_name, *args, &block); end
 
   # Returns the value of attribute token.
   #
-  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#34
+  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#6
   def token; end
 
   # Returns the value of attribute url.
   #
-  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#34
+  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#6
   def url; end
 
   private
 
-  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#69
+  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#55
   def build_params(params); end
 
-  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#75
+  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#61
   def build_path(endpoint); end
 
-  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#93
+  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#79
   def camelize(method_name); end
 
-  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#99
-  def conn; end
-
-  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#85
+  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#71
   def jsonify_value(value); end
 
   # @return [Boolean]
   #
-  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#89
+  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#75
   def jsonify_value?(value); end
 
   # @return [Boolean]
   #
-  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#49
+  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#37
   def respond_to_missing?(*args); end
 
-  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#81
+  # source://telegram-bot-ruby//lib/telegram/bot/api.rb#67
   def sanitize_value(value); end
 end
 
-# source://telegram-bot-ruby//lib/telegram/bot/api.rb#6
-Telegram::Bot::Api::ENDPOINTS = T.let(T.unsafe(nil), Array)
+# source://telegram-bot-ruby//lib/telegram/bot/api/endpoints.rb#6
+Telegram::Bot::Api::ENDPOINTS = T.let(T.unsafe(nil), Hash)
 
 # source://telegram-bot-ruby//lib/telegram/bot/client.rb#5
 class Telegram::Bot::Client
@@ -101,10 +103,10 @@ class Telegram::Bot::Client
   # source://telegram-bot-ruby//lib/telegram/bot/client.rb#6
   def api; end
 
-  # source://telegram-bot-ruby//lib/telegram/bot/client.rb#31
+  # source://telegram-bot-ruby//lib/telegram/bot/client.rb#33
   def fetch_updates; end
 
-  # source://telegram-bot-ruby//lib/telegram/bot/client.rb#42
+  # source://telegram-bot-ruby//lib/telegram/bot/client.rb#41
   def handle_update(update); end
 
   # source://telegram-bot-ruby//lib/telegram/bot/client.rb#23
@@ -133,12 +135,15 @@ class Telegram::Bot::Client
   # source://telegram-bot-ruby//lib/telegram/bot/client.rb#19
   def run; end
 
+  # source://telegram-bot-ruby//lib/telegram/bot/client.rb#29
+  def stop; end
+
   private
 
-  # source://telegram-bot-ruby//lib/telegram/bot/client.rb#52
+  # source://telegram-bot-ruby//lib/telegram/bot/client.rb#51
   def default_options; end
 
-  # source://telegram-bot-ruby//lib/telegram/bot/client.rb#62
+  # source://telegram-bot-ruby//lib/telegram/bot/client.rb#61
   def log_incoming_message(message); end
 
   class << self
@@ -202,23 +207,18 @@ class Telegram::Bot::Exceptions::ResponseError < ::Telegram::Bot::Exceptions::Ba
   # @return [ResponseError] a new instance of ResponseError
   #
   # source://telegram-bot-ruby//lib/telegram/bot/exceptions/response_error.rb#9
-  def initialize(response); end
+  def initialize(response:); end
 
   # source://telegram-bot-ruby//lib/telegram/bot/exceptions/response_error.rb#19
+  def data; end
+
+  # source://telegram-bot-ruby//lib/telegram/bot/exceptions/response_error.rb#15
   def error_code; end
 
   # Returns the value of attribute response.
   #
   # source://telegram-bot-ruby//lib/telegram/bot/exceptions/response_error.rb#7
   def response; end
-
-  # source://telegram-bot-ruby//lib/telegram/bot/exceptions/response_error.rb#14
-  def to_s; end
-
-  private
-
-  # source://telegram-bot-ruby//lib/telegram/bot/exceptions/response_error.rb#25
-  def data; end
 end
 
 # source://telegram-bot-ruby//lib/telegram/bot/null_logger.rb#5
@@ -264,7 +264,7 @@ class Telegram::Bot::Types::Animation < ::Telegram::Bot::Types::Base
   def mime_type; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb; end
+  def thumbnail; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def width; end
@@ -294,7 +294,7 @@ class Telegram::Bot::Types::Audio < ::Telegram::Bot::Types::Base
   def performer; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb; end
+  def thumbnail; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def title; end
@@ -370,6 +370,24 @@ class Telegram::Bot::Types::BotCommandScopeDefault < ::Telegram::Bot::Types::Bas
   def type; end
 end
 
+# source://telegram-bot-ruby//lib/telegram/bot/types/bot_description.rb#6
+class Telegram::Bot::Types::BotDescription < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def description; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/bot_name.rb#6
+class Telegram::Bot::Types::BotName < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def name; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/bot_short_description.rb#6
+class Telegram::Bot::Types::BotShortDescription < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def short_description; end
+end
+
 # source://telegram-bot-ruby//lib/telegram/bot/types/callback_game.rb#6
 class Telegram::Bot::Types::CallbackGame < ::Telegram::Bot::Types::Base; end
 
@@ -400,7 +418,16 @@ end
 # source://telegram-bot-ruby//lib/telegram/bot/types/chat.rb#6
 class Telegram::Bot::Types::Chat < ::Telegram::Bot::Types::Base
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def accent_color_id; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def active_usernames; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def available_reactions; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def background_custom_emoji_id; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def bio; end
@@ -413,6 +440,9 @@ class Telegram::Bot::Types::Chat < ::Telegram::Bot::Types::Base
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def emoji_status_custom_emoji_id; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def emoji_status_expiration_date; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def first_name; end
@@ -431,6 +461,9 @@ class Telegram::Bot::Types::Chat < ::Telegram::Bot::Types::Base
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def has_restricted_voice_and_video_messages; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def has_visible_history; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def id; end
@@ -469,6 +502,12 @@ class Telegram::Bot::Types::Chat < ::Telegram::Bot::Types::Base
   def pinned_message; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def profile_accent_color_id; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def profile_background_custom_emoji_id; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def slow_mode_delay; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
@@ -493,7 +532,13 @@ class Telegram::Bot::Types::ChatAdministratorRights < ::Telegram::Bot::Types::Ba
   def can_delete_messages; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def can_delete_stories; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def can_edit_messages; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def can_edit_stories; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def can_invite_users; end
@@ -514,6 +559,9 @@ class Telegram::Bot::Types::ChatAdministratorRights < ::Telegram::Bot::Types::Ba
   def can_post_messages; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def can_post_stories; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def can_promote_members; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
@@ -521,6 +569,81 @@ class Telegram::Bot::Types::ChatAdministratorRights < ::Telegram::Bot::Types::Ba
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def is_anonymous; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/chat_boost.rb#6
+class Telegram::Bot::Types::ChatBoost < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def add_date; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def boost_id; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def expiration_date; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def source; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/chat_boost_removed.rb#6
+class Telegram::Bot::Types::ChatBoostRemoved < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def boost_id; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def chat; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def remove_date; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def source; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/chat_boost_source.rb#6
+Telegram::Bot::Types::ChatBoostSource = T.let(T.unsafe(nil), Dry::Struct::Sum)
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/chat_boost_source_gift_code.rb#6
+class Telegram::Bot::Types::ChatBoostSourceGiftCode < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def source; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def user; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/chat_boost_source_giveaway.rb#6
+class Telegram::Bot::Types::ChatBoostSourceGiveaway < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def giveaway_message_id; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def is_unclaimed; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def source; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def user; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/chat_boost_source_premium.rb#6
+class Telegram::Bot::Types::ChatBoostSourcePremium < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def source; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def user; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/chat_boost_updated.rb#6
+class Telegram::Bot::Types::ChatBoostUpdated < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def boost; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def chat; end
 end
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/chat_invite_link.rb#6
@@ -583,11 +706,13 @@ class Telegram::Bot::Types::ChatLocation < ::Telegram::Bot::Types::Base
   def location; end
 end
 
-# source://telegram-bot-ruby//lib/telegram/bot/types/chat_member.rb#6
-class Telegram::Bot::Types::ChatMember < ::Telegram::Bot::Types::Base; end
+# Just for classes consistency
+#
+# source://telegram-bot-ruby//lib/telegram/bot/types/chat_member.rb#8
+Telegram::Bot::Types::ChatMember = T.let(T.unsafe(nil), Dry::Struct::Sum)
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/chat_member_administrator.rb#6
-class Telegram::Bot::Types::ChatMemberAdministrator < ::Telegram::Bot::Types::ChatMember
+class Telegram::Bot::Types::ChatMemberAdministrator < ::Telegram::Bot::Types::Base
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def can_be_edited; end
 
@@ -598,7 +723,13 @@ class Telegram::Bot::Types::ChatMemberAdministrator < ::Telegram::Bot::Types::Ch
   def can_delete_messages; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def can_delete_stories; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def can_edit_messages; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def can_edit_stories; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def can_invite_users; end
@@ -617,6 +748,9 @@ class Telegram::Bot::Types::ChatMemberAdministrator < ::Telegram::Bot::Types::Ch
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def can_post_messages; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def can_post_stories; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def can_promote_members; end
@@ -638,7 +772,7 @@ class Telegram::Bot::Types::ChatMemberAdministrator < ::Telegram::Bot::Types::Ch
 end
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/chat_member_banned.rb#6
-class Telegram::Bot::Types::ChatMemberBanned < ::Telegram::Bot::Types::ChatMember
+class Telegram::Bot::Types::ChatMemberBanned < ::Telegram::Bot::Types::Base
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def status; end
 
@@ -650,7 +784,7 @@ class Telegram::Bot::Types::ChatMemberBanned < ::Telegram::Bot::Types::ChatMembe
 end
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/chat_member_left.rb#6
-class Telegram::Bot::Types::ChatMemberLeft < ::Telegram::Bot::Types::ChatMember
+class Telegram::Bot::Types::ChatMemberLeft < ::Telegram::Bot::Types::Base
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def status; end
 
@@ -659,7 +793,7 @@ class Telegram::Bot::Types::ChatMemberLeft < ::Telegram::Bot::Types::ChatMember
 end
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/chat_member_member.rb#6
-class Telegram::Bot::Types::ChatMemberMember < ::Telegram::Bot::Types::ChatMember
+class Telegram::Bot::Types::ChatMemberMember < ::Telegram::Bot::Types::Base
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def status; end
 
@@ -668,7 +802,7 @@ class Telegram::Bot::Types::ChatMemberMember < ::Telegram::Bot::Types::ChatMembe
 end
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/chat_member_owner.rb#6
-class Telegram::Bot::Types::ChatMemberOwner < ::Telegram::Bot::Types::ChatMember
+class Telegram::Bot::Types::ChatMemberOwner < ::Telegram::Bot::Types::Base
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def custom_title; end
 
@@ -683,7 +817,7 @@ class Telegram::Bot::Types::ChatMemberOwner < ::Telegram::Bot::Types::ChatMember
 end
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/chat_member_restricted.rb#6
-class Telegram::Bot::Types::ChatMemberRestricted < ::Telegram::Bot::Types::ChatMember
+class Telegram::Bot::Types::ChatMemberRestricted < ::Telegram::Bot::Types::Base
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def can_add_web_page_previews; end
 
@@ -758,6 +892,9 @@ class Telegram::Bot::Types::ChatMemberUpdated < ::Telegram::Bot::Types::Base
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def old_chat_member; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def via_chat_folder_invite_link; end
 end
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/chat_permissions.rb#6
@@ -855,7 +992,7 @@ module Telegram::Bot::Types::Compactable
   # source://telegram-bot-ruby//lib/telegram/bot/types/compactable.rb#7
   def to_compact_hash; end
 
-  # source://telegram-bot-ruby//lib/telegram/bot/types/compactable.rb#20
+  # source://telegram-bot-ruby//lib/telegram/bot/types/compactable.rb#15
   def to_json(*args); end
 end
 
@@ -904,7 +1041,7 @@ class Telegram::Bot::Types::Document < ::Telegram::Bot::Types::Base
   def mime_type; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb; end
+  def thumbnail; end
 end
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/encrypted_credentials.rb#6
@@ -944,6 +1081,78 @@ class Telegram::Bot::Types::EncryptedPassportElement < ::Telegram::Bot::Types::B
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def type; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/external_reply_info.rb#6
+class Telegram::Bot::Types::ExternalReplyInfo < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def animation; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def audio; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def chat; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def contact; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def dice; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def document; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def game; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def giveaway; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def giveaway_winners; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def has_media_spoiler; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def invoice; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def link_preview_options; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def location; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def message_id; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def origin; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def photo; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def poll; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def sticker; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def story; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def venue; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def video; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def video_note; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def voice; end
 end
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/file.rb#6
@@ -1054,6 +1263,96 @@ class Telegram::Bot::Types::GeneralForumTopicHidden < ::Telegram::Bot::Types::Ba
 # source://telegram-bot-ruby//lib/telegram/bot/types/general_forum_topic_unhidden.rb#6
 class Telegram::Bot::Types::GeneralForumTopicUnhidden < ::Telegram::Bot::Types::Base; end
 
+# source://telegram-bot-ruby//lib/telegram/bot/types/giveaway.rb#6
+class Telegram::Bot::Types::Giveaway < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def chats; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def country_codes; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def has_public_winners; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def only_new_members; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def premium_subscription_month_count; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def prize_description; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def winner_count; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def winners_selection_date; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/giveaway_completed.rb#6
+class Telegram::Bot::Types::GiveawayCompleted < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def giveaway_message; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def unclaimed_prize_count; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def winner_count; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/giveaway_created.rb#6
+class Telegram::Bot::Types::GiveawayCreated < ::Telegram::Bot::Types::Base; end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/giveaway_winners.rb#6
+class Telegram::Bot::Types::GiveawayWinners < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def additional_chat_count; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def chat; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def giveaway_message_id; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def only_new_members; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def premium_subscription_month_count; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def prize_description; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def unclaimed_prize_count; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def was_refunded; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def winner_count; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def winners; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def winners_selection_date; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/inaccessible_message.rb#6
+class Telegram::Bot::Types::InaccessibleMessage < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def chat; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def date; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def message_id; end
+end
+
 # source://telegram-bot-ruby//lib/telegram/bot/types/inline_keyboard_button.rb#6
 class Telegram::Bot::Types::InlineKeyboardButton < ::Telegram::Bot::Types::Base
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
@@ -1070,6 +1369,9 @@ class Telegram::Bot::Types::InlineKeyboardButton < ::Telegram::Bot::Types::Base
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def switch_inline_query; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def switch_inline_query_chosen_chat; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def switch_inline_query_current_chat; end
@@ -1135,13 +1437,13 @@ class Telegram::Bot::Types::InlineQueryResultArticle < ::Telegram::Bot::Types::B
   def reply_markup; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_height; end
+  def thumbnail_height; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_url; end
+  def thumbnail_url; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_width; end
+  def thumbnail_width; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def title; end
@@ -1444,13 +1746,13 @@ class Telegram::Bot::Types::InlineQueryResultContact < ::Telegram::Bot::Types::B
   def reply_markup; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_height; end
+  def thumbnail_height; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_url; end
+  def thumbnail_url; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_width; end
+  def thumbnail_width; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def type; end
@@ -1489,13 +1791,13 @@ class Telegram::Bot::Types::InlineQueryResultDocument < ::Telegram::Bot::Types::
   def reply_markup; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_height; end
+  def thumbnail_height; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_url; end
+  def thumbnail_url; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_width; end
+  def thumbnail_width; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def title; end
@@ -1552,10 +1854,10 @@ class Telegram::Bot::Types::InlineQueryResultGif < ::Telegram::Bot::Types::Base
   def reply_markup; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_mime_type; end
+  def thumbnail_mime_type; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_url; end
+  def thumbnail_url; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def title; end
@@ -1594,13 +1896,13 @@ class Telegram::Bot::Types::InlineQueryResultLocation < ::Telegram::Bot::Types::
   def reply_markup; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_height; end
+  def thumbnail_height; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_url; end
+  def thumbnail_url; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_width; end
+  def thumbnail_width; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def title; end
@@ -1642,10 +1944,10 @@ class Telegram::Bot::Types::InlineQueryResultMpeg4Gif < ::Telegram::Bot::Types::
   def reply_markup; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_mime_type; end
+  def thumbnail_mime_type; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_url; end
+  def thumbnail_url; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def title; end
@@ -1687,7 +1989,7 @@ class Telegram::Bot::Types::InlineQueryResultPhoto < ::Telegram::Bot::Types::Bas
   def reply_markup; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_url; end
+  def thumbnail_url; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def title; end
@@ -1729,13 +2031,13 @@ class Telegram::Bot::Types::InlineQueryResultVenue < ::Telegram::Bot::Types::Bas
   def reply_markup; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_height; end
+  def thumbnail_height; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_url; end
+  def thumbnail_url; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_width; end
+  def thumbnail_width; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def title; end
@@ -1771,7 +2073,7 @@ class Telegram::Bot::Types::InlineQueryResultVideo < ::Telegram::Bot::Types::Bas
   def reply_markup; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb_url; end
+  def thumbnail_url; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def title; end
@@ -1948,7 +2250,7 @@ class Telegram::Bot::Types::InputMediaAnimation < ::Telegram::Bot::Types::Base
   def parse_mode; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb; end
+  def thumbnail; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def type; end
@@ -1978,7 +2280,7 @@ class Telegram::Bot::Types::InputMediaAudio < ::Telegram::Bot::Types::Base
   def performer; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb; end
+  def thumbnail; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def title; end
@@ -2005,7 +2307,7 @@ class Telegram::Bot::Types::InputMediaDocument < ::Telegram::Bot::Types::Base
   def parse_mode; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb; end
+  def thumbnail; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def type; end
@@ -2059,7 +2361,7 @@ class Telegram::Bot::Types::InputMediaVideo < ::Telegram::Bot::Types::Base
   def supports_streaming; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb; end
+  def thumbnail; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def type; end
@@ -2074,10 +2376,10 @@ class Telegram::Bot::Types::InputMessageContent < ::Telegram::Bot::Types::Base; 
 # source://telegram-bot-ruby//lib/telegram/bot/types/input_text_message_content.rb#6
 class Telegram::Bot::Types::InputTextMessageContent < ::Telegram::Bot::Types::InputMessageContent
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def disable_web_page_preview; end
+  def entities; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def entities; end
+  def link_preview_options; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def message_text; end
@@ -2146,7 +2448,7 @@ class Telegram::Bot::Types::KeyboardButton < ::Telegram::Bot::Types::Base
   def request_poll; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def request_user; end
+  def request_users; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def text; end
@@ -2188,8 +2490,11 @@ class Telegram::Bot::Types::KeyboardButtonRequestChat < ::Telegram::Bot::Types::
   def user_administrator_rights; end
 end
 
-# source://telegram-bot-ruby//lib/telegram/bot/types/keyboard_button_request_user.rb#6
-class Telegram::Bot::Types::KeyboardButtonRequestUser < ::Telegram::Bot::Types::Base
+# source://telegram-bot-ruby//lib/telegram/bot/types/keyboard_button_request_users.rb#6
+class Telegram::Bot::Types::KeyboardButtonRequestUsers < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def max_quantity; end
+
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def request_id; end
 
@@ -2207,6 +2512,24 @@ class Telegram::Bot::Types::LabeledPrice < ::Telegram::Bot::Types::Base
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def label; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/link_preview_options.rb#6
+class Telegram::Bot::Types::LinkPreviewOptions < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def is_disabled; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def prefer_large_media; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def prefer_small_media; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def show_above_text; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def url; end
 end
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/location.rb#6
@@ -2259,6 +2582,9 @@ class Telegram::Bot::Types::MaskPosition < ::Telegram::Bot::Types::Base
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def y_shift; end
 end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/maybe_inaccessible_message.rb#6
+Telegram::Bot::Types::MaybeInaccessibleMessage = T.let(T.unsafe(nil), Dry::Struct::Sum)
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/menu_button_commands.rb#6
 class Telegram::Bot::Types::MenuButtonCommands < ::Telegram::Bot::Types::Base
@@ -2335,6 +2661,9 @@ class Telegram::Bot::Types::Message < ::Telegram::Bot::Types::Base
   def entities; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def external_reply; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def forum_topic_closed; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
@@ -2347,22 +2676,7 @@ class Telegram::Bot::Types::Message < ::Telegram::Bot::Types::Base
   def forum_topic_reopened; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def forward_date; end
-
-  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def forward_from; end
-
-  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def forward_from_chat; end
-
-  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def forward_from_message_id; end
-
-  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def forward_sender_name; end
-
-  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def forward_signature; end
+  def forward_origin; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def from; end
@@ -2375,6 +2689,18 @@ class Telegram::Bot::Types::Message < ::Telegram::Bot::Types::Base
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def general_forum_topic_unhidden; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def giveaway; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def giveaway_completed; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def giveaway_created; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def giveaway_winners; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def group_chat_created; end
@@ -2396,6 +2722,9 @@ class Telegram::Bot::Types::Message < ::Telegram::Bot::Types::Base
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def left_chat_member; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def link_preview_options; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def location; end
@@ -2443,6 +2772,9 @@ class Telegram::Bot::Types::Message < ::Telegram::Bot::Types::Base
   def proximity_alert_triggered; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def quote; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def reply_markup; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
@@ -2453,6 +2785,9 @@ class Telegram::Bot::Types::Message < ::Telegram::Bot::Types::Base
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def sticker; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def story; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def successful_payment; end
@@ -2467,7 +2802,7 @@ class Telegram::Bot::Types::Message < ::Telegram::Bot::Types::Base
   def to_s; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def user_shared; end
+  def users_shared; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def venue; end
@@ -2528,6 +2863,111 @@ class Telegram::Bot::Types::MessageEntity < ::Telegram::Bot::Types::Base
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def url; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def user; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/message_id.rb#6
+class Telegram::Bot::Types::MessageId < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def message_id; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/message_origin.rb#6
+Telegram::Bot::Types::MessageOrigin = T.let(T.unsafe(nil), Dry::Struct::Sum)
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/message_origin_channel.rb#6
+class Telegram::Bot::Types::MessageOriginChannel < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def author_signature; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def chat; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def date; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def message_id; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def type; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/message_origin_chat.rb#6
+class Telegram::Bot::Types::MessageOriginChat < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def author_signature; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def date; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def sender_chat; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def type; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/message_origin_hidden_user.rb#6
+class Telegram::Bot::Types::MessageOriginHiddenUser < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def date; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def sender_user_name; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def type; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/message_origin_user.rb#6
+class Telegram::Bot::Types::MessageOriginUser < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def date; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def sender_user; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def type; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/message_reaction_count_updated.rb#6
+class Telegram::Bot::Types::MessageReactionCountUpdated < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def chat; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def date; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def message_id; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def reactions; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/message_reaction_updated.rb#6
+class Telegram::Bot::Types::MessageReactionUpdated < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def actor_chat; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def chat; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def date; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def message_id; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def new_reaction; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def old_reaction; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def user; end
@@ -2786,6 +3226,9 @@ class Telegram::Bot::Types::PollAnswer < ::Telegram::Bot::Types::Base
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def user; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def voter_chat; end
 end
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/poll_option.rb#6
@@ -2833,6 +3276,36 @@ class Telegram::Bot::Types::ProximityAlertTriggered < ::Telegram::Bot::Types::Ba
   def watcher; end
 end
 
+# source://telegram-bot-ruby//lib/telegram/bot/types/reaction_count.rb#6
+class Telegram::Bot::Types::ReactionCount < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def total_count; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def type; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/reaction_type.rb#6
+Telegram::Bot::Types::ReactionType = T.let(T.unsafe(nil), Dry::Struct::Sum)
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/reaction_type_custom_emoji.rb#6
+class Telegram::Bot::Types::ReactionTypeCustomEmoji < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def custom_emoji_id; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def type; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/reaction_type_emoji.rb#6
+class Telegram::Bot::Types::ReactionTypeEmoji < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def emoji; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def type; end
+end
+
 # source://telegram-bot-ruby//lib/telegram/bot/types/reply_keyboard_markup.rb#6
 class Telegram::Bot::Types::ReplyKeyboardMarkup < ::Telegram::Bot::Types::Base
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
@@ -2864,6 +3337,30 @@ class Telegram::Bot::Types::ReplyKeyboardRemove < ::Telegram::Bot::Types::Base
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def selective; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/reply_parameters.rb#6
+class Telegram::Bot::Types::ReplyParameters < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def allow_sending_without_reply; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def chat_id; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def message_id; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def quote; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def quote_entities; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def quote_parse_mode; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def quote_position; end
 end
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/sent_web_app_message.rb#6
@@ -2950,13 +3447,16 @@ class Telegram::Bot::Types::Sticker < ::Telegram::Bot::Types::Base
   def mask_position; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def needs_repainting; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def premium_animation; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def set_name; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb; end
+  def thumbnail; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def type; end
@@ -2983,11 +3483,14 @@ class Telegram::Bot::Types::StickerSet < ::Telegram::Bot::Types::Base
   def stickers; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb; end
+  def thumbnail; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def title; end
 end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/story.rb#6
+class Telegram::Bot::Types::Story < ::Telegram::Bot::Types::Base; end
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/successful_payment.rb#6
 class Telegram::Bot::Types::SuccessfulPayment < ::Telegram::Bot::Types::Base
@@ -3013,6 +3516,39 @@ class Telegram::Bot::Types::SuccessfulPayment < ::Telegram::Bot::Types::Base
   def total_amount; end
 end
 
+# source://telegram-bot-ruby//lib/telegram/bot/types/switch_inline_query_chosen_chat.rb#6
+class Telegram::Bot::Types::SwitchInlineQueryChosenChat < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def allow_bot_chats; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def allow_channel_chats; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def allow_group_chats; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def allow_user_chats; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def query; end
+end
+
+# source://telegram-bot-ruby//lib/telegram/bot/types/text_quote.rb#6
+class Telegram::Bot::Types::TextQuote < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def entities; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def is_manual; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def position; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def text; end
+end
+
 # source://telegram-bot-ruby//lib/telegram/bot/types/update.rb#6
 class Telegram::Bot::Types::Update < ::Telegram::Bot::Types::Base
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
@@ -3020,6 +3556,9 @@ class Telegram::Bot::Types::Update < ::Telegram::Bot::Types::Base
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def channel_post; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def chat_boost; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def chat_join_request; end
@@ -3030,7 +3569,7 @@ class Telegram::Bot::Types::Update < ::Telegram::Bot::Types::Base
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def chosen_inline_result; end
 
-  # source://telegram-bot-ruby//lib/telegram/bot/types/update.rb#23
+  # source://telegram-bot-ruby//lib/telegram/bot/types/update.rb#27
   def current_message; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
@@ -3046,6 +3585,12 @@ class Telegram::Bot::Types::Update < ::Telegram::Bot::Types::Base
   def message; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def message_reaction; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def message_reaction_count; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def my_chat_member; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
@@ -3056,6 +3601,9 @@ class Telegram::Bot::Types::Update < ::Telegram::Bot::Types::Base
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def pre_checkout_query; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def removed_chat_boost; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def shipping_query; end
@@ -3100,6 +3648,12 @@ class Telegram::Bot::Types::User < ::Telegram::Bot::Types::Base
   def username; end
 end
 
+# source://telegram-bot-ruby//lib/telegram/bot/types/user_chat_boosts.rb#6
+class Telegram::Bot::Types::UserChatBoosts < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def boosts; end
+end
+
 # source://telegram-bot-ruby//lib/telegram/bot/types/user_profile_photos.rb#6
 class Telegram::Bot::Types::UserProfilePhotos < ::Telegram::Bot::Types::Base
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
@@ -3109,13 +3663,13 @@ class Telegram::Bot::Types::UserProfilePhotos < ::Telegram::Bot::Types::Base
   def total_count; end
 end
 
-# source://telegram-bot-ruby//lib/telegram/bot/types/user_shared.rb#6
-class Telegram::Bot::Types::UserShared < ::Telegram::Bot::Types::Base
+# source://telegram-bot-ruby//lib/telegram/bot/types/users_shared.rb#6
+class Telegram::Bot::Types::UsersShared < ::Telegram::Bot::Types::Base
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def request_id; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def user_id; end
+  def user_ids; end
 end
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/venue.rb#6
@@ -3166,7 +3720,7 @@ class Telegram::Bot::Types::Video < ::Telegram::Bot::Types::Base
   def mime_type; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb; end
+  def thumbnail; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
   def width; end
@@ -3211,7 +3765,7 @@ class Telegram::Bot::Types::VideoNote < ::Telegram::Bot::Types::Base
   def length; end
 
   # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
-  def thumb; end
+  def thumbnail; end
 end
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/voice.rb#6
@@ -3278,7 +3832,16 @@ class Telegram::Bot::Types::WebhookInfo < ::Telegram::Bot::Types::Base
 end
 
 # source://telegram-bot-ruby//lib/telegram/bot/types/write_access_allowed.rb#6
-class Telegram::Bot::Types::WriteAccessAllowed < ::Telegram::Bot::Types::Base; end
+class Telegram::Bot::Types::WriteAccessAllowed < ::Telegram::Bot::Types::Base
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def from_attachment_menu; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def from_request; end
+
+  # source://dry-struct/1.6.0/lib/dry/struct/class_interface.rb#484
+  def web_app_name; end
+end
 
 # source://telegram-bot-ruby//lib/telegram/bot/version.rb#5
 Telegram::Bot::VERSION = T.let(T.unsafe(nil), String)

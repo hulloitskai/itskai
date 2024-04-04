@@ -191,7 +191,7 @@ gem "google_calendar", "~> 0.6.4"
 gem "os", "~> 1.1"
 
 # Interact with Kai on Telegram
-gem "telegram-bot-ruby", "~> 1.0", require: 'telegram/bot'
+gem "telegram-bot-ruby", "~> 2.0", require: 'telegram/bot'
 
 # Hash passwords with bcrypt
 gem "bcrypt", "~> 3.1"

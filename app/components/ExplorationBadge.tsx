@@ -1,9 +1,10 @@
 import type { ComponentPropsWithoutRef, FC } from "react";
 import type { BoxProps } from "@mantine/core";
 
-import { useContactMe } from "~/helpers/contactMe";
-
 import classes from "./ExplorationBadge.module.css";
+import { SendPensieveMessageMutationDocument } from "~/helpers/graphql";
+import { waitForTheElement } from "wait-for-the-element";
+import scrollIntoView from "scroll-into-view";
 
 export type ExplorationBadgeProps = BoxProps &
   Omit<ComponentPropsWithoutRef<"div">, "children"> & {
@@ -14,9 +15,30 @@ const ExplorationBadge: FC<ExplorationBadgeProps> = ({
   children,
   ...otherProps
 }) => {
-  const [contactMe, { loading }] = useContactMe({
-    body: "i have some thoughts abt this:",
-  });
+  // == Send Message
+  const onSendMessageError = useApolloAlertCallback("Failed to send message");
+  const [runSendMessageMutation, { loading: messageSending }] = useMutation(
+    SendPensieveMessageMutationDocument,
+    {
+      onError: onSendMessageError,
+      onCompleted: () => {
+        waitForTheElement("#pensieve", {
+          timeout: 5000,
+        }).then(el => {
+          if (el instanceof HTMLElement) {
+            scrollIntoView(el, () => {
+              showNotice({
+                title: "Message sent to Kai!",
+                message:
+                  "Feel free to continue messaging him, he'll get back to you soon :)",
+              });
+            });
+          }
+        });
+      },
+    },
+  );
+
   return (
     <Box pos="relative" {...otherProps}>
       <Tooltip
@@ -42,8 +64,12 @@ const ExplorationBadge: FC<ExplorationBadgeProps> = ({
             },
           }}
           onClick={() => {
-            contactMe({
-              subject: `you mentioned you were exploring "${children}"`,
+            runSendMessageMutation({
+              variables: {
+                input: {
+                  text: `i've been thinking abt ${children}`,
+                },
+              },
             });
           }}
         >
@@ -53,7 +79,7 @@ const ExplorationBadge: FC<ExplorationBadgeProps> = ({
       <LoadingOverlay
         loaderProps={{ size: "xs" }}
         overlayProps={{ radius: "lg" }}
-        visible={loading}
+        visible={messageSending}
       />
     </Box>
   );

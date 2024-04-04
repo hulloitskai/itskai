@@ -25,14 +25,10 @@ class NotificationsBot < ApplicationService
     ).returns(Telegram::Bot::Types::Message)
   end
   def self.send_message(text, reply_to_message_id: nil)
-    response = instance.client.api.send_message(
+    instance.client.api.send_message(
       text:,
       chat_id: Notifications.telegram_user_id!,
       reply_to_message_id:,
     )
-    if response["ok"] != true
-      raise "Failed to send message: #{response}"
-    end
-    Telegram::Bot::Types::Message.new(response["result"])
   end
 end

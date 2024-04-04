@@ -23,7 +23,7 @@ module GraphQL
     # @return [GraphQL::Language::Nodes::Document]
     #
     # source://graphql//lib/graphql.rb#45
-    # def parse(graphql_string, trace: T.unsafe(nil), filename: T.unsafe(nil)); end
+    def parse(graphql_string, trace: T.unsafe(nil), filename: T.unsafe(nil)); end
 
     # Read the contents of `filename` and parse them as GraphQL
     #
@@ -6593,7 +6593,7 @@ class GraphQL::Query
   # source://forwardable/1.3.3/forwardable.rb#231
   def possible_types(*args, **_arg1, &block); end
 
-  # source://graphql-persisted_queries/1.7.0/lib/graphql/persisted_queries/compiled_queries/query_patch.rb#16
+  # source://graphql-persisted_queries/1.8.0/lib/graphql/persisted_queries/compiled_queries/query_patch.rb#16
   def prepare_ast; end
 
   # Returns the value of attribute provided_variables.

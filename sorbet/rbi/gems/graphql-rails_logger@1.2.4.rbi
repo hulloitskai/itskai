@@ -14,7 +14,7 @@ module GraphQL
     def default_parser=(_arg0); end
 
     # source://graphql/2.0.24/lib/graphql.rb#45
-    def parse(graphql_string, trace: T.unsafe(nil)); end
+    # def parse(graphql_string, trace: T.unsafe(nil)); end
 
     # source://graphql/2.0.24/lib/graphql.rb#52
     def parse_file(filename); end

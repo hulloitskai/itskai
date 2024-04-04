@@ -27,11 +27,12 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
   return (
     <Transition transition="pop" {...{ mounted }}>
       {style => (
-        <Box
-          pos="relative"
+        <Group
+          gap={6}
+          wrap="nowrap"
           className={classes.root}
           mod={{ "has-likes": !!likes }}
-          {...(fromBot ? { pr: "xl" } : { pl: 40 })}
+          {...(fromBot ? { pl: 40 } : { pr: "xs" })}
           {...{ style }}
           {...otherProps}
         >
@@ -42,6 +43,7 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
             className={classes.message}
             data-from={from.toLocaleLowerCase()}
             style={{
+              flexGrow: 1,
               border: `${rem(1)} solid var(--pm-border-color)`,
               borderRadius: "var(--mantine-radius-md)",
             }}
@@ -80,24 +82,9 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
             )}
           </Stack>
           {!fromBot && (
-            <Center
-              className={classes.like}
-              pos="absolute"
-              left={34}
-              top={0}
-              bottom={0}
-            >
-              <Box pos="relative">
-                <PensieveMessageLike
-                  pos="absolute"
-                  right={0}
-                  top={-12}
-                  {...{ message }}
-                />
-              </Box>
-            </Center>
+            <PensieveMessageLike style={{ flexShrink: 0 }} {...{ message }} />
           )}
-        </Box>
+        </Group>
       )}
     </Transition>
   );
