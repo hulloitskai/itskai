@@ -12,6 +12,7 @@ require "badwords"
 #  id                  :uuid             not null, primary key
 #  edit_timestamp      :datetime
 #  from                :string           not null
+#  likes_count         :integer          default(0), not null
 #  text                :text             not null
 #  timestamp           :datetime         not null
 #  to                  :string
@@ -26,7 +27,6 @@ require "badwords"
 #  index_pensieve_messages_on_to         (to)
 #  index_pensieve_messages_uniqueness    (telegram_chat_id,telegram_message_id) UNIQUE
 #
-# rubocop:enable Layout/LineLength
 class PensieveMessage < ApplicationRecord
   include Identifiable
 

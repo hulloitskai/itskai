@@ -222,6 +222,9 @@ gem "rack-mini-profiler"
 gem "memory_profiler"
 gem "stackprof"
 
+# Cache counts in models with CounterCulture
+gem "counter_culture", "~> 3.5"
+
 # Render pretty JSON with NeatJSON
 gem "neatjson", "~> 0.10.5"
 
@@ -277,3 +280,4 @@ group :test do
   gem "capybara"
   gem "capybara-playwright-driver"
 end
+

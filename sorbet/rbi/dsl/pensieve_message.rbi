@@ -722,6 +722,51 @@ class PensieveMessage
     sig { void }
     def id_will_change!; end
 
+    sig { returns(::Integer) }
+    def likes_count; end
+
+    sig { params(value: ::Integer).returns(::Integer) }
+    def likes_count=(value); end
+
+    sig { returns(T::Boolean) }
+    def likes_count?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def likes_count_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def likes_count_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def likes_count_came_from_user?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def likes_count_change; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def likes_count_change_to_be_saved; end
+
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def likes_count_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def likes_count_in_database; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def likes_count_previous_change; end
+
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def likes_count_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def likes_count_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def likes_count_was; end
+
+    sig { void }
+    def likes_count_will_change!; end
+
     sig { void }
     def restore_created_at!; end
 
@@ -736,6 +781,9 @@ class PensieveMessage
 
     sig { void }
     def restore_id_value!; end
+
+    sig { void }
+    def restore_likes_count!; end
 
     sig { void }
     def restore_telegram_chat_id!; end
@@ -784,6 +832,12 @@ class PensieveMessage
 
     sig { returns(T::Boolean) }
     def saved_change_to_id_value?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def saved_change_to_likes_count; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_likes_count?; end
 
     sig { returns(T.nilable([::Integer, ::Integer])) }
     def saved_change_to_telegram_chat_id; end
@@ -1105,6 +1159,9 @@ class PensieveMessage
 
     sig { returns(T::Boolean) }
     def will_save_change_to_id_value?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_likes_count?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_telegram_chat_id?; end

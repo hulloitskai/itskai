@@ -14,6 +14,9 @@ class SpotifyUser < RSpotify::User
     end
   end
 
+  sig { returns(T::Boolean) }
+  def self.current? = OAuthCredentials.spotify?
+
   # == Builders
   sig { params(credentials: OAuthCredentials).returns(SpotifyUser) }
   def self.from_credentials(credentials)

@@ -63,6 +63,9 @@ module GeneratedUrlHelpersModule
   def journeys_sessions_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def loading_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def locate_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

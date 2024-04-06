@@ -22,6 +22,7 @@
 class PensieveMessageLike < ApplicationRecord
   # == Associations
   belongs_to :message, class_name: "PensieveMessage", touch: true
+  counter_culture :message, column_name: "likes_count", touch: true
 
   sig { returns(PensieveMessage) }
   def message!

@@ -10,7 +10,7 @@ module Types
     field :from, PensieveMessageSenderType, null: false
     field :is_edited, Boolean, null: false, method: :edited?
     field :liked_by_viewer, Boolean, null: false
-    field :likes, Integer, null: false
+    field :likes, Integer, null: false, method: :likes_count
     field :text, String, null: false
     field :timestamp, Types::DateTimeType, null: false
 
@@ -18,11 +18,6 @@ module Types
     sig { returns(Symbol) }
     def from
       object.from.to_sym
-    end
-
-    sig { returns(Integer) }
-    def likes
-      object.likes.count
     end
 
     sig { returns(T::Boolean) }

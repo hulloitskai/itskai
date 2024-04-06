@@ -23,9 +23,10 @@ class OAuthCredentials < ApplicationRecord
 
   # == Finders
   sig { returns(T.nilable(OAuthCredentials)) }
-  def self.spotify
-    find_by(provider: :spotify)
-  end
+  def self.spotify = find_by(provider: :spotify)
+
+  sig { returns(T::Boolean) }
+  def self.spotify? = exists?(provider: :spotify)
 
   sig { returns(OAuthCredentials) }
   def self.spotify!
@@ -34,9 +35,10 @@ class OAuthCredentials < ApplicationRecord
   end
 
   sig { returns(T.nilable(OAuthCredentials)) }
-  def self.google
-    find_by(provider: :google)
-  end
+  def self.google = find_by(provider: :google)
+
+  sig { returns(T::Boolean) }
+  def self.google? = exists?(provider: :google)
 
   sig { returns(OAuthCredentials) }
   def self.google!

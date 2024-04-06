@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_03_062040) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_06_210650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -291,6 +291,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_062040) do
     t.datetime "edit_timestamp", precision: nil
     t.string "to"
     t.bigint "telegram_chat_id", null: false
+    t.integer "likes_count", default: 0, null: false
     t.index ["telegram_chat_id", "telegram_message_id"], name: "index_pensieve_messages_uniqueness", unique: true
     t.index ["timestamp"], name: "index_pensieve_messages_on_timestamp"
     t.index ["to"], name: "index_pensieve_messages_on_to"

@@ -13,17 +13,11 @@ class CurrentlyPlayingPoller < ApplicationWorker
   sig { returns(T.nilable(Concurrent::TimerTask)) }
   attr_accessor :task
 
-  # == Methods
-  sig { override.returns(T::Boolean) }
-  def self.enabled?
-    super && CurrentlyPlayingPoll.ready?
-  end
-
   # == Lifecycle
   sig { override.void }
   def self.start
     stop
-    task = instance.task = Concurrent::TimerTask.new(execution_interval: 3) do
+    task = instance.task = Concurrent::TimerTask.new(execution_interval:) do
       Rails.application.reloader.wrap do
         CurrentlyPlayingPoll.run
       end
@@ -41,5 +35,13 @@ class CurrentlyPlayingPoller < ApplicationWorker
       end
       instance.task = nil
     end
+  end
+
+  private
+
+  # == Helpers
+  sig { returns(Integer) }
+  private_class_method def self.execution_interval
+    SpotifyUser.current? ? 3 : 30
   end
 end

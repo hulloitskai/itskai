@@ -63,6 +63,9 @@ module GeneratedPathHelpersModule
   def journeys_sessions_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def loading_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def locate_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

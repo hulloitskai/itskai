@@ -6,11 +6,6 @@ class CurrentlyPlayingPoll < ApplicationService
 
   # == Methods
   sig { returns(T::Boolean) }
-  def self.ready?
-    SpotifyUser.current.present?
-  end
-
-  sig { returns(T::Boolean) }
   def run
     value = SpotifyUser.current&.currently_playing
     if value != CurrentlyPlaying.current
