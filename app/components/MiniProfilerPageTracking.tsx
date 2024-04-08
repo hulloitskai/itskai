@@ -1,4 +1,3 @@
-import { router } from "@inertiajs/react";
 import type { FC } from "react";
 
 type MiniProfiler = {
@@ -12,11 +11,12 @@ declare global {
 }
 
 const MiniProfilerPageTracking: FC = () => {
+  const router = useRouter();
   useEffect(() => {
     return router.on("start", () => {
       window.MiniProfiler?.pageTransition();
     });
-  }, []);
+  }, [router]);
   return null;
 };
 
