@@ -34,7 +34,7 @@ RUN git clone --depth 1 --no-checkout https://github.com/pyenv/pyenv.git \
   && git checkout && cd .. \
   && mv ./pyenv/plugins/python-build ./python-build && rm -r ./pyenv \
   && PREFIX=/tmp ./python-build/install.sh \
-  && /tmp/bin/python-build "$(cat .python-version)" /usr/local \
+  && PYTHON_CONFIGURE_OPTS=--enable-shared /tmp/bin/python-build "$(cat .python-version)" /usr/local \
   && pip3 install --no-cache-dir poetry \
   && rm -rf ./python-build /tmp/* \
   && python3 --version && pip3 --version
@@ -104,7 +104,7 @@ COPY . ./
 RUN bundle exec bootsnap precompile --gemfile app/ lib/
 
 # Precompile assets
-RUN bundle exec rails assets:precompile RAILS_SECRET_KEY_BASE=dummy
+RUN RAILS_SECRET_KEY_BASE=dummy bundle exec rails assets:precompile
 
 # Install Python scripts
 RUN poetry install --no-cache --without=dev

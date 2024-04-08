@@ -3,9 +3,9 @@ import { Loader, Text } from "@mantine/core";
 
 import AppLayout from "~/components/AppLayout";
 
-import type { LocatePageQuery } from "~/helpers/graphql";
+import type { LoadingPageQuery } from "~/helpers/graphql";
 
-export type LoadingPageProps = PagePropsWithData<LocatePageQuery> & {
+export type LoadingPageProps = PagePropsWithData<LoadingPageQuery> & {
   readonly timeout: number;
 };
 

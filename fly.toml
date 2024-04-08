@@ -8,7 +8,7 @@ swap_size_mb = 1024
   auto_rollback = true
 
 [deploy]
-  release_command = "bin/release"
+  release_command = "bin/deploy"
   strategy = "bluegreen"
 
 [env]

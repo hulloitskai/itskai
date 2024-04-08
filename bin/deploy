@@ -2,5 +2,8 @@
 
 set -e
 
+# Run migrations
 bin/rails db:migrate
+
+# Run deploy tasks
 bin/rails after_party:run
