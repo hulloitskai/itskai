@@ -1,11 +1,16 @@
+# syntax = docker/dockerfile:1.2
+
 # Configure base image
 FROM debian:bookworm-slim
 
 # Configure workdir
 WORKDIR /app
 
+# Ensure packages are cached
+RUN rm /etc/apt/apt.conf.d/docker-clean
+
 # Install build dependencies
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+RUN --mount=type=cache,target=/var/cache/apt/lists,sharing=locked \
   --mount=type=cache,target=/var/lib/apt,sharing=locked \
   apt-get -y update -q \
   && apt-get install -yq --no-install-recommends --no-install-suggests curl tmux git build-essential ca-certificates libyaml-dev libssl-dev libffi-dev libreadline-dev zlib1g-dev libjemalloc-dev \
@@ -77,8 +82,8 @@ ENV BUNDLE_WITHOUT="development test"
 RUN bundle install --no-cache
 
 # Install devtools
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-  --mount=type=cache,target=/var/lib/apt,sharing=locked \
+RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+  --mount=type=cache,target=/var/cache/apt,sharing=locked \
   apt-get -y update -q \
   && apt-get install -yq --no-install-recommends --no-install-suggests vim less \
   && truncate -s 0 /var/log/*log
