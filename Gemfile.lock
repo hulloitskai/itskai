@@ -316,6 +316,8 @@ GEM
     mutex_m (0.2.0)
     nanoid (2.0.0)
     neatjson (0.10.5)
+    neighbor (0.3.2)
+      activerecord (>= 6.1)
     net-http (0.4.1)
       uri
     net-imap (0.4.10)
@@ -693,6 +695,7 @@ DEPENDENCIES
   memory_profiler
   nanoid (~> 2.0)
   neatjson (~> 0.10.5)
+  neighbor (~> 0.3.2)
   nokogiri (~> 1.15)
   notion-ruby-client (~> 1.2)
   omniauth (~> 2.1)

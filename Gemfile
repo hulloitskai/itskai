@@ -228,6 +228,9 @@ gem "counter_culture", "~> 3.5"
 # Render pretty JSON with NeatJSON
 gem "neatjson", "~> 0.10.5"
 
+# Perform vector similarity search with Neighbor
+gem "neighbor", "~> 0.3.2"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"
@@ -280,4 +283,3 @@ group :test do
   gem "capybara"
   gem "capybara-playwright-driver"
 end
-
