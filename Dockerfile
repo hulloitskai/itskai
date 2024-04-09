@@ -28,13 +28,12 @@ RUN git clone --depth 1 https://github.com/nodenv/node-build.git \
 
 # Install Python and Poetry
 COPY .python-version ./
-ENV PYTHON_CONFIGURE_OPTS=--enable-shared
 RUN git clone --depth 1 --no-checkout https://github.com/pyenv/pyenv.git \
   && cd pyenv && git sparse-checkout set ./plugins/python-build \
   && git checkout && cd .. \
   && mv ./pyenv/plugins/python-build ./python-build && rm -r ./pyenv \
   && PREFIX=/tmp ./python-build/install.sh \
-  && /tmp/bin/python-build "$(cat .python-version)" /usr/local \
+  && PYTHON_CONFIGURE_OPTS=--enable-shared /tmp/bin/python-build "$(cat .python-version)" /usr/local \
   && pip3 install --no-cache-dir poetry \
   && rm -rf ./python-build /tmp/* \
   && python3 --version && pip3 --version
@@ -42,11 +41,11 @@ RUN git clone --depth 1 --no-checkout https://github.com/pyenv/pyenv.git \
 # Install Ruby and Bundler
 COPY .ruby-version ./
 ENV LANG=C.UTF-8 GEM_HOME=/usr/local/bundle
-ENV BUNDLE_SILENCE_ROOT_WARNING=1 BUNDLE_APP_CONFIG="$GEM_HOME" PATH="$GEM_HOME/bin:$PATH" RUBY_CONFIGURE_OPTS=--with-jemalloc
+ENV BUNDLE_SILENCE_ROOT_WARNING=1 BUNDLE_APP_CONFIG="$GEM_HOME" PATH="$GEM_HOME/bin:$PATH"
 RUN git clone --depth 1 https://github.com/rbenv/ruby-build.git \
   && PREFIX=/tmp ./ruby-build/install.sh \
   && mkdir -p "$GEM_HOME" && chmod 1777 "$GEM_HOME" \
-  && /tmp/bin/ruby-build "$(cat .ruby-version)" /usr/local \
+  && RUBY_CONFIGURE_OPTS=--with-jemalloc /tmp/bin/ruby-build "$(cat .ruby-version)" /usr/local \
   && rm -rf ./ruby-build /tmp/* \
   && ruby --version && gem --version && bundle --version
 
@@ -67,11 +66,6 @@ RUN yarn global add playwright \
   && playwright install --with-deps chromium \
   && yarn cache clean
 
-# Install NodeJS dependencies
-COPY package.json yarn.lock ./
-ENV NODE_ENV=production
-RUN yarn install --production && yarn cache clean
-
 # Install Python dependencies
 COPY pyproject.toml poetry.toml poetry.lock ./
 RUN poetry install --no-cache --without=dev
@@ -80,6 +74,11 @@ RUN poetry install --no-cache --without=dev
 COPY Gemfile Gemfile.lock ./
 ENV BUNDLE_WITHOUT="development test"
 RUN bundle install --no-cache
+
+# Install NodeJS dependencies
+COPY package.json yarn.lock ./
+ENV NODE_ENV=production
+RUN yarn install --production && yarn cache clean
 
 # Install devtools
 RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
@@ -95,7 +94,7 @@ COPY .bash_profile .inputrc /root/
 COPY starship.toml /root/.config/starship.toml
 
 # Configure application environment
-ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true
+ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true"
 
 # Copy application code
 COPY . ./
@@ -104,7 +103,7 @@ COPY . ./
 RUN bundle exec bootsnap precompile --gemfile app/ lib/
 
 # Precompile assets
-RUN bundle exec rails assets:precompile RAILS_SECRET_KEY_BASE=dummy
+RUN RAILS_SECRET_KEY_BASE=dummy bundle exec rails assets:precompile
 
 # Install Python scripts
 RUN poetry install --no-cache --without=dev
@@ -115,9 +114,6 @@ EXPOSE 3000
 # Configure healthcheck
 HEALTHCHECK --interval=15s --timeout=2s --start-period=10s --retries=3 \
   CMD curl -f http://127.0.0.1:3000/status
-
-# Configure runtime environment
-ENV MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true,stats_print:true"
 
 # Set entrypoint and default command
 CMD [ "bin/run" ]

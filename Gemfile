@@ -272,6 +272,7 @@ group :development do
   # Annotate models and routes
   gem "annotate", require: false
 
+  # Profile app with Vernier
   gem "vernier", "~> 0.6.0"
 end
 
