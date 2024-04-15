@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+# Premailer::Rails.config[:create_shorthands] = false
+
 url_options = Rails.application.routes.default_url_options.dup
 url_options[:scheme] = url_options.delete(:protocol) || "http"
 if url_options[:host].present?

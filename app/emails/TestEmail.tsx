@@ -1,6 +1,5 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { Column, Row, Section } from "@react-email/components";
-import { Text } from "@mantine/core";
+import { Column, Row, Section, Text } from "~/components/email";
 
 import EmailLayout from "~/components/EmailLayout";
 
@@ -25,7 +24,7 @@ const TestEmail: PageComponent<TestEmailProps> = ({
       <Text>Hi, {name || "anonymous user"}!</Text>
       <Text>This is a test email containing your form submission results:</Text>
       <br />
-      <Box className={classes.results} component={Section}>
+      <Section className={classes.results}>
         <Row>
           <Column>
             <Text fw={600}>Name</Text>
@@ -36,7 +35,7 @@ const TestEmail: PageComponent<TestEmailProps> = ({
             <Text>{model.birthday}</Text>
           </Column>
         </Row>
-      </Box>
+      </Section>
     </>
   );
 };

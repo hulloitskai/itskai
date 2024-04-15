@@ -1,5 +1,5 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { Text } from "@mantine/core";
+import { Text } from "~/components/email";
 
 import EmailLayout from "~/components/EmailLayout";
 

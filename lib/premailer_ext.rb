@@ -1,6 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "rails"
 require "premailer"
 require "nokogiri"
 require "css_parser"
@@ -34,6 +35,12 @@ module Premailer::Adapter::Nokogiri
     sig { returns(String) }
     def to_inline_css
       unmergeable_rules = CssParser::Parser.new
+
+      tag_logger do
+        logger.debug(
+          "Converting CSS to inline styles for document: #{@processed_doc}",
+        )
+      end
 
       # Give all styles already in style attributes a specificity of 1000
       # per http://www.w3.org/TR/CSS21/cascade.html#specificity
@@ -315,9 +322,38 @@ module Premailer::Adapter::Nokogiri
       until node.is_a?(Nokogiri::HTML4::Document)
         css_variables = element_css_variables[node] || {}
         if (replacement = css_variables[name])
+          tag_logger do
+            logger.debug(
+              "Resolved CSS variable `#{name}' to `#{replacement}' for: " \
+                "#{element}",
+            )
+          end
           return replacement
         end
         node = node.parent
+      end
+      tag_logger do
+        logger.debug("Failed to resolve CSS variable `#{name}' for: #{element}")
+      end
+      nil
+    end
+
+    sig do
+      returns(T.any(ActiveSupport::Logger, ActiveSupport::BroadcastLogger))
+    end
+    def logger = Rails.logger
+
+    sig do
+      type_parameters(:U)
+        .params(block: T.proc.returns(T.type_parameter(:U)))
+        .returns(T.type_parameter(:U))
+    end
+    def tag_logger(&block)
+      logger = T.unsafe(self.logger)
+      if logger.respond_to?(:tagged)
+        logger.tagged("Premailer", &block)
+      else
+        yield
       end
     end
   end

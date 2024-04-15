@@ -1,14 +1,7 @@
 import type { FC, PropsWithChildren } from "react";
-import { Text } from "@mantine/core";
 
-import {
-  Body,
-  Container,
-  Heading,
-  Img,
-  Preview,
-  Section,
-} from "@react-email/components";
+import { Body, Column, Hr, Preview, Row } from "@react-email/components";
+import { Container, Section, Text, Heading, Img } from "./email";
 import type { PreviewProps } from "@react-email/components";
 
 import "./EmailLayout.css";
@@ -22,11 +15,10 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
   <>
     {!!preview && <Preview>{preview}</Preview>}
     <Body>
-      <Box component={Container} mx="auto" px={12} py={16}>
+      <Container mx="auto" px={12} py={16}>
         {!!header && (
-          <Box
-            component={Heading}
-            my={24}
+          <Heading
+            my="var(--mantine-spacing-xl) !important"
             style={({ headings: { sizes, ...style } }) => ({
               ...sizes.h3,
               ...style,
@@ -34,20 +26,27 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
             })}
           >
             {header}
-          </Box>
+          </Heading>
         )}
-        <Box component={Section}>{children}</Box>
-        <Box component={Section} mt={40}>
-          <Img src="/logo.png" width="32" height="32" />
-          <Text c="dimmed" mx={4} my={0}>
-            Sent by{" "}
-            <Anchor href="/" target="_blank" c="primary.5" fw={600}>
-              It&apos;s Kai
-            </Anchor>
-            . This email loves you.
-          </Text>
-        </Box>
-      </Box>
+        <Section>{children}</Section>
+        <Hr style={{ borderColor: "#dddddd", marginTop: 40 }} />
+        <Section mt={28} mb={20}>
+          <Row>
+            <Column width="min-content">
+              <Img src="/logo.png" w="32" h="32" />
+            </Column>
+            <Column>
+              <Text c="dimmed" inline>
+                Sent by{" "}
+                <Anchor href="/" target="_blank" c="primary.5" fw={600}>
+                  It&apos;s Kai
+                </Anchor>
+                . This email loves you.
+              </Text>
+            </Column>
+          </Row>
+        </Section>
+      </Container>
     </Body>
   </>
 );
