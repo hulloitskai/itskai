@@ -6,8 +6,9 @@ import { Notifications } from "@mantine/notifications";
 import PageTracking from "./PageTracking";
 import MiniProfilerPageTracking from "./MiniProfilerPageTracking";
 
+import "@mantine/core/styles.layer.css";
 import "@mantine/notifications/styles.layer.css";
-import "./PageLayout.css";
+import "./PageLayout-lowercasing.css";
 
 export type PageLayoutProps = PropsWithChildren;
 

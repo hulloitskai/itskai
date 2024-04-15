@@ -318,22 +318,22 @@ module Premailer::Adapter::Nokogiri
       ).returns(T.nilable(String))
     end
     def lookup_css_variable_value(name, element)
+      tag_logger do
+        logger.debug("Looking up CSS variable `#{name}' for: #{element}")
+      end
       node = T.let(element, Nokogiri::XML::Element)
       until node.is_a?(Nokogiri::HTML4::Document)
         css_variables = element_css_variables[node] || {}
         if (replacement = css_variables[name])
           tag_logger do
-            logger.debug(
-              "Resolved CSS variable `#{name}' to `#{replacement}' for: " \
-                "#{element}",
-            )
+            logger.debug("Resolved CSS variable to `#{replacement}'")
           end
           return replacement
         end
         node = node.parent
       end
       tag_logger do
-        logger.debug("Failed to resolve CSS variable `#{name}' for: #{element}")
+        logger.debug("Failed to resolve CSS variable")
       end
       nil
     end

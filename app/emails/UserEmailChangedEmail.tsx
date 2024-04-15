@@ -1,5 +1,5 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { Text } from "~/components/email";
+import { Text } from "@react-email/components";
 
 import EmailLayout from "~/components/EmailLayout";
 

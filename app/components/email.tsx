@@ -1,159 +1,105 @@
 import type { ComponentPropsWithoutRef } from "react";
+import { getRadius } from "@mantine/core";
 
-import type { BoxProps } from "@mantine/core";
-import { Box } from "@mantine/core";
+import { Button as MantineButton } from "@mantine/core";
 
 import type { ButtonProps as _ButtonProps } from "@react-email/components";
 import { Button as _Button } from "@react-email/components";
 
-import type { ButtonProps as MantineButtonProps } from "@mantine/core";
-import { Button as MantineButton } from "@mantine/core";
-
-import type { TextProps as MantineTextProps } from "@mantine/core";
-import { Text as MantineText } from "@mantine/core";
-
-import type { AnchorProps } from "@mantine/core";
-import { Anchor } from "@mantine/core";
-
-import type { ContainerProps as _ContainerProps } from "@react-email/components";
-import { Container as _Container } from "@react-email/components";
-
-import type { ImgProps as _ImgProps } from "@react-email/components";
-import { Img as _Img } from "@react-email/components";
-
-import type { SectionProps as _SectionProps } from "@react-email/components";
-import { Section as _Section } from "@react-email/components";
-
-import type { RowProps as _RowProps } from "@react-email/components";
-import { Row as _Row } from "@react-email/components";
-
-import type { ColumnProps as _ColumnProps } from "@react-email/components";
-import { Column as _Column } from "@react-email/components";
+import type { LinkProps as _LinkProps } from "@react-email/components";
+import { Link as _Link } from "@react-email/components";
 
 import type { TextProps as _TextProps } from "@react-email/components";
 import { Text as _Text } from "@react-email/components";
 
-import type { LinkProps as _LinkProps } from "@react-email/components";
-import { Link as _Link } from "@react-email/components";
-
 import { Heading as _Heading } from "@react-email/components";
-type _HeadingProps = ComponentPropsWithoutRef<typeof _Heading>;
 
-export type ContainerProps = Omit<_ContainerProps, "style"> & BoxProps;
+export type ButtonProps = _ButtonProps;
 
-export const Container = forwardRef<HTMLTableElement, ContainerProps>(
-  ({ children, ...otherProps }, ref) => (
-    <Box component={_Container} {...{ ref }} {...otherProps}>
-      {children}
-    </Box>
-  ),
-);
-
-export type SectionProps = Omit<_SectionProps, "style"> & BoxProps;
-
-export const Section = forwardRef<HTMLTableElement, SectionProps>(
-  ({ children, ...otherProps }, ref) => (
-    <Box component={_Section} {...{ ref }} {...otherProps}>
-      {children}
-    </Box>
-  ),
-);
-
-export type RowProps = Omit<_RowProps, "style"> & BoxProps;
-
-export const Row = forwardRef<HTMLTableElement, RowProps>(
-  ({ children, ...otherProps }, ref) => (
-    <Box component={_Row} {...{ ref }} {...otherProps}>
-      {children}
-    </Box>
-  ),
-);
-
-export type ColumnProps = Omit<_ColumnProps, "style"> & BoxProps;
-
-export const Column = forwardRef<HTMLTableCellElement, ColumnProps>(
-  ({ children, ...otherProps }, ref) => (
-    <Box component={_Column} {...{ ref }} {...otherProps}>
-      {children}
-    </Box>
-  ),
-);
-
-export type TextProps = Omit<_TextProps, "style"> & MantineTextProps;
-
-export const Text = forwardRef<HTMLParagraphElement, TextProps>(
-  ({ children, ...otherProps }, ref) => (
-    <MantineText
-      component={_Text}
-      my={`${rem(4)} !important`}
-      {...{ ref }}
-      {...otherProps}
-    >
-      {children}
-    </MantineText>
-  ),
-);
-
-export type HeadingProps = Omit<
-  _HeadingProps,
-  "style" | "m" | "mx" | "my" | "mt" | "mr" | "mb" | "ml"
-> &
-  MantineTextProps;
-
-export const Heading = forwardRef<HTMLParagraphElement, HeadingProps>(
-  ({ children, ...otherProps }, ref) => {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ style, children, ...props }, ref) => {
+    const theme = useMantineTheme();
+    const borderRadius = useMemo(
+      () => getRadius(theme.components["Button"]?.defaultProps?.radius),
+      [theme],
+    );
     return (
-      <MantineText
-        component={_Heading}
-        my="var(--mantine-spacing-xs !important"
+      <_Button
+        className={MantineButton.classes.root}
+        style={{
+          padding: "8px 14px",
+          backgroundColor: "var(--mantine-color-primary-filled)",
+          color: "var(--mantine-color-white)",
+          fontWeight: 600,
+          borderRadius,
+          ...style,
+        }}
         {...{ ref }}
-        {...otherProps}
+        {...props}
       >
         {children}
-      </MantineText>
+      </_Button>
     );
   },
 );
 
-export type ImgProps = Omit<_ImgProps, "style"> & BoxProps;
-
-export const Img = forwardRef<HTMLImageElement, ImgProps>(
-  ({ children, ...otherProps }, ref) => (
-    <Box component={_Img} {...{ ref }} {...otherProps}>
-      {children}
-    </Box>
-  ),
-);
-
-export type ButtonProps = Omit<_ButtonProps, "style"> & MantineButtonProps;
-
-export const Button = forwardRef<HTMLAnchorElement, ButtonProps>(
-  ({ children, ...otherProps }, ref) => (
-    <MantineButton
-      component={_Button}
-      h="unset"
-      px="var(--button-padding-x) !important"
-      py="var(--mantine-spacing-xs) !important"
-      my={`${rem(4)} !important`}
-      {...{ ref }}
-      {...otherProps}
-    >
-      {children}
-    </MantineButton>
-  ),
-);
-
-export type LinkProps = Omit<_LinkProps, "style"> & AnchorProps;
+export type LinkProps = _LinkProps;
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
-  ({ children, ...otherProps }, ref) => (
-    <Anchor
-      component={_Link}
-      my={`${rem(4)} !important`}
-      {...{ ref }}
-      {...otherProps}
-    >
-      {children}
-    </Anchor>
-  ),
+  ({ style, children, ...props }, ref) => {
+    return (
+      <_Link
+        style={{
+          color: "var(--mantine-color-anchor)",
+          ...style,
+        }}
+        {...{ ref }}
+        {...props}
+      >
+        {children}
+      </_Link>
+    );
+  },
+);
+
+export type TextProps = _TextProps;
+
+export const Text = forwardRef<HTMLSpanElement, TextProps>(
+  ({ style, children, ...props }, ref) => {
+    return (
+      <_Text
+        style={{
+          margin: "8px 0",
+          ...style,
+        }}
+        {...{ ref }}
+        {...props}
+      >
+        {children}
+      </_Text>
+    );
+  },
+);
+
+export type HeadingProps = ComponentPropsWithoutRef<typeof _Heading>;
+
+export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
+  ({ style, children, ...props }, ref) => {
+    const theme = useMantineTheme();
+    const { sizes, ...headingStyle } = theme.headings;
+    return (
+      <_Heading
+        style={{
+          margin: "24px 0",
+          ...headingStyle,
+          ...sizes.h3,
+          ...style,
+        }}
+        {...{ ref }}
+        {...props}
+      >
+        {children}
+      </_Heading>
+    );
+  },
 );

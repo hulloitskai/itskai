@@ -1,5 +1,6 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { Column, Row, Section, Text } from "~/components/email";
+import { Column, Row, Section } from "@react-email/components";
+import { Text } from "~/components/email";
 
 import EmailLayout from "~/components/EmailLayout";
 
@@ -27,11 +28,11 @@ const TestEmail: PageComponent<TestEmailProps> = ({
       <Section className={classes.results}>
         <Row>
           <Column>
-            <Text fw={600}>Name</Text>
+            <Text style={{ fontWeight: 600 }}>Name</Text>
             <Text>{model.name}</Text>
           </Column>
           <Column>
-            <Text fw={600}>Birthday</Text>
+            <Text style={{ fontWeight: 600 }}>Birthday</Text>
             <Text>{model.birthday}</Text>
           </Column>
         </Row>

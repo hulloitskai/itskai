@@ -1,5 +1,5 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { Button, Text, Link } from "~/components/email";
+import { Button, Link, Text } from "~/components/email";
 
 import EmailLayout from "~/components/EmailLayout";
 
@@ -19,19 +19,14 @@ const UserVerificationEmail: PageComponent<UserEmailVerificationEmailProps> = ({
   return (
     <>
       <Text>Hi, {name}!</Text>
-      <Text mb={10}>
-        To verify your email address, please click the button below:
-      </Text>
-      <Button href={verificationUrl} target="_blank" fw={600}>
-        Verify email
-      </Button>
-      <Space h="lg" />
-      <Text mb={4}>
+      <Text>To verify your email address, please click the button below:</Text>
+      <Button href={verificationUrl}>Verify email</Button>
+      <Text style={{ marginTop: 14 }}>
         Or copy and paste this URL into a new tab of your browser:
       </Text>
       <Link
+        className="link"
         href={verificationUrl}
-        target="_blank"
         style={{ textTransform: "none" }}
       >
         {verificationUrl}

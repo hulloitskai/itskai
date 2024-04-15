@@ -3,7 +3,6 @@ import { DEFAULT_THEME } from "@mantine/core";
 import {
   ActionIcon,
   Alert,
-  Anchor,
   Button,
   Loader,
   LoadingOverlay,
@@ -11,12 +10,10 @@ import {
   Modal,
   NumberInput,
   PasswordInput,
-  Text,
   TextInput,
   Textarea,
   ThemeIcon,
   createTheme,
-  mergeThemeOverrides,
 } from "@mantine/core";
 import { DateTimePicker } from "@mantine/dates";
 import { Dropzone } from "@mantine/dropzone";
@@ -32,7 +29,7 @@ declare module "@mantine/core" {
   }
 }
 
-const BASE_THEME = createTheme({
+export const THEME = createTheme({
   autoContrast: true,
   colors: {
     primary: DEFAULT_THEME.colors.pink,
@@ -140,6 +137,11 @@ const BASE_THEME = createTheme({
       defaultProps: {
         radius: "md",
       },
+      styles: ({ fontSizes }) => ({
+        input: {
+          fontSize: fontSizes.md,
+        },
+      }),
     }),
     ThemeIcon: ThemeIcon.extend({
       defaultProps: {
@@ -154,57 +156,3 @@ const BASE_THEME = createTheme({
   },
   ...(import.meta.env.DEV && { respectReducedMotion: false }),
 });
-
-const APP_THEME_OVERRIDE = createTheme({
-  components: {
-    TextInput: TextInput.extend({
-      styles: ({ fontSizes }) => ({
-        input: {
-          fontSize: fontSizes.md,
-        },
-      }),
-    }),
-  },
-});
-
-export const APP_THEME = mergeThemeOverrides(BASE_THEME, APP_THEME_OVERRIDE);
-
-const EMAIL_THEME_OVERRIDE = createTheme({
-  components: {
-    Text: Text.extend({
-      defaultProps: {
-        size: "sm",
-      },
-      classNames: {
-        root: classes.emailText,
-      },
-    }),
-    Anchor: Anchor.extend({
-      defaultProps: {
-        underline: "always",
-      },
-    }),
-    Button: Button.extend({
-      defaultProps: {
-        radius: "md",
-      },
-      classNames: {
-        root: classes.button,
-      },
-      styles: {
-        root: {
-          paddingLeft: "var(--button-padding-x, var(--button-padding-x-sm))",
-          paddingRight: "var(--button-padding-x, var(--button-padding-x-sm))",
-        },
-        label: {
-          fontWeight: 700,
-        },
-      },
-    }),
-  },
-});
-
-export const EMAIL_THEME = mergeThemeOverrides(
-  BASE_THEME,
-  EMAIL_THEME_OVERRIDE,
-);

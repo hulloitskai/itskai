@@ -19,15 +19,14 @@ const UserPasswordResetEmail: PageComponent<UserPasswordResetEmailProps> = ({
   return (
     <>
       <Text>Hi, {name}!</Text>
-      <Text mb={10}>
+      <Text>
         A password change has been requested for your account. If this was you,
         please click the button below to reset your password:
       </Text>
       <Button href={resetUrl} target="_blank">
         Reset password
       </Button>
-      <Space h="lg" />
-      <Text mb={4}>
+      <Text style={{ marginTop: 14 }}>
         Or copy and paste this URL into a new tab of your browser:
       </Text>
       <Link href={resetUrl} target="_blank" style={{ textTransform: "none" }}>

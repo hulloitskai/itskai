@@ -1,13 +1,11 @@
 import type { FC, PropsWithChildren } from "react";
 import { MantineProvider } from "@mantine/core";
-import { EMAIL_THEME } from "~/helpers/mantine";
-
-import "@mantine/core/styles.css";
+import { THEME } from "~/helpers/mantine";
 
 export type EmailMantineProviderProps = PropsWithChildren;
 
 const EmailMantineProvider: FC<EmailMantineProviderProps> = ({ children }) => (
-  <MantineProvider theme={EMAIL_THEME} forceColorScheme="light">
+  <MantineProvider theme={THEME} forceColorScheme="light">
     {children}
   </MantineProvider>
 );

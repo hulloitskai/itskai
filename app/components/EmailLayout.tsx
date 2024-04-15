@@ -1,10 +1,21 @@
 import type { FC, PropsWithChildren } from "react";
 
-import { Body, Column, Hr, Preview, Row } from "@react-email/components";
-import { Container, Section, Text, Heading, Img } from "./email";
 import type { PreviewProps } from "@react-email/components";
+import {
+  Body,
+  Column,
+  Hr,
+  Img,
+  Preview,
+  Row,
+  Section,
+} from "@react-email/components";
 
+import { Heading, Text } from "~/components/email";
+
+import "@mantine/core/styles.css";
 import "./EmailLayout.css";
+import "./EmailLayout-lowercasing.css";
 
 export type EmailLayoutProps = PropsWithChildren<{
   readonly header?: string;
@@ -16,27 +27,16 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
     {!!preview && <Preview>{preview}</Preview>}
     <Body>
       <Container mx="auto" px={12} py={16}>
-        {!!header && (
-          <Heading
-            my="var(--mantine-spacing-xl) !important"
-            style={({ headings: { sizes, ...style } }) => ({
-              ...sizes.h3,
-              ...style,
-              fontWeight: 800,
-            })}
-          >
-            {header}
-          </Heading>
-        )}
+        {!!header && <Heading className="heading">{header}</Heading>}
         <Section>{children}</Section>
         <Hr style={{ borderColor: "#dddddd", marginTop: 40 }} />
-        <Section mt={28} mb={20}>
+        <Section style={{ marginTop: 28, marginBottom: 20 }}>
           <Row>
-            <Column width="min-content">
-              <Img src="/logo.png" w="32" h="32" />
+            <Column width={32} style={{ paddingRight: 12 }}>
+              <Img src="/logo.png" width={32} height={32} />
             </Column>
             <Column>
-              <Text c="dimmed" inline>
+              <Text style={{ color: "var(--mantine-color-dimmed)" }}>
                 Sent by{" "}
                 <Anchor href="/" target="_blank" c="primary.5" fw={600}>
                   It&apos;s Kai
