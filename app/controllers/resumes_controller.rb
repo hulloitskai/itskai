@@ -6,6 +6,19 @@ require "resume"
 class ResumesController < ApplicationController
   include Concurrent
 
+  # # == Initializer
+  # sig { params(args: T.untyped, kwargs: T.untyped).void }
+  # def initialize(*args, **kwargs)
+  #   super
+  #   @pdf_tmpdir = T.let(@pdf_tmpdir, T.nilable(String))
+  # end
+
+  # # == Filters
+  # after_action :remove_pdf_tmpdir, only: :show, if: -> {
+  #   T.bind(self, ResumesController)
+  #   request.format == :pdf
+  # }
+
   # == Actions
 
   # GET /resume
@@ -13,16 +26,24 @@ class ResumesController < ApplicationController
   # FIXME: Loading the PDF resume immediately after the app boots in development
   # causes the app to hang. Not sure why.
   def show
-    variant = T.cast(params["variant"].presence, T.nilable(String))
+    variant = T.let(params["variant"].presence, T.nilable(String))
     respond_to do |format|
       format.html do
         print_mode = request.headers["X-Print-Mode"].truthy?
         data = query!("ResumePageQuery", { variant: })
+        unless data["resume"]
+          raise ActionController::RoutingError,
+                "Missing resume data (variant: #{variant})"
+        end
         props = { data:, variant:, print_mode: }
         render(inertia: "ResumePage", props: props.compact)
       end
       format.json do
         data = Resume.current(variant: variant&.to_sym)
+        unless data
+          raise ActionController::RoutingError,
+                "Missing resume data (variant: #{variant})"
+        end
         json = JSON.neat_generate(
           data,
           after_colon: 1,
@@ -31,10 +52,14 @@ class ResumesController < ApplicationController
         render(json:)
       end
       format.pdf do
-        name = ["kai-xie-resume", variant].compact.join("--")
-        Tempfile.open([name, ".pdf"]) do |tempfile|
-          print_resume_to_tempfile(tempfile, variant: variant&.to_sym)
-          send_file(tempfile.path, disposition: "inline")
+        unless Resume.exists?(variant: variant&.to_sym)
+          raise ActionController::RoutingError,
+                "Missing resume data (variant: #{variant})"
+        end
+        basename = ["kai-xie-resume", variant].compact.join("--")
+        Tempfile.open([basename, ".pdf"]) do |f|
+          print_resume_to_file(f.to_path, variant: variant&.to_sym)
+          send_file(f, filename: basename + ".pdf", disposition: "inline")
         end
       end
     end
@@ -49,10 +74,8 @@ class ResumesController < ApplicationController
   private
 
   # == Helpers
-  sig do
-    params(tempfile: Tempfile, variant: T.nilable(Symbol)).void
-  end
-  def print_resume_to_tempfile(tempfile, variant: nil)
+  sig { params(filepath: String, variant: T.nilable(Symbol)).void }
+  def print_resume_to_file(filepath, variant: nil)
     server_options = "Rails::Server::Options".constantize.new.parse!(ARGV) # rubocop:disable Sorbet/ConstantsFromStrings
     server_port = server_options[:Port]
     self.class.print_resume_semaphore.acquire do
@@ -62,7 +85,7 @@ class ResumesController < ApplicationController
         playwright.chromium.launch do |browser|
           page = T.let(browser.new_page, Playwright::Page)
           page.set_extra_http_headers("X-Print-Mode" => "true")
-          params = { variant:, _printable: true }
+          params = { variant: }
           url = resume_url(
             protocol: "http",
             host: "localhost",
@@ -71,9 +94,16 @@ class ResumesController < ApplicationController
           )
           page.goto(url)
           page.wait_for_selector(".resume-layout")
-          page.pdf(path: tempfile.path)
+          page.pdf(path: filepath, printBackground: true, pageRanges: "1")
         end
       end
     end
   end
+
+  # sig { void }
+  # def remove_pdf_tmpdir
+  #   if (dir = @pdf_tmpdir)
+  #     FileUtils.rm_rf(dir)
+  #   end
+  # end
 end

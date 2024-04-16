@@ -628,7 +628,7 @@ type Query {
   locationAccessGrants: [LocationAccessGrant!]!
   passwordStrength(password: String!): Float!
   pensieveMessages(to: String): [PensieveMessage!]!
-  resume(variant: String): JSON!
+  resume(variant: String): JSON
   spotifyConnection: OAuthConnection!
   testEcho(text: String): String!
   timelineActivities(after: DateTime!, before: DateTime!): [TimelineActivity!]!

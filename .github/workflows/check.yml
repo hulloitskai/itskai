@@ -50,7 +50,7 @@ jobs:
             && sudo chmod u+x /usr/bin/overmind \
             && sudo chown $(whoami) /usr/bin/overmind
       - name: Install Playwright
-        run: yarn global add playwright && playwright install
+        run: yarn global add playwright && playwright install chromium
       - name: Set up environment
         run: bin/setup
         env:

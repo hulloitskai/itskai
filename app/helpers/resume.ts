@@ -195,43 +195,7 @@ export interface Resume {
   /**
    * Specify career projects
    */
-  projects?: {
-    /**
-     * e.g. The World Wide Web
-     */
-    name?: string;
-    /**
-     * Short summary of project. e.g. Collated works of 2017.
-     */
-    description?: string;
-    /**
-     * Specify multiple features
-     */
-    highlights?: string[];
-    /**
-     * Specify special elements involved
-     */
-    keywords?: string[];
-    startDate?: ISO8601;
-    endDate?: ISO8601;
-    /**
-     * e.g. http://www.computer.org/csdl/mags/co/1996/10/rx069-abs.html
-     */
-    url?: string;
-    /**
-     * Specify your role on this project or in company
-     */
-    roles?: string[];
-    /**
-     * Specify the relevant company/entity affiliations e.g. 'greenpeace', 'corporationXYZ'
-     */
-    entity?: string;
-    /**
-     *  e.g. 'volunteering', 'presentation', 'talk', 'application', 'conference'
-     */
-    type?: string;
-    [k: string]: unknown;
-  }[];
+  projects?: ResumeProjectInfo[];
 }
 
 export interface ResumeWorkInfo {
@@ -318,3 +282,41 @@ export interface ResumeEducationInfo {
  * Similar to the standard date type, but each section after the year is optional. e.g. 2014-06-29 or 2023-04
  */
 export type ISO8601 = string;
+
+export interface ResumeProjectInfo {
+  /**
+   * e.g. The World Wide Web
+   */
+  name?: string;
+  /**
+   * Short summary of project. e.g. Collated works of 2017.
+   */
+  description?: string;
+  /**
+   * Specify multiple features
+   */
+  highlights?: string[];
+  /**
+   * Specify special elements involved
+   */
+  keywords?: string[];
+  startDate?: ISO8601;
+  endDate?: ISO8601;
+  /**
+   * e.g. http://www.computer.org/csdl/mags/co/1996/10/rx069-abs.html
+   */
+  url?: string;
+  /**
+   * Specify your role on this project or in company
+   */
+  roles?: string[];
+  /**
+   * Specify the relevant company/entity affiliations e.g. 'greenpeace', 'corporationXYZ'
+   */
+  entity?: string;
+  /**
+   *  e.g. 'volunteering', 'presentation', 'talk', 'application', 'conference'
+   */
+  type?: string;
+  [k: string]: unknown;
+}

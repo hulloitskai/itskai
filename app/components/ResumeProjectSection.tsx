@@ -1,43 +1,17 @@
 import type { FC } from "react";
-import { Highlight, Text } from "@mantine/core";
+import { Text } from "@mantine/core";
 import ArrowRightIcon from "~icons/heroicons/arrow-long-right-20-solid";
 
-import type { ResumeWorkInfo } from "~/helpers/resume";
+import type { ResumeProjectInfo } from "~/helpers/resume";
 
 import WebsiteBadge from "./WebsiteBadge";
 
-export type ResumeWorkSectionProps = {
-  readonly workInfo: ResumeWorkInfo;
+export type ResumeProjectSectionProps = {
+  readonly projectInfo: ResumeProjectInfo;
 };
 
-const HIGHLIGHT_WORDS = [
-  "Ruby on Rails",
-  "React",
-  "NIH",
-  "OpenAI",
-  "ElasticSearch",
-  "Kubernetes",
-  "Sentry",
-  "Stripe",
-  "Golang",
-  "MongoDB",
-  "Postgres",
-  "Neo4J",
-  "SAML SSO",
-  "D3",
-  "XSS",
-  "Redux",
-  "Websockets",
-  "GCP",
-  "AWS",
-  "first paying customer",
-  "GPT-4-vision",
-  "YC 23",
-  "Conversational AI",
-];
-
-const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({
-  workInfo: { name, position, url, startDate, endDate, summary, highlights },
+const ResumeProjectSection: FC<ResumeProjectSectionProps> = ({
+  projectInfo: { name, url, startDate, endDate, description, highlights },
 }) => (
   <Box>
     <Group gap={8}>
@@ -50,9 +24,6 @@ const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({
       </Title>
       {!!url && <WebsiteBadge {...{ url }} />}
       <Space style={{ flexGrow: 1 }} />
-      <Text size="sm" c="accent" fw={600}>
-        {position}
-      </Text>
       <Badge
         variant="outline"
         radius="sm"
@@ -88,13 +59,10 @@ const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({
         )}
       </Badge>
     </Group>
-    {!!summary && (
-      <Group gap="xs" wrap="nowrap" my={4}>
-        <Divider orientation="vertical" size="md" />
-        <Text size="sm" style={{ flexGrow: 1 }}>
-          {summary}
-        </Text>
-      </Group>
+    {!!description && (
+      <Text size="sm" style={{ flexGrow: 1 }}>
+        {description}
+      </Text>
     )}
     {highlights && (
       <List
@@ -110,22 +78,11 @@ const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({
         })}
       >
         {highlights.map((highlight, index) => (
-          <List.Item key={index}>
-            <Highlight
-              highlight={HIGHLIGHT_WORDS}
-              highlightStyles={{
-                fontWeight: 600,
-                backgroundColor: "unset",
-              }}
-              inherit
-            >
-              {highlight}
-            </Highlight>
-          </List.Item>
+          <List.Item key={index}>{highlight}</List.Item>
         ))}
       </List>
     )}
   </Box>
 );
 
-export default ResumeWorkSection;
+export default ResumeProjectSection;

@@ -21,7 +21,7 @@ import { Dropzone } from "@mantine/dropzone";
 import cx from "clsx";
 import classes from "./mantine.module.css";
 
-export type CustomColors = "primary" | DefaultMantineColor;
+export type CustomColors = "primary" | "accent" | DefaultMantineColor;
 
 declare module "@mantine/core" {
   export interface MantineThemeColorsOverride {
@@ -33,6 +33,7 @@ export const THEME = createTheme({
   autoContrast: true,
   colors: {
     primary: DEFAULT_THEME.colors.pink,
+    accent: DEFAULT_THEME.colors.teal,
   },
   primaryColor: "primary",
   fontFamily:

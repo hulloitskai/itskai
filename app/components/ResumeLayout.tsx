@@ -14,7 +14,7 @@ const ResumeLayout: FC<ResumeLayoutProps> = ({ printMode, children }) => (
     <AppMeta title="Resume" />
     <Container
       px="0.75in"
-      py="0.4in"
+      pt="0.4in"
       mb={printMode ? 0 : 135}
       bg="var(--mantine-color-white)"
       c="var(--mantine-color-black)"

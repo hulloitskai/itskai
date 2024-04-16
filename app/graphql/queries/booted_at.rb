@@ -10,7 +10,7 @@ module Queries
     type Types::DateTimeType, null: false
 
     # == Resolver
-    sig { returns(T.nilable(Time)) }
+    sig { returns(Time) }
     def resolve
       ItsKai.application.booted_at
     end

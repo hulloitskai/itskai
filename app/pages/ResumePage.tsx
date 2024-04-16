@@ -1,5 +1,5 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { MantineProvider, Text } from "@mantine/core";
+import { MantineProvider, Text, DEFAULT_THEME } from "@mantine/core";
 
 import EnvelopeIcon from "~icons/heroicons/envelope-20-solid";
 import GithubIcon from "~icons/lucide/github";
@@ -13,6 +13,7 @@ import ResumeEducationSection from "~/components/ResumeEducationSection";
 import ResumeSkillsSection from "~/components/ResumeSkillsSection";
 import ResumeWorkSection from "~/components/ResumeWorkSection";
 import ResumeDialog from "~/components/ResumeDialog";
+import ResumeProjectSection from "~/components/ResumeProjectSection";
 
 export type ResumePageProps = PagePropsWithData<ResumePageQuery> & {
   readonly variant?: string;
@@ -24,20 +25,21 @@ const ResumePage: PageComponent<ResumePageProps> = ({
   printMode,
   data: { resume },
 }) => {
-  const { basics, work, education, skills } = resume as Resume;
+  invariant(resume, "Missing resume data");
+  const { basics, work, education, skills, projects } = resume as Resume;
   const { email, profiles } = basics ?? {};
   const obfuscatedEmail = useMemo(() => email!.replace("@", "[at]"), [email]);
 
   return (
     <MantineProvider
-      theme={{ primaryColor: "indigo" }}
+      theme={{ colors: { accent: DEFAULT_THEME.colors.indigo } }}
       forceColorScheme="light"
     >
       <ResumeLayout {...{ printMode }}>
         <Box>
           <Group justify="space-between" gap="xs" wrap="nowrap">
             {!!basics?.name && (
-              <Title size="h2" c="dark">
+              <Title size="h3" c="dark">
                 {basics.name}
               </Title>
             )}
@@ -74,11 +76,13 @@ const ResumePage: PageComponent<ResumePageProps> = ({
           <Group gap={8}>
             <Box style={{ flexGrow: 1 }}>
               <Anchor
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-                {...(printMode && {
-                  href: `mailto:Kai Xie<${email}>?subject=Let's%20work%20together!`,
-                })}
+                component="button"
+                onClick={() => {
+                  open(
+                    `mailto:Kai Xie<${email}>?subject=Let's%20work%20together!`,
+                    "_blank",
+                  );
+                }}
               >
                 <Badge
                   leftSection={
@@ -87,11 +91,8 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                     </Center>
                   }
                   variant="outline"
-                  color="var(--mantine-color-gray-filled)"
+                  color="accent"
                   styles={{
-                    root: {
-                      borderColor: "var(--mantine-color-primary-border)",
-                    },
                     label: {
                       fontFamily: "var(--mantine-font-family-monospace)",
                       textTransform: "none",
@@ -113,13 +114,9 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                 >
                   <Badge
                     variant="outline"
-                    color="var(--mantine-color-gray-filled)"
+                    color="accent"
                     px={6}
-                    ff="var(--mantine-font-family-monospace)"
                     styles={{
-                      root: {
-                        borderColor: "var(--mantine-color-primary-border)",
-                      },
                       label: {
                         fontFamily: "var(--mantine-font-family-monospace)",
                         textTransform: "none",
@@ -167,6 +164,18 @@ const ResumePage: PageComponent<ResumePageProps> = ({
             <Stack gap={8}>
               {work.map((workInfo, index) => (
                 <ResumeWorkSection key={index} {...{ workInfo }} />
+              ))}
+            </Stack>
+          </Box>
+        )}
+        {projects && (
+          <Box>
+            <Title order={2} size="h4" c="dark.4" fw={800} lh={1.3}>
+              Projects
+            </Title>
+            <Stack gap={8}>
+              {projects.map((projectInfo, index) => (
+                <ResumeProjectSection key={index} {...{ projectInfo }} />
               ))}
             </Stack>
           </Box>

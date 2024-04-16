@@ -713,7 +713,7 @@ export type Query = {
   locationAccessGrants: Array<LocationAccessGrant>;
   passwordStrength: Scalars['Float']['output'];
   pensieveMessages: Array<PensieveMessage>;
-  resume: Scalars['JSON']['output'];
+  resume?: Maybe<Scalars['JSON']['output']>;
   spotifyConnection: OAuthConnection;
   testEcho: Scalars['String']['output'];
   timelineActivities: Array<TimelineActivity>;

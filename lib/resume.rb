@@ -9,12 +9,20 @@ module Resume
 
   # == Current
   sig do
-    params(variant: T.nilable(Symbol)).returns(T::Hash[String, T.untyped])
+    params(variant: T.nilable(Symbol))
+      .returns(T.nilable(T::Hash[String, T.untyped]))
   end
   def self.current(variant: nil)
     modified_time = File.mtime(file_path(variant))
     key = file_key(variant, modified_time)
     Rails.cache.fetch(key) { load_file(variant) }
+  rescue Errno::ENOENT
+    nil
+  end
+
+  sig { params(variant: T.nilable(Symbol)).returns(T::Boolean) }
+  def self.exists?(variant:)
+    File.exist?(file_path(variant))
   end
 
   private
@@ -27,7 +35,6 @@ module Resume
     path = file_path(variant)
     Psych.load_file(path)
   end
-
   sig { params(variant: T.nilable(Symbol)).returns(Pathname) }
   private_class_method def self.file_path(variant)
     name = ["resume", variant].compact.join("-")
