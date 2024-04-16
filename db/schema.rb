@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_06_210650) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_16_004823) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -156,6 +156,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_06_210650) do
     t.datetime "updated_at", null: false
     t.datetime "synced_at", precision: nil, null: false
     t.index ["notion_page_id"], name: "index_journal_entries_on_notion_page_id", unique: true
+    t.index ["started_at"], name: "index_journal_entries_on_started_at"
   end
 
   create_table "journeys_session_participations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

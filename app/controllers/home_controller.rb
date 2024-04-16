@@ -25,14 +25,14 @@ class HomeController < ApplicationController
   # == Helpers
   sig { returns(T.nilable(JournalEntry)) }
   def first_journal_entry
-    JournalEntry.with_content.order(started_at: :desc).first
+    JournalEntry.select(:id).order(started_at: :desc).first
   end
 
   # == Filter Handlers
   def set_journal_entry
     @journal_entry = T.let(@entry, T.nilable(JournalEntry))
     @journal_entry = if (id = params["entryId"])
-      JournalEntry.find(id.to_s)
+      JournalEntry.select(:id).find(id.to_s)
     end
   end
 end
