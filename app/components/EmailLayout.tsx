@@ -25,7 +25,14 @@ export type EmailLayoutProps = PropsWithChildren<{
 const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
   <>
     {!!preview && <Preview>{preview}</Preview>}
-    <Body>
+    <Body
+      style={{
+        color: "var(--mantine-color-text)",
+        backgroundColor: "var(--mantine-color-body)",
+        margin: 8,
+        fontSize: 14,
+      }}
+    >
       <Container mx="auto" px={12} py={16}>
         {!!header && <Heading className="heading">{header}</Heading>}
         <Section>{children}</Section>

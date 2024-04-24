@@ -9,4 +9,5 @@ class User
   include Devise::Models::Confirmable
   include Devise::Models::Trackable
   include Devise::Models::Omniauthable
+  include Devise::Models::Rememberable
 end
