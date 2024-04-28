@@ -3,12 +3,6 @@
 
 module Mutations
   class CreateDishwatcherCapture < BaseMutation
-    # == Payload
-    class Payload < T::Struct
-      const :capture, T.nilable(Dishwatcher::Capture)
-      const :errors, T.nilable(InputFieldErrors)
-    end
-
     # == Fields
     field :capture, Types::DishwatcherCaptureType
     field :errors, [Types::InputFieldErrorType]
@@ -20,7 +14,10 @@ module Mutations
     # == Resolver
     sig do
       params(device: Dishwatcher::Device, attributes: T.untyped)
-        .returns(Payload)
+        .returns(T.any(
+          { capture: T.nilable(Dishwatcher::Capture) },
+          { errors: T.nilable(InputFieldErrors) },
+        ))
     end
     def resolve(device:, **attributes)
       authorize!(
@@ -33,9 +30,9 @@ module Mutations
       )
       capture = Dishwatcher::Capture.new(**attributes)
       if capture.save
-        Payload.new(capture:)
+        { capture: }
       else
-        Payload.new(errors: capture.input_field_errors)
+        { errors: capture.input_field_errors }
       end
     end
   end

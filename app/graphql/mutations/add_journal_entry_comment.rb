@@ -3,11 +3,6 @@
 
 module Mutations
   class AddJournalEntryComment < BaseMutation
-    # == Payload
-    class Payload < T::Struct
-      const :comment, Notion::Messages::Message
-    end
-
     # == Fields
     field :comment, Types::NotionCommentType, null: false
 
@@ -16,10 +11,14 @@ module Mutations
     argument :text, String
 
     # == Resolver
-    sig { params(entry: JournalEntry, text: String).returns(Payload) }
+    sig do
+      params(entry: JournalEntry, text: String).returns({
+        comment: Notion::Messages::Message,
+      })
+    end
     def resolve(entry:, text:)
       comment = entry.create_notion_comment(text)
-      Payload.new(comment:)
+      { comment: }
     end
   end
 end

@@ -3,20 +3,15 @@
 
 module Mutations
   class ActivateSpotifyJamSession < BaseMutation
-    # == Payload
-    class Payload < T::Struct
-      const :session, SpotifyJamSession
-    end
-
     # == Fields
     field :session, Types::SpotifyJamSessionType, null: false
 
     # == Resolver
-    sig { returns(Payload) }
+    sig { returns({ session: SpotifyJamSession }) }
     def resolve
       authorize!(to: :activate?, with: SpotifyJamSessionPolicy)
       session = SpotifyJamSession.current_or_activate
-      Payload.new(session:)
+      { session: }
     end
   end
 end

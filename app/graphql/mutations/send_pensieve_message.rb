@@ -3,11 +3,6 @@
 
 module Mutations
   class SendPensieveMessage < BaseMutation
-    # == Payload
-    class Payload < T::Struct
-      const :message, PensieveMessage
-    end
-
     # == Fields
     field :user, Types::PensieveMessageType, null: false
 
@@ -15,11 +10,11 @@ module Mutations
     argument :text, String
 
     # == Resolver
-    sig { params(text: String).returns(Payload) }
+    sig { params(text: String).returns({ message: PensieveMessage }) }
     def resolve(text:)
       message = PensieveMessage.new(text:, from: :bot)
       message.send!
-      Payload.new(message:)
+      { message: }
     rescue ActiveRecord::RecordInvalid => error
       raise GraphQL::ExecutionError, error.record.errors.full_messages.first!
     end

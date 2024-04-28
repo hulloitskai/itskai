@@ -3,15 +3,12 @@
 
 module Mutations
   class SyncLocationLogs < BaseMutation
-    # == Payload
-    class Payload < T::Struct; end
-
     # == Resolver
-    sig { returns(Payload) }
+    sig { returns({}) }
     def resolve
       authorize!(to: :sync?, with: LocationLogPolicy)
       LocationLog.sync!
-      Payload.new
+      {}
     end
   end
 end

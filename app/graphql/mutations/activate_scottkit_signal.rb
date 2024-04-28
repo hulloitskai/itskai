@@ -3,17 +3,14 @@
 
 module Mutations
   class ActivateScottkitSignal < BaseMutation
-    # == Payload
-    class Payload < T::Struct; end
-
     # == Arguments
     argument :signal, Types::ScottkitSignalType
 
     # == Resolver
-    sig { params(signal: Symbol).returns(Payload) }
+    sig { params(signal: Symbol).returns({}) }
     def resolve(signal:)
       Scottcall.dial!(signal)
-      Payload.new
+      {}
     end
   end
 end

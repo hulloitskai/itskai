@@ -3,11 +3,6 @@
 
 module Mutations
   class LeaveJourneysSession < JourneysBaseMutation
-    # == Payload
-    class Payload < T::Struct
-      const :session, Journeys::Session
-    end
-
     # == Fields
     field :session, Types::JourneysSessionType
 
@@ -18,15 +13,14 @@ module Mutations
 
     # == Resolver
     sig do
-      params(
-        participation: Journeys::SessionParticipation,
-      ).returns(Payload)
+      params(participation: Journeys::SessionParticipation)
+        .returns({ session: Journeys::Session })
     end
     def resolve(participation:)
       authorize!(participation, to: :destroy?)
       session = participation.session!
       participation.destroy!
-      Payload.new(session:)
+      { session: }
     end
   end
 end

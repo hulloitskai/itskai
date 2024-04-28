@@ -3,12 +3,6 @@
 
 module Mutations
   class UpdateUserProfile < BaseMutation
-    # == Payload
-    class Payload < T::Struct
-      const :user, T.nilable(User)
-      const :errors, T.nilable(InputFieldErrors)
-    end
-
     # == Fields
     field :errors, [Types::InputFieldErrorType]
     field :user, Types::UserType
@@ -18,13 +12,18 @@ module Mutations
     argument :name, String
 
     # == Resolver
-    sig { override.params(attributes: T.untyped).returns(Payload) }
+    sig do
+      override.params(attributes: T.untyped).returns(T.any(
+        { user: User },
+        { errors: InputFieldErrors },
+      ))
+    end
     def resolve(**attributes)
       user = current_user!
       if user.update_without_password(**attributes)
-        Payload.new(user:)
+        { user: }
       else
-        Payload.new(errors: user.input_field_errors)
+        { errors: user.input_field_errors }
       end
     end
   end

@@ -3,12 +3,6 @@
 
 module Mutations
   class CreateLocationAccessGrant < BaseMutation
-    # == Payload
-    class Payload < T::Struct
-      const :grant, T.nilable(LocationAccessGrant)
-      const :errors, T.nilable(InputFieldErrors)
-    end
-
     # == Fields
     field :errors, [Types::InputFieldErrorType]
     field :grant, Types::LocationAccessGrantType
@@ -23,7 +17,10 @@ module Mutations
       params(
         expires_in_seconds: Integer,
         attributes: T.untyped,
-      ).returns(Payload)
+      ).returns(T.any(
+        { grant: T.nilable(LocationAccessGrant) },
+        { errors: T.nilable(InputFieldErrors) },
+      ))
     end
     def resolve(expires_in_seconds:, **attributes)
       authorize!(to: :create?, with: LocationAccessGrantPolicy)
@@ -32,9 +29,9 @@ module Mutations
         **attributes,
       )
       if grant.save
-        Payload.new(grant:)
+        { grant: }
       else
-        Payload.new(errors: grant.input_field_errors)
+        { errors: grant.input_field_errors }
       end
     end
   end

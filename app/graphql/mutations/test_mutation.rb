@@ -3,12 +3,6 @@
 
 module Mutations
   class TestMutation < BaseMutation
-    # == Payload
-    class Payload < T::Struct
-      const :errors, T.nilable(InputFieldErrors)
-      const :model, T.nilable(TestModel)
-    end
-
     # == Fields
     field :errors, [Types::InputFieldErrorType]
     field :model, Types::TestModelType
@@ -18,7 +12,12 @@ module Mutations
     argument :name, String
 
     # == Resolver
-    sig { override.params(attributes: T.untyped).returns(Payload) }
+    sig do
+      override.params(attributes: T.untyped).returns(T.any(
+        { model: TestModel },
+        { errors: InputFieldErrors },
+      ))
+    end
     def resolve(**attributes)
       model = TestModel.new(**attributes)
       if model.valid?
@@ -32,9 +31,9 @@ module Mutations
         ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
           th.join
         end
-        Payload.new(model:)
+        { model: }
       else
-        Payload.new(errors: model.input_field_errors)
+        { errors: model.input_field_errors }
       end
     end
   end

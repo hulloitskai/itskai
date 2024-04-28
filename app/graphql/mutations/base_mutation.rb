@@ -35,7 +35,6 @@ module Mutations
     # == Helpers
     sig { params(result: T.untyped).returns(T.untyped) }
     def transform_resolve_result(result)
-      result = result.serialize if result.is_a?(T::Struct)
       if result.is_a?(Hash)
         result = result.with_indifferent_access
         if result.exclude?(:success)

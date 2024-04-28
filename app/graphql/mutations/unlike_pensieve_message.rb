@@ -3,11 +3,6 @@
 
 module Mutations
   class UnlikePensieveMessage < BaseMutation
-    # == Payload
-    class Payload < T::Struct
-      const :message, PensieveMessage
-    end
-
     # == Fields
     field :message, Types::PensieveMessageType, null: false
 
@@ -15,12 +10,15 @@ module Mutations
     argument :message_id, ID, loads: Types::PensieveMessageType
 
     # == Resolver
-    sig { params(message: PensieveMessage).returns(Payload) }
+    sig do
+      params(message: PensieveMessage)
+        .returns({ message: PensieveMessage })
+    end
     def resolve(message:)
       ActiveRecord::Base.transaction do
         message.unlike!(actor_id:) if message.liked_by?(actor_id:)
       end
-      Payload.new(message:)
+      { message: }
     end
   end
 end

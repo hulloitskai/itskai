@@ -3,12 +3,6 @@
 
 module Mutations
   class CreateTimelinePhotoWithTimestamp < BaseMutation
-    # == Payload
-    class Payload < T::Struct
-      const :photo, T.nilable(TimelinePhoto)
-      const :errors, T.nilable(InputFieldErrors)
-    end
-
     # == Fields
     field :errors, [Types::InputFieldErrorType]
     field :photo, Types::TimelinePhotoType
@@ -22,16 +16,19 @@ module Mutations
       params(
         photo_signed_id: String,
         timestamp: ActiveSupport::TimeWithZone,
-      ).returns(Payload)
+      ).returns(T.any(
+        { photo: T.nilable(TimelinePhoto) },
+        { errors: T.nilable(InputFieldErrors) },
+      ))
     end
     def resolve(photo_signed_id:, timestamp:)
       authorize!(to: :create?, with: TimelinePhotoPolicy)
       photo_blob = ActiveStorage::Blob.find_signed!(photo_signed_id)
       photo = TimelinePhoto.from_blob(photo_blob, timestamp:)
       if photo.save
-        Payload.new(photo:)
+        { photo: }
       else
-        Payload.new(errors: photo.input_field_errors)
+        { errors: photo.input_field_errors }
       end
     end
   end
