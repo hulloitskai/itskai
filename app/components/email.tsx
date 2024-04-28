@@ -16,7 +16,7 @@ import { Heading as _Heading } from "@react-email/components";
 
 export type ButtonProps = _ButtonProps;
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = forwardRef<HTMLAnchorElement, ButtonProps>(
   ({ style, children, ...props }, ref) => {
     const theme = useMantineTheme();
     const borderRadius = useMemo(
@@ -64,7 +64,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 
 export type TextProps = _TextProps;
 
-export const Text = forwardRef<HTMLSpanElement, TextProps>(
+export const Text = forwardRef<HTMLParagraphElement, TextProps>(
   ({ style, children, ...props }, ref) => {
     return (
       <_Text
