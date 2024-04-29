@@ -22,7 +22,7 @@ module ItsKai
     require "actionview_ext"
     require "action_policy_ext"
     require "better_errors_ext"
-    require "vite_ext"
+    require "vite_ruby_ext"
     require "inertia_rails_ext"
     require "bullet_ext"
     require "devise_ext"

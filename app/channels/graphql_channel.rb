@@ -120,6 +120,7 @@ class GraphQLChannel < ApplicationCable::Channel
     signature
   end
 
+  # == Helpers
   # Transmit a hash of data to the subscriber. The hash will automatically be
   # wrapped in a JSON envelope with the proper channel identifier marked as the
   # recipient.

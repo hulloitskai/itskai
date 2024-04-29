@@ -4,22 +4,24 @@
 require "vite_ruby"
 
 class ViteRuby
+  extend T::Sig
+
+  # == Attributes
   class_attribute :dev_server_enabled, default: true
 
-  class << self
-    extend T::Sig
-
-    sig do
-      type_parameters(:U).params(
-        block: T.proc.returns(T.type_parameter(:U)),
-      ).returns(T.type_parameter(:U))
-    end
-    def without_dev_server(&block)
-      prev_enabled = dev_server_enabled
-      self.dev_server_enabled = false
-      result = yield
+  # == Methods
+  sig do
+    type_parameters(:U).params(
+      block: T.proc.returns(T.type_parameter(:U)),
+    ).returns(T.type_parameter(:U))
+  end
+  def self.without_dev_server(&block)
+    prev_enabled = dev_server_enabled
+    self.dev_server_enabled = false
+    begin
+      yield
+    ensure
       self.dev_server_enabled = prev_enabled
-      result
     end
   end
 
@@ -55,6 +57,11 @@ class ViteRuby
       end
 
       # == Methods
+      sig { returns(T::Boolean) }
+      def dev_server_running?
+        ViteRuby.dev_server_enabled? && super
+      end
+
       sig { params(env: T::Hash[String, T.untyped]).returns(T.untyped) }
       def perform_request(env)
         if vite_should_handle?(env) && dev_server_running?

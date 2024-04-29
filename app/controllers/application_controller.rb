@@ -13,6 +13,9 @@ class ApplicationController < ActionController::Base
   before_action :set_actor_id
   before_action :authorize_rack_mini_profiler
   around_action :with_error_context
+  if !InertiaRails.ssr_enabled? && Rails.env.development?
+    around_action :with_ssr
+  end
 
   # == Inertia
   inertia_share do
@@ -80,5 +83,22 @@ class ApplicationController < ActionController::Base
     context = T.let(error_context.compact, T::Hash[String, T.untyped])
     Rails.error.set_context(**context)
     yield
+  end
+
+  sig { params(block: T.proc.returns(T.untyped)).void }
+  def with_ssr(&block)
+    if params["ssr"].truthy?
+      vite_dev_server_enabled = ViteRuby.dev_server_enabled?
+      begin
+        ViteRuby.dev_server_enabled = false
+        InertiaRails.configure { |config| config.ssr_enabled = true }
+        yield
+      ensure
+        InertiaRails.configure { |config| config.ssr_enabled = false }
+        ViteRuby.dev_server_enabled = vite_dev_server_enabled
+      end
+    else
+      yield
+    end
   end
 end

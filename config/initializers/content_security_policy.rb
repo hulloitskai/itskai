@@ -1,7 +1,6 @@
+# rubocop:disable Layout/LineLength
 # typed: strict
 # frozen_string_literal: true
-
-# rubocop:disable Layout/LineLength
 
 # Be sure to restart your server when you modify this file.
 
@@ -12,17 +11,17 @@
 # Rails.application.configure do
 #   config.content_security_policy do |policy|
 #     # Allow @vite/client to hot reload changes in development.
-#     # if Rails.env.development?
-#     #   policy.connect_src(
-#     #     *policy.connect_src,
-#     #     "ws://#{ViteRuby.config.host_with_port}",
-#     #   )
-#     #   policy.script_src(
-#     #     *policy.script_src,
-#     #     :unsafe_eval,
-#     #     "http://#{ViteRuby.config.host_with_port}",
-#     #   )
-#     # end
+#     if Rails.env.development?
+#       policy.connect_src(
+#         *policy.connect_src,
+#         "ws://#{ViteRuby.config.host_with_port}",
+#       )
+#       policy.script_src(
+#         *policy.script_src,
+#         :unsafe_eval,
+#         "http://#{ViteRuby.config.host_with_port}",
+#       )
+#     end
 
 #     # policy.default_src :self, :https
 #     # policy.font_src :self, :https, :data
