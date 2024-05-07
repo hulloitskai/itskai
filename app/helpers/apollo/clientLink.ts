@@ -1,14 +1,12 @@
-// import type { ServerError } from "@apollo/client";
 import { ApolloLink, HttpLink, from, split } from "@apollo/client";
 
 import { setContext } from "@apollo/client/link/context";
-// import { RetryLink } from "@apollo/client/link/retry";
 import { getOperationDefinition } from "@apollo/client/utilities";
 
 import ActionCableLink from "graphql-ruby-client/subscriptions/ActionCableLink";
 
 import { getCable } from "~/helpers/actioncable";
-import { requireMeta } from "~/helpers/meta";
+import { requireMeta, getMeta } from "~/helpers/meta";
 
 export type ClientLinkOptions = {
   readonly initialCSRFToken: string;

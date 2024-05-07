@@ -200,7 +200,7 @@ gem "bcrypt", "~> 3.1"
 gem "time_difference", "~> 0.5.0"
 
 # Control the browser with Playwright
-gem "playwright-ruby-client", "~> 1.40", require: 'playwright'
+gem "playwright-ruby-client", "~> 1.43", require: 'playwright'
 
 # OpenAI client
 gem "ruby-openai", "~> 6.3"

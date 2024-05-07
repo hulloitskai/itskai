@@ -91,6 +91,6 @@ def device():
 def main():
     debug = environ.get("DEBUG") or ""
     if debug.lower() in ("1", "y", "yes", "t", "true"):
-        app.run(port=3001, debug=True)
+        app.run(host="localhost", port=3001, debug=True)
     else:
-        fastwsgi.run(wsgi_app=app, port=3001)
+        fastwsgi.run(wsgi_app=app, host="localhost", port=3001)

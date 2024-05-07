@@ -1641,22 +1641,22 @@
     local-pkg "^0.5.0"
     mlly "^1.5.0"
 
-"@inertiajs/core@1.0.15", "@inertiajs/core@^1.0.15":
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/@inertiajs/core/-/core-1.0.15.tgz#9d5da905dc5838917bd14b0090e57651811c59fc"
-  integrity sha512-7h73+manxkpXdSPlVa2uSjo10AbSS0z9Q1jV7r/otqHfTYCNp7JJxHUX4QpKq/3Z88U8bDUe1RRix1o76pyd5Q==
+"@inertiajs/core@1.0.16", "@inertiajs/core@^1.0.16":
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@inertiajs/core/-/core-1.0.16.tgz#73484ca175464aadb6fe053b393b9829cd4f44d2"
+  integrity sha512-j0nS1KwNv2aNSC10u3qfOswhSMcHSURypPlVSimyRrxKSdrLRmPidow06avunkLU6T7nI9oDXt71WOeO3wCLQg==
   dependencies:
     axios "^1.6.0"
     deepmerge "^4.0.0"
     nprogress "^0.2.0"
     qs "^6.9.0"
 
-"@inertiajs/react@^1.0.15":
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/@inertiajs/react/-/react-1.0.15.tgz#f44deb52362a2841ceafe10bd51b1c66fe7cf620"
-  integrity sha512-T+eDD8Yz5FZ3Qbd0xKXbfRNSrZAQP6o2+jKv7Jakyzjr8ZLdcIpXmevqlGGo5Tc3/ZLzHAX4+2fzpyEKtfonng==
+"@inertiajs/react@^1.0.16":
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@inertiajs/react/-/react-1.0.16.tgz#f43defda956634e621ec47a500ab756791e97d84"
+  integrity sha512-+cWZ7yUbFHx7XcW8oSvitg7SYTAAS2WbgOrPe/18dPbWt1xNMdUgD/qh375FnO+PwLuM0fhmcze539B7LymOMw==
   dependencies:
-    "@inertiajs/core" "1.0.15"
+    "@inertiajs/core" "1.0.16"
     lodash.isequal "^4.5.0"
 
 "@isaacs/cliui@^8.0.2":
@@ -1735,10 +1735,10 @@
   dependencies:
     "@lezer/common" "^1.0.0"
 
-"@mantine/core@^7.7.0":
-  version "7.7.0"
-  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-7.7.0.tgz#2f796039a98d66a413a36f47eb04069f9cafffd2"
-  integrity sha512-ji8LK1i4Yx+1QNHKvy/NJj2jhx0EO60PWCVLVNbr6vxCTHVfCd1M7vAHlar5fcJwbO6zHLv4zPuqqxSkv0SqVA==
+"@mantine/core@^7.9.0":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-7.9.0.tgz#ad7961139fbb77268000e15e3858e54c147d54c2"
+  integrity sha512-EhELO1uYq2s08H69h4BCcvE26mNLPaXUi6RAjApqBIynMcyJlmdluFtvGKFxjpgFZy3moeSYNrjEW//T0uTMZg==
   dependencies:
     "@floating-ui/react" "^0.26.9"
     clsx "2.1.0"
@@ -1747,57 +1747,57 @@
     react-textarea-autosize "8.5.3"
     type-fest "^4.12.0"
 
-"@mantine/dates@^7.7.0":
-  version "7.7.0"
-  resolved "https://registry.yarnpkg.com/@mantine/dates/-/dates-7.7.0.tgz#fecf33716564fcd2b7e8071be8f4d85debe61d17"
-  integrity sha512-/6iRSmU/JxSo1N4J6AcDr2cFw+NkaohWPTAaoWt3osbzToc0ZOTWaffgjhZTg7Ixgsu/aB/u5Vbx+lS2bW7EbQ==
+"@mantine/dates@^7.9.0":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@mantine/dates/-/dates-7.9.0.tgz#0dde0847fef452ae01daf6eeab98be5ecb2fb6cc"
+  integrity sha512-+OOM8w6uZfBvlqPtwGIjG0Ef3z4E5QyWVmh7AhevgRS9RBdfa1YpxfRweDTDmrY9qYnim7fyM097Rwe30q/kpA==
   dependencies:
     clsx "2.1.0"
 
-"@mantine/dropzone@^7.7.0":
-  version "7.7.0"
-  resolved "https://registry.yarnpkg.com/@mantine/dropzone/-/dropzone-7.7.0.tgz#cb084e0782df5e272e99723f08c4eb07f1c63a9e"
-  integrity sha512-nHqWnpG6jQ95DZmGml6Z0KD2VOWAe5rEXNRxpcobNG8g7hLVgbkptHY7KtILjC46mQM5BsNWUyZsUW1Tv44eeQ==
+"@mantine/dropzone@^7.9.0":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@mantine/dropzone/-/dropzone-7.9.0.tgz#109c547831c7713d1a1df1b6794e4b6d618f0dd0"
+  integrity sha512-PYZnm/jGfSq3hQ5xgiz9G3fdgnpNg+ZY7nv1NlpvNn2a0XAeYnCCoZ87h6U7k6YHFU11ikc0w7b8ObhWPCyBtA==
   dependencies:
     react-dropzone-esm "15.0.1"
 
-"@mantine/form@^7.7.0":
-  version "7.7.0"
-  resolved "https://registry.yarnpkg.com/@mantine/form/-/form-7.7.0.tgz#998ff6b8e29a1fb4e901ab8970f5c4367eb4f67a"
-  integrity sha512-W2TNnXRMfleQIICHK80vWN3J4nmose46Dk21PdBGUDcX5144w1tWoM+eIRhh5Wf20V44H3NM6eRIT0Mnv7jZyg==
+"@mantine/form@^7.9.0":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@mantine/form/-/form-7.9.0.tgz#38ff0bf459b2d49b2908ccd85608aa6cb50fb89a"
+  integrity sha512-YFAUe3T6L+bQRJW7e2bNUdGON7OH8X0juDHojXoH3AKW5eHP/qTdDrUxAqi7n4rqb9yPdnOqs3aqE6T/evb8Hw==
   dependencies:
     fast-deep-equal "^3.1.3"
     klona "^2.0.6"
 
-"@mantine/hooks@^7.7.0":
-  version "7.7.0"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-7.7.0.tgz#52f0fdc97e953798d2e632aa5e90959f389cbd1e"
-  integrity sha512-m99vMzeONMpBLv0Rcb2LD88xAhpvwVdTMBo/7WohBDYtk1shJKHAc/WbQ/cJPcNk11Bzp/mhx/EPNZfs9+NwZA==
+"@mantine/hooks@^7.9.0":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-7.9.0.tgz#41ecc95d55da398c8c0718743f8cac13bf66b74d"
+  integrity sha512-LKgyrlaIK0S/gcn/VDbhqLBZOYjvhXfVcH7rMs4MIBVD+wuRo2LvvAYe3cUfQbBCfmlpRjqvewwvsIYYsjSofQ==
 
-"@mantine/modals@^7.7.0":
-  version "7.7.0"
-  resolved "https://registry.yarnpkg.com/@mantine/modals/-/modals-7.7.0.tgz#50b781fac0dbee070f180428d3fec03d6f88b295"
-  integrity sha512-e+jxb9ZSRY7rg0e5aAP7hTXMIVMtWHRxgARXGHqFBeoboqWq55MYdXAfRCCUBG9Y+hgHILYSVz8Dz/MjA15n2A==
+"@mantine/modals@^7.9.0":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@mantine/modals/-/modals-7.9.0.tgz#aedfb29de1630fc0498aebf5d3c17acfae14321b"
+  integrity sha512-shPoUmuAj6587DbGjc3AWpGRnxDvHftw7Ps7Xqcoy7ScxQ8+HpynBk9j7ojyXMolovK4hThW4oZdysPfpjQyaA==
 
-"@mantine/notifications@^7.7.0":
-  version "7.7.0"
-  resolved "https://registry.yarnpkg.com/@mantine/notifications/-/notifications-7.7.0.tgz#809a70149f96f78d5077c7991511b225303000aa"
-  integrity sha512-YutgZ+vf81/qPdadCX+OmXsPlgMpBuIn8TRhgeALt/qtdv80jUnTsyNdhMBCcRCm0txmLCItWtuXuW6glsHd4A==
+"@mantine/notifications@^7.9.0":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@mantine/notifications/-/notifications-7.9.0.tgz#2ff546c52d0da4289a61319ef9f06afbefb65174"
+  integrity sha512-jGwvPrLnHCQMmWuuiuLWr8mjVHnOoOlydqPSya9JB1FFJU+MJP+wP5ncKeIbAmu1h2VlOuGomToM6KzvxksUGw==
   dependencies:
-    "@mantine/store" "7.7.0"
+    "@mantine/store" "7.9.0"
     react-transition-group "4.4.5"
 
-"@mantine/nprogress@^7.7.0":
-  version "7.7.0"
-  resolved "https://registry.yarnpkg.com/@mantine/nprogress/-/nprogress-7.7.0.tgz#f0b7149a05bb0627deb3c3ef12a7be5c45a56a91"
-  integrity sha512-RYzthLwR4RDLXTZ6jLaMy4VTpIpMaJOMdQCywu98m3WIgmBAw8iRt0yNu1InkjsC1ic8nQ5om6O/FmC/R7qaRA==
+"@mantine/nprogress@^7.9.0":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@mantine/nprogress/-/nprogress-7.9.0.tgz#4b367101dfef5f319d755bde46a378bc74a9ae5e"
+  integrity sha512-/hL0ve7J39aQQ/CPwflk5hI3XQZqov/vhw8shy5qCxiy9RKZVZBOJ3CN/vyZ7XQqRtkX+esiIUkiVzbK/ZW+1g==
   dependencies:
-    "@mantine/store" "7.7.0"
+    "@mantine/store" "7.9.0"
 
-"@mantine/store@7.7.0":
-  version "7.7.0"
-  resolved "https://registry.yarnpkg.com/@mantine/store/-/store-7.7.0.tgz#ebc992c6aeff688a33d95b4bd4cd858e8b77ce6d"
-  integrity sha512-tbw73JQQjIbHiGZ/5f36bWk6eV+01cVGVtq6l7Q0S2dibkU9H8+ynAk+goNuUTaQk0lUpqUflxMJS4xXdS5Q6A==
+"@mantine/store@7.9.0":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@mantine/store/-/store-7.9.0.tgz#432c8dd7738ecefb815f51773895044d67ed5739"
+  integrity sha512-FzZkjdpy3PEh9sS6WgQ4cTVl9MvUbPRQ1nov8PV3JWWMlGOJHFuHeG6IYYGMc9f1oxu38/lryiKIYk3jcRgTSQ==
 
 "@mapbox/geojson-rewind@^0.5.2":
   version "0.5.2"
