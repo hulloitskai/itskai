@@ -4,11 +4,13 @@ import type { ApolloLink } from "@apollo/client";
 import { createClientLink } from "~/helpers/apollo/clientLink?client";
 
 export type ApolloLinkOptions = {
-  readonly csrfToken: string;
+  readonly initialCSRFToken: string;
 };
 
 export const createApolloLink = ({
-  csrfToken,
+  initialCSRFToken,
 }: ApolloLinkOptions): ApolloLink => {
-  return import.meta.env.SSR ? emptyLink() : createClientLink({ csrfToken });
+  return import.meta.env.SSR
+    ? emptyLink()
+    : createClientLink({ initialCSRFToken });
 };

@@ -164,7 +164,9 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
                 router.post("/logout", undefined, {
                   onSuccess: ({ props }) => {
                     const { csrf } = props as unknown as SharedPageProps;
-                    const link = createApolloLink({ csrfToken: csrf.token });
+                    const link = createApolloLink({
+                      initialCSRFToken: csrf.token,
+                    });
                     client.setLink(link);
                     client.resetStore();
                   },

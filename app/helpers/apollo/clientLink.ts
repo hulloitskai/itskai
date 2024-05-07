@@ -11,11 +11,11 @@ import { getCable } from "~/helpers/actioncable";
 import { requireMeta } from "~/helpers/meta";
 
 export type ClientLinkOptions = {
-  readonly csrfToken: string;
+  readonly initialCSRFToken: string;
 };
 
 export const createClientLink = ({
-  csrfToken,
+  initialCSRFToken,
 }: ClientLinkOptions): ApolloLink => {
   return from([
     // new RetryLink({
@@ -31,7 +31,7 @@ export const createClientLink = ({
     //     },
     //   },
     // }),
-    createCSRFLink(csrfToken),
+    createCSRFLink(initialCSRFToken),
     createTerminatingLink(),
   ]);
 };
@@ -61,11 +61,17 @@ const createSubscriptionsLink = (link: ApolloLink): ApolloLink => {
   );
 };
 
-const createCSRFLink = (token: string): ApolloLink => {
-  return setContext(async (operation, { headers }) => ({
-    headers: {
-      ...headers,
-      ["X-CSRF-Token"]: token,
-    },
-  }));
+const createCSRFLink = (initialToken: string): ApolloLink => {
+  return setContext(async (operation, { headers }) => {
+    const currentToken = getMeta("csrf-token");
+    if (!import.meta.env.SSR && !currentToken) {
+      console.warn("No client-side CSRF token found");
+    }
+    return {
+      headers: {
+        ...headers,
+        ["X-CSRF-Token"]: currentToken ?? initialToken,
+      },
+    };
+  });
 };

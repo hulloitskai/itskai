@@ -5,11 +5,17 @@ import { ApolloProvider as _ApolloProvider } from "@apollo/client";
 import { createApolloClient, createApolloLink } from "~/helpers/apollo";
 
 export type ApolloProviderProps = PropsWithChildren<{
-  readonly csrfToken: string;
+  readonly initialCSRFToken: string;
 }>;
 
-const ApolloProvider: FC<ApolloProviderProps> = ({ csrfToken, children }) => {
-  const link = useMemo(() => createApolloLink({ csrfToken }), [csrfToken]);
+const ApolloProvider: FC<ApolloProviderProps> = ({
+  initialCSRFToken,
+  children,
+}) => {
+  const link = useMemo(
+    () => createApolloLink({ initialCSRFToken }),
+    [initialCSRFToken],
+  );
   const [client] = useState(() => createApolloClient({ link }));
   useDidUpdate(() => client.setLink(link), [client, link]);
   useEffect(() => {

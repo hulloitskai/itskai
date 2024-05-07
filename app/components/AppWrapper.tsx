@@ -10,11 +10,8 @@ export type AppWrapperProps = PropsWithChildren<{
   readonly initialPage: Page<SharedPageProps>;
 }>;
 
-const AppWrapper: FC<AppWrapperProps> = ({
-  initialPage: { props },
-  children,
-}) => (
-  <ApolloProvider csrfToken={props.csrf.token}>
+const AppWrapper: FC<AppWrapperProps> = ({ initialPage, children }) => (
+  <ApolloProvider initialCSRFToken={initialPage.props.csrf.token}>
     <AppMantineProvider>
       <AppProgress />
       {children}
