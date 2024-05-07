@@ -7,7 +7,7 @@ import { getOperationDefinition } from "@apollo/client/utilities";
 
 import ActionCableLink from "graphql-ruby-client/subscriptions/ActionCableLink";
 
-import { cable } from "~/helpers/actioncable";
+import { getCable } from "~/helpers/actioncable";
 import { requireMeta } from "~/helpers/meta";
 
 export type ClientLinkOptions = {
@@ -48,7 +48,7 @@ const createHttpLink = () => {
 
 const createSubscriptionsLink = (link: ApolloLink): ApolloLink => {
   const cableLink = new ActionCableLink({
-    cable,
+    cable: getCable(),
     channelName: "GraphQLChannel",
   });
   return split(

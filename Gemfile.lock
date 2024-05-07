@@ -99,6 +99,10 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
+    actual_db_schema (0.7.3)
+      activerecord (>= 6.0.0)
+      activesupport (>= 6.0.0)
+      csv
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
     after_party (1.11.2)
@@ -163,6 +167,7 @@ GEM
     crass (1.0.6)
     css_parser (1.16.0)
       addressable
+    csv (3.3.0)
     date (3.3.4)
     date_validator (0.12.0)
       activemodel (>= 3)
@@ -264,7 +269,7 @@ GEM
     htmlentities (4.3.4)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
-    i18n (1.14.4)
+    i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     image_processing (1.12.2)
@@ -275,8 +280,8 @@ GEM
     insensitive_hash (0.3.3)
     interception (0.5)
     io-console (0.7.2)
-    irb (1.12.0)
-      rdoc
+    irb (1.13.1)
+      rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jmespath (1.6.2)
     json (2.7.1)
@@ -469,7 +474,7 @@ GEM
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
     regexp_parser (2.9.0)
-    reline (0.5.4)
+    reline (0.5.5)
       io-console (~> 0.5)
     rerun (0.14.0)
       listen (~> 3.0)
@@ -650,6 +655,7 @@ DEPENDENCIES
   active_record_extended (~> 3.2)
   active_storage_validations (~> 0.9.6)
   activerecord-postgis-adapter (~> 9.0)
+  actual_db_schema (~> 0.7.3)
   addressable (~> 2.8)
   after_party (~> 1.11)
   annotate

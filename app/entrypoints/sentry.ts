@@ -1,8 +1,11 @@
 import { init, setUser } from "@sentry/react";
+import { formatJSON } from "~/helpers/json";
+import { getMeta } from "~/helpers/meta";
+import { omit, omitBy, isNil } from "lodash-es";
 import type { BrowserOptions } from "@sentry/react";
 
-import { CaptureConsole as CaptureConsoleIntegration } from "@sentry/integrations";
-import { HttpClient as HttpClientIntegration } from "@sentry/integrations";
+import { captureConsoleIntegration } from "@sentry/integrations";
+import { httpClientIntegration } from "@sentry/integrations";
 
 const dsn = getMeta("sentry-dsn");
 if (dsn) {
@@ -20,8 +23,8 @@ if (dsn) {
     tracesSampleRate,
     sendDefaultPii: true,
     integrations: [
-      new CaptureConsoleIntegration({ levels: ["error", "assert"] }),
-      new HttpClientIntegration(),
+      captureConsoleIntegration({ levels: ["error", "assert"] }),
+      httpClientIntegration(),
     ],
     ignoreErrors: [
       "ResizeObserver loop completed with undelivered notifications.",
@@ -30,10 +33,12 @@ if (dsn) {
   };
   init(options);
   console.info(
-    "Initialized Sentry",
-    omitBy(
-      omit(options, "defaultIntegrations", "integrations", "_metadata"),
-      isNil,
+    "Initialized Sentry:",
+    formatJSON(
+      omitBy(
+        omit(options, "defaultIntegrations", "integrations", "_metadata"),
+        isNil,
+      ),
     ),
   );
 
@@ -45,7 +50,7 @@ if (dsn) {
   });
   if (user) {
     setUser(user);
-    console.info("Set Sentry user", user);
+    console.info("Set Sentry user:", formatJSON(user));
   }
 } else {
   console.warn("Missing Sentry DSN; skipping initialization");

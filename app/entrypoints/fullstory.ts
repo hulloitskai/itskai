@@ -1,4 +1,8 @@
 import { init, FullStory } from "@fullstory/browser";
+import { getMeta } from "~/helpers/meta";
+import { formatJSON } from "~/helpers/json";
+import { isNil, omitBy } from "lodash-es";
+import resolve from "~/helpers/resolve";
 
 const orgId = getMeta("fullstory-org-id");
 if (orgId) {
@@ -16,12 +20,12 @@ if (orgId) {
   init({ orgId, devMode }, () => {
     if (identity) {
       const { uid, ...properties } = identity;
-      FullStory("setIdentityAsync", { uid, properties });
+      FullStory("setIdentityAsync", formatJSON({ uid, properties }));
     }
   });
   console.info(
-    "Initialized FullStory",
-    omitBy({ orgId, identity, devMode }, isNil),
+    "Initialized FullStory:",
+    formatJSON(omitBy({ orgId, identity, devMode }, isNil)),
   );
 } else {
   console.warn("Missing FullStory missing org ID; skipping initialization");

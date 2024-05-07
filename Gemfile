@@ -237,6 +237,9 @@ group :development do
   # Detect file changes for live reload
   gem "listen", "~> 3.8"
 
+  # Wipe out inconsistent DB and schema.rb when switching branches
+  gem "actual_db_schema", "~> 0.7.3"
+
   # Rerun programs when files change
   gem "rerun", "~> 0.14.0"
 
