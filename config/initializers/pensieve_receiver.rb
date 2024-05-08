@@ -4,7 +4,7 @@
 Rails.application.configure do
   config.after_initialize do
     if PensieveReceiver.enabled?
-      puts "=> Starting pensieve receiver" # rubocop:disable Rails/Output
+      puts "=> Starting PensieveReceiver" # rubocop:disable Rails/Output
       PensieveReceiver.start
     end
   end if Rails.server?

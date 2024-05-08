@@ -94,6 +94,7 @@ class ResumesController < ApplicationController
           )
           page.goto(url)
           page.wait_for_selector(".resume-layout")
+          page.wait_for_function("() => document.fonts.ready")
           page.pdf(path: filepath, printBackground: true, pageRanges: "1")
         end
       end

@@ -3,7 +3,7 @@
 
 Rails.application.configure do
   config.after_initialize do
-    puts "=> Starting query watcher" # rubocop:disable Rails/Output
+    puts "=> Starting QueryWatcher" # rubocop:disable Rails/Output
     QueryWatcher.start
   end if Rails.server? && Rails.env.development?
 end
