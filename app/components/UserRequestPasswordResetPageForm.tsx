@@ -22,9 +22,11 @@ const UserRequestPasswordResetPageForm: FC<
       },
     });
 
-  // == Mutation
-  const onError = useApolloAlertCallback("Failed to send password reset email");
-  const [runMutation, { loading }] = useMutation(
+  // == Requesting Email
+  const onRequestEmailError = useApolloAlertCallback(
+    "Failed to request password reset email",
+  );
+  const [requestEmail, { loading: requestingEmail }] = useMutation(
     RequestUserPasswordResetMutationDocument,
     {
       onCompleted: () => {
@@ -39,7 +41,7 @@ const UserRequestPasswordResetPageForm: FC<
           },
         });
       },
-      onError,
+      onError: onRequestEmailError,
     },
   );
 
@@ -47,7 +49,7 @@ const UserRequestPasswordResetPageForm: FC<
     <Box
       component="form"
       onSubmit={onSubmit(({ email }) => {
-        runMutation({
+        requestEmail({
           variables: {
             input: {
               email,
@@ -64,7 +66,7 @@ const UserRequestPasswordResetPageForm: FC<
           required
           {...getInputProps("email")}
         />
-        <Button type="submit" disabled={!isDirty()} {...{ loading }}>
+        <Button type="submit" disabled={!isDirty()} loading={requestingEmail}>
           Continue
         </Button>
       </Stack>

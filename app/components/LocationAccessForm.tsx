@@ -23,12 +23,14 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
     },
   });
 
-  // == Mutation
-  const onError = useApolloAlertCallback("Failed to access location details");
-  const [runMutation, { loading }] = useMutation(
+  // == Access
+  const onCreateAccessError = useApolloAlertCallback(
+    "Failed to access location details",
+  );
+  const [createAccess, { loading: accessing }] = useMutation(
     CreateLocationAccessMutationDocument,
     {
-      onError,
+      onError: onCreateAccessError,
       onCompleted: ({ payload: { access } }) => {
         onCreate(access.token);
       },
@@ -39,7 +41,7 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
     <Box
       component="form"
       onSubmit={onSubmit(({ password }) => {
-        runMutation({ variables: { input: { password } } });
+        createAccess({ variables: { input: { password } } });
       })}
       {...otherProps}
     >
@@ -57,7 +59,7 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
           {...{ size }}
           {...getInputProps("password")}
         />
-        <Button type="submit" size="sm" {...{ loading }}>
+        <Button type="submit" size="sm" loading={accessing}>
           Nyoom in
         </Button>
       </Group>

@@ -44,25 +44,28 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
     interpolationMilliseconds,
   });
 
-  // == Query
-  const { data } = useQuery(CurrentlyPlayingLyricsTooltipQueryDocument, {
-    fetchPolicy: "no-cache",
-    variables: {},
-    onError: error => {
-      console.error(
-        "Failed to load lyrics for currently playing track",
-        formatJSON({ error }),
-      );
+  // == Loading current lyric
+  const { data: currentLyricData } = useQuery(
+    CurrentlyPlayingLyricsTooltipQueryDocument,
+    {
+      fetchPolicy: "no-cache",
+      variables: {},
+      onError: error => {
+        console.error(
+          "Failed to load lyrics for currently playing track",
+          formatJSON({ error }),
+        );
+      },
     },
-  });
-  const { lyrics } = data?.currentlyPlaying?.track ?? {};
+  );
+  const { lyrics } = currentLyricData?.currentlyPlaying?.track ?? {};
   const progressLyricsIndexMapping = useProgressLyricsIndexMapping({
     lyrics,
     durationMilliseconds,
     interpolationMilliseconds,
   });
 
-  // == Current Lyric
+  // == Current lyric
   const currentLyric = useMemo(() => {
     if (lyrics) {
       const currentLyricIndex =

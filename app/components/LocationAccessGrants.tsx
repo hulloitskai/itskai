@@ -13,17 +13,18 @@ export type LocationAccessGrantsProps = BoxProps;
 const LocationAccessGrants: FC<LocationAccessGrantsProps> = ({
   ...otherProps
 }) => {
-  // == Query
-  const onError = useApolloAlertCallback(
+  // == Load grants
+  const onLoadGrantsError = useApolloAlertCallback(
     "Failed to load location access grants",
   );
-  const { data, previousData, refetch } = useQuery(
-    LocationAccessGrantsQueryDocument,
-    {
-      onError,
-    },
-  );
-  const { locationAccessGrants } = data ?? previousData ?? {};
+  const {
+    data: grantsData,
+    previousData: previousGrantsData,
+    refetch: refetchGrants,
+  } = useQuery(LocationAccessGrantsQueryDocument, {
+    onError: onLoadGrantsError,
+  });
+  const { locationAccessGrants } = grantsData ?? previousGrantsData ?? {};
 
   return (
     <Stack id="location-access-grants" gap="xs" {...otherProps}>
@@ -33,7 +34,7 @@ const LocationAccessGrants: FC<LocationAccessGrantsProps> = ({
             <LocationAccessGrantCard
               key={grant.id}
               onDeleteGrant={() => {
-                refetch();
+                refetchGrants();
               }}
               {...{ grant }}
             />
@@ -54,7 +55,7 @@ const LocationAccessGrants: FC<LocationAccessGrantsProps> = ({
             children: (
               <LocationAccessGrantCreateForm
                 onCreate={() => {
-                  refetch();
+                  refetchGrants();
                 }}
               />
             ),

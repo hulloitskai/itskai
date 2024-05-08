@@ -143,7 +143,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   const speedRef = useRef(1);
   const zoomRef = useRef(12.5);
 
-  // == Audio Player
+  // == Audio player
   const audioPlayer = useAudioPlayer();
   useEffect(
     () => {
@@ -174,27 +174,30 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   const [preloadedPhotoIdsInitialValue] = useState<Set<string>>(new Set());
   const preloadedPhotoIdsRef = useRef(preloadedPhotoIdsInitialValue);
 
-  // == Query
-  const onError = useApolloAlertCallback("Failed to load activities");
+  // == Loading Activities
+  const onLoadActivitiesError = useApolloAlertCallback(
+    "Failed to load activities",
+  );
   const windowStart = useMemo(() => time.startOf("week").toISO(), [time]);
   const windowEnd = useMemo(
     () => time.endOf("week").plus({ days: 4 }).toISO(),
     [time],
   );
-  const { data, previousData, loading } = useQuery(
-    TimelinePageActivitiesQueryDocument,
-    {
-      variables: {
-        after: windowStart,
-        before: windowEnd,
-      },
-      onCompleted: ({ activities }) => {
-        activitiesRef.current = activities;
-      },
-      onError,
+  const {
+    data: activitiesData,
+    previousData: previousActivitiesData,
+    loading: loadingActivities,
+  } = useQuery(TimelinePageActivitiesQueryDocument, {
+    variables: {
+      after: windowStart,
+      before: windowEnd,
     },
-  );
-  const coalescedData = data ?? previousData;
+    onCompleted: ({ activities }) => {
+      activitiesRef.current = activities;
+    },
+    onError: onLoadActivitiesError,
+  });
+  const coalescedData = activitiesData ?? previousActivitiesData;
 
   // == Progression
   const cancelProgressionRef = useRef(false);
@@ -438,7 +441,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
                 timeZoneName: "short",
               })}
             </Badge>
-            {loading && <Loader size="xs" />}
+            {loadingActivities && <Loader size="xs" />}
             <Box style={{ flexGrow: 1 }} />
             {paused && (
               <Tooltip color="primary" label="Start" withArrow>

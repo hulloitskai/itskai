@@ -13,9 +13,11 @@ const ICloudVerifySecurityCodeForm: FC<ICloudVerifySecurityCodeFormProps> = ({
   onVerify,
   ...otherProps
 }) => {
-  // == Mutation
-  const onError = useApolloAlertCallback("Failed to verify security code");
-  const [runMutation, { loading }] = useMutation(
+  // == Verifying Security Code
+  const onVerifySecurityCodeError = useApolloAlertCallback(
+    "Failed to verify security code",
+  );
+  const [verifySecurityCode, { loading: verifying }] = useMutation(
     VerifyICloudSecurityCodeMutationDocument,
     {
       onCompleted: () => {
@@ -23,7 +25,7 @@ const ICloudVerifySecurityCodeForm: FC<ICloudVerifySecurityCodeFormProps> = ({
         showNotice({ message: "Successfully authenticated with iCloud." });
         onVerify();
       },
-      onError,
+      onError: onVerifySecurityCodeError,
     },
   );
 
@@ -37,7 +39,7 @@ const ICloudVerifySecurityCodeForm: FC<ICloudVerifySecurityCodeFormProps> = ({
     <Box
       component="form"
       onSubmit={onSubmit(values => {
-        runMutation({
+        verifySecurityCode({
           variables: {
             input: values,
           },
@@ -57,9 +59,9 @@ const ICloudVerifySecurityCodeForm: FC<ICloudVerifySecurityCodeFormProps> = ({
         </InputWrapper>
         <Button
           type="submit"
-          leftSection={<SecurityCodeIcon />}
           disabled={code.length !== 6}
-          {...{ loading }}
+          loading={verifying}
+          leftSection={<SecurityCodeIcon />}
         >
           Verify code
         </Button>

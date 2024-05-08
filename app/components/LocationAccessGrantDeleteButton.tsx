@@ -16,25 +16,28 @@ export type LocationAccessGrantDeleteActionIconProps = Omit<
 const LocationAccessGrantDeleteButton: FC<
   LocationAccessGrantDeleteActionIconProps
 > = ({ grantId, onDelete, ...otherProps }) => {
-  // == Mutation
-  const onError = useApolloAlertCallback("Failed to delete journal entries");
-  const [runMutation, { loading }] = useMutation(
+  // == Deleting grant
+  const onDeleteGrantError = useApolloAlertCallback(
+    "Failed to delete location access grant",
+  );
+  const [deleteGrant, { loading: deletingGrant }] = useMutation(
     DeleteLocationAccessGrantMutationDocument,
     {
       onCompleted: () => {
         showNotice({
-          message: "Journal entries deleteed successfully.",
+          message: "Location access grant deleted successfully.",
         });
         onDelete();
       },
-      onError,
+      onError: onDeleteGrantError,
     },
   );
 
   return (
     <DeleteButton
+      loading={deletingGrant}
       onConfirm={() => {
-        runMutation({
+        deleteGrant({
           variables: {
             input: {
               grantId,
@@ -42,7 +45,6 @@ const LocationAccessGrantDeleteButton: FC<
           },
         });
       }}
-      {...{ loading }}
       {...otherProps}
     >
       Delete grant

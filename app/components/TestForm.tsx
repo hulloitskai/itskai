@@ -23,12 +23,12 @@ const TestForm: FC = () => {
     },
   );
 
-  // == Mutation
-  const onError = useApolloAlertCallback("Mutation failed!");
-  const [runMutation, { data }] = useMutation(TestMutationMutationDocument, {
+  // == Mutating
+  const onMutateError = useApolloAlertCallback("Mutation failed");
+  const [mutate, { data }] = useMutation(TestMutationMutationDocument, {
     onCompleted: ({ payload: { model, errors } }) => {
       if (model) {
-        showNotification({ message: "Mutation successful!" });
+        showNotification({ message: "Mutation successful." });
         reset();
       } else {
         invariant(errors, "Missing input errors");
@@ -37,7 +37,7 @@ const TestForm: FC = () => {
         showFormErrorsAlert(formErrors, "Couldn't run mutation");
       }
     },
-    onError,
+    onError: onMutateError,
   });
 
   return (
@@ -45,7 +45,7 @@ const TestForm: FC = () => {
       <Title order={4}>Test Form</Title>
       <form
         onSubmit={onSubmit(({ name, birthday }) => {
-          runMutation({
+          mutate({
             variables: {
               input: {
                 name,

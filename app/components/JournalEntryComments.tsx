@@ -25,39 +25,42 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
   // == Input
   const [commentText, setCommentText] = useState("");
 
-  // == Query
-  const onError = useApolloAlertCallback("Failed to load comments");
-  const { data, loading, refetch } = useQuery(
-    JournalEntryCommentsQueryDocument,
-    {
-      variables: {
-        entryId,
-      },
-      onError,
+  // == Loading Comments
+  const onLoadCommentsError = useApolloAlertCallback("Failed to load comments");
+  const {
+    data: commentsData,
+    loading,
+    refetch,
+  } = useQuery(JournalEntryCommentsQueryDocument, {
+    variables: {
+      entryId,
     },
-  );
-  const { comments } = data ?? {};
+    onError: onLoadCommentsError,
+  });
+  const { comments } = commentsData ?? {};
 
-  // == Mutation
-  const addErrorContext = useMemo(
+  // == Adding Comment
+  const addCommentErrorContext = useMemo(
     () => ({ entryId, comment: commentText }),
     [commentText, entryId],
   );
-  const onAddError = useApolloAlertCallback(
+  const onAddCommentError = useApolloAlertCallback(
     "Failed to add comment",
-    addErrorContext,
+    addCommentErrorContext,
   );
-  const [runAddMutation, { loading: mutating }] = useMutation(
+  const [addComment, { loading: commenting }] = useMutation(
     AddJournalEntryCommentMutationDocument,
     {
       onCompleted: () => {
         refetch();
       },
-      onError: onAddError,
+      onError: onAddCommentError,
     },
   );
+
+  // == Creating Comment
   const createComment = () => {
-    runAddMutation({
+    addComment({
       variables: {
         input: {
           entryId,
@@ -108,7 +111,7 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
             variant="filled"
             color="primary.6"
             radius="xl"
-            loading={mutating}
+            loading={commenting}
             onClick={createComment}
           >
             <Text component={SendIcon} fz={12} />
@@ -117,7 +120,7 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
         radius="xl"
         placeholder="Write a comment..."
         value={commentText}
-        readOnly={mutating}
+        readOnly={commenting}
         onChange={({ currentTarget }) => {
           setCommentText(currentTarget.value);
         }}

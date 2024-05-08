@@ -55,9 +55,11 @@ const TimelinePhotoCreateWithTimestampForm: FC<
   const { values, onSubmit, getInputProps, reset, setErrors } = form;
   const { photo, timestamp } = values;
 
-  // == Mutation
-  const onError = useApolloAlertCallback("Failed to import timeline photo");
-  const [runMutation, { loading: mutating }] = useMutation(
+  // == Creating photo
+  const onCreatePhotoError = useApolloAlertCallback(
+    "Failed to import timeline photo",
+  );
+  const [createPhoto, { loading: creatingPhoto }] = useMutation(
     CreateTimelinePhotoWithTimestampMutationDocument,
     {
       onCompleted: ({ payload: { success, errors } }) => {
@@ -72,7 +74,7 @@ const TimelinePhotoCreateWithTimestampForm: FC<
           showFormErrorsAlert(formErrors, "Couldn't create photo");
         }
       },
-      onError,
+      onError: onCreatePhotoError,
     },
   );
 
@@ -80,7 +82,7 @@ const TimelinePhotoCreateWithTimestampForm: FC<
     <Box
       component="form"
       onSubmit={onSubmit(values => {
-        runMutation({
+        createPhoto({
           variables: {
             input: {
               ...values,
@@ -116,7 +118,7 @@ const TimelinePhotoCreateWithTimestampForm: FC<
         <Button
           type="submit"
           disabled={!photo || !timestamp}
-          loading={mutating}
+          loading={creatingPhoto}
         >
           Create
         </Button>

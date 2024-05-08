@@ -35,13 +35,18 @@ const Time: FC<TimeProps> = ({
     () => applyFormat(DateTime.fromSeconds(0, { zone: "utc" })),
     [applyFormat],
   );
+
+  // == Formatting
   const [formattedTime, setFormattedTime] = useState<string | undefined>();
-  const loading = !formattedTime;
   useEffect(() => {
     const time =
       typeof children === "string" ? DateTime.fromISO(children) : children;
     setFormattedTime(applyFormat(time));
   }, [children, applyFormat]);
+
+  // == Loading
+  const loading = !formattedTime;
+
   return (
     <Skeleton
       visible={!formattedTime}

@@ -104,9 +104,11 @@ const KitButton: FC<KitButtonProps> = ({ signal: signal, description }) => {
     [signal],
   );
 
-  // == Mutation
-  const onError = useApolloAlertCallback("Failed to activate Scottkit signal");
-  const [runMutation, { loading }] = useMutation(
+  // == Activating
+  const onActivateSignalError = useApolloAlertCallback(
+    "Failed to activate Scottkit signal",
+  );
+  const [activateSignal, { loading: activatingSignal }] = useMutation(
     ActivateScottkitSignalMutationDocument,
     {
       onCompleted: () => {
@@ -119,7 +121,7 @@ const KitButton: FC<KitButtonProps> = ({ signal: signal, description }) => {
           message: <>You will be followed-up with shortly :)</>,
         });
       },
-      onError,
+      onError: onActivateSignalError,
     },
   );
 
@@ -127,6 +129,7 @@ const KitButton: FC<KitButtonProps> = ({ signal: signal, description }) => {
     <Stack gap={4}>
       <Button
         size="xl"
+        loading={activatingSignal}
         leftSection={icon}
         styles={{
           root: {
@@ -144,7 +147,7 @@ const KitButton: FC<KitButtonProps> = ({ signal: signal, description }) => {
           },
         }}
         onClick={() => {
-          runMutation({
+          activateSignal({
             variables: {
               input: {
                 signal,
@@ -152,7 +155,7 @@ const KitButton: FC<KitButtonProps> = ({ signal: signal, description }) => {
             },
           });
         }}
-        {...{ color, loading }}
+        {...{ color }}
       >
         <Code color="gray">{label}</Code>
       </Button>

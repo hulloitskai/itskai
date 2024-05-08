@@ -55,26 +55,29 @@ const AvatarField: FC<AvatarFieldProps> = ({
   // == Uploading
   const [uploading, setUploading] = useState(false);
 
-  // == Query
-  const onError = useApolloAlertCallback("Failed to load avatar");
+  // == Loading avatar
+  const onLoadAvatarError = useApolloAlertCallback("Failed to load avatar");
   const variables = useMemo<AvatarFieldQueryVariables | undefined>(() => {
     if (value) {
       return value;
     }
   }, [value]);
   const skipQuery = !value;
-  const { data, loading: queryLoading } = useQuery(AvatarFieldQueryDocument, {
-    variables,
-    skip: skipQuery,
-    onError,
-  });
+  const { data: avatarData, loading: avatarLoading } = useQuery(
+    AvatarFieldQueryDocument,
+    {
+      variables,
+      skip: skipQuery,
+      onError: onLoadAvatarError,
+    },
+  );
 
   // == Image
   const [src, setSrc] = useState("");
   useEffect(() => {
     if (value) {
-      if (data) {
-        const { image } = data ?? {};
+      if (avatarData) {
+        const { image } = avatarData ?? {};
         if (image) {
           setSrc(image.src);
         } else {
@@ -88,10 +91,10 @@ const AvatarField: FC<AvatarFieldProps> = ({
     } else {
       setSrc("");
     }
-  }, [value, data]);
+  }, [value, avatarData]);
 
   // == Loading
-  const loading = uploading || ((!src || valueChanged) && queryLoading);
+  const loading = uploading || ((!src || valueChanged) && avatarLoading);
 
   return (
     <Input.Wrapper

@@ -13,14 +13,14 @@ export type PensieveChatBoxProps = TextInputProps;
 const PensieveChatBox: FC<PensieveChatBoxProps> = ({ ...otherProps }) => {
   const [messageText, setMessageText] = useState("");
 
-  // == Mutation
-  const onSendError = useApolloAlertCallback("Failed to send message");
-  const [runSendMutation, { loading: mutating }] = useMutation(
+  // == Sending message
+  const onSendMessageError = useApolloAlertCallback("Failed to send message");
+  const [sendMessage, { loading: sendingMessage }] = useMutation(
     SendPensieveMessageMutationDocument,
-    { onError: onSendError },
+    { onError: onSendMessageError },
   );
   const createComment = () => {
-    runSendMutation({
+    sendMessage({
       variables: {
         input: {
           text: messageText,
@@ -39,7 +39,7 @@ const PensieveChatBox: FC<PensieveChatBoxProps> = ({ ...otherProps }) => {
           variant="filled"
           color="primary.6"
           radius="xl"
-          loading={mutating}
+          loading={sendingMessage}
           onClick={createComment}
         >
           <Text component={SendIcon} fz={12} />
@@ -48,7 +48,7 @@ const PensieveChatBox: FC<PensieveChatBoxProps> = ({ ...otherProps }) => {
       radius="xl"
       placeholder="Write a message..."
       value={messageText}
-      readOnly={mutating}
+      readOnly={sendingMessage}
       onChange={({ target }) => setMessageText(target.value)}
       onKeyUp={({ key }) => {
         if (key === "Enter") {

@@ -8,7 +8,7 @@ import Pensieve from "~/components/Pensieve";
 export type PensievePageProps = PagePropsWithData<PensievePageQuery>;
 
 const PensievePage: PageComponent<PensievePageProps> = () => {
-  // == Auto Scroll
+  // == Autoscroll
   const autoScroll = useCallback((timeout = 200) => {
     setTimeout(() => {
       const viewportEl = document.body;

@@ -72,10 +72,8 @@ const FileField = <Values = Record<string, unknown>,>({
     [form, name, errorProp],
   );
 
-  // == Uploading
+  // == Files
   const [uploadingFiles, setUploadingFiles] = useState<File[]>([]);
-
-  // == Text
   const fileLabel = useMemo(
     () => fileLabelProp ?? (multiple ? "files" : "file"),
     [fileLabelProp, multiple],

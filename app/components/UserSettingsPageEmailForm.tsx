@@ -48,9 +48,11 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
     resetDirty(initialValues);
   }, [initialValues]);
 
-  // == Mutation
-  const onError = useApolloAlertCallback("Failed to change email");
-  const [runMutation, { loading }] = useMutation(
+  // == Updating Email
+  const onUpdateEmailError = useApolloAlertCallback(
+    "Failed to update email address",
+  );
+  const [updateEmail, { loading: updatingEmail }] = useMutation(
     UpdateUserEmailMutationDocument,
     {
       onCompleted: ({ payload: { user, errors } }) => {
@@ -79,14 +81,14 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
           showFormErrorsAlert(formErrors, "Couldn't change email");
         }
       },
-      onError,
+      onError: onUpdateEmailError,
     },
   );
 
   return (
     <form
       onSubmit={onSubmit(({ email, currentPassword }) => {
-        runMutation({
+        updateEmail({
           variables: {
             input: {
               email,
@@ -144,7 +146,7 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
           <Button
             type="submit"
             disabled={!(isDirty("email") && isDirty("currentPassword"))}
-            {...{ loading }}
+            loading={updatingEmail}
           >
             Change Email
           </Button>

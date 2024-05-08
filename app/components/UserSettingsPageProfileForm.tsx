@@ -40,9 +40,11 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
     resetDirty(initialValues);
   }, [initialValues]);
 
-  // == Mutation
-  const onError = useApolloAlertCallback("Failed to update profile");
-  const [runMutation, { loading }] = useMutation(
+  // == Updating Profile
+  const onUpdateProfileError = useApolloAlertCallback(
+    "Failed to update profile",
+  );
+  const [updateProfile, { loading: updatingProfile }] = useMutation(
     UpdateUserProfileMutationDocument,
     {
       onCompleted: ({ payload: { user, errors } }) => {
@@ -59,14 +61,14 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
           showFormErrorsAlert(formErrors, "Couldn't update profile");
         }
       },
-      onError,
+      onError: onUpdateProfileError,
     },
   );
 
   return (
     <form
       onSubmit={onSubmit(values => {
-        runMutation({
+        updateProfile({
           variables: {
             input: values,
           },
@@ -81,7 +83,7 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
           {...getInputProps("name")}
         />
         <AvatarField label="Avatar" {...getInputProps("avatar")} />
-        <Button type="submit" disabled={!isDirty()} {...{ loading }}>
+        <Button type="submit" disabled={!isDirty()} loading={updatingProfile}>
           Save
         </Button>
       </Stack>

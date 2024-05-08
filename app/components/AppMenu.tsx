@@ -34,7 +34,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
   const isClient = useIsClient();
   const router = useRouter();
   const client = useApolloClient();
-  const [contactMe, { loading: contactMeLoading }] = useContactMe();
+  const [contactMe, { loading: loadingContactMe }] = useContactMe();
 
   // == State
   const [opened, setOpened] = useState(false);
@@ -55,10 +55,15 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
     }
   }, [opened]);
 
-  // == Query
-  const onError = useApolloAlertCallback("Failed to load server info");
-  const { data } = useQuery(AppMenuQueryDocument, { skip: !opened, onError });
-  const { bootedAt } = data ?? {};
+  // == Loading Server Info
+  const onLoadServerInfoError = useApolloAlertCallback(
+    "Failed to load server info",
+  );
+  const { data: serverInfoData } = useQuery(AppMenuQueryDocument, {
+    skip: !opened,
+    onError: onLoadServerInfoError,
+  });
+  const { bootedAt } = serverInfoData ?? {};
 
   return (
     <Menu
@@ -130,7 +135,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
           Hang out w/ Kai
         </Menu.Item>
         <Menu.Item
-          leftSection={contactMeLoading ? <Loader size={12} /> : <SendIcon />}
+          leftSection={loadingContactMe ? <Loader size={12} /> : <SendIcon />}
           onClick={() => {
             contactMe();
           }}

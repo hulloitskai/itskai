@@ -16,11 +16,11 @@ const SpotifyConnectionForm: FC<SpotifyConnectionFormProps> = ({
   onDelete,
   ...otherProps
 }) => {
-  // == Delete Mutation
-  const onDeleteError = useApolloAlertCallback(
+  // == Deleting Connection
+  const onDeleteConnectionError = useApolloAlertCallback(
     "Failed to delete Spotify connection",
   );
-  const [runDeleteMutation, { loading: deleting }] = useMutation(
+  const [deleteConnection, { loading: deletingConnection }] = useMutation(
     DeleteSpotifyConnectionMutationDocument,
     {
       onCompleted: () => {
@@ -29,7 +29,7 @@ const SpotifyConnectionForm: FC<SpotifyConnectionFormProps> = ({
         });
         onDelete();
       },
-      onError: onDeleteError,
+      onError: onDeleteConnectionError,
     },
   );
 
@@ -75,7 +75,7 @@ const SpotifyConnectionForm: FC<SpotifyConnectionFormProps> = ({
                 variant="outline"
                 color="red"
                 leftSection={<DeactivateIcon />}
-                loading={deleting}
+                loading={deletingConnection}
               >
                 Deactivate
               </Button>
@@ -85,7 +85,7 @@ const SpotifyConnectionForm: FC<SpotifyConnectionFormProps> = ({
                 color="red"
                 leftSection={<AlertIcon />}
                 onClick={() => {
-                  runDeleteMutation({
+                  deleteConnection({
                     variables: {
                       input: {},
                     },

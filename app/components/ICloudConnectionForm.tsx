@@ -2,15 +2,15 @@ import type { FC } from "react";
 import SessionIcon from "~icons/heroicons/identification-20-solid";
 import SecurityCodeIcon from "~icons/heroicons/key-20-solid";
 
-import { JsonInput, PasswordInput, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
+import { JsonInput, PasswordInput, Text } from "@mantine/core";
 
+import type { ICloudConnectionFormConnectionFragment } from "~/helpers/graphql";
 import {
   CreateICloudConnectionMutationDocument,
   DeleteICloudConnectionMutationDocument,
   ICloudConnectionStatus,
 } from "~/helpers/graphql";
-import type { ICloudConnectionFormConnectionFragment } from "~/helpers/graphql";
 
 import ICloudVerifySecurityCodeForm from "./ICloudVerifySecurityCodeForm";
 
@@ -52,9 +52,11 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
     resetDirty(initialValues);
   }, [initialValues]);
 
-  // == Create Mutation
-  const onCreateError = useApolloAlertCallback("Failed to connect to iCloud");
-  const [runCreateMutation, { loading: updating }] = useMutation(
+  // == Creating Connection
+  const onCreateConnectionError = useApolloAlertCallback(
+    "Failed to connect to iCloud",
+  );
+  const [createConnection, { loading: creating }] = useMutation(
     CreateICloudConnectionMutationDocument,
     {
       onCompleted: ({ payload: { requires2fa } }) => {
@@ -68,15 +70,15 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
           showNotice({ message: "Successfully authenticated with iCloud." });
         }
       },
-      onError: onCreateError,
+      onError: onCreateConnectionError,
     },
   );
 
-  // == Delete Mutation
-  const onDeleteError = useApolloAlertCallback(
+  // == Deleting Connection
+  const onDeleteConnectionError = useApolloAlertCallback(
     "Failed to delete iCloud connection",
   );
-  const [runDeleteMutation, { loading: deleting }] = useMutation(
+  const [deleteConnection, { loading: deletingConnection }] = useMutation(
     DeleteICloudConnectionMutationDocument,
     {
       onCompleted: () => {
@@ -85,11 +87,11 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
         });
         onDelete();
       },
-      onError: onDeleteError,
+      onError: onDeleteConnectionError,
     },
   );
 
-  // == Security Code
+  // == Verifying Security Code
   const openVerifySecurityCodeModal = useCallback(() => {
     openModal({
       title: (
@@ -107,7 +109,7 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
     });
   }, [onVerifySecurityCode]);
 
-  // == Session Info
+  // == Session info
   const openSessionInfoModal = () => {
     openModal({
       title: (
@@ -147,7 +149,7 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
     <Box
       component="form"
       onSubmit={onSubmit(values => {
-        runCreateMutation({
+        createConnection({
           variables: {
             input: values,
           },
@@ -174,7 +176,7 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
           <Button
             type="submit"
             leftSection={<AuthenticateIcon />}
-            loading={updating}
+            loading={creating}
           >
             {credentials ? "Re-authenticate" : "Authenticate"}
           </Button>
@@ -218,7 +220,7 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
                     variant="outline"
                     color="red"
                     leftSection={<DeactivateIcon />}
-                    loading={deleting}
+                    loading={deletingConnection}
                   >
                     Deactivate
                   </Button>
@@ -228,7 +230,7 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
                     leftSection={<AlertIcon />}
                     color="red"
                     onClick={() => {
-                      runDeleteMutation({
+                      deleteConnection({
                         variables: {
                           input: {},
                         },

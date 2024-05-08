@@ -16,28 +16,26 @@ const PasswordWithStrengthCheckInput: FC<
   const { value, error } = otherProps;
   const [debouncedValue] = useDebouncedValue(value, 100);
 
-  // == Query
-  const { data, previousData } = useQuery(
-    PasswordWithStrengthCheckInputQueryDocument,
-    {
-      variables: {
-        password: typeof debouncedValue === "string" ? debouncedValue : "",
-      },
-      skip: typeof debouncedValue !== "string",
-      onCompleted: ({ passwordStrength }) => {
-        if (onStrengthCheck) {
-          onStrengthCheck(passwordStrength);
-        }
-      },
-      onError: error => {
-        console.error(
-          "Failed to check password strength",
-          formatJSON({ error }),
-        );
-      },
+  // == Loading password strength
+  const {
+    data: passwordStrengthData,
+    previousData: previousPasswordStrengthData,
+  } = useQuery(PasswordWithStrengthCheckInputQueryDocument, {
+    variables: {
+      password: typeof debouncedValue === "string" ? debouncedValue : "",
     },
-  );
-  const { passwordStrength = 0.0 } = data ?? previousData ?? {};
+    skip: typeof debouncedValue !== "string",
+    onCompleted: ({ passwordStrength }) => {
+      if (onStrengthCheck) {
+        onStrengthCheck(passwordStrength);
+      }
+    },
+    onError: error => {
+      console.error("Failed to check password strength", formatJSON({ error }));
+    },
+  });
+  const { passwordStrength = 0.0 } =
+    passwordStrengthData ?? previousPasswordStrengthData ?? {};
 
   return (
     <PasswordInput

@@ -19,25 +19,27 @@ const PensieveMessageLike: FC<PensieveMessageLikeProps> = ({
   message: { id: messageId, likes, likedByViewer },
   ...otherProps
 }) => {
-  // == Like Mutation
-  const onLikeError = useApolloAlertCallback("Failed to like message");
-  const [runLikeMutation, { loading: liking }] = useMutation(
+  // == Liking Message
+  const onLikeMessageError = useApolloAlertCallback("Failed to like message");
+  const [likeMessage, { loading: likingMessage }] = useMutation(
     LikePensieveMessageMutationDocument,
     {
-      onError: onLikeError,
+      onError: onLikeMessageError,
     },
   );
 
-  // == Unlike Mutation
-  const onUnlikeError = useApolloAlertCallback("Failed to unlike message");
-  const [runUnlikeMutation, { loading: unliking }] = useMutation(
+  // == Unliking Message
+  const onUnlikeMessageError = useApolloAlertCallback(
+    "Failed to unlike message",
+  );
+  const [unlikeMessage, { loading: unlikingMessage }] = useMutation(
     UnlikePensieveMessageMutationDocument,
     {
-      onError: onUnlikeError,
+      onError: onUnlikeMessageError,
     },
   );
 
-  const loading = liking || unliking;
+  const updating = likingMessage || unlikingMessage;
   return (
     <Button
       variant="subtle"
@@ -47,7 +49,7 @@ const PensieveMessageLike: FC<PensieveMessageLikeProps> = ({
       pos="relative"
       onClick={() => {
         if (!likedByViewer) {
-          runLikeMutation({
+          likeMessage({
             variables: {
               input: {
                 messageId,
@@ -55,7 +57,7 @@ const PensieveMessageLike: FC<PensieveMessageLikeProps> = ({
             },
           });
         } else {
-          runUnlikeMutation({
+          unlikeMessage({
             variables: {
               input: {
                 messageId,
@@ -67,7 +69,7 @@ const PensieveMessageLike: FC<PensieveMessageLikeProps> = ({
       {...otherProps}
     >
       <Group gap={4} wrap="nowrap">
-        {loading ? (
+        {updating ? (
           <Loader size={14} c="primary.5" />
         ) : (
           <Text

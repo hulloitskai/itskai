@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   postgres-dev:
-    image: postgis/postgis:15-3.3
+    image: postgis/postgis:15-3.4
     volumes:
       - postgres-dev:/var/lib/postgresql/data
     environment:
@@ -12,7 +12,7 @@ services:
       - 5432:5432
 
   postgres-test:
-    image: postgis/postgis:15-3.3
+    image: postgis/postgis:15-3.4
     volumes:
       - postgres-test:/var/lib/postgresql/data
     environment:

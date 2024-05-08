@@ -9,9 +9,11 @@ const LocationLogsSyncButton: FC<LocationSyncLogsButtonProps> = ({
   children,
   ...otherProps
 }) => {
-  // == Mutation
-  const onError = useApolloAlertCallback("Failed to import location logs");
-  const [runMutation, { loading }] = useMutation(
+  // == Syncing Logs
+  const onSyncLogsError = useApolloAlertCallback(
+    "Failed to import location logs",
+  );
+  const [syncLogs, { loading: syncingLogs }] = useMutation(
     SyncLocationLogsMutationDocument,
     {
       onCompleted: () => {
@@ -19,7 +21,7 @@ const LocationLogsSyncButton: FC<LocationSyncLogsButtonProps> = ({
           message: "Location logs synced successfully.",
         });
       },
-      onError,
+      onError: onSyncLogsError,
     },
   );
 
@@ -28,13 +30,13 @@ const LocationLogsSyncButton: FC<LocationSyncLogsButtonProps> = ({
       variant="default"
       leftSection={<DownloadIcon />}
       onClick={() => {
-        runMutation({
+        syncLogs({
           variables: {
             input: {},
           },
         });
       }}
-      {...{ loading }}
+      {...{ loading: syncingLogs }}
       {...otherProps}
     >
       {children ?? "Sync location logs"}

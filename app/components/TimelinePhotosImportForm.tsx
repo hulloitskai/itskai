@@ -40,9 +40,11 @@ const TimelinePhotosImportForm: FC<TimelinePhotosImportFormProps> = ({
   const { values, onSubmit, reset } = form;
   const { photos } = values;
 
-  // == Mutation
-  const onError = useApolloAlertCallback("Failed to import timeline photos");
-  const [runMutation, { loading: mutating }] = useMutation(
+  // == Importing Photos
+  const onImportPhotosError = useApolloAlertCallback(
+    "Failed to import timeline photos",
+  );
+  const [importPhotos, { loading: importingPhotos }] = useMutation(
     ImportTimelinePhotosMutationDocument,
     {
       onCompleted: ({ payload: { importCount } }) => {
@@ -55,7 +57,7 @@ const TimelinePhotosImportForm: FC<TimelinePhotosImportFormProps> = ({
             : "No new photos were added.",
         });
       },
-      onError,
+      onError: onImportPhotosError,
     },
   );
 
@@ -63,7 +65,7 @@ const TimelinePhotosImportForm: FC<TimelinePhotosImportFormProps> = ({
     <Box
       component="form"
       onSubmit={onSubmit(values => {
-        runMutation({
+        importPhotos({
           variables: {
             input: {
               ...values,
@@ -83,7 +85,11 @@ const TimelinePhotosImportForm: FC<TimelinePhotosImportFormProps> = ({
           multiple
           {...{ form }}
         />
-        <Button type="submit" disabled={isEmpty(photos)} loading={mutating}>
+        <Button
+          type="submit"
+          disabled={isEmpty(photos)}
+          loading={importingPhotos}
+        >
           Import
         </Button>
       </Stack>

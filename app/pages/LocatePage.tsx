@@ -57,43 +57,47 @@ const LocatePage: PageComponent<LocatePageProps> = ({
     }
   }, [alertPulse]);
 
-  // == Subscription
-  const subscriptionVariables = useMemo<
+  // == Watch location updates
+  const locationSubscriptionVariables = useMemo<
     LocatePageSubscriptionVariables | undefined
   >(
     () => (!pageLoading && accessToken ? { accessToken } : undefined),
     [accessToken, pageLoading],
   );
-  const [subscriptionFirstLoad, setSubscriptionFirstLoad] = useState(true);
-  const onSubscriptionError = useApolloAlertCallback(
+  const [locationSubscriptionFirstLoad, setLocationSubscriptionFirstLoad] =
+    useState(true);
+  const onLocationSubscriptionError = useApolloAlertCallback(
     "Failed to subscribe to location updates",
   );
-  const { data, loading } = useSubscription(LocatePageSubscriptionDocument, {
-    variables: subscriptionVariables,
-    skip: !subscriptionVariables,
-    onData: ({ data: { data, error } }) => {
-      console.log({ data });
-      if (data) {
-        const { location } = data;
-        if (location && mapRef.current) {
-          const { latitude, longitude } = location.details.coordinates;
-          mapRef.current.flyTo({
-            center: [longitude, latitude],
-            zoom: 14.5,
-            animate: true,
-          });
-          if (!subscriptionFirstLoad) {
-            setAlertPulse(true);
+  const { data: locationData, loading: loadingLocation } = useSubscription(
+    LocatePageSubscriptionDocument,
+    {
+      variables: locationSubscriptionVariables,
+      skip: !locationSubscriptionVariables,
+      onData: ({ data: { data, error } }) => {
+        console.log({ data });
+        if (data) {
+          const { location } = data;
+          if (location && mapRef.current) {
+            const { latitude, longitude } = location.details.coordinates;
+            mapRef.current.flyTo({
+              center: [longitude, latitude],
+              zoom: 14.5,
+              animate: true,
+            });
+            if (!locationSubscriptionFirstLoad) {
+              setAlertPulse(true);
+            }
+            setLocationSubscriptionFirstLoad(false);
           }
-          setSubscriptionFirstLoad(false);
+        } else if (error) {
+          console.error("Error during location update", formatJSON({ error }));
         }
-      } else if (error) {
-        console.error("Error during location update", formatJSON({ error }));
-      }
+      },
+      onError: onLocationSubscriptionError,
     },
-    onError: onSubscriptionError,
-  });
-  const { location } = data ?? {};
+  );
+  const { location } = locationData ?? {};
   const { coordinates, trail } = location?.details ?? {};
 
   // == Region
@@ -402,7 +406,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
             </Alert>
           )}
           <LoadingOverlay
-            visible={loading}
+            visible={loadingLocation}
             styles={({ radius }) => ({
               overlay: {
                 borderRadius: radius.md,

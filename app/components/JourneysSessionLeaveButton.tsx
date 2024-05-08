@@ -13,15 +13,15 @@ const JourneysSessionLeaveButton: FC<JourneysSessionLeaveButtonProps> = ({
   onLeave,
   ...otherProps
 }) => {
-  // == Mutation
-  const onError = useApolloAlertCallback("Failed to leave session");
-  const [runMutation] = useMutation(LeaveJourneysSessionMutationDocument, {
+  // == Leaving Session
+  const onLeaveSessionError = useApolloAlertCallback("Failed to leave session");
+  const [leaveSession] = useMutation(LeaveJourneysSessionMutationDocument, {
     onCompleted: () => {
       if (onLeave) {
         onLeave();
       }
     },
-    onError,
+    onError: onLeaveSessionError,
   });
 
   return (
@@ -47,7 +47,7 @@ const JourneysSessionLeaveButton: FC<JourneysSessionLeaveButtonProps> = ({
           color="red"
           leftSection={<AlertIcon />}
           onClick={() => {
-            runMutation({
+            leaveSession({
               variables: {
                 input: {
                   participationId,

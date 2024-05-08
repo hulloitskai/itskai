@@ -21,9 +21,11 @@ const UserRequestEmailVerificationPageForm: FC<
       },
     });
 
-  // == Mutation
-  const onError = useApolloAlertCallback("Failed to resend verification email");
-  const [runMutation, { loading }] = useMutation(
+  // == Requesting Email
+  const onRequestEmailError = useApolloAlertCallback(
+    "Failed to request new verification email",
+  );
+  const [requestEmail, { loading: requestingEmail }] = useMutation(
     RequestUserEmailVerificationMutationDocument,
     {
       onCompleted: () => {
@@ -38,14 +40,14 @@ const UserRequestEmailVerificationPageForm: FC<
           },
         });
       },
-      onError,
+      onError: onRequestEmailError,
     },
   );
 
   return (
     <form
       onSubmit={onSubmit(({ email }) => {
-        runMutation({
+        requestEmail({
           variables: {
             input: {
               email,
@@ -61,7 +63,7 @@ const UserRequestEmailVerificationPageForm: FC<
           required
           {...getInputProps("email")}
         />
-        <Button type="submit" disabled={!isDirty()} {...{ loading }}>
+        <Button type="submit" disabled={!isDirty()} loading={requestingEmail}>
           Continue
         </Button>
       </Stack>

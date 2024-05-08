@@ -29,18 +29,24 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // == Query
-  const onError = useApolloAlertCallback("Failed to load journal entry");
-  const { coalescedData, loading, refetch } = usePreloadedQuery<
+  // == Loading Entry
+  const onLoadEntryError = useApolloAlertCallback(
+    "Failed to load journal entry",
+  );
+  const {
+    coalescedData: coalescedEntryData,
+    loading: loadingEntry,
+    refetch: refetchEntry,
+  } = usePreloadedQuery<
     HomePageJournalEntryQuery,
     HomePageJournalEntryQueryVariables
   >(HomePageJournalEntryQueryDocument, {
     initialData: { entry: initialEntry || null },
     variables: initialEntry ? { entryId: initialEntry.id } : undefined,
     skip: !initialEntry,
-    onError,
+    onError: onLoadEntryError,
   });
-  const { entry } = coalescedData;
+  const { entry } = coalescedEntryData;
   const { nextEntryId } = entry ?? {};
   const hasNextEntry = !!nextEntryId;
 
@@ -80,7 +86,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
           out: { opacity: 0, transform: "scale(0)", maxHeight: 0 },
           in: { opacity: 1, transform: "scale(1)", maxHeight: 140 },
         }}
-        mounted={!!coalescedData}
+        mounted={!!coalescedEntryData}
       >
         {style => (
           <Button
@@ -88,7 +94,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
             leftSection={hasNextEntry ? <NextIcon /> : <ResetIcon />}
             radius="xl"
             onClick={() => {
-              refetch({ entryId: nextEntryId || firstEntryId }).then(
+              refetchEntry({ entryId: nextEntryId || firstEntryId }).then(
                 ({ data: { entry } }) => {
                   invariant(entry, "Missing entry");
                   setRequiresScrolling(true);
@@ -96,7 +102,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
                 },
               );
             }}
-            {...{ style, loading }}
+            {...{ style, loading: loadingEntry }}
           >
             {hasNextEntry ? "more words pls" : "from the top!"}
           </Button>

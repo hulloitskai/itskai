@@ -16,24 +16,24 @@ const FileFieldFileCard: FC<FileFieldFileCardProps> = ({
   onRemove,
   ...props
 }) => {
-  // == Query
-  const onError = useApolloAlertCallback(
+  // == Loading File
+  const onLoadFileError = useApolloAlertCallback(
     "Failed to load uploaded file details",
   );
-  const { data } = useQuery(FileFieldFileCardQueryDocument, {
+  const { data: fileData } = useQuery(FileFieldFileCardQueryDocument, {
     variables: {
       signedId,
     },
-    onError,
+    onError: onLoadFileError,
   });
-  const { filename, byteSize } = data?.file ?? {};
+  const { filename, byteSize } = fileData?.file ?? {};
   const sizeText = useMemo(
     () => (byteSize ? prettyBytes(byteSize) : null),
     [byteSize],
   );
 
   return (
-    <Skeleton visible={!data}>
+    <Skeleton visible={!fileData}>
       <Card withBorder padding="xs" pr={6} pt={6} {...props}>
         <Box>
           <Group wrap="nowrap" gap="xs">

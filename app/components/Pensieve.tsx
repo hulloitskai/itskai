@@ -34,7 +34,7 @@ const Pensieve: FC<PensieveProps> = ({
     Map<string, PensieveMessageFragment>
   >(new Map());
 
-  // == Auto Scroll
+  // == Autoscroll
   const viewportRef = useRef<HTMLDivElement>(null);
   const autoScroll = useCallback((timeout = 200) => {
     setTimeout(() => {
@@ -48,9 +48,9 @@ const Pensieve: FC<PensieveProps> = ({
     }, timeout);
   }, []);
 
-  // == Query
-  const onError = useApolloAlertCallback("Failed to load messages");
-  const { loading } = useQuery(PensieveQueryDocument, {
+  // == Loading Messages
+  const onLoadMessagesError = useApolloAlertCallback("Failed to load messages");
+  const { loading: loadingMessages } = useQuery(PensieveQueryDocument, {
     nextFetchPolicy: "standby",
     onCompleted: ({ messages: incomingMessages }) => {
       setMessages(prevMessages => {
@@ -65,7 +65,7 @@ const Pensieve: FC<PensieveProps> = ({
         onLoadMessages(incomingMessages);
       }
     },
-    onError,
+    onError: onLoadMessagesError,
   });
 
   // == Groupings
@@ -93,7 +93,7 @@ const Pensieve: FC<PensieveProps> = ({
     return groups;
   }, [messages]);
 
-  // == Subscription
+  // == Watching Messages
   useSubscription(PensieveSubscriptionDocument, {
     variables: {},
     onData: ({ data: { data, error } }) => {
@@ -118,10 +118,7 @@ const Pensieve: FC<PensieveProps> = ({
       }
     },
     onError: error => {
-      console.error(
-        "Failed to subscribe to message updates",
-        formatJSON({ error }),
-      );
+      console.error("Failed to watch message updates", formatJSON({ error }));
     },
   });
 
@@ -173,7 +170,7 @@ const Pensieve: FC<PensieveProps> = ({
                 );
               })}
             </Stack>
-          ) : loading ? (
+          ) : loadingMessages ? (
             <Stack gap={6} m="lg">
               {[...new Array(3)].map((_, index) => (
                 <Skeleton height={36} radius="md" key={index} />

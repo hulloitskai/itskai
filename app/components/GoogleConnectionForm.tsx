@@ -16,11 +16,11 @@ const GoogleConnectionForm: FC<GoogleConnectionFormProps> = ({
   onDelete,
   ...otherProps
 }) => {
-  // == Delete Mutation
-  const onDeleteError = useApolloAlertCallback(
+  // == Deleting Connection
+  const onDeleteConnectionError = useApolloAlertCallback(
     "Failed to delete Google connection",
   );
-  const [runDeleteMutation, { loading: deleting }] = useMutation(
+  const [deleteConnection, { loading: deletingConnection }] = useMutation(
     DeleteGoogleConnectionMutationDocument,
     {
       onCompleted: () => {
@@ -29,7 +29,7 @@ const GoogleConnectionForm: FC<GoogleConnectionFormProps> = ({
         });
         onDelete();
       },
-      onError: onDeleteError,
+      onError: onDeleteConnectionError,
     },
   );
 
@@ -75,7 +75,7 @@ const GoogleConnectionForm: FC<GoogleConnectionFormProps> = ({
                 variant="outline"
                 color="red"
                 leftSection={<DeactivateIcon />}
-                loading={deleting}
+                loading={deletingConnection}
               >
                 Deactivate
               </Button>
@@ -85,7 +85,7 @@ const GoogleConnectionForm: FC<GoogleConnectionFormProps> = ({
                 color="red"
                 leftSection={<AlertIcon />}
                 onClick={() => {
-                  runDeleteMutation({
+                  deleteConnection({
                     variables: {
                       input: {},
                     },

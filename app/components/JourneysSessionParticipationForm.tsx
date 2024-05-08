@@ -28,25 +28,28 @@ const JourneysSessionParticipationForm: FC<
       },
     });
 
-  // == Query
-  const { data } = useQuery(JourneysSessionParticipationFormQueryDocument, {
-    variables: {
-      participationId,
+  // == Loading participation
+  const { data: participationData } = useQuery(
+    JourneysSessionParticipationFormQueryDocument,
+    {
+      variables: {
+        participationId,
+      },
+      onCompleted: ({ participation }) => {
+        if (participation) {
+          const { participantName, goal } = participation;
+          setValues({ participantName, goal });
+          resetDirty();
+        }
+      },
     },
-    onCompleted: ({ participation }) => {
-      if (participation) {
-        const { participantName, goal } = participation;
-        setValues({ participantName, goal });
-        resetDirty();
-      }
-    },
-  });
+  );
 
-  // == Mutation
-  const onError = useApolloAlertCallback(
+  // == Updating participation
+  const onUpdateParticipationError = useApolloAlertCallback(
     "Failed to update participation information",
   );
-  const [runMutation] = useMutation(
+  const [updateParticipation] = useMutation(
     UpdateJourneysSessionParticipationMutationDocument,
     {
       onCompleted: ({ payload: { participation, errors } }) => {
@@ -64,16 +67,16 @@ const JourneysSessionParticipationForm: FC<
           );
         }
       },
-      onError,
+      onError: onUpdateParticipationError,
     },
   );
 
-  const disabled = !data;
+  const disabled = !participationData;
   return (
     <Box
       component="form"
       onSubmit={onSubmit(values => {
-        runMutation({
+        updateParticipation({
           variables: {
             input: {
               participationId,

@@ -35,21 +35,22 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
 }) => {
   const { online } = useNetwork();
 
-  // == Query
-  const { data, refetch } = useQuery(CurrentlyPlayingIslandQueryDocument, {
-    fetchPolicy: "no-cache",
-    variables: {},
-    onError: error => {
-      console.error(
-        "Failed to load currently playing details",
-        formatJSON({ error }),
-      );
-    },
-  });
-  const { currentlyPlaying } = data ?? {};
+  // == Loading Currently Playing
+  const { data: currentlyPlayingData, refetch: refetchCurrentlyPlaying } =
+    useQuery(CurrentlyPlayingIslandQueryDocument, {
+      fetchPolicy: "no-cache",
+      variables: {},
+      onError: error => {
+        console.error(
+          "Failed to load currently playing details",
+          formatJSON({ error }),
+        );
+      },
+    });
+  const { currentlyPlaying } = currentlyPlayingData ?? {};
 
-  // == Subscription
-  const { data: subscriptionData } = useSubscription(
+  // == Watching Currently Playing
+  const { data: currentlyPlayingSubscription } = useSubscription(
     CurrentlyPlayingIslandSubscriptionDocument,
     {
       variables: {},
@@ -57,24 +58,25 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
         if (data) {
           const { track } = data?.currentlyPlaying ?? {};
           if (track?.id !== currentlyPlaying?.track?.id) {
-            refetch();
+            refetchCurrentlyPlaying();
           }
         } else if (error) {
           console.error(
-            "Error during currently playing update",
+            "Error while watching currently playing updates",
             formatJSON({ error }),
           );
         }
       },
       onError: error => {
         console.error(
-          "Failed to subscribe to currently playing updates",
+          "Failed to watch currently playing updates",
           formatJSON({ error }),
         );
       },
     },
   );
-  const { currentlyPlaying: currentlyPlayingMetadata } = subscriptionData ?? {};
+  const { currentlyPlaying: currentlyPlayingMetadata } =
+    currentlyPlayingSubscription ?? {};
   const progressMilliseconds = useMemo(() => {
     if (currentlyPlayingMetadata) {
       const { progressMilliseconds } = currentlyPlayingMetadata;
@@ -192,12 +194,14 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
     [artists],
   );
 
-  // == Activate Jam Session
-  const onError = useApolloAlertCallback("Failed to activate jam session");
-  const [runMutation, { loading }] = useMutation(
+  // == Activating Jam Session
+  const onActivateJamSessionError = useApolloAlertCallback(
+    "Failed to activate jam session",
+  );
+  const [activateJamSession, { loading: activatingJamSession }] = useMutation(
     ActivateSpotifyJamSessionMutationDocument,
     {
-      onError,
+      onError: onActivateJamSessionError,
     },
   );
 
@@ -268,7 +272,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
               }}
               onClick={() => {
                 const newTab = open("./loading", "_blank");
-                runMutation({
+                activateJamSession({
                   variables: {
                     input: {},
                   },
@@ -292,7 +296,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
               <MarqueeText fz={10} fw={700} className={classes.artistNames}>
                 {artistNames}
               </MarqueeText>
-              <LoadingOverlay visible={loading} />
+              <LoadingOverlay visible={activatingJamSession} />
             </Badge>
           );
         }}

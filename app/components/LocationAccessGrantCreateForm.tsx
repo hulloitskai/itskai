@@ -49,9 +49,11 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
     },
   });
 
-  // == Mutation
-  const onError = useApolloAlertCallback("Failed to create access grant");
-  const [runMutation, { loading }] = useMutation(
+  // == Creating Grant
+  const onCreateGrantError = useApolloAlertCallback(
+    "Failed to create access grant",
+  );
+  const [createGrant, { loading: creatingGrant }] = useMutation(
     CreateLocationAccessGrantMutationDocument,
     {
       onCompleted: ({ payload: { grant, errors } }) => {
@@ -70,7 +72,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
           showFormErrorsAlert(formErrors, "Couldn't create grant");
         }
       },
-      onError,
+      onError: onCreateGrantError,
     },
   );
 
@@ -78,7 +80,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
     <Box
       component="form"
       onSubmit={onSubmit(submission => {
-        runMutation({
+        createGrant({
           variables: {
             input: submission,
           },
@@ -122,9 +124,9 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
         />
         <Button
           type="submit"
-          leftSection={<AddIcon />}
           disabled={!isDirty()}
-          {...{ loading }}
+          loading={creatingGrant}
+          leftSection={<AddIcon />}
         >
           Create grant
         </Button>

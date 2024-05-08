@@ -9,9 +9,11 @@ const JournalEntriesSyncButton: FC<JournalEntriesSyncButtonProps> = ({
   children,
   ...otherProps
 }) => {
-  // == Mutation
-  const onError = useApolloAlertCallback("Failed to sync journal entries");
-  const [runMutation, { loading }] = useMutation(
+  // == Syncing Entries
+  const onSyncEntriesError = useApolloAlertCallback(
+    "Failed to sync journal entries",
+  );
+  const [syncEntries, { loading: syncingEntries }] = useMutation(
     SyncJournalEntriesMutationDocument,
     {
       onCompleted: () => {
@@ -19,22 +21,22 @@ const JournalEntriesSyncButton: FC<JournalEntriesSyncButtonProps> = ({
           message: "Journal entries synced successfully.",
         });
       },
-      onError,
+      onError: onSyncEntriesError,
     },
   );
 
   return (
     <Button
       variant="default"
+      loading={syncingEntries}
       leftSection={<DownloadIcon />}
       onClick={() => {
-        runMutation({
+        syncEntries({
           variables: {
             input: {},
           },
         });
       }}
-      {...{ loading }}
       {...otherProps}
     >
       {children ?? "Sync journal entries"}

@@ -15,9 +15,9 @@ const ExplorationBadge: FC<ExplorationBadgeProps> = ({
   children,
   ...otherProps
 }) => {
-  // == Send Message
+  // == Sending Message
   const onSendMessageError = useApolloAlertCallback("Failed to send message");
-  const [runSendMessageMutation, { loading: messageSending }] = useMutation(
+  const [sendMessage, { loading: messageSending }] = useMutation(
     SendPensieveMessageMutationDocument,
     {
       onError: onSendMessageError,
@@ -64,7 +64,7 @@ const ExplorationBadge: FC<ExplorationBadgeProps> = ({
             },
           }}
           onClick={() => {
-            runSendMessageMutation({
+            sendMessage({
               variables: {
                 input: {
                   text: `i've been thinking abt ${children}`,

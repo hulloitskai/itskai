@@ -40,11 +40,11 @@ const TimelineActivitiesImportForm: FC<TimelineActivitiesImportFormProps> = ({
   const { values, onSubmit, reset } = form;
   const { locationHistory } = values;
 
-  // == Mutation
-  const onError = useApolloAlertCallback(
+  // == Importing Activities
+  const onImportActivitiesError = useApolloAlertCallback(
     "Failed to import timeline activities",
   );
-  const [runMutation, { loading: mutating }] = useMutation(
+  const [importActivities, { loading: importingActivities }] = useMutation(
     ImportTimelineActivitiesMutationDocument,
     {
       onCompleted: ({ payload: { importCount } }) => {
@@ -57,7 +57,7 @@ const TimelineActivitiesImportForm: FC<TimelineActivitiesImportFormProps> = ({
             : "No new activities were added.",
         });
       },
-      onError,
+      onError: onImportActivitiesError,
     },
   );
 
@@ -65,7 +65,7 @@ const TimelineActivitiesImportForm: FC<TimelineActivitiesImportFormProps> = ({
     <Box
       component="form"
       onSubmit={onSubmit(values => {
-        runMutation({
+        importActivities({
           variables: {
             input: {
               ...values,
@@ -84,7 +84,11 @@ const TimelineActivitiesImportForm: FC<TimelineActivitiesImportFormProps> = ({
           accept={["application/json"]}
           {...{ form }}
         />
-        <Button type="submit" disabled={!locationHistory} loading={mutating}>
+        <Button
+          type="submit"
+          disabled={!locationHistory}
+          loading={importingActivities}
+        >
           Import
         </Button>
       </Stack>

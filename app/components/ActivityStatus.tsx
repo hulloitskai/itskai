@@ -14,7 +14,7 @@ export type ActivityStatusProps = BoxProps;
 const ActivityStatus: FC<ActivityStatusProps> = ({ ...otherProps }) => {
   const { online } = useNetwork();
 
-  // == Query
+  // == Subscription
   const { data } = useSubscription(ActivityStatusBadgeSubscriptionDocument, {
     variables: {},
     onError: error => {
@@ -27,7 +27,7 @@ const ActivityStatus: FC<ActivityStatusProps> = ({ ...otherProps }) => {
   const { activityStatus } = data ?? {};
   const showStatus = !!activityStatus || !online;
 
-  // == Status Text
+  // == Status text
   const [statusText, setStatusText] = useState(activityStatus || "");
   useEffect(() => {
     if (!online) {
