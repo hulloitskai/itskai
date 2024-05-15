@@ -174,7 +174,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   const [preloadedPhotoIdsInitialValue] = useState<Set<string>>(new Set());
   const preloadedPhotoIdsRef = useRef(preloadedPhotoIdsInitialValue);
 
-  // == Loading Activities
+  // == Activities Loading
   const onLoadActivitiesError = useApolloAlertCallback(
     "Failed to load activities",
   );

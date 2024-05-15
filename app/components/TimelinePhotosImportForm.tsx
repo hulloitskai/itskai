@@ -40,7 +40,7 @@ const TimelinePhotosImportForm: FC<TimelinePhotosImportFormProps> = ({
   const { values, onSubmit, reset } = form;
   const { photos } = values;
 
-  // == Importing Photos
+  // == Photos Import
   const onImportPhotosError = useApolloAlertCallback(
     "Failed to import timeline photos",
   );

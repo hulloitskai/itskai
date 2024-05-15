@@ -3,7 +3,7 @@
 
 require "icloud"
 
-class ICloudClient < ApplicationService
+class ICloudctl < ApplicationService
   include Singleton
 
   # == Initialization
@@ -167,9 +167,11 @@ class ICloudClient < ApplicationService
     credentials = ICloudCredentials.first or return
     restore_session_files(credentials) or return
     credentials => { email:, password: }
-    perform_login(email:, password:).tap do
-      preserve_session_files(credentials)
-      credentials.save!
+    suppress(LoginError) do
+      perform_login(email:, password:).tap do
+        preserve_session_files(credentials)
+        credentials.save!
+      end
     end
   end
 end

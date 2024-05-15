@@ -55,7 +55,7 @@ const TimelinePhotoCreateWithTimestampForm: FC<
   const { values, onSubmit, getInputProps, reset, setErrors } = form;
   const { photo, timestamp } = values;
 
-  // == Creating photo
+  // == Photo Creation
   const onCreatePhotoError = useApolloAlertCallback(
     "Failed to import timeline photo",
   );

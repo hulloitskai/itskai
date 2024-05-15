@@ -15,7 +15,12 @@ service: PyiCloudService | None = None
 
 @app.route("/", methods=["GET"])
 def index():
-    status = _status(service) if service else "disconnected"
+    status = "disconnected"
+    if service:
+        try:
+            status = _status(service)
+        except Exception as error:
+            status = f"error: {error}"
     return {"data": {"status": status}}
 
 

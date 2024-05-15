@@ -250,7 +250,7 @@ group :development do
   # Typecheck code
   gem "sorbet", require: false
   gem "spoom", require: false
-  gem "tapioca", "~> 0.12.0", require: false
+  gem "tapioca", "~> 0.14.1", require: false
 
   # Use Rubocop to lint code
   gem "rubocop", "~> 1.62", require: false

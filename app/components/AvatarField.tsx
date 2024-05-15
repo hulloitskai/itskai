@@ -55,7 +55,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
   // == Uploading
   const [uploading, setUploading] = useState(false);
 
-  // == Loading avatar
+  // == Avatar Loading
   const onLoadAvatarError = useApolloAlertCallback("Failed to load avatar");
   const variables = useMemo<AvatarFieldQueryVariables | undefined>(() => {
     if (value) {

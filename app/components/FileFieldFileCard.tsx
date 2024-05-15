@@ -16,7 +16,7 @@ const FileFieldFileCard: FC<FileFieldFileCardProps> = ({
   onRemove,
   ...props
 }) => {
-  // == Loading File
+  // == File Loading
   const onLoadFileError = useApolloAlertCallback(
     "Failed to load uploaded file details",
   );

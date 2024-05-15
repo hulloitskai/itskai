@@ -21,7 +21,7 @@ const UserRequestEmailVerificationPageForm: FC<
       },
     });
 
-  // == Requesting Email
+  // == Email Request
   const onRequestEmailError = useApolloAlertCallback(
     "Failed to request new verification email",
   );

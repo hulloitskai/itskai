@@ -25,7 +25,7 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
   // == Input
   const [commentText, setCommentText] = useState("");
 
-  // == Loading Comments
+  // == Comments Loading
   const onLoadCommentsError = useApolloAlertCallback("Failed to load comments");
   const {
     data: commentsData,
@@ -58,7 +58,7 @@ const JournalEntryComments: FC<JournalEntryCommentsProps> = ({
     },
   );
 
-  // == Creating Comment
+  // == Comment Creation
   const createComment = () => {
     addComment({
       variables: {

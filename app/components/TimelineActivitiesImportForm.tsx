@@ -40,7 +40,7 @@ const TimelineActivitiesImportForm: FC<TimelineActivitiesImportFormProps> = ({
   const { values, onSubmit, reset } = form;
   const { locationHistory } = values;
 
-  // == Importing Activities
+  // == Activities Import
   const onImportActivitiesError = useApolloAlertCallback(
     "Failed to import timeline activities",
   );

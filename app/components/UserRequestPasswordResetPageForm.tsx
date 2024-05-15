@@ -22,7 +22,7 @@ const UserRequestPasswordResetPageForm: FC<
       },
     });
 
-  // == Requesting Email
+  // == Email Request
   const onRequestEmailError = useApolloAlertCallback(
     "Failed to request password reset email",
   );

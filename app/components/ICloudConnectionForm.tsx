@@ -52,7 +52,7 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
     resetDirty(initialValues);
   }, [initialValues]);
 
-  // == Creating Connection
+  // == Connection Creation
   const onCreateConnectionError = useApolloAlertCallback(
     "Failed to connect to iCloud",
   );

@@ -104,7 +104,7 @@ const KitButton: FC<KitButtonProps> = ({ signal: signal, description }) => {
     [signal],
   );
 
-  // == Activating
+  // == Signal Activation
   const onActivateSignalError = useApolloAlertCallback(
     "Failed to activate Scottkit signal",
   );

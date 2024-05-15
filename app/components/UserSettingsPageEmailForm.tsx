@@ -48,7 +48,7 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
     resetDirty(initialValues);
   }, [initialValues]);
 
-  // == Updating Email
+  // == Email Update
   const onUpdateEmailError = useApolloAlertCallback(
     "Failed to update email address",
   );

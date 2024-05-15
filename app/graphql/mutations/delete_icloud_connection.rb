@@ -7,7 +7,7 @@ module Mutations
     sig { returns({}) }
     def resolve
       authorize!(to: :destroy?, with: ICloudConnectionPolicy)
-      ICloudClient.logout
+      ICloudctl.logout
       {}
     end
   end

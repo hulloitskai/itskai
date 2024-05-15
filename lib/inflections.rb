@@ -24,6 +24,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 
   # == Application
   inflect.acronym("ICloud")
+  inflect.acronym("ICloudctl")
   inflect.acronym("ItsKai")
   inflect.acronym("PoorlyDrawnLines")
 end

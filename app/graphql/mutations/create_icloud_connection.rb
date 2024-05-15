@@ -19,9 +19,9 @@ module Mutations
     def resolve(email:, password:)
       authorize!(to: :create?, with: ICloudConnectionPolicy)
       begin
-        result = ICloudClient.login(email:, password:)
+        result = ICloudctl.login(email:, password:)
         { requires_2fa: result.requires_2fa }
-      rescue ICloudClient::LoginError => error
+      rescue ICloudctl::LoginError => error
         raise GraphQL::ExecutionError, "iCloud login failed: #{error}"
       end
     end

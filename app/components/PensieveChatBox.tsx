@@ -13,7 +13,7 @@ export type PensieveChatBoxProps = TextInputProps;
 const PensieveChatBox: FC<PensieveChatBoxProps> = ({ ...otherProps }) => {
   const [messageText, setMessageText] = useState("");
 
-  // == Sending message
+  // == Message Sending
   const onSendMessageError = useApolloAlertCallback("Failed to send message");
   const [sendMessage, { loading: sendingMessage }] = useMutation(
     SendPensieveMessageMutationDocument,

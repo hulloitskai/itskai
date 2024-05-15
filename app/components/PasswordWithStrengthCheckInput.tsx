@@ -16,7 +16,7 @@ const PasswordWithStrengthCheckInput: FC<
   const { value, error } = otherProps;
   const [debouncedValue] = useDebouncedValue(value, 100);
 
-  // == Loading password strength
+  // == Password Strength Checking
   const {
     data: passwordStrengthData,
     previousData: previousPasswordStrengthData,

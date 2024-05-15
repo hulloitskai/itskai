@@ -6,10 +6,13 @@ require "pry-sorbet"
 require "pry-stack_explorer"
 require "break"
 
+# == Configuration
 # Fix control characters.
 #
 # TODO: No longer necessary when https://github.com/pry/pry/pull/2209 is merged.
 ENV["PAGER"] = " less --raw-control-chars -F -X"
+
+Pry.config.skip_cruby_source = true
 
 # == Commands
 Pry::Commands.block_command("clear", "Clear the screen.") do

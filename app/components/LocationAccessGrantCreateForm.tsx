@@ -49,7 +49,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
     },
   });
 
-  // == Creating Grant
+  // == Grant Creation
   const onCreateGrantError = useApolloAlertCallback(
     "Failed to create access grant",
   );

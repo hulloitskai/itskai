@@ -29,7 +29,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // == Loading Entry
+  // == Entry Loading
   const onLoadEntryError = useApolloAlertCallback(
     "Failed to load journal entry",
   );

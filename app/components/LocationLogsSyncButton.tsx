@@ -9,9 +9,9 @@ const LocationLogsSyncButton: FC<LocationSyncLogsButtonProps> = ({
   children,
   ...otherProps
 }) => {
-  // == Syncing Logs
+  // == Logs Syncing
   const onSyncLogsError = useApolloAlertCallback(
-    "Failed to import location logs",
+    "Failed to sync location logs",
   );
   const [syncLogs, { loading: syncingLogs }] = useMutation(
     SyncLocationLogsMutationDocument,

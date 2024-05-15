@@ -35,7 +35,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
 }) => {
   const { online } = useNetwork();
 
-  // == Loading Currently Playing
+  // == Currently Playing Loading
   const { data: currentlyPlayingData, refetch: refetchCurrentlyPlaying } =
     useQuery(CurrentlyPlayingIslandQueryDocument, {
       fetchPolicy: "no-cache",

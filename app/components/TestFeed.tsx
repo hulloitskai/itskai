@@ -4,7 +4,7 @@ import { Code, LoadingOverlay } from "@mantine/core";
 import { TestFeedSubscriptionDocument } from "~/helpers/graphql";
 
 const TestFeed: FC = () => {
-  // == Watching updates
+  // == Update Watching
   const onError = useApolloAlertCallback("Failed to subscribe to updates");
   const { data, loading } = useSubscription(TestFeedSubscriptionDocument, {
     variables: {},

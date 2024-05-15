@@ -100,7 +100,7 @@ class LocationLog < ApplicationRecord
   # == Synchronization
   sig { void }
   def self.sync!
-    iphone = ICloudClient.iphone or raise "Couldn't load iPhone details"
+    iphone = ICloudctl.iphone or raise "Couldn't load iPhone details"
     location = iphone.location or return
     timestamp = Time.zone.at(location.fetch("timeStamp").to_f / 1000)
     transaction do

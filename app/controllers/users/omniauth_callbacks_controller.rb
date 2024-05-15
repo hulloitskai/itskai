@@ -14,7 +14,7 @@ module Users
     def spotify
       authorize!(to: :connect?, with: OAuthConnectionPolicy)
       credentials = OAuthCredentials.find_or_initialize_by(
-        auth.slice(:provider),
+        auth.slice(:provider).to_h,
       )
       credentials.update!(
         **auth.slice(:uid),
@@ -38,7 +38,7 @@ module Users
     def google
       authorize!(to: :connect?, with: OAuthConnectionPolicy)
       credentials = OAuthCredentials.find_or_initialize_by(
-        auth.slice(:provider),
+        auth.slice(:provider).to_h,
       )
       credentials.update!(
         **auth.slice(:uid),
@@ -76,12 +76,9 @@ module Users
     private
 
     # == Helpers
-    sig { returns(T::Hash[Symbol, T.untyped]) }
+    sig { returns(OmniAuth::AuthHash) }
     def auth
-      @auth ||= T.let(
-        request.env.fetch("omniauth.auth").to_hash(symbolize_keys: true),
-        T.nilable(T::Hash[Symbol, T.untyped]),
-      )
+      request.env.fetch("omniauth.auth")
     end
   end
 end

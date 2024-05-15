@@ -10,7 +10,7 @@ module Mutations
     sig { params(code: String).returns({}) }
     def resolve(code:)
       authorize!(to: :verify_security_code?, with: ICloudConnectionPolicy)
-      ICloudClient.verify_security_code(code)
+      ICloudctl.verify_security_code(code)
       {}
     end
   end

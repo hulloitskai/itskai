@@ -19,7 +19,7 @@ const PensieveMessageLike: FC<PensieveMessageLikeProps> = ({
   message: { id: messageId, likes, likedByViewer },
   ...otherProps
 }) => {
-  // == Liking Message
+  // == Message Liking
   const onLikeMessageError = useApolloAlertCallback("Failed to like message");
   const [likeMessage, { loading: likingMessage }] = useMutation(
     LikePensieveMessageMutationDocument,
@@ -28,7 +28,7 @@ const PensieveMessageLike: FC<PensieveMessageLikeProps> = ({
     },
   );
 
-  // == Unliking Message
+  // == Message Unliking
   const onUnlikeMessageError = useApolloAlertCallback(
     "Failed to unlike message",
   );

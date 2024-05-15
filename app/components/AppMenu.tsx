@@ -55,7 +55,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
     }
   }, [opened]);
 
-  // == Loading Server Info
+  // == Server Info Loading
   const onLoadServerInfoError = useApolloAlertCallback(
     "Failed to load server info",
   );

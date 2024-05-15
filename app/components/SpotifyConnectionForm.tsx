@@ -16,7 +16,7 @@ const SpotifyConnectionForm: FC<SpotifyConnectionFormProps> = ({
   onDelete,
   ...otherProps
 }) => {
-  // == Deleting Connection
+  // == Connection Deletion
   const onDeleteConnectionError = useApolloAlertCallback(
     "Failed to delete Spotify connection",
   );

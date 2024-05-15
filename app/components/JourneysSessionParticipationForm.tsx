@@ -45,7 +45,7 @@ const JourneysSessionParticipationForm: FC<
     },
   );
 
-  // == Updating participation
+  // == Participation Update
   const onUpdateParticipationError = useApolloAlertCallback(
     "Failed to update participation information",
   );

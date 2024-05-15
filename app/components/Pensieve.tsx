@@ -48,7 +48,7 @@ const Pensieve: FC<PensieveProps> = ({
     }, timeout);
   }, []);
 
-  // == Loading Messages
+  // == Messages Loading
   const onLoadMessagesError = useApolloAlertCallback("Failed to load messages");
   const { loading: loadingMessages } = useQuery(PensieveQueryDocument, {
     nextFetchPolicy: "standby",

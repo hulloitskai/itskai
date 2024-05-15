@@ -1,13 +1,13 @@
 import type { FC } from "react";
 
-import { UpdateUserProfileMutationDocument } from "~/helpers/graphql";
+import AvatarField from "./AvatarField";
+
 import type { Maybe } from "~/helpers/graphql";
 import type {
   UploadInput,
   UserSettingsPageViewerFragment,
 } from "~/helpers/graphql";
-
-import AvatarField from "./AvatarField";
+import { UpdateUserProfileMutationDocument } from "~/helpers/graphql";
 
 export type UserSettingsPageProfileFormValues = {
   readonly name: string;
@@ -40,7 +40,7 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
     resetDirty(initialValues);
   }, [initialValues]);
 
-  // == Updating Profile
+  // == Profile Update
   const onUpdateProfileError = useApolloAlertCallback(
     "Failed to update profile",
   );
