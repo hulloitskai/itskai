@@ -39,6 +39,10 @@ class ApplicationController < ActionController::Base
     authenticate_user!
   end
 
+  # == Rescuers
+  rescue_from ActionPolicy::Unauthorized,
+              with: :redirect_to_login_if_signed_out
+
   private
 
   # == Helpers
@@ -89,16 +93,25 @@ class ApplicationController < ActionController::Base
   def with_ssr(&block)
     if params["ssr"].truthy?
       vite_dev_server_enabled = ViteRuby.dev_server_enabled?
+      inertia_ssr_enabled = InertiaRails.ssr_enabled?
       begin
         ViteRuby.dev_server_enabled = false
         InertiaRails.configure { |config| config.ssr_enabled = true }
         yield
       ensure
-        InertiaRails.configure { |config| config.ssr_enabled = false }
+        InertiaRails.configure do |config|
+          config.ssr_enabled = inertia_ssr_enabled
+        end
         ViteRuby.dev_server_enabled = vite_dev_server_enabled
       end
     else
       yield
     end
+  end
+
+  # == Rescue Callbacks
+  sig { params(args: T.untyped).void }
+  def redirect_to_login_if_signed_out(*args)
+    authenticate_user!
   end
 end

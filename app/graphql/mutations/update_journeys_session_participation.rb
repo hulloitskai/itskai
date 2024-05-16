@@ -26,7 +26,7 @@ module Mutations
     end
     def resolve(participation:, **attributes)
       authorize!(participation, to: :update?)
-      if participation.update(**attributes)
+      if participation.update(attributes)
         { participation: }
       else
         { errors: participation.input_field_errors }

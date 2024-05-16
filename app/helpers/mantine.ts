@@ -5,18 +5,11 @@ import {
   Alert,
   Button,
   Loader,
-  LoadingOverlay,
-  Menu,
   Modal,
-  NumberInput,
-  PasswordInput,
   TextInput,
-  Textarea,
   ThemeIcon,
   createTheme,
 } from "@mantine/core";
-import { DateTimePicker } from "@mantine/dates";
-import { Dropzone } from "@mantine/dropzone";
 
 import cx from "clsx";
 import classes from "./mantine.module.css";
@@ -36,6 +29,7 @@ export const THEME = createTheme({
     accent: DEFAULT_THEME.colors.teal,
   },
   primaryColor: "primary",
+  defaultRadius: "md",
   fontFamily:
     "Manrope, Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, " +
     "Arial, sans-serif",
@@ -52,13 +46,9 @@ export const THEME = createTheme({
     ActionIcon: ActionIcon.extend({
       defaultProps: {
         variant: "subtle",
-        radius: "md",
       },
     }),
     Alert: Alert.extend({
-      defaultProps: {
-        radius: "md",
-      },
       styles: {
         title: {
           fontWeight: 800,
@@ -66,9 +56,6 @@ export const THEME = createTheme({
       },
     }),
     Button: Button.extend({
-      defaultProps: {
-        radius: "md",
-      },
       classNames: {
         root: classes.button,
       },
@@ -78,37 +65,12 @@ export const THEME = createTheme({
         },
       },
     }),
-    Card: Card.extend({
-      defaultProps: {
-        radius: "md",
-      },
-    }),
-    DateTimePicker: DateTimePicker.extend({
-      defaultProps: {
-        radius: "md",
-      },
-    }),
     Loader: Loader.extend({
       defaultProps: {
         color: "primary.5",
       },
     }),
-    LoadingOverlay: LoadingOverlay.extend({
-      defaultProps: {
-        loaderProps: {
-          size: "sm",
-        },
-      },
-    }),
-    Menu: Menu.extend({
-      defaultProps: {
-        radius: "md",
-      },
-    }),
     Modal: Modal.extend({
-      defaultProps: {
-        radius: "md",
-      },
       styles: ({ headings: { sizes, ...style } }) => ({
         header: {
           alignItems: "start",
@@ -119,25 +81,7 @@ export const THEME = createTheme({
         },
       }),
     }),
-    NumberInput: NumberInput.extend({
-      defaultProps: {
-        radius: "md",
-      },
-    }),
-    PasswordInput: PasswordInput.extend({
-      defaultProps: {
-        radius: "md",
-      },
-    }),
-    Textarea: Textarea.extend({
-      defaultProps: {
-        radius: "md",
-      },
-    }),
     TextInput: TextInput.extend({
-      defaultProps: {
-        radius: "md",
-      },
       styles: ({ fontSizes }) => ({
         input: {
           fontSize: fontSizes.md,
@@ -147,11 +91,6 @@ export const THEME = createTheme({
     ThemeIcon: ThemeIcon.extend({
       defaultProps: {
         variant: "default",
-      },
-    }),
-    Dropzone: Dropzone.extend({
-      defaultProps: {
-        radius: "md",
       },
     }),
   },
