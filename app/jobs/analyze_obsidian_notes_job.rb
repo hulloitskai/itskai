@@ -9,8 +9,8 @@ class AnalyzeObsidianNotesJob < ApplicationJob
   around_perform :with_activity_status
 
   # == Job
-  sig { params(force: T.nilable(T::Boolean)).void }
-  def perform(force: nil)
+  sig { params(force: T::Boolean).void }
+  def perform(force: false)
     options = { force: }
     ObsidianNote.analyze(**options.compact)
   end

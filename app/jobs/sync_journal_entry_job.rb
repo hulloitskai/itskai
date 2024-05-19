@@ -16,8 +16,8 @@ class SyncJournalEntryJob < ApplicationJob
   before_perform :set_activity_status
 
   # == Job
-  sig { params(entry: JournalEntry, force: T.nilable(T::Boolean)).void }
-  def perform(entry, force: nil)
+  sig { params(entry: JournalEntry, force: T::Boolean).void }
+  def perform(entry, force: false)
     options = { force: }
     entry.sync!(options.compact)
   end
