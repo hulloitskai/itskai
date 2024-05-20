@@ -1,9 +1,9 @@
 from flask import Flask, request
-import fastwsgi
+import fastwsgi  # type: ignore
 from os import environ
 
-from pyicloud import PyiCloudService
-from pyicloud.exceptions import (
+from pyicloud import PyiCloudService  # type: ignore
+from pyicloud.exceptions import (  # type: ignore
     PyiCloudFailedLoginException,
     PyiCloudAPIResponseException,
 )

@@ -1,6 +1,5 @@
-from typing import List
-from pyicloud import PyiCloudService
-from pyicloud.services.findmyiphone import AppleDevice
+from pyicloud import PyiCloudService  # type: ignore
+from pyicloud.services.findmyiphone import AppleDevice  # type: ignore
 
 
 class Client(PyiCloudService):
@@ -13,5 +12,5 @@ class Client(PyiCloudService):
     def requires_security_code(self) -> bool:
         return self.requires_2fa
 
-    def devices(self) -> List[AppleDevice]:
+    def devices(self) -> list[AppleDevice]:
         return super().devices._devices

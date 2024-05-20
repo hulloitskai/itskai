@@ -46,3 +46,14 @@ scoped do
   end
   system! "bin/rubocop", *args
 end
+
+puts "\n=> Running Black"
+scoped do
+  args = ["bin/black"]
+  unless options[:fix]
+    args << "--check"
+  end
+  args << "."
+  system!(*args)
+end
+

@@ -5,4 +5,5 @@ export default {
     "eslint --report-unused-disable-directives",
   "*.{ts,tsx,cts,mts}": () => "tsc",
   "*.{rb,rbi}": [() => "bin/srb typecheck", "bin/rubocop --force-exclusion"],
+  "*.py": ["bin/mypy", "bin/black"],
 };

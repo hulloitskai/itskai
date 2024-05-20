@@ -57,3 +57,6 @@ puts "No errors found"
 
 puts "\n=> Running Sorbet"
 system! "bin/srb", "typecheck"
+
+puts "\n=> Running Mypy"
+system! "bin/mypy", "."
