@@ -48,11 +48,8 @@ class ICloudctl < ApplicationService
   sig { params(code: String).returns(VerifySecurityCodeResult) }
   def self.verify_security_code(code)
     credentials = ICloudCredentials.first or raise "Missing saved credentials"
-    credentials = T.let(credentials, ICloudCredentials)
     payload = instance.perform_request do |conn|
-      conn.post("/verify_security_code", {
-        "code" => code,
-      })
+      conn.post("/verify_security_code", { "code" => code })
     end
     instance.preserve_session_files(credentials)
     credentials.save!

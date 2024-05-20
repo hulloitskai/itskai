@@ -1,10 +1,12 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
+
 import type { BoxProps } from "@mantine/core";
 import { PasswordInput } from "@mantine/core";
 
 import type { UserLoginPageProps } from "~/pages/UserLoginPage";
 
-export type UserLoginPageFormProps = BoxProps;
+export type UserLoginPageFormProps = BoxProps &
+  Omit<ComponentPropsWithoutRef<"form">, "children">;
 
 export type UserLoginPageFormValues = {
   readonly email: string;

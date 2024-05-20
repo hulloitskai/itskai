@@ -10,7 +10,7 @@ module Users
     before_action :authenticate_user!
 
     # == Actions
-    # GET /user/auth/spotify/callback
+    # GET /auth/spotify/callback
     def spotify
       authorize!(to: :connect?, with: OAuthConnectionPolicy)
       credentials = OAuthCredentials.find_or_initialize_by(
@@ -34,7 +34,7 @@ module Users
       response.set_header("Location", response.get_header("Location") + "#")
     end
 
-    # GET /user/auth/google/callback
+    # GET /auth/google/callback
     def google
       authorize!(to: :connect?, with: OAuthConnectionPolicy)
       credentials = OAuthCredentials.find_or_initialize_by(
@@ -58,7 +58,7 @@ module Users
       # response.set_header("Location", response.get_header("Location") + "#")
     end
 
-    # # GET /user/auth/facebook/callback
+    # # GET /auth/facebook/callback
     # sig { void }
     # def facebook
     #   @user = User.from_omniauth(request.env.fetch("omniauth.auth"))

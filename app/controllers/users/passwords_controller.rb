@@ -4,12 +4,12 @@
 module Users
   class PasswordsController < Devise::PasswordsController
     # == Actions
-    # GET /<resource>/password/reset
+    # GET /password/reset
     def new
       render(inertia: "UserRequestPasswordResetPage")
     end
 
-    # GET /<resource>/password/change?reset_password_token=abcdef
+    # GET /password/change?reset_password_token=abcdef
     def edit
       reset_password_token = params.fetch(:reset_password_token)
       render(

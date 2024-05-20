@@ -1,14 +1,14 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
-import type { UserRegisterPageQuery } from "~/helpers/graphql";
+import type { UserSignupPageQuery } from "~/helpers/graphql";
 
 import AppLayout from "~/components/AppLayout";
-import UserRegisterPageForm from "~/components/UserRegisterPageForm";
+import UserSignupPageForm from "~/components/UserSignupPageForm";
 
-export type UserRegisterPageProps = PagePropsWithData<UserRegisterPageQuery>;
+export type UserSignupPageProps = PagePropsWithData<UserSignupPageQuery>;
 
-const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => (
+const UserSignupPage: PageComponent<UserSignupPageProps> = () => (
   <Card w={380} withBorder>
     <Stack gap="xs">
       <Stack align="center" gap={2}>
@@ -20,7 +20,7 @@ const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => (
           </Anchor>
         </Text>
       </Stack>
-      <UserRegisterPageForm />
+      <UserSignupPageForm />
       <Text size="xs" c="gray.6">
         Already have an account?{" "}
         <Anchor component={Link} href="/login">
@@ -29,10 +29,10 @@ const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => (
       </Text>
       <Divider />
       <Stack gap={0} fz="xs">
-        <Anchor component={Link} href="/user/password/reset" inherit>
+        <Anchor component={Link} href="/password/reset" inherit>
           Forgot your password?
         </Anchor>
-        <Anchor component={Link} href="/user/verification/resend" inherit>
+        <Anchor component={Link} href="/verification/resend" inherit>
           Didn&apos;t get a verification email?
         </Anchor>
       </Stack>
@@ -40,7 +40,7 @@ const UserRegisterPage: PageComponent<UserRegisterPageProps> = () => (
   </Card>
 );
 
-UserRegisterPage.layout = buildLayout<UserRegisterPageProps>(
+UserSignupPage.layout = buildLayout<UserSignupPageProps>(
   (page, { data: { viewer } }) => (
     <AppLayout title="Sign up" {...{ viewer }}>
       <Center style={{ flexGrow: 1 }}>{page}</Center>
@@ -48,4 +48,4 @@ UserRegisterPage.layout = buildLayout<UserRegisterPageProps>(
   ),
 );
 
-export default UserRegisterPage;
+export default UserSignupPage;

@@ -31,11 +31,11 @@ const UserRequestEmailVerificationPage: PageComponent<
             Sign in
           </Anchor>{" "}
           or{" "}
-          <Anchor component={Link} href="/user/register" inherit>
+          <Anchor component={Link} href="/signup" inherit>
             Sign up
           </Anchor>
         </Text>
-        <Anchor component={Link} href="/user/password/reset" inherit>
+        <Anchor component={Link} href="/password/reset" inherit>
           Forgot your password?
         </Anchor>
       </Stack>

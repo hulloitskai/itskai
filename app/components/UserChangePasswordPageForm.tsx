@@ -50,7 +50,7 @@ const UserChangePasswordPageForm: FC<UserChangePasswordPageFormProps> = ({
             reset_password_token: resetPasswordToken,
           },
         };
-        router.put("/user/password", data, {
+        router.put("/password", data, {
           onBefore: () => {
             setLoading(true);
           },

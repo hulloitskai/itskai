@@ -25,16 +25,16 @@ const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
       <UserLoginPageForm />
       <Text size="xs" c="gray.6">
         Don&apos;t have an account?{" "}
-        <Anchor component={Link} href="/user/register">
+        <Anchor component={Link} href="/signup">
           Sign up instead.
         </Anchor>
       </Text>
       <Divider />
       <Stack gap={0} fz="xs">
-        <Anchor component={Link} href="/user/password/reset" inherit>
+        <Anchor component={Link} href="/password/reset" inherit>
           Forgot your password?
         </Anchor>
-        <Anchor component={Link} href="/user/verification/resend" inherit>
+        <Anchor component={Link} href="/verification/resend" inherit>
           Didn&apos;t get a verification email?
         </Anchor>
       </Stack>

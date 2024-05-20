@@ -8,9 +8,10 @@ import type { DateTimeFormatOptions } from "luxon";
 import classes from "./Time.module.css";
 
 export type TimeProps = Omit<TextProps, "span"> &
-  Omit<ComponentPropsWithoutRef<"div">, "children"> & {
+  Omit<ComponentPropsWithoutRef<"time">, "children"> & {
     readonly format: DateTimeFormatOptions | ((time: DateTime) => string);
     readonly children: DateTime | string;
+    readonly component?: any;
   };
 
 const Time: FC<TimeProps> = ({
@@ -24,6 +25,7 @@ const Time: FC<TimeProps> = ({
   mx,
   my,
   children,
+  component = "span",
   ...otherProps
 }) => {
   const applyFormat = useCallback(
@@ -51,10 +53,16 @@ const Time: FC<TimeProps> = ({
     <Skeleton
       visible={!formattedTime}
       className={classes.skeleton}
-      {...{ component: "span" }}
+      {...{ component }}
       {...{ m, mt, mr, mb, ml, mx, my }}
     >
-      <Text span display="inline-block" lh={loading ? 1 : lh} {...otherProps}>
+      <Text
+        component="time"
+        span
+        display="inline-block"
+        lh={loading ? 1 : lh}
+        {...otherProps}
+      >
         {formattedTime ?? placeholder}
       </Text>
     </Skeleton>

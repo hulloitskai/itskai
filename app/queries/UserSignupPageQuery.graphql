@@ -1,4 +1,4 @@
-query UserRegisterPageQuery {
+query UserSignupPageQuery {
   viewer {
     ...AppViewerFragment
     id

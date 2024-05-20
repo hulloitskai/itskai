@@ -107,9 +107,9 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
             {...getInputProps("email")}
             {...(unverifiedEmail
               ? {
-                  rightSectionWidth: 110,
+                  rightSectionWidth: 80,
                   rightSection: (
-                    <Badge size="xs" variant="outline" c="yellow.8">
+                    <Badge size="xs" variant="outline" color="orange">
                       Unverified
                     </Badge>
                   ),

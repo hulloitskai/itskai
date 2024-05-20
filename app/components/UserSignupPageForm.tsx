@@ -1,25 +1,27 @@
-import type { FC } from "react";
-import { PasswordInput } from "@mantine/core";
+import type { ComponentPropsWithoutRef, FC } from "react";
+
 import type { BoxProps } from "@mantine/core";
+import { PasswordInput } from "@mantine/core";
 
 import PasswordWithStrengthCheckInput from "./PasswordWithStrengthCheckInput";
 
-export type UserRegisterPageFormProps = BoxProps;
+export type UserSignupPageFormProps = BoxProps &
+  Omit<ComponentPropsWithoutRef<"form">, "children">;
 
-export type UserRegisterPageFormValues = {
+export type UserSignupFormValues = {
   readonly name: string;
   readonly email: string;
   readonly password: string;
   readonly passwordConfirmation: string;
 };
 
-const UserRegisterPageForm: FC<UserRegisterPageFormProps> = props => {
+const UserSignupPageForm: FC<UserSignupPageFormProps> = props => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0.0);
 
   // == Form
-  const initialValues = useMemo<UserRegisterPageFormValues>(
+  const initialValues = useMemo<UserSignupFormValues>(
     () => ({
       name: "",
       email: "",
@@ -29,7 +31,7 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = props => {
     [],
   );
   const { getInputProps, setFieldValue, setErrors, isDirty, onSubmit } =
-    useForm<UserRegisterPageFormValues>({
+    useForm<UserSignupFormValues>({
       initialValues,
       validate: {
         password: () => {
@@ -57,8 +59,8 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = props => {
             password_confirmation: passwordConfirmation,
           },
         };
-        router.post("/user", data, {
-          errorBag: UserRegisterPageForm.name,
+        router.post("/signup", data, {
+          errorBag: UserSignupPageForm.name,
           onBefore: () => setLoading(true),
           onError: errors => {
             setFieldValue("password", "");
@@ -105,4 +107,4 @@ const UserRegisterPageForm: FC<UserRegisterPageFormProps> = props => {
   );
 };
 
-export default UserRegisterPageForm;
+export default UserSignupPageForm;

@@ -52,7 +52,7 @@ const GoogleConnectionForm: FC<GoogleConnectionFormProps> = ({
           );
         })}
       <Stack gap={6}>
-        <form action="/user/auth/google" method="post">
+        <form action="/auth/google" method="post">
           <FormAuthenticityField />
           <Button type="submit" leftSection={<OpenExternalIcon />} fullWidth>
             Authenticate

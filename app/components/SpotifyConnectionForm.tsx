@@ -52,7 +52,7 @@ const SpotifyConnectionForm: FC<SpotifyConnectionFormProps> = ({
           );
         })}
       <Stack gap={6}>
-        <form action="/user/auth/spotify" method="post">
+        <form action="/auth/spotify" method="post">
           <FormAuthenticityField />
           <Button type="submit" leftSection={<OpenExternalIcon />} fullWidth>
             Authenticate

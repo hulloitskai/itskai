@@ -147,10 +147,10 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
             <Menu.Divider />
             <Menu.Item
               component={Link}
-              href="/user/settings"
+              href="/settings"
               leftSection={<SettingsIcon />}
             >
-              My account
+              Settings
             </Menu.Item>
             {viewer.isOwner && (
               <>

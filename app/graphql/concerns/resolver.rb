@@ -64,7 +64,15 @@ module Resolver
 
   sig { returns(User) }
   def current_user!
-    active_user or raise GraphQL::ExecutionError, "Not authenticated."
+    if (user = active_user)
+      user
+    else
+      message = I18n.t("devise.failure.unauthenticated")
+      raise GraphQL::ExecutionError.new(
+        message,
+        extensions: { "redirect" => new_user_session_path },
+      )
+    end
   end
 
   sig { returns(ActionDispatch::Http::Headers) }

@@ -26,7 +26,6 @@ module Types
         .where("started_at < ?", object.started_at)
         .order(started_at: :desc)
         .first
-      next_entry = T.let(next_entry, T.nilable(JournalEntry))
       next_entry&.to_gid&.to_s
     end
 

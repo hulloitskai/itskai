@@ -4,7 +4,7 @@
 module Users
   class SessionsController < Devise::SessionsController
     # == Actions
-    # GET /<resource>/login
+    # GET /login
     def new
       if (url = params[:redirect_url].presence) && url.is_a?(String)
         store_location_for(:user, url)
@@ -12,7 +12,7 @@ module Users
       render(inertia: "UserLoginPage", props: { failed: flash.alert.present? })
     end
 
-    # POST /<resource>/login
+    # POST /login
     def create
       self.resource = warden.authenticate!(auth_options)
       sign_in(resource_name, resource)

@@ -7,17 +7,17 @@ module Users
     before_action :configure_sign_up_params, only: :create
 
     # == Actions
-    # GET /<resource>/register
+    # GET /signup
     def new
-      render(inertia: "UserRegisterPage")
+      render(inertia: "UserSignupPage")
     end
 
-    # GET /<resource>/settings
+    # GET /settings
     def edit
       render(inertia: "UserSettingsPage")
     end
 
-    # POST /<resource>
+    # POST /signup
     def create
       resource = build_resource(sign_up_params)
       resource.save
@@ -44,7 +44,7 @@ module Users
       end
     end
 
-    # PUT /<resource>
+    # PUT /settings
     def update
       resource = self.resource = resource_class
         .to_adapter

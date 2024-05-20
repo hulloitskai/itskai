@@ -62,7 +62,7 @@ const UserSettingsPagePasswordForm: FC<
               current_password: currentPassword,
             },
           };
-          router.put("/user", data, {
+          router.put("/settings", data, {
             errorBag: UserSettingsPagePasswordForm.name,
             preserveScroll: true,
             onBefore: () => setLoading(true),
