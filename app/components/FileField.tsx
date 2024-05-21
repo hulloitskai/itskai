@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import type { UseFormReturnType } from "@mantine/form";
 import type { UploadInput } from "~/helpers/graphql";
 
 import UploadIcon from "~icons/heroicons/arrow-up-tray-20-solid";
@@ -10,14 +9,13 @@ import type { DropzoneProps } from "@mantine/dropzone";
 
 import { Input, Text } from "@mantine/core";
 import type { BoxProps, InputWrapperProps } from "@mantine/core";
-import type { LooseKeys } from "@mantine/form/lib/types";
 
 import FileFieldUploadCard from "./FileFieldUploadCard";
 import FileFieldFileCard from "./FileFieldFileCard";
 
 import "@mantine/dropzone/styles.layer.css";
 
-export type FileFieldProps<Values = Record<string, unknown>> = BoxProps &
+export type FileFieldProps<Multiple = false> = BoxProps &
   Pick<
     InputWrapperProps,
     | "variant"
@@ -35,50 +33,54 @@ export type FileFieldProps<Values = Record<string, unknown>> = BoxProps &
     DropzoneProps,
     "accept" | "maxSize" | "maxFiles" | "disabled" | "children"
   > & {
-    readonly multiple?: boolean;
+    readonly multiple?: Multiple;
+    readonly value?: Multiple extends true ? UploadInput[] : UploadInput | null;
+    readonly onChange?: (
+      value: Multiple extends true ? UploadInput[] : UploadInput | null,
+    ) => void;
     readonly fileLabel?: string;
-    readonly form: UseFormReturnType<Values, any>;
-    readonly name: LooseKeys<Values>;
   };
 
-const FileField = <Values = Record<string, unknown>,>({
-  variant,
-  labelElement,
-  label,
-  labelProps,
-  description,
-  descriptionProps,
-  error: errorProp,
-  errorProps,
-  required,
-  withAsterisk,
-  multiple,
-  accept,
-  maxSize,
-  maxFiles,
-  disabled,
-  children,
-  fileLabel: fileLabelProp,
-  form,
-  name,
-  ...otherProps
-}: FileFieldProps<Values>): ReactNode => {
-  const value = useMemo<UploadInput | UploadInput[] | null | undefined>(
-    () => get(form.values, name),
-    [form, name],
-  );
-  const error = useMemo<string | undefined>(
-    () => get(form.errors, name) || errorProp,
-    [form, name, errorProp],
-  );
+const FileField = <Multiple extends boolean = false>(
+  props: FileFieldProps<Multiple>,
+): ReactNode => {
+  const {
+    variant,
+    labelElement,
+    label,
+    labelProps,
+    description,
+    descriptionProps,
+    error,
+    errorProps,
+    required,
+    withAsterisk,
+    accept,
+    maxSize,
+    maxFiles,
+    disabled,
+    children,
+    multiple,
+    fileLabel: fileLabelProp,
+    value,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    onChange: _onChange,
+    ...otherProps
+  } = props;
+
+  // == Value
+  const valueRef = useRef(value);
+  useEffect(() => {
+    valueRef.current = value;
+  }, [value]);
 
   // == Files
   const [uploadingFiles, setUploadingFiles] = useState<File[]>([]);
+
   const fileLabel = useMemo(
     () => fileLabelProp ?? (multiple ? "files" : "file"),
     [fileLabelProp, multiple],
   );
-
   return (
     <Stack gap="xs" my={4} {...otherProps}>
       <Input.Wrapper
@@ -98,8 +100,9 @@ const FileField = <Values = Record<string, unknown>,>({
         <Dropzone
           multiple={multiple ?? false}
           onDrop={files => {
-            if (!multiple) {
-              form.setFieldValue(name, null as any);
+            if (!multiple && value) {
+              const { onChange } = props as FileFieldProps<false>;
+              onChange?.(null);
             }
             setUploadingFiles(prevFiles =>
               uniqBy([...prevFiles, ...files], "name"),
@@ -144,9 +147,12 @@ const FileField = <Values = Record<string, unknown>,>({
                   );
                   const input: UploadInput = { signedId: blob.signed_id };
                   if (multiple) {
-                    form.insertListItem(name, input);
+                    const { onChange } = props as FileFieldProps<true>;
+                    const value = valueRef.current as UploadInput[];
+                    onChange?.([...(value ?? []), input]);
                   } else {
-                    form.setFieldValue(name, input as any);
+                    const { onChange } = props as FileFieldProps<false>;
+                    onChange?.(input);
                   }
                 }}
                 {...{ file }}
@@ -160,11 +166,17 @@ const FileField = <Values = Record<string, unknown>,>({
           <Divider label="Ready" />
           <Stack gap={8}>
             {multiple ? (
-              ((value ?? []) as UploadInput[]).map(({ signedId }, index) => (
+              ((value ?? []) as UploadInput[]).map(({ signedId }) => (
                 <FileFieldFileCard
                   key={signedId}
                   onRemove={() => {
-                    form.removeListItem(name, index);
+                    const { onChange } = props as FileFieldProps<true>;
+                    const value = valueRef.current as UploadInput[];
+                    onChange?.(
+                      (value ?? []).filter(
+                        ({ signedId }) => signedId !== signedId,
+                      ),
+                    );
                   }}
                   {...{ signedId }}
                 />
@@ -172,7 +184,8 @@ const FileField = <Values = Record<string, unknown>,>({
             ) : (
               <FileFieldFileCard
                 onRemove={() => {
-                  form.setFieldError(name, null);
+                  const { onChange } = props as FileFieldProps<false>;
+                  onChange?.(null);
                 }}
                 signedId={(value as UploadInput).signedId}
               />

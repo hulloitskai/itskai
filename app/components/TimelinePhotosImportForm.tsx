@@ -2,10 +2,10 @@ import type { FC } from "react";
 import type { BoxProps } from "@mantine/core";
 import type { DeepNonNullable } from "~/helpers/deepNonNullable";
 
+import FileField from "./FileField";
+
 import type { UploadInput } from "~/helpers/graphql";
 import { ImportTimelinePhotosMutationDocument } from "~/helpers/graphql";
-
-import FileField from "./FileField";
 
 export type TimelinePhotosImportFormProps = BoxProps & {
   readonly onImport?: () => void;
@@ -23,7 +23,7 @@ const TimelinePhotosImportForm: FC<TimelinePhotosImportFormProps> = ({
   ...otherProps
 }) => {
   // == Form
-  const form = useForm<
+  const { values, onSubmit, reset, getInputProps } = useForm<
     TimelinePhotosImportFormValues,
     (
       values: TimelinePhotosImportFormValues,
@@ -37,8 +37,6 @@ const TimelinePhotosImportForm: FC<TimelinePhotosImportFormProps> = ({
       return { photos: locationHistory };
     },
   });
-  const { values, onSubmit, reset } = form;
-  const { photos } = values;
 
   // == Photos Import
   const onImportPhotosError = useApolloAlertCallback(
@@ -77,17 +75,16 @@ const TimelinePhotosImportForm: FC<TimelinePhotosImportFormProps> = ({
     >
       <Stack gap="sm">
         <FileField
-          name="photos"
           label="Photos"
           fileLabel="photos"
           required
           accept={["image/png", "image/jpeg"]}
           multiple
-          {...{ form }}
+          {...getInputProps("photos")}
         />
         <Button
           type="submit"
-          disabled={isEmpty(photos)}
+          disabled={isEmpty(values.photos)}
           loading={importingPhotos}
         >
           Import

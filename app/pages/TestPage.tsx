@@ -7,11 +7,11 @@ import PencilSquareIcon from "~icons/heroicons/pencil-square-20-solid";
 import BellAlertIcon from "~icons/heroicons/bell-alert-20-solid";
 import ArrowTopRightOnSquareIcon from "~icons/heroicons/arrow-top-right-on-square-20-solid";
 
-import type { TestPageQuery } from "~/helpers/graphql";
-
 import AppLayout from "~/components/AppLayout";
 import TestForm from "~/components/TestForm";
 import TestFeed from "~/components/TestFeed";
+
+import type { TestPageQuery } from "~/helpers/graphql";
 
 export type TestPageProps = PagePropsWithData<TestPageQuery> & {
   readonly name: string;
@@ -43,19 +43,17 @@ const TestPage: PageComponent<TestPageProps> = ({
       return { name: initialName };
     }),
   });
-
-  const { name } = values;
   const nameDescription = useMemo(() => {
-    return `Your name is: ${name}`;
-  }, [name]);
+    return `Your name is: ${values.name}`;
+  }, [values.name]);
 
   // == Callbacks
   const showModal = useCallback(() => {
     openModal({
       title: "I'm a modal!",
-      children: <TestPageModalContent {...{ name }} />,
+      children: <TestPageModalContent name={values.name} />,
     });
-  }, [name]);
+  }, [values.name]);
   const showAlert = useCallback(() => {
     showNotification({
       color: "yellow",

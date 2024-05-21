@@ -27,7 +27,6 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = props => {
         rememberMe: true,
       },
     });
-  const { rememberMe } = values;
 
   return (
     <Box
@@ -79,7 +78,7 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = props => {
         >
           <Checkbox
             label="Stay signed in"
-            checked={rememberMe}
+            checked={values.rememberMe}
             styles={{
               input: {
                 cursor: "pointer",

@@ -23,7 +23,7 @@ const TimelineActivitiesImportForm: FC<TimelineActivitiesImportFormProps> = ({
   ...otherProps
 }) => {
   // == Form
-  const form = useForm<
+  const { values, onSubmit, reset, getInputProps } = useForm<
     TimelineActivitiesImportFormValues,
     (
       values: TimelineActivitiesImportFormValues,
@@ -37,8 +37,6 @@ const TimelineActivitiesImportForm: FC<TimelineActivitiesImportFormProps> = ({
       return { locationHistory };
     },
   });
-  const { values, onSubmit, reset } = form;
-  const { locationHistory } = values;
 
   // == Activities Import
   const onImportActivitiesError = useApolloAlertCallback(
@@ -77,16 +75,15 @@ const TimelineActivitiesImportForm: FC<TimelineActivitiesImportFormProps> = ({
     >
       <Stack gap="sm">
         <FileField
-          name="locationHistory"
           label="Google location history file"
           fileLabel="location history file"
           required
           accept={["application/json"]}
-          {...{ form }}
+          {...getInputProps("locationHistory")}
         />
         <Button
           type="submit"
-          disabled={!locationHistory}
+          disabled={!values.locationHistory}
           loading={importingActivities}
         >
           Import

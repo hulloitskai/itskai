@@ -33,7 +33,6 @@ const ICloudVerifySecurityCodeForm: FC<ICloudVerifySecurityCodeFormProps> = ({
   const { values, getInputProps, onSubmit, reset } = useForm({
     initialValues: { code: "" },
   });
-  const { code } = values;
 
   return (
     <Box
@@ -59,7 +58,7 @@ const ICloudVerifySecurityCodeForm: FC<ICloudVerifySecurityCodeFormProps> = ({
         </InputWrapper>
         <Button
           type="submit"
-          disabled={code.length !== 6}
+          disabled={values.code.length !== 6}
           loading={verifying}
           leftSection={<SecurityCodeIcon />}
         >

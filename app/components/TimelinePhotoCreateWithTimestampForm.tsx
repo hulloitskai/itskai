@@ -31,7 +31,7 @@ const TimelinePhotoCreateWithTimestampForm: FC<
   TimelinePhotoCreateWithTimestampFormProps
 > = ({ onCreate, ...otherProps }) => {
   // == Form
-  const form = useForm<
+  const { values, onSubmit, reset, getInputProps, setErrors } = useForm<
     TimelinePhotoCreateWithTimestampFormValues,
     (
       values: TimelinePhotoCreateWithTimestampFormValues,
@@ -52,8 +52,6 @@ const TimelinePhotoCreateWithTimestampForm: FC<
       };
     },
   });
-  const { values, onSubmit, getInputProps, reset, setErrors } = form;
-  const { photo, timestamp } = values;
 
   // == Photo Creation
   const onCreatePhotoError = useApolloAlertCallback(
@@ -95,12 +93,11 @@ const TimelinePhotoCreateWithTimestampForm: FC<
       <Stack gap="sm">
         <Stack gap={8}>
           <FileField
-            name="photo"
             label="Photo"
             fileLabel="photo"
             required
             accept={["image/png", "image/jpeg"]}
-            {...{ form }}
+            {...getInputProps("photo")}
           />
           <DateTimePicker
             label="Timestamp"
@@ -117,7 +114,7 @@ const TimelinePhotoCreateWithTimestampForm: FC<
         </Stack>
         <Button
           type="submit"
-          disabled={!photo || !timestamp}
+          disabled={!values.photo || !values.timestamp}
           loading={creatingPhoto}
         >
           Create
