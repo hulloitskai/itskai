@@ -4,8 +4,8 @@ import type { UploadInput } from "~/helpers/graphql";
 import UploadIcon from "~icons/heroicons/arrow-up-tray-20-solid";
 import RejectIcon from "~icons/heroicons/no-symbol-20-solid";
 
-import { Dropzone } from "@mantine/dropzone";
 import type { DropzoneProps } from "@mantine/dropzone";
+import { Dropzone } from "@mantine/dropzone";
 
 import { Input, Text } from "@mantine/core";
 import type { BoxProps, InputWrapperProps } from "@mantine/core";

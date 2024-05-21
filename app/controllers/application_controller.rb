@@ -112,6 +112,10 @@ class ApplicationController < ActionController::Base
   # == Rescue Callbacks
   sig { params(args: T.untyped).void }
   def redirect_to_login_if_signed_out(*args)
-    authenticate_user!
+    if signed_in?
+      raise
+    else
+      authenticate_user!
+    end
   end
 end

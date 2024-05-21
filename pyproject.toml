@@ -24,6 +24,10 @@
 
 [tool.mypy]
   check_untyped_defs = true
+  exclude = "(__pycache__|node_modules|^vendor|^.husky|^tmp|^storage|^public/dist-\\w+)"
+
+[tool.black]
+  extend-exclude = "(__pycache__|node_modules|^/vendor|^/.husky|^/tmp|^/storage|^/public/dist-\\w+)"
 
 [build-system]
   requires = ["poetry-core"]
