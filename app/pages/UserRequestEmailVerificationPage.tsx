@@ -25,20 +25,24 @@ const UserRequestEmailVerificationPage: PageComponent<
       </Stack>
       <UserRequestEmailVerificationPageForm />
       <Divider />
-      <Stack gap={0} fz="xs">
-        <Text c="gray.6" inherit>
-          <Anchor component={Link} href="/login" inherit>
-            Sign in
-          </Anchor>{" "}
-          or{" "}
-          <Anchor component={Link} href="/signup" inherit>
-            Sign up
+      <List listStyleType="none" fz="xs">
+        <List.Item>
+          <Text span inherit c="gray.6">
+            <Anchor component={Link} href="/login" inherit>
+              Sign in
+            </Anchor>{" "}
+            or{" "}
+            <Anchor component={Link} href="/signup" inherit>
+              Sign up
+            </Anchor>
+          </Text>
+        </List.Item>
+        <List.Item>
+          <Anchor component={Link} href="/password/reset" inherit>
+            Forgot your password?
           </Anchor>
-        </Text>
-        <Anchor component={Link} href="/password/reset" inherit>
-          Forgot your password?
-        </Anchor>
-      </Stack>
+        </List.Item>
+      </List>
     </Stack>
   </Card>
 );

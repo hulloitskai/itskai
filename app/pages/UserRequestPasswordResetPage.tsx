@@ -25,20 +25,24 @@ const UserRequestPasswordResetPage: PageComponent<
       </Stack>
       <UserRequestPasswordResetPageForm />
       <Divider />
-      <Stack gap={0} fz="xs">
-        <Text inherit c="gray.6">
-          <Anchor component={Link} href="/login" inherit>
-            Sign in
-          </Anchor>{" "}
-          or{" "}
-          <Anchor component={Link} href="/signup" inherit>
-            Sign up
+      <List listStyleType="none" fz="xs">
+        <List.Item>
+          <Text span inherit c="gray.6">
+            <Anchor component={Link} href="/login" inherit>
+              Sign in
+            </Anchor>{" "}
+            or{" "}
+            <Anchor component={Link} href="/signup" inherit>
+              Sign up
+            </Anchor>
+          </Text>
+        </List.Item>
+        <List.Item>
+          <Anchor component={Link} href="/verification/resend" inherit>
+            Didn&apos;t get a verification email?
           </Anchor>
-        </Text>
-        <Anchor component={Link} href="/verification/resend" inherit>
-          Didn&apos;t get a verification email?
-        </Anchor>
-      </Stack>
+        </List.Item>
+      </List>
     </Stack>
   </Card>
 );

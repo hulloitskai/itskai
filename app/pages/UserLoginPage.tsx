@@ -30,14 +30,22 @@ const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
         </Anchor>
       </Text>
       <Divider />
-      <Stack gap={0} fz="xs">
-        <Anchor component={Link} href="/password/reset" inherit>
-          Forgot your password?
-        </Anchor>
-        <Anchor component={Link} href="/verification/resend" inherit>
-          Didn&apos;t get a verification email?
-        </Anchor>
-      </Stack>
+      <List listStyleType="none" fz="xs">
+        <List.Item>
+          <Text span inherit c="gray.6">
+            <Anchor component={Link} href="/password/reset" inherit>
+              Forgot your password?
+            </Anchor>
+          </Text>
+        </List.Item>
+        <List.Item>
+          <Text span inherit c="gray.6">
+            <Anchor component={Link} href="/verification/resend" inherit>
+              Didn&apos;t get a verification email?
+            </Anchor>
+          </Text>
+        </List.Item>
+      </List>
     </Stack>
   </Card>
 );
