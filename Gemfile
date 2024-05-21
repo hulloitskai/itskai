@@ -26,9 +26,6 @@ gem "activerecord-postgis-adapter", "~> 9.0"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 6.3.1"
 
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails", "~> 3.4"
-
 # Use enhanced PostgreSQL adapter for Action Cable
 gem "actioncable-enhanced-postgresql-adapter", "~> 1.0"
 

@@ -115,9 +115,6 @@ module ItsKai
     # == Active Support
     config.active_support.remove_deprecated_time_with_zone_name = true
 
-    # == Assets
-    config.assets.prefix = "dist-sprockets/assets"
-
     # == Booted At
     sig { returns(Time) }
     def booted_at = BOOTED_AT
