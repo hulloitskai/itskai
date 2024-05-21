@@ -2,8 +2,7 @@
 .husky/_/
 .venv/
 bin/
-app/assets/
-app/ssr/dist/
+dist/
 db/schema.rb
 db/backups/
 graphql/schema.graphql

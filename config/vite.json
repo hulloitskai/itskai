@@ -8,7 +8,7 @@
     ],
     "ssrBuildEnabled": true,
     "ssrEntrypoint": "~/ssr/ssr.{js,jsx,ts,tsx}",
-    "ssrOutputDir": "app/ssr/dist"
+    "ssrOutputDir": "dist/ssr"
   },
   "development": {
     "publicOutputDir": "dist-dev",

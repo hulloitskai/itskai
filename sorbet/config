@@ -8,12 +8,12 @@
 --ignore=/app/components
 --ignore=/app/emails
 --ignore=/app/queries
---ignore=/app/ssr/dist
 --ignore=/app/views
 --ignore=/bin
 --ignore=/log
 --ignore=/node_modules
 --ignore=/tmp
+--ignore=/dist
 --ignore=/public
 --ignore=/storage
 --ignore=/typings
