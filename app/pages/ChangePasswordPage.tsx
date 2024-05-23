@@ -39,7 +39,7 @@ const ChangePasswordPage: PageComponent<ChangePasswordPageProps> = ({
           </Text>
         </List.Item>
         <List.Item>
-          <Anchor component={Link} href="/verification/resend" inherit>
+          <Anchor component={Link} href="/email_verification/resend" inherit>
             Didn&apos;t get a verification email?
           </Anchor>
         </List.Item>

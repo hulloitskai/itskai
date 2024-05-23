@@ -11,9 +11,9 @@ module Users
 
     # GET /password/change?reset_password_token=abcdef
     def edit
-      reset_password_token = params.fetch(:reset_password_token)
+      reset_password_token = T.let(params.fetch(:reset_password_token), String)
       render(
-        inertia: "UserChangePasswordPage",
+        inertia: "ChangePasswordPage",
         props: { reset_password_token: },
       )
     end

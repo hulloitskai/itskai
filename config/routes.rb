@@ -58,7 +58,7 @@ Rails.application.routes.draw do
                only: %i[edit update],
                path_names: { edit: "" }
       resource :confirmation,
-               path: "/verification",
+               path: "/email_verification",
                only: %i[new show],
                path_names: {
                  new: "resend",

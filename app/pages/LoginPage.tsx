@@ -40,7 +40,7 @@ const LoginPage: PageComponent<LoginPageProps> = () => (
         </List.Item>
         <List.Item>
           <Text span inherit c="gray.6">
-            <Anchor component={Link} href="/verification/resend" inherit>
+            <Anchor component={Link} href="/email_verification/resend" inherit>
               Didn&apos;t get a verification email?
             </Anchor>
           </Text>
