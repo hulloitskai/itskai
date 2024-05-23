@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 module Mutations
-  class RequestUserEmailVerification < BaseMutation
+  class RequestEmailVerification < BaseMutation
     # == Arguments
     argument :email, String
 

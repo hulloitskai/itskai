@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 require "devise"
@@ -12,8 +12,7 @@ class Devise::SecretKeyFinder
     extend T::Sig
 
     # == Initialization
-    sig { params(args: T.untyped, kwargs: T.untyped).void }
-    def initialize(*args, **kwargs)
+    def initialize(...)
       super
       @application = T.let(@application, Rails::Application)
     end

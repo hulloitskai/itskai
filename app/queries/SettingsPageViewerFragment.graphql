@@ -1,9 +1,10 @@
-fragment UserSettingsPageViewerFragment on User {
+fragment SettingsPageViewerFragment on User {
   avatar {
     id
     signedId
   }
   email
+  id
   name
   unverifiedEmail
 }

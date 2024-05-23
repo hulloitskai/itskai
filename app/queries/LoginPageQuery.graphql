@@ -1,4 +1,4 @@
-query UserChangePasswordPageQuery {
+query LoginPageQuery {
   viewer {
     ...AppViewerFragment
     id

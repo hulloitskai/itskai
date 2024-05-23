@@ -1,16 +1,16 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
-import type { UserSettingsPageQuery } from "~/helpers/graphql";
-
 import AppLayout from "~/components/AppLayout";
-import UserSettingsPageEmailForm from "~/components/UserSettingsPageEmailForm";
-import UserSettingsPagePasswordForm from "~/components/UserSettingsPagePasswordForm";
-import UserSettingsPageProfileForm from "~/components/UserSettingsPageProfileForm";
+import SettingsPageEmailForm from "~/components/SettingsPageEmailForm";
+import SettingsPagePasswordForm from "~/components/SettingsPagePasswordForm";
+import SettingsPageProfileForm from "~/components/SettingsPageProfileForm";
 
-export type UserSettingsPageProps = PagePropsWithData<UserSettingsPageQuery>;
+import type { SettingsPageQuery } from "~/helpers/graphql";
 
-const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
+export type SettingsPageProps = PagePropsWithData<SettingsPageQuery>;
+
+const SettingsPage: PageComponent<SettingsPageProps> = ({
   data: { viewer },
 }) => {
   invariant(viewer, "Missing viewer");
@@ -24,7 +24,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
               Profile
             </Title>
           </Center>
-          <UserSettingsPageProfileForm {...{ viewer }} />
+          <SettingsPageProfileForm {...{ viewer }} />
         </Stack>
       </Card>
       <Card withBorder>
@@ -37,7 +37,7 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
               Change your account email address
             </Text>
           </Stack>
-          <UserSettingsPageEmailForm {...{ viewer }} />
+          <SettingsPageEmailForm {...{ viewer }} />
         </Stack>
       </Card>
       <Card withBorder>
@@ -50,14 +50,14 @@ const UserSettingsPage: PageComponent<UserSettingsPageProps> = ({
               Change your login password
             </Text>
           </Stack>
-          <UserSettingsPagePasswordForm />
+          <SettingsPagePasswordForm />
         </Stack>
       </Card>
     </Stack>
   );
 };
 
-UserSettingsPage.layout = buildLayout<UserSettingsPageProps>(
+SettingsPage.layout = buildLayout<SettingsPageProps>(
   (page, { data: { viewer } }) => (
     <AppLayout
       title="Settings"
@@ -75,4 +75,4 @@ UserSettingsPage.layout = buildLayout<UserSettingsPageProps>(
   ),
 );
 
-export default UserSettingsPage;
+export default SettingsPage;

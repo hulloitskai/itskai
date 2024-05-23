@@ -1,19 +1,21 @@
-import type { FC } from "react";
-import { PasswordInput } from "@mantine/core";
+import type { ComponentPropsWithoutRef, FC } from "react";
+import { BoxProps, PasswordInput } from "@mantine/core";
 
 import PasswordWithStrengthCheckInput from "./PasswordWithStrengthCheckInput";
 
-export type UserChangePasswordPageFormValues = {
+export type ChangePasswordPageFormProps = BoxProps &
+  Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit"> & {
+    readonly resetPasswordToken: string;
+  };
+
+type ChangePasswordPageFormValues = {
   readonly password: string;
   readonly passwordConfirmation: string;
 };
 
-export type UserChangePasswordPageFormProps = {
-  readonly resetPasswordToken: string;
-};
-
-const UserChangePasswordPageForm: FC<UserChangePasswordPageFormProps> = ({
+const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
   resetPasswordToken,
+  ...otherProps
 }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -21,7 +23,7 @@ const UserChangePasswordPageForm: FC<UserChangePasswordPageFormProps> = ({
 
   // == Form
   const { getInputProps, reset, isDirty, onSubmit } =
-    useForm<UserChangePasswordPageFormValues>({
+    useForm<ChangePasswordPageFormValues>({
       initialValues: {
         password: "",
         passwordConfirmation: "",
@@ -41,7 +43,8 @@ const UserChangePasswordPageForm: FC<UserChangePasswordPageFormProps> = ({
     });
 
   return (
-    <form
+    <Box
+      component="form"
       onSubmit={onSubmit(({ password, passwordConfirmation }) => {
         const data = {
           user: {
@@ -60,6 +63,7 @@ const UserChangePasswordPageForm: FC<UserChangePasswordPageFormProps> = ({
           },
         });
       })}
+      {...otherProps}
     >
       <Stack gap="xs">
         <PasswordWithStrengthCheckInput
@@ -81,8 +85,8 @@ const UserChangePasswordPageForm: FC<UserChangePasswordPageFormProps> = ({
           Continue
         </Button>
       </Stack>
-    </form>
+    </Box>
   );
 };
 
-export default UserChangePasswordPageForm;
+export default ChangePasswordPageForm;

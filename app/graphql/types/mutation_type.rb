@@ -6,10 +6,10 @@ module Types
     # == Mutations
     field :test_mutation, mutation: Mutations::TestMutation
 
-    field :request_user_email_verification,
-          mutation: Mutations::RequestUserEmailVerification
-    field :request_user_password_reset,
-          mutation: Mutations::RequestUserPasswordReset
+    field :request_email_verification,
+          mutation: Mutations::RequestEmailVerification
+    field :request_password_reset,
+          mutation: Mutations::RequestPasswordReset
     field :update_user_email, mutation: Mutations::UpdateUserEmail
     field :update_user_profile, mutation: Mutations::UpdateUserProfile
 

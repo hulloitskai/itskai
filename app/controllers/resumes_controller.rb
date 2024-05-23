@@ -6,21 +6,7 @@ require "resume"
 class ResumesController < ApplicationController
   include Concurrent
 
-  # # == Initializer
-  # sig { params(args: T.untyped, kwargs: T.untyped).void }
-  # def initialize(*args, **kwargs)
-  #   super
-  #   @pdf_tmpdir = T.let(@pdf_tmpdir, T.nilable(String))
-  # end
-
-  # # == Filters
-  # after_action :remove_pdf_tmpdir, only: :show, if: -> {
-  #   T.bind(self, ResumesController)
-  #   request.format == :pdf
-  # }
-
   # == Actions
-
   # GET /resume
   #
   # FIXME: Loading the PDF resume immediately after the app boots in development

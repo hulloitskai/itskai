@@ -19,10 +19,10 @@ export const useApolloAlertCallback = (
         formatJSON(omitBy({ ...context, error }, isUndefined)),
       );
       const graphQLErrorWithRedirect = error.graphQLErrors.find(
-        error => "redirect" in error.extensions,
+        error => "redirectUrl" in error.extensions,
       );
       if (graphQLErrorWithRedirect) {
-        const redirectUrl = graphQLErrorWithRedirect.extensions["redirect"];
+        const redirectUrl = graphQLErrorWithRedirect.extensions["redirectUrl"];
         invariant(typeof redirectUrl === "string", "Invalid redirect URL");
         router.visit(redirectUrl, {
           onFinish: () => {

@@ -1,31 +1,33 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
 
 import { PasswordInput, Text } from "@mantine/core";
-import type { ButtonProps } from "@mantine/core";
+import type { BoxProps, ButtonProps } from "@mantine/core";
 
+import type { SettingsPageViewerFragment } from "~/helpers/graphql";
 import {
-  RequestUserEmailVerificationMutationDocument,
+  RequestEmailVerificationMutationDocument,
   UpdateUserEmailMutationDocument,
 } from "~/helpers/graphql";
-import type { UserSettingsPageViewerFragment } from "~/helpers/graphql";
 
-export type UserSettingsPageEmailFormValues = {
+export type SettingsPageEmailFormProps = BoxProps &
+  Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit"> & {
+    readonly viewer: SettingsPageViewerFragment;
+  };
+
+type SettingsPageEmailFormValues = {
   readonly email: string;
   readonly currentPassword: string;
 };
 
-export type UserSettingsPageEmailFormProps = {
-  readonly viewer: UserSettingsPageViewerFragment;
-};
-
-const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
+const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
   viewer,
+  ...otherProps
 }) => {
   const router = useRouter();
   const { email, unverifiedEmail } = viewer;
 
   // == Form
-  const initialValues = useMemo<UserSettingsPageEmailFormValues>(() => {
+  const initialValues = useMemo<SettingsPageEmailFormValues>(() => {
     const { email, unverifiedEmail } = viewer;
     return {
       email: unverifiedEmail || email,
@@ -40,7 +42,7 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
     setErrors,
     isDirty,
     resetDirty,
-  } = useForm<UserSettingsPageEmailFormValues>({
+  } = useForm<SettingsPageEmailFormValues>({
     initialValues: initialValues,
   });
   useDidUpdate(() => {
@@ -86,17 +88,19 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
   );
 
   return (
-    <form
-      onSubmit={onSubmit(({ email, currentPassword }) => {
+    <Box
+      component="form"
+      onSubmit={onSubmit(values => {
         updateEmail({
           variables: {
             input: {
-              email,
-              currentPassword,
+              userId: viewer.id,
+              ...values,
             },
           },
         });
       })}
+      {...otherProps}
     >
       <Stack gap="xs">
         <Box>
@@ -158,27 +162,28 @@ const UserSettingsPageEmailForm: FC<UserSettingsPageEmailFormProps> = ({
           )}
         </Stack>
       </Stack>
-    </form>
+    </Box>
   );
 };
 
-export default UserSettingsPageEmailForm;
+export default SettingsPageEmailForm;
 
 export type ResendEmailVerificationInstructionsButtonprops = Omit<
   ButtonProps,
   "children"
 > & {
-  readonly viewer: UserSettingsPageViewerFragment;
+  readonly viewer: SettingsPageViewerFragment;
 };
 
 const ResendEmailVerificationInstructionsButton: FC<
   ResendEmailVerificationInstructionsButtonprops
 > = ({ viewer: { email }, ...otherProps }) => {
-  const onError = useApolloAlertCallback(
+  // == Email Request
+  const onRequestEmailError = useApolloAlertCallback(
     "Failed to re-send verification email",
   );
-  const [runMutation, { loading }] = useMutation(
-    RequestUserEmailVerificationMutationDocument,
+  const [requestEmail, { loading: requestingEmail }] = useMutation(
+    RequestEmailVerificationMutationDocument,
     {
       onCompleted: () => {
         showNotice({
@@ -188,13 +193,14 @@ const ResendEmailVerificationInstructionsButton: FC<
             "new email address.",
         });
       },
-      onError,
+      onError: onRequestEmailError,
     },
   );
+
   return (
     <Button
       onClick={() => {
-        runMutation({
+        requestEmail({
           variables: {
             input: {
               email,
@@ -202,7 +208,7 @@ const ResendEmailVerificationInstructionsButton: FC<
           },
         });
       }}
-      {...{ loading }}
+      {...{ loading: requestingEmail }}
       {...otherProps}
     >
       Resend Verification Email

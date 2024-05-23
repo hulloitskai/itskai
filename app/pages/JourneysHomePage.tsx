@@ -5,12 +5,12 @@ import MicIcon from "~icons/heroicons/microphone-20-solid";
 
 import { Text } from "@mantine/core";
 
+import JourneysAppLayout from "~/components/JourneysAppLayout";
+import JourneysHomePageSessions from "~/components/JourneysHomePageSessions";
+
 import type { JourneysHomePageQuery } from "~/helpers/graphql";
 
-import JourneysAppLayout from "~/components/JourneysAppLayout";
-
 import classes from "./JourneysHomePage.module.css";
-import JourneysHomePageSessions from "~/components/JourneysHomePageSessions";
 
 export type JourneysHomePageProps = PagePropsWithData<JourneysHomePageQuery>;
 

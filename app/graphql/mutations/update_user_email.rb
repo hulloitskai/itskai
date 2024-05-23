@@ -10,16 +10,18 @@ module Mutations
     # == Arguments
     argument :current_password, String
     argument :email, String
+    argument :user_id, ID, loads: Types::UserType
 
     # == Resolver
     sig do
-      override.params(attributes: T.untyped).returns(T.any(
-        { user: User },
-        { errors: InputFieldErrors },
-      ))
+      override(allow_incompatible: true)
+        .params(user: User, attributes: T.untyped).returns(T.any(
+          { user: User },
+          { errors: InputFieldErrors },
+        ))
     end
-    def resolve(**attributes)
-      user = current_user!
+    def resolve(user:, **attributes)
+      authorize!(user, to: :update?)
       if user.update_with_password(attributes)
         { user: }
       else

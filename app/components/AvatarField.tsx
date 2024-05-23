@@ -7,9 +7,8 @@ import type { DropzoneProps } from "@mantine/dropzone";
 import { Image, Input, Text, rgba } from "@mantine/core";
 import type { InputWrapperProps } from "@mantine/core";
 
+import type { AvatarFieldQueryVariables, UploadInput } from "~/helpers/graphql";
 import { AvatarFieldQueryDocument } from "~/helpers/graphql";
-import type { Maybe, UploadInput } from "~/helpers/graphql";
-import type { AvatarFieldQueryVariables } from "~/helpers/graphql";
 
 import "@mantine/dropzone/styles.layer.css";
 
@@ -25,8 +24,8 @@ export type AvatarFieldProps = Omit<
   "inputContainer" | "inputWrapperOrder" | "size" | "children" | "onChange"
 > &
   Pick<DropzoneProps, "disabled"> & {
-    readonly value?: Maybe<UploadInput>;
-    readonly onChange?: (value: Maybe<UploadInput>) => void;
+    readonly value?: UploadInput | null;
+    readonly onChange?: (value: UploadInput | null) => void;
   };
 
 const AvatarField: FC<AvatarFieldProps> = ({

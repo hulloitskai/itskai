@@ -8,14 +8,13 @@ import { Text, rgba } from "@mantine/core";
 import type { MapRef } from "react-map-gl";
 import { GeolocateControl, Marker, Source, Layer } from "react-map-gl";
 
-import { LocatePageSubscriptionDocument } from "~/helpers/graphql";
 import type {
+  Coordinates,
   LocatePageQuery,
   LocatePageSubscriptionVariables,
   LocatePageTrailMarkerFragment,
 } from "~/helpers/graphql";
-import type { Maybe } from "~/helpers/graphql";
-import type { Coordinates } from "~/helpers/graphql";
+import { LocatePageSubscriptionDocument } from "~/helpers/graphql";
 
 import AppLayout from "~/components/AppLayout";
 import Map from "~/components/Map";
@@ -30,7 +29,7 @@ const TORONTO_COORDINATES: Readonly<Coordinates> = {
 };
 
 export type LocatePageProps = PagePropsWithData<LocatePageQuery> & {
-  readonly accessToken: Maybe<string>;
+  readonly accessToken: string | null;
 };
 
 const LocatePage: PageComponent<LocatePageProps> = ({

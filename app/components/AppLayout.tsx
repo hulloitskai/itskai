@@ -3,9 +3,6 @@ import type { FC } from "react";
 import { AppShell, Breadcrumbs } from "@mantine/core";
 import type { AppShellProps, ContainerProps, MantineSize } from "@mantine/core";
 
-import type { Maybe } from "~/helpers/graphql";
-import type { AppViewerFragment } from "~/helpers/graphql";
-
 import AppMeta from "./AppMeta";
 import type { AppMetaProps } from "./AppMeta";
 
@@ -16,11 +13,13 @@ import CurrentlyPlayingIsland from "./CurrentlyPlayingIsland";
 import PageContainer from "./PageContainer";
 import PageLayout from "./PageLayout";
 
+import type { AppViewerFragment } from "~/helpers/graphql";
+
 import classes from "./AppLayout.module.css";
 
 export type AppLayoutProps = AppMetaProps &
   AppShellProps & {
-    readonly viewer: Maybe<AppViewerFragment>;
+    readonly viewer: AppViewerFragment | null;
     readonly breadcrumbs?: ReadonlyArray<AppBreadcrumb | null | false>;
     readonly withContainer?: boolean;
     readonly containerSize?: MantineSize | (string & {}) | number;

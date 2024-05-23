@@ -3,11 +3,10 @@ import type { FC } from "react";
 import { AppShell, Breadcrumbs } from "@mantine/core";
 import type { AppShellProps, ContainerProps, MantineSize } from "@mantine/core";
 
-import type { Maybe } from "~/helpers/graphql";
 import type { AppViewerFragment } from "~/helpers/graphql";
 
-import JourneysAppMeta from "./JourneysAppMeta";
 import type { JourneysAppMetaProps } from "./JourneysAppMeta";
+import JourneysAppMeta from "./JourneysAppMeta";
 
 // import AppMenu from "./AppMenu";
 import AppFlash from "./AppFlash";
@@ -18,7 +17,7 @@ import classes from "./AppLayout.module.css";
 
 export type JourneysAppLayoutProps = JourneysAppMetaProps &
   AppShellProps & {
-    readonly viewer: Maybe<AppViewerFragment>;
+    readonly viewer: AppViewerFragment | null;
     readonly breadcrumbs?: ReadonlyArray<JourneysAppBreadcrumb | null | false>;
     readonly withContainer?: boolean;
     readonly containerSize?: MantineSize | (string & {}) | number;

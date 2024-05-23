@@ -1,20 +1,19 @@
 import type { FC } from "react";
 import LocationIcon from "~icons/heroicons/map-pin-20-solid";
 
+import type { AlertProps } from "@mantine/core";
 import { Text, rgba } from "@mantine/core";
 import { useColorScheme } from "@mantine/hooks";
-import type { AlertProps } from "@mantine/core";
 
-import { LocationAlertSubscriptionDocument } from "~/helpers/graphql";
-import type { Maybe } from "~/helpers/graphql";
 import type { LocationAlertLocationFragment } from "~/helpers/graphql";
+import { LocationAlertSubscriptionDocument } from "~/helpers/graphql";
 
 export type LocationAlertProps = Omit<
   AlertProps,
   "title" | "styles" | "children"
 > & {
-  readonly initialLocation: Maybe<LocationAlertLocationFragment>;
-  readonly onUpdate: (location: Maybe<LocationAlertLocationFragment>) => void;
+  readonly initialLocation: LocationAlertLocationFragment | null;
+  readonly onUpdate: (location: LocationAlertLocationFragment | null) => void;
 };
 
 const LocationAlert: FC<LocationAlertProps> = ({

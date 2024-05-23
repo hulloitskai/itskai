@@ -1,0 +1,7 @@
+query SettingsPageQuery {
+  viewer {
+    ...AppViewerFragment
+    id
+    ...SettingsPageViewerFragment
+  }
+}

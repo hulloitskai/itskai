@@ -1,29 +1,30 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
-import type { UserRequestPasswordResetPageQuery } from "~/helpers/graphql";
-
 import AppLayout from "~/components/AppLayout";
-import UserRequestPasswordResetPageForm from "~/components/UserRequestPasswordResetPageForm";
+import ChangePasswordPageForm from "~/components/ChangePasswordPageForm";
 
-export type UserRequestPasswordResetPageProps =
-  PagePropsWithData<UserRequestPasswordResetPageQuery>;
+import type { ChangePasswordPageQuery } from "~/helpers/graphql";
 
-const UserRequestPasswordResetPage: PageComponent<
-  UserRequestPasswordResetPageProps
-> = () => (
+export type ChangePasswordPageProps =
+  PagePropsWithData<ChangePasswordPageQuery> & {
+    readonly resetPasswordToken: string;
+  };
+
+const ChangePasswordPage: PageComponent<ChangePasswordPageProps> = ({
+  resetPasswordToken,
+}) => (
   <Card w={380} withBorder>
     <Stack gap="xs">
       <Stack gap={4}>
         <Title size="h3" style={{ textAlign: "center" }}>
-          Reset your password
+          Change password
         </Title>
         <Text size="sm" c="dimmed" style={{ lineHeight: 1.4 }}>
-          Enter the email address associated with your account and we&apos;ll
-          send you a link to reset your password.
+          Enter a new password that you will use to sign into your account.
         </Text>
       </Stack>
-      <UserRequestPasswordResetPageForm />
+      <ChangePasswordPageForm {...{ resetPasswordToken }} />
       <Divider />
       <List listStyleType="none" fz="xs">
         <List.Item>
@@ -47,13 +48,12 @@ const UserRequestPasswordResetPage: PageComponent<
   </Card>
 );
 
-UserRequestPasswordResetPage.layout =
-  buildLayout<UserRequestPasswordResetPageProps>(
-    (page, { data: { viewer } }) => (
-      <AppLayout title="Sign in" {...{ viewer }}>
-        <Center style={{ flexGrow: 1 }}>{page}</Center>
-      </AppLayout>
-    ),
-  );
+ChangePasswordPage.layout = buildLayout<ChangePasswordPageProps>(
+  (page, { data: { viewer } }) => (
+    <AppLayout title="Sign in" {...{ viewer }}>
+      <Center style={{ flexGrow: 1 }}>{page}</Center>
+    </AppLayout>
+  ),
+);
 
-export default UserRequestPasswordResetPage;
+export default ChangePasswordPage;

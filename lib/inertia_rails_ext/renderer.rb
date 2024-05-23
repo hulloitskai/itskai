@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 require "inertia_rails"
@@ -15,8 +15,7 @@ module InertiaRails
       requires_ancestor { Renderer }
 
       # == Initialization
-      sig { params(args: T.untyped, kwargs: T.untyped).void }
-      def initialize(*args, **kwargs)
+      def initialize(...)
         super
         @component = T.let(@component, String)
         @controller = T.let(@controller, AbstractController::Base)

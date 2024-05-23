@@ -3,24 +3,24 @@ import type { ComponentPropsWithoutRef, FC } from "react";
 import type { BoxProps } from "@mantine/core";
 import { PasswordInput } from "@mantine/core";
 
-import type { UserLoginPageProps } from "~/pages/UserLoginPage";
+import type { LoginPageProps } from "~/pages/LoginPage";
 
-export type UserLoginPageFormProps = BoxProps &
-  Omit<ComponentPropsWithoutRef<"form">, "children">;
+export type LoginPageFormProps = BoxProps &
+  Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit">;
 
-export type UserLoginPageFormValues = {
+type LoginPageFormValues = {
   readonly email: string;
   readonly password: string;
   readonly rememberMe: boolean;
 };
 
-const UserLoginPageForm: FC<UserLoginPageFormProps> = props => {
+const LoginPageForm: FC<LoginPageFormProps> = props => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   // == Form
   const { getInputProps, values, setFieldValue, isDirty, onSubmit } =
-    useForm<UserLoginPageFormValues>({
+    useForm<LoginPageFormValues>({
       initialValues: {
         email: "",
         password: "",
@@ -44,8 +44,8 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = props => {
             setLoading(true);
           },
           onSuccess: ({ component, props }) => {
-            if (component === "UserLoginPage") {
-              const { failed } = props as unknown as UserLoginPageProps;
+            if (component === "LoginPage") {
+              const { failed } = props as unknown as LoginPageProps;
               if (failed) {
                 setFieldValue("password", "");
               }
@@ -98,4 +98,4 @@ const UserLoginPageForm: FC<UserLoginPageFormProps> = props => {
   );
 };
 
-export default UserLoginPageForm;
+export default LoginPageForm;

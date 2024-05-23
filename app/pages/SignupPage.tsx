@@ -1,14 +1,14 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
-import type { UserSignupPageQuery } from "~/helpers/graphql";
+import type { SignupPageQuery } from "~/helpers/graphql";
 
 import AppLayout from "~/components/AppLayout";
-import UserSignupPageForm from "~/components/UserSignupPageForm";
+import SignupPageForm from "~/components/SignupPageForm";
 
-export type UserSignupPageProps = PagePropsWithData<UserSignupPageQuery>;
+export type SignupPageProps = PagePropsWithData<SignupPageQuery>;
 
-const UserSignupPage: PageComponent<UserSignupPageProps> = () => (
+const SignupPage: PageComponent<SignupPageProps> = () => (
   <Card w={380} withBorder>
     <Stack gap="xs">
       <Stack align="center" gap={2}>
@@ -20,7 +20,7 @@ const UserSignupPage: PageComponent<UserSignupPageProps> = () => (
           </Anchor>
         </Text>
       </Stack>
-      <UserSignupPageForm />
+      <SignupPageForm />
       <Text size="xs" c="gray.6">
         Already have an account?{" "}
         <Anchor component={Link} href="/login">
@@ -48,7 +48,7 @@ const UserSignupPage: PageComponent<UserSignupPageProps> = () => (
   </Card>
 );
 
-UserSignupPage.layout = buildLayout<UserSignupPageProps>(
+SignupPage.layout = buildLayout<SignupPageProps>(
   (page, { data: { viewer } }) => (
     <AppLayout title="Sign up" {...{ viewer }}>
       <Center style={{ flexGrow: 1 }}>{page}</Center>
@@ -56,4 +56,4 @@ UserSignupPage.layout = buildLayout<UserSignupPageProps>(
   ),
 );
 
-export default UserSignupPage;
+export default SignupPage;

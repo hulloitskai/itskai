@@ -3,6 +3,7 @@ import type { FC, PropsWithChildren } from "react";
 import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
 
+import PageMeta from "./PageMeta";
 import PageTracking from "./PageTracking";
 import MiniProfilerPageTracking from "./MiniProfilerPageTracking";
 
@@ -16,6 +17,7 @@ const PageLayout: FC<PageLayoutProps> = ({ children }) => (
   <>
     <ModalsProvider modalProps={{ size: "md" }}>{children}</ModalsProvider>
     <Notifications position="top-center" />
+    <PageMeta />
     <PageTracking />
     <MiniProfilerPageTracking />
   </>

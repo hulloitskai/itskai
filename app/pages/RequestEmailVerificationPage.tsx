@@ -1,16 +1,16 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
-import type { UserRequestEmailVerificationPageQuery } from "~/helpers/graphql";
-
 import AppLayout from "~/components/AppLayout";
-import UserRequestEmailVerificationPageForm from "~/components/UserRequestEmailVerificationPageForm";
+import RequestEmailVerificationPageForm from "~/components/RequestEmailVerificationPageForm";
 
-export type UserRequestEmailVerificationPageProps =
-  PagePropsWithData<UserRequestEmailVerificationPageQuery>;
+import type { RequestEmailVerificationPageQuery } from "~/helpers/graphql";
 
-const UserRequestEmailVerificationPage: PageComponent<
-  UserRequestEmailVerificationPageProps
+export type RequestEmailVerificationPageProps =
+  PagePropsWithData<RequestEmailVerificationPageQuery>;
+
+const RequestEmailVerificationPage: PageComponent<
+  RequestEmailVerificationPageProps
 > = () => (
   <Card w={380} withBorder>
     <Stack gap="xs">
@@ -23,7 +23,7 @@ const UserRequestEmailVerificationPage: PageComponent<
           send you a link to verify your account.
         </Text>
       </Stack>
-      <UserRequestEmailVerificationPageForm />
+      <RequestEmailVerificationPageForm />
       <Divider />
       <List listStyleType="none" fz="xs">
         <List.Item>
@@ -47,8 +47,8 @@ const UserRequestEmailVerificationPage: PageComponent<
   </Card>
 );
 
-UserRequestEmailVerificationPage.layout =
-  buildLayout<UserRequestEmailVerificationPageProps>(
+RequestEmailVerificationPage.layout =
+  buildLayout<RequestEmailVerificationPageProps>(
     (page, { data: { viewer } }) => (
       <AppLayout title="Sign in" {...{ viewer }}>
         <Center style={{ flexGrow: 1 }}>{page}</Center>
@@ -56,4 +56,4 @@ UserRequestEmailVerificationPage.layout =
     ),
   );
 
-export default UserRequestEmailVerificationPage;
+export default RequestEmailVerificationPage;

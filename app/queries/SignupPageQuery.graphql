@@ -1,4 +1,4 @@
-query UserRequestPasswordResetPageQuery {
+query SignupPageQuery {
   viewer {
     ...AppViewerFragment
     id

@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 require "discordrb"
@@ -39,8 +39,7 @@ module Discordrb
       end
 
       # == Initializer
-      sig { params(args: T.untyped, kwargs: T.untyped).void }
-      def initialize(*args, **kwargs)
+      def initialize(...)
         super
         @enabled_modes = T.let(@enabled_modes, T::Array[Symbol])
       end

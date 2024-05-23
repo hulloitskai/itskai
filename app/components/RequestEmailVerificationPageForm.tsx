@@ -1,21 +1,22 @@
 import type { FC } from "react";
 
-import { RequestUserEmailVerificationMutationDocument } from "~/helpers/graphql";
+import { RequestEmailVerificationMutationDocument } from "~/helpers/graphql";
 
-export type UserRequestEmailVerificationPageFormValues = {
+export type RequestEmailVerificationPageFormProps = {};
+
+type RequestEmailVerificationPageFormValues = {
   readonly email: string;
 };
 
-export type UserRequestEmailVerificationPageFormProps = {};
-
-const UserRequestEmailVerificationPageForm: FC<
-  UserRequestEmailVerificationPageFormProps
-> = () => {
+const RequestEmailVerificationPageForm: FC<
+  RequestEmailVerificationPageFormProps
+> = ({ ...otherProps }) => {
+  // == Routing
   const router = useRouter();
 
   // == Form
   const { getInputProps, isDirty, onSubmit } =
-    useForm<UserRequestEmailVerificationPageFormValues>({
+    useForm<RequestEmailVerificationPageFormValues>({
       initialValues: {
         email: "",
       },
@@ -26,7 +27,7 @@ const UserRequestEmailVerificationPageForm: FC<
     "Failed to request new verification email",
   );
   const [requestEmail, { loading: requestingEmail }] = useMutation(
-    RequestUserEmailVerificationMutationDocument,
+    RequestEmailVerificationMutationDocument,
     {
       onCompleted: () => {
         router.visit("/login", {
@@ -45,7 +46,8 @@ const UserRequestEmailVerificationPageForm: FC<
   );
 
   return (
-    <form
+    <Box
+      component="form"
       onSubmit={onSubmit(({ email }) => {
         requestEmail({
           variables: {
@@ -55,6 +57,7 @@ const UserRequestEmailVerificationPageForm: FC<
           },
         });
       })}
+      {...otherProps}
     >
       <Stack gap="xs">
         <TextInput
@@ -67,8 +70,8 @@ const UserRequestEmailVerificationPageForm: FC<
           Continue
         </Button>
       </Stack>
-    </form>
+    </Box>
   );
 };
 
-export default UserRequestEmailVerificationPageForm;
+export default RequestEmailVerificationPageForm;

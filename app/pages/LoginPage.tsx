@@ -1,16 +1,16 @@
 import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
-import { UserLoginPageQuery } from "~/helpers/graphql";
+import { LoginPageQuery } from "~/helpers/graphql";
 
 import AppLayout from "~/components/AppLayout";
-import UserLoginPageForm from "~/components/UserLoginPageForm";
+import LoginPageForm from "~/components/LoginPageForm";
 
-export type UserLoginPageProps = PagePropsWithData<UserLoginPageQuery> & {
+export type LoginPageProps = PagePropsWithData<LoginPageQuery> & {
   readonly failed: boolean;
 };
 
-const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
+const LoginPage: PageComponent<LoginPageProps> = () => (
   <Card w={380} withBorder>
     <Stack gap="xs">
       <Stack align="center" gap={2}>
@@ -22,7 +22,7 @@ const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
           </Anchor>
         </Text>
       </Stack>
-      <UserLoginPageForm />
+      <LoginPageForm />
       <Text size="xs" c="gray.6">
         Don&apos;t have an account?{" "}
         <Anchor component={Link} href="/signup">
@@ -50,12 +50,10 @@ const UserLoginPage: PageComponent<UserLoginPageProps> = () => (
   </Card>
 );
 
-UserLoginPage.layout = buildLayout<UserLoginPageProps>(
-  (page, { data: { viewer } }) => (
-    <AppLayout title="Sign in" {...{ viewer }}>
-      <Center style={{ flexGrow: 1 }}>{page}</Center>
-    </AppLayout>
-  ),
-);
+LoginPage.layout = buildLayout<LoginPageProps>((page, { data: { viewer } }) => (
+  <AppLayout title="Sign in" {...{ viewer }}>
+    <Center style={{ flexGrow: 1 }}>{page}</Center>
+  </AppLayout>
+));
 
-export default UserLoginPage;
+export default LoginPage;

@@ -1,30 +1,33 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
+import type { BoxProps } from "@mantine/core";
 
 import AvatarField from "./AvatarField";
 
-import type { Maybe } from "~/helpers/graphql";
 import type {
   UploadInput,
-  UserSettingsPageViewerFragment,
+  SettingsPageViewerFragment,
 } from "~/helpers/graphql";
 import { UpdateUserProfileMutationDocument } from "~/helpers/graphql";
 
-export type UserSettingsPageProfileFormValues = {
+export type SettingsPageProfileFormProps = BoxProps &
+  Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit"> & {
+    readonly viewer: SettingsPageViewerFragment;
+  };
+
+type SettingsPageProfileFormValues = {
   readonly name: string;
-  readonly avatar: Maybe<UploadInput>;
+  readonly avatar: UploadInput | null;
 };
 
-export type UserSettingsPageProfileFormProps = {
-  readonly viewer: UserSettingsPageViewerFragment;
-};
-
-const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
+const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
   viewer,
+  ...otherProps
 }) => {
+  // == Routing
   const router = useRouter();
 
   // == Form
-  const initialValues = useMemo<UserSettingsPageProfileFormValues>(() => {
+  const initialValues = useMemo<SettingsPageProfileFormValues>(() => {
     const { name, avatar } = viewer;
     return {
       name,
@@ -32,7 +35,7 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
     };
   }, [viewer]);
   const { getInputProps, onSubmit, setErrors, isDirty, setValues, resetDirty } =
-    useForm<UserSettingsPageProfileFormValues>({
+    useForm<SettingsPageProfileFormValues>({
       initialValues,
     });
   useDidUpdate(() => {
@@ -66,14 +69,19 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
   );
 
   return (
-    <form
+    <Box
+      component="form"
       onSubmit={onSubmit(values => {
         updateProfile({
           variables: {
-            input: values,
+            input: {
+              userId: viewer.id,
+              ...values,
+            },
           },
         });
       })}
+      {...otherProps}
     >
       <Stack gap="xs">
         <TextInput
@@ -87,8 +95,8 @@ const UserSettingsPageProfileForm: FC<UserSettingsPageProfileFormProps> = ({
           Save
         </Button>
       </Stack>
-    </form>
+    </Box>
   );
 };
 
-export default UserSettingsPageProfileForm;
+export default SettingsPageProfileForm;

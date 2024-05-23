@@ -1,27 +1,26 @@
 import type { ComponentPropsWithoutRef, FC } from "react";
-
 import type { BoxProps } from "@mantine/core";
 import { PasswordInput } from "@mantine/core";
 
 import PasswordWithStrengthCheckInput from "./PasswordWithStrengthCheckInput";
 
-export type UserSignupPageFormProps = BoxProps &
-  Omit<ComponentPropsWithoutRef<"form">, "children">;
+export type SignupPageFormProps = BoxProps &
+  Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit">;
 
-export type UserSignupFormValues = {
+type SignupFormValues = {
   readonly name: string;
   readonly email: string;
   readonly password: string;
   readonly passwordConfirmation: string;
 };
 
-const UserSignupPageForm: FC<UserSignupPageFormProps> = props => {
+const SignupPageForm: FC<SignupPageFormProps> = props => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0.0);
 
   // == Form
-  const initialValues = useMemo<UserSignupFormValues>(
+  const initialValues = useMemo<SignupFormValues>(
     () => ({
       name: "",
       email: "",
@@ -31,7 +30,7 @@ const UserSignupPageForm: FC<UserSignupPageFormProps> = props => {
     [],
   );
   const { getInputProps, setFieldValue, setErrors, isDirty, onSubmit } =
-    useForm<UserSignupFormValues>({
+    useForm<SignupFormValues>({
       initialValues,
       validate: {
         password: () => {
@@ -60,7 +59,7 @@ const UserSignupPageForm: FC<UserSignupPageFormProps> = props => {
           },
         };
         router.post("/signup", data, {
-          errorBag: UserSignupPageForm.name,
+          errorBag: SignupPageForm.name,
           onBefore: () => setLoading(true),
           onError: errors => {
             setFieldValue("password", "");
@@ -107,4 +106,4 @@ const UserSignupPageForm: FC<UserSignupPageFormProps> = props => {
   );
 };
 
-export default UserSignupPageForm;
+export default SignupPageForm;

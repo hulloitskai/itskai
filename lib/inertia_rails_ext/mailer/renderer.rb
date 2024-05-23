@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 require "inertia_rails"
@@ -9,8 +9,7 @@ module InertiaRails
       extend T::Sig
 
       # == Initialization
-      sig { params(args: T.untyped, kwargs: T.untyped).void }
-      def initialize(*args, **kwargs)
+      def initialize(...)
         super
         @props = T.let(@props, T::Hash[T.any(Symbol, String), T.untyped])
       end

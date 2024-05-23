@@ -1,22 +1,23 @@
-import { BoxProps } from "@mantine/core";
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
+import type { BoxProps } from "@mantine/core";
 
-import { RequestUserPasswordResetMutationDocument } from "~/helpers/graphql";
+import { RequestPasswordResetMutationDocument } from "~/helpers/graphql";
 
-export type UserRequestPasswordResetPageFormValues = {
+export type RequestPasswordResetPageFormProps = BoxProps &
+  Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit">;
+
+type RequestPasswordResetPageFormValues = {
   readonly email: string;
 };
 
-export type UserRequestPasswordResetPageFormProps = BoxProps;
-
-const UserRequestPasswordResetPageForm: FC<
-  UserRequestPasswordResetPageFormProps
-> = ({ ...otherProps }) => {
+const RequestPasswordResetPageForm: FC<RequestPasswordResetPageFormProps> = ({
+  ...otherProps
+}) => {
   const router = useRouter();
 
   // == Form
   const { getInputProps, isDirty, onSubmit } =
-    useForm<UserRequestPasswordResetPageFormValues>({
+    useForm<RequestPasswordResetPageFormValues>({
       initialValues: {
         email: "",
       },
@@ -27,7 +28,7 @@ const UserRequestPasswordResetPageForm: FC<
     "Failed to request password reset email",
   );
   const [requestEmail, { loading: requestingEmail }] = useMutation(
-    RequestUserPasswordResetMutationDocument,
+    RequestPasswordResetMutationDocument,
     {
       onCompleted: () => {
         router.visit("/login", {
@@ -74,4 +75,4 @@ const UserRequestPasswordResetPageForm: FC<
   );
 };
 
-export default UserRequestPasswordResetPageForm;
+export default RequestPasswordResetPageForm;

@@ -3,7 +3,6 @@ import type { FC, ReactNode } from "react";
 import { useHover } from "@mantine/hooks";
 import type { TooltipProps } from "@mantine/core";
 
-import type { Maybe } from "~/helpers/graphql";
 import type { CurrentlyPlayingLyricsTooltipLyricLineFragment } from "~/helpers/graphql";
 import { CurrentlyPlayingLyricsTooltipQueryDocument } from "~/helpers/graphql";
 
@@ -22,7 +21,8 @@ export type CurrentlyPlayingLyricsTooltipProps = Omit<
   readonly progressMilliseconds: number | undefined;
   readonly children: (
     currentLyricLine:
-      | Maybe<CurrentlyPlayingLyricsTooltipLyricLineFragment>
+      | CurrentlyPlayingLyricsTooltipLyricLineFragment
+      | null
       | undefined,
   ) => ReactNode;
 };

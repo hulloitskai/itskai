@@ -7,7 +7,7 @@ module Users
     # GET /verification?confirmation_token=abcdef
     def show
       resource = T.let(
-        resource_class.confirm_by_token(params[:confirmation_token]),
+        resource_class.confirm_by_token(params.fetch(:confirmation_token)),
         User,
       )
       if resource.errors.empty?
@@ -23,7 +23,7 @@ module Users
 
     # GET /verification/resend
     def new
-      render(inertia: "UserRequestEmailVerificationPage")
+      render(inertia: "RequestEmailVerificationPage")
     end
   end
 end

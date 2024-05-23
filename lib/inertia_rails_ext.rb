@@ -16,9 +16,7 @@ module InertiaRails
 
   # == Methods
   sig { returns(T.nilable(T::Hash[Symbol, T.untyped])) }
-  def self.page
-    threadsafe_page
-  end
+  def self.page = threadsafe_page
 
   sig do
     params(page: T.nilable(T::Hash[Symbol, T.untyped]))

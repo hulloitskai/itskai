@@ -1,4 +1,4 @@
-query UserSignupPageQuery {
+query RequestEmailVerificationPageQuery {
   viewer {
     ...AppViewerFragment
     id

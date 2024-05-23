@@ -219,7 +219,7 @@ export type LyricLineFieldPolicy = {
 	startTimeMilliseconds?: FieldPolicy<any> | FieldReadFunction<any>,
 	words?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('activateScottkitSignal' | 'activateSpotifyJamSession' | 'addJournalEntryComment' | 'createDishwatchDevice' | 'createICloudConnection' | 'createLocationAccess' | 'createLocationAccessGrant' | 'createTimelinePhotoWithTimestamp' | 'deleteGoogleConnection' | 'deleteICloudConnection' | 'deleteLocationAccessGrant' | 'deleteSpotifyConnection' | 'importTimelineActivities' | 'importTimelinePhotos' | 'leaveJourneysSession' | 'likePensieveMessage' | 'requestUserEmailVerification' | 'requestUserPasswordReset' | 'sendPensieveMessage' | 'syncJournalEntries' | 'syncLocationLogs' | 'testMutation' | 'unlikePensieveMessage' | 'updateDishwatchDevice' | 'updateJourneysSessionParticipation' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('activateScottkitSignal' | 'activateSpotifyJamSession' | 'addJournalEntryComment' | 'createDishwatchDevice' | 'createICloudConnection' | 'createLocationAccess' | 'createLocationAccessGrant' | 'createTimelinePhotoWithTimestamp' | 'deleteGoogleConnection' | 'deleteICloudConnection' | 'deleteLocationAccessGrant' | 'deleteSpotifyConnection' | 'importTimelineActivities' | 'importTimelinePhotos' | 'leaveJourneysSession' | 'likePensieveMessage' | 'requestEmailVerification' | 'requestPasswordReset' | 'sendPensieveMessage' | 'syncJournalEntries' | 'syncLocationLogs' | 'testMutation' | 'unlikePensieveMessage' | 'updateDishwatchDevice' | 'updateJourneysSessionParticipation' | 'updateUserEmail' | 'updateUserProfile' | 'verifyICloudSecurityCode' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	activateScottkitSignal?: FieldPolicy<any> | FieldReadFunction<any>,
 	activateSpotifyJamSession?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -237,8 +237,8 @@ export type MutationFieldPolicy = {
 	importTimelinePhotos?: FieldPolicy<any> | FieldReadFunction<any>,
 	leaveJourneysSession?: FieldPolicy<any> | FieldReadFunction<any>,
 	likePensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
-	requestUserEmailVerification?: FieldPolicy<any> | FieldReadFunction<any>,
-	requestUserPasswordReset?: FieldPolicy<any> | FieldReadFunction<any>,
+	requestEmailVerification?: FieldPolicy<any> | FieldReadFunction<any>,
+	requestPasswordReset?: FieldPolicy<any> | FieldReadFunction<any>,
 	sendPensieveMessage?: FieldPolicy<any> | FieldReadFunction<any>,
 	syncJournalEntries?: FieldPolicy<any> | FieldReadFunction<any>,
 	syncLocationLogs?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -319,13 +319,13 @@ export type QueryFieldPolicy = {
 	user?: FieldPolicy<any> | FieldReadFunction<any>,
 	viewer?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type RequestUserEmailVerificationPayloadKeySpecifier = ('clientMutationId' | 'success' | RequestUserEmailVerificationPayloadKeySpecifier)[];
-export type RequestUserEmailVerificationPayloadFieldPolicy = {
+export type RequestEmailVerificationPayloadKeySpecifier = ('clientMutationId' | 'success' | RequestEmailVerificationPayloadKeySpecifier)[];
+export type RequestEmailVerificationPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type RequestUserPasswordResetPayloadKeySpecifier = ('clientMutationId' | 'success' | RequestUserPasswordResetPayloadKeySpecifier)[];
-export type RequestUserPasswordResetPayloadFieldPolicy = {
+export type RequestPasswordResetPayloadKeySpecifier = ('clientMutationId' | 'success' | RequestPasswordResetPayloadKeySpecifier)[];
+export type RequestPasswordResetPayloadFieldPolicy = {
 	clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	success?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -648,13 +648,13 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier),
 		fields?: QueryFieldPolicy,
 	},
-	RequestUserEmailVerificationPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | RequestUserEmailVerificationPayloadKeySpecifier | (() => undefined | RequestUserEmailVerificationPayloadKeySpecifier),
-		fields?: RequestUserEmailVerificationPayloadFieldPolicy,
+	RequestEmailVerificationPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | RequestEmailVerificationPayloadKeySpecifier | (() => undefined | RequestEmailVerificationPayloadKeySpecifier),
+		fields?: RequestEmailVerificationPayloadFieldPolicy,
 	},
-	RequestUserPasswordResetPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | RequestUserPasswordResetPayloadKeySpecifier | (() => undefined | RequestUserPasswordResetPayloadKeySpecifier),
-		fields?: RequestUserPasswordResetPayloadFieldPolicy,
+	RequestPasswordResetPayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | RequestPasswordResetPayloadKeySpecifier | (() => undefined | RequestPasswordResetPayloadKeySpecifier),
+		fields?: RequestPasswordResetPayloadFieldPolicy,
 	},
 	SendPensieveMessagePayload?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SendPensieveMessagePayloadKeySpecifier | (() => undefined | SendPensieveMessagePayloadKeySpecifier),

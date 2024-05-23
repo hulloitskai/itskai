@@ -5,19 +5,18 @@ import ResetIcon from "~icons/heroicons/arrow-uturn-left-20-solid";
 
 import scrollIntoView from "scroll-into-view";
 
-import { HomePageJournalEntryQueryDocument } from "~/helpers/graphql";
-import type { Maybe } from "~/helpers/graphql";
 import type {
   HomePageJournalEntryEntryFragment,
   HomePageJournalEntryQuery,
   HomePageJournalEntryQueryVariables,
 } from "~/helpers/graphql";
+import { HomePageJournalEntryQueryDocument } from "~/helpers/graphql";
 
 import JournalEntry from "./JournalEntry";
 
 export type HomePageJournalEntryProps = BoxProps & {
   readonly firstEntryId: string;
-  readonly initialEntry: Maybe<HomePageJournalEntryEntryFragment> | undefined;
+  readonly initialEntry: HomePageJournalEntryEntryFragment | null | undefined;
   readonly autoscroll: boolean;
 };
 

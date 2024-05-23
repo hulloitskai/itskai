@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 require "rails"
@@ -22,8 +22,7 @@ module Premailer::Adapter::Nokogiri
     requires_ancestor { Premailer::Adapter::Nokogiri }
 
     # == Initializer
-    sig { params(args: T.untyped, kwargs: T.untyped).void }
-    def initialize(*args, **kwargs)
+    def initialize(...)
       super
       @processed_doc = T.let(@processed_doc, Nokogiri::XML::Document)
       @css_parser = T.let(@css_parser, CssParser::Parser)

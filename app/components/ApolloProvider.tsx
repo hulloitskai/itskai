@@ -12,12 +12,10 @@ const ApolloProvider: FC<ApolloProviderProps> = ({
   initialCSRFToken,
   children,
 }) => {
-  const link = useMemo(
-    () => createApolloLink({ initialCSRFToken }),
-    [initialCSRFToken],
-  );
-  const [client] = useState(() => createApolloClient({ link }));
-  useDidUpdate(() => client.setLink(link), [client, link]);
+  const [client] = useState(() => {
+    const link = createApolloLink({ initialCSRFToken });
+    return createApolloClient({ link });
+  });
   useEffect(() => {
     return router.on("success", () => {
       client.resetStore();

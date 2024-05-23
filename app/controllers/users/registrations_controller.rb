@@ -9,12 +9,12 @@ module Users
     # == Actions
     # GET /signup
     def new
-      render(inertia: "UserSignupPage")
+      render(inertia: "SignupPage")
     end
 
     # GET /settings
     def edit
-      render(inertia: "UserSettingsPage")
+      render(inertia: "SettingsPage")
     end
 
     # POST /signup

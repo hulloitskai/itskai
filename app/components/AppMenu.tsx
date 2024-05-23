@@ -1,4 +1,6 @@
 import type { FC } from "react";
+import type { SharedPageProps } from "~/helpers/inertia";
+import { createApolloLink } from "~/helpers/apollo";
 
 import Lottie from "lottie-react";
 import type { LottieRefCurrentProps } from "lottie-react";
@@ -14,12 +16,8 @@ import HomeIcon from "~icons/heroicons/home-20-solid";
 import { Loader, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
-import { createApolloLink } from "~/helpers/apollo";
-import type { SharedPageProps } from "~/helpers/inertia";
-
-import { AppMenuQueryDocument } from "~/helpers/graphql";
-import type { Maybe } from "~/helpers/graphql";
 import type { AppViewerFragment } from "~/helpers/graphql";
+import { AppMenuQueryDocument } from "~/helpers/graphql";
 
 import { useContactMe } from "~/helpers/contactMe";
 
@@ -27,7 +25,7 @@ import menuAnimationData from "~/assets/animations/menu.json";
 import classes from "./AppMenu.module.css";
 
 export type AppMenuProps = BoxProps & {
-  readonly viewer: Maybe<AppViewerFragment>;
+  readonly viewer: AppViewerFragment | null;
 };
 
 const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {

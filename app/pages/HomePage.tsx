@@ -2,14 +2,14 @@ import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 import BellIcon from "~icons/heroicons/bell-20-solid";
 
-import type { HomePageQuery } from "~/helpers/graphql";
-
 import AppLayout from "~/components/AppLayout";
 import ContactMeLink from "~/components/ContactMeLink";
 import HomePageJournalEntry from "~/components/HomePageJournalEntry";
 import LocatePageAlert from "~/components/LocationAlert";
 import Pensieve from "~/components/Pensieve";
 import ExplorationBadge from "~/components/ExplorationBadge";
+
+import type { HomePageQuery } from "~/helpers/graphql";
 
 import classes from "./HomePage.module.css";
 

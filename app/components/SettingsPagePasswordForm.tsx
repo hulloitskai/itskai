@@ -1,25 +1,27 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
+import type { BoxProps } from "@mantine/core";
 import { PasswordInput } from "@mantine/core";
 
 import PasswordWithStrengthCheckInput from "./PasswordWithStrengthCheckInput";
 
-export type UserSettingsPagePasswordFormValues = {
+export type SettingsPagePasswordFormValues = {
   readonly password: string;
   readonly passwordConfirmation: string;
   readonly currentPassword: string;
 };
 
-export type UserSettingsPagePasswordFormProps = {};
+export type SettingsPagePasswordFormProps = BoxProps &
+  Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit">;
 
-const UserSettingsPagePasswordForm: FC<
-  UserSettingsPagePasswordFormProps
-> = () => {
+const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
+  ...otherProps
+}) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0.0);
 
   // == Form
-  const initialValues: UserSettingsPagePasswordFormValues = useMemo(
+  const initialValues: SettingsPagePasswordFormValues = useMemo(
     () => ({
       password: "",
       passwordConfirmation: "",
@@ -35,7 +37,7 @@ const UserSettingsPagePasswordForm: FC<
     isValid,
     reset,
     onSubmit,
-  } = useForm<UserSettingsPagePasswordFormValues>({
+  } = useForm<SettingsPagePasswordFormValues>({
     initialValues,
     validate: {
       password: () => {
@@ -52,7 +54,8 @@ const UserSettingsPagePasswordForm: FC<
   });
 
   return (
-    <form
+    <Box
+      component="form"
       onSubmit={onSubmit(
         ({ password, passwordConfirmation, currentPassword }) => {
           const data = {
@@ -63,7 +66,7 @@ const UserSettingsPagePasswordForm: FC<
             },
           };
           router.put("/settings", data, {
-            errorBag: UserSettingsPagePasswordForm.name,
+            errorBag: SettingsPagePasswordForm.name,
             preserveScroll: true,
             onBefore: () => setLoading(true),
             onSuccess: () => {
@@ -85,6 +88,7 @@ const UserSettingsPagePasswordForm: FC<
           });
         },
       )}
+      {...otherProps}
     >
       <Stack gap="xs">
         <PasswordWithStrengthCheckInput
@@ -130,8 +134,8 @@ const UserSettingsPagePasswordForm: FC<
           Change Password
         </Button>
       </Stack>
-    </form>
+    </Box>
   );
 };
 
-export default UserSettingsPagePasswordForm;
+export default SettingsPagePasswordForm;

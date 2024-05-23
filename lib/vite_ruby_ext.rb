@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 require "vite_ruby"
@@ -50,8 +50,7 @@ class ViteRuby
       requires_ancestor { DevServerProxy }
 
       # == Initializer
-      sig { params(args: T.untyped, kwargs: T.untyped).void }
-      def initialize(*args, **kwargs)
+      def initialize(...)
         super
         @app = T.let(@app, T.untyped)
       end

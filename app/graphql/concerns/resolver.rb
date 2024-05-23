@@ -70,7 +70,7 @@ module Resolver
       message = I18n.t("devise.failure.unauthenticated")
       raise GraphQL::ExecutionError.new(
         message,
-        extensions: { "redirect" => new_user_session_path },
+        extensions: { "redirectUrl" => new_user_session_path },
       )
     end
   end

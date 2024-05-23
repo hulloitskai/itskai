@@ -7,13 +7,12 @@ import type { BoxProps, ImageProps, TextProps } from "@mantine/core";
 import { Image, Text } from "@mantine/core";
 import { useNetwork } from "@mantine/hooks";
 
+import type { CurrentlyPlayingIslandTrackFragment } from "~/helpers/graphql";
 import {
   ActivateSpotifyJamSessionMutationDocument,
   CurrentlyPlayingIslandQueryDocument,
   CurrentlyPlayingIslandSubscriptionDocument,
 } from "~/helpers/graphql";
-import type { Maybe } from "~/helpers/graphql";
-import type { CurrentlyPlayingIslandTrackFragment } from "~/helpers/graphql";
 
 import CurrentlyPlayingLyricsTooltip from "./CurrentlyPlayingLyricsTooltip";
 
@@ -95,7 +94,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
       transitioned: false,
     });
   const [track, setTrack] =
-    useState<Maybe<CurrentlyPlayingIslandTrackFragment>>(null);
+    useState<CurrentlyPlayingIslandTrackFragment | null>(null);
   useEffect(() => {
     if (online) {
       if (currentlyPlaying?.track?.id !== track?.id) {
@@ -151,7 +150,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
 export default CurrentlyPlayingIsland;
 
 type TrackCoalescerProps = {
-  readonly track?: Maybe<CurrentlyPlayingIslandTrackFragment>;
+  readonly track?: CurrentlyPlayingIslandTrackFragment | null;
   readonly children: (track: CurrentlyPlayingIslandTrackFragment) => ReactNode;
 };
 
@@ -160,7 +159,7 @@ const TrackCoalescer: FC<TrackCoalescerProps> = ({
   children,
 }) => {
   const [track, setTrack] = useState<
-    Maybe<CurrentlyPlayingIslandTrackFragment> | undefined
+    CurrentlyPlayingIslandTrackFragment | null | undefined
   >(trackProp);
   useEffect(() => {
     if (trackProp) {
