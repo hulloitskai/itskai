@@ -1,9 +1,11 @@
-import { setupActiveStorage } from "~/helpers/activestorage";
-import { setupLuxon } from "~/helpers/luxon";
+import { setupInertia } from "./inertia";
+import { setupActiveStorage } from "./activestorage";
+import { setupLuxon } from "./luxon";
 
 // == Polyfills
 import "requestidlecallback-polyfill";
 
 // == Setup
+setupInertia();
 setupActiveStorage();
 setupLuxon();
