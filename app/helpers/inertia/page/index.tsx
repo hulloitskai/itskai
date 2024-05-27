@@ -41,7 +41,10 @@ export const usePage = <P extends PageProps>(): Page<P> => {
 
 export const usePageProps = <P extends PageProps>(): P & SharedPageProps => {
   const { props } = usePage<SharedPageProps & P>();
-  return omit(props, "errors") as unknown as P & SharedPageProps;
+  return useMemo(
+    () => omit(props, "errors") as unknown as P & SharedPageProps,
+    [props],
+  );
 };
 
 export enum PageType {

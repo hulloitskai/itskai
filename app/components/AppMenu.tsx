@@ -1,6 +1,4 @@
 import type { FC } from "react";
-import type { SharedPageProps } from "~/helpers/inertia";
-import { createApolloLink } from "~/helpers/apollo";
 
 import Lottie from "lottie-react";
 import type { LottieRefCurrentProps } from "lottie-react";
@@ -31,7 +29,6 @@ export type AppMenuProps = BoxProps & {
 const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
   const isClient = useIsClient();
   const router = useRouter();
-  const client = useApolloClient();
   const [contactMe, { loading: loadingContactMe }] = useContactMe();
 
   // == State
@@ -164,16 +161,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
             <Menu.Item
               leftSection={<SignOutIcon />}
               onClick={() => {
-                router.post("/logout", undefined, {
-                  onSuccess: ({ props }) => {
-                    const { csrf } = props as unknown as SharedPageProps;
-                    const link = createApolloLink({
-                      initialCSRFToken: csrf.token,
-                    });
-                    client.setLink(link);
-                    client.resetStore();
-                  },
-                });
+                router.post("/logout");
               }}
             >
               Sign out

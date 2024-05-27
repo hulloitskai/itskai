@@ -78,5 +78,9 @@ export class Router {
 
 export const useRouter = (): Router => {
   const csrfToken = useCSRFToken();
-  return new Router({ csrfToken });
+  const [router] = useState(() => new Router({ csrfToken }));
+  useEffect(() => {
+    router.csrfToken = csrfToken;
+  }, [router, csrfToken]);
+  return router;
 };
