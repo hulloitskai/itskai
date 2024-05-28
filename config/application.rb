@@ -1,3 +1,4 @@
+# rubocop:disable RuboCopStyle/MethodCallWithArgsParentheses
 # typed: strict
 # frozen_string_literal: true
 
@@ -57,21 +58,21 @@ module ItsKai
     # == Generators
     config.generators do |g|
       # Generate Active Record model and migration with UUID primary keys.
-      g.orm(:active_record, primary_key_type: :uuid)
+      g.orm :active_record, primary_key_type: :uuid
 
       # Don't generate helpers.
-      g.helper(false)
+      g.helper false
 
       # Don't generate tests.
-      g.test_framework(nil)
-      g.controller_specs(false)
-      g.view_specs(false)
-      g.helper_specs(false)
-      g.model_specs(false)
+      g.test_framework nil
+      g.controller_specs false
+      g.view_specs false
+      g.helper_specs false
+      g.model_specs false
 
       # Don't generate views or assets.
-      g.template_engine(nil)
-      g.assets(false)
+      g.template_engine nil
+      g.assets false
     end
 
     # == Logging
@@ -84,12 +85,12 @@ module ItsKai
     end
 
     # == Sessions
-    config.session_store(:cookie_store, key: "session")
+    config.session_store :cookie_store, key: "session"
 
     # == Exceptions
     config.exceptions_app = routes
-    config.action_dispatch.rescue_responses["ActionPolicy::Unauthorized"] =
-      :unauthorized
+    config.action_dispatch
+      .rescue_responses["ActionPolicy::Unauthorized"] = :unauthorized
 
     # == Action View
     config.action_view.frozen_string_literal = true

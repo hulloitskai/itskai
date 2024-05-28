@@ -12,7 +12,7 @@ import { AvatarFieldQueryDocument } from "~/helpers/graphql";
 
 import "@mantine/dropzone/styles.layer.css";
 
-import { uploadFile } from "~/helpers/activestorage";
+import { upload } from "~/helpers/upload";
 
 import classes from "./AvatarField.module.css";
 
@@ -125,7 +125,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
               const file = first(files);
               if (file) {
                 setUploading(true);
-                uploadFile(file)
+                upload(file)
                   .then(blob => {
                     if (onChange) {
                       const value: UploadInput = {
@@ -134,11 +134,12 @@ const AvatarField: FC<AvatarFieldProps> = ({
                       onChange(value);
                     }
                   })
-                  .catch(({ message }: Error) => {
+                  .catch((error: Error) => {
                     showAlert({
                       title: "Failed to upload file",
-                      message,
+                      message: error.message,
                     });
+                    console.error("Failed to upload file", error);
                   })
                   .finally(() => {
                     setUploading(false);

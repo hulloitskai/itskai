@@ -15,23 +15,7 @@ export type ClientLinkOptions = {
 export const createClientLink = ({
   initialCSRFToken,
 }: ClientLinkOptions): ApolloLink => {
-  return from([
-    // new RetryLink({
-    //   attempts: {
-    //     retryIf: (error: ApolloError) => {
-    //       if (error.name === "ServerError") {
-    //         const { statusCode } = error as ServerError;
-    //         if (statusCode === 500) {
-    //           return false;
-    //         }
-    //       }
-    //       return true;
-    //     },
-    //   },
-    // }),
-    createCSRFLink(initialCSRFToken),
-    createTerminatingLink(),
-  ]);
+  return from([createCSRFLink(initialCSRFToken), createTerminatingLink()]);
 };
 
 const createTerminatingLink = (): ApolloLink => {
@@ -63,7 +47,7 @@ const createCSRFLink = (initialToken: string): ApolloLink => {
   return setContext(async (operation, { headers }) => {
     const currentToken = getMeta("csrf-token");
     if (!import.meta.env.SSR && !currentToken) {
-      console.warn("No client-side CSRF token found");
+      console.warn("Missing CSRF meta tags; falling back to initial token");
     }
     return {
       headers: {

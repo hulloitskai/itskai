@@ -17,6 +17,8 @@ if (orgId) {
       };
     }
   });
+
+  // TODO: Update FullStory user after login.
   init({ orgId, devMode }, () => {
     if (identity) {
       const { uid, ...properties } = identity;

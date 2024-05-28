@@ -42,6 +42,7 @@ if (dsn) {
     ),
   );
 
+  // TODO: Update Sentry user after login.
   const user = resolve(() => {
     const jsonString = getMeta("sentry-user");
     if (jsonString) {

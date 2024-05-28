@@ -1,5 +1,3 @@
-import invariant from "tiny-invariant";
-
 export const getMeta = (name: string): string | undefined => {
   if (typeof document !== "undefined") {
     const el = document.head.querySelector(`meta[name="${name}"][content]`);
@@ -12,6 +10,8 @@ export const getMeta = (name: string): string | undefined => {
 
 export const requireMeta = (name: string): string => {
   const content = getMeta(name);
-  invariant(content, `Missing meta content for '${name}'`);
+  if (!content) {
+    throw new Error(`Missing meta content for '${name}'`);
+  }
   return content;
 };
