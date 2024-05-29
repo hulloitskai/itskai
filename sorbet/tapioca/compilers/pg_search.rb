@@ -73,7 +73,10 @@ module Tapioca
         def generate_scope_method(mod, scope_method, return_type)
           mod.create_method(
             scope_method,
-            parameters: [create_param("query", type: "String")],
+            parameters: [
+              create_rest_param("args", type: "T.untyped"),
+              create_kw_rest_param("kwargs", type: "T.untyped"),
+            ],
             return_type: return_type,
           )
         end

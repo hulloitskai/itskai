@@ -466,8 +466,8 @@ class JournalEntry
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def rewhere(*args, &blk); end
 
-    sig { params(query: String).returns(PrivateAssociationRelation) }
-    def search(query); end
+    sig { params(args: T.untyped, kwargs: T.untyped).returns(PrivateAssociationRelation) }
+    def search(*args, **kwargs); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def select(*args, &blk); end
@@ -1205,8 +1205,8 @@ class JournalEntry
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def rewhere(*args, &blk); end
 
-    sig { params(query: String).returns(PrivateRelation) }
-    def search(query); end
+    sig { params(args: T.untyped, kwargs: T.untyped).returns(PrivateRelation) }
+    def search(*args, **kwargs); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def select(*args, &blk); end
