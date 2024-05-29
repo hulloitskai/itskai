@@ -13,20 +13,19 @@ module Tapioca
       class Enumerize < Compiler
         extend T::Sig
 
-        ConstantType =
-          type_member do
-            {
-              fixed: T.all(
-                T::Class[T.anything],
-                ::ActiveRecord::ModelSchema::ClassMethods,
-                ::Enumerize::Base::ClassMethods,
-              ),
-            }
-          end
+        ConstantType = type_member do
+          {
+            fixed: T.all(
+              T.class_of(::ActiveRecord::Base),
+              ::Enumerize::Base::ClassMethods,
+            ),
+          }
+        end
 
         sig { override.returns(T::Enumerable[Module]) }
         def self.gather_constants
-          all_classes.grep(::Enumerize::Base::ClassMethods)
+          descendants_of(::ActiveRecord::Base)
+            .grep(::Enumerize::Base::ClassMethods)
         end
 
         sig { override.void }

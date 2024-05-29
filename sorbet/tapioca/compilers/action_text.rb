@@ -13,10 +13,9 @@ module Tapioca
       class ActionText < Compiler
         extend T::Sig
 
-        ConstantType =
-          type_member do
-            { fixed: T.all(Module, ::ActionText::Attribute::ClassMethods) }
-          end
+        ConstantType = type_member do
+          { fixed: T.class_of(::ActiveRecord::Base) }
+        end
 
         sig { override.returns(T::Enumerable[Module]) }
         def self.gather_constants

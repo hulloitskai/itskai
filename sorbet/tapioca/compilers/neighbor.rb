@@ -13,22 +13,16 @@ module Tapioca
       class Neighbor < Compiler
         extend T::Sig
 
-        ConstantType =
-          type_member do
-            {
-              fixed: T.all(
-                T::Class[T.anything],
-                ::ActiveRecord::ModelSchema::ClassMethods,
-                ::Neighbor::Model,
-              ),
-            }
-          end
+        ConstantType = type_member do
+          { fixed: T.class_of(::ActiveRecord::Base) }
+        end
 
         sig { override.returns(T::Enumerable[Module]) }
         def self.gather_constants
-          all_classes.grep(::Neighbor::Model).filter do |klass|
-            klass.instance_methods.include?(:nearest_neighbors)
-          end
+          descendants_of(::ActiveRecord::Base).grep(::Neighbor::Model)
+            .filter do |klass|
+              klass.instance_methods.include?(:nearest_neighbors)
+            end
         end
 
         sig { override.void }
@@ -47,14 +41,8 @@ module Tapioca
           scope.create_method(
             "nearest_neighbors",
             parameters: [
-              RBI::TypedParam.new(
-                param: RBI::ReqParam.new("attribute_name"),
-                type: "T.any(Symbol, String)",
-              ),
-              RBI::TypedParam.new(
-                param:               RBI::KwRestParam.new("options"),
-                type: "T.untyped",
-              ),
+              create_param("attribute_name", type: "T.any(Symbol, String)"),
+              create_rest_param("options", type: "T.untyped"),
             ],
             return_type: "PrivateRelation",
           )

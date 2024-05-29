@@ -13,6 +13,10 @@ module Tapioca::Dsl::Compilers
       # == Annotations
       requires_ancestor { ActiveRecordRelations }
 
+      # == Methods
+      sig { returns(T.class_of(ActiveRecord::Base)) }
+      def constant = super
+
       private
 
       # == Helpers
@@ -54,7 +58,7 @@ module Tapioca::Dsl::Compilers
 
       sig { params(klass: T.untyped).returns(T.untyped) }
       def create_friendly_method(klass)
-        if defined?(FriendlyId) && T.unsafe(self).constant.is_a?(FriendlyId)
+        if defined?(FriendlyId) && constant.is_a?(FriendlyId)
           klass.create_method("friendly", return_type: "T.self_type")
         end
       end

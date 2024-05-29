@@ -21,6 +21,7 @@ module ItsKai
     require "core_ext"
     require "rails_ext"
     require "actionview_ext"
+    require "pg_search_ext"
     require "action_policy_ext"
     require "better_errors_ext"
     require "vite_ruby_ext"

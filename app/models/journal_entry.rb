@@ -30,7 +30,7 @@ class JournalEntry < ApplicationRecord
     where.not(content: nil)
   }
 
-  # == Searchable
+  # == Search
   pg_search_scope :search,
                   against: :title,
                   using: {
