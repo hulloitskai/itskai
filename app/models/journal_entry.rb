@@ -22,7 +22,7 @@
 #
 class JournalEntry < ApplicationRecord
   include Identifiable
-  include Searchable
+  include PgSearch::Model
 
   # == Scopes
   scope :with_content, -> {
