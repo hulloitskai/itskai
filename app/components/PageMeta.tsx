@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { SharedPageProps } from "~/helpers/inertia";
+import type { SharedPageProps } from "~/helpers/inertia";
 
 const PageMeta: FC = () => {
   const { props } = usePage<SharedPageProps>();

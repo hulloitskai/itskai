@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+require "logging"
+
 # TODO: Read up on other N+1 solutions:
 # https://evilmartians.com/chronicles/how-to-graphql-with-ruby-rails-active-record-and-no-n-plus-one
 class Schema < GraphQL::Schema

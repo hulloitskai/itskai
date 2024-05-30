@@ -527,6 +527,12 @@ class GoodJob::BatchRecord
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def owns_advisory_locked(*args, &blk); end
 
+    sig { params(num: T.nilable(Integer)).returns(PrivateAssociationRelation) }
+    def page(num = nil); end
+
+    sig { params(num: T.nilable(Integer), max_per_page: T.nilable(Integer)).returns(PrivateAssociationRelation) }
+    def per(num, max_per_page: nil); end
+
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def preload(*args, &blk); end
 
@@ -1620,6 +1626,9 @@ class GoodJob::BatchRecord
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def owns_advisory_locked(*args, &blk); end
 
+    sig { params(num: T.nilable(Integer), max_per_page: T.nilable(Integer)).returns(PrivateRelation) }
+    def per(num, max_per_page: nil); end
+
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def preload(*args, &blk); end
 
@@ -1670,6 +1679,9 @@ class GoodJob::BatchRecord
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end
+
+    sig { params(num: T.nilable(Integer)).returns(PrivateRelation) }
+    def page(num = nil); end
   end
 
   class PrivateAssociationRelation < ::ActiveRecord::AssociationRelation

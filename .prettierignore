@@ -1,7 +1,7 @@
 .ruby-lsp/
 .husky/_/
 .venv/
-app/assets/animations/*.json
+app/assets/
 bin/
 dist/
 db/schema.rb

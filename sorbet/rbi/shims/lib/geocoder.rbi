@@ -6,6 +6,12 @@ class ActiveRecord::Base
 end
 
 module Geocoder
+  sig do
+    params(query: String, options: T::Hash[Symbol, T.untyped]).
+      returns(T::Array[T.all(Result, Result::Base)])
+  end
+  def self.search(query, options = {}); end
+
   module Model::ActiveRecord
     has_attached_class!
 

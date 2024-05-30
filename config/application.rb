@@ -1,4 +1,4 @@
-# rubocop:disable RuboCopStyle/MethodCallWithArgsParentheses
+# rubocop:disable Style/MethodCallWithArgsParentheses
 # typed: strict
 # frozen_string_literal: true
 
@@ -45,7 +45,7 @@ module ItsKai
 
     # == Code Loading
     # Only autoload workers, interceptors once.
-    Rails.autoloaders.main.ignore("app/workers", "app/interceptors")
+    Rails.autoloaders.main.ignore "app/workers", "app/interceptors"
     config.autoload_once_paths += ["app/workers", "app/interceptors"]
 
     # Configuration for the application, engines, and railties goes here.
