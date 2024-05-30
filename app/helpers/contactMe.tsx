@@ -3,8 +3,8 @@ import type { QueryResult } from "@apollo/client";
 import { ContactEmailQueryDocument } from "~/helpers/graphql";
 
 export type ContactMeOptions = {
-  readonly subject?: string;
-  readonly body?: string;
+  subject?: string;
+  body?: string;
 };
 
 export const useContactMe = (

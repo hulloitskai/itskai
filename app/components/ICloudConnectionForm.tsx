@@ -15,15 +15,15 @@ import {
 import ICloudVerifySecurityCodeForm from "./ICloudVerifySecurityCodeForm";
 
 export type ICloudConnectionFormProps = BoxProps & {
-  readonly connection: ICloudConnectionFormConnectionFragment;
-  readonly onCreate: () => void;
-  readonly onDelete: () => void;
-  readonly onVerifySecurityCode: () => void;
+  connection: ICloudConnectionFormConnectionFragment;
+  onCreate: () => void;
+  onDelete: () => void;
+  onVerifySecurityCode: () => void;
 };
 
 type ICloudConnectionFormValues = {
-  readonly email: string;
-  readonly password: string;
+  email: string;
+  password: string;
 };
 
 const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({

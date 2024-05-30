@@ -9,7 +9,7 @@ import type {
 import { useCSRFToken } from "~/helpers/csrf";
 
 export type RouterOptions = {
-  readonly csrfToken: string;
+  csrfToken: string;
 };
 
 export class Router {

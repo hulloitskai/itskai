@@ -12,8 +12,8 @@ export type LocationAlertProps = Omit<
   AlertProps,
   "title" | "styles" | "children"
 > & {
-  readonly initialLocation: LocationAlertLocationFragment | null;
-  readonly onUpdate: (location: LocationAlertLocationFragment | null) => void;
+  initialLocation: LocationAlertLocationFragment | null;
+  onUpdate: (location: LocationAlertLocationFragment | null) => void;
 };
 
 const LocationAlert: FC<LocationAlertProps> = ({

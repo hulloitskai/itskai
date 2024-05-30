@@ -12,7 +12,7 @@ import {
 import type { PensieveMessageLikeMessageFragment } from "~/helpers/graphql";
 
 export type PensieveMessageLikeProps = BoxProps & {
-  readonly message: PensieveMessageLikeMessageFragment;
+  message: PensieveMessageLikeMessageFragment;
 };
 
 const PensieveMessageLike: FC<PensieveMessageLikeProps> = ({

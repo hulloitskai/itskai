@@ -15,9 +15,9 @@ import { HomePageJournalEntryQueryDocument } from "~/helpers/graphql";
 import JournalEntry from "./JournalEntry";
 
 export type HomePageJournalEntryProps = BoxProps & {
-  readonly firstEntryId: string;
-  readonly initialEntry: HomePageJournalEntryEntryFragment | null | undefined;
-  readonly autoscroll: boolean;
+  firstEntryId: string;
+  initialEntry: HomePageJournalEntryEntryFragment | null | undefined;
+  autoscroll: boolean;
 };
 
 const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({

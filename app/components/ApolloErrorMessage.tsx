@@ -3,7 +3,7 @@ import type { ApolloError, ServerError } from "@apollo/client";
 import { formatError } from "~/helpers/errors";
 
 export type ApolloErrorMessageProps = {
-  readonly children: ApolloError;
+  children: ApolloError;
 };
 
 const ApolloErrorMessage: FC<ApolloErrorMessageProps> = ({ children }) => {

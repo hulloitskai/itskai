@@ -9,7 +9,7 @@ import { getCable } from "~/helpers/actioncable";
 import { requireMeta, getMeta } from "~/helpers/meta";
 
 export type ClientLinkOptions = {
-  readonly initialCSRFToken: string;
+  initialCSRFToken: string;
 };
 
 export const createClientLink = ({

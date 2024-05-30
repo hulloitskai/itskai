@@ -14,8 +14,8 @@ import type { HomePageQuery } from "~/helpers/graphql";
 import classes from "./HomePage.module.css";
 
 export type HomePageProps = PagePropsWithData<HomePageQuery> & {
-  readonly firstJournalEntryId: string;
-  readonly autoscroll: boolean;
+  firstJournalEntryId: string;
+  autoscroll: boolean;
 };
 
 const HomePage: PageComponent<HomePageProps> = ({

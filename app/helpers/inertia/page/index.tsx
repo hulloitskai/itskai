@@ -13,21 +13,21 @@ export const parsePageImports = <T,>(
 };
 
 export type PageComponent<P = {}> = ComponentType<
-  P & { readonly errors?: Errors & ErrorBag } & SharedPageProps
+  P & { errors?: Errors & ErrorBag } & SharedPageProps
 > & {
   layout?: ((page: ReactNode) => ReactNode) | null;
 };
 
 export type SharedPageProps = {
-  readonly csrf: {
+  csrf: {
     param: string;
     token: string;
   };
-  readonly flash?: Record<string, string>;
+  flash?: Record<string, string>;
 };
 
 export type PagePropsWithData<Data = undefined> = SharedPageProps & {
-  readonly data: Data;
+  data: Data;
 };
 
 export const usePageErrors = (): Errors & ErrorBag => {

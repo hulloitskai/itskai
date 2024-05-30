@@ -9,9 +9,9 @@ import classes from "./TestEmail.module.css";
 import type { TestEmailQuery } from "~/helpers/graphql";
 
 export type TestEmailProps = PagePropsWithData<TestEmailQuery> & {
-  readonly model: {
-    readonly name: string;
-    readonly birthday: string;
+  model: {
+    name: string;
+    birthday: string;
   };
 };
 

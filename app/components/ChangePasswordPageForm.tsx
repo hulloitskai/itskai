@@ -5,12 +5,12 @@ import PasswordWithStrengthCheckInput from "./PasswordWithStrengthCheckInput";
 
 export type ChangePasswordPageFormProps = BoxProps &
   Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit"> & {
-    readonly resetPasswordToken: string;
+    resetPasswordToken: string;
   };
 
 type ChangePasswordPageFormValues = {
-  readonly password: string;
-  readonly passwordConfirmation: string;
+  password: string;
+  passwordConfirmation: string;
 };
 
 const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({

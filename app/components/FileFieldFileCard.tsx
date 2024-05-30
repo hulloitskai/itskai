@@ -7,8 +7,8 @@ import { ActionIcon, Text } from "@mantine/core";
 import { FileFieldFileCardQueryDocument } from "~/helpers/graphql";
 
 export type FileFieldFileCardProps = CardProps & {
-  readonly signedId: string;
-  readonly onRemove?: () => void;
+  signedId: string;
+  onRemove?: () => void;
 };
 
 const FileFieldFileCard: FC<FileFieldFileCardProps> = ({

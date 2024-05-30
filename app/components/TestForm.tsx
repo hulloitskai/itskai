@@ -8,8 +8,8 @@ import { TestMutationMutationDocument } from "~/helpers/graphql";
 import "@mantine/dates/styles.layer.css";
 
 export type TestFormValues = {
-  readonly name: string;
-  readonly birthday: string | null;
+  name: string;
+  birthday: string | null;
 };
 
 const TestForm: FC = () => {

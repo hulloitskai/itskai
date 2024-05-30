@@ -8,11 +8,11 @@ import { ImportTimelineActivitiesMutationDocument } from "~/helpers/graphql";
 import FileField from "./FileField";
 
 export type TimelineActivitiesImportFormProps = BoxProps & {
-  readonly onImport?: () => void;
+  onImport?: () => void;
 };
 
 type TimelineActivitiesImportFormValues = {
-  readonly locationHistory: UploadInput | null;
+  locationHistory: UploadInput | null;
 };
 
 type TimelineActivitiesImportFormSubmission =

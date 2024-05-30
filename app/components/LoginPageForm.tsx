@@ -9,9 +9,9 @@ export type LoginPageFormProps = BoxProps &
   Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit">;
 
 type LoginPageFormValues = {
-  readonly email: string;
-  readonly password: string;
-  readonly rememberMe: boolean;
+  email: string;
+  password: string;
+  rememberMe: boolean;
 };
 
 const LoginPageForm: FC<LoginPageFormProps> = props => {

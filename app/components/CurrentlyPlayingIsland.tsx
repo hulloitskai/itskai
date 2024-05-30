@@ -25,8 +25,8 @@ const MotionImage = motion<
 export type CurrentlyPlayingIslandProps = BoxProps;
 
 type TransitionState = {
-  readonly mounted: boolean;
-  readonly transitioned: boolean;
+  mounted: boolean;
+  transitioned: boolean;
 };
 
 const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
@@ -150,8 +150,8 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
 export default CurrentlyPlayingIsland;
 
 type TrackCoalescerProps = {
-  readonly track?: CurrentlyPlayingIslandTrackFragment | null;
-  readonly children: (track: CurrentlyPlayingIslandTrackFragment) => ReactNode;
+  track?: CurrentlyPlayingIslandTrackFragment | null;
+  children: (track: CurrentlyPlayingIslandTrackFragment) => ReactNode;
 };
 
 const TrackCoalescer: FC<TrackCoalescerProps> = ({
@@ -170,9 +170,9 @@ const TrackCoalescer: FC<TrackCoalescerProps> = ({
 };
 
 type _CurrentlyPlayingIslandProps = BoxProps & {
-  readonly track: CurrentlyPlayingIslandTrackFragment;
-  readonly progressMilliseconds?: number;
-  readonly transitioned: boolean;
+  track: CurrentlyPlayingIslandTrackFragment;
+  progressMilliseconds?: number;
+  transitioned: boolean;
 };
 
 const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({

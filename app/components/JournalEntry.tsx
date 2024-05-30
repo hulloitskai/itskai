@@ -12,7 +12,7 @@ import JournalEntryComments from "./JournalEntryComments";
 import classes from "./JournalEntry.module.css";
 
 export type JournalEntryProps = BoxProps & {
-  readonly entry: JournalEntryEntryFragment;
+  entry: JournalEntryEntryFragment;
 };
 
 const JournalEntry: FC<JournalEntryProps> = ({
@@ -67,7 +67,7 @@ const JournalEntry: FC<JournalEntryProps> = ({
 export default JournalEntry;
 
 type JournalEntryCopyLinkTooltipProps = PropsWithChildren<{
-  readonly copied: boolean;
+  copied: boolean;
 }>;
 
 const JournalEntryCopyLinkTooltip: FC<JournalEntryCopyLinkTooltipProps> = ({

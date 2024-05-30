@@ -6,7 +6,7 @@ import type { ContactMeOptions } from "~/helpers/contactMe";
 
 export type ContactMeLinkProps = AnchorProps &
   ContactMeOptions & {
-    readonly children: ReactNode;
+    children: ReactNode;
   };
 
 const ContactMeLink: FC<ContactMeLinkProps> = ({

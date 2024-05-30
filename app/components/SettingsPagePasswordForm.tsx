@@ -5,9 +5,9 @@ import { PasswordInput } from "@mantine/core";
 import PasswordWithStrengthCheckInput from "./PasswordWithStrengthCheckInput";
 
 export type SettingsPagePasswordFormValues = {
-  readonly password: string;
-  readonly passwordConfirmation: string;
-  readonly currentPassword: string;
+  password: string;
+  passwordConfirmation: string;
+  currentPassword: string;
 };
 
 export type SettingsPagePasswordFormProps = BoxProps &

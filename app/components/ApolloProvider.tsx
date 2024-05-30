@@ -5,7 +5,7 @@ import { ApolloProvider as _ApolloProvider } from "@apollo/client";
 import { createApolloClient, createApolloLink } from "~/helpers/apollo";
 
 export type ApolloProviderProps = PropsWithChildren<{
-  readonly initialCSRFToken: string;
+  initialCSRFToken: string;
 }>;
 
 const ApolloProvider: FC<ApolloProviderProps> = ({

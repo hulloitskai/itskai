@@ -13,13 +13,13 @@ import FileField from "./FileField";
 import "@mantine/dates/styles.layer.css";
 
 export type TimelinePhotoCreateWithTimestampFormProps = BoxProps & {
-  readonly onCreate?: () => void;
+  onCreate?: () => void;
 };
 
 type TimelinePhotoCreateWithTimestampFormValues = {
-  readonly photo: UploadInput | null;
-  readonly timestamp: string;
-  readonly timezone: "America/Vancouver" | "America/Toronto";
+  photo: UploadInput | null;
+  timestamp: string;
+  timezone: "America/Vancouver" | "America/Toronto";
 };
 
 type TimelinePhotoCreateWithTimestampFormSubmission = Omit<

@@ -6,7 +6,7 @@ import AppLayout from "~/components/AppLayout";
 import type { LoadingPageQuery } from "~/helpers/graphql";
 
 export type LoadingPageProps = PagePropsWithData<LoadingPageQuery> & {
-  readonly timeout: number;
+  timeout: number;
 };
 
 const LoadingPage: PageComponent<LoadingPageProps> = ({ timeout }) => {

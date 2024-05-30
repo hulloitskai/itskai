@@ -7,7 +7,7 @@ import type { UserEmailVerificationEmailQuery } from "~/helpers/graphql";
 
 export type UserEmailVerificationEmailProps =
   PagePropsWithData<UserEmailVerificationEmailQuery> & {
-    readonly verificationUrl: string;
+    verificationUrl: string;
   };
 
 const UserVerificationEmail: PageComponent<UserEmailVerificationEmailProps> = ({

@@ -14,21 +14,21 @@ import TestFeed from "~/components/TestFeed";
 import type { TestPageQuery } from "~/helpers/graphql";
 
 export type TestPageProps = PagePropsWithData<TestPageQuery> & {
-  readonly name: string;
+  name: string;
 };
 
 type TestPageFormValues = {
-  readonly name: string;
+  name: string;
 };
 
 type TestPageModalContentProps = {
-  readonly name: string;
+  name: string;
 };
 
 const TestPageModalContent: FC<TestPageModalContentProps> = ({ name }) => (
   <Stack gap="xs">
     <Text>Apparently, your name is:</Text>
-    <TextInput value={name} readOnly />
+    <TextInput value={name} />
     <Button onClick={() => closeAllModals()}>Uh-huh.</Button>
   </Stack>
 );

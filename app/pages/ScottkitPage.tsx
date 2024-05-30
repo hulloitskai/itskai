@@ -90,8 +90,8 @@ ScottkitPage.layout = buildLayout<ScottkitPageProps>(page => (
 export default ScottkitPage;
 
 export type KitButtonProps = {
-  readonly signal: ScottkitSignal;
-  readonly description: ReactNode;
+  signal: ScottkitSignal;
+  description: ReactNode;
 };
 
 const KitButton: FC<KitButtonProps> = ({ signal: signal, description }) => {

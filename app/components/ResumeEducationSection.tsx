@@ -5,7 +5,7 @@ import ArrowRightIcon from "~icons/heroicons/arrow-long-right-20-solid";
 import type { ResumeEducationInfo } from "~/helpers/resume";
 
 export type ResumeEducationSectionProps = {
-  readonly educationInfo: ResumeEducationInfo;
+  educationInfo: ResumeEducationInfo;
 };
 
 const ResumeEducationSection: FC<ResumeEducationSectionProps> = ({

@@ -9,10 +9,10 @@ const APP_META_SITE_IMAGE = "/banner.png";
 const APP_META_TITLE_SEPARATOR = "|";
 
 export type AppMetaProps = {
-  readonly title?: string | string[];
-  readonly description?: string | null;
-  readonly imageUrl?: string | null;
-  readonly noIndex?: boolean;
+  title?: string | string[];
+  description?: string | null;
+  imageUrl?: string | null;
+  noIndex?: boolean;
 };
 
 const AppMeta: FC<AppMetaProps> = ({

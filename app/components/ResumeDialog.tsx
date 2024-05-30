@@ -8,7 +8,7 @@ import { ActionIcon, Affix, BoxProps, Dialog, Text } from "@mantine/core";
 import { useDisclosure, useWindowScroll } from "@mantine/hooks";
 
 export type ResumeDialogProps = BoxProps & {
-  readonly variant?: string;
+  variant?: string;
 };
 
 const ResumeDialog: FC<ResumeDialogProps> = ({ variant, ...otherProps }) => {

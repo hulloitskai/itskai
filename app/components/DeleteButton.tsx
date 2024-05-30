@@ -3,7 +3,7 @@ import type { ButtonProps } from "@mantine/core";
 
 export type DeleteButtonProps = ButtonProps &
   ComponentPropsWithoutRef<"button"> & {
-    readonly onConfirm: () => void;
+    onConfirm: () => void;
   };
 
 const DeleteButton: FC<DeleteButtonProps> = ({

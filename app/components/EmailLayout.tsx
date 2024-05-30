@@ -17,8 +17,8 @@ import "@mantine/core/styles.css";
 import "./EmailLayout-lowercasing.css";
 
 export type EmailLayoutProps = PropsWithChildren<{
-  readonly header?: string;
-  readonly preview?: PreviewProps["children"];
+  header?: string;
+  preview?: PreviewProps["children"];
 }>;
 
 const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (

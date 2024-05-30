@@ -6,7 +6,7 @@ import type { TextProps } from "@mantine/core";
 import { Text } from "@mantine/core";
 
 export type TimeAgoProps = TextProps & {
-  readonly children: string | DateTime;
+  children: string | DateTime;
 };
 
 const TimeAgo: FC<TimeAgoProps> = ({ children, ...otherProps }) => {

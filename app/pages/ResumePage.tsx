@@ -16,8 +16,8 @@ import ResumeDialog from "~/components/ResumeDialog";
 import ResumeProjectSection from "~/components/ResumeProjectSection";
 
 export type ResumePageProps = PagePropsWithData<ResumePageQuery> & {
-  readonly variant?: string;
-  readonly printMode?: boolean;
+  variant?: string;
+  printMode?: boolean;
 };
 
 const ResumePage: PageComponent<ResumePageProps> = ({

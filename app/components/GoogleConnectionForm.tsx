@@ -7,8 +7,8 @@ import type { OAuthConnectionFormConnectionFragment } from "~/helpers/graphql";
 import FormAuthenticityField from "./FormAuthenticityField";
 
 export type GoogleConnectionFormProps = BoxProps & {
-  readonly connection: OAuthConnectionFormConnectionFragment;
-  readonly onDelete: () => void;
+  connection: OAuthConnectionFormConnectionFragment;
+  onDelete: () => void;
 };
 
 const GoogleConnectionForm: FC<GoogleConnectionFormProps> = ({
@@ -40,7 +40,7 @@ const GoogleConnectionForm: FC<GoogleConnectionFormProps> = ({
           const { uid, refreshToken } = credentials;
           return (
             <Stack gap={8}>
-              <TextInput label="UID (read-only)" value={uid} readOnly />
+              <TextInput label="UID (read-only)" value={uid} />
               {!!refreshToken && (
                 <TextInput
                   label="Refresh Token (read-only)"

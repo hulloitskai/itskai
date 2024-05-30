@@ -6,8 +6,8 @@ import type { CardProps } from "@mantine/core";
 import { ActionIcon, Progress, Text } from "@mantine/core";
 
 export type FileFieldUploadCardProps = CardProps & {
-  readonly file: File;
-  readonly onUploaded?: (blob: Blob) => void;
+  file: File;
+  onUploaded?: (blob: Blob) => void;
 };
 
 const FileFieldUploadCard: FC<FileFieldUploadCardProps> = ({

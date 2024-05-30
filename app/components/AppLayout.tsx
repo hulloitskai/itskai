@@ -19,18 +19,18 @@ import classes from "./AppLayout.module.css";
 
 export type AppLayoutProps = AppMetaProps &
   AppShellProps & {
-    readonly viewer: AppViewerFragment | null;
-    readonly breadcrumbs?: ReadonlyArray<AppBreadcrumb | null | false>;
-    readonly withContainer?: boolean;
-    readonly containerSize?: MantineSize | (string & {}) | number;
-    readonly containerProps?: ContainerProps;
-    readonly withGutter?: boolean;
-    readonly gutterSize?: MantineSize | (string & {}) | number;
+    viewer: AppViewerFragment | null;
+    breadcrumbs?: ReadonlyArray<AppBreadcrumb | null | false>;
+    withContainer?: boolean;
+    containerSize?: MantineSize | (string & {}) | number;
+    containerProps?: ContainerProps;
+    withGutter?: boolean;
+    gutterSize?: MantineSize | (string & {}) | number;
   };
 
 export type AppBreadcrumb = {
-  readonly title: string;
-  readonly href: string;
+  title: string;
+  href: string;
 };
 
 const AppLayout: FC<AppLayoutProps> = ({

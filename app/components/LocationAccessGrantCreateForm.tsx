@@ -7,20 +7,20 @@ import type { BoxProps } from "@mantine/core";
 import { CreateLocationAccessGrantMutationDocument } from "~/helpers/graphql";
 
 export type LocationAccessGrantCreateFormProps = BoxProps & {
-  readonly onCreate: () => void;
+  onCreate: () => void;
 };
 
 type LocationAccessGrantCreateFormValues = {
-  readonly recipient: string;
-  readonly password: string;
-  readonly expiresInHours: number;
+  recipient: string;
+  password: string;
+  expiresInHours: number;
 };
 
 type LocationAccessGrantCreateFormSubmission = Omit<
   LocationAccessGrantCreateFormValues,
   "expiresInHours"
 > & {
-  readonly expiresInSeconds: number;
+  expiresInSeconds: number;
 };
 
 const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({

@@ -4,7 +4,7 @@ import type { NormalizedCacheObject } from "@apollo/client";
 import { possibleTypes, typePolicies } from "./types";
 
 export type ApolloClientOptions = {
-  readonly link: ApolloLink;
+  link: ApolloLink;
 };
 
 export const createApolloClient = ({

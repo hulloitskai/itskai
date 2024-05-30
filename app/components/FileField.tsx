@@ -33,12 +33,12 @@ export type FileFieldProps<Multiple = false> = BoxProps &
     DropzoneProps,
     "accept" | "maxSize" | "maxFiles" | "disabled" | "children"
   > & {
-    readonly multiple?: Multiple;
-    readonly value?: Multiple extends true ? UploadInput[] : UploadInput | null;
-    readonly onChange?: (
+    multiple?: Multiple;
+    value?: Multiple extends true ? UploadInput[] : UploadInput | null;
+    onChange?: (
       value: Multiple extends true ? UploadInput[] : UploadInput | null,
     ) => void;
-    readonly fileLabel?: string;
+    fileLabel?: string;
   };
 
 const FileField = <Multiple extends boolean = false>(

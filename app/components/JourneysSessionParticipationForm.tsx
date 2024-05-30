@@ -7,13 +7,13 @@ import {
 } from "~/helpers/graphql";
 
 export type JourneysSessionParticipationFormProps = BoxProps & {
-  readonly participationId: string;
-  readonly onUpdate?: () => void;
+  participationId: string;
+  onUpdate?: () => void;
 };
 
 type JourneysSessionParticipationFormValues = {
-  readonly participantName: string;
-  readonly goal: string;
+  participantName: string;
+  goal: string;
 };
 
 const JourneysSessionParticipationForm: FC<

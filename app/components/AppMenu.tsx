@@ -23,7 +23,7 @@ import menuAnimationData from "~/assets/animations/menu.json";
 import classes from "./AppMenu.module.css";
 
 export type AppMenuProps = BoxProps & {
-  readonly viewer: AppViewerFragment | null;
+  viewer: AppViewerFragment | null;
 };
 
 const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {

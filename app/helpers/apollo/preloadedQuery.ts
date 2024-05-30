@@ -13,7 +13,7 @@ type PreloadedQueryHookOptions<
   TData = any,
   TVariables extends OperationVariables = OperationVariables,
 > = QueryHookOptions<TData, TVariables> & {
-  readonly initialData: TData;
+  initialData: TData;
 };
 
 export const usePreloadedQuery = <

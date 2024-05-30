@@ -4,7 +4,7 @@ import { Text } from "@mantine/core";
 import type { ResumeSkillInfo } from "~/helpers/resume";
 
 export type ResumeSkillsSectionProps = {
-  readonly skillInfo: ResumeSkillInfo;
+  skillInfo: ResumeSkillInfo;
 };
 
 const ResumeSkillsSection: FC<ResumeSkillsSectionProps> = ({

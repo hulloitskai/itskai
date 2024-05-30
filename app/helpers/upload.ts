@@ -4,17 +4,17 @@ import { DirectUpload } from "@rails/activestorage?client";
 import { requireMeta } from "./meta";
 
 export type UseUploadParams = {
-  readonly onProgress?: (progress: number) => void;
-  readonly onCompleted?: (blob: Blob) => void;
-  readonly onError?: (error: Error) => void;
+  onProgress?: (progress: number) => void;
+  onCompleted?: (blob: Blob) => void;
+  onError?: (error: Error) => void;
 };
 
 export type UploadState = {
-  readonly blob: Blob | null;
-  readonly error: Error | null;
-  readonly progress: number;
-  readonly uploading: boolean;
-  readonly cancel: () => void;
+  blob: Blob | null;
+  error: Error | null;
+  progress: number;
+  uploading: boolean;
+  cancel: () => void;
 };
 
 export const useLazyUpload = (

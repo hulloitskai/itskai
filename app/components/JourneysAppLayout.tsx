@@ -17,18 +17,18 @@ import classes from "./AppLayout.module.css";
 
 export type JourneysAppLayoutProps = JourneysAppMetaProps &
   AppShellProps & {
-    readonly viewer: AppViewerFragment | null;
-    readonly breadcrumbs?: ReadonlyArray<JourneysAppBreadcrumb | null | false>;
-    readonly withContainer?: boolean;
-    readonly containerSize?: MantineSize | (string & {}) | number;
-    readonly containerProps?: ContainerProps;
-    readonly withGutter?: boolean;
-    readonly gutterSize?: MantineSize | (string & {}) | number;
+    viewer: AppViewerFragment | null;
+    breadcrumbs?: ReadonlyArray<JourneysAppBreadcrumb | null | false>;
+    withContainer?: boolean;
+    containerSize?: MantineSize | (string & {}) | number;
+    containerProps?: ContainerProps;
+    withGutter?: boolean;
+    gutterSize?: MantineSize | (string & {}) | number;
   };
 
 export type JourneysAppBreadcrumb = {
-  readonly title: string;
-  readonly href: string;
+  title: string;
+  href: string;
 };
 
 const JourneysAppLayout: FC<JourneysAppLayoutProps> = ({

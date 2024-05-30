@@ -8,7 +8,7 @@ import type { ChangePasswordPageQuery } from "~/helpers/graphql";
 
 export type ChangePasswordPageProps =
   PagePropsWithData<ChangePasswordPageQuery> & {
-    readonly resetPasswordToken: string;
+    resetPasswordToken: string;
   };
 
 const ChangePasswordPage: PageComponent<ChangePasswordPageProps> = ({

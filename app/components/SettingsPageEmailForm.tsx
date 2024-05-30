@@ -11,12 +11,12 @@ import {
 
 export type SettingsPageEmailFormProps = BoxProps &
   Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit"> & {
-    readonly viewer: SettingsPageViewerFragment;
+    viewer: SettingsPageViewerFragment;
   };
 
 type SettingsPageEmailFormValues = {
-  readonly email: string;
-  readonly currentPassword: string;
+  email: string;
+  currentPassword: string;
 };
 
 const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
@@ -172,7 +172,7 @@ export type ResendEmailVerificationInstructionsButtonprops = Omit<
   ButtonProps,
   "children"
 > & {
-  readonly viewer: SettingsPageViewerFragment;
+  viewer: SettingsPageViewerFragment;
 };
 
 const ResendEmailVerificationInstructionsButton: FC<

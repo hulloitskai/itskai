@@ -7,7 +7,7 @@ import { Image } from "@mantine/core";
 import type { TimelinePhotoFragment } from "~/helpers/graphql";
 
 type TimelinePagePhotoProps = ImageProps & {
-  readonly photo: TimelinePhotoFragment;
+  photo: TimelinePhotoFragment;
 };
 
 let lastCorner = 0;

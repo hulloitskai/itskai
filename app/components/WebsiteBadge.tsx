@@ -4,7 +4,7 @@ import type { BadgeProps } from "@mantine/core";
 import LinkIcon from "~icons/heroicons/link-20-solid";
 
 export type WebsiteBadgeProps = BadgeProps & {
-  readonly url: string;
+  url: string;
 };
 
 const WebsiteBadge: FC<WebsiteBadgeProps> = ({ url, ...otherProps }) => {

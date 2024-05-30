@@ -9,8 +9,8 @@ export type LocationAccessGrantDeleteActionIconProps = Omit<
   DeleteButtonProps,
   "onConfirm" | "children"
 > & {
-  readonly grantId: string;
-  readonly onDelete: () => void;
+  grantId: string;
+  onDelete: () => void;
 };
 
 const LocationAccessGrantDeleteButton: FC<

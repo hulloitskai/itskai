@@ -3,12 +3,12 @@ import type { BoxProps, MantineSize } from "@mantine/core";
 import { CreateLocationAccessMutationDocument } from "~/helpers/graphql";
 
 export type LocationAccessFormProps = BoxProps & {
-  readonly size?: MantineSize | (string & {});
-  readonly onCreate: (password: string) => void;
+  size?: MantineSize | (string & {});
+  onCreate: (password: string) => void;
 };
 
 type LocationAccessFormValues = {
-  readonly password: string;
+  password: string;
 };
 
 const LocationAccessForm: FC<LocationAccessFormProps> = ({

@@ -6,10 +6,10 @@ import type { ErrorPageQuery } from "~/helpers/graphql";
 import AppLayout from "~/components/AppLayout";
 
 export type ErrorPageProps = PagePropsWithData<ErrorPageQuery> & {
-  readonly title: string;
-  readonly description: string;
-  readonly code: number;
-  readonly error?: string;
+  title: string;
+  description: string;
+  code: number;
+  error?: string;
 };
 
 const ErrorPage: PageComponent<ErrorPageProps> = ({

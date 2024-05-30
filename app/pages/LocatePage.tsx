@@ -29,7 +29,7 @@ const TORONTO_COORDINATES: Readonly<Coordinates> = {
 };
 
 export type LocatePageProps = PagePropsWithData<LocatePageQuery> & {
-  readonly accessToken: string | null;
+  accessToken: string | null;
 };
 
 const LocatePage: PageComponent<LocatePageProps> = ({

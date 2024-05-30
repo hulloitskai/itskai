@@ -9,9 +9,9 @@ import classes from "./Time.module.css";
 
 export type TimeProps = Omit<TextProps, "span"> &
   Omit<ComponentPropsWithoutRef<"time">, "children"> & {
-    readonly format: DateTimeFormatOptions | ((time: DateTime) => string);
-    readonly children: DateTime | string;
-    readonly component?: any;
+    format: DateTimeFormatOptions | ((time: DateTime) => string);
+    children: DateTime | string;
+    component?: any;
   };
 
 const Time: FC<TimeProps> = ({

@@ -12,7 +12,7 @@ import JourneysSessionLeaveButton from "~/components/JourneysSessionLeaveButton"
 
 export type JourneysSessionPageProps =
   PagePropsWithData<JourneysSessionPageQuery> & {
-    readonly homepageUrl: string;
+    homepageUrl: string;
   };
 
 const MAX_COUNTDOWN_SECONDS = 3600;

@@ -7,7 +7,7 @@ import AppLayout from "~/components/AppLayout";
 import LoginPageForm from "~/components/LoginPageForm";
 
 export type LoginPageProps = PagePropsWithData<LoginPageQuery> & {
-  readonly failed: boolean;
+  failed: boolean;
 };
 
 const LoginPage: PageComponent<LoginPageProps> = () => (

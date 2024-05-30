@@ -17,9 +17,9 @@ export type CurrentlyPlayingLyricsTooltipProps = Omit<
   TooltipProps,
   "label" | "children"
 > & {
-  readonly durationMilliseconds: number;
-  readonly progressMilliseconds: number | undefined;
-  readonly children: (
+  durationMilliseconds: number;
+  progressMilliseconds: number | undefined;
+  children: (
     currentLyricLine:
       | CurrentlyPlayingLyricsTooltipLyricLineFragment
       | null

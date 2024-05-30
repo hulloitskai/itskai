@@ -7,7 +7,7 @@ import ApolloProvider from "./ApolloProvider";
 import AppProgress from "./AppProgress";
 
 export type AppWrapperProps = PropsWithChildren<{
-  readonly initialPage: Page<SharedPageProps>;
+  initialPage: Page<SharedPageProps>;
 }>;
 
 const AppWrapper: FC<AppWrapperProps> = ({ initialPage, children }) => (

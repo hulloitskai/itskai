@@ -11,12 +11,12 @@ import { UpdateUserProfileMutationDocument } from "~/helpers/graphql";
 
 export type SettingsPageProfileFormProps = BoxProps &
   Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit"> & {
-    readonly viewer: SettingsPageViewerFragment;
+    viewer: SettingsPageViewerFragment;
   };
 
 type SettingsPageProfileFormValues = {
-  readonly name: string;
-  readonly avatar: UploadInput | null;
+  name: string;
+  avatar: UploadInput | null;
 };
 
 const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({

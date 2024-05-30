@@ -7,7 +7,7 @@ import type { ResumeProjectInfo } from "~/helpers/resume";
 import WebsiteBadge from "./WebsiteBadge";
 
 export type ResumeProjectSectionProps = {
-  readonly projectInfo: ResumeProjectInfo;
+  projectInfo: ResumeProjectInfo;
 };
 
 const ResumeProjectSection: FC<ResumeProjectSectionProps> = ({

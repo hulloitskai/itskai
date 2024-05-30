@@ -4,8 +4,8 @@ import { LeaveJourneysSessionMutationDocument } from "~/helpers/graphql";
 
 export type JourneysSessionLeaveButtonProps = AnchorProps &
   Omit<ComponentPropsWithoutRef<"button">, "children"> & {
-    readonly participationId: string;
-    readonly onLeave?: () => void;
+    participationId: string;
+    onLeave?: () => void;
   };
 
 const JourneysSessionLeaveButton: FC<JourneysSessionLeaveButtonProps> = ({

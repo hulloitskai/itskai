@@ -6,7 +6,7 @@ import EmptyIcon from "~icons/heroicons/inbox-20-solid";
 
 export type EmptyCardProps = CardProps &
   ComponentPropsWithoutRef<"div"> & {
-    readonly itemLabel: string;
+    itemLabel: string;
   };
 
 const EmptyCard: FC<EmptyCardProps> = ({

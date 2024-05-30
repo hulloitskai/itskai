@@ -15,7 +15,7 @@ import {
 import classes from "./JournalEntryComments.module.css";
 
 export type JournalEntryCommentsProps = BoxProps & {
-  readonly entryId: string;
+  entryId: string;
 };
 
 const JournalEntryComments: FC<JournalEntryCommentsProps> = ({

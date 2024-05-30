@@ -7,10 +7,10 @@ const JourneyAppMetaSiteImage = undefined; // "/banner.png";
 const JourneyAppMetaTitleSeparator = "|";
 
 export type JourneysAppMetaProps = {
-  readonly title?: string | string[];
-  readonly description?: string | null;
-  readonly imageUrl?: string | null;
-  readonly noIndex?: boolean;
+  title?: string | string[];
+  description?: string | null;
+  imageUrl?: string | null;
+  noIndex?: boolean;
 };
 
 const JourneysAppMeta: FC<JourneysAppMetaProps> = ({

@@ -9,8 +9,8 @@ import classes from "./LocationAccessGrantCard.module.css";
 import LocationAccessGrantDeleteButton from "./LocationAccessGrantDeleteButton";
 
 export type LocationAccessGrantCardProps = BoxProps & {
-  readonly grant: LocationAccessGrantCardGrantFragment;
-  readonly onDeleteGrant: () => void;
+  grant: LocationAccessGrantCardGrantFragment;
+  onDeleteGrant: () => void;
 };
 
 const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({

@@ -1,8 +1,8 @@
 import type { LyricLine } from "~/helpers/graphql";
 
 export type InterpolatedProgressMillisecondsParams = {
-  readonly progressMilliseconds: number;
-  readonly interpolationMilliseconds: number;
+  progressMilliseconds: number;
+  interpolationMilliseconds: number;
 };
 
 export const useInterpolatedProgressMilliseconds = ({
@@ -32,12 +32,9 @@ export const useInterpolatedProgressMilliseconds = ({
 };
 
 export type ProgressLyricsIndexMappingParams = {
-  readonly lyrics:
-    | Pick<LyricLine, "startTimeMilliseconds">[]
-    | null
-    | undefined;
-  readonly durationMilliseconds: number;
-  readonly interpolationMilliseconds: number;
+  lyrics: Pick<LyricLine, "startTimeMilliseconds">[] | null | undefined;
+  durationMilliseconds: number;
+  interpolationMilliseconds: number;
 };
 
 export const useProgressLyricsIndexMapping = ({

@@ -24,8 +24,8 @@ export type AvatarFieldProps = Omit<
   "inputContainer" | "inputWrapperOrder" | "size" | "children" | "onChange"
 > &
   Pick<DropzoneProps, "disabled"> & {
-    readonly value?: UploadInput | null;
-    readonly onChange?: (value: UploadInput | null) => void;
+    value?: UploadInput | null;
+    onChange?: (value: UploadInput | null) => void;
   };
 
 const AvatarField: FC<AvatarFieldProps> = ({

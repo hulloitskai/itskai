@@ -7,7 +7,7 @@ import { PasswordWithStrengthCheckInputQueryDocument } from "~/helpers/graphql";
 
 export type PasswordWithStrengthCheckInputProps = PasswordInputProps &
   RefAttributes<HTMLInputElement> & {
-    readonly onStrengthCheck?: (strength: number) => void;
+    onStrengthCheck?: (strength: number) => void;
   };
 
 const PasswordWithStrengthCheckInput: FC<

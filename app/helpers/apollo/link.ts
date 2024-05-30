@@ -4,7 +4,7 @@ import type { ApolloLink } from "@apollo/client";
 import { createClientLink } from "~/helpers/apollo/clientLink?client";
 
 export type ApolloLinkOptions = {
-  readonly initialCSRFToken: string;
+  initialCSRFToken: string;
 };
 
 export const createApolloLink = ({

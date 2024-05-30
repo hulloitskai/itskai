@@ -7,7 +7,7 @@ import type { ResumeWorkInfo } from "~/helpers/resume";
 import WebsiteBadge from "./WebsiteBadge";
 
 export type ResumeWorkSectionProps = {
-  readonly workInfo: ResumeWorkInfo;
+  workInfo: ResumeWorkInfo;
 };
 
 const HIGHLIGHT_WORDS = [

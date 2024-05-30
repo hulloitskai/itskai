@@ -38,13 +38,13 @@ import fallUnderneathSrc from "~/assets/sounds/fall-underneath.mp3";
 export type TimelinePageProps = PageProps;
 
 type TimelineSharedFeatureProperties = {
-  readonly opacity: number;
-  readonly zoom: number;
+  opacity: number;
+  zoom: number;
 };
 
 type TimelineActivitySegmentProperties = TimelineSharedFeatureProperties & {
-  readonly startedAt: DateTime;
-  readonly endedAt: DateTime;
+  startedAt: DateTime;
+  endedAt: DateTime;
 };
 
 type TimelineActivitySegmentFeature = Feature<
@@ -53,20 +53,20 @@ type TimelineActivitySegmentFeature = Feature<
 >;
 
 type TimelinePlaceVisitProperties = TimelineSharedFeatureProperties & {
-  readonly name: string | null;
+  name: string | null;
 };
 
 type TimelinePlaceVisitFeature = Feature<Point, TimelinePlaceVisitProperties>;
 
 type TimelineMoment = {
-  readonly time: DateTime;
-  readonly activitySegmentFeatures: TimelineActivitySegmentFeature[];
-  readonly placeVisitFeatures: TimelinePlaceVisitFeature[];
-  readonly lastFeature:
+  time: DateTime;
+  activitySegmentFeatures: TimelineActivitySegmentFeature[];
+  placeVisitFeatures: TimelinePlaceVisitFeature[];
+  lastFeature:
     | TimelineActivitySegmentFeature
     | TimelinePlaceVisitFeature
     | null;
-  readonly photos: TimelinePhotoFragment[];
+  photos: TimelinePhotoFragment[];
 };
 
 const truncateTimelineActivitySegmentIfNecessary = (

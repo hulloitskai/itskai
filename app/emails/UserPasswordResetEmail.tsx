@@ -7,7 +7,7 @@ import type { UserPasswordResetEmailQuery } from "~/helpers/graphql";
 
 export type UserPasswordResetEmailProps =
   PagePropsWithData<UserPasswordResetEmailQuery> & {
-    readonly resetUrl: string;
+    resetUrl: string;
   };
 
 const UserPasswordResetEmail: PageComponent<UserPasswordResetEmailProps> = ({

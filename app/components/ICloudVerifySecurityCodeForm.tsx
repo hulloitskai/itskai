@@ -6,7 +6,7 @@ import { InputWrapper, PinInput } from "@mantine/core";
 import { VerifyICloudSecurityCodeMutationDocument } from "~/helpers/graphql";
 
 export type ICloudVerifySecurityCodeFormProps = BoxProps & {
-  readonly onVerify: () => void;
+  onVerify: () => void;
 };
 
 const ICloudVerifySecurityCodeForm: FC<ICloudVerifySecurityCodeFormProps> = ({

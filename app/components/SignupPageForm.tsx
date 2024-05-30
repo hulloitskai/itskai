@@ -8,10 +8,10 @@ export type SignupPageFormProps = BoxProps &
   Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit">;
 
 type SignupFormValues = {
-  readonly name: string;
-  readonly email: string;
-  readonly password: string;
-  readonly passwordConfirmation: string;
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
 };
 
 const SignupPageForm: FC<SignupPageFormProps> = props => {

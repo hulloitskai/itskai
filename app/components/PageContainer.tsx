@@ -5,8 +5,8 @@ import type { ContainerProps, MantineSize } from "@mantine/core";
 
 export type PageContainerProps = ContainerProps &
   Omit<ComponentPropsWithoutRef<"div">, "style"> & {
-    readonly withGutter?: boolean;
-    readonly gutterSize?: MantineSize | (string & {}) | number;
+    withGutter?: boolean;
+    gutterSize?: MantineSize | (string & {}) | number;
   };
 
 const PageContainer: FC<PageContainerProps> = ({

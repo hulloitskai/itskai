@@ -5,7 +5,7 @@ import { RequestEmailVerificationMutationDocument } from "~/helpers/graphql";
 export type RequestEmailVerificationPageFormProps = {};
 
 type RequestEmailVerificationPageFormValues = {
-  readonly email: string;
+  email: string;
 };
 
 const RequestEmailVerificationPageForm: FC<

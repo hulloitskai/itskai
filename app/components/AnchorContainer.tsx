@@ -6,7 +6,7 @@ import classes from "./AnchorContainer.module.css";
 
 export type AnchorContainerProps = AnchorProps &
   ComponentPropsWithRef<"a"> & {
-    readonly borderColor?: MantineColor;
+    borderColor?: MantineColor;
   };
 
 const _AnchorContainer = forwardRef<HTMLAnchorElement, AnchorContainerProps>(

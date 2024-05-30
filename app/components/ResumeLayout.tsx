@@ -6,7 +6,7 @@ import "./ResumeLayout.css";
 import classes from "./ResumeLayout.module.css";
 
 type ResumeLayoutProps = PropsWithChildren<{
-  readonly printMode?: boolean;
+  printMode?: boolean;
 }>;
 
 const ResumeLayout: FC<ResumeLayoutProps> = ({ printMode, children }) => (

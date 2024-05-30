@@ -8,11 +8,11 @@ import type { UploadInput } from "~/helpers/graphql";
 import { ImportTimelinePhotosMutationDocument } from "~/helpers/graphql";
 
 export type TimelinePhotosImportFormProps = BoxProps & {
-  readonly onImport?: () => void;
+  onImport?: () => void;
 };
 
 type TimelinePhotosImportFormValues = {
-  readonly photos: UploadInput[];
+  photos: UploadInput[];
 };
 
 type TimelinePhotosImportFormSubmission =

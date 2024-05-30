@@ -8,7 +8,7 @@ import scrollIntoView from "scroll-into-view";
 
 export type ExplorationBadgeProps = BoxProps &
   Omit<ComponentPropsWithoutRef<"div">, "children"> & {
-    readonly children: string;
+    children: string;
   };
 
 const ExplorationBadge: FC<ExplorationBadgeProps> = ({
