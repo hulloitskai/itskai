@@ -236,6 +236,8 @@ GEM
     friendly_id (5.5.1)
       activerecord (>= 4.0.0)
     front_matter_parser (1.0.1)
+    frozen_record (0.27.1)
+      activemodel
     fugit (1.10.1)
       et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
@@ -682,6 +684,7 @@ DEPENDENCIES
   faraday-cookie_jar (~> 0.0.7)
   friendly_id (~> 5.5)
   front_matter_parser (~> 1.0)
+  frozen_record (~> 0.27.1)
   geocoder (~> 1.8)
   good_job (~> 3.21)
   google_calendar (~> 0.6.4)

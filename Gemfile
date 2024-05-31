@@ -229,6 +229,9 @@ gem "counter_culture", "~> 3.5"
 # Render pretty JSON with NeatJSON
 gem "neatjson", "~> 0.10.5"
 
+# Access YAML records
+gem "frozen_record", "~> 0.27.1"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"
@@ -285,4 +288,3 @@ group :test do
   gem "capybara"
   gem "capybara-playwright-driver"
 end
-
