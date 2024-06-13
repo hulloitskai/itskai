@@ -1,5 +1,0 @@
-mutation LeaveJourneysSessionMutation($input: LeaveJourneysSessionInput!) {
-  payload: leaveJourneysSession(input: $input) {
-    success
-  }
-}

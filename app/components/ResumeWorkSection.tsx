@@ -1,14 +1,14 @@
 import type { FC } from "react";
+import type { ResumeWorkInfo } from "~/types/Resume";
+
 import { Highlight, Text } from "@mantine/core";
 import ArrowRightIcon from "~icons/heroicons/arrow-long-right-20-solid";
 
-import type { ResumeWorkInfo } from "~/helpers/resume";
-
 import WebsiteBadge from "./WebsiteBadge";
 
-export type ResumeWorkSectionProps = {
+export interface ResumeWorkSectionProps {
   workInfo: ResumeWorkInfo;
-};
+}
 
 const HIGHLIGHT_WORDS = [
   "Ruby on Rails",

@@ -1,20 +1,29 @@
-import type { FC, JSXElementConstructor } from "react";
+import type {
+  ComponentPropsWithoutRef,
+  FC,
+  JSXElementConstructor,
+} from "react";
 import Linkify from "linkify-react";
 
+import type { BoxProps, TextProps } from "@mantine/core";
 import { Text } from "@mantine/core";
 import { useTimeout } from "@mantine/hooks";
-import type { BoxProps, TextProps } from "@mantine/core";
-
-import { PensieveMessageSender } from "~/helpers/graphql";
-import type { PensieveMessageMessageFragment } from "~/helpers/graphql";
 
 import PensieveMessageLike from "./PensieveMessageLike";
 
 import classes from "./PensieveMessage.module.css";
 
-export type PensieveMessageProps = Omit<BoxProps, "style"> & {
+type PensieveMessageMessageFragment = any;
+enum PensieveMessageSender {
+  Bot = "bot",
+  User = "user",
+}
+
+export interface PensieveMessageProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"div">, "style"> {
   message: PensieveMessageMessageFragment;
-};
+}
 
 const PensieveMessage: FC<PensieveMessageProps> = ({
   message,

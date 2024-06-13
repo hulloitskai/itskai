@@ -1,40 +1,45 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
+import type { LocationAccessGrant } from "~/types";
 import type { BoxProps } from "@mantine/core";
 
-import { LocationAccessGrantsQueryDocument } from "~/helpers/graphql";
-
+import type { LocationAccessGrantCreateFormProps } from "./LocationAccessGrantCreateForm";
 import LocationAccessGrantCreateForm from "./LocationAccessGrantCreateForm";
+
+import type { LocationAccessGrantCardProps } from "./LocationAccessGrantCard";
 import LocationAccessGrantCard from "./LocationAccessGrantCard";
 
 import classes from "./LocationAccessGrants.module.css";
 
-export type LocationAccessGrantsProps = BoxProps;
+export interface LocationAccessGrantsProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"div">, "style" | "children">,
+    Pick<LocationAccessGrantCreateFormProps, "onCreated">,
+    Pick<LocationAccessGrantCardProps, "onDeleted"> {}
 
 const LocationAccessGrants: FC<LocationAccessGrantsProps> = ({
+  onCreated,
+  onDeleted,
   ...otherProps
 }) => {
-  // == Load grants
-  const onLoadGrantsError = useApolloAlertCallback(
-    "Failed to load location access grants",
+  // == Grants
+  const { data, mutate } = useFetch<{ grants: LocationAccessGrant[] }>(
+    routes.admin.locationAccessGrants,
+    {
+      descriptor: "load location access grants",
+    },
   );
-  const {
-    data: grantsData,
-    previousData: previousGrantsData,
-    refetch: refetchGrants,
-  } = useQuery(LocationAccessGrantsQueryDocument, {
-    onError: onLoadGrantsError,
-  });
-  const { locationAccessGrants } = grantsData ?? previousGrantsData ?? {};
+  const { grants } = data ?? {};
 
   return (
     <Stack id="location-access-grants" gap="xs" {...otherProps}>
-      {locationAccessGrants ? (
-        !isEmpty(locationAccessGrants) ? (
-          locationAccessGrants.map(grant => (
+      {grants ? (
+        !isEmpty(grants) ? (
+          grants.map(grant => (
             <LocationAccessGrantCard
               key={grant.id}
-              onDeleteGrant={() => {
-                refetchGrants();
+              onDeleted={() => {
+                mutate();
+                onDeleted?.();
               }}
               {...{ grant }}
             />
@@ -54,8 +59,10 @@ const LocationAccessGrants: FC<LocationAccessGrantsProps> = ({
             title: "Create grant",
             children: (
               <LocationAccessGrantCreateForm
-                onCreate={() => {
-                  refetchGrants();
+                onCreated={grant => {
+                  mutate();
+                  closeAllModals();
+                  onCreated?.(grant);
                 }}
               />
             ),

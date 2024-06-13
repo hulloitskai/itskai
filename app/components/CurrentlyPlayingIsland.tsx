@@ -1,4 +1,9 @@
 import type { ComponentPropsWithoutRef, FC, ReactNode } from "react";
+import type {
+  CurrentlyPlaying,
+  CurrentlyPlayingMetadata,
+  SpotifyTrack,
+} from "~/types";
 import Marquee from "react-fast-marquee";
 import { motion } from "framer-motion";
 import PlayIcon from "~icons/heroicons/play-circle-20-solid";
@@ -6,13 +11,6 @@ import PlayIcon from "~icons/heroicons/play-circle-20-solid";
 import type { BoxProps, ImageProps, TextProps } from "@mantine/core";
 import { Image, Text } from "@mantine/core";
 import { useNetwork } from "@mantine/hooks";
-
-import type { CurrentlyPlayingIslandTrackFragment } from "~/helpers/graphql";
-import {
-  ActivateSpotifyJamSessionMutationDocument,
-  CurrentlyPlayingIslandQueryDocument,
-  CurrentlyPlayingIslandSubscriptionDocument,
-} from "~/helpers/graphql";
 
 import CurrentlyPlayingLyricsTooltip from "./CurrentlyPlayingLyricsTooltip";
 
@@ -22,7 +20,9 @@ const MotionImage = motion<
   ImageProps & Omit<ComponentPropsWithoutRef<"img">, "style" | "src">
 >(Image);
 
-export type CurrentlyPlayingIslandProps = BoxProps;
+export interface CurrentlyPlayingIslandProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {}
 
 type TransitionState = {
   mounted: boolean;
@@ -34,58 +34,27 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
 }) => {
   const { online } = useNetwork();
 
-  // == Currently Playing Loading
-  const { data: currentlyPlayingData, refetch: refetchCurrentlyPlaying } =
-    useQuery(CurrentlyPlayingIslandQueryDocument, {
-      fetchPolicy: "no-cache",
-      variables: {},
-      onError: error => {
-        console.error(
-          "Failed to load currently playing details",
-          formatJSON({ error }),
-        );
-      },
-    });
-  const { currentlyPlaying } = currentlyPlayingData ?? {};
+  // == Track
+  const { data, mutate } = useFetch<{
+    currentlyPlaying: CurrentlyPlaying;
+  }>(routes.currentlyPlayings.show, {
+    descriptor: "load currenlty playing track",
+  });
+  const { currentlyPlaying } = data ?? {};
 
-  // == Watching Currently Playing
-  const { data: currentlyPlayingSubscription } = useSubscription(
-    CurrentlyPlayingIslandSubscriptionDocument,
-    {
-      variables: {},
-      onData: ({ data: { data, error } }) => {
-        if (data) {
-          const { track } = data?.currentlyPlaying ?? {};
-          if (track?.id !== currentlyPlaying?.track?.id) {
-            refetchCurrentlyPlaying();
-          }
-        } else if (error) {
-          console.error(
-            "Error while watching currently playing updates",
-            formatJSON({ error }),
-          );
-        }
-      },
-      onError: error => {
-        console.error(
-          "Failed to watch currently playing updates",
-          formatJSON({ error }),
-        );
-      },
-    },
-  );
-  const { currentlyPlaying: currentlyPlayingMetadata } =
-    currentlyPlayingSubscription ?? {};
-  const progressMilliseconds = useMemo(() => {
-    if (currentlyPlayingMetadata) {
-      const { progressMilliseconds } = currentlyPlayingMetadata;
-      const timestamp = DateTime.fromISO(currentlyPlayingMetadata.timestamp);
-      const ellapsedMilliseconds = DateTime.now()
-        .diff(timestamp)
-        .as("milliseconds");
-      return progressMilliseconds + ellapsedMilliseconds - 1200;
+  // == Metadata
+  const { data: subscriptionData } = useSubscription<{
+    currentlyPlaying: CurrentlyPlayingMetadata;
+  }>("CurrentlyPlayingChannel");
+  const { currentlyPlaying: metadata } = subscriptionData ?? {};
+  const progressMs = useMemo(() => {
+    if (metadata) {
+      const { progressMs, timestamp: timestampISO } = metadata;
+      const timestamp = DateTime.fromISO(timestampISO);
+      const elappsedMs = DateTime.now().diff(timestamp).as("milliseconds");
+      return progressMs + elappsedMs - 1200;
     }
-  }, [currentlyPlayingMetadata]);
+  }, [metadata]);
 
   // == Transition
   const [{ mounted, transitioned }, setTransitionState] =
@@ -93,13 +62,13 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
       mounted: false,
       transitioned: false,
     });
-  const [track, setTrack] =
-    useState<CurrentlyPlayingIslandTrackFragment | null>(null);
+  const [track, setTrack] = useState<SpotifyTrack | null>(null);
   useEffect(() => {
     if (online) {
-      if (currentlyPlaying?.track?.id !== track?.id) {
+      if (metadata?.trackId !== track?.id) {
         if (track) {
           setTransitionState({ mounted: false, transitioned: false });
+          mutate();
         } else if (currentlyPlaying) {
           setTrack(currentlyPlaying.track);
           if (!mounted) {
@@ -115,7 +84,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
         setTransitionState({ mounted: false, transitioned: false });
       }
     }
-  }, [online, currentlyPlaying, mounted, track]);
+  }, [online, metadata, mounted, track]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Transition
@@ -137,7 +106,12 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
         <TrackCoalescer {...{ track }}>
           {track => (
             <_CurrentlyPlayingIsland
-              {...{ track, progressMilliseconds, transitioned, style }}
+              {...{
+                track,
+                progressMs,
+                transitioned,
+                style,
+              }}
               {...otherProps}
             />
           )}
@@ -150,17 +124,17 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
 export default CurrentlyPlayingIsland;
 
 type TrackCoalescerProps = {
-  track?: CurrentlyPlayingIslandTrackFragment | null;
-  children: (track: CurrentlyPlayingIslandTrackFragment) => ReactNode;
+  track?: any | null;
+  children: (track: any) => ReactNode;
 };
 
 const TrackCoalescer: FC<TrackCoalescerProps> = ({
   track: trackProp,
   children,
 }) => {
-  const [track, setTrack] = useState<
-    CurrentlyPlayingIslandTrackFragment | null | undefined
-  >(trackProp);
+  const [track, setTrack] = useState<SpotifyTrack | null | undefined>(
+    trackProp,
+  );
   useEffect(() => {
     if (trackProp) {
       setTrack(trackProp);
@@ -170,46 +144,46 @@ const TrackCoalescer: FC<TrackCoalescerProps> = ({
 };
 
 type _CurrentlyPlayingIslandProps = BoxProps & {
-  track: CurrentlyPlayingIslandTrackFragment;
-  progressMilliseconds?: number;
+  track: SpotifyTrack;
+  progressMs?: number;
   transitioned: boolean;
 };
 
 const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
   track,
-  progressMilliseconds,
+  progressMs,
   transitioned,
   style,
   ...otherProps
 }) => {
-  const {
-    name,
-    album: { imageUrl },
-    artists,
-    durationMilliseconds,
-  } = track;
+  const { name, album, artists, durationMs } = track;
   const artistNames = useMemo(
-    () => artists.map(({ name }) => name).join(", ") || "(missing artists)",
+    () =>
+      artists.map(({ name }: any) => name).join(", ") || "(missing artists)",
     [artists],
   );
 
   // == Activating Jam Session
-  const onActivateJamSessionError = useApolloAlertCallback(
-    "Failed to activate jam session",
-  );
-  const [activateJamSession, { loading: activatingJamSession }] = useMutation(
-    ActivateSpotifyJamSessionMutationDocument,
-    {
-      onError: onActivateJamSessionError,
-    },
-  );
+  // const onActivateJamSessionError = useApolloAlertCallback(
+  //   "Failed to activate jam session",
+  // );
+  // const [activateJamSession, { loading: activatingJamSession }] = useMutation(
+  //   ActivateSpotifyJamSessionMutationDocument,
+  //   {
+  //     onError: onActivateJamSessionError,
+  //   },
+  // );
 
   return (
     <>
       <CurrentlyPlayingLyricsTooltip
         withinPortal={false}
         {...(!transitioned && { disabled: true })}
-        {...{ durationMilliseconds, progressMilliseconds }}
+        {...{
+          track,
+          durationMs,
+          progressMs,
+        }}
       >
         {currentLyricLine => {
           const { words: currentWords } = currentLyricLine ?? {};
@@ -221,7 +195,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
               leftSection={
                 <Box pos="relative" p={2} mr={3}>
                   <MotionImage
-                    src={imageUrl}
+                    src={album.imageUrl}
                     w={26}
                     h={26}
                     radius="xl"
@@ -270,22 +244,22 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
                 "with-lyrics": hasLyrics,
               }}
               onClick={() => {
-                const newTab = open("./loading", "_blank");
-                activateJamSession({
-                  variables: {
-                    input: {},
-                  },
-                }).then(({ data }) => {
-                  if (newTab) {
-                    if (data) {
-                      newTab.location.href = data.payload.session.joinUrl;
-                    } else {
-                      newTab.close();
-                    }
-                  } else {
-                    console.warn("Missing new tab reference");
-                  }
-                });
+                // const newTab = open("./loading", "_blank");
+                // activateJamSession({
+                //   variables: {
+                //     input: {},
+                //   },
+                // }).then(({ data }) => {
+                //   if (newTab) {
+                //     if (data) {
+                //       newTab.location.href = data.payload.session.joinUrl;
+                //     } else {
+                //       newTab.close();
+                //     }
+                //   } else {
+                //     console.warn("Missing new tab reference");
+                //   }
+                // });
               }}
               {...otherProps}
             >
@@ -295,7 +269,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
               <MarqueeText fz={10} fw={700} className={classes.artistNames}>
                 {artistNames}
               </MarqueeText>
-              <LoadingOverlay visible={activatingJamSession} />
+              {/* <LoadingOverlay visible={activatingJamSession} /> */}
             </Badge>
           );
         }}

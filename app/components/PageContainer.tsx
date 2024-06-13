@@ -1,13 +1,13 @@
 import type { ComponentPropsWithoutRef, FC } from "react";
-
-import { getSize, getSpacing } from "@mantine/core";
 import type { ContainerProps, MantineSize } from "@mantine/core";
+import { getSize, getSpacing } from "@mantine/core";
 
-export type PageContainerProps = ContainerProps &
-  Omit<ComponentPropsWithoutRef<"div">, "style"> & {
-    withGutter?: boolean;
-    gutterSize?: MantineSize | (string & {}) | number;
-  };
+export interface PageContainerProps
+  extends ContainerProps,
+    Omit<ComponentPropsWithoutRef<"div">, "style"> {
+  withGutter?: boolean;
+  gutterSize?: MantineSize | (string & {}) | number;
+}
 
 const PageContainer: FC<PageContainerProps> = ({
   withGutter,

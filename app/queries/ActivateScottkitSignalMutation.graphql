@@ -1,5 +1,0 @@
-mutation ActivateScottkitSignalMutation($input: ActivateScottkitSignalInput!) {
-  payload: activateScottkitSignal(input: $input) {
-    success
-  }
-}

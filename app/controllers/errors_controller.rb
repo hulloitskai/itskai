@@ -58,13 +58,11 @@ class ErrorsController < ApplicationController
     ).void
   end
   def render_error_page(status:, title:, description:, error: nil)
-    data = query!("ErrorPageQuery")
     code = Rack::Utils.status_code(status)
     if request.format == :html
       render(
         inertia: "ErrorPage",
         props: {
-          data:,
           title:,
           description:,
           code:,

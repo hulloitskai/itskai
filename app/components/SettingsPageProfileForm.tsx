@@ -3,86 +3,49 @@ import type { BoxProps } from "@mantine/core";
 
 import AvatarField from "./AvatarField";
 
-import type {
-  UploadInput,
-  SettingsPageViewerFragment,
-} from "~/helpers/graphql";
-import { UpdateUserProfileMutationDocument } from "~/helpers/graphql";
-
-export type SettingsPageProfileFormProps = BoxProps &
-  Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit"> & {
-    viewer: SettingsPageViewerFragment;
-  };
-
-type SettingsPageProfileFormValues = {
-  name: string;
-  avatar: UploadInput | null;
-};
+export interface SettingsPageProfileFormProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {}
 
 const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
-  viewer,
   ...otherProps
 }) => {
-  // == Routing
-  const router = useRouter();
+  const authenticatedUser = useAuthenticatedUser();
 
   // == Form
-  const initialValues = useMemo<SettingsPageProfileFormValues>(() => {
-    const { name, avatar } = viewer;
+  const initialValues = useMemo(() => {
+    const { name, avatar } = authenticatedUser;
     return {
       name,
       avatar: avatar ? { signedId: avatar.signedId } : null,
     };
-  }, [viewer]);
-  const { getInputProps, onSubmit, setErrors, isDirty, setValues, resetDirty } =
-    useForm<SettingsPageProfileFormValues>({
-      initialValues,
-    });
-  useDidUpdate(() => {
-    setValues(initialValues);
-    resetDirty(initialValues);
-  }, [initialValues]);
-
-  // == Profile Update
-  const onUpdateProfileError = useApolloAlertCallback(
-    "Failed to update profile",
-  );
-  const [updateProfile, { loading: updatingProfile }] = useMutation(
-    UpdateUserProfileMutationDocument,
-    {
-      onCompleted: ({ payload: { user, errors } }) => {
-        if (user) {
-          router.reload({
-            onSuccess: () => {
-              showNotice({ message: "Profile updated successfully." });
-            },
-          });
-        } else {
-          invariant(errors, "Missing input errors");
-          const formErrors = buildFormErrors(errors);
-          setErrors(formErrors);
-          showFormErrorsAlert(formErrors, "Couldn't update profile");
-        }
+  }, [authenticatedUser]);
+  const {
+    getInputProps,
+    isDirty,
+    submit,
+    processing,
+    setInitialValues,
+    reset,
+  } = useInertiaForm({
+    action: routes.usersRegistrations.update,
+    method: "put",
+    descriptor: "update profile",
+    initialValues,
+    transformValues: ({ avatar, ...attributes }) => ({
+      user: {
+        ...deepUnderscoreKeys(attributes),
+        avatar: avatar ? avatar.signedId : "",
       },
-      onError: onUpdateProfileError,
-    },
-  );
+    }),
+  });
+  useEffect(() => {
+    setInitialValues(initialValues);
+    reset();
+  }, [initialValues]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Box
-      component="form"
-      onSubmit={onSubmit(values => {
-        updateProfile({
-          variables: {
-            input: {
-              userId: viewer.id,
-              ...values,
-            },
-          },
-        });
-      })}
-      {...otherProps}
-    >
+    <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <TextInput
           label="Name"
@@ -91,7 +54,7 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
           {...getInputProps("name")}
         />
         <AvatarField label="Avatar" {...getInputProps("avatar")} />
-        <Button type="submit" disabled={!isDirty()} loading={updatingProfile}>
+        <Button type="submit" disabled={!isDirty()} loading={processing}>
           Save
         </Button>
       </Stack>

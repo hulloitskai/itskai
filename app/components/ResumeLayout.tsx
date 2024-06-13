@@ -5,9 +5,9 @@ import AppMeta from "./AppMeta";
 import "./ResumeLayout.css";
 import classes from "./ResumeLayout.module.css";
 
-type ResumeLayoutProps = PropsWithChildren<{
+export interface ResumeLayoutProps extends PropsWithChildren {
   printMode?: boolean;
-}>;
+}
 
 const ResumeLayout: FC<ResumeLayoutProps> = ({ printMode, children }) => (
   <>

@@ -1,0 +1,6 @@
+.button {
+  @mixin light &[disabled] {
+    background-color: var(--mantine-color-gray-4);
+    color: var(--mantine-color-gray-6);
+  }
+}

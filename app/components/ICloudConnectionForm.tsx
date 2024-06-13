@@ -1,115 +1,31 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
+import type { ICloudConnection } from "~/types";
 import SessionIcon from "~icons/heroicons/identification-20-solid";
 import SecurityCodeIcon from "~icons/heroicons/key-20-solid";
 
 import type { BoxProps } from "@mantine/core";
 import { JsonInput, PasswordInput, Text } from "@mantine/core";
 
-import type { ICloudConnectionFormConnectionFragment } from "~/helpers/graphql";
-import {
-  CreateICloudConnectionMutationDocument,
-  DeleteICloudConnectionMutationDocument,
-  ICloudConnectionStatus,
-} from "~/helpers/graphql";
+import type { ICloudDisconnectButtonProps } from "./ICloudDisconnectButton";
+import ICloudDisconnectButton from "./ICloudDisconnectButton";
 
 import ICloudVerifySecurityCodeForm from "./ICloudVerifySecurityCodeForm";
 
-export type ICloudConnectionFormProps = BoxProps & {
-  connection: ICloudConnectionFormConnectionFragment;
-  onCreate: () => void;
-  onDelete: () => void;
-  onVerifySecurityCode: () => void;
-};
-
-type ICloudConnectionFormValues = {
-  email: string;
-  password: string;
-};
+export interface ICloudConnectionFormProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"form">, "style" | "children">,
+    Pick<ICloudDisconnectButtonProps, "onDisconnected"> {
+  connection: ICloudConnection;
+  onConnected?: (connection: ICloudConnection) => void;
+}
 
 const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
   connection: { credentials, status },
-  onCreate,
-  onDelete,
-  onVerifySecurityCode,
+  onConnected,
+  onDisconnected,
   ...otherProps
 }) => {
-  const { cookies, session } = credentials ?? {};
-
-  // == Form
-  const initialValues = useMemo<ICloudConnectionFormValues>(() => {
-    const { email, password } = credentials ?? {};
-    return {
-      email: email ?? "",
-      password: password ?? "",
-    };
-  }, [credentials]);
-  const { getInputProps, setValues, resetDirty, onSubmit } =
-    useForm<ICloudConnectionFormValues>({
-      initialValues: initialValues,
-    });
-  useDidUpdate(() => {
-    setValues(initialValues);
-    resetDirty(initialValues);
-  }, [initialValues]);
-
-  // == Connection Creation
-  const onCreateConnectionError = useApolloAlertCallback(
-    "Failed to connect to iCloud",
-  );
-  const [createConnection, { loading: creating }] = useMutation(
-    CreateICloudConnectionMutationDocument,
-    {
-      onCompleted: ({ payload: { requires2fa } }) => {
-        if (requires2fa) {
-          showNotice({
-            message: "Security code required to complete authentication.",
-          });
-          openVerifySecurityCodeModal();
-          onCreate();
-        } else {
-          showNotice({ message: "Successfully authenticated with iCloud." });
-        }
-      },
-      onError: onCreateConnectionError,
-    },
-  );
-
-  // == Deleting Connection
-  const onDeleteConnectionError = useApolloAlertCallback(
-    "Failed to delete iCloud connection",
-  );
-  const [deleteConnection, { loading: deletingConnection }] = useMutation(
-    DeleteICloudConnectionMutationDocument,
-    {
-      onCompleted: () => {
-        showNotice({
-          message: "iCloud connection deleted successfully.",
-        });
-        onDelete();
-      },
-      onError: onDeleteConnectionError,
-    },
-  );
-
-  // == Verifying Security Code
-  const openVerifySecurityCodeModal = useCallback(() => {
-    openModal({
-      title: (
-        <Box>
-          <Text>Verify Security Code</Text>
-          <Text size="sm" c="dimmed" fw="normal" style={{ lineHeight: 1.3 }}>
-            Enter the security code you received on your device to complete
-            iCloud authentication.
-          </Text>
-        </Box>
-      ),
-      children: (
-        <ICloudVerifySecurityCodeForm mb="xs" onVerify={onVerifySecurityCode} />
-      ),
-    });
-  }, [onVerifySecurityCode]);
-
-  // == Session info
+  // == Session Info
   const openSessionInfoModal = () => {
     openModal({
       title: (
@@ -122,19 +38,19 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
       ),
       children: (
         <Stack gap={6}>
-          {!!cookies && (
+          {!!credentials?.cookies && (
             <Textarea
               label="Cookies"
-              value={cookies}
+              value={credentials.cookies}
               autosize
               maxRows={12}
               readOnly
             />
           )}
-          {!!session && (
+          {!!credentials?.session && (
             <JsonInput
               label="Session"
-              value={JSON.stringify(session, undefined, 2)}
+              value={JSON.stringify(credentials.session, undefined, 2)}
               autosize
               maxRows={12}
               readOnly
@@ -145,30 +61,70 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
     });
   };
 
+  // == 2FA
+  const openVerifySecurityCodeModal = useCallback(() => {
+    openModal({
+      title: (
+        <Box>
+          <Text>Verify Security Code</Text>
+          <Text size="sm" c="dimmed" fw="normal" style={{ lineHeight: 1.3 }}>
+            Enter the security code you received on your device to complete
+            iCloud authentication.
+          </Text>
+        </Box>
+      ),
+      children: (
+        <ICloudVerifySecurityCodeForm mb="xs" onVerified={onConnected} />
+      ),
+    });
+  }, [onConnected]);
+
+  // == Form
+  const initialValues = useMemo(() => {
+    const { email, password } = credentials ?? {};
+    return {
+      email: email ?? "",
+      password: password ?? "",
+    };
+  }, [credentials]);
+  const { values, getInputProps, isDirty, submit, processing } = useFetchForm<{
+    connection: ICloudConnection;
+  }>({
+    action: routes.adminICloudConnections.create,
+    method: "post",
+    descriptor: "authenticate with iCloud",
+    initialValues,
+    transformValues: values => ({ credentials: values }),
+    onSuccess: ({ connection }) => {
+      if (connection.status === "requires_2fa") {
+        openVerifySecurityCodeModal();
+      } else if (connection.status === "connected") {
+        onConnected?.(connection);
+      }
+    },
+  });
+  const requiredFieldsFilled = useRequiredFieldsFilled(
+    values,
+    "email",
+    "password",
+  );
+
   return (
-    <Box
-      component="form"
-      onSubmit={onSubmit(values => {
-        createConnection({
-          variables: {
-            input: values,
-          },
-        });
-      })}
-      {...otherProps}
-    >
+    <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <Stack gap={6}>
           <TextInput
             label="Email"
             placeholder="example@example.com"
             required
+            autoComplete="email"
             {...getInputProps("email")}
           />
           <PasswordInput
             label="Password"
             placeholder="applesauce"
             required
+            autoComplete="off"
             {...getInputProps("password")}
           />
         </Stack>
@@ -176,16 +132,15 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
           <Button
             type="submit"
             leftSection={<AuthenticateIcon />}
-            loading={creating}
+            disabled={!isDirty() || !requiredFieldsFilled}
+            loading={processing}
           >
             {credentials ? "Re-authenticate" : "Authenticate"}
           </Button>
-          {(status === ICloudConnectionStatus.Requires_2Fa ||
-            !!cookies ||
-            !!session) && (
+          {(status === "requires_2fa" || !!credentials) && (
             <>
               <Group gap={6} grow>
-                {status === ICloudConnectionStatus.Requires_2Fa && (
+                {status === "requires_2fa" && (
                   <Button
                     variant="default"
                     leftSection={<SecurityCodeIcon />}
@@ -194,7 +149,7 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
                     Verify Security Code
                   </Button>
                 )}
-                {!!(cookies || session) && (
+                {!!credentials && (
                   <Button
                     variant="default"
                     leftSection={<SessionIcon />}
@@ -204,43 +159,7 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
                   </Button>
                 )}
               </Group>
-              <Menu
-                withArrow
-                styles={{
-                  dropdown: {
-                    borderColor: "var(--mantine-color-red-outline)",
-                  },
-                  arrow: {
-                    borderColor: "var(--mantine-color-red-outline)",
-                  },
-                }}
-              >
-                <Menu.Target>
-                  <Button
-                    variant="outline"
-                    color="red"
-                    leftSection={<DeactivateIcon />}
-                    loading={deletingConnection}
-                  >
-                    Deactivate
-                  </Button>
-                </Menu.Target>
-                <Menu.Dropdown>
-                  <Menu.Item
-                    leftSection={<AlertIcon />}
-                    color="red"
-                    onClick={() => {
-                      deleteConnection({
-                        variables: {
-                          input: {},
-                        },
-                      });
-                    }}
-                  >
-                    Really deactivate?
-                  </Menu.Item>
-                </Menu.Dropdown>
-              </Menu>
+              <ICloudDisconnectButton {...{ onDisconnected }} />
             </>
           )}
         </Stack>

@@ -14,7 +14,7 @@ import { Text as _Text } from "@react-email/components";
 
 import { Heading as _Heading } from "@react-email/components";
 
-export type ButtonProps = _ButtonProps;
+export interface ButtonProps extends _ButtonProps {}
 
 export const Button = forwardRef<HTMLAnchorElement, ButtonProps>(
   ({ style, children, ...props }, ref) => {
@@ -43,7 +43,7 @@ export const Button = forwardRef<HTMLAnchorElement, ButtonProps>(
   },
 );
 
-export type LinkProps = _LinkProps;
+export interface LinkProps extends _LinkProps {}
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   ({ style, children, ...props }, ref) => {
@@ -62,7 +62,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   },
 );
 
-export type TextProps = _TextProps;
+export interface TextProps extends _TextProps {}
 
 export const Text = forwardRef<HTMLParagraphElement, TextProps>(
   ({ style, children, ...props }, ref) => {

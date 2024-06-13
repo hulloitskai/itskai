@@ -1,72 +1,43 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
+import type { BoxProps } from "@mantine/core";
 
-import { RequestEmailVerificationMutationDocument } from "~/helpers/graphql";
-
-export type RequestEmailVerificationPageFormProps = {};
-
-type RequestEmailVerificationPageFormValues = {
-  email: string;
-};
+export interface RequestEmailVerificationPageFormProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"form">, "style" | "onSubmit"> {}
 
 const RequestEmailVerificationPageForm: FC<
   RequestEmailVerificationPageFormProps
 > = ({ ...otherProps }) => {
-  // == Routing
-  const router = useRouter();
-
   // == Form
-  const { getInputProps, isDirty, onSubmit } =
-    useForm<RequestEmailVerificationPageFormValues>({
+  const { values, getInputProps, isDirty, submit, processing } = useInertiaForm(
+    {
+      action: routes.usersConfirmations.create,
+      method: "post",
+      descriptor: "send verification email",
       initialValues: {
         email: "",
       },
-    });
-
-  // == Email Request
-  const onRequestEmailError = useApolloAlertCallback(
-    "Failed to request new verification email",
-  );
-  const [requestEmail, { loading: requestingEmail }] = useMutation(
-    RequestEmailVerificationMutationDocument,
-    {
-      onCompleted: () => {
-        router.visit("/login", {
-          onSuccess: () => {
-            showNotice({
-              title: "Verification email re-sent",
-              message:
-                "Please check your email and follow the link to verify " +
-                "your new email address.",
-            });
-          },
-        });
-      },
-      onError: onRequestEmailError,
+      transformValues: values => ({
+        user: deepUnderscoreKeys(values),
+      }),
     },
   );
+  const requiredFieldsFilled = useRequiredFieldsFilled(values, "email");
 
   return (
-    <Box
-      component="form"
-      onSubmit={onSubmit(({ email }) => {
-        requestEmail({
-          variables: {
-            input: {
-              email,
-            },
-          },
-        });
-      })}
-      {...otherProps}
-    >
+    <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <TextInput
           label="Email"
-          placeholder="friend@example.com"
+          placeholder="jon.snow@example.com"
           required
           {...getInputProps("email")}
         />
-        <Button type="submit" disabled={!isDirty()} loading={requestingEmail}>
+        <Button
+          type="submit"
+          disabled={!isDirty() || !requiredFieldsFilled}
+          loading={processing}
+        >
           Continue
         </Button>
       </Stack>

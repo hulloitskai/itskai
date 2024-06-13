@@ -1,6 +1,0 @@
-query JourneysHomePageQuery {
-  viewer {
-    ...AppViewerFragment
-    id
-  }
-}

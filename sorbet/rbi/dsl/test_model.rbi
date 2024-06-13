@@ -13,12 +13,6 @@ class TestModel
   def birthday=(value); end
 
   sig { returns(T.nilable(::String)) }
-  def id; end
-
-  sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
-  def id=(value); end
-
-  sig { returns(T.nilable(::String)) }
   def name; end
 
   sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }

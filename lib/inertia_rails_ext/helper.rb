@@ -8,7 +8,6 @@ module InertiaRails::Helper
     extend T::Sig
     extend T::Helpers
 
-    # == Annotations
     requires_ancestor { Kernel }
     requires_ancestor { ViteRails::TagHelpers }
 

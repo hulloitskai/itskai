@@ -6,7 +6,6 @@ module Slugged
   extend T::Helpers
   extend ActiveSupport::Concern
 
-  # == Annotations
   abstract!
   requires_ancestor { ActiveRecord::Base }
   requires_ancestor { RequiresColumn }
@@ -27,7 +26,6 @@ module Slugged
     extend T::Sig
     extend T::Helpers
 
-    # == Annotations
     requires_ancestor { T.class_of(ActiveRecord::Base) }
 
     # == Methods

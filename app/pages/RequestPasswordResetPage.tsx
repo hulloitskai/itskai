@@ -1,13 +1,11 @@
-import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import type { PageComponent } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
+import { SharedPageProps } from "~/types";
 
 import AppLayout from "~/components/AppLayout";
 import RequestPasswordResetPageForm from "~/components/RequestPasswordResetPageForm";
 
-import type { RequestPasswordResetPageQuery } from "~/helpers/graphql";
-
-export type RequestPasswordResetPageProps =
-  PagePropsWithData<RequestPasswordResetPageQuery>;
+export interface RequestPasswordResetPageProps extends SharedPageProps {}
 
 const RequestPasswordResetPage: PageComponent<
   RequestPasswordResetPageProps
@@ -48,8 +46,8 @@ const RequestPasswordResetPage: PageComponent<
 );
 
 RequestPasswordResetPage.layout = buildLayout<RequestPasswordResetPageProps>(
-  (page, { data: { viewer } }) => (
-    <AppLayout title="Sign in" {...{ viewer }}>
+  page => (
+    <AppLayout title="Request password reset">
       <Center style={{ flexGrow: 1 }}>{page}</Center>
     </AppLayout>
   ),

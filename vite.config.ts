@@ -24,16 +24,21 @@ export default defineConfig(() => {
     iconsPlugin({ compiler: "jsx", jsx: "react" }),
     reactPlugin(),
     rubyPlugin(),
-    fullReloadPlugin([
-      "config/routes.rb",
-      "config/routes/**/*.rb",
-      "app/views/**/*.{html,html.erb}",
-      "app/**/*.generated.*",
-    ]),
+    fullReloadPlugin(
+      [
+        "config/routes.rb",
+        "config/routes/**/*.rb",
+        "app/models/**/*.rb",
+        "app/serializers/**/*.rb",
+        "app/views/**/*.{html,html.erb}",
+      ],
+      { delay: 200 },
+    ),
   ];
 
   // == Visualize
-  if (process.env.VITE_VISUALIZE) {
+  const visualize = process.env.VITE_VISUALIZE;
+  if (visualize && ["1", "true", "t"].includes(visualize.toLowerCase())) {
     plugins.push(
       visualizerPlugin({
         filename: "tmp/vite_visualize.html",
@@ -50,6 +55,10 @@ export default defineConfig(() => {
         {
           find: /^@apollo\/client$/,
           replacement: "@apollo/client/index",
+        },
+        {
+          find: "lodash",
+          replacement: "lodash-es",
         },
       ],
     },

@@ -199,7 +199,7 @@ class ActionCable::Channel::Base
   # Returns the value of attribute identifier.
   #
   # source://actioncable//lib/action_cable/channel/base.rb#108
-  def identifier; end
+  def identity; end
 
   # source://actioncable//lib/action_cable/channel/base.rb#109
   def logger(*_arg0, **_arg1, &_arg2); end

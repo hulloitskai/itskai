@@ -1,8 +1,0 @@
-query CurrentlyPlayingIslandQuery {
-  currentlyPlaying {
-    track {
-      ...CurrentlyPlayingIslandTrackFragment
-      id
-    }
-  }
-}

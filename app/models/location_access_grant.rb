@@ -66,7 +66,7 @@ class LocationAccessGrant < ApplicationRecord
   sig { void }
   def validate_password_uniqueness
     unless password.nil?
-      if self.class.valid.exists?(password:)
+      if LocationAccessGrant.valid.exists?(password:)
         errors.add(:password, :uniqueness, message: "already being used")
       end
     end

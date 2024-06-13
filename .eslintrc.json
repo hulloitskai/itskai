@@ -40,35 +40,5 @@
     "react/jsx-no-undef": "off",
     "react/prop-types": "off",
     "react-refresh/only-export-components": "warn"
-  },
-  "overrides": [
-    {
-      "files": ["*.graphql"],
-      "extends": "plugin:@graphql-eslint/operations-recommended",
-      "rules": {
-        "prettier/prettier": "error",
-        "@graphql-eslint/alphabetize": [
-          "warn",
-          {
-            "selections": ["OperationDefinition", "FragmentDefinition"]
-          }
-        ],
-        "@graphql-eslint/naming-convention": [
-          "error",
-          {
-            "allowLeadingUnderscore": true,
-            "VariableDefinition": "camelCase",
-            "OperationDefinition": {
-              "style": "PascalCase",
-              "forbiddenPrefixes": ["Query", "Mutation", "Subscription"]
-            },
-            "FragmentDefinition": {
-              "style": "PascalCase",
-              "forbiddenPrefixes": ["Fragment"]
-            }
-          }
-        ]
-      }
-    }
-  ]
+  }
 }

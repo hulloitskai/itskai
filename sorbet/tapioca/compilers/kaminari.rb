@@ -59,9 +59,7 @@ module Tapioca
 
         private
 
-        sig do
-          params(mod: RBI::Scope, return_type: String).void
-        end
+        sig { params(mod: RBI::Scope, return_type: String).void }
         def generate_page_method(mod, return_type)
           mod.create_method(
             ::Kaminari.config.page_method_name,

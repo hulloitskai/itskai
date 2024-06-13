@@ -10,6 +10,21 @@ module GeneratedUrlHelpersModule
   include ::ActionDispatch::Routing::PolymorphicRoutes
 
   sig { params(args: T.untyped).returns(String) }
+  def access_location_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def admin_icloud_connection_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def admin_location_access_grant_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def admin_location_access_grants_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def admin_oauth_connection_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def admin_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -25,6 +40,15 @@ module GeneratedUrlHelpersModule
   def coffee_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def comments_journal_entry_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def contact_url_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def currently_playing_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def destroy_user_session_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -37,34 +61,25 @@ module GeneratedUrlHelpersModule
   def good_job_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def grant_locate_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def graphiql_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def graphql_url(*args); end
+  def grant_location_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def hangout_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def journeys_root_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def journeys_session_join_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def journeys_session_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def journeys_sessions_url(*args); end
+  def image_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def loading_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def locate_url(*args); end
+  def location_access_grants_admin_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def location_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def lyrics_spotify_track_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def mailcatcher_url(*args); end
@@ -94,10 +109,10 @@ module GeneratedUrlHelpersModule
   def opencal_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def pensieve_url(*args); end
+  def password_strength_checks_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def poorlydrawnlines_comic_url(*args); end
+  def pensieve_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_representation_proxy_url(*args); end
@@ -187,13 +202,16 @@ module GeneratedUrlHelpersModule
   def status_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def submit_test_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def sync_journal_entries_admin_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def sync_location_logs_admin_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def test_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def timeline_admin_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def timeline_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def toronto_url(*args); end
@@ -227,6 +245,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def user_spotify_omniauth_callback_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def verify_security_code_admin_icloud_connection_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def walk_url(*args); end

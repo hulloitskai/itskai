@@ -7,27 +7,28 @@ module ApplicationCable
     extend T::Helpers
 
     # == Configuration
-    identified_by :current_user
+    identified_by :current_user, :connection_identity
 
     # == Connection
     sig { void }
     def connect
-      self.current_user = find_verified_user
+      unless (self.current_user = find_verified_user)
+        self.connection_identity = ConnectionIdentity.new
+      end
     end
 
-    # == Methods
-    sig { returns(ActionDispatch::Request) }
-    def request
-      super
-    end
+    # # == Methods
+    # sig { returns(ActionDispatch::Request) }
+    # def request = super
 
     private
 
     # == Helpers
     sig { returns(T.nilable(User)) }
     def find_verified_user
-      id = cookies.signed["user.id"] or return
-      User.find_by(id:)
+      if (id = cookies.signed["user.id"])
+        User.find(id)
+      end
     end
   end
 end

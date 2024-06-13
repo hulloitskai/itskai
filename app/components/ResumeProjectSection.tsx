@@ -1,14 +1,13 @@
 import type { FC } from "react";
+import type { ResumeProjectInfo } from "~/types/Resume";
 import { Text } from "@mantine/core";
 import ArrowRightIcon from "~icons/heroicons/arrow-long-right-20-solid";
 
-import type { ResumeProjectInfo } from "~/helpers/resume";
-
 import WebsiteBadge from "./WebsiteBadge";
 
-export type ResumeProjectSectionProps = {
+export interface ResumeProjectSectionProps {
   projectInfo: ResumeProjectInfo;
-};
+}
 
 const ResumeProjectSection: FC<ResumeProjectSectionProps> = ({
   projectInfo: { name, url, startDate, endDate, description, highlights },

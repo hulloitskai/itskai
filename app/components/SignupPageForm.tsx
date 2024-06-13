@@ -2,103 +2,113 @@ import type { ComponentPropsWithoutRef, FC } from "react";
 import type { BoxProps } from "@mantine/core";
 import { PasswordInput } from "@mantine/core";
 
-import PasswordWithStrengthCheckInput from "./PasswordWithStrengthCheckInput";
+import StrongPasswordInput from "./StrongPasswordInput";
 
 export type SignupPageFormProps = BoxProps &
   Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit">;
 
 type SignupFormValues = {
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirmation: string;
+  user: {
+    name: string;
+    email: string;
+    password: string;
+    password_confirmation: string;
+  };
 };
 
 const SignupPageForm: FC<SignupPageFormProps> = props => {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0.0);
 
   // == Form
-  const initialValues = useMemo<SignupFormValues>(
-    () => ({
-      name: "",
-      email: "",
-      password: "",
-      passwordConfirmation: "",
-    }),
-    [],
-  );
-  const { getInputProps, setFieldValue, setErrors, isDirty, onSubmit } =
-    useForm<SignupFormValues>({
-      initialValues,
-      validate: {
-        password: () => {
-          if (passwordStrength < 1.0) {
-            return "Too weak.";
-          }
-        },
-        passwordConfirmation: (value, { password }) => {
-          if (password != value) {
-            return "Does not match password.";
-          }
+  const { values, errors, getInputProps, isDirty, submit, processing } =
+    useInertiaForm<SignupFormValues>({
+      action: routes.usersRegistrations.create,
+      method: "post",
+      descriptor: "create account",
+      initialValues: {
+        user: {
+          name: "",
+          email: "",
+          password: "",
+          password_confirmation: "",
         },
       },
+      validate: {
+        user: {
+          password: () => {
+            if (passwordStrength < 1.0) {
+              return "Password is too weak";
+            }
+          },
+          password_confirmation: (value, { user }) => {
+            if (user.password != value) {
+              return "Password confirmation does not match password";
+            }
+          },
+        },
+      },
+      onError: ({ setFieldValue }) => {
+        setFieldValue("user.password", "");
+        setFieldValue("user.password_confirmation", "");
+      },
     });
+  const requiredFieldsFilled = useRequiredFieldsFilled(
+    values,
+    "user.name",
+    "user.email",
+    "user.password",
+    "user.password_confirmation",
+  );
 
   return (
-    <Box
-      component="form"
-      onSubmit={onSubmit(({ name, email, password, passwordConfirmation }) => {
-        const data = {
-          user: {
-            name,
-            email,
-            password,
-            password_confirmation: passwordConfirmation,
-          },
-        };
-        router.post("/signup", data, {
-          errorBag: SignupPageForm.name,
-          onBefore: () => setLoading(true),
-          onError: errors => {
-            setFieldValue("password", "");
-            setFieldValue("passwordConfirmation", "");
-            setErrors(errors);
-            showFormErrorsAlert(errors, "Registration failed");
-          },
-          onFinish: () => setLoading(false),
-        });
-      })}
-      {...props}
-    >
+    <Box component="form" onSubmit={submit} {...props}>
       <Stack gap="xs">
         <TextInput
           label="Name"
-          placeholder="Kai's Friend"
+          placeholder="Jon Snow"
+          autoComplete="name"
           required
-          {...getInputProps("name")}
+          {...getInputProps("user.name")}
         />
         <TextInput
+          type="email"
           label="Email"
-          placeholder="friend@example.com"
+          placeholder="jon.snow@example.com"
+          autoComplete="email"
           required
-          {...getInputProps("email")}
+          {...getInputProps("user.email")}
         />
-        <PasswordWithStrengthCheckInput
+        <StrongPasswordInput
           label="Password"
-          placeholder="potato-123"
+          placeholder="secret-passphrase"
+          autoComplete="new-password"
           required
           onStrengthCheck={setPasswordStrength}
-          {...getInputProps("password")}
+          {...getInputProps("user.password")}
         />
-        <PasswordInput
-          label="Password Confirmation"
-          placeholder="potato-123"
-          required
-          {...getInputProps("passwordConfirmation")}
-        />
-        <Button type="submit" disabled={!isDirty()} {...{ loading }}>
+        <Transition
+          transition="fade"
+          mounted={
+            !isEmpty(errors) ||
+            (isDirty("user.password") && !!values.user.password)
+          }
+        >
+          {style => (
+            <PasswordInput
+              label="Password confirmation"
+              placeholder="secret-passphrase"
+              autoComplete="new-password"
+              required
+              {...{ style }}
+              {...getInputProps("user.password_confirmation")}
+            />
+          )}
+        </Transition>
+        <Button
+          type="submit"
+          disabled={!isDirty() || !requiredFieldsFilled}
+          loading={processing}
+        >
           Sign up
         </Button>
       </Stack>

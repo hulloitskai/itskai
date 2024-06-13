@@ -6,7 +6,6 @@ module Identifiable
   extend T::Helpers
   extend ActiveSupport::Concern
 
-  # == Annotations
   abstract!
   requires_ancestor { ApplicationRecord }
 

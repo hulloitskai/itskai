@@ -1,49 +1,31 @@
 import type { FC } from "react";
 
-import DeleteButton from "./DeleteButton";
 import type { DeleteButtonProps } from "./DeleteButton";
+import DeleteButton from "./DeleteButton";
 
-import { DeleteLocationAccessGrantMutationDocument } from "~/helpers/graphql";
-
-export type LocationAccessGrantDeleteActionIconProps = Omit<
-  DeleteButtonProps,
-  "onConfirm" | "children"
-> & {
+export interface LocationAccessGrantDeleteButtonProps
+  extends Omit<DeleteButtonProps, "onConfirm" | "children"> {
   grantId: string;
-  onDelete: () => void;
-};
+  onDeleted?: () => void;
+}
 
 const LocationAccessGrantDeleteButton: FC<
-  LocationAccessGrantDeleteActionIconProps
-> = ({ grantId, onDelete, ...otherProps }) => {
-  // == Deleting grant
-  const onDeleteGrantError = useApolloAlertCallback(
-    "Failed to delete location access grant",
-  );
-  const [deleteGrant, { loading: deletingGrant }] = useMutation(
-    DeleteLocationAccessGrantMutationDocument,
-    {
-      onCompleted: () => {
-        showNotice({
-          message: "Location access grant deleted successfully.",
-        });
-        onDelete();
-      },
-      onError: onDeleteGrantError,
+  LocationAccessGrantDeleteButtonProps
+> = ({ grantId, onDeleted, ...otherProps }) => {
+  const { submit, processing } = useFetchForm({
+    action: routes.adminLocationAccessGrants.destroy,
+    params: { id: grantId },
+    method: "delete",
+    descriptor: "delete grant",
+    onSuccess: () => {
+      onDeleted?.();
     },
-  );
-
+  });
   return (
     <DeleteButton
-      loading={deletingGrant}
+      loading={processing}
       onConfirm={() => {
-        deleteGrant({
-          variables: {
-            input: {
-              grantId,
-            },
-          },
-        });
+        submit();
       }}
       {...otherProps}
     >

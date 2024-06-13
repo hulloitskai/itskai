@@ -11,9 +11,6 @@ class ApplicationMailer
 
   class << self
     sig { returns(::ActionMailer::MessageDelivery) }
-    def current_user; end
-
-    sig { returns(::ActionMailer::MessageDelivery) }
     def default_reply_to; end
 
     sig { returns(::ActionMailer::MessageDelivery) }

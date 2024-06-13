@@ -12,6 +12,14 @@ module Users
       render(inertia: "LoginPage", props: { failed: flash.alert.present? })
     end
 
+    # POST /login
+    def create
+      self.resource = warden.authenticate!(auth_options)
+      set_flash_message!(:notice, :signed_in)
+      sign_in(resource_name, resource)
+      redirect_to(after_sign_in_path_for(resource))
+    end
+
     private
 
     # == Filter Handlers

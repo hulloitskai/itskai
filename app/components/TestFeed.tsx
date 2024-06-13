@@ -1,31 +1,15 @@
 import type { FC } from "react";
-import { Code, LoadingOverlay } from "@mantine/core";
-
-import { TestFeedSubscriptionDocument } from "~/helpers/graphql";
+import { Code } from "@mantine/core";
 
 const TestFeed: FC = () => {
-  // == Update Watching
-  const onError = useApolloAlertCallback("Failed to subscribe to updates");
-  const { data, loading } = useSubscription(TestFeedSubscriptionDocument, {
-    variables: {},
-    onData: ({ data: { error } }) => {
-      if (error) {
-        console.error("Error during update", formatJSON({ error }));
-      }
-    },
-    onError,
-  });
-  const { testSubscription: value } = data ?? {};
+  const { data } = useSubscription<{ value: number }>("TestChannel");
+  const { value } = data ?? {};
 
   return (
     <Stack gap="xs">
-      <Title order={4}>Test Feed</Title>
+      <Title order={3}>Test Feed</Title>
       <Box style={{ position: "relative" }}>
-        <Code block>var data = {value}</Code>
-        <LoadingOverlay
-          loaderProps={{ size: "sm" }}
-          visible={!data && loading}
-        />
+        <Code block>var data = {value ?? "undefined"};</Code>
       </Box>
     </Stack>
   );

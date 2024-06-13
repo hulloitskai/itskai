@@ -31,7 +31,6 @@ module Tapioca
         sig { override.void }
         def decorate
           return if constant.enumerized_attributes.empty?
-
           root.create_path(constant) do |scope|
             attributes = constant.enumerized_attributes.attributes
             generate_class_methods(scope, attributes)
@@ -42,7 +41,7 @@ module Tapioca
         private
 
         sig do
-          params(scope: RBI::Scope, attributes: T.untyped).returns(T.untyped)
+          params(scope: RBI::Scope, attributes: T::Hash[String, T.untyped]).void
         end
         def generate_class_methods(scope, attributes)
           attributes.keys.each do |name|
@@ -55,7 +54,7 @@ module Tapioca
         end
 
         sig do
-          params(scope: RBI::Scope, attributes: T.untyped).returns(T.untyped)
+          params(scope: RBI::Scope, attributes: T::Hash[String, T.untyped]).void
         end
         def generate_instance_methods(scope, attributes)
           attributes.each do |name, attribute|

@@ -41,7 +41,7 @@ end
 
 puts "\n=> Running ESLint"
 scoped do
-  args = %w[--ext .js,.jsx,.ts,.tsx,.graphql]
+  args = %w[--ext .js,.jsx,.ts,.tsx]
   args << "--fix" if options[:fix]
   args << "."
   system!(

@@ -13,18 +13,35 @@ module Users
       )
       if resource.errors.empty?
         set_flash_message!(:notice, :confirmed)
-        respond_with_navigational(resource) do
-          redirect_to(after_confirmation_path_for(resource_name, resource))
-        end
+        redirect_to(after_confirmation_path_for(resource_name, resource))
       else
         message = resource.errors.full_messages.first!
-        redirect_to(new_confirmation_path(resource), alert: message)
+        redirect_to(
+          new_confirmation_path(resource),
+          alert: "Couldn't verify email: #{message}",
+        )
       end
     end
 
     # GET /email_verification/resend
     def new
       render(inertia: "RequestEmailVerificationPage")
+    end
+
+    # POST /email_verification
+    def create
+      resource = self.resource = resource_class
+        .send_confirmation_instructions(resource_params)
+      if successfully_sent?(resource)
+        redirect_url = params[:redirect_url] || root_path
+        redirect_to(redirect_url)
+      else
+        message = resource.errors.full_messages.first!
+        redirect_back(
+          fallback_location: root_path,
+          alert: "Couldn't send verification email: #{message}",
+        )
+      end
     end
   end
 end

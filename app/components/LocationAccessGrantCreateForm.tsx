@@ -1,93 +1,50 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
+import type { LocationAccessGrant } from "~/types";
 
-import { NumberInput, Text } from "@mantine/core";
-import { useClipboard } from "@mantine/hooks";
 import type { BoxProps } from "@mantine/core";
+import { NumberInput, Text } from "@mantine/core";
 
-import { CreateLocationAccessGrantMutationDocument } from "~/helpers/graphql";
-
-export type LocationAccessGrantCreateFormProps = BoxProps & {
-  onCreate: () => void;
-};
-
-type LocationAccessGrantCreateFormValues = {
-  recipient: string;
-  password: string;
-  expiresInHours: number;
-};
-
-type LocationAccessGrantCreateFormSubmission = Omit<
-  LocationAccessGrantCreateFormValues,
-  "expiresInHours"
-> & {
-  expiresInSeconds: number;
-};
+export interface LocationAccessGrantCreateFormProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {
+  readonly onCreated?: (grant: LocationAccessGrant) => void;
+}
 
 const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
-  onCreate,
+  onCreated,
   ...otherProps
 }) => {
-  const { copy } = useClipboard();
-
   // == Form
-  const { getInputProps, isDirty, onSubmit, setErrors } = useForm<
-    LocationAccessGrantCreateFormValues,
-    (
-      values: LocationAccessGrantCreateFormValues,
-    ) => LocationAccessGrantCreateFormSubmission
-  >({
+  const { values, getInputProps, isDirty, submit, processing } = useFetchForm<{
+    grant: LocationAccessGrant;
+  }>({
+    action: routes.adminLocationAccessGrants.create,
+    method: "post",
+    descriptor: "create location access grant",
     initialValues: {
       recipient: "",
       password: "",
       expiresInHours: 12,
     },
-    transformValues: ({ expiresInHours, ...values }) => {
-      return {
-        expiresInSeconds: expiresInHours * 60 * 60,
-        ...values,
-      };
+    transformValues: ({ expiresInHours, ...attributes }) => ({
+      grant: {
+        ...deepUnderscoreKeys(attributes),
+        expires_in_seconds: expiresInHours * 60 * 60,
+      },
+    }),
+    onSuccess: ({ grant }) => {
+      onCreated?.(grant);
     },
   });
-
-  // == Grant Creation
-  const onCreateGrantError = useApolloAlertCallback(
-    "Failed to create access grant",
-  );
-  const [createGrant, { loading: creatingGrant }] = useMutation(
-    CreateLocationAccessGrantMutationDocument,
-    {
-      onCompleted: ({ payload: { grant, errors } }) => {
-        if (grant) {
-          closeAllModals();
-          copy(grant.locateUrl);
-          showNotice({
-            title: "Access grant created",
-            message: "Locate URL copied to clipboard!",
-          });
-          onCreate();
-        } else {
-          invariant(errors, "Missing input errors");
-          const formErrors = buildFormErrors(errors);
-          setErrors(formErrors);
-          showFormErrorsAlert(formErrors, "Couldn't create grant");
-        }
-      },
-      onError: onCreateGrantError,
-    },
+  const requiredFieldsFilled = useRequiredFieldsFilled(
+    values,
+    "recipient",
+    "password",
+    "expiresInHours",
   );
 
   return (
-    <Box
-      component="form"
-      onSubmit={onSubmit(submission => {
-        createGrant({
-          variables: {
-            input: submission,
-          },
-        });
-      })}
-      {...otherProps}
-    >
+    <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <TextInput
           label="Recipient"
@@ -124,8 +81,8 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
         />
         <Button
           type="submit"
-          disabled={!isDirty()}
-          loading={creatingGrant}
+          disabled={!isDirty() || !requiredFieldsFilled}
+          loading={processing}
           leftSection={<AddIcon />}
         >
           Create grant

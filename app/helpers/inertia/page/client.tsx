@@ -1,10 +1,10 @@
-import type { PageProps } from "@inertiajs/core";
+import type { SharedPageProps } from "~/types";
+import type { PageComponent } from ".";
+
 import PageLayout from "~/components/PageLayout";
 
-import type { PageComponent } from "~/helpers/inertia/page";
-
-export const preparePage = <P extends PageProps>(
-  page: PageComponent<P>,
+export const preparePage = <Props extends SharedPageProps>(
+  page: PageComponent<Props>,
 ): void => {
   if (!page.layout) {
     page.layout = children => <PageLayout>{children}</PageLayout>;

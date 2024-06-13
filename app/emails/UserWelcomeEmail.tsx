@@ -1,16 +1,14 @@
-import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import type { PageComponent } from "~/helpers/inertia";
+import type { SharedPageProps, User } from "~/types";
 import { Text } from "~/components/email";
 
 import EmailLayout from "~/components/EmailLayout";
 
-import type { UserWelcomeEmailQuery } from "~/helpers/graphql";
+export interface UserWelcomeEmailProps extends SharedPageProps {
+  user: User;
+}
 
-export type UserWelcomeEmailProps = PagePropsWithData<UserWelcomeEmailQuery>;
-
-const UserWelcomeEmail: PageComponent<UserWelcomeEmailProps> = ({
-  data: { user },
-}) => {
-  invariant(user, "Missing user");
+const UserWelcomeEmail: PageComponent<UserWelcomeEmailProps> = ({ user }) => {
   const { name } = user;
   return (
     <>

@@ -42,10 +42,10 @@ class SpotifyUser < RSpotify::User
     result = RSpotify.resolve_auth_request(id, endpoint)
     if result && result["is_playing"]
       track_data = T.cast(result.fetch("item"), T::Hash[String, T.untyped])
-      track = SpotifyTrack.new(track_data)
-      progress_milliseconds = T.cast(result.fetch("progress_ms"), Integer)
+      track = RSpotify::Track.new(track_data)
+      progress_ms = T.cast(result.fetch("progress_ms"), Integer)
       timestamp = Time.current
-      CurrentlyPlaying.new(track:, progress_milliseconds:, timestamp:)
+      CurrentlyPlaying.new(track:, progress_ms:, timestamp:)
     end
   rescue RestClient::BadGateway
     # Suppress sporadic errors caused by weird bugs in the RSpotify library,

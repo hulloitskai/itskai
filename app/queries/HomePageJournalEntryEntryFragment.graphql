@@ -1,5 +1,0 @@
-fragment HomePageJournalEntryEntryFragment on JournalEntry {
-  id
-  ...JournalEntryEntryFragment
-  nextEntryId
-}

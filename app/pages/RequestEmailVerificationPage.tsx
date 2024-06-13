@@ -1,13 +1,12 @@
-import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import type { PageComponent } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
 import AppLayout from "~/components/AppLayout";
 import RequestEmailVerificationPageForm from "~/components/RequestEmailVerificationPageForm";
 
-import type { RequestEmailVerificationPageQuery } from "~/helpers/graphql";
+import { SharedPageProps } from "~/types";
 
-export type RequestEmailVerificationPageProps =
-  PagePropsWithData<RequestEmailVerificationPageQuery>;
+export interface RequestEmailVerificationPageProps extends SharedPageProps {}
 
 const RequestEmailVerificationPage: PageComponent<
   RequestEmailVerificationPageProps
@@ -48,12 +47,10 @@ const RequestEmailVerificationPage: PageComponent<
 );
 
 RequestEmailVerificationPage.layout =
-  buildLayout<RequestEmailVerificationPageProps>(
-    (page, { data: { viewer } }) => (
-      <AppLayout title="Sign in" {...{ viewer }}>
-        <Center style={{ flexGrow: 1 }}>{page}</Center>
-      </AppLayout>
-    ),
-  );
+  buildLayout<RequestEmailVerificationPageProps>(page => (
+    <AppLayout title="Request email verification">
+      <Center style={{ flexGrow: 1 }}>{page}</Center>
+    </AppLayout>
+  ));
 
 export default RequestEmailVerificationPage;

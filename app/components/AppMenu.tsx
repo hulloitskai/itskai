@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
 
 import Lottie from "lottie-react";
 import type { LottieRefCurrentProps } from "lottie-react";
@@ -14,21 +14,18 @@ import HomeIcon from "~icons/heroicons/home-20-solid";
 import { Loader, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
-import type { AppViewerFragment } from "~/helpers/graphql";
-import { AppMenuQueryDocument } from "~/helpers/graphql";
-
 import { useContactMe } from "~/helpers/contactMe";
 
 import menuAnimationData from "~/assets/animations/menu.json";
 import classes from "./AppMenu.module.css";
 
-export type AppMenuProps = BoxProps & {
-  viewer: AppViewerFragment | null;
-};
+export interface AppMenuProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"div">, "style" | "children" | "onChange"> {}
 
-const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
+const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
   const isClient = useIsClient();
-  const router = useRouter();
+  const { currentUser: authenticatedUser } = usePageProps();
   const [contactMe, { loading: loadingContactMe }] = useContactMe();
 
   // == State
@@ -50,15 +47,18 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
     }
   }, [opened]);
 
-  // == Server Info Loading
-  const onLoadServerInfoError = useApolloAlertCallback(
-    "Failed to load server info",
-  );
-  const { data: serverInfoData } = useQuery(AppMenuQueryDocument, {
-    skip: !opened,
-    onError: onLoadServerInfoError,
+  // == Server Status
+  const { data: statusData } = useFetch(routes.healthcheckHealthchecks.check, {
+    descriptor: "load server info",
   });
-  const { bootedAt } = serverInfoData ?? {};
+  const { bootedAt } = statusData ?? {};
+
+  // == Logout
+  const { submit: logout } = useInertiaForm({
+    action: routes.usersSessions.destroy,
+    method: "post",
+    descriptor: "sign out",
+  });
 
   return (
     <Menu
@@ -114,10 +114,18 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
         </Badge>
       </Menu.Target>
       <Menu.Dropdown>
-        <Menu.Item component={Link} href="/" leftSection={<HomeIcon />}>
+        <Menu.Item
+          component={Link}
+          href={routes.home.show.path()}
+          leftSection={<HomeIcon />}
+        >
           Home
         </Menu.Item>
-        <Menu.Item component={Link} href="/locate" leftSection={<LocateIcon />}>
+        <Menu.Item
+          component={Link}
+          href={routes.locations.show.path()}
+          leftSection={<LocateIcon />}
+        >
           Locate Kai
         </Menu.Item>
         <Menu.Item
@@ -137,21 +145,21 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
         >
           Shoot Kai a msg
         </Menu.Item>
-        {!!viewer && (
+        {!!authenticatedUser && (
           <>
             <Menu.Divider />
             <Menu.Item
               component={Link}
-              href="/settings"
+              href={routes.usersRegistrations.edit.path()}
               leftSection={<SettingsIcon />}
             >
               Settings
             </Menu.Item>
-            {viewer.isOwner && (
+            {authenticatedUser.isOwner && (
               <>
                 <Menu.Item
                   component={Link}
-                  href="/admin"
+                  href={routes.admin.show.path()}
                   leftSection={<AdminIcon />}
                 >
                   Admin
@@ -161,7 +169,7 @@ const AppMenu: FC<AppMenuProps> = ({ viewer, style, ...otherProps }) => {
             <Menu.Item
               leftSection={<SignOutIcon />}
               onClick={() => {
-                router.post("/logout");
+                logout();
               }}
             >
               Sign out

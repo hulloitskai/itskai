@@ -1,6 +1,0 @@
-query UserWelcomeEmailQuery($userId: ID!) {
-  user(id: $userId) {
-    id
-    name
-  }
-}

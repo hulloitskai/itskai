@@ -1,10 +1,10 @@
-import type { PageProps } from "@inertiajs/core";
 import type { PageComponent } from "~/helpers/inertia";
+import type { SharedPageProps } from "~/types";
 import type { Feature, LineString, Point } from "geojson";
 import { DateTime } from "luxon";
 import { AnimatePresence } from "framer-motion";
 import { useAudioPlayer } from "react-use-audio-player";
-import { countBy, maxBy } from "lodash-es";
+import { countBy, maxBy } from "lodash";
 
 import ResumeIcon from "~icons/heroicons/play-20-solid";
 import PauseIcon from "~icons/heroicons/pause-20-solid";
@@ -17,16 +17,7 @@ import lineLength from "@turf/length";
 import type { MapRef } from "react-map-gl";
 import { Source, Layer } from "react-map-gl";
 
-import { ActionIcon, Loader } from "@mantine/core";
-
-import type {
-  TimelinePageActivityFragment,
-  TimelinePhotoFragment,
-} from "~/helpers/graphql";
-import {
-  TimelineActivityType,
-  TimelinePageActivitiesQueryDocument,
-} from "~/helpers/graphql";
+import { ActionIcon } from "@mantine/core";
 
 import PageLayout from "~/components/PageLayout";
 import AppMeta from "~/components/AppMeta";
@@ -35,7 +26,7 @@ import TimelinePagePhoto from "~/components/TimelinePagePhoto";
 
 import fallUnderneathSrc from "~/assets/sounds/fall-underneath.mp3";
 
-export type TimelinePageProps = PageProps;
+export interface TimelinePageProps extends SharedPageProps {}
 
 type TimelineSharedFeatureProperties = {
   opacity: number;
@@ -57,6 +48,13 @@ type TimelinePlaceVisitProperties = TimelineSharedFeatureProperties & {
 };
 
 type TimelinePlaceVisitFeature = Feature<Point, TimelinePlaceVisitProperties>;
+
+type TimelinePhotoFragment = any;
+type TimelinePageActivityFragment = any;
+enum TimelineActivityType {
+  PlaceVisit = "place_visit",
+  ActivitySegment = "activity_segment",
+}
 
 type TimelineMoment = {
   time: DateTime;
@@ -175,29 +173,30 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   const preloadedPhotoIdsRef = useRef(preloadedPhotoIdsInitialValue);
 
   // == Activities Loading
-  const onLoadActivitiesError = useApolloAlertCallback(
-    "Failed to load activities",
-  );
-  const windowStart = useMemo(() => time.startOf("week").toISO(), [time]);
-  const windowEnd = useMemo(
-    () => time.endOf("week").plus({ days: 4 }).toISO(),
-    [time],
-  );
-  const {
-    data: activitiesData,
-    previousData: previousActivitiesData,
-    loading: loadingActivities,
-  } = useQuery(TimelinePageActivitiesQueryDocument, {
-    variables: {
-      after: windowStart,
-      before: windowEnd,
-    },
-    onCompleted: ({ activities }) => {
-      activitiesRef.current = activities;
-    },
-    onError: onLoadActivitiesError,
-  });
-  const coalescedData = activitiesData ?? previousActivitiesData;
+  // const onLoadActivitiesError = useApolloAlertCallback(
+  //   "Failed to load activities",
+  // );
+  // const windowStart = useMemo(() => time.startOf("week").toISO(), [time]);
+  // const windowEnd = useMemo(
+  //   () => time.endOf("week").plus({ days: 4 }).toISO(),
+  //   [time],
+  // );
+  // const {
+  //   data: activitiesData,
+  //   previousData: previousActivitiesData,
+  //   loading: loadingActivities,
+  // } = useQuery(TimelinePageActivitiesQueryDocument, {
+  //   variables: {
+  //     after: windowStart,
+  //     before: windowEnd,
+  //   },
+  //   onCompleted: ({ activities }) => {
+  //     activitiesRef.current = activities;
+  //   },
+  //   onError: onLoadActivitiesError,
+  // });
+  // const coalescedData = activitiesData ?? previousActivitiesData;
+  const coalescedData: any = undefined;
 
   // == Progression
   const cancelProgressionRef = useRef(false);
@@ -275,7 +274,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
               activitySegmentFeatures.push(maybeTruncatedFeature);
             }
             timezoneNames.push(activity.timezoneName);
-            activity.photos.forEach(photo => {
+            activity.photos.forEach((photo: any) => {
               const { id: photoId, image } = photo;
               const takenAt = DateTime.fromISO(photo.takenAt);
               const hideAt = takenAt.plus({ hours: 3 });
@@ -441,7 +440,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
                 timeZoneName: "short",
               })}
             </Badge>
-            {loadingActivities && <Loader size="xs" />}
+            {/* {loadingActivities && <Loader size="xs" />} */}
             <Box style={{ flexGrow: 1 }} />
             {paused && (
               <Tooltip color="primary" label="Start" withArrow>

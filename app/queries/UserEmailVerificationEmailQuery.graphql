@@ -1,6 +1,0 @@
-query UserEmailVerificationEmailQuery($userId: ID!) {
-  user(id: $userId) {
-    id
-    name
-  }
-}

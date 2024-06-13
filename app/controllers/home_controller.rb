@@ -1,38 +1,33 @@
 # typed: true
 # frozen_string_literal: true
 
-class HomeController < ApplicationController
-  # == Filters
-  before_action :set_journal_entry
+require "announcement"
+require "explorations"
 
+class HomeController < ApplicationController
   # == Actions
   def show
-    ActivityStatus.current = "Someone landed on the homepage!"
-    journal_entry = @journal_entry || first_journal_entry
-    data = query!("HomePageQuery", {
-      journal_entry_id: journal_entry&.to_gid&.to_s || "",
-      show_journal_entry: journal_entry.present?,
-    })
+    specified_journal_entry = if (id = home_params.entry_id)
+      JournalEntry.with_content.find(id)
+    end
+    first_journal_entry = JournalEntry.with_content.ordered.first
     render(inertia: "HomePage", props: {
-      data:,
-      autoscroll: @journal_entry.present?,
-      first_journal_entry_id: first_journal_entry&.to_gid&.to_s,
+      autoscroll: specified_journal_entry.present?,
+      announcement: Announcement.current,
+      explorations: Explorations.current,
+      "approximateLocation" => ApproximateLocationSerializer
+        .one_if(LocationLog.latest_visible),
+      "journalEntry" => JournalEntrySerializer
+        .one_if(specified_journal_entry || first_journal_entry),
+      "firstJournalEntryId" => first_journal_entry&.id,
     })
   end
 
   private
 
   # == Helpers
-  sig { returns(T.nilable(JournalEntry)) }
-  def first_journal_entry
-    JournalEntry.select(:id).order(started_at: :desc).first
-  end
-
-  # == Filter Handlers
-  def set_journal_entry
-    @journal_entry = T.let(@entry, T.nilable(JournalEntry))
-    @journal_entry = if (id = params["entryId"])
-      JournalEntry.select(:id).find(id.to_s)
-    end
+  sig { returns(HomeParams) }
+  def home_params
+    @home_params ||= HomeParams.new(params.permit(*HomeParams.attribute_names))
   end
 end

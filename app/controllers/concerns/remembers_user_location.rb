@@ -6,7 +6,6 @@ module RemembersUserLocation
   extend T::Helpers
   extend ActiveSupport::Concern
 
-  # == Annotations
   requires_ancestor { ActionController::Base }
 
   included do

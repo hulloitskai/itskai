@@ -1,32 +1,32 @@
 import type { FC } from "react";
+import type { User } from "~/types";
 
-import { AppShell, Breadcrumbs } from "@mantine/core";
 import type { AppShellProps, ContainerProps, MantineSize } from "@mantine/core";
+import { AppShell, Breadcrumbs } from "@mantine/core";
 
-import AppMeta from "./AppMeta";
 import type { AppMetaProps } from "./AppMeta";
+import AppMeta from "./AppMeta";
 
-import ActivityStatus from "./ActivityStatus";
+import Attribution from "./Attribution";
 import AppMenu from "./AppMenu";
 import AppFlash from "./AppFlash";
 import CurrentlyPlayingIsland from "./CurrentlyPlayingIsland";
 import PageContainer from "./PageContainer";
 import PageLayout from "./PageLayout";
 
-import type { AppViewerFragment } from "~/helpers/graphql";
-
 import classes from "./AppLayout.module.css";
 
-export type AppLayoutProps = AppMetaProps &
-  AppShellProps & {
-    viewer: AppViewerFragment | null;
-    breadcrumbs?: ReadonlyArray<AppBreadcrumb | null | false>;
-    withContainer?: boolean;
-    containerSize?: MantineSize | (string & {}) | number;
-    containerProps?: ContainerProps;
-    withGutter?: boolean;
-    gutterSize?: MantineSize | (string & {}) | number;
-  };
+export interface AppLayoutProps
+  extends AppMetaProps,
+    Omit<AppShellProps, "title"> {
+  user?: User;
+  breadcrumbs?: ReadonlyArray<AppBreadcrumb | null | false>;
+  withContainer?: boolean;
+  containerSize?: MantineSize | (string & {}) | number;
+  containerProps?: ContainerProps;
+  withGutter?: boolean;
+  gutterSize?: MantineSize | (string & {}) | number;
+}
 
 export type AppBreadcrumb = {
   title: string;
@@ -34,7 +34,6 @@ export type AppBreadcrumb = {
 };
 
 const AppLayout: FC<AppLayoutProps> = ({
-  viewer,
   title,
   description,
   imageUrl,
@@ -108,7 +107,7 @@ const AppLayout: FC<AppLayoutProps> = ({
         >
           <Button
             component={Link}
-            href="/"
+            href={routes.home.show.path()}
             variant="subtle"
             size="compact-md"
             radius="md"
@@ -122,7 +121,7 @@ const AppLayout: FC<AppLayoutProps> = ({
             It&apos;s Kai
           </Button>
           <CurrentlyPlayingIsland />
-          <AppMenu style={{ flexShrink: 0 }} {...{ viewer }} />
+          <AppMenu style={{ flexShrink: 0 }} />
         </AppShell.Header>
         <AppShell.Main
           style={{
@@ -167,7 +166,7 @@ const AppLayout: FC<AppLayoutProps> = ({
             borderTop: `${rem(1)} solid var(--app-shell-border-color)`,
           }}
         >
-          <ActivityStatus h="100%" style={{ flexShrink: 1 }} />
+          <Attribution h="100%" style={{ flexShrink: 1 }} />
         </Box>
       </AppShell>
       <AppFlash />

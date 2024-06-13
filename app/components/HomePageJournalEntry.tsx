@@ -1,53 +1,35 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
+import type { JournalEntry } from "~/types";
 import type { BoxProps } from "@mantine/core";
+import scrollIntoView from "scroll-into-view";
+
 import NextIcon from "~icons/heroicons/arrow-path-rounded-square-20-solid";
 import ResetIcon from "~icons/heroicons/arrow-uturn-left-20-solid";
 
-import scrollIntoView from "scroll-into-view";
+import JournalEntryCard from "./JournalEntryCard";
 
-import type {
-  HomePageJournalEntryEntryFragment,
-  HomePageJournalEntryQuery,
-  HomePageJournalEntryQueryVariables,
-} from "~/helpers/graphql";
-import { HomePageJournalEntryQueryDocument } from "~/helpers/graphql";
-
-import JournalEntry from "./JournalEntry";
-
-export type HomePageJournalEntryProps = BoxProps & {
+export interface HomePageJournalEntryProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {
+  entry: JournalEntry;
   firstEntryId: string;
-  initialEntry: HomePageJournalEntryEntryFragment | null | undefined;
   autoscroll: boolean;
-};
+}
 
 const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
+  entry,
   firstEntryId,
-  initialEntry,
   autoscroll,
   ...otherProps
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-
-  // == Entry Loading
-  const onLoadEntryError = useApolloAlertCallback(
-    "Failed to load journal entry",
-  );
-  const {
-    coalescedData: coalescedEntryData,
-    loading: loadingEntry,
-    refetch: refetchEntry,
-  } = usePreloadedQuery<
-    HomePageJournalEntryQuery,
-    HomePageJournalEntryQueryVariables
-  >(HomePageJournalEntryQueryDocument, {
-    initialData: { entry: initialEntry || null },
-    variables: initialEntry ? { entryId: initialEntry.id } : undefined,
-    skip: !initialEntry,
-    onError: onLoadEntryError,
-  });
-  const { entry } = coalescedEntryData;
-  const { nextEntryId } = entry ?? {};
-  const hasNextEntry = !!nextEntryId;
+  const nextEntryPath = useMemo(() => {
+    return routes.home.show.path({
+      query: {
+        entryId: entry.nextEntryId || firstEntryId,
+      },
+    });
+  }, [entry.nextEntryId, firstEntryId]);
 
   // == Scrolling
   const [requiresScrolling, setRequiresScrolling] = useState(false);
@@ -74,45 +56,24 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
     if (autoscroll) {
       scrollToContainerTop();
     }
-  }, [autoscroll, scrollToContainerTop]);
+  }, [entry.id, autoscroll, scrollToContainerTop]);
 
   return (
-    <Stack align="center" {...{ ref: containerRef }} {...otherProps}>
-      {entry ? <JournalEntry {...{ entry }} /> : <CardSkeleton />}
-      <Transition
-        transition={{
-          transitionProperty: "transform, opacity, max-height",
-          out: { opacity: 0, transform: "scale(0)", maxHeight: 0 },
-          in: { opacity: 1, transform: "scale(1)", maxHeight: 140 },
-        }}
-        mounted={!!coalescedEntryData}
+    <Stack ref={containerRef} align="center" {...otherProps}>
+      <JournalEntryCard {...{ entry }} />
+      <Button
+        component={Link}
+        href={nextEntryPath}
+        preserveScroll
+        only={["journalEntry", "autoscroll"]}
+        variant="outline"
+        leftSection={entry.nextEntryId ? <NextIcon /> : <ResetIcon />}
+        radius="xl"
       >
-        {style => (
-          <Button
-            variant="outline"
-            leftSection={hasNextEntry ? <NextIcon /> : <ResetIcon />}
-            radius="xl"
-            onClick={() => {
-              refetchEntry({ entryId: nextEntryId || firstEntryId }).then(
-                ({ data: { entry } }) => {
-                  invariant(entry, "Missing entry");
-                  setRequiresScrolling(true);
-                  history.pushState(null, "", entry.url);
-                },
-              );
-            }}
-            {...{ style, loading: loadingEntry }}
-          >
-            {hasNextEntry ? "more words pls" : "from the top!"}
-          </Button>
-        )}
-      </Transition>
+        {entry.nextEntryId ? "more words pls" : "from the top!"}
+      </Button>
     </Stack>
   );
 };
 
 export default HomePageJournalEntry;
-
-const CardSkeleton: FC = () => (
-  <Skeleton width="100%" height={340} radius="md" />
-);

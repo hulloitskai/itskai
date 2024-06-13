@@ -1,5 +1,0 @@
-mutation DeleteGoogleConnectionMutation($input: DeleteGoogleConnectionInput!) {
-  payload: deleteGoogleConnection(input: $input) {
-    success
-  }
-}

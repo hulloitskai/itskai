@@ -3,8 +3,9 @@ import type { BoxProps } from "@mantine/core";
 
 import FormAuthenticityField from "./FormAuthenticityField";
 
-export type SettingsPageDeleteAccountFormProps = BoxProps &
-  Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit">;
+export interface SettingsPageDeleteAccountFormProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {}
 
 const SettingsPageDeleteAccountForm: FC<SettingsPageDeleteAccountFormProps> = ({
   ...otherProps

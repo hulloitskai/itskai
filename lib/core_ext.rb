@@ -121,6 +121,22 @@ module Kernel
   end
 end
 
+class Module
+  T::Sig::WithoutRuntime.sig do
+    params(
+      methods: Symbol,
+      to: T.untyped,
+      prefix: T.nilable(Symbol),
+      allow_nil: T::Boolean,
+      private: T::Boolean,
+    ).void
+  end
+  def externally_typed_delegate(*methods, to: T.unsafe(nil), prefix: T.unsafe(nil),
+    allow_nil: T.unsafe(nil), private: T.unsafe(nil))
+    delegate(*T.unsafe(methods), to:, prefix:, allow_nil:)
+  end
+end
+
 class Logger::Formatter
   extend T::Sig
 

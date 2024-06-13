@@ -1,7 +1,0 @@
-mutation RequestEmailVerificationMutation(
-  $input: RequestEmailVerificationInput!
-) {
-  payload: requestEmailVerification(input: $input) {
-    success
-  }
-}

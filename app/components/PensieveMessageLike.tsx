@@ -1,45 +1,43 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
 import HeartFilledIcon from "~icons/heroicons/heart-20-solid";
 import HeartUnfilledIcon from "~icons/heroicons/heart";
 
 import { Loader, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
-import {
-  LikePensieveMessageMutationDocument,
-  UnlikePensieveMessageMutationDocument,
-} from "~/helpers/graphql";
-import type { PensieveMessageLikeMessageFragment } from "~/helpers/graphql";
+type PensieveMessageLikeMessageFragment = any;
 
-export type PensieveMessageLikeProps = BoxProps & {
+export interface PensieveMessageLikeProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"button">, "style"> {
   message: PensieveMessageLikeMessageFragment;
-};
+}
 
 const PensieveMessageLike: FC<PensieveMessageLikeProps> = ({
-  message: { id: messageId, likes, likedByViewer },
+  message: { /* id: messageId, */ likes, likedByViewer },
   ...otherProps
 }) => {
   // == Message Liking
-  const onLikeMessageError = useApolloAlertCallback("Failed to like message");
-  const [likeMessage, { loading: likingMessage }] = useMutation(
-    LikePensieveMessageMutationDocument,
-    {
-      onError: onLikeMessageError,
-    },
-  );
+  // const onLikeMessageError = useApolloAlertCallback("Failed to like message");
+  // const [likeMessage, { loading: likingMessage }] = useMutation(
+  //   LikePensieveMessageMutationDocument,
+  //   {
+  //     onError: onLikeMessageError,
+  //   },
+  // );
 
   // == Message Unliking
-  const onUnlikeMessageError = useApolloAlertCallback(
-    "Failed to unlike message",
-  );
-  const [unlikeMessage, { loading: unlikingMessage }] = useMutation(
-    UnlikePensieveMessageMutationDocument,
-    {
-      onError: onUnlikeMessageError,
-    },
-  );
+  // const onUnlikeMessageError = useApolloAlertCallback(
+  //   "Failed to unlike message",
+  // );
+  // const [unlikeMessage, { loading: unlikingMessage }] = useMutation(
+  //   UnlikePensieveMessageMutationDocument,
+  //   {
+  //     onError: onUnlikeMessageError,
+  //   },
+  // );
 
-  const updating = likingMessage || unlikingMessage;
+  const updating = false; // likingMessage || unlikingMessage
   return (
     <Button
       variant="subtle"
@@ -49,21 +47,21 @@ const PensieveMessageLike: FC<PensieveMessageLikeProps> = ({
       pos="relative"
       onClick={() => {
         if (!likedByViewer) {
-          likeMessage({
-            variables: {
-              input: {
-                messageId,
-              },
-            },
-          });
+          // likeMessage({
+          //   variables: {
+          //     input: {
+          //       messageId,
+          //     },
+          //   },
+          // });
         } else {
-          unlikeMessage({
-            variables: {
-              input: {
-                messageId,
-              },
-            },
-          });
+          // unlikeMessage({
+          //   variables: {
+          //     input: {
+          //       messageId,
+          //     },
+          //   },
+          // });
         }
       }}
       {...otherProps}

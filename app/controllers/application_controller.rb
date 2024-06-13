@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
   extend T::Helpers
 
   include ActiveStorage::SetCurrent
-  include Queryable
   include RemembersUserLocation
+  include SharedData
 
   # == Filters
   before_action :set_actor_id
@@ -15,17 +15,6 @@ class ApplicationController < ActionController::Base
   around_action :with_error_context
   if !InertiaRails.ssr_enabled? && Rails.env.development?
     around_action :with_ssr
-  end
-
-  # == Inertia
-  inertia_share do
-    {
-      csrf: {
-        param: request_forgery_protection_token,
-        token: form_authenticity_token,
-      },
-      flash: flash.to_h.presence,
-    }.compact
   end
 
   # == Devise
@@ -84,7 +73,7 @@ class ApplicationController < ActionController::Base
 
   sig { params(block: T.proc.returns(T.untyped)).void }
   def with_error_context(&block)
-    context = T.let(error_context.compact, T::Hash[String, T.untyped])
+    context = error_context.compact
     Rails.error.set_context(**context)
     yield
   end

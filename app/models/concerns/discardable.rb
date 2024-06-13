@@ -7,7 +7,6 @@ module Discardable
   extend ActiveSupport::Concern
   include Discard::Model
 
-  # == Annotations
   abstract!
   requires_ancestor { ActiveRecord::Base }
   requires_ancestor { RequiresColumn }

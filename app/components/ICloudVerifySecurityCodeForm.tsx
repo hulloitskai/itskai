@@ -1,51 +1,37 @@
-import type { FC } from "react";
-import type { BoxProps } from "@mantine/core";
+import type { ComponentPropsWithoutRef, FC } from "react";
+import type { ICloudConnection } from "~/types";
 import SecurityCodeIcon from "~icons/heroicons/key-20-solid";
+
+import type { BoxProps } from "@mantine/core";
 import { InputWrapper, PinInput } from "@mantine/core";
 
-import { VerifyICloudSecurityCodeMutationDocument } from "~/helpers/graphql";
-
-export type ICloudVerifySecurityCodeFormProps = BoxProps & {
-  onVerify: () => void;
-};
+export interface ICloudVerifySecurityCodeFormProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {
+  onVerified?: (connection: ICloudConnection) => void;
+}
 
 const ICloudVerifySecurityCodeForm: FC<ICloudVerifySecurityCodeFormProps> = ({
-  onVerify,
+  onVerified,
   ...otherProps
 }) => {
-  // == Verifying Security Code
-  const onVerifySecurityCodeError = useApolloAlertCallback(
-    "Failed to verify security code",
-  );
-  const [verifySecurityCode, { loading: verifying }] = useMutation(
-    VerifyICloudSecurityCodeMutationDocument,
-    {
-      onCompleted: () => {
-        closeAllModals();
-        showNotice({ message: "Successfully authenticated with iCloud." });
-        onVerify();
-      },
-      onError: onVerifySecurityCodeError,
-    },
-  );
-
-  // == Form
-  const { values, getInputProps, onSubmit, reset } = useForm({
+  const { values, getInputProps, submit, processing } = useFetchForm<{
+    connection: ICloudConnection;
+  }>({
+    action: routes.adminICloudConnections.verifySecurityCode,
+    method: "post",
+    descriptor: "verify security code",
     initialValues: { code: "" },
+    transformValues: values => ({
+      verification: values,
+    }),
+    onSuccess: ({ connection }) => {
+      closeAllModals();
+      onVerified?.(connection);
+    },
   });
-
   return (
-    <Box
-      component="form"
-      onSubmit={onSubmit(values => {
-        verifySecurityCode({
-          variables: {
-            input: values,
-          },
-        }).finally(reset);
-      })}
-      {...otherProps}
-    >
+    <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <InputWrapper label="Security code">
           <PinInput
@@ -59,7 +45,7 @@ const ICloudVerifySecurityCodeForm: FC<ICloudVerifySecurityCodeFormProps> = ({
         <Button
           type="submit"
           disabled={values.code.length !== 6}
-          loading={verifying}
+          loading={processing}
           leftSection={<SecurityCodeIcon />}
         >
           Verify code

@@ -1,73 +1,43 @@
 import type { ComponentPropsWithoutRef, FC } from "react";
 import type { BoxProps } from "@mantine/core";
 
-import { RequestPasswordResetMutationDocument } from "~/helpers/graphql";
-
-export type RequestPasswordResetPageFormProps = BoxProps &
-  Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit">;
-
-type RequestPasswordResetPageFormValues = {
-  email: string;
-};
+export interface RequestPasswordResetPageFormProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {}
 
 const RequestPasswordResetPageForm: FC<RequestPasswordResetPageFormProps> = ({
   ...otherProps
 }) => {
-  const router = useRouter();
-
   // == Form
-  const { getInputProps, isDirty, onSubmit } =
-    useForm<RequestPasswordResetPageFormValues>({
+  const { values, getInputProps, isDirty, submit, processing } = useInertiaForm(
+    {
+      action: routes.usersPasswords.create,
+      method: "post",
+      descriptor: "request password reset",
       initialValues: {
         email: "",
       },
-    });
-
-  // == Email Request
-  const onRequestEmailError = useApolloAlertCallback(
-    "Failed to request password reset email",
-  );
-  const [requestEmail, { loading: requestingEmail }] = useMutation(
-    RequestPasswordResetMutationDocument,
-    {
-      onCompleted: () => {
-        router.visit("/login", {
-          onSuccess: () => {
-            showNotice({
-              title: "Password reset email sent",
-              message:
-                "Please check your email and follow the link to reset " +
-                "your password.",
-            });
-          },
-        });
-      },
-      onError: onRequestEmailError,
+      transformValues: values => ({
+        user: deepUnderscoreKeys(values),
+      }),
     },
   );
+  const requiredFieldsFilled = useRequiredFieldsFilled(values, "email");
 
   return (
-    <Box
-      component="form"
-      onSubmit={onSubmit(({ email }) => {
-        requestEmail({
-          variables: {
-            input: {
-              email,
-            },
-          },
-        });
-      })}
-      {...otherProps}
-    >
+    <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <TextInput
           label="Email"
-          placeholder="friend@example.com"
+          placeholder="jon.snow@example.com"
           required
           {...getInputProps("email")}
         />
-        <Button type="submit" disabled={!isDirty()} loading={requestingEmail}>
+        <Button
+          type="submit"
+          disabled={!isDirty() || !requiredFieldsFilled}
+          loading={processing}
+        >
           Continue
         </Button>
       </Stack>

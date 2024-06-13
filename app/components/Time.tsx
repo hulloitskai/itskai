@@ -7,12 +7,13 @@ import type { DateTimeFormatOptions } from "luxon";
 
 import classes from "./Time.module.css";
 
-export type TimeProps = Omit<TextProps, "span"> &
-  Omit<ComponentPropsWithoutRef<"time">, "children"> & {
-    format: DateTimeFormatOptions | ((time: DateTime) => string);
-    children: DateTime | string;
-    component?: any;
-  };
+export interface TimeProps
+  extends Omit<TextProps, "span">,
+    Omit<ComponentPropsWithoutRef<"time">, "color" | "style" | "children"> {
+  format: DateTimeFormatOptions | ((time: DateTime) => string);
+  children: DateTime | string;
+  component?: any;
+}
 
 const Time: FC<TimeProps> = ({
   format,

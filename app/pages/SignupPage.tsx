@@ -1,12 +1,11 @@
-import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import type { PageComponent } from "~/helpers/inertia";
+import type { SharedPageProps } from "~/types";
 import { Text } from "@mantine/core";
-
-import type { SignupPageQuery } from "~/helpers/graphql";
 
 import AppLayout from "~/components/AppLayout";
 import SignupPageForm from "~/components/SignupPageForm";
 
-export type SignupPageProps = PagePropsWithData<SignupPageQuery>;
+export interface SignupPageProps extends SharedPageProps {}
 
 const SignupPage: PageComponent<SignupPageProps> = () => (
   <Card w={380} withBorder>
@@ -49,8 +48,8 @@ const SignupPage: PageComponent<SignupPageProps> = () => (
 );
 
 SignupPage.layout = buildLayout<SignupPageProps>(
-  (page, { data: { viewer } }) => (
-    <AppLayout title="Sign up" {...{ viewer }}>
+  (page, { currentUser: authenticatedUser }) => (
+    <AppLayout title="Sign up" {...{ authenticatedUser }}>
       <Center style={{ flexGrow: 1 }}>{page}</Center>
     </AppLayout>
   ),

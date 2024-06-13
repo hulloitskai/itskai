@@ -6,7 +6,6 @@ bin/
 dist/
 db/schema.rb
 db/backups/
-graphql/schema.graphql
 log/
 node_modules/
 public/assets/

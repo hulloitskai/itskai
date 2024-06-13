@@ -4,10 +4,11 @@ import type { CardProps } from "@mantine/core";
 
 import EmptyIcon from "~icons/heroicons/inbox-20-solid";
 
-export type EmptyCardProps = CardProps &
-  ComponentPropsWithoutRef<"div"> & {
-    itemLabel: string;
-  };
+export interface EmptyCardProps
+  extends CardProps,
+    Omit<ComponentPropsWithoutRef<"div">, "style"> {
+  itemLabel: string;
+}
 
 const EmptyCard: FC<EmptyCardProps> = ({
   itemLabel,

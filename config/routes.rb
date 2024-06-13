@@ -8,24 +8,22 @@ Rails.application.routes.draw do
     get "(*any)" => redirect(subdomain: "", status: 302)
   end
 
-  # == Journey
-  scope(
-    constraints: JourneysSubdomainConstraint.new,
-    module: "journeys",
-    as: "journeys",
-  ) do
-    get "/" => "home#show", as: "root"
-    resources :sessions, only: %i[show create] do
-      post :join
-    end
+  # == Errors
+  scope controller: :errors do
+    match "/401", action: :unauthorized, via: :all
+    match "/404", action: :not_found, via: :all
+    match "/422", action: :unprocessable_entity, via: :all
+    match "/500", action: :internal_server_error, via: :all
   end
 
   # == Healthcheck
-  Healthcheck.routes(self)
+  defaults export: true do
+    Healthcheck.routes(self)
+  end
 
   # == Good Job
   if Rails.env.development?
-    mount GoodJob::Engine => "/good_job"
+    mount GoodJob::Engine => "/good_job", export: true
   else
     authenticate :user, ->(user) {
       user = T.let(user, User)
@@ -48,7 +46,7 @@ Rails.application.routes.draw do
                sign_out: "logout",
              }
   devise_scope :user do
-    scope module: :users, as: :user do
+    scope module: :users, as: :user, export: true do
       resource :registration,
                path: "/signup",
                only: %i[new create destroy],
@@ -59,23 +57,17 @@ Rails.application.routes.draw do
                path_names: { edit: "" }
       resource :confirmation,
                path: "/email_verification",
-               only: %i[new show],
+               only: %i[new show create],
                path_names: {
                  new: "resend",
                }
       resource :password,
-               only: %i[new edit update],
+               only: %i[new edit create update],
                path_names: {
                  new: "reset",
                  edit: "change",
                }
     end
-  end
-
-  # == GraphQL
-  scope :graphql, controller: :graphql do
-    get "/", action: :graphiql, as: :graphiql
-    post "/", action: :execute, as: :graphql
   end
 
   # == Calendly
@@ -86,51 +78,66 @@ Rails.application.routes.draw do
   get "/call" => "calendly#event", handle: "call"
   get "/opencal-intro" => "calendly#event", handle: "opencal-intro"
 
-  # == Events
-  # resources :events, only: :index
+  # == Images
+  resources :images, only: :show, param: :signed_id, export: true
 
-  # == Poorly Drawn Lines
-  namespace :poorlydrawnlines do
-    resources :comics, only: :show
-  end
+  # == Password Strength Checks
+  resources :password_strength_checks, only: :create, export: true
 
-  # == Dishwatch
-  # namespace :dishwatch do
-  #   resource :devices, only: :show
-  # end
-
-  # == Errors
-  scope controller: :errors do
-    match "/401", action: :unauthorized, via: :all
-    match "/404", action: :not_found, via: :all
-    match "/422", action: :unprocessable_entity, via: :all
-    match "/500", action: :internal_server_error, via: :all
+  # == Currently Playing
+  resource :currently_playing, only: :show, export: true
+  resources :spotify_tracks, only: [], export: true do
+    member do
+      get :lyrics
+    end
   end
 
   # == Locate
-  resource :locate, controller: "locate", only: :show do
+  resource :location, path: "/locate", only: :show, export: true do
     get :grant
+    post :access
+  end
+
+  # == Contact
+  resource :contact_url, only: :show, export: true
+
+  # == Journal Entries
+  resources :journal_entries, only: [], export: true do
+    member do
+      get :comments
+    end
+  end
+
+  # == Admin
+  resource :admin, controller: "admin", export: true, only: :show do
+    get :location_access_grants
+    post :sync_journal_entries
+    post :sync_location_logs
+    scope module: "admin" do
+      resources :oauth_connections,
+                only: :destroy,
+                param: :provider
+      resource :icloud_connection, only: %i[create destroy] do
+        post :verify_security_code
+      end
+      resources :location_access_grants, only: %i[create destroy]
+    end
   end
 
   # == Resume
   resource :resume, only: :show
 
-  # # == Scottkit
-  # resource :scottkit, only: :show
-
-  # # == Scottcall
-  # post "/scottcall" => "scottcalls#handle"
-
   # == Timeline
-  get "/timeline" => "timeline#show"
-  get "/timeline/admin" => "timeline_admin#show"
+  # get "/timeline" => "timeline#show"
+  # get "/timeline/admin" => "timeline_admin#show"
 
   # == Pages
-  root "home#show"
-  get "/admin" => "admin#show"
-  get "/pensieve" => "pensieve#show"
-  get "/loading" => "loading#show"
-  get "/track" => redirect(path: "/locate", status: 302)
+  defaults export: true do
+    root "home#show"
+    get "/pensieve" => "pensieve#show"
+    get "/loading" => "loading#show"
+    get "/track" => redirect(path: "/locate", status: 302)
+  end
   get "/toronto" => "places#toronto"
   get "/atelier" => redirect("https://instagram.com/atelier.ubc", status: 302)
   get "/opencal" => redirect("https://opencal.me/kai", status: 302)
@@ -138,7 +145,9 @@ Rails.application.routes.draw do
 
   # == Development
   if Rails.env.development?
-    get "/test" => "test#show"
+    resource :test, only: :show, export: true do
+      post :submit
+    end
     get "/mailcatcher" => redirect("//localhost:1080", status: 302)
   end
 end

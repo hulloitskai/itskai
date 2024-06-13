@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 require "inertia_rails"
@@ -28,16 +28,14 @@ module InertiaRails
   end
 
   class << self
-    # Clear threadsafe page when resetting.
     module Patch
       extend T::Sig
       extend T::Helpers
 
-      # == Annotations
       requires_ancestor { T.class_of(InertiaRails) }
 
       # == Methods
-      sig { void }
+      # Clear threadsafe page when resetting.
       def reset!
         super
         self.threadsafe_page = nil

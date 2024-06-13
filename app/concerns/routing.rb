@@ -6,11 +6,9 @@ module Routing
   extend T::Helpers
   extend ActiveSupport::Concern
 
-  # == Annotations
   requires_ancestor { Kernel }
 
   included do
-    # == Methods
     include Rails.application.routes.url_helpers
   end
 

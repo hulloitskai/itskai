@@ -1,5 +1,0 @@
-fragment AppViewerFragment on User {
-  id
-  isOwner
-  name
-}

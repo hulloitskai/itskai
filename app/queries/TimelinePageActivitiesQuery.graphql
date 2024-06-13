@@ -1,5 +1,0 @@
-query TimelinePageActivitiesQuery($after: DateTime!, $before: DateTime!) {
-  activities: timelineActivities(before: $before, after: $after) {
-    ...TimelinePageActivityFragment
-  }
-}

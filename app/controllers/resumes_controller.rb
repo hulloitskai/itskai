@@ -16,13 +16,11 @@ class ResumesController < ApplicationController
     respond_to do |format|
       format.html do
         print_mode = request.headers["X-Print-Mode"].truthy?
-        data = query!("ResumePageQuery", { variant: })
-        unless data["resume"]
-          raise ActionController::RoutingError,
-                "Missing resume data (variant: #{variant})"
-        end
-        props = { data:, variant:, print_mode: }
-        render(inertia: "ResumePage", props: props.compact)
+        resume = ::Resume.current(variant: variant&.to_sym)
+        render(
+          inertia: "ResumePage",
+          props: { resume:, "printMode" => print_mode },
+        )
       end
       format.json do
         data = Resume.current(variant: variant&.to_sym)
@@ -56,6 +54,7 @@ class ResumesController < ApplicationController
   def self.print_resume_semaphore
     @print_resume_semaphore ||= T.let(Semaphore.new(1), T.nilable(Semaphore))
   end
+  externally_typed_delegate :print_resume_semaphore, to: :class
 
   private
 
@@ -64,7 +63,7 @@ class ResumesController < ApplicationController
   def print_resume_to_file(filepath, variant: nil)
     server_options = "Rails::Server::Options".constantize.new.parse!(ARGV) # rubocop:disable Sorbet/ConstantsFromStrings
     server_port = server_options[:Port]
-    self.class.print_resume_semaphore.acquire do
+    print_resume_semaphore.acquire do
       Playwright.create(
         playwright_cli_executable_path: "playwright",
       ) do |playwright|

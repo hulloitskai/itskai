@@ -48,9 +48,6 @@ class PensieveMessage < ApplicationRecord
   validates :from, presence: true
   validate :validate_text_profanity
 
-  # == Callbacks
-  after_commit :trigger_subscriptions, on: %i[create update]
-
   # == Scopes
   scope :recent, -> {
     T.bind(self, PrivateRelation)
@@ -78,7 +75,7 @@ class PensieveMessage < ApplicationRecord
   # == Methods
   sig { returns(T::Boolean) }
   def recent?
-    self.class.recent.exists?(id:)
+    PensieveMessage.recent.exists?(id:)
   end
 
   sig { void }
@@ -101,14 +98,6 @@ class PensieveMessage < ApplicationRecord
     text = self.text.downcase
     if Badwords.current.any? { |word| text.include?(word) }
       errors.add(:text, "contains profanity")
-    end
-  end
-
-  # == Callback Handlers
-  sig { void }
-  def trigger_subscriptions
-    if recent?
-      Schema.subscriptions!.trigger(:pensieve_message, { to: }, self)
     end
   end
 end

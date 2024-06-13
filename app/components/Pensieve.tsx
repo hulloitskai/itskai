@@ -1,70 +1,71 @@
-import type { CSSProperties, FC } from "react";
+import type { CSSProperties, ComponentPropsWithoutRef, FC } from "react";
 import { DateTime } from "luxon";
 import ExpandIcon from "~icons/heroicons/arrows-pointing-out-20-solid";
 
 import { ActionIcon, ScrollArea, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
 
-import {
-  PensieveMessageSender,
-  PensieveQueryDocument,
-  PensieveSubscriptionDocument,
-} from "~/helpers/graphql";
-import type { PensieveMessageFragment } from "~/helpers/graphql";
-
 import PensieveMessage from "./PensieveMessage";
 import PensieveChatBox from "./PensieveChatBox";
 
-export type PensieveProps = BoxProps & {
+type PensieveMessageFragment = any;
+enum PensieveMessageSender {
+  Bot = "bot",
+  User = "user",
+}
+
+export interface PensieveProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {
   expandable?: boolean;
   onLoadMessages?: (messages: ReadonlyArray<PensieveMessageFragment>) => void;
   onNewMessage?: () => void;
-};
+}
 
 const Pensieve: FC<PensieveProps> = ({
   expandable,
-  onLoadMessages,
-  onNewMessage,
+  onLoadMessages, // eslint-disable-line @typescript-eslint/no-unused-vars
+  onNewMessage, // eslint-disable-line @typescript-eslint/no-unused-vars
   style,
   ...otherProps
 }) => {
-  const [messages, setMessages] = useState<
+  const [messages /* setMessages */] = useState<
     Map<string, PensieveMessageFragment>
   >(new Map());
 
   // == Autoscroll
   const viewportRef = useRef<HTMLDivElement>(null);
-  const autoScroll = useCallback((timeout = 200) => {
-    setTimeout(() => {
-      const viewportEl = viewportRef.current;
-      if (viewportEl && viewportEl.scrollHeight > viewportEl.clientHeight) {
-        viewportEl.scrollTo({
-          top: viewportEl.scrollHeight,
-          behavior: "smooth",
-        });
-      }
-    }, timeout);
-  }, []);
+  // const autoScroll = useCallback((timeout = 200) => {
+  //   setTimeout(() => {
+  //     const viewportEl = viewportRef.current;
+  //     if (viewportEl && viewportEl.scrollHeight > viewportEl.clientHeight) {
+  //       viewportEl.scrollTo({
+  //         top: viewportEl.scrollHeight,
+  //         behavior: "smooth",
+  //       });
+  //     }
+  //   }, timeout);
+  // }, []);
 
   // == Messages Loading
-  const onLoadMessagesError = useApolloAlertCallback("Failed to load messages");
-  const { loading: loadingMessages } = useQuery(PensieveQueryDocument, {
-    nextFetchPolicy: "standby",
-    onCompleted: ({ messages: incomingMessages }) => {
-      setMessages(prevMessages => {
-        const messages = new Map(prevMessages);
-        incomingMessages.forEach(incomingMessage => {
-          messages.set(incomingMessage.id, incomingMessage);
-        });
-        return messages;
-      });
-      autoScroll(300);
-      if (onLoadMessages) {
-        onLoadMessages(incomingMessages);
-      }
-    },
-    onError: onLoadMessagesError,
-  });
+  // const onLoadMessagesError = useApolloAlertCallback("Failed to load messages");
+  // const { loading: loadingMessages } = useQuery(PensieveQueryDocument, {
+  //   nextFetchPolicy: "standby",
+  //   onCompleted: ({ messages: incomingMessages }) => {
+  //     setMessages(prevMessages => {
+  //       const messages = new Map(prevMessages);
+  //       incomingMessages.forEach(incomingMessage => {
+  //         messages.set(incomingMessage.id, incomingMessage);
+  //       });
+  //       return messages;
+  //     });
+  //     autoScroll(300);
+  //     if (onLoadMessages) {
+  //       onLoadMessages(incomingMessages);
+  //     }
+  //   },
+  //   onError: onLoadMessagesError,
+  // });
 
   // == Groupings
   const groups = useMemo(() => {
@@ -92,34 +93,35 @@ const Pensieve: FC<PensieveProps> = ({
   }, [messages]);
 
   // == Watching Messages
-  useSubscription(PensieveSubscriptionDocument, {
-    variables: {},
-    onData: ({ data: { data, error } }) => {
-      if (data) {
-        const { message: incomingMessage } = data;
-        if (incomingMessage) {
-          const isNewMessage = !messages.has(incomingMessage.id);
-          setMessages(prevMessages => {
-            const messages = new Map(prevMessages);
-            messages.set(incomingMessage.id, incomingMessage);
-            return messages;
-          });
-          if (isNewMessage) {
-            autoScroll();
-            if (onNewMessage) {
-              onNewMessage();
-            }
-          }
-        } else if (error) {
-          console.error("Error during message update", formatJSON({ error }));
-        }
-      }
-    },
-    onError: error => {
-      console.error("Failed to watch message updates", formatJSON({ error }));
-    },
-  });
+  // useSubscription(PensieveSubscriptionDocument, {
+  //   variables: {},
+  //   onData: ({ data: { data, error } }) => {
+  //     if (data) {
+  //       const { message: incomingMessage } = data;
+  //       if (incomingMessage) {
+  //         const isNewMessage = !messages.has(incomingMessage.id);
+  //         setMessages(prevMessages => {
+  //           const messages = new Map(prevMessages);
+  //           messages.set(incomingMessage.id, incomingMessage);
+  //           return messages;
+  //         });
+  //         if (isNewMessage) {
+  //           autoScroll();
+  //           if (onNewMessage) {
+  //             onNewMessage();
+  //           }
+  //         }
+  //       } else if (error) {
+  //         console.error("Error during message update", formatJSON({ error }));
+  //       }
+  //     }
+  //   },
+  //   onError: error => {
+  //     console.error("Failed to watch message updates", formatJSON({ error }));
+  //   },
+  // });
 
+  const loadingMessages = false;
   return (
     <Box
       id="pensieve"

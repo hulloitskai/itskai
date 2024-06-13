@@ -1,6 +1,0 @@
-query PensieveQuery {
-  messages: pensieveMessages {
-    id
-    ...PensieveMessageFragment
-  }
-}

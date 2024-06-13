@@ -8,12 +8,12 @@ const APP_META_SITE_DESCRIPTION =
 const APP_META_SITE_IMAGE = "/banner.png";
 const APP_META_TITLE_SEPARATOR = "|";
 
-export type AppMetaProps = {
+export interface AppMetaProps {
   title?: string | string[];
   description?: string | null;
   imageUrl?: string | null;
   noIndex?: boolean;
-};
+}
 
 const AppMeta: FC<AppMetaProps> = ({
   title: titleProp,

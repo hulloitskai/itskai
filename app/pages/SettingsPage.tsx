@@ -1,20 +1,15 @@
-import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import type { PageComponent } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
+import type { SharedPageProps } from "~/types";
 
 import AppLayout from "~/components/AppLayout";
 import SettingsPageEmailForm from "~/components/SettingsPageEmailForm";
 import SettingsPagePasswordForm from "~/components/SettingsPagePasswordForm";
 import SettingsPageProfileForm from "~/components/SettingsPageProfileForm";
 
-import type { SettingsPageQuery } from "~/helpers/graphql";
+export interface SettingsPageProps extends SharedPageProps {}
 
-export type SettingsPageProps = PagePropsWithData<SettingsPageQuery>;
-
-const SettingsPage: PageComponent<SettingsPageProps> = ({
-  data: { viewer },
-}) => {
-  invariant(viewer, "Missing viewer");
-
+const SettingsPage: PageComponent<SettingsPageProps> = () => {
   return (
     <Stack>
       <Card withBorder>
@@ -24,7 +19,7 @@ const SettingsPage: PageComponent<SettingsPageProps> = ({
               Profile
             </Title>
           </Center>
-          <SettingsPageProfileForm {...{ viewer }} />
+          <SettingsPageProfileForm />
         </Stack>
       </Card>
       <Card withBorder>
@@ -37,7 +32,7 @@ const SettingsPage: PageComponent<SettingsPageProps> = ({
               Change your account email address
             </Text>
           </Stack>
-          <SettingsPageEmailForm {...{ viewer }} />
+          <SettingsPageEmailForm />
         </Stack>
       </Card>
       <Card withBorder>
@@ -57,22 +52,19 @@ const SettingsPage: PageComponent<SettingsPageProps> = ({
   );
 };
 
-SettingsPage.layout = buildLayout<SettingsPageProps>(
-  (page, { data: { viewer } }) => (
-    <AppLayout
-      title="Settings"
-      breadcrumbs={[
-        { title: "Home", href: "/" },
-        { title: "Settings", href: "/settings" },
-      ]}
-      withContainer
-      withGutter
-      containerSize={440}
-      {...{ viewer }}
-    >
-      {page}
-    </AppLayout>
-  ),
-);
+SettingsPage.layout = buildLayout<SettingsPageProps>(page => (
+  <AppLayout
+    title="Settings"
+    breadcrumbs={[
+      { title: "Home", href: "/" },
+      { title: "Settings", href: "/settings" },
+    ]}
+    withContainer
+    withGutter
+    containerSize={440}
+  >
+    {page}
+  </AppLayout>
+));
 
 export default SettingsPage;

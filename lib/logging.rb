@@ -9,14 +9,12 @@ module Logging
   extend T::Helpers
   extend ActiveSupport::Concern
 
-  # == Annotations
   requires_ancestor { Kernel }
 
   class_methods do
     extend T::Sig
     extend T::Helpers
 
-    # == Annotations
     requires_ancestor { Module }
 
     # == Methods
@@ -34,14 +32,7 @@ module Logging
     end
   end
 
-  # == Methods
-  sig { returns(T.any(ActiveSupport::Logger, ActiveSupport::BroadcastLogger)) }
-  def logger
-    self.class.logger
-  end
-
-  sig { overridable.params(block: T.proc.void).void }
-  def with_log_tags(&block)
-    self.class.with_log_tags(&block)
+  included do
+    delegate :logger, :with_log_tags, to: :class
   end
 end

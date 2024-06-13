@@ -1,11 +1,13 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
 import type { BadgeProps } from "@mantine/core";
 
 import LinkIcon from "~icons/heroicons/link-20-solid";
 
-export type WebsiteBadgeProps = BadgeProps & {
+export interface WebsiteBadgeProps
+  extends BadgeProps,
+    Omit<ComponentPropsWithoutRef<"div">, "color" | "style"> {
   url: string;
-};
+}
 
 const WebsiteBadge: FC<WebsiteBadgeProps> = ({ url, ...otherProps }) => {
   const host = useMemo(() => {

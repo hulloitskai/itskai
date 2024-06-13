@@ -4,9 +4,9 @@ import type { MapProps as _MapProps } from "react-map-gl";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
-export type MapProps = Omit<_MapProps, "mapboxAccessToken"> & {
+export interface MapProps extends Omit<_MapProps, "mapboxAccessToken"> {
   navigationControl?: boolean;
-};
+}
 
 const Map = forwardRef<MapRef, MapProps>(
   (

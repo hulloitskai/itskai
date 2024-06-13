@@ -11,6 +11,6 @@ class ICloudConnection < T::Struct
   # == Methods
   sig { returns(T.attached_class) }
   def self.current
-    new(credentials: ICloudCredentials.first, status: ICloudctl.status)
+    new(credentials: ICloudCredentials.current, status: ICloudctl.status)
   end
 end

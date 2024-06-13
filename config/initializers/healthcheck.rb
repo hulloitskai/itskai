@@ -27,15 +27,7 @@ Healthcheck.configure do |config|
   # )
 
   # == Custom Response
-  # config.custom =
-  #   lambda do |controller, checker|
-  #     unless checker.errored?
-  #       return controller.render(plain: "Everything is awesome!")
-  #     end
-  #     if controller.verbose?
-  #       controller.verbose_error(checker)
-  #     else
-  #       controller.head_error
-  #     end
-  #   end
+  config.custom = ->(controller, checker) {
+    controller.render(json: StatusSerializer.render(checker))
+  }
 end

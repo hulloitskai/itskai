@@ -1,6 +1,0 @@
-query ErrorPageQuery {
-  viewer {
-    ...AppViewerFragment
-    id
-  }
-}

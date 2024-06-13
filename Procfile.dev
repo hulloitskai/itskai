@@ -4,5 +4,4 @@ icloudctl: DEBUG=true poetry run icloudctl
 vite-dev: bin/vite dev
 vite-build_ssr: bin/vite build --ssr -m dev --watch --force
 vite-ssr: sleep 4 && bundle exec rerun -p 'dist/ssr/**/*.js' -q -- bin/vite ssr
-graphql-codegen: bin/graphql-codegen helpers --watch
 rails: bin/rails server

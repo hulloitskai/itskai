@@ -1,6 +1,0 @@
-query TestEmailQuery($userId: ID!, $hasUser: Boolean!) {
-  user(id: $userId) @include(if: $hasUser) {
-    id
-    name
-  }
-}

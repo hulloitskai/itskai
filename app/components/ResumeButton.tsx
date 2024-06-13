@@ -1,6 +1,11 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
+import type { ButtonProps } from "@mantine/core";
 
 import DocumentIcon from "~icons/heroicons/document-20-solid";
+
+export interface ResumeButtonProps
+  extends ButtonProps,
+    Omit<ComponentPropsWithoutRef<"a">, "color" | "style" | "children"> {}
 
 const ResumeButton: FC = () => (
   <Button

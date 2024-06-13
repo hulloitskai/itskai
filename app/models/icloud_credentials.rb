@@ -19,16 +19,9 @@ class ICloudCredentials < ApplicationRecord
   # == Attributes
   self.filter_attributes += %i[password cookies session]
 
-  sig { returns(T.nilable(T::Hash[String, T.untyped])) }
-  def session = super
-
-  sig do
-    params(value: T.nilable(T::Hash[String, T.untyped]))
-      .returns(T.nilable(T::Hash[String, T.untyped]))
-  end
-  def session=(value)
-    super
-  end
+  # == Finders
+  sig { returns(T.nilable(ICloudCredentials)) }
+  def self.current = first
 
   # == Validations
   validates :email,

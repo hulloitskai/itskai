@@ -1,7 +1,0 @@
-query TestPageQuery($name: String!) {
-  testEcho(text: $name)
-  viewer {
-    ...AppViewerFragment
-    id
-  }
-}

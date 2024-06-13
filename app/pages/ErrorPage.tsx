@@ -1,16 +1,15 @@
-import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import type { PageComponent } from "~/helpers/inertia";
+import type { SharedPageProps } from "~/types";
 import { Code, Text } from "@mantine/core";
-
-import type { ErrorPageQuery } from "~/helpers/graphql";
 
 import AppLayout from "~/components/AppLayout";
 
-export type ErrorPageProps = PagePropsWithData<ErrorPageQuery> & {
+export interface ErrorPageProps extends SharedPageProps {
   title: string;
   description: string;
   code: number;
   error?: string;
-};
+}
 
 const ErrorPage: PageComponent<ErrorPageProps> = ({
   title,
@@ -40,14 +39,13 @@ const ErrorPage: PageComponent<ErrorPageProps> = ({
 );
 
 ErrorPage.layout = buildLayout<ErrorPageProps>(
-  (page, { title, description, data }) => {
-    const { viewer } = data;
+  (page, { title, description }) => {
     return (
       <AppLayout
         withContainer
         containerSize="xs"
         containerProps={{ my: "xl" }}
-        {...{ title, description, viewer }}
+        {...{ title, description }}
       >
         {page}
       </AppLayout>

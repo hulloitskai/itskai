@@ -1,14 +1,13 @@
-import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import type { PageComponent } from "~/helpers/inertia";
+import type { SharedPageProps } from "~/types";
 import { Text } from "@mantine/core";
-
-import { LoginPageQuery } from "~/helpers/graphql";
 
 import AppLayout from "~/components/AppLayout";
 import LoginPageForm from "~/components/LoginPageForm";
 
-export type LoginPageProps = PagePropsWithData<LoginPageQuery> & {
+export interface LoginPageProps extends SharedPageProps {
   failed: boolean;
-};
+}
 
 const LoginPage: PageComponent<LoginPageProps> = () => (
   <Card w={380} withBorder>
@@ -50,10 +49,12 @@ const LoginPage: PageComponent<LoginPageProps> = () => (
   </Card>
 );
 
-LoginPage.layout = buildLayout<LoginPageProps>((page, { data: { viewer } }) => (
-  <AppLayout title="Sign in" {...{ viewer }}>
-    <Center style={{ flexGrow: 1 }}>{page}</Center>
-  </AppLayout>
-));
+LoginPage.layout = buildLayout<LoginPageProps>(
+  (page, { currentUser: authenticatedUser }) => (
+    <AppLayout title="Sign in" {...{ authenticatedUser }}>
+      <Center style={{ flexGrow: 1 }}>{page}</Center>
+    </AppLayout>
+  ),
+);
 
 export default LoginPage;

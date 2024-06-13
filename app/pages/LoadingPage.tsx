@@ -1,13 +1,12 @@
-import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import type { PageComponent } from "~/helpers/inertia";
+import type { SharedPageProps } from "~/types";
 import { Loader, Text } from "@mantine/core";
 
 import AppLayout from "~/components/AppLayout";
 
-import type { LoadingPageQuery } from "~/helpers/graphql";
-
-export type LoadingPageProps = PagePropsWithData<LoadingPageQuery> & {
+export interface LoadingPageProps extends SharedPageProps {
   timeout: number;
-};
+}
 
 const LoadingPage: PageComponent<LoadingPageProps> = ({ timeout }) => {
   useEffect(() => {
@@ -31,12 +30,8 @@ const LoadingPage: PageComponent<LoadingPageProps> = ({ timeout }) => {
   );
 };
 
-LoadingPage.layout = buildLayout<LoadingPageProps>(
-  (page, { data: { viewer } }) => (
-    <AppLayout title="Loading..." {...{ viewer }}>
-      {page}
-    </AppLayout>
-  ),
-);
+LoadingPage.layout = buildLayout<LoadingPageProps>(page => (
+  <AppLayout title="Loading...">{page}</AppLayout>
+));
 
 export default LoadingPage;

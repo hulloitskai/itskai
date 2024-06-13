@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_16_004823) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_03_203752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -42,20 +42,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_004823) do
     t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "dishwatcher_captures", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "device_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.index ["device_id"], name: "index_dishwatcher_captures_on_device_id"
-  end
-
-  create_table "dishwatcher_devices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "secret_key", null: false
-    t.index ["secret_key"], name: "index_dishwatcher_devices_on_secret_key", unique: true
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -157,23 +143,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_004823) do
     t.datetime "synced_at", precision: nil, null: false
     t.index ["notion_page_id"], name: "index_journal_entries_on_notion_page_id", unique: true
     t.index ["started_at"], name: "index_journal_entries_on_started_at"
-  end
-
-  create_table "journeys_session_participations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "session_id", null: false
-    t.uuid "participant_id", null: false
-    t.string "participant_name", null: false
-    t.text "goal", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["session_id"], name: "index_journeys_session_participations_on_session_id"
-  end
-
-  create_table "journeys_sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "slug", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["slug"], name: "index_journeys_sessions_on_slug", unique: true
   end
 
   create_table "listening_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -307,18 +276,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_004823) do
     t.index ["user_id"], name: "index_pensieve_recordings_on_user_id"
   end
 
-  create_table "scottcalls", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "telnyx_call_control_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.string "signal", null: false
-    t.index ["telnyx_call_control_id"], name: "index_scottcalls_on_telnyx_call_control_id", unique: true
-  end
-
-  create_table "seneca_mood_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.integer "valence", null: false
-    t.datetime "created_at", precision: nil, null: false
-  end
-
   create_table "task_records", id: false, force: :cascade do |t|
     t.string "version", null: false
   end
@@ -370,8 +327,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_004823) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "dishwatcher_captures", "dishwatcher_devices", column: "device_id"
-  add_foreign_key "journeys_session_participations", "journeys_sessions", column: "session_id"
   add_foreign_key "location_accesses", "location_access_grants", column: "grant_id"
   add_foreign_key "location_log_addresses", "location_logs"
   add_foreign_key "obsidian_relations", "obsidian_notes", column: "from_id"

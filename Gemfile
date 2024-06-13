@@ -57,11 +57,9 @@ gem "aws-sdk-s3", "~> 1.126", require: false
 # Use Good Job as the backend for Active Job
 gem "good_job", "~> 3.21"
 
-# Send emails with Mailjet.
-gem "mailjet", "~> 1.7"
-
-# Send emails with Sendgrid.
+# Send emails with Sendgrid, Mailjet
 gem "sendgrid-ruby", "~> 6.6"
+gem "mailjet", "~> 1.7"
 
 # Use FriendlyId to create human-friendly identifiers for models
 gem "friendly_id", "~> 5.5"
@@ -119,14 +117,6 @@ gem "enumerize", "~> 2.6"
 
 # Use Action Policy to authorize actions
 gem "action_policy", "~> 0.6.5"
-gem "action_policy-graphql", "~> 0.5.3"
-
-# Expose a GraphQL API
-gem "graphql", "~> 2.1"
-gem "graphql-connections", "~> 1.3"
-gem "graphql-pagination", "~> 2.2"
-gem "graphql-persisted_queries", "~> 1.8"
-gem "graphql-rails_logger"
 
 # Serve and bundle frontend with Vite
 gem "vite_rails", "~> 3.0"
@@ -185,20 +175,11 @@ gem "after_party", "~> 1.11"
 # Handle CORS requests
 gem "rack-cors", "~> 2.0"
 
-# Load events from Google Calendar
-gem "google_calendar", "~> 0.6.4"
-
-# Detect what OS we are running on
-gem "os", "~> 1.1"
-
 # Interact with Kai on Telegram
 gem "telegram-bot-ruby", "~> 2.0", require: 'telegram/bot'
 
 # Hash passwords with bcrypt
 gem "bcrypt", "~> 3.1"
-
-# Compare times with time_difference
-gem "time_difference", "~> 0.5.0"
 
 # Control the browser with Playwright
 gem "playwright-ruby-client", "~> 1.43", require: 'playwright'
@@ -208,9 +189,6 @@ gem "ruby-openai", "~> 6.3"
 
 # Process audio with ffmpeg
 gem "streamio-ffmpeg", "~> 3.0"
-
-# Generate fake data with Faker
-gem "faker", "~> 3.2"
 
 # Analyze image metadata with Exiftool
 gem "exiftool", "~> 1.2"
@@ -226,15 +204,27 @@ gem "stackprof"
 # Cache counts in models with CounterCulture
 gem "counter_culture", "~> 3.5"
 
-# Render pretty JSON with NeatJSON
+# Render pretty JSON
 gem "neatjson", "~> 0.10.5"
+
+# Serialize JSON with MultiJSON
+gem "multi_json", "~> 1.15"
 
 # Access YAML records
 gem "frozen_record", "~> 0.27.1"
 
+# Fast JSON serialization
+gem "oj_serializers", "~> 2.0"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"
+
+  # Generate Typescript path helpers
+  gem "js_from_routes", "~> 3.0"
+
+  # Generate Typescript from serializers
+  gem "types_from_serializers", "~> 2.1"
 end
 
 group :development do
@@ -258,7 +248,6 @@ group :development do
 
   # Use Rubocop to lint code
   gem "rubocop", "~> 1.62", require: false
-  gem "rubocop-graphql", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-shopify", require: false

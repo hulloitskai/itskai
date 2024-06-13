@@ -1,32 +1,30 @@
 import type { FC } from "react";
+import type { Image as ImageModel } from "~/types";
+import { upload } from "~/helpers/upload";
 import PhotoIcon from "~icons/heroicons/photo-20-solid";
 
-import { Dropzone } from "@mantine/dropzone";
 import type { DropzoneProps } from "@mantine/dropzone";
+import { Dropzone } from "@mantine/dropzone";
 
-import { Image, Input, Text, rgba } from "@mantine/core";
 import type { InputWrapperProps } from "@mantine/core";
-
-import type { AvatarFieldQueryVariables, UploadInput } from "~/helpers/graphql";
-import { AvatarFieldQueryDocument } from "~/helpers/graphql";
+import { Image, Input, Text, rgba } from "@mantine/core";
 
 import "@mantine/dropzone/styles.layer.css";
 
-import { upload } from "~/helpers/upload";
-
+import { AVATAR_FIELD_IMAGE_SIZE, AVATAR_FIELD_RADIUS } from "~/helpers/avatar";
 import classes from "./AvatarField.module.css";
 
-const AVATAR_FIELD_IMAGE_SIZE = 140;
-const AVATAR_FIELD_RADIUS = 10000;
+export type AvatarValue = { signedId: string };
 
-export type AvatarFieldProps = Omit<
-  InputWrapperProps,
-  "inputContainer" | "inputWrapperOrder" | "size" | "children" | "onChange"
-> &
-  Pick<DropzoneProps, "disabled"> & {
-    value?: UploadInput | null;
-    onChange?: (value: UploadInput | null) => void;
-  };
+export interface AvatarFieldProps
+  extends Omit<
+      InputWrapperProps,
+      "inputContainer" | "inputWrapperOrder" | "size" | "children" | "onChange"
+    >,
+    Pick<DropzoneProps, "disabled"> {
+  value?: AvatarValue;
+  onChange?: (value: AvatarValue | null) => void;
+}
 
 const AvatarField: FC<AvatarFieldProps> = ({
   value,
@@ -44,56 +42,22 @@ const AvatarField: FC<AvatarFieldProps> = ({
   withAsterisk,
   style,
 }) => {
-  // == Value
-  const previousValue = usePrevious(value);
-  const valueChanged = useMemo(
-    () => !isEqual(value, previousValue),
-    [value, previousValue],
-  );
-
   // == Uploading
   const [uploading, setUploading] = useState(false);
 
-  // == Avatar Loading
-  const onLoadAvatarError = useApolloAlertCallback("Failed to load avatar");
-  const variables = useMemo<AvatarFieldQueryVariables | undefined>(() => {
-    if (value) {
-      return value;
-    }
-  }, [value]);
-  const skipQuery = !value;
-  const { data: avatarData, loading: avatarLoading } = useQuery(
-    AvatarFieldQueryDocument,
-    {
-      variables,
-      skip: skipQuery,
-      onError: onLoadAvatarError,
-    },
-  );
-
-  // == Image
-  const [src, setSrc] = useState("");
-  useEffect(() => {
-    if (value) {
-      if (avatarData) {
-        const { image } = avatarData ?? {};
-        if (image) {
-          setSrc(image.src);
-        } else {
-          console.error("Image not found", formatJSON({ signedId: value }));
-          showAlert({
-            title: "Image not found",
-            message: "Unable to load image preview for avatar.",
-          });
-        }
-      }
-    } else {
-      setSrc("");
-    }
-  }, [value, avatarData]);
+  // == Preview
+  const { data: previewData, fetching: previewFetching } = useFetch<{
+    image: ImageModel;
+  }>(routes.images.show, {
+    descriptor: "load preview image",
+    params: value,
+    skip: !value,
+  });
+  const { image: previewImage } = previewData ?? {};
 
   // == Loading
-  const loading = uploading || ((!src || valueChanged) && avatarLoading);
+  const loading: boolean =
+    uploading || (!!value && !previewImage && previewFetching);
 
   return (
     <Input.Wrapper
@@ -117,7 +81,8 @@ const AvatarField: FC<AvatarFieldProps> = ({
             h={AVATAR_FIELD_IMAGE_SIZE}
             radius={AVATAR_FIELD_RADIUS}
             m={4}
-            {...{ src }}
+            src={previewImage?.src}
+            srcSet={previewImage?.srcSet}
           />
           <Dropzone
             accept={["image/png", "image/jpeg"]}
@@ -128,9 +93,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
                 upload(file)
                   .then(blob => {
                     if (onChange) {
-                      const value: UploadInput = {
-                        signedId: blob.signed_id,
-                      };
+                      const value = { signedId: blob.signed_id };
                       onChange(value);
                     }
                   })
@@ -159,7 +122,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
                 "--af-dropzone-backdrop": rgba(colors.dark[5], 0.8),
               }),
             ]}
-            mod={{ "with-src": !!src, disabled }}
+            mod={{ "with-src": !!previewImage, disabled }}
             {...{ loading, disabled }}
           >
             <Stack align="center" gap={8}>
@@ -175,7 +138,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
             </Stack>
           </Dropzone>
         </Box>
-        {src && (
+        {!!previewImage && (
           <Anchor
             component="button"
             type="button"

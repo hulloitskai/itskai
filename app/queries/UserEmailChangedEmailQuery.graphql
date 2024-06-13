@@ -1,7 +1,0 @@
-query UserEmailChangedEmailQuery($userId: ID!) {
-  user(id: $userId) {
-    email
-    id
-    name
-  }
-}

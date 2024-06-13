@@ -1,8 +1,0 @@
-fragment TimelinePhotoFragment on TimelinePhoto {
-  id
-  image {
-    id
-    src(size: MD)
-  }
-  takenAt
-}

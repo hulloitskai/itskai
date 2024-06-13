@@ -10,7 +10,6 @@ export { default as SaveIcon } from "~icons/heroicons/document-20-solid";
 export { default as SearchIcon } from "~icons/heroicons/magnifying-glass-20-solid";
 export { default as SettingsIcon } from "~icons/heroicons/cog-6-tooth-20-solid";
 export { default as UserIcon } from "~icons/heroicons/user-20-solid";
-export { default as DownloadIcon } from "~icons/heroicons/arrow-down-tray-20-solid";
 export { default as AuthenticateIcon } from "~icons/heroicons/finger-print-20-solid";
 export { default as DeactivateIcon } from "~icons/heroicons/power-20-solid";
 export { default as ClipboardIcon } from "~icons/heroicons/clipboard-20-solid";

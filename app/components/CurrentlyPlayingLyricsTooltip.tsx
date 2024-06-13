@@ -1,81 +1,69 @@
 import type { FC, ReactNode } from "react";
+import type { LyricLine, SpotifyTrack } from "~/types";
 
 import { useHover } from "@mantine/hooks";
 import type { TooltipProps } from "@mantine/core";
 
-import type { CurrentlyPlayingLyricsTooltipLyricLineFragment } from "~/helpers/graphql";
-import { CurrentlyPlayingLyricsTooltipQueryDocument } from "~/helpers/graphql";
-
 import {
-  useInterpolatedProgressMilliseconds,
+  useInterpolatedProgressMs,
   useProgressLyricsIndexMapping,
 } from "~/helpers/currentlyPlaying";
 
 import classes from "./CurrentlyPlayingLyricsTooltip.module.css";
 
-export type CurrentlyPlayingLyricsTooltipProps = Omit<
-  TooltipProps,
-  "label" | "children"
-> & {
-  durationMilliseconds: number;
-  progressMilliseconds: number | undefined;
-  children: (
-    currentLyricLine:
-      | CurrentlyPlayingLyricsTooltipLyricLineFragment
-      | null
-      | undefined,
-  ) => ReactNode;
-};
+export interface CurrentlyPlayingLyricsTooltipProps
+  extends Omit<TooltipProps, "label" | "children"> {
+  track: SpotifyTrack;
+  durationMs: number;
+  progressMs: number | undefined;
+  children: (currentLyricLine: LyricLine | null | undefined) => ReactNode;
+}
 
 const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
-  durationMilliseconds,
-  progressMilliseconds = 0,
+  track,
+  durationMs,
+  progressMs = 0,
   disabled,
   children,
   ...otherProps
 }) => {
-  const interpolationMilliseconds = 250;
+  const interpolationMs = 250;
   const transitionDuration = 200;
   const { hovered, ref } = useHover();
 
   // == Progress
-  const interpolatedProgressMilliseconds = useInterpolatedProgressMilliseconds({
-    progressMilliseconds,
-    interpolationMilliseconds,
+  const interpolatedProgressMs = useInterpolatedProgressMs({
+    progressMs,
+    interpolationMs,
   });
 
-  // == Loading current lyric
-  const { data: currentLyricData } = useQuery(
-    CurrentlyPlayingLyricsTooltipQueryDocument,
+  // == Lyrics
+  const lyricsParams = useMemo(() => ({ id: track.id }), [track.id]);
+  const { data } = useFetch<{ lyrics: LyricLine[] }>(
+    routes.spotifyTracks.lyrics,
     {
-      fetchPolicy: "no-cache",
-      variables: {},
-      onError: error => {
-        console.error(
-          "Failed to load lyrics for currently playing track",
-          formatJSON({ error }),
-        );
-      },
+      params: lyricsParams,
+      descriptor: "load lyrics",
     },
   );
-  const { lyrics } = currentLyricData?.currentlyPlaying?.track ?? {};
+  const { lyrics } = data ?? {};
+
+  // == Current Lyric
   const progressLyricsIndexMapping = useProgressLyricsIndexMapping({
     lyrics,
-    durationMilliseconds,
-    interpolationMilliseconds,
+    durationMs,
+    interpolationMs,
   });
-
-  // == Current lyric
   const currentLyric = useMemo(() => {
     if (lyrics) {
       const currentLyricIndex =
-        progressLyricsIndexMapping[interpolatedProgressMilliseconds];
+        progressLyricsIndexMapping[interpolatedProgressMs];
       if (typeof currentLyricIndex === "number") {
         return lyrics[currentLyricIndex];
       }
       return null;
     }
-  }, [lyrics, progressLyricsIndexMapping, interpolatedProgressMilliseconds]);
+  }, [lyrics, progressLyricsIndexMapping, interpolatedProgressMs]);
 
   const hasWords = !!currentLyric?.words;
   const label = useMemo(

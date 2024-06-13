@@ -1,87 +1,81 @@
 import type { ComponentPropsWithoutRef, FC } from "react";
 import { BoxProps, PasswordInput } from "@mantine/core";
 
-import PasswordWithStrengthCheckInput from "./PasswordWithStrengthCheckInput";
+import StrongPasswordInput from "./StrongPasswordInput";
 
-export type ChangePasswordPageFormProps = BoxProps &
-  Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit"> & {
-    resetPasswordToken: string;
-  };
-
-type ChangePasswordPageFormValues = {
-  password: string;
-  passwordConfirmation: string;
-};
+export interface ChangePasswordPageFormProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {
+  resetPasswordToken: string;
+}
 
 const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
   resetPasswordToken,
   ...otherProps
 }) => {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0.0);
 
   // == Form
-  const { getInputProps, reset, isDirty, onSubmit } =
-    useForm<ChangePasswordPageFormValues>({
+  const { values, getInputProps, isDirty, submit, processing } = useInertiaForm(
+    {
+      action: routes.usersRegistrations.update,
+      method: "put",
+      descriptor: "change password",
       initialValues: {
         password: "",
         passwordConfirmation: "",
       },
+      transformValues: values => ({
+        user: {
+          ...deepUnderscoreKeys(values),
+          reset_password_token: resetPasswordToken,
+        },
+      }),
       validate: {
         password: () => {
           if (passwordStrength < 1.0) {
-            return "Too weak.";
+            return "Password is too weak";
           }
         },
         passwordConfirmation: (value, { password }) => {
           if (password != value) {
-            return "Does not match password.";
+            return "Password confirmation does not match password";
           }
         },
       },
-    });
+    },
+  );
+  const requiredFieldsFilled = useRequiredFieldsFilled(
+    values,
+    "password",
+    "passwordConfirmation",
+  );
 
   return (
-    <Box
-      component="form"
-      onSubmit={onSubmit(({ password, passwordConfirmation }) => {
-        const data = {
-          user: {
-            password,
-            password_confirmation: passwordConfirmation,
-            reset_password_token: resetPasswordToken,
-          },
-        };
-        router.put("/password", data, {
-          onBefore: () => {
-            setLoading(true);
-          },
-          onFinish: () => {
-            reset();
-            setLoading(false);
-          },
-        });
-      })}
-      {...otherProps}
-    >
+    <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
-        <PasswordWithStrengthCheckInput
-          label="New Password"
-          placeholder="new-password"
+        <StrongPasswordInput
+          label="New password"
+          placeholder="ultra-secure-password"
+          autoComplete="new-password"
           required
           minLength={8}
           onStrengthCheck={setPasswordStrength}
           {...getInputProps("password")}
         />
         <PasswordInput
-          label="New Password (confirm)"
-          placeholder="new-password"
+          label="New password (confirm)"
+          placeholder="ultra-secure-password"
+          autoComplete="new-password"
           required
           minLength={8}
           {...getInputProps("passwordConfirmation")}
         />
-        <Button type="submit" disabled={!isDirty()} {...{ loading }}>
+        <Button
+          type="submit"
+          disabled={!isDirty() || !requiredFieldsFilled}
+          loading={processing}
+        >
           Continue
         </Button>
       </Stack>

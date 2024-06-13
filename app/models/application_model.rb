@@ -6,6 +6,7 @@ class ApplicationModel
   extend T::Helpers
   extend Enumerize
   include StoreModel::Model
+  include FormErrors
 
   class << self
     extend T::Sig

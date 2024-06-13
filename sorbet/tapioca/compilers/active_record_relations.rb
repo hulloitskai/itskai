@@ -10,7 +10,6 @@ module Tapioca::Dsl::Compilers
       extend T::Helpers
       include Tapioca::Dsl::Helpers::ActiveRecordConstantsHelper
 
-      # == Annotations
       requires_ancestor { ActiveRecordRelations }
 
       # == Methods
@@ -22,10 +21,9 @@ module Tapioca::Dsl::Compilers
       # == Helpers
       sig { returns(T.untyped) }
       def create_relation_class
-        superclass = "::ActiveRecord::Relation"
         model.create_class(
           RelationClassName,
-          superclass_name: superclass,
+          superclass_name: "::ActiveRecord::Relation",
         ) do |klass|
           create_friendly_method(klass)
         end
@@ -34,10 +32,9 @@ module Tapioca::Dsl::Compilers
 
       sig { returns(T.untyped) }
       def create_association_relation_class
-        superclass = "::ActiveRecord::AssociationRelation"
         model.create_class(
           AssociationRelationClassName,
-          superclass_name: superclass,
+          superclass_name: "::ActiveRecord::AssociationRelation",
         ) do |klass|
           create_friendly_method(klass)
         end
@@ -46,10 +43,9 @@ module Tapioca::Dsl::Compilers
 
       sig { returns(T.untyped) }
       def create_collection_proxy_class
-        superclass = "::ActiveRecord::Associations::CollectionProxy"
         model.create_class(
           AssociationsCollectionProxyClassName,
-          superclass_name: superclass,
+          superclass_name: "::ActiveRecord::Associations::CollectionProxy",
         ) do |klass|
           create_friendly_method(klass)
         end

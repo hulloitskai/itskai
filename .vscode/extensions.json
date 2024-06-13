@@ -9,8 +9,6 @@
     "editorconfig.editorconfig",
     "benspaulding.procfile",
     "itarato.byesig",
-    "graphql.vscode-graphql",
-    "graphql.vscode-graphql-syntax",
     "github.vscode-github-actions",
     "clinyong.vscode-css-modules",
     "rubocop.vscode-rubocop"

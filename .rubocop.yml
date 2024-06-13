@@ -10,7 +10,6 @@
 # See https://docs.rubocop.org/rubocop/configuration
 
 require:
-  - rubocop-graphql
   - rubocop-performance
   - rubocop-rails
   - rubocop-sorbet
@@ -107,17 +106,6 @@ Rails/HasAndBelongsToMany:
 Rails/I18nLocaleTexts:
   Enabled: false
 Rails/RenderInline:
-  Enabled: false
-
-GraphQL/ArgumentDescription:
-  Enabled: false
-GraphQL/FieldDescription:
-  Enabled: false
-GraphQL/ObjectDescription:
-  Enabled: false
-GraphQL/ExtractType:
-  Enabled: false
-GraphQL/ExtractInputType:
   Enabled: false
 
 Sorbet/AllowIncompatibleOverride:

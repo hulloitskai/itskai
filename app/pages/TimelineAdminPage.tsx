@@ -1,14 +1,13 @@
-import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import type { PageComponent } from "~/helpers/inertia";
+import type { SharedPageProps } from "~/types";
 import { Text } from "@mantine/core";
-
-import type { TimelineAdminPageQuery } from "~/helpers/graphql";
 
 import AppLayout from "~/components/AppLayout";
 import TimelineActivitiesImportButton from "~/components/TimelineActivitiesImportButton";
 import TimelinePhotosImportButton from "~/components/TimelinePhotosImportButton";
 // import TimelinePhotoCreateWithTimestampButton from "~/components/TimelinePhotoCreateWithTimestampButton";
 
-export type TimelineAdminPageProps = PagePropsWithData<TimelineAdminPageQuery>;
+export interface TimelineAdminPageProps extends SharedPageProps {}
 
 const TimelineAdminPage: PageComponent<TimelineAdminPageProps> = () => {
   return (
@@ -34,23 +33,20 @@ const TimelineAdminPage: PageComponent<TimelineAdminPageProps> = () => {
   );
 };
 
-TimelineAdminPage.layout = buildLayout<TimelineAdminPageProps>(
-  (page, { data: { viewer } }) => (
-    <AppLayout
-      title="Timeline Admin"
-      breadcrumbs={[
-        { title: "Home", href: "/" },
-        { title: "Timeline", href: "/timeline" },
-        { title: "Admin", href: "/timeline/admin" },
-      ]}
-      withContainer
-      withGutter
-      containerSize="xs"
-      {...{ viewer }}
-    >
-      {page}
-    </AppLayout>
-  ),
-);
+TimelineAdminPage.layout = buildLayout<TimelineAdminPageProps>(page => (
+  <AppLayout
+    title="Timeline Admin"
+    breadcrumbs={[
+      { title: "Home", href: "/" },
+      { title: "Timeline", href: "/timeline" },
+      { title: "Admin", href: "/timeline/admin" },
+    ]}
+    withContainer
+    withGutter
+    containerSize="xs"
+  >
+    {page}
+  </AppLayout>
+));
 
 export default TimelineAdminPage;

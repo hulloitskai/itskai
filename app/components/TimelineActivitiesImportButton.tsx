@@ -1,11 +1,13 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
 import type { ButtonProps } from "@mantine/core";
 
 import type { TimelineActivitiesImportFormProps } from "./TimelineActivitiesImportForm";
 import TimelineActivitiesImportForm from "./TimelineActivitiesImportForm";
 
-export type TimelineActivitiesImportButtonProps = Omit<ButtonProps, "onClick"> &
-  Pick<TimelineActivitiesImportFormProps, "onImport">;
+export interface TimelineActivitiesImportButtonProps
+  extends ButtonProps,
+    Omit<ComponentPropsWithoutRef<"button">, "color" | "style" | "onClick">,
+    Pick<TimelineActivitiesImportFormProps, "onImport"> {}
 
 const TimelineActivitiesImportButton: FC<
   TimelineActivitiesImportButtonProps

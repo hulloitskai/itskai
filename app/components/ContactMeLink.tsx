@@ -4,10 +4,9 @@ import type { AnchorProps } from "@mantine/core";
 import { useContactMe } from "~/helpers/contactMe";
 import type { ContactMeOptions } from "~/helpers/contactMe";
 
-export type ContactMeLinkProps = AnchorProps &
-  ContactMeOptions & {
-    children: ReactNode;
-  };
+export interface ContactMeLinkProps extends AnchorProps, ContactMeOptions {
+  children: ReactNode;
+}
 
 const ContactMeLink: FC<ContactMeLinkProps> = ({
   subject,

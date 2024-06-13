@@ -2,7 +2,7 @@ import type { FC, PropsWithChildren } from "react";
 
 import EmailMantineProvider from "./EmailMantineProvider";
 
-export type EmailWrapperProps = PropsWithChildren;
+export interface EmailWrapperProps extends PropsWithChildren {}
 
 const EmailWrapper: FC<EmailWrapperProps> = ({ children }) => (
   <EmailMantineProvider>{children}</EmailMantineProvider>

@@ -10,7 +10,6 @@ module Discordrb
       extend T::Sig
       extend T::Helpers
 
-      # == Annotations
       requires_ancestor { Kernel }
 
       # == Methods
@@ -70,7 +69,6 @@ module Discordrb
         end
       end
     end
-
     prepend RailsLogging
   end
 end

@@ -54,7 +54,7 @@ class SpotifyClient < ApplicationService
           normalized_words = normalize_words(line.fetch("words"))
           sanitized_words = sanitize_words(normalized_words)
           LyricLine.new(
-            start_time_milliseconds: line.fetch("startTimeMs").to_i,
+            start_time_ms: line.fetch("startTimeMs").to_i,
             words: sanitized_words,
           )
         end

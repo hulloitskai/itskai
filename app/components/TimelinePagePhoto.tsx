@@ -1,14 +1,16 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
 import { usePresence } from "framer-motion";
 
 import type { ImageProps } from "@mantine/core";
 import { Image } from "@mantine/core";
 
-import type { TimelinePhotoFragment } from "~/helpers/graphql";
+type TimelinePhotoFragment = any;
 
-type TimelinePagePhotoProps = ImageProps & {
+export interface TimelinePagePhotoProps
+  extends ImageProps,
+    Omit<ComponentPropsWithoutRef<"img">, "src" | "style" | "children"> {
   photo: TimelinePhotoFragment;
-};
+}
 
 let lastCorner = 0;
 

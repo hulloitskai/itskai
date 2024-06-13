@@ -27,7 +27,6 @@ module InertiaRails
         sig { void }
         def copy_xsrf_to_csrf!; end
       end
-
       prepend Patch
     end
   end

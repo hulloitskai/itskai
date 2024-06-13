@@ -3,64 +3,33 @@ import type { FC } from "react";
 import { Code, Text } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 
-import { TestMutationMutationDocument } from "~/helpers/graphql";
-
 import "@mantine/dates/styles.layer.css";
-
-export type TestFormValues = {
-  name: string;
-  birthday: string | null;
-};
 
 const TestForm: FC = () => {
   // == Form
-  const { getInputProps, onSubmit, setErrors, reset } = useForm<TestFormValues>(
-    {
-      initialValues: {
-        name: "",
-        birthday: null,
-      },
+  const { data, getInputProps, submit, processing } = useFetchForm({
+    action: routes.tests.submit,
+    method: "post",
+    descriptor: "submit test form",
+    initialValues: {
+      name: "",
+      birthday: null as string | null,
     },
-  );
-
-  // == Mutating
-  const onMutateError = useApolloAlertCallback("Mutation failed");
-  const [mutate, { data }] = useMutation(TestMutationMutationDocument, {
-    onCompleted: ({ payload: { model, errors } }) => {
-      if (model) {
-        showNotification({ message: "Mutation successful." });
-        reset();
-      } else {
-        invariant(errors, "Missing input errors");
-        const formErrors = buildFormErrors(errors);
-        setErrors(formErrors);
-        showFormErrorsAlert(formErrors, "Couldn't run mutation");
-      }
-    },
-    onError: onMutateError,
+    transformValues: values => ({
+      model: values,
+    }),
   });
 
   return (
     <Stack gap="xs">
-      <Title order={4}>Test Form</Title>
-      <form
-        onSubmit={onSubmit(({ name, birthday }) => {
-          mutate({
-            variables: {
-              input: {
-                name,
-                birthday,
-              },
-            },
-          });
-        })}
-      >
+      <Title order={3}>Test Form</Title>
+      <Box component="form" onSubmit={submit}>
         <Stack gap="xs">
           <TextInput
             label="Name"
             description={
               <>
-                The only accepted value is:{" "}
+                The only server-permitted value is:{" "}
                 <Text span inherit style={{ textTransform: "none" }}>
                   George
                 </Text>
@@ -70,7 +39,9 @@ const TestForm: FC = () => {
             {...getInputProps("name")}
           />
           <DatePickerInput label="Birthday" {...getInputProps("birthday")} />
-          <Button type="submit">Submit</Button>
+          <Button type="submit" loading={processing}>
+            Submit
+          </Button>
           {data && (
             <>
               <Divider />
@@ -83,7 +54,7 @@ const TestForm: FC = () => {
             </>
           )}
         </Stack>
-      </form>
+      </Box>
     </Stack>
   );
 };

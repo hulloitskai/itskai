@@ -16,6 +16,8 @@ bin/setup
 
 ## todos
 
+- [x] remove graphql
+- [ ] flash messages with title
 - [ ] update sentry & fullstory user after login (through AppLayout)
 - [ ] lowercase preview text in emails
 - [ ] switch to [microsoft clarity](https://clarity.microsoft.com) cuz it's

@@ -12,6 +12,7 @@ class ApplicationRecord < ActiveRecord::Base
   include RemovesBlank
   include Routing
   include Logging
+  include FormErrors
 
   # == Constants
   # Support runtime type-checking for Sorbet-generated types.

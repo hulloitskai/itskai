@@ -1,8 +1,0 @@
-mutation CreateLocationAccessMutation($input: CreateLocationAccessInput!) {
-  payload: createLocationAccess(input: $input) {
-    access {
-      id
-      token
-    }
-  }
-}

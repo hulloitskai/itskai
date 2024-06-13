@@ -7,4 +7,4 @@ db/schema.rb linguist-generated
 vendor/* linguist-vendored
 
 # Mark generated files.
-app/*.generated.* linguist-generated
+*generated* linguist-generated

@@ -1,4 +1,0 @@
-fragment CurrentlyPlayingLyricsTooltipLyricLineFragment on LyricLine {
-  startTimeMilliseconds
-  words
-}

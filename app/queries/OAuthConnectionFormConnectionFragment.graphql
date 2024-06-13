@@ -1,6 +1,0 @@
-fragment OAuthConnectionFormConnectionFragment on OAuthConnection {
-  credentials {
-    refreshToken
-    uid
-  }
-}

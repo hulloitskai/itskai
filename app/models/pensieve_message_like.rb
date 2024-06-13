@@ -30,7 +30,6 @@ class PensieveMessageLike < ApplicationRecord
   end
 
   # == Callbacks
-  after_create_commit :update_activity_status
   after_create_commit :send_notification_and_set_reaction_later
 
   # == Methods
@@ -46,13 +45,5 @@ class PensieveMessageLike < ApplicationRecord
   sig { void }
   def send_notification_and_set_reaction_later
     SendPensieveMessageLikeNotificationJob.perform_later(self)
-  end
-
-  private
-
-  # == Callback Handlers
-  sig { void }
-  def update_activity_status
-    ActivityStatus.current = "Someone liked a message!"
   end
 end

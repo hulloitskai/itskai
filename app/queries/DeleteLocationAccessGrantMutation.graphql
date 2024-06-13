@@ -1,7 +1,0 @@
-mutation DeleteLocationAccessGrantMutation(
-  $input: DeleteLocationAccessGrantInput!
-) {
-  payload: deleteLocationAccessGrant(input: $input) {
-    success
-  }
-}

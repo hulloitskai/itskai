@@ -1,6 +1,7 @@
 import type { ComponentPropsWithoutRef, FC } from "react";
 
-export type FormAuthenticityFieldProps = ComponentPropsWithoutRef<"input">;
+export interface FormAuthenticityFieldProps
+  extends ComponentPropsWithoutRef<"input"> {}
 
 const FormAuthenticityField: FC<FormAuthenticityFieldProps> = props => {
   const { csrf } = usePageProps();

@@ -1,6 +1,0 @@
-subscription LocationAlertSubscription {
-  location {
-    id
-    ...LocationAlertLocationFragment
-  }
-}

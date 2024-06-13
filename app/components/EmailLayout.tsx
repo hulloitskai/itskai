@@ -16,10 +16,10 @@ import { Heading, Text } from "~/components/email";
 import "@mantine/core/styles.css";
 import "./EmailLayout-lowercasing.css";
 
-export type EmailLayoutProps = PropsWithChildren<{
+export interface EmailLayoutProps extends PropsWithChildren {
   header?: string;
   preview?: PreviewProps["children"];
-}>;
+}
 
 const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
   <>

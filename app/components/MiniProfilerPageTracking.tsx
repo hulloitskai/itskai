@@ -1,22 +1,21 @@
 import type { FC } from "react";
 
-type MiniProfiler = {
+interface MiniProfiler {
   pageTransition: () => void;
-};
+}
 
 declare global {
   interface Window {
-    MiniProfiler: MiniProfiler | undefined;
+    MiniProfiler?: MiniProfiler;
   }
 }
 
 const MiniProfilerPageTracking: FC = () => {
-  const router = useRouter();
   useEffect(() => {
     return router.on("start", () => {
       window.MiniProfiler?.pageTransition();
     });
-  }, [router]);
+  }, []);
   return null;
 };
 

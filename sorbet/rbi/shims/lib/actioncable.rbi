@@ -9,5 +9,11 @@ module ActionCable
   class Channel::Base
     sig { returns(Connection::Base) }
     def connection; end
+
+    sig { returns(ActionController::Parameters)}
+    def params; end
   end
+
+  sig {returns(Server::Base)}
+  def self.server; end
 end

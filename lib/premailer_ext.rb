@@ -17,7 +17,6 @@ module Premailer::Adapter::Nokogiri
     # == Aliases
     CssVariables = T.type_alias { T::Hash[String, T.untyped] }
 
-    # == Annotations
     requires_ancestor { Premailer }
     requires_ancestor { Premailer::Adapter::Nokogiri }
 

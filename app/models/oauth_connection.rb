@@ -5,6 +5,7 @@ class OAuthConnection < T::Struct
   extend T::Sig
 
   # == Properties
+  const :provider, Symbol
   const :credentials, T.nilable(OAuthCredentials)
   const :status, Symbol
 
@@ -13,6 +14,7 @@ class OAuthConnection < T::Struct
   def self.google
     credentials = OAuthCredentials.google
     new(
+      provider: :google,
       credentials:,
       status: credentials.present? ? :connected : :disconnected,
     )
@@ -22,6 +24,7 @@ class OAuthConnection < T::Struct
   def self.spotify
     credentials = OAuthCredentials.spotify
     new(
+      provider: :spotify,
       credentials:,
       status: credentials.present? ? :connected : :disconnected,
     )

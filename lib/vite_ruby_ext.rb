@@ -30,7 +30,6 @@ class ViteRuby
     extend T::Sig
     extend T::Helpers
 
-    # == Annotations
     requires_ancestor { ViteRuby }
 
     sig { returns(T::Boolean) }
@@ -46,7 +45,6 @@ class ViteRuby
       extend T::Sig
       extend T::Helpers
 
-      # == Annotations
       requires_ancestor { DevServerProxy }
 
       # == Initializer

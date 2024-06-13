@@ -1,7 +1,12 @@
 import type { ComponentType, ReactNode } from "react";
-
+import type { Page } from "@inertiajs/core";
 import { usePage as _usePage } from "@inertiajs/react";
-import type { ErrorBag, Errors, Page, PageProps } from "@inertiajs/core";
+import type { SharedPageProps } from "~/types";
+
+export type PageComponent<Props extends SharedPageProps = SharedPageProps> =
+  ComponentType<Props> & {
+    layout?: ((page: ReactNode) => ReactNode) | null;
+  };
 
 export const parsePageImports = <T,>(
   imports: Record<string, T>,
@@ -12,39 +17,17 @@ export const parsePageImports = <T,>(
   });
 };
 
-export type PageComponent<P = {}> = ComponentType<
-  P & { errors?: Errors & ErrorBag } & SharedPageProps
-> & {
-  layout?: ((page: ReactNode) => ReactNode) | null;
+export const usePage = <
+  Props extends SharedPageProps = SharedPageProps,
+>(): Page<Props> => {
+  return _usePage() as Page<Props>;
 };
 
-export type SharedPageProps = {
-  csrf: {
-    param: string;
-    token: string;
-  };
-  flash?: Record<string, string>;
-};
-
-export type PagePropsWithData<Data = undefined> = SharedPageProps & {
-  data: Data;
-};
-
-export const usePageErrors = (): Errors & ErrorBag => {
-  const { props } = usePage();
-  return props.errors;
-};
-
-export const usePage = <P extends PageProps>(): Page<P> => {
-  return _usePage() as Page<P>;
-};
-
-export const usePageProps = <P extends PageProps>(): P & SharedPageProps => {
-  const { props } = usePage<SharedPageProps & P>();
-  return useMemo(
-    () => omit(props, "errors") as unknown as P & SharedPageProps,
-    [props],
-  );
+export const usePageProps = <
+  Props extends SharedPageProps = SharedPageProps,
+>(): Props => {
+  const { props } = usePage<Props>();
+  return props;
 };
 
 export enum PageType {

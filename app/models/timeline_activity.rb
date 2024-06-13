@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 # == Schema Information
@@ -24,7 +24,6 @@ class TimelineActivity < ApplicationRecord
   # == Configuration
   self.inheritance_column = nil
 
-  # == Annotations
   Location = T.type_alias do
     T.any(
       RGeo::Feature::Point,
@@ -201,7 +200,8 @@ class TimelineActivity < ApplicationRecord
   sig { params(blob: ActiveStorage::Blob).returns(T::Array[TimelineActivity]) }
   def self.import_from_google_location_history_upload!(blob)
     blob.open do |file|
-      data = JSON.parse(T.must(file.read))
+      body = T.must(file.read)
+      data = MultiJson.load(body)
       timeline_objects = T.let(
         data.fetch("timelineObjects"),
         T::Array[T::Hash[String, T.untyped]],
@@ -251,11 +251,9 @@ class TimelineActivity < ApplicationRecord
   # == Helpers
   sig { returns(TimezoneFinder::TimezoneFinder) }
   def self.timezone_finder
-    @timezone_finder ||= T.let(
-      TimezoneFinder.create,
-      T.nilable(TimezoneFinder::TimezoneFinder),
-    )
+    @timezone_finder ||= TimezoneFinder.create
   end
+  delegate :timezone_finder, to: :class
 
   private
 
@@ -270,7 +268,7 @@ class TimelineActivity < ApplicationRecord
     else
       raise "Unknown geometry type: #{location.geometry_type}"
     end
-    self.timezone_name = self.class.timezone_finder.timezone_at(
+    self.timezone_name = timezone_finder.timezone_at(
       lat: point.latitude,
       lng: point.longitude,
     )

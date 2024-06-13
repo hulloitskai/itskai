@@ -12,7 +12,7 @@ module Users
     # == Actions
     # GET /auth/spotify/callback
     def spotify
-      authorize!(to: :connect?, with: OAuthConnectionPolicy)
+      authorize!(with: AdminPolicy)
       credentials = OAuthCredentials.find_or_initialize_by(
         auth.slice(:provider).to_h,
       )
@@ -36,7 +36,7 @@ module Users
 
     # GET /auth/google/callback
     def google
-      authorize!(to: :connect?, with: OAuthConnectionPolicy)
+      authorize!(with: AdminPolicy)
       credentials = OAuthCredentials.find_or_initialize_by(
         auth.slice(:provider).to_h,
       )

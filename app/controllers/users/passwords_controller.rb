@@ -14,8 +14,26 @@ module Users
       reset_password_token = T.let(params.fetch(:reset_password_token), String)
       render(
         inertia: "ChangePasswordPage",
-        props: { reset_password_token: },
+        props: { "resetPasswordToken" => reset_password_token },
       )
+    end
+
+    # POST /password
+    def create
+      resource = self.resource = resource_class
+        .send_reset_password_instructions(resource_params)
+      if successfully_sent?(resource)
+        redirect_to(
+          after_sending_reset_password_instructions_path_for(resource_name),
+        )
+      else
+        redirect_to(
+          new_password_path(resource_name),
+          inertia: {
+            errors: resource.form_errors,
+          },
+        )
+      end
     end
   end
 end

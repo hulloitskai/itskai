@@ -1,21 +1,24 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
+import type { LocationAccessGrant } from "~/types";
 
-import { Code, CopyButton, Text } from "@mantine/core";
 import type { BoxProps } from "@mantine/core";
+import { Code, CopyButton, Text } from "@mantine/core";
 
-import type { LocationAccessGrantCardGrantFragment } from "~/helpers/graphql";
-
-import classes from "./LocationAccessGrantCard.module.css";
+import type { LocationAccessGrantDeleteButtonProps } from "./LocationAccessGrantDeleteButton";
 import LocationAccessGrantDeleteButton from "./LocationAccessGrantDeleteButton";
 
-export type LocationAccessGrantCardProps = BoxProps & {
-  grant: LocationAccessGrantCardGrantFragment;
-  onDeleteGrant: () => void;
-};
+import classes from "./LocationAccessGrantCard.module.css";
+
+export interface LocationAccessGrantCardProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"div">, "style" | "children">,
+    Pick<LocationAccessGrantDeleteButtonProps, "onDeleted"> {
+  grant: LocationAccessGrant;
+}
 
 const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
-  grant: { id: grantId, recipient, password, createdAt, expiresAt, locateUrl },
-  onDeleteGrant,
+  grant: { id: grantId, recipient, password, createdAt, expiresAt },
+  onDeleted,
   ...otherProps
 }) => (
   <Card
@@ -73,23 +76,7 @@ const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
           </CopyButton>
         </Text>
       </Box>
-      <Group gap="xs" wrap="nowrap" grow>
-        <CopyButton value={locateUrl}>
-          {({ copy, copied }) => (
-            <Button
-              variant="default"
-              leftSection={<ClipboardIcon />}
-              onClick={copy}
-            >
-              {copied ? "Copied!" : "Copy locate URL"}
-            </Button>
-          )}
-        </CopyButton>
-        <LocationAccessGrantDeleteButton
-          onDelete={onDeleteGrant}
-          {...{ grantId }}
-        />
-      </Group>
+      <LocationAccessGrantDeleteButton {...{ grantId, onDeleted }} />
     </Stack>
   </Card>
 );

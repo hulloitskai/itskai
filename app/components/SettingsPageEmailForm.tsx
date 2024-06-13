@@ -1,115 +1,101 @@
 import type { ComponentPropsWithoutRef, FC } from "react";
+import type { User } from "~/types";
 
-import { PasswordInput, Text } from "@mantine/core";
 import type { BoxProps, ButtonProps } from "@mantine/core";
+import { PasswordInput, Text } from "@mantine/core";
 
-import type { SettingsPageViewerFragment } from "~/helpers/graphql";
-import {
-  RequestEmailVerificationMutationDocument,
-  UpdateUserEmailMutationDocument,
-} from "~/helpers/graphql";
-
-export type SettingsPageEmailFormProps = BoxProps &
-  Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit"> & {
-    viewer: SettingsPageViewerFragment;
-  };
-
-type SettingsPageEmailFormValues = {
-  email: string;
-  currentPassword: string;
-};
+export interface SettingsPageEmailFormProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {}
 
 const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
-  viewer,
   ...otherProps
 }) => {
-  const router = useRouter();
-  const { email, unverifiedEmail } = viewer;
+  const user = useAuthenticatedUser();
 
   // == Form
-  const initialValues = useMemo<SettingsPageEmailFormValues>(() => {
-    const { email, unverifiedEmail } = viewer;
+  const initialValues = useMemo(() => {
+    const { email, unconfirmedEmail } = user;
     return {
-      email: unverifiedEmail || email,
+      email: unconfirmedEmail || email,
       currentPassword: "",
     };
-  }, [viewer]);
-  const {
-    errors,
-    getInputProps,
-    onSubmit,
-    setValues,
-    setErrors,
-    isDirty,
-    resetDirty,
-  } = useForm<SettingsPageEmailFormValues>({
-    initialValues: initialValues,
-  });
-  useDidUpdate(() => {
-    setValues(initialValues);
-    resetDirty(initialValues);
-  }, [initialValues]);
+  }, [user]);
+  const { values, errors, getInputProps, isDirty, submit, processing } =
+    useInertiaForm({
+      action: routes.usersRegistrations.update,
+      method: "put",
+      descriptor: "change email",
+      // onSuccess: ({ props }) => {
+      //   const { user } = props as SettingsPageProps;
+      //   if (user.unverifiedEmail) {
+      //     showNotice({
+      //       title: "Email verification required",
+      //       message:
+      //         "Please check your email and follow the link to verify your new " +
+      //         "email address.",
+      //     });
+      //   } else {
+      //     showNotice({
+      //       message: "Email change request has been cancelled.",
+      //     });
+      //   }
+      // },
+      initialValues,
+      transformValues: values => ({
+        user: deepUnderscoreKeys(values),
+      }),
+    });
+  const requiredFieldsFilled = useRequiredFieldsFilled(
+    values,
+    "email",
+    "current_password",
+  );
+  // useDidUpdate(() => {
+  //   setValues(initialValues);
+  //   resetDirty(initialValues);
+  // }, [initialValues]);
 
-  // == Email Update
-  const onUpdateEmailError = useApolloAlertCallback(
-    "Failed to update email address",
-  );
-  const [updateEmail, { loading: updatingEmail }] = useMutation(
-    UpdateUserEmailMutationDocument,
-    {
-      onCompleted: ({ payload: { user, errors } }) => {
-        if (user) {
-          const { unverifiedEmail } = user;
-          router.reload({
-            onSuccess: () => {
-              if (unverifiedEmail) {
-                showNotice({
-                  title: "Email verification required",
-                  message:
-                    "Please check your email and follow the link to " +
-                    "verify your new email address.",
-                });
-              } else {
-                showNotice({
-                  message: "Email change request has been cancelled.",
-                });
-              }
-            },
-          });
-        } else {
-          invariant(errors, "Missing input errors");
-          const formErrors = buildFormErrors(errors);
-          setErrors(formErrors);
-          showFormErrorsAlert(formErrors, "Couldn't change email");
-        }
-      },
-      onError: onUpdateEmailError,
-    },
-  );
+  // const [updateEmail, { loading: updatingEmail }] = useMutation(
+  //   UpdateUserEmailMutationDocument,
+  //   {
+  //     onCompleted: ({ payload: { user, errors } }) => {
+  //       if (user) {
+  //         const { unverifiedEmail } = user;
+  //         router.reload({
+  //           onSuccess: () => {
+  //             if (unverifiedEmail) {
+  //               showNotice({
+  //                 title: "Email verification required",
+  //                 message:
+  //                   "Please check your email and follow the link to " +
+  //                   "verify your new email address.",
+  //               });
+  //             } else {
+  //             }
+  //           },
+  //         });
+  //       } else {
+  //         invariant(errors, "Missing input errors");
+  //         const formErrors = buildFormErrors(errors);
+  //         setErrors(formErrors);
+  //         showFormErrorsAlert(formErrors, "Couldn't change email");
+  //       }
+  //     },
+  //     onError: onUpdateEmailError,
+  //   },
+  // );
 
   return (
-    <Box
-      component="form"
-      onSubmit={onSubmit(values => {
-        updateEmail({
-          variables: {
-            input: {
-              userId: viewer.id,
-              ...values,
-            },
-          },
-        });
-      })}
-      {...otherProps}
-    >
+    <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <Box>
           <TextInput
             label="Email"
-            placeholder="friend@example.com"
+            placeholder="jon.snow@example.com"
             required
             {...getInputProps("email")}
-            {...(unverifiedEmail
+            {...(user.unconfirmedEmail
               ? {
                   rightSectionWidth: 80,
                   rightSection: (
@@ -120,11 +106,11 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
                 }
               : {})}
           />
-          {email && unverifiedEmail && (
+          {user.email && user.unconfirmedEmail && (
             <Text size="xs" c="dimmed" mt={4}>
               Last verified email:{" "}
               <Text c="gray" fw={500} span>
-                {email}
+                {user.email}
               </Text>
               <br />
               Check your inbox for a link to verify your new email address.
@@ -133,13 +119,13 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
         </Box>
         <Transition
           transition="fade"
-          mounted={!isEmpty(errors) || isDirty("email")}
+          mounted={!isEmpty(errors) || (isDirty("email") && !!values.email)}
         >
           {style => (
             <PasswordInput
-              label="Current Password"
+              label="Current password"
               description="Please confirm your current password to make changes."
-              placeholder="potato-123"
+              placeholder="password"
               required
               {...{ style }}
               {...getInputProps("currentPassword")}
@@ -149,17 +135,22 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
         <Stack gap={6}>
           <Button
             type="submit"
-            disabled={!(isDirty("email") && isDirty("currentPassword"))}
-            loading={updatingEmail}
+            disabled={!isDirty("email") || !requiredFieldsFilled}
+            loading={processing}
           >
             Change Email
           </Button>
-          {unverifiedEmail && (
-            <ResendEmailVerificationInstructionsButton
-              variant="outline"
-              {...{ viewer }}
-            />
-          )}
+          <Transition
+            transition="fade"
+            mounted={!!user.unconfirmedEmail && !isDirty("email")}
+          >
+            {style => (
+              <ResendEmailVerificationInstructionsButton
+                variant="outline"
+                {...{ user, style }}
+              />
+            )}
+          </Transition>
         </Stack>
       </Stack>
     </Box>
@@ -168,50 +159,34 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
 
 export default SettingsPageEmailForm;
 
-export type ResendEmailVerificationInstructionsButtonprops = Omit<
-  ButtonProps,
-  "children"
-> & {
-  viewer: SettingsPageViewerFragment;
-};
+interface ResendEmailVerificationInstructionsButtonProps
+  extends Omit<ButtonProps, "children"> {
+  readonly user: User;
+}
 
 const ResendEmailVerificationInstructionsButton: FC<
-  ResendEmailVerificationInstructionsButtonprops
-> = ({ viewer: { email }, ...otherProps }) => {
-  // == Email Request
-  const onRequestEmailError = useApolloAlertCallback(
-    "Failed to re-send verification email",
-  );
-  const [requestEmail, { loading: requestingEmail }] = useMutation(
-    RequestEmailVerificationMutationDocument,
-    {
-      onCompleted: () => {
-        showNotice({
-          title: "Verification email re-sent",
-          message:
-            "Please check your email and follow the link to verify your " +
-            "new email address.",
-        });
+  ResendEmailVerificationInstructionsButtonProps
+> = ({ user, ...otherProps }) => {
+  const { submit, processing } = useInertiaForm({
+    action: routes.usersConfirmations.create,
+    method: "post",
+    descriptor: "resend verification email",
+    initialValues: {
+      user: {
+        email: user.email,
       },
-      onError: onRequestEmailError,
+      redirect_url: routes.usersRegistrations.edit.path(),
     },
-  );
-
+  });
   return (
     <Button
+      loading={processing}
       onClick={() => {
-        requestEmail({
-          variables: {
-            input: {
-              email,
-            },
-          },
-        });
+        submit();
       }}
-      {...{ loading: requestingEmail }}
       {...otherProps}
     >
-      Resend Verification Email
+      Resend verification email
     </Button>
   );
 };

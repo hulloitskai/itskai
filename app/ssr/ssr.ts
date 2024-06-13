@@ -4,9 +4,9 @@ import { renderToString as renderPage } from "react-dom/server";
 import { render as renderEmail } from "@react-email/render";
 import { setupLuxon } from "~/helpers/luxon";
 
+import type { PageComponent } from "~/helpers/inertia";
 import { PageType, parsePageImports, resolvePageType } from "~/helpers/inertia";
 import { preparePage, setupApp } from "~/helpers/inertia/server";
-import type { PageComponent } from "~/helpers/inertia";
 
 import { createInertiaApp } from "@inertiajs/react";
 import createServer from "@inertiajs/react/server";

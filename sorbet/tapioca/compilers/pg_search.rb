@@ -65,14 +65,14 @@ module Tapioca
 
         sig do
           params(
-            mod: RBI::Scope,
-            scope_method: String,
+            scope: RBI::Scope,
+            method: String,
             return_type: String,
           ).void
         end
-        def generate_scope_method(mod, scope_method, return_type)
-          mod.create_method(
-            scope_method,
+        def generate_scope_method(scope, method, return_type)
+          scope.create_method(
+            method,
             parameters: [
               create_rest_param("args", type: "T.untyped"),
               create_kw_rest_param("kwargs", type: "T.untyped"),

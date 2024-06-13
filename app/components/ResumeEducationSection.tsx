@@ -1,12 +1,11 @@
 import type { FC } from "react";
+import type { ResumeEducationInfo } from "~/types/Resume";
 import { Text } from "@mantine/core";
 import ArrowRightIcon from "~icons/heroicons/arrow-long-right-20-solid";
 
-import type { ResumeEducationInfo } from "~/helpers/resume";
-
-export type ResumeEducationSectionProps = {
+export interface ResumeEducationSectionProps {
   educationInfo: ResumeEducationInfo;
-};
+}
 
 const ResumeEducationSection: FC<ResumeEducationSectionProps> = ({
   educationInfo: { institution, area, studyType, startDate, endDate },

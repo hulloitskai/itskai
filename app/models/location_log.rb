@@ -33,6 +33,21 @@ class LocationLog < ApplicationRecord
   sig { returns(Float) }
   def altitude = coordinates.z
 
+  sig { returns(T.untyped) }
+  def approximate_coordinates
+    LocationLog.coordinates_factory.point(
+      coordinates.x.round(2),
+      coordinates.y.round(2),
+    )
+  end
+
+  sig { returns(LocationLog::PrivateRelation) }
+  def trail_markers
+    latest = timestamp
+    earliest = latest - 4.hours
+    LocationLog.where(timestamp: earliest..latest).order(timestamp: :desc)
+  end
+
   # == Associations
   has_one :address, class_name: "LocationLogAddress", dependent: :destroy
 
@@ -41,9 +56,13 @@ class LocationLog < ApplicationRecord
     address or raise ActiveRecord::RecordNotFound, "Missing address"
   end
 
+  delegate :full_address,
+           :approximate_address,
+           :google_maps_area_url,
+           to: :address!
+
   # == Callbacks
   after_create :reverse_geocode_and_save!
-  after_create_commit :trigger_subscription
 
   # == Scopes
   scope :with_address, -> {
@@ -98,13 +117,15 @@ class LocationLog < ApplicationRecord
   end
 
   # == Synchronization
-  sig { void }
+  sig { returns(T.nilable(LocationLog)) }
   def self.sync!
     iphone = ICloudctl.iphone or raise "Couldn't load iPhone details"
     location = iphone.location or return
     timestamp = Time.zone.at(location.fetch("timeStamp").to_f / 1000)
     transaction do
-      unless exists?(timestamp:)
+      if (log = LocationLog.find_by(timestamp:))
+        log
+      else
         coordinates = scoped do
           latitude, longitude, altitude = location.fetch_values(
             "latitude",
@@ -147,7 +168,6 @@ class LocationLog < ApplicationRecord
     relation.first!
   end
 
-  # == Finders
   sig { returns(T.nilable(LocationLog)) }
   def self.latest_visible
     latest(timestamp: 6.hours.ago..) unless Location.hide?
@@ -157,15 +177,5 @@ class LocationLog < ApplicationRecord
   sig { void }
   def reverse_geocode_and_save!
     reverse_geocode.tap { save! }
-  end
-
-  private
-
-  # == Callback Handlers
-  sig { void }
-  def trigger_subscription
-    unless Location.hide?
-      Schema.subscriptions!.trigger(:location, {}, self)
-    end
   end
 end

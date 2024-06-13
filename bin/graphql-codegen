@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-PROJECT=schema
-if [ ! -z "$1" ]; then
-  PROJECT="$1"
-  shift
-fi
-
-bin/yarn --silent graphql-codegen --config .graphqlrc.yml --project $PROJECT $@

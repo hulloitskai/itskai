@@ -12,22 +12,10 @@ class SyncJournalEntryJob < ApplicationJob
     total_limit: 1,
   )
 
-  # == Callbacks
-  before_perform :set_activity_status
-
   # == Job
   sig { params(entry: JournalEntry, force: T::Boolean).void }
   def perform(entry, force: false)
     options = { force: }
     entry.sync!(options.compact)
-  end
-
-  private
-
-  # == Callback Handlers
-  sig { void }
-  def set_activity_status
-    entry = T.let(arguments.first!, JournalEntry)
-    ActivityStatus.current = "Syncing journal entry: #{entry.title}"
   end
 end

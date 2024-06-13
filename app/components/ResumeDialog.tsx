@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
 
 import DocumentIcon from "~icons/heroicons/document-20-solid";
 import MenuIcon from "~icons/heroicons/bars-3-20-solid";
@@ -7,9 +7,11 @@ import FeedbackIcon from "~icons/heroicons/megaphone-20-solid";
 import { ActionIcon, Affix, BoxProps, Dialog, Text } from "@mantine/core";
 import { useDisclosure, useWindowScroll } from "@mantine/hooks";
 
-export type ResumeDialogProps = BoxProps & {
+export interface ResumeDialogProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {
   variant?: string;
-};
+}
 
 const ResumeDialog: FC<ResumeDialogProps> = ({ variant, ...otherProps }) => {
   const [loadingPDF, setLoadingPDF] = useState(false);

@@ -1,13 +1,15 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
 import { DateTime } from "luxon";
 import { format as formatTimeAgo } from "timeago.js";
 
 import type { TextProps } from "@mantine/core";
 import { Text } from "@mantine/core";
 
-export type TimeAgoProps = TextProps & {
+export interface TimeAgoProps
+  extends TextProps,
+    Omit<ComponentPropsWithoutRef<"time">, "color" | "style" | "children"> {
   children: string | DateTime;
-};
+}
 
 const TimeAgo: FC<TimeAgoProps> = ({ children, ...otherProps }) => {
   const date = useMemo(() => {

@@ -1,22 +1,22 @@
 import type { FC, PropsWithChildren } from "react";
 import type { Page } from "@inertiajs/core";
-import type { SharedPageProps } from "~/helpers/inertia";
+import type { SharedPageProps } from "~/types";
 
 import AppMantineProvider from "./AppMantineProvider";
-import ApolloProvider from "./ApolloProvider";
 import AppProgress from "./AppProgress";
+import ActionCableProvider from "./ActionCableProvider";
 
-export type AppWrapperProps = PropsWithChildren<{
+export interface AppWrapperProps extends PropsWithChildren {
   initialPage: Page<SharedPageProps>;
-}>;
+}
 
-const AppWrapper: FC<AppWrapperProps> = ({ initialPage, children }) => (
-  <ApolloProvider initialCSRFToken={initialPage.props.csrf.token}>
+const AppWrapper: FC<AppWrapperProps> = ({ children }) => (
+  <ActionCableProvider>
     <AppMantineProvider>
       <AppProgress />
       {children}
     </AppMantineProvider>
-  </ApolloProvider>
+  </ActionCableProvider>
 );
 
 export default AppWrapper;

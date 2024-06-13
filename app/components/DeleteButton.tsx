@@ -1,10 +1,11 @@
 import type { ComponentPropsWithoutRef, FC } from "react";
 import type { ButtonProps } from "@mantine/core";
 
-export type DeleteButtonProps = ButtonProps &
-  ComponentPropsWithoutRef<"button"> & {
-    onConfirm: () => void;
-  };
+export interface DeleteButtonProps
+  extends ButtonProps,
+    Omit<ComponentPropsWithoutRef<"button">, "color" | "style"> {
+  onConfirm: () => void;
+}
 
 const DeleteButton: FC<DeleteButtonProps> = ({
   onConfirm,

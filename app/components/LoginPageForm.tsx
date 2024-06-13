@@ -3,71 +3,51 @@ import type { ComponentPropsWithoutRef, FC } from "react";
 import type { BoxProps } from "@mantine/core";
 import { PasswordInput } from "@mantine/core";
 
-import type { LoginPageProps } from "~/pages/LoginPage";
-
-export type LoginPageFormProps = BoxProps &
-  Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit">;
-
-type LoginPageFormValues = {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-};
+export interface LoginPageFormProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {}
 
 const LoginPageForm: FC<LoginPageFormProps> = props => {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
-
   // == Form
-  const { getInputProps, values, setFieldValue, isDirty, onSubmit } =
-    useForm<LoginPageFormValues>({
+  const { values, getInputProps, isDirty, submit, processing } = useInertiaForm(
+    {
+      action: routes.usersSessions.create,
+      method: "post",
+      descriptor: "sign in",
       initialValues: {
         email: "",
         password: "",
         rememberMe: true,
       },
-    });
+      transformValues: values => ({
+        user: deepUnderscoreKeys(values),
+      }),
+      onError: ({ setFieldValue }) => {
+        setFieldValue("password", "");
+      },
+    },
+  );
+  const requiredFieldsFilled = useRequiredFieldsFilled(
+    values,
+    "email",
+    "password",
+  );
 
   return (
-    <Box
-      component="form"
-      onSubmit={onSubmit(({ email, password, rememberMe }) => {
-        const data = {
-          user: {
-            email,
-            password,
-            remember_me: rememberMe,
-          },
-        };
-        router.post("/login", data, {
-          onBefore: () => {
-            setLoading(true);
-          },
-          onSuccess: ({ component, props }) => {
-            if (component === "LoginPage") {
-              const { failed } = props as unknown as LoginPageProps;
-              if (failed) {
-                setFieldValue("password", "");
-              }
-            }
-          },
-          onFinish: () => {
-            setLoading(false);
-          },
-        });
-      })}
-      {...props}
-    >
+    <Box component="form" onSubmit={submit} {...props}>
       <Stack gap="xs">
         <TextInput
+          type="email"
           label="Email"
           placeholder="jon.snow@example.com"
+          autoComplete="email"
           required
           {...getInputProps("email")}
         />
         <PasswordInput
           label="Password"
           placeholder="secret-passphrase"
+          autoComplete="current-password"
           required
           {...getInputProps("password")}
         />
@@ -78,7 +58,6 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
         >
           <Checkbox
             label="Stay signed in"
-            checked={values.rememberMe}
             styles={{
               input: {
                 cursor: "pointer",
@@ -90,7 +69,11 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
             {...getInputProps("rememberMe", { type: "checkbox" })}
           />
         </Tooltip>
-        <Button type="submit" disabled={!isDirty()} {...{ loading }}>
+        <Button
+          type="submit"
+          disabled={!isDirty() || !requiredFieldsFilled}
+          loading={processing}
+        >
           Sign in
         </Button>
       </Stack>

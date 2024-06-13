@@ -22,7 +22,6 @@
 
     // == Linting
     "strict": true,
-    "alwaysStrict": true,
     "noUnusedLocals": true,
     "noUncheckedIndexedAccess": true,
     "noFallthroughCasesInSwitch": true,

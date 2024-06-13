@@ -34,9 +34,7 @@ module Tapioca
 
         private
 
-        sig do
-          params(scope: RBI::Scope).returns(T.untyped)
-        end
+        sig { params(scope: RBI::Scope).returns(T.untyped) }
         def generate_instance_methods(scope)
           scope.create_method(
             "nearest_neighbors",

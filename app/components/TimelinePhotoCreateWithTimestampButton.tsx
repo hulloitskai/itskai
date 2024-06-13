@@ -1,14 +1,13 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
 import type { ButtonProps } from "@mantine/core";
 
 import type { TimelinePhotoCreateWithTimestampFormProps } from "./TimelinePhotoCreateWithTimestampForm";
 import TimelinePhotoCreateWithTimestampForm from "./TimelinePhotoCreateWithTimestampForm";
 
-export type TimelinePhotoCreateWithTimestampButtonProps = Omit<
-  ButtonProps,
-  "onClick"
-> &
-  Pick<TimelinePhotoCreateWithTimestampFormProps, "onCreate">;
+export interface TimelinePhotoCreateWithTimestampButtonProps
+  extends ButtonProps,
+    Omit<ComponentPropsWithoutRef<"button">, "color" | "style" | "onClick">,
+    Pick<TimelinePhotoCreateWithTimestampFormProps, "onCreate"> {}
 
 const TimelinePhotoCreateWithTimestampButton: FC<
   TimelinePhotoCreateWithTimestampButtonProps

@@ -6,14 +6,12 @@ module RequiresColumn
   extend T::Helpers
   extend ActiveSupport::Concern
 
-  # == Annotations
   requires_ancestor { ActiveRecord::Base }
 
   class_methods do
     extend T::Sig
     extend T::Helpers
 
-    # == Annotations
     requires_ancestor { T.class_of(ActiveRecord::Base) }
 
     # == Helpers

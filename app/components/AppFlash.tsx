@@ -16,6 +16,21 @@ const AppFlashNotificationProps: Record<string, Partial<NotificationProps>> = {
 };
 
 const AppFlash: FC = () => {
+  // Clear flash messages when going back in history
+  useWindowEvent("popstate", ({ state }) => {
+    if (state instanceof Object && "props" in state) {
+      const { props } = state;
+      invariant(
+        props instanceof Object,
+        "Expected `state.props` to be an Object",
+      );
+      if (props && "flash" in props) {
+        props.flash = {};
+      }
+    }
+  });
+
+  // Show flash messages
   const { flash } = usePageProps();
   useEffect(() => {
     if (flash) {
@@ -25,18 +40,7 @@ const AppFlash: FC = () => {
       });
     }
   }, [flash]);
-  useWindowEvent("popstate", ({ state }) => {
-    if (state instanceof Object && "props" in state) {
-      const { props } = state;
-      invariant(
-        props instanceof Object,
-        "Expected `state.props` to be an Object",
-      );
-      if (props && "flash" in props) {
-        delete props.flash;
-      }
-    }
-  });
+
   return null;
 };
 

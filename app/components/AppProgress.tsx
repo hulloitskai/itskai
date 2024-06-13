@@ -4,7 +4,7 @@ import { NavigationProgress, nprogress } from "@mantine/nprogress";
 
 import "@mantine/nprogress/styles.layer.css";
 
-export type AppProgressProps = {};
+export interface AppProgressProps {}
 
 // TODO: On Safari, sometimes the progress bar looks like its "rolling back"
 // when it resets. Maybe raise an issue in the Mantine repo?

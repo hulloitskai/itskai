@@ -11,7 +11,6 @@ class Devise::FailureApp
     extend T::Sig
     extend T::Helpers
 
-    # == Annotations
     requires_ancestor { Devise::FailureApp }
 
     protected

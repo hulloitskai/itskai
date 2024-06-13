@@ -1,6 +1,0 @@
-query SignupPageQuery {
-  viewer {
-    ...AppViewerFragment
-    id
-  }
-}

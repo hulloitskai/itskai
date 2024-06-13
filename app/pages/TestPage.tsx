@@ -1,6 +1,7 @@
-import type { FC } from "react";
-import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import { Code, Text } from "@mantine/core";
+import type { ComponentPropsWithoutRef, FC } from "react";
+import type { PageComponent } from "~/helpers/inertia";
+import type { SharedPageProps } from "~/types";
+import { BoxProps, Text } from "@mantine/core";
 
 import ExclamationCircleIcon from "~icons/heroicons/exclamation-circle-20-solid";
 import PencilSquareIcon from "~icons/heroicons/pencil-square-20-solid";
@@ -11,37 +12,14 @@ import AppLayout from "~/components/AppLayout";
 import TestForm from "~/components/TestForm";
 import TestFeed from "~/components/TestFeed";
 
-import type { TestPageQuery } from "~/helpers/graphql";
-
-export type TestPageProps = PagePropsWithData<TestPageQuery> & {
+export interface TestPageProps extends SharedPageProps {
   name: string;
-};
+}
 
-type TestPageFormValues = {
-  name: string;
-};
-
-type TestPageModalContentProps = {
-  name: string;
-};
-
-const TestPageModalContent: FC<TestPageModalContentProps> = ({ name }) => (
-  <Stack gap="xs">
-    <Text>Apparently, your name is:</Text>
-    <TextInput value={name} />
-    <Button onClick={() => closeAllModals()}>Uh-huh.</Button>
-  </Stack>
-);
-
-const TestPage: PageComponent<TestPageProps> = ({
-  data,
-  name: initialName,
-}) => {
+const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
   // == Form
-  const { values, getInputProps } = useForm<TestPageFormValues>({
-    initialValues: resolve<TestPageFormValues>(() => {
-      return { name: initialName };
-    }),
+  const { values, getInputProps } = useForm({
+    initialValues: { name: initialName },
   });
   const nameDescription = useMemo(() => {
     return `Your name is: ${values.name}`;
@@ -67,8 +45,7 @@ const TestPage: PageComponent<TestPageProps> = ({
     <Stack gap="xl">
       <Title fw={900}>Test Page</Title>
       <Stack gap="xs">
-        <Title order={4}>Test Component Data</Title>
-        <Code block>{JSON.stringify(data, undefined, 2)}</Code>
+        <Title order={3}>Test Component</Title>
         <TextInput
           label="Name"
           description={nameDescription}
@@ -96,10 +73,27 @@ const TestPage: PageComponent<TestPageProps> = ({
   );
 };
 
-TestPage.layout = buildLayout<TestPageProps>((page, { data: { viewer } }) => (
-  <AppLayout withContainer containerSize="sm" withGutter {...{ viewer }}>
+TestPage.layout = buildLayout<TestPageProps>(page => (
+  <AppLayout title="Test Page" withContainer containerSize="sm" withGutter>
     {page}
   </AppLayout>
 ));
 
 export default TestPage;
+
+interface TestPageModalContentProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {
+  name: string;
+}
+
+const TestPageModalContent: FC<TestPageModalContentProps> = ({
+  name,
+  ...otherProps
+}) => (
+  <Stack gap="xs" {...otherProps}>
+    <Text>Apparently, your name is:</Text>
+    <TextInput value={name} />
+    <Button onClick={() => closeAllModals()}>Uh-huh.</Button>
+  </Stack>
+);

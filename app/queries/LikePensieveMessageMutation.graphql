@@ -1,5 +1,0 @@
-mutation LikePensieveMessageMutation($input: LikePensieveMessageInput!) {
-  payload: likePensieveMessage(input: $input) {
-    success
-  }
-}

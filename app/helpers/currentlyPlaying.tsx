@@ -1,67 +1,59 @@
-import type { LyricLine } from "~/helpers/graphql";
+import type { LyricLine } from "~/types";
 
-export type InterpolatedProgressMillisecondsParams = {
-  progressMilliseconds: number;
-  interpolationMilliseconds: number;
+export type InterpolatedProgressMsParams = {
+  progressMs: number;
+  interpolationMs: number;
 };
 
-export const useInterpolatedProgressMilliseconds = ({
-  progressMilliseconds,
-  interpolationMilliseconds,
-}: InterpolatedProgressMillisecondsParams): number => {
-  const [
-    interpolatedProgressMilliseconds,
-    setInterpolatedProgressMilliseconds,
-  ] = useState<number>(0);
+export const useInterpolatedProgressMs = ({
+  progressMs,
+  interpolationMs,
+}: InterpolatedProgressMsParams): number => {
+  const [interpolatedProgressMs, setInterpolatedProgressMs] =
+    useState<number>(0);
   useEffect(() => {
-    const roundedProgressMilliseconds =
-      Math.round(progressMilliseconds / interpolationMilliseconds) *
-      interpolationMilliseconds;
-    setInterpolatedProgressMilliseconds(roundedProgressMilliseconds);
+    const roundedProgressMs =
+      Math.round(progressMs / interpolationMs) * interpolationMs;
+    setInterpolatedProgressMs(roundedProgressMs);
     const interval = setInterval(() => {
-      setInterpolatedProgressMilliseconds(
-        progressMilliseconds =>
-          progressMilliseconds + interpolationMilliseconds,
-      );
-    }, interpolationMilliseconds);
+      setInterpolatedProgressMs(progressMs => progressMs + interpolationMs);
+    }, interpolationMs);
     return () => {
       clearInterval(interval);
     };
-  }, [progressMilliseconds, interpolationMilliseconds]);
-  return interpolatedProgressMilliseconds;
+  }, [progressMs, interpolationMs]);
+  return interpolatedProgressMs;
 };
 
 export type ProgressLyricsIndexMappingParams = {
-  lyrics: Pick<LyricLine, "startTimeMilliseconds">[] | null | undefined;
-  durationMilliseconds: number;
-  interpolationMilliseconds: number;
+  lyrics: Pick<LyricLine, "startTimeMs">[] | null | undefined;
+  durationMs: number;
+  interpolationMs: number;
 };
 
 export const useProgressLyricsIndexMapping = ({
   lyrics,
-  durationMilliseconds,
-  interpolationMilliseconds,
+  durationMs,
+  interpolationMs,
 }: ProgressLyricsIndexMappingParams): Record<number, number | null> => {
   const [mapping, setMapping] = useState<Record<number, number | null>>({});
   useEffect(() => {
     if (lyrics) {
       requestIdleCallback(() => {
         const mapping: Record<number, number | null> = {};
-        lyrics.forEach(({ startTimeMilliseconds }, index) => {
-          const roundedStartTimeMilliseconds =
-            Math.round(startTimeMilliseconds / interpolationMilliseconds) *
-            interpolationMilliseconds;
-          mapping[roundedStartTimeMilliseconds] = index;
+        lyrics.forEach(({ startTimeMs }, index) => {
+          const roundedStartTimeMs =
+            Math.round(startTimeMs / interpolationMs) * interpolationMs;
+          mapping[roundedStartTimeMs] = index;
         });
         for (
-          let incrementMilliseconds = 0;
-          incrementMilliseconds <= durationMilliseconds;
-          incrementMilliseconds += interpolationMilliseconds
+          let incrementMs = 0;
+          incrementMs <= durationMs;
+          incrementMs += interpolationMs
         ) {
-          if (!(incrementMilliseconds in mapping)) {
-            const coalescedIndex =
-              mapping[incrementMilliseconds - interpolationMilliseconds];
-            mapping[incrementMilliseconds] = coalescedIndex ?? null;
+          if (!(incrementMs in mapping)) {
+            const coalescedIndex = mapping[incrementMs - interpolationMs];
+            mapping[incrementMs] = coalescedIndex ?? null;
           }
         }
         setMapping(mapping);
@@ -69,6 +61,6 @@ export const useProgressLyricsIndexMapping = ({
     } else {
       setMapping({});
     }
-  }, [lyrics, durationMilliseconds, interpolationMilliseconds]);
+  }, [lyrics, durationMs, interpolationMs]);
   return mapping;
 };

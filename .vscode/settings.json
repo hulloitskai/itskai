@@ -14,11 +14,8 @@
     "typescript",
     "typescriptreact",
     "html",
-    "vue",
-    "markdown",
-    "graphql"
+    "markdown"
   ],
-  "eslint.validate": ["graphql"],
 
   // == YAML
   "yaml.schemas": {

@@ -19,7 +19,6 @@ module PgSearch
           @pg_search_scope_names ||= T.let([], T.nilable(T::Array[Symbol]))
         end
       end
-
       prepend Patch
     end
   end

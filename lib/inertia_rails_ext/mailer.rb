@@ -10,10 +10,8 @@ module InertiaRails
     extend T::Helpers
     extend ActiveSupport::Concern
 
-    # == Annotations
     requires_ancestor { ActionMailer::Base }
 
-    # == Configuration
     prepended do
       T.bind(self, T.class_of(ActionMailer::Base))
 

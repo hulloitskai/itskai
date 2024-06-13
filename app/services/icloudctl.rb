@@ -47,7 +47,7 @@ class ICloudctl < ApplicationService
 
   sig { params(code: String).returns(VerifySecurityCodeResult) }
   def self.verify_security_code(code)
-    credentials = ICloudCredentials.first or raise "Missing saved credentials"
+    credentials = ICloudCredentials.current or raise "Missing saved credentials"
     payload = instance.perform_request do |conn|
       conn.post("/verify_security_code", { "code" => code })
     end
@@ -161,7 +161,7 @@ class ICloudctl < ApplicationService
 
   sig { returns(T.nilable(LoginResult)) }
   def maybe_login_from_saved_credentials
-    credentials = ICloudCredentials.first or return
+    credentials = ICloudCredentials.current or return
     restore_session_files(credentials) or return
     credentials => { email:, password: }
     suppress(LoginError) do

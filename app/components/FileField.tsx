@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import type { UploadInput } from "~/helpers/graphql";
 
 import UploadIcon from "~icons/heroicons/arrow-up-tray-20-solid";
 import RejectIcon from "~icons/heroicons/no-symbol-20-solid";
@@ -15,31 +14,34 @@ import FileFieldFileCard from "./FileFieldFileCard";
 
 import "@mantine/dropzone/styles.layer.css";
 
-export type FileFieldProps<Multiple = false> = BoxProps &
-  Pick<
-    InputWrapperProps,
-    | "variant"
-    | "labelElement"
-    | "label"
-    | "labelProps"
-    | "description"
-    | "descriptionProps"
-    | "error"
-    | "errorProps"
-    | "required"
-    | "withAsterisk"
-  > &
-  Pick<
-    DropzoneProps,
-    "accept" | "maxSize" | "maxFiles" | "disabled" | "children"
-  > & {
-    multiple?: Multiple;
-    value?: Multiple extends true ? UploadInput[] : UploadInput | null;
-    onChange?: (
-      value: Multiple extends true ? UploadInput[] : UploadInput | null,
-    ) => void;
-    fileLabel?: string;
-  };
+export type FileValue = { signedId: string };
+
+export interface FileFieldProps<Multiple = false>
+  extends BoxProps,
+    Pick<
+      InputWrapperProps,
+      | "variant"
+      | "labelElement"
+      | "label"
+      | "labelProps"
+      | "description"
+      | "descriptionProps"
+      | "error"
+      | "errorProps"
+      | "required"
+      | "withAsterisk"
+    >,
+    Pick<
+      DropzoneProps,
+      "accept" | "maxSize" | "maxFiles" | "disabled" | "children"
+    > {
+  multiple?: Multiple;
+  value?: Multiple extends true ? FileValue[] : FileValue | null;
+  onChange?: (
+    value: Multiple extends true ? FileValue[] : FileValue | null,
+  ) => void;
+  fileLabel?: string;
+}
 
 const FileField = <Multiple extends boolean = false>(
   props: FileFieldProps<Multiple>,
@@ -145,14 +147,16 @@ const FileField = <Multiple extends boolean = false>(
                   setUploadingFiles(prevFiles =>
                     prevFiles.filter(({ name }) => name !== file.name),
                   );
-                  const input: UploadInput = { signedId: blob.signed_id };
                   if (multiple) {
                     const { onChange } = props as FileFieldProps<true>;
-                    const value = valueRef.current as UploadInput[];
-                    onChange?.([...(value ?? []), input]);
+                    const value = valueRef.current as FileValue[];
+                    onChange?.([
+                      ...(value ?? []),
+                      { signedId: blob.signed_id },
+                    ]);
                   } else {
                     const { onChange } = props as FileFieldProps<false>;
-                    onChange?.(input);
+                    onChange?.({ signedId: blob.signed_id });
                   }
                 }}
                 {...{ file }}
@@ -166,16 +170,14 @@ const FileField = <Multiple extends boolean = false>(
           <Divider label="Ready" />
           <Stack gap={8}>
             {multiple ? (
-              ((value ?? []) as UploadInput[]).map(({ signedId }) => (
+              ((value ?? []) as string[]).map(signedId => (
                 <FileFieldFileCard
                   key={signedId}
                   onRemove={() => {
                     const { onChange } = props as FileFieldProps<true>;
-                    const value = valueRef.current as UploadInput[];
+                    const value = valueRef.current as FileValue[];
                     onChange?.(
-                      (value ?? []).filter(
-                        ({ signedId }) => signedId !== signedId,
-                      ),
+                      (value ?? []).filter(blob => blob.signedId !== signedId),
                     );
                   }}
                   {...{ signedId }}
@@ -187,7 +189,7 @@ const FileField = <Multiple extends boolean = false>(
                   const { onChange } = props as FileFieldProps<false>;
                   onChange?.(null);
                 }}
-                signedId={(value as UploadInput).signedId}
+                signedId={value as string}
               />
             )}
           </Stack>

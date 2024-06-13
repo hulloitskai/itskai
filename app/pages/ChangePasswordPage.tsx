@@ -1,15 +1,13 @@
-import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import type { PageComponent } from "~/helpers/inertia";
+import type { SharedPageProps } from "~/types";
 import { Text } from "@mantine/core";
 
 import AppLayout from "~/components/AppLayout";
 import ChangePasswordPageForm from "~/components/ChangePasswordPageForm";
 
-import type { ChangePasswordPageQuery } from "~/helpers/graphql";
-
-export type ChangePasswordPageProps =
-  PagePropsWithData<ChangePasswordPageQuery> & {
-    resetPasswordToken: string;
-  };
+export interface ChangePasswordPageProps extends SharedPageProps {
+  resetPasswordToken: string;
+}
 
 const ChangePasswordPage: PageComponent<ChangePasswordPageProps> = ({
   resetPasswordToken,
@@ -48,12 +46,10 @@ const ChangePasswordPage: PageComponent<ChangePasswordPageProps> = ({
   </Card>
 );
 
-ChangePasswordPage.layout = buildLayout<ChangePasswordPageProps>(
-  (page, { data: { viewer } }) => (
-    <AppLayout title="Sign in" {...{ viewer }}>
-      <Center style={{ flexGrow: 1 }}>{page}</Center>
-    </AppLayout>
-  ),
-);
+ChangePasswordPage.layout = buildLayout<ChangePasswordPageProps>(page => (
+  <AppLayout title="Change password">
+    <Center style={{ flexGrow: 1 }}>{page}</Center>
+  </AppLayout>
+));
 
 export default ChangePasswordPage;

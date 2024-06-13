@@ -6,7 +6,6 @@ module Hashable
   extend T::Helpers
   extend ActiveSupport::Concern
 
-  # == Annotations
   abstract!
   requires_ancestor { ActiveRecord::Base }
 

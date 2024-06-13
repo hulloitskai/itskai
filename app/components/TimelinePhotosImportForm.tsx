@@ -1,76 +1,67 @@
-import type { FC } from "react";
+import type { ComponentPropsWithoutRef, FC } from "react";
 import type { BoxProps } from "@mantine/core";
-import type { DeepNonNullable } from "~/helpers/deepNonNullable";
 
 import FileField from "./FileField";
 
-import type { UploadInput } from "~/helpers/graphql";
-import { ImportTimelinePhotosMutationDocument } from "~/helpers/graphql";
-
-export type TimelinePhotosImportFormProps = BoxProps & {
+export interface TimelinePhotosImportFormProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {
   onImport?: () => void;
-};
-
-type TimelinePhotosImportFormValues = {
-  photos: UploadInput[];
-};
-
-type TimelinePhotosImportFormSubmission =
-  DeepNonNullable<TimelinePhotosImportFormValues>;
+}
 
 const TimelinePhotosImportForm: FC<TimelinePhotosImportFormProps> = ({
-  onImport,
+  onImport, // eslint-disable-line @typescript-eslint/no-unused-vars
   ...otherProps
 }) => {
   // == Form
-  const { values, onSubmit, reset, getInputProps } = useForm<
-    TimelinePhotosImportFormValues,
-    (
-      values: TimelinePhotosImportFormValues,
-    ) => TimelinePhotosImportFormSubmission
-  >({
-    initialValues: {
-      photos: [],
-    },
-    transformValues: ({ photos: locationHistory }) => {
-      invariant(locationHistory, "Missing location history");
-      return { photos: locationHistory };
-    },
-  });
+  // const { values, onSubmit, reset, getInputProps } = useForm<
+  //   TimelinePhotosImportFormValues,
+  //   (
+  //     values: TimelinePhotosImportFormValues,
+  //   ) => TimelinePhotosImportFormSubmission
+  // >({
+  //   initialValues: {
+  //     photos: [],
+  //   },
+  //   transformValues: ({ photos: locationHistory }) => {
+  //     invariant(locationHistory, "Missing location history");
+  //     return { photos: locationHistory };
+  //   },
+  // });
 
   // == Photos Import
-  const onImportPhotosError = useApolloAlertCallback(
-    "Failed to import timeline photos",
-  );
-  const [importPhotos, { loading: importingPhotos }] = useMutation(
-    ImportTimelinePhotosMutationDocument,
-    {
-      onCompleted: ({ payload: { importCount } }) => {
-        onImport?.();
-        reset();
-        showNotice({
-          title: "Imported timeline photos successfully",
-          message: importCount
-            ? `${importCount} photos added.`
-            : "No new photos were added.",
-        });
-      },
-      onError: onImportPhotosError,
-    },
-  );
+  // const onImportPhotosError = useApolloAlertCallback(
+  //   "Failed to import timeline photos",
+  // );
+  // const [importPhotos, { loading: importingPhotos }] = useMutation(
+  //   ImportTimelinePhotosMutationDocument,
+  //   {
+  //     onCompleted: ({ payload: { importCount } }) => {
+  //       onImport?.();
+  //       reset();
+  //       showNotice({
+  //         title: "Imported timeline photos successfully",
+  //         message: importCount
+  //           ? `${importCount} photos added.`
+  //           : "No new photos were added.",
+  //       });
+  //     },
+  //     onError: onImportPhotosError,
+  //   },
+  // );
 
   return (
     <Box
       component="form"
-      onSubmit={onSubmit(values => {
-        importPhotos({
-          variables: {
-            input: {
-              ...values,
-            },
-          },
-        });
-      })}
+      // onSubmit={onSubmit(values => {
+      //   importPhotos({
+      //     variables: {
+      //       input: {
+      //         ...values,
+      //       },
+      //     },
+      //   });
+      // })}
       {...otherProps}
     >
       <Stack gap="sm">
@@ -80,12 +71,13 @@ const TimelinePhotosImportForm: FC<TimelinePhotosImportFormProps> = ({
           required
           accept={["image/png", "image/jpeg"]}
           multiple
-          {...getInputProps("photos")}
+          // {...getInputProps("photos")}
         />
         <Button
           type="submit"
-          disabled={isEmpty(values.photos)}
-          loading={importingPhotos}
+          disabled
+          // disabled={isEmpty(values.photos)}
+          // loading={importingPhotos}
         >
           Import
         </Button>

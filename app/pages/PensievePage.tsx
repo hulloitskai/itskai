@@ -1,11 +1,11 @@
-import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
-import type { PensievePageQuery } from "~/helpers/graphql";
+import type { PageComponent } from "~/helpers/inertia";
+import type { SharedPageProps } from "~/types";
 import { Text } from "@mantine/core";
 
 import AppLayout from "~/components/AppLayout";
 import Pensieve from "~/components/Pensieve";
 
-export type PensievePageProps = PagePropsWithData<PensievePageQuery>;
+export interface PensievePageProps extends SharedPageProps {}
 
 const PensievePage: PageComponent<PensievePageProps> = () => {
   // == Autoscroll
@@ -44,26 +44,23 @@ const PensievePage: PageComponent<PensievePageProps> = () => {
   );
 };
 
-PensievePage.layout = buildLayout<PensievePageProps>(
-  (page, { data: { viewer } }) => (
-    <AppLayout
-      title="Pensieve"
-      description="Sometimes, Kai thinks out loud."
-      imageUrl="/pensieve-banner.png"
-      breadcrumbs={[
-        { title: "Home", href: "/" },
-        { title: "Pensieve", href: "/pensieve" },
-      ]}
-      withContainer
-      containerProps={{
-        style: { flexGrow: 1, display: "flex", flexDirection: "column" },
-      }}
-      withGutter
-      {...{ viewer }}
-    >
-      {page}
-    </AppLayout>
-  ),
-);
+PensievePage.layout = buildLayout<PensievePageProps>(page => (
+  <AppLayout
+    title="Pensieve"
+    description="Sometimes, Kai thinks out loud."
+    imageUrl="/pensieve-banner.png"
+    breadcrumbs={[
+      { title: "Home", href: "/" },
+      { title: "Pensieve", href: "/pensieve" },
+    ]}
+    withContainer
+    containerProps={{
+      style: { flexGrow: 1, display: "flex", flexDirection: "column" },
+    }}
+    withGutter
+  >
+    {page}
+  </AppLayout>
+));
 
 export default PensievePage;

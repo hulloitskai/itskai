@@ -1,12 +1,10 @@
-import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import type { SharedPageProps, Resume } from "~/types";
+import type { PageComponent } from "~/helpers/inertia";
 import { MantineProvider, Text, DEFAULT_THEME } from "@mantine/core";
 
 import EnvelopeIcon from "~icons/heroicons/envelope-20-solid";
 import GithubIcon from "~icons/lucide/github";
 import LinkedInIcon from "~icons/lucide/linkedin";
-
-import type { ResumePageQuery } from "~/helpers/graphql";
-import type { Resume } from "~/helpers/resume";
 
 import ResumeLayout from "~/components/ResumeLayout";
 import ResumeEducationSection from "~/components/ResumeEducationSection";
@@ -15,18 +13,18 @@ import ResumeWorkSection from "~/components/ResumeWorkSection";
 import ResumeDialog from "~/components/ResumeDialog";
 import ResumeProjectSection from "~/components/ResumeProjectSection";
 
-export type ResumePageProps = PagePropsWithData<ResumePageQuery> & {
+export interface ResumePageProps extends SharedPageProps {
+  resume: Resume;
   variant?: string;
   printMode?: boolean;
-};
+}
 
 const ResumePage: PageComponent<ResumePageProps> = ({
+  resume,
   variant,
   printMode,
-  data: { resume },
 }) => {
-  invariant(resume, "Missing resume data");
-  const { basics, work, education, skills, projects } = resume as Resume;
+  const { basics, work, education, skills, projects } = resume;
   const { email, profiles } = basics ?? {};
   const obfuscatedEmail = useMemo(() => email!.replace("@", "[at]"), [email]);
 

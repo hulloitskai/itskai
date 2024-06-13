@@ -10,7 +10,6 @@ class ApplicationWorker
   include Singleton
   include Logging
 
-  # == Annotations
   abstract!
 
   # == Lifecycle

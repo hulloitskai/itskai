@@ -1,30 +1,39 @@
-import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import type { PageComponent } from "~/helpers/inertia";
+import type {
+  ApproximateLocation,
+  JournalEntry,
+  SharedPageProps,
+} from "~/types";
 import { Text } from "@mantine/core";
 import BellIcon from "~icons/heroicons/bell-20-solid";
 
 import AppLayout from "~/components/AppLayout";
 import ContactMeLink from "~/components/ContactMeLink";
 import HomePageJournalEntry from "~/components/HomePageJournalEntry";
-import LocatePageAlert from "~/components/LocationAlert";
-import Pensieve from "~/components/Pensieve";
+import ApproximateLocationAlert from "~/components/ApproximateLocationAlert";
 import ExplorationBadge from "~/components/ExplorationBadge";
-
-import type { HomePageQuery } from "~/helpers/graphql";
 
 import classes from "./HomePage.module.css";
 
-export type HomePageProps = PagePropsWithData<HomePageQuery> & {
-  firstJournalEntryId: string;
+export interface HomePageProps extends SharedPageProps {
   autoscroll: boolean;
-};
+  explorations: string[];
+  announcement?: string;
+  journalEntry?: JournalEntry;
+  firstJournalEntryId?: string;
+  approximateLocation?: ApproximateLocation;
+}
 
 const HomePage: PageComponent<HomePageProps> = ({
-  firstJournalEntryId,
   autoscroll,
-  data: { announcement, explorations, journalEntry, location },
+  explorations,
+  announcement,
+  journalEntry,
+  firstJournalEntryId,
+  approximateLocation,
 }) => {
-  const [showPensieve, setShowPensieve] = useState(false);
-  const [showLocation, setShowLocation] = useState(!!location);
+  // const [showPensieve, setShowPensieve] = useState(false);
+  const [showLocation, setShowLocation] = useState(!!approximateLocation);
 
   return (
     <Stack gap={52}>
@@ -82,7 +91,7 @@ const HomePage: PageComponent<HomePageProps> = ({
           </Anchor>
         </Text>
       </Stack>
-      <Transition
+      {/* <Transition
         transition={{
           transitionProperty: "transform, opacity, max-height",
           common: { transformOrigin: "top" },
@@ -117,18 +126,20 @@ const HomePage: PageComponent<HomePageProps> = ({
             />
           </Stack>
         )}
-      </Transition>
-      <Stack align="center" gap="xs">
-        <Title order={2} size="h3">
-          Sometimes, Kai writes.
-        </Title>
-        <HomePageJournalEntry
-          firstEntryId={firstJournalEntryId}
-          initialEntry={journalEntry}
-          style={{ alignSelf: "stretch" }}
-          {...{ autoscroll }}
-        />
-      </Stack>
+      </Transition> */}
+      {journalEntry && !!firstJournalEntryId && (
+        <Stack align="center" gap="xs">
+          <Title order={2} size="h3">
+            Sometimes, Kai writes.
+          </Title>
+          <HomePageJournalEntry
+            entry={journalEntry}
+            firstEntryId={firstJournalEntryId}
+            style={{ alignSelf: "stretch" }}
+            {...{ autoscroll }}
+          />
+        </Stack>
+      )}
       <Transition
         transition={{
           transitionProperty: "transform, opacity, max-height",
@@ -141,8 +152,8 @@ const HomePage: PageComponent<HomePageProps> = ({
         keepMounted
       >
         {style => (
-          <LocatePageAlert
-            initialLocation={location}
+          <ApproximateLocationAlert
+            initialLocation={approximateLocation}
             onUpdate={location => {
               setShowLocation(!!location);
             }}
@@ -157,8 +168,8 @@ const HomePage: PageComponent<HomePageProps> = ({
   );
 };
 
-HomePage.layout = buildLayout<HomePageProps>((page, { data: { viewer } }) => (
-  <AppLayout withContainer withGutter {...{ viewer }}>
+HomePage.layout = buildLayout<HomePageProps>(page => (
+  <AppLayout withContainer withGutter>
     {page}
   </AppLayout>
 ));

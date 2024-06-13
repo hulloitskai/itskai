@@ -6,7 +6,6 @@ module Named
   extend T::Helpers
   extend ActiveSupport::Concern
 
-  # == Annotations
   abstract!
   requires_ancestor { ActiveRecord::Base }
   requires_ancestor { RequiresColumn }

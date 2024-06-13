@@ -1,6 +1,0 @@
-query TimelineAdminPageQuery {
-  viewer {
-    ...AppViewerFragment
-    id
-  }
-}

@@ -1,9 +1,7 @@
 import type { FC } from "react";
-import type { SharedPageProps } from "~/helpers/inertia";
 
 const PageMeta: FC = () => {
-  const { props } = usePage<SharedPageProps>();
-  const { csrf } = props;
+  const { csrf } = usePageProps();
   return (
     <Head>
       <meta name="csrf-param" content={csrf.param} />

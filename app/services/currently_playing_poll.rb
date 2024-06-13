@@ -13,7 +13,7 @@ class CurrentlyPlayingPoll < ApplicationService
       with_log_tags do
         if value.present?
           logger.info(
-            "Playing: #{value.track.name} (#{value.progress_milliseconds}ms)",
+            "Playing: #{value.track.name} (#{value.progress_ms}ms)",
           )
         else
           logger.info("Stopped playing")

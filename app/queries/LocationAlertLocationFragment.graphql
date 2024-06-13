@@ -1,5 +1,0 @@
-fragment LocationAlertLocationFragment on LocationLog {
-  approximateAddress
-  googleMapsAreaUrl
-  timestamp
-}

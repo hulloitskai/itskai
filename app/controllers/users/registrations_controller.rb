@@ -3,8 +3,12 @@
 
 module Users
   class RegistrationsController < Devise::RegistrationsController
+    # Constants
+    ATTRIBUTES_REQUIRING_CURRING_PASSWORD = %i[email password]
+
     # == Filters
     before_action :configure_sign_up_params, only: :create
+    before_action :configure_account_update_params, only: :update
 
     # == Actions
     # GET /signup
@@ -20,8 +24,7 @@ module Users
     # POST /signup
     def create
       resource = build_resource(sign_up_params)
-      resource.save
-      if resource.persisted?
+      if resource.save
         if resource.active_for_authentication?
           set_flash_message!(:notice, :signed_up)
           sign_up(resource_name, resource)
@@ -39,7 +42,9 @@ module Users
         set_minimum_password_length
         redirect_to(
           new_registration_path(resource_name),
-          inertia: { errors: inertia_errors },
+          inertia: {
+            errors: resource.form_errors,
+          },
         )
       end
     end
@@ -48,30 +53,40 @@ module Users
     def update
       resource = self.resource = resource_class
         .to_adapter
-        .get!(send(:"current_#{resource_name}").to_key)
+        .get!(public_send(:"current_#{resource_name}").to_key)
+      prev_unconfirmed_email = resource.try(:unconfirmed_email)
       resource_updated = update_resource(resource, account_update_params)
       if resource_updated
-        if sign_in_after_change_password?
-          bypass_sign_in(resource, scope: resource_name)
-        end
+        set_flash_message_for_update(resource, prev_unconfirmed_email)
+        bypass_sign_in(
+          resource,
+          scope: resource_name,
+        ) if sign_in_after_change_password?
         redirect_to(after_update_path_for(resource))
       else
         clean_up_passwords(resource)
         set_minimum_password_length
-        if resource.encrypted_password_previously_changed?
-          inertia_location(edit_registration_path(resource_name))
-        else
-          redirect_to(
-            edit_registration_path(resource_name),
-            inertia: { errors: inertia_errors },
-          )
-        end
+        redirect_to(edit_registration_path(resource))
       end
     end
 
     protected
 
     # == Helpers
+    sig do
+      params(resource: User, params: T::Hash[Symbol, T.untyped])
+        .returns(T::Boolean)
+    end
+    def update_resource(resource, params)
+      requires_current_password = ATTRIBUTES_REQUIRING_CURRING_PASSWORD
+        .any? { |attribute| params[attribute].present? }
+      if requires_current_password
+        resource.update_with_password(params)
+      else
+        resource.update_without_password(params)
+      end
+    end
+
     sig { params(resource: User).returns(String) }
     def after_update_path_for(resource)
       if sign_in_after_change_password?
@@ -84,18 +99,26 @@ module Users
     private
 
     # == Helpers
-    sig { returns(T::Hash[String, T.untyped]) }
-    def inertia_errors
-      error_bag = request.headers["X-Inertia-Error-Bag"]
-      errors = resource&.input_field_errors&.to_h || {}
-      error_bag.present? ? { error_bag => errors } : errors
-    end
+    # sig { returns(T::Hash[String, T.untyped]) }
+    # def inertia_errors
+    #   error_bag = request.headers["X-Inertia-Error-Bag"]
+    #   errors = resource&.input_field_errors&.to_h || {}
+    #   error_bag.present? ? { error_bag => errors } : errors
+    # end
 
     # == Filter Handlers
     # If you have extra params to permit, append them to the sanitizer.
     sig { void }
     def configure_sign_up_params
       devise_parameter_sanitizer.permit(:sign_up, keys: %i[name])
+    end
+
+    sig { void }
+    def configure_account_update_params
+      devise_parameter_sanitizer.permit(
+        :account_update,
+        keys: %i[name email avatar],
+      )
     end
   end
 end

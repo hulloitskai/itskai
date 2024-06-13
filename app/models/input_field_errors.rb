@@ -5,7 +5,6 @@ class InputFieldErrors < Array
   extend T::Sig
   extend T::Generic
 
-  # == Annotations
   Elem = type_member { { fixed: InputFieldError } }
 
   # == Builders

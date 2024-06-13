@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 # == Schema Information
@@ -29,6 +29,7 @@ class JournalEntry < ApplicationRecord
     T.bind(self, PrivateRelation)
     where.not(content: nil)
   }
+  scope :ordered, -> { order(started_at: :desc) }
 
   # == Search
   pg_search_scope :search,
@@ -65,8 +66,9 @@ class JournalEntry < ApplicationRecord
     SyncJournalEntryJob.perform_later(self, force:)
   end
 
-  sig { void }
+  sig { returns(JournalEntrySyncResults) }
   def self.sync!
+    added, updated = 0, 0
     notion_pages = NotionClient.list_pages(
       notion_database_id,
       filter: {
@@ -84,6 +86,11 @@ class JournalEntry < ApplicationRecord
       notion_page_id = notion_page.id
       entry = JournalEntry.find_or_initialize_by(notion_page_id:)
       entry.sync_attributes(notion_page)
+      if entry.new_record?
+        added += 1
+      elsif entry.changed?
+        updated += 1
+      end
       entry.save!
     rescue => error
       with_log_tags do
@@ -95,7 +102,11 @@ class JournalEntry < ApplicationRecord
       Rails.error.report(error, context: { notion_page_id: })
       raise error
     end
-    JournalEntry.where.not(notion_page_id: notion_pages.map(&:id)).destroy_all
+    removed_entries = JournalEntry
+      .where.not(notion_page_id: notion_pages.map(&:id))
+      .destroy_all
+    removed = removed_entries.size
+    JournalEntrySyncResults.new(added:, updated:, removed:)
   end
 
   sig { params(notion_page: T.untyped).void }
@@ -125,7 +136,7 @@ class JournalEntry < ApplicationRecord
   sig { void }
   def download
     content = NotionClient.retrieve_page_content(notion_page_id)
-    redactor = Redactor.new(notion_page)
+    redactor = JournalEntryRedactor.new(notion_page)
     redactor.redact_blocks!(content)
     update!(content:)
   end
@@ -141,9 +152,6 @@ class JournalEntry < ApplicationRecord
     ENV["JOURNAL_ENTRY_NOTION_DATABASE_ID"] or
       raise "Missing journal entries Notion database ID"
   end
-
-  sig { returns(String) }
-  def notion_database_id = self.class.notion_database_id
 
   sig { returns(T.untyped) }
   def notion_page

@@ -32,6 +32,11 @@ class LocationLogAddress < ApplicationRecord
   # == Associations
   belongs_to :location_log, inverse_of: :address, touch: true
 
+  sig { returns(LocationLog) }
+  def location_log!
+    location_log or raise ActiveRecord::RecordNotFound, "Missing location log"
+  end
+
   # == Normalizations
   removes_blank :city,
                 :neighbourhood,
@@ -45,6 +50,9 @@ class LocationLogAddress < ApplicationRecord
             :full_address,
             :province,
             presence: true
+
+  # == Callbacks
+  after_create_commit :broadcast_location, :broadcast_approximate_location
 
   # == Methods
   sig { returns(String) }
@@ -69,5 +77,18 @@ class LocationLogAddress < ApplicationRecord
     uri = Addressable::URI.parse("https://www.google.com/maps/search/")
     uri.query_values = { "api" => 1, "query" => approximate_address }
     uri.to_s
+  end
+
+  private
+
+  # == Callback Handlers
+  sig { void }
+  def broadcast_location
+    LocationChannel.broadcast(location_log!)
+  end
+
+  sig { void }
+  def broadcast_approximate_location
+    ApproximateLocationChannel.broadcast(location_log!)
   end
 end

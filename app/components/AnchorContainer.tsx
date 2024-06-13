@@ -4,10 +4,11 @@ import type { AnchorProps, MantineColor } from "@mantine/core";
 
 import classes from "./AnchorContainer.module.css";
 
-export type AnchorContainerProps = AnchorProps &
-  ComponentPropsWithRef<"a"> & {
-    borderColor?: MantineColor;
-  };
+export interface AnchorContainerProps
+  extends AnchorProps,
+    Omit<ComponentPropsWithRef<"a">, "color" | "style"> {
+  borderColor?: MantineColor;
+}
 
 const _AnchorContainer = forwardRef<HTMLAnchorElement, AnchorContainerProps>(
   (

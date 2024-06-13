@@ -5,6 +5,6 @@ class LyricLine < T::Struct
   extend T::Sig
 
   # == Properties
-  const :start_time_milliseconds, Integer
+  const :start_time_ms, Integer
   const :words, String
 end

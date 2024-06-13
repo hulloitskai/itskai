@@ -1,11 +1,11 @@
 import type { ReactElement } from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";
+import type { SharedPageProps } from "~/types";
 
 import AppWrapper from "~/components/AppWrapper";
 
-import type { PageComponent, SharedPageProps } from "~/helpers/inertia";
-import type { SetupAppOptions } from "~/helpers/inertia";
+import type { SetupAppOptions, PageComponent } from "~/helpers/inertia";
 import { preparePage } from "~/helpers/inertia/page/client";
 import { parsePageImports } from "~/helpers/inertia";
 

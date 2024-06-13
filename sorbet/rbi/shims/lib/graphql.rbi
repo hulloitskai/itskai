@@ -1,4 +1,4 @@
-# typed: strong
+# typed: ignore
 
 module GraphQL
   class Dataloader

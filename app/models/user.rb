@@ -71,8 +71,7 @@ class User < ApplicationRecord
   validates :email,
             presence: true,
             length: { maximum: 100 },
-            email: true,
-            uniqueness: { case_sensitive: false }
+            email: true
   validates :password,
             password_strength: {
               min_entropy: MIN_PASSWORD_ENTROPY,
@@ -113,18 +112,6 @@ class User < ApplicationRecord
   sig { returns(T::Hash[String, T.untyped]) }
   def fullstory_identity
     { "uid" => to_gid.to_s, "email" => email, "displayName" => name }
-  end
-
-  # == Devise
-  sig do
-    params(
-      params: T::Hash[Symbol, T.untyped],
-      options: T.untyped,
-    ).returns(T::Boolean)
-  end
-  def update_without_password(params, *options)
-    params.delete(:email)
-    super(params)
   end
 
   # == Methods

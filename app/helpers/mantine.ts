@@ -6,6 +6,7 @@ import {
   Button,
   Loader,
   Modal,
+  Notification,
   TextInput,
   ThemeIcon,
   createTheme,
@@ -67,6 +68,7 @@ export const THEME = createTheme({
     }),
     Loader: Loader.extend({
       defaultProps: {
+        size: "sm",
         color: "primary.5",
       },
     }),
@@ -80,6 +82,13 @@ export const THEME = createTheme({
           ...style,
         },
       }),
+    }),
+    Notification: Notification.extend({
+      styles: {
+        description: {
+          lineHeight: "var(--mantine-line-height-xs)",
+        },
+      },
     }),
     TextInput: TextInput.extend({
       styles: ({ fontSizes }) => ({

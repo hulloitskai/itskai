@@ -1,20 +1,20 @@
-import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import type { PageComponent } from "~/helpers/inertia";
 import type { Feature, FeatureCollection, Point } from "geojson";
+import type {
+  ApproximateLocation,
+  Coordinates,
+  LocationAccessGrant,
+  LocationTrailMarker,
+  LocationWithTrail,
+  SharedPageProps,
+} from "~/types";
 import ClockIcon from "~icons/heroicons/clock-20-solid";
 import circle from "@turf/circle";
 
 import { Text, rgba } from "@mantine/core";
 
-import type { MapRef } from "react-map-gl";
+import type { MapRef, ViewState } from "react-map-gl";
 import { GeolocateControl, Marker, Source, Layer } from "react-map-gl";
-
-import type {
-  Coordinates,
-  LocatePageQuery,
-  LocatePageSubscriptionVariables,
-  LocatePageTrailMarkerFragment,
-} from "~/helpers/graphql";
-import { LocatePageSubscriptionDocument } from "~/helpers/graphql";
 
 import AppLayout from "~/components/AppLayout";
 import Map from "~/components/Map";
@@ -28,23 +28,42 @@ const TORONTO_COORDINATES: Readonly<Coordinates> = {
   longitude: -79.3832,
 };
 
-export type LocatePageProps = PagePropsWithData<LocatePageQuery> & {
-  accessToken: string | null;
-};
+const APPROXIMATE_ZOOM = 11.5;
+const PRECISE_ZOOM = 14.5;
+
+export interface LocatePageProps extends SharedPageProps {
+  approximateLocation?: ApproximateLocation;
+  location?: LocationWithTrail;
+  accessToken?: string;
+  accessGrant?: LocationAccessGrant;
+}
 
 const LocatePage: PageComponent<LocatePageProps> = ({
+  location: initialLocation,
+  approximateLocation: initialApproximateLocation,
   accessToken,
-  data: { location: initialLocation },
+  accessGrant: initialAccessGrant,
 }) => {
   const isClient = useIsClient();
-  const router = useRouter();
   const theme = useMantineTheme();
-  const [pageLoading, setPageLoading] = useState(false);
 
   // == Map
   const mapRef = useRef<MapRef>(null);
-  const mapCenter =
-    initialLocation?.approximateCoordinates ?? TORONTO_COORDINATES;
+  const [initialViewState] = useState<Partial<ViewState>>(() => {
+    if (initialLocation) {
+      return {
+        ...initialLocation.coordinates,
+        zoom: PRECISE_ZOOM,
+      };
+    }
+    if (initialApproximateLocation) {
+      return {
+        ...initialApproximateLocation.approximateCoordinates,
+        zoom: APPROXIMATE_ZOOM,
+      };
+    }
+    return TORONTO_COORDINATES;
+  });
 
   // == Alert
   const [alertPulse, setAlertPulse] = useState(false);
@@ -56,78 +75,63 @@ const LocatePage: PageComponent<LocatePageProps> = ({
     }
   }, [alertPulse]);
 
-  // == Watch location updates
-  const locationSubscriptionVariables = useMemo<
-    LocatePageSubscriptionVariables | undefined
-  >(
-    () => (!pageLoading && accessToken ? { accessToken } : undefined),
-    [accessToken, pageLoading],
-  );
-  const [locationSubscriptionFirstLoad, setLocationSubscriptionFirstLoad] =
-    useState(true);
-  const onLocationSubscriptionError = useApolloAlertCallback(
-    "Failed to subscribe to location updates",
-  );
-  const { data: locationData, loading: loadingLocation } = useSubscription(
-    LocatePageSubscriptionDocument,
-    {
-      variables: locationSubscriptionVariables,
-      skip: !locationSubscriptionVariables,
-      onData: ({ data: { data, error } }) => {
-        console.log({ data });
-        if (data) {
-          const { location } = data;
-          if (location && mapRef.current) {
-            const { latitude, longitude } = location.details.coordinates;
-            mapRef.current.flyTo({
-              center: [longitude, latitude],
-              zoom: 14.5,
-              animate: true,
-            });
-            if (!locationSubscriptionFirstLoad) {
-              setAlertPulse(true);
-            }
-            setLocationSubscriptionFirstLoad(false);
-          }
-        } else if (error) {
-          console.error("Error during location update", formatJSON({ error }));
-        }
-      },
-      onError: onLocationSubscriptionError,
+  // == Location Subscription
+  const locationSubscriptionFirstLoadRef = useRef(true);
+  const { data: locationData } = useSubscription<{
+    location: LocationWithTrail;
+    accessGrant: LocationAccessGrant;
+  }>("LocationChannel", {
+    params: {
+      access_token: accessToken,
     },
-  );
-  const { location } = locationData ?? {};
-  const { coordinates, trail } = location?.details ?? {};
+    onData: ({ location }) => {
+      if (location && mapRef.current) {
+        const { latitude, longitude } = location.coordinates;
+        mapRef.current.flyTo({
+          center: [longitude, latitude],
+          zoom: PRECISE_ZOOM,
+          animate: true,
+        });
+        if (!locationSubscriptionFirstLoadRef.current) {
+          locationSubscriptionFirstLoadRef.current = false;
+          setAlertPulse(true);
+        }
+      }
+    },
+  });
+  const { location = initialLocation, accessGrant = initialAccessGrant } =
+    locationData ?? {};
 
   // == Region
   const regionData = useMemo(() => {
-    if (initialLocation) {
-      const { latitude, longitude } = initialLocation.approximateCoordinates;
+    if (initialApproximateLocation) {
+      const { latitude, longitude } =
+        initialApproximateLocation.approximateCoordinates;
       return circle([longitude, latitude], 1);
     }
-  }, [initialLocation]);
+  }, [initialApproximateLocation]);
   const regionColor = theme.colors.primary[5];
 
-  // == Trail Markers
+  // == Trail
   const firstMarkerTimestamp = useMemo<DateTime | undefined>(() => {
-    const firstMarker = first(trail);
+    const firstMarker = first(location?.trailMarkers);
     if (firstMarker) {
       return DateTime.fromISO(firstMarker.timestamp);
     }
-  }, [trail]);
+  }, [location?.trailMarkers]);
   const lastMarkerTimestamp = useMemo<DateTime | undefined>(() => {
-    const lastMarker = last(trail);
+    const lastMarker = last(location?.trailMarkers);
     if (lastMarker) {
       return DateTime.fromISO(lastMarker.timestamp);
     }
-  }, [trail]);
+  }, [location?.trailMarkers]);
   const trailDurationMilliseconds = useMemo<Duration | undefined>(() => {
     if (firstMarkerTimestamp && lastMarkerTimestamp) {
       return lastMarkerTimestamp.diff(firstMarkerTimestamp);
     }
   }, [firstMarkerTimestamp, lastMarkerTimestamp]);
   const deriveTrailMarkerOpacity = useCallback(
-    (marker: LocatePageTrailMarkerFragment): number => {
+    (marker: LocationTrailMarker): number => {
       if (trailDurationMilliseconds && lastMarkerTimestamp) {
         const timestamp = DateTime.fromISO(marker.timestamp);
         const markerOffset = lastMarkerTimestamp.diff(timestamp);
@@ -146,10 +150,10 @@ const LocatePage: PageComponent<LocatePageProps> = ({
   const trailMarkersData = useMemo<
     FeatureCollection<Point, { opacity: number }> | undefined
   >(() => {
-    if (trail) {
+    if (location?.trailMarkers) {
       return {
         type: "FeatureCollection",
-        features: trail.map(marker => {
+        features: location.trailMarkers.map(marker => {
           const { latitude, longitude } = marker.coordinates;
           return {
             type: "Feature",
@@ -164,7 +168,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
         }),
       };
     }
-  }, [trail, deriveTrailMarkerOpacity]);
+  }, [location?.trailMarkers, deriveTrailMarkerOpacity]);
   const trailMarkerColor = useMemo(() => {
     const { color } = theme.variantColorResolver({
       theme,
@@ -218,15 +222,18 @@ const LocatePage: PageComponent<LocatePageProps> = ({
         <Map
           ref={mapRef}
           mapStyle="mapbox://styles/mapbox-map-design/ck4014y110wt61ctt07egsel6"
-          initialViewState={{ ...mapCenter, zoom: 11.5 }}
           scrollZoom
           style={{ flexGrow: 1 }}
+          {...{ initialViewState }}
         >
           <GeolocateControl />
-          {coordinates && (
-            <Marker color="var(--mantine-color-primary-6)" {...coordinates} />
+          {location?.coordinates && (
+            <Marker
+              color="var(--mantine-color-primary-6)"
+              {...location.coordinates}
+            />
           )}
-          {regionData && !coordinates && (
+          {regionData && !location?.coordinates && (
             <Source id="region" type="geojson" data={regionData}>
               <Layer
                 id="region-fill"
@@ -290,12 +297,9 @@ const LocatePage: PageComponent<LocatePageProps> = ({
         })}
       >
         <Box pos="relative" w="100%" maw={540}>
-          {location ? (
+          {location && accessGrant ? (
             resolve(() => {
-              const {
-                timestamp,
-                details: { address, expiresAt },
-              } = location;
+              const { timestamp, address } = location;
               return (
                 <Alert
                   title={
@@ -342,14 +346,14 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                       </Text>
                       <Text size="xs" c="dimmed">
                         Location access expires{" "}
-                        <TimeAgo inherit>{expiresAt}</TimeAgo>.
+                        <TimeAgo inherit>{accessGrant.expiresAt}</TimeAgo>.
                       </Text>
                     </Box>
                   </Stack>
                 </Alert>
               );
             })
-          ) : initialLocation ? (
+          ) : initialApproximateLocation ? (
             <Alert
               title="Kai's somewhere around here..."
               classNames={{
@@ -368,19 +372,11 @@ const LocatePage: PageComponent<LocatePageProps> = ({
               </Text>
               <LocationAccessForm
                 size="sm"
-                onCreate={token => {
-                  const params = new URLSearchParams([["access_token", token]]);
+                onSuccess={token => {
                   router.visit(
-                    window.location.pathname + "?" + params.toString(),
-                    {
-                      preserveState: true,
-                      onBefore: () => {
-                        setPageLoading(true);
-                      },
-                      onFinish: () => {
-                        setPageLoading(false);
-                      },
-                    },
+                    routes.locations.show.path({
+                      query: { access_token: token },
+                    }),
                   );
                 }}
               />
@@ -405,7 +401,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
             </Alert>
           )}
           <LoadingOverlay
-            visible={loadingLocation}
+            visible={!!accessToken && !location}
             styles={({ radius }) => ({
               overlay: {
                 borderRadius: radius.md,
@@ -418,18 +414,15 @@ const LocatePage: PageComponent<LocatePageProps> = ({
   );
 };
 
-LocatePage.layout = buildLayout<LocatePageProps>(
-  (page, { data: { viewer } }) => (
-    <AppLayout
-      title="Track"
-      description="The ultimate Kai-stalking toolkit."
-      noIndex
-      padding={0}
-      {...{ viewer }}
-    >
-      {page}
-    </AppLayout>
-  ),
-);
+LocatePage.layout = buildLayout<LocatePageProps>(page => (
+  <AppLayout
+    title="Track"
+    description="The ultimate Kai-stalking toolkit."
+    noIndex
+    padding={0}
+  >
+    {page}
+  </AppLayout>
+));
 
 export default LocatePage;

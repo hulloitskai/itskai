@@ -1,39 +1,44 @@
-import type { PageComponent, PagePropsWithData } from "~/helpers/inertia";
+import type { PageComponent } from "~/helpers/inertia";
+import type {
+  ICloudConnection,
+  OAuthConnection,
+  SharedPageProps,
+} from "~/types";
 import { Text } from "@mantine/core";
-
-import type { AdminPageQuery } from "~/helpers/graphql";
 
 import AppLayout from "~/components/AppLayout";
 import ICloudConnectionForm from "~/components/ICloudConnectionForm";
-import GoogleConnectionForm from "~/components/GoogleConnectionForm";
-import SpotifyConnectionForm from "~/components/SpotifyConnectionForm";
-import LocationLogsSyncButton from "~/components/LocationLogsSyncButton";
-import JournalEntriesSyncButton from "~/components/JournalEntriesSyncButton";
+import OAuthConnectionForm from "~/components/OAuthConnectionForm";
+import AdminLocationLogsSyncButton from "~/components/AdminLocationLogsSyncButton";
+import AdminJournalEntriesSyncButton from "~/components/AdminJournalEntriesSyncButton";
 import LocationAccessGrants from "~/components/LocationAccessGrants";
 
-export type AdminPageProps = PagePropsWithData<AdminPageQuery>;
+export interface AdminPageProps extends SharedPageProps {
+  icloudConnection: ICloudConnection;
+  googleConnection: OAuthConnection;
+  spotifyConnection: OAuthConnection;
+}
 
 const AdminPage: PageComponent<AdminPageProps> = ({
-  data: { icloudConnection, googleConnection, spotifyConnection },
+  icloudConnection,
+  googleConnection,
+  spotifyConnection,
 }) => {
-  // == Routing
-  const router = useRouter();
-
   return (
     <Stack>
       <Card withBorder>
         <Stack gap="xs">
           <Stack align="center" gap={0}>
             <Title order={2} size="h4">
-              Data Controls
+              Data controls
             </Title>
             <Text size="sm" c="dimmed" lh={1.3}>
               Sync data from your services
             </Text>
           </Stack>
           <Stack gap={6}>
-            <LocationLogsSyncButton />
-            <JournalEntriesSyncButton />
+            <AdminLocationLogsSyncButton />
+            <AdminJournalEntriesSyncButton />
           </Stack>
         </Stack>
       </Card>
@@ -41,7 +46,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
         <Stack gap="xs">
           <Stack align="center" gap={0}>
             <Title order={2} size="h4">
-              Location Access Grants
+              Location access grants
             </Title>
             <Text size="sm" c="dimmed" lh={1.3}>
               Grant access to your precise location
@@ -62,14 +67,8 @@ const AdminPage: PageComponent<AdminPageProps> = ({
           </Stack>
           <ICloudConnectionForm
             connection={icloudConnection}
-            onCreate={() => {
-              router.reload({ preserveScroll: true });
-            }}
-            onDelete={() => {
-              router.reload({ preserveScroll: true });
-            }}
-            onVerifySecurityCode={() => {
-              router.reload({ preserveScroll: true });
+            onDisconnected={() => {
+              router.reload({ only: ["icloudConnection"] });
             }}
           />
         </Stack>
@@ -84,10 +83,10 @@ const AdminPage: PageComponent<AdminPageProps> = ({
               Enables availability services
             </Text>
           </Stack>
-          <GoogleConnectionForm
+          <OAuthConnectionForm
             connection={googleConnection}
-            onDelete={() => {
-              router.reload({ preserveScroll: true });
+            onDisconnected={() => {
+              router.reload({ only: ["googleConnection"] });
             }}
           />
         </Stack>
@@ -102,10 +101,10 @@ const AdminPage: PageComponent<AdminPageProps> = ({
               Enables currently-playing & lyrics services
             </Text>
           </Stack>
-          <SpotifyConnectionForm
+          <OAuthConnectionForm
             connection={spotifyConnection}
-            onDelete={() => {
-              router.reload({ preserveScroll: true });
+            onDisconnected={() => {
+              router.reload({ only: ["spotifyConnection"] });
             }}
           />
         </Stack>
@@ -114,7 +113,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
   );
 };
 
-AdminPage.layout = buildLayout<AdminPageProps>((page, { data: { viewer } }) => (
+AdminPage.layout = buildLayout<AdminPageProps>(page => (
   <AppLayout
     title="Admin"
     breadcrumbs={[
@@ -124,7 +123,6 @@ AdminPage.layout = buildLayout<AdminPageProps>((page, { data: { viewer } }) => (
     withContainer
     withGutter
     containerSize="xs"
-    {...{ viewer }}
   >
     {page}
   </AppLayout>

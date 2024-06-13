@@ -15,7 +15,6 @@ class BetterErrors::StackFrame
     extend T::Sig
     extend T::Helpers
 
-    # == Annotations
     requires_ancestor { BetterErrors::StackFrame }
 
     # == Methods
