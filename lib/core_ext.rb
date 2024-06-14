@@ -131,8 +131,13 @@ class Module
       private: T::Boolean,
     ).void
   end
-  def externally_typed_delegate(*methods, to: T.unsafe(nil), prefix: T.unsafe(nil),
-    allow_nil: T.unsafe(nil), private: T.unsafe(nil))
+  def externally_typed_delegate(
+    *methods,
+    to: T.unsafe(nil),
+    prefix: T.unsafe(nil),
+    allow_nil: T.unsafe(nil),
+    private: T.unsafe(nil)
+  )
     delegate(*T.unsafe(methods), to:, prefix:, allow_nil:)
   end
 end
