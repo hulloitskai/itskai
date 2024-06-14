@@ -11,7 +11,7 @@ class ImagesController < ApplicationController
     unless image_blob.image?
       raise ActiveRecord::RecordNotFound, "Couldn't find Image"
     end
-    render(json: { image: ImageSerializer.render(image_blob) })
+    render(json: { image: ImageSerializer.one(image_blob) })
   end
 
   private

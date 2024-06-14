@@ -8233,7 +8233,6 @@ class ActiveRecord::Base
   include ::ActiveRecord::Suppressor
   include ::ActiveRecord::Normalization
   include ::ActiveRecord::Marshalling::Methods
-  include ::Kaminari::ActiveRecordExtension
   include ::FriendlyId::UnfriendlyUtils
   include ::ActiveStorageValidations
   include ::CounterCulture::Extensions
@@ -8296,7 +8295,6 @@ class ActiveRecord::Base
   extend ::ActiveRecord::SignedId::ClassMethods
   extend ::ActiveRecord::Suppressor::ClassMethods
   extend ::ActiveRecord::Normalization::ClassMethods
-  extend ::Kaminari::ActiveRecordExtension::ClassMethods
   extend ::OrmAdapter::ToAdapter
   extend ::CounterCulture::Extensions::ClassMethods
   extend ::Geocoder::Model::Base

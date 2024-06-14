@@ -15,7 +15,7 @@ class ApproximateLocationChannel < ApplicationCable::Channel
   sig { params(location: LocationLog).void }
   def self.broadcast(location)
     message = {
-      location: ApproximateLocationSerializer.render(location),
+      location: ApproximateLocationSerializer.one(location),
     }
     ActionCable.server.broadcast(channel_name, message)
   end

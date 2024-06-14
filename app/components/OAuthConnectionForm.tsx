@@ -23,7 +23,7 @@ const OAuthConnectionForm: FC<OAuthConnectionFormProps> = ({
   return (
     <Stack gap="xs" {...otherProps}>
       {credentials && (
-        <Stack gap={8}>
+        <>
           <TextInput label="UID (read-only)" value={credentials.uid} />
           {!!credentials.refreshToken && (
             <TextInput
@@ -32,19 +32,17 @@ const OAuthConnectionForm: FC<OAuthConnectionFormProps> = ({
               readOnly
             />
           )}
-        </Stack>
+        </>
       )}
-      <Stack gap={6}>
-        <form action={authorizeUrl} method="post">
-          <FormAuthenticityField />
-          <Button type="submit" leftSection={<OpenExternalIcon />} fullWidth>
-            Authenticate
-          </Button>
-        </form>
-        {credentials && (
-          <OAuthDisconnectButton {...{ connection, onDisconnected }} />
-        )}
-      </Stack>
+      <form action={authorizeUrl} method="post">
+        <FormAuthenticityField />
+        <Button type="submit" leftSection={<OpenExternalIcon />} fullWidth>
+          Authenticate
+        </Button>
+      </form>
+      {credentials && (
+        <OAuthDisconnectButton {...{ connection, onDisconnected }} />
+      )}
     </Stack>
   );
 };

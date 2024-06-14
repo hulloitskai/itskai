@@ -1,6 +1,7 @@
 import type { PageComponent } from "~/helpers/inertia";
 import type {
   ApproximateLocation,
+  Exploration,
   JournalEntry,
   SharedPageProps,
 } from "~/types";
@@ -16,20 +17,20 @@ import ExplorationBadge from "~/components/ExplorationBadge";
 import classes from "./HomePage.module.css";
 
 export interface HomePageProps extends SharedPageProps {
-  autoscroll: boolean;
-  explorations: string[];
-  announcement?: string;
-  journalEntry?: JournalEntry;
-  firstJournalEntryId?: string;
-  approximateLocation?: ApproximateLocation;
+  announcement: string | null;
+  explorations: Exploration[];
+  journalEntry: JournalEntry | null;
+  firstJournalEntryId: string | null;
+  journalAutoscroll: boolean;
+  approximateLocation: ApproximateLocation | null;
 }
 
 const HomePage: PageComponent<HomePageProps> = ({
-  autoscroll,
-  explorations,
   announcement,
+  explorations,
   journalEntry,
   firstJournalEntryId,
+  journalAutoscroll,
   approximateLocation,
 }) => {
   // const [showPensieve, setShowPensieve] = useState(false);
@@ -69,8 +70,8 @@ const HomePage: PageComponent<HomePageProps> = ({
           Some things I&apos;ve been exploring lately:
         </Title>
         <Group justify="center" gap={8} maw={760}>
-          {explorations.map((exploration, index) => (
-            <ExplorationBadge key={index}>{exploration}</ExplorationBadge>
+          {explorations.map(exploration => (
+            <ExplorationBadge key={exploration.id} exploration={exploration} />
           ))}
         </Group>
         <Text
@@ -135,8 +136,8 @@ const HomePage: PageComponent<HomePageProps> = ({
           <HomePageJournalEntry
             entry={journalEntry}
             firstEntryId={firstJournalEntryId}
+            autoscroll={journalAutoscroll}
             style={{ alignSelf: "stretch" }}
-            {...{ autoscroll }}
           />
         </Stack>
       )}

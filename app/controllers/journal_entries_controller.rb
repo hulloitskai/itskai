@@ -10,7 +10,7 @@ class JournalEntriesController < ApplicationController
   def comments
     entry = T.must(@entry)
     render(json: {
-      comments: NotionCommentSerializer.render(entry.notion_comments),
+      comments: NotionCommentSerializer.many(entry.notion_comments),
     })
   end
 

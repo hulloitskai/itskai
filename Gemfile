@@ -23,9 +23,6 @@ gem "rgeo-activerecord", "~> 7.0"
 # Use PostGIS extensions for PostgreSQL
 gem "activerecord-postgis-adapter", "~> 9.0"
 
-# Paginate relations with Kaminari
-gem "kaminari-activerecord", "~> 1.2"
-
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 6.3.1"
 

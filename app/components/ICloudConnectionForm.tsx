@@ -30,7 +30,7 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
     openModal({
       title: (
         <Box>
-          <Text>Session Information</Text>
+          <Text>Session information</Text>
           <Text size="sm" c="dimmed" fw="normal" lh={1.3}>
             Details about the current iCloud login session.
           </Text>
@@ -66,7 +66,7 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
     openModal({
       title: (
         <Box>
-          <Text>Verify Security Code</Text>
+          <Text>Verify security code</Text>
           <Text size="sm" c="dimmed" fw="normal" style={{ lineHeight: 1.3 }}>
             Enter the security code you received on your device to complete
             iCloud authentication.
@@ -112,57 +112,53 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
-        <Stack gap={6}>
-          <TextInput
-            label="Email"
-            placeholder="example@example.com"
-            required
-            autoComplete="email"
-            {...getInputProps("email")}
-          />
-          <PasswordInput
-            label="Password"
-            placeholder="applesauce"
-            required
-            autoComplete="off"
-            {...getInputProps("password")}
-          />
-        </Stack>
-        <Stack gap={6}>
-          <Button
-            type="submit"
-            leftSection={<AuthenticateIcon />}
-            disabled={!isDirty() || !requiredFieldsFilled}
-            loading={processing}
-          >
-            {credentials ? "Re-authenticate" : "Authenticate"}
-          </Button>
-          {(status === "requires_2fa" || !!credentials) && (
-            <>
-              <Group gap={6} grow>
-                {status === "requires_2fa" && (
-                  <Button
-                    variant="default"
-                    leftSection={<SecurityCodeIcon />}
-                    onClick={openVerifySecurityCodeModal}
-                  >
-                    Verify Security Code
-                  </Button>
-                )}
-                {!!credentials && (
-                  <Button
-                    variant="default"
-                    leftSection={<SessionIcon />}
-                    onClick={openSessionInfoModal}
-                  >
-                    Session Information
-                  </Button>
-                )}
-              </Group>
-              <ICloudDisconnectButton {...{ onDisconnected }} />
-            </>
-          )}
-        </Stack>
+        <TextInput
+          label="Email"
+          placeholder="example@example.com"
+          required
+          autoComplete="email"
+          {...getInputProps("email")}
+        />
+        <PasswordInput
+          label="Password"
+          placeholder="applesauce"
+          required
+          autoComplete="off"
+          {...getInputProps("password")}
+        />
+        <Button
+          type="submit"
+          leftSection={<AuthenticateIcon />}
+          disabled={!isDirty() || !requiredFieldsFilled}
+          loading={processing}
+        >
+          {credentials ? "Re-authenticate" : "Authenticate"}
+        </Button>
+        {(status === "requires_2fa" || !!credentials) && (
+          <Stack gap={6}>
+            <Group gap={6} grow>
+              {status === "requires_2fa" && (
+                <Button
+                  variant="default"
+                  leftSection={<SecurityCodeIcon />}
+                  onClick={openVerifySecurityCodeModal}
+                >
+                  Verify Security Code
+                </Button>
+              )}
+              {!!credentials && (
+                <Button
+                  variant="default"
+                  leftSection={<SessionIcon />}
+                  onClick={openSessionInfoModal}
+                >
+                  Session Information
+                </Button>
+              )}
+            </Group>
+            <ICloudDisconnectButton {...{ onDisconnected }} />
+          </Stack>
+        )}
       </Stack>
     </Box>
   );

@@ -265,10 +265,6 @@ GEM
     json (2.7.1)
     jwt (2.8.1)
       base64
-    kaminari-activerecord (1.2.2)
-      activerecord
-      kaminari-core (= 1.2.2)
-    kaminari-core (1.2.2)
     language_server-protocol (3.17.0.3)
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -661,7 +657,6 @@ DEPENDENCIES
   image_processing (~> 1.12)
   inertia_rails (~> 3.1)
   js_from_routes (~> 3.0)
-  kaminari-activerecord (~> 1.2)
   listen (~> 3.8)
   mailjet (~> 1.7)
   markly (~> 0.7.0)

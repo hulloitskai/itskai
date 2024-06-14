@@ -29,7 +29,7 @@ module Admin
         status: ICloudctl.status,
       )
       render(json: {
-        connection: ICloudConnectionSerializer.render(connection),
+        connection: ICloudConnectionSerializer.one(connection),
       })
     rescue ICloudctl::LoginError => error
       render(json: { error: error.message }, status: :internal_server_error)
@@ -46,7 +46,7 @@ module Admin
       ICloudctl.verify_security_code(verification.code!)
       connection = ICloudConnection.current
       render(json: {
-        connection: ICloudConnectionSerializer.render(connection),
+        connection: ICloudConnectionSerializer.one(connection),
       })
     end
 

@@ -28,7 +28,7 @@ class LocationChannel < ApplicationCable::Channel
       .includes(:grant).select(:id, grant: :expires_at)
       .find_each do |access|
         broadcast_to(access, {
-          location: LocationWithTrailSerializer.render(location),
+          location: LocationWithTrailSerializer.one(location),
           access_expires_at: access.grant!.expires_at,
         })
       end

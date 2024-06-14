@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require "announcement"
-require "explorations"
 
 class HomeController < ApplicationController
   # == Actions
@@ -14,7 +13,7 @@ class HomeController < ApplicationController
     render(inertia: "HomePage", props: {
       autoscroll: specified_journal_entry.present?,
       announcement: Announcement.current,
-      explorations: Explorations.current,
+      explorations: ExplorationSerializer.many(Exploration.all),
       "approximateLocation" => ApproximateLocationSerializer
         .one_if(LocationLog.latest_visible),
       "journalEntry" => JournalEntrySerializer

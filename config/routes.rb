@@ -84,12 +84,15 @@ Rails.application.routes.draw do
   # == Password Strength Checks
   resources :password_strength_checks, only: :create, export: true
 
+  # == Explorations
+  resources :explorations, only: nil, export: true do
+    post :comment
+  end
+
   # == Currently Playing
   resource :currently_playing, only: :show, export: true
   resources :spotify_tracks, only: [], export: true do
-    member do
-      get :lyrics
-    end
+    get :lyrics
   end
 
   # == Locate

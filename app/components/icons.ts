@@ -14,3 +14,4 @@ export { default as AuthenticateIcon } from "~icons/heroicons/finger-print-20-so
 export { default as DeactivateIcon } from "~icons/heroicons/power-20-solid";
 export { default as ClipboardIcon } from "~icons/heroicons/clipboard-20-solid";
 export { default as CancelIcon } from "~icons/heroicons/x-circle-20-solid";
+export { default as SendIcon } from "~icons/heroicons/paper-airplane-20-solid";

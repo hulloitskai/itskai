@@ -38,7 +38,10 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
   });
 
   // == Lyrics
-  const lyricsParams = useMemo(() => ({ id: track.id }), [track.id]);
+  const lyricsParams = useMemo(
+    () => ({ spotify_track_id: track.id }),
+    [track.id],
+  );
   const { data } = useFetch<{ lyrics: LyricLine[] }>(
     routes.spotifyTracks.lyrics,
     {

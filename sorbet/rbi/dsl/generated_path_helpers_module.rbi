@@ -52,10 +52,22 @@ module GeneratedPathHelpersModule
   def destroy_user_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def edit_exploration_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def edit_user_password_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def edit_user_registration_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def exploration_comment_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def exploration_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def explorations_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def good_job_path(*args); end
@@ -79,10 +91,10 @@ module GeneratedPathHelpersModule
   def location_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def lyrics_spotify_track_path(*args); end
+  def mailcatcher_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def mailcatcher_path(*args); end
+  def new_exploration_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_path(*args); end
@@ -194,6 +206,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def root_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def spotify_track_lyrics_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def src_path(*args); end

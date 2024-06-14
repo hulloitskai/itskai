@@ -11,18 +11,18 @@ class AdminController < ApplicationController
   def show
     render(inertia: "AdminPage", props: {
       "googleConnection" => OAuthConnectionSerializer
-        .render(OAuthConnection.google),
+        .one(OAuthConnection.google),
       "spotifyConnection" => OAuthConnectionSerializer
-        .render(OAuthConnection.spotify),
+        .one(OAuthConnection.spotify),
       "icloudConnection" => ICloudConnectionSerializer
-        .render(ICloudConnection.current),
+        .one(ICloudConnection.current),
     })
   end
 
   # GET /admin/location_access_grants
   def location_access_grants
     render(json: {
-      grants: LocationAccessGrantSerializer.render(LocationAccessGrant.valid),
+      grants: LocationAccessGrantSerializer.one(LocationAccessGrant.valid),
     })
   end
 

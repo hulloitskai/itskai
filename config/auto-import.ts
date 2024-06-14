@@ -21,6 +21,7 @@ export const imports: Array<ImportsMap | PresetName> = [
       "DeactivateIcon",
       "ClipboardIcon",
       "CancelIcon",
+      "SendIcon",
     ],
     "~/helpers/actioncable": ["useCable"],
     "~/helpers/actioncable/subscription": ["useSubscription"],

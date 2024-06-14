@@ -52,10 +52,22 @@ module GeneratedUrlHelpersModule
   def destroy_user_session_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def edit_exploration_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def edit_user_password_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def edit_user_registration_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def exploration_comment_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def exploration_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def explorations_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def good_job_url(*args); end
@@ -79,10 +91,10 @@ module GeneratedUrlHelpersModule
   def location_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def lyrics_spotify_track_url(*args); end
+  def mailcatcher_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def mailcatcher_url(*args); end
+  def new_exploration_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_source_url(*args); end
@@ -194,6 +206,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def root_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def spotify_track_lyrics_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def src_url(*args); end

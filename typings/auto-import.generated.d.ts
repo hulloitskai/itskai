@@ -48,6 +48,7 @@ declare global {
   const RemoveIcon: typeof import('~/components/icons')['RemoveIcon']
   const SaveIcon: typeof import('~/components/icons')['SaveIcon']
   const SearchIcon: typeof import('~/components/icons')['SearchIcon']
+  const SendIcon: typeof import('~/components/icons')['SendIcon']
   const SettingsIcon: typeof import('~/components/icons')['SettingsIcon']
   const Skeleton: typeof import('@mantine/core')['Skeleton']
   const Space: typeof import('@mantine/core')['Space']

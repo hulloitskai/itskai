@@ -9,7 +9,7 @@ import { useColorScheme } from "@mantine/hooks";
 export interface ApproximateLocationAlertProps
   extends Omit<AlertProps, "title" | "styles" | "children">,
     Omit<ComponentPropsWithoutRef<"div">, "color" | "style" | "children"> {
-  initialLocation?: ApproximateLocation;
+  initialLocation: ApproximateLocation | null;
   onUpdate: (location: ApproximateLocation) => void;
 }
 

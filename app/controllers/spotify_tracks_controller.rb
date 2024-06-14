@@ -8,7 +8,8 @@ class SpotifyTracksController < ApplicationController
   # == Actions
   def lyrics
     begin
-      lyrics = SpotifyClient.retrieve_lyrics(T.must(@track_id))
+      track_id = T.must(@track_id)
+      lyrics = SpotifyClient.retrieve_lyrics(track_id)
     rescue => error
       render(
         json: { error: error.message },
@@ -16,7 +17,7 @@ class SpotifyTracksController < ApplicationController
       ) and return
     end
     if lyrics
-      render(json: { lyrics: LyricLineSerializer.render(lyrics) })
+      render(json: { lyrics: LyricLineSerializer.many(lyrics) })
     else
       render(json: { lyrics: [] })
     end
@@ -26,6 +27,6 @@ class SpotifyTracksController < ApplicationController
 
   # == Filter Handlers
   def set_track_id
-    @track_id = T.let(params.fetch(:id), T.nilable(String))
+    @track_id = T.let(params.fetch(:spotify_track_id), T.nilable(String))
   end
 end
