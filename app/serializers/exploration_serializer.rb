@@ -2,6 +2,5 @@
 # frozen_string_literal: true
 
 class ExplorationSerializer < ApplicationSerializer
-  identifier type: :string
-  attributes label: { type: :string }
+  attributes id: { type: :string, identifier: true }, label: { type: :string }
 end
