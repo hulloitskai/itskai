@@ -1,4 +1,8 @@
-import type { RequestOptions, PathHelper } from "@js-from-routes/client";
+import type {
+  RequestOptions,
+  PathHelper,
+  ResponseError,
+} from "@js-from-routes/client";
 import type { Method } from "@inertiajs/core";
 import useSWR, { SWRResponse } from "swr";
 
@@ -16,6 +20,7 @@ export type FetchParams = {
 export type FetchOptions = Partial<Omit<RequestOptions, "method">> & {
   method?: Method;
   skip?: boolean;
+  failSilently?: boolean;
   descriptor: string;
 };
 
@@ -36,15 +41,19 @@ export const useFetch = <Data extends Record<string, any> & { error?: never }>(
 
 export const fetch = async <Data>(
   route: PathHelper,
-  options: FetchOptions,
+  options: Omit<FetchOptions, "skip">,
 ): Promise<Data> => {
-  return route<Data>(options).catch(error => {
+  const { failSilently, ...otherOptions } = options;
+  return route<Data>(otherOptions).catch((responseError: ResponseError) => {
+    const { error } = responseError.body as { error: string };
     console.error(`Failed to ${options.descriptor}`, { error });
-    showNotice({
-      title: `Failed to ${options.descriptor}`,
-      message:
-        typeof error === "string" ? error : "An unexpected error occurred.",
-    });
-    throw error;
+    if (!failSilently) {
+      showNotice({
+        title: `Failed to ${options.descriptor}`,
+        message:
+          typeof error === "string" ? error : "An unexpected error occurred.",
+      });
+    }
+    throw new Error(error);
   });
 };

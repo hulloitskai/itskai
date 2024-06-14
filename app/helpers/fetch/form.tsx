@@ -27,6 +27,7 @@ export interface FetchFormOptions<
     [key: string]: any;
   };
   method?: Method;
+  failSilently?: boolean;
   transformErrors?: (errors: Record<string, string>) => FormErrors;
   onSuccess?: (data: Data, form: FetchPartialForm<Values>) => void;
   onFailure?: (error: Error, form: FetchPartialForm<Values>) => void;
@@ -53,9 +54,10 @@ export const useFetchForm = <
 ): FetchForm<Data, Values> => {
   const {
     action,
-    descriptor,
     params,
+    descriptor,
     method = "get",
+    failSilently,
     transformValues = deepUnderscoreKeys,
     transformErrors = deepCamelizeKeys,
     onSuccess,
@@ -102,7 +104,9 @@ export const useFetchForm = <
               } else if (errors) {
                 const formErrors: FormErrors = transformErrors(errors);
                 form.setErrors(formErrors);
-                showFormErrorsAlert(formErrors, `Couldn't ${descriptor}`);
+                if (!failSilently) {
+                  showFormErrorsAlert(formErrors, `Couldn't ${descriptor}`);
+                }
                 console.warn(`Couldn't ${descriptor}`, {
                   errors: formErrors,
                 });

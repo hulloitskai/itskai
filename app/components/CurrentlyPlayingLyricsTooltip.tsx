@@ -47,6 +47,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
     {
       params: lyricsParams,
       descriptor: "load lyrics",
+      failSilently: true,
     },
   );
   const { lyrics } = data ?? {};

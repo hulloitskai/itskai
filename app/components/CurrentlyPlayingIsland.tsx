@@ -163,32 +163,28 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
     [artists],
   );
 
-  // == Activating Jam Session
-  // const onActivateJamSessionError = useApolloAlertCallback(
-  //   "Failed to activate jam session",
-  // );
-  // const [activateJamSession, { loading: activatingJamSession }] = useMutation(
-  //   ActivateSpotifyJamSessionMutationDocument,
-  //   {
-  //     onError: onActivateJamSessionError,
-  //   },
-  // );
+  // == Join Jam Session
+  const { submit, processing } = useInertiaForm({
+    action: routes.spotifyJamSessions.join,
+    method: "post",
+    descriptor: "join Spotify jam session",
+  });
 
   return (
-    <>
-      <CurrentlyPlayingLyricsTooltip
-        withinPortal={false}
-        {...(!transitioned && { disabled: true })}
-        {...{
-          track,
-          durationMs,
-          progressMs,
-        }}
-      >
-        {currentLyricLine => {
-          const { words: currentWords } = currentLyricLine ?? {};
-          const hasLyrics = !!currentWords;
-          return (
+    <CurrentlyPlayingLyricsTooltip
+      withinPortal={false}
+      {...(!transitioned && { disabled: true })}
+      {...{
+        track,
+        durationMs,
+        progressMs,
+      }}
+    >
+      {currentLyricLine => {
+        const { words: currentWords } = currentLyricLine ?? {};
+        const hasLyrics = !!currentWords;
+        return (
+          <Box pos="relative" h="min-content">
             <Badge
               component="button"
               size="xl"
@@ -244,22 +240,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
                 "with-lyrics": hasLyrics,
               }}
               onClick={() => {
-                // const newTab = open("./loading", "_blank");
-                // activateJamSession({
-                //   variables: {
-                //     input: {},
-                //   },
-                // }).then(({ data }) => {
-                //   if (newTab) {
-                //     if (data) {
-                //       newTab.location.href = data.payload.session.joinUrl;
-                //     } else {
-                //       newTab.close();
-                //     }
-                //   } else {
-                //     console.warn("Missing new tab reference");
-                //   }
-                // });
+                submit();
               }}
               {...otherProps}
             >
@@ -269,12 +250,12 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
               <MarqueeText fz={10} fw={700} className={classes.artistNames}>
                 {artistNames}
               </MarqueeText>
-              {/* <LoadingOverlay visible={activatingJamSession} /> */}
             </Badge>
-          );
-        }}
-      </CurrentlyPlayingLyricsTooltip>
-    </>
+            <LoadingOverlay visible={processing} />
+          </Box>
+        );
+      }}
+    </CurrentlyPlayingLyricsTooltip>
   );
 };
 

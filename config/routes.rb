@@ -91,6 +91,9 @@ Rails.application.routes.draw do
 
   # == Currently Playing
   resource :currently_playing, only: :show, export: true
+  resource :spotify_jam_sessions, only: [], export: true do
+    post :join
+  end
   resources :spotify_tracks, only: [], export: true do
     get :lyrics
   end
@@ -138,7 +141,7 @@ Rails.application.routes.draw do
   defaults export: true do
     root "home#show"
     get "/pensieve" => "pensieve#show"
-    get "/loading" => "loading#show"
+    # get "/loading" => "loading#show"
     get "/track" => redirect(path: "/locate", status: 302)
   end
   get "/toronto" => "places#toronto"

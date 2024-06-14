@@ -45,9 +45,9 @@ export const useInertiaForm = <
 ): InertiaForm<Values> => {
   const {
     action: actionRoute,
+    params,
     descriptor,
     method = "get",
-    params,
     transformValues = deepUnderscoreKeys,
     transformErrors = deepCamelizeKeys,
     onSuccess,
