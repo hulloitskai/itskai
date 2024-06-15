@@ -1,13 +1,13 @@
 import type { ComponentPropsWithoutRef, FC } from "react";
 import type { ButtonProps } from "@mantine/core";
 
-export interface ICloudDisconnectButtonProps
+export interface AdminICloudDisconnectButtonProps
   extends ButtonProps,
     Omit<ComponentPropsWithoutRef<"button">, "color" | "style" | "children"> {
   onDisconnected?: () => void;
 }
 
-const ICloudDisconnectButton: FC<ICloudDisconnectButtonProps> = ({
+const AdminICloudDisconnectButton: FC<AdminICloudDisconnectButtonProps> = ({
   onDisconnected: onDisconnected,
   ...otherProps
 }) => {
@@ -57,4 +57,4 @@ const ICloudDisconnectButton: FC<ICloudDisconnectButtonProps> = ({
   );
 };
 
-export default ICloudDisconnectButton;
+export default AdminICloudDisconnectButton;

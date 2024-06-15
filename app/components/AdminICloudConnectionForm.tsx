@@ -6,20 +6,20 @@ import SecurityCodeIcon from "~icons/heroicons/key-20-solid";
 import type { BoxProps } from "@mantine/core";
 import { JsonInput, PasswordInput, Text } from "@mantine/core";
 
-import type { ICloudDisconnectButtonProps } from "./ICloudDisconnectButton";
-import ICloudDisconnectButton from "./ICloudDisconnectButton";
+import type { AdminICloudDisconnectButtonProps } from "./AdminICloudDisconnectButton";
+import AdminICloudDisconnectButton from "./AdminICloudDisconnectButton";
 
-import ICloudVerifySecurityCodeForm from "./ICloudVerifySecurityCodeForm";
+import AdminICloudVerifySecurityCodeForm from "./AdminICloudVerifySecurityCodeForm";
 
-export interface ICloudConnectionFormProps
+export interface AdminICloudConnectionFormProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"form">, "style" | "children">,
-    Pick<ICloudDisconnectButtonProps, "onDisconnected"> {
+    Pick<AdminICloudDisconnectButtonProps, "onDisconnected"> {
   connection: ICloudConnection;
   onConnected?: (connection: ICloudConnection) => void;
 }
 
-const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
+const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
   connection: { credentials, status },
   onConnected,
   onDisconnected,
@@ -74,7 +74,7 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
         </Box>
       ),
       children: (
-        <ICloudVerifySecurityCodeForm mb="xs" onVerified={onConnected} />
+        <AdminICloudVerifySecurityCodeForm mb="xs" onVerified={onConnected} />
       ),
     });
   }, [onConnected]);
@@ -156,7 +156,7 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
                 </Button>
               )}
             </Group>
-            <ICloudDisconnectButton {...{ onDisconnected }} />
+            <AdminICloudDisconnectButton {...{ onDisconnected }} />
           </Stack>
         )}
       </Stack>
@@ -164,4 +164,4 @@ const ICloudCredentialsForm: FC<ICloudConnectionFormProps> = ({
   );
 };
 
-export default ICloudCredentialsForm;
+export default AdminICloudCredentialsForm;

@@ -4,19 +4,19 @@ import type { LocationAccessGrant } from "~/types";
 import type { BoxProps } from "@mantine/core";
 import { Code, CopyButton, Text } from "@mantine/core";
 
-import type { LocationAccessGrantDeleteButtonProps } from "./LocationAccessGrantDeleteButton";
-import LocationAccessGrantDeleteButton from "./LocationAccessGrantDeleteButton";
+import type { AdminLocationAccessGrantDeleteButtonProps } from "./AdminLocationAccessGrantDeleteButton";
+import AdminLocationAccessGrantDeleteButton from "./AdminLocationAccessGrantDeleteButton";
 
-import classes from "./LocationAccessGrantCard.module.css";
+import classes from "./AdminLocationAccessGrantCard.module.css";
 
-export interface LocationAccessGrantCardProps
+export interface AdminLocationAccessGrantCardProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children">,
-    Pick<LocationAccessGrantDeleteButtonProps, "onDeleted"> {
+    Pick<AdminLocationAccessGrantDeleteButtonProps, "onDeleted"> {
   grant: LocationAccessGrant;
 }
 
-const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
+const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
   grant: { id: grantId, recipient, password, createdAt, expiresAt },
   onDeleted,
   ...otherProps
@@ -76,9 +76,9 @@ const LocationAccessGrantCard: FC<LocationAccessGrantCardProps> = ({
           </CopyButton>
         </Text>
       </Box>
-      <LocationAccessGrantDeleteButton {...{ grantId, onDeleted }} />
+      <AdminLocationAccessGrantDeleteButton {...{ grantId, onDeleted }} />
     </Stack>
   </Card>
 );
 
-export default LocationAccessGrantCard;
+export default AdminLocationAccessGrantCard;

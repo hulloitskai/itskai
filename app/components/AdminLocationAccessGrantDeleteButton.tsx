@@ -3,14 +3,14 @@ import type { FC } from "react";
 import type { DeleteButtonProps } from "./DeleteButton";
 import DeleteButton from "./DeleteButton";
 
-export interface LocationAccessGrantDeleteButtonProps
+export interface AdminLocationAccessGrantDeleteButtonProps
   extends Omit<DeleteButtonProps, "onConfirm" | "children"> {
   grantId: string;
   onDeleted?: () => void;
 }
 
-const LocationAccessGrantDeleteButton: FC<
-  LocationAccessGrantDeleteButtonProps
+const AdminLocationAccessGrantDeleteButton: FC<
+  AdminLocationAccessGrantDeleteButtonProps
 > = ({ grantId, onDeleted, ...otherProps }) => {
   const { submit, processing } = useFetchForm({
     action: routes.adminLocationAccessGrants.destroy,
@@ -34,4 +34,4 @@ const LocationAccessGrantDeleteButton: FC<
   );
 };
 
-export default LocationAccessGrantDeleteButton;
+export default AdminLocationAccessGrantDeleteButton;

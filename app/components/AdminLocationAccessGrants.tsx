@@ -2,21 +2,21 @@ import type { ComponentPropsWithoutRef, FC } from "react";
 import type { LocationAccessGrant } from "~/types";
 import type { BoxProps } from "@mantine/core";
 
-import type { LocationAccessGrantCreateFormProps } from "./LocationAccessGrantCreateForm";
-import LocationAccessGrantCreateForm from "./LocationAccessGrantCreateForm";
+import type { LocationAccessGrantCreateFormProps } from "./AdminLocationAccessGrantCreateForm";
+import LocationAccessGrantCreateForm from "./AdminLocationAccessGrantCreateForm";
 
-import type { LocationAccessGrantCardProps } from "./LocationAccessGrantCard";
-import LocationAccessGrantCard from "./LocationAccessGrantCard";
+import type { AdminLocationAccessGrantCardProps } from "./AdminLocationAccessGrantCard";
+import AdminLocationAccessGrantCard from "./AdminLocationAccessGrantCard";
 
-import classes from "./LocationAccessGrants.module.css";
+import classes from "./AdminLocationAccessGrants.module.css";
 
-export interface LocationAccessGrantsProps
+export interface AdminLocationAccessGrantsProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children">,
     Pick<LocationAccessGrantCreateFormProps, "onCreated">,
-    Pick<LocationAccessGrantCardProps, "onDeleted"> {}
+    Pick<AdminLocationAccessGrantCardProps, "onDeleted"> {}
 
-const LocationAccessGrants: FC<LocationAccessGrantsProps> = ({
+const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
   onCreated,
   onDeleted,
   ...otherProps
@@ -35,7 +35,7 @@ const LocationAccessGrants: FC<LocationAccessGrantsProps> = ({
       {grants ? (
         !isEmpty(grants) ? (
           grants.map(grant => (
-            <LocationAccessGrantCard
+            <AdminLocationAccessGrantCard
               key={grant.id}
               onDeleted={() => {
                 mutate();
@@ -75,4 +75,4 @@ const LocationAccessGrants: FC<LocationAccessGrantsProps> = ({
   );
 };
 
-export default LocationAccessGrants;
+export default AdminLocationAccessGrants;

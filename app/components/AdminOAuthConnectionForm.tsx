@@ -3,18 +3,18 @@ import type { OAuthConnection } from "~/types";
 import type { BoxProps } from "@mantine/core";
 
 import FormAuthenticityField from "./FormAuthenticityField";
-import OAuthDisconnectButton, {
-  OAuthDisconnectButtonProps,
-} from "./OAuthDisconnectButton";
 
-export interface OAuthConnectionFormProps
+import type { AdminOAuthDisconnectButtonProps } from "./AdminOAuthDisconnectButton";
+import AdminOAuthDisconnectButton from "./AdminOAuthDisconnectButton";
+
+export interface AdminOAuthConnectionFormProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children">,
-    Pick<OAuthDisconnectButtonProps, "onDisconnected"> {
+    Pick<AdminOAuthDisconnectButtonProps, "onDisconnected"> {
   connection: OAuthConnection;
 }
 
-const OAuthConnectionForm: FC<OAuthConnectionFormProps> = ({
+const AdminOAuthConnectionForm: FC<AdminOAuthConnectionFormProps> = ({
   connection,
   onDisconnected,
   ...otherProps
@@ -41,10 +41,10 @@ const OAuthConnectionForm: FC<OAuthConnectionFormProps> = ({
         </Button>
       </form>
       {credentials && (
-        <OAuthDisconnectButton {...{ connection, onDisconnected }} />
+        <AdminOAuthDisconnectButton {...{ connection, onDisconnected }} />
       )}
     </Stack>
   );
 };
 
-export default OAuthConnectionForm;
+export default AdminOAuthConnectionForm;

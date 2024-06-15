@@ -7,11 +7,11 @@ import type {
 import { Text } from "@mantine/core";
 
 import AppLayout from "~/components/AppLayout";
-import ICloudConnectionForm from "~/components/ICloudConnectionForm";
-import OAuthConnectionForm from "~/components/OAuthConnectionForm";
+import AdminICloudConnectionForm from "~/components/AdminICloudConnectionForm";
+import AdminOAuthConnectionForm from "~/components/AdminOAuthConnectionForm";
 import AdminLocationLogsSyncButton from "~/components/AdminLocationLogsSyncButton";
 import AdminJournalEntriesSyncButton from "~/components/AdminJournalEntriesSyncButton";
-import LocationAccessGrants from "~/components/LocationAccessGrants";
+import AdminLocationAccessGrants from "~/components/AdminLocationAccessGrants";
 
 export interface AdminPageProps extends SharedPageProps {
   icloudConnection: ICloudConnection;
@@ -52,7 +52,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
               Grant access to your precise location
             </Text>
           </Stack>
-          <LocationAccessGrants />
+          <AdminLocationAccessGrants />
         </Stack>
       </Card>
       <Card withBorder>
@@ -65,7 +65,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
               Enables location services
             </Text>
           </Stack>
-          <ICloudConnectionForm
+          <AdminICloudConnectionForm
             connection={icloudConnection}
             onDisconnected={() => {
               router.reload({ only: ["icloudConnection"] });
@@ -83,7 +83,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
               Enables availability services
             </Text>
           </Stack>
-          <OAuthConnectionForm
+          <AdminOAuthConnectionForm
             connection={googleConnection}
             onDisconnected={() => {
               router.reload({ only: ["googleConnection"] });
@@ -101,7 +101,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
               Enables currently-playing & lyrics services
             </Text>
           </Stack>
-          <OAuthConnectionForm
+          <AdminOAuthConnectionForm
             connection={spotifyConnection}
             onDisconnected={() => {
               router.reload({ only: ["spotifyConnection"] });

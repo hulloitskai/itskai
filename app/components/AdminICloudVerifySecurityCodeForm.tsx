@@ -5,16 +5,15 @@ import SecurityCodeIcon from "~icons/heroicons/key-20-solid";
 import type { BoxProps } from "@mantine/core";
 import { InputWrapper, PinInput } from "@mantine/core";
 
-export interface ICloudVerifySecurityCodeFormProps
+export interface AdminICloudVerifySecurityCodeFormProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {
   onVerified?: (connection: ICloudConnection) => void;
 }
 
-const ICloudVerifySecurityCodeForm: FC<ICloudVerifySecurityCodeFormProps> = ({
-  onVerified,
-  ...otherProps
-}) => {
+const AdminICloudVerifySecurityCodeForm: FC<
+  AdminICloudVerifySecurityCodeFormProps
+> = ({ onVerified, ...otherProps }) => {
   const { values, getInputProps, submit, processing } = useFetchForm<{
     connection: ICloudConnection;
   }>({
@@ -55,4 +54,4 @@ const ICloudVerifySecurityCodeForm: FC<ICloudVerifySecurityCodeFormProps> = ({
   );
 };
 
-export default ICloudVerifySecurityCodeForm;
+export default AdminICloudVerifySecurityCodeForm;

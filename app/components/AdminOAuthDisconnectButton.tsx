@@ -2,14 +2,14 @@ import type { ComponentPropsWithoutRef, FC } from "react";
 import type { OAuthConnection } from "~/types";
 import type { ButtonProps } from "@mantine/core";
 
-export interface OAuthDisconnectButtonProps
+export interface AdminOAuthDisconnectButtonProps
   extends ButtonProps,
     Omit<ComponentPropsWithoutRef<"button">, "color" | "style" | "children"> {
   connection: OAuthConnection;
   onDisconnected?: () => void;
 }
 
-const OAuthDisconnectButton: FC<OAuthDisconnectButtonProps> = ({
+const AdminOAuthDisconnectButton: FC<AdminOAuthDisconnectButtonProps> = ({
   connection: { provider },
   onDisconnected: onDisconnected,
   ...otherProps
@@ -61,4 +61,4 @@ const OAuthDisconnectButton: FC<OAuthDisconnectButtonProps> = ({
   );
 };
 
-export default OAuthDisconnectButton;
+export default AdminOAuthDisconnectButton;
