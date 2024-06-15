@@ -18,6 +18,9 @@ export const useSubscription = <Data>(
     data: null,
   }));
   useEffect(() => {
+    if (!cable) {
+      return;
+    }
     const subscription = cable.subscriptions.create(
       { channel, ...params },
       {
