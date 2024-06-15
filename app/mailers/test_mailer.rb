@@ -15,7 +15,7 @@ class TestMailer < ApplicationMailer
       inertia: "TestEmail",
       props: {
         model: model.to_h,
-        user: UserSerializer.render(current_user),
+        user: UserSerializer.one_if(current_user),
       },
     )
   end

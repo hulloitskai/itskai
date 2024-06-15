@@ -213,15 +213,15 @@ gem "frozen_record", "~> 0.27.1"
 # Fast JSON serialization
 gem "oj_serializers", "~> 2.0"
 
+# Generate Typescript from serializers
+gem "types_from_serializers", "~> 2.1"
+
 group :development, :test do
   # Auto-detect and warn about N+1 queries
   gem "bullet"
 
   # Generate Typescript path helpers
   gem "js_from_routes", "~> 3.0"
-
-  # Generate Typescript from serializers
-  gem "types_from_serializers", "~> 2.1"
 end
 
 group :development do

@@ -21,6 +21,7 @@ module ItsKai
     require "core_ext"
     require "rails_ext"
     require "actionview_ext"
+    require "oj_serializers_ext"
     require "types_from_serializers_ext"
     require "pg_search_ext"
     require "better_errors_ext"

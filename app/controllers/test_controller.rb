@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class TestsController < ApplicationController
+class TestController < ApplicationController
   # == Actions
   # GET /test
   def show

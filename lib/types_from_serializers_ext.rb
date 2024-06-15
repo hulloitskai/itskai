@@ -1,14 +1,10 @@
 # rubocop:disable Layout/LineLength
 # frozen_string_literal: true
 
-begin
-  require "types_from_serializers"
-rescue LoadError
-  return
-end
-require "oj_serializers_ext"
-
 return unless Rails.env.development?
+
+require "types_from_serializers"
+require "oj_serializers_ext"
 
 module TypesFromSerializers
   module SerializerRefinements

@@ -12,7 +12,7 @@ export interface TestEmailProps extends SharedPageProps {
     name: string;
     birthday: string;
   };
-  user: User;
+  user: User | null;
 }
 
 const TestEmail: PageComponent<TestEmailProps> = ({ model, user }) => {

@@ -151,7 +151,7 @@ Rails.application.routes.draw do
 
   # == Development
   if Rails.env.development?
-    resource :test, only: :show, export: true do
+    resource :test, controller: "test", only: :show, export: true do
       post :submit
     end
     get "/mailcatcher" => redirect("//localhost:1080", status: 302)
