@@ -1,7 +1,7 @@
 import { init, setUser } from "@sentry/react";
 import { formatJSON } from "~/helpers/json";
 import { getMeta } from "~/helpers/meta";
-import { omit, omitBy, isNil } from "lodash";
+import { omit, omitBy, isNil } from "lodash-es";
 import type { BrowserOptions } from "@sentry/react";
 
 import { captureConsoleIntegration } from "@sentry/integrations";

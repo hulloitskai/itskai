@@ -4,7 +4,7 @@ import type { Feature, LineString, Point } from "geojson";
 import { DateTime } from "luxon";
 import { AnimatePresence } from "framer-motion";
 import { useAudioPlayer } from "react-use-audio-player";
-import { countBy, maxBy } from "lodash";
+import { countBy, maxBy } from "lodash-es";
 
 import ResumeIcon from "~icons/heroicons/play-20-solid";
 import PauseIcon from "~icons/heroicons/pause-20-solid";

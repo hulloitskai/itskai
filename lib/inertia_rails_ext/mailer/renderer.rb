@@ -14,13 +14,14 @@ module InertiaRails
         @props = T.let(@props, T::Hash[T.any(Symbol, String), T.untyped])
       end
 
-      # == Attributes
-      sig { returns(T::Hash[T.any(Symbol, String), T.untyped]) }
-      attr_reader :props
-
       # == Methods
       sig { override.returns(T.untyped) }
       def render = render_ssr
+
+      sig { returns(T::Hash[Symbol, T.untyped]) }
+      def computed_props
+        @props.deep_symbolize_keys
+      end
     end
   end
 end

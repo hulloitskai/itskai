@@ -1,5 +1,5 @@
-import type { PageComponent } from "~/helpers/inertia";
-import type { SharedPageProps, User } from "~/types";
+import type { EmailComponent } from "~/helpers/inertia";
+import type { User } from "~/types";
 import { Column, Row, Section } from "@react-email/components";
 import { Text } from "~/components/email";
 
@@ -7,7 +7,7 @@ import EmailLayout from "~/components/EmailLayout";
 
 import classes from "./TestEmail.module.css";
 
-export interface TestEmailProps extends SharedPageProps {
+export interface TestEmailProps {
   model: {
     name: string;
     birthday: string;
@@ -15,7 +15,7 @@ export interface TestEmailProps extends SharedPageProps {
   user: User | null;
 }
 
-const TestEmail: PageComponent<TestEmailProps> = ({ model, user }) => {
+const TestEmail: EmailComponent<TestEmailProps> = ({ model, user }) => {
   const { name } = user ?? {};
   return (
     <>

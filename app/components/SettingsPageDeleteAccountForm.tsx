@@ -1,8 +1,6 @@
 import type { ComponentPropsWithoutRef, FC } from "react";
 import type { BoxProps } from "@mantine/core";
 
-import FormAuthenticityField from "./FormAuthenticityField";
-
 export interface SettingsPageDeleteAccountFormProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {}
@@ -10,9 +8,13 @@ export interface SettingsPageDeleteAccountFormProps
 const SettingsPageDeleteAccountForm: FC<SettingsPageDeleteAccountFormProps> = ({
   ...otherProps
 }) => {
+  const { submit, processing } = useInertiaForm({
+    action: routes.usersRegistrations.destroy,
+    method: "delete",
+    descriptor: "delete account",
+  });
   return (
-    <Box component="form" action="/signup" method="DELETE" {...otherProps}>
-      <FormAuthenticityField />
+    <Box component="form" onSubmit={submit} {...otherProps}>
       <Menu
         withArrow
         radius="md"
@@ -27,7 +29,12 @@ const SettingsPageDeleteAccountForm: FC<SettingsPageDeleteAccountFormProps> = ({
         }}
       >
         <Menu.Target>
-          <Button variant="default" leftSection={<DeleteIcon />}>
+          <Button
+            variant="default"
+            leftSection={<DeleteIcon />}
+            loading={processing}
+            fullWidth
+          >
             Delete account
           </Button>
         </Menu.Target>

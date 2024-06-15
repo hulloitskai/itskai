@@ -1,18 +1,17 @@
-import type { PageComponent } from "~/helpers/inertia";
-import type { SharedPageProps, User } from "~/types";
+import type { EmailComponent } from "~/helpers/inertia";
+import type { User } from "~/types";
 import { Button, Link, Text } from "~/components/email";
 
 import EmailLayout from "~/components/EmailLayout";
 
-export interface UserEmailVerificationEmailProps extends SharedPageProps {
+export interface UserEmailVerificationEmailProps {
   verificationUrl: string;
   user: User;
 }
 
-const UserVerificationEmail: PageComponent<UserEmailVerificationEmailProps> = ({
-  verificationUrl,
-  user,
-}) => {
+const UserVerificationEmail: EmailComponent<
+  UserEmailVerificationEmailProps
+> = ({ verificationUrl, user }) => {
   const { name } = user;
   return (
     <>

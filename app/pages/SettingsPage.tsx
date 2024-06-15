@@ -6,6 +6,7 @@ import AppLayout from "~/components/AppLayout";
 import SettingsPageEmailForm from "~/components/SettingsPageEmailForm";
 import SettingsPagePasswordForm from "~/components/SettingsPagePasswordForm";
 import SettingsPageProfileForm from "~/components/SettingsPageProfileForm";
+import SettingsPageDeleteAccountForm from "~/components/SettingsPageDeleteAccountForm";
 
 export interface SettingsPageProps extends SharedPageProps {}
 
@@ -46,6 +47,19 @@ const SettingsPage: PageComponent<SettingsPageProps> = () => {
             </Text>
           </Stack>
           <SettingsPagePasswordForm />
+        </Stack>
+      </Card>
+      <Card
+        withBorder
+        style={{ borderColor: "var(--mantine-color-red-outline)" }}
+      >
+        <Stack gap="sm">
+          <Center>
+            <Title order={2} size="h4">
+              Danger Zone
+            </Title>
+          </Center>
+          <SettingsPageDeleteAccountForm />
         </Stack>
       </Card>
     </Stack>

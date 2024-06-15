@@ -1,4 +1,4 @@
-import { camelCase, snakeCase } from "lodash";
+import { camelCase, snakeCase } from "lodash-es";
 
 export const transformKeys = (
   object: Record<string, any>,

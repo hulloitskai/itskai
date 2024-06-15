@@ -1,7 +1,7 @@
 import { init, FullStory } from "@fullstory/browser";
 import { getMeta } from "~/helpers/meta";
 import { formatJSON } from "~/helpers/json";
-import { isNil, omitBy } from "lodash";
+import { isNil, omitBy } from "lodash-es";
 import { resolve } from "~/helpers/utils";
 
 const orgId = getMeta("fullstory-org-id");

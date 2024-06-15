@@ -51,6 +51,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       <_Link
         style={{
           color: "var(--mantine-color-anchor)",
+          fontSize: "14px",
           ...style,
         }}
         {...{ ref }}

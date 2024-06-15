@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
 
   include ActiveStorage::SetCurrent
   include RemembersUserLocation
-  include SharedData
 
   # == Filters
   before_action :set_actor_id
@@ -15,6 +14,18 @@ class ApplicationController < ActionController::Base
   around_action :with_error_context
   if !InertiaRails.ssr_enabled? && Rails.env.development?
     around_action :with_ssr
+  end
+
+  # == Inertia
+  inertia_share do
+    {
+      csrf: {
+        param: request_forgery_protection_token,
+        token: form_authenticity_token,
+      },
+      flash: flash.to_h,
+      "currentUser" => UserSerializer.one_if(current_user),
+    }
   end
 
   # == Devise

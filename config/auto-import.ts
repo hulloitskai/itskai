@@ -93,7 +93,7 @@ export const imports: Array<ImportsMap | PresetName> = [
     "@mantine/notifications": ["showNotification"],
     "@mantine/modals": ["openModal", "closeAllModals"],
     clsx: [["clsx", "cx"]],
-    lodash: [
+    "lodash-es": [
       "first",
       "last",
       "get",

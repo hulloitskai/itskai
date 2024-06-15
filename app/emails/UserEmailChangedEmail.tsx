@@ -1,14 +1,14 @@
-import type { PageComponent } from "~/helpers/inertia";
-import type { SharedPageProps, User } from "~/types";
+import type { EmailComponent } from "~/helpers/inertia";
+import type { User } from "~/types";
 import { Text } from "@react-email/components";
 
 import EmailLayout from "~/components/EmailLayout";
 
-export interface UserEmailChangedEmailProps extends SharedPageProps {
+export interface UserEmailChangedEmailProps {
   user: User;
 }
 
-const UserEmailChangedEmail: PageComponent<UserEmailChangedEmailProps> = ({
+const UserEmailChangedEmail: EmailComponent<UserEmailChangedEmailProps> = ({
   user,
 }) => {
   const { name, email } = user;
