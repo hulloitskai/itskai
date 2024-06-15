@@ -118,7 +118,7 @@ class LocationLog < ApplicationRecord
 
   # == Synchronization
   sig { returns(T.nilable(LocationLog)) }
-  def self.sync!
+  def self.sync
     iphone = ICloudctl.iphone or raise "Couldn't load iPhone details"
     location = iphone.location or return
     timestamp = Time.zone.at(location.fetch("timeStamp").to_f / 1000)

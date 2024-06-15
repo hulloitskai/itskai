@@ -8,6 +8,6 @@ class SyncJournalEntriesJob < ApplicationJob
   # == Job
   sig { void }
   def perform
-    JournalEntry.sync!
+    JournalEntry.sync
   end
 end

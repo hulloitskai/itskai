@@ -28,13 +28,13 @@ class AdminController < ApplicationController
 
   # POST /admin/sync_journal_entries
   def sync_journal_entries
-    results = JournalEntry.sync!
+    results = JournalEntry.sync
     render(json: results.serialize)
   end
 
   # POST /admin/sync_location_logs
   def sync_location_logs
-    log = LocationLog.sync!
+    log = LocationLog.sync
     render(json: { location: LocationSerializer.one_if(log) })
   end
 

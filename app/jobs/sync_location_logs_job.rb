@@ -8,6 +8,6 @@ class SyncLocationLogsJob < ApplicationJob
   # == Job
   sig { void }
   def perform
-    LocationLog.sync!
+    LocationLog.sync
   end
 end

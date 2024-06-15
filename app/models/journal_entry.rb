@@ -67,7 +67,7 @@ class JournalEntry < ApplicationRecord
   end
 
   sig { returns(JournalEntrySyncResults) }
-  def self.sync!
+  def self.sync
     added, updated = 0, 0
     notion_pages = NotionClient.list_pages(
       notion_database_id,
