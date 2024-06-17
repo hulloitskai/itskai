@@ -52,8 +52,12 @@ module TypesFromSerializers
 
       def object_as(name, model: nil, types_from: nil)
         name = name.to_s
-        model ||= name.classify
-        super
+        model ||= scoped do
+          model_name = name.classify
+          resolved_name = suppress(NameError) { module_parent.const_get(model_name).name } # rubocop:disable Sorbet/ConstantsFromStrings
+          resolved_name || model_name
+        end
+        super(name, model:, types_from:)
         if Rails.env.development?
           define_singleton_method(:_serializer_object_name) { name }
         end

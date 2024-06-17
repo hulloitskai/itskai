@@ -1,5 +1,5 @@
 import type { FC, ReactNode } from "react";
-import type { LyricLine, SpotifyTrack } from "~/types";
+import type { LyricLine, RSpotifyTrack } from "~/types";
 
 import { useHover } from "@mantine/hooks";
 import type { TooltipProps } from "@mantine/core";
@@ -13,7 +13,7 @@ import classes from "./CurrentlyPlayingLyricsTooltip.module.css";
 
 export interface CurrentlyPlayingLyricsTooltipProps
   extends Omit<TooltipProps, "label" | "children"> {
-  track: SpotifyTrack;
+  track: RSpotifyTrack;
   durationMs: number;
   progressMs: number | undefined;
   children: (currentLyricLine: LyricLine | null | undefined) => ReactNode;

@@ -3,5 +3,5 @@
 
 class CurrentlyPlayingSerializer < ApplicationSerializer
   # == Associations
-  has_one :track, serializer: SpotifyTrackSerializer
+  has_one :track, serializer: RSpotify::TrackSerializer
 end

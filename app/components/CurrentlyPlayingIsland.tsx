@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef, FC, ReactNode } from "react";
 import type {
   CurrentlyPlaying,
   CurrentlyPlayingMetadata,
-  SpotifyTrack,
+  RSpotifyTrack,
 } from "~/types";
 import Marquee from "react-fast-marquee";
 import { motion } from "framer-motion";
@@ -62,7 +62,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
       mounted: false,
       transitioned: false,
     });
-  const [track, setTrack] = useState<SpotifyTrack | null>(null);
+  const [track, setTrack] = useState<RSpotifyTrack | null>(null);
   useEffect(() => {
     if (online) {
       if (metadata?.trackId !== track?.id) {
@@ -132,7 +132,7 @@ const TrackCoalescer: FC<TrackCoalescerProps> = ({
   track: trackProp,
   children,
 }) => {
-  const [track, setTrack] = useState<SpotifyTrack | null | undefined>(
+  const [track, setTrack] = useState<RSpotifyTrack | null | undefined>(
     trackProp,
   );
   useEffect(() => {
@@ -144,7 +144,7 @@ const TrackCoalescer: FC<TrackCoalescerProps> = ({
 };
 
 type _CurrentlyPlayingIslandProps = BoxProps & {
-  track: SpotifyTrack;
+  track: RSpotifyTrack;
   progressMs?: number;
   transitioned: boolean;
 };

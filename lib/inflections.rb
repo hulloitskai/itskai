@@ -20,6 +20,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym("GlobalID")
   inflect.acronym("GraphQL")
   inflect.acronym("OAuth")
+  inflect.acronym("RSpotify")
   inflect.uncountable("OAuthCredentials")
   inflect.uncountable("ICloudCredentials")
 
