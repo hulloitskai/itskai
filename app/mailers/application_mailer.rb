@@ -1,8 +1,6 @@
 # typed: strict
 # frozen_string_literal: true
 
-require "notifications"
-
 class ApplicationMailer < ActionMailer::Base
   extend T::Sig
   extend T::Helpers

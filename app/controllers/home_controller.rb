@@ -1,8 +1,6 @@
 # typed: true
 # frozen_string_literal: true
 
-require "announcement"
-
 class HomeController < ApplicationController
   # == Actions
   def show

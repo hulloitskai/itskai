@@ -33,8 +33,21 @@ module ItsKai
     require "friendly_id_ext"
     require "email_validator_ext"
 
-    # == Inflections
+    # == Libraries
     require "inflections"
+    require "announcement"
+    require "notifications"
+    require "logging"
+    require "owner"
+    # require "admin"
+    require "spotify"
+    require "icloud"
+    require "pensieve"
+    require "telnyx"
+    require "badwords"
+    require "contact"
+    require "location"
+    require "resume"
 
     # == Constants
     BOOTED_AT = T.let(Time.current, Time)

@@ -1,8 +1,6 @@
 # typed: strict
 # frozen_string_literal: true
 
-require "logging"
-
 class ApplicationRecord < ActiveRecord::Base
   extend T::Sig
   extend T::Helpers

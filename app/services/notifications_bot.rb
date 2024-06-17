@@ -1,8 +1,6 @@
 # typed: strict
 # frozen_string_literal: true
 
-require "notifications"
-
 class NotificationsBot < ApplicationService
   include Singleton
 

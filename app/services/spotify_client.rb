@@ -1,9 +1,6 @@
 # typed: strict
 # frozen_string_literal: true
 
-require "spotify"
-require "badwords"
-
 class SpotifyClient < ApplicationService
   include Singleton
   extend T::Sig

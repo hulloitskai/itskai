@@ -1,8 +1,6 @@
 # typed: strict
 # frozen_string_literal: true
 
-require "contact"
-
 class TestMailer < ApplicationMailer
   sig do
     params(model: TestModel, current_user: T.nilable(User))
