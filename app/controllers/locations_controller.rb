@@ -12,6 +12,7 @@ class LocationsController < ApplicationController
     access_token = location_params.access_token
     if access_token
       access_grant = LocationAccessGrant
+        .valid
         .joins(:accesses)
         .find_by(accesses: { token: access_token })
       raise "Invalid access token" unless access_grant

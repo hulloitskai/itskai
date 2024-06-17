@@ -22,7 +22,7 @@ class AdminController < ApplicationController
   # GET /admin/location_access_grants
   def location_access_grants
     render(json: {
-      grants: LocationAccessGrantSerializer.one(LocationAccessGrant.valid),
+      grants: LocationAccessGrantSerializer.many(LocationAccessGrant.valid),
     })
   end
 

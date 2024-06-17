@@ -95,7 +95,7 @@ export const useFetchForm = <
               if (error) {
                 const e = new Error(error);
                 setError(e);
-                console.error(`Failed to ${descriptor}`, { error });
+                console.error(`Failed to ${descriptor}`, error);
                 showAlert({
                   title: `Failed to ${descriptor}`,
                   message: error,
@@ -113,9 +113,10 @@ export const useFetchForm = <
                 onError?.({ ...form, errors: formErrors });
               }
             } else {
-              console.error("An unknown error response occurred", {
-                error: responseError,
-              });
+              console.error(
+                "An unknown error response occurred",
+                responseError,
+              );
               if (!failSilently) {
                 showAlert({
                   title: `Failed to ${descriptor}`,

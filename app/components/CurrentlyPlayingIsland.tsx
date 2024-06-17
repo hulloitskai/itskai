@@ -45,7 +45,10 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   // == Metadata
   const { data: subscriptionData } = useSubscription<{
     currentlyPlaying: CurrentlyPlayingMetadata;
-  }>("CurrentlyPlayingChannel");
+  }>("CurrentlyPlayingChannel", {
+    descriptor: "subscribe to currently playing feed",
+    failSilently: true,
+  });
   const { currentlyPlaying: metadata } = subscriptionData ?? {};
   const progressMs = useMemo(() => {
     if (metadata) {

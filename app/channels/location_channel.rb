@@ -25,11 +25,12 @@ class LocationChannel < ApplicationCable::Channel
     LocationAccess
       .valid
       .where(id: active_access_ids)
-      .includes(:grant).select(:id, grant: :expires_at)
+      .joins(:grant)
+      .select(:id, "location_access_grants.expires_at AS expires_at")
       .find_each do |access|
         broadcast_to(access, {
           location: LocationWithTrailSerializer.one(location),
-          access_expires_at: access.grant!.expires_at,
+          access_expires_at: access[:expires_at],
         })
       end
   end
@@ -39,8 +40,9 @@ class LocationChannel < ApplicationCable::Channel
   # == Helpers
   sig { returns(LocationParams) }
   def location_params
-    @location_params ||=
-      LocationParams.new(params.permit(*LocationParams.attribute_names))
+    @location_params ||= LocationParams.new(
+      params.slice(*LocationParams.attribute_names),
+    )
   end
 
   sig { returns(String) }

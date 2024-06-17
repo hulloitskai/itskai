@@ -10,8 +10,8 @@ module ActionCable
     sig { returns(Connection::Base) }
     def connection; end
 
-    sig { returns(ActionController::Parameters)}
-    def params; end
+    # sig { returns(ActionController::Parameters)}
+    # def params; end
   end
 
   sig {returns(Server::Base)}
