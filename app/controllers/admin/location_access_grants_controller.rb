@@ -32,6 +32,9 @@ module Admin
       grant.destroy!
       render(json: {})
     rescue => error
+      with_log_tags do
+        logger.error("Failed to destroy location access grant: #{error}")
+      end
       render(json: { error: error.message }, status: :internal_server_error)
     end
 

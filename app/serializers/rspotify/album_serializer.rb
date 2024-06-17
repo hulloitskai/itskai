@@ -4,8 +4,7 @@
 module RSpotify
   class AlbumSerializer < ApplicationSerializer
     # == Attributes
-    identifier type: :string
-    attributes name: { type: :string }
+    attributes id: { identifier: true, type: :string }, name: { type: :string }
     attribute :image_url, type: :string, nullable: true do
       if (image = album.images.second_to_last)
         image.fetch("url")

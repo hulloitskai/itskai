@@ -4,8 +4,9 @@
 module RSpotify
   class TrackSerializer < ApplicationSerializer
     # == Attributes
-    identifier type: :string
-    attributes name: { type: :string }, duration_ms: { type: :number }
+    attributes id: { identifier: true, type: :string },
+               name: { type: :string },
+               duration_ms: { type: :number }
     attribute :spotify_url, type: :string do
       track.external_urls.fetch("spotify")
     end

@@ -11,6 +11,9 @@ class SpotifyTracksController < ApplicationController
       track_id = T.must(@track_id)
       lyrics = SpotifyClient.retrieve_lyrics(track_id)
     rescue => error
+      with_log_tags do
+        logger.error("Failed to retrieve lyrics: #{error.message}")
+      end
       render(
         json: { error: error.message },
         status: :internal_server_error,

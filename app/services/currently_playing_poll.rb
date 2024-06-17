@@ -24,7 +24,7 @@ class CurrentlyPlayingPoll < ApplicationService
       false
     end
   rescue => error
-    with_log_tags { logger.error("Error: #{error}") }
+    with_log_tags { logger.error("Failed to load currently playing: #{error}") }
     Rails.error.report(error)
     false
   end

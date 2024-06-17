@@ -32,6 +32,9 @@ module Admin
         connection: ICloudConnectionSerializer.one(connection),
       })
     rescue ICloudctl::LoginError => error
+      with_log_tags do
+        logger.error("Failed to authenticate with iCloud: #{error.message}")
+      end
       render(json: { error: error.message }, status: :internal_server_error)
     end
 
@@ -55,6 +58,9 @@ module Admin
       credentials.destroy!
       render(json: {})
     rescue => error
+      with_log_tags do
+        logger.error("Failed to remove iCloud credentials: #{error}")
+      end
       render(json: { error: error.message }, status: :internal_server_error)
     end
 

@@ -26,9 +26,12 @@ class LocationsController < ApplicationController
       })
     end
   rescue => error
+    with_log_tags do
+      logger.error("Failed to show location: #{error}")
+    end
     redirect_to(
       location_path,
-      alert: "Failed to access location: #{error.message}",
+      alert: "Failed to access location: #{error}",
     )
   end
 

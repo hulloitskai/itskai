@@ -12,6 +12,9 @@ module Admin
       credentials.destroy!
       render(json: {})
     rescue => error
+      with_log_tags do
+        logger.error("Failed to destroy OAuth credentials: #{error}")
+      end
       render(json: { error: error.message })
     end
 

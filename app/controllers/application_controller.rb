@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   include ActiveStorage::SetCurrent
   include RemembersUserLocation
+  include Logging
 
   # == Filters
   before_action :set_actor_id
