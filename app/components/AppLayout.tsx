@@ -87,7 +87,7 @@ const AppLayout: FC<AppLayoutProps> = ({
         padding={padding ?? (withContainer ? undefined : "md")}
         styles={{
           main: {
-            minHeight: "calc(100dvh - var(--app-shell-footer-height, 0))",
+            minHeight: "calc(100dvh - var(--app-shell-footer-height, 0px))",
             paddingBottom: 0,
             display: "flex",
             flexDirection: "column",
