@@ -27,7 +27,7 @@ module ApplicationCable
     sig { returns(T.nilable(User)) }
     def find_verified_user
       if (id = cookies.signed["user.id"])
-        User.find(id)
+        User.find_by(id:)
       end
     end
   end
