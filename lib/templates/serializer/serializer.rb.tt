@@ -1,5 +1,5 @@
 # typed: true
 # frozen_string_literal: true
 
-class <%= class_name %> < ApplicationSerializer
+class <%= serializer_class_name %> < ApplicationSerializer
 end

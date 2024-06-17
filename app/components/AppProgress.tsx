@@ -3,6 +3,7 @@ import { router } from "@inertiajs/react";
 import { NavigationProgress, nprogress } from "@mantine/nprogress";
 
 import "@mantine/nprogress/styles.layer.css";
+import classes from "./AppProgress.module.css";
 
 export interface AppProgressProps {}
 
@@ -21,7 +22,7 @@ const AppProgress: FC<AppProgressProps> = () => {
       removeFinishListener();
     };
   }, []);
-  return <NavigationProgress size={1} />;
+  return <NavigationProgress className={classes.root} />;
 };
 
 export default AppProgress;

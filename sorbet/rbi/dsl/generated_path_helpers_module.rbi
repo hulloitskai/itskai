@@ -82,7 +82,7 @@ module GeneratedPathHelpersModule
   def image_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def loading_path(*args); end
+  def join_spotify_jam_sessions_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def location_access_grants_admin_path(*args); end

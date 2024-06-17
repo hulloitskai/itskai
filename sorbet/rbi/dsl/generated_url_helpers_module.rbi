@@ -82,7 +82,7 @@ module GeneratedUrlHelpersModule
   def image_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def loading_url(*args); end
+  def join_spotify_jam_sessions_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def location_access_grants_admin_url(*args); end

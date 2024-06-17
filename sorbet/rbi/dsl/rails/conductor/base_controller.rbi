@@ -19,6 +19,7 @@ class Rails::Conductor::BaseController
     include ::InertiaRails::Helper
     include ::ViteRails::TagHelpers
     include ::ActionController::Base::HelperMethods
+    include ::CsrfHelper
     include ::DeviseHelper
   end
 

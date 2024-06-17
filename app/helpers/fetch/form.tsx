@@ -14,7 +14,7 @@ type FetchPartialForm<Values> = Omit<
   "onSubmit" | "onReset"
 >;
 
-type TransformValues<Values> = (values: Values) => unknown;
+type TransformValues<Values> = (values: Values) => any;
 
 export interface FetchFormOptions<
   Data extends Record<string, any> & { error?: never },
@@ -71,10 +71,10 @@ export const useFetchForm = <
   });
   const [data, setData] = useState<Data | undefined>();
   const [error, setError] = useState<Error | undefined>();
-  const [processing, setProcesing] = useState(false);
+  const [processing, setProcessing] = useState(false);
   const submit = form.onSubmit(
     data => {
-      setProcesing(true);
+      setProcessing(true);
       action<Data & { error?: string; errors?: Record<string, string> }>({
         params,
         method,
@@ -95,33 +95,39 @@ export const useFetchForm = <
               if (error) {
                 const e = new Error(error);
                 setError(e);
+                console.error(`Failed to ${descriptor}`, { error });
                 showAlert({
                   title: `Failed to ${descriptor}`,
                   message: error,
                 });
-                console.error(`Failed to ${descriptor}`, { error });
                 onFailure?.(e, form);
               } else if (errors) {
                 const formErrors: FormErrors = transformErrors(errors);
                 form.setErrors(formErrors);
-                if (!failSilently) {
-                  showFormErrorsAlert(formErrors, `Couldn't ${descriptor}`);
-                }
                 console.warn(`Couldn't ${descriptor}`, {
                   errors: formErrors,
                 });
+                if (!failSilently) {
+                  showFormErrorsAlert(formErrors, `Couldn't ${descriptor}`);
+                }
                 onError?.({ ...form, errors: formErrors });
               }
             } else {
               console.error("An unknown error response occurred", {
                 error: responseError,
               });
+              if (!failSilently) {
+                showAlert({
+                  title: `Failed to ${descriptor}`,
+                  message: responseError.message,
+                });
+              }
               onFailure?.(responseError, form);
             }
           },
         )
         .finally(() => {
-          setProcesing(false);
+          setProcessing(false);
         });
     },
     errors => {

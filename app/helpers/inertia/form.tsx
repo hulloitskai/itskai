@@ -14,7 +14,7 @@ type InertiaPartialForm<Values> = Omit<
   "onSubmit" | "onReset"
 >;
 
-type TransformValues<Values> = (values: Values) => unknown;
+type TransformValues<Values> = (values: Values) => any;
 
 export interface InertiaFormOptions<Values extends Record<string, any>>
   extends UseFormInput<Values, TransformValues<Values>> {

@@ -27,22 +27,24 @@ const AdminOAuthConnectionForm: FC<AdminOAuthConnectionFormProps> = ({
           <TextInput label="UID (read-only)" value={credentials.uid} />
           {!!credentials.refreshToken && (
             <TextInput
-              label="Refresh Token (read-only)"
+              label="Refresh token (read-only)"
               value={credentials.refreshToken}
               readOnly
             />
           )}
         </>
       )}
-      <form action={authorizeUrl} method="post">
-        <FormAuthenticityField />
-        <Button type="submit" leftSection={<OpenExternalIcon />} fullWidth>
-          Authenticate
-        </Button>
-      </form>
-      {credentials && (
-        <AdminOAuthDisconnectButton {...{ connection, onDisconnected }} />
-      )}
+      <Stack gap={6}>
+        <form action={authorizeUrl} method="post">
+          <FormAuthenticityField />
+          <Button type="submit" leftSection={<OpenExternalIcon />} fullWidth>
+            Authenticate
+          </Button>
+        </form>
+        {credentials && (
+          <AdminOAuthDisconnectButton {...{ connection, onDisconnected }} />
+        )}
+      </Stack>
     </Stack>
   );
 };

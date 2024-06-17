@@ -9,13 +9,13 @@ class AdminController < ApplicationController
   # == Actions
   # GET /admin
   def show
+    google_connection = OAuthConnection.google
+    spotify_connection = OAuthConnection.spotify
+    icloud_connection = ICloudConnection.current
     render(inertia: "AdminPage", props: {
-      "googleConnection" => OAuthConnectionSerializer
-        .one(OAuthConnection.google),
-      "spotifyConnection" => OAuthConnectionSerializer
-        .one(OAuthConnection.spotify),
-      "icloudConnection" => ICloudConnectionSerializer
-        .one(ICloudConnection.current),
+      "googleConnection" => OAuthConnectionSerializer.one(google_connection),
+      "spotifyConnection" => OAuthConnectionSerializer.one(spotify_connection),
+      "icloudConnection" => ICloudConnectionSerializer.one(icloud_connection),
     })
   end
 
