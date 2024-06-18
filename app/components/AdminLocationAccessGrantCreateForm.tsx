@@ -39,7 +39,6 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
   const requiredFieldsFilled = useRequiredFieldsFilled(
     values,
     "recipient",
-    "password",
     "expiresInHours",
   );
 

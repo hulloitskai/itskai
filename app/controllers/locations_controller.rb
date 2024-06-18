@@ -45,7 +45,7 @@ class LocationsController < ApplicationController
         status: :unprocessable_entity,
       )
     end
-    grant = LocationAccessGrant.valid.find_by(access_request.to_h)
+    grant = LocationAccessGrant.valid.find_by(**access_request.to_h)
     if Rails.env.development? &&
         !grant &&
         access_request.password! == "developer"
