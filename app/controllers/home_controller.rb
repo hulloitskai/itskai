@@ -9,7 +9,6 @@ class HomeController < ApplicationController
     end
     first_journal_entry = JournalEntry.with_content.ordered.first
     render(inertia: "HomePage", props: {
-      autoscroll: specified_journal_entry.present?,
       announcement: Announcement.current,
       explorations: ExplorationSerializer.many(Exploration.all),
       "approximateLocation" => ApproximateLocationSerializer
@@ -17,6 +16,7 @@ class HomeController < ApplicationController
       "journalEntry" => JournalEntrySerializer
         .one_if(specified_journal_entry || first_journal_entry),
       "firstJournalEntryId" => first_journal_entry&.id,
+      "journalAutoscroll" => specified_journal_entry.present?,
     })
   end
 

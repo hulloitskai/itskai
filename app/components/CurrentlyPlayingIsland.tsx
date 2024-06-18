@@ -38,7 +38,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   const { data, mutate } = useFetch<{
     currentlyPlaying: CurrentlyPlaying;
   }>(routes.currentlyPlayings.show, {
-    descriptor: "load currenlty playing track",
+    descriptor: "load currently playing track",
   });
   const { currentlyPlaying } = data ?? {};
 
@@ -187,75 +187,73 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
         const { words: currentWords } = currentLyricLine ?? {};
         const hasLyrics = !!currentWords;
         return (
-          <Box pos="relative" h="min-content">
-            <Badge
-              component="button"
-              size="xl"
-              leftSection={
-                <Box pos="relative" p={2} mr={3}>
-                  <MotionImage
-                    src={album.imageUrl}
-                    w={26}
-                    h={26}
-                    radius="xl"
-                    animate={{ rotate: 360 }}
-                    transition={{
-                      ease: "linear",
-                      duration: 4,
-                      repeat: Infinity,
-                    }}
-                  />
-                  <Center
-                    pos="absolute"
-                    inset={0}
-                    style={({ white }) => ({ color: white })}
-                  >
-                    <PlayIcon width={14} height={14} />
-                  </Center>
-                </Box>
-              }
-              variant="outline"
-              color="dark.3"
-              pl={0}
-              className={classes.badge}
-              style={[
-                style,
-                theme => {
-                  const borderColor = parseThemeColor({
-                    theme,
-                    color: theme.primaryColor,
-                  }).value;
-                  return {
-                    "--cpi-border-color-active": borderColor,
-                  };
-                },
-              ]}
-              styles={{
-                section: {
-                  margin: 0,
-                },
-                label: {
-                  maxWidth: 200,
-                  textTransform: "none",
-                },
-              }}
-              mod={{
-                "with-lyrics": hasLyrics,
-              }}
-              onClick={() => {
-                submit();
-              }}
-              {...otherProps}
-            >
-              <MarqueeText size="xs" fw={800} className={classes.trackName}>
-                {name}
-              </MarqueeText>
-              <MarqueeText fz={10} fw={700} className={classes.artistNames}>
-                {artistNames}
-              </MarqueeText>
-            </Badge>
+          <Badge
+            component="button"
+            size="xl"
+            leftSection={
+              <Box pos="relative" p={2} mr={3}>
+                <MotionImage
+                  src={album.imageUrl}
+                  w={26}
+                  h={26}
+                  radius="xl"
+                  animate={{ rotate: 360 }}
+                  transition={{
+                    ease: "linear",
+                    duration: 4,
+                    repeat: Infinity,
+                  }}
+                />
+                <Center
+                  pos="absolute"
+                  inset={0}
+                  style={({ white }) => ({ color: white })}
+                >
+                  <PlayIcon width={14} height={14} />
+                </Center>
+              </Box>
+            }
+            variant="outline"
+            color="dark.3"
+            pl={0}
+            className={classes.badge}
+            style={[
+              style,
+              theme => {
+                const borderColor = parseThemeColor({
+                  theme,
+                  color: theme.primaryColor,
+                }).value;
+                return {
+                  "--cpi-border-color-active": borderColor,
+                };
+              },
+            ]}
+            styles={{
+              section: {
+                margin: 0,
+              },
+              label: {
+                maxWidth: 200,
+                textTransform: "none",
+              },
+            }}
+            mod={{
+              "with-lyrics": hasLyrics,
+            }}
+            onClick={() => {
+              submit();
+            }}
+            {...otherProps}
+          >
+            <MarqueeText size="xs" fw={800} className={classes.trackName}>
+              {name}
+            </MarqueeText>
+            <MarqueeText fz={10} fw={700} className={classes.artistNames}>
+              {artistNames}
+            </MarqueeText>
             <LoadingOverlay visible={processing} />
-          </Box>
+          </Badge>
         );
       }}
     </CurrentlyPlayingLyricsTooltip>

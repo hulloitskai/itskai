@@ -32,10 +32,10 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
   }, [entry.nextEntryId, firstEntryId]);
 
   // == Scrolling
-  const [requiresScrolling, setRequiresScrolling] = useState(false);
   const scrollToContainerTop = useCallback(() => {
     if (containerRef.current) {
       const headerEl = document.querySelector(".mantine-AppShell-header");
+      console.log("IM GONNA DO IT");
       scrollIntoView(containerRef.current, {
         align: {
           top: 0,
@@ -44,14 +44,6 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
       });
     }
   }, []);
-  useDidUpdate(() => {
-    if (containerRef.current && requiresScrolling) {
-      setRequiresScrolling(false);
-      setTimeout(() => {
-        scrollToContainerTop();
-      }, 100);
-    }
-  }, [requiresScrolling]);
   useEffect(() => {
     if (autoscroll) {
       scrollToContainerTop();
