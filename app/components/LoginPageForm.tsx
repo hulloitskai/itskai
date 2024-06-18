@@ -74,7 +74,7 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
           disabled={!isDirty() || !requiredFieldsFilled}
           loading={processing}
         >
-          Sign in
+          Sign In
         </Button>
       </Stack>
     </Box>

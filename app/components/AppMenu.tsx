@@ -135,7 +135,7 @@ const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
           rel="noopener noreferrer nofollow"
           leftSection={<SmileIcon />}
         >
-          Hang out w/ Kai
+          Hang Out w/ Kai
         </Menu.Item>
         <Menu.Item
           leftSection={loadingContactMe ? <Loader size={12} /> : <SendIcon />}
@@ -143,7 +143,7 @@ const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
             contactMe();
           }}
         >
-          Shoot Kai a msg
+          Shoot Kai a Msg
         </Menu.Item>
         {!!authenticatedUser && (
           <>
@@ -172,7 +172,7 @@ const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
                 logout();
               }}
             >
-              Sign out
+              Sign Out
             </Menu.Item>
           </>
         )}

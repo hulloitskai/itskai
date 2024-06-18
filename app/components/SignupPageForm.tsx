@@ -109,7 +109,7 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
           disabled={!isDirty() || !requiredFieldsFilled}
           loading={processing}
         >
-          Sign up
+          Sign Up
         </Button>
       </Stack>
     </Box>

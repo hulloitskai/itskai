@@ -27,7 +27,7 @@ const AdminOAuthConnectionForm: FC<AdminOAuthConnectionFormProps> = ({
           <TextInput label="UID (read-only)" value={credentials.uid} />
           {!!credentials.refreshToken && (
             <TextInput
-              label="Refresh token (read-only)"
+              label="Refresh Token (read-only)"
               value={credentials.refreshToken}
               readOnly
             />

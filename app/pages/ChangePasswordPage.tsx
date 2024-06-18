@@ -32,7 +32,7 @@ const ChangePasswordPage: PageComponent<ChangePasswordPageProps> = ({
             </Anchor>{" "}
             or{" "}
             <Anchor component={Link} href="/signup" inherit>
-              Sign up
+              Sign Up
             </Anchor>
           </Text>
         </List.Item>
@@ -47,7 +47,7 @@ const ChangePasswordPage: PageComponent<ChangePasswordPageProps> = ({
 );
 
 ChangePasswordPage.layout = buildLayout<ChangePasswordPageProps>(page => (
-  <AppLayout title="Change password">
+  <AppLayout title="Change Password">
     <Center style={{ flexGrow: 1 }}>{page}</Center>
   </AppLayout>
 ));

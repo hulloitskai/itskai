@@ -52,7 +52,7 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <StrongPasswordInput
-          label="New password"
+          label="New Password"
           placeholder="ultra-secure-password"
           autoComplete="new-password"
           required
@@ -60,7 +60,7 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
           {...getInputProps("password")}
         />
         <PasswordInput
-          label="New password (confirm)"
+          label="New Password (confirm)"
           placeholder="ultra-secure-password"
           autoComplete="new-password"
           required

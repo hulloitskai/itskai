@@ -27,11 +27,11 @@ const RequestPasswordResetPage: PageComponent<
         <List.Item>
           <Text span inherit c="gray.6">
             <Anchor component={Link} href="/login" inherit>
-              Sign in
+              Sign In
             </Anchor>{" "}
             or{" "}
             <Anchor component={Link} href="/signup" inherit>
-              Sign up
+              Sign Up
             </Anchor>
           </Text>
         </List.Item>
