@@ -28,6 +28,7 @@ if (dsn) {
     ],
     ignoreErrors: [
       "ResizeObserver loop completed with undelivered notifications.",
+      /Failed to load lyrics.*/,
     ],
     enabled: environment !== "development",
   };
