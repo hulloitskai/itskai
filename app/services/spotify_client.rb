@@ -59,8 +59,8 @@ class SpotifyClient < ApplicationService
     else
       with_log_tags do
         logger.error(
-          "Failed to retrieve lyrics for track #{track_id}; bad response: " \
-            "#{response.body}",
+          "Failed to retrieve lyrics for track #{track_id}; bad response: " +
+            (response.body.presence || "(empty #{response.status} response)"),
         )
       end
       raise "Bad response from Spotify API"

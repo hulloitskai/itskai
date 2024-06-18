@@ -46,7 +46,7 @@ export const fetch = async <Data>(
   const { failSilently, ...otherOptions } = options;
   return route<Data>(otherOptions).catch((responseError: ResponseError) => {
     const { error } = responseError.body as { error: string };
-    console.error(`Failed to ${options.descriptor}`, { error });
+    console.error(`Failed to ${options.descriptor}`, error);
     if (!failSilently) {
       showNotice({
         title: `Failed to ${options.descriptor}`,
