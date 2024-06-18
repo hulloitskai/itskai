@@ -11,7 +11,7 @@ import {
   Section,
 } from "@react-email/components";
 
-import { Heading, Text } from "~/components/email";
+import { Heading, Text, Link } from "~/components/email";
 
 import "@mantine/core/styles.css";
 import "./EmailLayout-lowercasing.css";
@@ -44,9 +44,9 @@ const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
             <Column>
               <Text style={{ color: "var(--mantine-color-dimmed)" }}>
                 Sent by{" "}
-                <Anchor href="/" target="_blank" c="primary.5" fw={600}>
+                <Link href="/" target="_blank" style={{ fontWeight: 600 }}>
                   It&apos;s Kai
-                </Anchor>
+                </Link>
                 . This email loves you.
               </Text>
             </Column>

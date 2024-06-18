@@ -17,8 +17,8 @@ class DeviseController
   def scope_name; end
 
   # Proxy to devise map class
-  sig { returns(T::Class[T.anything]) }
-  def resource_class; end
+  # sig { returns(T::Class[T.anything]) }
+  # def resource_class; end
 
   # Returns a signed in resource from session (if one exists)
   sig { returns(T.untyped) }
@@ -142,4 +142,27 @@ class Devise::UnlocksController < DeviseController
   # The path used after unlocking the resource
   sig { params(resource: T.untyped).returns(String) }
   def after_unlock_path_for(resource); end
+end
+
+# @shim: Devise controllers are loaded by rails
+class Devise::OmniauthCallbacksController < DeviseController
+  # GET|POST /resource/auth/provider
+  sig { returns(T.untyped) }
+  def passthru; end
+
+  # GET|POST /resource/auth/provider/callback
+  sig { returns(T.untyped) }
+  def failure; end
+
+  sig { returns(String) }
+  def failed_strategy; end
+
+  sig { returns(String) }
+  def failure_message; end
+
+  sig { params(scope: String).returns(String) }
+  def after_omniauth_failure_path_for(scope); end
+
+  sig { returns(String) }
+  def translation_scope; end
 end
