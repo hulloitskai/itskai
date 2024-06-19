@@ -1,5 +1,5 @@
 name: deploy
-run-name: Deploy from ${{ github.event.workflow_run.head_branch }}
+run-name: "Deploy from ${{ github.event.workflow_run.head_branch }} (${{ github.event.workflow_run.head_commit.message }})"
 
 on:
   workflow_run:
