@@ -1,5 +1,6 @@
 import type { ComponentPropsWithoutRef, FC } from "react";
 import type { BoxProps } from "@mantine/core";
+import { isEmail } from "@mantine/form";
 
 export interface RequestPasswordResetPageFormProps
   extends BoxProps,
@@ -8,36 +9,31 @@ export interface RequestPasswordResetPageFormProps
 const RequestPasswordResetPageForm: FC<RequestPasswordResetPageFormProps> = ({
   ...otherProps
 }) => {
-  // == Form
-  const { values, getInputProps, isDirty, submit, processing } = useInertiaForm(
-    {
-      action: routes.usersPasswords.create,
-      method: "post",
-      descriptor: "request password reset",
-      initialValues: {
-        email: "",
-      },
-      transformValues: values => ({
-        user: deepUnderscoreKeys(values),
-      }),
+  const { getInputProps, submit, processing } = useInertiaForm({
+    action: routes.usersPasswords.create,
+    method: "post",
+    descriptor: "request password reset",
+    mode: "uncontrolled",
+    initialValues: {
+      email: "",
     },
-  );
-  const requiredFieldsFilled = useRequiredFieldsFilled(values, "email");
-
+    validate: {
+      email: isEmail("Email is not valid"),
+    },
+    transformValues: values => ({
+      user: deepUnderscoreKeys(values),
+    }),
+  });
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <TextInput
+          {...getInputProps("email")}
           label="Email"
           placeholder="jon.snow@example.com"
           required
-          {...getInputProps("email")}
         />
-        <Button
-          type="submit"
-          disabled={!isDirty() || !requiredFieldsFilled}
-          loading={processing}
-        >
+        <Button type="submit" loading={processing}>
           Continue
         </Button>
       </Stack>

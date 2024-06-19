@@ -16,8 +16,8 @@
 .icon {
   --icon-color: var(--badge-color, var(--mantine-color-white));
 
-  height: rem(20px);
-  width: rem(20px);
+  height: 20px;
+  width: 20px;
   svg {
     path,
     g {
@@ -32,8 +32,8 @@
     var(--mantine-color-primary-7),
     var(--mantine-color-primary-4)
   );
-  width: rem(16px);
-  height: rem(16px);
+  width: 16px;
+  height: 16px;
 }
 
 .itemLabel {

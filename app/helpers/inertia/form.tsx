@@ -77,9 +77,10 @@ export const useInertiaForm = <
         onError: errors => {
           const formErrors: FormErrors = transformErrors(errors);
           form.setErrors(formErrors);
-          onError?.({ ...form, errors: formErrors });
-          showFormErrorsAlert(formErrors, `Couldn't ${descriptor}`);
           console.warn(`Couldn't ${descriptor}`, { errors: formErrors });
+          const formWithErrors = { ...form, errors: formErrors };
+          showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
+          onError?.(form);
         },
       };
       if (method === "delete") {
@@ -89,8 +90,9 @@ export const useInertiaForm = <
       }
     },
     errors => {
-      onError?.({ ...form, errors });
-      showFormErrorsAlert(errors, `Couldn't ${descriptor}`);
+      const formWithErrors = { ...form, errors };
+      onError?.(formWithErrors);
+      showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
     },
   );
   return {

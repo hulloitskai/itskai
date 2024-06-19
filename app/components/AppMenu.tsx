@@ -4,7 +4,7 @@ import Lottie from "lottie-react";
 import type { LottieRefCurrentProps } from "lottie-react";
 
 import AdminIcon from "~icons/heroicons/key-20-solid";
-// import SignInIcon from "~icons/heroicons/arrow-right-on-rectangle-20-solid";
+import SignInIcon from "~icons/heroicons/arrow-right-on-rectangle-20-solid";
 import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
 import SmileIcon from "~icons/heroicons/face-smile-20-solid";
 import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
@@ -25,7 +25,7 @@ export interface AppMenuProps
 
 const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
   const isClient = useIsClient();
-  const { currentUser: authenticatedUser } = usePageProps();
+  const { currentUser } = usePageProps();
   const [contactMe, { loading: loadingContactMe }] = useContactMe();
 
   // == State
@@ -145,9 +145,9 @@ const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
         >
           Shoot Kai a Msg
         </Menu.Item>
-        {!!authenticatedUser && (
+        <Menu.Divider />
+        {currentUser ? (
           <>
-            <Menu.Divider />
             <Menu.Item
               component={Link}
               href={routes.usersRegistrations.edit.path()}
@@ -155,7 +155,7 @@ const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
             >
               Settings
             </Menu.Item>
-            {authenticatedUser.isOwner && (
+            {currentUser.isOwner && (
               <>
                 <Menu.Item
                   component={Link}
@@ -175,6 +175,14 @@ const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
               Sign Out
             </Menu.Item>
           </>
+        ) : (
+          <Menu.Item
+            leftSection={<SignInIcon />}
+            component={Link}
+            href={routes.usersSessions.new.path()}
+          >
+            Sign In
+          </Menu.Item>
         )}
         <Menu.Divider />
         <Menu.Item component="div" disabled pt={4}>

@@ -26,7 +26,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({
   >
     <Menu.Target>
       <Button variant="default" leftSection={<DeleteIcon />} {...otherProps}>
-        {children}
+        {children ?? "Delete"}
       </Button>
     </Menu.Target>
     <Menu.Dropdown>

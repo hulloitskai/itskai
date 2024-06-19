@@ -3,6 +3,7 @@ import type { User } from "~/types";
 
 import type { BoxProps, ButtonProps } from "@mantine/core";
 import { PasswordInput, Text } from "@mantine/core";
+import { isEmail, isNotEmpty } from "@mantine/form";
 
 export interface SettingsPageEmailFormProps
   extends BoxProps,
@@ -21,80 +22,37 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
       currentPassword: "",
     };
   }, [user]);
-  const { values, errors, getInputProps, isDirty, submit, processing } =
+  const { getInputProps, isDirty, isValid, watch, submit, processing } =
     useInertiaForm({
       action: routes.usersRegistrations.update,
       method: "put",
       descriptor: "change email",
-      // onSuccess: ({ props }) => {
-      //   const { user } = props as SettingsPageProps;
-      //   if (user.unverifiedEmail) {
-      //     showNotice({
-      //       title: "Email verification required",
-      //       message:
-      //         "Please check your email and follow the link to verify your new " +
-      //         "email address.",
-      //     });
-      //   } else {
-      //     showNotice({
-      //       message: "Email change request has been cancelled.",
-      //     });
-      //   }
-      // },
+      mode: "uncontrolled",
       initialValues,
+      validate: {
+        email: isEmail("Email is not valid"),
+        currentPassword: isNotEmpty("Current password is required"),
+      },
       transformValues: values => ({
         user: deepUnderscoreKeys(values),
       }),
     });
-  const requiredFieldsFilled = useRequiredFieldsFilled(
-    values,
-    "email",
-    "current_password",
-  );
-  // useDidUpdate(() => {
-  //   setValues(initialValues);
-  //   resetDirty(initialValues);
-  // }, [initialValues]);
 
-  // const [updateEmail, { loading: updatingEmail }] = useMutation(
-  //   UpdateUserEmailMutationDocument,
-  //   {
-  //     onCompleted: ({ payload: { user, errors } }) => {
-  //       if (user) {
-  //         const { unverifiedEmail } = user;
-  //         router.reload({
-  //           onSuccess: () => {
-  //             if (unverifiedEmail) {
-  //               showNotice({
-  //                 title: "Email verification required",
-  //                 message:
-  //                   "Please check your email and follow the link to " +
-  //                   "verify your new email address.",
-  //               });
-  //             } else {
-  //             }
-  //           },
-  //         });
-  //       } else {
-  //         invariant(errors, "Missing input errors");
-  //         const formErrors = buildFormErrors(errors);
-  //         setErrors(formErrors);
-  //         showFormErrorsAlert(formErrors, "Couldn't change email");
-  //       }
-  //     },
-  //     onError: onUpdateEmailError,
-  //   },
-  // );
+  // == Current Password Field
+  const [emailFilled, setEmailFilled] = useState(false);
+  watch("email", () => {
+    setEmailFilled(isDirty("email") && isValid("email"));
+  });
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <Box>
           <TextInput
+            {...getInputProps("email")}
             label="Email"
             placeholder="jon.snow@example.com"
             required
-            {...getInputProps("email")}
             {...(user.unconfirmedEmail
               ? {
                   rightSectionWidth: 80,
@@ -117,40 +75,28 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
             </Text>
           )}
         </Box>
-        <Transition
-          transition="fade"
-          mounted={!isEmpty(errors) || (isDirty("email") && !!values.email)}
-        >
+        <Transition transition="fade" mounted={emailFilled}>
           {style => (
             <PasswordInput
+              {...getInputProps("currentPassword")}
               label="Current password"
               description="Please confirm your current password to make changes."
               placeholder="password"
               required
               {...{ style }}
-              {...getInputProps("currentPassword")}
             />
           )}
         </Transition>
         <Stack gap={6}>
-          <Button
-            type="submit"
-            disabled={!isDirty("email") || !requiredFieldsFilled}
-            loading={processing}
-          >
+          <Button type="submit" loading={processing}>
             Change Email
           </Button>
-          <Transition
-            transition="fade"
-            mounted={!!user.unconfirmedEmail && !isDirty("email")}
-          >
-            {style => (
-              <ResendEmailVerificationInstructionsButton
-                variant="outline"
-                {...{ user, style }}
-              />
-            )}
-          </Transition>
+          {user.unconfirmedEmail && (
+            <ResendEmailVerificationInstructionsButton
+              variant="outline"
+              {...{ user }}
+            />
+          )}
         </Stack>
       </Stack>
     </Box>

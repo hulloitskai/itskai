@@ -18,20 +18,23 @@ export interface TestPageProps extends SharedPageProps {
 
 const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
   // == Form
-  const { values, getInputProps } = useForm({
+  const { getValues, getInputProps } = useForm({
+    mode: "uncontrolled",
     initialValues: { name: initialName },
   });
   const nameDescription = useMemo(() => {
-    return `Your name is: ${values.name}`;
-  }, [values.name]);
+    const { name } = getValues();
+    return `Your name is: ${name}`;
+  }, [getValues]);
 
   // == Callbacks
   const showModal = useCallback(() => {
+    const { name } = getValues();
     openModal({
       title: "I'm a modal!",
-      children: <TestPageModalContent name={values.name} />,
+      children: <TestPageModalContent name={name} />,
     });
-  }, [values.name]);
+  }, [getValues]);
   const showAlert = useCallback(() => {
     showNotification({
       color: "yellow",
@@ -47,11 +50,11 @@ const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
       <Stack gap="xs">
         <Title order={3}>Test Component</Title>
         <TextInput
+          {...getInputProps("name")}
           label="Name"
           description={nameDescription}
           placeholder="Some Input"
           leftSection={<PencilSquareIcon />}
-          {...getInputProps("name")}
         />
         <Group gap="xs" grow>
           <Button

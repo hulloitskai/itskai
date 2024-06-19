@@ -35,7 +35,7 @@ const SettingsPageDeleteAccountForm: FC<SettingsPageDeleteAccountFormProps> = ({
             loading={processing}
             fullWidth
           >
-            Delete account
+            Delete Account
           </Button>
         </Menu.Target>
         <Menu.Dropdown>

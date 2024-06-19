@@ -7,5 +7,5 @@
 }
 
 .focus {
-  outline-width: rem(1px);
+  outline-width: 1px;
 }

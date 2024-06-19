@@ -1,6 +1,7 @@
 import type { ComponentPropsWithoutRef, FC } from "react";
 import type { BoxProps } from "@mantine/core";
 import { PasswordInput } from "@mantine/core";
+import { isNotEmpty } from "@mantine/form";
 
 import StrongPasswordInput from "./StrongPasswordInput";
 
@@ -14,11 +15,12 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
   const [passwordStrength, setPasswordStrength] = useState(0.0);
 
   // == Form
-  const { values, getInputProps, isDirty, submit, processing } = useInertiaForm(
-    {
+  const { getInputProps, isDirty, isValid, watch, submit, processing } =
+    useInertiaForm({
       action: routes.usersRegistrations.update,
       method: "put",
       descriptor: "change password",
+      mode: "uncontrolled",
       initialValues: {
         password: "",
         passwordConfirmation: "",
@@ -28,25 +30,36 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
         user: deepUnderscoreKeys(values),
       }),
       validate: {
-        password: () => {
+        password: value => {
+          if (!value) {
+            return "Password is required";
+          }
           if (passwordStrength < 1.0) {
             return "Password is too weak";
           }
         },
         passwordConfirmation: (value, { password }) => {
-          if (password != value) {
+          if (!value) {
+            return "Password confirmation is required";
+          }
+          if (value !== password) {
             return "Password confirmation does not match password";
           }
         },
+        currentPassword: isNotEmpty("Current password is required"),
       },
-    },
-  );
-  const requiredFieldsFilled = useRequiredFieldsFilled(
-    values,
-    "password",
-    "passwordConfirmation",
-    "currentPassword",
-  );
+    });
+
+  // == Current Password Field
+  const [passwordFilled, setPasswordFilled] = useState(false);
+  const [passwordConfirmationFilled, setPasswordConfirmationFilled] =
+    useState(false);
+  watch("password", () => {
+    setPasswordFilled(isDirty("password") && isValid("password"));
+  });
+  watch("passwordConfirmation", () => {
+    setPasswordConfirmationFilled(isValid("passwordConfirmation"));
+  });
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
@@ -69,25 +82,21 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
         />
         <Transition
           transition="fade"
-          mounted={!!(values.password && values.passwordConfirmation)}
+          mounted={passwordFilled && passwordConfirmationFilled}
         >
           {style => (
             <PasswordInput
+              {...getInputProps("currentPassword")}
               label="Current password"
               description="Please confirm your current password to make changes."
               placeholder="password"
               autoComplete="current-password"
               required
               {...{ style }}
-              {...getInputProps("currentPassword")}
             />
           )}
         </Transition>
-        <Button
-          type="submit"
-          disabled={!isDirty() || !requiredFieldsFilled}
-          loading={processing}
-        >
+        <Button type="submit" loading={processing}>
           Change Password
         </Button>
       </Stack>

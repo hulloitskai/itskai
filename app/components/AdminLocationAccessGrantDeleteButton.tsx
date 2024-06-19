@@ -28,9 +28,7 @@ const AdminLocationAccessGrantDeleteButton: FC<
         submit();
       }}
       {...otherProps}
-    >
-      Delete grant
-    </DeleteButton>
+    />
   );
 };
 

@@ -3,6 +3,7 @@ import type { LocationAccessGrant } from "~/types";
 
 import type { BoxProps } from "@mantine/core";
 import { NumberInput, Text } from "@mantine/core";
+import { isNotEmpty } from "@mantine/form";
 
 export interface LocationAccessGrantCreateFormProps
   extends BoxProps,
@@ -14,17 +15,21 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
   onCreated,
   ...otherProps
 }) => {
-  // == Form
-  const { values, getInputProps, isDirty, submit, processing } = useFetchForm<{
+  const { getInputProps, submit, processing } = useFetchForm<{
     grant: LocationAccessGrant;
   }>({
     action: routes.adminLocationAccessGrants.create,
     method: "post",
     descriptor: "create location access grant",
+    mode: "uncontrolled",
     initialValues: {
       recipient: "",
       password: "",
       expiresInHours: 12,
+    },
+    validate: {
+      recipient: isNotEmpty("Recipient is required"),
+      expiresInHours: isNotEmpty("Expiration is required"),
     },
     transformValues: ({ expiresInHours, ...attributes }) => ({
       grant: {
@@ -36,33 +41,28 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
       onCreated?.(grant);
     },
   });
-  const requiredFieldsFilled = useRequiredFieldsFilled(
-    values,
-    "recipient",
-    "expiresInHours",
-  );
-
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <TextInput
+          {...getInputProps("recipient")}
           label="Recipient"
-          placeholder="A friend"
+          placeholder="Jon Snow"
           required
           autoComplete="off"
-          {...getInputProps("recipient")}
         />
         <TextInput
+          {...getInputProps("password")}
           label="Password"
           description="Will be randomly generated if not set."
           placeholder="porcupine"
           autoCapitalize="false"
           autoCorrect="false"
           autoComplete="false"
-          {...getInputProps("password")}
         />
         <NumberInput
-          label="Expires in"
+          {...getInputProps("expiresInHours")}
+          label="Expires In"
           required
           min={1}
           inputContainer={children => (
@@ -76,15 +76,9 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
               flexGrow: 1,
             },
           }}
-          {...getInputProps("expiresInHours")}
         />
-        <Button
-          type="submit"
-          disabled={!isDirty() || !requiredFieldsFilled}
-          loading={processing}
-          leftSection={<AddIcon />}
-        >
-          Create grant
+        <Button type="submit" loading={processing} leftSection={<AddIcon />}>
+          Create Grant
         </Button>
       </Stack>
     </Box>

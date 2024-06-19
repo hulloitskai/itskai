@@ -88,7 +88,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "postcss": "^8.4.32",
-    "postcss-preset-mantine": "^1.13.0",
+    "postcss-preset-mantine": "^1.15.0",
     "postcss-simple-vars": "^7.0.1",
     "prettier": "^3.2.5",
     "prettier-plugin-sh": "^0.14.0",

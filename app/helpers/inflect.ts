@@ -50,3 +50,10 @@ export const deepCamelizeKeys = (
 ): Record<string, any> => {
   return deepTransformKeys(object, camelCase);
 };
+
+export const sentencify = (message: string): string => {
+  if (message.endsWith(".")) {
+    return message;
+  }
+  return `${message}.`;
+};

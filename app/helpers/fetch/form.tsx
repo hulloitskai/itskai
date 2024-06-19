@@ -1,6 +1,7 @@
 import type { FormEvent } from "react";
 import type { Method } from "@inertiajs/core";
 import type { PathHelper, ResponseError } from "@js-from-routes/client";
+import { sentencify } from "~/helpers/inflect";
 import { showFormErrorsAlert } from "~/helpers/form";
 
 import type {
@@ -98,7 +99,7 @@ export const useFetchForm = <
                 console.error(`Failed to ${descriptor}`, error);
                 showAlert({
                   title: `Failed to ${descriptor}`,
-                  message: error,
+                  message: sentencify(error),
                 });
                 onFailure?.(e, form);
               } else if (errors) {
@@ -107,10 +108,11 @@ export const useFetchForm = <
                 console.warn(`Couldn't ${descriptor}`, {
                   errors: formErrors,
                 });
+                const formWithErrors = { ...form, errors: formErrors };
                 if (!failSilently) {
-                  showFormErrorsAlert(formErrors, `Couldn't ${descriptor}`);
+                  showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
                 }
-                onError?.({ ...form, errors: formErrors });
+                onError?.(formWithErrors);
               }
             } else {
               console.error(
@@ -120,7 +122,7 @@ export const useFetchForm = <
               if (!failSilently) {
                 showAlert({
                   title: `Failed to ${descriptor}`,
-                  message: responseError.message,
+                  message: sentencify(responseError.message),
                 });
               }
               onFailure?.(responseError, form);
@@ -132,8 +134,9 @@ export const useFetchForm = <
         });
     },
     errors => {
-      onError?.({ ...form, errors });
-      showFormErrorsAlert(errors, `Couldn't ${descriptor}`);
+      const formWithErrors = { ...form, errors };
+      onError?.(formWithErrors);
+      showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
     },
   );
   return {

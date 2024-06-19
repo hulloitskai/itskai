@@ -11,6 +11,7 @@ const TestForm: FC = () => {
     action: routes.test.submit,
     method: "post",
     descriptor: "submit test form",
+    mode: "uncontrolled",
     initialValues: {
       name: "",
       birthday: null as string | null,
@@ -26,6 +27,7 @@ const TestForm: FC = () => {
       <Box component="form" onSubmit={submit}>
         <Stack gap="xs">
           <TextInput
+            {...getInputProps("name")}
             label="Name"
             description={
               <>
@@ -36,9 +38,8 @@ const TestForm: FC = () => {
               </>
             }
             required
-            {...getInputProps("name")}
           />
-          <DatePickerInput label="Birthday" {...getInputProps("birthday")} />
+          <DatePickerInput {...getInputProps("birthday")} label="Birthday" />
           <Button type="submit" loading={processing}>
             Submit
           </Button>

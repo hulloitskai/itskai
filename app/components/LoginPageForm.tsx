@@ -2,6 +2,7 @@ import type { ComponentPropsWithoutRef, FC } from "react";
 
 import type { BoxProps } from "@mantine/core";
 import { PasswordInput } from "@mantine/core";
+import { isNotEmpty, isEmail } from "@mantine/form";
 
 export interface LoginPageFormProps
   extends BoxProps,
@@ -9,47 +10,46 @@ export interface LoginPageFormProps
 
 const LoginPageForm: FC<LoginPageFormProps> = props => {
   // == Form
-  const { values, getInputProps, isDirty, submit, processing } = useInertiaForm(
-    {
-      action: routes.usersSessions.create,
-      method: "post",
-      descriptor: "sign in",
-      initialValues: {
-        email: "",
-        password: "",
-        rememberMe: true,
-      },
-      transformValues: values => ({
-        user: deepUnderscoreKeys(values),
-      }),
-      onError: ({ setFieldValue }) => {
-        setFieldValue("password", "");
-      },
+  const { getInputProps, submit, processing } = useInertiaForm({
+    action: routes.usersSessions.create,
+    method: "post",
+    descriptor: "sign in",
+    mode: "uncontrolled",
+    validateInputOnBlur: true,
+    initialValues: {
+      email: "",
+      password: "",
+      rememberMe: true,
     },
-  );
-  const requiredFieldsFilled = useRequiredFieldsFilled(
-    values,
-    "email",
-    "password",
-  );
+    validate: {
+      email: isEmail("Email is invalid"),
+      password: isNotEmpty("Password is required"),
+    },
+    transformValues: values => ({
+      user: deepUnderscoreKeys(values),
+    }),
+    onError: ({ setFieldValue }) => {
+      setFieldValue("password", "");
+    },
+  });
 
   return (
     <Box component="form" onSubmit={submit} {...props}>
       <Stack gap="xs">
         <TextInput
+          {...getInputProps("email")}
           type="email"
           label="Email"
           placeholder="jon.snow@example.com"
           autoComplete="email"
           required
-          {...getInputProps("email")}
         />
         <PasswordInput
+          {...getInputProps("password")}
           label="Password"
           placeholder="secret-passphrase"
           autoComplete="current-password"
           required
-          {...getInputProps("password")}
         />
         <Tooltip
           label="Uncheck this if you're signing in from a shared device."
@@ -57,6 +57,7 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
           withArrow
         >
           <Checkbox
+            {...getInputProps("rememberMe", { type: "checkbox" })}
             label="Stay signed in"
             styles={{
               input: {
@@ -66,14 +67,9 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
                 cursor: "pointer",
               },
             }}
-            {...getInputProps("rememberMe", { type: "checkbox" })}
           />
         </Tooltip>
-        <Button
-          type="submit"
-          disabled={!isDirty() || !requiredFieldsFilled}
-          loading={processing}
-        >
+        <Button type="submit" loading={processing}>
           Sign In
         </Button>
       </Stack>

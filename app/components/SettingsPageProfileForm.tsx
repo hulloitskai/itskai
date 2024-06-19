@@ -48,12 +48,12 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <TextInput
+          {...getInputProps("name")}
           label="Name"
           placeholder="A Friend"
           required
-          {...getInputProps("name")}
         />
-        <AvatarField label="Avatar" {...getInputProps("avatar")} />
+        <AvatarField {...getInputProps("avatar")} label="Avatar" />
         <Button type="submit" disabled={!isDirty()} loading={processing}>
           Save
         </Button>

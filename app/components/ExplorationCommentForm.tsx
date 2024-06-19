@@ -1,6 +1,7 @@
 import type { ComponentPropsWithoutRef, FC } from "react";
 import type { Exploration } from "~/types";
 import type { BoxProps } from "@mantine/core";
+import { isNotEmpty } from "@mantine/form";
 
 export interface ExplorationCommentFormProps
   extends BoxProps,
@@ -18,12 +19,17 @@ const ExplorationCommentForm: FC<ExplorationCommentFormProps> = ({
     () => ({ exploration_id: exploration.id }),
     [exploration.id],
   );
-  const { values, getInputProps, isDirty, submit, processing } = useFetchForm({
+  const { getInputProps, submit, processing } = useFetchForm({
     action: routes.explorations.comment,
     method: "post",
     descriptor: "create comment",
     params: commentParams,
+    mode: "uncontrolled",
     initialValues: { message: "", authorContact: "" },
+    validate: {
+      message: isNotEmpty("Note is required"),
+      authorContact: isNotEmpty("Author contact is required"),
+    },
     transformValues: values => ({
       comment: values,
     }),
@@ -36,37 +42,27 @@ const ExplorationCommentForm: FC<ExplorationCommentFormProps> = ({
       onCommented?.();
     },
   });
-  const requiredFieldsFilled = useRequiredFieldsFilled(
-    values,
-    "message",
-    "authorContact",
-  );
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <Textarea
+          {...getInputProps("message")}
           label="Note"
           placeholder="What is your experience with this like?"
           required
           autosize
           minRows={3}
           maxRows={6}
-          {...getInputProps("message")}
         />
         <TextInput
+          {...getInputProps("authorContact")}
           label="Your @ or #"
           description="Your email or phone number, so I can chat with you about your note!"
           placeholder="+1 (123) 456-7890"
           required
-          {...getInputProps("authorContact")}
         />
         <Group justify="end">
-          <Button
-            type="submit"
-            leftSection={<SendIcon />}
-            disabled={!isDirty() || !requiredFieldsFilled}
-            loading={processing}
-          >
+          <Button type="submit" leftSection={<SendIcon />} loading={processing}>
             Submit
           </Button>
         </Group>

@@ -1,6 +1,6 @@
 .root {
   > * {
-    border: rem(1px) solid
+    border: 1px solid
       light-dark(
         var(--ac-inactive-border-color-light),
         var(--ac-inactive-border-color-dark)

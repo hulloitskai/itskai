@@ -14,13 +14,21 @@ export interface AdminICloudVerifySecurityCodeFormProps
 const AdminICloudVerifySecurityCodeForm: FC<
   AdminICloudVerifySecurityCodeFormProps
 > = ({ onVerified, ...otherProps }) => {
-  const { values, getInputProps, submit, processing } = useFetchForm<{
+  const { getInputProps, submit, processing } = useFetchForm<{
     connection: ICloudConnection;
   }>({
     action: routes.adminICloudConnections.verifySecurityCode,
     method: "post",
     descriptor: "verify security code",
+    mode: "uncontrolled",
     initialValues: { code: "" },
+    validate: {
+      code: value => {
+        if (value.length !== 6) {
+          return "Must be 6 digits";
+        }
+      },
+    },
     transformValues: values => ({
       verification: values,
     }),
@@ -34,20 +42,19 @@ const AdminICloudVerifySecurityCodeForm: FC<
       <Stack gap="xs">
         <InputWrapper label="Security code">
           <PinInput
+            {...getInputProps("code")}
             type="number"
             length={6}
             oneTimeCode
             mt={4}
-            {...getInputProps("code")}
           />
         </InputWrapper>
         <Button
           type="submit"
-          disabled={values.code.length !== 6}
           loading={processing}
           leftSection={<SecurityCodeIcon />}
         >
-          Verify code
+          Verify Code
         </Button>
       </Stack>
     </Box>

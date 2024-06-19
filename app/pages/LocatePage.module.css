@@ -4,7 +4,7 @@
     var(--mantine-color-gray-1),
     var(--mantine-color-dark-7)
   );
-  border: rem(1px) solid light-dark(#1d2822, #5a7b6a);
+  border: 1px solid light-dark(#1d2822, #5a7b6a);
 
   &[data-pulse] {
     border-color: var(--mantine-color-primary-4);

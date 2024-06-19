@@ -5,6 +5,7 @@ import SecurityCodeIcon from "~icons/heroicons/key-20-solid";
 
 import type { BoxProps } from "@mantine/core";
 import { JsonInput, PasswordInput, Text } from "@mantine/core";
+import { isNotEmpty } from "@mantine/form";
 
 import type { AdminICloudDisconnectButtonProps } from "./AdminICloudDisconnectButton";
 import AdminICloudDisconnectButton from "./AdminICloudDisconnectButton";
@@ -87,13 +88,18 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
       password: password ?? "",
     };
   }, [credentials]);
-  const { values, getInputProps, isDirty, submit, processing } = useFetchForm<{
+  const { getInputProps, submit, processing } = useFetchForm<{
     connection: ICloudConnection;
   }>({
     action: routes.adminICloudConnections.create,
     method: "post",
     descriptor: "authenticate with iCloud",
+    mode: "uncontrolled",
     initialValues,
+    validate: {
+      email: isNotEmpty("Email is required"),
+      password: isNotEmpty("Password is required"),
+    },
     transformValues: values => ({ credentials: values }),
     onSuccess: ({ connection }) => {
       if (connection.status === "requires_2fa") {
@@ -103,33 +109,27 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
       }
     },
   });
-  const requiredFieldsFilled = useRequiredFieldsFilled(
-    values,
-    "email",
-    "password",
-  );
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <TextInput
+          {...getInputProps("email")}
           label="Email"
           placeholder="example@example.com"
           required
           autoComplete="email"
-          {...getInputProps("email")}
         />
         <PasswordInput
+          {...getInputProps("password")}
           label="Password"
           placeholder="applesauce"
           required
           autoComplete="off"
-          {...getInputProps("password")}
         />
         <Button
           type="submit"
           leftSection={<AuthenticateIcon />}
-          disabled={!isDirty() || !requiredFieldsFilled}
           loading={processing}
         >
           {credentials ? "Re-authenticate" : "Authenticate"}

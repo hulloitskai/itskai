@@ -2,6 +2,7 @@ import type { ComponentPropsWithoutRef, FC } from "react";
 import type { BoxProps, MantineSize } from "@mantine/core";
 
 import classes from "./LocationAccessForm.module.css";
+import { isNotEmpty } from "@mantine/form";
 
 export interface LocationAccessFormProps
   extends BoxProps,
@@ -15,14 +16,18 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
   onSuccess,
   ...otherProps
 }) => {
-  const { values, getInputProps, isDirty, submit, processing } = useFetchForm<{
+  const { getInputProps, submit, processing } = useFetchForm<{
     token: string;
   }>({
     action: routes.locations.access,
     method: "post",
     descriptor: "access location",
+    mode: "uncontrolled",
     initialValues: {
       password: "",
+    },
+    validate: {
+      password: isNotEmpty("Password is required"),
     },
     transformValues: values => ({
       access_request: values,
@@ -34,12 +39,12 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
       setFieldValue("password", "");
     },
   });
-  const requiredFieldsFilled = useRequiredFieldsFilled(values, "password");
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Group gap={8} align="start">
         <TextInput
+          {...getInputProps("password")}
           placeholder="porcupine"
           autoCapitalize="false"
           autoCorrect="false"
@@ -50,13 +55,11 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
             },
           }}
           {...{ size }}
-          {...getInputProps("password")}
         />
         <Button
           type="submit"
           size="sm"
           loading={processing}
-          disabled={!isDirty() || !requiredFieldsFilled}
           className={classes.button}
         >
           Nyoom in

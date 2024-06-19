@@ -16,66 +16,62 @@ const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
   const [passwordStrength, setPasswordStrength] = useState(0.0);
 
   // == Form
-  const { values, getInputProps, isDirty, submit, processing } = useInertiaForm(
-    {
-      action: routes.usersPasswords.update,
-      method: "put",
-      descriptor: "change password",
-      initialValues: {
-        password: "",
-        passwordConfirmation: "",
+  const { getInputProps, submit, processing } = useInertiaForm({
+    action: routes.usersPasswords.update,
+    method: "put",
+    descriptor: "change password",
+    mode: "uncontrolled",
+    initialValues: {
+      password: "",
+      passwordConfirmation: "",
+    },
+    validate: {
+      password: value => {
+        if (!value) {
+          return "Password is required";
+        }
+        if (passwordStrength < 1.0) {
+          return "Password is too weak";
+        }
       },
-      transformValues: values => ({
-        user: {
-          ...deepUnderscoreKeys(values),
-          reset_password_token: resetPasswordToken,
-        },
-      }),
-      validate: {
-        password: () => {
-          if (passwordStrength < 1.0) {
-            return "Password is too weak";
-          }
-        },
-        passwordConfirmation: (value, { password }) => {
-          if (password != value) {
-            return "Password confirmation does not match password";
-          }
-        },
+      passwordConfirmation: (value, { password }) => {
+        if (!value) {
+          return "Password confirmation is required";
+        }
+        if (value !== password) {
+          return "Password confirmation does not match password";
+        }
       },
     },
-  );
-  const requiredFieldsFilled = useRequiredFieldsFilled(
-    values,
-    "password",
-    "passwordConfirmation",
-  );
+    transformValues: values => ({
+      user: {
+        ...deepUnderscoreKeys(values),
+        reset_password_token: resetPasswordToken,
+      },
+    }),
+  });
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <StrongPasswordInput
+          {...getInputProps("password")}
           label="New Password"
           placeholder="ultra-secure-password"
           autoComplete="new-password"
           required
           minLength={8}
           onStrengthCheck={setPasswordStrength}
-          {...getInputProps("password")}
         />
         <PasswordInput
+          {...getInputProps("passwordConfirmation")}
           label="New Password (confirm)"
           placeholder="ultra-secure-password"
           autoComplete="new-password"
           required
           minLength={8}
-          {...getInputProps("passwordConfirmation")}
         />
-        <Button
-          type="submit"
-          disabled={!isDirty() || !requiredFieldsFilled}
-          loading={processing}
-        >
+        <Button type="submit" loading={processing}>
           Continue
         </Button>
       </Stack>

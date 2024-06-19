@@ -2,21 +2,30 @@ import type { FC } from "react";
 
 import type { PasswordInputProps } from "@mantine/core";
 import { PasswordInput, Progress } from "@mantine/core";
+import { useThrottledValue, useUncontrolled } from "@mantine/hooks";
 
-export interface StrongPasswordInputProps extends PasswordInputProps {
+export interface StrongPasswordInputProps
+  extends Omit<PasswordInputProps, "value" | "defaultValue"> {
+  value?: string;
+  defaultValue?: string;
   onStrengthCheck?: (strength: number) => void;
 }
 
 const StrongPasswordInput: FC<StrongPasswordInputProps> = ({
   onStrengthCheck,
   inputContainer,
+  onChange,
   ...otherProps
 }) => {
-  const { value, error } = otherProps;
-  const [debouncedValue] = useDebouncedValue(value, 200);
+  const { value, defaultValue, error } = otherProps;
+  const [resolvedValue, handleChange] = useUncontrolled<string>({
+    value,
+    defaultValue,
+  });
+  const throttledValue = useThrottledValue(resolvedValue, 200);
 
   // == Strength Check
-  const { data, setValues, submit } = useFetchForm<{ strength: number }>({
+  const { data, setFieldValue, submit } = useFetchForm<{ strength: number }>({
     action: routes.passwordStrengthChecks.create,
     method: "post",
     descriptor: "check password strength",
@@ -30,11 +39,11 @@ const StrongPasswordInput: FC<StrongPasswordInputProps> = ({
   });
   const { strength = 0.0 } = data ?? {};
   useEffect(() => {
-    setValues({ password: debouncedValue });
-    if (debouncedValue) {
+    setFieldValue("password", throttledValue);
+    if (throttledValue) {
       submit();
     }
-  }, [debouncedValue]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [throttledValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <PasswordInput
@@ -62,6 +71,10 @@ const StrongPasswordInput: FC<StrongPasswordInputProps> = ({
         return inputContainer
           ? inputContainer(inputWithProgress)
           : inputWithProgress;
+      }}
+      onChange={event => {
+        handleChange(event.target.value);
+        onChange?.(event);
       }}
       {...otherProps}
     />
