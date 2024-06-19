@@ -20,25 +20,20 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
       avatar: avatar ? { signedId: avatar.signedId } : null,
     };
   }, [authenticatedUser]);
-  const {
-    getInputProps,
-    isDirty,
-    submit,
-    processing,
-    setInitialValues,
-    reset,
-  } = useInertiaForm({
-    action: routes.usersRegistrations.update,
-    method: "put",
-    descriptor: "update profile",
-    initialValues,
-    transformValues: ({ avatar, ...attributes }) => ({
-      user: {
-        ...deepUnderscoreKeys(attributes),
-        avatar: avatar ? avatar.signedId : "",
-      },
-    }),
-  });
+  const { getInputProps, submit, processing, setInitialValues, reset } =
+    useInertiaForm({
+      action: routes.usersRegistrations.update,
+      method: "put",
+      descriptor: "update profile",
+      mode: "uncontrolled",
+      initialValues,
+      transformValues: ({ avatar, ...attributes }) => ({
+        user: {
+          ...deepUnderscoreKeys(attributes),
+          avatar: avatar ? avatar.signedId : "",
+        },
+      }),
+    });
   useEffect(() => {
     setInitialValues(initialValues);
     reset();
@@ -54,7 +49,7 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
           required
         />
         <AvatarField {...getInputProps("avatar")} label="Avatar" />
-        <Button type="submit" disabled={!isDirty()} loading={processing}>
+        <Button type="submit" loading={processing}>
           Save
         </Button>
       </Stack>
