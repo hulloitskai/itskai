@@ -77,7 +77,7 @@ module Admin
       params.require(:verification).permit(:code)
     end
 
-    # == Filter Handlers
+    # == Filter handlers
     sig { void }
     def set_credentials
       @credentials = T.let(

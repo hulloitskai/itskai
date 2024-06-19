@@ -27,7 +27,7 @@ const SettingsPage: PageComponent<SettingsPageProps> = () => {
         <Stack gap="sm">
           <Stack align="center" gap={0}>
             <Title order={2} size="h4">
-              Email Address
+              Email address
             </Title>
             <Text size="sm" c="dimmed" lh={1.3}>
               Change your account email address
@@ -56,7 +56,7 @@ const SettingsPage: PageComponent<SettingsPageProps> = () => {
         <Stack gap="sm">
           <Center>
             <Title order={2} size="h4">
-              Danger Zone
+              Danger zone
             </Title>
           </Center>
           <SettingsPageDeleteAccountForm />

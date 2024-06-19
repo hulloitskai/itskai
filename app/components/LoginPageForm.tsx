@@ -70,7 +70,7 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
           />
         </Tooltip>
         <Button type="submit" loading={processing}>
-          Sign In
+          Sign in
         </Button>
       </Stack>
     </Box>

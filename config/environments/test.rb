@@ -16,7 +16,7 @@ Rails.application.configure do
     port: 3000,
   }
 
-  # == Code Loading
+  # == Code loading
   # Settings specified here will take precedence over those in
   # config/application.rb.
 

@@ -80,7 +80,7 @@ class LocationsController < ApplicationController
 
   private
 
-  # == Filter Handlers
+  # == Filter handlers
   sig { returns(LocationParams) }
   def location_params
     @location_params = LocationParams

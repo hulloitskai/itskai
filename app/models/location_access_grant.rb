@@ -1,7 +1,21 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
-# == Schema Information
+# == Schema information
+#
+# Table name: location_access_grants
+#
+#  id         :uuid             not null, primary key
+#  expires_at :datetime         not null
+#  password   :string           not null
+#  recipient  :string           not null
+#  created_at :datetime         not null
+#
+# Indexes
+#
+#  index_location_access_grants_on_password  (password)
+#
+# == Schema information
 #
 # Table name: location_access_grants
 #
@@ -62,7 +76,7 @@ class LocationAccessGrant < ApplicationRecord
 
   private
 
-  # == Validation Handlers
+  # == Validation handlers
   sig { void }
   def validate_password_uniqueness
     unless password.nil?
@@ -72,7 +86,7 @@ class LocationAccessGrant < ApplicationRecord
     end
   end
 
-  # == Callback Handlers
+  # == Callback handlers
   sig { void }
   def set_default_password
     if password.nil?

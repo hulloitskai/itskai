@@ -1,7 +1,7 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
-# == Schema Information
+# == Schema information
 #
 # Table name: location_log_addresses
 #
@@ -81,7 +81,7 @@ class LocationLogAddress < ApplicationRecord
 
   private
 
-  # == Callback Handlers
+  # == Callback handlers
   sig { void }
   def broadcast_location
     LocationChannel.broadcast(location_log!)

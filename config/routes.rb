@@ -81,7 +81,7 @@ Rails.application.routes.draw do
   # == Images
   resources :images, only: :show, param: :signed_id, export: true
 
-  # == Password Strength Checks
+  # == Password strength checks
   resources :password_strength_checks, only: :create, export: true
 
   # == Explorations
@@ -89,7 +89,7 @@ Rails.application.routes.draw do
     post :comment
   end
 
-  # == Currently Playing
+  # == Currently playing
   resource :currently_playing, only: :show, export: true
   resource :spotify_jam_sessions, only: [], export: true do
     post :join

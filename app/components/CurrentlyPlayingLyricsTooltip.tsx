@@ -52,7 +52,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
   );
   const { lyrics } = data ?? {};
 
-  // == Current Lyric
+  // == Current lyric
   const progressLyricsIndexMapping = useProgressLyricsIndexMapping({
     lyrics,
     durationMs,

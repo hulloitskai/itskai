@@ -16,7 +16,7 @@ class JournalEntriesController < ApplicationController
 
   private
 
-  # == Filter Handlers
+  # == Filter handlers
   sig { void }
   def set_entry
     @entry = T.let(

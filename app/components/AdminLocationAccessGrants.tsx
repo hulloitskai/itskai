@@ -56,7 +56,7 @@ const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
         leftSection={<AddIcon />}
         onClick={() => {
           openModal({
-            title: "Create Grant",
+            title: "Create grant",
             children: (
               <LocationAccessGrantCreateForm
                 onCreated={grant => {

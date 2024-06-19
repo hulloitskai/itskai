@@ -56,7 +56,7 @@ module ItsKai
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults(7.1)
 
-    # == Code Loading
+    # == Code loading
     # Only autoload workers, interceptors once.
     Rails.autoloaders.main.ignore "app/workers", "app/interceptors"
     config.autoload_once_paths += ["app/workers", "app/interceptors"]
@@ -130,7 +130,7 @@ module ItsKai
     # == Active Support
     config.active_support.remove_deprecated_time_with_zone_name = true
 
-    # == Booted At
+    # == Server info
     sig { returns(Time) }
     def booted_at = BOOTED_AT
   end

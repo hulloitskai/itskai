@@ -9,7 +9,7 @@ Rails.application.configure do
     config.queue_select_limit =
       ENV.fetch("GOOD_JOB_QUEUE_SELECT_LIMIT", 1000).to_i
 
-    # == Cron Jobs
+    # == Cron jobs
     config.enable_cron = true
     config.cron = {
       "active_storage/cleanup_blobs": {

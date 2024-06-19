@@ -23,7 +23,7 @@ const JournalEntryCommentsStack: FC<JournalEntryCommentsStackProps> = ({
   // == Input
   const [commentText, setCommentText] = useState("");
 
-  // == Comments Loading
+  // == Comments
   const {
     data: commentsData,
     fetching: commentsFetching,
@@ -57,7 +57,7 @@ const JournalEntryCommentsStack: FC<JournalEntryCommentsStackProps> = ({
   //   },
   // );
 
-  // == Comment Creation
+  // == Commenting
   const createComment = () => {
     // addComment({
     //   variables: {

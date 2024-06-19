@@ -109,7 +109,7 @@ module Users
     #   error_bag.present? ? { error_bag => errors } : errors
     # end
 
-    # == Filter Handlers
+    # == Filter handlers
     # If you have extra params to permit, append them to the sanitizer.
     sig { void }
     def configure_sign_up_params

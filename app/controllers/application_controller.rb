@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
     cookies.signed[:actor_id] or raise "Missing actor ID"
   end
 
-  # == Filter Handlers
+  # == Filter handlers
   # sig { void }
   # def debug_action
   #   targets = params[:debug]
@@ -110,7 +110,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # == Rescue Callbacks
+  # == Rescue callbacks
   sig { params(args: T.untyped).void }
   def redirect_to_login_if_signed_out(*args)
     if signed_in?

@@ -56,7 +56,7 @@ const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
       <Stack gap="xs">
         <StrongPasswordInput
           {...getInputProps("password")}
-          label="New Password"
+          label="New password"
           placeholder="ultra-secure-password"
           autoComplete="new-password"
           required
@@ -65,7 +65,7 @@ const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
         />
         <PasswordInput
           {...getInputProps("passwordConfirmation")}
-          label="New Password (confirm)"
+          label="New password (confirm)"
           placeholder="ultra-secure-password"
           autoComplete="new-password"
           required

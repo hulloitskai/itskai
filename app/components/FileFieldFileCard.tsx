@@ -17,7 +17,7 @@ const FileFieldFileCard: FC<FileFieldFileCardProps> = ({
   ...props
 }) => {
   const fileData: any | undefined = undefined;
-  // == File Loading
+  // == File loading
   // const onLoadFileError = useApolloAlertCallback(
   //   "Failed to load uploaded file details",
   // );

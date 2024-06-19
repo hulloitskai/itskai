@@ -46,14 +46,14 @@ const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
 
   return (
     <Stack gap="xl">
-      <Title fw={900}>Test Page</Title>
+      <Title fw={900}>Test page</Title>
       <Stack gap="xs">
-        <Title order={3}>Test Component</Title>
+        <Title order={3}>Test component</Title>
         <TextInput
           {...getInputProps("name")}
           label="Name"
           description={nameDescription}
-          placeholder="Some Input"
+          placeholder="Some input"
           leftSection={<PencilSquareIcon />}
         />
         <Group gap="xs" grow>
@@ -61,10 +61,10 @@ const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
             leftSection={<ArrowTopRightOnSquareIcon />}
             onClick={showModal}
           >
-            Open Modal
+            Open modal
           </Button>
           <Button leftSection={<BellAlertIcon />} onClick={showAlert}>
-            Notify Me
+            Notify me
           </Button>
         </Group>
       </Stack>
@@ -77,7 +77,7 @@ const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
 };
 
 TestPage.layout = buildLayout<TestPageProps>(page => (
-  <AppLayout title="Test Page" withContainer containerSize="sm" withGutter>
+  <AppLayout title="Test page" withContainer containerSize="sm" withGutter>
     {page}
   </AppLayout>
 ));

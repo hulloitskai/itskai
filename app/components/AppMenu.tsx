@@ -135,7 +135,7 @@ const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
           rel="noopener noreferrer nofollow"
           leftSection={<SmileIcon />}
         >
-          Hang Out w/ Kai
+          Hang out w/ Kai
         </Menu.Item>
         <Menu.Item
           leftSection={loadingContactMe ? <Loader size={12} /> : <SendIcon />}
@@ -143,7 +143,7 @@ const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
             contactMe();
           }}
         >
-          Shoot Kai a Msg
+          Shoot Kai a msg
         </Menu.Item>
         <Menu.Divider />
         {currentUser ? (
@@ -172,7 +172,7 @@ const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
                 logout();
               }}
             >
-              Sign Out
+              Sign out
             </Menu.Item>
           </>
         ) : (
@@ -181,7 +181,7 @@ const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
             component={Link}
             href={routes.usersSessions.new.path()}
           >
-            Sign In
+            Sign in
           </Menu.Item>
         )}
         <Menu.Divider />

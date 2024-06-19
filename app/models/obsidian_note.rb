@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-# == Schema Information
+# == Schema information
 #
 # Table name: obsidian_notes
 #
@@ -222,7 +222,7 @@ class ObsidianNote < ApplicationRecord
 
   private
 
-  # == Callback Handlers
+  # == Callback handlers
   sig { void }
   def set_title
     self.title = aliases.first || name

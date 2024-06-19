@@ -16,7 +16,7 @@ class ImagesController < ApplicationController
 
   private
 
-  # == Filter Handlers
+  # == Filter handlers
   def set_image_blob
     @image_blob = T.let(
       ActiveStorage::Blob.find_signed!(params.fetch(:signed_id)),

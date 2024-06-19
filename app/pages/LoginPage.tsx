@@ -13,7 +13,7 @@ const LoginPage: PageComponent<LoginPageProps> = () => (
   <Card w={380} withBorder>
     <Stack gap="xs">
       <Stack align="center" gap={2}>
-        <Title size="h3">Sign In</Title>
+        <Title size="h3">Sign in</Title>
         <Text size="sm" c="dimmed" lh={1.3}>
           Welcome back to{" "}
           <Anchor component={Link} href="/" fw={600} c="primary.4">
@@ -50,7 +50,7 @@ const LoginPage: PageComponent<LoginPageProps> = () => (
 );
 
 LoginPage.layout = buildLayout<LoginPageProps>(page => (
-  <AppLayout title="Sign In">
+  <AppLayout title="Sign in">
     <Center style={{ flexGrow: 1 }}>{page}</Center>
   </AppLayout>
 ));

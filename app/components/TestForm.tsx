@@ -23,7 +23,7 @@ const TestForm: FC = () => {
 
   return (
     <Stack gap="xs">
-      <Title order={3}>Test Form</Title>
+      <Title order={3}>Test form</Title>
       <Box component="form" onSubmit={submit}>
         <Stack gap="xs">
           <TextInput

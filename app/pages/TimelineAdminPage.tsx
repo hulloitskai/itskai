@@ -16,7 +16,7 @@ const TimelineAdminPage: PageComponent<TimelineAdminPageProps> = () => {
         <Stack gap="xs">
           <Stack align="center" gap={0}>
             <Title order={2} size="h4">
-              Import Controls
+              Import controls
             </Title>
             <Text size="sm" c="dimmed" lh={1.3}>
               Import Google timeline history and timeline photos.
@@ -35,7 +35,7 @@ const TimelineAdminPage: PageComponent<TimelineAdminPageProps> = () => {
 
 TimelineAdminPage.layout = buildLayout<TimelineAdminPageProps>(page => (
   <AppLayout
-    title="Timeline Admin"
+    title="Manage timeline"
     breadcrumbs={[
       { title: "Home", href: "/" },
       { title: "Timeline", href: "/timeline" },

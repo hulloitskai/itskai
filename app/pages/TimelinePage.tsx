@@ -168,7 +168,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   // == Activities
   const activitiesRef = useRef<ReadonlyArray<TimelinePageActivityFragment>>([]);
 
-  // == Preloaded Photos
+  // == Preloaded photos
   const [preloadedPhotoIdsInitialValue] = useState<Set<string>>(new Set());
   const preloadedPhotoIdsRef = useRef(preloadedPhotoIdsInitialValue);
 

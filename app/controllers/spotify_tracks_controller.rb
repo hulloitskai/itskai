@@ -28,7 +28,7 @@ class SpotifyTracksController < ApplicationController
 
   private
 
-  # == Filter Handlers
+  # == Filter handlers
   def set_track_id
     @track_id = T.let(params.fetch(:spotify_track_id), T.nilable(String))
   end

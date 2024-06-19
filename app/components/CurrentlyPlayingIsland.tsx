@@ -166,7 +166,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
     [artists],
   );
 
-  // == Join Jam Session
+  // == Join jam session
   const { submit, processing } = useInertiaForm({
     action: routes.spotifyJamSessions.join,
     method: "post",
@@ -265,7 +265,7 @@ type MarqueeTextProps = TextProps & ComponentPropsWithoutRef<"p">;
 const MarqueeText: FC<MarqueeTextProps> = ({ children, ...otherProps }) => {
   const textRef = useRef<HTMLDivElement>(null);
 
-  // == Play State
+  // == Play state
   const [play, setPlay] = useState(false);
   useLayoutEffect(() => {
     const el = textRef.current;

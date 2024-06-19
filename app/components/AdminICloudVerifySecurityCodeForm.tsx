@@ -54,7 +54,7 @@ const AdminICloudVerifySecurityCodeForm: FC<
           loading={processing}
           leftSection={<SecurityCodeIcon />}
         >
-          Verify Code
+          Verify code
         </Button>
       </Stack>
     </Box>

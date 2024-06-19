@@ -26,7 +26,7 @@ Healthcheck.configure do |config|
   #   -> { Dotenv.require_keys("ENV_NAME", "ANOTHER_ENV") },
   # )
 
-  # == Custom Response
+  # == Custom response
   config.custom = ->(controller, checker) {
     controller.render(json: StatusSerializer.render(checker))
   }

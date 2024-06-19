@@ -20,7 +20,7 @@ module Admin
 
     private
 
-    # == Filter Handlers
+    # == Filter handlers
     sig { void }
     def set_credentials
       @credentials = T.let(

@@ -1,7 +1,22 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
-# == Schema Information
+# == Schema information
+#
+# Table name: timeline_photos
+#
+#  id          :uuid             not null, primary key
+#  fingerprint :text             not null
+#  timestamp   :datetime         not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+# Indexes
+#
+#  index_timeline_photos_on_fingerprint  (fingerprint) UNIQUE
+#  index_timeline_photos_on_timestamp    (timestamp)
+#
+# == Schema information
 #
 # Table name: timeline_photos
 #

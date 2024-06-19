@@ -28,11 +28,11 @@ const RequestEmailVerificationPage: PageComponent<
         <List.Item>
           <Text span inherit c="gray.6">
             <Anchor component={Link} href="/login" inherit>
-              Sign In
+              Sign in
             </Anchor>{" "}
             or{" "}
             <Anchor component={Link} href="/signup" inherit>
-              Sign Up
+              Sign up
             </Anchor>
           </Text>
         </List.Item>

@@ -24,7 +24,7 @@ const StrongPasswordInput: FC<StrongPasswordInputProps> = ({
   });
   const throttledValue = useThrottledValue(resolvedValue, 200);
 
-  // == Strength Check
+  // == Password strength check
   const { data, setFieldValue, submit } = useFetchForm<{ strength: number }>({
     action: routes.passwordStrengthChecks.create,
     method: "post",

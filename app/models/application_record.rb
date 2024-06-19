@@ -27,7 +27,7 @@ class ApplicationRecord < ActiveRecord::Base
   scope :chronological, -> { order(:created_at) }
   scope :reverse_chronological, -> { order(created_at: :desc) }
 
-  # == Pattern Matching
+  # == Pattern matching
   sig do
     params(keys: T.nilable(T::Array[Symbol]))
       .returns(T::Hash[Symbol, T.untyped])

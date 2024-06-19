@@ -50,7 +50,7 @@ module Admin
       )
     end
 
-    # == Filter Handlers
+    # == Filter handlers
     sig { void }
     def set_grant
       @grant = T.let(

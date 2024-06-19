@@ -24,7 +24,7 @@ module RemembersUserLocation
       (!request.xhr? || request.inertia?) && !devise_controller?
   end
 
-  # == Filter Handlers
+  # == Filter handlers
   sig { void }
   def store_user_location!
     store_location_for(:user, request.fullpath)

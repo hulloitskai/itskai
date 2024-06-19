@@ -38,7 +38,7 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
       }),
     });
 
-  // == Current Password Field
+  // == Conditionally show current password field
   const [emailFilled, setEmailFilled] = useState(false);
   watch("email", () => {
     setEmailFilled(isDirty("email") && isValid("email"));
@@ -89,7 +89,7 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
         </Transition>
         <Stack gap={6}>
           <Button type="submit" loading={processing}>
-            Change Email
+            Change email
           </Button>
           {user.unconfirmedEmail && (
             <ResendEmailVerificationInstructionsButton

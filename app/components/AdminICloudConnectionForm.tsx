@@ -26,7 +26,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
   onDisconnected,
   ...otherProps
 }) => {
-  // == Session Info
+  // == Session info
   const openSessionInfoModal = () => {
     openModal({
       title: (
@@ -143,7 +143,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
                   leftSection={<SecurityCodeIcon />}
                   onClick={openVerifySecurityCodeModal}
                 >
-                  Verify Security Code
+                  Verify security code
                 </Button>
               )}
               {!!credentials && (
@@ -152,7 +152,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
                   leftSection={<SessionIcon />}
                   onClick={openSessionInfoModal}
                 >
-                  Session Information
+                  Session information
                 </Button>
               )}
             </Group>

@@ -40,7 +40,7 @@ class AdminController < ApplicationController
 
   private
 
-  # == Filter Handlers
+  # == Filter handlers
   def authorize_admin!
     authorize!(with: AdminPolicy)
   end

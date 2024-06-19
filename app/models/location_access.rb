@@ -1,7 +1,7 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
-# == Schema Information
+# == Schema information
 #
 # Table name: location_accesses
 #
@@ -42,7 +42,7 @@ class LocationAccess < ApplicationRecord
 
   private
 
-  # == Callback Handlers
+  # == Callback handlers
   sig { void }
   def send_notification
     grant = grant!

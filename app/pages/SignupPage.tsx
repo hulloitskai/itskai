@@ -11,7 +11,7 @@ const SignupPage: PageComponent<SignupPageProps> = () => (
   <Card w={380} withBorder>
     <Stack gap="xs">
       <Stack align="center" gap={2}>
-        <Title size="h3">Sign Up</Title>
+        <Title size="h3">Sign up</Title>
         <Text size="sm" c="dimmed" lh={1.3}>
           Create an account on{" "}
           <Anchor component={Link} href="/" fw={600} c="primary.4">
@@ -49,7 +49,7 @@ const SignupPage: PageComponent<SignupPageProps> = () => (
 
 SignupPage.layout = buildLayout<SignupPageProps>(
   (page, { currentUser: authenticatedUser }) => (
-    <AppLayout title="Sign Up" {...{ authenticatedUser }}>
+    <AppLayout title="Sign up" {...{ authenticatedUser }}>
       <Center style={{ flexGrow: 1 }}>{page}</Center>
     </AppLayout>
   ),

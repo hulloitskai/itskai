@@ -50,7 +50,7 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
       },
     });
 
-  // == Current Password Field
+  // == Conditionally show current password field
   const [passwordFilled, setPasswordFilled] = useState(false);
   const [passwordConfirmationFilled, setPasswordConfirmationFilled] =
     useState(false);
@@ -65,7 +65,7 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <StrongPasswordInput
-          label="New Password"
+          label="New password"
           placeholder="ultra-secure-password"
           autoComplete="new-password"
           required
@@ -73,7 +73,7 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
           {...getInputProps("password")}
         />
         <PasswordInput
-          label="New Password (confirm)"
+          label="New password (confirm)"
           placeholder="ultra-secure-password"
           autoComplete="new-password"
           required
@@ -97,7 +97,7 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
           )}
         </Transition>
         <Button type="submit" loading={processing}>
-          Change Password
+          Change password
         </Button>
       </Stack>
     </Box>

@@ -22,7 +22,7 @@ module Users
 
     private
 
-    # == Filter Handlers
+    # == Filter handlers
     sig { void }
     def store_redirect_location
       if (url = params[:redirect_url].presence)

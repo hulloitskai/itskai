@@ -1,7 +1,17 @@
 # typed: true
 # frozen_string_literal: true
 
-# == Schema Information
+# == Schema information
+#
+# Table name: exploration_comments
+#
+#  id             :uuid             not null, primary key
+#  author_contact :string           not null
+#  message        :text             not null
+#  created_at     :datetime         not null
+#  exploration_id :string           not null
+#
+# == Schema information
 #
 # Table name: exploration_comments
 #
@@ -28,7 +38,7 @@ class ExplorationComment < ApplicationRecord
 
   private
 
-  # == Callback Handlers
+  # == Callback handlers
   sig { void }
   def send_notification
     NotificationsBot.send_message(

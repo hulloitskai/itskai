@@ -62,7 +62,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
         />
         <NumberInput
           {...getInputProps("expiresInHours")}
-          label="Expires In"
+          label="Expires in"
           required
           min={1}
           inputContainer={children => (
@@ -78,7 +78,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
           }}
         />
         <Button type="submit" loading={processing} leftSection={<AddIcon />}>
-          Create Grant
+          Create grant
         </Button>
       </Stack>
     </Box>

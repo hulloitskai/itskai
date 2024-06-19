@@ -65,7 +65,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
     return TORONTO_COORDINATES;
   });
 
-  // == Alert
+  // == Alert pulse state
   const [alertPulse, setAlertPulse] = useState(false);
   useEffect(() => {
     if (alertPulse) {
@@ -75,7 +75,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
     }
   }, [alertPulse]);
 
-  // == Location Subscription
+  // == Subscribe to location changes
   const locationSubscriptionFirstLoadRef = useRef(true);
   const locationSubscriptionParams = useMemo(
     () => ({ access_token: accessToken }),
@@ -182,7 +182,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
     return color;
   }, [theme]);
 
-  // == Trail Segments
+  // == Trail segments
   const trailSegmentColor = theme.colors.primary[4];
   const trailSegmentsData = useMemo<FeatureCollection | undefined>(() => {
     if (trailMarkersData) {

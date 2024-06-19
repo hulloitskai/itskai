@@ -16,7 +16,7 @@ class LocationChannel < ApplicationCable::Channel
     active_access_ids.delete(access_token!)
   end
 
-  # == Active Accesses
+  # == Active accesses
   class_attribute :active_access_ids, default: []
 
   # == Helpers

@@ -2,8 +2,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Layout/LineLength
-#
-# == Schema Information
+# == Schema information
 #
 # Table name: pensieve_messages
 #
@@ -25,6 +24,7 @@
 #  index_pensieve_messages_on_to         (to)
 #  index_pensieve_messages_uniqueness    (telegram_chat_id,telegram_message_id) UNIQUE
 #
+# rubocop:enable Layout/LineLength
 class PensieveMessage < ApplicationRecord
   include Identifiable
 

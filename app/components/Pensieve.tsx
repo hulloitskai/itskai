@@ -47,7 +47,7 @@ const Pensieve: FC<PensieveProps> = ({
   //   }, timeout);
   // }, []);
 
-  // == Messages Loading
+  // == Messages loading
   // const onLoadMessagesError = useApolloAlertCallback("Failed to load messages");
   // const { loading: loadingMessages } = useQuery(PensieveQueryDocument, {
   //   nextFetchPolicy: "standby",
@@ -159,7 +159,7 @@ const Pensieve: FC<PensieveProps> = ({
                       fw={800}
                       c={fromBot ? "primary.6" : "gray."}
                     >
-                      {fromBot ? "The Universe (you)" : "Kai"}
+                      {fromBot ? "The universe (you)" : "Kai"}
                     </Text>
                     <Stack gap={6} {...{ align }}>
                       {messages.map(message => (

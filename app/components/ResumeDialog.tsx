@@ -82,7 +82,7 @@ const ResumeDialog: FC<ResumeDialogProps> = ({ variant, ...otherProps }) => {
               variant="gradient"
               gradient={{ from: "pink", to: "orange", deg: 45 }}
             >
-              Give Feedback
+              Give feedback
             </Button>
           </Stack>
         </Group>

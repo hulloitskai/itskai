@@ -82,7 +82,7 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
           required
         />
         <Button type="submit" loading={processing}>
-          Sign Up
+          Sign up
         </Button>
       </Stack>
     </Box>

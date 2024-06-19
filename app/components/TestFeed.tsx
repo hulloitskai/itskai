@@ -9,7 +9,7 @@ const TestFeed: FC = () => {
 
   return (
     <Stack gap="xs">
-      <Title order={3}>Test Feed</Title>
+      <Title order={3}>Test feed</Title>
       <Box style={{ position: "relative" }}>
         <Code block>var data = {value ?? "undefined"};</Code>
       </Box>

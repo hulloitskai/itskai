@@ -1,7 +1,26 @@
 # typed: true
 # frozen_string_literal: true
 
-# == Schema Information
+# == Schema information
+#
+# Table name: journal_entries
+#
+#  id             :uuid             not null, primary key
+#  content        :jsonb
+#  last_edited_at :datetime         not null
+#  started_at     :datetime         not null
+#  synced_at      :datetime         not null
+#  title          :string           not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  notion_page_id :string           not null
+#
+# Indexes
+#
+#  index_journal_entries_on_notion_page_id  (notion_page_id) UNIQUE
+#  index_journal_entries_on_started_at      (started_at)
+#
+# == Schema information
 #
 # Table name: journal_entries
 #
