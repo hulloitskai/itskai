@@ -33,6 +33,7 @@ Rails.application.configure do
       error = T.let(error, Exception)
       Rails.logger.error("Good Job thread error: #{error}")
       Rails.error.report(error, handled: false)
+      Sentry.capture_exception(error)
     end
   end
 end

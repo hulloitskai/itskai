@@ -119,6 +119,7 @@ class JournalEntry < ApplicationRecord
         )
       end
       Rails.error.report(error, context: { notion_page_id: })
+      Sentry.capture_exception(error)
       raise error
     end
     removed_entries = JournalEntry

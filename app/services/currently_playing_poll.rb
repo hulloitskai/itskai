@@ -23,6 +23,7 @@ class CurrentlyPlayingPoll < ApplicationService
   rescue => error
     with_log_tags { logger.error("Failed to load currently playing: #{error}") }
     Rails.error.report(error)
+    Sentry.capture_exception(error)
     false
   end
 

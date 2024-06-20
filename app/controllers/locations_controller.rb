@@ -30,6 +30,8 @@ class LocationsController < ApplicationController
     with_log_tags do
       logger.error("Failed to show location: #{error}")
     end
+    Rails.error.report(error)
+    Sentry.capture_exception(error)
     redirect_to(
       location_path,
       alert: "Failed to access location: #{error}",

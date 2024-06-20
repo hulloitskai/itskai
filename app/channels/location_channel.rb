@@ -9,6 +9,8 @@ class LocationChannel < ApplicationCable::Channel
     stream_for(access)
     active_access_ids << access.id
   rescue StandardError => error
+    Rails.error.report(error)
+    Sentry.capture_exception(error)
     reject_with(error.message)
   end
 

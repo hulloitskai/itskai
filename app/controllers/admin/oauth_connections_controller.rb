@@ -15,6 +15,8 @@ module Admin
       with_log_tags do
         logger.error("Failed to destroy OAuth credentials: #{error}")
       end
+      Rails.error.report(error)
+      Sentry.capture_exception(error)
       render(json: { error: error.message })
     end
 

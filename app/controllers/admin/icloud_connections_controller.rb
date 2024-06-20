@@ -35,6 +35,8 @@ module Admin
       with_log_tags do
         logger.error("Failed to authenticate with iCloud: #{error.message}")
       end
+      Rails.error.report(error)
+      Sentry.capture_exception(error)
       render(json: { error: error.message }, status: :internal_server_error)
     end
 
@@ -61,6 +63,8 @@ module Admin
       with_log_tags do
         logger.error("Failed to remove iCloud credentials: #{error}")
       end
+      Rails.error.report(error)
+      Sentry.capture_exception(error)
       render(json: { error: error.message }, status: :internal_server_error)
     end
 
