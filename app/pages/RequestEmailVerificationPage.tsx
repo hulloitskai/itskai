@@ -1,10 +1,7 @@
-import type { PageComponent } from "~/helpers/inertia";
 import { Text } from "@mantine/core";
 
 import AppLayout from "~/components/AppLayout";
 import RequestEmailVerificationPageForm from "~/components/RequestEmailVerificationPageForm";
-
-import { SharedPageProps } from "~/types";
 
 export interface RequestEmailVerificationPageProps extends SharedPageProps {}
 

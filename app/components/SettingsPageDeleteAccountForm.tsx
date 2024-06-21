@@ -1,6 +1,3 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
-import type { BoxProps } from "@mantine/core";
-
 export interface SettingsPageDeleteAccountFormProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {}

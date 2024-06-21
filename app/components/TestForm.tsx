@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import { Code, Text } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 

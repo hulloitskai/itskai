@@ -1,5 +1,3 @@
-import type { FC, PropsWithChildren } from "react";
-
 import type { PreviewProps } from "@react-email/components";
 import {
   Body,

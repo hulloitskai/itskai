@@ -1,9 +1,4 @@
-import type { PageComponent } from "~/helpers/inertia";
-import type {
-  ICloudConnection,
-  OAuthConnection,
-  SharedPageProps,
-} from "~/types";
+import type { ICloudConnection, OAuthConnection } from "~/types";
 import { Text } from "@mantine/core";
 
 import AppLayout from "~/components/AppLayout";

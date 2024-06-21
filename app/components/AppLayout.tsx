@@ -1,4 +1,3 @@
-import type { FC } from "react";
 import type { User } from "~/types";
 
 import type { AppShellProps, ContainerProps, MantineSize } from "@mantine/core";

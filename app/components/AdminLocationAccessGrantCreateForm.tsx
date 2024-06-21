@@ -1,7 +1,5 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import type { LocationAccessGrant } from "~/types";
 
-import type { BoxProps } from "@mantine/core";
 import { NumberInput, Text } from "@mantine/core";
 import { isNotEmpty } from "@mantine/form";
 

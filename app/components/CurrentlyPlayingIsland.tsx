@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef, FC, ReactNode } from "react";
+import type { ReactNode } from "react";
 import type {
   CurrentlyPlaying,
   CurrentlyPlayingMetadata,
@@ -8,7 +8,7 @@ import Marquee from "react-fast-marquee";
 import { motion } from "framer-motion";
 import PlayIcon from "~icons/heroicons/play-circle-20-solid";
 
-import type { BoxProps, ImageProps, TextProps } from "@mantine/core";
+import type { ImageProps, TextProps } from "@mantine/core";
 import { Image, Text } from "@mantine/core";
 import { useNetwork } from "@mantine/hooks";
 

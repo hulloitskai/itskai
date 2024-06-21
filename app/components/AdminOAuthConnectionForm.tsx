@@ -1,6 +1,4 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import type { OAuthConnection } from "~/types";
-import type { BoxProps } from "@mantine/core";
 
 import FormAuthenticityField from "./FormAuthenticityField";
 

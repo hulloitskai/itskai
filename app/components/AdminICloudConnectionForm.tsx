@@ -1,9 +1,7 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import type { ICloudConnection } from "~/types";
 import SessionIcon from "~icons/heroicons/identification-20-solid";
 import SecurityCodeIcon from "~icons/heroicons/key-20-solid";
 
-import type { BoxProps } from "@mantine/core";
 import { JsonInput, PasswordInput, Text } from "@mantine/core";
 import { isNotEmpty } from "@mantine/form";
 

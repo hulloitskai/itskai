@@ -1,6 +1,3 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
-import type { BoxProps } from "@mantine/core";
-
 import AvatarField from "./AvatarField";
 
 export interface SettingsPageProfileFormProps

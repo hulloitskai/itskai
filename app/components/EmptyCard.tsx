@@ -1,4 +1,3 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import { Text } from "@mantine/core";
 import type { CardProps } from "@mantine/core";
 

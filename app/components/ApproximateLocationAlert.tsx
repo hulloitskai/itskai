@@ -1,4 +1,3 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import type { ApproximateLocation } from "~/types";
 import LocationIcon from "~icons/heroicons/map-pin-20-solid";
 

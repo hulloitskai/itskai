@@ -1,5 +1,4 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
-import type { BoxProps, MantineSize } from "@mantine/core";
+import type { MantineSize } from "@mantine/core";
 
 import classes from "./LocationAccessForm.module.css";
 import { isNotEmpty } from "@mantine/form";

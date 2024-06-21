@@ -1,7 +1,6 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import type { User } from "~/types";
 
-import type { BoxProps, ButtonProps } from "@mantine/core";
+import type { ButtonProps } from "@mantine/core";
 import { PasswordInput, Text } from "@mantine/core";
 import { isEmail, isNotEmpty } from "@mantine/form";
 

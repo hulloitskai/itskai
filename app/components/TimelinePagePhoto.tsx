@@ -1,4 +1,3 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import { usePresence } from "framer-motion";
 
 import type { ImageProps } from "@mantine/core";

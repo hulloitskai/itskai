@@ -1,4 +1,3 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
 
 import { ActionIcon, Text } from "@mantine/core";

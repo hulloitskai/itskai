@@ -1,4 +1,3 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import type { ButtonProps } from "@mantine/core";
 
 import type { TimelinePhotosImportFormProps } from "./TimelinePhotosImportForm";

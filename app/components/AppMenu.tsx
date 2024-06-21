@@ -1,5 +1,4 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
-
+import { Loader, Text } from "@mantine/core";
 import Lottie from "lottie-react";
 import type { LottieRefCurrentProps } from "lottie-react";
 
@@ -10,9 +9,6 @@ import SmileIcon from "~icons/heroicons/face-smile-20-solid";
 import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
 import LocateIcon from "~icons/lucide/locate-fixed";
 import HomeIcon from "~icons/heroicons/home-20-solid";
-
-import { Loader, Text } from "@mantine/core";
-import type { BoxProps } from "@mantine/core";
 
 import { useContactMe } from "~/helpers/contactMe";
 

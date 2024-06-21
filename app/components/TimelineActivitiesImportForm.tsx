@@ -1,6 +1,3 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
-import type { BoxProps } from "@mantine/core";
-
 import FileField from "./FileField";
 
 export interface TimelineActivitiesImportFormProps

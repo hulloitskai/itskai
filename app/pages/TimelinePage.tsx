@@ -1,5 +1,3 @@
-import type { PageComponent } from "~/helpers/inertia";
-import type { SharedPageProps } from "~/types";
 import type { Feature, LineString, Point } from "geojson";
 import { DateTime } from "luxon";
 import { AnimatePresence } from "framer-motion";

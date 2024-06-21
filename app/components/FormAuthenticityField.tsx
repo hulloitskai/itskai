@@ -1,5 +1,3 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
-
 export interface FormAuthenticityFieldProps
   extends ComponentPropsWithoutRef<"input"> {}
 

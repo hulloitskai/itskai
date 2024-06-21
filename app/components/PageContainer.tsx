@@ -1,4 +1,3 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import type { ContainerProps, MantineSize } from "@mantine/core";
 import { getSize, getSpacing } from "@mantine/core";
 

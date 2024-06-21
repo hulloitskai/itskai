@@ -1,4 +1,3 @@
-import type { FC } from "react";
 import { usePageVisibilityChange } from "~/helpers/page";
 
 const APP_META_SITE_TYPE = "website";

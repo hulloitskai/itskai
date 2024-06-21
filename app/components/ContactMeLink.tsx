@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from "react";
+import type { ReactNode } from "react";
 import type { AnchorProps } from "@mantine/core";
 
 import { useContactMe } from "~/helpers/contactMe";

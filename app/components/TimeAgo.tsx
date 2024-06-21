@@ -1,4 +1,3 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import { DateTime } from "luxon";
 import { format as formatTimeAgo } from "timeago.js";
 

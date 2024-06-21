@@ -1,5 +1,4 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
-import { BoxProps, PasswordInput } from "@mantine/core";
+import { PasswordInput } from "@mantine/core";
 
 import StrongPasswordInput from "./StrongPasswordInput";
 

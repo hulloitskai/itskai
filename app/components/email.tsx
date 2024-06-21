@@ -1,4 +1,3 @@
-import type { ComponentPropsWithoutRef } from "react";
 import { getRadius } from "@mantine/core";
 
 import { Button as MantineButton } from "@mantine/core";

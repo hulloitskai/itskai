@@ -1,11 +1,9 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import type { NotionComment } from "~/types";
 import { RenderText } from "@9gustin/react-notion-render";
 
 import CommentIcon from "~icons/heroicons/chat-bubble-bottom-center-text-20-solid";
 import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
 
-import type { BoxProps } from "@mantine/core";
 import { ActionIcon, Text } from "@mantine/core";
 
 import classes from "./JournalEntryCommentsStack.module.css";

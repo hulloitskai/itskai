@@ -1,6 +1,4 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import type { Exploration } from "~/types";
-import type { BoxProps } from "@mantine/core";
 
 import ExplorationCommentForm from "./ExplorationCommentForm";
 

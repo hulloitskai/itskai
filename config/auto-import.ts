@@ -1,7 +1,11 @@
+import { InlinePreset } from "unimport";
 import type { ImportsMap, PresetName } from "unplugin-auto-import/types";
 
-export const imports: Array<ImportsMap | PresetName> = [
+export const imports: Array<ImportsMap | PresetName | InlinePreset> = [
+  // == Presets
   "react",
+
+  // == Exports
   {
     "~/components": ["AnchorContainer", "EmptyCard", "Head", "Time", "TimeAgo"],
     "~/components/icons": [
@@ -110,8 +114,29 @@ export const imports: Array<ImportsMap | PresetName> = [
       "uniqBy",
     ],
     "@uidotdev/usehooks": ["usePrevious", "useIsClient"],
-    "is-url": [["default", "isUrl"]],
     luxon: ["DateTime", "Duration"],
     "tiny-invariant": [["default", "invariant"]],
+  },
+
+  // == Types
+  {
+    from: "react",
+    imports: ["ComponentPropsWithoutRef", "FC", "PropsWithChildren"],
+    type: true,
+  },
+  {
+    from: "@mantine/core",
+    imports: ["BoxProps"],
+    type: true,
+  },
+  {
+    from: "~/helpers/inertia",
+    imports: ["PageComponent"],
+    type: true,
+  },
+  {
+    from: "~/types/SharedPageProps",
+    imports: [["default", "SharedPageProps"]],
+    type: true,
   },
 ];

@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import type { DeleteButtonProps } from "./DeleteButton";
 import DeleteButton from "./DeleteButton";
 

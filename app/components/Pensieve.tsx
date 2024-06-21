@@ -1,9 +1,8 @@
-import type { CSSProperties, ComponentPropsWithoutRef, FC } from "react";
+import type { CSSProperties } from "react";
 import { DateTime } from "luxon";
 import ExpandIcon from "~icons/heroicons/arrows-pointing-out-20-solid";
 
 import { ActionIcon, ScrollArea, Text } from "@mantine/core";
-import type { BoxProps } from "@mantine/core";
 
 import PensieveMessage from "./PensieveMessage";
 import PensieveChatBox from "./PensieveChatBox";

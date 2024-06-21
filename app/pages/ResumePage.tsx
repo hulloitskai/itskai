@@ -1,5 +1,4 @@
-import type { SharedPageProps, Resume } from "~/types";
-import type { PageComponent } from "~/helpers/inertia";
+import type { Resume } from "~/types";
 import { MantineProvider, Text, DEFAULT_THEME } from "@mantine/core";
 
 import EnvelopeIcon from "~icons/heroicons/envelope-20-solid";

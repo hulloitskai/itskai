@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 import type { PasswordInputProps } from "@mantine/core";
 import { PasswordInput, Progress } from "@mantine/core";
 import { useThrottledValue, useUncontrolled } from "@mantine/hooks";

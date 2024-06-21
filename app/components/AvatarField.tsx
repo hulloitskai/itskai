@@ -1,4 +1,3 @@
-import type { FC } from "react";
 import type { Image as ImageModel } from "~/types";
 import { upload } from "~/helpers/upload";
 import PhotoIcon from "~icons/heroicons/photo-20-solid";

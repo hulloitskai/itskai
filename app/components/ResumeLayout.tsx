@@ -1,5 +1,3 @@
-import type { FC, PropsWithChildren } from "react";
-
 import AppMeta from "./AppMeta";
 
 import "./ResumeLayout.css";

@@ -1,4 +1,3 @@
-import type { FC } from "react";
 // import prettyBytes from "pretty-bytes";
 
 import type { CardProps } from "@mantine/core";

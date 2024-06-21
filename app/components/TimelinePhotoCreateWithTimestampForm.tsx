@@ -1,7 +1,5 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import { DateTimePicker } from "@mantine/dates";
 
-import type { BoxProps } from "@mantine/core";
 import { Radio } from "@mantine/core";
 
 import FileField from "./FileField";

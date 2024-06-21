@@ -1,4 +1,3 @@
-import type { FC, PropsWithChildren } from "react";
 import { MantineProvider } from "@mantine/core";
 import { THEME } from "~/helpers/mantine";
 

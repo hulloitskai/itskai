@@ -43,6 +43,7 @@ declare global {
   const SearchIcon: typeof import('~/components/icons')['SearchIcon']
   const SendIcon: typeof import('~/components/icons')['SendIcon']
   const SettingsIcon: typeof import('~/components/icons')['SettingsIcon']
+  const SharedPageProps: typeof import('~/types/SharedPageProps')['default']
   const Skeleton: typeof import('@mantine/core')['Skeleton']
   const Space: typeof import('@mantine/core')['Space']
   const Stack: typeof import('@mantine/core')['Stack']
@@ -138,4 +139,19 @@ declare global {
   const useTransition: typeof import('react')['useTransition']
   const useViewportSize: typeof import('@mantine/hooks')['useViewportSize']
   const useWindowEvent: typeof import('@mantine/hooks')['useWindowEvent']
+}
+// for type re-export
+declare global {
+  // @ts-ignore
+  export type { ComponentPropsWithoutRef, FC, PropsWithChildren } from 'react'
+  import('react')
+  // @ts-ignore
+  export type { BoxProps } from '@mantine/core'
+  import('@mantine/core')
+  // @ts-ignore
+  export type { PageComponent } from '~/helpers/inertia'
+  import('~/helpers/inertia')
+  // @ts-ignore
+  export type { default as SharedPageProps } from '~/types/SharedPageProps'
+  import('~/types/SharedPageProps')
 }

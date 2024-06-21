@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 const PageMeta: FC = () => {
   const { csrf } = usePageProps();
   return (

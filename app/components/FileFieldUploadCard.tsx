@@ -1,4 +1,3 @@
-import type { FC } from "react";
 import type { Blob } from "@rails/activestorage";
 import { useUpload } from "~/helpers/upload";
 

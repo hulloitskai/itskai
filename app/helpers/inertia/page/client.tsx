@@ -1,4 +1,3 @@
-import type { SharedPageProps } from "~/types";
 import type { PageComponent } from ".";
 
 import PageLayout from "~/components/PageLayout";

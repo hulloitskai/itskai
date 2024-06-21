@@ -1,8 +1,6 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import type { ICloudConnection } from "~/types";
 import SecurityCodeIcon from "~icons/heroicons/key-20-solid";
 
-import type { BoxProps } from "@mantine/core";
 import { InputWrapper, PinInput } from "@mantine/core";
 
 export interface AdminICloudVerifySecurityCodeFormProps

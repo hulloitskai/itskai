@@ -1,6 +1,3 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
-import type { BoxProps } from "@mantine/core";
-
 import { Render as NotionRenderer } from "@9gustin/react-notion-render";
 import type { WithContentValidationProps as NotionComponentProps } from "@9gustin/react-notion-render/dist/hoc/withContentValidation";
 

@@ -1,6 +1,4 @@
-import type { FC, PropsWithChildren } from "react";
 import type { Page } from "@inertiajs/core";
-import type { SharedPageProps } from "~/types";
 
 import AppMantineProvider from "./AppMantineProvider";
 import AppProgress from "./AppProgress";

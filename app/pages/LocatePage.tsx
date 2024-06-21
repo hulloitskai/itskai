@@ -1,4 +1,3 @@
-import type { PageComponent } from "~/helpers/inertia";
 import type { Feature, FeatureCollection, Point } from "geojson";
 import type {
   ApproximateLocation,
@@ -6,7 +5,6 @@ import type {
   LocationAccessGrant,
   LocationTrailMarker,
   LocationWithTrail,
-  SharedPageProps,
 } from "~/types";
 import ClockIcon from "~icons/heroicons/clock-20-solid";
 import circle from "@turf/circle";

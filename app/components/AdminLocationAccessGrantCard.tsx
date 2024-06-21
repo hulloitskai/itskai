@@ -1,7 +1,5 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import type { LocationAccessGrant } from "~/types";
 
-import type { BoxProps } from "@mantine/core";
 import { Code, CopyButton, Text } from "@mantine/core";
 
 import type { AdminLocationAccessGrantDeleteButtonProps } from "./AdminLocationAccessGrantDeleteButton";

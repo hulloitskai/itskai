@@ -1,4 +1,3 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import type { ButtonProps } from "@mantine/core";
 
 import DocumentIcon from "~icons/heroicons/document-20-solid";

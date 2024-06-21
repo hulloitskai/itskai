@@ -1,4 +1,3 @@
-import type { FC, PropsWithChildren } from "react";
 import { ActionCableContext } from "~/helpers/actioncable";
 
 import type { Consumer } from "@rails/actioncable";

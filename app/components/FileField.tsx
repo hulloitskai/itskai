@@ -6,8 +6,8 @@ import RejectIcon from "~icons/heroicons/no-symbol-20-solid";
 import type { DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
 
+import type { InputWrapperProps } from "@mantine/core";
 import { Input, Text } from "@mantine/core";
-import type { BoxProps, InputWrapperProps } from "@mantine/core";
 
 import FileFieldUploadCard from "./FileFieldUploadCard";
 import FileFieldFileCard from "./FileFieldFileCard";

@@ -1,5 +1,3 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
-import type { BoxProps } from "@mantine/core";
 import { isEmail } from "@mantine/form";
 
 export interface RequestEmailVerificationPageFormProps

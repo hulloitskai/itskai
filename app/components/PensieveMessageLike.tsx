@@ -1,9 +1,7 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import HeartFilledIcon from "~icons/heroicons/heart-20-solid";
 import HeartUnfilledIcon from "~icons/heroicons/heart";
 
 import { Loader, Text } from "@mantine/core";
-import type { BoxProps } from "@mantine/core";
 
 type PensieveMessageLikeMessageFragment = any;
 

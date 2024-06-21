@@ -1,4 +1,3 @@
-import type { FC } from "react";
 import type { ResumeWorkInfo } from "~/types/Resume";
 
 import { Highlight, Text } from "@mantine/core";

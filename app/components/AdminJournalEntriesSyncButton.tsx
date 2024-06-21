@@ -1,4 +1,3 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import type { ButtonProps } from "@mantine/core";
 import SyncIcon from "~icons/heroicons/cloud-arrow-down-20-solid";
 

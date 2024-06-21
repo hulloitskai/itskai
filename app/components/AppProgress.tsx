@@ -1,4 +1,3 @@
-import type { FC } from "react";
 import { router } from "@inertiajs/react";
 import { NavigationProgress, nprogress } from "@mantine/nprogress";
 

@@ -1,5 +1,3 @@
-import type { FC, PropsWithChildren } from "react";
-
 import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
 

@@ -1,12 +1,11 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
-import type { BoxProps } from "@mantine/core";
 import { PasswordInput } from "@mantine/core";
 
 import StrongPasswordInput from "./StrongPasswordInput";
 import { isEmail, isNotEmpty } from "@mantine/form";
 
-export type SignupPageFormProps = BoxProps &
-  Omit<ComponentPropsWithoutRef<"form">, "children" | "onSubmit">;
+export interface SignupPageFormProps
+  extends BoxProps,
+    Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {}
 
 const SignupPageForm: FC<SignupPageFormProps> = props => {
   const [passwordStrength, setPasswordStrength] = useState(0.0);

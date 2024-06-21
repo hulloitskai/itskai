@@ -1,6 +1,4 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import type { JournalEntry } from "~/types";
-import type { BoxProps } from "@mantine/core";
 import scrollIntoView from "scroll-into-view";
 
 import NextIcon from "~icons/heroicons/arrow-path-rounded-square-20-solid";

@@ -1,9 +1,6 @@
-import type { ComponentPropsWithoutRef, FC, PropsWithChildren } from "react";
 import type { JournalEntry } from "~/types";
-import LinkIcon from "~icons/heroicons/link-20-solid";
-
 import { ActionIcon, CopyButton, Text } from "@mantine/core";
-import type { BoxProps } from "@mantine/core";
+import LinkIcon from "~icons/heroicons/link-20-solid";
 
 import NotionContent from "./NotionContent";
 import JournalEntryCommentsStack from "./JournalEntryCommentsStack";

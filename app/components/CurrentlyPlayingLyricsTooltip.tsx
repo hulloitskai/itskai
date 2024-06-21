@@ -1,8 +1,8 @@
-import type { FC, ReactNode } from "react";
+import type { ReactNode } from "react";
 import type { LyricLine, RSpotifyTrack } from "~/types";
 
-import { useHover } from "@mantine/hooks";
 import type { TooltipProps } from "@mantine/core";
+import { useHover } from "@mantine/hooks";
 
 import {
   useInterpolatedProgressMs,

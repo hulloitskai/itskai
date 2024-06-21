@@ -1,4 +1,3 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import type { ButtonProps } from "@mantine/core";
 
 export interface AdminICloudDisconnectButtonProps

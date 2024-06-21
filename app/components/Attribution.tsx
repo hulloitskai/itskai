@@ -1,8 +1,6 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
 import CodeIcon from "~icons/heroicons/code-bracket-20-solid";
 
 import { HoverCard, Image, Text } from "@mantine/core";
-import type { BoxProps } from "@mantine/core";
 
 import heartSrc from "~/assets/images/heart.png";
 

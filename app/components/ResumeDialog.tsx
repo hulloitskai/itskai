@@ -1,10 +1,8 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
-
 import DocumentIcon from "~icons/heroicons/document-20-solid";
 import MenuIcon from "~icons/heroicons/bars-3-20-solid";
 import FeedbackIcon from "~icons/heroicons/megaphone-20-solid";
 
-import { ActionIcon, Affix, BoxProps, Dialog, Text } from "@mantine/core";
+import { ActionIcon, Affix, Dialog, Text } from "@mantine/core";
 import { useDisclosure, useWindowScroll } from "@mantine/hooks";
 
 export interface ResumeDialogProps

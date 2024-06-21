@@ -1,11 +1,7 @@
-import type {
-  ComponentPropsWithoutRef,
-  FC,
-  JSXElementConstructor,
-} from "react";
+import type { JSXElementConstructor } from "react";
 import Linkify from "linkify-react";
 
-import type { BoxProps, TextProps } from "@mantine/core";
+import type { TextProps } from "@mantine/core";
 import { Text } from "@mantine/core";
 import { useTimeout } from "@mantine/hooks";
 

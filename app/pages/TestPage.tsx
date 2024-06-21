@@ -1,7 +1,4 @@
-import type { ComponentPropsWithoutRef, FC } from "react";
-import type { PageComponent } from "~/helpers/inertia";
-import type { SharedPageProps } from "~/types";
-import { BoxProps, Text } from "@mantine/core";
+import { Text } from "@mantine/core";
 
 import ExclamationCircleIcon from "~icons/heroicons/exclamation-circle-20-solid";
 import PencilSquareIcon from "~icons/heroicons/pencil-square-20-solid";

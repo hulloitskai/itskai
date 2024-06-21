@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 const PageTracking: FC = () => {
   const { component } = usePage();
 

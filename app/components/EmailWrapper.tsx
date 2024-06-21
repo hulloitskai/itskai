@@ -1,5 +1,3 @@
-import type { FC, PropsWithChildren } from "react";
-
 import EmailMantineProvider from "./EmailMantineProvider";
 
 export interface EmailWrapperProps extends PropsWithChildren {}

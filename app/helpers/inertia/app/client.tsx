@@ -1,7 +1,6 @@
 import type { ReactElement } from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";
-import type { SharedPageProps } from "~/types";
 
 import AppWrapper from "~/components/AppWrapper";
 

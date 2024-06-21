@@ -1,5 +1,3 @@
-import type { PageComponent } from "~/helpers/inertia";
-import type { SharedPageProps } from "~/types";
 import { Text } from "@mantine/core";
 
 import AppLayout from "~/components/AppLayout";

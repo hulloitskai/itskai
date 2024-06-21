@@ -1,10 +1,4 @@
-import type { PageComponent } from "~/helpers/inertia";
-import type {
-  ApproximateLocation,
-  Exploration,
-  JournalEntry,
-  SharedPageProps,
-} from "~/types";
+import type { ApproximateLocation, Exploration, JournalEntry } from "~/types";
 import { Text } from "@mantine/core";
 import BellIcon from "~icons/heroicons/bell-20-solid";
 
