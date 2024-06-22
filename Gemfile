@@ -183,9 +183,6 @@ gem "playwright-ruby-client", "~> 1.43", require: 'playwright'
 # OpenAI client
 gem "ruby-openai", "~> 6.3"
 
-# Process audio with ffmpeg
-gem "streamio-ffmpeg", "~> 3.0"
-
 # Analyze image metadata with Exiftool
 gem "exiftool", "~> 1.2"
 

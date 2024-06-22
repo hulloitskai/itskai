@@ -30,8 +30,4 @@ class ApplicationModel
   def deconstruct_keys(keys)
     attributes.symbolize_keys.slice(*keys)
   end
-
-  # == GraphQL
-  sig { returns(InputFieldErrors) }
-  def input_field_errors = InputFieldErrors.from(errors)
 end
