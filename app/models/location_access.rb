@@ -1,7 +1,9 @@
 # typed: true
 # frozen_string_literal: true
 
-# == Schema information
+# rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective
+#
+# == Schema Information
 #
 # Table name: location_accesses
 #
@@ -19,6 +21,7 @@
 #
 #  fk_rails_...  (grant_id => location_access_grants.id)
 #
+# rubocop:enable Layout/LineLength
 class LocationAccess < ApplicationRecord
   include Identifiable
 

@@ -1,7 +1,9 @@
 # typed: true
 # frozen_string_literal: true
 
-# == Schema information
+# rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective
+#
+# == Schema Information
 #
 # Table name: location_access_grants
 #
@@ -15,48 +17,7 @@
 #
 #  index_location_access_grants_on_password  (password)
 #
-# == Schema information
-#
-# Table name: location_access_grants
-#
-#  id         :uuid             not null, primary key
-#  expires_at :datetime         not null
-#  password   :string           not null
-#  recipient  :string           not null
-#  created_at :datetime         not null
-#
-# Indexes
-#
-#  index_location_access_grants_on_password  (password)
-#
-# == Schema information
-#
-# Table name: location_access_grants
-#
-#  id         :uuid             not null, primary key
-#  expires_at :datetime         not null
-#  password   :string           not null
-#  recipient  :string           not null
-#  created_at :datetime         not null
-#
-# Indexes
-#
-#  index_location_access_grants_on_password  (password)
-#
-# == Schema information
-#
-# Table name: location_access_grants
-#
-#  id         :uuid             not null, primary key
-#  expires_at :datetime         not null
-#  password   :string           not null
-#  recipient  :string           not null
-#  created_at :datetime         not null
-#
-# Indexes
-#
-#  index_location_access_grants_on_password  (password)
-#
+# rubocop:enable Layout/LineLength
 class LocationAccessGrant < ApplicationRecord
   # == Attributes
   sig { returns(Time) }

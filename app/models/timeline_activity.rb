@@ -1,7 +1,9 @@
 # typed: true
 # frozen_string_literal: true
 
-# == Schema information
+# rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective
+#
+# == Schema Information
 #
 # Table name: timeline_activities
 #
@@ -20,63 +22,7 @@
 #
 #  index_timeline_activities_uniqueness  (type,duration) UNIQUE
 #
-# == Schema information
-#
-# Table name: timeline_activities
-#
-#  id            :uuid             not null, primary key
-#  address       :string
-#  confidence    :integer          not null
-#  duration      :tstzrange
-#  location      :geography        not null, geometry, 4326
-#  name          :string
-#  timezone_name :string           not null
-#  type          :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#
-# Indexes
-#
-#  index_timeline_activities_uniqueness  (type,duration) UNIQUE
-#
-# == Schema information
-#
-# Table name: timeline_activities
-#
-#  id            :uuid             not null, primary key
-#  address       :string
-#  confidence    :integer          not null
-#  duration      :tstzrange
-#  location      :geography        not null, geometry, 4326
-#  name          :string
-#  timezone_name :string           not null
-#  type          :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#
-# Indexes
-#
-#  index_timeline_activities_uniqueness  (type,duration) UNIQUE
-#
-# == Schema information
-#
-# Table name: timeline_activities
-#
-#  id            :uuid             not null, primary key
-#  address       :string
-#  confidence    :integer          not null
-#  duration      :tstzrange
-#  location      :geography        not null, geometry, 4326
-#  name          :string
-#  timezone_name :string           not null
-#  type          :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#
-# Indexes
-#
-#  index_timeline_activities_uniqueness  (type,duration) UNIQUE
-#
+# rubocop:enable Layout/LineLength
 class TimelineActivity < ApplicationRecord
   # == Configuration
   self.inheritance_column = nil

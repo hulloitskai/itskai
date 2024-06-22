@@ -1,7 +1,9 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
-# == Schema information
+# rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective
+#
+# == Schema Information
 #
 # Table name: obsidian_stubs
 #
@@ -14,45 +16,7 @@
 #
 #  index_obsidian_stubs_on_name  (name) UNIQUE
 #
-# == Schema information
-#
-# Table name: obsidian_stubs
-#
-#  id         :uuid             not null, primary key
-#  name       :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-# Indexes
-#
-#  index_obsidian_stubs_on_name  (name) UNIQUE
-#
-# == Schema information
-#
-# Table name: obsidian_stubs
-#
-#  id         :uuid             not null, primary key
-#  name       :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-# Indexes
-#
-#  index_obsidian_stubs_on_name  (name) UNIQUE
-#
-# == Schema information
-#
-# Table name: obsidian_stubs
-#
-#  id         :uuid             not null, primary key
-#  name       :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-# Indexes
-#
-#  index_obsidian_stubs_on_name  (name) UNIQUE
-#
+# rubocop:enable Layout/LineLength
 class ObsidianStub < ApplicationRecord
   include Identifiable
   include ObsidianEntry

@@ -1,7 +1,9 @@
 # typed: strict
 # frozen_string_literal: true
 
-# == Schema information
+# rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective
+#
+# == Schema Information
 #
 # Table name: obsidian_notes
 #
@@ -32,6 +34,7 @@
 #  index_obsidian_notes_on_slug         (slug) UNIQUE
 #  index_obsidian_notes_on_tags         (tags)
 #
+# rubocop:enable Layout/LineLength
 class ObsidianNote < ApplicationRecord
   extend FriendlyId
   include Identifiable

@@ -1,7 +1,9 @@
 # typed: true
 # frozen_string_literal: true
 
-# == Schema information
+# rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective
+#
+# == Schema Information
 #
 # Table name: location_log_addresses
 #
@@ -26,6 +28,7 @@
 #
 #  fk_rails_...  (location_log_id => location_logs.id)
 #
+# rubocop:enable Layout/LineLength
 class LocationLogAddress < ApplicationRecord
   include Identifiable
 

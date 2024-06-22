@@ -1,7 +1,9 @@
 # typed: true
 # frozen_string_literal: true
 
-# == Schema information
+# rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective
+#
+# == Schema Information
 #
 # Table name: oauth_credentials
 #
@@ -16,51 +18,7 @@
 #
 #  index_oauth_credentials_on_provider_and_uid  (provider,uid) UNIQUE
 #
-# == Schema information
-#
-# Table name: oauth_credentials
-#
-#  id            :uuid             not null, primary key
-#  provider      :string           not null
-#  refresh_token :string           not null
-#  uid           :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#
-# Indexes
-#
-#  index_oauth_credentials_on_provider_and_uid  (provider,uid) UNIQUE
-#
-# == Schema information
-#
-# Table name: oauth_credentials
-#
-#  id            :uuid             not null, primary key
-#  provider      :string           not null
-#  refresh_token :string           not null
-#  uid           :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#
-# Indexes
-#
-#  index_oauth_credentials_on_provider_and_uid  (provider,uid) UNIQUE
-#
-# == Schema information
-#
-# Table name: oauth_credentials
-#
-#  id            :uuid             not null, primary key
-#  provider      :string           not null
-#  refresh_token :string           not null
-#  uid           :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#
-# Indexes
-#
-#  index_oauth_credentials_on_provider_and_uid  (provider,uid) UNIQUE
-#
+# rubocop:enable Layout/LineLength
 class OAuthCredentials < ApplicationRecord
   # == Validations
   validates :provider, :uid, presence: true

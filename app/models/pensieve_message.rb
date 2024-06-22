@@ -1,8 +1,9 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
-# rubocop:disable Layout/LineLength
-# == Schema information
+# rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective
+#
+# == Schema Information
 #
 # Table name: pensieve_messages
 #

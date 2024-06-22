@@ -1,7 +1,9 @@
 # typed: true
 # frozen_string_literal: true
 
-# == Schema information
+# rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective
+#
+# == Schema Information
 #
 # Table name: cathendant_memos
 #
@@ -12,16 +14,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
-# == Schema information
-#
-# Table name: cathendant_memos
-#
-#  id             :uuid             not null, primary key
-#  transcribed_at :datetime
-#  transcript     :text
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#
+# rubocop:enable Layout/LineLength
 class CathendantMemo < ApplicationRecord
   include Identifiable
 

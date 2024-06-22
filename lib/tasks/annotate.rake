@@ -1,11 +1,13 @@
-# rubocop:disable Rails/RakeEnvironment
+# rubocop:disable Rails/RakeEnvironment, Layout/LineLength
 # typed: false
 # frozen_string_literal: true
 
 return unless Rails.env.development?
 
 require "annotate"
-require "annotate_ext"
+
+AnnotateModels.send(:remove_const, :MAGIC_COMMENT_MATCHER)
+AnnotateModels::MAGIC_COMMENT_MATCHER = /(^#\s*encoding:.*(?:\n|r\n))|(^# coding:.*(?:\n|\r\n))|(^# -\*- coding:.*(?:\n|\r\n))|(^# -\*- encoding\s?:.*(?:\n|\r\n))|(^#\s*frozen_string_literal:.+(?:\n|\r\n))|(^# -\*- frozen_string_literal\s*:.+-\*-(?:\n|\r\n))|(^#\s*typed:.+(?:\n|\r\n))/
 
 task :set_annotation_options do
   # You can override any of these by setting an environment variable of the
@@ -52,8 +54,8 @@ task :set_annotation_options do
     frozen: false,
     classified_sort: true,
     trace: false,
-    wrapper_open: nil,
-    wrapper_close: nil,
+    wrapper_open: "rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective\n#",
+    wrapper_close: "rubocop:enable Layout/LineLength",
     with_comment: true,
   )
 end

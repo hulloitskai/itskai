@@ -1,7 +1,9 @@
 # typed: true
 # frozen_string_literal: true
 
-# == Schema information
+# rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective
+#
+# == Schema Information
 #
 # Table name: exploration_comments
 #
@@ -11,36 +13,7 @@
 #  created_at     :datetime         not null
 #  exploration_id :string           not null
 #
-# == Schema information
-#
-# Table name: exploration_comments
-#
-#  id             :uuid             not null, primary key
-#  author_contact :string           not null
-#  message        :text             not null
-#  created_at     :datetime         not null
-#  exploration_id :string           not null
-#
-# == Schema information
-#
-# Table name: exploration_comments
-#
-#  id             :uuid             not null, primary key
-#  author_contact :string           not null
-#  message        :text             not null
-#  created_at     :datetime         not null
-#  exploration_id :string           not null
-#
-# == Schema information
-#
-# Table name: exploration_comments
-#
-#  id             :uuid             not null, primary key
-#  author_contact :string           not null
-#  message        :text             not null
-#  created_at     :datetime         not null
-#  exploration_id :string           not null
-#
+# rubocop:enable Layout/LineLength
 class ExplorationComment < ApplicationRecord
   include Identifiable
 
