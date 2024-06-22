@@ -7,10 +7,7 @@ class CathendantMemosController < ApplicationController
   def create
     CathendantMemo.create!(memo_params)
     flash.notice = "Your voice has been added :)"
-    redirect_to(
-      contribute_cathendant_path,
-      notice: "Your voice has been added :)",
-    )
+    redirect_to(cathendant_path, notice: "Your voice has been added :)")
   rescue => error
     logger.error("Failed to create Cathendant memo: #{error}")
     Rails.error.report(error)

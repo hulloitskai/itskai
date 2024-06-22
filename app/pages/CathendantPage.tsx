@@ -28,6 +28,7 @@ const CathendantPage: PageComponent<CathendantPageProps> = ({ memos }) => {
               </Text>
             </Text>
             <Button
+              size="lg"
               variant={playingMemoId === memoId ? "outline" : "filled"}
               leftSection={
                 playingMemoId === memoId ? <StopIcon /> : <PlayIcon />
