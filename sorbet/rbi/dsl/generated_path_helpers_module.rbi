@@ -37,6 +37,12 @@ module GeneratedPathHelpersModule
   def call_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def cathendant_memos_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def cathendant_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def coffee_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -44,6 +50,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def contact_url_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def contribute_cathendant_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def currently_playing_path(*args); end

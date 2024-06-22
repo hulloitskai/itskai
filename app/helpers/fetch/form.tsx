@@ -47,6 +47,7 @@ export interface FetchForm<
   submit: FetchFormSubmit;
 }
 
+// TODO: Serialize form data.
 export const useFetchForm = <
   Data extends Record<string, any> & { error?: never; errors?: never } = {},
   Values extends Record<string, any> = Record<string, any>,
@@ -80,6 +81,8 @@ export const useFetchForm = <
         params,
         method,
         data: method === "delete" ? undefined : data,
+        serializeData: data => data,
+        deserializeData: data => data,
       })
         .then(
           data => {

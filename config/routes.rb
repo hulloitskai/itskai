@@ -133,6 +133,15 @@ Rails.application.routes.draw do
   # == Resume
   resource :resume, only: :show
 
+  # == Cathendant
+  resource :cathendant, only: :show, export: true do
+    get :contribute
+  end
+  resources :cathendant_memos,
+            only: :create,
+            path: "/cathendant/memos",
+            export: true
+
   # == Timeline
   # get "/timeline" => "timeline#show"
   # get "/timeline/admin" => "timeline_admin#show"

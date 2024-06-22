@@ -37,6 +37,12 @@ module GeneratedUrlHelpersModule
   def call_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def cathendant_memos_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def cathendant_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def coffee_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -44,6 +50,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def contact_url_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def contribute_cathendant_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def currently_playing_url(*args); end

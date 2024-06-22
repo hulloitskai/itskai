@@ -35,6 +35,40 @@
 #
 #  index_location_logs_on_timestamp  (timestamp)
 #
+# == Schema information
+#
+# Table name: location_logs
+#
+#  id                  :uuid             not null, primary key
+#  coordinates         :geography        not null, point, 4326
+#  floor_level         :integer          not null
+#  horizontal_accuracy :float            not null
+#  timestamp           :datetime         not null
+#  vertical_accuracy   :float            not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#
+# Indexes
+#
+#  index_location_logs_on_timestamp  (timestamp)
+#
+# == Schema information
+#
+# Table name: location_logs
+#
+#  id                  :uuid             not null, primary key
+#  coordinates         :geography        not null, point, 4326
+#  floor_level         :integer          not null
+#  horizontal_accuracy :float            not null
+#  timestamp           :datetime         not null
+#  vertical_accuracy   :float            not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#
+# Indexes
+#
+#  index_location_logs_on_timestamp  (timestamp)
+#
 class LocationLog < ApplicationRecord
   include Identifiable
 
