@@ -28,6 +28,9 @@ class CathendantMemo < ApplicationRecord
   # == Attachments
   has_one_attached :recording
 
+  # == Validations
+  validates :from, :recording, presence: true
+
   # == Transcription
   def transcribe
     raise NotImplementedError, "Not implemented"

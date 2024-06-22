@@ -1,6 +1,6 @@
 import { router } from "@inertiajs/core";
 
-export const setupInertia = () => {
+export const setupInertia = (): void => {
   router.on("before", ({ detail: { visit } }) => {
     const csrfToken = getMeta("csrf-token");
     if (csrfToken) {

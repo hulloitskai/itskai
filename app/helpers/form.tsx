@@ -1,5 +1,5 @@
 import type { UseFormReturnType } from "@mantine/form";
-import type { _TransformValues } from "@mantine/form/lib/types";
+import type { LooseKeys, _TransformValues } from "@mantine/form/lib/types";
 import { sentencify } from "./inflect";
 
 export const showFormErrorsAlert = <
@@ -27,5 +27,51 @@ export const showFormErrorsAlert = <
       input.focus();
       input.scrollIntoView({ behavior: "smooth" });
     }
+  }
+};
+
+export const useFieldFilled = <Values, Field extends LooseKeys<Values>>(
+  form: Pick<UseFormReturnType<Values>, "watch">,
+  field: Field,
+) => {
+  const [fieldFilled, setFieldFilled] = useState(false);
+  form.watch(field, ({ value }) => {
+    setFieldFilled(isFilledValue(value));
+  });
+  return fieldFilled;
+};
+
+export const useFieldsFilled = <Values,>(
+  form: Pick<UseFormReturnType<Values>, "watch">,
+  ...fields: LooseKeys<Values>[]
+) => {
+  const [filledFields, setFilledFields] = useState(() =>
+    fields.reduce(
+      (fieldsFilled, field) => ({ ...fieldsFilled, [field]: false }),
+      {} as Record<LooseKeys<Values>, boolean>,
+    ),
+  );
+  fields.forEach(field => {
+    form.watch(field, ({ value }) => {
+      setFilledFields(filledFields => ({
+        ...filledFields,
+        [field]: isFilledValue(value),
+      }));
+    });
+  });
+  return useMemo(
+    () => Object.values(filledFields).every(identity),
+    [filledFields],
+  );
+};
+
+const isFilledValue = (value: any): boolean => {
+  switch (typeof value) {
+    case "string":
+      return value !== "";
+    case "number":
+      return Number.isFinite(value);
+    default:
+      return !!value;
   }
 };

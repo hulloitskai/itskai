@@ -1,5 +1,6 @@
-import { InputWrapper, Text } from "@mantine/core";
+import { FileButton, InputWrapper, Text } from "@mantine/core";
 import MicrophoneIcon from "~icons/heroicons/microphone-20-solid";
+import UploadIcon from "~icons/heroicons/cloud-arrow-up-20-solid";
 import StopIcon from "~icons/heroicons/stop-20-solid";
 
 import AppFlash from "~/components/AppFlash";
@@ -12,23 +13,45 @@ const CathendantContributePage: PageComponent<
   CathendantContributePageProps
 > = () => {
   // == Form
-  const { setFieldValue, getInputProps, errors, submit, processing } =
-    useInertiaForm({
-      action: routes.cathendantMemos.create,
-      method: "post",
-      descriptor: "create memo",
-      mode: "uncontrolled",
-      initialValues: {
-        from: "",
-        recording: null as File | null,
-      },
-      transformValues: ({ from, recording }) => {
-        const data = new FormData();
-        data.append("memo[from]", from);
-        data.append("memo[recording]", recording || "");
-        return data;
-      },
-    });
+  const form = useFetchForm({
+    action: routes.cathendantMemos.create,
+    method: "post",
+    descriptor: "create memo",
+    mode: "uncontrolled",
+    initialValues: {
+      from: "",
+      recording: null as File | null,
+    },
+    transformValues: ({ from, recording }) => {
+      const data = new FormData();
+      data.append("memo[from]", from);
+      data.append("memo[recording]", recording || "");
+      return data;
+    },
+    onSuccess: (data, { reset }) => {
+      reset();
+      router.visit(routes.cathendants.show.path(), {
+        onSuccess: () => {
+          showNotice({
+            title: "Thank you!",
+            message: "Your voice has been added :)",
+          });
+        },
+      });
+    },
+  });
+  const { watch, setFieldValue, getInputProps, errors, submit, processing } =
+    form;
+  const fromFilled = useFieldFilled(form, "from");
+  const recordingFilled = useFieldFilled(form, "recording");
+  const [recordingName, setRecordingName] = useState<string>("");
+  watch("recording", ({ value }) => {
+    if (value) {
+      setRecordingName(value.name);
+    } else {
+      setRecordingName("");
+    }
+  });
 
   // == Recording
   const [recorder, setRecorder] = useState<MediaRecorder | null>(null);
@@ -67,6 +90,20 @@ const CathendantContributePage: PageComponent<
     recorder?.stop();
   }, [recorder]);
 
+  // == Playback
+  // const player = useGlobalAudioPlayer();
+  // const [playerReady, setPlayerReady] = useState(false);
+  // const [playerPlaying, setPlayerPlaying] = useState(false);
+  // useEffect(() => {
+  //   const { recording } = getValues();
+  //   if (recording) {
+  //     toDataURL(recording).then(url => {
+  //       player.load(url);
+  //       setPlayerReady(true);
+  //     });
+  //   }
+  // }, [recordingFilled]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <Stack>
       <Title>Contribute to Cathy&apos;s Pendant!</Title>
@@ -90,22 +127,47 @@ const CathendantContributePage: PageComponent<
               error={errors.recording}
               withAsterisk
             >
-              <Box>
-                <Button
-                  leftSection={recorder ? <StopIcon /> : <MicrophoneIcon />}
-                  onClick={() => {
-                    if (recorder) {
-                      stopRecording();
-                    } else {
-                      startRecording();
-                    }
-                  }}
-                >
-                  {recorder ? "Stop recording" : "Start recording"}
-                </Button>
+              <Box mt={1}>
+                <Group gap="xs">
+                  <Button
+                    leftSection={recorder ? <StopIcon /> : <MicrophoneIcon />}
+                    mt={1}
+                    style={{ flexGrow: 1 }}
+                    onClick={() => {
+                      if (recorder) {
+                        stopRecording();
+                      } else {
+                        startRecording();
+                      }
+                    }}
+                  >
+                    {recorder ? "Stop recording" : "Start recording"}
+                  </Button>
+                  <FileButton {...getInputProps("recording")} accept="audio/*">
+                    {props => (
+                      <Button
+                        {...props}
+                        leftSection={<UploadIcon />}
+                        style={{ flexGrow: 1 }}
+                      >
+                        Pick recording
+                      </Button>
+                    )}
+                  </FileButton>
+                </Group>
+                {!!recordingName && (
+                  <Text size="xs" c="dimmed" mt={1}>
+                    Attached: {recordingName}
+                  </Text>
+                )}
               </Box>
             </InputWrapper>
-            <Button type="submit" variant="outline" loading={processing}>
+            <Button
+              type="submit"
+              variant="outline"
+              disabled={!(fromFilled && recordingFilled)}
+              loading={processing}
+            >
               Submit
             </Button>
           </Stack>

@@ -1,3 +1,5 @@
+export { setupFetch } from "./setup";
+
 import type {
   RequestOptions,
   PathHelper,

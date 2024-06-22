@@ -3,16 +3,14 @@
 
 class CathendantMemosController < ApplicationController
   # == Actions
-  # TODO: Make this work with fetch instead of inertia!
   def create
     CathendantMemo.create!(memo_params)
-    flash.notice = "Your voice has been added :)"
-    redirect_to(cathendant_path, notice: "Your voice has been added :)")
+    render(json: {})
   rescue => error
     logger.error("Failed to create Cathendant memo: #{error}")
     Rails.error.report(error)
     Sentry.capture_exception(error)
-    redirect_to(contribute_cathendant_path, alert: "Failed to create memo")
+    render(json: { error: error.message }, status: :unprocessable_entity)
   end
 
   private
