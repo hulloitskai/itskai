@@ -79,6 +79,9 @@ module GeneratedPathHelpersModule
   def explorations_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def file_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def good_job_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

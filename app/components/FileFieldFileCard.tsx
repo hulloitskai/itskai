@@ -1,9 +1,8 @@
-// import prettyBytes from "pretty-bytes";
+import type { File } from "~/types";
+import prettyBytes from "pretty-bytes";
 
 import type { CardProps } from "@mantine/core";
 import { ActionIcon, Text } from "@mantine/core";
-
-// import { FileFieldFileCardQueryDocument } from "~/helpers/graphql";
 
 export interface FileFieldFileCardProps extends CardProps {
   signedId: string;
@@ -11,41 +10,39 @@ export interface FileFieldFileCardProps extends CardProps {
 }
 
 const FileFieldFileCard: FC<FileFieldFileCardProps> = ({
-  signedId, // eslint-disable-line @typescript-eslint/no-unused-vars
+  signedId,
   onRemove,
   ...props
 }) => {
-  const fileData: any | undefined = undefined;
   // == File loading
-  // const onLoadFileError = useApolloAlertCallback(
-  //   "Failed to load uploaded file details",
-  // );
-  // const { data: fileData } = useQuery(FileFieldFileCardQueryDocument, {
-  //   variables: {
-  //     signedId,
-  //   },
-  //   onError: onLoadFileError,
-  // });
-  // const { filename, byteSize } = fileData?.file ?? {};
-  // const sizeText = useMemo(
-  //   () => (byteSize ? prettyBytes(byteSize) : null),
-  //   [byteSize],
-  // );
+  const params = useMemo(() => ({ signed_id: signedId }), [signedId]);
+  const { data } = useFetch<{ file: File }>(routes.files.show, {
+    params: params,
+    descriptor: "load file",
+  });
+  const { file } = data ?? {};
+  const sizeText = useMemo(
+    () => (file?.byteSize ? prettyBytes(file.byteSize) : null),
+    [file?.byteSize],
+  );
+  useEffect(() => {
+    console.log({ signedId });
+  }, [signedId]);
 
   return (
-    <Skeleton visible={!fileData}>
+    <Skeleton visible={!data}>
       <Card withBorder padding="xs" pr={6} pt={6} {...props}>
         <Box>
           <Group wrap="nowrap" gap="xs">
             <Text size="sm" fw={700} ml={6} mt={6} style={{ flexGrow: 1 }}>
-              {fileData?.filename ?? "placeholder.png"}
+              {file?.filename ?? "placeholder.png"}
             </Text>
             <ActionIcon color="red" onClick={onRemove}>
               <RemoveIcon />
             </ActionIcon>
           </Group>
           <Text size="xs" c="dimmed" ml={6}>
-            {fileData?.sizeText ?? "..."}
+            {sizeText ?? "..."}
           </Text>
         </Box>
       </Card>

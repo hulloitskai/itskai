@@ -13,6 +13,7 @@ import FileFieldUploadCard from "./FileFieldUploadCard";
 import FileFieldFileCard from "./FileFieldFileCard";
 
 import "@mantine/dropzone/styles.layer.css";
+import { useUncontrolled } from "@mantine/hooks";
 
 export type FileValue = { signedId: string };
 
@@ -37,6 +38,7 @@ export interface FileFieldProps<Multiple = false>
     > {
   multiple?: Multiple;
   value?: Multiple extends true ? FileValue[] : FileValue | null;
+  defaultValue?: Multiple extends true ? FileValue[] : FileValue | null;
   onChange?: (
     value: Multiple extends true ? FileValue[] : FileValue | null,
   ) => void;
@@ -65,18 +67,24 @@ const FileField = <Multiple extends boolean = false>(
     multiple,
     fileLabel: fileLabelProp,
     value,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    onChange: _onChange,
+    defaultValue,
+    onChange,
     ...otherProps
   } = props;
 
   // == Value
-  const valueRef = useRef(value);
+  const [resolvedValue, handleChange] = useUncontrolled({
+    value,
+    defaultValue,
+    onChange,
+  });
+  const resolvedValueRef = useRef(resolvedValue);
   useEffect(() => {
-    valueRef.current = value;
-  }, [value]);
+    resolvedValueRef.current = resolvedValue;
+    console.log("value", resolvedValue);
+  }, [resolvedValue]);
 
-  // == Files
+  // == Uploading files
   const [uploadingFiles, setUploadingFiles] = useState<File[]>([]);
 
   const fileLabel = useMemo(
@@ -103,8 +111,7 @@ const FileField = <Multiple extends boolean = false>(
           multiple={multiple ?? false}
           onDrop={files => {
             if (!multiple && value) {
-              const { onChange } = props as FileFieldProps<false>;
-              onChange?.(null);
+              handleChange(null as any);
             }
             setUploadingFiles(prevFiles =>
               uniqBy([...prevFiles, ...files], "name"),
@@ -148,15 +155,16 @@ const FileField = <Multiple extends boolean = false>(
                     prevFiles.filter(({ name }) => name !== file.name),
                   );
                   if (multiple) {
-                    const { onChange } = props as FileFieldProps<true>;
-                    const value = valueRef.current as FileValue[];
-                    onChange?.([
-                      ...(value ?? []),
+                    const currentValue =
+                      resolvedValueRef.current as FileValue[];
+                    const value = [
+                      ...(currentValue ?? []),
                       { signedId: blob.signed_id },
-                    ]);
+                    ];
+                    handleChange(value as any);
                   } else {
-                    const { onChange } = props as FileFieldProps<false>;
-                    onChange?.({ signedId: blob.signed_id });
+                    const value = { signedId: blob.signed_id };
+                    handleChange(value as any);
                   }
                 }}
                 {...{ file }}
@@ -165,20 +173,21 @@ const FileField = <Multiple extends boolean = false>(
           </Stack>
         </>
       )}
-      {!isEmpty(value) && (
+      {!isEmpty(resolvedValue) && (
         <>
           <Divider label="Ready" />
           <Stack gap={8}>
-            {multiple ? (
-              ((value ?? []) as string[]).map(signedId => (
+            {Array.isArray(resolvedValue) ? (
+              (resolvedValue as FileValue[]).map(({ signedId }) => (
                 <FileFieldFileCard
                   key={signedId}
                   onRemove={() => {
-                    const { onChange } = props as FileFieldProps<true>;
-                    const value = valueRef.current as FileValue[];
-                    onChange?.(
-                      (value ?? []).filter(blob => blob.signedId !== signedId),
+                    const currentValue =
+                      resolvedValueRef.current as FileValue[];
+                    const value = (currentValue ?? []).filter(
+                      blob => blob.signedId !== signedId,
                     );
+                    handleChange(value as any);
                   }}
                   {...{ signedId }}
                 />
@@ -186,10 +195,9 @@ const FileField = <Multiple extends boolean = false>(
             ) : (
               <FileFieldFileCard
                 onRemove={() => {
-                  const { onChange } = props as FileFieldProps<false>;
-                  onChange?.(null);
+                  handleChange(null as any);
                 }}
-                signedId={value as string}
+                signedId={(resolvedValue as FileValue).signedId}
               />
             )}
           </Stack>

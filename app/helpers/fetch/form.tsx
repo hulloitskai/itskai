@@ -81,8 +81,6 @@ export const useFetchForm = <
         params,
         method,
         data: method === "delete" ? undefined : data,
-        serializeData: undefined,
-        deserializeData: undefined,
       })
         .then(
           data => {

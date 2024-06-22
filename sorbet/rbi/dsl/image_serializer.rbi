@@ -7,5 +7,5 @@
 
 class ImageSerializer
   sig { returns(ActiveStorage::Blob) }
-  def image; end
+  def blob; end
 end

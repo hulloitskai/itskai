@@ -36,4 +36,6 @@ export const setupFetch = (): void => {
     }
     return headers;
   };
+  Config.deserializeData = identity;
+  Config.serializeData = identity;
 };

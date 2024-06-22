@@ -9,8 +9,12 @@ import AppLayout from "~/components/AppLayout";
 import TestForm from "~/components/TestForm";
 import TestFeed from "~/components/TestFeed";
 
+import type { FileValue } from "~/components/FileField";
+import FileField from "~/components/FileField";
+
 export interface TestPageProps extends SharedPageProps {
   name: string;
+  files: FileValue[];
 }
 
 const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
@@ -53,6 +57,7 @@ const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
           placeholder="Some input"
           leftSection={<PencilSquareIcon />}
         />
+        <FileField {...getInputProps("files")} label="Files" multiple />
         <Group gap="xs" grow>
           <Button
             leftSection={<ArrowTopRightOnSquareIcon />}

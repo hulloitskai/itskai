@@ -78,7 +78,8 @@ Rails.application.routes.draw do
   get "/call" => "calendly#event", handle: "call"
   get "/opencal-intro" => "calendly#event", handle: "opencal-intro"
 
-  # == Images
+  # == Attachments
+  resources :files, only: :show, param: :signed_id, export: true
   resources :images, only: :show, param: :signed_id, export: true
 
   # == Password strength checks

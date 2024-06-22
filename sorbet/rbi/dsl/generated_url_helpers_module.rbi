@@ -79,6 +79,9 @@ module GeneratedUrlHelpersModule
   def explorations_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def file_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def good_job_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
