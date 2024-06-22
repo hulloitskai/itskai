@@ -13,7 +13,7 @@ export interface CathendantPageProps extends SharedPageProps {
 }
 
 const CathendantPage: PageComponent<CathendantPageProps> = ({ memos }) => {
-  const audioPlayer = useGlobalAudioPlayer();
+  const player = useGlobalAudioPlayer();
   const [playingMemoId, setPlayingMemoId] = useState<string | null>(null);
   return (
     <Stack>
@@ -35,11 +35,19 @@ const CathendantPage: PageComponent<CathendantPageProps> = ({ memos }) => {
               }
               onClick={() => {
                 if (playingMemoId !== memoId) {
+                  player.load(recordingUrl, {
+                    autoplay: true,
+                    html5: true,
+                    onstop: () => {
+                      setPlayingMemoId(null);
+                    },
+                    onend: () => {
+                      setPlayingMemoId(null);
+                    },
+                  });
                   setPlayingMemoId(memoId);
-                  audioPlayer.load(recordingUrl);
-                  audioPlayer.play();
                 } else {
-                  setPlayingMemoId(null);
+                  player.stop();
                 }
               }}
             >
