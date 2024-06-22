@@ -31,32 +31,46 @@ export const showFormErrorsAlert = <
 };
 
 export const useFieldFilled = <Values, Field extends LooseKeys<Values>>(
-  form: Pick<UseFormReturnType<Values>, "watch">,
+  form: Pick<UseFormReturnType<Values>, "watch" | "getValues">,
   field: Field,
 ) => {
-  const [fieldFilled, setFieldFilled] = useState(false);
+  const [fieldFilled, setFieldFilled] = useState(() =>
+    isFilledValue(get(form.getValues(), field)),
+  );
   form.watch(field, ({ value }) => {
     setFieldFilled(isFilledValue(value));
   });
   return fieldFilled;
 };
 
-export const useFieldsFilled = <Values,>(
-  form: Pick<UseFormReturnType<Values>, "watch">,
+export const useFormFilled = <Values,>(
+  form: Pick<UseFormReturnType<Values>, "watch" | "getValues">,
   ...fields: LooseKeys<Values>[]
 ) => {
-  const [filledFields, setFilledFields] = useState(() =>
-    fields.reduce(
-      (fieldsFilled, field) => ({ ...fieldsFilled, [field]: false }),
+  const [filledFields, setFilledFields] = useState(() => {
+    const values = form.getValues();
+    return fields.reduce(
+      (fieldsFilled, field) => ({
+        ...fieldsFilled,
+        [field]: isFilledValue(get(values, field)),
+      }),
       {} as Record<LooseKeys<Values>, boolean>,
-    ),
-  );
+    );
+  });
+  useEffect(() => {
+    console.log({ filledFields });
+  }, [filledFields]);
   fields.forEach(field => {
     form.watch(field, ({ value }) => {
-      setFilledFields(filledFields => ({
-        ...filledFields,
-        [field]: isFilledValue(value),
-      }));
+      setFilledFields(filledFields => {
+        if (filledFields[field] !== isFilledValue(value)) {
+          return {
+            ...filledFields,
+            [field]: isFilledValue(value),
+          };
+        }
+        return filledFields;
+      });
     });
   });
   return useMemo(
@@ -65,7 +79,7 @@ export const useFieldsFilled = <Values,>(
   );
 };
 
-const isFilledValue = (value: any): boolean => {
+export const isFilledValue = (value: any): boolean => {
   switch (typeof value) {
     case "string":
       return value !== "";
@@ -74,4 +88,36 @@ const isFilledValue = (value: any): boolean => {
     default:
       return !!value;
   }
+};
+
+export const useFormDirty = <Values,>(
+  form: Pick<UseFormReturnType<Values>, "watch" | "isDirty">,
+  ...fields: LooseKeys<Values>[]
+) => {
+  const [dirtyFields, setDirtyFields] = useState(() => {
+    return fields.reduce(
+      (fieldsFilled, field) => ({
+        ...fieldsFilled,
+        [field]: form.isDirty(field),
+      }),
+      {} as Record<LooseKeys<Values>, boolean>,
+    );
+  });
+  fields.forEach(field => {
+    form.watch(field, ({ dirty }) => {
+      setDirtyFields(dirtyFields => {
+        if (dirtyFields[field] !== dirty) {
+          return {
+            ...dirtyFields,
+            [field]: dirty,
+          };
+        }
+        return dirtyFields;
+      });
+    });
+  });
+  return useMemo(
+    () => Object.values(dirtyFields).some(identity),
+    [dirtyFields],
+  );
 };

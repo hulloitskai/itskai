@@ -47,7 +47,7 @@ export const imports: Array<ImportsMap | PresetName | InlinePreset> = [
     "~/helpers/routes": [["default", "routes"]],
     "~/helpers/fetch": ["useFetch"],
     "~/helpers/fetch/form": ["useFetchForm"],
-    "~/helpers/form": ["useFieldFilled", "useFieldsFilled"],
+    "~/helpers/form": ["useFieldFilled", "useFormFilled", "useFormDirty"],
     "~/helpers/utils": ["resolve", "isTruthy"],
     "@fullstory/browser": ["FullStory", ["isInitialized", "isFsInitialized"]],
     "@inertiajs/react": ["Link", "router"],

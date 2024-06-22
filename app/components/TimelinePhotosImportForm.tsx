@@ -1,4 +1,4 @@
-import FileField from "./FileField";
+import FileInput from "./FileInput";
 
 export interface TimelinePhotosImportFormProps
   extends BoxProps,
@@ -62,7 +62,7 @@ const TimelinePhotosImportForm: FC<TimelinePhotosImportFormProps> = ({
       {...otherProps}
     >
       <Stack gap="sm">
-        <FileField
+        <FileInput
           label="Photos"
           fileLabel="photos"
           required

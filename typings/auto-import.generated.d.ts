@@ -119,6 +119,8 @@ declare global {
   const useFieldFilled: typeof import('~/helpers/form')['useFieldFilled']
   const useFieldsFilled: typeof import('~/helpers/form')['useFieldsFilled']
   const useForm: typeof import('@mantine/form')['useForm']
+  const useFormDirty: typeof import('~/helpers/form')['useFormDirty']
+  const useFormFilled: typeof import('~/helpers/form')['useFormFilled']
   const useId: typeof import('react')['useId']
   const useImperativeHandle: typeof import('react')['useImperativeHandle']
   const useInertiaForm: typeof import('~/helpers/inertia/form')['useInertiaForm']

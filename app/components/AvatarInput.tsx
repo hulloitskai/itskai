@@ -1,5 +1,7 @@
 import type { Image as ImageModel } from "~/types";
+import { useUncontrolled } from "@mantine/hooks";
 import { upload } from "~/helpers/upload";
+import { AVATAR_INPUT_IMAGE_SIZE, AVATAR_INPUT_RADIUS } from "~/helpers/avatar";
 import PhotoIcon from "~icons/heroicons/photo-20-solid";
 
 import type { DropzoneProps } from "@mantine/dropzone";
@@ -10,23 +12,29 @@ import { Image, Input, Text, rgba } from "@mantine/core";
 
 import "@mantine/dropzone/styles.layer.css";
 
-import { AVATAR_FIELD_IMAGE_SIZE, AVATAR_FIELD_RADIUS } from "~/helpers/avatar";
-import classes from "./AvatarField.module.css";
+import classes from "./AvatarInput.module.css";
 
 export type AvatarValue = { signedId: string };
 
-export interface AvatarFieldProps
+export interface AvatarInputProps
   extends Omit<
       InputWrapperProps,
-      "inputContainer" | "inputWrapperOrder" | "size" | "children" | "onChange"
+      | "defaultValue"
+      | "inputContainer"
+      | "inputWrapperOrder"
+      | "size"
+      | "children"
+      | "onChange"
     >,
     Pick<DropzoneProps, "disabled"> {
-  value?: AvatarValue;
+  value?: AvatarValue | null;
+  defaultValue?: AvatarValue | null;
   onChange?: (value: AvatarValue | null) => void;
 }
 
-const AvatarField: FC<AvatarFieldProps> = ({
+const AvatarInput: FC<AvatarInputProps> = ({
   value,
+  defaultValue,
   onChange,
   variant,
   labelElement,
@@ -41,22 +49,34 @@ const AvatarField: FC<AvatarFieldProps> = ({
   withAsterisk,
   style,
 }) => {
+  const [resolvedValue, handleChange] = useUncontrolled({
+    value,
+    defaultValue,
+    onChange,
+  });
+
   // == Uploading
   const [uploading, setUploading] = useState(false);
 
   // == Preview
-  const { data: previewData, fetching: previewFetching } = useFetch<{
+  const params = useMemo(() => {
+    if (resolvedValue) {
+      return {
+        signed_id: resolvedValue.signedId,
+      };
+    }
+  }, [resolvedValue]);
+  const { data } = useFetch<{
     image: ImageModel;
   }>(routes.images.show, {
     descriptor: "load preview image",
-    params: value,
-    skip: !value,
+    params: params,
+    skip: !resolvedValue,
   });
-  const { image: previewImage } = previewData ?? {};
+  const { image } = data ?? {};
 
   // == Loading
-  const loading: boolean =
-    uploading || (!!value && !previewImage && previewFetching);
+  const loading: boolean = uploading || (!!value && !image);
 
   return (
     <Input.Wrapper
@@ -76,12 +96,12 @@ const AvatarField: FC<AvatarFieldProps> = ({
       <Stack align="center" gap={8} py="sm">
         <Box pos="relative">
           <Image
-            w={AVATAR_FIELD_IMAGE_SIZE}
-            h={AVATAR_FIELD_IMAGE_SIZE}
-            radius={AVATAR_FIELD_RADIUS}
+            w={AVATAR_INPUT_IMAGE_SIZE}
+            h={AVATAR_INPUT_IMAGE_SIZE}
+            radius={AVATAR_INPUT_RADIUS}
             m={4}
-            src={previewImage?.src}
-            srcSet={previewImage?.srcSet}
+            src={image?.src}
+            srcSet={image?.srcSet}
           />
           <Dropzone
             accept={["image/png", "image/jpeg"]}
@@ -91,10 +111,8 @@ const AvatarField: FC<AvatarFieldProps> = ({
                 setUploading(true);
                 upload(file)
                   .then(blob => {
-                    if (onChange) {
-                      const value = { signedId: blob.signed_id };
-                      onChange(value);
-                    }
+                    const value = { signedId: blob.signed_id };
+                    handleChange(value);
                   })
                   .catch((error: Error) => {
                     showAlert({
@@ -108,7 +126,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
                   });
               }
             }}
-            radius={AVATAR_FIELD_RADIUS}
+            radius={AVATAR_INPUT_RADIUS}
             pos="absolute"
             inset={0}
             classNames={{
@@ -121,7 +139,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
                 "--af-dropzone-backdrop": rgba(colors.dark[5], 0.8),
               }),
             ]}
-            mod={{ "with-src": !!previewImage, disabled }}
+            mod={{ "with-src": !!image, disabled }}
             {...{ loading, disabled }}
           >
             <Stack align="center" gap={8}>
@@ -137,7 +155,7 @@ const AvatarField: FC<AvatarFieldProps> = ({
             </Stack>
           </Dropzone>
         </Box>
-        {!!previewImage && (
+        {!!image && (
           <Anchor
             component="button"
             type="button"
@@ -157,4 +175,4 @@ const AvatarField: FC<AvatarFieldProps> = ({
   );
 };
 
-export default AvatarField;
+export default AvatarInput;

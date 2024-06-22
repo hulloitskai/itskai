@@ -4,17 +4,17 @@ import prettyBytes from "pretty-bytes";
 import type { CardProps } from "@mantine/core";
 import { ActionIcon, Text } from "@mantine/core";
 
-export interface FileFieldFileCardProps extends CardProps {
+export interface FileInputFileCardProps extends CardProps {
   signedId: string;
   onRemove?: () => void;
 }
 
-const FileFieldFileCard: FC<FileFieldFileCardProps> = ({
+const FileInputFileCard: FC<FileInputFileCardProps> = ({
   signedId,
   onRemove,
   ...props
 }) => {
-  // == File loading
+  // == File metadata
   const params = useMemo(() => ({ signed_id: signedId }), [signedId]);
   const { data } = useFetch<{ file: File }>(routes.files.show, {
     params: params,
@@ -50,4 +50,4 @@ const FileFieldFileCard: FC<FileFieldFileCardProps> = ({
   );
 };
 
-export default FileFieldFileCard;
+export default FileInputFileCard;

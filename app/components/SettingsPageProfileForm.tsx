@@ -1,4 +1,4 @@
-import AvatarField from "./AvatarField";
+import AvatarInput from "./AvatarInput";
 
 export interface SettingsPageProfileFormProps
   extends BoxProps,
@@ -17,24 +17,26 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
       avatar: avatar ? { signedId: avatar.signedId } : null,
     };
   }, [authenticatedUser]);
-  const { getInputProps, submit, processing, setInitialValues, reset } =
-    useInertiaForm({
-      action: routes.usersRegistrations.update,
-      method: "put",
-      descriptor: "update profile",
-      mode: "uncontrolled",
-      initialValues,
-      transformValues: ({ avatar, ...attributes }) => ({
-        user: {
-          ...deepUnderscoreKeys(attributes),
-          avatar: avatar ? avatar.signedId : "",
-        },
-      }),
-    });
+  const form = useInertiaForm({
+    action: routes.usersRegistrations.update,
+    method: "put",
+    descriptor: "update profile",
+    mode: "uncontrolled",
+    initialValues,
+    transformValues: ({ avatar, ...attributes }) => ({
+      user: {
+        ...deepUnderscoreKeys(attributes),
+        avatar: avatar ? avatar.signedId : "",
+      },
+    }),
+  });
+  const { getInputProps, submit, processing, setInitialValues, reset } = form;
   useEffect(() => {
     setInitialValues(initialValues);
     reset();
   }, [initialValues]); // eslint-disable-line react-hooks/exhaustive-deps
+  const isFilled = useFormFilled(form, "name", "avatar");
+  const isDirty = useFormDirty(form, "name", "avatar");
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
@@ -45,8 +47,12 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
           placeholder="A Friend"
           required
         />
-        <AvatarField {...getInputProps("avatar")} label="Avatar" />
-        <Button type="submit" loading={processing}>
+        <AvatarInput {...getInputProps("avatar")} label="Avatar" />
+        <Button
+          type="submit"
+          disabled={!isDirty || !isFilled}
+          loading={processing}
+        >
           Save
         </Button>
       </Stack>

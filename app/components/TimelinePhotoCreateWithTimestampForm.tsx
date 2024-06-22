@@ -2,7 +2,7 @@ import { DateTimePicker } from "@mantine/dates";
 
 import { Radio } from "@mantine/core";
 
-import FileField from "./FileField";
+import FileInput from "./FileInput";
 
 import "@mantine/dates/styles.layer.css";
 
@@ -91,7 +91,7 @@ const TimelinePhotoCreateWithTimestampForm: FC<
     >
       <Stack gap="sm">
         <Stack gap={8}>
-          <FileField
+          <FileInput
             label="Photo"
             fileLabel="photo"
             required

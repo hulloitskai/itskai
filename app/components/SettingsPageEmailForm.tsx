@@ -21,21 +21,22 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
       currentPassword: "",
     };
   }, [user]);
-  const { getInputProps, isDirty, isValid, watch, submit, processing } =
-    useInertiaForm({
-      action: routes.usersRegistrations.update,
-      method: "put",
-      descriptor: "change email",
-      mode: "uncontrolled",
-      initialValues,
-      validate: {
-        email: isEmail("Email is not valid"),
-        currentPassword: isNotEmpty("Current password is required"),
-      },
-      transformValues: values => ({
-        user: deepUnderscoreKeys(values),
-      }),
-    });
+  const form = useInertiaForm({
+    action: routes.usersRegistrations.update,
+    method: "put",
+    descriptor: "change email",
+    mode: "uncontrolled",
+    initialValues,
+    validate: {
+      email: isEmail("Email is not valid"),
+      currentPassword: isNotEmpty("Current password is required"),
+    },
+    transformValues: values => ({
+      user: deepUnderscoreKeys(values),
+    }),
+  });
+  const { getInputProps, isDirty, isValid, watch, submit, processing } = form;
+  const currentPasswordFilled = useFieldFilled(form, "currentPassword");
 
   // == Conditionally show current password field
   const [emailFilled, setEmailFilled] = useState(false);
@@ -87,7 +88,11 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
           )}
         </Transition>
         <Stack gap={6}>
-          <Button type="submit" loading={processing}>
+          <Button
+            type="submit"
+            disabled={!emailFilled || !currentPasswordFilled}
+            loading={processing}
+          >
             Change email
           </Button>
           {user.unconfirmedEmail && (

@@ -1,4 +1,4 @@
-import FileField from "./FileField";
+import FileInput from "./FileInput";
 
 export interface TimelineActivitiesImportFormProps
   extends BoxProps,
@@ -62,7 +62,7 @@ const TimelineActivitiesImportForm: FC<TimelineActivitiesImportFormProps> = ({
       {...otherProps}
     >
       <Stack gap="sm">
-        <FileField
+        <FileInput
           label="Google location history file"
           fileLabel="location history file"
           required

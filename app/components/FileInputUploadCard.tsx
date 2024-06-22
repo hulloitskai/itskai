@@ -4,12 +4,12 @@ import { useUpload } from "~/helpers/upload";
 import type { CardProps } from "@mantine/core";
 import { ActionIcon, Progress, Text } from "@mantine/core";
 
-export interface FileFieldUploadCardProps extends CardProps {
+export interface FileInputUploadCardProps extends CardProps {
   file: File;
   onUploaded?: (blob: Blob) => void;
 }
 
-const FileFieldUploadCard: FC<FileFieldUploadCardProps> = ({
+const FileInputUploadCard: FC<FileInputUploadCardProps> = ({
   file,
   onUploaded,
   ...props
@@ -51,4 +51,4 @@ const FileFieldUploadCard: FC<FileFieldUploadCardProps> = ({
   );
 };
 
-export default FileFieldUploadCard;
+export default FileInputUploadCard;

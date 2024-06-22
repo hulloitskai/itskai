@@ -1,23 +1,22 @@
 import type { ReactNode } from "react";
-
 import UploadIcon from "~icons/heroicons/arrow-up-tray-20-solid";
 import RejectIcon from "~icons/heroicons/no-symbol-20-solid";
+
+import type { InputWrapperProps } from "@mantine/core";
+import { Input, Text } from "@mantine/core";
+import { useUncontrolled } from "@mantine/hooks";
 
 import type { DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
 
-import type { InputWrapperProps } from "@mantine/core";
-import { Input, Text } from "@mantine/core";
-
-import FileFieldUploadCard from "./FileFieldUploadCard";
-import FileFieldFileCard from "./FileFieldFileCard";
+import FileInputUploadCard from "./FileInputUploadCard";
+import FileInputFileCard from "./FileInputFileCard";
 
 import "@mantine/dropzone/styles.layer.css";
-import { useUncontrolled } from "@mantine/hooks";
 
 export type FileValue = { signedId: string };
 
-export interface FileFieldProps<Multiple = false>
+export interface FileInputProps<Multiple = false>
   extends BoxProps,
     Pick<
       InputWrapperProps,
@@ -45,8 +44,8 @@ export interface FileFieldProps<Multiple = false>
   fileLabel?: string;
 }
 
-const FileField = <Multiple extends boolean = false>(
-  props: FileFieldProps<Multiple>,
+const FileInput = <Multiple extends boolean = false>(
+  props: FileInputProps<Multiple>,
 ): ReactNode => {
   const {
     variant,
@@ -148,7 +147,7 @@ const FileField = <Multiple extends boolean = false>(
           <Divider label="Uploading" />
           <Stack gap={8}>
             {uploadingFiles.map(file => (
-              <FileFieldUploadCard
+              <FileInputUploadCard
                 key={file.name}
                 onUploaded={blob => {
                   setUploadingFiles(prevFiles =>
@@ -179,7 +178,7 @@ const FileField = <Multiple extends boolean = false>(
           <Stack gap={8}>
             {Array.isArray(resolvedValue) ? (
               (resolvedValue as FileValue[]).map(({ signedId }) => (
-                <FileFieldFileCard
+                <FileInputFileCard
                   key={signedId}
                   onRemove={() => {
                     const currentValue =
@@ -193,7 +192,7 @@ const FileField = <Multiple extends boolean = false>(
                 />
               ))
             ) : (
-              <FileFieldFileCard
+              <FileInputFileCard
                 onRemove={() => {
                   handleChange(null as any);
                 }}
@@ -207,4 +206,4 @@ const FileField = <Multiple extends boolean = false>(
   );
 };
 
-export default FileField;
+export default FileInput;

@@ -13,40 +13,41 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
   const [passwordStrength, setPasswordStrength] = useState(0.0);
 
   // == Form
-  const { getInputProps, isDirty, isValid, watch, submit, processing } =
-    useInertiaForm({
-      action: routes.usersRegistrations.update,
-      method: "put",
-      descriptor: "change password",
-      mode: "uncontrolled",
-      initialValues: {
-        password: "",
-        passwordConfirmation: "",
-        currentPassword: "",
+  const form = useInertiaForm({
+    action: routes.usersRegistrations.update,
+    method: "put",
+    descriptor: "change password",
+    mode: "uncontrolled",
+    initialValues: {
+      password: "",
+      passwordConfirmation: "",
+      currentPassword: "",
+    },
+    transformValues: values => ({
+      user: deepUnderscoreKeys(values),
+    }),
+    validate: {
+      password: value => {
+        if (!value) {
+          return "Password is required";
+        }
+        if (passwordStrength < 1.0) {
+          return "Password is too weak";
+        }
       },
-      transformValues: values => ({
-        user: deepUnderscoreKeys(values),
-      }),
-      validate: {
-        password: value => {
-          if (!value) {
-            return "Password is required";
-          }
-          if (passwordStrength < 1.0) {
-            return "Password is too weak";
-          }
-        },
-        passwordConfirmation: (value, { password }) => {
-          if (!value) {
-            return "Password confirmation is required";
-          }
-          if (value !== password) {
-            return "Password confirmation does not match password";
-          }
-        },
-        currentPassword: isNotEmpty("Current password is required"),
+      passwordConfirmation: (value, { password }) => {
+        if (!value) {
+          return "Password confirmation is required";
+        }
+        if (value !== password) {
+          return "Password confirmation does not match password";
+        }
       },
-    });
+      currentPassword: isNotEmpty("Current password is required"),
+    },
+  });
+  const { getInputProps, isDirty, isValid, watch, submit, processing } = form;
+  const currentPasswordFilled = useFieldFilled(form, "currentPassword");
 
   // == Conditionally show current password field
   const [passwordFilled, setPasswordFilled] = useState(false);
@@ -94,7 +95,15 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
             />
           )}
         </Transition>
-        <Button type="submit" loading={processing}>
+        <Button
+          type="submit"
+          disabled={
+            !passwordFilled ||
+            !passwordConfirmationFilled ||
+            !currentPasswordFilled
+          }
+          loading={processing}
+        >
           Change password
         </Button>
       </Stack>
