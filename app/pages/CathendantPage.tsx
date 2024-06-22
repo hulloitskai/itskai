@@ -17,7 +17,12 @@ const CathendantPage: PageComponent<CathendantPageProps> = ({ memos }) => {
   const [playingMemoId, setPlayingMemoId] = useState<string | null>(null);
   return (
     <Stack>
-      <Title>Voices from your friends :)</Title>
+      <Box>
+        <Title>Voices from your friends :)</Title>
+        <Anchor component={Link} href={routes.cathendants.contribute.path()}>
+          Wanna add another voice?
+        </Anchor>
+      </Box>
       {memos.map(({ id: memoId, from, recordingUrl }) => (
         <Card key={memoId} withBorder>
           <Stack gap="xs">

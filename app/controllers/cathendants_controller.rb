@@ -4,11 +4,10 @@
 class CathendantsController < ApplicationController
   # == Actions
   def show
-    memos = CathendantMemo.all
-    render(
-      inertia: "CathendantPage",
-      props: { memos: CathendantMemoSerializer.many(memos) },
-    )
+    memos = CathendantMemo.chronological
+    render(inertia: "CathendantPage", props: {
+      memos: CathendantMemoSerializer.many(memos),
+    })
   end
 
   def contribute

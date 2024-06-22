@@ -22,7 +22,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # == Development hosts
-  config.hosts << /([a-z0-9-]+\.)*nip\.io/
+  config.hosts << /([a-z0-9-]+\.)+nip\.io/
   config.hosts << /[a-z0-9-]+\.ngrok\.io/
   config.hosts << /[a-z0-9-]+\.ngrok-free\.app/
 
