@@ -54,8 +54,7 @@ gem "aws-sdk-s3", "~> 1.126", require: false
 # Use Good Job as the backend for Active Job
 gem "good_job", "~> 3.21"
 
-# Send emails with Sendgrid, Mailjet
-gem "sendgrid-ruby", "~> 6.6"
+# Send emails with Mailjet
 gem "mailjet", "~> 1.7"
 
 # Use FriendlyId to create human-friendly identifiers for models
