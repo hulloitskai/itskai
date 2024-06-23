@@ -19,7 +19,7 @@ type TransformValues<Values> = (values: Values) => any;
 
 export interface FetchFormOptions<
   Data extends Record<string, any> & { error?: never },
-  Values extends Record<string, any>,
+  Values,
 > extends UseFormInput<Values, TransformValues<Values>> {
   action: PathHelper;
   descriptor: string;
@@ -39,7 +39,7 @@ type FetchFormSubmit = (event?: FormEvent<HTMLFormElement>) => void;
 
 export interface FetchForm<
   Data extends Record<string, any> & { error?: never; errors?: never },
-  Values extends Record<string, any>,
+  Values,
 > extends Omit<UseFormReturnType<Values, TransformValues<Values>>, "onSubmit"> {
   data: Data | undefined;
   error: Error | undefined;

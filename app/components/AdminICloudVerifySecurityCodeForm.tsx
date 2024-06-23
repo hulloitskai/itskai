@@ -12,14 +12,16 @@ export interface AdminICloudVerifySecurityCodeFormProps
 const AdminICloudVerifySecurityCodeForm: FC<
   AdminICloudVerifySecurityCodeFormProps
 > = ({ onVerified, ...otherProps }) => {
-  const { getInputProps, submit, processing } = useFetchForm<{
-    connection: ICloudConnection;
-  }>({
+  const initialValues = { code: "" };
+  const { getInputProps, submit, processing } = useFetchForm<
+    { connection: ICloudConnection },
+    typeof initialValues
+  >({
     action: routes.adminICloudConnections.verifySecurityCode,
     method: "post",
     descriptor: "verify security code",
     mode: "uncontrolled",
-    initialValues: { code: "" },
+    initialValues,
     validate: {
       code: value => {
         if (value.length !== 6) {

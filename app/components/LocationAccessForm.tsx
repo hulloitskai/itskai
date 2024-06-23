@@ -15,16 +15,18 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
   onSuccess,
   ...otherProps
 }) => {
-  const { getInputProps, submit, processing } = useFetchForm<{
-    token: string;
-  }>({
+  const initialValues = {
+    password: "",
+  };
+  const { getInputProps, submit, processing } = useFetchForm<
+    { token: string },
+    typeof initialValues
+  >({
     action: routes.locations.access,
     method: "post",
     descriptor: "access location",
     mode: "uncontrolled",
-    initialValues: {
-      password: "",
-    },
+    initialValues,
     validate: {
       password: isNotEmpty("Password is required"),
     },

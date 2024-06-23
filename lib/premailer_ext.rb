@@ -341,17 +341,24 @@ module Premailer::Adapter::Nokogiri
     end
     def logger = Rails.logger
 
-    sig do
-      type_parameters(:U)
-        .params(block: T.proc.returns(T.type_parameter(:U)))
-        .returns(T.type_parameter(:U))
-    end
+    sig { params(block: T.proc.void).void }
     def tag_logger(&block)
       logger = T.unsafe(self.logger)
       if logger.respond_to?(:tagged)
-        logger.tagged("Premailer", &block)
+        conditionally_enable_logger do
+          logger.tagged("Premailer", &block)
+        end
       else
+        conditionally_enable_logger(&block)
+      end
+    end
+
+    sig { params(block: T.proc.void).void }
+    def conditionally_enable_logger(&block)
+      if ENV["PREMAILER_DEBUG"].truthy?
         yield
+      else
+        Rails.logger.silence(Logger::DEBUG, &block)
       end
     end
   end

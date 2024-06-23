@@ -16,7 +16,7 @@ type InertiaPartialForm<Values> = Omit<
 
 type TransformValues<Values> = (values: Values) => any;
 
-export interface InertiaFormOptions<Values extends Record<string, any>>
+export interface InertiaFormOptions<Values>
   extends UseFormInput<Values, TransformValues<Values>> {
   action: PathHelper;
   descriptor: string;
@@ -32,7 +32,7 @@ export interface InertiaFormOptions<Values extends Record<string, any>>
 
 type InertiaFormSubmit = (event?: FormEvent<HTMLFormElement>) => void;
 
-export interface InertiaForm<Values extends Record<string, any>>
+export interface InertiaForm<Values>
   extends Omit<UseFormReturnType<Values, TransformValues<Values>>, "onSubmit"> {
   processing: boolean;
   submit: InertiaFormSubmit;
