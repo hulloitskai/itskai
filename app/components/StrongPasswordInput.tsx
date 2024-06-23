@@ -3,10 +3,11 @@ import { PasswordInput, Progress } from "@mantine/core";
 import { useThrottledValue, useUncontrolled } from "@mantine/hooks";
 
 export interface StrongPasswordInputProps
-  extends Omit<PasswordInputProps, "value" | "defaultValue"> {
+  extends Omit<PasswordInputProps, "value" | "defaultValue" | "onChange"> {
   value?: string;
   defaultValue?: string;
   onStrengthCheck?: (strength: number) => void;
+  onChange?: (value: string) => void;
 }
 
 const StrongPasswordInput: FC<StrongPasswordInputProps> = ({
@@ -19,6 +20,7 @@ const StrongPasswordInput: FC<StrongPasswordInputProps> = ({
   const [resolvedValue, handleChange] = useUncontrolled<string>({
     value,
     defaultValue,
+    onChange,
   });
   const throttledValue = useThrottledValue(resolvedValue, 200);
 
@@ -53,7 +55,7 @@ const StrongPasswordInput: FC<StrongPasswordInputProps> = ({
         const inputWithProgress = (
           <>
             {children}
-            {!!value && (
+            {!!throttledValue && (
               <Progress
                 size="xs"
                 color={
@@ -63,7 +65,7 @@ const StrongPasswordInput: FC<StrongPasswordInputProps> = ({
                       ? "yellow"
                       : "red"
                 }
-                value={value ? Math.round(strength * 100) : 0}
+                value={Math.round(strength * 100)}
                 mt={6}
                 mb={error ? 6 : 0}
               />
@@ -74,9 +76,8 @@ const StrongPasswordInput: FC<StrongPasswordInputProps> = ({
           ? inputContainer(inputWithProgress)
           : inputWithProgress;
       }}
-      onChange={event => {
-        handleChange(event.target.value);
-        onChange?.(event);
+      onChange={({ currentTarget }) => {
+        handleChange(currentTarget.value);
       }}
       {...otherProps}
     />
