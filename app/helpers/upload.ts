@@ -20,6 +20,7 @@ export type UploadState = {
 export const useLazyUpload = (
   params: UseUploadParams = {},
 ): [(file: File) => Promise<Blob>, UploadState] => {
+  const url = requireMeta("active-storage-direct-uploads-url");
   const [state, setState] = useState<UploadState>(() => ({
     blob: null,
     error: null,
@@ -42,7 +43,6 @@ export const useLazyUpload = (
           cancel: () => {},
         };
       });
-      const url = requireMeta("active-storage-direct-uploads-url");
       const upload = new DirectUpload(file, url, {
         directUploadWillStoreFileWithXHR: request => {
           request.upload.addEventListener("progress", event => {

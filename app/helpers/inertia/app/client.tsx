@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";
+import { reactErrorHandler } from "@sentry/react";
 
 import AppWrapper from "~/components/AppWrapper";
 
@@ -39,9 +40,13 @@ export const initializeApp = (
       setup: ({ el, App, props }) => {
         const app = setupApp({ App, props });
         if (el.hasChildNodes()) {
-          hydrateRoot(el, app);
+          hydrateRoot(el, app, {
+            onRecoverableError: reactErrorHandler(),
+          });
         } else {
-          createRoot(el).render(app);
+          createRoot(el, {
+            onRecoverableError: reactErrorHandler(),
+          }).render(app);
         }
       },
     });

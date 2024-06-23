@@ -18,14 +18,14 @@
     <%# == Content Security Policy %>
     <%= csp_meta_tag %>
 
+    <%# == Environment %>
+    <meta name="env" content="<%= Rails.env %>">
+
     <%# == Action Cable %>
     <%= action_cable_meta_tag %>
 
     <%# == Active Storage %>
     <meta name="active-storage-direct-uploads-url" content="<%= rails_direct_uploads_path %>">
-
-    <%# == Environment %>
-    <meta name="env" content="<%= Rails.env %>">
 
     <%# == Sentry %>
     <% scoped do %>
@@ -33,25 +33,17 @@
       <% if (dsn = config.dsn.presence) %>
         <meta name="sentry-dsn" content="<%= dsn %>">
         <meta name="sentry-traces-sample-rate" content="<%= config.traces_sample_rate %>">
-        <% if (user = current_user) %>
-          <meta name="sentry-user" content="<%= user.sentry_info.to_json %>">
-        <% end %>
       <% end %>
     <% end %>
 
     <%# == FullStory %>
     <% if (org_id = ENV["FULLSTORY_ORG_ID"].presence) %>
       <meta name="fullstory-org-id" content="<%= org_id %>">
-      <% if (user = current_user) %>
-        <meta name="fullstory-identity" content="<%= user.fullstory_identity.to_json %>">
-      <% end %>
     <% end %>
 
     <%# == Vite %>
     <%= vite_client_tag %>
-    <%= vite_typescript_tag "sentry" %>
     <%#= vite_typescript_tag "spotlight" if Rails.env.development? %>
-    <%= vite_typescript_tag "fullstory" %>
     <% if local_assigns.include?(:page) %>
       <%= vite_react_refresh_tag %>
       <%= vite_typescript_tag "application", media: nil %>
