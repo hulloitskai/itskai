@@ -1,2 +1,0 @@
-export const AVATAR_INPUT_IMAGE_SIZE = 140;
-export const AVATAR_INPUT_RADIUS = 10000;

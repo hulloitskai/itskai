@@ -1,22 +1,21 @@
 import type { Image as ImageModel } from "~/types";
-import { useUncontrolled } from "@mantine/hooks";
 import { upload } from "~/helpers/upload";
-import { AVATAR_INPUT_IMAGE_SIZE, AVATAR_INPUT_RADIUS } from "~/helpers/avatar";
 import PhotoIcon from "~icons/heroicons/photo-20-solid";
 
 import type { DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
 
-import type { InputWrapperProps } from "@mantine/core";
+import type { ImageProps, InputWrapperProps } from "@mantine/core";
 import { Image, Input, Text, rgba } from "@mantine/core";
+import { useUncontrolled } from "@mantine/hooks";
 
 import "@mantine/dropzone/styles.layer.css";
 
-import classes from "./AvatarInput.module.css";
+import classes from "./ImageInput.module.css";
 
-export type AvatarValue = { signedId: string };
+export type ImageValue = { signedId: string };
 
-export interface AvatarInputProps
+export interface ImageInputProps
   extends Omit<
       InputWrapperProps,
       | "defaultValue"
@@ -27,12 +26,14 @@ export interface AvatarInputProps
       | "onChange"
     >,
     Pick<DropzoneProps, "disabled"> {
-  value?: AvatarValue | null;
-  defaultValue?: AvatarValue | null;
-  onChange?: (value: AvatarValue | null) => void;
+  value?: ImageValue | null;
+  defaultValue?: ImageValue | null;
+  onChange?: (value: ImageValue | null) => void;
+  radius?: ImageProps["radius"];
+  center?: boolean;
 }
 
-const AvatarInput: FC<AvatarInputProps> = ({
+const ImageInput: FC<ImageInputProps> = ({
   value,
   defaultValue,
   onChange,
@@ -47,6 +48,17 @@ const AvatarInput: FC<AvatarInputProps> = ({
   required,
   disabled,
   withAsterisk,
+  w,
+  h = 140,
+  pl,
+  pr,
+  pb,
+  pt,
+  px,
+  py = 2,
+  p,
+  radius = "md",
+  center,
   style,
 }) => {
   const [resolvedValue, handleChange] = useUncontrolled({
@@ -93,18 +105,24 @@ const AvatarInput: FC<AvatarInputProps> = ({
         withAsterisk,
       }}
     >
-      <Stack align="center" gap={8} py="sm">
-        <Box pos="relative">
+      <Stack
+        align={w ? "center" : "stretch"}
+        gap={8}
+        {...(!!w && { w: "min-content" })}
+        {...(center && { mx: "auto" })}
+        {...{ pl, pr, pb, pt, px, py, p }}
+      >
+        <Box {...{ w, h }} p={4} pos="relative">
           <Image
-            w={AVATAR_INPUT_IMAGE_SIZE}
-            h={AVATAR_INPUT_IMAGE_SIZE}
-            radius={AVATAR_INPUT_RADIUS}
-            m={4}
+            w="100%"
+            h="100%"
+            {...{ radius }}
             src={image?.src}
             srcSet={image?.srcSet}
           />
           <Dropzone
             accept={["image/png", "image/jpeg"]}
+            multiple={false}
             onDrop={files => {
               const file = first(files);
               if (file) {
@@ -126,7 +144,7 @@ const AvatarInput: FC<AvatarInputProps> = ({
                   });
               }
             }}
-            radius={AVATAR_INPUT_RADIUS}
+            radius={radius}
             pos="absolute"
             inset={0}
             classNames={{
@@ -175,4 +193,4 @@ const AvatarInput: FC<AvatarInputProps> = ({
   );
 };
 
-export default AvatarInput;
+export default ImageInput;

@@ -1,4 +1,4 @@
-import AvatarInput from "./AvatarInput";
+import ImageInput from "./ImageInput";
 
 export interface SettingsPageProfileFormProps
   extends BoxProps,
@@ -47,7 +47,13 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
           placeholder="A Friend"
           required
         />
-        <AvatarInput {...getInputProps("avatar")} label="Avatar" />
+        <ImageInput
+          {...getInputProps("avatar")}
+          label="Avatar"
+          w={140}
+          radius={1000}
+          center
+        />
         <Button type="submit" disabled={!dirty || !filled} loading={processing}>
           Save
         </Button>
