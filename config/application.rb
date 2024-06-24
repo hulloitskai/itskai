@@ -125,7 +125,7 @@ module ItsKai
 
     # == Active Storage
     config.active_storage.variant_processor = :vips
-    config.active_storage.routes_prefix = "/files"
+    config.active_storage.routes_prefix = "/storage"
 
     # == Active Support
     config.active_support.remove_deprecated_time_with_zone_name = true
