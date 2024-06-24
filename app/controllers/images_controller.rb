@@ -7,11 +7,10 @@ class ImagesController < ApplicationController
 
   # == Actions
   def show
-    image_blob = T.must(@image_blob)
-    unless image_blob.image?
+    unless @image_blob&.image?
       raise ActiveRecord::RecordNotFound, "Couldn't find Image"
     end
-    render(json: { image: ImageSerializer.one(image_blob) })
+    render(json: { image: ImageSerializer.one(@image_blob) })
   end
 
   private

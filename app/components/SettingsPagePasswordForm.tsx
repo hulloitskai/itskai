@@ -17,7 +17,7 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
     action: routes.usersRegistrations.update,
     method: "put",
     descriptor: "change password",
-    mode: "uncontrolled",
+    // mode: "uncontrolled",
     initialValues: {
       password: "",
       passwordConfirmation: "",

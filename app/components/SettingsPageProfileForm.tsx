@@ -21,7 +21,7 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
     action: routes.usersRegistrations.update,
     method: "put",
     descriptor: "update profile",
-    mode: "uncontrolled",
+    // mode: "uncontrolled",
     initialValues,
     transformValues: ({ avatar, ...attributes }) => ({
       user: {
@@ -35,8 +35,8 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
     setInitialValues(initialValues);
     reset();
   }, [initialValues]); // eslint-disable-line react-hooks/exhaustive-deps
-  const isFilled = useFormFilled(form, "name", "avatar");
-  const isDirty = useFormDirty(form, "name", "avatar");
+  const filled = useFormFilled(form, "name", "avatar");
+  const dirty = useFormDirty(form, "name", "avatar");
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
@@ -48,11 +48,7 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
           required
         />
         <AvatarInput {...getInputProps("avatar")} label="Avatar" />
-        <Button
-          type="submit"
-          disabled={!isDirty || !isFilled}
-          loading={processing}
-        >
+        <Button type="submit" disabled={!dirty || !filled} loading={processing}>
           Save
         </Button>
       </Stack>

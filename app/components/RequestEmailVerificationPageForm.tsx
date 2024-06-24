@@ -12,7 +12,7 @@ const RequestEmailVerificationPageForm: FC<
     action: routes.usersConfirmations.create,
     method: "post",
     descriptor: "send verification email",
-    mode: "uncontrolled",
+    // mode: "uncontrolled",
     initialValues: {
       email: "",
     },

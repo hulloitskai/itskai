@@ -56,8 +56,8 @@ module Admin
     end
 
     def destroy
-      credentials = T.must(@credentials)
-      credentials.destroy!
+      raise "Missing credentials" unless @credentials
+      @credentials.destroy!
       render(json: {})
     rescue => error
       with_log_tags do

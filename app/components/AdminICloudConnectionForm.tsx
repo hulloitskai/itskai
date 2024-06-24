@@ -92,7 +92,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
     action: routes.adminICloudConnections.create,
     method: "post",
     descriptor: "authenticate with iCloud",
-    mode: "uncontrolled",
+    // mode: "uncontrolled",
     initialValues,
     validate: {
       email: isNotEmpty("Email is required"),

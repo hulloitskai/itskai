@@ -25,7 +25,7 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
     action: routes.locations.access,
     method: "post",
     descriptor: "access location",
-    mode: "uncontrolled",
+    // mode: "uncontrolled",
     initialValues,
     validate: {
       password: isNotEmpty("Password is required"),

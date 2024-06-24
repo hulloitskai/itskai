@@ -11,7 +11,7 @@ const RequestPasswordResetPageForm: FC<RequestPasswordResetPageFormProps> = ({
     action: routes.usersPasswords.create,
     method: "post",
     descriptor: "request password reset",
-    mode: "uncontrolled",
+    // mode: "uncontrolled",
     initialValues: {
       email: "",
     },

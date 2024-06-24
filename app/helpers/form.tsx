@@ -57,9 +57,6 @@ export const useFormFilled = <Values,>(
       {} as Record<LooseKeys<Values>, boolean>,
     );
   });
-  useEffect(() => {
-    console.log({ filledFields });
-  }, [filledFields]);
   fields.forEach(field => {
     form.watch(field, ({ value }) => {
       setFilledFields(filledFields => {

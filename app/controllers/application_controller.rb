@@ -29,17 +29,6 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  # == Devise
-  sig { override.returns(T.nilable(User)) }
-  def current_user
-    T.cast(super, T.nilable(User))
-  end
-
-  sig { returns(User) }
-  def current_user!
-    authenticate_user!
-  end
-
   # == Rescuers
   rescue_from ActionPolicy::Unauthorized,
               with: :redirect_to_login_if_signed_out

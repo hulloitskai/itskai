@@ -25,7 +25,7 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
     action: routes.usersRegistrations.update,
     method: "put",
     descriptor: "change email",
-    mode: "uncontrolled",
+    // mode: "uncontrolled",
     initialValues,
     validate: {
       email: isEmail("Email is not valid"),

@@ -22,7 +22,7 @@ const ExplorationCommentForm: FC<ExplorationCommentFormProps> = ({
     method: "post",
     descriptor: "create comment",
     params: commentParams,
-    mode: "uncontrolled",
+    // mode: "uncontrolled",
     initialValues: { message: "", authorContact: "" },
     validate: {
       message: isNotEmpty("Note is required"),

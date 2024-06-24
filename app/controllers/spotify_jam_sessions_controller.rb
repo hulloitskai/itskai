@@ -5,7 +5,7 @@ class SpotifyJamSessionsController < ApplicationController
   # == Actions
   def join
     authorize!(to: :activate?, with: SpotifyJamSessionPolicy)
-    session = SpotifyJamSession.current_or_activate
-    inertia_location(session.join_url)
+    @session = SpotifyJamSession.current_or_activate
+    inertia_location(@session.join_url)
   end
 end

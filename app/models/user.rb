@@ -103,18 +103,6 @@ class User < ApplicationRecord
     UserMailer.welcome_email(self).deliver_later
   end
 
-  # == Sentry
-  sig { returns(T::Hash[String, T.untyped]) }
-  def sentry_info
-    { "id" => to_gid.to_s, "email" => email }
-  end
-
-  # == Fullstory
-  sig { returns(T::Hash[String, T.untyped]) }
-  def fullstory_identity
-    { "uid" => to_gid.to_s, "email" => email, "displayName" => name }
-  end
-
   # == Methods
   sig { returns(T::Boolean) }
   def owner?

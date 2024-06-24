@@ -13,7 +13,7 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
     action: routes.usersRegistrations.create,
     method: "post",
     descriptor: "sign up",
-    mode: "uncontrolled",
+    // mode: "uncontrolled",
     initialValues: {
       name: "",
       email: "",

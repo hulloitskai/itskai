@@ -9,7 +9,7 @@ const TestForm: FC = () => {
     action: routes.test.submit,
     method: "post",
     descriptor: "submit test form",
-    mode: "uncontrolled",
+    // mode: "uncontrolled",
     initialValues: {
       name: "",
       birthday: null as string | null,

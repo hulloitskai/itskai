@@ -17,7 +17,7 @@ const CathendantContributePage: PageComponent<
     action: routes.cathendantMemos.create,
     method: "post",
     descriptor: "create memo",
-    mode: "uncontrolled",
+    // mode: "uncontrolled",
     initialValues: {
       from: "",
       recording: null as File | null,

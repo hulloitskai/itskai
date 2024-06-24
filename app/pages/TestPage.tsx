@@ -20,7 +20,7 @@ export interface TestPageProps extends SharedPageProps {
 const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
   // == Form
   const { getValues, getInputProps } = useForm({
-    mode: "uncontrolled",
+    // mode: "uncontrolled",
     initialValues: { name: initialName },
   });
   const nameDescription = useMemo(() => {

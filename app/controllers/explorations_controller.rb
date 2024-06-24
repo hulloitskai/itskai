@@ -5,12 +5,12 @@ class ExplorationsController < ApplicationController
   # == Actions
   def comment
     exploration_id = T.let(params.fetch(:exploration_id), String)
-    comment = ExplorationComment.new(exploration_id:, **comment_params)
-    if comment.save
+    @comment = ExplorationComment.new(exploration_id:, **comment_params)
+    if @comment.save
       render(json: {})
     else
       render(
-        json: { errors: comment.form_errors },
+        json: { errors: @comment.form_errors },
         status: :unprocessable_entity,
       )
     end

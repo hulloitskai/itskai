@@ -29,7 +29,7 @@ export const imports: Array<ImportsMap | PresetName | InlinePreset> = [
     ],
     "~/helpers/actioncable": ["useCable"],
     "~/helpers/actioncable/subscription": ["useSubscription"],
-    "~/helpers/authentication": ["useAuthenticatedUser"],
+    "~/helpers/authentication": ["useCurrentUser", "useAuthenticatedUser"],
     "~/helpers/errors": ["formatError"],
     "~/helpers/inertia/layout": ["buildLayout"],
     "~/helpers/inertia/page": ["usePage", "usePageProps"],

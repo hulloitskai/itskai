@@ -7,6 +7,6 @@ class LocationAccessGrantPolicy < ApplicationPolicy
 
   # == Scopes
   relation_scope do |relation|
-    active_user&.owner? ? relation : relation.none
+    user&.owner? ? relation : relation.none
   end
 end

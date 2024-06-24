@@ -25,7 +25,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
     action: routes.adminLocationAccessGrants.create,
     method: "post",
     descriptor: "create location access grant",
-    mode: "uncontrolled",
+    // mode: "uncontrolled",
     initialValues,
     validate: {
       recipient: isNotEmpty("Recipient is required"),

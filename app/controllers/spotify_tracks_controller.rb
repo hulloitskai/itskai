@@ -8,8 +8,8 @@ class SpotifyTracksController < ApplicationController
   # == Actions
   def lyrics
     begin
-      track_id = T.must(@track_id)
-      lyrics = SpotifyClient.retrieve_lyrics(track_id)
+      raise "Missing track ID" unless @track_id
+      lyrics = SpotifyClient.retrieve_lyrics(@track_id)
     rescue => error
       with_log_tags do
         logger.error("Failed to retrieve lyrics: #{error.message}")

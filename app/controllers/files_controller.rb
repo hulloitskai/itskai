@@ -7,8 +7,8 @@ class FilesController < ApplicationController
 
   # == Actions
   def show
-    file_blob = T.must(@file_blob)
-    render(json: { file: FileSerializer.one(file_blob) })
+    raise "Missing file blob" unless @file_blob
+    render(json: { file: FileSerializer.one(@file_blob) })
   end
 
   private

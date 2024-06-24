@@ -544,8 +544,6 @@ GEM
     stackprof (0.2.26)
     store_model (1.6.2)
       activerecord (>= 5.2)
-    streamio-ffmpeg (3.0.2)
-      multi_json (~> 1.8)
     stringio (3.1.0)
     strong_password (0.0.10)
     syntax_tree (6.2.0)
@@ -708,7 +706,6 @@ DEPENDENCIES
   spring
   stackprof
   store_model (~> 1.6)
-  streamio-ffmpeg (~> 3.0)
   strong_password (~> 0.0.10)
   tapioca (~> 0.14.1)
   telegram-bot-ruby (~> 2.0)
