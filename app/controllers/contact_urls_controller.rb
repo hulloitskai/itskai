@@ -5,8 +5,9 @@ class ContactUrlsController < ApplicationController
   # == Actions
   def show
     email = Contact.email or raise "Missing contact email"
-    mailto = helpers.mail_to(email, nil, contact_url_params.attributes)
-    render(json: { mailto: })
+    mailto = Addressable::URI.parse("mailto:#{email}")
+    mailto.query_values = contact_url_params.to_h.compact_blank
+    render(json: { mailto: mailto.to_s })
   end
 
   private

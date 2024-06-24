@@ -18,10 +18,21 @@ export const useContactMe = (
   });
   const contactMe = useCallback(() => {
     setResult(result => ({ ...result, loading: true }));
-    fetch(routes.contactUrls.show, {
+    fetch<{ mailto: string }>(routes.contactUrls.show, {
       descriptor: "load contact email",
       params: options,
-    });
+    })
+      .then(
+        ({ mailto }): void => {
+          window.location.href = mailto;
+        },
+        error => {
+          setResult(result => ({ ...result, error }));
+        },
+      )
+      .finally(() => {
+        setResult(result => ({ ...result, loading: false }));
+      });
   }, [options]);
   return [contactMe, result];
 };

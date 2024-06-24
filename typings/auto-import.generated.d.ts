@@ -107,6 +107,7 @@ declare global {
   const useCable: typeof import('~/helpers/actioncable')['useCable']
   const useCallback: typeof import('react')['useCallback']
   const useContext: typeof import('react')['useContext']
+  const useCurrentUser: typeof import('~/helpers/authentication')['useCurrentUser']
   const useDebouncedCallback: typeof import('@mantine/hooks')['useDebouncedCallback']
   const useDebouncedValue: typeof import('@mantine/hooks')['useDebouncedValue']
   const useDebugValue: typeof import('react')['useDebugValue']
