@@ -16,6 +16,7 @@ swap_size_mb = 1024
   RAILS_MAILER_REPLY_TO = "Kai <hullo@itskai.me>"
   SENTRY_TRACES_SAMPLE_RATE = "0.1"
   SENTRY_PROFILES_SAMPLE_RATE = "0.1"
+  PENCIEVE_RECEIVER_DISABLED = "true"
 
 [[services]]
   protocol = "tcp"
