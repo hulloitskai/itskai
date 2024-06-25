@@ -3,7 +3,6 @@
 # frozen_string_literal: true
 
 require_relative "boot"
-
 require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
@@ -35,11 +34,13 @@ module ItsKai
 
     # == Libraries
     require "inflections"
+    require "custom_devise_failure_app"
     require "announcement"
     require "notifications"
     require "logging"
     require "owner"
     # require "admin"
+    require "google"
     require "spotify"
     require "icloud"
     require "pensieve"

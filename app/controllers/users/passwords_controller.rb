@@ -27,12 +27,9 @@ module Users
           after_sending_reset_password_instructions_path_for(resource_name),
         )
       else
-        redirect_to(
-          new_password_path(resource_name),
-          inertia: {
-            errors: resource.form_errors,
-          },
-        )
+        redirect_to(new_password_path(resource_name), inertia: {
+          errors: resource.form_errors,
+        })
       end
     end
 

@@ -36,11 +36,9 @@ module Users
         redirect_url = params[:redirect_url] || root_path
         redirect_to(redirect_url)
       else
-        message = resource.errors.full_messages.first!
-        redirect_back(
-          fallback_location: root_path,
-          alert: "Couldn't send verification email: #{message}",
-        )
+        redirect_to(new_confirmation_path(resource), inertia: {
+          errors: resource.form_errors,
+        })
       end
     end
   end

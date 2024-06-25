@@ -15,7 +15,7 @@ export interface PageLayoutProps extends PropsWithChildren {}
 const PageLayout: FC<PageLayoutProps> = ({ children }) => (
   <>
     <ModalsProvider modalProps={{ size: "md" }}>{children}</ModalsProvider>
-    <Notifications position="top-center" />
+    <Notifications position="top-right" />
     <PageMeta />
     <FullStoryTracking />
     <SentryTracking />

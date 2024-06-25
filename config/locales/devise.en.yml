@@ -2,6 +2,8 @@
 
 en:
   devise:
+    authentication_keys:
+      email: email
     confirmations:
       confirmed: "Your email address has been successfully verified."
       send_instructions: "You will receive an email with instructions for how to verify your email address in a few minutes."

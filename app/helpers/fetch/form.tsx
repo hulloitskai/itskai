@@ -98,10 +98,12 @@ export const useFetchForm = <
                 const e = new Error(error);
                 setError(e);
                 console.error(`Failed to ${descriptor}`, error);
-                showAlert({
-                  title: `Failed to ${descriptor}`,
-                  message: sentencify(error),
-                });
+                if (!failSilently) {
+                  showAlert({
+                    title: `Failed to ${descriptor}`,
+                    message: sentencify(error),
+                  });
+                }
                 onFailure?.(e, form);
               } else if (errors) {
                 const formErrors: FormErrors = transformErrors(errors);
