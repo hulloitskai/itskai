@@ -21,7 +21,7 @@ export interface AppMenuProps
 
 const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
   const isClient = useIsClient();
-  const { currentUser } = usePageProps();
+  const currentUser = useCurrentUser();
   const [contactMe, { loading: loadingContactMe }] = useContactMe();
 
   // == State

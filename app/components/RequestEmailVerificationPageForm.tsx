@@ -32,6 +32,7 @@ const RequestEmailVerificationPageForm: FC<
           label="Email"
           placeholder="jon.snow@example.com"
           required
+          withAsterisk={false}
         />
         <Button type="submit" loading={processing}>
           Continue

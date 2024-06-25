@@ -1,7 +1,7 @@
 import { setUser, isInitialized } from "@sentry/react";
 
 const SentryTracking: FC = () => {
-  const { currentUser } = usePageProps();
+  const currentUser = useCurrentUser();
 
   // == Current user tracking
   useEffect(() => {

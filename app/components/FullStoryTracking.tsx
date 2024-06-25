@@ -1,8 +1,10 @@
 import { FullStory } from "@fullstory/browser";
 
 const FullStoryTracking: FC = () => {
-  const { component, props } = usePage();
-  const { currentUser } = props;
+  const {
+    component,
+    props: { currentUser },
+  } = usePage();
 
   // == Current user tracking
   useEffect(() => {

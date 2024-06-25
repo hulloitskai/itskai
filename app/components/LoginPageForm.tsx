@@ -40,6 +40,7 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
           placeholder="jon.snow@example.com"
           autoComplete="email"
           required
+          withAsterisk={false}
         />
         <PasswordInput
           {...getInputProps("password")}
@@ -47,6 +48,7 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
           placeholder="secret-passphrase"
           autoComplete="current-password"
           required
+          withAsterisk={false}
         />
         <Tooltip
           label="Uncheck this if you're signing in from a shared device."
