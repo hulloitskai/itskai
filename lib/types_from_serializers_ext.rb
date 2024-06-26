@@ -39,7 +39,7 @@ module TypesFromSerializers
   end
 
   module DSL::ClassMethods
-    module Patch
+    module TrackObjectName
       extend T::Sig
       extend T::Helpers
 
@@ -63,7 +63,7 @@ module TypesFromSerializers
         end
       end
     end
-    prepend Patch
+    prepend TrackObjectName
   end
 
   remove_const(:Property)

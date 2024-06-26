@@ -4,7 +4,7 @@
 require "inertia_rails"
 
 module InertiaRails::Helper
-  module Patch
+  module InertiaAssetsHelper
     extend T::Sig
     extend T::Helpers
 
@@ -21,6 +21,5 @@ module InertiaRails::Helper
       vite_javascript_tag(path, **options)
     end
   end
-
-  include Patch
+  include InertiaAssetsHelper
 end

@@ -4,7 +4,7 @@
 module Rails::Generators
   # Ensure generators defined in 'lib/generators' are prioritized over
   # generators in 'lib/rails/generators'.
-  module Patch
+  module CustomLookupPaths
     extend T::Sig
 
     private
@@ -17,5 +17,5 @@ module Rails::Generators
       )
     end
   end
-  extend Patch
+  extend CustomLookupPaths
 end

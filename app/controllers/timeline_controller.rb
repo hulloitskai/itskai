@@ -3,6 +3,7 @@
 
 class TimelineController < ApplicationController
   # == Actions
+  # GET /timeline
   def show
     render(inertia: "TimelinePage")
   end

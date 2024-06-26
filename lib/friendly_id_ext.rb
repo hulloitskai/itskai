@@ -1,11 +1,11 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 require "friendly_id"
 
 module FriendlyId::Slugged
-  # Custom slug normalization and conflict resolution.
-  module Patch
+  # Custom slug normalization.
+  module CustomNormalization
     extend T::Sig
     extend T::Helpers
 
@@ -21,8 +21,17 @@ module FriendlyId::Slugged
       value.gsub!(/-+\z/, "")
       value
     end
+  end
+  prepend CustomNormalization
 
-    # On conflict, use Nanoid to generate slug tails.
+  # On conflict, use Nanoid to generate slug tails.
+  module ResolveConflictWithNanoid
+    extend T::Sig
+    extend T::Helpers
+
+    requires_ancestor { FriendlyId::Base }
+    requires_ancestor { FriendlyId::Slugged }
+
     sig { params(candidates: T::Enumerable[String]).returns(String) }
     def resolve_friendly_id_conflict(candidates)
       tail = Nanoid.generate(
@@ -35,5 +44,5 @@ module FriendlyId::Slugged
         .join(friendly_id_config.sequence_separator)
     end
   end
-  prepend Patch
+  prepend ResolveConflictWithNanoid
 end

@@ -18,7 +18,7 @@ module Tapioca
           {
             fixed: T.all(
               T.class_of(::ActiveRecord::Base),
-              ::PgSearch::Model::ClassMethods::Patch,
+              ::PgSearch::Model::ClassMethods::TrackScopeNames,
             ),
           }
         end

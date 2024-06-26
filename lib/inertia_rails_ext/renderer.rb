@@ -5,7 +5,7 @@ require "inertia_rails"
 
 module InertiaRails
   class Renderer
-    module Patch
+    module SetPage
       extend T::Sig
       extend T::Helpers
 
@@ -17,6 +17,6 @@ module InertiaRails
         ::InertiaRails.page = page
       end
     end
-    prepend Patch
+    prepend SetPage
   end
 end

@@ -4,7 +4,12 @@
 module InertiaRails
   class Middleware
     class InertiaRailsRequest
-      module Patch
+      module IgnoreXSRFHeader
+        def copy_xsrf_to_csrf!; end
+      end
+      include IgnoreXSRFHeader
+
+      module CapacitorSupport
         extend T::Sig
 
         def initialize(...)
@@ -23,11 +28,8 @@ module InertiaRails
         def version_stale?
           !!(super && !capacitor_request?)
         end
-
-        sig { void }
-        def copy_xsrf_to_csrf!; end
       end
-      prepend Patch
+      prepend CapacitorSupport
     end
   end
 end

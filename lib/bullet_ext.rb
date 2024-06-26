@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 begin
@@ -11,7 +11,7 @@ require "sorbet-runtime"
 
 class Bullet::Notification::Base
   # Don't log user.
-  module Patch
+  module WithoutWhoami
     extend T::Sig
 
     sig { returns(T.nilable(String)) }
@@ -19,5 +19,5 @@ class Bullet::Notification::Base
       nil
     end
   end
-  prepend Patch
+  prepend WithoutWhoami
 end

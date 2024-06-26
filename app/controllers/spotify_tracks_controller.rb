@@ -6,6 +6,7 @@ class SpotifyTracksController < ApplicationController
   before_action :set_track_id
 
   # == Actions
+  # GET /spotify/tracks/1/lyrics
   def lyrics
     begin
       raise "Missing track ID" unless @track_id

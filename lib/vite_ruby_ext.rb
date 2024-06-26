@@ -25,8 +25,8 @@ class ViteRuby
     end
   end
 
-  # Allow ViteRuby.without_dev_server { ... }.
-  module Patch
+  # Enable ViteRuby.without_dev_server { ... }.
+  module WithoutDevServerSupport
     extend T::Sig
     extend T::Helpers
 
@@ -37,11 +37,11 @@ class ViteRuby
       dev_server_enabled? && super
     end
   end
-  prepend Patch
+  prepend WithoutDevServerSupport
 
   class DevServerProxy
-    # Allow ViteRuby.without_dev_server { ... }.
-    module Patch
+    # Enable ViteRuby.without_dev_server { ... }.
+    module WithoutDevServerSupport
       extend T::Sig
       extend T::Helpers
 
@@ -74,6 +74,6 @@ class ViteRuby
         end
       end
     end
-    prepend Patch
+    prepend WithoutDevServerSupport
   end
 end

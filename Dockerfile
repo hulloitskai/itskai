@@ -103,7 +103,7 @@ COPY . ./
 RUN bundle exec bootsnap precompile --gemfile app/ lib/
 
 # Precompile assets
-RUN RAILS_SECRET_KEY_BASE=dummy bundle exec rails assets:precompile
+RUN RAILS_SECRET_KEY_BASE_DUMMY=dummy bundle exec rails assets:precompile
 
 # Install Python scripts
 RUN poetry install --no-cache --without=dev

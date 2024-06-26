@@ -3,6 +3,7 @@
 
 class PlacesController < ApplicationController
   # == Actions
+  # GET /toronto
   def toronto
     redirect_to_notion_page("c83f5ba7a1f242ee8d75706b1e2269f2")
   end

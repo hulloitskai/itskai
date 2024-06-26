@@ -232,7 +232,7 @@ class PgSearch::Document < ::ActiveRecord::Base
   include ::PgSearch::Document::GeneratedAssociationMethods
   include ::PgSearch::Model
   extend ::PgSearch::Model::ClassMethods
-  extend ::PgSearch::Model::ClassMethods::Patch
+  extend ::PgSearch::Model::ClassMethods::TrackScopeNames
 
   # source://activerecord/7.1.3.2/lib/active_record/autosave_association.rb#160
   def autosave_associated_records_for_searchable(*args); end

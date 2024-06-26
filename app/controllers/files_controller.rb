@@ -6,6 +6,7 @@ class FilesController < ApplicationController
   before_action :set_file_blob
 
   # == Actions
+  # GET /files/:signed_id
   def show
     raise "Missing file blob" unless @file_blob
     render(json: { file: FileSerializer.one(@file_blob) })

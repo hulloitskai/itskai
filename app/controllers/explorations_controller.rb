@@ -3,6 +3,7 @@
 
 class ExplorationsController < ApplicationController
   # == Actions
+  # POST /explorations/1/comment
   def comment
     exploration_id = T.let(params.fetch(:exploration_id), String)
     @comment = ExplorationComment.new(exploration_id:, **comment_params)

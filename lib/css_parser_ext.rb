@@ -1,10 +1,10 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 module CssParser
   class << self
     # Don't mutate original rule sets when merging.
-    module Patch
+    module MergeWithoutMutatingRuleSets
       extend T::Sig
 
       sig do
@@ -17,6 +17,6 @@ module CssParser
         super(rule_sets)
       end
     end
-    prepend Patch
+    prepend MergeWithoutMutatingRuleSets
   end
 end

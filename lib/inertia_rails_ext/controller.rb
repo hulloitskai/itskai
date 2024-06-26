@@ -5,16 +5,39 @@ require "inertia_rails"
 
 module InertiaRails
   module Controller
+    extend T::Sig
+    extend T::Helpers
+
+    requires_ancestor { ActionController::Base }
+
     # == Included
     remove_instance_variable :@_included_block
     included do
       T.bind(self, T.class_of(ActionController::Base))
 
-      before_action :share_inertia_errors
+      before_action :prepare_instance_variables
       helper Helper
     end
 
-    module Patch
+    private
+
+    # == Callbacks
+    sig { void }
+    def prepare_instance_variables
+      error_sharing = proc do
+        # :inertia_errors are deleted from the session by the middleware
+        if @_request && session[:inertia_errors].present?
+          { errors: session[:inertia_errors] }
+        else
+          {}
+        end
+      end
+      @_inertia_shared_plain_data ||= {}
+      @_inertia_shared_blocks ||= [error_sharing]
+      @_inertia_html_headers ||= []
+    end
+
+    module FlattenInertiaErrors
       extend T::Sig
       extend T::Helpers
 
@@ -22,14 +45,7 @@ module InertiaRails
 
       private
 
-      # == Callbacks
-      sig { void }
-      def share_inertia_errors
-        if (errors = session[:inertia_errors].presence)
-          InertiaRails.share(errors:)
-        end
-      end
-
+      # == Helpers
       sig { params(options: T.untyped).void }
       def capture_inertia_errors(options)
         if (errors = options.dig(:inertia, :errors))
@@ -53,6 +69,6 @@ module InertiaRails
         end
       end
     end
-    prepend Patch
+    include FlattenInertiaErrors
   end
 end

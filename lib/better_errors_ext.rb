@@ -1,4 +1,4 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 begin
@@ -11,7 +11,7 @@ require "sorbet-runtime"
 
 class BetterErrors::StackFrame
   # Ignore files in lib/ that are not application code.
-  module Patch
+  module MarkLibFolderAsExternal
     extend T::Sig
     extend T::Helpers
 
@@ -27,7 +27,7 @@ class BetterErrors::StackFrame
         filename.end_with?("_ext.rb"))
     end
   end
-  prepend Patch
+  prepend MarkLibFolderAsExternal
 end
 
 class BetterErrors::Middleware

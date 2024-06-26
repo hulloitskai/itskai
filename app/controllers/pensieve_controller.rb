@@ -3,6 +3,7 @@
 
 class PensieveController < ApplicationController
   # == Actions
+  # GET /pensieve
   def show
     render(inertia: "PensievePage")
   end

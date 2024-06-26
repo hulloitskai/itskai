@@ -15,7 +15,7 @@ class Healthcheck::HealthchecksController
   module HelperMethods
     include ::ActionText::ContentHelper
     include ::ActionText::TagHelper
-    include ::InertiaRails::Helper::Patch
+    include ::InertiaRails::Helper::InertiaAssetsHelper
     include ::InertiaRails::Helper
     include ::ViteRails::TagHelpers
     include ::ActionController::Base::HelperMethods

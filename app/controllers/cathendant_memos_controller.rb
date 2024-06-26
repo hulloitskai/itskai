@@ -3,6 +3,7 @@
 
 class CathendantMemosController < ApplicationController
   # == Actions
+  # POST /cathendant/memos
   def create
     CathendantMemo.create!(memo_params)
     render(json: {})

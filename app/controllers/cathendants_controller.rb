@@ -6,6 +6,7 @@ class CathendantsController < ApplicationController
   before_action :redirect_to_canonical_url, only: :show
 
   # == Actions
+  # GET /cathendant
   def show
     memos = CathendantMemo.chronological
     render(inertia: "CathendantPage", props: {
@@ -13,6 +14,7 @@ class CathendantsController < ApplicationController
     })
   end
 
+  # GET /cathendant/contribute
   def contribute
     render(inertia: "CathendantContributePage")
   end

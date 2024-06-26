@@ -4,7 +4,8 @@
 module PgSearch
   module Model
     module ClassMethods
-      module Patch
+      # Track scope names in order to generate RBI typings for them.
+      module TrackScopeNames
         extend T::Sig
 
         # == Methods
@@ -19,7 +20,7 @@ module PgSearch
           @pg_search_scope_names ||= T.let([], T.nilable(T::Array[Symbol]))
         end
       end
-      prepend Patch
+      prepend TrackScopeNames
     end
   end
 end

@@ -10,7 +10,7 @@ require "sorbet-runtime"
 
 module Premailer::Adapter::Nokogiri
   # Add support for CSS variables.
-  module Patch
+  module CSSVariableSupport
     extend T::Sig
     extend T::Helpers
 
@@ -362,5 +362,5 @@ module Premailer::Adapter::Nokogiri
       end
     end
   end
-  prepend Patch
+  prepend CSSVariableSupport
 end

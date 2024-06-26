@@ -3,6 +3,7 @@
 
 class PasswordStrengthChecksController < ApplicationController
   # == Actions
+  # POST /password_strength_checks
   def create
     params = check_params
     unless params.valid?

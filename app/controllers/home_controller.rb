@@ -3,6 +3,7 @@
 
 class HomeController < ApplicationController
   # == Actions
+  # GET /
   def show
     if request.hostname == "cathy.earth"
       CathendantsController.dispatch(:show, request, response)

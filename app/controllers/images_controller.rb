@@ -6,6 +6,7 @@ class ImagesController < ApplicationController
   before_action :set_image_blob
 
   # == Actions
+  # GET /images/:signed_id
   def show
     unless @image_blob&.image?
       raise ActiveRecord::RecordNotFound, "Couldn't find Image"

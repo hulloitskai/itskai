@@ -1,12 +1,11 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
 require "sorbet-runtime"
-require_relative "rails_ext/generators"
 
 module Rails
   # Add predicates to determine if Rails is running a console or a server.
-  module Patch
+  module RuntimeContextHelpers
     extend T::Sig
     extend T::Helpers
 
@@ -28,5 +27,5 @@ module Rails
       const_defined?(:TestUnitReporter)
     end
   end
-  extend Patch
+  extend RuntimeContextHelpers
 end

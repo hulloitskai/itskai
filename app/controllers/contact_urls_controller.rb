@@ -3,6 +3,7 @@
 
 class ContactUrlsController < ApplicationController
   # == Actions
+  # GET /contact_url
   def show
     email = Contact.email or raise "Missing contact email"
     mailto = Addressable::URI.parse("mailto:#{email}")

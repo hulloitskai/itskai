@@ -28,19 +28,19 @@ module InertiaRails
   end
 
   class << self
-    module Patch
+    # Clear threadsafe page when resetting.
+    module ClearPageOnReset
       extend T::Sig
       extend T::Helpers
 
       requires_ancestor { T.class_of(InertiaRails) }
 
       # == Methods
-      # Clear threadsafe page when resetting.
       def reset!
         super
         self.threadsafe_page = nil
       end
     end
-    prepend Patch
+    prepend ClearPageOnReset
   end
 end
