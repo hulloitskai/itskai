@@ -8,6 +8,9 @@ _kai's personal website :)_
 # install tools
 brew install docker rbenv nodenv pyenv poetry yarn watchman overmind
 
+# install libraries
+brew install libvips ffmpeg
+
 # set up environment
 git clone git@github.com:hulloitskai/itskai
 cd itskai
