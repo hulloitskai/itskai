@@ -35,14 +35,11 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
       user: deepUnderscoreKeys(values),
     }),
   });
-  const { getInputProps, isDirty, isValid, watch, submit, processing } = form;
-  const currentPasswordFilled = useFieldFilled(form, "currentPassword");
+  const { getInputProps, isDirty, submit, processing } = form;
+  const currentPasswordFilled = useFieldsFilled(form, "currentPassword");
 
   // == Conditionally show current password field
-  const [emailFilled, setEmailFilled] = useState(false);
-  watch("email", () => {
-    setEmailFilled(isDirty("email") && isValid("email"));
-  });
+  const emailFilled = useFieldsFilled(form, "email");
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
@@ -75,7 +72,7 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
             </Text>
           )}
         </Box>
-        <Transition transition="fade" mounted={emailFilled}>
+        <Transition transition="fade" mounted={emailFilled && isDirty("email")}>
           {style => (
             <PasswordInput
               {...getInputProps("currentPassword")}
@@ -90,7 +87,7 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
         <Stack gap={6}>
           <Button
             type="submit"
-            disabled={!emailFilled || !currentPasswordFilled}
+            disabled={!isDirty() || !emailFilled || !currentPasswordFilled}
             loading={processing}
           >
             Change email

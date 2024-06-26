@@ -42,8 +42,7 @@ const CathendantContributePage: PageComponent<
   });
   const { watch, setFieldValue, getInputProps, errors, submit, processing } =
     form;
-  const fromFilled = useFieldFilled(form, "from");
-  const recordingFilled = useFieldFilled(form, "recording");
+  const filled = useFieldsFilled(form, "from", "recording");
   const [recordingName, setRecordingName] = useState<string>("");
   watch("recording", ({ value }) => {
     if (value) {
@@ -165,7 +164,7 @@ const CathendantContributePage: PageComponent<
             <Button
               type="submit"
               variant="outline"
-              disabled={!(fromFilled && recordingFilled)}
+              disabled={!filled}
               loading={processing}
             >
               Submit

@@ -33,7 +33,6 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
   const scrollToContainerTop = useCallback(() => {
     if (containerRef.current) {
       const headerEl = document.querySelector(".mantine-AppShell-header");
-      console.log("IM GONNA DO IT");
       scrollIntoView(containerRef.current, {
         align: {
           top: 0,

@@ -185,7 +185,7 @@ const ImageInput: FC<ImageInputProps> = ({
               }
             }}
           >
-            Clear image
+            Clear
           </Anchor>
         )}
       </Stack>

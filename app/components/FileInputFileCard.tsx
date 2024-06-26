@@ -25,9 +25,6 @@ const FileInputFileCard: FC<FileInputFileCardProps> = ({
     () => (file?.byteSize ? prettyBytes(file.byteSize) : null),
     [file?.byteSize],
   );
-  useEffect(() => {
-    console.log({ signedId });
-  }, [signedId]);
 
   return (
     <Skeleton visible={!data}>

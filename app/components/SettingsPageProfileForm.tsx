@@ -30,13 +30,19 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
       },
     }),
   });
-  const { getInputProps, submit, processing, setInitialValues, reset } = form;
+  const {
+    getInputProps,
+    submit,
+    processing,
+    setInitialValues,
+    reset,
+    isDirty,
+  } = form;
   useEffect(() => {
     setInitialValues(initialValues);
     reset();
   }, [initialValues]); // eslint-disable-line react-hooks/exhaustive-deps
-  const filled = useFormFilled(form, "name", "avatar");
-  const dirty = useFormDirty(form, "name", "avatar");
+  const filled = useFieldsFilled(form, "name");
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
@@ -54,7 +60,11 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
           radius={1000}
           center
         />
-        <Button type="submit" disabled={!dirty || !filled} loading={processing}>
+        <Button
+          type="submit"
+          disabled={!isDirty() || !filled}
+          loading={processing}
+        >
           Save
         </Button>
       </Stack>

@@ -46,19 +46,13 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
       currentPassword: isNotEmpty("Current password is required"),
     },
   });
-  const { getInputProps, isDirty, isValid, watch, submit, processing } = form;
-  const currentPasswordFilled = useFieldFilled(form, "currentPassword");
-
-  // == Conditionally show current password field
-  const [passwordFilled, setPasswordFilled] = useState(false);
-  const [passwordConfirmationFilled, setPasswordConfirmationFilled] =
-    useState(false);
-  watch("password", () => {
-    setPasswordFilled(isDirty("password") && isValid("password"));
-  });
-  watch("passwordConfirmation", () => {
-    setPasswordConfirmationFilled(isValid("passwordConfirmation"));
-  });
+  const { getInputProps, isDirty, submit, processing } = form;
+  const currentPasswordFilled = useFieldsFilled(form, "currentPassword");
+  const passwordFieldsFilled = useFieldsFilled(
+    form,
+    "password",
+    "passwordConfirmation",
+  );
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
@@ -81,7 +75,7 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
         />
         <Transition
           transition="fade"
-          mounted={passwordFilled && passwordConfirmationFilled}
+          mounted={isDirty("password") && passwordFieldsFilled}
         >
           {style => (
             <PasswordInput
@@ -98,9 +92,7 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
         <Button
           type="submit"
           disabled={
-            !passwordFilled ||
-            !passwordConfirmationFilled ||
-            !currentPasswordFilled
+            !isDirty() || !passwordFieldsFilled || !currentPasswordFilled
           }
           loading={processing}
         >

@@ -80,7 +80,6 @@ const FileInput = <Multiple extends boolean = false>(
   const resolvedValueRef = useRef(resolvedValue);
   useEffect(() => {
     resolvedValueRef.current = resolvedValue;
-    console.log("value", resolvedValue);
   }, [resolvedValue]);
 
   // == Uploading files
