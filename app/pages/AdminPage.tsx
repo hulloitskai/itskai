@@ -12,12 +12,14 @@ export interface AdminPageProps extends SharedPageProps {
   icloudConnection: ICloudConnection;
   googleConnection: OAuthConnection;
   spotifyConnection: OAuthConnection;
+  newLocationAccessGrantId: string | null;
 }
 
 const AdminPage: PageComponent<AdminPageProps> = ({
   icloudConnection,
   googleConnection,
   spotifyConnection,
+  newLocationAccessGrantId,
 }) => {
   return (
     <Stack>
@@ -47,7 +49,9 @@ const AdminPage: PageComponent<AdminPageProps> = ({
               Grant access to your precise location
             </Text>
           </Stack>
-          <AdminLocationAccessGrants />
+          <AdminLocationAccessGrants
+            newGrantId={newLocationAccessGrantId ?? undefined}
+          />
         </Stack>
       </Card>
       <Card withBorder>

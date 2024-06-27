@@ -60,9 +60,6 @@ gem "mailjet", "~> 1.7"
 # Use FriendlyId to create human-friendly identifiers for models
 gem "friendly_id", "~> 5.5"
 
-# Use Nanoid to generate tiny collision-resistant IDs
-gem "nanoid", "~> 2.0"
-
 # Modern concurrency tools
 gem "concurrent-ruby", "~> 1.1"
 

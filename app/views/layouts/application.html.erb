@@ -18,6 +18,10 @@
     <%# == Content Security Policy %>
     <%= csp_meta_tag %>
 
+    <%# == CSRF %>
+    <meta name="csrf-param" content="<%= request_forgery_protection_token %>" inertia>
+    <meta name="csrf-token" content="<%= form_authenticity_token %>" inertia>
+
     <%# == Environment %>
     <meta name="env" content="<%= Rails.env %>">
 

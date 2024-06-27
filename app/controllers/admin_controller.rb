@@ -16,6 +16,7 @@ class AdminController < ApplicationController
       "googleConnection" => OAuthConnectionSerializer.one(google_connection),
       "spotifyConnection" => OAuthConnectionSerializer.one(spotify_connection),
       "icloudConnection" => ICloudConnectionSerializer.one(icloud_connection),
+      "newLocationAccessGrantId" => admin_params.new_location_access_grant_id,
     })
   end
 
@@ -39,6 +40,12 @@ class AdminController < ApplicationController
   end
 
   private
+
+  # == Helpers
+  sig { returns(AdminParameters) }
+  def admin_params
+    @admin_params ||= AdminParameters.new(params)
+  end
 
   # == Filter handlers
   def authorize_admin!

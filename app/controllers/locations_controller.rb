@@ -24,6 +24,7 @@ class LocationsController < ApplicationController
     else
       render(inertia: "LocatePage", props: {
         "approximateLocation" => ApproximateLocationSerializer.one_if(location),
+        password: location_params.password,
       })
     end
   rescue => error
@@ -73,21 +74,21 @@ class LocationsController < ApplicationController
     authorize!(with: LocatePolicy)
     recipient = l(Time.current, format: :short)
     expires_at = 3.hours.from_now
-    LocationAccessGrant.create!(recipient:, expires_at:)
+    grant = LocationAccessGrant.create!(recipient:, expires_at:)
     redirect_to(
-      admin_path(anchor: "location-access-grants"),
-      notice: "Location access granted until #{l(expires_at, format: :short)}",
+      admin_path(
+        anchor: "location-access-grants",
+        new_location_access_grant_id: grant.id,
+      ),
     )
   end
 
   private
 
   # == Helpers
-  sig { returns(LocationParams) }
+  sig { returns(LocationParameters) }
   def location_params
-    @location_params = LocationParams
-      .new(params.permit(*LocationParams.attribute_names))
-      .tap(&:validate!)
+    @location_params ||= LocationParameters.new(params)
   end
 
   sig { returns(ActionController::Parameters) }

@@ -6,11 +6,13 @@ import { isNotEmpty } from "@mantine/form";
 export interface LocationAccessFormProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"form">, "style" | "children"> {
+  autofillPassword?: string;
   size?: MantineSize | (string & {});
   onSuccess?: (token: string) => void;
 }
 
 const LocationAccessForm: FC<LocationAccessFormProps> = ({
+  autofillPassword,
   size = "md",
   onSuccess,
   ...otherProps
@@ -18,7 +20,7 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
   const initialValues = {
     password: "",
   };
-  const { getInputProps, submit, processing } = useFetchForm<
+  const { getInputProps, setFieldValue, submit, processing } = useFetchForm<
     { token: string },
     typeof initialValues
   >({
@@ -40,6 +42,12 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
       setFieldValue("password", "");
     },
   });
+  useEffect(() => {
+    if (autofillPassword) {
+      setFieldValue("password", autofillPassword);
+      submit();
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>

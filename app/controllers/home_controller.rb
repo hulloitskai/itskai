@@ -28,8 +28,8 @@ class HomeController < ApplicationController
   private
 
   # == Helpers
-  sig { returns(HomeParams) }
+  sig { returns(HomeParameters) }
   def home_params
-    @home_params ||= HomeParams.new(params.permit(*HomeParams.attribute_names))
+    @home_params ||= HomeParameters.new(params)
   end
 end

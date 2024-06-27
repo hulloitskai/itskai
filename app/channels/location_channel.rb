@@ -40,11 +40,9 @@ class LocationChannel < ApplicationCable::Channel
   private
 
   # == Helpers
-  sig { returns(LocationParams) }
+  sig { returns(LocationParameters) }
   def location_params
-    @location_params ||= LocationParams.new(
-      params.slice(*LocationParams.attribute_names),
-    )
+    @location_params ||= LocationParameters.new(params)
   end
 
   sig { returns(String) }

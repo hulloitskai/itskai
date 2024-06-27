@@ -92,7 +92,9 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
         <Button
           type="submit"
           disabled={
-            !isDirty() || !passwordFieldsFilled || !currentPasswordFilled
+            !isDirty("password") ||
+            !passwordFieldsFilled ||
+            !currentPasswordFilled
           }
           loading={processing}
         >

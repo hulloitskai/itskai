@@ -87,7 +87,9 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
         <Stack gap={6}>
           <Button
             type="submit"
-            disabled={!isDirty() || !emailFilled || !currentPasswordFilled}
+            disabled={
+              !isDirty("email") || !emailFilled || !currentPasswordFilled
+            }
             loading={processing}
           >
             Change email

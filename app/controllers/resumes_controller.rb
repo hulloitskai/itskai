@@ -17,7 +17,7 @@ class ResumesController < ApplicationController
         resume = ::Resume.current(variant: variant&.to_sym)
         render(
           inertia: "ResumePage",
-          props: { resume:, "printMode" => print_mode },
+          props: { resume:, variant:, "printMode" => print_mode },
         )
       end
       format.json do

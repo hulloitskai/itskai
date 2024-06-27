@@ -515,6 +515,13 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-2.0.2.tgz#d9fae00a2d5cb40f92cfe64b47ad749fbc38f917"
   integrity sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==
 
+"@iconify-json/basil@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@iconify-json/basil/-/basil-1.1.5.tgz#ac54a8525213d03fef93b91d6383d1955d08c4e0"
+  integrity sha512-lRe/Ad/wdK8s3CmnRpYHJnlsIrSGGIWAQSv4z+AH4mfh1HrDdA8+fl7TvAEMpOC1uhExckzOV8V5qzCwqBucgQ==
+  dependencies:
+    "@iconify/types" "*"
+
 "@iconify-json/heroicons@^1.1.19":
   version "1.1.20"
   resolved "https://registry.yarnpkg.com/@iconify-json/heroicons/-/heroicons-1.1.20.tgz#e2c536224bd0ff922e824579cdab40a18b0477da"

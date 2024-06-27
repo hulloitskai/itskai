@@ -30,15 +30,17 @@ const APPROXIMATE_ZOOM = 11.5;
 const PRECISE_ZOOM = 14.5;
 
 export interface LocatePageProps extends SharedPageProps {
-  approximateLocation?: ApproximateLocation;
-  location?: LocationWithTrail;
-  accessToken?: string;
-  accessGrant?: LocationAccessGrant;
+  approximateLocation: ApproximateLocation | null;
+  location: LocationWithTrail | null;
+  password: string | null;
+  accessToken: string | null;
+  accessGrant: LocationAccessGrant | null;
 }
 
 const LocatePage: PageComponent<LocatePageProps> = ({
-  location: initialLocation,
   approximateLocation: initialApproximateLocation,
+  location: initialLocation,
+  password,
   accessToken,
   accessGrant: initialAccessGrant,
 }) => {
@@ -373,6 +375,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                 Got a password? Enter it here to find out where Kai is.
               </Text>
               <LocationAccessForm
+                {...(!!password && { autofillPassword: password })}
                 size="sm"
                 onSuccess={token => {
                   router.visit(

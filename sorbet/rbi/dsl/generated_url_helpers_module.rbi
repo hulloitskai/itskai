@@ -136,9 +136,6 @@ module GeneratedUrlHelpersModule
   def password_strength_checks_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def pensieve_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def rails_blob_representation_proxy_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

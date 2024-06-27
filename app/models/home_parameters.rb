@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class HomeParams < ApplicationModel
+class HomeParameters < ApplicationParameters
   # == Attributes
   attribute :entry_id, :string
 end

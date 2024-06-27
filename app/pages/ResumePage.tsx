@@ -14,8 +14,8 @@ import ResumeProjectSection from "~/components/ResumeProjectSection";
 
 export interface ResumePageProps extends SharedPageProps {
   resume: Resume;
-  variant?: string;
-  printMode?: boolean;
+  variant: string | null;
+  printMode: boolean;
 }
 
 const ResumePage: PageComponent<ResumePageProps> = ({
@@ -190,7 +190,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
           </Box>
         )}
       </ResumeLayout>
-      {!printMode && <ResumeDialog {...{ variant }} />}
+      {!printMode && <ResumeDialog variant={variant ?? undefined} />}
     </MantineProvider>
   );
 };

@@ -12,11 +12,14 @@ export interface AdminLocationAccessGrantsProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children">,
     Pick<LocationAccessGrantCreateFormProps, "onCreated">,
-    Pick<AdminLocationAccessGrantCardProps, "onDeleted"> {}
+    Pick<AdminLocationAccessGrantCardProps, "onDeleted"> {
+  newGrantId?: string;
+}
 
 const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
   onCreated,
   onDeleted,
+  newGrantId,
   ...otherProps
 }) => {
   // == Grants
@@ -27,7 +30,6 @@ const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
     },
   );
   const { grants } = data ?? {};
-
   return (
     <Stack id="location-access-grants" gap="xs" {...otherProps}>
       {grants ? (
@@ -35,6 +37,7 @@ const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
           grants.map(grant => (
             <AdminLocationAccessGrantCard
               key={grant.id}
+              autocopy={newGrantId === grant.id}
               onDeleted={() => {
                 mutate();
                 onDeleted?.();

@@ -6,7 +6,7 @@ export interface ErrorPageProps extends SharedPageProps {
   title: string;
   description: string;
   code: number;
-  error?: string;
+  error: string | null;
 }
 
 const ErrorPage: PageComponent<ErrorPageProps> = ({

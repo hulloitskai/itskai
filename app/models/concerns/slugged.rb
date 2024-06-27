@@ -31,11 +31,7 @@ module Slugged
     # == Methods
     sig { returns(String) }
     def generate_slug
-      Nanoid.generate(
-        alphabet:
-          "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-        size: generated_slug_length,
-      )
+      Devise.friendly_token(generated_slug_length)
     end
   end
 

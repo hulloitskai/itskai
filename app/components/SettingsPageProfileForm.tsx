@@ -62,6 +62,7 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
         />
         <Button
           type="submit"
+          leftSection={<SaveIcon />}
           disabled={!isDirty() || !filled}
           loading={processing}
         >
