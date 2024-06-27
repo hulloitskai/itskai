@@ -98,7 +98,7 @@ const TestPageModalContent: FC<TestPageModalContentProps> = ({
 }) => (
   <Stack gap="xs" {...otherProps}>
     <Text>Apparently, your name is:</Text>
-    <TextInput value={name} />
+    <TextInput defaultValue={name} />
     <Button onClick={() => closeAllModals()}>Uh-huh.</Button>
   </Stack>
 );

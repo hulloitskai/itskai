@@ -41,18 +41,18 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
             <Textarea
               label="Cookies"
               value={credentials.cookies}
+              readOnly
               autosize
               maxRows={12}
-              readOnly
             />
           )}
           {!!credentials?.session && (
             <JsonInput
               label="Session"
               value={JSON.stringify(credentials.session, undefined, 2)}
+              readOnly
               autosize
               maxRows={12}
-              readOnly
             />
           )}
         </Stack>
