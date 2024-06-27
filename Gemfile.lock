@@ -297,7 +297,6 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.4.0)
     mutex_m (0.2.0)
-    nanoid (2.0.0)
     neatjson (0.10.5)
     net-http (0.4.1)
       uri
@@ -657,7 +656,6 @@ DEPENDENCIES
   markly (~> 0.7.0)
   memory_profiler
   multi_json (~> 1.15)
-  nanoid (~> 2.0)
   neatjson (~> 0.10.5)
   nokogiri (~> 1.15)
   notion-ruby-client (~> 1.2)
