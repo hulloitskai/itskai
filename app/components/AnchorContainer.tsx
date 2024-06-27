@@ -16,8 +16,10 @@ const _AnchorContainer = forwardRef<HTMLAnchorElement, AnchorContainerProps>(
     ref,
   ) => (
     <Anchor
-      unstyled
+      {...{ ref }}
       className={classes.root}
+      unstyled
+      {...{ display }}
       style={[
         style,
         theme => ({
@@ -29,7 +31,6 @@ const _AnchorContainer = forwardRef<HTMLAnchorElement, AnchorContainerProps>(
           ),
         }),
       ]}
-      {...{ ref, display }}
       {...otherProps}
     >
       {children}

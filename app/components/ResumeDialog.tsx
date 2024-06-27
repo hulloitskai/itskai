@@ -40,12 +40,12 @@ const ResumeDialog: FC<ResumeDialogProps> = ({ variant, ...otherProps }) => {
       <Dialog
         withBorder
         withCloseButton
-        onClose={close}
         position={{ bottom: rem(20), right: rem(20) }}
         size="lg"
         radius="md"
         transitionProps={{ transition: "slide-up", duration: 250 }}
         {...{ opened }}
+        onClose={close}
         {...otherProps}
       >
         <Group gap="sm">
@@ -59,10 +59,10 @@ const ResumeDialog: FC<ResumeDialogProps> = ({ variant, ...otherProps }) => {
               leftSection={<DocumentIcon />}
               variant="gradient"
               gradient={{ from: "indigo", to: "pink", deg: 45 }}
+              loading={loadingPDF}
               onClick={() => {
                 setLoadingPDF(true);
               }}
-              {...{ loading: loadingPDF }}
             >
               {loadingPDF ? "Generating PDF..." : "Generate PDF"}
             </Button>

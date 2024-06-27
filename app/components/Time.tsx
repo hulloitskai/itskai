@@ -51,9 +51,9 @@ const Time: FC<TimeProps> = ({
 
   return (
     <Skeleton
-      visible={!formattedTime}
       className={classes.skeleton}
       {...{ component }}
+      visible={!formattedTime}
       {...{ m, mt, mr, mb, ml, mx, my }}
     >
       <Text

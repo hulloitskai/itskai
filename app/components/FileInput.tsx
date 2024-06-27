@@ -107,6 +107,8 @@ const FileInput = <Multiple extends boolean = false>(
       >
         <Dropzone
           multiple={multiple ?? false}
+          {...{ accept, maxSize, maxFiles, disabled }}
+          py="lg"
           onDrop={files => {
             if (!multiple && value) {
               handleChange(null as any);
@@ -115,8 +117,6 @@ const FileInput = <Multiple extends boolean = false>(
               uniqBy([...prevFiles, ...files], "name"),
             );
           }}
-          py="lg"
-          {...{ accept, maxSize, maxFiles, disabled }}
         >
           <Stack align="center" gap={4}>
             <Dropzone.Accept>

@@ -21,9 +21,9 @@ const Map = forwardRef<MapRef, MapProps>(
     const mapboxAccessToken = useMemo(() => getMeta("mapbox-access-token"), []);
     return (
       <_Map
+        {...{ ref, mapboxAccessToken, mapStyle }}
         attributionControl={false}
         scrollZoom={false}
-        {...{ ref, mapboxAccessToken, mapStyle }}
         {...otherProps}
       >
         {navigationControl && <NavigationControl />}

@@ -227,8 +227,8 @@ const LocatePage: PageComponent<LocatePageProps> = ({
           ref={mapRef}
           mapStyle="mapbox://styles/mapbox-map-design/ck4014y110wt61ctt07egsel6"
           scrollZoom
-          style={{ flexGrow: 1 }}
           {...{ initialViewState }}
+          style={{ flexGrow: 1 }}
         >
           <GeolocateControl />
           {location?.coordinates && (

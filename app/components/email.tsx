@@ -24,6 +24,7 @@ export const Button = forwardRef<HTMLAnchorElement, ButtonProps>(
     );
     return (
       <_Button
+        {...{ ref }}
         className={MantineButton.classes.root}
         style={{
           padding: "8px 14px",
@@ -33,7 +34,6 @@ export const Button = forwardRef<HTMLAnchorElement, ButtonProps>(
           borderRadius,
           ...style,
         }}
-        {...{ ref }}
         {...props}
       >
         {children}
@@ -48,12 +48,12 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   ({ style, children, ...props }, ref) => {
     return (
       <_Link
+        {...{ ref }}
         style={{
           color: "var(--mantine-color-anchor)",
           fontSize: "14px",
           ...style,
         }}
-        {...{ ref }}
         {...props}
       >
         {children}
@@ -67,14 +67,7 @@ export interface TextProps extends _TextProps {}
 export const Text = forwardRef<HTMLParagraphElement, TextProps>(
   ({ style, children, ...props }, ref) => {
     return (
-      <_Text
-        style={{
-          margin: "8px 0",
-          ...style,
-        }}
-        {...{ ref }}
-        {...props}
-      >
+      <_Text {...{ ref }} style={{ margin: "8px 0", ...style }} {...props}>
         {children}
       </_Text>
     );
@@ -89,13 +82,13 @@ export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
     const { sizes, ...headingStyle } = theme.headings;
     return (
       <_Heading
+        {...{ ref }}
         style={{
           margin: "24px 0",
           ...headingStyle,
           ...sizes.h3,
           ...style,
         }}
-        {...{ ref }}
         {...props}
       >
         {children}

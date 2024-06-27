@@ -140,7 +140,7 @@ const Pensieve: FC<PensieveProps> = ({
         display="flex"
         style={{ flexGrow: 1, flexDirection: "column", alignItems: "stretch" }}
       >
-        <ScrollArea style={{ flexGrow: 1 }} {...{ viewportRef }}>
+        <ScrollArea {...{ viewportRef }} style={{ flexGrow: 1 }}>
           {!isEmpty(groups) ? (
             <Stack m="lg">
               {groups.map(messages => {
@@ -152,7 +152,7 @@ const Pensieve: FC<PensieveProps> = ({
                   ? "end"
                   : "start";
                 return (
-                  <Stack key={messageId} gap={4} {...{ align }}>
+                  <Stack key={messageId} {...{ align }} gap={4}>
                     <Text
                       size="xs"
                       fw={800}

@@ -42,10 +42,10 @@ const TimelinePagePhoto: FC<TimelinePagePhotoProps> = ({
   return (
     <Transition
       transition="pop"
+      {...{ mounted }}
       onExited={() => {
         safeToRemove?.();
       }}
-      {...{ mounted }}
     >
       {style => (
         <Image

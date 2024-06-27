@@ -54,6 +54,7 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
       <Group gap={8} align="start">
         <TextInput
           {...getInputProps("password")}
+          {...{ size }}
           placeholder="porcupine"
           autoCapitalize="false"
           autoCorrect="false"
@@ -63,7 +64,6 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
               flexGrow: 1,
             },
           }}
-          {...{ size }}
         />
         <Button
           type="submit"

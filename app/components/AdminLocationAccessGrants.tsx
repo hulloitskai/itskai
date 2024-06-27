@@ -37,12 +37,12 @@ const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
           grants.map(grant => (
             <AdminLocationAccessGrantCard
               key={grant.id}
+              {...{ grant }}
               autocopy={newGrantId === grant.id}
               onDeleted={() => {
                 mutate();
                 onDeleted?.();
               }}
-              {...{ grant }}
             />
           ))
         ) : (

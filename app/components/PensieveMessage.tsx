@@ -87,7 +87,7 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
             )}
           </Stack>
           {!fromBot && (
-            <PensieveMessageLike style={{ flexShrink: 0 }} {...{ message }} />
+            <PensieveMessageLike {...{ message }} style={{ flexShrink: 0 }} />
           )}
         </Group>
       )}

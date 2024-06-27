@@ -77,6 +77,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
   const prevLabel = usePrevious(label);
   return (
     <Tooltip
+      {...{ ref }}
       label={label || prevLabel}
       withArrow
       multiline
@@ -87,7 +88,6 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
       maw={350}
       fz="xs"
       classNames={{ tooltip: classes.tooltip }}
-      {...{ ref }}
       {...otherProps}
     >
       {children(currentLyric)}

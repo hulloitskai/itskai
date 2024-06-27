@@ -20,10 +20,10 @@ const ExplorationBadge: FC<ExplorationBadgeProps> = ({
       title: <>Your thoughts on: {exploration.label}</>,
       children: (
         <ExplorationCommentForm
+          {...{ exploration }}
           onCommented={() => {
             closeAllModals();
           }}
-          {...{ exploration }}
         />
       ),
     });

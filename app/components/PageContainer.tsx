@@ -18,6 +18,7 @@ const PageContainer: FC<PageContainerProps> = ({
 }) => {
   return (
     <Container
+      {...{ size }}
       p="md"
       w="100%"
       style={[
@@ -34,7 +35,6 @@ const PageContainer: FC<PageContainerProps> = ({
             }
           : undefined,
       ]}
-      {...{ size }}
       {...otherProps}
     >
       {children}

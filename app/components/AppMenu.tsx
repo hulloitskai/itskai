@@ -58,11 +58,12 @@ const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
 
   return (
     <Menu
-      trigger="hover"
       position="bottom-end"
+      trigger="hover"
       offset={4}
       width={220}
       withinPortal={false}
+      {...{ opened }}
       onChange={setOpened}
       classNames={{
         itemSection: classes.itemSection,
@@ -78,7 +79,6 @@ const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
           borderRadius: 0,
         },
       }}
-      {...{ opened }}
       {...otherProps}
     >
       <Menu.Target>
