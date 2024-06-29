@@ -2,7 +2,6 @@
   "license": "UNLICENSED",
   "type": "module",
   "resolutions": {
-    "@codemirror/language": "6.0.0",
     "@parcel/watcher": "2.1.0",
     "@svgr/core": "^8.0.0",
     "dayjs": "^1.11.9",
@@ -97,7 +96,7 @@
     "typescript-plugin-css-modules": "^5.1.0",
     "unplugin-auto-import": "^0.17.6",
     "unplugin-icons": "^0.18.5",
-    "vite": "^5.2.6",
+    "vite": "^5.0.0",
     "vite-plugin-full-reload": "^1.1.0",
     "vite-plugin-iso-import": "^1.1.0",
     "vite-plugin-ruby": "^5.0.0"
