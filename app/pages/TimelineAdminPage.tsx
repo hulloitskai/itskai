@@ -3,7 +3,7 @@ import { Text } from "@mantine/core";
 import AppLayout from "~/components/AppLayout";
 import TimelineActivitiesImportButton from "~/components/TimelineActivitiesImportButton";
 import TimelinePhotosImportButton from "~/components/TimelinePhotosImportButton";
-// import TimelinePhotoCreateWithTimestampButton from "~/components/TimelinePhotoCreateWithTimestampButton";
+import TimelinePhotoCreateWithTimestampButton from "~/components/TimelinePhotoCreateWithTimestampButton";
 
 export interface TimelineAdminPageProps extends SharedPageProps {}
 
@@ -23,7 +23,7 @@ const TimelineAdminPage: PageComponent<TimelineAdminPageProps> = () => {
           <Stack gap={6}>
             <TimelineActivitiesImportButton />
             <TimelinePhotosImportButton />
-            {/* <TimelinePhotoCreateWithTimestampButton /> */}
+            <TimelinePhotoCreateWithTimestampButton />
           </Stack>
         </Stack>
       </Card>

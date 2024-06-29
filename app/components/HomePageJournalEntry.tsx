@@ -54,7 +54,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
         component={Link}
         href={nextEntryPath}
         preserveScroll
-        only={["journalEntry", "autoscroll"]}
+        only={["journalEntry", "firstJournalEntryId", "journalAutoscroll"]}
         variant="outline"
         leftSection={entry.nextEntryId ? <NextIcon /> : <ResetIcon />}
         radius="xl"
