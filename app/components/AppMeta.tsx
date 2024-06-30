@@ -8,6 +8,7 @@ const APP_META_SITE_IMAGE = "/banner.png";
 const APP_META_TITLE_SEPARATOR = "|";
 
 export interface AppMetaProps {
+  siteName?: string;
   title?: string | string[];
   description?: string | null;
   imageUrl?: string | null;
@@ -15,6 +16,7 @@ export interface AppMetaProps {
 }
 
 const AppMeta: FC<AppMetaProps> = ({
+  siteName = APP_META_SITE_NAME,
   title: titleProp,
   description = APP_META_SITE_DESCRIPTION,
   imageUrl = APP_META_SITE_IMAGE,
@@ -29,20 +31,20 @@ const AppMeta: FC<AppMetaProps> = ({
   }, [titleProp]);
   const siteTitle = useMemo<string>(
     () =>
-      [pageTitle, APP_META_SITE_NAME]
+      [pageTitle, siteName]
         .filter(component => !!component)
         .join(` ${APP_META_TITLE_SEPARATOR} `),
-    [pageTitle],
+    [pageTitle, siteName],
   );
   const tabTitle = useMemo<string>(() => {
     let title = pageTitle;
-    if (!pageVisible && !title) {
+    if (!pageVisible && !title && siteName === APP_META_SITE_NAME) {
       title = "🥺 come back";
     }
-    return [title, APP_META_SITE_NAME]
+    return [title, siteName]
       .filter(component => !!component)
       .join(` ${APP_META_TITLE_SEPARATOR} `);
-  }, [pageTitle, pageVisible]);
+  }, [pageTitle, pageVisible, siteName]);
 
   return (
     <Head>
@@ -50,10 +52,7 @@ const AppMeta: FC<AppMetaProps> = ({
       {!!description && (
         <meta name="description" content={description.toLowerCase()} />
       )}
-      <meta
-        property="og:site_name"
-        content={APP_META_SITE_NAME.toLowerCase()}
-      />
+      <meta property="og:site_name" content={siteName.toLowerCase()} />
       <meta property="og:type" content={APP_META_SITE_TYPE} />
       {!!pageTitle && <meta property="og:title" content={pageTitle} />}
       {!!description && (

@@ -30,7 +30,7 @@ const CathendantContributePage: PageComponent<
     },
     onSuccess: (data, { reset }) => {
       reset();
-      router.visit(routes.cathendants.show.path(), {
+      router.visit(routes.cathendantHome.show.path(), {
         onSuccess: () => {
           showNotice({
             title: "Thank you!",

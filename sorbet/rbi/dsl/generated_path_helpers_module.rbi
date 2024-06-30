@@ -37,6 +37,9 @@ module GeneratedPathHelpersModule
   def call_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def cathendant_contribute_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def cathendant_memos_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -49,10 +52,13 @@ module GeneratedPathHelpersModule
   def comments_journal_entry_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def contact_url_path(*args); end
+  def constellations_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def contribute_cathendant_path(*args); end
+  def constellations_posts_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def contact_url_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def currently_playing_path(*args); end

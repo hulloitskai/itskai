@@ -138,13 +138,17 @@ Rails.application.routes.draw do
   resource :resume, only: :show
 
   # == Cathendant
-  resource :cathendant, only: :show, export: true do
-    get :contribute
+  namespace :cathendant, export: true do
+    get "/" => "home#show"
+    get "/contribute" => "home#contribute"
+    resources :memos, only: :create
   end
-  resources :cathendant_memos,
-            only: :create,
-            path: "/cathendant/memos",
-            export: true
+
+  # == Constellations
+  namespace :constellations, export: true do
+    get "/" => "home#show"
+    resources :posts, only: :create
+  end
 
   # == Timeline
   # get "/timeline" => "timeline#show"

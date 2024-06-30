@@ -7,12 +7,15 @@ import StopIcon from "~icons/heroicons/stop-20-solid";
 import AppFlash from "~/components/AppFlash";
 import PageContainer from "~/components/PageContainer";
 import PageLayout from "~/components/PageLayout";
+import AppMeta from "~/components/AppMeta";
 
-export interface CathendantPageProps extends SharedPageProps {
+export interface CathendantHomePageProps extends SharedPageProps {
   memos: CathendantMemo[];
 }
 
-const CathendantPage: PageComponent<CathendantPageProps> = ({ memos }) => {
+const CathendantHomePage: PageComponent<CathendantHomePageProps> = ({
+  memos,
+}) => {
   const player = useGlobalAudioPlayer();
   const [playingMemoId, setPlayingMemoId] = useState<string | null>(null);
   return (
@@ -65,13 +68,16 @@ const CathendantPage: PageComponent<CathendantPageProps> = ({ memos }) => {
   );
 };
 
-CathendantPage.layout = page => (
-  <PageLayout>
+CathendantHomePage.layout = page => (
+  <>
+    <AppMeta siteName="Cathendant" />
     <AppFlash />
-    <PageContainer size="xs" withGutter>
-      {page}
-    </PageContainer>
-  </PageLayout>
+    <PageLayout>
+      <PageContainer size="xs" withGutter>
+        {page}
+      </PageContainer>
+    </PageLayout>
+  </>
 );
 
-export default CathendantPage;
+export default CathendantHomePage;

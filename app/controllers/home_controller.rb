@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   # GET /
   def show
     if request.hostname == "cathy.earth"
-      CathendantsController.dispatch(:show, request, response)
+      Cathendant::HomeController.dispatch(:show, request, response)
     else
       specified_journal_entry = if (id = home_params.entry_id)
         JournalEntry.with_content.find(id)
