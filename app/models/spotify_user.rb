@@ -37,14 +37,13 @@ class SpotifyUser < RSpotify::User
   sig { returns(T.nilable(CurrentlyPlaying)) }
   def currently_playing
     endpoint = "me/player/currently-playing"
-    result = RSpotify.resolve_auth_request(id, endpoint)
-    if result && result["is_playing"]
-      track_data = T.cast(result.fetch("item"), T::Hash[String, T.untyped])
-      track = RSpotify::Track.new(track_data)
-      progress_ms = T.cast(result.fetch("progress_ms"), Integer)
-      timestamp = Time.current
-      CurrentlyPlaying.new(track:, progress_ms:, timestamp:)
-    end
+    result = RSpotify.resolve_auth_request(id, endpoint) or return
+    return unless result.fetch("is_playing")
+    track_data = result.fetch("item") or return
+    track = RSpotify::Track.new(track_data)
+    progress_ms = result.fetch("progress_ms")
+    timestamp = Time.current
+    CurrentlyPlaying.new(track:, progress_ms:, timestamp:)
   rescue RestClient::BadGateway
     # Suppress sporadic errors caused by weird bugs in the RSpotify library,
     # as well as certain network errors.
