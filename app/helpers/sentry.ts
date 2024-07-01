@@ -31,6 +31,7 @@ export const setupSentry = () => {
       ignoreErrors: [
         "ResizeObserver loop completed with undelivered notifications.",
         /Failed to load lyrics.*/,
+        "Error loading edge.fullstory.com/s/fs.js",
       ],
     };
     init(options);
