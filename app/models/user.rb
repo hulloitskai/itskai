@@ -112,7 +112,7 @@ class User < ApplicationRecord
   protected
 
   # == Callback handlers
-  sig { void }
+  sig { override.void }
   def after_confirmation
     super
     send_welcome_email if confirmed_at_previously_was.nil?
