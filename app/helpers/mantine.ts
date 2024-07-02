@@ -103,5 +103,4 @@ export const THEME = createTheme({
       },
     }),
   },
-  ...(import.meta.env.DEV && { respectReducedMotion: false }),
 });

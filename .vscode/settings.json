@@ -2,8 +2,8 @@
   // == Associations
   "files.associations": {
     "Procfile.dev": "procfile",
+    "Procfile.test": "procfile",
     "Gemfile.lock": "plaintext",
-    "Aptfile": "shellscript",
     ".inputrc": "plaintext"
   },
 
