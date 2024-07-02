@@ -5,15 +5,15 @@ class PasswordStrengthChecksController < ApplicationController
   # == Actions
   # POST /password_strength_checks
   def create
-    params = check_params
-    unless params.valid?
+    check = PasswordStrengthCheck.new(check_params)
+    unless check.valid?
       render(
-        json: { errors: params.form_errors },
+        json: { errors: check.form_errors },
         status: :unprocessable_entity,
       ) and return
     end
     entropy = T.let(
-      checker.calculate_entropy(params.password!).to_f,
+      checker.calculate_entropy(check.password!).to_f,
       Float,
     )
     strength = [entropy / ::User::MIN_PASSWORD_ENTROPY, 1.0].min
@@ -23,10 +23,9 @@ class PasswordStrengthChecksController < ApplicationController
   private
 
   # == Helpers
-  sig { returns(PasswordStrengthCheckParams) }
+  sig { returns(ActionController::Parameters) }
   def check_params
-    @check_params ||= PasswordStrengthCheckParams
-      .new(params.require(:check).permit!)
+    params.require(:check).permit(:password)
   end
 
   sig { returns(StrongPassword::StrengthChecker) }

@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class PasswordStrengthCheckParams < ApplicationModel
+class PasswordStrengthCheck < ApplicationModel
   # == Attributes
   attribute :password, :string
 

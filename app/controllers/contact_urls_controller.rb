@@ -14,9 +14,8 @@ class ContactUrlsController < ApplicationController
   private
 
   # == Helpers
-  sig { returns(ContactUrlParams) }
+  sig { returns(ContactUrlParameters) }
   def contact_url_params
-    @contract_url_params ||= ContactUrlParams
-      .new(params.permit(*ContactUrlParams.attribute_names))
+    @contract_url_params ||= ContactUrlParameters.new(params)
   end
 end

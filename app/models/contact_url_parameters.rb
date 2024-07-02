@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class ContactUrlParams < ApplicationModel
+class ContactUrlParameters < ApplicationParameters
   # == Attributes
   attribute :subject, :string
   attribute :body, :string
