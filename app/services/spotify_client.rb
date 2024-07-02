@@ -56,6 +56,11 @@ class SpotifyClient < ApplicationService
           )
         end
       end
+    elsif response.status == :not_found
+      with_log_tags do
+        logger.info("No lyrics found for track #{track_id}")
+      end
+      nil
     else
       with_log_tags do
         logger.error(
