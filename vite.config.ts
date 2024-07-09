@@ -1,7 +1,7 @@
 import { join } from "path";
 
-import { defineConfig } from "vite";
 import type { PluginOption } from "vite";
+import { defineConfig } from "vite";
 
 import rubyPlugin from "vite-plugin-ruby";
 import fullReloadPlugin from "vite-plugin-full-reload";
@@ -18,7 +18,7 @@ export default defineConfig(() => {
   const plugins: PluginOption = [
     isomorphicImportPlugin(),
     autoImportPlugin({
-      dts: join(__dirname, "typings/auto-import.generated.d.ts"),
+      dts: join(__dirname, "typings/generated/auto-import.d.ts"),
       imports,
     }),
     iconsPlugin({ compiler: "jsx", jsx: "react" }),
@@ -50,18 +50,7 @@ export default defineConfig(() => {
   // == Config
   return {
     clearScreen: false,
-    resolve: {
-      alias: [
-        {
-          find: /^@apollo\/client$/,
-          replacement: "@apollo/client/index",
-        },
-        {
-          find: "lodash",
-          replacement: "lodash-es",
-        },
-      ],
-    },
+    resolve: { alias: [{ find: "lodash", replacement: "lodash-es" }] },
     plugins,
   };
 });

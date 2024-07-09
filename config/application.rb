@@ -22,6 +22,7 @@ module ItsKai
     require "actionview_ext"
     require "oj_serializers_ext"
     require "types_from_serializers_ext"
+    require "js_from_routes_ext"
     require "pg_search_ext"
     require "better_errors_ext"
     require "vite_ruby_ext"
