@@ -34,7 +34,7 @@
 #  index_obsidian_notes_on_slug         (slug) UNIQUE
 #  index_obsidian_notes_on_tags         (tags)
 #
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class ObsidianNote < ApplicationRecord
   extend FriendlyId
   include Identifiable

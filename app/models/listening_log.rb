@@ -15,7 +15,7 @@
 #
 #  index_listening_logs_on_spotify_track_id  (spotify_track_id)
 #
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class ListeningLog < ApplicationRecord
   include Identifiable
 end

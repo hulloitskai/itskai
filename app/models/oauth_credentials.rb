@@ -18,7 +18,7 @@
 #
 #  index_oauth_credentials_on_provider_and_uid  (provider,uid) UNIQUE
 #
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class OAuthCredentials < ApplicationRecord
   # == Validations
   validates :provider, :uid, presence: true

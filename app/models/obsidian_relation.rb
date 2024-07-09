@@ -22,7 +22,7 @@
 #
 #  fk_rails_...  (from_id => obsidian_notes.id)
 #
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class ObsidianRelation < ApplicationRecord
   include Identifiable
 

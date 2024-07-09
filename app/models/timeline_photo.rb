@@ -18,7 +18,7 @@
 #  index_timeline_photos_on_fingerprint  (fingerprint) UNIQUE
 #  index_timeline_photos_on_timestamp    (timestamp)
 #
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class TimelinePhoto < ApplicationRecord
   include Identifiable
 

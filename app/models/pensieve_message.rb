@@ -25,7 +25,7 @@
 #  index_pensieve_messages_on_to         (to)
 #  index_pensieve_messages_uniqueness    (telegram_chat_id,telegram_message_id) UNIQUE
 #
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class PensieveMessage < ApplicationRecord
   include Identifiable
 

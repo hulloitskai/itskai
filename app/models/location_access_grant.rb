@@ -17,7 +17,7 @@
 #
 #  index_location_access_grants_on_password  (password)
 #
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class LocationAccessGrant < ApplicationRecord
   # == Attributes
   sig { returns(Time) }

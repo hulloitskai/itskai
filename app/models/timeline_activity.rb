@@ -22,7 +22,7 @@
 #
 #  index_timeline_activities_uniqueness  (type,duration) UNIQUE
 #
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class TimelineActivity < ApplicationRecord
   # == Configuration
   self.inheritance_column = nil

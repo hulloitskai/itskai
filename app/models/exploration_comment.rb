@@ -13,7 +13,7 @@
 #  created_at     :datetime         not null
 #  exploration_id :string           not null
 #
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class ExplorationComment < ApplicationRecord
   include Identifiable
 

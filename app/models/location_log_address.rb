@@ -28,7 +28,7 @@
 #
 #  fk_rails_...  (location_log_id => location_logs.id)
 #
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class LocationLogAddress < ApplicationRecord
   include Identifiable
 

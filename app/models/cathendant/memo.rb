@@ -14,7 +14,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 module Cathendant
   class Memo < ApplicationRecord
     include Identifiable

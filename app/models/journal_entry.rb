@@ -22,7 +22,7 @@
 #  index_journal_entries_on_notion_page_id  (notion_page_id) UNIQUE
 #  index_journal_entries_on_started_at      (started_at)
 #
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class JournalEntry < ApplicationRecord
   include Identifiable
   include PgSearch::Model

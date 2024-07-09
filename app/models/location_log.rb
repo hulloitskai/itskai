@@ -20,7 +20,7 @@
 #
 #  index_location_logs_on_timestamp  (timestamp)
 #
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class LocationLog < ApplicationRecord
   include Identifiable
 

@@ -21,7 +21,7 @@
 #
 #  fk_rails_...  (message_id => pensieve_messages.id)
 #
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class PensieveMessageLike < ApplicationRecord
   # == Associations
   belongs_to :message, class_name: "PensieveMessage", touch: true

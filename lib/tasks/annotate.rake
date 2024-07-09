@@ -55,7 +55,7 @@ task :set_annotation_options do
     classified_sort: true,
     trace: false,
     wrapper_open: "rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective\n#",
-    wrapper_close: "rubocop:enable Layout/LineLength",
+    wrapper_close: "rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective",
     with_comment: true,
   )
 end

@@ -21,7 +21,7 @@
 #
 #  fk_rails_...  (grant_id => location_access_grants.id)
 #
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class LocationAccess < ApplicationRecord
   include Identifiable
 

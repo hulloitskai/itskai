@@ -16,7 +16,7 @@
 #
 #  index_obsidian_stubs_on_name  (name) UNIQUE
 #
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class ObsidianStub < ApplicationRecord
   include Identifiable
   include ObsidianEntry
