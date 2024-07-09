@@ -32,6 +32,6 @@
       { "name": "vite-plugin-iso-import" }
     ]
   },
-  "include": ["app", "typings"],
+  "include": ["app/**/*.ts", "app/**/*.tsx", "typings/**/*.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
