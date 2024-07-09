@@ -1,6 +1,8 @@
 # typed: true
 # frozen_string_literal: true
 
+return unless Rails.env.development?
+
 module JsFromRoutes
   class << self
     # Patch the `generate!` method to clean the output folder before generating

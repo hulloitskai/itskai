@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-return unless defined?(JsFromRoutes)
+return unless Rails.env.development?
 
 ADDITIONAL_CONTROLLERS = %w[users/sessions]
 
