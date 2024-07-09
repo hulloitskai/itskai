@@ -2,13 +2,13 @@ import { router } from "@inertiajs/react";
 import { NavigationProgress, nprogress } from "@mantine/nprogress";
 
 import "@mantine/nprogress/styles.layer.css";
-import classes from "./AppProgress.module.css";
+import classes from "./AppNavProgress.module.css";
 
-export interface AppProgressProps {}
+export interface AppNavProgressProps {}
 
 // TODO: On Safari, sometimes the progress bar looks like its "rolling back"
 // when it resets. Maybe raise an issue in the Mantine repo?
-const AppProgress: FC<AppProgressProps> = () => {
+const AppNavProgress: FC<AppNavProgressProps> = () => {
   useEffect(() => {
     const removeStartListener = router.on("start", () => {
       nprogress.start();
@@ -24,4 +24,4 @@ const AppProgress: FC<AppProgressProps> = () => {
   return <NavigationProgress className={classes.root} />;
 };
 
-export default AppProgress;
+export default AppNavProgress;

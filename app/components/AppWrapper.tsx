@@ -1,7 +1,7 @@
 import type { Page } from "@inertiajs/core";
 
 import AppMantineProvider from "./AppMantineProvider";
-import AppProgress from "./AppProgress";
+import AppNavProgress from "./AppNavProgress";
 import ActionCableProvider from "./ActionCableProvider";
 
 export interface AppWrapperProps extends PropsWithChildren {
@@ -11,7 +11,7 @@ export interface AppWrapperProps extends PropsWithChildren {
 const AppWrapper: FC<AppWrapperProps> = ({ children }) => (
   <ActionCableProvider>
     <AppMantineProvider>
-      <AppProgress />
+      <AppNavProgress />
       {children}
     </AppMantineProvider>
   </ActionCableProvider>
