@@ -64,7 +64,7 @@ export const useInertiaForm = <
     ...otherOptions,
     transformValues,
   });
-  const [processing, setProcesing] = useState(false);
+  const [processing, setProcessing] = useState(false);
   const submit = form.onSubmit(
     (data: any) => {
       let removeInvalidListener: VoidFunction | undefined;
@@ -89,11 +89,11 @@ export const useInertiaForm = <
               }
             }
           });
-          setProcesing(true);
+          setProcessing(true);
         },
         onFinish: () => {
           removeInvalidListener?.();
-          setProcesing(false);
+          setProcessing(false);
         },
         onSuccess: () => {
           form.reset();
