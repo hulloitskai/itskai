@@ -1,5 +1,3 @@
-import type { User } from "~/types";
-
 import type { AppShellProps, ContainerProps, MantineSize } from "@mantine/core";
 import { AppShell, Breadcrumbs } from "@mantine/core";
 
@@ -18,7 +16,6 @@ import classes from "./AppLayout.module.css";
 export interface AppLayoutProps
   extends AppMetaProps,
     Omit<AppShellProps, "title"> {
-  user?: User;
   breadcrumbs?: ReadonlyArray<AppBreadcrumb | null | false>;
   withContainer?: boolean;
   containerSize?: MantineSize | (string & {}) | number;
