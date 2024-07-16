@@ -6,7 +6,6 @@ on:
 
 env:
   RAILS_ENV: test
-  OWNER_EMAIL: test@example.com
 
 jobs:
   check:
