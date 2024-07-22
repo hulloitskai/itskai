@@ -39,6 +39,10 @@ scoped do
   )
 end
 
+puts "\n=> Running Typescript compiler"
+system! "bin/yarn", "--silent", "tsc"
+puts "No errors found"
+
 puts "\n=> Running ESLint"
 scoped do
   args = %w[--ext .js,.jsx,.ts,.tsx]
@@ -50,10 +54,6 @@ scoped do
   )
   puts "No problems or warnings"
 end
-
-puts "\n=> Running Typescript compiler"
-system! "bin/yarn", "--silent", "tsc"
-puts "No errors found"
 
 puts "\n=> Running Sorbet"
 system! "bin/srb", "typecheck"

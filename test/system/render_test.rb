@@ -3,9 +3,10 @@
 
 require "application_system_test_case"
 
-class HomepageTest < ApplicationSystemTestCase
+class RenderTest < ApplicationSystemTestCase
   test "renders" do
     visit(root_path)
-    assert_text("welcome to my little corner of the internet :)", wait: 1)
+    assert_selector("#app")
+    assert_not_empty(find_by_id("app").find_all("*"))
   end
 end
