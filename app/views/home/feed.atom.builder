@@ -5,9 +5,13 @@ atom_feed do |feed|
   if (entry = @entries.first)
     feed.updated(entry.created_at)
   end
-  @entries.each do |e|
-    feed.entry(e, url: root_url(entry_id: e.id)) do |entry|
-      entry.title(e.title)
+  @entries.each do |item|
+    feed.entry(
+      item,
+      url: root_url(entry_id: item.id),
+      updated: item.last_edited_at,
+    ) do |entry|
+      entry.title(item.title)
       entry.author do |author|
         author.name("kai")
       end
