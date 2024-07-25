@@ -15,4 +15,8 @@ class JournalEntrySerializer < ApplicationSerializer
       .order(started_at: :desc)
       .pick(:id)
   end
+
+  attribute :url, type: :string do
+    root_url(entry_id: entry.id)
+  end
 end

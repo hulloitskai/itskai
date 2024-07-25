@@ -164,9 +164,19 @@ const HomePage: PageComponent<HomePageProps> = ({
 };
 
 HomePage.layout = buildLayout<HomePageProps>(page => (
-  <AppLayout withContainer withGutter>
-    {page}
-  </AppLayout>
+  <>
+    <AppLayout withContainer withGutter>
+      <Head>
+        <link
+          rel="alternate"
+          type="application/atom+xml"
+          href="/feed.atom"
+          title="Atom Feed"
+        />
+      </Head>
+      {page}
+    </AppLayout>
+  </>
 ));
 
 export default HomePage;

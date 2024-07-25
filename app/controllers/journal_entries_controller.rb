@@ -6,6 +6,14 @@ class JournalEntriesController < ApplicationController
   before_action :set_entry, only: :comments
 
   # == Actions
+  # GET /feed.atom
+  def index
+    @entries = JournalEntry.reverse_chronological
+    respond_to do |format|
+      format.atom
+    end
+  end
+
   # GET /journal_entries/:id/comments
   def comments
     raise "Missing entry" unless @entry

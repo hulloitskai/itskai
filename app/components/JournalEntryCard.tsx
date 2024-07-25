@@ -14,7 +14,7 @@ export interface JournalEntryCardProps
 }
 
 const JournalEntryCard: FC<JournalEntryCardProps> = ({
-  entry: { id: entryId, title, startedAt, content },
+  entry: { id: entryId, url, title, startedAt, content },
   ...otherProps
 }) => (
   <Box pos="relative" w="100%" maw={540} {...otherProps}>
@@ -42,7 +42,7 @@ const JournalEntryCard: FC<JournalEntryCardProps> = ({
       </Card.Section>
     </Card>
     <Box pos="absolute" top={-10} right={-10}>
-      <CopyButton value={routes.home.show.path({ entry_id: entryId })}>
+      <CopyButton value={url}>
         {({ copied, copy }) => (
           <JournalEntryCardCopyLinkTooltip {...{ copied }}>
             <ActionIcon

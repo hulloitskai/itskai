@@ -157,9 +157,12 @@ Rails.application.routes.draw do
   # == Pages
   defaults export: true do
     root "home#show"
+    scope format: true, constraints: { format: "atom" } do
+      get "/feed" => "home#feed", as: :feed
+    end
     # get "/pensieve" => "pensieve#show"
-    get "/track" => redirect(path: "/locate", status: 302)
   end
+  get "/track" => redirect(path: "/locate", status: 302)
   get "/toronto" => "places#toronto"
   get "/atelier" => redirect("https://instagram.com/atelier.ubc", status: 302)
   get "/opencal" => redirect("https://opencal.me/kai", status: 302)

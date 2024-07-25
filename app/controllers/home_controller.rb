@@ -25,6 +25,11 @@ class HomeController < ApplicationController
     end
   end
 
+  # GET /feed.atom
+  def feed
+    @entries = JournalEntry.reverse_chronological
+  end
+
   private
 
   # == Helpers
