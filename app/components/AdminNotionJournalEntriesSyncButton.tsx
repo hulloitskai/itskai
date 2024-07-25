@@ -1,25 +1,24 @@
 import type { ButtonProps } from "@mantine/core";
-import SyncIcon from "~icons/heroicons/cloud-arrow-down-20-solid";
+import NotionIcon from "~icons/basil/notion-solid";
 
-export interface AdminJournalEntriesSyncButtonProps
+export interface AdminNotionJournalEntriesSyncButtonProps
   extends ButtonProps,
     Omit<ComponentPropsWithoutRef<"button">, "color" | "style" | "onClick"> {}
 
-const AdminJournalEntriesSyncButton: FC<AdminJournalEntriesSyncButtonProps> = ({
-  children,
-  ...otherProps
-}) => {
+const AdminNotionJournalEntriesSyncButton: FC<
+  AdminNotionJournalEntriesSyncButtonProps
+> = ({ children, ...otherProps }) => {
   const { submit, processing } = useFetchForm<{
     added: number;
     updated: number;
     removed: number;
   }>({
-    action: routes.admin.syncJournalEntries,
+    action: routes.admin.syncNotionJournalEntries,
     method: "post",
-    descriptor: "sync journal entries",
+    descriptor: "sync Notion journal entries",
     onSuccess: ({ added, removed, updated }) => {
       showNotice({
-        title: "Journal entries synced",
+        title: "Notion journal entries synced",
         message: `${added} entries added, ${updated} entries updated, ${removed} entries removed.`,
       });
     },
@@ -28,15 +27,15 @@ const AdminJournalEntriesSyncButton: FC<AdminJournalEntriesSyncButtonProps> = ({
     <Button
       variant="default"
       loading={processing}
-      leftSection={<SyncIcon />}
+      leftSection={<NotionIcon />}
       onClick={() => {
         submit();
       }}
       {...otherProps}
     >
-      {children ?? "Sync journal entries"}
+      {children ?? "Sync Notion journal entries"}
     </Button>
   );
 };
 
-export default AdminJournalEntriesSyncButton;
+export default AdminNotionJournalEntriesSyncButton;

@@ -5,7 +5,7 @@
 #
 # == Schema Information
 #
-# Table name: journal_entries
+# Table name: notion_journal_entries
 #
 #  id             :uuid             not null, primary key
 #  content        :jsonb
@@ -19,11 +19,11 @@
 #
 # Indexes
 #
-#  index_journal_entries_on_notion_page_id  (notion_page_id) UNIQUE
-#  index_journal_entries_on_started_at      (started_at)
+#  index_notion_journal_entries_on_notion_page_id  (notion_page_id) UNIQUE
+#  index_notion_journal_entries_on_started_at      (started_at)
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
-class JournalEntry < ApplicationRecord
+class NotionJournalEntry < ApplicationRecord
   include Identifiable
   include PgSearch::Model
 
@@ -69,7 +69,7 @@ class JournalEntry < ApplicationRecord
     SyncJournalEntryJob.perform_later(self, force:)
   end
 
-  sig { returns(JournalEntrySyncResults) }
+  sig { returns(NotionJournalEntrySyncResults) }
   def self.sync
     added, updated = 0, 0
     notion_pages = NotionClient.list_pages(
@@ -87,7 +87,7 @@ class JournalEntry < ApplicationRecord
     )
     notion_pages.each do |notion_page|
       notion_page_id = notion_page.id
-      entry = JournalEntry.find_or_initialize_by(notion_page_id:)
+      entry = NotionJournalEntry.find_or_initialize_by(notion_page_id:)
       entry.sync_attributes(notion_page)
       if entry.new_record?
         added += 1
@@ -106,11 +106,11 @@ class JournalEntry < ApplicationRecord
       Sentry.capture_exception(error)
       raise error
     end
-    removed_entries = JournalEntry
+    removed_entries = NotionJournalEntry
       .where.not(notion_page_id: notion_pages.map(&:id))
       .destroy_all
     removed = removed_entries.size
-    JournalEntrySyncResults.new(added:, updated:, removed:)
+    NotionJournalEntrySyncResults.new(added:, updated:, removed:)
   end
 
   sig { params(notion_page: T.untyped).void }
@@ -128,7 +128,7 @@ class JournalEntry < ApplicationRecord
 
   sig { void }
   def self.sync_later
-    SyncJournalEntriesJob.perform_later
+    SyncNotionJournalEntriesJob.perform_later
   end
 
   # == Downloading
@@ -140,7 +140,7 @@ class JournalEntry < ApplicationRecord
   sig { void }
   def download
     content = NotionClient.retrieve_page_content(notion_page_id)
-    redactor = JournalEntryRedactor.new(notion_page)
+    redactor = NotionJournalEntryRedactor.new(notion_page)
     redactor.redact_blocks!(content)
     update!(content:)
   end

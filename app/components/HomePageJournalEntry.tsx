@@ -1,15 +1,15 @@
-import type { JournalEntry } from "~/types";
+import type { NotionJournalEntry } from "~/types";
 import scrollIntoView from "scroll-into-view";
 
 import NextIcon from "~icons/heroicons/arrow-path-rounded-square-20-solid";
 import ResetIcon from "~icons/heroicons/arrow-uturn-left-20-solid";
 
-import JournalEntryCard from "./JournalEntryCard";
+import NotionJournalEntryCard from "./NotionJournalEntryCard";
 
 export interface HomePageJournalEntryProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {
-  entry: JournalEntry;
+  entry: NotionJournalEntry;
   firstEntryId: string;
   autoscroll: boolean;
 }
@@ -49,7 +49,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
 
   return (
     <Stack ref={containerRef} align="center" {...otherProps}>
-      <JournalEntryCard {...{ entry }} />
+      <NotionJournalEntryCard {...{ entry }} />
       <Button
         component={Link}
         href={nextEntryPath}

@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class JournalEntrySyncResults < T::Struct
+class NotionJournalEntrySyncResults < T::Struct
   # == Properties
   const :added, Integer
   const :updated, Integer

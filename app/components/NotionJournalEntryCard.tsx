@@ -1,19 +1,19 @@
-import type { JournalEntry } from "~/types";
+import type { NotionJournalEntry } from "~/types";
 import { ActionIcon, CopyButton, Text } from "@mantine/core";
 import LinkIcon from "~icons/heroicons/link-20-solid";
 
 import NotionContent from "./NotionContent";
-import JournalEntryCommentsStack from "./JournalEntryCommentsStack";
+import JournalEntryCommentsStack from "./NotionJournalEntryCommentsStack";
 
-import classes from "./JournalEntry.module.css";
+import classes from "./NotionJournalEntry.module.css";
 
-export interface JournalEntryCardProps
+export interface NotionJournalEntryCardProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {
-  entry: JournalEntry;
+  entry: NotionJournalEntry;
 }
 
-const JournalEntryCard: FC<JournalEntryCardProps> = ({
+const NotionJournalEntryCard: FC<NotionJournalEntryCardProps> = ({
   entry: { id: entryId, url, title, startedAt, content },
   ...otherProps
 }) => (
@@ -62,7 +62,7 @@ const JournalEntryCard: FC<JournalEntryCardProps> = ({
   </Box>
 );
 
-export default JournalEntryCard;
+export default NotionJournalEntryCard;
 
 interface JournalEntryCardCopyLinkTooltipProps extends PropsWithChildren {
   copied: boolean;

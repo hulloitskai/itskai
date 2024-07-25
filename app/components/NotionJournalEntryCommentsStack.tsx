@@ -6,18 +6,17 @@ import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
 
 import { ActionIcon, Text } from "@mantine/core";
 
-import classes from "./JournalEntryCommentsStack.module.css";
+import classes from "./NotionJournalEntryCommentsStack.module.css";
 
-export interface JournalEntryCommentsStackProps
+export interface NotionJournalEntryCommentsStackProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {
   entryId: string;
 }
 
-const JournalEntryCommentsStack: FC<JournalEntryCommentsStackProps> = ({
-  entryId,
-  ...otherProps
-}) => {
+const NotionJournalEntryCommentsStack: FC<
+  NotionJournalEntryCommentsStackProps
+> = ({ entryId, ...otherProps }) => {
   // == Input
   const [commentText, setCommentText] = useState("");
 
@@ -28,7 +27,7 @@ const JournalEntryCommentsStack: FC<JournalEntryCommentsStackProps> = ({
     // mutate: mutateComments,
   } = useFetch<{
     comments: NotionComment[];
-  }>(routes.journalEntries.comments, {
+  }>(routes.notionJournalEntries.comments, {
     descriptor: "load comments",
     params: {
       id: entryId,
@@ -141,4 +140,4 @@ const JournalEntryCommentsStack: FC<JournalEntryCommentsStackProps> = ({
   );
 };
 
-export default JournalEntryCommentsStack;
+export default NotionJournalEntryCommentsStack;

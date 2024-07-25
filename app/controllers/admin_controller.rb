@@ -27,9 +27,9 @@ class AdminController < ApplicationController
     })
   end
 
-  # POST /admin/sync_journal_entries
-  def sync_journal_entries
-    results = JournalEntry.sync
+  # POST /admin/sync_notion_journal_entries
+  def sync_notion_journal_entries
+    results = NotionJournalEntry.sync
     render(json: results.serialize)
   end
 

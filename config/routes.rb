@@ -111,8 +111,8 @@ Rails.application.routes.draw do
   # == Contact
   resource :contact_url, only: :show, export: true
 
-  # == Journal Entries
-  resources :journal_entries, only: [], export: true do
+  # == Notion Journal Entries
+  resources :notion_journal_entries, only: [], export: true do
     member do
       get :comments
     end
@@ -121,7 +121,7 @@ Rails.application.routes.draw do
   # == Admin
   resource :admin, controller: "admin", export: true, only: :show do
     get :location_access_grants
-    post :sync_journal_entries
+    post :sync_notion_journal_entries
     post :sync_location_logs
     scope module: "admin" do
       resources :oauth_connections,

@@ -1,7 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
-class JournalEntryRedactor
+class NotionJournalEntryRedactor
   extend T::Sig
 
   # == Constants

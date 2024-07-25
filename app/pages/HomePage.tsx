@@ -1,4 +1,8 @@
-import type { ApproximateLocation, Exploration, JournalEntry } from "~/types";
+import type {
+  ApproximateLocation,
+  Exploration,
+  NotionJournalEntry,
+} from "~/types";
 import { Text } from "@mantine/core";
 import BellIcon from "~icons/heroicons/bell-20-solid";
 
@@ -13,7 +17,7 @@ import classes from "./HomePage.module.css";
 export interface HomePageProps extends SharedPageProps {
   announcement: string | null;
   explorations: Exploration[];
-  journalEntry: JournalEntry | null;
+  journalEntry: NotionJournalEntry | null;
   firstJournalEntryId: string | null;
   journalAutoscroll: boolean;
   approximateLocation: ApproximateLocation | null;

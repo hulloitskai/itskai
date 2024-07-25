@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_21_215656) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_25_192752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -147,19 +147,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_215656) do
     t.string "email", null: false
   end
 
-  create_table "journal_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.datetime "started_at", precision: nil, null: false
-    t.datetime "last_edited_at", precision: nil, null: false
-    t.string "title", null: false
-    t.string "notion_page_id", null: false
-    t.jsonb "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "synced_at", precision: nil, null: false
-    t.index ["notion_page_id"], name: "index_journal_entries_on_notion_page_id", unique: true
-    t.index ["started_at"], name: "index_journal_entries_on_started_at"
-  end
-
   create_table "listening_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "spotify_track_id", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -206,6 +193,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_215656) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["timestamp"], name: "index_location_logs_on_timestamp"
+  end
+
+  create_table "notion_journal_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "started_at", precision: nil, null: false
+    t.datetime "last_edited_at", precision: nil, null: false
+    t.string "title", null: false
+    t.string "notion_page_id", null: false
+    t.jsonb "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "synced_at", precision: nil, null: false
+    t.index ["notion_page_id"], name: "index_notion_journal_entries_on_notion_page_id", unique: true
+    t.index ["started_at"], name: "index_notion_journal_entries_on_started_at"
   end
 
   create_table "oauth_credentials", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

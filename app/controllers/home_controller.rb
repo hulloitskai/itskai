@@ -9,15 +9,15 @@ class HomeController < ApplicationController
       Cathendant::HomeController.dispatch(:show, request, response)
     else
       specified_journal_entry = if (id = home_params.entry_id)
-        JournalEntry.with_content.find(id)
+        NotionJournalEntry.with_content.find(id)
       end
-      first_journal_entry = JournalEntry.with_content.ordered.first
+      first_journal_entry = NotionJournalEntry.with_content.ordered.first
       render(inertia: "HomePage", props: {
         announcement: Announcement.current,
         explorations: ExplorationSerializer.many(Exploration.all),
         "approximateLocation" => ApproximateLocationSerializer
           .one_if(LocationLog.latest_visible),
-        "journalEntry" => JournalEntrySerializer
+        "journalEntry" => NotionJournalEntrySerializer
           .one_if(specified_journal_entry || first_journal_entry),
         "firstJournalEntryId" => first_journal_entry&.id,
         "journalAutoscroll" => specified_journal_entry.present?,
@@ -27,7 +27,7 @@ class HomeController < ApplicationController
 
   # GET /feed.atom
   def feed
-    @entries = JournalEntry.reverse_chronological
+    @entries = NotionJournalEntry.reverse_chronological
   end
 
   private

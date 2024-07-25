@@ -5,7 +5,7 @@ import AppLayout from "~/components/AppLayout";
 import AdminICloudConnectionForm from "~/components/AdminICloudConnectionForm";
 import AdminOAuthConnectionForm from "~/components/AdminOAuthConnectionForm";
 import AdminLocationLogsSyncButton from "~/components/AdminLocationLogsSyncButton";
-import AdminJournalEntriesSyncButton from "~/components/AdminJournalEntriesSyncButton";
+import AdminJournalEntriesSyncButton from "~/components/AdminNotionJournalEntriesSyncButton";
 import AdminLocationAccessGrants from "~/components/AdminLocationAccessGrants";
 
 export interface AdminPageProps extends SharedPageProps {

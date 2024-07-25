@@ -1,4 +1,4 @@
-# typed: true
+# typed: ignore
 # frozen_string_literal: true
 
 class ReimportJournalEntries < ActiveRecord::Migration[7.0]

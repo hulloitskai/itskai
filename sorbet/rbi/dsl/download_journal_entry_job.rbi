@@ -9,13 +9,14 @@ class DownloadJournalEntryJob
   class << self
     sig do
       params(
-        entry: ::JournalEntry,
+        args: T.untyped,
+        _arg1: T.untyped,
         block: T.nilable(T.proc.params(job: DownloadJournalEntryJob).void)
       ).returns(T.any(DownloadJournalEntryJob, FalseClass))
     end
-    def perform_later(entry, &block); end
+    def perform_later(*args, **_arg1, &block); end
 
-    sig { params(entry: ::JournalEntry).void }
-    def perform_now(entry); end
+    sig { params(args: T.untyped, _arg1: T.untyped).returns(T.untyped) }
+    def perform_now(*args, **_arg1); end
   end
 end

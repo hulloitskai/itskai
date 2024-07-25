@@ -9,14 +9,14 @@ class SyncJournalEntryJob
   class << self
     sig do
       params(
-        entry: ::JournalEntry,
-        force: T::Boolean,
+        args: T.untyped,
+        _arg1: T.untyped,
         block: T.nilable(T.proc.params(job: SyncJournalEntryJob).void)
       ).returns(T.any(SyncJournalEntryJob, FalseClass))
     end
-    def perform_later(entry, force: T.unsafe(nil), &block); end
+    def perform_later(*args, **_arg1, &block); end
 
-    sig { params(entry: ::JournalEntry, force: T::Boolean).void }
-    def perform_now(entry, force: T.unsafe(nil)); end
+    sig { params(args: T.untyped, _arg1: T.untyped).returns(T.untyped) }
+    def perform_now(*args, **_arg1); end
   end
 end
