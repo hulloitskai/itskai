@@ -3,12 +3,14 @@
 
 class ContactUrlsController < ApplicationController
   # == Actions
-  # GET /contact_url
+  # GET /contact_url?subject=...&body=...
   def show
     email = Contact.email or raise "Missing contact email"
     mailto = Addressable::URI.parse("mailto:#{email}")
     mailto.query_values = contact_url_params.to_h.compact_blank
     render(json: { mailto: mailto.to_s })
+  rescue => error
+    render(json: { error: error.message }, status: :internal_server_error)
   end
 
   private

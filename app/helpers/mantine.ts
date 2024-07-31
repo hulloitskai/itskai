@@ -60,11 +60,6 @@ export const THEME = createTheme({
       classNames: {
         root: classes.button,
       },
-      styles: {
-        label: {
-          fontWeight: 700,
-        },
-      },
     }),
     Loader: Loader.extend({
       defaultProps: {

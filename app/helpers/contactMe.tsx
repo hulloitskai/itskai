@@ -16,7 +16,7 @@ export const useContactMe = (
   const [result, setResult] = useState<ContactMeResult>({
     loading: false,
   });
-  const contactMe = useCallback(() => {
+  const contact = useCallback(() => {
     setResult(result => ({ ...result, loading: true }));
     fetch<{ mailto: string }>(routes.contactUrls.show, {
       descriptor: "load contact email",
@@ -34,5 +34,5 @@ export const useContactMe = (
         setResult(result => ({ ...result, loading: false }));
       });
   }, [options]);
-  return [contactMe, result];
+  return [contact, result];
 };

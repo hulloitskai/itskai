@@ -82,7 +82,15 @@ const AppLayout: FC<AppLayoutProps> = ({
         footer={{ height: 44 }}
         padding={padding ?? (withContainer ? undefined : "md")}
         styles={{
+          header: {
+            padding: 8,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            columnGap: 6,
+          },
           main: {
+            flexGrow: 1,
             minHeight: "calc(100dvh - var(--app-shell-footer-height, 0px))",
             paddingBottom: 0,
             display: "flex",
@@ -92,15 +100,7 @@ const AppLayout: FC<AppLayoutProps> = ({
         }}
         {...otherProps}
       >
-        <AppShell.Header
-          p={8}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            columnGap: 6,
-          }}
-        >
+        <AppShell.Header>
           <Button
             component={Link}
             href={routes.home.show.path()}
@@ -119,14 +119,7 @@ const AppLayout: FC<AppLayoutProps> = ({
           <CurrentlyPlayingIsland />
           <AppMenu style={{ flexShrink: 0 }} />
         </AppShell.Header>
-        <AppShell.Main
-          style={{
-            flexGrow: 1,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "stretch",
-          }}
-        >
+        <AppShell.Main>
           {!isEmpty(filteredBreadcrumbs) && (
             <Breadcrumbs
               mx={10}
