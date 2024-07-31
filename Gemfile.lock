@@ -211,8 +211,9 @@ GEM
     event_stream_parser (1.0.0)
     exiftool (1.2.5)
       json
-    faraday (2.9.0)
+    faraday (2.10.1)
       faraday-net_http (>= 2.0, < 3.2)
+      logger
     faraday-cookie_jar (0.0.7)
       faraday (>= 0.8.0)
       http-cookie (~> 1.0.0)
@@ -221,7 +222,7 @@ GEM
       hashie
     faraday-multipart (1.0.4)
       multipart-post (~> 2)
-    faraday-net_http (3.1.0)
+    faraday-net_http (3.1.1)
       net-http
     ffi (1.16.3)
     friendly_id (5.5.1)
@@ -269,6 +270,7 @@ GEM
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    logger (1.6.0)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -640,7 +642,7 @@ DEPENDENCIES
   email_validator (~> 2.2)
   enumerize (~> 2.6)
   exiftool (~> 1.2)
-  faraday (~> 2.7)
+  faraday (~> 2.10)
   faraday-cookie_jar (~> 0.0.7)
   friendly_id (~> 5.5)
   front_matter_parser (~> 1.0)

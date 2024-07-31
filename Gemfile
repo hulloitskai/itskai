@@ -64,7 +64,7 @@ gem "friendly_id", "~> 5.5"
 gem "concurrent-ruby", "~> 1.1"
 
 # Use Faraday to make HTTP requests
-gem "faraday", "~> 2.7"
+gem "faraday", "~> 2.10"
 gem "faraday-cookie_jar", "~> 0.0.7"
 
 # Manage cookies with HTTP::Cookie
