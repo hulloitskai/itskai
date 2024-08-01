@@ -2,8 +2,14 @@
 # frozen_string_literal: true
 
 class ApplicationParameters < ApplicationModel
-  sig { params(params: ActionController::Parameters).void }
+  sig do
+    params(params: T.any(
+      ActionController::Parameters,
+      T::Hash[String, T.untyped],
+    )).void
+  end
   def initialize(params)
-    super(params.to_unsafe_h.slice(*self.class.attribute_names))
+    params = params.to_unsafe_h if params.is_a?(ActionController::Parameters)
+    super(params.slice(*self.class.attribute_names))
   end
 end
