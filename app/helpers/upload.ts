@@ -39,7 +39,7 @@ export const useLazyUpload = (
           blob: null,
           error: null,
           progress: 0,
-          uploading: false,
+          uploading: true,
           cancel: () => {},
         };
       });
@@ -69,10 +69,7 @@ export const useLazyUpload = (
       return new Promise((resolve, reject) => {
         upload.create((error, blob) => {
           if (error) {
-            console.error(
-              `Error uploading file '${file.name}'`,
-              formatJSON({ error }),
-            );
+            console.error(`Error uploading file '${file.name}'`, error);
             setState(prevState => ({
               ...prevState,
               error,
@@ -118,10 +115,7 @@ export const upload = async (file: File): Promise<Blob> => {
     const upload = new DirectUpload(file, url);
     upload.create((error, blob) => {
       if (error) {
-        console.error(
-          `Error uploading file '${file.name}'`,
-          formatJSON({ error }),
-        );
+        console.error(`Error uploading file '${file.name}'`, error);
         reject(error);
       } else {
         resolve(blob);
