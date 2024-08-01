@@ -7,7 +7,7 @@ import { Text } from "@mantine/core";
 import BellIcon from "~icons/heroicons/bell-20-solid";
 
 import AppLayout from "~/components/AppLayout";
-import ContactMeLink from "~/components/ContactMeLink";
+import ContactLink from "~/components/ContactLink";
 import HomePageJournalEntry from "~/components/HomePageJournalEntry";
 import ApproximateLocationAlert from "~/components/ApproximateLocationAlert";
 import ExplorationBadge from "~/components/ExplorationBadge";
@@ -58,8 +58,7 @@ const HomePage: PageComponent<HomePageProps> = ({
           !
         </Text>
         <Text size="xs" opacity={0.8} lh={1.2} className={classes.subheadline}>
-          (and also feel free to{" "}
-          <ContactMeLink>hit me up anytime</ContactMeLink>
+          (and also feel free to <ContactLink>hit me up anytime</ContactLink>
           <br />& tell me what&apos;s on your mind!)
         </Text>
       </Stack>

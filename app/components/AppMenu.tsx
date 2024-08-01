@@ -10,7 +10,7 @@ import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
 import LocateIcon from "~icons/lucide/locate-fixed";
 import HomeIcon from "~icons/heroicons/home-20-solid";
 
-import { useContactMe } from "~/helpers/contactMe";
+import { useContact } from "~/helpers/contact";
 
 import menuAnimationData from "~/assets/animations/menu.json";
 import classes from "./AppMenu.module.css";
@@ -22,7 +22,7 @@ export interface AppMenuProps
 const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
   const isClient = useIsClient();
   const currentUser = useCurrentUser();
-  const [contactMe, { loading: loadingContactMe }] = useContactMe();
+  const [contact, { loading: loadingContact }] = useContact();
 
   // == State
   const [opened, setOpened] = useState(false);
@@ -134,9 +134,9 @@ const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
           Hang out w/ Kai
         </Menu.Item>
         <Menu.Item
-          leftSection={loadingContactMe ? <Loader size={12} /> : <SendIcon />}
+          leftSection={loadingContact ? <Loader size={12} /> : <SendIcon />}
           onClick={() => {
-            contactMe();
+            contact();
           }}
         >
           Shoot Kai a msg
