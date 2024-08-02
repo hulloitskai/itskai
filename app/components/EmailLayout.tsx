@@ -19,9 +19,16 @@ export interface EmailLayoutProps extends PropsWithChildren {
   preview?: PreviewProps["children"];
 }
 
+const transformPreview = (preview: string | string[]) => {
+  if (Array.isArray(preview)) {
+    return preview.map(preview => preview.toLocaleLowerCase());
+  }
+  return preview.toLocaleLowerCase();
+};
+
 const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
   <>
-    {!!preview && <Preview>{preview}</Preview>}
+    {!!preview && <Preview>{transformPreview(preview)}</Preview>}
     <Body
       style={{
         color: "var(--mantine-color-text)",

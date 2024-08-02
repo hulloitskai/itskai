@@ -15,6 +15,8 @@ export interface AppMetaProps {
   noIndex?: boolean;
 }
 
+const transformMeta = (value: string) => value.toLocaleLowerCase();
+
 const AppMeta: FC<AppMetaProps> = ({
   siteName = APP_META_SITE_NAME,
   title: titleProp,
@@ -48,21 +50,21 @@ const AppMeta: FC<AppMetaProps> = ({
 
   return (
     <Head>
-      <title>{tabTitle.toLowerCase()}</title>
+      <title>{transformMeta(tabTitle)}</title>
       {!!description && (
-        <meta name="description" content={description.toLowerCase()} />
+        <meta name="description" content={transformMeta(description)} />
       )}
-      <meta property="og:site_name" content={siteName.toLowerCase()} />
+      <meta property="og:site_name" content={transformMeta(siteName)} />
       <meta property="og:type" content={APP_META_SITE_TYPE} />
       {!!pageTitle && <meta property="og:title" content={pageTitle} />}
       {!!description && (
-        <meta property="og:description" content={description.toLowerCase()} />
+        <meta property="og:description" content={transformMeta(description)} />
       )}
       {!!imageUrl && <meta property="og:image" content={imageUrl} />}
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content={siteTitle.toLowerCase()} />
+      <meta name="twitter:title" content={transformMeta(siteTitle)} />
       {!!description && (
-        <meta name="twitter:description" content={description.toLowerCase()} />
+        <meta name="twitter:description" content={transformMeta(description)} />
       )}
       {!!imageUrl && <meta name="twitter:image" content={imageUrl} />}
       {noIndex && <meta name="robots" content="noindex" />}

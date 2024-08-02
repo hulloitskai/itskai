@@ -19,10 +19,10 @@ bin/setup
 
 ## todos
 
-- [ ] allow location access by password using query params
-- [ ] lowercase preview text in emails
 - [ ] switch to [microsoft clarity](https://clarity.microsoft.com) cuz it's
       free
+- [x] lowercase preview text in emails
+- [x] allow location access by password using query params
 - [x] fix css shorthand processing in premailer
 - [x] remove graphql
 - [x] update sentry & fullstory user after login (through AppLayout)
