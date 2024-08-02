@@ -6,7 +6,7 @@ const ClarityTracking: FC = () => {
 
   // == Current user tracking
   useEffect(() => {
-    if (clarity && currentUser) {
+    if (typeof clarity !== "undefined" && currentUser) {
       const { id, name } = currentUser;
       clarity("identify", id, undefined, component, name);
     }
