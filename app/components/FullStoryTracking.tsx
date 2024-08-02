@@ -20,7 +20,7 @@ const FullStoryTracking: FC = () => {
         FullStory("setIdentityAsync", { anonymous: true });
       }
     }
-  }, [currentUser]);
+  }, [currentUser?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // == Page tracking
   useEffect(() => {
