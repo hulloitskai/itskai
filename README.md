@@ -19,7 +19,7 @@ bin/setup
 
 ## todos
 
-- [ ] switch to [microsoft clarity](https://clarity.microsoft.com) cuz it's
+- [x] switch to [microsoft clarity](https://clarity.microsoft.com) cuz it's
       free
 - [x] lowercase preview text in emails
 - [x] allow location access by password using query params

@@ -41,6 +41,7 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
           autoComplete="email"
           required
           withAsterisk={false}
+          autoFocus
         />
         <PasswordInput
           {...getInputProps("password")}
