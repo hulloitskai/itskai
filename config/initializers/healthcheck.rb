@@ -16,7 +16,7 @@ Healthcheck.configure do |config|
   end)
   config.add_check(:migrations, -> do
     Rails.logger.silence do
-      ActiveRecord::Migration.check_pending!
+      ActiveRecord::Migration.check_all_pending!
     end
   end)
   config.add_check(:cache, -> { Rails.cache.read("some_key") })
