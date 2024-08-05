@@ -151,8 +151,9 @@ Rails.application.routes.draw do
   end
 
   # == Timeline
+  resources :timeline_activities, only: :index
   # get "/timeline" => "timeline#show"
-  # get "/timeline/admin" => "timeline_admin#show"
+  get "/timeline/admin" => "timeline_admin#show"
 
   # == Pages
   defaults export: true do
