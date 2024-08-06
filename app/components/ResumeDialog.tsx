@@ -42,7 +42,6 @@ const ResumeDialog: FC<ResumeDialogProps> = ({ variant, ...otherProps }) => {
         withCloseButton
         position={{ bottom: rem(20), right: rem(20) }}
         size="lg"
-        radius="md"
         transitionProps={{ transition: "slide-up", duration: 250 }}
         {...{ opened }}
         onClose={close}

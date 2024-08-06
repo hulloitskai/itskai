@@ -135,7 +135,6 @@ const Pensieve: FC<PensieveProps> = ({
         withBorder
         padding={0}
         shadow="sm"
-        radius="md"
         w="100%"
         display="flex"
         style={{ flexGrow: 1, flexDirection: "column", alignItems: "stretch" }}
@@ -172,7 +171,7 @@ const Pensieve: FC<PensieveProps> = ({
           ) : loadingMessages ? (
             <Stack gap={6} m="lg">
               {[...new Array(3)].map((_, index) => (
-                <Skeleton height={36} radius="md" key={index} />
+                <Skeleton height={36} radius="default" key={index} />
               ))}
             </Stack>
           ) : (

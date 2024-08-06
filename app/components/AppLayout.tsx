@@ -106,7 +106,6 @@ const AppLayout: FC<AppLayoutProps> = ({
             href={routes.home.show.path()}
             variant="subtle"
             size="compact-md"
-            radius="md"
             h="unset"
             py={4}
             px={6}

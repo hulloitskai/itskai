@@ -13,7 +13,6 @@ const DeleteButton: FC<DeleteButtonProps> = ({
 }) => (
   <Menu
     withArrow
-    radius="md"
     styles={{
       dropdown: {
         borderColor: "var(--mantine-color-red-outline)",

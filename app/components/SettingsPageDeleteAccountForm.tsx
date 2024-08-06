@@ -14,7 +14,6 @@ const SettingsPageDeleteAccountForm: FC<SettingsPageDeleteAccountFormProps> = ({
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Menu
         withArrow
-        radius="md"
         withinPortal={false}
         styles={{
           dropdown: {

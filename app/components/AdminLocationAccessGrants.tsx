@@ -50,7 +50,7 @@ const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
         )
       ) : (
         [...new Array(3)].map((value, index) => (
-          <Skeleton key={index} h={40} radius="md" />
+          <Skeleton key={index} h={40} radius="default" />
         ))
       )}
       <Button
