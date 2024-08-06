@@ -45,9 +45,9 @@ FileUtils.chdir APP_ROOT do
   puts "\n=> Installing git hooks"
   system! "bin/yarn husky install"
 
-  puts "\n=> Installing Playwright"
-  system! "bin/yarn global add playwright"
-  system! "playwright install chromium"
+  # puts "\n=> Installing Playwright"
+  # system! "bin/yarn global add playwright"
+  # system! "playwright install chromium"
 
   # puts "\n=> Copying sample files"
   # unless File.exist?("config/database.yml")
