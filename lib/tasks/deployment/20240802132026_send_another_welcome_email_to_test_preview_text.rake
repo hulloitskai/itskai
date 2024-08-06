@@ -6,7 +6,9 @@ namespace :after_party do
     puts "Running deploy task 'send_another_welcome_email_to_test_preview_text'"
 
     # Put your task implementation HERE.
-    User.owner!.send_welcome_email
+    if (owner = User.owner)
+      owner.send_welcome_email
+    end
 
     # Update task as completed.  If you remove the line below, the task will
     # run with every deploy (or every time you call after_party:run).
