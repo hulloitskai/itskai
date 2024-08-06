@@ -39,17 +39,10 @@ module ItsKai
     require "announcement"
     require "notifications"
     require "logging"
-    require "owner"
-    # require "admin"
-    require "google"
-    require "spotify"
-    require "icloud"
-    require "pensieve"
-    require "telnyx"
-    require "badwords"
+    # require "owner"
+    require "admin"
     require "contact"
-    require "location"
-    require "resume"
+    # require "google"
 
     # == Constants
     BOOTED_AT = T.let(Time.current, Time)

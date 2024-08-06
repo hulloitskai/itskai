@@ -48,8 +48,9 @@ class User < ApplicationRecord
          :validatable,
          :confirmable,
          :trackable,
-         :omniauthable,
-         reconfirmable: true
+         #  :omniauthable,
+         reconfirmable: true,
+         allow_unconfirmed_access_for: nil
 
   self.filter_attributes += %i[
     encrypted_password
@@ -59,6 +60,12 @@ class User < ApplicationRecord
   ]
 
   # == Attributes
+  sig { returns(String) }
+  def email_domain
+    parts = T.cast(email.split("@"), [String, String])
+    parts.last
+  end
+
   sig { returns(String) }
   def email_with_name
     ActionMailer::Base.email_address_with_name(email, name)
@@ -84,19 +91,6 @@ class User < ApplicationRecord
   before_validation :remove_unconfirmed_email_if_matches_email,
                     if: %i[unconfirmed_email? email_changed?]
 
-  # == Finders
-  sig { returns(T.nilable(User)) }
-  def self.owner
-    if (email = Owner.email)
-      User.find_by(email:)
-    end
-  end
-
-  sig { returns(User) }
-  def self.owner!
-    User.find_by!(email: Owner.email!)
-  end
-
   # == Emails
   sig { void }
   def send_welcome_email
@@ -105,8 +99,8 @@ class User < ApplicationRecord
 
   # == Methods
   sig { returns(T::Boolean) }
-  def owner?
-    email == Owner.email!
+  def admin?
+    email.in?(Admin.emails) || email_domain.in?(Admin.email_domains)
   end
 
   protected

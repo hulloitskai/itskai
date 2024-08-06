@@ -26,18 +26,6 @@ RUN git clone --depth 1 https://github.com/nodenv/node-build.git \
   && rm -rf ./node-build /tmp/* \
   && node --version && npm --version && yarn --version
 
-# Install Python and Poetry
-COPY .python-version ./
-RUN git clone --depth 1 --no-checkout https://github.com/pyenv/pyenv.git \
-  && cd pyenv && git sparse-checkout set ./plugins/python-build \
-  && git checkout && cd .. \
-  && mv ./pyenv/plugins/python-build ./python-build && rm -r ./pyenv \
-  && PREFIX=/tmp ./python-build/install.sh \
-  && PYTHON_CONFIGURE_OPTS=--enable-shared /tmp/bin/python-build "$(cat .python-version)" /usr/local \
-  && pip3 install --no-cache-dir poetry \
-  && rm -rf ./python-build /tmp/* \
-  && python3 --version && pip3 --version
-
 # Install Ruby and Bundler
 COPY .ruby-version ./
 ENV LANG=C.UTF-8 GEM_HOME=/usr/local/bundle
@@ -60,15 +48,6 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 RUN curl -Lo /usr/bin/overmind.gz https://github.com/DarthSim/overmind/releases/download/v2.4.0/overmind-v2.4.0-linux-amd64.gz \
   && gzip -d /usr/bin/overmind.gz \
   && chmod u+x /usr/bin/overmind
-
-# Install Playwright
-RUN yarn global add playwright \
-  && playwright install --with-deps chromium \
-  && yarn cache clean
-
-# Install Python dependencies
-COPY pyproject.toml poetry.toml poetry.lock ./
-RUN poetry install --no-cache --without=dev
 
 # Install Ruby dependencies
 COPY Gemfile Gemfile.lock ./
@@ -104,9 +83,6 @@ RUN bundle exec bootsnap precompile --gemfile app/ lib/
 
 # Precompile assets
 RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
-
-# Install Python scripts
-RUN poetry install --no-cache --without=dev
 
 # Expose ports
 EXPOSE 3000

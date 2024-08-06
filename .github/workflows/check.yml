@@ -38,10 +38,6 @@ jobs:
           node-version-file: .node-version
           cache: yarn
           cache-dependency-path: "**/yarn.lock"
-      - name: Set up Python
-        uses: actions/setup-python@v5
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
       - name: Install Overmind
         run: |
           sudo apt-get install tmux \
@@ -49,8 +45,6 @@ jobs:
             && sudo gzip -d /usr/bin/overmind.gz \
             && sudo chmod u+x /usr/bin/overmind \
             && sudo chown $(whoami) /usr/bin/overmind
-      - name: Install Playwright
-        run: yarn global add playwright && playwright install chromium
       - name: Set up environment
         run: bin/setup
         env:

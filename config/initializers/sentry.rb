@@ -9,11 +9,7 @@ Sentry.init do |config|
     http_logger
   ]
   config.send_default_pii = true
-  config.excluded_exceptions += %w[
-    ActionPolicy::Unauthorized
-    Notion::Api::Errors::TimeoutError
-    Notion::Api::Errors::UnavailableError
-  ]
+  config.excluded_exceptions += %w[ActionPolicy::Unauthorized]
 
   # Set traces_sample_rate to 1.0 to capture 100% of transactions for
   # performance monitoring.

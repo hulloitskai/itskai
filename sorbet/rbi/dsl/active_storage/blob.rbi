@@ -742,16 +742,16 @@ class ActiveStorage::Blob
     sig { void }
     def content_type_will_change!; end
 
-    sig { returns(T.nilable(::Time)) }
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at; end
 
-    sig { params(value: ::Time).returns(::Time) }
+    sig { params(value: ::ActiveSupport::TimeWithZone).returns(::ActiveSupport::TimeWithZone) }
     def created_at=(value); end
 
     sig { returns(T::Boolean) }
     def created_at?; end
 
-    sig { returns(T.nilable(::Time)) }
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at_before_last_save; end
 
     sig { returns(T.untyped) }
@@ -760,28 +760,28 @@ class ActiveStorage::Blob
     sig { returns(T::Boolean) }
     def created_at_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def created_at_change; end
 
-    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def created_at_change_to_be_saved; end
 
-    sig { params(from: ::Time, to: ::Time).returns(T::Boolean) }
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
     def created_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable(::Time)) }
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def created_at_previous_change; end
 
-    sig { params(from: ::Time, to: ::Time).returns(T::Boolean) }
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
     def created_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable(::Time)) }
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at_previously_was; end
 
-    sig { returns(T.nilable(::Time)) }
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at_was; end
 
     sig { void }
@@ -1060,7 +1060,7 @@ class ActiveStorage::Blob
     sig { returns(T::Boolean) }
     def saved_change_to_content_type?; end
 
-    sig { returns(T.nilable([T.nilable(::Time), T.nilable(::Time)])) }
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def saved_change_to_created_at; end
 
     sig { returns(T::Boolean) }

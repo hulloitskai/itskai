@@ -12,7 +12,6 @@ import {
 import { Heading, Text, Link } from "~/components/email";
 
 import "@mantine/core/styles.css";
-import "./EmailLayout-lowercasing.css";
 
 export interface EmailLayoutProps extends PropsWithChildren {
   header?: string;

@@ -24,7 +24,7 @@ module Users
     # POST /signup
     def create
       resource = build_resource(sign_up_params)
-      resource.skip_confirmation! if resource.owner?
+      resource.skip_confirmation! if resource.admin?
       if resource.save
         if resource.active_for_authentication?
           set_flash_message!(:notice, :signed_up)

@@ -1,9 +1,0 @@
-.copyCode {
-  transition: background 150ms ease;
-  cursor: pointer;
-  color: var(--mantine-color-white);
-
-  &:hover {
-    background-color: var(--lagc-copy-code-bg);
-  }
-}

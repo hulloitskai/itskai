@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   else
     authenticate :user, ->(user) {
       user = T.let(user, User)
-      user.owner?
+      user.admin?
     } do
       mount GoodJob::Engine => "/good_job"
     end
@@ -38,7 +38,7 @@ Rails.application.routes.draw do
              skip: %i[registration confirmation password],
              controllers: {
                sessions: "users/sessions",
-               omniauth_callbacks: "users/omniauth_callbacks",
+               #  omniauth_callbacks: "users/omniauth_callbacks",
              },
              path: "/",
              path_names: {
@@ -70,14 +70,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # == Calendly
-  get "/calendly" => "calendly#show"
-  get "/hangout" => "calendly#show"
-  get "/coffee" => "calendly#event", handle: "coffee"
-  get "/walk" => "calendly#event", handle: "walk"
-  get "/call" => "calendly#event", handle: "call"
-  get "/opencal-intro" => "calendly#event", handle: "opencal-intro"
-
   # == Attachments
   resources :files, only: :show, param: :signed_id, export: true
   resources :images, only: :show, param: :signed_id, export: true
@@ -85,88 +77,17 @@ Rails.application.routes.draw do
   # == Password strength checks
   resources :password_strength_checks, only: :create, export: true
 
-  # == Explorations
-  resources :explorations, only: nil, export: true do
-    post :comment
-  end
-
-  # == Currently playing
-  resource :currently_playing, only: :show, export: true
-  resource :spotify_jam_sessions,
-           path: "/spotify/jam_sessions",
-           only: [],
-           export: true do
-             post :join
-           end
-  resources :spotify_tracks, path: "/spotify/tracks", only: [], export: true do
-    get :lyrics
-  end
-
-  # == Locate
-  resource :location, path: "/locate", only: :show, export: true do
-    get :grant
-    post :access
-  end
-
   # == Contact
   resource :contact_url, only: :show, export: true
-
-  # == Notion Journal Entries
-  resources :notion_journal_entries, only: [], export: true do
-    member do
-      get :comments
-    end
-  end
-
-  # == Admin
-  resource :admin, controller: "admin", export: true, only: :show do
-    get :location_access_grants
-    post :sync_notion_journal_entries
-    post :sync_location_logs
-    scope module: "admin" do
-      resources :oauth_connections,
-                only: :destroy,
-                param: :provider
-      resource :icloud_connection, only: %i[create destroy] do
-        post :verify_security_code
-      end
-      resources :location_access_grants, only: %i[create destroy]
-    end
-  end
-
-  # == Resume
-  resource :resume, only: :show
-
-  # == Cathendant
-  namespace :cathendant, export: true do
-    get "/" => "home#show"
-    get "/contribute" => "home#contribute"
-    resources :memos, only: :create
-  end
-
-  # == Constellations
-  namespace :constellations, export: true do
-    get "/" => "home#show"
-    resources :posts, only: :create
-  end
-
-  # == Timeline
-  # get "/timeline" => "timeline#show"
-  # get "/timeline/admin" => "timeline_admin#show"
 
   # == Pages
   defaults export: true do
     root "home#show"
-    scope format: true, constraints: { format: "atom" } do
-      get "/feed" => "home#feed", as: :feed
-    end
-    # get "/pensieve" => "pensieve#show"
   end
-  get "/track" => redirect(path: "/locate", status: 302)
-  get "/toronto" => "places#toronto"
-  get "/atelier" => redirect("https://instagram.com/atelier.ubc", status: 302)
-  get "/opencal" => redirect("https://opencal.me/kai", status: 302)
-  get "/src" => redirect("https://github.com/hulloitskai/itskai", status: 302)
+  get "/src" => redirect(
+    "https://github.com/hulloitskai/storyloop",
+    status: 302,
+  )
 
   # == Development
   if Rails.env.development?

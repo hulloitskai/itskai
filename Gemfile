@@ -120,12 +120,6 @@ gem "inertia_rails", "~> 3.1"
 # Use Premailer to inline CSS into email templates
 gem "premailer-rails", "~> 1.12"
 
-# Parse YAML files with Psych
-gem "psych", "~> 4.0"
-
-# Parse front matter from text files.
-gem "front_matter_parser", "~> 1.0"
-
 # Authenticate users with Devise
 gem "devise", "~> 4.9"
 
@@ -135,11 +129,7 @@ gem "strong_password", "~> 0.0.10"
 # Use OmniAuth to authenticate with external providers (i.e. Spotify)
 gem "omniauth", "~> 2.1"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
-gem "omniauth-spotify", "~> 0.0.13"
 gem "omniauth-google-oauth2", "~> 1.1"
-
-# Use RSpotify to read currently playing data from Spotify
-gem "rspotify", "~> 2.12"
 
 # Print objects with text wrappers for debugging
 gem "wrapped_print"
@@ -147,14 +137,8 @@ gem "wrapped_print"
 # Enable additional operators and utilities for Active Record with PostgreSQL
 gem "active_record_extended", "~> 3.2"
 
-# Parse Markdown with Markly
-gem "markly", "~> 0.7.0"
-
 # Use Sentry for error reporting
 gem "sentry-rails", "~> 5.9"
-
-# Query Notion with Notion Ruby Client
-gem "notion-ruby-client", "~> 1.2"
 
 # Forward and reverse geocode with Geocoder
 gem "geocoder", "~> 1.8"
@@ -168,23 +152,17 @@ gem "after_party", "~> 1.11"
 # Handle CORS requests
 gem "rack-cors", "~> 2.0"
 
-# Interact with Kai on Telegram
+# Send notifications with Telegram
 gem "telegram-bot-ruby", "~> 2.0", require: 'telegram/bot'
 
 # Hash passwords with bcrypt
 gem "bcrypt", "~> 3.1"
 
 # Control the browser with Playwright
-gem "playwright-ruby-client", "~> 1.43", require: 'playwright'
+# gem "playwright-ruby-client", "~> 1.43", require: 'playwright'
 
 # OpenAI client
 gem "ruby-openai", "~> 6.3"
-
-# Analyze image metadata with Exiftool
-gem "exiftool", "~> 1.2"
-
-# Find timezones by coordinate with TimezoneFinder
-gem "timezone_finder", "~> 1.5"
 
 # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
 gem "rack-mini-profiler"

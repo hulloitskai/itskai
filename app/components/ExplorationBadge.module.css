@@ -1,7 +1,0 @@
-.badge {
-  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-white));
-
-  &:hover {
-    border-color: var(--mantine-color-primary-outline);
-  }
-}

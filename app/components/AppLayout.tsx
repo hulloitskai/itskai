@@ -4,10 +4,7 @@ import { AppShell, Breadcrumbs } from "@mantine/core";
 import type { AppMetaProps } from "./AppMeta";
 import AppMeta from "./AppMeta";
 
-import Attribution from "./Attribution";
-import AppMenu from "./AppMenu";
 import AppFlash from "./AppFlash";
-import CurrentlyPlayingIsland from "./CurrentlyPlayingIsland";
 import PageContainer from "./PageContainer";
 import PageLayout from "./PageLayout";
 
@@ -79,7 +76,6 @@ const AppLayout: FC<AppLayoutProps> = ({
       <AppMeta {...{ title, description, imageUrl, noIndex }} />
       <AppShell
         header={{ height: 44 }}
-        footer={{ height: 44 }}
         padding={padding ?? (withContainer ? undefined : "md")}
         styles={{
           header: {
@@ -115,8 +111,6 @@ const AppLayout: FC<AppLayoutProps> = ({
           >
             It&apos;s Kai
           </Button>
-          <CurrentlyPlayingIsland />
-          <AppMenu style={{ flexShrink: 0 }} />
         </AppShell.Header>
         <AppShell.Main>
           {!isEmpty(filteredBreadcrumbs) && (
@@ -146,16 +140,6 @@ const AppLayout: FC<AppLayoutProps> = ({
           )}
           {content}
         </AppShell.Main>
-        <Box
-          h="var(--app-shell-footer-height)"
-          px={8}
-          style={{
-            overflow: "hidden",
-            borderTop: `${rem(1)} solid var(--app-shell-border-color)`,
-          }}
-        >
-          <Attribution h="100%" style={{ flexShrink: 1 }} />
-        </Box>
       </AppShell>
       <AppFlash />
     </PageLayout>

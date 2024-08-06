@@ -7,11 +7,6 @@
 # == Husky
 .husky/
 
-# == Python
-__pycache__/
-*.py[cod]
-*$py.class
-
 # == Vite
 vite.config.ts.timestamp-*.mjs
 

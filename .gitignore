@@ -1,13 +1,6 @@
 # == Dotenv
 .env
 
-# == Python
-__pycache__/
-.venv/
-*.py[cod]
-*$py.class
-.mypy_cache/
-
 # == Vite
 vite.config.ts.timestamp-*.mjs
 

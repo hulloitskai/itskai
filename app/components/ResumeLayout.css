@@ -1,9 +1,0 @@
-body {
-  background-color: var(--mantine-color-dark-4);
-}
-
-@media print {
-  @page {
-    margin: 0;
-  }
-}

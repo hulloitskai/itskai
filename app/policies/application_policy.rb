@@ -15,7 +15,7 @@ class ApplicationPolicy < ActionPolicy::Base
   authorize :user, allow_nil: true
 
   # == Pre-checks
-  pre_check :allow_owners!
+  pre_check :allow_admins!
 
   # == Rules
   undef_method :create?
@@ -39,8 +39,8 @@ class ApplicationPolicy < ActionPolicy::Base
 
   # == Helpers
   sig { void }
-  def allow_owners!
-    allow! if user&.owner?
+  def allow_admins!
+    allow! if user&.admin?
   end
 
   sig { returns(User) }

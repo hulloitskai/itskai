@@ -42,14 +42,6 @@ FileUtils.chdir APP_ROOT do
   system!("bin/yarn install") &&
     puts("Node dependencies are installed")
 
-  puts "\n=> Installing Python"
-  system("command -v pyenv", out: File::NULL) && \
-    system!("pyenv install --skip-existing")
-  puts "Python installed"
-
-  puts "\n=> Install Python dependencies"
-  system! "poetry install"
-
   puts "\n=> Installing git hooks"
   system! "bin/yarn husky install"
 

@@ -69,7 +69,7 @@ class ApplicationController < ActionController::Base
 
   sig { void }
   def authorize_rack_mini_profiler
-    Rack::MiniProfiler.authorize_request if current_user&.owner?
+    Rack::MiniProfiler.authorize_request if current_user&.admin?
   end
 
   sig { params(block: T.proc.returns(T.untyped)).void }
