@@ -1,5 +1,3 @@
-import { usePageVisibilityChange } from "~/helpers/page";
-
 const APP_META_SITE_TYPE = "website";
 const APP_META_SITE_NAME = "It's Kai";
 const APP_META_SITE_DESCRIPTION =
@@ -15,7 +13,7 @@ export interface AppMetaProps {
   noIndex?: boolean;
 }
 
-const transformMeta = (value: string) => value.toLocaleLowerCase();
+const transformMeta = (value: string) => value; // value.toLocaleLowerCase();
 
 const AppMeta: FC<AppMetaProps> = ({
   siteName = APP_META_SITE_NAME,
@@ -24,7 +22,6 @@ const AppMeta: FC<AppMetaProps> = ({
   imageUrl = APP_META_SITE_IMAGE,
   noIndex,
 }) => {
-  const pageVisible = usePageVisibilityChange("visible");
   const pageTitle = useMemo<string>(() => {
     const components = Array.isArray(titleProp) ? titleProp : [titleProp];
     return components
@@ -39,14 +36,10 @@ const AppMeta: FC<AppMetaProps> = ({
     [pageTitle, siteName],
   );
   const tabTitle = useMemo<string>(() => {
-    let title = pageTitle;
-    if (!pageVisible && !title && siteName === APP_META_SITE_NAME) {
-      title = "🥺 come back";
-    }
-    return [title, siteName]
+    return [pageTitle, siteName]
       .filter(component => !!component)
       .join(` ${APP_META_TITLE_SEPARATOR} `);
-  }, [pageTitle, pageVisible, siteName]);
+  }, [pageTitle, siteName]);
 
   return (
     <Head>

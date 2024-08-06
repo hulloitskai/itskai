@@ -19,10 +19,11 @@ export interface EmailLayoutProps extends PropsWithChildren {
 }
 
 const transformPreview = (preview: string | string[]) => {
-  if (Array.isArray(preview)) {
-    return preview.map(preview => preview.toLocaleLowerCase());
-  }
-  return preview.toLocaleLowerCase();
+  // if (Array.isArray(preview)) {
+  //   return preview.map(preview => preview.toLocaleLowerCase());
+  // }
+  // return preview.toLocaleLowerCase();
+  return preview;
 };
 
 const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
