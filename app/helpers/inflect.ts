@@ -12,13 +12,13 @@ export const transformKeys = (
 export const underscoreKeys = (
   object: Record<string, any>,
 ): Record<string, any> => {
-  return transformKeys(object, snakeCase);
+  return transformKeys(object, key => key.split(".").map(snakeCase).join("."));
 };
 
 export const camelizeKeys = (
   object: Record<string, any>,
 ): Record<string, any> => {
-  return transformKeys(object, camelCase);
+  return transformKeys(object, key => key.split(".").map(camelCase).join("."));
 };
 
 export const deepTransformKeys = (
@@ -42,13 +42,17 @@ export const deepTransformKeys = (
 export const deepUnderscoreKeys = (
   object: Record<string, any>,
 ): Record<string, any> => {
-  return deepTransformKeys(object, snakeCase);
+  return deepTransformKeys(object, key =>
+    key.split(".").map(snakeCase).join("."),
+  );
 };
 
 export const deepCamelizeKeys = (
   object: Record<string, any>,
 ): Record<string, any> => {
-  return deepTransformKeys(object, camelCase);
+  return deepTransformKeys(object, key =>
+    key.split(".").map(camelCase).join("."),
+  );
 };
 
 export const sentencify = (message: string): string => {
