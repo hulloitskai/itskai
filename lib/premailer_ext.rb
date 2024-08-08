@@ -34,7 +34,7 @@ module Premailer::Adapter::Nokogiri
     def to_inline_css
       unmergeable_rules = CssParser::Parser.new
 
-      tag_logger do
+      with_log_tags do
         logger.debug(
           "Converting CSS to inline styles for document: #{@processed_doc}",
         )
@@ -316,21 +316,21 @@ module Premailer::Adapter::Nokogiri
       ).returns(T.nilable(String))
     end
     def lookup_css_variable_value(name, element)
-      tag_logger do
+      with_log_tags do
         logger.debug("Looking up CSS variable `#{name}' for: #{element}")
       end
       node = T.let(element, Nokogiri::XML::Element)
       until node.is_a?(Nokogiri::HTML4::Document)
         css_variables = element_css_variables[node] || {}
         if (replacement = css_variables[name])
-          tag_logger do
+          with_log_tags do
             logger.debug("Resolved CSS variable to `#{replacement}'")
           end
           return replacement
         end
         node = node.parent
       end
-      tag_logger do
+      with_log_tags do
         logger.debug("Failed to resolve CSS variable")
       end
       nil
@@ -342,7 +342,7 @@ module Premailer::Adapter::Nokogiri
     def logger = Rails.logger
 
     sig { params(block: T.proc.void).void }
-    def tag_logger(&block)
+    def with_log_tags(&block)
       logger = T.unsafe(self.logger)
       if logger.respond_to?(:tagged)
         conditionally_enable_logger do

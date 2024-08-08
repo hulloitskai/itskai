@@ -18,7 +18,7 @@ module Discordrb
         define_method(mode) do |message|
           T.bind(self, RailsLogging)
           if enabled_modes.include?(mode)
-            tag_logger do
+            with_log_tags do
               logger.public_send(mode, message)
             end
           end
@@ -30,7 +30,7 @@ module Discordrb
         define_method(mode) do |message|
           T.bind(self, RailsLogging)
           if enabled_modes.include?(mode)
-            tag_logger(mode.to_s) do
+            with_log_tags(mode.to_s) do
               logger.public_send(:info, message)
             end
           end
@@ -60,7 +60,7 @@ module Discordrb
       def logger = Rails.logger
 
       sig { overridable.params(tags: String, block: T.proc.void).void }
-      def tag_logger(*tags, &block)
+      def with_log_tags(*tags, &block)
         tags.prepend("Discordrb")
         logger = self.logger
         if logger.respond_to?(:tagged)
