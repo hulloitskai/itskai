@@ -49,7 +49,7 @@ module GeneratedUrlHelpersModule
   def coffee_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def comments_journal_entry_url(*args); end
+  def comments_notion_journal_entry_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def constellations_posts_url(*args); end
@@ -238,10 +238,10 @@ module GeneratedUrlHelpersModule
   def submit_test_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def sync_journal_entries_admin_url(*args); end
+  def sync_location_logs_admin_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def sync_location_logs_admin_url(*args); end
+  def sync_notion_journal_entries_admin_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def test_url(*args); end

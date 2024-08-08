@@ -21,8 +21,8 @@ Rails.application.configure do
         class: "SyncLocationLogsJob",
         cron: "* * * * *",
       },
-      "sync_journal_entries": {
-        class: "SyncJournalEntriesJob",
+      "sync_notion_journal_entries": {
+        class: "SyncNotionJournalEntriesJob",
         cron: "*/5 * * * *",
       },
     }

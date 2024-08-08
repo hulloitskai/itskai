@@ -49,7 +49,7 @@ module GeneratedPathHelpersModule
   def coffee_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def comments_journal_entry_path(*args); end
+  def comments_notion_journal_entry_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def constellations_path(*args); end
@@ -238,10 +238,10 @@ module GeneratedPathHelpersModule
   def submit_test_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def sync_journal_entries_admin_path(*args); end
+  def sync_location_logs_admin_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def sync_location_logs_admin_path(*args); end
+  def sync_notion_journal_entries_admin_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def test_path(*args); end

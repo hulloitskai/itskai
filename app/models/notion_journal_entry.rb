@@ -66,7 +66,7 @@ class NotionJournalEntry < ApplicationRecord
 
   sig { params(force: T::Boolean).void }
   def sync_later(force: false)
-    SyncJournalEntryJob.perform_later(self, force:)
+    SyncNotionJournalEntryJob.perform_later(self, force:)
   end
 
   sig { returns(NotionJournalEntrySyncResults) }
@@ -147,7 +147,7 @@ class NotionJournalEntry < ApplicationRecord
 
   sig { void }
   def download_later
-    DownloadJournalEntryJob.perform_later(self)
+    DownloadNotionJournalEntryJob.perform_later(self)
   end
 
   # == Notion
