@@ -61,25 +61,30 @@ class ResumesController < ApplicationController
   def print_resume_to_file(filepath, variant: nil)
     server_options = "Rails::Server::Options".constantize.new.parse!(ARGV) # rubocop:disable Sorbet/ConstantsFromStrings
     server_port = server_options[:Port]
+    launch_print_resume_browser do |browser|
+      page = browser.new_page
+      page.set_extra_http_headers("X-Print-Mode" => "true")
+      params = { variant: }
+      url = resume_url(
+        protocol: "http",
+        host: "localhost",
+        port: server_port,
+        **params.compact,
+      )
+      page.goto(url)
+      page.wait_for_selector(".resume-layout")
+      page.wait_for_function("() => document.fonts.ready")
+      page.pdf(path: filepath, printBackground: true, pageRanges: "1")
+    end
+  end
+
+  sig { params(block: T.proc.params(browser: Playwright::Browser).void).void }
+  def launch_print_resume_browser(&block)
     print_resume_semaphore.acquire do
       Playwright.create(
         playwright_cli_executable_path: "playwright",
       ) do |playwright|
-        playwright.chromium.launch do |browser|
-          page = T.let(browser.new_page, Playwright::Page)
-          page.set_extra_http_headers("X-Print-Mode" => "true")
-          params = { variant: }
-          url = resume_url(
-            protocol: "http",
-            host: "localhost",
-            port: server_port,
-            **params.compact,
-          )
-          page.goto(url)
-          page.wait_for_selector(".resume-layout")
-          page.wait_for_function("() => document.fonts.ready")
-          page.pdf(path: filepath, printBackground: true, pageRanges: "1")
-        end
+        playwright.chromium.launch(&block)
       end
     end
   end
