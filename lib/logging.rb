@@ -23,16 +23,41 @@ module Logging
     end
     def logger = Rails.logger
 
-    sig { overridable.params(block: T.proc.void).void }
-    def with_log_tags(&block)
-      logger = self.logger
+    sig { overridable.params(tags: String, block: T.proc.void).void }
+    def with_log_tags(*tags, &block)
       if logger.respond_to?(:tagged)
-        logger.public_send(:tagged, name, &block)
+        tagged_logger = T.unsafe(logger)
+        tagged_logger.tagged(*log_tags, *tags, &block)
       end
+    end
+
+    sig { overridable.returns(T::Array[String]) }
+    def log_tags
+      tags = T.let([], T::Array[String])
+      if (name = self.name)
+        tags << name
+      end
+      tags
     end
   end
 
   included do
-    delegate :logger, :with_log_tags, to: :class
+    delegate :logger, to: :class
+  end
+
+  # == Methods
+  sig do
+    overridable.params(tags: String, block: T.proc.void).void
+  end
+  def with_log_tags(*tags, &block)
+    if logger.respond_to?(:tagged)
+      tagged_logger = T.unsafe(logger)
+      tagged_logger.tagged(*log_tags, *tags, &block)
+    end
+  end
+
+  sig { overridable.returns(T::Array[String]) }
+  def log_tags
+    self.class.log_tags
   end
 end

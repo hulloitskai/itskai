@@ -35,4 +35,14 @@ class ApplicationRecord < ActiveRecord::Base
   def deconstruct_keys(keys)
     serializable_hash(only: keys || []).symbolize_keys!
   end
+
+  # == Logging
+  sig { override.returns(T::Array[String]) }
+  def log_tags
+    tags = super
+    if (id = self.id)
+      tags << id
+    end
+    tags
+  end
 end
