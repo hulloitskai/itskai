@@ -3,7 +3,7 @@
 
 class ImageSerializer < FileSerializer
   # == Constants
-  SIZES = [400, 940, 1400]
+  SIZES = [320, 720, 1400]
 
   # == Configuration
   object_as :blob, model: "ActiveStorage::Blob"
@@ -11,8 +11,6 @@ class ImageSerializer < FileSerializer
   # == Attributes
   attribute :src, type: :string do
     rails_representation_path(blob)
-  rescue ActiveStorage::UnrepresentableError
-    rails_blob_path(blob)
   end
 
   attribute :src_set, type: :string do
@@ -21,7 +19,5 @@ class ImageSerializer < FileSerializer
       "#{rails_representation_path(representation)} #{size}w"
     end
     sources.join(", ")
-  rescue ActiveStorage::UnrepresentableError
-    [rails_blob_path(blob)]
   end
 end
