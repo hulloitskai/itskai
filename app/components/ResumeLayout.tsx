@@ -14,8 +14,8 @@ const ResumeLayout: FC<ResumeLayoutProps> = ({ printMode, children }) => (
       px="0.75in"
       pt="0.4in"
       mb={printMode ? 0 : 135}
-      bg="var(--mantine-color-white)"
-      c="var(--mantine-color-black)"
+      bg="white"
+      c="black"
       className={cx("resume-layout", classes.container)}
       mod={{ "print-mode": printMode }}
     >

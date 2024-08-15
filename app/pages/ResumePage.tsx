@@ -60,11 +60,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                 />
               )}
               {!!basics?.location?.city && (
-                <Text
-                  size="xs"
-                  ff="var(--mantine-font-family-monospace)"
-                  fw={500}
-                >
+                <Text size="xs" ff="monospace" fw={500}>
                   {basics.location.city}
                 </Text>
               )}

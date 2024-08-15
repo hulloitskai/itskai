@@ -73,7 +73,7 @@ const HomePage: PageComponent<HomePageProps> = ({
         </Group>
         <Text
           inherit
-          fz="var(--mantine-font-size-sm)"
+          fz="sm"
           opacity={0.8}
           className={classes.explorationsCallout}
         >
@@ -170,12 +170,12 @@ HomePage.layout = buildLayout<HomePageProps>(
   (page, { journalEntry, journalAutoscroll }) => (
     <>
       <AppLayout
-        withContainer
-        withGutter
         {...(journalEntry &&
           journalAutoscroll && {
             title: journalEntry.title,
           })}
+        withContainer
+        withGutter
       >
         <Head>
           <link

@@ -7,8 +7,15 @@ import SentryTracking from "./SentryTracking";
 import FullStoryTracking from "./FullStoryTracking";
 import ClarityTracking from "./ClarityTracking";
 
+// == Fonts
+import "@fontsource-variable/manrope";
+import "@fontsource-variable/jetbrains-mono";
+
+// == Mantine
 import "@mantine/core/styles.layer.css";
 import "@mantine/notifications/styles.layer.css";
+
+// == Lowercasing
 import "./PageLayout-lowercasing.css";
 
 export interface PageLayoutProps extends PropsWithChildren {}

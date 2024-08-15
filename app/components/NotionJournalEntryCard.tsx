@@ -24,7 +24,7 @@ const NotionJournalEntryCard: FC<NotionJournalEntryCardProps> = ({
           <Title
             order={3}
             size="h4"
-            ff="var(--mantine-font-family-monospace)"
+            ff="monospace"
             fw={900}
             lh={1.3}
             className={classes.title}

@@ -47,10 +47,7 @@ const SettingsPage: PageComponent<SettingsPageProps> = () => {
           <SettingsPagePasswordForm />
         </Stack>
       </Card>
-      <Card
-        withBorder
-        style={{ borderColor: "var(--mantine-color-red-outline)" }}
-      >
+      <Card withBorder bd="red.outline">
         <Stack gap="sm">
           <Center>
             <Title order={2} size="h4">
