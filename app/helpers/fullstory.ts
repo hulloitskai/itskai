@@ -9,6 +9,7 @@ export const setupFullStory = () => {
     const options: SnippetOptions = {
       orgId,
       devMode: env === "development",
+      debug: true,
     };
     init(options);
     console.info("Initialized FullStory:", options);
