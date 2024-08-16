@@ -3,6 +3,7 @@
 
 class SpotifyUser < RSpotify::User
   extend T::Sig
+  include Logging
 
   # == Current
   sig { returns(T.nilable(SpotifyUser)) }
@@ -37,7 +38,18 @@ class SpotifyUser < RSpotify::User
   sig { returns(T.nilable(CurrentlyPlaying)) }
   def currently_playing
     endpoint = "me/player/currently-playing"
-    result = RSpotify.resolve_auth_request(id, endpoint) or return
+    attempts = 0
+    result = begin
+      attempts += 1
+      RSpotify.resolve_auth_request(id, endpoint)
+    rescue RestClient::GatewayTimeout => error
+      if attempts > 1
+        raise
+      else
+        logger.warn("Gateway timeout: #{error}")
+        retry
+      end
+    end
     return unless result.fetch("is_playing")
     track_data = result.fetch("item") or return
     track = RSpotify::Track.new(track_data)

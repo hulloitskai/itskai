@@ -40,9 +40,7 @@ class ApplicationRecord < ActiveRecord::Base
   sig { override.returns(T::Array[String]) }
   def log_tags
     tags = super
-    if (id = self.id)
-      tags << id
-    end
+    tags << id || "..."
     tags
   end
 end
