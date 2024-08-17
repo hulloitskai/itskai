@@ -14,6 +14,6 @@ module ActionCable
     # def params; end
   end
 
-  sig {returns(Server::Base)}
+  sig { returns(Server::Base) }
   def self.server; end
 end

@@ -210,11 +210,28 @@ gem "oj_serializers", "~> 2.0"
 gem "types_from_serializers", "~> 2.1"
 
 group :development, :test do
+  # Debug code with debug
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "debug", platforms: %i[mri mingw x64_mingw]
+
   # Auto-detect and warn about N+1 queries
   gem "bullet"
 
   # Generate Typescript path helpers
   gem "js_from_routes", "~> 3.0"
+
+  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  gem "brakeman", require: false
+
+  # Use Rubocop to lint code
+  gem "rubocop", "~> 1.62", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rails-omakase", require: false
+  gem "rubocop-sorbet", require: false
+  gem "rubocop-capybara", require: false
+  gem "ruby-lsp", require: false
+  gem "parser", "~> 3.3.0.5", require: false
 end
 
 group :development do
@@ -227,24 +244,10 @@ group :development do
   # Rerun programs when files change
   gem "rerun", "~> 0.14.0"
 
-  # Debug code with debug
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[mri mingw x64_mingw]
-
   # Typecheck code
   gem "sorbet", require: false
   gem "spoom", require: false
   gem "tapioca", "~> 0.14.1", require: false
-
-  # Use Rubocop to lint code
-  gem "rubocop", "~> 1.62", require: false
-  gem "rubocop-performance", require: false
-  gem "rubocop-rails", require: false
-  gem "rubocop-shopify", require: false
-  gem "rubocop-sorbet", require: false
-  gem "rubocop-capybara", require: false
-  gem "ruby-lsp", require: false
-  gem "parser", "~> 3.3.0.5", require: false
 
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"

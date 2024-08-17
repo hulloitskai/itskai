@@ -87,7 +87,7 @@ class LocationLog < ApplicationRecord
     address = log.build_address(
       place_name:,
       full_address: result.address,
-      street_address: [result.street_number, result.route].compact.join(" "),
+      street_address: [ result.street_number, result.route ].compact.join(" "),
       neighbourhood: result.data.dig("address", "district"),
       city: result.city,
       province: result.province,

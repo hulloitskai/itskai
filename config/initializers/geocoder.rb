@@ -3,7 +3,7 @@
 
 Geocoder.configure(
   logger: Rails.logger,
-  always_raise: [Geocoder::InvalidRequest],
+  always_raise: [ Geocoder::InvalidRequest ],
 )
 
 # == Here

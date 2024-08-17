@@ -24,6 +24,9 @@ OptionParser.new do |opts|
   opts.on("--fix", "Auto-fix code offences without correcting them") do |fix|
     options[:fix] = fix
   end
+  opts.on("--ci", "Output in CI-friendly format") do |ci|
+    options[:ci] = ci
+  end
 end.parse!
 
 # == Formatting
@@ -31,6 +34,7 @@ puts "=> Running RuboCop"
 scoped do
   args = []
   args << "--autocorrect" if options[:fix]
+  args << "-f" << "github" if options[:ci]
   system!(
     "bin/rubocop",
     "--except",

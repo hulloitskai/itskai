@@ -55,9 +55,18 @@ jobs:
         run: bin/setup
         env:
           POSTGRES_DB: postgres
+      - name: Scan for common Rails security vulnerabilities using static analysis
+        run: bin/brakeman --no-pager
       - name: Check formatting
-        run: bin/fmt
+        run: bin/fmt --ci
       - name: Check lints
-        run: bin/lint
+        run: bin/lint --ci
       - name: Run tests
         run: bin/test
+      - name: Keep screenshots from failed system tests
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: screenshots
+          path: ${{ github.workspace }}/tmp/screenshots
+          if-no-files-found: ignore

@@ -16,7 +16,7 @@ require:
   - rubocop-capybara
 
 inherit_gem:
-  rubocop-shopify: rubocop.yml
+  rubocop-rails-omakase: rubocop.yml
 
 AllCops:
   NewCops: enable
@@ -50,63 +50,17 @@ AllCops:
     - "**/Rakefile"
   CacheRootDirectory: "tmp/cache/rubocop"
 
-Lint/MissingCopEnableDirective:
-  Enabled: false
-Lint/Void:
-  Enabled: false
-
-Layout/ArgumentAlignment:
-  EnforcedStyle: with_first_argument
-Layout/BlockAlignment:
-  EnforcedStyleAlignWith: start_of_block
-Layout/EmptyLineAfterGuardClause:
-  Enabled: false
-Layout/FirstArgumentIndentation:
-  Enabled: true
-# Layout/SpaceAroundBlockParameters:
-#   Enabled: false
 Layout/LineLength:
   Max: 80
 
-Naming/InclusiveLanguage:
-  Enabled: false
-
-Style/AndOr:
-  EnforcedStyle: conditionals
 Style/ClassAndModuleChildren:
   Enabled: false
-Style/ClassMethodsDefinitions:
+Style/EmptyMethod:
   Enabled: false
-Style/CommandLiteral:
-  EnforcedStyle: backticks
-Style/Documentation:
-  Enabled: false
-Style/ParallelAssignment:
-  Enabled: false
-Style/RescueModifier:
-  Enabled: false
-Style/SymbolArray:
-  EnforcedStyle: percent
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
-Style/WordArray:
-  EnforcedStyle: percent
 
-Sorbet/FalseSigil:
-  Enabled: false
 Sorbet/ValidSigil:
-  MinimumStrictness: "ignore"
-
-Rails/Delegate:
-  Enabled: false
-Rails/LexicallyScopedActionFilter:
-  Enabled: false
-Rails/HasAndBelongsToMany:
-  Enabled: false
-Rails/I18nLocaleTexts:
-  Enabled: false
-Rails/RenderInline:
-  Enabled: false
-
-Sorbet/AllowIncompatibleOverride:
-  Enabled: false
+  MinimumStrictness: ignore

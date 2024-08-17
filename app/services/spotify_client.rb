@@ -132,7 +132,7 @@ class SpotifyClient < ApplicationService
 
   sig { returns(String) }
   private_class_method def self.cookie_header
-    cookies = [HTTP::Cookie.new("sp_dc", Spotify.sp_dc!)]
+    cookies = [ HTTP::Cookie.new("sp_dc", Spotify.sp_dc!) ]
     HTTP::Cookie.cookie_value(cookies)
   end
 

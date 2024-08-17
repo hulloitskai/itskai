@@ -20,9 +20,7 @@ else
 fi
 
 echo -e "=> Compiling assets"
-bin/vite clobber && bin/rails assets:precompile
-bin/rails assets:clobber
-bin/rails assets:precompile
+bin/rails assets:clobber assets:precompile
 
 echo -e "\n=> Running tests"
 PROCFILE=Procfile.test

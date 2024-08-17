@@ -38,8 +38,8 @@ class ResumesController < ApplicationController
           raise ActionController::RoutingError,
                 "Missing resume data (variant: #{variant})"
         end
-        basename = ["kai-xie-resume", variant].compact.join("--")
-        Tempfile.open([basename, ".pdf"]) do |f|
+        basename = [ "kai-xie-resume", variant ].compact.join("--")
+        Tempfile.open([ basename, ".pdf" ]) do |f|
           print_resume_to_file(f.to_path, variant: variant&.to_sym)
           send_file(f, filename: basename + ".pdf", disposition: "inline")
         end

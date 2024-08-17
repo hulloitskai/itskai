@@ -6,6 +6,5 @@ class Thread::Mutex
       params(block: T.proc.returns(T.type_parameter(:U))).
       returns(T.type_parameter(:U))
   end
-  def synchronize(&block)
-  end
+  def synchronize(&block); end
 end

@@ -1,6 +1,6 @@
 postgres: docker compose up --no-log-prefix postgres-dev
 mailcatcher: docker compose up --no-log-prefix mailcatcher
-icloudctl: DEBUG=true poetry run icloudctl
+icloudctl: FLASK_SKIP_DOTENV=1 DEBUG=true poetry run icloudctl
 vite-dev: bin/vite dev
 vite-build_ssr: bin/vite build --ssr -m dev --watch --force
 vite-ssr: sleep 4 && bundle exec rerun -p 'dist/ssr/**/*.js' -q -- bin/vite ssr

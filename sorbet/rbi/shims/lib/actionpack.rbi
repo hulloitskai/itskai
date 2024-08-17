@@ -1,8 +1,8 @@
 # typed: strong
 
 module ActionDispatch
-  class Request::Session;
-    sig { returns(Rack::Session::SessionId)}
+  class Request::Session
+    sig { returns(Rack::Session::SessionId) }
     def id; end
   end
 

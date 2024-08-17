@@ -24,6 +24,9 @@ OptionParser.new do |opts|
   opts.on("--fix", "Auto-format unformatted files") do |fix|
     options[:fix] = fix
   end
+  opts.on("--ci", "Output in CI-friendly format") do |ci|
+    options[:ci] = ci
+  end
 end.parse!
 
 # == Formatting
@@ -44,6 +47,7 @@ scoped do
     args << "--only"
     args << "Layout"
   end
+  args << "-f" << "github" if options[:ci]
   system! "bin/rubocop", *args
 end
 

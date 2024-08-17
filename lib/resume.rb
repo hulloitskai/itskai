@@ -37,7 +37,7 @@ module Resume
   end
   sig { params(variant: T.nilable(Symbol)).returns(Pathname) }
   private_class_method def self.file_path(variant)
-    name = ["resume", variant].compact.join("-")
+    name = [ "resume", variant ].compact.join("-")
     Rails.root.join("config/#{name}.yml")
   end
 
@@ -46,6 +46,6 @@ module Resume
       .returns(T.anything)
   end
   private_class_method def self.file_key(variant, modified_time)
-    [:resume, :file, variant, modified_time.to_i]
+    [ :resume, :file, variant, modified_time.to_i ]
   end
 end

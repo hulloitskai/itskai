@@ -7,7 +7,7 @@ module ActiveRecord
   end
 
   module Calculations
-    sig {returns(T::Array[String])}
+    sig { returns(T::Array[String]) }
     def ids; end
   end
 
@@ -472,12 +472,12 @@ module ActiveRecord
   end
 
   module QueryMethods
-    sig {params(args: T.untyped).returns(ActiveRecord::Relation)}
+    sig { params(args: T.untyped).returns(ActiveRecord::Relation) }
     def includes(*args); end
   end
 
   class RecordNotDestroyed
-    sig {returns(Base)}
+    sig { returns(Base) }
     def record; end
   end
 

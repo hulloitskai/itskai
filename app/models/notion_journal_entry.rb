@@ -80,10 +80,10 @@ class NotionJournalEntry < ApplicationRecord
           "equals" => true,
         },
       },
-      sorts: [{
+      sorts: [ {
         "timestamp" => "created_time",
         "direction" => "descending",
-      }],
+      } ],
     )
     notion_pages.each do |notion_page|
       notion_page_id = notion_page.id

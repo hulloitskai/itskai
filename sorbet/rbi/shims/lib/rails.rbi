@@ -1,7 +1,7 @@
 # typed: strong
 
 module Rails
-  sig {returns(ActiveSupport::ErrorReporter) }
+  sig { returns(ActiveSupport::ErrorReporter) }
   def self.error; end
 
   class Application

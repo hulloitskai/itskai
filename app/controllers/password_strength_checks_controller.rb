@@ -16,7 +16,7 @@ class PasswordStrengthChecksController < ApplicationController
       checker.calculate_entropy(check.password!).to_f,
       Float,
     )
-    strength = [entropy / ::User::MIN_PASSWORD_ENTROPY, 1.0].min
+    strength = [ entropy / ::User::MIN_PASSWORD_ENTROPY, 1.0 ].min
     render(json: { strength: })
   end
 

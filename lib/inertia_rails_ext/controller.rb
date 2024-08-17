@@ -33,7 +33,7 @@ module InertiaRails
         end
       end
       @_inertia_shared_plain_data ||= {}
-      @_inertia_shared_blocks ||= [error_sharing]
+      @_inertia_shared_blocks ||= [ error_sharing ]
       @_inertia_html_headers ||= []
     end
 

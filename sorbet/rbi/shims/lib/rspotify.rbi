@@ -52,7 +52,8 @@ module RSpotify
   end
 
   sig do
-    params(user_id: String, url: String).returns(T::Hash[String, T.untyped])
+    params(user_id: String, url: String).
+      returns(T.nilable(T::Hash[String, T.untyped]))
   end
   def self.resolve_auth_request(user_id, url); end
 end

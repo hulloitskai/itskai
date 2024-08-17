@@ -28,6 +28,6 @@ module Badwords
 
   sig { params(modified_time: Time).returns(T.anything) }
   private_class_method def self.file_key(modified_time)
-    [:badwords, :file, modified_time.to_i]
+    [ :badwords, :file, modified_time.to_i ]
   end
 end

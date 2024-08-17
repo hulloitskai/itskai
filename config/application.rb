@@ -61,7 +61,7 @@ module ItsKai
     # == Code loading
     # Only autoload workers, interceptors once.
     Rails.autoloaders.main.ignore "app/workers", "app/interceptors"
-    config.autoload_once_paths += ["app/workers", "app/interceptors"]
+    config.autoload_once_paths += [ "app/workers", "app/interceptors" ]
 
     # Configuration for the application, engines, and railties goes here.
     #

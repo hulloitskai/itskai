@@ -72,7 +72,7 @@ module ActiveSupport
     sig { params(format: String).returns(String) }
     def strftime(format); end
 
-    sig {returns(Time)}
+    sig { returns(Time) }
     def to_time
     end
   end

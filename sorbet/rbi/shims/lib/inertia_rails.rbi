@@ -15,6 +15,6 @@ class ActionController::Base
 end
 
 class InertiaRails::Renderer
-  sig { returns (T::Hash[T.any(Symbol, String), T.untyped])}
+  sig { returns (T::Hash[T.any(Symbol, String), T.untyped]) }
   def view_data; end
 end

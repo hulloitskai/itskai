@@ -140,7 +140,7 @@ class TimelineActivity < ApplicationRecord
       "points",
     ))
       points.map do |point|
-        latitude, longitude = %w[latE7 lngE7].map do |key| # rubocop:disable Performance/CollectionLiteralInLoop
+        latitude, longitude = %w[latE7 lngE7].map do |key|
           point.fetch(key) * (10**-7)
         end
         location_factory.point(longitude, latitude)
@@ -148,7 +148,7 @@ class TimelineActivity < ApplicationRecord
     else
       []
     end
-    points = [start_location, *path_points, end_location]
+    points = [ start_location, *path_points, end_location ]
     location_factory.line_string(points.compact)
   end
 

@@ -45,13 +45,13 @@ module Tapioca
           )
           scope.create_method(
             "#{association_name}=",
-            parameters: [create_param("value", type: "ActionText::RichText")],
+            parameters: [ create_param("value", type: "ActionText::RichText") ],
             return_type: "ActionText::RichText",
           )
           scope.create_method(name, return_type: "ActionText::RichText")
           scope.create_method(
             "#{name}=",
-            parameters: [create_param("value", type: "T.untyped")],
+            parameters: [ create_param("value", type: "T.untyped") ],
             return_type: "T.untyped",
           )
         end

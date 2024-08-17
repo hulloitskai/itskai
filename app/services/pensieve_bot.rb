@@ -48,10 +48,10 @@ class PensieveBot < ApplicationService
     instance.api!.set_message_reaction(
       chat_id: Pensieve.telegram_user_id!,
       message_id:,
-      reaction: [Telegram::Bot::Types::ReactionTypeEmoji.new(
+      reaction: [ Telegram::Bot::Types::ReactionTypeEmoji.new(
         type: "emoji",
         emoji: "❤️",
-      )],
+      ) ],
     )
   end
 

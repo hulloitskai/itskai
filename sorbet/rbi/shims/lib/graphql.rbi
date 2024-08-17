@@ -3,20 +3,20 @@
 module GraphQL
   class Dataloader
     class Request
-      sig {returns(Object)}
+      sig { returns(Object) }
       def load; end
     end
 
     class RequestAll
-      sig {returns(T::Array[Object])}
+      sig { returns(T::Array[Object]) }
       def load; end
     end
 
     class Source
-      sig {params(key: T.untyped).returns(Request)}
+      sig { params(key: T.untyped).returns(Request) }
       def request(key); end
 
-      sig {params(keys: T::Array[T.untyped]).returns(RequestAll)}
+      sig { params(keys: T::Array[T.untyped]).returns(RequestAll) }
       def request_all(keys); end
     end
 
@@ -59,7 +59,7 @@ module GraphQL
   end
 
   class Result
-    sig {returns(T::Hash[String, T.untyped])}
+    sig { returns(T::Hash[String, T.untyped]) }
     def to_h; end
   end
 
@@ -69,12 +69,12 @@ module GraphQL
     end
 
     class Context
-      sig {returns(Dataloader)}
+      sig { returns(Dataloader) }
       def dataloader; end
     end
 
     class Object
-      sig {returns(Dataloader)}
+      sig { returns(Dataloader) }
       def dataloader; end
     end
 

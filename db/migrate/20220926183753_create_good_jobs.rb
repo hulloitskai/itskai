@@ -58,10 +58,10 @@ class CreateGoodJobs < ActiveRecord::Migration[7.0]
               name: :index_good_jobs_on_cron_key_and_cron_at,
               unique: true
     add_index :good_jobs,
-              [:active_job_id],
+              [ :active_job_id ],
               name: :index_good_jobs_on_active_job_id
     add_index :good_jobs,
-              [:finished_at],
+              [ :finished_at ],
               where: "retried_good_job_id IS NULL AND finished_at IS NOT NULL",
               name: :index_good_jobs_jobs_on_finished_at
   end
