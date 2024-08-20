@@ -1,5 +1,5 @@
 import type { Resume } from "~/types";
-import { MantineProvider, Text, DEFAULT_THEME } from "@mantine/core";
+import { Text } from "@mantine/core";
 
 import EnvelopeIcon from "~icons/heroicons/envelope-20-solid";
 import GithubIcon from "~icons/lucide/github";
@@ -28,10 +28,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
   const obfuscatedEmail = useMemo(() => email!.replace("@", "[at]"), [email]);
 
   return (
-    <MantineProvider
-      theme={{ colors: { accent: DEFAULT_THEME.colors.indigo } }}
-      forceColorScheme="light"
-    >
+    <>
       <ResumeLayout {...{ printMode }}>
         <Box>
           <Group justify="space-between" gap="xs" wrap="nowrap">
@@ -84,7 +81,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                     </Center>
                   }
                   variant="outline"
-                  color="accent"
+                  color="resumeAccent"
                   styles={{
                     label: {
                       fontFamily: "var(--mantine-font-family-monospace)",
@@ -107,7 +104,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
                 >
                   <Badge
                     variant="outline"
-                    color="accent"
+                    color="resumeAccent"
                     px={6}
                     styles={{
                       label: {
@@ -187,7 +184,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
         )}
       </ResumeLayout>
       {!printMode && <ResumeDialog variant={variant ?? undefined} />}
-    </MantineProvider>
+    </>
   );
 };
 

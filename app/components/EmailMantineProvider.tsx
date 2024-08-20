@@ -4,9 +4,7 @@ import { THEME } from "~/helpers/mantine";
 export interface EmailMantineProviderProps extends PropsWithChildren {}
 
 const EmailMantineProvider: FC<EmailMantineProviderProps> = ({ children }) => (
-  <MantineProvider theme={THEME} forceColorScheme="light">
-    {children}
-  </MantineProvider>
+  <MantineProvider theme={THEME}>{children}</MantineProvider>
 );
 
 export default EmailMantineProvider;

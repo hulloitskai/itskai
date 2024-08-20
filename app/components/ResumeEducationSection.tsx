@@ -24,7 +24,7 @@ const ResumeEducationSection: FC<ResumeEducationSectionProps> = ({
     </Text>
     <Badge
       variant="outline"
-      color="accent"
+      color="resumeAccent"
       radius="sm"
       px={6}
       styles={{

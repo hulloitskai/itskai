@@ -25,7 +25,7 @@ const ResumeProjectSection: FC<ResumeProjectSectionProps> = ({
       <Badge
         variant="outline"
         radius="sm"
-        color="accent"
+        color="resumeAccent"
         px={6}
         styles={{
           label: {

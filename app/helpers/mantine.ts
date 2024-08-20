@@ -28,6 +28,7 @@ export const THEME = createTheme({
   colors: {
     primary: DEFAULT_THEME.colors.pink,
     accent: DEFAULT_THEME.colors.teal,
+    resumeAccent: DEFAULT_THEME.colors.indigo,
   },
   primaryColor: "primary",
   defaultRadius: "md",

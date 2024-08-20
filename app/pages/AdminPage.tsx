@@ -66,6 +66,9 @@ const AdminPage: PageComponent<AdminPageProps> = ({
           </Stack>
           <AdminICloudConnectionForm
             connection={icloudConnection}
+            onConnected={() => {
+              router.reload({ only: ["icloudConnection"] });
+            }}
             onDisconnected={() => {
               router.reload({ only: ["icloudConnection"] });
             }}
