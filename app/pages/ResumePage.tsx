@@ -1,9 +1,9 @@
-import type { Resume } from "~/types";
-import { Text } from "@mantine/core";
+import type { Resume, ResumeProfileInfo } from "~/types";
+import { BadgeProps, Text } from "@mantine/core";
 
 import EnvelopeIcon from "~icons/heroicons/envelope-20-solid";
-import GithubIcon from "~icons/lucide/github";
-import LinkedInIcon from "~icons/lucide/linkedin";
+import GithubIcon from "~icons/ri/github-fill";
+import LinkedInIcon from "~icons/basil/linkedin-solid";
 
 import ResumeLayout from "~/components/ResumeLayout";
 import ResumeEducationSection from "~/components/ResumeEducationSection";
@@ -25,8 +25,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
 }) => {
   const { basics, work, education, skills, projects } = resume;
   const { email, profiles } = basics ?? {};
-  const obfuscatedEmail = useMemo(() => email!.replace("@", "[at]"), [email]);
-
+  const obfuscatedEmail = useMemo(() => email?.replace("@", "[at]"), [email]);
   return (
     <>
       <ResumeLayout {...{ printMode }}>
@@ -64,76 +63,40 @@ const ResumePage: PageComponent<ResumePageProps> = ({
             </Group>
           </Group>
           <Group gap={8}>
-            <Box style={{ flexGrow: 1 }}>
-              <Anchor
-                component="button"
-                onClick={() => {
-                  open(
-                    `mailto:Kai Xie<${email}>?subject=Let's%20work%20together!`,
-                    "_blank",
-                  );
-                }}
-              >
-                <Badge
-                  leftSection={
-                    <Center>
-                      <EnvelopeIcon />
-                    </Center>
-                  }
-                  variant="outline"
-                  color="resumeAccent"
-                  styles={{
-                    label: {
-                      fontFamily: "var(--mantine-font-family-monospace)",
-                      textTransform: "none",
-                    },
+            {!!email && !!obfuscatedEmail && (
+              <Box style={{ flexGrow: 1 }}>
+                <Anchor
+                  component="button"
+                  onClick={() => {
+                    open(
+                      `mailto:Kai Xie<${email}>?subject=Let's%20work%20together!`,
+                      "_blank",
+                    );
                   }}
                 >
-                  {printMode ? email : obfuscatedEmail}
-                </Badge>
-              </Anchor>
-            </Box>
-            {profiles?.map(({ network, url }) => {
-              const parsedUrl = url ? new URL(url) : null;
-              return (
-                <Anchor
-                  key={network}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                >
                   <Badge
+                    leftSection={
+                      <Center>
+                        <EnvelopeIcon />
+                      </Center>
+                    }
                     variant="outline"
                     color="resumeAccent"
-                    px={6}
                     styles={{
                       label: {
                         fontFamily: "var(--mantine-font-family-monospace)",
                         textTransform: "none",
                       },
                     }}
-                    {...(network === "GitHub" && {
-                      leftSection: (
-                        <Center>
-                          <GithubIcon />
-                        </Center>
-                      ),
-                    })}
-                    {...(network === "LinkedIn" && {
-                      leftSection: (
-                        <Center>
-                          <LinkedInIcon />
-                        </Center>
-                      ),
-                    })}
                   >
-                    {parsedUrl
-                      ? `${parsedUrl.hostname}${parsedUrl.pathname}`
-                      : "(missing URL)"}
+                    {printMode ? email : obfuscatedEmail}
                   </Badge>
                 </Anchor>
-              );
-            })}
+              </Box>
+            )}
+            {profiles?.map(profile => (
+              <ProfileBadge key={profile.network} {...{ profile }} />
+            ))}
           </Group>
         </Box>
         {skills && (
@@ -189,3 +152,45 @@ const ResumePage: PageComponent<ResumePageProps> = ({
 };
 
 export default ResumePage;
+
+interface ProfileBadgeProps extends BadgeProps {
+  profile: ResumeProfileInfo;
+}
+
+const ProfileBadge: FC<ProfileBadgeProps> = ({ profile }) => {
+  const { network, url } = profile;
+  const parsedUrl = useMemo(() => (url ? new URL(url) : null), [url]);
+  return (
+    <Anchor href={url} target="_blank" rel="noopener noreferrer nofollow">
+      <Badge
+        variant="outline"
+        color="resumeAccent"
+        px={6}
+        styles={{
+          label: {
+            fontFamily: "var(--mantine-font-family-monospace)",
+            textTransform: "none",
+          },
+        }}
+        {...(network === "GitHub" && {
+          leftSection: (
+            <Center>
+              <GithubIcon />
+            </Center>
+          ),
+        })}
+        {...(network === "LinkedIn" && {
+          leftSection: (
+            <Center>
+              <LinkedInIcon />
+            </Center>
+          ),
+        })}
+      >
+        {parsedUrl
+          ? `${parsedUrl.hostname}${parsedUrl.pathname}`
+          : "(missing URL)"}
+      </Badge>
+    </Anchor>
+  );
+};

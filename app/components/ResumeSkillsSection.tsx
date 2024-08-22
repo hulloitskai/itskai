@@ -1,4 +1,4 @@
-import type { ResumeSkillInfo } from "~/types/Resume";
+import type { ResumeSkillInfo } from "~/types";
 import { Text } from "@mantine/core";
 
 export interface ResumeSkillsSectionProps {

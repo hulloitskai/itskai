@@ -1,4 +1,4 @@
-import DocumentIcon from "~icons/heroicons/document-20-solid";
+import DocumentIcon from "~icons/basil/document-solid";
 import MenuIcon from "~icons/heroicons/bars-3-20-solid";
 import FeedbackIcon from "~icons/heroicons/megaphone-20-solid";
 

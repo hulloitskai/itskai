@@ -47,21 +47,7 @@ export default interface Resume {
     /**
      * Specify any number of social networks that you participate in
      */
-    profiles?: {
-      /**
-       * e.g. Facebook or Twitter
-       */
-      network?: string;
-      /**
-       * e.g. neutralthoughts
-       */
-      username?: string;
-      /**
-       * e.g. http://twitter.example.com/neutralthoughts
-       */
-      url?: string;
-      [k: string]: unknown;
-    }[];
+    profiles?: ResumeProfileInfo[];
     [k: string]: unknown;
   };
   work?: ResumeWorkInfo[];
@@ -318,5 +304,21 @@ export interface ResumeProjectInfo {
    *  e.g. 'volunteering', 'presentation', 'talk', 'application', 'conference'
    */
   type?: string;
+  [k: string]: unknown;
+}
+
+export interface ResumeProfileInfo {
+  /**
+   * e.g. Facebook or Twitter
+   */
+  network?: string;
+  /**
+   * e.g. neutralthoughts
+   */
+  username?: string;
+  /**
+   * e.g. http://twitter.example.com/neutralthoughts
+   */
+  url?: string;
   [k: string]: unknown;
 }

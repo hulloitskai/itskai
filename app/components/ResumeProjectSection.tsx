@@ -1,4 +1,4 @@
-import type { ResumeProjectInfo } from "~/types/Resume";
+import type { ResumeProjectInfo } from "~/types";
 import { Text } from "@mantine/core";
 import ArrowRightIcon from "~icons/heroicons/arrow-long-right-20-solid";
 

@@ -7,7 +7,7 @@ import SignInIcon from "~icons/heroicons/arrow-right-on-rectangle-20-solid";
 import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
 import SmileIcon from "~icons/heroicons/face-smile-20-solid";
 import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
-import LocateIcon from "~icons/lucide/locate-fixed";
+import LocateIcon from "~icons/basil/current-location-solid";
 import HomeIcon from "~icons/heroicons/home-20-solid";
 
 import { useContact } from "~/helpers/contact";

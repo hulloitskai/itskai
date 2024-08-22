@@ -518,10 +518,10 @@
   dependencies:
     "@iconify/types" "*"
 
-"@iconify-json/lucide@^1.1.150":
-  version "1.1.178"
-  resolved "https://registry.yarnpkg.com/@iconify-json/lucide/-/lucide-1.1.178.tgz#253cd59f59596821da95a2d4177acf8153ea94a4"
-  integrity sha512-IW5Z3ytfOPtcAlIgeMCGNrbPD/wfOBOyUAXEUgNhGTWxJICtbeHQkmL4mEoJmScSkjpZvyevxOC9kfdJG8VBtg==
+"@iconify-json/ri@^1.1.150":
+  version "1.1.22"
+  resolved "https://registry.yarnpkg.com/@iconify-json/ri/-/ri-1.1.22.tgz#b714022a84de32595db7af060eee98d8544d55fb"
+  integrity sha512-Pi0I54CFXYSfWlm4xIAGqyDvtibNEpSSyQvHrSrfxFgZgDtFum9tbtYmaTKK0wJWWzYzF3XIpIJTC9/KVYX3SQ==
   dependencies:
     "@iconify/types" "*"
 
