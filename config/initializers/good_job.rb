@@ -17,15 +17,17 @@ Rails.application.configure do
         description: "Schedule purging of unattached ActiveStorage blobs.",
         cron: "0 */6 * * *",
       },
-      "sync_location_logs": {
-        class: "SyncLocationLogsJob",
-        cron: "* * * * *",
-      },
       "sync_notion_journal_entries": {
         class: "SyncNotionJournalEntriesJob",
         cron: "*/5 * * * *",
       },
     }
+    unless Location.sync_disabled?
+      config.cron["sync_location_logs"] = {
+        class: "SyncLocationLogsJob",
+        cron: "* * * * *",
+      }
+    end
 
     # == Errors
     config.retry_on_unhandled_error = false

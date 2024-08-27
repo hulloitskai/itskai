@@ -24,4 +24,9 @@ module Location
       false
     end
   end
+
+  sig { returns(T::Boolean) }
+  def self.sync_disabled?
+    ENV["LOCATION_SYNC_DISABLED"].truthy?
+  end
 end
