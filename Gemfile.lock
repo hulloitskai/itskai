@@ -643,6 +643,7 @@ DEPENDENCIES
   capybara-playwright-driver
   concurrent-ruby (~> 1.1)
   counter_culture (~> 3.5)
+  csv
   date_validator (~> 0.12.0)
   debug
   devise (~> 4.9)
@@ -728,7 +729,7 @@ DEPENDENCIES
   wrapped_print
 
 RUBY VERSION
-   ruby 3.3.0p0
+   ruby 3.3.1p55
 
 BUNDLED WITH
    2.5.3

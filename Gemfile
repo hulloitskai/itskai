@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.3.0"
+ruby "3.3.1"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.2"
@@ -158,6 +158,7 @@ gem "notion-ruby-client", "~> 1.2"
 
 # Forward and reverse geocode with Geocoder
 gem "geocoder", "~> 1.8"
+gem "csv"
 
 # Parse HTML with Nokogiri
 gem "nokogiri", "~> 1.15"

@@ -11,6 +11,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.mypy_cache/
+.venv
 
 # == Vite
 vite.config.ts.timestamp-*.mjs
@@ -59,8 +61,8 @@ vite.config.ts.timestamp-*.mjs
 !/tmp/storage/.keep
 
 # == Node
-**/node_modules/
-**/jspm_packages/
+node_modules/
+jspm_packages/
 /.pnp
 /.pnp.js
 /build
