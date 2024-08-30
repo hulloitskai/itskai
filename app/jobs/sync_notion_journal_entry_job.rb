@@ -6,7 +6,7 @@ class SyncNotionJournalEntryJob < ApplicationJob
   good_job_control_concurrency_with(
     key: -> {
       T.bind(self, SyncNotionJournalEntryJob)
-      entry = T.let(arguments.first!, NotionJournalEntry)
+      entry, *_ = arguments
       "#{self.class.name}(#{entry.to_gid})"
     },
     total_limit: 1,

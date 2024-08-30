@@ -3,7 +3,7 @@
 
 class AnalyzeObsidianNotesJob < ApplicationJob
   # == Configuration
-  good_job_control_concurrency_with total_limit: 1, key: name
+  good_job_control_concurrency_with key: name, total_limit: 1
 
   # == Job
   sig { params(force: T::Boolean).void }

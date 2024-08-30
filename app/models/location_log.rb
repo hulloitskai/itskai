@@ -63,7 +63,7 @@ class LocationLog < ApplicationRecord
            to: :address!
 
   # == Callbacks
-  after_create :reverse_geocode_and_save!
+  after_create_commit :reverse_geocode_later
 
   # == Scopes
   scope :with_address, -> {
@@ -174,9 +174,9 @@ class LocationLog < ApplicationRecord
     latest(timestamp: 6.hours.ago..) unless Location.hide?
   end
 
-  # == Methods
+  # == Geocoding
   sig { void }
-  def reverse_geocode_and_save!
-    reverse_geocode.tap { save! }
+  def reverse_geocode_later
+    ReverseGeocodeLocationLogJob.perform_later(self)
   end
 end

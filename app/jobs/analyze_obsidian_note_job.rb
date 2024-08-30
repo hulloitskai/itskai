@@ -6,7 +6,7 @@ class AnalyzeObsidianNoteJob < ApplicationJob
   good_job_control_concurrency_with(
     key: -> do
       T.bind(self, AnalyzeObsidianNoteJob)
-      note = T.let(arguments.first!, ObsidianNote)
+      note, *_ = arguments
       "#{self.class.name}(#{note.to_gid})"
     end,
     total_limit: 1,

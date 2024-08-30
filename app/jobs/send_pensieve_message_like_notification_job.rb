@@ -6,7 +6,7 @@ class SendPensieveMessageLikeNotificationJob < ApplicationJob
   good_job_control_concurrency_with(
     key: -> {
       T.bind(self, SendPensieveMessageLikeNotificationJob)
-      like = T.let(arguments.first!, PensieveMessageLike)
+      like, *_ = arguments
       "#{self.class.name}(#{like.to_gid})"
     },
     total_limit: 1,
