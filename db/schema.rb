@@ -291,15 +291,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_30_181240) do
     t.index ["to"], name: "index_pensieve_messages_on_to"
   end
 
-  create_table "pensieve_recordings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.text "transcription"
-    t.uuid "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "transcribed_at", precision: nil
-    t.index ["user_id"], name: "index_pensieve_recordings_on_user_id"
-  end
-
   create_table "task_records", id: false, force: :cascade do |t|
     t.string "version", null: false
   end
@@ -355,5 +346,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_30_181240) do
   add_foreign_key "location_log_addresses", "location_logs"
   add_foreign_key "obsidian_relations", "obsidian_notes", column: "from_id"
   add_foreign_key "pensieve_message_likes", "pensieve_messages", column: "message_id"
-  add_foreign_key "pensieve_recordings", "users"
 end
