@@ -18,8 +18,8 @@ module Location
 
   sig { returns(T::Boolean) }
   def self.hide?
-    if (hide_until = self.hide_until)
-      hide_until > Time.zone.now
+    if (outset = self.hide_until)
+      Time.current < outset
     else
       false
     end
