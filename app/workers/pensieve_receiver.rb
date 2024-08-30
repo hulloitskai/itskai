@@ -26,6 +26,7 @@ class PensieveReceiver < ApplicationWorker
   def self.start
     client = instance.client or raise "Telegram client not initialized"
     instance.thread ||= Thread.new do
+      sleep(4) # allow other instances to die
       client.run do |bot|
         bot.listen do |message|
           Rails.application.reloader.wrap do
