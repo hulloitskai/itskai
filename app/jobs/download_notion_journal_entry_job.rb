@@ -11,6 +11,7 @@ class DownloadNotionJournalEntryJob < ApplicationJob
     },
     total_limit: 1,
   )
+  queue_with_priority 10
 
   # == Job
   sig { params(entry: NotionJournalEntry).void }

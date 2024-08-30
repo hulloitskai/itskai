@@ -12,6 +12,7 @@ class ReverseGeocodeLocationLogJob < ApplicationJob
     perform_limit: 1,
   )
   retry_on Geocoder::OverQueryLimitError
+  queue_with_priority 10
 
   # == Job
   sig { params(log: LocationLog).void }

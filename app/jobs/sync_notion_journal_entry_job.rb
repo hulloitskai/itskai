@@ -11,6 +11,7 @@ class SyncNotionJournalEntryJob < ApplicationJob
     },
     total_limit: 1,
   )
+  queue_with_priority 10
 
   # == Job
   sig { params(entry: NotionJournalEntry, force: T::Boolean).void }

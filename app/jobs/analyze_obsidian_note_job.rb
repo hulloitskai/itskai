@@ -11,6 +11,7 @@ class AnalyzeObsidianNoteJob < ApplicationJob
     end,
     total_limit: 1,
   )
+  queue_with_priority 10
 
   # == Job
   sig { params(note: ObsidianNote).void }
