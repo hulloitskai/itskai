@@ -362,7 +362,7 @@ class GoodJob::Execution
     sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
     def discrete_execution_ids=(ids); end
 
-    # This method is created by ActiveRecord on the `GoodJob::Execution` class because it declared `has_many :discrete_executions`.
+    # This method is created by ActiveRecord on the `GoodJob::BaseExecution` class because it declared `has_many :discrete_executions`.
     # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
     sig { returns(::GoodJob::DiscreteExecution::PrivateCollectionProxy) }
     def discrete_executions; end
@@ -418,9 +418,6 @@ class GoodJob::Execution
     def creation_ordered(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def dead(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def dequeueing_ordered(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -455,9 +452,6 @@ class GoodJob::Execution
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def having(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def head(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def in_order_of(*args, &blk); end
@@ -1386,6 +1380,106 @@ class GoodJob::Execution
     def labels_will_change!; end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def locked_at; end
+
+    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def locked_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def locked_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def locked_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def locked_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def locked_at_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def locked_at_change; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def locked_at_change_to_be_saved; end
+
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def locked_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def locked_at_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def locked_at_previous_change; end
+
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def locked_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def locked_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def locked_at_was; end
+
+    sig { void }
+    def locked_at_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def locked_by_id; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def locked_by_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def locked_by_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def locked_by_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def locked_by_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def locked_by_id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def locked_by_id_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def locked_by_id_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def locked_by_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def locked_by_id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def locked_by_id_previous_change; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def locked_by_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def locked_by_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def locked_by_id_was; end
+
+    sig { void }
+    def locked_by_id_will_change!; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def performed_at; end
 
     sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
@@ -1579,6 +1673,12 @@ class GoodJob::Execution
     def restore_labels!; end
 
     sig { void }
+    def restore_locked_at!; end
+
+    sig { void }
+    def restore_locked_by_id!; end
+
+    sig { void }
     def restore_performed_at!; end
 
     sig { void }
@@ -1739,6 +1839,18 @@ class GoodJob::Execution
 
     sig { returns(T::Boolean) }
     def saved_change_to_labels?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_locked_at; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_locked_at?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_locked_by_id; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_locked_by_id?; end
 
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def saved_change_to_performed_at; end
@@ -1976,6 +2088,12 @@ class GoodJob::Execution
     def will_save_change_to_labels?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_locked_at?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_locked_by_id?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_performed_at?; end
 
     sig { returns(T::Boolean) }
@@ -2026,9 +2144,6 @@ class GoodJob::Execution
     def creation_ordered(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def dead(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def dequeueing_ordered(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -2063,9 +2178,6 @@ class GoodJob::Execution
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def having(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def head(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def in_order_of(*args, &blk); end

@@ -11,6 +11,10 @@ namespace :fly do
     fly_exec "bin/rails db"
   end
 
+  task :restart do
+    fly_exec "bin/rails restart"
+  end
+
   private
 
   def fly_exec(command, pty: false)
