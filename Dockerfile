@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.2
 
-# == System
+# == System ==
 FROM debian:bookworm-slim AS sys
 ENV OVERMIND_VERSION=2.5.1
 ENV STARSHIP_VERSION=1.20.1
@@ -102,7 +102,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 COPY .bash_profile .inputrc /root/
 COPY starship.toml /root/.config/starship.toml
 
-# == Playwright
+
+# == System (Playwright) ==
 FROM sys AS sys-playwright
 ENV PLAYWRIGHT_VERSION=1.45
 
@@ -117,7 +118,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
   apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
   truncate -s 0 /var/log/*log
 
-# == Dependencies
+
+# == Dependencies ==
 FROM sys-playwright AS deps
 
 # Install Ruby dependencies
@@ -150,7 +152,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
   echo $BUILD_DEPS | xargs apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
   truncate -s 0 /var/log/*log
 
-# == Application
+
+# == Application ==
 FROM deps AS app
 ENV PORT=3000
 
