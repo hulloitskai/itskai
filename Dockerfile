@@ -14,34 +14,36 @@ WORKDIR /app
 RUN rm /etc/apt/apt.conf.d/docker-clean
 
 # Install runtime programs and dependencies
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
   apt-get update -yq && \
   echo "ca-certificates tmux $DEVTOOLS $APPLICATION_DEPS" | xargs apt-get install -yq --no-install-recommends && \
-  truncate -s 0 /var/log/*log
+  apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false llvm && \
+  rm -r /var/log/* && \
+  tmux -V
 
 # Install Ruby and Bundler
 COPY .ruby-version ./
 ENV LANG=C.UTF-8 GEM_HOME=/usr/local/bundle
 ENV BUNDLE_SILENCE_ROOT_WARNING=1 BUNDLE_APP_CONFIG="$GEM_HOME" PATH="$GEM_HOME/bin:$PATH"
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
   BUILD_DEPS="git curl build-essential zlib1g-dev libssl-dev libgmp-dev libyaml-dev libjemalloc-dev" set -eux && \
+  RUNTIME_DEPS="libyaml-0-2 libjemalloc2" && \
   apt-get update -yq && \
-  echo $BUILD_DEPS | xargs apt-get install -yq --no-install-recommends; \
+  echo $BUILD_DEPS $RUNTIME_DEPS | xargs apt-get install -yq --no-install-recommends; \
   git clone --depth 1 https://github.com/rbenv/ruby-build.git && \
   PREFIX=/tmp ./ruby-build/install.sh && \
   mkdir -p "$GEM_HOME" && chmod 1777 "$GEM_HOME" && \
   RUBY_CONFIGURE_OPTS=--with-jemalloc /tmp/bin/ruby-build "$(cat .ruby-version)" /usr/local && \
-  rm -rf ./ruby-build /tmp/* && \
-  ruby --version && gem --version && bundle --version && \
   echo $BUILD_DEPS | xargs apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
-  truncate -s 0 /var/log/*log
+  rm -r ./ruby-build /tmp/* /var/log/* && \
+  ruby --version && gem --version && bundle --version
 
 # Install NodeJS and Yarn
 COPY .node-version ./
 ENV NODE_ENV=production
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
   BUILD_DEPS="git curl" set -eux && \
   apt-get update -yq && \
@@ -50,15 +52,13 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
   PREFIX=/tmp ./node-build/install.sh && \
   /tmp/bin/node-build "$(cat .node-version)" /usr/local && \
   npm install --global yarn && \
-  npm cache clean --force && \
-  rm -rf ./node-build /tmp/* && \
-  node --version && npm --version && yarn --version && \
   echo $BUILD_DEPS | xargs apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
-  truncate -s 0 /var/log/*log
+  rm -r ./node-build /tmp/* /root/.npm/* /var/log/* && \
+  node --version && npm --version && yarn --version
 
 # Install Python and Poetry
 COPY .python-version ./
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
   BUILD_DEPS="git curl build-essential zlib1g-dev libssl-dev" set -eux && \
   apt-get update -yq && \
@@ -70,13 +70,13 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
   PREFIX=/tmp ./python-build/install.sh && \
   PYTHON_CONFIGURE_OPTS=--enable-shared /tmp/bin/python-build "$(cat .python-version)" /usr/local && \
   pip3 install --no-cache-dir poetry && \
-  rm -rf ./python-build /tmp/* && \
-  python3 --version && pip3 --version && \
   echo $BUILD_DEPS | xargs apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
-  truncate -s 0 /var/log/*log
+  rm -r ./python-build /tmp/* /var/log/* && \
+  find /usr/local -depth \( \( -type d -a \( -name test -o -name tests -o -name idle_test \) \) -o \( -type f -a \( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \) \) \) -exec rm -rf '{}' + && \
+  python3 --version && pip3 --version
 
 # Install Overmind
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
   BUILD_DEPS="curl" set -eux && \
   apt-get update -yq && \
@@ -84,21 +84,21 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
   curl -Lo /usr/bin/overmind.gz https://github.com/DarthSim/overmind/releases/download/v$OVERMIND_VERSION/overmind-v$OVERMIND_VERSION-linux-amd64.gz && \
   gzip -d /usr/bin/overmind.gz && \
   chmod u+x /usr/bin/overmind && \
-  overmind --version && \
   echo $BUILD_DEPS | xargs apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
-  truncate -s 0 /var/log/*log
+  rm -r /var/log/* && \
+  overmind --version
 
 # Configure shell
 ENV SHELL=/bin/bash
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
   BUILD_DEPS="curl" set -eux && \
   apt-get update -yq && \
   echo $BUILD_DEPS | xargs apt-get install -yq --no-install-recommends; \
   curl -sS https://starship.rs/install.sh | sh -s -- -y -v="v$STARSHIP_VERSION" && \
-  starship --version && \
   echo $BUILD_DEPS | xargs apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
-  truncate -s 0 /var/log/*log
+  rm -r /tmp/* /var/log/* && \
+  starship --version
 COPY .bash_profile .inputrc /root/
 COPY starship.toml /root/.config/starship.toml
 
@@ -108,16 +108,15 @@ FROM sys AS sys-playwright
 ENV PLAYWRIGHT_VERSION=1.45
 
 # Install Playwright
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
   --mount=type=cache,target=/usr/local/share/.cache/yarn,sharing=locked \
   set -eux && \
   yarn global add playwright@$PLAYWRIGHT_VERSION; \
-  playwright --version && \
   playwright install --with-deps chromium && \
   apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
-  truncate -s 0 /var/log/*log
-
+  rm -r /tmp/* /var/log/* && \
+  playwright --version
 
 # == Dependencies ==
 FROM sys-playwright AS deps
@@ -125,32 +124,35 @@ FROM sys-playwright AS deps
 # Install Ruby dependencies
 COPY Gemfile Gemfile.lock ./
 ENV BUNDLE_WITHOUT="development test"
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
   BUILD_DEPS="build-essential libffi-dev libreadline-dev libjemalloc-dev libpq-dev" \
-  RUNTIME_DEPS="libyaml-0-2 libjemalloc2 libpq5" set -eux && \
+  RUNTIME_DEPS="libpq5" set -eux && \
   apt-get update -yq && \
   echo $BUILD_DEPS $RUNTIME_DEPS | xargs apt-get install -yq --no-install-recommends; \
   bundle install && \
   echo $BUILD_DEPS | xargs apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
-  truncate -s 0 /var/log/*log
+  rm -r /var/log/*
 
 # Install NodeJS dependencies
 COPY package.json yarn.lock ./
 ENV NODE_ENV=production
 RUN --mount=type=cache,target=/usr/local/share/.cache/yarn,sharing=locked \
-  yarn install
+  yarn install && \
+  rm -r /tmp/*
 
 # Install Python dependencies
 COPY pyproject.toml poetry.toml poetry.lock ./
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+  --mount=type=cache,target=/root/.cache/pypoetry,sharing=locked \
   BUILD_DEPS="build-essential" set -eux && \
   apt-get update -yq && \
   echo $BUILD_DEPS | xargs apt-get install -yq --no-install-recommends; \
   poetry install --no-cache --no-root --no-directory --without=dev && \
   echo $BUILD_DEPS | xargs apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
-  truncate -s 0 /var/log/*log
+  rm -r /var/log/* && \
+  find /usr/local -depth \( \( -type d -a \( -name test -o -name tests -o -name idle_test \) \) -o \( -type f -a \( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \) \) \) -exec rm -rf '{}' +
 
 
 # == Application ==
@@ -171,7 +173,8 @@ RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 
 # Install Python scripts
 RUN --mount=type=cache,target=/usr/local/share/.cache/pypoetry,sharing=locked \
-  poetry install --only-root
+  poetry install --only-root && \
+  find /usr/local -depth \( \( -type d -a \( -name test -o -name tests -o -name idle_test \) \) -o \( -type f -a \( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \) \) \) -exec rm -rf '{}' +
 
 # Expose ports
 EXPOSE ${PORT}
