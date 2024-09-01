@@ -126,7 +126,7 @@ COPY Gemfile Gemfile.lock ./
 ENV BUNDLE_WITHOUT="development test"
 RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
-  BUILD_DEPS="build-essential libffi-dev libreadline-dev libjemalloc-dev libpq-dev" \
+  BUILD_DEPS="build-essential libreadline-dev libjemalloc-dev libpq-dev" \
   RUNTIME_DEPS="libpq5" set -eux && \
   apt-get update -yq && \
   echo $BUILD_DEPS $RUNTIME_DEPS | xargs apt-get install -yq --no-install-recommends; \
@@ -151,9 +151,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   echo $BUILD_DEPS | xargs apt-get install -yq --no-install-recommends; \
   poetry install --no-cache --no-root --no-directory --without=dev && \
   echo $BUILD_DEPS | xargs apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
-  rm -r /var/log/* && \
-  find /usr/local -depth \( \( -type d -a \( -name test -o -name tests -o -name idle_test \) \) -o \( -type f -a \( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \) \) \) -exec rm -rf '{}' +
-
+  rm -r /var/log/*
 
 # == Application ==
 FROM deps AS app
@@ -169,12 +167,12 @@ RUN bundle exec bootsnap precompile --gemfile app/ lib/
 ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true"
 
 # Precompile assets
-RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn,sharing=locked \
+  SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 
 # Install Python scripts
 RUN --mount=type=cache,target=/usr/local/share/.cache/pypoetry,sharing=locked \
-  poetry install --only-root && \
-  find /usr/local -depth \( \( -type d -a \( -name test -o -name tests -o -name idle_test \) \) -o \( -type f -a \( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \) \) \) -exec rm -rf '{}' +
+  poetry install --only-root
 
 # Expose ports
 EXPOSE ${PORT}
