@@ -20,7 +20,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
   echo "ca-certificates tmux $DEVTOOLS $APPLICATION_DEPS" | xargs apt-get install -yq --no-install-recommends && \
   truncate -s 0 /var/log/*log
 
-# Install Ruby and bundler
+# Install Ruby and Bundler
 COPY .ruby-version ./
 ENV LANG=C.UTF-8 GEM_HOME=/usr/local/bundle
 ENV BUNDLE_SILENCE_ROOT_WARNING=1 BUNDLE_APP_CONFIG="$GEM_HOME" PATH="$GEM_HOME/bin:$PATH"

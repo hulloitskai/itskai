@@ -6,7 +6,7 @@ on:
 
 env:
   RAILS_ENV: test
-  OWNER_EMAIL: test@example.com
+  OVERMIND_VERSION: 2.5.1
 
 jobs:
   check:
@@ -45,7 +45,7 @@ jobs:
       - name: Install Overmind
         run: |
           sudo apt-get install tmux \
-            && sudo curl -Lo /usr/bin/overmind.gz https://github.com/DarthSim/overmind/releases/download/v2.4.0/overmind-v2.4.0-linux-amd64.gz \
+            && sudo curl -Lo /usr/bin/overmind.gz https://github.com/DarthSim/overmind/releases/download/v${{ env.OVERMIND_VERSION }}/overmind-v${{ env.OVERMIND_VERSION }}-linux-amd64.gz \
             && sudo gzip -d /usr/bin/overmind.gz \
             && sudo chmod u+x /usr/bin/overmind \
             && sudo chown $(whoami) /usr/bin/overmind
@@ -54,7 +54,7 @@ jobs:
       - name: Set up environment
         run: bin/setup
         env:
-          POSTGRES_DB: postgres
+          POSTGRES_DATABASE: postgres
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
       - name: Check formatting
