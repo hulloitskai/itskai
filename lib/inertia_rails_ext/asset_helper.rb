@@ -1,15 +1,13 @@
-# typed: strict
+# typed: true
 # frozen_string_literal: true
 
-require "inertia_rails"
-
-module InertiaRails::Helper
-  module InertiaAssetsHelper
+module InertiaRails
+  module AssetHelper
     extend T::Sig
     extend T::Helpers
+    extend ActiveSupport::Concern
 
-    requires_ancestor { Kernel }
-    requires_ancestor { ViteRails::TagHelpers }
+    requires_ancestor { ActionView::Base }
 
     # == Methods
     sig { params(type: Symbol, options: T.untyped).returns(T.nilable(String)) }
@@ -21,5 +19,4 @@ module InertiaRails::Helper
       vite_javascript_tag(path, **options)
     end
   end
-  include InertiaAssetsHelper
 end

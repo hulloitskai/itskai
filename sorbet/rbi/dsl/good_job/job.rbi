@@ -8,6 +8,7 @@
 class GoodJob::Job
   include GeneratedAssociationMethods
   include GeneratedAttributeMethods
+  include EnumMethodsModule
   extend CommonRelationMethods
   extend GeneratedRelationMethods
 
@@ -15,6 +16,11 @@ class GoodJob::Job
 
   sig { returns(NilClass) }
   def to_ary; end
+
+  class << self
+    sig { returns(T::Hash[T.any(String, Symbol), Integer]) }
+    def error_events; end
+  end
 
   module CommonRelationMethods
     sig { params(block: T.nilable(T.proc.params(record: ::GoodJob::Job).returns(T.untyped))).returns(T::Boolean) }
@@ -315,6 +321,44 @@ class GoodJob::Job
     def third_to_last!; end
   end
 
+  module EnumMethodsModule
+    sig { void }
+    def discarded!; end
+
+    sig { returns(T::Boolean) }
+    def discarded?; end
+
+    sig { void }
+    def handled!; end
+
+    sig { returns(T::Boolean) }
+    def handled?; end
+
+    sig { void }
+    def interrupted!; end
+
+    sig { returns(T::Boolean) }
+    def interrupted?; end
+
+    sig { void }
+    def retried!; end
+
+    sig { returns(T::Boolean) }
+    def retried?; end
+
+    sig { void }
+    def retry_stopped!; end
+
+    sig { returns(T::Boolean) }
+    def retry_stopped?; end
+
+    sig { void }
+    def unhandled!; end
+
+    sig { returns(T::Boolean) }
+    def unhandled?; end
+  end
+
   module GeneratedAssociationMethods
     sig { returns(T.nilable(::GoodJob::BatchRecord)) }
     def batch; end
@@ -339,20 +383,6 @@ class GoodJob::Job
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::GoodJob::Process) }
     def create_locked_by_process!(*args, &blk); end
-
-    sig { returns(T::Array[T.untyped]) }
-    def discrete_execution_ids; end
-
-    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
-    def discrete_execution_ids=(ids); end
-
-    # This method is created by ActiveRecord on the `GoodJob::Job` class because it declared `has_many :discrete_executions`.
-    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
-    sig { returns(::GoodJob::DiscreteExecution::PrivateCollectionProxy) }
-    def discrete_executions; end
-
-    sig { params(value: T::Enumerable[::GoodJob::DiscreteExecution]).void }
-    def discrete_executions=(value); end
 
     sig { returns(T::Array[T.untyped]) }
     def execution_ids; end
@@ -619,9 +649,6 @@ class GoodJob::Job
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def unfinished(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def unfinished_undiscrete(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def uniq!(*args, &blk); end
@@ -1010,16 +1037,20 @@ class GoodJob::Job
     sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
     def error_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(T.nilable(::String)) }
     def error_event; end
 
-    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
+    sig do
+      params(
+        value: T.nilable(T.any(::String, ::Symbol, ::Integer))
+      ).returns(T.nilable(T.any(::String, ::Symbol, ::Integer)))
+    end
     def error_event=(value); end
 
     sig { returns(T::Boolean) }
     def error_event?; end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(T.nilable(::String)) }
     def error_event_before_last_save; end
 
     sig { returns(T.untyped) }
@@ -1028,28 +1059,38 @@ class GoodJob::Job
     sig { returns(T::Boolean) }
     def error_event_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def error_event_change; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def error_event_change_to_be_saved; end
 
-    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    sig do
+      params(
+        from: T.nilable(T.any(::String, ::Symbol, ::Integer)),
+        to: T.nilable(T.any(::String, ::Symbol, ::Integer))
+      ).returns(T::Boolean)
+    end
     def error_event_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(T.nilable(::String)) }
     def error_event_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def error_event_previous_change; end
 
-    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    sig do
+      params(
+        from: T.nilable(T.any(::String, ::Symbol, ::Integer)),
+        to: T.nilable(T.any(::String, ::Symbol, ::Integer))
+      ).returns(T::Boolean)
+    end
     def error_event_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(T.nilable(::String)) }
     def error_event_previously_was; end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(T.nilable(::String)) }
     def error_event_was; end
 
     sig { void }
@@ -1176,7 +1217,7 @@ class GoodJob::Job
     sig { returns(T.nilable(::String)) }
     def id; end
 
-    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    sig { params(value: ::String).returns(::String) }
     def id=(value); end
 
     sig { returns(T::Boolean) }
@@ -1197,7 +1238,7 @@ class GoodJob::Job
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_change_to_be_saved; end
 
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
@@ -1206,13 +1247,13 @@ class GoodJob::Job
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_previous_change; end
 
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def id_previously_was; end
 
-    sig { returns(::String) }
+    sig { returns(T.nilable(::String)) }
     def id_value; end
 
     sig { params(value: ::String).returns(::String) }
@@ -1230,10 +1271,10 @@ class GoodJob::Job
     sig { returns(T::Boolean) }
     def id_value_came_from_user?; end
 
-    sig { returns(T.nilable([::String, ::String])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_value_change; end
 
-    sig { returns(T.nilable([::String, ::String])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_value_change_to_be_saved; end
 
     sig { params(from: ::String, to: ::String).returns(T::Boolean) }
@@ -1242,7 +1283,7 @@ class GoodJob::Job
     sig { returns(T.nilable(::String)) }
     def id_value_in_database; end
 
-    sig { returns(T.nilable([::String, ::String])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_value_previous_change; end
 
     sig { params(from: ::String, to: ::String).returns(T::Boolean) }
@@ -1262,51 +1303,6 @@ class GoodJob::Job
 
     sig { void }
     def id_will_change!; end
-
-    sig { returns(T.nilable(T::Boolean)) }
-    def is_discrete; end
-
-    sig { params(value: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-    def is_discrete=(value); end
-
-    sig { returns(T::Boolean) }
-    def is_discrete?; end
-
-    sig { returns(T.nilable(T::Boolean)) }
-    def is_discrete_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def is_discrete_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def is_discrete_came_from_user?; end
-
-    sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
-    def is_discrete_change; end
-
-    sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
-    def is_discrete_change_to_be_saved; end
-
-    sig { params(from: T.nilable(T::Boolean), to: T.nilable(T::Boolean)).returns(T::Boolean) }
-    def is_discrete_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(T::Boolean)) }
-    def is_discrete_in_database; end
-
-    sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
-    def is_discrete_previous_change; end
-
-    sig { params(from: T.nilable(T::Boolean), to: T.nilable(T::Boolean)).returns(T::Boolean) }
-    def is_discrete_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(T::Boolean)) }
-    def is_discrete_previously_was; end
-
-    sig { returns(T.nilable(T::Boolean)) }
-    def is_discrete_was; end
-
-    sig { void }
-    def is_discrete_will_change!; end
 
     sig { returns(T.nilable(::String)) }
     def job_class; end
@@ -1683,9 +1679,6 @@ class GoodJob::Job
     def restore_id_value!; end
 
     sig { void }
-    def restore_is_discrete!; end
-
-    sig { void }
     def restore_job_class!; end
 
     sig { void }
@@ -1707,9 +1700,6 @@ class GoodJob::Job
     def restore_queue_name!; end
 
     sig { void }
-    def restore_retried_good_job_id!; end
-
-    sig { void }
     def restore_scheduled_at!; end
 
     sig { void }
@@ -1717,51 +1707,6 @@ class GoodJob::Job
 
     sig { void }
     def restore_updated_at!; end
-
-    sig { returns(T.nilable(::String)) }
-    def retried_good_job_id; end
-
-    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
-    def retried_good_job_id=(value); end
-
-    sig { returns(T::Boolean) }
-    def retried_good_job_id?; end
-
-    sig { returns(T.nilable(::String)) }
-    def retried_good_job_id_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def retried_good_job_id_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def retried_good_job_id_came_from_user?; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def retried_good_job_id_change; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def retried_good_job_id_change_to_be_saved; end
-
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
-    def retried_good_job_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def retried_good_job_id_in_database; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def retried_good_job_id_previous_change; end
-
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
-    def retried_good_job_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def retried_good_job_id_previously_was; end
-
-    sig { returns(T.nilable(::String)) }
-    def retried_good_job_id_was; end
-
-    sig { void }
-    def retried_good_job_id_will_change!; end
 
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_active_job_id; end
@@ -1811,7 +1756,7 @@ class GoodJob::Job
     sig { returns(T::Boolean) }
     def saved_change_to_error?; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_error_event; end
 
     sig { returns(T::Boolean) }
@@ -1835,17 +1780,11 @@ class GoodJob::Job
     sig { returns(T::Boolean) }
     def saved_change_to_id?; end
 
-    sig { returns(T.nilable([::String, ::String])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_id_value; end
 
     sig { returns(T::Boolean) }
     def saved_change_to_id_value?; end
-
-    sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
-    def saved_change_to_is_discrete; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_is_discrete?; end
 
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_job_class; end
@@ -1888,12 +1827,6 @@ class GoodJob::Job
 
     sig { returns(T::Boolean) }
     def saved_change_to_queue_name?; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def saved_change_to_retried_good_job_id; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_retried_good_job_id?; end
 
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def saved_change_to_scheduled_at; end
@@ -2098,9 +2031,6 @@ class GoodJob::Job
     def will_save_change_to_id_value?; end
 
     sig { returns(T::Boolean) }
-    def will_save_change_to_is_discrete?; end
-
-    sig { returns(T::Boolean) }
     def will_save_change_to_job_class?; end
 
     sig { returns(T::Boolean) }
@@ -2120,9 +2050,6 @@ class GoodJob::Job
 
     sig { returns(T::Boolean) }
     def will_save_change_to_queue_name?; end
-
-    sig { returns(T::Boolean) }
-    def will_save_change_to_retried_good_job_id?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_scheduled_at?; end
@@ -2332,9 +2259,6 @@ class GoodJob::Job
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def unfinished(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def unfinished_undiscrete(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def uniq!(*args, &blk); end

@@ -12,7 +12,7 @@ class ReverseGeocodeLocationLogJob < ApplicationJob
       log, *_ = arguments
       "#{self.class.name}(#{log.to_gid})"
     },
-    perform_limit: 1,
+    total_limit: 1,
   )
   retry_on Geocoder::OverQueryLimitError, TimeoutError,
            wait: :polynomially_longer

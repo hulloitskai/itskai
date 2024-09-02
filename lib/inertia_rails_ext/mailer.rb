@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require "inertia_rails"
+require_relative "asset_helper"
 require_relative "mailer/renderer"
 
 module InertiaRails
@@ -15,7 +16,9 @@ module InertiaRails
     prepended do
       T.bind(self, T.class_of(ActionMailer::Base))
 
-      helper Helper
+      helper_method :inertia_headers
+      helper AssetHelper
+      before_action :prepare_instance_variables
     end
 
     # == Methods
@@ -34,6 +37,15 @@ module InertiaRails
         headers[:content_type] = "text/html"
       end
       super(headers, &block)
+    end
+
+    # == Helpers
+    def inertia_headers
+      @_inertia_html_headers.join.html_safe
+    end
+
+    def inertia_headers=(value)
+      @_inertia_html_headers = value
     end
 
     private
@@ -69,8 +81,8 @@ module InertiaRails
         attempts += 1
         Faraday.head(InertiaRails.ssr_url)
       rescue Errno::ECONNREFUSED
-        sleep(1)
-        if attempts < 3
+        sleep(0.5)
+        if attempts < 6
           retry
         else
           raise "Inertia SSR server cannot be reached"
@@ -80,5 +92,10 @@ module InertiaRails
 
     sig { returns(String) }
     def inertia_layout = "mailer"
+
+    sig { void }
+    def prepare_instance_variables
+      @_inertia_html_headers ||= []
+    end
   end
 end

@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require "inertia_rails"
+require_relative "asset_helper"
 
 module InertiaRails
   module Controller
@@ -15,8 +16,9 @@ module InertiaRails
     included do
       T.bind(self, T.class_of(ActionController::Base))
 
+      helper_method :inertia_headers
+      helper AssetHelper
       before_action :prepare_instance_variables
-      helper Helper
     end
 
     private

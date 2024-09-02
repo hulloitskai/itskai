@@ -2405,8 +2405,6 @@ end
 module ActionController::Base::HelperMethods
   include ::ActionText::ContentHelper
   include ::ActionText::TagHelper
-  include ::InertiaRails::Helper::InertiaAssetsHelper
-  include ::InertiaRails::Helper
   include ::ViteRails::TagHelpers
 
   # source://actionpack//lib/action_controller/metal/flash.rb#39
@@ -2438,6 +2436,9 @@ module ActionController::Base::HelperMethods
 
   # source://actionpack//lib/action_controller/metal/request_forgery_protection.rb#101
   def form_authenticity_token(*args, **_arg1, &block); end
+
+  def inertia_assets(*args, **_arg1, &block); end
+  def inertia_headers(*args, **_arg1, &block); end
 
   # source://actionpack//lib/action_controller/metal/flash.rb#39
   def notice(*args, **_arg1, &block); end
@@ -6341,10 +6342,7 @@ class ActionController::ParamsWrapper::Options < ::Struct
   # source://actionpack//lib/action_controller/metal/params_wrapper.rb#110
   def include; end
 
-  # source://mutex_m/0.2.0/mutex_m.rb#91
   def lock; end
-
-  # source://mutex_m/0.2.0/mutex_m.rb#81
   def locked?; end
 
   # Returns the value of attribute model
@@ -6361,13 +6359,8 @@ class ActionController::ParamsWrapper::Options < ::Struct
   # source://actionpack//lib/action_controller/metal/params_wrapper.rb#143
   def name; end
 
-  # source://mutex_m/0.2.0/mutex_m.rb#76
   def synchronize(&block); end
-
-  # source://mutex_m/0.2.0/mutex_m.rb#86
   def try_lock; end
-
-  # source://mutex_m/0.2.0/mutex_m.rb#96
   def unlock; end
 
   private
@@ -6746,7 +6739,7 @@ module ActionController::Renderers
   # source://actionpack//lib/action_controller/metal/renderers.rb#144
   def _render_to_body_with_renderer(options); end
 
-  # source://inertia_rails/3.1.4/lib/inertia_rails.rb#9
+  # source://inertia_rails/3.2.0/lib/inertia_rails.rb#9
   def _render_with_renderer_inertia(component, options); end
 
   # source://actionpack//lib/action_controller/metal/renderers.rb#170
@@ -9819,7 +9812,7 @@ class ActionDispatch::DebugExceptions
   # source://actionpack//lib/action_dispatch/middleware/debug_exceptions.rb#28
   def call(env); end
 
-  # source://inertia_rails/3.1.4/lib/patches/debug_exceptions/patch-5-1.rb#11
+  # source://inertia_rails/3.2.0/lib/patches/debug_exceptions/patch-5-1.rb#11
   def render_for_browser_request(request, wrapper); end
 
   private
@@ -14599,10 +14592,10 @@ class ActionDispatch::Request
   # source://actionpack//lib/action_dispatch/http/mime_negotiation.rb#18
   def ignore_accept_header=(val); end
 
-  # source://inertia_rails/3.1.4/lib/patches/request.rb#2
+  # source://inertia_rails/3.2.0/lib/patches/request.rb#2
   def inertia?; end
 
-  # source://inertia_rails/3.1.4/lib/patches/request.rb#6
+  # source://inertia_rails/3.2.0/lib/patches/request.rb#6
   def inertia_partial?; end
 
   # source://actionpack//lib/action_dispatch/http/request.rb#444
@@ -16333,7 +16326,7 @@ class ActionDispatch::Routing::Mapper
   # source://devise/4.9.4/lib/devise/rails/routes.rb#363
   def devise_scope(scope); end
 
-  # source://inertia_rails/3.1.4/lib/patches/mapper.rb#2
+  # source://inertia_rails/3.2.0/lib/patches/mapper.rb#2
   def inertia(args, &block); end
 
   # source://devise/4.9.4/lib/devise/rails/routes.rb#331

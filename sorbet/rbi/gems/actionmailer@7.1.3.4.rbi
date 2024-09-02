@@ -1487,8 +1487,6 @@ module ActionMailer::Base::HelperMethods
   include ::ActionMailer::MailHelper
   include ::ActionText::ContentHelper
   include ::ActionText::TagHelper
-  include ::InertiaRails::Helper::InertiaAssetsHelper
-  include ::InertiaRails::Helper
 
   # source://actionpack/7.1.3.4/lib/abstract_controller/caching/fragments.rb#33
   def combined_fragment_cache_key(*args, **_arg1, &block); end

@@ -8,6 +8,7 @@
 class GoodJob::Process
   include GeneratedAssociationMethods
   include GeneratedAttributeMethods
+  include EnumMethodsModule
   extend CommonRelationMethods
   extend GeneratedRelationMethods
 
@@ -15,6 +16,11 @@ class GoodJob::Process
 
   sig { returns(NilClass) }
   def to_ary; end
+
+  class << self
+    sig { returns(T::Hash[T.any(String, Symbol), Integer]) }
+    def lock_types; end
+  end
 
   module CommonRelationMethods
     sig { params(block: T.nilable(T.proc.params(record: ::GoodJob::Process).returns(T.untyped))).returns(T::Boolean) }
@@ -313,6 +319,14 @@ class GoodJob::Process
 
     sig { returns(::GoodJob::Process) }
     def third_to_last!; end
+  end
+
+  module EnumMethodsModule
+    sig { void }
+    def advisory!; end
+
+    sig { returns(T::Boolean) }
+    def advisory?; end
   end
 
   module GeneratedAssociationMethods
@@ -680,16 +694,20 @@ class GoodJob::Process
     sig { void }
     def id_will_change!; end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(T.nilable(::String)) }
     def lock_type; end
 
-    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
+    sig do
+      params(
+        value: T.nilable(T.any(::String, ::Symbol, ::Integer))
+      ).returns(T.nilable(T.any(::String, ::Symbol, ::Integer)))
+    end
     def lock_type=(value); end
 
     sig { returns(T::Boolean) }
     def lock_type?; end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(T.nilable(::String)) }
     def lock_type_before_last_save; end
 
     sig { returns(T.untyped) }
@@ -698,28 +716,38 @@ class GoodJob::Process
     sig { returns(T::Boolean) }
     def lock_type_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def lock_type_change; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def lock_type_change_to_be_saved; end
 
-    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    sig do
+      params(
+        from: T.nilable(T.any(::String, ::Symbol, ::Integer)),
+        to: T.nilable(T.any(::String, ::Symbol, ::Integer))
+      ).returns(T::Boolean)
+    end
     def lock_type_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(T.nilable(::String)) }
     def lock_type_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def lock_type_previous_change; end
 
-    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    sig do
+      params(
+        from: T.nilable(T.any(::String, ::Symbol, ::Integer)),
+        to: T.nilable(T.any(::String, ::Symbol, ::Integer))
+      ).returns(T::Boolean)
+    end
     def lock_type_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(T.nilable(::String)) }
     def lock_type_previously_was; end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(T.nilable(::String)) }
     def lock_type_was; end
 
     sig { void }
@@ -761,7 +789,7 @@ class GoodJob::Process
     sig { returns(T::Boolean) }
     def saved_change_to_id_value?; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_lock_type; end
 
     sig { returns(T::Boolean) }
