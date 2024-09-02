@@ -84,7 +84,7 @@ class LocationLog < ApplicationRecord
     result_type = T.let(result.data.fetch("resultType"), String)
     title = result.data["title"]
     place_name = title if result_type == "place"
-    address = log.build_address(
+    log.create_address!(
       place_name:,
       full_address: result.address,
       street_address: [ result.street_number, result.route ].compact.join(" "),
@@ -95,15 +95,6 @@ class LocationLog < ApplicationRecord
       country_code: result.country_code,
       postal_code: result.postal_code,
     )
-    unless address.valid?
-      log.address = nil
-      with_log_tags do
-        logger.warn(
-          "Invalid address for location log with id `#{log.id}': " +
-            address.errors.full_messages.to_sentence,
-        )
-      end
-    end
   end
 
   sig { returns(RGeo::Geographic::Factory) }
