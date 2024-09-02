@@ -35,23 +35,23 @@ class LocationAccessGrant < ApplicationRecord
 
   # == Associations
   has_many :accesses,
-           class_name: "LocationAccess",
-           inverse_of: :grant,
-           dependent: :destroy
+    class_name: "LocationAccess",
+    inverse_of: :grant,
+    dependent: :destroy
 
   # == Normalizations
   removes_blank :password
 
   # == Validations
   validates :password,
-            format: {
-              with: /\A[a-z0-9-]+\z/,
-              message:
-                "can only have lowercase letters, numbers, underscores, and " \
-                "and dashes",
-            },
-            length: { minimum: 4 },
-            allow_nil: true
+    format: {
+      with: /\A[a-z0-9-]+\z/,
+      message:
+        "can only have lowercase letters, numbers, underscores, and " \
+        "and dashes",
+    },
+    length: { minimum: 4 },
+    allow_nil: true
   validate :validate_password_uniqueness
 
   # == Callbacks

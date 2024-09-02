@@ -37,14 +37,13 @@ end
 
 module ActionPolicy::Behaviours::Scoping
   sig do
-    type_parameters(:U).
-      params(
-        target: T.all(T.type_parameter(:U), ActiveRecord::Relation),
-        type: Symbol,
-        as: Symbol,
-        scope_options: T::Hash[Symbol, T.untyped],
-        options: T.untyped,
-      ).returns(T.type_parameter(:U))
+    type_parameters(:U).params(
+      target: T.all(T.type_parameter(:U), ActiveRecord::Relation),
+      type: Symbol,
+      as: Symbol,
+      scope_options: T::Hash[Symbol, T.untyped],
+      options: T.untyped,
+    ).returns(T.type_parameter(:U))
   end
   def authorized_scope(
     target,

@@ -84,9 +84,9 @@ export const useFetchForm = <
       })
         .then(
           data => {
-            setData(data as Data);
+            setData(data);
             form.reset();
-            onSuccess?.(data as Data, form);
+            onSuccess?.(data, form);
           },
           (responseError: ResponseError) => {
             if (responseError.body) {

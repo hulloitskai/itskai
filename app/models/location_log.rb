@@ -58,9 +58,9 @@ class LocationLog < ApplicationRecord
   end
 
   delegate :full_address,
-           :approximate_address,
-           :google_maps_area_url,
-           to: :address!
+    :approximate_address,
+    :google_maps_area_url,
+    to: :address!
 
   # == Callbacks
   after_create_commit :reverse_geocode_later
@@ -166,8 +166,21 @@ class LocationLog < ApplicationRecord
   end
 
   # == Geocoding
-  sig { void }
-  def reverse_geocode_later
-    ReverseGeocodeLocationLogJob.perform_later(self)
+  sig { params(options: T.untyped).void }
+  def reverse_geocode_later(**options)
+    ReverseGeocodeLocationLogJob.set(**options).perform_later(self)
+  end
+
+  sig { params(limit: Integer).returns(T::Array[LocationLog]) }
+  def self.backfill_addresses_later(limit: 1000)
+    logs = LocationLog
+      .where.missing(:address)
+      .order(timestamp: :desc)
+      .limit(limit)
+      .to_a
+    logs.each do |log|
+      log.reverse_geocode_later(priority: 10)
+    end
+    logs
   end
 end

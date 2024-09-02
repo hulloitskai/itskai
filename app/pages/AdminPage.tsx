@@ -7,6 +7,7 @@ import AdminOAuthConnectionForm from "~/components/AdminOAuthConnectionForm";
 import AdminLocationLogsSyncButton from "~/components/AdminLocationLogsSyncButton";
 import AdminJournalEntriesSyncButton from "~/components/AdminNotionJournalEntriesSyncButton";
 import AdminLocationAccessGrants from "~/components/AdminLocationAccessGrants";
+import AdminLocationLogsBackfillAddressesButton from "~/components/AdminLocationLogsBackfillAddressesButton";
 
 export interface AdminPageProps extends SharedPageProps {
   icloudConnection: ICloudConnection;
@@ -35,6 +36,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
           </Stack>
           <Stack gap={6}>
             <AdminLocationLogsSyncButton />
+            <AdminLocationLogsBackfillAddressesButton />
             <AdminJournalEntriesSyncButton />
           </Stack>
         </Stack>

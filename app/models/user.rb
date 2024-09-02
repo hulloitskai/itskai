@@ -42,14 +42,14 @@ class User < ApplicationRecord
   # == Devise
   # Others modules are: :lockable, :timeoutable, and :omniauthable.
   devise :database_authenticatable,
-         :registerable,
-         :recoverable,
-         :rememberable,
-         :validatable,
-         :confirmable,
-         :trackable,
-         :omniauthable,
-         reconfirmable: true
+    :registerable,
+    :recoverable,
+    :rememberable,
+    :validatable,
+    :confirmable,
+    :trackable,
+    :omniauthable,
+    reconfirmable: true
 
   self.filter_attributes += %i[
     encrypted_password
@@ -70,19 +70,19 @@ class User < ApplicationRecord
   # == Validations
   validates :name, length: { minimum: 2 }
   validates :email,
-            presence: true,
-            length: { maximum: 100 },
-            email: true
+    presence: true,
+    length: { maximum: 100 },
+    email: true
   validates :password,
-            password_strength: {
-              min_entropy: MIN_PASSWORD_ENTROPY,
-              use_dictionary: true,
-            },
-            allow_nil: true
+    password_strength: {
+      min_entropy: MIN_PASSWORD_ENTROPY,
+      use_dictionary: true,
+    },
+    allow_nil: true
 
   # == Callbacks
   before_validation :remove_unconfirmed_email_if_matches_email,
-                    if: %i[unconfirmed_email? email_changed?]
+    if: %i[unconfirmed_email? email_changed?]
 
   # == Finders
   sig { returns(T.nilable(User)) }

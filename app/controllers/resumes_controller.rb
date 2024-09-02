@@ -24,7 +24,7 @@ class ResumesController < ApplicationController
         data = Resume.current(variant: variant&.to_sym)
         unless data
           raise ActionController::RoutingError,
-                "Missing resume data (variant: #{variant})"
+            "Missing resume data (variant: #{variant})"
         end
         json = JSON.neat_generate(
           data,
@@ -36,7 +36,7 @@ class ResumesController < ApplicationController
       format.pdf do
         unless Resume.exists?(variant: variant&.to_sym)
           raise ActionController::RoutingError,
-                "Missing resume data (variant: #{variant})"
+            "Missing resume data (variant: #{variant})"
         end
         basename = [ "kai-xie-resume", variant ].compact.join("--")
         Tempfile.open([ basename, ".pdf" ]) do |f|

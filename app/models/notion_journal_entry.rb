@@ -36,12 +36,12 @@ class NotionJournalEntry < ApplicationRecord
 
   # == Search
   pg_search_scope :search,
-                  against: :title,
-                  using: {
-                    tsearch: {
-                      prefix: true,
-                    },
-                  }
+    against: :title,
+    using: {
+      tsearch: {
+        prefix: true,
+      },
+    }
 
   # == Validation
   validates :notion_page_id, uniqueness: true, presence: true

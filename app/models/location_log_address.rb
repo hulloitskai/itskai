@@ -42,17 +42,17 @@ class LocationLogAddress < ApplicationRecord
 
   # == Normalizations
   removes_blank :city,
-                :neighbourhood,
-                :place_name,
-                :postal_code,
-                :street_address
+    :neighbourhood,
+    :place_name,
+    :postal_code,
+    :street_address
 
   # == Validations
   validates :country,
-            :country_code,
-            :full_address,
-            :province,
-            presence: true
+    :country_code,
+    :full_address,
+    :province,
+    presence: true
 
   # == Callbacks
   after_create_commit :broadcast_location, :broadcast_approximate_location

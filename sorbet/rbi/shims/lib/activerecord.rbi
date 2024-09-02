@@ -508,11 +508,10 @@ module ActiveRecord
 
     module ClassMethods
       sig do
-        type_parameters(:U).
-          params(
-            options: T.untyped,
-            block: T.proc.returns(T.type_parameter((:U))),
-          ).returns(T.type_parameter((:U)))
+        type_parameters(:U).params(
+          options: T.untyped,
+          block: T.proc.returns(T.type_parameter((:U))),
+        ).returns(T.type_parameter((:U)))
       end
       def transaction(**options, &block); end
     end

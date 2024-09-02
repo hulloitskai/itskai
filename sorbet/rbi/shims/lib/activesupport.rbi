@@ -50,14 +50,13 @@ module ActiveSupport
     ); end
 
     sig do
-      type_parameters(:T).
-        params(
-          error_classses: T::Class[T.anything],
-          severity: Symbol,
-          context: T::Hash[Symbol, T.untyped],
-          source: String,
-          block: T.proc.returns(T.type_parameter(:T)),
-        ).returns(T.type_parameter(:T))
+      type_parameters(:T).params(
+        error_classses: T::Class[T.anything],
+        severity: Symbol,
+        context: T::Hash[Symbol, T.untyped],
+        source: String,
+        block: T.proc.returns(T.type_parameter(:T)),
+      ).returns(T.type_parameter(:T))
     end
     def record(
       *error_classses,

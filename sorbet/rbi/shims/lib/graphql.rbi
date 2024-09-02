@@ -103,9 +103,6 @@ module GraphQL
     def self.rescue_from(*err_classes, &handler_block); end
   end
 
-  sig do
-    params(filename: T.any(String, Pathname)).
-      returns(Language::Nodes::Document)
-  end
+  sig { params(filename: T.any(String, Pathname)).returns(Language::Nodes::Document) }
   def self.parse_file(filename); end
 end

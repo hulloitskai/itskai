@@ -28,8 +28,8 @@ class ICloudCredentials < ApplicationRecord
 
   # == Validations
   validates :email,
-            email: true,
-            length: { maximum: 100 },
-            presence: true
+    email: true,
+    length: { maximum: 100 },
+    presence: true
   validates :password, presence: true
 end

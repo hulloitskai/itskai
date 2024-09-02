@@ -39,6 +39,12 @@ class AdminController < ApplicationController
     render(json: { location: LocationSerializer.one_if(log) })
   end
 
+  # POST /admin/backfill_location_log_addresses
+  def backfill_location_log_addresses
+    backfilled_logs = LocationLog.backfill_addresses_later
+    render(json: { "logsQueued" => backfilled_logs.size })
+  end
+
   private
 
   # == Helpers

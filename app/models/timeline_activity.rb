@@ -46,8 +46,8 @@ class TimelineActivity < ApplicationRecord
 
   # == Validates
   validates :confidence,
-            presence: true,
-            numericality: { only_integer: true, in: 0..3 }
+    presence: true,
+    numericality: { only_integer: true, in: 0..3 }
   validates :duration, presence: true, uniqueness: { scope: :type }
   validates :timezone_name, presence: true
   validates :location, presence: true

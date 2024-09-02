@@ -37,10 +37,10 @@ class PensieveMessage < ApplicationRecord
 
   # == Associations
   has_many :likes,
-           class_name: "PensieveMessageLike",
-           inverse_of: :message,
-           foreign_key: :message_id,
-           dependent: :destroy
+    class_name: "PensieveMessageLike",
+    inverse_of: :message,
+    foreign_key: :message_id,
+    dependent: :destroy
 
   # == Validations
   validates :text, presence: true

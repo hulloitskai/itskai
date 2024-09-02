@@ -12,8 +12,8 @@ class AddTelegramChatIdToPensieveMessages < ActiveRecord::Migration[7.0]
     end
     change_column_null :pensieve_messages, :telegram_chat_id, false
     add_index :pensieve_messages,
-              %i[telegram_chat_id telegram_message_id],
-              name: "index_pensieve_messages_uniqueness",
-              unique: true
+      %i[telegram_chat_id telegram_message_id],
+      name: "index_pensieve_messages_uniqueness",
+      unique: true
   end
 end
