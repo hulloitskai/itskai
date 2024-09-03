@@ -14,7 +14,7 @@ module ObsidianEntry
     T.bind(self, T.all(
       T.class_of(ActiveRecord::Base),
       RequiresColumn::ClassMethods,
-    ))
+    ),)
 
     # == Dependencies
     requires_column :name

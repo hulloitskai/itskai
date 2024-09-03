@@ -13,12 +13,12 @@ Healthcheck.configure do |config|
     Rails.logger.silence do
       ActiveRecord::Base.connection.execute("select 1")
     end
-  end)
+  end,)
   config.add_check(:migrations, -> do
     Rails.logger.silence do
       ActiveRecord::Migration.check_all_pending!
     end
-  end)
+  end,)
   config.add_check(:cache, -> { Rails.cache.read("some_key") })
 
   # config.add_check(

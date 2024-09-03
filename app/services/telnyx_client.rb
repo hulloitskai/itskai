@@ -28,7 +28,7 @@ class TelnyxClient < ApplicationService
       from: Telnyx.number!,
       from_display_name: display_name,
       to: number,
-    })
+    },)
     raise_response_errors(response)
     TelnyxCall.new(control_id: response.body.dig("data", "call_control_id"))
   end
@@ -46,7 +46,7 @@ class TelnyxClient < ApplicationService
       payload: message,
       voice: "female",
       language: "en-US",
-    })
+    },)
     raise_response_errors(response)
   end
 

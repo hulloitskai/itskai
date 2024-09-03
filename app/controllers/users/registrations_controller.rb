@@ -43,7 +43,7 @@ module Users
         set_minimum_password_length
         redirect_to(new_registration_path(resource_name), inertia: {
           errors: resource.form_errors,
-        })
+        },)
       end
     end
 
@@ -66,7 +66,7 @@ module Users
         set_minimum_password_length
         redirect_to(edit_registration_path(resource), inertia: {
           errors: resource.form_errors,
-        })
+        },)
       end
     end
 

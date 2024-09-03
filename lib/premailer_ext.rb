@@ -265,7 +265,7 @@ module Premailer::Adapter::Nokogiri
       if is_xhtml?
         # we don't want to encode carriage returns
         @processed_doc.to_xhtml(encoding: @options[:output_encoding]).gsub(
-          /&\#(xD|13);/i, "\r"
+          /&\#(xD|13);/i, "\r",
         )
       else
         @processed_doc.to_html(encoding: @options[:output_encoding])

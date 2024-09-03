@@ -20,12 +20,12 @@ class LocationsController < ApplicationController
         location: LocationWithTrailSerializer.one_if(location),
         "accessToken" => access_token,
         "accessGrant" => LocationAccessGrantSerializer.one_if(access_grant),
-      })
+      },)
     else
       render(inertia: "LocatePage", props: {
         "approximateLocation" => ApproximateLocationSerializer.one_if(location),
         password: location_params.password,
-      })
+      },)
     end
   rescue => error
     with_log_tags do

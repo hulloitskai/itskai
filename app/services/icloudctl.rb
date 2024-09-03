@@ -81,7 +81,7 @@ class ICloudctl < ApplicationService
         "email" => email,
         "password" => password,
         "credentials_dir" => ICloud::CREDENTIALS_DIR,
-      })
+      },)
     end
     LoginResult.from_hash!(payload)
   end

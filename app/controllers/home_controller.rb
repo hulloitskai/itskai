@@ -21,7 +21,7 @@ class HomeController < ApplicationController
           .one_if(specified_journal_entry || first_journal_entry),
         "firstJournalEntryId" => first_journal_entry&.id,
         "journalAutoscroll" => specified_journal_entry.present?,
-      })
+      },)
     end
   end
 

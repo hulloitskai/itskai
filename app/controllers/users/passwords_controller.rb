@@ -29,7 +29,7 @@ module Users
       else
         redirect_to(new_password_path(resource_name), inertia: {
           errors: resource.form_errors,
-        })
+        },)
       end
     end
 
