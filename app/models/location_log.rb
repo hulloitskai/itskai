@@ -171,16 +171,16 @@ class LocationLog < ApplicationRecord
     ReverseGeocodeLocationLogJob.set(**options).perform_later(self)
   end
 
-  sig { params(limit: Integer).returns(T::Array[LocationLog]) }
+  sig { params(limit: Integer).returns(Integer) }
   def self.backfill_addresses_later(limit: 1000)
-    logs = LocationLog
+    logs_queued = 0
+    LocationLog
       .where.missing(:address)
       .order(timestamp: :desc)
-      .limit(limit)
-      .to_a
-    logs.each do |log|
+      .limit(limit).find_each do |log|
       log.reverse_geocode_later(priority: 10)
+      logs_queued += 1
     end
-    logs
+    logs_queued
   end
 end

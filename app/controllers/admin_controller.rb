@@ -42,8 +42,8 @@ class AdminController < ApplicationController
   # POST /admin/backfill_location_log_addresses
   def backfill_location_log_addresses
     options = backfill_location_log_addresses_params.to_h.symbolize_keys
-    backfilled_logs = LocationLog.backfill_addresses_later(**options)
-    render(json: { "logsQueued" => backfilled_logs.size })
+    logs_queued = LocationLog.backfill_addresses_later(**options)
+    render(json: { "logsQueued" => logs_queued })
   end
 
   private
