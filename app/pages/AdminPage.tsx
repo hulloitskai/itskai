@@ -13,6 +13,7 @@ export interface AdminPageProps extends SharedPageProps {
   icloudConnection: ICloudConnection;
   googleConnection: OAuthConnection;
   spotifyConnection: OAuthConnection;
+  numLogsWithoutAddresses: number;
   newLocationAccessGrantId: string | null;
 }
 
@@ -20,6 +21,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
   icloudConnection,
   googleConnection,
   spotifyConnection,
+  numLogsWithoutAddresses,
   newLocationAccessGrantId,
 }) => {
   return (
@@ -36,7 +38,11 @@ const AdminPage: PageComponent<AdminPageProps> = ({
           </Stack>
           <Stack gap={6}>
             <AdminLocationLogsSyncButton />
-            <AdminLocationLogsBackfillAddressesButtons />
+            {numLogsWithoutAddresses > 0 && (
+              <AdminLocationLogsBackfillAddressesButtons
+                {...{ numLogsWithoutAddresses }}
+              />
+            )}
             <AdminJournalEntriesSyncButton />
           </Stack>
         </Stack>

@@ -14,35 +14,36 @@ import MoreIcon from "~icons/heroicons/ellipsis-vertical-20-solid";
 export interface AdminLocationLogsBackfillAddressesButtonProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style"> {
+  numLogsWithoutAddresses: number;
   onBackfilling?: () => void;
 }
 
 const AdminLocationLogsBackfillAddressesButtons: FC<
   AdminLocationLogsBackfillAddressesButtonProps
-> = ({ children, onBackfilling, ...otherProps }) => {
+> = ({ numLogsWithoutAddresses, onBackfilling, children, ...otherProps }) => {
   const [popoverOpened, { open: openPopover, close: closePopover }] =
     useDisclosure(false);
   const initialValues = { limit: "" as number | "" };
   const { values, submit, processing, getInputProps } = useFetchForm<
-    { logsQueued: number },
+    { numLogsBackfilling: number },
     typeof initialValues
   >({
     action: routes.admin.backfillLocationLogAddresses,
     method: "post",
     descriptor: "backfill location log addresses",
-    onSuccess: ({ logsQueued }) => {
+    onSuccess: ({ numLogsBackfilling }) => {
       closePopover();
       const goodJobUrl = new URL("/good_job/jobs", location.href);
-      const goodJobParams = goodJobUrl.searchParams;
-      goodJobParams.set("state", "queued");
-      goodJobParams.set("job_class", "ReverseGeocodeLocationLogJob");
-      goodJobParams.set("poll", "true");
-      if (logsQueued > 0) {
+      const { searchParams } = goodJobUrl;
+      searchParams.set("state", "queued");
+      searchParams.set("job_class", "ReverseGeocodeLocationLogJob");
+      searchParams.set("poll", "true");
+      if (numLogsBackfilling > 0) {
         showNotice({
           title: (
             <>
-              Started backfilling {logsQueued}{" "}
-              {logsQueued === 1 ? "log" : "logs"}
+              Started backfilling {numLogsBackfilling}{" "}
+              {numLogsBackfilling === 1 ? "log" : "logs"}
             </>
           ),
           message: (
@@ -97,7 +98,8 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
               {...getInputProps("limit")}
               placeholder="1000"
               step={1000}
-              min={1000}
+              min={Math.min(1000, numLogsWithoutAddresses)}
+              max={numLogsWithoutAddresses}
               thousandSeparator
             />
             <Button
@@ -117,6 +119,9 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
                 logs
               </Text>
             </Button>
+            <Text size="xs" c="dimmed" style={{ alignSelf: "center" }}>
+              ({numLogsWithoutAddresses} logs without addresses)
+            </Text>
           </Stack>
         </Popover.Dropdown>
       </Popover>

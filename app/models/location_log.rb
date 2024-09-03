@@ -173,14 +173,14 @@ class LocationLog < ApplicationRecord
 
   sig { params(limit: Integer).returns(Integer) }
   def self.backfill_addresses_later(limit: 1000)
-    logs_queued = 0
+    count = 0
     LocationLog
       .where.missing(:address)
       .order(timestamp: :desc)
       .limit(limit).find_each do |log|
       log.reverse_geocode_later(priority: 10)
-      logs_queued += 1
+      count += 1
     end
-    logs_queued
+    count
   end
 end
