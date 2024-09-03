@@ -15,6 +15,7 @@ class ApplicationController
   module HelperMethods
     include ::ActionText::ContentHelper
     include ::ActionText::TagHelper
+    include ::InertiaRails::AssetHelper
     include ::ViteRails::TagHelpers
     include ::ActionController::Base::HelperMethods
     include ::CsrfHelper

@@ -31,6 +31,9 @@ module GeneratedPathHelpersModule
   def atelier_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def backfill_location_log_addresses_admin_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def calendly_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

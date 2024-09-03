@@ -31,6 +31,9 @@ module GeneratedUrlHelpersModule
   def atelier_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def backfill_location_log_addresses_admin_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def calendly_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

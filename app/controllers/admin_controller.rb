@@ -17,7 +17,7 @@ class AdminController < ApplicationController
       "spotifyConnection" => OAuthConnectionSerializer.one(spotify_connection),
       "icloudConnection" => ICloudConnectionSerializer.one(icloud_connection),
       "newLocationAccessGrantId" => admin_params.new_location_access_grant_id,
-    })
+    },)
   end
 
   # GET /admin/location_access_grants
@@ -41,7 +41,8 @@ class AdminController < ApplicationController
 
   # POST /admin/backfill_location_log_addresses
   def backfill_location_log_addresses
-    backfilled_logs = LocationLog.backfill_addresses_later
+    options = backfill_location_log_addresses_params.to_h.symbolize_keys
+    backfilled_logs = LocationLog.backfill_addresses_later(**options)
     render(json: { "logsQueued" => backfilled_logs.size })
   end
 
@@ -51,6 +52,12 @@ class AdminController < ApplicationController
   sig { returns(AdminParameters) }
   def admin_params
     @admin_params ||= AdminParameters.new(params)
+  end
+
+  sig { returns(AdminBackfillLocationLogAddressesParameters) }
+  def backfill_location_log_addresses_params
+    @backfill_location_log_addresses_params ||=
+      AdminBackfillLocationLogAddressesParameters .new(params)
   end
 
   # == Filter handlers

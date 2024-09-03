@@ -102,6 +102,8 @@ Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: comma
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
 
 Sorbet/ValidSigil:
   MinimumStrictness: ignore
