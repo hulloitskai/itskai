@@ -123,7 +123,7 @@ const AdminPage: PageComponent<AdminPageProps> = ({
   );
 };
 
-AdminPage.layout = buildLayout<AdminPageProps>(page => (
+AdminPage.layout = page => (
   <AppLayout
     title="Admin"
     breadcrumbs={[
@@ -136,6 +136,6 @@ AdminPage.layout = buildLayout<AdminPageProps>(page => (
   >
     {page}
   </AppLayout>
-));
+);
 
 export default AdminPage;

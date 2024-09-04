@@ -45,10 +45,10 @@ const SignupPage: PageComponent<SignupPageProps> = () => (
   </Card>
 );
 
-SignupPage.layout = buildLayout<SignupPageProps>(page => (
+SignupPage.layout = page => (
   <AppLayout title="Sign up">
     <Center style={{ flexGrow: 1 }}>{page}</Center>
   </AppLayout>
-));
+);
 
 export default SignupPage;

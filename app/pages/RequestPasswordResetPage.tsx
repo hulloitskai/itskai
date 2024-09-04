@@ -43,12 +43,10 @@ const RequestPasswordResetPage: PageComponent<
   </Card>
 );
 
-RequestPasswordResetPage.layout = buildLayout<RequestPasswordResetPageProps>(
-  page => (
-    <AppLayout title="Request password reset">
-      <Center style={{ flexGrow: 1 }}>{page}</Center>
-    </AppLayout>
-  ),
+RequestPasswordResetPage.layout = page => (
+  <AppLayout title="Request password reset">
+    <Center style={{ flexGrow: 1 }}>{page}</Center>
+  </AppLayout>
 );
 
 export default RequestPasswordResetPage;

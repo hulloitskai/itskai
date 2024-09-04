@@ -2,6 +2,9 @@
 # frozen_string_literal: true
 
 class CurrentlyPlayingChannel < ApplicationCable::Channel
+  # == Callbacks
+  after_subscribe :broadcast_currently_playing
+
   def subscribed
     stream_from(channel_name)
   end
@@ -18,5 +21,13 @@ class CurrentlyPlayingChannel < ApplicationCable::Channel
           CurrentlyPlayingMetadataSerializer.one_if(currently_playing),
       },
     )
+  end
+
+  private
+
+  # == Callback handlers
+  sig { void }
+  def broadcast_currently_playing
+    self.class.broadcast(CurrentlyPlaying.current)
   end
 end

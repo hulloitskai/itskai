@@ -43,11 +43,10 @@ const RequestEmailVerificationPage: PageComponent<
   </Card>
 );
 
-RequestEmailVerificationPage.layout =
-  buildLayout<RequestEmailVerificationPageProps>(page => (
-    <AppLayout title="Request email verification">
-      <Center style={{ flexGrow: 1 }}>{page}</Center>
-    </AppLayout>
-  ));
+RequestEmailVerificationPage.layout = page => (
+  <AppLayout title="Request email verification">
+    <Center style={{ flexGrow: 1 }}>{page}</Center>
+  </AppLayout>
+);
 
 export default RequestEmailVerificationPage;

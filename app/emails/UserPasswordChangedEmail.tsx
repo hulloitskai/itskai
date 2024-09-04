@@ -23,8 +23,8 @@ const UserPasswordChangedEmail: EmailComponent<
   );
 };
 
-UserPasswordChangedEmail.layout = buildLayout<UserPasswordChangedEmailProps>(
-  page => <EmailLayout header="Password changed">{page}</EmailLayout>,
+UserPasswordChangedEmail.layout = page => (
+  <EmailLayout header="Password changed">{page}</EmailLayout>
 );
 
 export default UserPasswordChangedEmail;

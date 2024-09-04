@@ -38,8 +38,8 @@ const TestEmail: EmailComponent<TestEmailProps> = ({ model, user }) => {
   );
 };
 
-TestEmail.layout = buildLayout<TestEmailProps>(page => (
+TestEmail.layout = page => (
   <EmailLayout header="Test form submission">{page}</EmailLayout>
-));
+);
 
 export default TestEmail;

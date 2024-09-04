@@ -61,7 +61,7 @@ const SettingsPage: PageComponent<SettingsPageProps> = () => {
   );
 };
 
-SettingsPage.layout = buildLayout<SettingsPageProps>(page => (
+SettingsPage.layout = page => (
   <AppLayout
     title="Settings"
     breadcrumbs={[
@@ -74,6 +74,6 @@ SettingsPage.layout = buildLayout<SettingsPageProps>(page => (
   >
     {page}
   </AppLayout>
-));
+);
 
 export default SettingsPage;

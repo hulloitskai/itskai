@@ -13,10 +13,16 @@ import PageLayout from "./PageLayout";
 
 import classes from "./AppLayout.module.css";
 
-export interface AppLayoutProps
-  extends AppMetaProps,
+export interface AppLayoutProps<PageProps extends SharedPageProps>
+  extends Omit<AppMetaProps, "title" | "description">,
     Omit<AppShellProps, "title"> {
-  breadcrumbs?: ReadonlyArray<AppBreadcrumb | null | false>;
+  title?: AppMetaProps["title"] | ((props: PageProps) => AppMetaProps["title"]);
+  description?:
+    | AppMetaProps["description"]
+    | ((props: PageProps) => AppMetaProps["description"]);
+  breadcrumbs?:
+    | ReadonlyArray<AppBreadcrumb | null | false>
+    | ((props: PageProps) => ReadonlyArray<AppBreadcrumb | null | false>);
   withContainer?: boolean;
   containerSize?: MantineSize | (string & {}) | number;
   containerProps?: ContainerProps;
@@ -29,12 +35,12 @@ export type AppBreadcrumb = {
   href: string;
 };
 
-const AppLayout: FC<AppLayoutProps> = ({
-  title,
-  description,
+const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
+  title: titleProp,
+  description: descriptionProp,
   imageUrl,
   noIndex,
-  breadcrumbs,
+  breadcrumbs: breadcrumbsProp,
   withContainer,
   containerSize,
   containerProps,
@@ -43,12 +49,33 @@ const AppLayout: FC<AppLayoutProps> = ({
   children,
   padding,
   ...otherProps
-}) => {
-  // == Breadcrumbs
-  const filteredBreadcrumbs = useMemo(
-    () => (breadcrumbs?.filter(x => !!x) || []) as AppBreadcrumb[],
-    [breadcrumbs],
+}: AppLayoutProps<PageProps>) => {
+  const pageProps = usePageProps<PageProps>();
+
+  // == Meta
+  const title = useMemo(
+    () => (typeof titleProp === "function" ? titleProp(pageProps) : titleProp),
+    [titleProp, pageProps],
   );
+  const description = useMemo(
+    () =>
+      typeof descriptionProp === "function"
+        ? descriptionProp(pageProps)
+        : descriptionProp,
+    [descriptionProp, pageProps],
+  );
+
+  // == Breadcrumbs
+  const filteredBreadcrumbs = useMemo<AppBreadcrumb[]>(() => {
+    if (breadcrumbsProp) {
+      const allBreadcrumbs =
+        typeof breadcrumbsProp === "function"
+          ? breadcrumbsProp(pageProps)
+          : breadcrumbsProp;
+      return allBreadcrumbs.filter(x => !!x);
+    }
+    return [];
+  }, [breadcrumbsProp, pageProps]);
 
   // == Content
   const content = useMemo(

@@ -36,19 +36,16 @@ const ErrorPage: PageComponent<ErrorPageProps> = ({
   </Stack>
 );
 
-ErrorPage.layout = buildLayout<ErrorPageProps>(
-  (page, { title, description }) => {
-    return (
-      <AppLayout
-        withContainer
-        containerSize="xs"
-        containerProps={{ my: "xl" }}
-        {...{ title, description }}
-      >
-        {page}
-      </AppLayout>
-    );
-  },
+ErrorPage.layout = page => (
+  <AppLayout<ErrorPageProps>
+    title={({ title }) => title}
+    description={({ description }) => description}
+    withContainer
+    containerSize="xs"
+    containerProps={{ my: "xl" }}
+  >
+    {page}
+  </AppLayout>
 );
 
 export default ErrorPage;

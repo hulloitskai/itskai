@@ -543,22 +543,22 @@
     local-pkg "^0.5.0"
     mlly "^1.5.0"
 
-"@inertiajs/core@1.1.0", "@inertiajs/core@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@inertiajs/core/-/core-1.1.0.tgz#b110e1a97c0dd1ddd71c99576128627933c1d656"
-  integrity sha512-BTf7LWaJQY9LTZ2P1Z6Y+zmR9X2ndWBxD/dOqWw6nMMjfYulSy6eyEw7iEHSKmu5aVdEO+7yX6pUbRGX5Bog6g==
+"@inertiajs/core@1.2.0", "@inertiajs/core@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@inertiajs/core/-/core-1.2.0.tgz#3cdc88bc17c20eefdae99a778eac7be1ead9b14b"
+  integrity sha512-6U0gqCPbGGGMcLoDm+ckKipc5gptZMmfVFfPGdO7vlO7yipWf1RD+TKkcZGJklFvfgFMKwK2VPw8GAv1OctuQA==
   dependencies:
     axios "^1.6.0"
     deepmerge "^4.0.0"
     nprogress "^0.2.0"
     qs "^6.9.0"
 
-"@inertiajs/react@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@inertiajs/react/-/react-1.1.0.tgz#35b430cd4ebecc7d2f07551c99a96afdcff3590b"
-  integrity sha512-fhypJn9KO0DHAdWZeh9qskL5p8h4/msTkqJ+4osXuVwSjwU+rZzC4P27zFLaM5fs+yPMw35491b8PuI/RooHTw==
+"@inertiajs/react@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@inertiajs/react/-/react-1.2.0.tgz#73af92a1fab7aa10968ee818140f46bb3061d904"
+  integrity sha512-Q3wTaQJdoUbUB8YIGeQ0y2Tf/k8dNtz9Nu2dYr1pbYUBv++6d45iC/CFB/lIpqVvvUw8XuIai2bdsUcRSIbPCQ==
   dependencies:
-    "@inertiajs/core" "1.1.0"
+    "@inertiajs/core" "1.2.0"
     lodash.isequal "^4.5.0"
 
 "@isaacs/cliui@^8.0.2":

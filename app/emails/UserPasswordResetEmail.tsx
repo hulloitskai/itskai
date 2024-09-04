@@ -34,8 +34,8 @@ const UserPasswordResetEmail: EmailComponent<UserPasswordResetEmailProps> = ({
   );
 };
 
-UserPasswordResetEmail.layout = buildLayout<UserPasswordResetEmailProps>(
-  page => <EmailLayout header="Reset password">{page}</EmailLayout>,
+UserPasswordResetEmail.layout = page => (
+  <EmailLayout header="Reset password">{page}</EmailLayout>
 );
 
 export default UserPasswordResetEmail;

@@ -31,7 +31,7 @@ const TimelineAdminPage: PageComponent<TimelineAdminPageProps> = () => {
   );
 };
 
-TimelineAdminPage.layout = buildLayout<TimelineAdminPageProps>(page => (
+TimelineAdminPage.layout = page => (
   <AppLayout
     title="Manage timeline"
     breadcrumbs={[
@@ -45,6 +45,6 @@ TimelineAdminPage.layout = buildLayout<TimelineAdminPageProps>(page => (
   >
     {page}
   </AppLayout>
-));
+);
 
 export default TimelineAdminPage;

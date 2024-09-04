@@ -31,7 +31,6 @@ export const imports: Array<ImportsMap | PresetName | InlinePreset> = [
     "~/helpers/actioncable/subscription": ["useSubscription"],
     "~/helpers/authentication": ["useCurrentUser", "useAuthenticatedUser"],
     "~/helpers/errors": ["formatError"],
-    "~/helpers/inertia/layout": ["buildLayout"],
     "~/helpers/inertia/page": ["usePage", "usePageProps"],
     "~/helpers/inertia/form": ["useInertiaForm"],
     "~/helpers/inflect": [

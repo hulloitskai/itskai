@@ -24,8 +24,8 @@ const UserEmailChangedEmail: EmailComponent<UserEmailChangedEmailProps> = ({
   );
 };
 
-UserEmailChangedEmail.layout = buildLayout<UserEmailChangedEmailProps>(page => (
+UserEmailChangedEmail.layout = page => (
   <EmailLayout header="Email changed">{page}</EmailLayout>
-));
+);
 
 export default UserEmailChangedEmail;

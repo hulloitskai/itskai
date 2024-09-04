@@ -22,7 +22,7 @@ const AdminOAuthConnectionForm: FC<AdminOAuthConnectionFormProps> = ({
     <Stack gap="xs" {...otherProps}>
       {credentials && (
         <>
-          <TextInput label="UID (read-only)" value={credentials.uid} />
+          <TextInput label="UID (read-only)" value={credentials.uid} readOnly />
           {!!credentials.refreshToken && (
             <TextInput
               label="Refresh token (read-only)"

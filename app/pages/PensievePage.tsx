@@ -42,7 +42,7 @@ const PensievePage: PageComponent<PensievePageProps> = () => {
   );
 };
 
-PensievePage.layout = buildLayout<PensievePageProps>(page => (
+PensievePage.layout = page => (
   <AppLayout
     title="Pensieve"
     description="Sometimes, Kai thinks out loud."
@@ -59,6 +59,6 @@ PensievePage.layout = buildLayout<PensievePageProps>(page => (
   >
     {page}
   </AppLayout>
-));
+);
 
 export default PensievePage;

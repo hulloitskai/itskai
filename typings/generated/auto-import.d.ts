@@ -56,7 +56,6 @@ declare global {
   const Tooltip: typeof import('@mantine/core')['Tooltip']
   const Transition: typeof import('@mantine/core')['Transition']
   const UserIcon: typeof import('~/components/icons')['UserIcon']
-  const buildLayout: typeof import('~/helpers/inertia/layout')['buildLayout']
   const camelizeKeys: typeof import('~/helpers/inflect')['camelizeKeys']
   const closeAllModals: typeof import('@mantine/modals')['closeAllModals']
   const createRef: typeof import('react')['createRef']

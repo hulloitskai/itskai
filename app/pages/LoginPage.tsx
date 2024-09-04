@@ -47,10 +47,10 @@ const LoginPage: PageComponent<LoginPageProps> = () => (
   </Card>
 );
 
-LoginPage.layout = buildLayout<LoginPageProps>(page => (
+LoginPage.layout = page => (
   <AppLayout title="Sign in">
     <Center style={{ flexGrow: 1 }}>{page}</Center>
   </AppLayout>
-));
+);
 
 export default LoginPage;

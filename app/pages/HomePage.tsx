@@ -166,29 +166,22 @@ const HomePage: PageComponent<HomePageProps> = ({
   );
 };
 
-HomePage.layout = buildLayout<HomePageProps>(
-  (page, { journalEntry, journalAutoscroll }) => (
-    <>
-      <AppLayout
-        {...(journalEntry &&
-          journalAutoscroll && {
-            title: journalEntry.title,
-          })}
-        withContainer
-        withGutter
-      >
-        <Head>
-          <link
-            rel="alternate"
-            type="application/atom+xml"
-            href="/feed.atom"
-            title="Atom Feed"
-          />
-        </Head>
-        {page}
-      </AppLayout>
-    </>
-  ),
+HomePage.layout = page => (
+  <AppLayout<HomePageProps>
+    title={({ journalEntry }) => journalEntry?.title}
+    withContainer
+    withGutter
+  >
+    <Head>
+      <link
+        rel="alternate"
+        type="application/atom+xml"
+        href="/feed.atom"
+        title="Atom Feed"
+      />
+    </Head>
+    {page}
+  </AppLayout>
 );
 
 export default HomePage;

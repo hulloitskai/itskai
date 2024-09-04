@@ -32,8 +32,8 @@ const UserVerificationEmail: EmailComponent<
   );
 };
 
-UserVerificationEmail.layout = buildLayout<UserEmailVerificationEmailProps>(
-  page => <EmailLayout header="Verify email">{page}</EmailLayout>,
+UserVerificationEmail.layout = page => (
+  <EmailLayout header="Verify email">{page}</EmailLayout>
 );
 
 export default UserVerificationEmail;

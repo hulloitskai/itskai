@@ -78,11 +78,11 @@ const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
   );
 };
 
-TestPage.layout = buildLayout<TestPageProps>(page => (
+TestPage.layout = page => (
   <AppLayout title="Test page" withContainer containerSize="sm" withGutter>
     {page}
   </AppLayout>
-));
+);
 
 export default TestPage;
 

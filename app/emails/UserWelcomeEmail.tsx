@@ -23,8 +23,8 @@ const UserWelcomeEmail: EmailComponent<UserWelcomeEmailProps> = ({ user }) => {
   );
 };
 
-UserWelcomeEmail.layout = buildLayout<UserWelcomeEmailProps>(page => (
+UserWelcomeEmail.layout = page => (
   <EmailLayout header="Welcome!!!">{page}</EmailLayout>
-));
+);
 
 export default UserWelcomeEmail;

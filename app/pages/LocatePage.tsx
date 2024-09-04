@@ -419,7 +419,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
   );
 };
 
-LocatePage.layout = buildLayout<LocatePageProps>(page => (
+LocatePage.layout = page => (
   <AppLayout
     title="Track"
     description="The ultimate Kai-stalking toolkit."
@@ -428,6 +428,6 @@ LocatePage.layout = buildLayout<LocatePageProps>(page => (
   >
     {page}
   </AppLayout>
-));
+);
 
 export default LocatePage;

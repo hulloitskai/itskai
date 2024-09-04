@@ -45,10 +45,10 @@ const ChangePasswordPage: PageComponent<ChangePasswordPageProps> = ({
   </Card>
 );
 
-ChangePasswordPage.layout = buildLayout<ChangePasswordPageProps>(page => (
+ChangePasswordPage.layout = page => (
   <AppLayout title="Change password">
     <Center style={{ flexGrow: 1 }}>{page}</Center>
   </AppLayout>
-));
+);
 
 export default ChangePasswordPage;
