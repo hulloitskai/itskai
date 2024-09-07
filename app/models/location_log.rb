@@ -58,9 +58,9 @@ class LocationLog < ApplicationRecord
   end
 
   delegate :full_address,
-    :approximate_address,
-    :google_maps_area_url,
-    to: :address!
+           :approximate_address,
+           :google_maps_area_url,
+           to: :address!
 
   # == Callbacks
   after_create_commit :reverse_geocode_later
@@ -87,7 +87,7 @@ class LocationLog < ApplicationRecord
     log.create_address!(
       place_name:,
       full_address: result.address,
-      street_address: [ result.street_number, result.route ].compact.join(" "),
+      street_address: [result.street_number, result.route].compact.join(" "),
       neighbourhood: result.data.dig("address", "district"),
       city: result.city,
       province: result.province,
@@ -178,9 +178,9 @@ class LocationLog < ApplicationRecord
       .where.missing(:address)
       .order(timestamp: :desc)
       .limit(limit).find_each do |log|
-      log.reverse_geocode_later(priority: 10)
-      count += 1
-    end
+        log.reverse_geocode_later(priority: 10)
+        count += 1
+      end
     count
   end
 end

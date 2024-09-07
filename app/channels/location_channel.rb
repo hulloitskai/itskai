@@ -33,7 +33,7 @@ class LocationChannel < ApplicationCable::Channel
         broadcast_to(access, {
           location: LocationWithTrailSerializer.one(location),
           access_expires_at: access[:expires_at],
-        },)
+        })
       end
   end
 

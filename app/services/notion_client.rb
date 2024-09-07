@@ -51,11 +51,11 @@ class NotionClient < ApplicationService
       },
       properties: {
         "Name" => {
-          "title" => [ {
+          "title" => [{
             "text" => {
               "content" => name,
             },
-          } ],
+          }],
         },
       },
     )
@@ -79,11 +79,11 @@ class NotionClient < ApplicationService
       parent: {
         page_id:,
       },
-      rich_text: [ {
+      rich_text: [{
         text: {
           content: text,
         },
-      } ],
+      }],
     )
   end
 

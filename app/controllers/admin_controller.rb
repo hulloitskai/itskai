@@ -19,7 +19,7 @@ class AdminController < ApplicationController
       "icloudConnection" => ICloudConnectionSerializer.one(icloud_connection),
       "numLogsWithoutAddresses" => num_logs_without_addresses,
       "newLocationAccessGrantId" => admin_params.new_location_access_grant_id,
-    },)
+    })
   end
 
   # GET /admin/location_access_grants
@@ -59,7 +59,7 @@ class AdminController < ApplicationController
   sig { returns(AdminBackfillLocationLogAddressesParameters) }
   def backfill_location_log_addresses_params
     @backfill_location_log_addresses_params ||=
-      AdminBackfillLocationLogAddressesParameters .new(params)
+      AdminBackfillLocationLogAddressesParameters.new(params)
   end
 
   # == Filter handlers

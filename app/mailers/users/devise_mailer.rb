@@ -18,7 +18,7 @@ module Users
           "verificationUrl" => user_confirmation_url(confirmation_token: token),
           user: UserSerializer.render(record),
         },
-      }),)
+      }))
     end
 
     sig do
@@ -34,7 +34,7 @@ module Users
           "resetUrl" => reset_url,
           user: UserSerializer.render(record),
         },
-      }),)
+      }))
     end
 
     sig do
@@ -48,7 +48,7 @@ module Users
         props: {
           user: UserSerializer.render(record),
         },
-      }),)
+      }))
     end
 
     sig do
@@ -62,7 +62,7 @@ module Users
         props: {
           user: UserSerializer.render(record),
         },
-      }),)
+      }))
     end
   end
 end

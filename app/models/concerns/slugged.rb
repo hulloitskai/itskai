@@ -15,7 +15,7 @@ module Slugged
       T.class_of(ActiveRecord::Base),
       ClassMethods,
       RequiresColumn::ClassMethods,
-    ),)
+    ))
 
     # == Configuration
     requires_column :slug

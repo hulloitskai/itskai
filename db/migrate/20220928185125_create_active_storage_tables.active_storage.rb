@@ -22,16 +22,16 @@ class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
         t.datetime :created_at, null: false
       end
 
-      t.index [ :key ], unique: true
+      t.index [:key], unique: true
     end
 
     create_table :active_storage_attachments, id: primary_key_type do |t|
       t.string :name, null: false
       t.references :record,
-        null: false,
-        polymorphic: true,
-        index: false,
-        type: foreign_key_type
+                   null: false,
+                   polymorphic: true,
+                   index: false,
+                   type: foreign_key_type
       t.references :blob, null: false, type: foreign_key_type
 
       if connection.supports_datetime_with_precision?
@@ -41,8 +41,8 @@ class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
       end
 
       t.index %i[record_type record_id name blob_id],
-        name: :index_active_storage_attachments_uniqueness,
-        unique: true
+              name: :index_active_storage_attachments_uniqueness,
+              unique: true
       t.foreign_key :active_storage_blobs, column: :blob_id
     end
 
@@ -51,8 +51,8 @@ class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
       t.string :variation_digest, null: false
 
       t.index %i[blob_id variation_digest],
-        name: :index_active_storage_variant_records_uniqueness,
-        unique: true
+              name: :index_active_storage_variant_records_uniqueness,
+              unique: true
       t.foreign_key :active_storage_blobs, column: :blob_id
     end
   end
@@ -64,6 +64,6 @@ class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
     setting = config.options[config.orm][:primary_key_type]
     primary_key_type = setting || :primary_key
     foreign_key_type = setting || :bigint
-    [ primary_key_type, foreign_key_type ]
+    [primary_key_type, foreign_key_type]
   end
 end

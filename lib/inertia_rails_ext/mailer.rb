@@ -41,7 +41,7 @@ module InertiaRails
 
     # == Helpers
     def inertia_headers
-      @_inertia_html_headers.join.html_safe
+      @_inertia_html_headers.join.html_safe # rubocop:disable Rails/OutputSafety
     end
 
     def inertia_headers=(value)

@@ -4,5 +4,5 @@
 class CoordinatesSerializer < ApplicationSerializer
   # == Attributes
   attributes x: { as: :longitude, type: :number },
-    y: { as: :latitude, type: :number }
+             y: { as: :latitude, type: :number }
 end

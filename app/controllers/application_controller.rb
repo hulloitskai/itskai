@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 
   # == Rescuers
   rescue_from ActionPolicy::Unauthorized,
-    with: :redirect_to_login_if_signed_out
+              with: :redirect_to_login_if_signed_out
 
   private
 

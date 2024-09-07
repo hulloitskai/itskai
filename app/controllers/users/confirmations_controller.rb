@@ -38,7 +38,7 @@ module Users
       else
         redirect_to(new_confirmation_path(resource), inertia: {
           errors: resource.form_errors,
-        },)
+        })
       end
     end
   end

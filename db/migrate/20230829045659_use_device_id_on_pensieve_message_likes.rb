@@ -7,8 +7,8 @@ class UseDeviceIdOnPensieveMessageLikes < ActiveRecord::Migration[7.0]
     change_column_null :pensieve_message_likes, :device_id, false
     remove_column :pensieve_message_likes, :session_id
     add_index :pensieve_message_likes,
-      %i[message_id device_id],
-      unique: true,
-      name: "index_pensieve_message_likes_uniqueness"
+              %i[message_id device_id],
+              unique: true,
+              name: "index_pensieve_message_likes_uniqueness"
   end
 end

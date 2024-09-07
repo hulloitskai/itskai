@@ -14,8 +14,9 @@ class ReverseGeocodeLocationLogJob < ApplicationJob
     },
     total_limit: 1,
   )
-  retry_on Geocoder::OverQueryLimitError, TimeoutError,
-    wait: :polynomially_longer
+  retry_on Geocoder::OverQueryLimitError,
+           TimeoutError,
+           wait: :polynomially_longer
 
   # == Job
   sig { params(log: LocationLog).void }

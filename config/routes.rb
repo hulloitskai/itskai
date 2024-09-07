@@ -35,38 +35,38 @@ Rails.application.routes.draw do
 
   # == Devise
   devise_for :users,
-    skip: %i[registration confirmation password],
-    controllers: {
-      sessions: "users/sessions",
-      omniauth_callbacks: "users/omniauth_callbacks",
-    },
-    path: "/",
-    path_names: {
-      sign_in: "login",
-      sign_out: "logout",
-    }
+             skip: %i[registration confirmation password],
+             controllers: {
+               sessions: "users/sessions",
+               omniauth_callbacks: "users/omniauth_callbacks",
+             },
+             path: "/",
+             path_names: {
+               sign_in: "login",
+               sign_out: "logout",
+             }
   devise_scope :user do
     scope module: :users, as: :user, export: true do
       resource :registration,
-        path: "/signup",
-        only: %i[new create destroy],
-        path_names: { new: "" }
+               path: "/signup",
+               only: %i[new create destroy],
+               path_names: { new: "" }
       resource :registration,
-        path: "/settings",
-        only: %i[edit update],
-        path_names: { edit: "" }
+               path: "/settings",
+               only: %i[edit update],
+               path_names: { edit: "" }
       resource :confirmation,
-        path: "/email_verification",
-        only: %i[new show create],
-        path_names: {
-          new: "resend",
-        }
+               path: "/email_verification",
+               only: %i[new show create],
+               path_names: {
+                 new: "resend",
+               }
       resource :password,
-        only: %i[new edit create update],
-        path_names: {
-          new: "reset",
-          edit: "change",
-        }
+               only: %i[new edit create update],
+               path_names: {
+                 new: "reset",
+                 edit: "change",
+               }
     end
   end
 
@@ -93,9 +93,9 @@ Rails.application.routes.draw do
   # == Currently playing
   resource :currently_playing, only: :show, export: true
   resource :spotify_jam_sessions,
-    path: "/spotify/jam_sessions",
-    only: [],
-    export: true do
+           path: "/spotify/jam_sessions",
+           only: [],
+           export: true do
              post :join
            end
   resources :spotify_tracks, path: "/spotify/tracks", only: [], export: true do
@@ -126,8 +126,8 @@ Rails.application.routes.draw do
     post :backfill_location_log_addresses
     scope module: "admin" do
       resources :oauth_connections,
-        only: :destroy,
-        param: :provider
+                only: :destroy,
+                param: :provider
       resource :icloud_connection, only: %i[create destroy] do
         post :verify_security_code
       end

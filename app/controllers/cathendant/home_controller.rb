@@ -12,7 +12,7 @@ module Cathendant
       memos = Memo.chronological
       render(inertia: "CathendantHomePage", props: {
         memos: MemoSerializer.many(memos),
-      },)
+      })
     end
 
     # GET /cathendant/contribute

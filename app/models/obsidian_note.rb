@@ -47,23 +47,23 @@ class ObsidianNote < ApplicationRecord
 
   # == Associations
   has_many :outgoing_relations,
-    class_name: "ObsidianRelation",
-    inverse_of: :from,
-    foreign_key: :from_id,
-    dependent: :destroy
+           class_name: "ObsidianRelation",
+           inverse_of: :from,
+           foreign_key: :from_id,
+           dependent: :destroy
   has_many :references,
-    through: :outgoing_relations,
-    source: :to,
-    source_type: "ObsidianNote"
+           through: :outgoing_relations,
+           source: :to,
+           source_type: "ObsidianNote"
   has_many :unresolved_references,
-    through: :outgoing_relations,
-    source: :to,
-    source_type: "ObsidianStub"
+           through: :outgoing_relations,
+           source: :to,
+           source_type: "ObsidianStub"
 
   has_many :incoming_relations,
-    class_name: "ObsidianRelation",
-    as: :to,
-    dependent: :destroy
+           class_name: "ObsidianRelation",
+           as: :to,
+           dependent: :destroy
   has_many :referenced_by, through: :incoming_relations, source: :from
 
   # == Scopes

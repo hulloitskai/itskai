@@ -159,7 +159,7 @@ module Premailer::Adapter::Nokogiri
               rules.delete(property)
             else
               value = resolve_css_value(value, element)
-              value = [ value, "!important" ].join(" ") if is_important
+              value = [value, "!important"].join(" ") if is_important
               rules[property] = value
             end
           end
@@ -265,7 +265,7 @@ module Premailer::Adapter::Nokogiri
       if is_xhtml?
         # we don't want to encode carriage returns
         @processed_doc.to_xhtml(encoding: @options[:output_encoding]).gsub(
-          /&\#(xD|13);/i, "\r",
+          /&\#(xD|13);/i, "\r"
         )
       else
         @processed_doc.to_html(encoding: @options[:output_encoding])
@@ -291,7 +291,7 @@ module Premailer::Adapter::Nokogiri
       while (match = new_value.match(/var\((--[\w-]+)(, ?(.+))?\)/))
         variable_name, fallback_literal, fallback = T.cast(
           match.captures,
-          [ String, T.nilable(String), T.nilable(String) ],
+          [String, T.nilable(String), T.nilable(String)],
         )
         replacement = lookup_css_variable_value(
           variable_name,

@@ -18,7 +18,7 @@ module Location
 
   sig { returns(T::Boolean) }
   def self.hide?
-    if (outset = self.hide_until)
+    if (outset = hide_until)
       Time.current < outset
     else
       false

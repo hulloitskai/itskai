@@ -16,7 +16,7 @@ require:
   - rubocop-capybara
 
 inherit_gem:
-  rubocop-rails-omakase: rubocop.yml
+  rubocop-shopify: rubocop.yml
 
 AllCops:
   NewCops: enable
@@ -50,60 +50,63 @@ AllCops:
     - "**/Rakefile"
   CacheRootDirectory: "tmp/cache/rubocop"
 
+Lint/MissingCopEnableDirective:
+  Enabled: false
+Lint/Void:
+  Enabled: false
+
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_first_argument
+Layout/BlockAlignment:
+  EnforcedStyleAlignWith: start_of_block
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+Layout/FirstArgumentIndentation:
+  Enabled: true
+# Layout/SpaceAroundBlockParameters:
+#   Enabled: false
 Layout/LineLength:
   Max: 80
-  AllowedPatterns:
-    - "\\A\\s*(remote_)?test(_\\w+)?\\s.*(do|->)(\\s|\\Z)"
-    - "\\A\\s*def test_\\w+\\s*\\Z"
-Layout/ArgumentAlignment:
-  EnforcedStyle: with_fixed_indentation
-Layout/DotPosition:
-  EnforcedStyle: leading
-Layout/FirstArgumentIndentation:
-  EnforcedStyle: consistent
-Layout/FirstArrayElementIndentation:
-  EnforcedStyle: consistent
-Layout/FirstArrayElementLineBreak:
-  Enabled: true
-  AllowMultilineFinalElement: true
-Layout/FirstHashElementIndentation:
-  EnforcedStyle: consistent
-Layout/FirstHashElementLineBreak:
-  Enabled: true
-Layout/FirstMethodArgumentLineBreak:
-  Enabled: true
-  AllowMultilineFinalElement: true
-Layout/IndentationConsistency:
-  Enabled: true
-Layout/LineContinuationLeadingSpace:
-  Enabled: true
-Layout/LineContinuationSpacing:
-  Enabled: true
-Layout/LineEndStringConcatenationIndentation:
-  Enabled: true
-  EnforcedStyle: indented
-Layout/MultilineMethodCallIndentation:
-  EnforcedStyle: indented
-  IndentationWidth: 2
-Layout/MultilineOperationIndentation:
-  EnforcedStyle: indented
-Layout/ParameterAlignment:
-  EnforcedStyle: with_fixed_indentation
-Layout/SpaceBeforeBrackets:
-  Enabled: true
 
+Naming/InclusiveLanguage:
+  Enabled: false
+
+Style/AndOr:
+  EnforcedStyle: conditionals
 Style/ClassAndModuleChildren:
   Enabled: false
-Style/EmptyMethod:
+Style/ClassMethodsDefinitions:
   Enabled: false
-Style/FrozenStringLiteralComment:
-  Enabled: true
-Style/TrailingCommaInArrayLiteral:
-  EnforcedStyleForMultiline: comma
+Style/CommandLiteral:
+  EnforcedStyle: backticks
+Style/Documentation:
+  Enabled: false
+Style/ParallelAssignment:
+  Enabled: false
+Style/RescueModifier:
+  Enabled: false
+Style/SymbolArray:
+  EnforcedStyle: percent
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
-Style/TrailingCommaInArguments:
-  EnforcedStyleForMultiline: consistent_comma
+Style/WordArray:
+  EnforcedStyle: percent
 
+Sorbet/FalseSigil:
+  Enabled: false
 Sorbet/ValidSigil:
-  MinimumStrictness: ignore
+  MinimumStrictness: "ignore"
+
+Rails/Delegate:
+  Enabled: false
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+Rails/HasAndBelongsToMany:
+  Enabled: false
+Rails/I18nLocaleTexts:
+  Enabled: false
+Rails/RenderInline:
+  Enabled: false
+
+Sorbet/AllowIncompatibleOverride:
+  Enabled: false

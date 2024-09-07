@@ -46,8 +46,8 @@ class TimelineActivity < ApplicationRecord
 
   # == Validates
   validates :confidence,
-    presence: true,
-    numericality: { only_integer: true, in: 0..3 }
+            presence: true,
+            numericality: { only_integer: true, in: 0..3 }
   validates :duration, presence: true, uniqueness: { scope: :type }
   validates :timezone_name, presence: true
   validates :location, presence: true
@@ -115,6 +115,8 @@ class TimelineActivity < ApplicationRecord
     location_factory.point(longitude, latitude)
   end
 
+  GOOGLE_ACTIVITY_COORDINATE_KEYS = %w[latE7 lngE7]
+
   sig do
     params(activity_segment: T::Hash[String, T.untyped])
       .returns(RGeo::Feature::LineString)
@@ -140,7 +142,7 @@ class TimelineActivity < ApplicationRecord
       "points",
     ))
       points.map do |point|
-        latitude, longitude = %w[latE7 lngE7].map do |key|
+        latitude, longitude = GOOGLE_ACTIVITY_COORDINATE_KEYS.map do |key|
           point.fetch(key) * (10**-7)
         end
         location_factory.point(longitude, latitude)
@@ -148,7 +150,7 @@ class TimelineActivity < ApplicationRecord
     else
       []
     end
-    points = [ start_location, *path_points, end_location ]
+    points = [start_location, *path_points, end_location]
     location_factory.line_string(points.compact)
   end
 

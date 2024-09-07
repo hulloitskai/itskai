@@ -36,12 +36,12 @@ class NotionJournalEntry < ApplicationRecord
 
   # == Search
   pg_search_scope :search,
-    against: :title,
-    using: {
-      tsearch: {
-        prefix: true,
-      },
-    }
+                  against: :title,
+                  using: {
+                    tsearch: {
+                      prefix: true,
+                    },
+                  }
 
   # == Validation
   validates :notion_page_id, uniqueness: true, presence: true
@@ -80,10 +80,10 @@ class NotionJournalEntry < ApplicationRecord
           "equals" => true,
         },
       },
-      sorts: [ {
+      sorts: [{
         "timestamp" => "created_time",
         "direction" => "descending",
-      } ],
+      }],
     )
     notion_pages.each do |notion_page|
       notion_page_id = notion_page.id

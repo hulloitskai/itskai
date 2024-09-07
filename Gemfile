@@ -228,7 +228,7 @@ group :development, :test do
   gem "rubocop", "~> 1.62", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
-  gem "rubocop-rails-omakase", require: false
+  gem "rubocop-shopify", require: false
   gem "rubocop-sorbet", require: false
   gem "rubocop-capybara", require: false
   gem "ruby-lsp", require: false
