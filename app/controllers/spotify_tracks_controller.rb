@@ -9,8 +9,8 @@ class SpotifyTracksController < ApplicationController
   # GET /spotify/tracks/1/lyrics
   def lyrics
     begin
-      raise "Missing track ID" unless @track_id
-      lyrics = SpotifyClient.retrieve_lyrics(@track_id)
+      track_id = @track_id or raise "Missing track ID"
+      lyrics = SpotifyClient.retrieve_lyrics(track_id)
     rescue => error
       with_log_tags do
         logger.error("Failed to retrieve lyrics: #{error.message}")

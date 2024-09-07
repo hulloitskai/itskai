@@ -8,8 +8,8 @@ class NotionJournalEntriesController < ApplicationController
   # == Actions
   # GET /notion_journal_entries/:id/comments
   def comments
-    raise "Missing entry" unless @entry
-    comments = @entry.notion_comments
+    entry = @entry or raise "Missing entry"
+    comments = entry.notion_comments
     render(json: {
       comments: NotionCommentSerializer.many(comments),
     })

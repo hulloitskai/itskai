@@ -8,13 +8,14 @@ class FilesController < ApplicationController
   # == Actions
   # GET /files/:signed_id
   def show
-    raise "Missing file blob" unless @file_blob
-    render(json: { file: FileSerializer.one(@file_blob) })
+    file_blob = @file_blob or raise "Missing file blob"
+    render(json: { file: FileSerializer.one(file_blob) })
   end
 
   private
 
   # == Filter handlers
+  sig { void }
   def set_file_blob
     @file_blob = T.let(
       ActiveStorage::Blob.find_signed!(params.fetch(:signed_id)),

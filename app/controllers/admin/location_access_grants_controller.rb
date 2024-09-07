@@ -28,8 +28,8 @@ module Admin
     end
 
     def destroy
-      raise "Missing grant" unless @grant
-      @grant.destroy!
+      grant = @grant or raise "Missing grant"
+      grant.destroy!
       render(json: {})
     rescue => error
       with_log_tags do

@@ -56,8 +56,8 @@ module Admin
     end
 
     def destroy
-      raise "Missing credentials" unless @credentials
-      @credentials.destroy!
+      credentials = @credentials or raise "Missing credentials"
+      credentials.destroy!
       render(json: {})
     rescue => error
       with_log_tags do
