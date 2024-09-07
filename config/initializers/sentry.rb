@@ -10,6 +10,7 @@ Sentry.init do |config|
   ]
   config.send_default_pii = true
   config.excluded_exceptions += %w[
+    ActiveSupport::MessageVerifier::InvalidSignature
     ActionPolicy::Unauthorized
     Notion::Api::Errors::TimeoutError
     Notion::Api::Errors::UnavailableError
