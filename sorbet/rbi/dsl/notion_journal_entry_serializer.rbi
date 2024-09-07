@@ -7,5 +7,5 @@
 
 class NotionJournalEntrySerializer
   sig { returns(NotionJournalEntry) }
-  def entry; end
+  def journal_entry; end
 end

@@ -9,14 +9,14 @@ import NotionJournalEntryCard from "./NotionJournalEntryCard";
 export interface HomePageJournalEntryProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {
-  entry: NotionJournalEntry;
-  firstEntryId: string;
+  journalEntry: NotionJournalEntry;
+  firstJournalEntryId: string;
   autoscroll: boolean;
 }
 
 const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
-  entry,
-  firstEntryId,
+  journalEntry,
+  firstJournalEntryId,
   autoscroll,
   ...otherProps
 }) => {
@@ -24,10 +24,10 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
   const nextEntryPath = useMemo(() => {
     return routes.home.show.path({
       query: {
-        entryId: entry.nextEntryId || firstEntryId,
+        journalEntryId: journalEntry.nextJournalEntryId ?? firstJournalEntryId,
       },
     });
-  }, [entry.nextEntryId, firstEntryId]);
+  }, [journalEntry.nextJournalEntryId, firstJournalEntryId]);
 
   // == Scrolling
   const scrollToContainerTop = useCallback(() => {
@@ -45,21 +45,23 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
     if (autoscroll) {
       scrollToContainerTop();
     }
-  }, [entry.id, autoscroll, scrollToContainerTop]);
+  }, [journalEntry.id, autoscroll, scrollToContainerTop]);
 
   return (
     <Stack ref={containerRef} align="center" {...otherProps}>
-      <NotionJournalEntryCard {...{ entry }} />
+      <NotionJournalEntryCard {...{ entry: journalEntry }} />
       <Button
         component={Link}
         href={nextEntryPath}
         preserveScroll
         only={["journalEntry", "firstJournalEntryId", "journalAutoscroll"]}
         variant="outline"
-        leftSection={entry.nextEntryId ? <NextIcon /> : <ResetIcon />}
+        leftSection={
+          journalEntry.nextJournalEntryId ? <NextIcon /> : <ResetIcon />
+        }
         radius="xl"
       >
-        {entry.nextEntryId ? "more words pls" : "from the top!"}
+        {journalEntry.nextJournalEntryId ? "more words pls" : "from the top!"}
       </Button>
     </Stack>
   );

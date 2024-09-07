@@ -8,7 +8,7 @@ class HomeController < ApplicationController
     if request.hostname == "cathy.earth"
       Cathendant::HomeController.dispatch(:show, request, response)
     else
-      specified_journal_entry = if (id = home_params.entry_id)
+      specified_journal_entry = if (id = home_params.journal_entry_id)
         NotionJournalEntry.with_content.find(id)
       end
       first_journal_entry = NotionJournalEntry.with_content.ordered.first

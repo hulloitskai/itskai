@@ -1,3 +1,4 @@
+import type { NotionJournalEntrySyncResults } from "~/types";
 import type { ButtonProps } from "@mantine/core";
 import NotionIcon from "~icons/basil/notion-solid";
 
@@ -9,17 +10,15 @@ const AdminNotionJournalEntriesSyncButton: FC<
   AdminNotionJournalEntriesSyncButtonProps
 > = ({ children, ...otherProps }) => {
   const { submit, processing } = useFetchForm<{
-    added: number;
-    updated: number;
-    removed: number;
+    syncResults: NotionJournalEntrySyncResults;
   }>({
     action: routes.admin.syncNotionJournalEntries,
     method: "post",
     descriptor: "sync Notion journal entries",
-    onSuccess: ({ added, removed, updated }) => {
+    onSuccess: ({ syncResults: { added, removed, updated } }) => {
       showNotice({
         title: "Notion journal entries synced",
-        message: `${added} entries added, ${updated} entries updated, ${removed} entries removed.`,
+        message: `${added} added, ${updated} updated, ${removed} removed.`,
       });
     },
   });

@@ -24,21 +24,27 @@ class AdminController < ApplicationController
 
   # GET /admin/location_access_grants
   def location_access_grants
+    grants = LocationAccessGrant.valid
     render(json: {
-      grants: LocationAccessGrantSerializer.many(LocationAccessGrant.valid),
+      grants: LocationAccessGrantSerializer.many(grants),
     })
   end
 
   # POST /admin/sync_notion_journal_entries
   def sync_notion_journal_entries
-    results = NotionJournalEntry.sync
-    render(json: results.serialize)
+    sync_results = NotionJournalEntry.sync
+    render(json: {
+      "syncResults" => NotionJournalEntrySyncResultsSerializer
+      .one(sync_results),
+    })
   end
 
   # POST /admin/sync_location_logs
   def sync_location_logs
     log = LocationLog.sync
-    render(json: { location: LocationSerializer.one_if(log) })
+    render(json: {
+      location: LocationSerializer.one_if(log),
+    })
   end
 
   # POST /admin/backfill_location_log_addresses

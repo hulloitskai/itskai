@@ -3,5 +3,5 @@
 
 class HomeParameters < ApplicationParameters
   # == Attributes
-  attribute :entry_id, :string
+  attribute :journal_entry_id, :string
 end

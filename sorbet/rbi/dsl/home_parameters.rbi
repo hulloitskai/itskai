@@ -7,8 +7,8 @@
 
 class HomeParameters
   sig { returns(T.nilable(::String)) }
-  def entry_id; end
+  def journal_entry_id; end
 
   sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
-  def entry_id=(value); end
+  def journal_entry_id=(value); end
 end

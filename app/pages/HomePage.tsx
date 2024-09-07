@@ -131,8 +131,8 @@ const HomePage: PageComponent<HomePageProps> = ({
             Sometimes, Kai writes.
           </Title>
           <HomePageJournalEntry
-            entry={journalEntry}
-            firstEntryId={firstJournalEntryId}
+            journalEntry={journalEntry}
+            firstJournalEntryId={firstJournalEntryId}
             autoscroll={journalAutoscroll}
             style={{ alignSelf: "stretch" }}
           />
