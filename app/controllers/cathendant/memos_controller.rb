@@ -7,7 +7,7 @@ module Cathendant
     # POST /cathendant/memos
     def create
       Memo.create!(memo_params)
-      render(json: {})
+      render(json: {}, status: :created)
     rescue => error
       logger.error("Failed to create Cathendant memo: #{error}")
       Rails.error.report(error)

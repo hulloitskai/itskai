@@ -28,9 +28,12 @@ module Admin
         credentials:,
         status: ICloudctl.status,
       )
-      render(json: {
-        connection: ICloudConnectionSerializer.one(connection),
-      })
+      render(
+        json: {
+          connection: ICloudConnectionSerializer.one(connection),
+        },
+        status: :created,
+      )
     rescue ICloudctl::LoginError => error
       with_log_tags do
         logger.error("Failed to authenticate with iCloud: #{error.message}")

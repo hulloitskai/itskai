@@ -18,7 +18,10 @@ module Admin
         **attributes,
       )
       if @grant.save
-        render(json: { grant: LocationAccessGrantSerializer.one(@grant) })
+        render(
+          json: { grant: LocationAccessGrantSerializer.one(@grant) },
+          status: :created,
+        )
       else
         render(
           json: { errors: @grant.form_errors },
