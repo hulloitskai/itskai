@@ -62,7 +62,6 @@ module Discordrb
       sig { overridable.params(tags: String, block: T.proc.void).void }
       def with_log_tags(*tags, &block)
         tags.prepend("Discordrb")
-        logger = self.logger
         if logger.respond_to?(:tagged)
           logger = T.cast(logger, ActiveSupport::TaggedLogging)
           logger.tagged(*T.unsafe(tags), &block)

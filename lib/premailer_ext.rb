@@ -343,9 +343,9 @@ module Premailer::Adapter::Nokogiri
 
     sig { params(block: T.proc.void).void }
     def with_log_tags(&block)
-      logger = T.unsafe(self.logger)
       if logger.respond_to?(:tagged)
         conditionally_enable_logger do
+          logger = T.cast(logger, ActiveSupport::TaggedLogging)
           logger.tagged("Premailer", &block)
         end
       else

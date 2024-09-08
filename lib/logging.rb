@@ -23,11 +23,15 @@ module Logging
     end
     def logger = Rails.logger
 
-    sig { overridable.params(tags: String, block: T.proc.void).void }
+    sig do
+      overridable.type_parameters(:U).params(
+        tags: String,
+        block: T.proc.returns(T.type_parameter(:U)),
+      ).returns(T.type_parameter(:U))
+    end
     def with_log_tags(*tags, &block)
       if logger.respond_to?(:tagged)
-        tagged_logger = T.unsafe(logger)
-        tagged_logger.tagged(*log_tags, *tags, &block)
+        logger.tagged(*T.unsafe(log_tags), *T.unsafe(tags), &block)
       end
     end
 
@@ -51,8 +55,7 @@ module Logging
   end
   def with_log_tags(*tags, &block)
     if logger.respond_to?(:tagged)
-      tagged_logger = T.unsafe(logger)
-      tagged_logger.tagged(*log_tags, *tags, &block)
+      logger.tagged(*T.unsafe(log_tags), *T.unsafe(tags), &block)
     end
   end
 
