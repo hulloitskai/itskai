@@ -48,7 +48,7 @@ const TestForm: FC = () => {
                 <Text size="sm" fw={600}>
                   Response:
                 </Text>
-                <Code block>{JSON.stringify(data, undefined, 2)}</Code>
+                <Code block>{formatJSON(data)}</Code>
               </Stack>
             </>
           )}

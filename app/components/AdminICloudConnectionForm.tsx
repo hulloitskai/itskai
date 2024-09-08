@@ -49,7 +49,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
           {!!credentials?.session && (
             <JsonInput
               label="Session"
-              value={JSON.stringify(credentials.session, undefined, 2)}
+              value={formatJSON(credentials.session)}
               readOnly
               autosize
               maxRows={12}
