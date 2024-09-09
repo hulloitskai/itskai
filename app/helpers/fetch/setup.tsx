@@ -29,7 +29,7 @@ export const setupFetch = (): void => {
     const csrfToken = Config.getCSRFToken();
     const headers: Record<string, string> = {
       Accept: "application/json",
-      ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
+      ...(!!csrfToken && { "X-CSRF-Token": csrfToken }),
     };
     if (!(requestInfo.options.data instanceof FormData)) {
       headers["Content-Type"] = "application/json";

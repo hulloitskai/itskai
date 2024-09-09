@@ -6,7 +6,9 @@ import type {
   ResponseError,
 } from "@js-from-routes/client";
 import type { Method } from "@inertiajs/core";
-import useSWR, { SWRResponse } from "swr";
+
+import type { SWRConfiguration, SWRResponse } from "swr";
+import useSWR from "swr";
 
 export interface FetchResult<Data>
   extends Omit<SWRResponse<Data, Error>, "isLoading" | "isValidating"> {
@@ -19,24 +21,51 @@ export type FetchParams = {
   [key: string]: any;
 };
 
-export type FetchOptions = Partial<Omit<RequestOptions, "method">> & {
-  method?: Method;
-  skip?: boolean;
-  failSilently?: boolean;
-  descriptor: string;
-};
+export type FetchOptions = Partial<Omit<RequestOptions, "method" | "fetch">> &
+  SWRConfiguration & {
+    method?: Method;
+    skip?: boolean;
+    failSilently?: boolean;
+    descriptor: string;
+  };
 
 export const useFetch = <Data extends Record<string, any> & { error?: never }>(
   route: PathHelper,
-  options: FetchOptions,
+  {
+    method,
+    skip,
+    failSilently,
+    descriptor,
+    params,
+    data,
+    deserializeData,
+    fetchOptions,
+    serializeData,
+    responseAs,
+    headers,
+    ...swrConfiguration
+  }: FetchOptions,
 ): FetchResult<Data> => {
   const key = useMemo(
-    () => (options.skip ? null : route.path(options.params)),
-    [options.skip, options.params, route],
+    () => (skip ? null : route.path(params)),
+    [skip, params, route],
   );
   const { isLoading, isValidating, ...swr } = useSWR<Data, Error>(
     key,
-    async (): Promise<Data> => fetch(route, options),
+    async (): Promise<Data> =>
+      fetch(route, {
+        failSilently,
+        descriptor,
+        params,
+        data,
+        deserializeData,
+        fetchOptions,
+        method,
+        serializeData,
+        responseAs,
+        headers,
+      }),
+    swrConfiguration,
   );
   return { fetching: isLoading, validating: isValidating, ...swr };
 };
