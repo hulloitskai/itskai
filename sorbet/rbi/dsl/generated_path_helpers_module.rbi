@@ -13,6 +13,9 @@ module GeneratedPathHelpersModule
   def access_location_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def actual_db_schema_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def admin_icloud_connection_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

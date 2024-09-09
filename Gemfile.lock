@@ -92,9 +92,9 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
-    actual_db_schema (0.7.3)
-      activerecord (>= 6.0.0)
-      activesupport (>= 6.0.0)
+    actual_db_schema (0.7.9)
+      activerecord
+      activesupport
       csv
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
@@ -621,7 +621,7 @@ DEPENDENCIES
   active_record_extended (~> 3.2)
   active_storage_validations (~> 0.9.6)
   activerecord-postgis-adapter (~> 9.0)
-  actual_db_schema (~> 0.7.3)
+  actual_db_schema (~> 0.7.9)
   addressable (~> 2.8)
   after_party (~> 1.11)
   annotate

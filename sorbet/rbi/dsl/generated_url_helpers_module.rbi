@@ -13,6 +13,9 @@ module GeneratedUrlHelpersModule
   def access_location_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def actual_db_schema_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def admin_icloud_connection_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

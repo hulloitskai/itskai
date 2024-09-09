@@ -240,7 +240,7 @@ group :development do
   gem "listen", "~> 3.8"
 
   # Wipe out inconsistent DB and schema.rb when switching branches
-  gem "actual_db_schema", "~> 0.7.3"
+  gem "actual_db_schema", "~> 0.7.9"
 
   # Rerun programs when files change
   gem "rerun", "~> 0.14.0"
