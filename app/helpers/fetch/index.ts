@@ -46,10 +46,8 @@ export const useFetch = <Data extends Record<string, any> & { error?: never }>(
     ...swrConfiguration
   }: FetchOptions,
 ): FetchResult<Data> => {
-  const key = useMemo(
-    () => (skip ? null : route.path(params)),
-    [skip, params, route],
-  );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const key = useMemo(() => (skip ? null : route.path(params)), [skip]);
   const { isLoading, isValidating, ...swr } = useSWR<Data, Error>(
     key,
     async (): Promise<Data> =>

@@ -64,6 +64,7 @@ export const useSubscription = <Data>(
         subscription.unsubscribe();
       };
     }
-  }, [cable, channel, descriptor, failSilently, onData, onError, params, skip]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cable, channel, descriptor, failSilently, skip]);
   return subscription;
 };
