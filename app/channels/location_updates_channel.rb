@@ -1,7 +1,10 @@
 # typed: true
 # frozen_string_literal: true
 
-class LocationChannel < ApplicationCable::Channel
+class LocationUpdatesChannel < ApplicationCable::Channel
+  # == Active accesses
+  class_attribute :active_access_ids, default: []
+
   # == Handlers
   def subscribed
     access = LocationAccess.valid.find_by(token: access_token!) or
@@ -18,10 +21,7 @@ class LocationChannel < ApplicationCable::Channel
     active_access_ids.delete(access_token!)
   end
 
-  # == Active accesses
-  class_attribute :active_access_ids, default: []
-
-  # == Helpers
+  # == Methods
   sig { params(location: LocationLog).void }
   def self.broadcast(location)
     LocationAccess

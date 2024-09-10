@@ -55,7 +55,7 @@ class LocationLogAddress < ApplicationRecord
             presence: true
 
   # == Callbacks
-  after_create_commit :broadcast_location, :broadcast_approximate_location
+  after_create_commit :broadcast_location_updates
 
   # == Methods
   sig { returns(String) }
@@ -86,12 +86,8 @@ class LocationLogAddress < ApplicationRecord
 
   # == Callback handlers
   sig { void }
-  def broadcast_location
-    LocationChannel.broadcast(location_log!)
-  end
-
-  sig { void }
-  def broadcast_approximate_location
-    ApproximateLocationChannel.broadcast(location_log!)
+  def broadcast_location_updates
+    LocationUpdatesChannel.broadcast(location_log!)
+    ApproximateLocationUpdatesChannel.broadcast(location_log!)
   end
 end

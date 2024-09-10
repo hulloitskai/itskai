@@ -22,8 +22,8 @@ const ApproximateLocationAlert: FC<ApproximateLocationAlertProps> = ({
   // == Subscription
   const { data: locationData } = useSubscription<{
     location: ApproximateLocation;
-  }>("ApproximateLocationChannel", {
-    descriptor: "subscribe to approximate location changes",
+  }>("ApproximateLocationUpdatesChannel", {
+    descriptor: "subscribe to approximate location updates",
     onData: ({ location }) => {
       onUpdate(location);
     },

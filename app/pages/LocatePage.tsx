@@ -84,8 +84,8 @@ const LocatePage: PageComponent<LocatePageProps> = ({
   const { data: locationData } = useSubscription<{
     location: LocationWithTrail;
     accessGrant: LocationAccessGrant;
-  }>("LocationChannel", {
-    descriptor: "subscribe to location changes",
+  }>("LocationUpdatesChannel", {
+    descriptor: "subscribe to location updates",
     params: locationSubscriptionParams,
     skip: !accessToken,
     onData: ({ location }) => {

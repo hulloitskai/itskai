@@ -4,7 +4,7 @@
 class TestChannel < ApplicationCable::Channel
   include Concurrent
 
-  # == Initializer
+  # == Initialization
   def initialize(...)
     super
     @task = T.let(@task, T.nilable(TimerTask))
@@ -23,12 +23,5 @@ class TestChannel < ApplicationCable::Channel
 
   def unsubscribed
     @task&.shutdown
-  end
-
-  private
-
-  # == Helpers
-  sig { params(value: Integer).void }
-  def broadcast(value)
   end
 end
