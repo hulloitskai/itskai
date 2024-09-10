@@ -34,3 +34,9 @@ plugin :tmp_restart
 
 # Only use a pidfile when requested
 pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
+
+# Shut down GoodJob when the Puma process exits
+MAIN_PID = Process.pid
+at_exit do
+  GoodJob.shutdown if Process.pid == MAIN_PID
+end

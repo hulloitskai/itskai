@@ -9,7 +9,7 @@ class ReverseGeocodeLocationLogJob < ApplicationJob
   good_job_control_concurrency_with(
     key: -> {
       T.bind(self, ReverseGeocodeLocationLogJob)
-      log, *_ = arguments
+      log, = arguments
       "#{self.class.name}(#{log.to_gid})"
     },
     total_limit: 1,

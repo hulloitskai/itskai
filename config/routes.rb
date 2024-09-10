@@ -25,10 +25,7 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount GoodJob::Engine => "/good_job"
   else
-    authenticate :user, ->(user) {
-      user = T.let(user, User)
-      user.owner?
-    } do
+    authenticate :user, ->(user) { user.owner? } do
       mount GoodJob::Engine => "/good_job"
     end
   end
