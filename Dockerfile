@@ -130,7 +130,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   RUNTIME_DEPS="libpq5" set -eux && \
   apt-get update -yq && \
   echo $BUILD_DEPS $RUNTIME_DEPS | xargs apt-get install -yq --no-install-recommends; \
-  bundle install && \
+  BUNDLE_IGNORE_MESSAGES=1 bundle install && \
   echo $BUILD_DEPS | xargs apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
   rm -r /var/log/*
 
