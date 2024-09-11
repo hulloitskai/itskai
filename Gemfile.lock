@@ -655,7 +655,7 @@ DEPENDENCIES
   good_job (~> 4.2.1)
   http-cookie (~> 1.0)
   image_processing (~> 1.12)
-  inertia_rails (~> 3.1)
+  inertia_rails (~> 3.2.0)
   js_from_routes (~> 3.0)
   listen (~> 3.8)
   mailjet (~> 1.7)
