@@ -40,7 +40,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   rm -r ./ruby-build /tmp/* /var/log/* && \
   ruby --version && gem --version && bundle --version
 
-# Install NodeJS and Yarn
+# Install NodeJS
 COPY .node-version ./
 ENV NODE_ENV=production
 RUN --mount=type=cache,target=/var/cache,sharing=locked \
@@ -51,10 +51,9 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   git clone --depth 1 https://github.com/nodenv/node-build.git && \
   PREFIX=/tmp ./node-build/install.sh && \
   /tmp/bin/node-build "$(cat .node-version)" /usr/local && \
-  npm install --global yarn && \
   echo $BUILD_DEPS | xargs apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
-  rm -r ./node-build /tmp/* /root/.npm/* /var/log/* && \
-  node --version && npm --version && yarn --version
+  rm -r ./node-build /var/log/* && \
+  node --version && npm --version
 
 # Install Python and Poetry
 COPY .python-version ./
@@ -110,13 +109,12 @@ ENV PLAYWRIGHT_VERSION=1.45
 # Install Playwright
 RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
-  --mount=type=cache,target=/usr/local/share/.cache/yarn,sharing=locked \
+  --mount=type=cache,target=/root/.npm,sharing=locked \
   set -eux && \
-  yarn global add playwright@$PLAYWRIGHT_VERSION; \
-  playwright install --with-deps chromium && \
+  npx playwright@$PLAYWRIGHT_VERSION install --with-deps chromium && \
   apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
-  rm -r /tmp/* /var/log/* && \
-  playwright --version
+  rm -r /var/log/* && \
+  npx playwright --version
 
 # == Dependencies ==
 FROM sys-playwright AS deps
@@ -135,10 +133,10 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   rm -r /var/log/*
 
 # Install NodeJS dependencies
-COPY package.json yarn.lock ./
+COPY package.json package-lock.json ./
 ENV NODE_ENV=production
-RUN --mount=type=cache,target=/usr/local/share/.cache/yarn,sharing=locked \
-  yarn install && \
+RUN --mount=type=cache,target=/root/.npm,sharing=locked \
+  npm install && \
   rm -r /tmp/*
 
 # Install Python dependencies
@@ -167,7 +165,7 @@ RUN bundle exec bootsnap precompile --gemfile app/ lib/
 ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true"
 
 # Precompile assets
-RUN --mount=type=cache,target=/usr/local/share/.cache/yarn,sharing=locked \
+RUN --mount=type=cache,target=/root/.npm,sharing=locked \
   SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 
 # Install Python scripts

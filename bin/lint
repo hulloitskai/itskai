@@ -11,8 +11,7 @@ def scoped(&block) = yield
 # == Dependencies
 system("bundle", "install", "--quiet") ||
   abort("Failed to install Ruby dependencies")
-system("bin/yarn", "install", "--silent") ||
-  abort("Failed to install Node dependencies")
+system("npm", "install") || abort("Failed to install Node dependencies")
 
 # == Options
 require "optparse"
@@ -44,7 +43,7 @@ scoped do
 end
 
 puts "\n=> Running Typescript compiler"
-system! "bin/yarn", "--silent", "tsc"
+system! "npx", "tsc"
 puts "No errors found"
 
 puts "\n=> Running ESLint"
@@ -52,10 +51,7 @@ scoped do
   args = %w[--ext .js,.jsx,.ts,.tsx]
   args << "--fix" if options[:fix]
   args << "."
-  system!(
-    "bin/yarn", "--silent", "eslint", "--report-unused-disable-directives",
-    *args,
-  )
+  system!("npx", "eslint", "--report-unused-disable-directives", *args)
   puts "No problems or warnings"
 end
 

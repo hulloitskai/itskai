@@ -6,7 +6,7 @@ _kai's personal website :)_
 
 ```bash
 # install tools
-brew install docker rbenv nodenv pyenv poetry yarn watchman overmind
+brew install docker rbenv nodenv pyenv poetry watchman overmind
 
 # install libraries
 brew install libvips ffmpeg

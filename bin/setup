@@ -39,7 +39,7 @@ FileUtils.chdir APP_ROOT do
   puts "Node installed"
 
   puts "\n=> Installing Node dependencies"
-  system!("bin/yarn install") &&
+  system!("npm install") &&
     puts("Node dependencies are installed")
 
   puts "\n=> Installing Python"
@@ -51,11 +51,10 @@ FileUtils.chdir APP_ROOT do
   system! "poetry install"
 
   puts "\n=> Installing git hooks"
-  system! "bin/yarn husky install"
+  system! "npx husky install"
 
   puts "\n=> Installing Playwright"
-  system! "bin/yarn global add playwright"
-  system! "playwright install chromium"
+  system! "npx playwright install chromium"
 
   # puts "\n=> Copying sample files"
   # unless File.exist?("config/database.yml")
