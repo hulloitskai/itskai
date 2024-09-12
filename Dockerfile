@@ -1,11 +1,12 @@
 # syntax = docker/dockerfile:1.2
 
+
 # == System ==
 FROM debian:bookworm-slim AS sys
 ENV OVERMIND_VERSION=2.5.1
 ENV STARSHIP_VERSION=1.20.1
 ENV DEVTOOLS="vim less"
-ENV APPLICATION_DEPS="libimage-exiftool-perl libvips ffmpeg"
+ENV APPLICATION_DEPS="libimage-exiftool-perl libvips"
 
 # Configure workdir
 WORKDIR /app
@@ -116,6 +117,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   rm -r /var/log/* && \
   npx playwright --version
 
+
 # == Dependencies ==
 FROM sys-playwright AS deps
 
@@ -150,6 +152,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   poetry install --no-cache --no-root --no-directory --without=dev && \
   echo $BUILD_DEPS | xargs apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
   rm -r /var/log/*
+
 
 # == Application ==
 FROM deps AS app
