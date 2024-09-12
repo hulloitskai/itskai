@@ -18,8 +18,8 @@ export interface HomePageProps extends SharedPageProps {
   announcement: string | null;
   explorations: Exploration[];
   journalEntry: NotionJournalEntry | null;
+  journalEntryPermalinked: boolean;
   firstJournalEntryId: string | null;
-  journalAutoscroll: boolean;
   approximateLocation: ApproximateLocation | null;
 }
 
@@ -27,8 +27,8 @@ const HomePage: PageComponent<HomePageProps> = ({
   announcement,
   explorations,
   journalEntry,
+  journalEntryPermalinked,
   firstJournalEntryId,
-  journalAutoscroll,
   approximateLocation,
 }) => {
   // const [showPensieve, setShowPensieve] = useState(false);
@@ -131,9 +131,8 @@ const HomePage: PageComponent<HomePageProps> = ({
             Sometimes, Kai writes.
           </Title>
           <HomePageJournalEntry
-            journalEntry={journalEntry}
-            firstJournalEntryId={firstJournalEntryId}
-            autoscroll={journalAutoscroll}
+            {...{ journalEntry, firstJournalEntryId }}
+            autoscroll={journalEntryPermalinked}
             style={{ alignSelf: "stretch" }}
           />
         </Stack>
@@ -168,7 +167,9 @@ const HomePage: PageComponent<HomePageProps> = ({
 
 HomePage.layout = page => (
   <AppLayout<HomePageProps>
-    title={({ journalEntry }) => journalEntry?.title}
+    title={({ journalEntry, journalEntryPermalinked }) =>
+      journalEntryPermalinked ? journalEntry?.title : undefined
+    }
     withContainer
     withGutter
   >

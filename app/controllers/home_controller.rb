@@ -19,8 +19,8 @@ class HomeController < ApplicationController
           .one_if(LocationLog.latest_visible),
         "journalEntry" => NotionJournalEntrySerializer
           .one_if(specified_journal_entry || first_journal_entry),
+        "journalEntryPermalinked" => specified_journal_entry.present?,
         "firstJournalEntryId" => first_journal_entry&.id,
-        "journalAutoscroll" => specified_journal_entry.present?,
       })
     end
   end
