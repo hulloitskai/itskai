@@ -5,7 +5,7 @@ STATUS="$?"
 
 if [ "$STATUS" != "0" ]; then
   if [ "$STATUS" == "1" ]; then
-    if [ "$(uname)" == "Darwin" ] && which open > /dev/null; then
+    if [ "$(uname)" == "Darwin" ]; then
       echo "Starting Docker..." >&2
       open -a Docker || exit 1
       sleep 2 # wait for Docker to boot

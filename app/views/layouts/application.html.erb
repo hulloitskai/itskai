@@ -56,7 +56,7 @@
     <%#= vite_typescript_tag "spotlight" if Rails.env.development? %>
     <% if local_assigns.include?(:page) %>
       <%= vite_react_refresh_tag %>
-      <%= vite_typescript_tag "application", media: nil %>
+      <%= vite_javascript_tag "application.tsx", media: nil %>
     <% end %>
 
     <%# == Google Analytics %>

@@ -1,15 +1,19 @@
 import { isValidElement } from "react";
 import { renderToString as renderPage } from "react-dom/server";
-
 import { render as renderEmail } from "@react-email/render";
-import { setupLuxon } from "~/helpers/luxon";
+
+import type { SetupOptions } from "@inertiajs/react/types/createInertiaApp";
+import { createInertiaApp } from "@inertiajs/react";
+import createServer from "@inertiajs/react/server";
 
 import type { PageComponent } from "~/helpers/inertia";
 import { PageType, parsePageImports, resolvePageType } from "~/helpers/inertia";
-import { preparePage, setupApp } from "~/helpers/inertia/server";
+import { preparePage } from "~/helpers/inertia/page/server";
 
-import { createInertiaApp } from "@inertiajs/react";
-import createServer from "@inertiajs/react/server";
+import AppWrapper from "~/components/AppWrapper";
+import EmailWrapper from "~/components/EmailWrapper";
+
+import { setupLuxon } from "~/helpers/luxon";
 
 // == Setup
 setupLuxon();
@@ -36,7 +40,7 @@ createServer(async page => {
   const type = resolvePageType(page.component);
   return createInertiaApp({
     page,
-    render: page => {
+    render: (page): string => {
       switch (type) {
         case PageType.Page: {
           return renderPage(page);
@@ -67,6 +71,16 @@ createServer(async page => {
         }
       }
     },
-    setup: setupApp,
+    setup: ({ App, props }: SetupOptions<null, SharedPageProps>) => {
+      const { initialPage } = props;
+      const pageType = resolvePageType(initialPage.component);
+      const app = <App {...props} />;
+      switch (pageType) {
+        case PageType.Page:
+          return <AppWrapper {...{ initialPage }}>{app}</AppWrapper>;
+        case PageType.Email:
+          return <EmailWrapper>{app}</EmailWrapper>;
+      }
+    },
   });
 }, port);

@@ -14,7 +14,13 @@ end
 # == Command
 if ["", nil].include?(ENV["CI"]) &&
     !system("docker info", out: File::NULL, err: File::NULL)
-  abort("Docker isn't running! Please start Docker and try again.")
+  if `uname`.strip == "Darwin"
+    puts "Starting Docker..."
+    system("open -a Docker")
+    sleep 2 # wait for Docker to boot
+  else
+    abort("Docker isn't running! Please start Docker and try again.")
+  end
 end
 
 FileUtils.chdir APP_ROOT do

@@ -182,7 +182,7 @@ GEM
     domain_name (0.6.20240107)
     dotenv (2.8.1)
     drb (2.2.1)
-    dry-cli (1.0.0)
+    dry-cli (1.1.0)
     dry-core (1.0.1)
       concurrent-ruby (~> 1.0)
       zeitwerk (~> 2.6)
@@ -458,7 +458,7 @@ GEM
     rdoc (6.7.0)
       psych (>= 4.0.0)
     regexp_parser (2.9.0)
-    reline (0.5.9)
+    reline (0.5.10)
       io-console (~> 0.5)
     rerun (0.14.0)
       listen (~> 3.0)
@@ -585,7 +585,7 @@ GEM
     vite_rails (3.0.17)
       railties (>= 5.1, < 8)
       vite_ruby (~> 3.0, >= 3.2.2)
-    vite_ruby (3.6.0)
+    vite_ruby (3.8.2)
       dry-cli (>= 0.7, < 2)
       rack-proxy (~> 0.6, >= 0.6.1)
       zeitwerk (~> 2.2)
@@ -608,7 +608,7 @@ GEM
     yard-sorbet (0.8.1)
       sorbet-runtime (>= 0.5)
       yard (>= 0.9)
-    zeitwerk (2.6.17)
+    zeitwerk (2.6.18)
 
 PLATFORMS
   arm64-darwin-22
