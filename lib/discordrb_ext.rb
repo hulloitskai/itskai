@@ -56,15 +56,18 @@ module Discordrb
       attr_reader :enabled_modes
 
       # == Helpers
-      sig { returns(ActiveSupport::Logger) }
-      def logger = Rails.logger
+      sig do
+        returns(T.any(ActiveSupport::Logger, ActiveSupport::BroadcastLogger))
+      end
+      def logger
+        Rails.logger
+      end
 
       sig { overridable.params(tags: String, block: T.proc.void).void }
       def with_log_tags(*tags, &block)
         tags.prepend("Discordrb")
         if logger.respond_to?(:tagged)
-          logger = T.cast(logger, ActiveSupport::TaggedLogging)
-          logger.tagged(*T.unsafe(tags), &block)
+          T.unsafe(logger).tagged(*tags, &block)
         end
       end
     end

@@ -339,14 +339,15 @@ module Premailer::Adapter::Nokogiri
     sig do
       returns(T.any(ActiveSupport::Logger, ActiveSupport::BroadcastLogger))
     end
-    def logger = Rails.logger
+    def logger
+      Rails.logger
+    end
 
     sig { params(block: T.proc.void).void }
     def with_log_tags(&block)
       if logger.respond_to?(:tagged)
         conditionally_enable_logger do
-          logger = T.cast(logger, ActiveSupport::TaggedLogging)
-          logger.tagged("Premailer", &block)
+          T.unsafe(logger).tagged("Premailer", &block)
         end
       else
         conditionally_enable_logger(&block)
