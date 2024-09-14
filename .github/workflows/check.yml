@@ -50,8 +50,6 @@ jobs:
             && sudo gzip -d /usr/bin/overmind.gz \
             && sudo chmod u+x /usr/bin/overmind \
             && sudo chown $(whoami) /usr/bin/overmind
-      - name: Install Playwright
-        run: npx playwright install chromium
       - name: Set up environment
         run: bin/setup
         env:
