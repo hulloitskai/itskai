@@ -53,8 +53,7 @@
     "scroll-into-view": "^1.16.2",
     "swr": "^2.2.5",
     "timeago.js": "^4.0.2",
-    "tiny-invariant": "^1.3.3",
-    "wait-for-the-element": "^4.0.1"
+    "tiny-invariant": "^1.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
