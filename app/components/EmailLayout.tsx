@@ -19,7 +19,7 @@ export interface EmailLayoutProps extends PropsWithChildren {
   preview?: PreviewProps["children"];
 }
 
-const transformPreview = (preview: string | string[]) => {
+const transformPreview = (preview: string | string[]): string | string[] => {
   if (Array.isArray(preview)) {
     return preview.map(preview => preview.toLocaleLowerCase());
   }

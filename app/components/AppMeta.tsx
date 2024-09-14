@@ -15,7 +15,7 @@ export interface AppMetaProps {
   noIndex?: boolean;
 }
 
-const transformMeta = (value: string) => value.toLocaleLowerCase();
+const transformMeta = (value: string): string => value.toLocaleLowerCase();
 
 const AppMeta: FC<AppMetaProps> = ({
   siteName = APP_META_SITE_NAME,

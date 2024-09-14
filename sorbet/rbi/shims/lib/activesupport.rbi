@@ -184,3 +184,13 @@ module Enumerable
   end
   def index_by(&block); end
 end
+
+module ActiveSupport::Inflector
+  sig do
+    params(
+      locale: Symbol,
+      block: T.proc.params(inflect: Inflections).void,
+    ).void
+  end
+  def self.inflections(locale = T.unsafe(nil), &block); end
+end
