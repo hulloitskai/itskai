@@ -138,8 +138,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
 COPY package.json package-lock.json ./
 ENV NODE_ENV=production
 RUN --mount=type=cache,target=/root/.npm,sharing=locked \
-  npm install && \
-  rm -r /tmp/*
+  npm install
 
 # Install Python dependencies
 COPY pyproject.toml poetry.toml poetry.lock ./
