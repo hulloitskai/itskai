@@ -1,7 +1,6 @@
-import { usePresence } from "framer-motion";
-
-import type { ImageProps } from "@mantine/core";
+import { type ImageProps } from "@mantine/core";
 import { Image } from "@mantine/core";
+import { usePresence } from "framer-motion";
 
 type TimelinePhotoFragment = any;
 

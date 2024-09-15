@@ -1,9 +1,10 @@
-import type { ApproximateLocation } from "~/types";
+import { type AlertProps } from "@mantine/core";
+import { rgba, Text } from "@mantine/core";
+import { useColorScheme } from "@mantine/hooks";
+
 import LocationIcon from "~icons/heroicons/map-pin-20-solid";
 
-import type { AlertProps } from "@mantine/core";
-import { Text, rgba } from "@mantine/core";
-import { useColorScheme } from "@mantine/hooks";
+import { type ApproximateLocation } from "~/types";
 
 export interface ApproximateLocationAlertProps
   extends Omit<AlertProps, "title" | "styles" | "children">,

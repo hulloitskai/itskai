@@ -1,4 +1,4 @@
-import type { ButtonProps } from "@mantine/core";
+import { type ButtonProps } from "@mantine/core";
 
 export interface AdminICloudDisconnectButtonProps
   extends ButtonProps,
@@ -10,7 +10,7 @@ const AdminICloudDisconnectButton: FC<AdminICloudDisconnectButtonProps> = ({
   onDisconnected: onDisconnected,
   ...otherProps
 }) => {
-  const { submit, processing } = useFetchForm({
+  const { processing, submit } = useFetchForm({
     action: routes.adminICloudConnections.destroy,
     method: "delete",
     descriptor: "remove connection",

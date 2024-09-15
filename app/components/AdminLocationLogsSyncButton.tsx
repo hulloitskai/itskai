@@ -1,6 +1,8 @@
-import type { Location } from "~/types";
-import type { ButtonProps } from "@mantine/core";
+import { type ButtonProps } from "@mantine/core";
+
 import SyncIcon from "~icons/heroicons/cloud-arrow-down-20-solid";
+
+import { type Location } from "~/types";
 
 export interface AdminLocationLogsSyncButtonProps
   extends ButtonProps,
@@ -13,7 +15,7 @@ const AdminLocationLogsSyncButton: FC<AdminLocationLogsSyncButtonProps> = ({
   onSynced,
   ...otherProps
 }) => {
-  const { submit, processing } = useFetchForm<{ location: Location }>({
+  const { processing, submit } = useFetchForm<{ location: Location }>({
     action: routes.admin.syncLocationLogs,
     method: "post",
     descriptor: "sync location logs",

@@ -1,5 +1,5 @@
-import type { ReactElement, ReactNode } from "react";
-import type { Page } from "@inertiajs/core";
+import { type Page } from "@inertiajs/core";
+import { type ReactElement, type ReactNode } from "react";
 
 export interface PageConsumerProps<PageProps extends Record<string, any>> {
   children: (page: Page<PageProps & SharedPageProps>) => ReactNode;

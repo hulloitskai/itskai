@@ -1,16 +1,15 @@
 import { Text } from "@mantine/core";
 
+import ArrowTopRightOnSquareIcon from "~icons/heroicons/arrow-top-right-on-square-20-solid";
+import BellAlertIcon from "~icons/heroicons/bell-alert-20-solid";
 import ExclamationCircleIcon from "~icons/heroicons/exclamation-circle-20-solid";
 import PencilSquareIcon from "~icons/heroicons/pencil-square-20-solid";
-import BellAlertIcon from "~icons/heroicons/bell-alert-20-solid";
-import ArrowTopRightOnSquareIcon from "~icons/heroicons/arrow-top-right-on-square-20-solid";
 
 import AppLayout from "~/components/AppLayout";
-import TestForm from "~/components/TestForm";
-import TestFeed from "~/components/TestFeed";
-
-import type { FileValue } from "~/components/FileInput";
+import { type FileValue } from "~/components/FileInput";
 import FileInput from "~/components/FileInput";
+import TestFeed from "~/components/TestFeed";
+import TestForm from "~/components/TestForm";
 
 export interface TestPageProps extends SharedPageProps {
   name: string;
@@ -19,7 +18,7 @@ export interface TestPageProps extends SharedPageProps {
 
 const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
   // == Form
-  const { getValues, getInputProps } = useForm({
+  const { getInputProps, getValues } = useForm({
     // mode: "uncontrolled",
     initialValues: { name: initialName },
   });

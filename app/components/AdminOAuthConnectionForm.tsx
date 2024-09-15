@@ -1,9 +1,8 @@
-import type { OAuthConnection } from "~/types";
+import { type OAuthConnection } from "~/types";
 
-import FormAuthenticityField from "./FormAuthenticityField";
-
-import type { AdminOAuthDisconnectButtonProps } from "./AdminOAuthDisconnectButton";
+import { type AdminOAuthDisconnectButtonProps } from "./AdminOAuthDisconnectButton";
 import AdminOAuthDisconnectButton from "./AdminOAuthDisconnectButton";
+import FormAuthenticityField from "./FormAuthenticityField";
 
 export interface AdminOAuthConnectionFormProps
   extends BoxProps,
@@ -17,7 +16,7 @@ const AdminOAuthConnectionForm: FC<AdminOAuthConnectionFormProps> = ({
   onDisconnected,
   ...otherProps
 }) => {
-  const { credentials, authorizeUrl } = connection;
+  const { authorizeUrl, credentials } = connection;
   return (
     <Stack gap="xs" {...otherProps}>
       {credentials && (

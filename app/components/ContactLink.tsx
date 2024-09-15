@@ -1,7 +1,7 @@
-import type { ReactNode } from "react";
-import type { AnchorProps } from "@mantine/core";
+import { type AnchorProps } from "@mantine/core";
+import { type ReactNode } from "react";
 
-import type { ContactOptions } from "~/helpers/contact";
+import { type ContactOptions } from "~/helpers/contact";
 import { useContact } from "~/helpers/contact";
 
 export interface ContactLinkProps extends AnchorProps, ContactOptions {
@@ -9,9 +9,9 @@ export interface ContactLinkProps extends AnchorProps, ContactOptions {
 }
 
 const ContactLink: FC<ContactLinkProps> = ({
-  subject,
   body,
   children,
+  subject,
   ...otherProps
 }) => {
   const [contact] = useContact({ subject, body });

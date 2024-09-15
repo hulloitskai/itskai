@@ -1,10 +1,10 @@
-import type { NotionComment } from "~/types";
 import { RenderText } from "@9gustin/react-notion-render";
+import { ActionIcon, Text } from "@mantine/core";
 
 import CommentIcon from "~icons/heroicons/chat-bubble-bottom-center-text-20-solid";
 import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
 
-import { ActionIcon, Text } from "@mantine/core";
+import { type NotionComment } from "~/types";
 
 import classes from "./NotionJournalEntryCommentsStack.module.css";
 
@@ -72,7 +72,7 @@ const NotionJournalEntryCommentsStack: FC<
     <Stack gap={6} {...otherProps}>
       {!commentsFetching && comments ? (
         comments.map(comment => {
-          const { id: commentId, createdAt, richText } = comment;
+          const { createdAt, id: commentId, richText } = comment;
           return (
             <Group
               key={commentId}

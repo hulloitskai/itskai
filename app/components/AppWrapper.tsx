@@ -1,8 +1,8 @@
-import type { Page } from "@inertiajs/core";
+import { type Page } from "@inertiajs/core";
 
+import ActionCableProvider from "./ActionCableProvider";
 import AppMantineProvider from "./AppMantineProvider";
 import AppNavProgress from "./AppNavProgress";
-import ActionCableProvider from "./ActionCableProvider";
 
 export interface AppWrapperProps extends PropsWithChildren {
   initialPage: Page<SharedPageProps>;

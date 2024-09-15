@@ -1,4 +1,4 @@
-import type { User } from "~/types";
+import { type User } from "~/types";
 
 export const useCurrentUser = (): User | null => {
   const { currentUser } = usePageProps();

@@ -1,4 +1,4 @@
-import type { LyricLine } from "~/types";
+import { type LyricLine } from "~/types";
 
 export type InterpolatedProgressMsParams = {
   progressMs: number;
@@ -6,8 +6,8 @@ export type InterpolatedProgressMsParams = {
 };
 
 export const useInterpolatedProgressMs = ({
-  progressMs,
   interpolationMs,
+  progressMs,
 }: InterpolatedProgressMsParams): number => {
   const [interpolatedProgressMs, setInterpolatedProgressMs] =
     useState<number>(0);
@@ -32,9 +32,9 @@ export type ProgressLyricsIndexMappingParams = {
 };
 
 export const useProgressLyricsIndexMapping = ({
-  lyrics,
   durationMs,
   interpolationMs,
+  lyrics,
 }: ProgressLyricsIndexMappingParams): Record<number, number | null> => {
   const [mapping, setMapping] = useState<Record<number, number | null>>({});
   useEffect(() => {

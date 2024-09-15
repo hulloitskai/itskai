@@ -1,6 +1,6 @@
-import type { ButtonProps } from "@mantine/core";
+import { type ButtonProps } from "@mantine/core";
 
-import type { TimelinePhotosImportFormProps } from "./TimelinePhotosImportForm";
+import { type TimelinePhotosImportFormProps } from "./TimelinePhotosImportForm";
 import TimelinePhotosImportForm from "./TimelinePhotosImportForm";
 
 export interface TimelinePhotosImportButtonProps
@@ -9,8 +9,8 @@ export interface TimelinePhotosImportButtonProps
     Pick<TimelinePhotosImportFormProps, "onImport"> {}
 
 const TimelinePhotosImportButton: FC<TimelinePhotosImportButtonProps> = ({
-  onImport,
   children,
+  onImport,
   ...otherProps
 }) => {
   return (

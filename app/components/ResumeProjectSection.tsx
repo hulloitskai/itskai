@@ -1,6 +1,8 @@
-import type { ResumeProjectInfo } from "~/types";
 import { Text } from "@mantine/core";
+
 import ArrowRightIcon from "~icons/heroicons/arrow-long-right-20-solid";
+
+import { type ResumeProjectInfo } from "~/types";
 
 import WebsiteBadge from "./WebsiteBadge";
 
@@ -9,7 +11,7 @@ export interface ResumeProjectSectionProps {
 }
 
 const ResumeProjectSection: FC<ResumeProjectSectionProps> = ({
-  projectInfo: { name, url, startDate, endDate, description, highlights },
+  projectInfo: { description, endDate, highlights, name, startDate, url },
 }) => (
   <Box>
     <Group gap={8}>

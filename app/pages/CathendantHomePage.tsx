@@ -1,13 +1,14 @@
-import type { CathendantMemo } from "~/types";
-import { useGlobalAudioPlayer } from "react-use-audio-player";
 import { Text } from "@mantine/core";
+import { useGlobalAudioPlayer } from "react-use-audio-player";
+
 import PlayIcon from "~icons/heroicons/play-20-solid";
 import StopIcon from "~icons/heroicons/stop-20-solid";
 
 import AppFlash from "~/components/AppFlash";
+import AppMeta from "~/components/AppMeta";
 import PageContainer from "~/components/PageContainer";
 import PageLayout from "~/components/PageLayout";
-import AppMeta from "~/components/AppMeta";
+import { type CathendantMemo } from "~/types";
 
 export interface CathendantHomePageProps extends SharedPageProps {
   memos: CathendantMemo[];
@@ -26,7 +27,7 @@ const CathendantHomePage: PageComponent<CathendantHomePageProps> = ({
           Wanna add another voice?
         </Anchor>
       </Box>
-      {memos.map(({ id: memoId, from, recordingUrl }) => (
+      {memos.map(({ from, id: memoId, recordingUrl }) => (
         <Card key={memoId} withBorder>
           <Stack gap="xs">
             <Text>

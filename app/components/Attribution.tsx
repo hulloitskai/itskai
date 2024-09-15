@@ -1,6 +1,6 @@
-import CodeIcon from "~icons/heroicons/code-bracket-20-solid";
-
 import { HoverCard, Image, Text } from "@mantine/core";
+
+import CodeIcon from "~icons/heroicons/code-bracket-20-solid";
 
 import heartSrc from "~/assets/images/heart.png";
 

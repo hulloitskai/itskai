@@ -1,8 +1,8 @@
-import type { LocationAccessGrant } from "~/types";
-
 import { Code, CopyButton, Text } from "@mantine/core";
 
-import type { AdminLocationAccessGrantDeleteButtonProps } from "./AdminLocationAccessGrantDeleteButton";
+import { type LocationAccessGrant } from "~/types";
+
+import { type AdminLocationAccessGrantDeleteButtonProps } from "./AdminLocationAccessGrantDeleteButton";
 import AdminLocationAccessGrantDeleteButton from "./AdminLocationAccessGrantDeleteButton";
 
 import classes from "./AdminLocationAccessGrantCard.module.css";
@@ -16,14 +16,14 @@ export interface AdminLocationAccessGrantCardProps
 }
 
 const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
+  autocopy,
   grant: {
-    id: grantId,
-    recipient,
-    password,
     createdAt,
     expiresAt: expiresAtISO,
+    id: grantId,
+    password,
+    recipient,
   },
-  autocopy,
   onDeleted,
   ...otherProps
 }) => {
@@ -45,7 +45,7 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
               </Text>
               <Box>
                 <CopyButton value={url.toString()}>
-                  {({ copy, copied }) => (
+                  {({ copied, copy }) => (
                     <Button
                       leftSection={<ClipboardIcon />}
                       size="xs"
@@ -93,7 +93,7 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
           <Text size="sm" c="dimmed" lh={1.4}>
             Password is{" "}
             <CopyButton value={password}>
-              {({ copy, copied }) => (
+              {({ copied, copy }) => (
                 <Tooltip
                   label={copied ? "Copied!" : "Click to copy"}
                   color="primary"
@@ -122,7 +122,7 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
         </Box>
         <Group gap="xs" wrap="nowrap" grow>
           <CopyButton value={locateUrl}>
-            {({ copy, copied }) => (
+            {({ copied, copy }) => (
               <Button
                 variant="default"
                 leftSection={<ClipboardIcon />}

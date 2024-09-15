@@ -1,10 +1,10 @@
 import { Text } from "@mantine/core";
 
 import AppLayout from "~/components/AppLayout";
+import SettingsPageDeleteAccountForm from "~/components/SettingsPageDeleteAccountForm";
 import SettingsPageEmailForm from "~/components/SettingsPageEmailForm";
 import SettingsPagePasswordForm from "~/components/SettingsPagePasswordForm";
 import SettingsPageProfileForm from "~/components/SettingsPageProfileForm";
-import SettingsPageDeleteAccountForm from "~/components/SettingsPageDeleteAccountForm";
 
 export interface SettingsPageProps extends SharedPageProps {}
 

@@ -1,4 +1,4 @@
-import type { Exploration } from "~/types";
+import { type Exploration } from "~/types";
 
 import ExplorationCommentForm from "./ExplorationCommentForm";
 

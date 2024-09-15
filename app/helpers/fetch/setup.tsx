@@ -1,9 +1,9 @@
-import type { FetchOptions, HeaderOptions } from "@js-from-routes/client";
+import { type FetchOptions, type HeaderOptions } from "@js-from-routes/client";
 import { Config } from "@js-from-routes/client";
 
 export const setupFetch = (): void => {
   Config.fetch = (args: FetchOptions): Promise<Response> => {
-    const { url, data, responseAs, ...options } = args;
+    const { data, responseAs, url, ...options } = args;
     let body: BodyInit | undefined;
     if (data !== undefined) {
       if (data instanceof FormData) {

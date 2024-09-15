@@ -1,16 +1,15 @@
-import type { ReactNode } from "react";
+import { type InputWrapperProps } from "@mantine/core";
+import { Input, Text } from "@mantine/core";
+import { type DropzoneProps } from "@mantine/dropzone";
+import { Dropzone } from "@mantine/dropzone";
+import { useUncontrolled } from "@mantine/hooks";
+import { type ReactNode } from "react";
+
 import UploadIcon from "~icons/heroicons/arrow-up-tray-20-solid";
 import RejectIcon from "~icons/heroicons/no-symbol-20-solid";
 
-import type { InputWrapperProps } from "@mantine/core";
-import { Input, Text } from "@mantine/core";
-import { useUncontrolled } from "@mantine/hooks";
-
-import type { DropzoneProps } from "@mantine/dropzone";
-import { Dropzone } from "@mantine/dropzone";
-
-import FileInputUploadCard from "./FileInputUploadCard";
 import FileInputFileCard from "./FileInputFileCard";
+import FileInputUploadCard from "./FileInputUploadCard";
 
 import "@mantine/dropzone/styles.layer.css";
 
@@ -48,26 +47,26 @@ const FileInput = <Multiple extends boolean = false>(
   props: FileInputProps<Multiple>,
 ): ReactNode => {
   const {
-    variant,
-    labelElement,
-    label,
-    labelProps,
+    accept,
+    children,
+    defaultValue,
     description,
     descriptionProps,
+    disabled,
     error,
     errorProps,
-    required,
-    withAsterisk,
-    accept,
-    maxSize,
-    maxFiles,
-    disabled,
-    children,
-    multiple,
     fileLabel: fileLabelProp,
-    value,
-    defaultValue,
+    label,
+    labelElement,
+    labelProps,
+    maxFiles,
+    maxSize,
+    multiple,
     onChange,
+    required,
+    value,
+    variant,
+    withAsterisk,
     ...otherProps
   } = props;
 

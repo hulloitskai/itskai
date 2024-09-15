@@ -1,22 +1,21 @@
+import "@fontsource-variable/jetbrains-mono";
+// == Fonts
+import "@fontsource-variable/manrope";
+
 import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
 
+import ClarityTracking from "./ClarityTracking";
+import FullStoryTracking from "./FullStoryTracking";
 import MiniProfilerPageTracking from "./MiniProfilerPageTracking";
 import PageMeta from "./PageMeta";
 import SentryTracking from "./SentryTracking";
-import FullStoryTracking from "./FullStoryTracking";
-import ClarityTracking from "./ClarityTracking";
-
-// == Fonts
-import "@fontsource-variable/manrope";
-import "@fontsource-variable/jetbrains-mono";
-
-// == Mantine
-import "@mantine/core/styles.layer.css";
-import "@mantine/notifications/styles.layer.css";
 
 // == Lowercasing
 import "./PageLayout-lowercasing.css";
+// == Mantine
+import "@mantine/core/styles.layer.css";
+import "@mantine/notifications/styles.layer.css";
 
 export interface PageLayoutProps extends PropsWithChildren {}
 

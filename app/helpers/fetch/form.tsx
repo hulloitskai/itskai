@@ -1,14 +1,14 @@
-import type { FormEvent } from "react";
-import type { Method } from "@inertiajs/core";
-import type { PathHelper, ResponseError } from "@js-from-routes/client";
-import { sentencify } from "~/helpers/inflect";
-import { showFormErrorsAlert } from "~/helpers/form";
-
-import type {
-  FormErrors,
-  UseFormInput,
-  UseFormReturnType,
+import { type Method } from "@inertiajs/core";
+import { type PathHelper, type ResponseError } from "@js-from-routes/client";
+import {
+  type FormErrors,
+  type UseFormInput,
+  type UseFormReturnType,
 } from "@mantine/form";
+import { type FormEvent } from "react";
+
+import { showFormErrorsAlert } from "~/helpers/form";
+import { sentencify } from "~/helpers/inflect";
 
 type FetchPartialForm<Values> = Omit<
   UseFormReturnType<Values>,
@@ -56,15 +56,15 @@ export const useFetchForm = <
 ): FetchForm<Data, Values> => {
   const {
     action,
-    params,
     descriptor,
-    method = "get",
     failSilently,
-    transformValues = deepUnderscoreKeys,
-    transformErrors = deepCamelizeKeys,
-    onSuccess,
-    onFailure,
+    method = "get",
     onError,
+    onFailure,
+    onSuccess,
+    params,
+    transformErrors = deepCamelizeKeys,
+    transformValues = deepUnderscoreKeys,
     ...otherOptions
   } = options;
   const form = useForm<Values, TransformValues<Values>>({

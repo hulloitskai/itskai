@@ -1,5 +1,5 @@
+import { type CardProps } from "@mantine/core";
 import { Text } from "@mantine/core";
-import type { CardProps } from "@mantine/core";
 
 import EmptyIcon from "~icons/heroicons/inbox-20-solid";
 
@@ -10,8 +10,8 @@ export interface EmptyCardProps
 }
 
 const EmptyCard: FC<EmptyCardProps> = ({
-  itemLabel,
   children,
+  itemLabel,
   ...otherProps
 }) => (
   <Card withBorder py="lg" {...otherProps}>

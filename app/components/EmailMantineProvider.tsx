@@ -1,4 +1,5 @@
 import { MantineProvider } from "@mantine/core";
+
 import { THEME } from "~/helpers/mantine";
 
 export interface EmailMantineProviderProps extends PropsWithChildren {}

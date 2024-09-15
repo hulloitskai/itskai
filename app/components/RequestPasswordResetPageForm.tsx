@@ -7,7 +7,7 @@ export interface RequestPasswordResetPageFormProps
 const RequestPasswordResetPageForm: FC<RequestPasswordResetPageFormProps> = ({
   ...otherProps
 }) => {
-  const { getInputProps, submit, processing } = useInertiaForm({
+  const { getInputProps, processing, submit } = useInertiaForm({
     action: routes.usersPasswords.create,
     method: "post",
     descriptor: "request password reset",

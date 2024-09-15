@@ -1,9 +1,8 @@
-import type { JSXElementConstructor } from "react";
-import Linkify from "linkify-react";
-
-import type { TextProps } from "@mantine/core";
+import { type TextProps } from "@mantine/core";
 import { Text } from "@mantine/core";
 import { useTimeout } from "@mantine/hooks";
+import Linkify from "linkify-react";
+import { type JSXElementConstructor } from "react";
 
 import PensieveMessageLike from "./PensieveMessageLike";
 
@@ -25,7 +24,7 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
   message,
   ...otherProps
 }) => {
-  const { id: messageId, from, text, timestamp, likes, isEdited } = message;
+  const { from, id: messageId, isEdited, likes, text, timestamp } = message;
   const fromBot = from === PensieveMessageSender.Bot;
   const [mounted, setMounted] = useState(false);
   useTimeout(() => setMounted(true), 100, { autoInvoke: true });
@@ -57,7 +56,7 @@ const PensieveMessage: FC<PensieveMessageProps> = ({
               <Linkify<TextProps, JSXElementConstructor<TextProps>>
                 as={Text}
                 options={{
-                  render: ({ content, attributes }) => (
+                  render: ({ attributes, content }) => (
                     <Anchor
                       target="_blank"
                       rel="noopener noreferrer nofollow"

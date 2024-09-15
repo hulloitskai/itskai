@@ -1,7 +1,7 @@
-import type { LocationAccessGrant } from "~/types";
-
 import { NumberInput, Text } from "@mantine/core";
 import { isNotEmpty } from "@mantine/form";
+
+import { type LocationAccessGrant } from "~/types";
 
 export interface LocationAccessGrantCreateFormProps
   extends BoxProps,
@@ -18,7 +18,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
     password: "",
     expiresInHours: 12,
   };
-  const { getInputProps, submit, processing } = useFetchForm<
+  const { getInputProps, processing, submit } = useFetchForm<
     { grant: LocationAccessGrant },
     typeof initialValues
   >({

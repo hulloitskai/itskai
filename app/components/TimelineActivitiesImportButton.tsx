@@ -1,6 +1,6 @@
-import type { ButtonProps } from "@mantine/core";
+import { type ButtonProps } from "@mantine/core";
 
-import type { TimelineActivitiesImportFormProps } from "./TimelineActivitiesImportForm";
+import { type TimelineActivitiesImportFormProps } from "./TimelineActivitiesImportForm";
 import TimelineActivitiesImportForm from "./TimelineActivitiesImportForm";
 
 export interface TimelineActivitiesImportButtonProps
@@ -10,7 +10,7 @@ export interface TimelineActivitiesImportButtonProps
 
 const TimelineActivitiesImportButton: FC<
   TimelineActivitiesImportButtonProps
-> = ({ onImport, children, ...otherProps }) => {
+> = ({ children, onImport, ...otherProps }) => {
   return (
     <Button
       variant="default"

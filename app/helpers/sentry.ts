@@ -1,4 +1,4 @@
-import type { BrowserOptions } from "@sentry/react";
+import { type BrowserOptions } from "@sentry/react";
 import {
   captureConsoleIntegration,
   contextLinesIntegration,
@@ -7,6 +7,7 @@ import {
   replayCanvasIntegration,
   replayIntegration,
 } from "@sentry/react";
+
 import { environment, getMeta } from "~/helpers/meta";
 
 export const setupSentry = () => {

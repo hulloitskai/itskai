@@ -1,7 +1,8 @@
-import type { ICloudConnection } from "~/types";
+import { InputWrapper, PinInput } from "@mantine/core";
+
 import SecurityCodeIcon from "~icons/heroicons/key-20-solid";
 
-import { InputWrapper, PinInput } from "@mantine/core";
+import { type ICloudConnection } from "~/types";
 
 export interface AdminICloudVerifySecurityCodeFormProps
   extends BoxProps,
@@ -13,7 +14,7 @@ const AdminICloudVerifySecurityCodeForm: FC<
   AdminICloudVerifySecurityCodeFormProps
 > = ({ onVerified, ...otherProps }) => {
   const initialValues = { code: "" };
-  const { getInputProps, submit, processing } = useFetchForm<
+  const { getInputProps, processing, submit } = useFetchForm<
     { connection: ICloudConnection },
     typeof initialValues
   >({

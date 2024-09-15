@@ -1,5 +1,5 @@
-import { InlinePreset } from "unimport";
-import type { ImportsMap, PresetName } from "unplugin-auto-import/types";
+import { type InlinePreset } from "unimport";
+import { type ImportsMap, type PresetName } from "unplugin-auto-import/types";
 
 export const imports: Array<ImportsMap | PresetName | InlinePreset> = [
   // == Presets

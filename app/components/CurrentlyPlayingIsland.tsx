@@ -1,16 +1,17 @@
-import type { ReactNode } from "react";
-import type {
-  CurrentlyPlaying,
-  CurrentlyPlayingMetadata,
-  RSpotifyTrack,
-} from "~/types";
-import Marquee from "react-fast-marquee";
-import { motion } from "framer-motion";
-import PlayIcon from "~icons/heroicons/play-circle-20-solid";
-
-import type { ImageProps, TextProps } from "@mantine/core";
+import { type ImageProps, type TextProps } from "@mantine/core";
 import { Image, Text } from "@mantine/core";
 import { useNetwork } from "@mantine/hooks";
+import { motion } from "framer-motion";
+import { type ReactNode } from "react";
+import Marquee from "react-fast-marquee";
+
+import PlayIcon from "~icons/heroicons/play-circle-20-solid";
+
+import {
+  type CurrentlyPlaying,
+  type CurrentlyPlayingMetadata,
+  type RSpotifyTrack,
+} from "~/types";
 
 import CurrentlyPlayingLyricsTooltip from "./CurrentlyPlayingLyricsTooltip";
 
@@ -132,8 +133,8 @@ type TrackCoalescerProps = {
 };
 
 const TrackCoalescer: FC<TrackCoalescerProps> = ({
-  track: trackProp,
   children,
+  track: trackProp,
 }) => {
   const [track, setTrack] = useState<RSpotifyTrack | null | undefined>(
     trackProp,
@@ -153,13 +154,13 @@ type _CurrentlyPlayingIslandProps = BoxProps & {
 };
 
 const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
-  track,
   progressMs,
-  transitioned,
   style,
+  track,
+  transitioned,
   ...otherProps
 }) => {
-  const { name, album, artists, durationMs } = track;
+  const { album, artists, durationMs, name } = track;
   const artistNames = useMemo(
     () =>
       artists.map(({ name }: any) => name).join(", ") || "(missing artists)",
@@ -167,7 +168,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
   );
 
   // == Join jam session
-  const { submit, processing } = useInertiaForm({
+  const { processing, submit } = useInertiaForm({
     action: routes.spotifyJamSessions.join,
     method: "post",
     descriptor: "join Spotify jam session",

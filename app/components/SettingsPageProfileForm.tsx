@@ -11,7 +11,7 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
 
   // == Form
   const initialValues = useMemo(() => {
-    const { name, avatar } = authenticatedUser;
+    const { avatar, name } = authenticatedUser;
     return {
       name,
       avatar: avatar ? { signedId: avatar.signedId } : null,
@@ -32,11 +32,11 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
   });
   const {
     getInputProps,
-    submit,
-    processing,
-    setInitialValues,
-    reset,
     isDirty,
+    processing,
+    reset,
+    setInitialValues,
+    submit,
   } = form;
   useEffect(() => {
     setInitialValues(initialValues);

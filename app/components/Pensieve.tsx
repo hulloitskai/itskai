@@ -1,11 +1,11 @@
-import type { CSSProperties } from "react";
+import { ActionIcon, ScrollArea, Text } from "@mantine/core";
 import { DateTime } from "luxon";
+import { type CSSProperties } from "react";
+
 import ExpandIcon from "~icons/heroicons/arrows-pointing-out-20-solid";
 
-import { ActionIcon, ScrollArea, Text } from "@mantine/core";
-
-import PensieveMessage from "./PensieveMessage";
 import PensieveChatBox from "./PensieveChatBox";
+import PensieveMessage from "./PensieveMessage";
 
 type PensieveMessageFragment = any;
 enum PensieveMessageSender {
@@ -145,7 +145,7 @@ const Pensieve: FC<PensieveProps> = ({
               {groups.map(messages => {
                 const firstMessage = first(messages);
                 invariant(firstMessage, "Group must have at least one message");
-                const { id: messageId, from } = firstMessage;
+                const { from, id: messageId } = firstMessage;
                 const fromBot = from === PensieveMessageSender.Bot;
                 const align: CSSProperties["alignItems"] = fromBot
                   ? "end"

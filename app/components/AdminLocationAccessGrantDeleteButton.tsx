@@ -1,4 +1,4 @@
-import type { DeleteButtonProps } from "./DeleteButton";
+import { type DeleteButtonProps } from "./DeleteButton";
 import DeleteButton from "./DeleteButton";
 
 export interface AdminLocationAccessGrantDeleteButtonProps
@@ -10,7 +10,7 @@ export interface AdminLocationAccessGrantDeleteButtonProps
 const AdminLocationAccessGrantDeleteButton: FC<
   AdminLocationAccessGrantDeleteButtonProps
 > = ({ grantId, onDeleted, ...otherProps }) => {
-  const { submit, processing } = useFetchForm({
+  const { processing, submit } = useFetchForm({
     action: routes.adminLocationAccessGrants.destroy,
     params: { id: grantId },
     method: "delete",

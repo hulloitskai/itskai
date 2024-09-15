@@ -1,7 +1,7 @@
-import type { NotificationProps } from "@mantine/core";
+import { type NotificationProps } from "@mantine/core";
 
-import InformationCircleIcon from "~icons/heroicons/information-circle-20-solid";
 import ExclamationTriangleIcon from "~icons/heroicons/exclamation-triangle-20-solid";
+import InformationCircleIcon from "~icons/heroicons/information-circle-20-solid";
 
 const AppFlashNotificationProps: Record<string, Partial<NotificationProps>> = {
   notice: {

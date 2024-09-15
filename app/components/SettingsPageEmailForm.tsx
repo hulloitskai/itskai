@@ -1,8 +1,8 @@
-import type { User } from "~/types";
-
-import type { ButtonProps } from "@mantine/core";
+import { type ButtonProps } from "@mantine/core";
 import { PasswordInput, Text } from "@mantine/core";
 import { isEmail, isNotEmpty } from "@mantine/form";
+
+import { type User } from "~/types";
 
 export interface SettingsPageEmailFormProps
   extends BoxProps,
@@ -35,7 +35,7 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
       user: deepUnderscoreKeys(values),
     }),
   });
-  const { getInputProps, isDirty, submit, processing } = form;
+  const { getInputProps, isDirty, processing, submit } = form;
   const currentPasswordFilled = useFieldsFilled(form, "currentPassword");
 
   // == Conditionally show current password field
@@ -116,7 +116,7 @@ interface ResendEmailVerificationInstructionsButtonProps
 const ResendEmailVerificationInstructionsButton: FC<
   ResendEmailVerificationInstructionsButtonProps
 > = ({ user, ...otherProps }) => {
-  const { submit, processing } = useInertiaForm({
+  const { processing, submit } = useInertiaForm({
     action: routes.usersConfirmations.create,
     method: "post",
     descriptor: "resend verification email",

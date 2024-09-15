@@ -1,7 +1,7 @@
-import { ActionCableContext } from "~/helpers/actioncable";
-
-import type { Consumer } from "@rails/actioncable";
+import { type Consumer } from "@rails/actioncable";
 import { createConsumer } from "@rails/actioncable";
+
+import { ActionCableContext } from "~/helpers/actioncable";
 
 export interface ActionCableProviderProps extends PropsWithChildren {}
 

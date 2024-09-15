@@ -1,14 +1,13 @@
-export { setupFetch } from "./setup";
-
-import type {
-  RequestOptions,
-  PathHelper,
-  ResponseError,
+import { type Method } from "@inertiajs/core";
+import {
+  type PathHelper,
+  type RequestOptions,
+  type ResponseError,
 } from "@js-from-routes/client";
-import type { Method } from "@inertiajs/core";
-
-import type { SWRConfiguration, SWRResponse } from "swr";
+import { type SWRConfiguration, type SWRResponse } from "swr";
 import useSWR from "swr";
+
+export { setupFetch } from "./setup";
 
 export interface FetchResult<Data>
   extends Omit<SWRResponse<Data, Error>, "isLoading" | "isValidating"> {
@@ -32,17 +31,17 @@ export type FetchOptions = Partial<Omit<RequestOptions, "method" | "fetch">> &
 export const useFetch = <Data extends Record<string, any> & { error?: never }>(
   route: PathHelper,
   {
-    method,
-    skip,
-    failSilently,
-    descriptor,
-    params,
     data,
+    descriptor,
     deserializeData,
+    failSilently,
     fetchOptions,
-    serializeData,
-    responseAs,
     headers,
+    method,
+    params,
+    responseAs,
+    serializeData,
+    skip,
     ...swrConfiguration
   }: FetchOptions,
 ): FetchResult<Data> => {

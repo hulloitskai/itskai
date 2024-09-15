@@ -1,13 +1,13 @@
-import type { ICloudConnection } from "~/types";
-import SessionIcon from "~icons/heroicons/identification-20-solid";
-import SecurityCodeIcon from "~icons/heroicons/key-20-solid";
-
 import { JsonInput, PasswordInput, Text } from "@mantine/core";
 import { isNotEmpty } from "@mantine/form";
 
-import type { AdminICloudDisconnectButtonProps } from "./AdminICloudDisconnectButton";
-import AdminICloudDisconnectButton from "./AdminICloudDisconnectButton";
+import SessionIcon from "~icons/heroicons/identification-20-solid";
+import SecurityCodeIcon from "~icons/heroicons/key-20-solid";
 
+import { type ICloudConnection } from "~/types";
+
+import { type AdminICloudDisconnectButtonProps } from "./AdminICloudDisconnectButton";
+import AdminICloudDisconnectButton from "./AdminICloudDisconnectButton";
 import AdminICloudVerifySecurityCodeForm from "./AdminICloudVerifySecurityCodeForm";
 
 export interface AdminICloudConnectionFormProps
@@ -86,7 +86,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
       password: password ?? "",
     };
   }, [credentials]);
-  const { getInputProps, submit, processing } = useFetchForm<{
+  const { getInputProps, processing, submit } = useFetchForm<{
     connection: ICloudConnection;
   }>({
     action: routes.adminICloudConnections.create,

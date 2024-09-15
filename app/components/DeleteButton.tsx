@@ -1,4 +1,4 @@
-import type { ButtonProps } from "@mantine/core";
+import { type ButtonProps } from "@mantine/core";
 
 export interface DeleteButtonProps
   extends ButtonProps,
@@ -7,8 +7,8 @@ export interface DeleteButtonProps
 }
 
 const DeleteButton: FC<DeleteButtonProps> = ({
-  onConfirm,
   children,
+  onConfirm,
   ...otherProps
 }) => (
   <Menu

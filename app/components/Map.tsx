@@ -1,6 +1,5 @@
-import { NavigationControl, default as _Map } from "react-map-gl";
-import type { MapRef } from "react-map-gl";
-import type { MapProps as _MapProps } from "react-map-gl";
+import { type MapProps as _MapProps, type MapRef } from "react-map-gl";
+import { default as _Map, NavigationControl } from "react-map-gl";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
@@ -11,9 +10,9 @@ export interface MapProps extends Omit<_MapProps, "mapboxAccessToken"> {
 const Map = forwardRef<MapRef, MapProps>(
   (
     {
+      children,
       mapStyle = "mapbox://styles/mapbox/cj3kbeqzo00022smj7akz3o1e",
       navigationControl = true,
-      children,
       ...otherProps
     },
     ref,

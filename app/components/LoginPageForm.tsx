@@ -1,5 +1,5 @@
 import { PasswordInput } from "@mantine/core";
-import { isNotEmpty, isEmail } from "@mantine/form";
+import { isEmail, isNotEmpty } from "@mantine/form";
 
 export interface LoginPageFormProps
   extends BoxProps,
@@ -7,7 +7,7 @@ export interface LoginPageFormProps
 
 const LoginPageForm: FC<LoginPageFormProps> = props => {
   // == Form
-  const { getInputProps, submit, processing } = useInertiaForm({
+  const { getInputProps, processing, submit } = useInertiaForm({
     action: routes.usersSessions.create,
     method: "post",
     descriptor: "sign in",

@@ -1,28 +1,24 @@
-import type { Feature, LineString, Point } from "geojson";
-import { DateTime } from "luxon";
-import { AnimatePresence } from "framer-motion";
-import { useAudioPlayer } from "react-use-audio-player";
-import { countBy, maxBy } from "lodash-es";
-
-import ResumeIcon from "~icons/heroicons/play-20-solid";
-import PauseIcon from "~icons/heroicons/pause-20-solid";
-import ForwardIcon from "~icons/heroicons/forward-20-solid";
-import BackwardIcon from "~icons/heroicons/backward-20-solid";
-
-import lineSliceAlong from "@turf/line-slice-along";
-import lineLength from "@turf/length";
-
-import type { MapRef } from "react-map-gl";
-import { Source, Layer } from "react-map-gl";
-
 import { ActionIcon } from "@mantine/core";
+import lineLength from "@turf/length";
+import lineSliceAlong from "@turf/line-slice-along";
+import { AnimatePresence } from "framer-motion";
+import { type Feature, type LineString, type Point } from "geojson";
+import { countBy, maxBy } from "lodash-es";
+import { DateTime } from "luxon";
+import { type MapRef } from "react-map-gl";
+import { Layer, Source } from "react-map-gl";
+import { useAudioPlayer } from "react-use-audio-player";
 
-import PageLayout from "~/components/PageLayout";
-import AppMeta from "~/components/AppMeta";
-import Map from "~/components/Map";
-import TimelinePagePhoto from "~/components/TimelinePagePhoto";
+import BackwardIcon from "~icons/heroicons/backward-20-solid";
+import ForwardIcon from "~icons/heroicons/forward-20-solid";
+import PauseIcon from "~icons/heroicons/pause-20-solid";
+import ResumeIcon from "~icons/heroicons/play-20-solid";
 
 import fallUnderneathSrc from "~/assets/sounds/fall-underneath.mp3";
+import AppMeta from "~/components/AppMeta";
+import Map from "~/components/Map";
+import PageLayout from "~/components/PageLayout";
+import TimelinePagePhoto from "~/components/TimelinePagePhoto";
 
 export interface TimelinePageProps extends SharedPageProps {}
 
@@ -88,7 +84,7 @@ const truncateTimelineActivitySegmentIfNecessary = (
     return feature;
   }
   try {
-    const { type, geometry } = lineSliceAlong(
+    const { geometry, type } = lineSliceAlong(
       feature,
       startDistance,
       stopDistance,
@@ -132,7 +128,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
     lastFeature: null,
     photos: [],
   }));
-  const { time, activitySegmentFeatures, placeVisitFeatures, photos } = moment;
+  const { activitySegmentFeatures, photos, placeVisitFeatures, time } = moment;
 
   // == Controls
   const [paused, setPaused] = useState(true);
@@ -318,8 +314,8 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
       return;
     }
     const {
-      properties: { zoom },
       geometry,
+      properties: { zoom },
     } = lastFeature;
     const lastPosition =
       geometry.type === "Point"

@@ -1,12 +1,15 @@
-import type { AppShellProps, ContainerProps, MantineSize } from "@mantine/core";
-import { AppShell, Breadcrumbs } from "@mantine/core";
+import {
+  AppShell,
+  type AppShellProps,
+  Breadcrumbs,
+  type ContainerProps,
+  type MantineSize,
+} from "@mantine/core";
 
-import type { AppMetaProps } from "./AppMeta";
-import AppMeta from "./AppMeta";
-
-import Attribution from "./Attribution";
-import AppMenu from "./AppMenu";
 import AppFlash from "./AppFlash";
+import AppMenu from "./AppMenu";
+import AppMeta, { type AppMetaProps } from "./AppMeta";
+import Attribution from "./Attribution";
 import CurrentlyPlayingIsland from "./CurrentlyPlayingIsland";
 import PageContainer from "./PageContainer";
 import PageLayout from "./PageLayout";

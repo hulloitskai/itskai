@@ -1,3 +1,142 @@
+export interface ResumeWorkInfo {
+  /**
+   * e.g. Facebook
+   */
+  name?: string;
+  /**
+   * e.g. Menlo Park, CA
+   */
+  location?: string;
+  /**
+   * e.g. Social Media Company
+   */
+  description?: string;
+  /**
+   * e.g. Software Engineer
+   */
+  position?: string;
+  /**
+   * e.g. http://facebook.example.com
+   */
+  url?: string;
+  startDate?: ISO8601;
+  endDate?: ISO8601;
+  /**
+   * Give an overview of your responsibilities at the company
+   */
+  summary?: string;
+  /**
+   * Specify multiple accomplishments
+   */
+  highlights?: string[];
+  [k: string]: unknown;
+}
+
+export interface ResumeSkillInfo {
+  /**
+   * e.g. Web Development
+   */
+  name?: string;
+  /**
+   * e.g. Master
+   */
+  level?: string;
+  /**
+   * List some keywords pertaining to this skill
+   */
+  keywords?: string[];
+  [k: string]: unknown;
+}
+
+export interface ResumeEducationInfo {
+  /**
+   * e.g. Massachusetts Institute of Technology
+   */
+  institution?: string;
+  /**
+   * e.g. http://facebook.example.com
+   */
+  url?: string;
+  /**
+   * e.g. Arts
+   */
+  area?: string;
+  /**
+   * e.g. Bachelor
+   */
+  studyType?: string;
+  startDate?: ISO8601;
+  endDate?: ISO8601;
+  /**
+   * grade point average, e.g. 3.67/4.0
+   */
+  score?: string;
+  /**
+   * List notable courses/subjects
+   */
+  courses?: string[];
+  [k: string]: unknown;
+}
+
+/**
+ * Similar to the standard date type, but each section after the year is optional. e.g. 2014-06-29 or 2023-04
+ */
+export type ISO8601 = string;
+
+export interface ResumeProjectInfo {
+  /**
+   * e.g. The World Wide Web
+   */
+  name?: string;
+  /**
+   * Short summary of project. e.g. Collated works of 2017.
+   */
+  description?: string;
+  /**
+   * Specify multiple features
+   */
+  highlights?: string[];
+  /**
+   * Specify special elements involved
+   */
+  keywords?: string[];
+  startDate?: ISO8601;
+  endDate?: ISO8601;
+  /**
+   * e.g. http://www.computer.org/csdl/mags/co/1996/10/rx069-abs.html
+   */
+  url?: string;
+  /**
+   * Specify your role on this project or in company
+   */
+  roles?: string[];
+  /**
+   * Specify the relevant company/entity affiliations e.g. 'greenpeace', 'corporationXYZ'
+   */
+  entity?: string;
+  /**
+   *  e.g. 'volunteering', 'presentation', 'talk', 'application', 'conference'
+   */
+  type?: string;
+  [k: string]: unknown;
+}
+
+export interface ResumeProfileInfo {
+  /**
+   * e.g. Facebook or Twitter
+   */
+  network?: string;
+  /**
+   * e.g. neutralthoughts
+   */
+  username?: string;
+  /**
+   * e.g. http://twitter.example.com/neutralthoughts
+   */
+  url?: string;
+  [k: string]: unknown;
+}
+
 export default interface Resume {
   basics?: {
     name?: string;
@@ -182,143 +321,4 @@ export default interface Resume {
    * Specify career projects
    */
   projects?: ResumeProjectInfo[];
-}
-
-export interface ResumeWorkInfo {
-  /**
-   * e.g. Facebook
-   */
-  name?: string;
-  /**
-   * e.g. Menlo Park, CA
-   */
-  location?: string;
-  /**
-   * e.g. Social Media Company
-   */
-  description?: string;
-  /**
-   * e.g. Software Engineer
-   */
-  position?: string;
-  /**
-   * e.g. http://facebook.example.com
-   */
-  url?: string;
-  startDate?: ISO8601;
-  endDate?: ISO8601;
-  /**
-   * Give an overview of your responsibilities at the company
-   */
-  summary?: string;
-  /**
-   * Specify multiple accomplishments
-   */
-  highlights?: string[];
-  [k: string]: unknown;
-}
-
-export interface ResumeSkillInfo {
-  /**
-   * e.g. Web Development
-   */
-  name?: string;
-  /**
-   * e.g. Master
-   */
-  level?: string;
-  /**
-   * List some keywords pertaining to this skill
-   */
-  keywords?: string[];
-  [k: string]: unknown;
-}
-
-export interface ResumeEducationInfo {
-  /**
-   * e.g. Massachusetts Institute of Technology
-   */
-  institution?: string;
-  /**
-   * e.g. http://facebook.example.com
-   */
-  url?: string;
-  /**
-   * e.g. Arts
-   */
-  area?: string;
-  /**
-   * e.g. Bachelor
-   */
-  studyType?: string;
-  startDate?: ISO8601;
-  endDate?: ISO8601;
-  /**
-   * grade point average, e.g. 3.67/4.0
-   */
-  score?: string;
-  /**
-   * List notable courses/subjects
-   */
-  courses?: string[];
-  [k: string]: unknown;
-}
-
-/**
- * Similar to the standard date type, but each section after the year is optional. e.g. 2014-06-29 or 2023-04
- */
-export type ISO8601 = string;
-
-export interface ResumeProjectInfo {
-  /**
-   * e.g. The World Wide Web
-   */
-  name?: string;
-  /**
-   * Short summary of project. e.g. Collated works of 2017.
-   */
-  description?: string;
-  /**
-   * Specify multiple features
-   */
-  highlights?: string[];
-  /**
-   * Specify special elements involved
-   */
-  keywords?: string[];
-  startDate?: ISO8601;
-  endDate?: ISO8601;
-  /**
-   * e.g. http://www.computer.org/csdl/mags/co/1996/10/rx069-abs.html
-   */
-  url?: string;
-  /**
-   * Specify your role on this project or in company
-   */
-  roles?: string[];
-  /**
-   * Specify the relevant company/entity affiliations e.g. 'greenpeace', 'corporationXYZ'
-   */
-  entity?: string;
-  /**
-   *  e.g. 'volunteering', 'presentation', 'talk', 'application', 'conference'
-   */
-  type?: string;
-  [k: string]: unknown;
-}
-
-export interface ResumeProfileInfo {
-  /**
-   * e.g. Facebook or Twitter
-   */
-  network?: string;
-  /**
-   * e.g. neutralthoughts
-   */
-  username?: string;
-  /**
-   * e.g. http://twitter.example.com/neutralthoughts
-   */
-  url?: string;
-  [k: string]: unknown;
 }

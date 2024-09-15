@@ -1,22 +1,19 @@
-import { createRoot, hydrateRoot } from "react-dom/client";
-import { createInertiaApp } from "@inertiajs/react";
-import { reactErrorHandler } from "@sentry/react";
-
-import type { PageComponent } from "~/helpers/inertia";
-import { parsePageImports } from "~/helpers/inertia";
-import { preparePage } from "~/helpers/inertia/page/client";
-
-import { setupInertia } from "~/helpers/inertia";
-import { setupFetch } from "~/helpers/fetch";
-import { setupActiveStorage } from "~/helpers/activestorage";
-import { setupLuxon } from "~/helpers/luxon";
-import { setupSentry } from "~/helpers/sentry";
-import { setupFullStory } from "~/helpers/fullstory";
-
-import AppWrapper from "~/components/AppWrapper";
-
 // == Polyfills
 import "requestidlecallback-polyfill";
+
+import { createInertiaApp } from "@inertiajs/react";
+import { reactErrorHandler } from "@sentry/react";
+import { createRoot, hydrateRoot } from "react-dom/client";
+
+import AppWrapper from "~/components/AppWrapper";
+import { setupActiveStorage } from "~/helpers/activestorage";
+import { setupFetch } from "~/helpers/fetch";
+import { setupFullStory } from "~/helpers/fullstory";
+import { type PageComponent } from "~/helpers/inertia";
+import { parsePageImports, setupInertia } from "~/helpers/inertia";
+import { preparePage } from "~/helpers/inertia/page/client";
+import { setupLuxon } from "~/helpers/luxon";
+import { setupSentry } from "~/helpers/sentry";
 
 // == Setup
 setupInertia();
@@ -46,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
       preparePage(component);
       return component;
     },
-    setup: ({ el, App, props }) => {
+    setup: ({ App, el, props }) => {
       const { initialPage } = props;
       const app = (
         <AppWrapper {...{ initialPage }}>

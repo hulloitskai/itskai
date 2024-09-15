@@ -1,8 +1,7 @@
-import type { EmailComponent } from "~/helpers/inertia";
-import type { User } from "~/types";
 import { Button, Link, Text } from "~/components/email";
-
 import EmailLayout from "~/components/EmailLayout";
+import { type EmailComponent } from "~/helpers/inertia";
+import { type User } from "~/types";
 
 export interface UserEmailVerificationEmailProps {
   verificationUrl: string;
@@ -11,7 +10,7 @@ export interface UserEmailVerificationEmailProps {
 
 const UserVerificationEmail: EmailComponent<
   UserEmailVerificationEmailProps
-> = ({ verificationUrl, user }) => {
+> = ({ user, verificationUrl }) => {
   const { name } = user;
   return (
     <>

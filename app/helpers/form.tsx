@@ -1,5 +1,6 @@
-import type { UseFormReturnType } from "@mantine/form";
-import type { LooseKeys, _TransformValues } from "@mantine/form/lib/types";
+import { type UseFormReturnType } from "@mantine/form";
+import { type _TransformValues, type LooseKeys } from "@mantine/form/lib/types";
+
 import { sentencify } from "./inflect";
 
 export const showFormErrorsAlert = <

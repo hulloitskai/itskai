@@ -1,7 +1,7 @@
-import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
-
+import { type TextInputProps } from "@mantine/core";
 import { ActionIcon, Text } from "@mantine/core";
-import type { TextInputProps } from "@mantine/core";
+
+import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
 
 import classes from "./PensieveChatBox.module.css";
 

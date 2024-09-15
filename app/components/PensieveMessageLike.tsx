@@ -1,7 +1,7 @@
-import HeartFilledIcon from "~icons/heroicons/heart-20-solid";
-import HeartUnfilledIcon from "~icons/heroicons/heart";
-
 import { Loader, Text } from "@mantine/core";
+
+import HeartUnfilledIcon from "~icons/heroicons/heart";
+import HeartFilledIcon from "~icons/heroicons/heart-20-solid";
 
 type PensieveMessageLikeMessageFragment = any;
 
@@ -12,7 +12,7 @@ export interface PensieveMessageLikeProps
 }
 
 const PensieveMessageLike: FC<PensieveMessageLikeProps> = ({
-  message: { /* id: messageId, */ likes, likedByViewer },
+  message: { likedByViewer, /* id: messageId, */ likes },
   ...otherProps
 }) => {
   // == Message Liking

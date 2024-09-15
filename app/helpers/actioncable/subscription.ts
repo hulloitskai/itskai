@@ -16,11 +16,11 @@ export const useSubscription = <Data>(
   channel: string,
   {
     descriptor,
-    params,
-    skip,
     failSilently,
     onData,
     onError,
+    params,
+    skip,
   }: SubscriptionOptions<Data>,
 ): Subscription<Data> => {
   const cable = useCable();

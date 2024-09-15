@@ -1,13 +1,13 @@
-import type { ICloudConnection, OAuthConnection } from "~/types";
 import { Text } from "@mantine/core";
 
-import AppLayout from "~/components/AppLayout";
 import AdminICloudConnectionForm from "~/components/AdminICloudConnectionForm";
-import AdminOAuthConnectionForm from "~/components/AdminOAuthConnectionForm";
-import AdminLocationLogsSyncButton from "~/components/AdminLocationLogsSyncButton";
-import AdminJournalEntriesSyncButton from "~/components/AdminNotionJournalEntriesSyncButton";
 import AdminLocationAccessGrants from "~/components/AdminLocationAccessGrants";
 import AdminLocationLogsBackfillAddressesButtons from "~/components/AdminLocationLogsBackfillAddressesButtons";
+import AdminLocationLogsSyncButton from "~/components/AdminLocationLogsSyncButton";
+import AdminJournalEntriesSyncButton from "~/components/AdminNotionJournalEntriesSyncButton";
+import AdminOAuthConnectionForm from "~/components/AdminOAuthConnectionForm";
+import AppLayout from "~/components/AppLayout";
+import { type ICloudConnection, type OAuthConnection } from "~/types";
 
 export interface AdminPageProps extends SharedPageProps {
   icloudConnection: ICloudConnection;
@@ -18,11 +18,11 @@ export interface AdminPageProps extends SharedPageProps {
 }
 
 const AdminPage: PageComponent<AdminPageProps> = ({
-  icloudConnection,
   googleConnection,
-  spotifyConnection,
-  numLogsWithoutAddresses,
+  icloudConnection,
   newLocationAccessGrantId,
+  numLogsWithoutAddresses,
+  spotifyConnection,
 }) => {
   return (
     <Stack>

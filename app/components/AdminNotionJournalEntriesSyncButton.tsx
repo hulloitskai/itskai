@@ -1,6 +1,8 @@
-import type { NotionJournalEntrySyncResults } from "~/types";
-import type { ButtonProps } from "@mantine/core";
+import { type ButtonProps } from "@mantine/core";
+
 import NotionIcon from "~icons/basil/notion-solid";
+
+import { type NotionJournalEntrySyncResults } from "~/types";
 
 export interface AdminNotionJournalEntriesSyncButtonProps
   extends ButtonProps,
@@ -9,7 +11,7 @@ export interface AdminNotionJournalEntriesSyncButtonProps
 const AdminNotionJournalEntriesSyncButton: FC<
   AdminNotionJournalEntriesSyncButtonProps
 > = ({ children, ...otherProps }) => {
-  const { submit, processing } = useFetchForm<{
+  const { processing, submit } = useFetchForm<{
     syncResults: NotionJournalEntrySyncResults;
   }>({
     action: routes.admin.syncNotionJournalEntries,

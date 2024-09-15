@@ -10,7 +10,7 @@ const FullStoryTracking: FC = () => {
   useEffect(() => {
     if (isFsInitialized()) {
       if (currentUser) {
-        const { id, email, name } = currentUser;
+        const { email, id, name } = currentUser;
         FullStory("setIdentityAsync", {
           uid: id,
           properties: { email, displayName: name },

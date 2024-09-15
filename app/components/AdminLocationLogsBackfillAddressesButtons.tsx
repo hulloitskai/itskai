@@ -1,4 +1,4 @@
-import type { BoxProps } from "@mantine/core";
+import { type BoxProps } from "@mantine/core";
 import {
   ActionIcon,
   NumberFormatter,
@@ -8,8 +8,8 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
-import QueueingIcon from "~icons/heroicons/queue-list-20-solid";
 import MoreIcon from "~icons/heroicons/ellipsis-vertical-20-solid";
+import QueueingIcon from "~icons/heroicons/queue-list-20-solid";
 
 export interface AdminLocationLogsBackfillAddressesButtonProps
   extends BoxProps,
@@ -20,17 +20,18 @@ export interface AdminLocationLogsBackfillAddressesButtonProps
 
 const AdminLocationLogsBackfillAddressesButtons: FC<
   AdminLocationLogsBackfillAddressesButtonProps
-> = ({ numLogsWithoutAddresses, onBackfilling, children, ...otherProps }) => {
-  const [popoverOpened, { open: openPopover, close: closePopover }] =
+> = ({ children, numLogsWithoutAddresses, onBackfilling, ...otherProps }) => {
+  const [popoverOpened, { close: closePopover, open: openPopover }] =
     useDisclosure(false);
   const initialValues = { limit: "" as number | "" };
-  const { values, submit, processing, getInputProps } = useFetchForm<
+  const { getInputProps, processing, submit, values } = useFetchForm<
     { numLogsBackfilling: number },
     typeof initialValues
   >({
     action: routes.admin.backfillLocationLogAddresses,
     method: "post",
     descriptor: "backfill location log addresses",
+    initialValues,
     onSuccess: ({ numLogsBackfilling }) => {
       closePopover();
       const goodJobUrl = new URL("/good_job/jobs", location.href);

@@ -15,7 +15,7 @@ const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
   const [passwordStrength, setPasswordStrength] = useState(0.0);
 
   // == Form
-  const { getInputProps, submit, processing } = useInertiaForm({
+  const { getInputProps, processing, submit } = useInertiaForm({
     action: routes.usersPasswords.update,
     method: "put",
     descriptor: "change password",

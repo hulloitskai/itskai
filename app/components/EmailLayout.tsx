@@ -1,4 +1,4 @@
-import type { PreviewProps } from "@react-email/components";
+import { type PreviewProps } from "@react-email/components";
 import {
   Body,
   Column,
@@ -9,10 +9,10 @@ import {
   Section,
 } from "@react-email/components";
 
-import { Heading, Text, Link } from "~/components/email";
+import { Heading, Link, Text } from "~/components/email";
 
-import "@mantine/core/styles.css";
 import "./EmailLayout-lowercasing.css";
+import "@mantine/core/styles.css";
 
 export interface EmailLayoutProps extends PropsWithChildren {
   header?: string;
@@ -26,7 +26,7 @@ const transformPreview = (preview: string | string[]): string | string[] => {
   return preview.toLocaleLowerCase();
 };
 
-const EmailLayout: FC<EmailLayoutProps> = ({ header, preview, children }) => (
+const EmailLayout: FC<EmailLayoutProps> = ({ children, header, preview }) => (
   <>
     {!!preview && <Preview>{transformPreview(preview)}</Preview>}
     <Body

@@ -1,6 +1,6 @@
-import type { ButtonProps } from "@mantine/core";
+import { type ButtonProps } from "@mantine/core";
 
-import type { TimelinePhotoCreateWithTimestampFormProps } from "./TimelinePhotoCreateWithTimestampForm";
+import { type TimelinePhotoCreateWithTimestampFormProps } from "./TimelinePhotoCreateWithTimestampForm";
 import TimelinePhotoCreateWithTimestampForm from "./TimelinePhotoCreateWithTimestampForm";
 
 export interface TimelinePhotoCreateWithTimestampButtonProps
@@ -10,7 +10,7 @@ export interface TimelinePhotoCreateWithTimestampButtonProps
 
 const TimelinePhotoCreateWithTimestampButton: FC<
   TimelinePhotoCreateWithTimestampButtonProps
-> = ({ onCreate, children, ...otherProps }) => {
+> = ({ children, onCreate, ...otherProps }) => {
   return (
     <Button
       variant="default"

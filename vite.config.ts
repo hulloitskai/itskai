@@ -1,15 +1,13 @@
+import reactPlugin from "@vitejs/plugin-react";
 import { join } from "path";
-
-import type { PluginOption } from "vite";
-import { defineConfig } from "vite";
-
-import rubyPlugin from "vite-plugin-ruby";
-import fullReloadPlugin from "vite-plugin-full-reload";
+import { visualizer as visualizerPlugin } from "rollup-plugin-visualizer";
 import autoImportPlugin from "unplugin-auto-import/vite";
 import iconsPlugin from "unplugin-icons/vite";
-import reactPlugin from "@vitejs/plugin-react";
+import { type PluginOption } from "vite";
+import { defineConfig } from "vite";
+import fullReloadPlugin from "vite-plugin-full-reload";
 import { isoImport as isomorphicImportPlugin } from "vite-plugin-iso-import";
-import { visualizer as visualizerPlugin } from "rollup-plugin-visualizer";
+import rubyPlugin from "vite-plugin-ruby";
 
 import { imports } from "./config/auto-import";
 

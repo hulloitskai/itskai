@@ -1,6 +1,6 @@
+import { type AnchorProps, type MantineColor } from "@mantine/core";
 import { createPolymorphicComponent } from "@mantine/core";
-import type { ComponentPropsWithRef } from "react";
-import type { AnchorProps, MantineColor } from "@mantine/core";
+import { type ComponentPropsWithRef } from "react";
 
 import classes from "./AnchorContainer.module.css";
 
@@ -12,7 +12,7 @@ export interface AnchorContainerProps
 
 const _AnchorContainer = forwardRef<HTMLAnchorElement, AnchorContainerProps>(
   (
-    { borderColor, display = "contents", style, children, ...otherProps },
+    { borderColor, children, display = "contents", style, ...otherProps },
     ref,
   ) => (
     <Anchor

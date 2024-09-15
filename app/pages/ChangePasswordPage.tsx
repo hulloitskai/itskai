@@ -1,8 +1,8 @@
-import type { SharedPageProps } from "~/types";
 import { Text } from "@mantine/core";
 
 import AppLayout from "~/components/AppLayout";
 import ChangePasswordPageForm from "~/components/ChangePasswordPageForm";
+import { type SharedPageProps } from "~/types";
 
 export interface ChangePasswordPageProps extends SharedPageProps {
   resetPasswordToken: string;

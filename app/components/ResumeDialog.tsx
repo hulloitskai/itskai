@@ -1,9 +1,9 @@
+import { ActionIcon, Affix, Dialog, Text } from "@mantine/core";
+import { useDisclosure, useWindowScroll } from "@mantine/hooks";
+
 import DocumentIcon from "~icons/basil/document-solid";
 import MenuIcon from "~icons/heroicons/bars-3-20-solid";
 import FeedbackIcon from "~icons/heroicons/megaphone-20-solid";
-
-import { ActionIcon, Affix, Dialog, Text } from "@mantine/core";
-import { useDisclosure, useWindowScroll } from "@mantine/hooks";
 
 export interface ResumeDialogProps
   extends BoxProps,
@@ -13,7 +13,7 @@ export interface ResumeDialogProps
 
 const ResumeDialog: FC<ResumeDialogProps> = ({ variant, ...otherProps }) => {
   const [loadingPDF, setLoadingPDF] = useState(false);
-  const [opened, { open, close }] = useDisclosure(false);
+  const [opened, { close, open }] = useDisclosure(false);
   const [scroll] = useWindowScroll();
   const togglePosition = 70;
   useEffect(() => {

@@ -1,13 +1,12 @@
-import type { ReactNode } from "react";
-import type { LyricLine, RSpotifyTrack } from "~/types";
-
-import type { TooltipProps } from "@mantine/core";
+import { type TooltipProps } from "@mantine/core";
 import { useHover } from "@mantine/hooks";
+import { type ReactNode } from "react";
 
 import {
   useInterpolatedProgressMs,
   useProgressLyricsIndexMapping,
 } from "~/helpers/currentlyPlaying";
+import { type LyricLine, type RSpotifyTrack } from "~/types";
 
 import classes from "./CurrentlyPlayingLyricsTooltip.module.css";
 
@@ -20,11 +19,11 @@ export interface CurrentlyPlayingLyricsTooltipProps
 }
 
 const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
-  track,
+  children,
+  disabled,
   durationMs,
   progressMs = 0,
-  disabled,
-  children,
+  track,
   ...otherProps
 }) => {
   const interpolationMs = 250;

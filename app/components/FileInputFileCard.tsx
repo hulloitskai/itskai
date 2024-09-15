@@ -1,8 +1,8 @@
-import type { File } from "~/types";
+import { type CardProps } from "@mantine/core";
+import { ActionIcon, Text } from "@mantine/core";
 import prettyBytes from "pretty-bytes";
 
-import type { CardProps } from "@mantine/core";
-import { ActionIcon, Text } from "@mantine/core";
+import { type File } from "~/types";
 
 export interface FileInputFileCardProps extends CardProps {
   signedId: string;
@@ -10,8 +10,8 @@ export interface FileInputFileCardProps extends CardProps {
 }
 
 const FileInputFileCard: FC<FileInputFileCardProps> = ({
-  signedId,
   onRemove,
+  signedId,
   ...props
 }) => {
   // == File metadata

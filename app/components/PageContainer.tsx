@@ -1,4 +1,4 @@
-import type { ContainerProps, MantineSize } from "@mantine/core";
+import { type ContainerProps, type MantineSize } from "@mantine/core";
 import { getSize, getSpacing } from "@mantine/core";
 
 export interface PageContainerProps
@@ -9,11 +9,11 @@ export interface PageContainerProps
 }
 
 const PageContainer: FC<PageContainerProps> = ({
-  withGutter,
+  children,
   gutterSize = "md",
   size = "md",
   style,
-  children,
+  withGutter,
   ...otherProps
 }) => {
   return (

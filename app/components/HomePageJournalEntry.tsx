@@ -1,8 +1,9 @@
-import type { NotionJournalEntry } from "~/types";
 import scrollIntoView from "scroll-into-view";
 
 import NextIcon from "~icons/heroicons/arrow-path-rounded-square-20-solid";
 import ResetIcon from "~icons/heroicons/arrow-uturn-left-20-solid";
+
+import { type NotionJournalEntry } from "~/types";
 
 import NotionJournalEntryCard from "./NotionJournalEntryCard";
 
@@ -15,9 +16,9 @@ export interface HomePageJournalEntryProps
 }
 
 const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
-  journalEntry,
-  firstJournalEntryId,
   autoscroll,
+  firstJournalEntryId,
+  journalEntry,
   ...otherProps
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);

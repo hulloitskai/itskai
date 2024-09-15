@@ -1,8 +1,7 @@
-import type { EmailComponent } from "~/helpers/inertia";
-import type { User } from "~/types";
-import { Button, Text, Link } from "~/components/email";
-
+import { Button, Link, Text } from "~/components/email";
 import EmailLayout from "~/components/EmailLayout";
+import { type EmailComponent } from "~/helpers/inertia";
+import { type User } from "~/types";
 
 export interface UserPasswordResetEmailProps {
   resetUrl: string;

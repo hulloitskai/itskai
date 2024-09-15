@@ -1,9 +1,9 @@
-import type { EmailComponent } from "~/helpers/inertia";
-import type { User } from "~/types";
 import { Column, Row, Section } from "@react-email/components";
-import { Text } from "~/components/email";
 
+import { Text } from "~/components/email";
 import EmailLayout from "~/components/EmailLayout";
+import { type EmailComponent } from "~/helpers/inertia";
+import { type User } from "~/types";
 
 import classes from "./TestEmail.module.css";
 

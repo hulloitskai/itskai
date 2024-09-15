@@ -1,16 +1,17 @@
-import type {
-  ApproximateLocation,
-  Exploration,
-  NotionJournalEntry,
-} from "~/types";
 import { Text } from "@mantine/core";
+
 import BellIcon from "~icons/heroicons/bell-20-solid";
 
 import AppLayout from "~/components/AppLayout";
-import ContactLink from "~/components/ContactLink";
-import HomePageJournalEntry from "~/components/HomePageJournalEntry";
 import ApproximateLocationAlert from "~/components/ApproximateLocationAlert";
+import ContactLink from "~/components/ContactLink";
 import ExplorationBadge from "~/components/ExplorationBadge";
+import HomePageJournalEntry from "~/components/HomePageJournalEntry";
+import {
+  type ApproximateLocation,
+  type Exploration,
+  type NotionJournalEntry,
+} from "~/types";
 
 import classes from "./HomePage.module.css";
 
@@ -25,11 +26,11 @@ export interface HomePageProps extends SharedPageProps {
 
 const HomePage: PageComponent<HomePageProps> = ({
   announcement,
+  approximateLocation,
   explorations,
+  firstJournalEntryId,
   journalEntry,
   journalEntryPermalinked,
-  firstJournalEntryId,
-  approximateLocation,
 }) => {
   // const [showPensieve, setShowPensieve] = useState(false);
   const [showLocation, setShowLocation] = useState(!!approximateLocation);

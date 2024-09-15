@@ -1,8 +1,8 @@
-import type { Blob } from "@rails/activestorage";
-import { useUpload } from "~/helpers/upload";
-
-import type { CardProps } from "@mantine/core";
+import { type CardProps } from "@mantine/core";
 import { ActionIcon, Progress, Text } from "@mantine/core";
+import { type Blob } from "@rails/activestorage";
+
+import { useUpload } from "~/helpers/upload";
 
 export interface FileInputUploadCardProps extends CardProps {
   file: File;
@@ -14,7 +14,7 @@ const FileInputUploadCard: FC<FileInputUploadCardProps> = ({
   onUploaded,
   ...props
 }) => {
-  const { blob, error, progress, uploading, cancel } = useUpload(file, {
+  const { blob, cancel, error, progress, uploading } = useUpload(file, {
     onCompleted: onUploaded,
     onError: ({ message }) => {
       showAlert({ title: `Failed to upload file '${file.name}'`, message });

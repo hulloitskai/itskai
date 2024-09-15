@@ -1,4 +1,4 @@
-import { setUser, isInitialized } from "@sentry/react";
+import { isInitialized, setUser } from "@sentry/react";
 
 const SentryTracking: FC = () => {
   const currentUser = useCurrentUser();
@@ -7,7 +7,7 @@ const SentryTracking: FC = () => {
   useEffect(() => {
     if (isInitialized()) {
       if (currentUser) {
-        const { id, email } = currentUser;
+        const { email, id } = currentUser;
         setUser({ id, email });
       } else {
         setUser(null);

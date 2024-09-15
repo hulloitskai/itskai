@@ -1,18 +1,21 @@
-import type { DefaultMantineColor, MantineColorsTuple } from "@mantine/core";
-import { DEFAULT_THEME } from "@mantine/core";
+import {
+  type DefaultMantineColor,
+  type MantineColorsTuple,
+} from "@mantine/core";
 import {
   ActionIcon,
   Alert,
   Button,
+  createTheme,
+  DEFAULT_THEME,
   Loader,
   Modal,
   Notification,
   TextInput,
   ThemeIcon,
-  createTheme,
 } from "@mantine/core";
-
 import cx from "clsx";
+
 import classes from "./mantine.module.css";
 
 export type CustomColors = "primary" | "accent" | DefaultMantineColor;

@@ -1,25 +1,24 @@
-import type { Feature, FeatureCollection, Point } from "geojson";
-import type {
-  ApproximateLocation,
-  Coordinates,
-  LocationAccessGrant,
-  LocationTrailMarker,
-  LocationWithTrail,
-} from "~/types";
-import ClockIcon from "~icons/heroicons/clock-20-solid";
+import { rgba, Text } from "@mantine/core";
 import circle from "@turf/circle";
+import { type Feature, type FeatureCollection, type Point } from "geojson";
+import { DateTime, type Duration } from "luxon";
+import { type MapRef, type ViewState } from "react-map-gl";
+import { GeolocateControl, Layer, Marker, Source } from "react-map-gl";
 
-import { Text, rgba } from "@mantine/core";
-
-import type { MapRef, ViewState } from "react-map-gl";
-import { GeolocateControl, Marker, Source, Layer } from "react-map-gl";
+import ClockIcon from "~icons/heroicons/clock-20-solid";
 
 import AppLayout from "~/components/AppLayout";
-import Map from "~/components/Map";
 import LocationAccessForm from "~/components/LocationAccessForm";
+import Map from "~/components/Map";
+import {
+  type ApproximateLocation,
+  type Coordinates,
+  type LocationAccessGrant,
+  type LocationTrailMarker,
+  type LocationWithTrail,
+} from "~/types";
 
 import classes from "./LocatePage.module.css";
-import { DateTime, Duration } from "luxon";
 
 const TORONTO_COORDINATES: Readonly<Coordinates> = {
   latitude: 43.6532,
@@ -38,11 +37,11 @@ export interface LocatePageProps extends SharedPageProps {
 }
 
 const LocatePage: PageComponent<LocatePageProps> = ({
+  accessGrant: initialAccessGrant,
+  accessToken,
   approximateLocation: initialApproximateLocation,
   location: initialLocation,
   password,
-  accessToken,
-  accessGrant: initialAccessGrant,
 }) => {
   const isClient = useIsClient();
   const theme = useMantineTheme();
@@ -103,7 +102,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
       }
     },
   });
-  const { location = initialLocation, accessGrant = initialAccessGrant } =
+  const { accessGrant = initialAccessGrant, location = initialLocation } =
     locationData ?? {};
 
   // == Region
@@ -303,7 +302,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
         <Box pos="relative" w="100%" maw={540}>
           {location && accessGrant ? (
             resolve(() => {
-              const { timestamp, address } = location;
+              const { address, timestamp } = location;
               return (
                 <Alert
                   title={

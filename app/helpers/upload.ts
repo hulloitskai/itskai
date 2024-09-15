@@ -1,4 +1,4 @@
-import type { Blob } from "@rails/activestorage";
+import { type Blob } from "@rails/activestorage";
 import { DirectUpload } from "@rails/activestorage?client";
 
 import { requireMeta } from "./meta";
@@ -30,7 +30,7 @@ export const useLazyUpload = (
   }));
   const upload = useCallback(
     (file: File): Promise<Blob> => {
-      const { onProgress, onCompleted, onError } = params;
+      const { onCompleted, onError, onProgress } = params;
       setState(prevState => {
         if (prevState.uploading) {
           prevState.cancel();

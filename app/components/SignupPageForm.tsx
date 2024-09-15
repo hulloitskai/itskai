@@ -1,7 +1,7 @@
 import { PasswordInput } from "@mantine/core";
+import { isEmail, isNotEmpty } from "@mantine/form";
 
 import StrongPasswordInput from "./StrongPasswordInput";
-import { isEmail, isNotEmpty } from "@mantine/form";
 
 export interface SignupPageFormProps
   extends BoxProps,
@@ -9,7 +9,7 @@ export interface SignupPageFormProps
 
 const SignupPageForm: FC<SignupPageFormProps> = props => {
   const [passwordStrength, setPasswordStrength] = useState(0.0);
-  const { getInputProps, submit, processing } = useInertiaForm({
+  const { getInputProps, processing, submit } = useInertiaForm({
     action: routes.usersRegistrations.create,
     method: "post",
     descriptor: "sign up",

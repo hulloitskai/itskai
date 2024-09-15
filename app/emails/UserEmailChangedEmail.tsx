@@ -1,8 +1,8 @@
-import type { EmailComponent } from "~/helpers/inertia";
-import type { User } from "~/types";
 import { Text } from "@react-email/components";
 
 import EmailLayout from "~/components/EmailLayout";
+import { type EmailComponent } from "~/helpers/inertia";
+import { type User } from "~/types";
 
 export interface UserEmailChangedEmailProps {
   user: User;
@@ -11,7 +11,7 @@ export interface UserEmailChangedEmailProps {
 const UserEmailChangedEmail: EmailComponent<UserEmailChangedEmailProps> = ({
   user,
 }) => {
-  const { name, email } = user;
+  const { email, name } = user;
   return (
     <>
       <Text>Hi, {name}!</Text>

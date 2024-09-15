@@ -1,6 +1,8 @@
-import type { NotionJournalEntry } from "~/types";
 import { ActionIcon, CopyButton, Text } from "@mantine/core";
+
 import LinkIcon from "~icons/heroicons/link-20-solid";
+
+import { type NotionJournalEntry } from "~/types";
 
 import NotionContent from "./NotionContent";
 import JournalEntryCommentsStack from "./NotionJournalEntryCommentsStack";
@@ -14,7 +16,7 @@ export interface NotionJournalEntryCardProps
 }
 
 const NotionJournalEntryCard: FC<NotionJournalEntryCardProps> = ({
-  entry: { id: entryId, url, title, startedAt, content },
+  entry: { content, id: entryId, startedAt, title, url },
   ...otherProps
 }) => (
   <Box pos="relative" w="100%" maw={540} {...otherProps}>
@@ -70,7 +72,7 @@ interface JournalEntryCardCopyLinkTooltipProps extends PropsWithChildren {
 
 const JournalEntryCardCopyLinkTooltip: FC<
   JournalEntryCardCopyLinkTooltipProps
-> = ({ copied, children }) => {
+> = ({ children, copied }) => {
   // == Label
   const [label, setLabel] = useState("");
   useEffect(() => {

@@ -1,6 +1,5 @@
 import EmailLayout from "~/components/EmailLayout";
 import PageLayout from "~/components/PageLayout";
-
 import { PageType } from "~/helpers/inertia/page";
 
 export const preparePage = <Props extends SharedPageProps>(

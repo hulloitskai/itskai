@@ -1,4 +1,4 @@
-import type { PasswordInputProps } from "@mantine/core";
+import { type PasswordInputProps } from "@mantine/core";
 import { PasswordInput, Progress } from "@mantine/core";
 import { useThrottledValue, useUncontrolled } from "@mantine/hooks";
 
@@ -11,12 +11,12 @@ export interface StrongPasswordInputProps
 }
 
 const StrongPasswordInput: FC<StrongPasswordInputProps> = ({
-  onStrengthCheck,
   inputContainer,
   onChange,
+  onStrengthCheck,
   ...otherProps
 }) => {
-  const { value, defaultValue, error } = otherProps;
+  const { defaultValue, error, value } = otherProps;
   const [resolvedValue, handleChange] = useUncontrolled<string>({
     value,
     defaultValue,

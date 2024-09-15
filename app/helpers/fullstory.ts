@@ -1,5 +1,6 @@
-import type { SnippetOptions } from "@fullstory/browser";
+import { type SnippetOptions } from "@fullstory/browser";
 import { init } from "@fullstory/browser";
+
 import { environment, getMeta } from "~/helpers/meta";
 
 export const setupFullStory = () => {

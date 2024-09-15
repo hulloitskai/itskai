@@ -8,7 +8,7 @@ const RequestEmailVerificationPageForm: FC<
   RequestEmailVerificationPageFormProps
 > = ({ ...otherProps }) => {
   // == Form
-  const { getInputProps, submit, processing } = useInertiaForm({
+  const { getInputProps, processing, submit } = useInertiaForm({
     action: routes.usersConfirmations.create,
     method: "post",
     descriptor: "send verification email",

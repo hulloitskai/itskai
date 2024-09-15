@@ -1,2 +1,2 @@
-import "~/components/EmailWrapper";
 import "~/components/EmailLayout";
+import "~/components/EmailWrapper";

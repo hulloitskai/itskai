@@ -1,14 +1,14 @@
-import type { FormEvent } from "react";
-import type { Method, VisitOptions } from "@inertiajs/core";
-import type { PathHelper } from "@js-from-routes/client";
-import { sentencify } from "~/helpers/inflect";
-import { showFormErrorsAlert } from "~/helpers/form";
-
-import type {
-  FormErrors,
-  UseFormInput,
-  UseFormReturnType,
+import { type Method, type VisitOptions } from "@inertiajs/core";
+import { type PathHelper } from "@js-from-routes/client";
+import {
+  type FormErrors,
+  type UseFormInput,
+  type UseFormReturnType,
 } from "@mantine/form";
+import { type FormEvent } from "react";
+
+import { showFormErrorsAlert } from "~/helpers/form";
+import { sentencify } from "~/helpers/inflect";
 
 type InertiaPartialForm<Values> = Omit<
   UseFormReturnType<Values>,
@@ -48,15 +48,15 @@ export const useInertiaForm = <
 ): InertiaForm<Values> => {
   const {
     action: actionRoute,
-    params,
     descriptor,
-    method = "get",
-    transformValues = deepUnderscoreKeys,
-    transformErrors = deepCamelizeKeys,
     failSilently,
-    onSuccess,
+    method = "get",
     onError,
     onFailure,
+    onSuccess,
+    params,
+    transformErrors = deepCamelizeKeys,
+    transformValues = deepUnderscoreKeys,
     ...otherOptions
   } = options;
   const action = useMemo(() => actionRoute.path(params), [actionRoute, params]);

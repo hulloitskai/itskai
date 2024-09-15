@@ -1,5 +1,5 @@
 import { Render as NotionRenderer } from "@9gustin/react-notion-render";
-import type { WithContentValidationProps as NotionComponentProps } from "@9gustin/react-notion-render/dist/hoc/withContentValidation";
+import { type WithContentValidationProps as NotionComponentProps } from "@9gustin/react-notion-render/dist/hoc/withContentValidation";
 
 import classes from "./NotionContent.module.css";
 import "@9gustin/react-notion-render/dist/index.css";

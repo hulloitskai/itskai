@@ -10,10 +10,10 @@ export interface ErrorPageProps extends SharedPageProps {
 }
 
 const ErrorPage: PageComponent<ErrorPageProps> = ({
-  title,
-  description,
   code,
+  description,
   error,
+  title,
 }) => (
   <Stack align="center">
     <Badge variant="outline" color="red">

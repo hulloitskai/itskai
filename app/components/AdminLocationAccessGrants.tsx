@@ -1,10 +1,9 @@
-import type { LocationAccessGrant } from "~/types";
+import { type LocationAccessGrant } from "~/types";
 
-import type { LocationAccessGrantCreateFormProps } from "./AdminLocationAccessGrantCreateForm";
-import LocationAccessGrantCreateForm from "./AdminLocationAccessGrantCreateForm";
-
-import type { AdminLocationAccessGrantCardProps } from "./AdminLocationAccessGrantCard";
+import { type AdminLocationAccessGrantCardProps } from "./AdminLocationAccessGrantCard";
 import AdminLocationAccessGrantCard from "./AdminLocationAccessGrantCard";
+import { type LocationAccessGrantCreateFormProps } from "./AdminLocationAccessGrantCreateForm";
+import LocationAccessGrantCreateForm from "./AdminLocationAccessGrantCreateForm";
 
 import classes from "./AdminLocationAccessGrants.module.css";
 
@@ -17,9 +16,9 @@ export interface AdminLocationAccessGrantsProps
 }
 
 const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
+  newGrantId,
   onCreated,
   onDeleted,
-  newGrantId,
   ...otherProps
 }) => {
   // == Grants

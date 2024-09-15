@@ -46,7 +46,7 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
       currentPassword: isNotEmpty("Current password is required"),
     },
   });
-  const { getInputProps, isDirty, submit, processing } = form;
+  const { getInputProps, isDirty, processing, submit } = form;
   const currentPasswordFilled = useFieldsFilled(form, "currentPassword");
   const passwordFieldsFilled = useFieldsFilled(
     form,

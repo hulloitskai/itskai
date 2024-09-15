@@ -18,11 +18,11 @@ export interface AppMetaProps {
 const transformMeta = (value: string): string => value.toLocaleLowerCase();
 
 const AppMeta: FC<AppMetaProps> = ({
-  siteName = APP_META_SITE_NAME,
-  title: titleProp,
   description = APP_META_SITE_DESCRIPTION,
   imageUrl = APP_META_SITE_IMAGE,
   noIndex,
+  siteName = APP_META_SITE_NAME,
+  title: titleProp,
 }) => {
   const pageVisible = usePageVisibilityChange("visible");
   const pageTitle = useMemo<string>(() => {

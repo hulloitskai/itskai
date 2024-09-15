@@ -1,17 +1,16 @@
-import type { Image as ImageModel } from "~/types";
-import { upload } from "~/helpers/upload";
-import PhotoIcon from "~icons/heroicons/photo-20-solid";
-
-import type { DropzoneProps } from "@mantine/dropzone";
+import { type ImageProps, type InputWrapperProps } from "@mantine/core";
+import { Image, Input, rgba, Text } from "@mantine/core";
+import { type DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
-
-import type { ImageProps, InputWrapperProps } from "@mantine/core";
-import { Image, Input, Text, rgba } from "@mantine/core";
 import { useUncontrolled } from "@mantine/hooks";
 
-import "@mantine/dropzone/styles.layer.css";
+import PhotoIcon from "~icons/heroicons/photo-20-solid";
+
+import { upload } from "~/helpers/upload";
+import { type Image as ImageModel } from "~/types";
 
 import classes from "./ImageInput.module.css";
+import "@mantine/dropzone/styles.layer.css";
 
 export type ImageValue = { signedId: string };
 
@@ -34,32 +33,32 @@ export interface ImageInputProps
 }
 
 const ImageInput: FC<ImageInputProps> = ({
-  value,
+  center,
   defaultValue,
-  onChange,
-  variant,
-  labelElement,
-  label,
-  labelProps,
   description,
   descriptionProps,
+  disabled,
   error,
   errorProps,
-  required,
-  disabled,
-  withAsterisk,
-  w,
   h = 140,
+  label,
+  labelElement,
+  labelProps,
+  onChange,
+  p,
+  pb,
   pl,
   pr,
-  pb,
   pt,
   px,
   py = 2,
-  p,
   radius = "md",
-  center,
+  required,
   style,
+  value,
+  variant,
+  w,
+  withAsterisk,
 }) => {
   const [resolvedValue, handleChange] = useUncontrolled({
     value,

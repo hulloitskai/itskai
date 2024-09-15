@@ -1,5 +1,6 @@
-import type { OAuthConnection } from "~/types";
-import type { ButtonProps } from "@mantine/core";
+import { type ButtonProps } from "@mantine/core";
+
+import { type OAuthConnection } from "~/types";
 
 export interface AdminOAuthDisconnectButtonProps
   extends ButtonProps,
@@ -13,7 +14,7 @@ const AdminOAuthDisconnectButton: FC<AdminOAuthDisconnectButtonProps> = ({
   onDisconnected: onDisconnected,
   ...otherProps
 }) => {
-  const { submit, processing } = useFetchForm({
+  const { processing, submit } = useFetchForm({
     action: routes.adminOAuthConnections.destroy,
     params: { provider },
     method: "delete",

@@ -1,16 +1,16 @@
-import type { Resume, ResumeProfileInfo } from "~/types";
-import { BadgeProps, Text } from "@mantine/core";
+import { type BadgeProps, Text } from "@mantine/core";
 
+import LinkedInIcon from "~icons/basil/linkedin-solid";
 import EnvelopeIcon from "~icons/heroicons/envelope-20-solid";
 import GithubIcon from "~icons/ri/github-fill";
-import LinkedInIcon from "~icons/basil/linkedin-solid";
 
-import ResumeLayout from "~/components/ResumeLayout";
+import ResumeDialog from "~/components/ResumeDialog";
 import ResumeEducationSection from "~/components/ResumeEducationSection";
+import ResumeLayout from "~/components/ResumeLayout";
+import ResumeProjectSection from "~/components/ResumeProjectSection";
 import ResumeSkillsSection from "~/components/ResumeSkillsSection";
 import ResumeWorkSection from "~/components/ResumeWorkSection";
-import ResumeDialog from "~/components/ResumeDialog";
-import ResumeProjectSection from "~/components/ResumeProjectSection";
+import { type Resume, type ResumeProfileInfo } from "~/types";
 
 export interface ResumePageProps extends SharedPageProps {
   resume: Resume;
@@ -19,11 +19,11 @@ export interface ResumePageProps extends SharedPageProps {
 }
 
 const ResumePage: PageComponent<ResumePageProps> = ({
+  printMode,
   resume,
   variant,
-  printMode,
 }) => {
-  const { basics, work, education, skills, projects } = resume;
+  const { basics, education, projects, skills, work } = resume;
   const { email, profiles } = basics ?? {};
   const obfuscatedEmail = useMemo(() => email?.replace("@", "[at]"), [email]);
   return (

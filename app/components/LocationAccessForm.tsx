@@ -1,7 +1,7 @@
-import type { MantineSize } from "@mantine/core";
+import { type MantineSize } from "@mantine/core";
+import { isNotEmpty } from "@mantine/form";
 
 import classes from "./LocationAccessForm.module.css";
-import { isNotEmpty } from "@mantine/form";
 
 export interface LocationAccessFormProps
   extends BoxProps,
@@ -13,14 +13,14 @@ export interface LocationAccessFormProps
 
 const LocationAccessForm: FC<LocationAccessFormProps> = ({
   autofillPassword,
-  size = "md",
   onSuccess,
+  size = "md",
   ...otherProps
 }) => {
   const initialValues = {
     password: "",
   };
-  const { getInputProps, setFieldValue, submit, processing } = useFetchForm<
+  const { getInputProps, processing, setFieldValue, submit } = useFetchForm<
     { token: string },
     typeof initialValues
   >({

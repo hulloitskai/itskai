@@ -1,5 +1,6 @@
-import type { Exploration } from "~/types";
 import { isNotEmpty } from "@mantine/form";
+
+import { type Exploration } from "~/types";
 
 export interface ExplorationCommentFormProps
   extends BoxProps,
@@ -17,7 +18,7 @@ const ExplorationCommentForm: FC<ExplorationCommentFormProps> = ({
     () => ({ exploration_id: exploration.id }),
     [exploration.id],
   );
-  const { getInputProps, submit, processing } = useFetchForm({
+  const { getInputProps, processing, submit } = useFetchForm({
     action: routes.explorations.comment,
     method: "post",
     descriptor: "create comment",

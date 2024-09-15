@@ -1,7 +1,8 @@
-import type { ResumeWorkInfo } from "~/types";
-
 import { Highlight, Text } from "@mantine/core";
+
 import ArrowRightIcon from "~icons/heroicons/arrow-long-right-20-solid";
+
+import { type ResumeWorkInfo } from "~/types";
 
 import WebsiteBadge from "./WebsiteBadge";
 
@@ -36,7 +37,7 @@ const HIGHLIGHT_WORDS = [
 ];
 
 const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({
-  workInfo: { name, position, url, startDate, endDate, summary, highlights },
+  workInfo: { endDate, highlights, name, position, startDate, summary, url },
 }) => (
   <Box>
     <Group gap={8}>

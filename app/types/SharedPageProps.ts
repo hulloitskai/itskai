@@ -1,5 +1,6 @@
-import type { PageProps } from "@inertiajs/core";
-import type { User } from ".";
+import { type PageProps } from "@inertiajs/core";
+
+import { type User } from ".";
 
 export default interface SharedPageProps extends PageProps {
   csrf: {

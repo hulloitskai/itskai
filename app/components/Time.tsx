@@ -1,8 +1,7 @@
+import { type TextProps } from "@mantine/core";
 import { Text } from "@mantine/core";
-import type { TextProps } from "@mantine/core";
-
+import { type DateTimeFormatOptions } from "luxon";
 import { DateTime } from "luxon";
-import type { DateTimeFormatOptions } from "luxon";
 
 import classes from "./Time.module.css";
 
@@ -15,17 +14,17 @@ export interface TimeProps
 }
 
 const Time: FC<TimeProps> = ({
+  children,
+  component = "span",
   format,
   lh,
   m,
-  mt,
-  mr,
   mb,
   ml,
+  mr,
+  mt,
   mx,
   my,
-  children,
-  component = "span",
   ...otherProps
 }) => {
   const applyFormat = useCallback(
