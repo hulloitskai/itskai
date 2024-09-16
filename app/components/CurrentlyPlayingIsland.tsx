@@ -36,7 +36,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   const { online } = useNetwork();
 
   // == Track
-  const { data, mutate } = useFetch<{
+  const { data, mutate } = useFetchSWR<{
     currentlyPlaying: CurrentlyPlaying;
   }>(routes.currentlyPlayings.show, {
     descriptor: "load currently playing track",

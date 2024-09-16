@@ -44,9 +44,12 @@ const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
   }, [opened]);
 
   // == Server Status
-  const { data: statusData } = useFetch(routes.healthcheckHealthchecks.check, {
-    descriptor: "load server info",
-  });
+  const { data: statusData } = useFetchSWR(
+    routes.healthcheckHealthchecks.check,
+    {
+      descriptor: "load server info",
+    },
+  );
   const { bootedAt } = statusData ?? {};
 
   // == Logout

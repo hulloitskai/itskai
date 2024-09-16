@@ -77,7 +77,7 @@ const ImageInput: FC<ImageInputProps> = ({
       };
     }
   }, [resolvedValue]);
-  const { data } = useFetch<{
+  const { data } = useFetchSWR<{
     image: ImageModel;
   }>(routes.images.show, {
     descriptor: "load preview image",

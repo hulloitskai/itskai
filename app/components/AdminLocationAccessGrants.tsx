@@ -22,7 +22,7 @@ const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
   ...otherProps
 }) => {
   // == Grants
-  const { data, mutate } = useFetch<{ grants: LocationAccessGrant[] }>(
+  const { data, mutate } = useFetchSWR<{ grants: LocationAccessGrant[] }>(
     routes.admin.locationAccessGrants,
     {
       descriptor: "load location access grants",

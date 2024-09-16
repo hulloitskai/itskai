@@ -25,7 +25,7 @@ const NotionJournalEntryCommentsStack: FC<
     data: commentsData,
     fetching: commentsFetching,
     // mutate: mutateComments,
-  } = useFetch<{
+  } = useFetchSWR<{
     comments: NotionComment[];
   }>(routes.notionJournalEntries.comments, {
     descriptor: "load comments",

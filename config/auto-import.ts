@@ -44,7 +44,7 @@ export const imports: Array<ImportsMap | PresetName | InlinePreset> = [
     "~/helpers/meta": ["getMeta", "requireMeta"],
     "~/helpers/notifications": ["showNotice", "showAlert"],
     "~/helpers/routes": [["default", "routes"]],
-    "~/helpers/fetch": ["useFetch"],
+    "~/helpers/fetch/swr": ["useFetchSWR"],
     "~/helpers/fetch/form": ["useFetchForm"],
     "~/helpers/form": ["useFieldsFilled"],
     "~/helpers/utils": ["resolve", "isTruthy"],

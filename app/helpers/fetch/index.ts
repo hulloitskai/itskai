@@ -4,72 +4,21 @@ import {
   type RequestOptions,
   type ResponseError,
 } from "@js-from-routes/client";
-import { type SWRConfiguration, type SWRResponse } from "swr";
-import useSWR from "swr";
 
 export { setupFetch } from "./setup";
 
-export interface FetchResult<Data>
-  extends Omit<SWRResponse<Data, Error>, "isLoading" | "isValidating"> {
-  fetching: boolean;
-  validating: boolean;
-}
-
-export type FetchParams = {
-  query?: Record<string, any>;
-  [key: string]: any;
+export type FetchRouteOptions = Partial<
+  Omit<RequestOptions, "method" | "fetch">
+> & {
+  method?: Method;
+  skip?: boolean;
+  failSilently?: boolean;
+  descriptor: string;
 };
 
-export type FetchOptions = Partial<Omit<RequestOptions, "method" | "fetch">> &
-  SWRConfiguration & {
-    method?: Method;
-    skip?: boolean;
-    failSilently?: boolean;
-    descriptor: string;
-  };
-
-export const useFetch = <Data extends Record<string, any> & { error?: never }>(
+export const fetchRoute = async <Data>(
   route: PathHelper,
-  {
-    data,
-    descriptor,
-    deserializeData,
-    failSilently,
-    fetchOptions,
-    headers,
-    method,
-    params,
-    responseAs,
-    serializeData,
-    skip,
-    ...swrConfiguration
-  }: FetchOptions,
-): FetchResult<Data> => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const key = useMemo(() => (skip ? null : route.path(params)), [skip]);
-  const { isLoading, isValidating, ...swr } = useSWR<Data, Error>(
-    key,
-    async (): Promise<Data> =>
-      fetch(route, {
-        failSilently,
-        descriptor,
-        params,
-        data,
-        deserializeData,
-        fetchOptions,
-        method,
-        serializeData,
-        responseAs,
-        headers,
-      }),
-    swrConfiguration,
-  );
-  return { fetching: isLoading, validating: isValidating, ...swr };
-};
-
-export const fetch = async <Data>(
-  route: PathHelper,
-  options: Omit<FetchOptions, "skip">,
+  options: Omit<FetchRouteOptions, "skip">,
 ): Promise<Data> => {
   const { failSilently, ...otherOptions } = options;
   return route<Data>(otherOptions).catch((responseError: ResponseError) => {

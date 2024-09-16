@@ -1,4 +1,4 @@
-import { fetch } from "./fetch";
+import { fetchRoute } from "./fetch";
 
 export interface ContactOptions {
   subject?: string;
@@ -18,7 +18,7 @@ export const useContact = (
   });
   const contact = useCallback(() => {
     setResult(result => ({ ...result, loading: true }));
-    fetch<{ mailto: string }>(routes.contactUrls.show, {
+    fetchRoute<{ mailto: string }>(routes.contactUrls.show, {
       descriptor: "load contact email",
       params: options,
     })
