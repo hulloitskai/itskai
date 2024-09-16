@@ -39,11 +39,10 @@ export const useFetchSWR = <
   const key = useMemo(() => (skip ? null : route.path(params)), [skip]);
   const { isLoading, isValidating, ...swr } = useSWR<Data, Error>(
     key,
-    async (): Promise<Data> =>
+    async (route: string): Promise<Data> =>
       fetchRoute(route, {
         failSilently,
         descriptor,
-        params,
         data,
         deserializeData,
         fetchOptions,

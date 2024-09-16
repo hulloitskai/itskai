@@ -1,6 +1,7 @@
 import { type Method } from "@inertiajs/core";
 import {
   type PathHelper,
+  request,
   type RequestOptions,
   type ResponseError,
 } from "@js-from-routes/client";
@@ -17,11 +18,11 @@ export type FetchRouteOptions = Partial<
 };
 
 export const fetchRoute = async <Data>(
-  route: PathHelper,
+  route: PathHelper | string,
   options: Omit<FetchRouteOptions, "skip">,
 ): Promise<Data> => {
   const { failSilently, ...otherOptions } = options;
-  return route<Data>(otherOptions).catch((responseError: ResponseError) => {
+  const handleError = (responseError: ResponseError) => {
     const { error } = responseError.body as { error: string };
     console.error(`Failed to ${options.descriptor}`, error);
     if (!failSilently) {
@@ -32,5 +33,11 @@ export const fetchRoute = async <Data>(
       });
     }
     throw new Error(error);
-  });
+  };
+  if (typeof route === "string") {
+    const { method, ...otherOptions } = options;
+    const requestOptions = omit(otherOptions, "params");
+    return request(method ?? "get", route, requestOptions).catch(handleError);
+  }
+  return route<Data>(otherOptions).catch(handleError);
 };
