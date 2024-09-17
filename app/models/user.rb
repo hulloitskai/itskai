@@ -64,6 +64,12 @@ class User < ApplicationRecord
     ActionMailer::Base.email_address_with_name(email, name)
   end
 
+  sig { returns(String) }
+  def email_domain
+    _, domain = T.cast(email.split("@"), [String, String])
+    domain
+  end
+
   # == Attachments
   has_one_attached :avatar
 
@@ -103,10 +109,20 @@ class User < ApplicationRecord
     UserMailer.welcome_email(self).deliver_later
   end
 
-  # == Methods
+  # == Helpers
   sig { returns(T::Boolean) }
   def owner?
     email == Owner.email!
+  end
+
+  sig { returns(T::Boolean) }
+  def admin?
+    email.in?(Admin.emails) || email_domain.in?(Admin.email_domains)
+  end
+
+  sig { returns(T::Boolean) }
+  def example_email?
+    email_domain == "example.com"
   end
 
   protected

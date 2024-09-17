@@ -40,7 +40,7 @@ module ItsKai
     require "notifications"
     require "logging"
     require "owner"
-    # require "admin"
+    require "admin"
     require "google"
     require "spotify"
     require "icloud"
