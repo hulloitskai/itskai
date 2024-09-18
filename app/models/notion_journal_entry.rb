@@ -104,7 +104,7 @@ class NotionJournalEntry < ApplicationRecord
       end
       Rails.error.report(error, context: { notion_page_id: })
       Sentry.capture_exception(error)
-      raise error
+      raise
     end
     removed_entries = NotionJournalEntry
       .where.not(notion_page_id: notion_pages.map(&:id))

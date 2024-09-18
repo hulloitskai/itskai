@@ -2,4 +2,4 @@ postgres: docker compose up --no-log-prefix postgres-test
 mailcatcher: docker compose up --no-log-prefix mailcatcher
 icloudctl: FLASK_SKIP_DOTENV=1 DEBUG=true poetry run icloudctl
 vite-ssr: NODE_ENV=production bin/vite build --ssr && bin/vite ssr
-rails: NODE_ENV=production bin/vite build --no-ssr && bin/wait_for_postgres_ready && bin/rails db:prepare && bin/rails test test:system || exit -1
+rails: NODE_ENV=production bin/vite build --no-ssr && bin/rails db:prepare && bin/rails test test:system || exit -1

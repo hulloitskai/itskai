@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   include ActiveStorage::SetCurrent
   include RemembersUserLocation
   include Logging
+  include RendersJsonException
 
   # == Filters
   before_action :set_actor_id
@@ -29,7 +30,8 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  # == Rescuers
+  # == Exception handlers
+  rescue_from Exception, with: :report_and_render_json_exception
   rescue_from ActionPolicy::Unauthorized,
               with: :redirect_to_login_if_signed_out
 
@@ -97,6 +99,18 @@ class ApplicationController < ActionController::Base
     else
       yield
     end
+  end
+
+  sig { params(exception: Exception).void }
+  def report_and_render_json_exception(exception)
+    report_exception(exception)
+    render_json_exception(exception)
+  end
+
+  sig { params(exception: Exception).void }
+  def report_exception(exception)
+    Rails.error.report(exception)
+    Sentry.capture_exception(exception)
   end
 
   # == Rescue callbacks

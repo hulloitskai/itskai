@@ -10,9 +10,7 @@ module Cathendant
       render(json: {}, status: :created)
     rescue => error
       logger.error("Failed to create Cathendant memo: #{error}")
-      Rails.error.report(error)
-      Sentry.capture_exception(error)
-      render(json: { error: error.message }, status: :unprocessable_entity)
+      raise
     end
 
     private

@@ -9,8 +9,6 @@ class ContactUrlsController < ApplicationController
     mailto = Addressable::URI.parse("mailto:#{email}")
     mailto.query_values = contact_url_params.to_h.compact_blank
     render(json: { mailto: mailto.to_s })
-  rescue => error
-    render(json: { error: error.message }, status: :internal_server_error)
   end
 
   private

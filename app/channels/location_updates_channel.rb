@@ -11,10 +11,6 @@ class LocationUpdatesChannel < ApplicationCable::Channel
       raise "Access token is invalid or expired"
     stream_for(access)
     active_access_ids << access.id
-  rescue StandardError => error
-    Rails.error.report(error)
-    Sentry.capture_exception(error)
-    reject_with(error.message)
   end
 
   def unsubscribed
