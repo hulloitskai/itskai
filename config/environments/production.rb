@@ -46,7 +46,7 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for
   # options).
   config.active_storage.service =
-    ENV.fetch("RAILS_STORAGE_SERVICE", :amazon).to_sym
+    ENV.fetch("RAILS_STORAGE_SERVICE", :cloudflare).to_sym
 
   # == Action Cable
   # Mount Action Cable outside main process or domain.
