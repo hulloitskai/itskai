@@ -35,8 +35,10 @@ export const useFetchSWR = <
     ...swrConfiguration
   }: FetchRouteOptions,
 ): FetchSWRResult<Data> => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const key = useMemo(() => (skip ? null : route.path(params)), [skip]);
+  const key = useMemo(
+    () => (skip ? null : route.path(params)),
+    [skip, JSON.stringify(params)], // eslint-disable-line react-hooks/exhaustive-deps
+  );
   const { isLoading, isValidating, ...swr } = useSWR<Data, Error>(
     key,
     async (route: string): Promise<Data> =>

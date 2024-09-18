@@ -3,6 +3,7 @@
   "files.associations": {
     "Procfile.dev": "procfile",
     "Procfile.test": "procfile",
+    "Procfile.ci-test": "procfile",
     "Gemfile.lock": "plaintext",
     ".inputrc": "plaintext"
   },

@@ -27,10 +27,6 @@ else
   export POSTGRES_PORT=5433
 fi
 
-echo -e "=> Compiling assets"
-bin/rails assets:clobber assets:precompile
-
-echo -e "\n=> Running tests"
 PROCFILE=Procfile.test
 if [ -n "$CI" ]; then
   PROCFILE=Procfile.ci-test

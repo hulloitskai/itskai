@@ -70,18 +70,11 @@ const ImageInput: FC<ImageInputProps> = ({
   const [uploading, setUploading] = useState(false);
 
   // == Preview
-  const params = useMemo(() => {
-    if (resolvedValue) {
-      return {
-        signed_id: resolvedValue.signedId,
-      };
-    }
-  }, [resolvedValue]);
   const { data } = useFetchSWR<{
     image: ImageModel;
   }>(routes.images.show, {
     descriptor: "load preview image",
-    params: params,
+    params: resolvedValue ? { signed_id: resolvedValue.signedId } : undefined,
     skip: !resolvedValue,
   });
   const { image } = data ?? {};
