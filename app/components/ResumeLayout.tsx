@@ -3,11 +3,14 @@ import AppMeta from "./AppMeta";
 import classes from "./ResumeLayout.module.css";
 import "./ResumeLayout.css";
 
-export interface ResumeLayoutProps extends PropsWithChildren {
+export interface ResumeLayoutProps {
   printMode?: boolean;
 }
 
-const ResumeLayout: FC<ResumeLayoutProps> = ({ children, printMode }) => (
+const ResumeLayout: FC<PropsWithChildren<ResumeLayoutProps>> = ({
+  children,
+  printMode,
+}) => (
   <>
     <AppMeta title="Resume" />
     <Container

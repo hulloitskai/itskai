@@ -11,6 +11,8 @@
     "itarato.byesig",
     "github.vscode-github-actions",
     "clinyong.vscode-css-modules",
-    "rubocop.vscode-rubocop"
+    "rubocop.vscode-rubocop",
+    "csstools.postcss",
+    "redhat.vscode-yaml"
   ]
 }

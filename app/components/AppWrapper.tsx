@@ -4,11 +4,11 @@ import ActionCableProvider from "./ActionCableProvider";
 import AppMantineProvider from "./AppMantineProvider";
 import AppNavProgress from "./AppNavProgress";
 
-export interface AppWrapperProps extends PropsWithChildren {
+export interface AppWrapperProps {
   initialPage: Page<SharedPageProps>;
 }
 
-const AppWrapper: FC<AppWrapperProps> = ({ children }) => (
+const AppWrapper: FC<PropsWithChildren<AppWrapperProps>> = ({ children }) => (
   <ActionCableProvider>
     <AppMantineProvider>
       <AppNavProgress />

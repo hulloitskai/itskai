@@ -1,4 +1,11 @@
 {
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 12,
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["react-refresh", "simple-import-sort", "import"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -8,13 +15,6 @@
     "plugin:import/recommended",
     "plugin:import/typescript"
   ],
-  "plugins": ["react-refresh", "simple-import-sort", "import"],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaVersion": 12,
-    "project": "./tsconfig.json"
-  },
   "env": {
     "browser": true,
     "es2021": true,
@@ -58,14 +58,15 @@
       "warn",
       {
         "groups": [
-          // == Side effect imports.
+          // == Side effect imports
           ["^\\u0000"],
 
-          // == Node.js builtins prefixed with `node:`.
+          // == Node.js builtins prefixed with `node:`
           ["^node:"],
 
           // == Packages
-          // Things that start with a letter (or digit or underscore), or `@` followed by a letter.
+          // Things that start with a letter (or digit or underscore), or `@`
+          // followed by a letter
           ["^@?\\w"],
 
           // == Absolute imports and other imports such as Vue-style `@/foo`
@@ -74,8 +75,11 @@
           ["^"],
 
           // == Relative imports
-          // Anything that starts with a dot.
+          // (Anything that starts with a dot.)
           ["^\\."],
+
+          // == Fontsource fonts
+          ["^\\u0000@fontsource"],
 
           // == CSS modules
           ["\\.module\\.css$", "\\.css$"]
@@ -86,7 +90,8 @@
     "import/no-unresolved": "off",
     "import/first": "warn",
     "import/newline-after-import": "warn",
-    "import/consistent-type-specifier-style": ["warn", "prefer-inline"]
+    "import/consistent-type-specifier-style": ["warn", "prefer-inline"],
+    "import/namespace": "off"
   },
   "overrides": [
     {

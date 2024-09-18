@@ -66,12 +66,12 @@ const NotionJournalEntryCard: FC<NotionJournalEntryCardProps> = ({
 
 export default NotionJournalEntryCard;
 
-interface JournalEntryCardCopyLinkTooltipProps extends PropsWithChildren {
+interface JournalEntryCardCopyLinkTooltipProps {
   copied: boolean;
 }
 
 const JournalEntryCardCopyLinkTooltip: FC<
-  JournalEntryCardCopyLinkTooltipProps
+  PropsWithChildren<JournalEntryCardCopyLinkTooltipProps>
 > = ({ children, copied }) => {
   // == Label
   const [label, setLabel] = useState("");
