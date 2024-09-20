@@ -11,7 +11,9 @@
 
     // == Linting
     "strict": true,
-    "noUncheckedIndexedAccess": true
+    "noUnusedLocals": true,
+    "noUncheckedIndexedAccess": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["vite.config.ts", "config/**/*.ts"]
 }

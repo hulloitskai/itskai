@@ -24,7 +24,7 @@ gem "rgeo-activerecord", "~> 7.0"
 gem "activerecord-postgis-adapter", "~> 9.0"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 6.3.1"
+gem "puma", "~> 6.4.2"
 
 # Use enhanced PostgreSQL adapter for Action Cable
 gem "actioncable-enhanced-postgresql-adapter", "~> 1.0"
@@ -226,6 +226,7 @@ group :development, :test do
 
   # Use Rubocop to lint code
   gem "rubocop", "~> 1.62", require: false
+  gem "rexml", ">= 3.3.6", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-shopify", require: false
@@ -236,6 +237,12 @@ group :development, :test do
 end
 
 group :development do
+  # Run git hooks with Lefthook
+  gem "lefthook", "~> 1.7"
+
+  # Patch-level verification for Bundler
+  gem "bundler-audit", "~> 0.9.2"
+
   # Detect file changes for live reload
   gem "listen", "~> 3.8"
 

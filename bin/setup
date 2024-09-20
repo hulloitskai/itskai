@@ -57,7 +57,7 @@ FileUtils.chdir APP_ROOT do
   system! "poetry install"
 
   puts "\n=> Installing git hooks"
-  system! "npx husky install"
+  system! "bin/lefthook install"
 
   puts "\n=> Installing Playwright"
   system! "npx playwright install chromium"

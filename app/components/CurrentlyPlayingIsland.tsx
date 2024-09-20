@@ -25,10 +25,10 @@ export interface CurrentlyPlayingIslandProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {}
 
-type TransitionState = {
+interface TransitionState {
   mounted: boolean;
   transitioned: boolean;
-};
+}
 
 const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   ...otherProps
@@ -127,10 +127,10 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
 
 export default CurrentlyPlayingIsland;
 
-type TrackCoalescerProps = {
+interface TrackCoalescerProps {
   track?: any | null;
   children: (track: any) => ReactNode;
-};
+}
 
 const TrackCoalescer: FC<TrackCoalescerProps> = ({
   children,

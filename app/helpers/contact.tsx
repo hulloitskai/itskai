@@ -5,10 +5,10 @@ export interface ContactOptions {
   body?: string;
 }
 
-export type ContactResult = {
+export interface ContactResult {
   loading: boolean;
   error?: Error;
-};
+}
 
 export const useContact = (
   options?: ContactOptions,

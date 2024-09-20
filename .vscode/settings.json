@@ -23,11 +23,6 @@
     "https://json.schemastore.org/github-workflow.json": "${workspaceFolder}/.github/workflows/deploy.yml"
   },
 
-  // == Ruby
-  "ruby.useLanguageServer": false,
-  "ruby.intellisense": false,
-  "ruby.format": false,
-
   // == Formatting
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

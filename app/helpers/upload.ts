@@ -3,19 +3,19 @@ import { DirectUpload } from "@rails/activestorage?client";
 
 import { requireMeta } from "./meta";
 
-export type UseUploadParams = {
+export interface UseUploadParams {
   onProgress?: (progress: number) => void;
   onCompleted?: (blob: Blob) => void;
   onError?: (error: Error) => void;
-};
+}
 
-export type UploadState = {
+export interface UploadState {
   blob: Blob | null;
   error: Error | null;
   progress: number;
   uploading: boolean;
   cancel: () => void;
-};
+}
 
 export const useLazyUpload = (
   params: UseUploadParams = {},

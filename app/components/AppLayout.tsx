@@ -24,8 +24,8 @@ export interface AppLayoutProps<PageProps extends SharedPageProps>
     | AppMetaProps["description"]
     | ((props: PageProps) => AppMetaProps["description"]);
   breadcrumbs?:
-    | ReadonlyArray<AppBreadcrumb | null | false>
-    | ((props: PageProps) => ReadonlyArray<AppBreadcrumb | null | false>);
+    | readonly (AppBreadcrumb | null | false)[]
+    | ((props: PageProps) => readonly (AppBreadcrumb | null | false)[]);
   withContainer?: boolean;
   containerSize?: MantineSize | (string & {}) | number;
   containerProps?: ContainerProps;
@@ -33,10 +33,10 @@ export interface AppLayoutProps<PageProps extends SharedPageProps>
   gutterSize?: MantineSize | (string & {}) | number;
 }
 
-export type AppBreadcrumb = {
+export interface AppBreadcrumb {
   title: string;
   href: string;
-};
+}
 
 const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
   title: titleProp,

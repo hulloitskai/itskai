@@ -12,7 +12,9 @@ import { type Image as ImageModel } from "~/types";
 import classes from "./ImageInput.module.css";
 import "@mantine/dropzone/styles.layer.css";
 
-export type ImageValue = { signedId: string };
+export interface ImageValue {
+  signedId: string;
+}
 
 export interface ImageInputProps
   extends Omit<

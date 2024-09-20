@@ -57,10 +57,8 @@ jobs:
           POSTGRES_DATABASE: postgres
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
-      - name: Check formatting
-        run: bin/fmt --ci
-      - name: Check lints
-        run: bin/lint --ci
+      - name: Check lints and formatting
+        run: bin/check
       - name: Run tests
         run: bin/test
       - name: Keep screenshots from failed system tests

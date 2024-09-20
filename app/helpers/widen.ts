@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export type Widen<T> = [T] extends [Array<infer E>]
+export type Widen<T> = [T] extends [(infer E)[]]
   ? { [K in keyof T]: Widen<T[K]> }
   : [T] extends [object]
     ? PartialKeys<

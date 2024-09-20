@@ -9,9 +9,3 @@ declare module "@rails/activestorage?client" {
 
   export = all;
 }
-
-declare module "react-media-recorder?client" {
-  import * as all from "react-media-recorder";
-
-  export = all;
-}

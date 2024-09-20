@@ -13,7 +13,9 @@ import FileInputUploadCard from "./FileInputUploadCard";
 
 import "@mantine/dropzone/styles.layer.css";
 
-export type FileValue = { signedId: string };
+export interface FileValue {
+  signedId: string;
+}
 
 export interface FileInputProps<Multiple = false>
   extends BoxProps,

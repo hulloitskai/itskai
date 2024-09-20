@@ -17,7 +17,7 @@ export interface PensieveProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {
   expandable?: boolean;
-  onLoadMessages?: (messages: ReadonlyArray<PensieveMessageFragment>) => void;
+  onLoadMessages?: (messages: readonly PensieveMessageFragment[]) => void;
   onNewMessage?: () => void;
 }
 

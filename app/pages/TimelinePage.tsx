@@ -22,10 +22,10 @@ import TimelinePagePhoto from "~/components/TimelinePagePhoto";
 
 export interface TimelinePageProps extends SharedPageProps {}
 
-type TimelineSharedFeatureProperties = {
+interface TimelineSharedFeatureProperties {
   opacity: number;
   zoom: number;
-};
+}
 
 type TimelineActivitySegmentProperties = TimelineSharedFeatureProperties & {
   startedAt: DateTime;
@@ -50,7 +50,7 @@ enum TimelineActivityType {
   ActivitySegment = "activity_segment",
 }
 
-type TimelineMoment = {
+interface TimelineMoment {
   time: DateTime;
   activitySegmentFeatures: TimelineActivitySegmentFeature[];
   placeVisitFeatures: TimelinePlaceVisitFeature[];
@@ -59,7 +59,7 @@ type TimelineMoment = {
     | TimelinePlaceVisitFeature
     | null;
   photos: TimelinePhotoFragment[];
-};
+}
 
 const truncateTimelineActivitySegmentIfNecessary = (
   feature: TimelineActivitySegmentFeature,
@@ -160,7 +160,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
   );
 
   // == Activities
-  const activitiesRef = useRef<ReadonlyArray<TimelinePageActivityFragment>>([]);
+  const activitiesRef = useRef<TimelinePageActivityFragment[]>([]);
 
   // == Preloaded photos
   const [preloadedPhotoIdsInitialValue] = useState<Set<string>>(new Set());

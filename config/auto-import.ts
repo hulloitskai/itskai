@@ -1,7 +1,7 @@
 import { type InlinePreset } from "unimport";
 import { type ImportsMap, type PresetName } from "unplugin-auto-import/types";
 
-export const imports: Array<ImportsMap | PresetName | InlinePreset> = [
+export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
   // == Presets
   "react",
 

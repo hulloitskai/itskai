@@ -11,10 +11,10 @@ export interface FetchSWRResult<Data>
 
 export type FetchSWROptions = FetchRouteOptions & SWRConfiguration;
 
-export type FetchSWRParams = {
+export interface FetchSWRParams {
   query?: Record<string, any>;
   [key: string]: any;
-};
+}
 
 export const useFetchSWR = <
   Data extends Record<string, any> & { error?: never },

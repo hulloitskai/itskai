@@ -1,9 +1,9 @@
 import { type LyricLine } from "~/types";
 
-export type InterpolatedProgressMsParams = {
+export interface InterpolatedProgressMsParams {
   progressMs: number;
   interpolationMs: number;
-};
+}
 
 export const useInterpolatedProgressMs = ({
   interpolationMs,
@@ -25,11 +25,11 @@ export const useInterpolatedProgressMs = ({
   return interpolatedProgressMs;
 };
 
-export type ProgressLyricsIndexMappingParams = {
+export interface ProgressLyricsIndexMappingParams {
   lyrics: Pick<LyricLine, "startTimeMs">[] | null | undefined;
   durationMs: number;
   interpolationMs: number;
-};
+}
 
 export const useProgressLyricsIndexMapping = ({
   durationMs,
