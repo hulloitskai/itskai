@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
 
-set -e
-
-bin/overmind quit $@
+${BASH_SOURCE%/*}/overmind quit $@

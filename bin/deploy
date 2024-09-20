@@ -3,7 +3,7 @@
 set -e
 
 # Run migrations
-bin/rails db:migrate
+bundle exec rails db:migrate
 
 # Run deploy tasks
-bin/rails after_party:run
+bundle exec rails after_party:run

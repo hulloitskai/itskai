@@ -16,7 +16,7 @@ fi
 
 export OVERMIND_SKIP_ENV=1
 export OVERMIND_NO_PORT=1
-export OVERMIND_SOCKET=tmp/sockets/overmind.${RAILS_ENV:-development}.sock
+export OVERMIND_SOCKET=${BASH_SOURCE%/*}/../tmp/sockets/overmind.${RAILS_ENV:-development}.sock
 export OVERMIND_SHELL=bash
 
 overmind $@

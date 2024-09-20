@@ -27,12 +27,12 @@ else
   export POSTGRES_PORT=5433
 fi
 
-PROCFILE=Procfile.test
+PROCFILE=${BASH_SOURCE%/*}/../Procfile.test
 if [ -n "$CI" ]; then
-  PROCFILE=Procfile.ci-test
+  PROCFILE=${BASH_SOURCE%/*}/../Procfile.ci-test
 fi
 EXIT_CODE=0
-bin/overmind start -f "$PROCFILE" --no-port "$@" || EXIT_CODE=$?
+${BASH_SOURCE%/*}/overmind start -f "$PROCFILE" --no-port "$@" || EXIT_CODE=$?
 if [ "$EXIT_CODE" -ne 130 ]; then
 exit $EXIT_CODE
 fi
