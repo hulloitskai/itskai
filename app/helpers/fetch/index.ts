@@ -12,14 +12,13 @@ export type FetchRouteOptions = Partial<
   Omit<RequestOptions, "method" | "fetch">
 > & {
   method?: Method;
-  skip?: boolean;
   failSilently?: boolean;
   descriptor: string;
 };
 
 export const fetchRoute = async <Data>(
   route: PathHelper | string,
-  options: Omit<FetchRouteOptions, "skip">,
+  options: FetchRouteOptions,
 ): Promise<Data> => {
   const { failSilently, ...otherOptions } = options;
   const handleError = (responseError: ResponseError) => {

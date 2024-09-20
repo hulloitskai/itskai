@@ -77,7 +77,7 @@ const ImageInput: FC<ImageInputProps> = ({
   }>(routes.images.show, {
     descriptor: "load preview image",
     params: resolvedValue ? { signed_id: resolvedValue.signedId } : undefined,
-    skip: !resolvedValue,
+    isPaused: () => !resolvedValue?.signedId,
   });
   const { image } = data ?? {};
 

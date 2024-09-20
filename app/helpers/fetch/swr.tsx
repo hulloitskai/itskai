@@ -22,7 +22,6 @@ export const useFetchSWR = <
   route: PathHelper,
   {
     method,
-    skip,
     failSilently,
     descriptor,
     params,
@@ -33,11 +32,12 @@ export const useFetchSWR = <
     responseAs,
     headers,
     ...swrConfiguration
-  }: FetchRouteOptions,
+  }: FetchSWROptions,
 ): FetchSWRResult<Data> => {
+  const { isPaused } = swrConfiguration;
   const key = useMemo(
-    () => (skip ? null : route.path(params)),
-    [skip, JSON.stringify(params)], // eslint-disable-line react-hooks/exhaustive-deps
+    () => (isPaused?.() ? null : route.path(params)),
+    [isPaused, JSON.stringify(params)], // eslint-disable-line react-hooks/exhaustive-deps
   );
   const { isLoading, isValidating, ...swr } = useSWR<Data, Error>(
     key,

@@ -4,16 +4,16 @@ check:
     check-prettier:
       files: &modified-files git ls-files -m
       run: npx prettier --list-different {files}
-      glob: "*.{js,mjs,cjs,jsx,ts,cts,mts,tsx,css,md,html,json,yaml,yml}"
+      glob: "*.{js,jsx,ts,tsx,css,md,html,json,yaml,yml}"
       tags: js
     check-eslint:
       files: *modified-files
       run: npx eslint --report-unused-disable-directives --no-warn-ignored {files}
-      glob: "*.{js,mjs,cjs,jsx,ts,cts,mts,tsx}"
+      glob: "*.{js,jsx,ts,tsx}"
       tags: js
     check-tsc:
       run: npx tsc
-      glob: "*.{ts,tsx,cts,mts}"
+      glob: "*.{ts,tsx}"
       tags: js
     check-rubocop:
       files: *modified-files
@@ -36,12 +36,12 @@ fix:
     fix-prettier:
       files: &modified-files git ls-files -m
       run: npx prettier --write {files}
-      glob: "*.{js,mjs,cjs,jsx,ts,cts,mts,tsx,css,md,html,json,yaml,yml}"
+      glob: "*.{js,jsx,ts,tsx,css,md,html,json,yaml,yml}"
       tags: js
     fix-eslint:
       files: *modified-files
       run: npx eslint --report-unused-disable-directives --no-warn-ignored --fix {files}
-      glob: "*.{js,mjs,cjs,jsx,ts,cts,mts,tsx}"
+      glob: "*.{js,jsx,ts,tsx}"
       tags: js
     fix-rubocop:
       files: *modified-files
@@ -71,29 +71,30 @@ audit: &audit
 
 pre-commit:
   parallel: true
-  check-prettier:
-    run: npx prettier --cache --list-different {staged_files}
-    glob: "*.{js,mjs,cjs,jsx,ts,cts,mts,tsx,css,md,html,json,yaml,yml}"
-    tags: js
-  check-eslint:
-    run: npx eslint --cache --report-unused-disable-directives --no-warn-ignored {staged_files}
-    glob: "*.{js,mjs,cjs,jsx,ts,cts,mts,tsx}"
-    tags: js
-  check-tsc:
-    run: npx tsc
-    glob: "*.{ts,tsx,cts,mts}"
-    tags: js
-  check-rubocop:
-    run: bundle exec rubocop --cache --force-exclusion {staged_files}
-    glob: "*.{rb,rbi}"
-    tags: rb
-  check-mypy:
-    run: poetry run mypy --incremental {staged_files}
-    glob: "*.py"
-    tags: py
-  check-black:
-    run: poetry run black --check --force-exclude {staged_files}
-    glob: "*.py"
-    tags: py
+  commands:
+    check-prettier:
+      run: npx prettier --cache --list-different {staged_files}
+      glob: "*.{js,jsx,ts,tsx,css,md,html,json,yaml,yml}"
+      tags: js
+    check-eslint:
+      run: npx eslint --cache --report-unused-disable-directives --no-warn-ignored {staged_files}
+      glob: "*.{js,jsx,ts,tsx}"
+      tags: js
+    check-tsc:
+      run: npx tsc
+      glob: "*.{ts,tsx}"
+      tags: js
+    check-rubocop:
+      run: bundle exec rubocop --cache=true --force-exclusion {staged_files}
+      glob: "*.{rb,rbi}"
+      tags: rb
+    check-mypy:
+      run: poetry run mypy --incremental {staged_files}
+      glob: "*.py"
+      tags: py
+    check-black:
+      run: poetry run black --check --force-exclude {staged_files}
+      glob: "*.py"
+      tags: py
 
 pre-push: *audit
