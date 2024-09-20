@@ -32,7 +32,7 @@ const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
     const { name } = getValues();
     openModal({
       title: "I'm a modal!",
-      children: <TestPageModalContent name={name} />,
+      children: <TestPageModalBody name={name} />,
     });
   }, [getValues]);
   const showAlert = useCallback(() => {
@@ -85,13 +85,13 @@ TestPage.layout = page => (
 
 export default TestPage;
 
-interface TestPageModalContentProps
+interface TestPageModalBodyProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {
   name: string;
 }
 
-const TestPageModalContent: FC<TestPageModalContentProps> = ({
+const TestPageModalBody: FC<TestPageModalBodyProps> = ({
   name,
   ...otherProps
 }) => (
