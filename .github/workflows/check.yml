@@ -45,11 +45,11 @@ jobs:
           cache: poetry
       - name: Install Overmind
         run: |
-          sudo apt-get install tmux \
-            && sudo curl -Lo /usr/bin/overmind.gz https://github.com/DarthSim/overmind/releases/download/v${{ env.OVERMIND_VERSION }}/overmind-v${{ env.OVERMIND_VERSION }}-linux-amd64.gz \
-            && sudo gzip -d /usr/bin/overmind.gz \
-            && sudo chmod u+x /usr/bin/overmind \
-            && sudo chown $(whoami) /usr/bin/overmind
+          sudo apt-get install tmux
+          sudo curl -Lo /usr/bin/overmind.gz https://github.com/DarthSim/overmind/releases/download/v${{ env.OVERMIND_VERSION }}/overmind-v${{ env.OVERMIND_VERSION }}-linux-amd64.gz
+          sudo gzip -d /usr/bin/overmind.gz
+          sudo chmod u+x /usr/bin/overmind
+          sudo chown $(whoami) /usr/bin/overmind
       - name: Set up environment
         run: bin/setup
         env:
