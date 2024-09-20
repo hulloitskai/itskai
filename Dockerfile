@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1.2
 
 
-# == System ==
+# == System
 FROM debian:bookworm-slim AS sys
 ENV OVERMIND_VERSION=2.5.1
 ENV STARSHIP_VERSION=1.20.1
@@ -103,7 +103,7 @@ COPY .bash_profile .inputrc /root/
 COPY starship.toml /root/.config/starship.toml
 
 
-# == System (Playwright) ==
+# == System (Playwright)
 FROM sys AS sys-playwright
 ENV PLAYWRIGHT_VERSION=1.45
 
@@ -118,7 +118,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   npx playwright --version
 
 
-# == Dependencies ==
+# == Dependencies
 FROM sys-playwright AS deps
 
 # Install Ruby dependencies
@@ -153,7 +153,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   rm -r /var/log/*
 
 
-# == Application ==
+# == Application
 FROM deps AS app
 ENV PORT=3000
 

@@ -3,7 +3,7 @@ check:
   commands:
     check-prettier:
       files: &modified-files git ls-files -m
-      run: npx prettier --list-different {files}
+      run: npx prettier --check {files}
       glob: "*.{js,jsx,ts,tsx,css,md,html,json,yaml,yml}"
       tags: js
     check-eslint:
@@ -73,11 +73,11 @@ pre-commit:
   parallel: true
   commands:
     check-prettier:
-      run: npx prettier --cache --list-different {staged_files}
+      run: npx prettier --check --cache {staged_files}
       glob: "*.{js,jsx,ts,tsx,css,md,html,json,yaml,yml}"
       tags: js
     check-eslint:
-      run: npx eslint --cache --report-unused-disable-directives --no-warn-ignored {staged_files}
+      run: npx eslint --report-unused-disable-directives --no-warn-ignored --cache {staged_files}
       glob: "*.{js,jsx,ts,tsx}"
       tags: js
     check-tsc:
@@ -85,7 +85,7 @@ pre-commit:
       glob: "*.{ts,tsx}"
       tags: js
     check-rubocop:
-      run: bundle exec rubocop --cache=true --force-exclusion {staged_files}
+      run: bundle exec rubocop --force-exclusion --cache {staged_files}
       glob: "*.{rb,rbi}"
       tags: rb
     check-mypy:
