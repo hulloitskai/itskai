@@ -58,7 +58,7 @@ jobs:
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
       - name: Check lints and formatting
-        run: bin/check
+        run: bin/check --all-files
       - name: Run tests
         run: bin/test
       - name: Keep screenshots from failed system tests
