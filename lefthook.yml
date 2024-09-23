@@ -85,7 +85,7 @@ pre-commit:
       glob: "*.{ts,tsx}"
       tags: js
     check-rubocop:
-      run: bundle exec rubocop --force-exclusion --cache {staged_files}
+      run: bundle exec rubocop --force-exclusion --cache=true {staged_files}
       glob: "*.{rb,rbi}"
       tags: rb
     check-mypy:

@@ -16,9 +16,6 @@ const FileInputUploadCard: FC<FileInputUploadCardProps> = ({
 }) => {
   const { blob, cancel, error, progress, uploading } = useUpload(file, {
     onCompleted: onUploaded,
-    onError: ({ message }) => {
-      showAlert({ title: `Failed to upload file '${file.name}'`, message });
-    },
   });
   return (
     <Card withBorder padding="xs" pr={6} pt={6} {...props}>

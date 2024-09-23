@@ -8,8 +8,7 @@ class ImagesController < ApplicationController
   # == Actions
   # GET /images/:signed_id
   def show
-    image_blob = @image_blob or raise "Missing image blob"
-    render(json: { image: ImageSerializer.one(image_blob) })
+    render(json: { image: ImageSerializer.one_if(@image_blob) })
   end
 
   private
@@ -18,7 +17,7 @@ class ImagesController < ApplicationController
   sig { void }
   def set_image_blob
     @image_blob = T.let(
-      ActiveStorage::Blob.find_signed!(params.fetch(:signed_id)),
+      ActiveStorage::Blob.find_signed(params.fetch(:signed_id)),
       T.nilable(ActiveStorage::Blob),
     )
   end

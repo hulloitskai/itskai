@@ -128,6 +128,7 @@ module ItsKai
     # == Active Storage
     config.active_storage.variant_processor = :vips
     config.active_storage.routes_prefix = "/storage"
+    config.active_storage.direct_uploads_size_limit = 25.megabytes
 
     # == Active Support
     config.active_support.remove_deprecated_time_with_zone_name = true

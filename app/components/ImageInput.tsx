@@ -73,7 +73,7 @@ const ImageInput: FC<ImageInputProps> = ({
 
   // == Preview
   const { data } = useFetchSWR<{
-    image: ImageModel;
+    image: ImageModel | null;
   }>(routes.images.show, {
     descriptor: "load preview image",
     params: resolvedValue ? { signed_id: resolvedValue.signedId } : undefined,
@@ -125,13 +125,6 @@ const ImageInput: FC<ImageInputProps> = ({
                   .then(blob => {
                     const value = { signedId: blob.signed_id };
                     handleChange(value);
-                  })
-                  .catch((error: Error) => {
-                    showAlert({
-                      title: "Failed to upload file",
-                      message: error.message,
-                    });
-                    console.error("Failed to upload file", error);
                   })
                   .finally(() => {
                     setUploading(false);

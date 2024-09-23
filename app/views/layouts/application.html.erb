@@ -25,6 +25,9 @@
 
     <%# == Active Storage %>
     <meta name="active-storage-direct-uploads-url" content="<%= rails_direct_uploads_path %>">
+    <% if (direct_uploads_size_limit = Rails.configuration.active_storage.direct_uploads_size_limit) %>
+      <meta name="active-storage-direct-uploads-size-limit" content="<%= direct_uploads_size_limit %>">
+    <% end %>
 
     <%# == Sentry %>
     <% scoped do %>
