@@ -20,7 +20,7 @@ const RequestEmailVerificationPageForm: FC<
       email: isEmail("Email is not valid"),
     },
     transformValues: values => ({
-      user: deepUnderscoreKeys(values),
+      user: underscoreKeys(values),
     }),
   });
 

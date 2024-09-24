@@ -63,8 +63,8 @@ export const useFetchForm = <
     onFailure,
     onSuccess,
     params,
-    transformErrors = deepCamelizeKeys,
-    transformValues = deepUnderscoreKeys,
+    transformErrors = camelizeKeys,
+    transformValues = underscoreKeys,
     ...otherOptions
   } = options;
   const form = useForm<Values, TransformValues<Values>>({

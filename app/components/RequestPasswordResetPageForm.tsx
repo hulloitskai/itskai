@@ -19,7 +19,7 @@ const RequestPasswordResetPageForm: FC<RequestPasswordResetPageFormProps> = ({
       email: isEmail("Email is not valid"),
     },
     transformValues: values => ({
-      user: deepUnderscoreKeys(values),
+      user: underscoreKeys(values),
     }),
   });
   return (

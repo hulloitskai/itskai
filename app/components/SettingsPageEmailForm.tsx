@@ -32,7 +32,7 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
       currentPassword: isNotEmpty("Current password is required"),
     },
     transformValues: values => ({
-      user: deepUnderscoreKeys(values),
+      user: underscoreKeys(values),
     }),
   });
   const { getInputProps, isDirty, processing, submit } = form;

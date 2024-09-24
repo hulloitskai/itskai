@@ -33,12 +33,7 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
     "~/helpers/errors": ["formatError"],
     "~/helpers/inertia/page": ["usePage", "usePageProps"],
     "~/helpers/inertia/form": ["useInertiaForm"],
-    "~/helpers/inflect": [
-      "camelizeKeys",
-      "underscoreKeys",
-      "deepCamelizeKeys",
-      "deepUnderscoreKeys",
-    ],
+    "~/helpers/inflect": ["camelizeKeys", "underscoreKeys"],
     "~/helpers/json": ["formatJSON"],
     "~/helpers/luxon": ["useParseDateTime"],
     "~/helpers/meta": ["getMeta", "requireMeta"],

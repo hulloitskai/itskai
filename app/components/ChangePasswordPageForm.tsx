@@ -44,7 +44,7 @@ const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
     },
     transformValues: values => ({
       user: {
-        ...deepUnderscoreKeys(values),
+        ...underscoreKeys(values),
         reset_password_token: resetPasswordToken,
       },
     }),

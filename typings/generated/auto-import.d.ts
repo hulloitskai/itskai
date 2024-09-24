@@ -61,8 +61,6 @@ declare global {
   const closeAllModals: typeof import('@mantine/modals')['closeAllModals']
   const createRef: typeof import('react')['createRef']
   const cx: typeof import('clsx')['clsx']
-  const deepCamelizeKeys: typeof import('~/helpers/inflect')['deepCamelizeKeys']
-  const deepUnderscoreKeys: typeof import('~/helpers/inflect')['deepUnderscoreKeys']
   const first: typeof import('lodash-es')['first']
   const formatError: typeof import('~/helpers/errors')['formatError']
   const formatJSON: typeof import('~/helpers/json')['formatJSON']

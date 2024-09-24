@@ -33,7 +33,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
     },
     transformValues: ({ expiresInHours, ...attributes }) => ({
       grant: {
-        ...deepUnderscoreKeys(attributes),
+        ...underscoreKeys(attributes),
         expires_in_seconds: expiresInHours * 60 * 60,
       },
     }),

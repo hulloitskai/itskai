@@ -39,7 +39,7 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
     },
     transformValues: values => ({
       user: {
-        ...deepUnderscoreKeys(values),
+        ...underscoreKeys(values),
       },
     }),
     onError: ({ setFieldValue }) => {

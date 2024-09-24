@@ -55,8 +55,8 @@ export const useInertiaForm = <
     onFailure,
     onSuccess,
     params,
-    transformErrors = deepCamelizeKeys,
-    transformValues = deepUnderscoreKeys,
+    transformErrors = camelizeKeys,
+    transformValues = underscoreKeys,
     ...otherOptions
   } = options;
   const action = useMemo(() => actionRoute.path(params), [actionRoute, params]);

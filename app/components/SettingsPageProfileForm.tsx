@@ -25,7 +25,7 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
     initialValues,
     transformValues: ({ avatar, ...attributes }) => ({
       user: {
-        ...deepUnderscoreKeys(attributes),
+        ...underscoreKeys(attributes),
         avatar: avatar ? avatar.signedId : "",
       },
     }),
