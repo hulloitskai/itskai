@@ -1,5 +1,6 @@
 import { type UseFormReturnType } from "@mantine/form";
 import { type _TransformValues, type LooseKeys } from "@mantine/form/lib/types";
+import scrollIntoView from "scroll-into-view";
 
 import { sentencify } from "./inflect";
 
@@ -26,55 +27,22 @@ export const showFormErrorsAlert = <
     const input = form.getInputNode(firstErrorPath);
     if (input) {
       input.focus();
-      input.scrollIntoView({ behavior: "smooth" });
+      scrollIntoView(input, {
+        align: { top: 0, topOffset: calculateHeaderHeight() },
+      });
     }
   }
 };
 
-// export const useFieldsFilled = <Values, Field extends LooseKeys<Values>>(
-//   form: Pick<UseFormReturnType<Values>, "watch" | "getValues">,
-//   field: Field,
-// ) => {
-//   return useMemo(
-//     () => isFilledValue(get(form.getValues(), field)),
-//     [form, field],
-//   );
-//   // const [fieldFilled, setFieldFilled] = useState(() =>
-//   //   isFilledValue(get(form.getValues(), field)),
-//   // );
-//   // form.watch(field, ({ value }) => {
-//   //   setFieldFilled(isFilledValue(value));
-//   // });
-//   // return fieldFilled;
-// };
+const calculateHeaderHeight = (): number => {
+  const header = first(document.getElementsByTagName("header"));
+  return header ? header.clientHeight : 0;
+};
 
 export const useFieldsFilled = <Values,>(
   form: Pick<UseFormReturnType<Values>, "watch" | "getValues">,
   ...fields: LooseKeys<Values>[]
 ) => {
-  // const [filledFields, setFilledFields] = useState(() => {
-  //   const values = form.getValues();
-  //   return fields.reduce(
-  //     (fieldsFilled, field) => ({
-  //       ...fieldsFilled,
-  //       [field]: isFilledValue(get(values, field)),
-  //     }),
-  //     {} as Record<LooseKeys<Values>, boolean>,
-  //   );
-  // });
-  // fields.forEach(field => {
-  //   form.watch(field, ({ value }) => {
-  //     setFilledFields(filledFields => {
-  //       if (filledFields[field] !== isFilledValue(value)) {
-  //         return {
-  //           ...filledFields,
-  //           [field]: isFilledValue(value),
-  //         };
-  //       }
-  //       return filledFields;
-  //     });
-  //   });
-  // });
   return useMemo(
     () => fields.every(field => isFilledValue(get(form.getValues(), field))),
     [form, fields],
@@ -91,35 +59,3 @@ export const isFilledValue = (value: any): boolean => {
       return !!value;
   }
 };
-
-// export const useFormDirty = <Values,>(
-//   form: Pick<UseFormReturnType<Values>, "watch" | "isDirty">,
-//   ...fields: LooseKeys<Values>[]
-// ) => {
-//   const [dirtyFields, setDirtyFields] = useState(() => {
-//     return fields.reduce(
-//       (fieldsFilled, field) => ({
-//         ...fieldsFilled,
-//         [field]: form.isDirty(field),
-//       }),
-//       {} as Record<LooseKeys<Values>, boolean>,
-//     );
-//   });
-//   fields.forEach(field => {
-//     form.watch(field, ({ dirty }) => {
-//       setDirtyFields(dirtyFields => {
-//         if (dirtyFields[field] !== dirty) {
-//           return {
-//             ...dirtyFields,
-//             [field]: dirty,
-//           };
-//         }
-//         return dirtyFields;
-//       });
-//     });
-//   });
-//   return useMemo(
-//     () => Object.values(dirtyFields).some(identity),
-//     [dirtyFields],
-//   );
-// };

@@ -62,7 +62,6 @@ declare global {
   const createRef: typeof import('react')['createRef']
   const cx: typeof import('clsx')['clsx']
   const first: typeof import('lodash-es')['first']
-  const formatError: typeof import('~/helpers/errors')['formatError']
   const formatJSON: typeof import('~/helpers/json')['formatJSON']
   const forwardRef: typeof import('react')['forwardRef']
   const get: typeof import('lodash-es')['get']

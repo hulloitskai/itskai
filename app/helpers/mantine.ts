@@ -28,6 +28,7 @@ declare module "@mantine/core" {
 
 export const THEME = createTheme({
   autoContrast: true,
+  cursorType: "pointer",
   colors: {
     primary: DEFAULT_THEME.colors.pink,
     accent: DEFAULT_THEME.colors.teal,

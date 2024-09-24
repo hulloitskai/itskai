@@ -59,14 +59,6 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
           <Checkbox
             {...getInputProps("rememberMe", { type: "checkbox" })}
             label="Stay signed in"
-            styles={{
-              input: {
-                cursor: "pointer",
-              },
-              label: {
-                cursor: "pointer",
-              },
-            }}
           />
         </Tooltip>
         <Button type="submit" loading={processing}>

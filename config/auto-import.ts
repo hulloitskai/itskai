@@ -30,7 +30,6 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
     "~/helpers/actioncable": ["useCable"],
     "~/helpers/actioncable/subscription": ["useSubscription"],
     "~/helpers/authentication": ["useCurrentUser", "useAuthenticatedUser"],
-    "~/helpers/errors": ["formatError"],
     "~/helpers/inertia/page": ["usePage", "usePageProps"],
     "~/helpers/inertia/form": ["useInertiaForm"],
     "~/helpers/inflect": ["camelizeKeys", "underscoreKeys"],
