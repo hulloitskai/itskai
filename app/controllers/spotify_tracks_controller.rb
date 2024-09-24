@@ -2,14 +2,11 @@
 # frozen_string_literal: true
 
 class SpotifyTracksController < ApplicationController
-  # == Filters
-  before_action :set_track_id
-
   # == Actions
-  # GET /spotify/tracks/1/lyrics
+  # GET /spotify/tracks/:spotify_track_id/lyrics
   def lyrics
     begin
-      track_id = @track_id or raise "Missing track ID"
+      track_id = T.let(params[:spotify_track_id], String)
       lyrics = SpotifyClient.retrieve_lyrics(track_id)
     rescue => error
       with_log_tags do
@@ -22,12 +19,5 @@ class SpotifyTracksController < ApplicationController
     else
       render(json: { lyrics: [] })
     end
-  end
-
-  private
-
-  # == Filter handlers
-  def set_track_id
-    @track_id = T.let(params.fetch(:spotify_track_id), T.nilable(String))
   end
 end

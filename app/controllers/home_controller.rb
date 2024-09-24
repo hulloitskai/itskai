@@ -8,6 +8,8 @@ class HomeController < ApplicationController
     if request.hostname == "cathy.earth"
       Cathendant::HomeController.dispatch(:show, request, response)
     else
+      home_params = HomeParameters.new(params)
+      home_params.validate!
       specified_journal_entry = if (id = home_params.journal_entry_id)
         NotionJournalEntry.with_content.find(id)
       end
@@ -28,13 +30,5 @@ class HomeController < ApplicationController
   # GET /feed.atom
   def feed
     @entries = NotionJournalEntry.reverse_chronological
-  end
-
-  private
-
-  # == Helpers
-  sig { returns(HomeParameters) }
-  def home_params
-    @home_params ||= HomeParameters.new(params)
   end
 end

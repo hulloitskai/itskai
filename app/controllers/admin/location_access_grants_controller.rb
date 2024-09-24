@@ -3,21 +3,23 @@
 
 module Admin
   class LocationAccessGrantsController < AdminController
-    # == Filters
-    before_action :set_grant, only: :destroy
-
     # == Actions
+    # POST /admin/location_access_grants
     def create
-      attributes = grant_params
+      grant_attributes = params.require(:grant).permit(
+        :recipient,
+        :password,
+        :expires_in_seconds,
+      )
       expires_in_seconds = T.let(
-        attributes.delete(:expires_in_seconds),
+        grant_attributes.delete(:expires_in_seconds),
         Integer,
       )
-      @grant = LocationAccessGrant.new(
+      grant = LocationAccessGrant.new(
         expires_in: expires_in_seconds.seconds,
-        **attributes,
+        **grant_attributes,
       )
-      if @grant.save
+      if grant.save
         render(
           json: { grant: LocationAccessGrantSerializer.one(@grant) },
           status: :created,
@@ -30,8 +32,9 @@ module Admin
       end
     end
 
+    # DELETE /admin/location_access_grants/:id
     def destroy
-      grant = @grant or raise "Missing grant"
+      grant = LocationAccessGrant.find(params[:id])
       grant.destroy!
       render(json: {})
     rescue => error
@@ -39,27 +42,6 @@ module Admin
         logger.error("Failed to destroy location access grant: #{error}")
       end
       raise
-    end
-
-    private
-
-    # == Helpers
-    sig { returns(ActionController::Parameters) }
-    def grant_params
-      params.require(:grant).permit(
-        :recipient,
-        :password,
-        :expires_in_seconds,
-      )
-    end
-
-    # == Filter handlers
-    sig { void }
-    def set_grant
-      @grant = T.let(
-        LocationAccessGrant.find(params.fetch(:id)),
-        T.nilable(LocationAccessGrant),
-      )
     end
   end
 end

@@ -9,6 +9,8 @@ class LocationsController < ApplicationController
   # GET /locate
   def show
     location = LocationLog.latest_visible
+    location_params = LocationParameters.new(params)
+    location_params.validate!
     access_token = location_params.access_token
     if access_token
       access_grant = LocationAccessGrant
@@ -40,6 +42,7 @@ class LocationsController < ApplicationController
 
   # POST /locate/access
   def access
+    access_request_params = params.require(:access_request).permit(:password)
     access_request = LocationAccessRequest.new(access_request_params)
     unless access_request.valid?
       render(
@@ -80,18 +83,5 @@ class LocationsController < ApplicationController
         new_location_access_grant_id: grant.id,
       ),
     )
-  end
-
-  private
-
-  # == Helpers
-  sig { returns(LocationParameters) }
-  def location_params
-    @location_params ||= LocationParameters.new(params)
-  end
-
-  sig { returns(ActionController::Parameters) }
-  def access_request_params
-    params.require(:access_request).permit(:password)
   end
 end

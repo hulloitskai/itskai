@@ -3,12 +3,10 @@
 
 module Admin
   class OAuthConnectionsController < AdminController
-    # == Filters
-    before_action :set_credentials
-
     # == Actions
+    # DELETE /admin/oauth_connections/:provider
     def destroy
-      credentials = @credentials or raise "Missing credentials"
+      credentials = OAuthCredentials.find_by!(provider: params[:provider])
       credentials.destroy!
       render(json: {})
     rescue => error
@@ -16,17 +14,6 @@ module Admin
         logger.error("Failed to destroy OAuth credentials: #{error}")
       end
       raise
-    end
-
-    private
-
-    # == Filter handlers
-    sig { void }
-    def set_credentials
-      @credentials = T.let(
-        OAuthCredentials.find_by(params.permit(:provider).to_h),
-        T.nilable(OAuthCredentials),
-      )
     end
   end
 end

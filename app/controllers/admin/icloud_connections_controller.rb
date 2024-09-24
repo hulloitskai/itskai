@@ -3,11 +3,13 @@
 
 module Admin
   class ICloudConnectionsController < AdminController
-    # == Filters
-    before_action :set_credentials, only: :destroy
-
     # == Actions
+    # POST /admin/icloud_connections
     def create
+      credentials_params = params.require(:credentials).permit(
+        :email,
+        :password,
+      )
       credentials = ICloudCredentials.new(credentials_params)
       unless credentials.valid?
         render(
@@ -43,7 +45,9 @@ module Admin
       render(json: { error: error.message }, status: :internal_server_error)
     end
 
+    # POST /admin/icloud_connections/verify_security_code
     def verify_security_code
+      verification_params = params.require(:verification).permit(:code)
       verification = ICloudSecurityCodeVerification.new(verification_params)
       unless verification.valid?
         render(
@@ -58,37 +62,15 @@ module Admin
       })
     end
 
+    # DELETE /admin/icloud_connections
     def destroy
-      credentials = @credentials or raise "Missing credentials"
-      credentials.destroy!
+      ICloudCredentials.current&.destroy!
       render(json: {})
     rescue => error
       with_log_tags do
         logger.error("Failed to remove iCloud credentials: #{error}")
       end
       raise
-    end
-
-    private
-
-    # == Helpers
-    sig { returns(ActionController::Parameters) }
-    def credentials_params
-      params.require(:credentials).permit(:email, :password)
-    end
-
-    sig { returns(ActionController::Parameters) }
-    def verification_params
-      params.require(:verification).permit(:code)
-    end
-
-    # == Filter handlers
-    sig { void }
-    def set_credentials
-      @credentials = T.let(
-        ICloudCredentials.current,
-        T.nilable(ICloudCredentials),
-      )
     end
   end
 end

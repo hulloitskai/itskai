@@ -9,6 +9,8 @@ class AdminController < ApplicationController
   # == Actions
   # GET /admin
   def show
+    admin_params = AdminParameters.new(params)
+    admin_params.validate!
     google_connection = OAuthConnection.google
     spotify_connection = OAuthConnection.spotify
     icloud_connection = ICloudConnection.current
@@ -49,24 +51,15 @@ class AdminController < ApplicationController
 
   # POST /admin/backfill_location_log_addresses
   def backfill_location_log_addresses
-    options = backfill_location_log_addresses_params.to_h.symbolize_keys
-    num_logs_backfilling = LocationLog.backfill_addresses_later(**options)
+    backfill_params = AdminBackfillLocationLogAddressesParameters.new(params)
+    backfill_params.validate!
+    num_logs_backfilling = LocationLog.backfill_addresses_later(
+      **backfill_params.to_h.compact.symbolize_keys,
+    )
     render(json: { "numLogsBackfilling" => num_logs_backfilling })
   end
 
   private
-
-  # == Helpers
-  sig { returns(AdminParameters) }
-  def admin_params
-    @admin_params ||= AdminParameters.new(params)
-  end
-
-  sig { returns(AdminBackfillLocationLogAddressesParameters) }
-  def backfill_location_log_addresses_params
-    @backfill_location_log_addresses_params ||=
-      AdminBackfillLocationLogAddressesParameters.new(params)
-  end
 
   # == Filter handlers
   def authorize_admin!
