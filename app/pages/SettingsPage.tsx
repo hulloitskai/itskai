@@ -65,8 +65,8 @@ SettingsPage.layout = page => (
   <AppLayout
     title="Settings"
     breadcrumbs={[
-      { title: "Home", href: "/" },
-      { title: "Settings", href: "/settings" },
+      { title: "Home", href: routes.home.show.path() },
+      { title: "Settings", href: routes.usersRegistrations.edit.path() },
     ]}
     withContainer
     withGutter

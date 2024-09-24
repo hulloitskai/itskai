@@ -35,9 +35,9 @@ TimelineAdminPage.layout = page => (
   <AppLayout
     title="Manage timeline"
     breadcrumbs={[
-      { title: "Home", href: "/" },
-      { title: "Timeline", href: "/timeline" },
-      { title: "Admin", href: "/timeline/admin" },
+      { title: "Home", href: routes.home.show.path() },
+      // { title: "Timeline", href: routes.timeline.show.path() },
+      // { title: "Admin", href: routes.timelineAdmin.show.path() },
     ]}
     withContainer
     withGutter

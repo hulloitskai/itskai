@@ -127,8 +127,8 @@ AdminPage.layout = page => (
   <AppLayout
     title="Admin"
     breadcrumbs={[
-      { title: "Home", href: "/" },
-      { title: "Admin", href: "/admin" },
+      { title: "Home", href: routes.home.show.path() },
+      { title: "Admin", href: routes.admin.show.path() },
     ]}
     withContainer
     withGutter

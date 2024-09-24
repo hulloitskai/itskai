@@ -48,8 +48,8 @@ PensievePage.layout = page => (
     description="Sometimes, Kai thinks out loud."
     imageUrl="/pensieve-banner.png"
     breadcrumbs={[
-      { title: "Home", href: "/" },
-      { title: "Pensieve", href: "/pensieve" },
+      { title: "Home", href: routes.home.show.path() },
+      // { title: "Pensieve", href: routes.pensieve.show.path() },
     ]}
     withContainer
     containerProps={{
