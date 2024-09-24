@@ -126,6 +126,12 @@ const ImageInput: FC<ImageInputProps> = ({
                     const value = { signedId: blob.signed_id };
                     handleChange(value);
                   })
+                  .catch(error => {
+                    showAlert({
+                      title: "Failed to upload image",
+                      message: error.message,
+                    });
+                  })
                   .finally(() => {
                     setUploading(false);
                   });
