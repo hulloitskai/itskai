@@ -35,7 +35,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
 }) => {
   const { online } = useNetwork();
 
-  // == Track
+  // == Load currently playing track
   const { data, mutate } = useFetchSWR<{
     currentlyPlaying: CurrentlyPlaying;
   }>(routes.currentlyPlayings.show, {
@@ -43,7 +43,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   });
   const { currentlyPlaying } = data ?? {};
 
-  // == Metadata
+  // == Watch track metadata
   const { data: subscriptionData } = useSubscription<{
     currentlyPlaying: CurrentlyPlayingMetadata;
   }>("CurrentlyPlayingChannel", {

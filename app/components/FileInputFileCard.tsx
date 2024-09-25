@@ -14,7 +14,7 @@ const FileInputFileCard: FC<FileInputFileCardProps> = ({
   signedId,
   ...props
 }) => {
-  // == File metadata
+  // == Load file metadata
   const params = useMemo(() => ({ signed_id: signedId }), [signedId]);
   const { data } = useFetchSWR<{ file: File }>(routes.files.show, {
     params: params,

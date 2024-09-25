@@ -1,6 +1,4 @@
-import { Loader, Text } from "@mantine/core";
-import { type LottieRefCurrentProps } from "lottie-react";
-import Lottie from "lottie-react";
+import { Avatar, Loader, Text } from "@mantine/core";
 
 import LocateIcon from "~icons/basil/current-location-solid";
 import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
@@ -10,7 +8,6 @@ import HomeIcon from "~icons/heroicons/home-20-solid";
 import AdminIcon from "~icons/heroicons/key-20-solid";
 import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
 
-import menuAnimationData from "~/assets/animations/menu.json";
 import { useContact } from "~/helpers/contact";
 
 import classes from "./AppMenu.module.css";
@@ -19,31 +16,14 @@ export interface AppMenuProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children" | "onChange"> {}
 
-const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
-  const isClient = useIsClient();
+const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
   const currentUser = useCurrentUser();
   const [contact, { loading: loadingContact }] = useContact();
 
   // == State
   const [opened, setOpened] = useState(false);
 
-  // == Icon
-  const menuIconRef = useRef<LottieRefCurrentProps>(null);
-  useEffect(() => {
-    const menuIcon = menuIconRef.current;
-    if (menuIcon) {
-      menuIcon.setSpeed(2);
-      if (opened) {
-        menuIcon.setDirection(1);
-        menuIcon.play();
-      } else {
-        menuIcon.setDirection(-1);
-        menuIcon.play();
-      }
-    }
-  }, [opened]);
-
-  // == Server Status
+  // == Load server info
   const { data: statusData } = useFetchSWR(
     routes.healthcheckHealthchecks.check,
     {
@@ -86,30 +66,26 @@ const AppMenu: FC<AppMenuProps> = ({ style, ...otherProps }) => {
     >
       <Menu.Target>
         <Badge
-          variant="outline"
+          variant="default"
+          size="lg"
           leftSection={
-            <>
-              {isClient && (
-                <Lottie
-                  lottieRef={menuIconRef}
-                  animationData={menuAnimationData}
-                  loop={false}
-                  autoplay={false}
-                  className={classes.icon}
-                />
-              )}
-            </>
+            currentUser ? (
+              <Avatar src={currentUser.avatar?.src} size={21} />
+            ) : (
+              <UserIcon />
+            )
           }
-          className={classes.target}
-          color="gray"
-          style={[
-            style,
-            {
-              "--badge-height": "var(--badge-height-lg)",
+          styles={{
+            label: {
+              textTransform: "none",
+              fontWeight: 500,
             },
-          ]}
+            root: {
+              paddingLeft: currentUser ? 2 : 8,
+            },
+          }}
         >
-          Menu
+          {currentUser?.name ?? "Sign in & more"}
         </Badge>
       </Menu.Target>
       <Menu.Dropdown>

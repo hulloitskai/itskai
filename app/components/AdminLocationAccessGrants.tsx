@@ -21,7 +21,7 @@ const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
   onDeleted,
   ...otherProps
 }) => {
-  // == Grants
+  // == Load grants
   const { data, mutate } = useFetchSWR<{ grants: LocationAccessGrant[] }>(
     routes.admin.locationAccessGrants,
     {
@@ -29,6 +29,7 @@ const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
     },
   );
   const { grants } = data ?? {};
+
   return (
     <Stack id="location-access-grants" gap="xs" {...otherProps}>
       {grants ? (

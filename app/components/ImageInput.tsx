@@ -68,10 +68,7 @@ const ImageInput: FC<ImageInputProps> = ({
     onChange,
   });
 
-  // == Uploading
-  const [uploading, setUploading] = useState(false);
-
-  // == Preview
+  // == Load preview image
   const { data } = useFetchSWR<{
     image: ImageModel | null;
   }>(routes.images.show, {
@@ -82,6 +79,7 @@ const ImageInput: FC<ImageInputProps> = ({
   const { image } = data ?? {};
 
   // == Loading
+  const [uploading, setUploading] = useState(false);
   const loading: boolean = uploading || (!!value && !image);
 
   return (

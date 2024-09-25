@@ -36,7 +36,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
     interpolationMs,
   });
 
-  // == Lyrics
+  // == Load lyrics
   const lyricsParams = useMemo(
     () => ({ spotify_track_id: track.id }),
     [track.id],
