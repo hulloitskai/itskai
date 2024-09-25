@@ -77,7 +77,6 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
           }
           styles={{
             label: {
-              textTransform: "none",
               fontWeight: 500,
             },
             root: {
