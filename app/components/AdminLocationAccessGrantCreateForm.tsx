@@ -6,7 +6,7 @@ import { type LocationAccessGrant } from "~/types";
 export interface LocationAccessGrantCreateFormProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {
-  readonly onCreated?: (grant: LocationAccessGrant) => void;
+  onCreated?: (grant: LocationAccessGrant) => void;
 }
 
 const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({

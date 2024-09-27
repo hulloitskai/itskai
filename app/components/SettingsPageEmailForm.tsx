@@ -140,7 +140,7 @@ export default SettingsPageEmailForm;
 
 interface ResendEmailVerificationInstructionsButtonProps
   extends Omit<ButtonProps, "children"> {
-  readonly user: User;
+  user: User;
 }
 
 const ResendEmailVerificationInstructionsButton: FC<

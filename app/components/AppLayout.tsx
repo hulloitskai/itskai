@@ -22,19 +22,19 @@ import classes from "./AppLayout.module.css";
 export interface AppLayoutProps<PageProps extends SharedPageProps>
   extends Omit<AppMetaProps, "title" | "description">,
     Omit<AppShellProps, "title"> {
-  title?: AppMetaProps["title"] | ((props: PageProps) => AppMetaProps["title"]);
-  description?:
-    | AppMetaProps["description"]
-    | ((props: PageProps) => AppMetaProps["description"]);
-  breadcrumbs?:
-    | readonly (AppBreadcrumb | null | false)[]
-    | ((props: PageProps) => readonly (AppBreadcrumb | null | false)[]);
+  title?: DynamicProp<PageProps, AppMetaProps["title"]>;
+  description?: DynamicProp<PageProps, AppMetaProps["description"]>;
+  breadcrumbs?: DynamicProp<PageProps, (AppBreadcrumb | null | false)[]>;
   withContainer?: boolean;
   containerSize?: MantineSize | (string & {}) | number;
   containerProps?: ContainerProps;
   withGutter?: boolean;
   gutterSize?: MantineSize | (string & {}) | number;
 }
+
+export type DynamicProp<PageProps extends SharedPageProps, T> =
+  | T
+  | ((props: PageProps) => T);
 
 export interface AppBreadcrumb {
   title: string;
@@ -59,28 +59,14 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
   const pageProps = usePageProps<PageProps>();
 
   // == Meta
-  const title = useMemo(
-    () => (typeof titleProp === "function" ? titleProp(pageProps) : titleProp),
-    [titleProp, pageProps],
-  );
-  const description = useMemo(
-    () =>
-      typeof descriptionProp === "function"
-        ? descriptionProp(pageProps)
-        : descriptionProp,
-    [descriptionProp, pageProps],
-  );
+  const title = useResolveDynamicProp(titleProp, pageProps);
+  const description = useResolveDynamicProp(descriptionProp, pageProps);
 
   // == Breadcrumbs
-  const filteredBreadcrumbs = useMemo<AppBreadcrumb[]>(() => {
-    if (breadcrumbsProp) {
-      const allBreadcrumbs =
-        typeof breadcrumbsProp === "function"
-          ? breadcrumbsProp(pageProps)
-          : breadcrumbsProp;
-      return allBreadcrumbs.filter(x => !!x);
-    }
-    return [];
+  const breadcrumbs = useMemo<AppBreadcrumb[]>(() => {
+    return breadcrumbsProp
+      ? resolveDynamicProp(breadcrumbsProp, pageProps).filter(x => !!x)
+      : [];
   }, [breadcrumbsProp, pageProps]);
 
   // == Content
@@ -153,7 +139,7 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
           <AppMenu style={{ flexShrink: 0 }} />
         </AppShell.Header>
         <AppShell.Main>
-          {!isEmpty(filteredBreadcrumbs) && (
+          {!isEmpty(breadcrumbs) && (
             <Breadcrumbs
               mx={10}
               mt={6}
@@ -171,7 +157,7 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
                 },
               }}
             >
-              {filteredBreadcrumbs.map(({ title, href }, index) => (
+              {breadcrumbs.map(({ title, href }, index) => (
                 <Anchor component={Link} href={href} key={index} size="sm">
                   {title}
                 </Anchor>
@@ -197,3 +183,17 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
 };
 
 export default AppLayout;
+
+const useResolveDynamicProp = <PageProps extends SharedPageProps, T>(
+  prop: T | ((props: PageProps) => T),
+  pageProps: PageProps,
+) => {
+  return useMemo(() => resolveDynamicProp(prop, pageProps), [prop, pageProps]);
+};
+
+const resolveDynamicProp = <PageProps extends SharedPageProps, T>(
+  prop: T | ((props: PageProps) => T),
+  pageProps: PageProps,
+) => {
+  return prop instanceof Function ? prop(pageProps) : prop;
+};
