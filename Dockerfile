@@ -112,7 +112,8 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
   --mount=type=cache,target=/root/.npm,sharing=locked \
   set -eux && \
-  npx playwright@$PLAYWRIGHT_VERSION install --with-deps chromium && \
+  npm install -g playwright@$PLAYWRIGHT_VERSION && \
+  playwright install --with-deps chromium && \
   apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
   rm -r /var/log/* && \
   npx playwright --version
