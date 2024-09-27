@@ -36,7 +36,12 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
     "~/helpers/json": ["formatJSON"],
     "~/helpers/luxon": ["useParseDateTime"],
     "~/helpers/meta": ["getMeta", "requireMeta"],
-    "~/helpers/notifications": ["showNotice", "showAlert"],
+    "~/helpers/notifications": [
+      "showNotice",
+      "showAlert",
+      "showSuccessNotice",
+      "showChangesSavedNotice",
+    ],
     "~/helpers/routes": [["default", "routes"]],
     "~/helpers/fetch/swr": ["useFetchSWR"],
     "~/helpers/fetch/form": ["useFetchForm"],
@@ -90,6 +95,7 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
     "@mantine/notifications": ["showNotification"],
     "@mantine/modals": ["openModal", "closeAllModals"],
     clsx: [["clsx", "cx"]],
+    inflection: ["inflect", "humanize"],
     "lodash-es": [
       "first",
       "last",

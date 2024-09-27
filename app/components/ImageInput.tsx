@@ -62,6 +62,7 @@ const ImageInput: FC<ImageInputProps> = ({
   w,
   withAsterisk,
 }) => {
+  // == Controlled input
   const [resolvedValue, handleChange] = useUncontrolled({
     value,
     defaultValue,
@@ -69,13 +70,16 @@ const ImageInput: FC<ImageInputProps> = ({
   });
 
   // == Load preview image
-  const { data } = useFetchSWR<{
+  const { data, mutate } = useFetchSWR<{
     image: ImageModel | null;
   }>(routes.images.show, {
     descriptor: "load preview image",
     params: resolvedValue ? { signed_id: resolvedValue.signedId } : undefined,
-    isPaused: () => !resolvedValue?.signedId,
+    isPaused: () => !resolvedValue,
   });
+  useDidUpdate(() => {
+    mutate();
+  }, [resolvedValue]);
   const { image } = data ?? {};
 
   // == Loading

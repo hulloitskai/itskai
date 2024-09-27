@@ -96,8 +96,8 @@ export const useInertiaForm = <
           setProcessing(false);
         },
         onSuccess: () => {
-          form.reset();
           onSuccess?.(form);
+          form.reset();
         },
         onError: errors => {
           const formErrors: FormErrors = transformErrors(errors);

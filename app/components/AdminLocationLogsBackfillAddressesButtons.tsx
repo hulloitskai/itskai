@@ -40,11 +40,11 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
       searchParams.set("job_class", "ReverseGeocodeLocationLogJob");
       searchParams.set("poll", "true");
       if (numLogsBackfilling > 0) {
-        showNotice({
+        showSuccessNotice({
           title: (
             <>
               Started backfilling {numLogsBackfilling}{" "}
-              {numLogsBackfilling === 1 ? "log" : "logs"}
+              {inflect("log", numLogsBackfilling)}
             </>
           ),
           message: (

@@ -86,10 +86,6 @@ class User < ApplicationRecord
             },
             allow_nil: true
 
-  # == Callbacks
-  before_validation :remove_unconfirmed_email_if_matches_email,
-                    if: %i[unconfirmed_email? email_changed?]
-
   # == Finders
   sig { returns(T.nilable(User)) }
   def self.owner
@@ -132,13 +128,5 @@ class User < ApplicationRecord
   def after_confirmation
     super
     send_welcome_email if confirmed_at_previously_was.nil?
-  end
-
-  private
-
-  # == Callback handlers
-  sig { void }
-  def remove_unconfirmed_email_if_matches_email
-    self.unconfirmed_email = nil if email == unconfirmed_email
   end
 end

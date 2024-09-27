@@ -48,10 +48,15 @@ Rails.application.routes.draw do
                path: "/signup",
                only: %i[new create destroy],
                path_names: { new: "" }
-      resource :registration,
-               path: "/settings",
-               only: %i[edit update],
-               path_names: { edit: "" }
+      resource(
+        :registration,
+        path: "/settings",
+        only: %i[edit update],
+        path_names: { edit: "" },
+      ) do
+        put :email, action: :change_email, as: :change_email
+        put :password, action: :change_password, as: :change_password
+      end
       resource :confirmation,
                path: "/email_verification",
                only: %i[new show create],

@@ -33,7 +33,7 @@ const CathendantContributePage: PageComponent<
       reset();
       router.visit(routes.cathendantHome.show.path(), {
         onSuccess: () => {
-          showNotice({
+          showSuccessNotice({
             title: "Thank you!",
             message: "Your voice has been added :)",
           });

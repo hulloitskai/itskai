@@ -8,7 +8,6 @@ module Users
 
     # == Filters
     before_action :configure_sign_up_params, only: :create
-    before_action :configure_account_update_params, only: :update
 
     # == Actions
     # GET /signup
@@ -24,8 +23,9 @@ module Users
     # POST /signup
     def create
       resource = build_resource(sign_up_params)
-      resource.skip_confirmation! if Rails.env.development? &&
-        (resource.owner? || resource.example_email?)
+      if Rails.env.development? && (resource.owner? || resource.example_email?)
+        resource.skip_confirmation!
+      end
       if resource.save
         if resource.active_for_authentication?
           set_flash_message!(:notice, :signed_up)
@@ -40,8 +40,6 @@ module Users
           redirect_to(after_inactive_sign_up_path_for(resource))
         end
       else
-        clean_up_passwords(resource)
-        set_minimum_password_length
         redirect_to(new_registration_path(resource_name), inertia: {
           errors: resource.form_errors,
         })
@@ -53,18 +51,60 @@ module Users
       resource = self.resource = resource_class
         .to_adapter
         .get!(public_send(:"current_#{resource_name}").to_key)
+      update_params = params.require(resource_name)
+        .permit(:name, :avatar)
+      if update_resource(resource, update_params)
+        resource_param = resource_name.to_s.camelize(:lower)
+        render(json: {
+          resource_param => UserSerializer.one(resource),
+        })
+      else
+        render(
+          json: { errors: resource.form_errors },
+          status: :unprocessable_entity,
+        )
+      end
+    end
+
+    # PUT /settings/email
+    def change_email
+      resource = resource_class
+        .to_adapter
+        .get!(public_send(:"current_#{resource_name}").to_key)
+      update_params = params.require(resource_name)
+        .permit(:email, :current_password)
+      if resource.email == update_params[:email]
+        update_params[:unconfirmed_email] = nil
+      end
+      if resource.update_with_password(update_params)
+        needs_confirmation = update_needs_confirmation?(resource, nil)
+        resource_param = resource_name.to_s.camelize(:lower)
+        render(json: {
+          resource_param => UserSerializer.one(resource),
+          "emailNeedsConfirmation" => needs_confirmation,
+        })
+      else
+        render(
+          json: { errors: resource.form_errors },
+          status: :unprocessable_entity,
+        )
+      end
+    end
+
+    # PUT /settings/password
+    def change_password
+      resource = resource_class
+        .to_adapter
+        .get!(public_send(:"current_#{resource_name}").to_key)
       prev_unconfirmed_email = resource.try(:unconfirmed_email)
-      resource_updated = update_resource(resource, account_update_params)
-      if resource_updated
+      if resource.update_with_password(account_update_params)
         set_flash_message_for_update(resource, prev_unconfirmed_email)
-        bypass_sign_in(
-          resource,
-          scope: resource_name,
-        ) if sign_in_after_change_password?
+        if sign_in_after_change_password?
+          bypass_sign_in(resource, scope: resource_name)
+        end
         redirect_to(after_update_path_for(resource))
       else
         clean_up_passwords(resource)
-        set_minimum_password_length
         redirect_to(edit_registration_path(resource), inertia: {
           errors: resource.form_errors,
         })
@@ -75,7 +115,7 @@ module Users
 
     # == Helpers
     sig do
-      params(resource: User, params: T::Hash[Symbol, T.untyped])
+      params(resource: User, params: ActionController::Parameters)
         .returns(T::Boolean)
     end
     def update_resource(resource, params)
@@ -112,14 +152,6 @@ module Users
     sig { void }
     def configure_sign_up_params
       devise_parameter_sanitizer.permit(:sign_up, keys: %i[name])
-    end
-
-    sig { void }
-    def configure_account_update_params
-      devise_parameter_sanitizer.permit(
-        :account_update,
-        keys: %i[name email avatar],
-      )
     end
   end
 end

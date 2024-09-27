@@ -14,10 +14,9 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
 
   // == Form
   const form = useInertiaForm({
-    action: routes.usersRegistrations.update,
+    action: routes.usersRegistrations.changePassword,
     method: "put",
     descriptor: "change password",
-    // mode: "uncontrolled",
     initialValues: {
       password: "",
       passwordConfirmation: "",

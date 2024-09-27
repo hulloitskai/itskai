@@ -35,7 +35,7 @@ const AdminICloudVerifySecurityCodeForm: FC<
     }),
     onSuccess: ({ connection }) => {
       closeAllModals();
-      showNotice({ message: "Successfully authenticated with iCloud." });
+      showSuccessNotice({ message: "Successfully authenticated with iCloud." });
       onVerified?.(connection);
     },
   });

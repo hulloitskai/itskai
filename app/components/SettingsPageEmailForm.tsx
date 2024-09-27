@@ -6,9 +6,12 @@ import { type User } from "~/types";
 
 export interface SettingsPageEmailFormProps
   extends BoxProps,
-    Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {}
+    Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {
+  onEmailChanged: () => void;
+}
 
 const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
+  onEmailChanged,
   ...otherProps
 }) => {
   const user = useAuthenticatedUser();
@@ -21,11 +24,13 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
       currentPassword: "",
     };
   }, [user]);
-  const form = useInertiaForm({
-    action: routes.usersRegistrations.update,
+  const form = useFetchForm<
+    { user: User; emailNeedsConfirmation: boolean },
+    typeof initialValues
+  >({
+    action: routes.usersRegistrations.changeEmail,
     method: "put",
     descriptor: "change email",
-    // mode: "uncontrolled",
     initialValues,
     validate: {
       email: isEmail("Email is not valid"),
@@ -34,13 +39,38 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
     transformValues: values => ({
       user: underscoreKeys(values),
     }),
+    onSuccess: ({ user, emailNeedsConfirmation }, { setInitialValues }) => {
+      setInitialValues({
+        email: user.unconfirmedEmail || user.email,
+        currentPassword: "",
+      });
+      if (emailNeedsConfirmation) {
+        showNotice({
+          title: "Email verification required",
+          message:
+            "Please check your email and follow the verification link to " +
+            "verify your new email address.",
+        });
+      } else {
+        showChangesSavedNotice({ to: "your email" });
+      }
+      onEmailChanged();
+    },
   });
-  const { getInputProps, isDirty, processing, submit } = form;
+  const {
+    getInputProps,
+    isDirty,
+    processing,
+    submit,
+    reset,
+    setInitialValues,
+  } = form;
+  useDidUpdate(() => {
+    setInitialValues(initialValues);
+    reset();
+  }, [user]);
   const currentPasswordFilled = useFieldsFilled(form, "currentPassword");
-
-  // == Conditionally show current password field
   const emailFilled = useFieldsFilled(form, "email");
-
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">

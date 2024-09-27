@@ -25,7 +25,7 @@ export const fetchRoute = async <Data>(
     const { error } = responseError.body as { error: string };
     console.error(`Failed to ${options.descriptor}`, error);
     if (!failSilently) {
-      showNotice({
+      showAlert({
         title: `Failed to ${options.descriptor}`,
         message:
           typeof error === "string" ? error : "An unexpected error occurred.",

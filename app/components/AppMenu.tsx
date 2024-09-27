@@ -78,6 +78,7 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
           styles={{
             label: {
               fontWeight: 500,
+              maxWidth: 140,
             },
             root: {
               paddingLeft: currentUser ? 2 : 8,

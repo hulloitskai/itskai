@@ -35,7 +35,7 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
       const url = new URL(path, window.location.href);
       setLocateUrl(url.toString());
       if (autocopy) {
-        showNotice({
+        showSuccessNotice({
           title: "Location access granted!",
           message: (
             <Stack gap={8}>

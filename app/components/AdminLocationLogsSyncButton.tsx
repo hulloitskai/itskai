@@ -20,7 +20,7 @@ const AdminLocationLogsSyncButton: FC<AdminLocationLogsSyncButtonProps> = ({
     method: "post",
     descriptor: "sync location logs",
     onSuccess: ({ location }) => {
-      showNotice({
+      showSuccessNotice({
         title: "Location logs synced",
         message: (
           <>

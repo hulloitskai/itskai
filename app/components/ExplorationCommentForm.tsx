@@ -34,7 +34,7 @@ const ExplorationCommentForm: FC<ExplorationCommentFormProps> = ({
     }),
     onSuccess: () => {
       closeAllModals();
-      showNotice({
+      showSuccessNotice({
         title: "Note sent!",
         message: "I'll get back to you soon :)",
       });

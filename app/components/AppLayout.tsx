@@ -3,8 +3,11 @@ import {
   type AppShellProps,
   Breadcrumbs,
   type ContainerProps,
+  Image,
   type MantineSize,
 } from "@mantine/core";
+
+import logoSrc from "~/assets/images/logo-circle.png";
 
 import AppFlash from "./AppFlash";
 import AppMenu from "./AppMenu";
@@ -136,12 +139,13 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
             href={routes.home.show.path()}
             variant="subtle"
             size="compact-md"
+            leftSection={<Image src={logoSrc} w={24} />}
             h="unset"
             py={4}
             px={6}
             fw={800}
             fz="md"
-            className={classes.logo}
+            className={classes.logoButton}
           >
             It&apos;s Kai
           </Button>

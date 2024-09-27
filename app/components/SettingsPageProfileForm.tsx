@@ -1,10 +1,15 @@
+import { type User } from "~/types";
+
 import ImageInput from "./ImageInput";
 
 export interface SettingsPageProfileFormProps
   extends BoxProps,
-    Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {}
+    Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {
+  onUpdated: () => void;
+}
 
 const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
+  onUpdated,
   ...otherProps
 }) => {
   const authenticatedUser = useAuthenticatedUser();
@@ -17,11 +22,10 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
       avatar: avatar ? { signedId: avatar.signedId } : null,
     };
   }, [authenticatedUser]);
-  const form = useInertiaForm({
+  const form = useFetchForm<{ user: User }, typeof initialValues>({
     action: routes.usersRegistrations.update,
     method: "put",
     descriptor: "update profile",
-    // mode: "uncontrolled",
     initialValues,
     transformValues: ({ avatar, ...attributes }) => ({
       user: {
@@ -29,6 +33,15 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
         avatar: avatar ? avatar.signedId : "",
       },
     }),
+    onSuccess: ({ user }, { setInitialValues }) => {
+      const { name, avatar } = user;
+      setInitialValues({
+        name,
+        avatar: avatar ? { signedId: avatar.signedId } : null,
+      });
+      showChangesSavedNotice({ to: "your profile" });
+      onUpdated();
+    },
   });
   const {
     getInputProps,
@@ -38,10 +51,10 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
     setInitialValues,
     submit,
   } = form;
-  useEffect(() => {
+  useDidUpdate(() => {
     setInitialValues(initialValues);
     reset();
-  }, [initialValues]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [authenticatedUser]);
   const filled = useFieldsFilled(form, "name");
 
   return (

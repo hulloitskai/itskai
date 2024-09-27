@@ -19,3 +19,27 @@ export const showNotice = (props: NotificationData) => {
     ...props,
   });
 };
+
+export const showSuccessNotice = (props: NotificationData) => {
+  showNotification({
+    color: "green",
+    icon: <SuccessIcon />,
+    ...props,
+  });
+};
+
+export interface ShowChangesSavedNoticeProps
+  extends Omit<NotificationData, "title" | "message"> {
+  to: string;
+}
+
+export const showChangesSavedNotice = ({
+  to,
+  ...otherProps
+}: ShowChangesSavedNoticeProps) => {
+  showSuccessNotice({
+    title: "Changes saved",
+    message: `${humanize(to)} was updated.`,
+    ...otherProps,
+  });
+};

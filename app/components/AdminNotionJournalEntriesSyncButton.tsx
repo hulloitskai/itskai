@@ -18,7 +18,7 @@ const AdminNotionJournalEntriesSyncButton: FC<
     method: "post",
     descriptor: "sync Notion journal entries",
     onSuccess: ({ syncResults: { added, removed, updated } }) => {
-      showNotice({
+      showSuccessNotice({
         title: "Notion journal entries synced",
         message: `${added} added, ${updated} updated, ${removed} removed.`,
       });
