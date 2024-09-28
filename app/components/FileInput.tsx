@@ -129,13 +129,7 @@ const FileInput = <Multiple extends boolean = false>(
             <Dropzone.Idle>
               <Box component={UploadIcon} c="primary" />
             </Dropzone.Idle>
-            <Text
-              size="sm"
-              c="dimmed"
-              lh={1.3}
-              maw={270}
-              style={{ textAlign: "center" }}
-            >
+            <Text size="sm" c="dimmed" lh={1.3} ta="center" maw={270}>
               {children ??
                 `Drop ${fileLabel} here or click to select ${fileLabel}`}
             </Text>

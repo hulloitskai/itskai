@@ -21,7 +21,7 @@ const ErrorPage: PageComponent<ErrorPageProps> = ({
     </Badge>
     <Stack align="center" gap={2}>
       <Title size="h2">{title}</Title>
-      <Text c="dimmed" style={{ textAlign: "center" }}>
+      <Text c="dimmed" ta="center">
         {description}
       </Text>
     </Stack>

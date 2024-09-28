@@ -157,12 +157,7 @@ const ImageInput: FC<ImageInputProps> = ({
           >
             <Stack align="center" gap={8}>
               <Box component={PhotoIcon} className={classes.dropzoneIcon} />
-              <Text
-                size="xs"
-                c="dark.1"
-                lh={1.3}
-                style={{ textAlign: "center" }}
-              >
+              <Text size="xs" c="dark.1" lh={1.3} ta="center">
                 Drag an image or click to upload
               </Text>
             </Stack>

@@ -11,7 +11,7 @@ const RequestEmailVerificationPage: PageComponent<
   <Card w={380} withBorder>
     <Stack gap="xs">
       <Stack gap={4}>
-        <Title size="h3" style={{ textAlign: "center" }}>
+        <Title size="h3" ta="center">
           Re-send verification email
         </Title>
         <Text size="sm" c="dimmed" style={{ lineHeight: 1.4 }}>

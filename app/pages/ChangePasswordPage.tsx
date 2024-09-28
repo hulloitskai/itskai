@@ -14,7 +14,7 @@ const ChangePasswordPage: PageComponent<ChangePasswordPageProps> = ({
   <Card w={380} withBorder>
     <Stack gap="xs">
       <Stack gap={4}>
-        <Title size="h3" style={{ textAlign: "center" }}>
+        <Title size="h3" ta="center">
           Change password
         </Title>
         <Text size="sm" c="dimmed" style={{ lineHeight: 1.4 }}>

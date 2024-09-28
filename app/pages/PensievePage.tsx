@@ -21,7 +21,7 @@ const PensievePage: PageComponent<PensievePageProps> = () => {
 
   return (
     <Stack align="center" gap="xs" style={{ flexGrow: 1 }}>
-      <Box style={{ textAlign: "center" }}>
+      <Box ta="center">
         <Title order={2} size="h3">
           Sometimes, Kai thinks out loud.
         </Title>
