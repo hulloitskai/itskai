@@ -21,7 +21,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
   journalEntry,
   ...otherProps
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
   const nextEntryPath = useMemo(() => {
     return routes.home.show.path({
       query: {
@@ -32,16 +32,16 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
 
   // == Scrolling
   const scrollToContainerTop = useCallback(() => {
-    if (containerRef.current) {
+    if (containerRef) {
       const headerEl = document.querySelector(".mantine-AppShell-header");
-      scrollIntoView(containerRef.current, {
+      scrollIntoView(containerRef, {
         align: {
           top: 0,
           topOffset: (headerEl?.clientHeight ?? 0) + 20,
         },
       });
     }
-  }, []);
+  }, [containerRef]);
   useEffect(() => {
     if (autoscroll) {
       scrollToContainerTop();
@@ -49,7 +49,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
   }, [journalEntry.id, autoscroll, scrollToContainerTop]);
 
   return (
-    <Stack ref={containerRef} align="center" {...otherProps}>
+    <Stack ref={setContainerRef} align="center" {...otherProps}>
       <NotionJournalEntryCard {...{ entry: journalEntry }} />
       <Button
         component={Link}
