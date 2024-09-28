@@ -50,7 +50,7 @@ Rails.application.routes.draw do
                path_names: { new: "" }
       resource(
         :registration,
-        path: "/settings",
+        path: "/account",
         only: %i[edit update],
         path_names: { edit: "" },
       ) do

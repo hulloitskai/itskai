@@ -1,8 +1,8 @@
-export interface SettingsPageDeleteAccountFormProps
+export interface AccountPageDeleteAccountFormProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {}
 
-const SettingsPageDeleteAccountForm: FC<SettingsPageDeleteAccountFormProps> = ({
+const AccountPageDeleteAccountForm: FC<AccountPageDeleteAccountFormProps> = ({
   ...otherProps
 }) => {
   const { processing, submit } = useInertiaForm({
@@ -44,4 +44,4 @@ const SettingsPageDeleteAccountForm: FC<SettingsPageDeleteAccountFormProps> = ({
   );
 };
 
-export default SettingsPageDeleteAccountForm;
+export default AccountPageDeleteAccountForm;

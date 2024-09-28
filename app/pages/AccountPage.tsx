@@ -1,21 +1,21 @@
 import { Text } from "@mantine/core";
 
+import AccountPageDeleteAccountForm from "~/components/AccountPageDeleteAccountForm";
+import AccountPageEmailForm from "~/components/AccountPageEmailForm";
+import AccountPagePasswordForm from "~/components/AccountPagePasswordForm";
+import AccountPageProfileForm from "~/components/AccountPageProfileForm";
 import AppLayout from "~/components/AppLayout";
-import SettingsPageDeleteAccountForm from "~/components/SettingsPageDeleteAccountForm";
-import SettingsPageEmailForm from "~/components/SettingsPageEmailForm";
-import SettingsPagePasswordForm from "~/components/SettingsPagePasswordForm";
-import SettingsPageProfileForm from "~/components/SettingsPageProfileForm";
 
-const SettingsPage: PageComponent = () => (
+const AccountPage: PageComponent = () => (
   <Stack>
     <Card withBorder>
       <Stack gap="sm">
         <Center>
           <Title order={2} size="h4">
-            Profile
+            Your profile
           </Title>
         </Center>
-        <SettingsPageProfileForm
+        <AccountPageProfileForm
           onUpdated={() => {
             router.reload({ only: ["currentUser"] });
           }}
@@ -32,7 +32,7 @@ const SettingsPage: PageComponent = () => (
             Change your account email address
           </Text>
         </Stack>
-        <SettingsPageEmailForm
+        <AccountPageEmailForm
           onEmailChanged={() => {
             router.reload({ only: ["currentUser"] });
           }}
@@ -49,7 +49,7 @@ const SettingsPage: PageComponent = () => (
             Change your login password
           </Text>
         </Stack>
-        <SettingsPagePasswordForm />
+        <AccountPagePasswordForm />
       </Stack>
     </Card>
     <Card withBorder bd="red.outline">
@@ -59,18 +59,18 @@ const SettingsPage: PageComponent = () => (
             Danger zone
           </Title>
         </Center>
-        <SettingsPageDeleteAccountForm />
+        <AccountPageDeleteAccountForm />
       </Stack>
     </Card>
   </Stack>
 );
 
-SettingsPage.layout = page => (
+AccountPage.layout = page => (
   <AppLayout
-    title="Settings"
+    title="Account"
     breadcrumbs={[
       { title: "Home", href: routes.home.show.path() },
-      { title: "Settings", href: routes.usersRegistrations.edit.path() },
+      { title: "Account", href: routes.usersRegistrations.edit.path() },
     ]}
     withContainer
     withGutter
@@ -80,4 +80,4 @@ SettingsPage.layout = page => (
   </AppLayout>
 );
 
-export default SettingsPage;
+export default AccountPage;

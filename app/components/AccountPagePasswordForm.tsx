@@ -3,11 +3,11 @@ import { isNotEmpty } from "@mantine/form";
 
 import StrongPasswordInput from "./StrongPasswordInput";
 
-export interface SettingsPagePasswordFormProps
+export interface AccountPagePasswordFormProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {}
 
-const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
+const AccountPagePasswordForm: FC<AccountPagePasswordFormProps> = ({
   ...otherProps
 }) => {
   const [passwordStrength, setPasswordStrength] = useState(0.0);
@@ -104,4 +104,4 @@ const SettingsPagePasswordForm: FC<SettingsPagePasswordFormProps> = ({
   );
 };
 
-export default SettingsPagePasswordForm;
+export default AccountPagePasswordForm;

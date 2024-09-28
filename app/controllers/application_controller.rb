@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   end
 
   # == Exception handlers
-  rescue_from Exception, with: :report_and_render_json_exception
+  rescue_from RuntimeError, with: :report_and_render_json_exception
   rescue_from ActionPolicy::Unauthorized,
               with: :redirect_to_login_if_signed_out
 

@@ -4,13 +4,13 @@ import { isEmail, isNotEmpty } from "@mantine/form";
 
 import { type User } from "~/types";
 
-export interface SettingsPageEmailFormProps
+export interface AccountPageEmailFormProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {
   onEmailChanged: () => void;
 }
 
-const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
+const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
   onEmailChanged,
   ...otherProps
 }) => {
@@ -136,7 +136,7 @@ const SettingsPageEmailForm: FC<SettingsPageEmailFormProps> = ({
   );
 };
 
-export default SettingsPageEmailForm;
+export default AccountPageEmailForm;
 
 interface ResendEmailVerificationInstructionsButtonProps
   extends Omit<ButtonProps, "children"> {

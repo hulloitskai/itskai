@@ -2,13 +2,13 @@ import { type User } from "~/types";
 
 import ImageInput from "./ImageInput";
 
-export interface SettingsPageProfileFormProps
+export interface AccountPageProfileFormProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {
   onUpdated: () => void;
 }
 
-const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
+const AccountPageProfileForm: FC<AccountPageProfileFormProps> = ({
   onUpdated,
   ...otherProps
 }) => {
@@ -86,4 +86,4 @@ const SettingsPageProfileForm: FC<SettingsPageProfileFormProps> = ({
   );
 };
 
-export default SettingsPageProfileForm;
+export default AccountPageProfileForm;
