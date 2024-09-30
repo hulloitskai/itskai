@@ -1,5 +1,6 @@
 import {
   type DefaultMantineColor,
+  Drawer,
   type MantineColorsTuple,
   NumberInput,
 } from "@mantine/core";
@@ -69,6 +70,11 @@ export const THEME = createTheme({
         root: classes.button,
       },
     }),
+    Drawer: Drawer.extend({
+      classNames: {
+        overlay: classes.overlay,
+      },
+    }),
     Loader: Loader.extend({
       defaultProps: {
         size: "sm",
@@ -85,6 +91,9 @@ export const THEME = createTheme({
           ...style,
         },
       }),
+      classNames: {
+        overlay: classes.overlay,
+      },
     }),
     Notification: Notification.extend({
       styles: ({ lineHeights, spacing }) => ({
