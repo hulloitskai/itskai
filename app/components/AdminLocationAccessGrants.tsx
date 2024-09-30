@@ -5,8 +5,6 @@ import AdminLocationAccessGrantCard from "./AdminLocationAccessGrantCard";
 import { type LocationAccessGrantCreateFormProps } from "./AdminLocationAccessGrantCreateForm";
 import LocationAccessGrantCreateForm from "./AdminLocationAccessGrantCreateForm";
 
-import classes from "./AdminLocationAccessGrants.module.css";
-
 export interface AdminLocationAccessGrantsProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children">,
@@ -46,7 +44,7 @@ const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
             />
           ))
         ) : (
-          <EmptyCard itemLabel="grants" className={classes.emptyCard} />
+          <EmptyCard itemLabel="grants" />
         )
       ) : (
         [...new Array(3)].map((value, index) => (

@@ -125,38 +125,40 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
           required
           autoComplete="off"
         />
-        <Button
-          type="submit"
-          leftSection={<AuthenticateIcon />}
-          loading={processing}
-        >
-          {credentials ? "Re-authenticate" : "Authenticate"}
-        </Button>
-        {(status === "requires_2fa" || !!credentials) && (
-          <Stack gap={6}>
-            <Group gap={6} grow>
-              {status === "requires_2fa" && (
-                <Button
-                  variant="default"
-                  leftSection={<SecurityCodeIcon />}
-                  onClick={openVerifySecurityCodeModal}
-                >
-                  Verify security code
-                </Button>
-              )}
-              {!!credentials && (
-                <Button
-                  variant="default"
-                  leftSection={<SessionIcon />}
-                  onClick={openSessionInfoModal}
-                >
-                  Session information
-                </Button>
-              )}
-            </Group>
-            <AdminICloudDisconnectButton {...{ onDisconnected }} />
-          </Stack>
-        )}
+        <Stack gap={8}>
+          <Button
+            type="submit"
+            leftSection={<AuthenticateIcon />}
+            loading={processing}
+          >
+            {credentials ? "Re-authenticate" : "Authenticate"}
+          </Button>
+          {(status === "requires_2fa" || !!credentials) && (
+            <>
+              <Group gap={6} grow>
+                {status === "requires_2fa" && (
+                  <Button
+                    color="gray"
+                    leftSection={<SecurityCodeIcon />}
+                    onClick={openVerifySecurityCodeModal}
+                  >
+                    Verify security code
+                  </Button>
+                )}
+                {!!credentials && (
+                  <Button
+                    color="gray"
+                    leftSection={<SessionIcon />}
+                    onClick={openSessionInfoModal}
+                  >
+                    Session information
+                  </Button>
+                )}
+              </Group>
+              <AdminICloudDisconnectButton {...{ onDisconnected }} />
+            </>
+          )}
+        </Stack>
       </Stack>
     </Box>
   );

@@ -26,7 +26,7 @@ const AdminNotionJournalEntriesSyncButton: FC<
   });
   return (
     <Button
-      variant="default"
+      color="gray"
       loading={processing}
       leftSection={<NotionIcon />}
       onClick={() => {

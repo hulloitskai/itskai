@@ -56,7 +56,6 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
         href={nextEntryPath}
         preserveScroll
         only={["journalEntry", "firstJournalEntryId", "journalAutoscroll"]}
-        variant="outline"
         leftSection={
           journalEntry.nextJournalEntryId ? <NextIcon /> : <ResetIcon />
         }

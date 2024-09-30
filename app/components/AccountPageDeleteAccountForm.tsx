@@ -14,7 +14,6 @@ const AccountPageDeleteAccountForm: FC<AccountPageDeleteAccountFormProps> = ({
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Menu
         withArrow
-        withinPortal={false}
         styles={{
           dropdown: {
             borderColor: "var(--mantine-color-red-outline)",
@@ -26,7 +25,8 @@ const AccountPageDeleteAccountForm: FC<AccountPageDeleteAccountFormProps> = ({
       >
         <Menu.Target>
           <Button
-            variant="default"
+            variant="subtle"
+            color="red"
             leftSection={<DeleteIcon />}
             loading={processing}
             fullWidth

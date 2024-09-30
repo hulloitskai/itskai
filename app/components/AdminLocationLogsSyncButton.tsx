@@ -37,7 +37,7 @@ const AdminLocationLogsSyncButton: FC<AdminLocationLogsSyncButtonProps> = ({
   });
   return (
     <Button
-      variant="default"
+      color="gray"
       loading={processing}
       leftSection={<SyncIcon />}
       onClick={() => {

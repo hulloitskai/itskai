@@ -38,7 +38,6 @@ const ApproximateLocationAlert: FC<ApproximateLocationAlertProps> = ({
       styles={{
         root: {
           alignSelf: "center",
-          border: `${rem(1)} solid var(--mantine-color-primary-outline)`,
         },
         body: {
           rowGap: rem(2),

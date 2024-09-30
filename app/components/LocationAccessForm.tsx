@@ -63,6 +63,9 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
             root: {
               flexGrow: 1,
             },
+            wrapper: {
+              "--input-bg": "var(--mantine-color-white)",
+            },
           }}
         />
         <Button

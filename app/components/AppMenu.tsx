@@ -49,18 +49,9 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
       {...{ opened }}
       onChange={setOpened}
       classNames={{
+        item: classes.item,
         itemSection: classes.itemSection,
         itemLabel: classes.itemLabel,
-      }}
-      styles={{
-        dropdown: {
-          padding: 0,
-          overflow: "hidden",
-        },
-        item: {
-          padding: `${rem(8)} ${rem(10)}`,
-          borderRadius: 0,
-        },
       }}
       {...otherProps}
     >

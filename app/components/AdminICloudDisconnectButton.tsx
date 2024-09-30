@@ -32,7 +32,7 @@ const AdminICloudDisconnectButton: FC<AdminICloudDisconnectButtonProps> = ({
     >
       <Menu.Target>
         <Button
-          variant="outline"
+          variant="subtle"
           color="red"
           leftSection={<DeactivateIcon />}
           loading={processing}

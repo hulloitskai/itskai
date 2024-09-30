@@ -34,5 +34,6 @@ export enum PageType {
   Page = "page",
 }
 
-export const resolvePageType = (name: string): PageType =>
-  name.endsWith("Email") ? PageType.Email : PageType.Page;
+export const resolvePageType = (name: string): PageType => {
+  return name.endsWith("Email") ? PageType.Email : PageType.Page;
+};

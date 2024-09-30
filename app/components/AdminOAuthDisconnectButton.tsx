@@ -37,7 +37,7 @@ const AdminOAuthDisconnectButton: FC<AdminOAuthDisconnectButtonProps> = ({
     >
       <Menu.Target>
         <Button
-          variant="outline"
+          variant="subtle"
           color="red"
           leftSection={<DeactivateIcon />}
           loading={processing}

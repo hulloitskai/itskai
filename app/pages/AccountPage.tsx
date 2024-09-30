@@ -28,7 +28,7 @@ const AccountPage: PageComponent = () => (
           <Title order={2} size="h4">
             Email address
           </Title>
-          <Text size="sm" c="dimmed" lh={1.3}>
+          <Text size="sm" c="dimmed" lh="xs">
             Change your account email address
           </Text>
         </Stack>
@@ -45,7 +45,7 @@ const AccountPage: PageComponent = () => (
           <Title order={2} size="h4">
             Password
           </Title>
-          <Text size="sm" c="dimmed" lh={1.3}>
+          <Text size="sm" c="dimmed" lh="xs">
             Change your login password
           </Text>
         </Stack>
@@ -54,11 +54,14 @@ const AccountPage: PageComponent = () => (
     </Card>
     <Card withBorder bd="red.outline">
       <Stack gap="sm">
-        <Center>
+        <Stack align="center" gap={0}>
           <Title order={2} size="h4">
             Danger zone
           </Title>
-        </Center>
+          <Text size="sm" c="dimmed" lh="xs">
+            Destructive actions, and the like.
+          </Text>
+        </Stack>
         <AccountPageDeleteAccountForm />
       </Stack>
     </Card>

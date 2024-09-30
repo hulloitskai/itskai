@@ -7,7 +7,14 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
 
   // == Exports
   {
-    "~/components": ["AnchorContainer", "EmptyCard", "Head", "Time", "TimeAgo"],
+    "~/components": [
+      "AnchorContainer",
+      "EmptyCard",
+      "Head",
+      "Time",
+      "TimeAgo",
+      "ColorSchemeButton",
+    ],
     "~/components/icons": [
       "AddIcon",
       "RemoveIcon",

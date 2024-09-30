@@ -6,6 +6,7 @@
 // biome-ignore lint: disable
 export {}
 declare global {
+  const AdaptiveButton: typeof import('~/components')['AdaptiveButton']
   const AddIcon: typeof import('~/components/icons')['AddIcon']
   const Alert: typeof import('@mantine/core')['Alert']
   const AlertIcon: typeof import('~/components/icons')['AlertIcon']
@@ -21,6 +22,7 @@ declare global {
   const Checkbox: typeof import('@mantine/core')['Checkbox']
   const Chip: typeof import('@mantine/core')['Chip']
   const ClipboardIcon: typeof import('~/components/icons')['ClipboardIcon']
+  const ColorSchemeButton: typeof import('~/components')['ColorSchemeButton']
   const Container: typeof import('@mantine/core')['Container']
   const CreateIcon: typeof import('~/components/icons')['CreateIcon']
   const DateTime: typeof import('luxon')['DateTime']

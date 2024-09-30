@@ -37,6 +37,12 @@
 }
 
 .itemLabel {
-  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-gray-5));
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-gray-5));
   font-weight: 500;
+}
+
+.item {
+  &:hover {
+    background-color: var(--mantine-color-primary-light);
+  }
 }

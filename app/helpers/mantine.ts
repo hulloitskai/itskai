@@ -1,6 +1,7 @@
 import {
   type DefaultMantineColor,
   type MantineColorsTuple,
+  NumberInput,
 } from "@mantine/core";
 import {
   ActionIcon,
@@ -11,6 +12,7 @@ import {
   Loader,
   Modal,
   Notification,
+  PasswordInput,
   TextInput,
   ThemeIcon,
 } from "@mantine/core";
@@ -62,6 +64,7 @@ export const THEME = createTheme({
       },
     }),
     Button: Button.extend({
+      defaultProps: { variant: "light" },
       classNames: {
         root: classes.button,
       },
@@ -84,13 +87,29 @@ export const THEME = createTheme({
       }),
     }),
     Notification: Notification.extend({
-      styles: {
-        description: {
-          lineHeight: "var(--mantine-line-height-xs)",
+      styles: ({ lineHeights, spacing }) => ({
+        title: {
+          marginBottom: 0,
         },
+        description: {
+          lineHeight: lineHeights.xs,
+        },
+        icon: {
+          backgroundColor: "transparent",
+          color: "var(--notification-color)",
+          marginInlineEnd: spacing.xs,
+        },
+      }),
+    }),
+    NumberInput: NumberInput.extend({
+      defaultProps: {
+        variant: "filled",
       },
     }),
     TextInput: TextInput.extend({
+      defaultProps: {
+        variant: "filled",
+      },
       styles: ({ fontSizes }) => ({
         input: {
           fontSize: fontSizes.md,
@@ -101,6 +120,16 @@ export const THEME = createTheme({
       defaultProps: {
         variant: "default",
       },
+    }),
+    PasswordInput: PasswordInput.extend({
+      defaultProps: {
+        variant: "filled",
+      },
+      styles: ({ fontSizes }) => ({
+        input: {
+          fontSize: fontSizes.md,
+        },
+      }),
     }),
   },
 });

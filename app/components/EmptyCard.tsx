@@ -14,7 +14,7 @@ const EmptyCard: FC<EmptyCardProps> = ({
   itemLabel,
   ...otherProps
 }) => (
-  <Card withBorder py="lg" {...otherProps}>
+  <Card withBorder py="lg" style={{ borderStyle: "dashed" }} {...otherProps}>
     <Flex direction="column" align="center">
       <Box c="gray.6" lh={1.1}>
         <EmptyIcon />

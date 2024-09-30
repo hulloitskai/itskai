@@ -104,7 +104,6 @@ const NotionJournalEntryCommentsStack: FC<
         variant="filled"
         rightSection={
           <ActionIcon
-            variant="filled"
             color="primary.6"
             radius="xl"
             // loading={commenting}

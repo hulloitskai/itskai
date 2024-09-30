@@ -153,7 +153,7 @@ class NotionJournalEntry < ApplicationRecord
   # == Notion
   sig { returns(String) }
   def self.notion_database_id
-    ENV["JOURNAL_ENTRY_NOTION_DATABASE_ID"] or
+    ENV["ITSKAI_JOURNAL_ENTRY_NOTION_DATABASE_ID"] or
       raise "Missing journal entries Notion database ID"
   end
 
