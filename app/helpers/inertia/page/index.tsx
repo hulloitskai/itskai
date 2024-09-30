@@ -19,7 +19,7 @@ export const parsePageImports = <T,>(
 export const usePage = <
   Props extends SharedPageProps = SharedPageProps,
 >(): Page<Props> => {
-  return _usePage() as Page<Props>;
+  return _usePage();
 };
 
 export const usePageProps = <
