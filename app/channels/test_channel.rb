@@ -10,7 +10,7 @@ class TestChannel < ApplicationCable::Channel
     @task = T.let(@task, T.nilable(TimerTask))
   end
 
-  # == Handlers
+  # == Actions
   def subscribed
     @task = TimerTask.execute(execution_interval: 1) do |task|
       task = T.let(task, TimerTask)

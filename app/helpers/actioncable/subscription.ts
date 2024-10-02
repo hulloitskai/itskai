@@ -16,17 +16,25 @@ export const useSubscription = <Data>(
   channel: string,
   {
     descriptor,
+    params,
+    skip,
     failSilently,
     onData,
     onError,
-    params,
-    skip,
   }: SubscriptionOptions<Data>,
 ): Subscription<Data> => {
   const cable = useCable();
   const [subscription, setSubscription] = useState<Subscription<Data>>(
     () => ({}),
   );
+  const onDataRef = useRef(onData);
+  const onErrorRef = useRef(onError);
+  useDidUpdate(() => {
+    onDataRef.current = onData;
+  }, [onData]);
+  useDidUpdate(() => {
+    onErrorRef.current = onError;
+  }, [onError]);
   useEffect(() => {
     if (!cable) {
       return;
@@ -49,13 +57,13 @@ export const useSubscription = <Data>(
                   message: data.error,
                 });
               }
-              onError?.(error);
+              onErrorRef.current?.(error);
             } else {
               setSubscription(subscription => ({
                 ...subscription,
                 data,
               }));
-              onData?.(data);
+              onDataRef.current?.(data);
             }
           },
         },

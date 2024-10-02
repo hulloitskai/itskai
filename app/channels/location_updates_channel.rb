@@ -5,7 +5,7 @@ class LocationUpdatesChannel < ApplicationCable::Channel
   # == Active accesses
   class_attribute :active_access_ids, default: []
 
-  # == Handlers
+  # == Actions
   def subscribed
     access = LocationAccess.valid.find_by(token: access_token!) or
       raise "Access token is invalid or expired"

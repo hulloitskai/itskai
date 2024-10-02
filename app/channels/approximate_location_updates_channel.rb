@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class ApproximateLocationUpdatesChannel < ApplicationCable::Channel
-  # == Handlers
+  # == Actions
   def subscribed
     stream_from(channel_name)
   end
