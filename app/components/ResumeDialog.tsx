@@ -61,6 +61,9 @@ const ResumeDialog: FC<ResumeDialogProps> = ({ variant, ...otherProps }) => {
               loading={loadingPDF}
               onClick={() => {
                 setLoadingPDF(true);
+                setTimeout(() => {
+                  setLoadingPDF(false);
+                }, 6000);
               }}
             >
               {loadingPDF ? "Generating PDF..." : "Generate PDF"}
