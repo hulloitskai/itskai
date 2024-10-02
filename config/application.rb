@@ -118,6 +118,12 @@ module ItsKai
     config.active_record.schema_migrations_table_name =
       "active_record_schema_migrations"
     config.active_record.index_nested_attribute_errors = true
+    config.active_record.encryption.primary_key =
+      ENV["RAILS_ENCRYPTION_PRIMARY_KEY"]
+    config.active_record.encryption.deterministic_key =
+      ENV["RAILS_ENCRYPTION_DETERMINISTIC_KEY"]
+    config.active_record.encryption.key_derivation_salt =
+      ENV["RAILS_ENCRYPTION_KEY_DERIVATION_SALT"]
 
     # == Action Cable
     # config.action_cable.mount_path = "/cable"
