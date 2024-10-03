@@ -121,7 +121,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   playwright install --with-deps chromium && \
   apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
   rm -r /var/log/* && \
-  npx playwright --version
+  playwright --version
 
 
 # == Dependencies
@@ -147,7 +147,12 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
 COPY package.json package-lock.json ./
 ENV NODE_ENV=production
 RUN --mount=type=cache,target=/root/.npm,sharing=locked \
-  npm install
+  npm install && \
+  npx clean-modules && \
+  # Remove unnecessary large files
+  rm node_modules/mapbox-gl/dist/mapbox-gl-* && \
+  rm node_modules/@react-email/tailwind/dist/index.mjs && \
+  rm -r node_modules/@maplibre/maplibre-gl-style-spec/docs
 
 # Install Python dependencies
 COPY pyproject.toml poetry.toml poetry.lock ./
