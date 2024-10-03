@@ -7,8 +7,12 @@ import { renderToString as renderPage } from "react-dom/server";
 
 import AppWrapper from "~/components/AppWrapper";
 import EmailWrapper from "~/components/EmailWrapper";
-import { type PageComponent } from "~/helpers/inertia";
-import { PageType, parsePageImports, resolvePageType } from "~/helpers/inertia";
+import {
+  type PageComponent,
+  PageType,
+  parsePageImports,
+  resolvePageType,
+} from "~/helpers/inertia";
 import { preparePage } from "~/helpers/inertia/page/server";
 import { setupLuxon } from "~/helpers/luxon";
 

@@ -9,8 +9,11 @@ import AppWrapper from "~/components/AppWrapper";
 import { setupActiveStorage } from "~/helpers/activestorage";
 import { setupFetch } from "~/helpers/fetch";
 import { setupFullStory } from "~/helpers/fullstory";
-import { type PageComponent } from "~/helpers/inertia";
-import { parsePageImports, setupInertia } from "~/helpers/inertia";
+import {
+  type PageComponent,
+  parsePageImports,
+  setupInertia,
+} from "~/helpers/inertia";
 import { preparePage } from "~/helpers/inertia/page/client";
 import { setupLuxon } from "~/helpers/luxon";
 import { setupSentry } from "~/helpers/sentry";
@@ -23,11 +26,12 @@ setupActiveStorage();
 setupSentry();
 setupFullStory();
 
+// == Pages
 const pageImports = import.meta.glob("~/pages/*.tsx", {
   import: "default",
 }) as Record<string, () => Promise<PageComponent>>;
-
 const pages = parsePageImports(pageImports);
+
 document.addEventListener("DOMContentLoaded", () => {
   createInertiaApp<SharedPageProps>({
     progress: false,
