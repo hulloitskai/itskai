@@ -8,15 +8,15 @@ import LocationAccessGrantCreateForm from "./AdminLocationAccessGrantCreateForm"
 export interface AdminLocationAccessGrantsProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children">,
-    Pick<LocationAccessGrantCreateFormProps, "onCreated">,
-    Pick<AdminLocationAccessGrantCardProps, "onDeleted"> {
+    Pick<LocationAccessGrantCreateFormProps, "onGrantCreated">,
+    Pick<AdminLocationAccessGrantCardProps, "onGrantDeleted"> {
   newGrantId?: string;
 }
 
 const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
   newGrantId,
-  onCreated,
-  onDeleted,
+  onGrantCreated,
+  onGrantDeleted,
   ...otherProps
 }) => {
   // == Load grants
@@ -37,9 +37,9 @@ const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
               key={grant.id}
               {...{ grant }}
               autocopy={newGrantId === grant.id}
-              onDeleted={() => {
+              onGrantDeleted={() => {
                 mutate();
-                onDeleted?.();
+                onGrantDeleted?.();
               }}
             />
           ))
@@ -58,10 +58,10 @@ const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
             title: "Create grant",
             children: (
               <LocationAccessGrantCreateForm
-                onCreated={grant => {
+                onGrantCreated={grant => {
                   mutate();
                   closeAllModals();
-                  onCreated?.(grant);
+                  onGrantCreated?.(grant);
                 }}
               />
             ),

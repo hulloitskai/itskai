@@ -4,19 +4,19 @@ import DeleteButton from "./DeleteButton";
 export interface AdminLocationAccessGrantDeleteButtonProps
   extends Omit<DeleteButtonProps, "onConfirm" | "children"> {
   grantId: string;
-  onDeleted?: () => void;
+  onGrantDeleted?: () => void;
 }
 
 const AdminLocationAccessGrantDeleteButton: FC<
   AdminLocationAccessGrantDeleteButtonProps
-> = ({ grantId, onDeleted, ...otherProps }) => {
+> = ({ grantId, onGrantDeleted, ...otherProps }) => {
   const { processing, submit } = useFetchForm({
     action: routes.adminLocationAccessGrants.destroy,
     params: { id: grantId },
     method: "delete",
     descriptor: "delete grant",
     onSuccess: () => {
-      onDeleted?.();
+      onGrantDeleted?.();
     },
   });
   return (

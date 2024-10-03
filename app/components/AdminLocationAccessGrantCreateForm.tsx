@@ -6,11 +6,11 @@ import { type LocationAccessGrant } from "~/types";
 export interface LocationAccessGrantCreateFormProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {
-  onCreated?: (grant: LocationAccessGrant) => void;
+  onGrantCreated?: (grant: LocationAccessGrant) => void;
 }
 
 const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
-  onCreated,
+  onGrantCreated,
   ...otherProps
 }) => {
   const initialValues = {
@@ -38,7 +38,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
       },
     }),
     onSuccess: ({ grant }) => {
-      onCreated?.(grant);
+      onGrantCreated?.(grant);
     },
   });
   return (

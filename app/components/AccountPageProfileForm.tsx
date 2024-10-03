@@ -5,11 +5,11 @@ import ImageInput from "./ImageInput";
 export interface AccountPageProfileFormProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {
-  onUpdated: () => void;
+  onProfileUpdated: () => void;
 }
 
 const AccountPageProfileForm: FC<AccountPageProfileFormProps> = ({
-  onUpdated,
+  onProfileUpdated,
   ...otherProps
 }) => {
   const authenticatedUser = useAuthenticatedUser();
@@ -40,7 +40,7 @@ const AccountPageProfileForm: FC<AccountPageProfileFormProps> = ({
         avatar: avatar ? { signedId: avatar.signedId } : null,
       });
       showChangesSavedNotice({ to: "your profile" });
-      onUpdated();
+      onProfileUpdated();
     },
   });
   const {

@@ -29,7 +29,7 @@ module Reline
 end
 
 # source://reline//lib/reline/io/ansi.rb#4
-class Reline::ANSI < ::Reline::IO
+class Reline::ANSI # < ::Reline::IO
   # @return [ANSI] a new instance of ANSI
   #
   # source://reline//lib/reline/io/ansi.rb#36

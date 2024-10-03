@@ -10,7 +10,7 @@ import classes from "./AdminLocationAccessGrantCard.module.css";
 export interface AdminLocationAccessGrantCardProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children">,
-    Pick<AdminLocationAccessGrantDeleteButtonProps, "onDeleted"> {
+    Pick<AdminLocationAccessGrantDeleteButtonProps, "onGrantDeleted"> {
   grant: LocationAccessGrant;
   autocopy?: boolean;
 }
@@ -24,7 +24,7 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
     password,
     recipient,
   },
-  onDeleted,
+  onGrantDeleted,
   ...otherProps
 }) => {
   const [locateUrl, setLocateUrl] = useState("");
@@ -133,7 +133,9 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
               </Button>
             )}
           </CopyButton>
-          <AdminLocationAccessGrantDeleteButton {...{ grantId, onDeleted }} />
+          <AdminLocationAccessGrantDeleteButton
+            {...{ grantId, onGrantDeleted }}
+          />
         </Group>
       </Stack>
     </Card>

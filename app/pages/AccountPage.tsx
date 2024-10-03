@@ -16,7 +16,7 @@ const AccountPage: PageComponent = () => (
           </Title>
         </Center>
         <AccountPageProfileForm
-          onUpdated={() => {
+          onProfileUpdated={() => {
             router.reload({ only: ["currentUser"] });
           }}
         />
