@@ -238,10 +238,10 @@ end
 
 group :development do
   # Run git hooks with Lefthook
-  gem "lefthook", "~> 1.7"
+  gem "lefthook", "~> 1.7", require: false
 
   # Patch-level verification for Bundler
-  gem "bundler-audit", "~> 0.9.2"
+  gem "bundler-audit", "~> 0.9.2", require: false
 
   # Detect file changes for live reload
   gem "listen", "~> 3.8"
@@ -250,7 +250,7 @@ group :development do
   gem "actual_db_schema", "~> 0.7.9"
 
   # Rerun programs when files change
-  gem "rerun", "~> 0.14.0"
+  gem "rerun", "~> 0.14.0", require: false
 
   # Typecheck code
   gem "sorbet", require: false
