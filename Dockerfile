@@ -102,6 +102,11 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
 COPY .bash_profile .inputrc /root/
 COPY starship.toml /root/.config/starship.toml
 
+# Install Thruster
+RUN gem install --no-document thruster && \
+  rm -r /usr/local/bundle/cache/*.gem && \
+  find /usr/local/bundle/gems/ -name "*.c" -delete && \
+  find /usr/local/bundle/gems/ -name "*.o" -delete
 
 # == System (Playwright)
 FROM sys AS sys-playwright
@@ -133,7 +138,10 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   echo $BUILD_DEPS $RUNTIME_DEPS | xargs apt-get install -yq --no-install-recommends; \
   BUNDLE_IGNORE_MESSAGES=1 bundle install && \
   echo $BUILD_DEPS | xargs apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
-  rm -r /var/log/*
+  rm -r /var/log/* && \
+  rm -r /usr/local/bundle/cache/*.gem && \
+  find /usr/local/bundle/gems/ -name "*.c" -delete && \
+  find /usr/local/bundle/gems/ -name "*.o" -delete
 
 # Install NodeJS dependencies
 COPY package.json package-lock.json ./
