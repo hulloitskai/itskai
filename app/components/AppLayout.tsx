@@ -97,7 +97,7 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
     <PageLayout>
       <AppMeta {...{ title, description, imageUrl, noIndex }} />
       <AppShell
-        header={{ height: 44 }}
+        header={{ height: 46 }}
         footer={{ height: 44 }}
         padding={padding ?? (withContainer ? undefined : "md")}
         styles={{
@@ -127,8 +127,8 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
             size="compact-md"
             leftSection={<Image src={logoSrc} w={24} />}
             h="unset"
-            py={4}
-            px={6}
+            py={2}
+            px={4}
             fw={800}
             fz="md"
             className={classes.logoButton}
