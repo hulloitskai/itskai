@@ -7,23 +7,14 @@ module Owner
   extend T::Sig
 
   # == Accessors
-  sig { returns(T.nilable(String)) }
+  sig { returns(String) }
   def self.email
-    ENV["OWNER_EMAIL"].presence
+    credentials.email!
   end
 
-  sig { returns(String) }
-  def self.email!
-    email or raise "Owner email not set"
-  end
-
-  sig { returns(T.nilable(String)) }
-  def self.phone
-    ENV["OWNER_PHONE"].presence
-  end
-
-  sig { returns(String) }
-  def self.phone!
-    phone or raise "Owner phone number not set"
+  # == Helpers
+  sig { returns(T.untyped) }
+  def self.credentials
+    Rails.application.credentials.owner!
   end
 end

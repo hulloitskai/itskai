@@ -62,10 +62,10 @@ FileUtils.chdir APP_ROOT do
   puts "\n=> Installing Playwright"
   system! "npx playwright install chromium"
 
-  # puts "\n=> Copying sample files"
-  # unless File.exist?("config/database.yml")
-  #   FileUtils.cp "config/database.yml.sample", "config/database.yml"
-  # end
+  unless File.exist?(".env")
+    puts "\n=> Copying .env.example to .env"
+    FileUtils.cp ".env.example", ".env"
+  end
 
   puts "\n=> Starting database"
   case ENV["CI"]

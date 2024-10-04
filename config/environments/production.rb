@@ -3,6 +3,13 @@
 
 require "active_support/core_ext/integer/time"
 
+# == Default URL
+Rails.application.default_url_options = {
+  protocol: "https",
+  host: "itskai.me",
+}
+
+# == Configuration
 Rails.application.configure do
   # == Code loading
   # Code is not reloaded between requests.
@@ -33,7 +40,7 @@ Rails.application.configure do
   # == Action Dispatch
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = !ENV["RAILS_SERVE_STATIC_FILES"].falsy?
+  config.public_file_server.enabled = true
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
@@ -45,8 +52,7 @@ Rails.application.configure do
   # == Active Storage
   # Store uploaded files on the local file system (see config/storage.yml for
   # options).
-  config.active_storage.service =
-    ENV.fetch("RAILS_STORAGE_SERVICE", :cloudflare).to_sym
+  config.active_storage.service = :cloudflare
 
   # == Action Cable
   # Mount Action Cable outside main process or domain.
@@ -65,8 +71,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # == Action Mailer
-  config.action_mailer.delivery_method =
-    ENV.fetch("RAILS_MAILER", :mailjet_api).to_sym
+  config.action_mailer.delivery_method = :mailjet_api
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
@@ -75,7 +80,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # == Action Mailbox
-  # config.action_mailbox.ingress = ENV.fetch("RAILS_MAILBOX", :mailgun).to_sym
+  # config.action_mailbox.ingress =
 
   # == Active Support
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
@@ -107,6 +112,5 @@ Rails.application.configure do
   # config.action_mailbox.ingress = :relay
 
   # == Good Job
-  config.good_job.execution_mode =
-    ENV.fetch("GOOD_JOB_EXECUTION_MODE", :async).to_sym
+  config.good_job.execution_mode = :async
 end

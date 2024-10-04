@@ -4,14 +4,15 @@
 # Add time helpers.
 require "active_support/core_ext/integer/time"
 
-Rails.application.configure do
-  # == Default URL Options
-  routes.default_url_options = {
-    protocol: "http",
-    host: "localhost",
-    port: ENV.fetch("RAILS_PORT") { 3000 }.to_i,
-  }
+# == Default URL
+Rails.application.default_url_options = {
+  protocol: "http",
+  host: "localhost",
+  port: ENV.fetch("RAILS_PORT") { 3000 }.to_i,
+}
 
+# == Configuration
+Rails.application.configure do
   # == Code loading
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
@@ -56,17 +57,11 @@ Rails.application.configure do
   # == Active Storage
   # Store uploaded files on the local file system (see config/storage.yml for
   # options).
-  config.active_storage.service =
-    ENV.fetch("RAILS_STORAGE_SERVICE", :local).to_sym
+  config.active_storage.service = :local
 
   # == Action Mailer
-  config.action_mailer.delivery_method = ENV
-    .fetch("RAILS_MAILER", :mailcatcher)
-    .to_sym
+  config.action_mailer.delivery_method = :mailcatcher
   config.action_mailer.perform_caching = false
-  config.action_mailer.perform_deliveries = ENV
-    .fetch("RAILS_MAILER_PERFORM_DELIVERIES", true)
-    .truthy?
   # Don't care if the mailer can't send.
   # config.action_mailer.raise_delivery_errors = false
 

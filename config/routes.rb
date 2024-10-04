@@ -163,7 +163,6 @@ Rails.application.routes.draw do
     scope format: true, constraints: { format: "atom" } do
       get "/feed" => "home#feed", as: :feed
     end
-    # get "/pensieve" => "pensieve#show"
   end
   get "/track" => redirect(path: "/locate", status: 302)
   get "/toronto" => "places#toronto"

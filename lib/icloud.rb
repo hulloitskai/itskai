@@ -12,11 +12,17 @@ module ICloud
   # == Accessors
   sig { returns(T.nilable(String)) }
   def self.iphone_device_id
-    ENV["ICLOUD_IPHONE_DEVICE_ID"]
+    credentials.iphone_device_id
   end
 
   sig { returns(String) }
   def self.iphone_device_id!
     iphone_device_id or raise "iPhone device ID not set"
+  end
+
+  # == Helpers
+  sig { returns(T.untyped) }
+  def self.credentials
+    Rails.application.credentials.icloud!
   end
 end

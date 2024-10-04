@@ -37,15 +37,15 @@ module ItsKai
     require "inflections"
     require "custom_devise_failure_app"
     require "announcement"
-    require "notifications"
     require "logging"
     require "owner"
     require "admin"
+    require "fullstory"
+    require "clarity"
     require "google"
+    require "mapbox"
     require "spotify"
     require "icloud"
-    require "pensieve"
-    require "telnyx"
     require "badwords"
     require "contact"
     require "location"
@@ -118,12 +118,6 @@ module ItsKai
     config.active_record.schema_migrations_table_name =
       "active_record_schema_migrations"
     config.active_record.index_nested_attribute_errors = true
-    config.active_record.encryption.primary_key =
-      ENV["RAILS_ENCRYPTION_PRIMARY_KEY"]
-    config.active_record.encryption.deterministic_key =
-      ENV["RAILS_ENCRYPTION_DETERMINISTIC_KEY"]
-    config.active_record.encryption.key_derivation_salt =
-      ENV["RAILS_ENCRYPTION_KEY_DERIVATION_SALT"]
 
     # == Action Cable
     # config.action_cable.mount_path = "/cable"

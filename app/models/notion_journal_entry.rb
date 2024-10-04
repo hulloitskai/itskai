@@ -153,8 +153,7 @@ class NotionJournalEntry < ApplicationRecord
   # == Notion
   sig { returns(String) }
   def self.notion_database_id
-    ENV["ITSKAI_JOURNAL_ENTRY_NOTION_DATABASE_ID"] or
-      raise "Missing journal entries Notion database ID"
+    credentials.notion_database_id!
   end
 
   sig { returns(T.untyped) }
@@ -170,5 +169,13 @@ class NotionJournalEntry < ApplicationRecord
   sig { params(text: String).returns(T.untyped) }
   def create_notion_comment(text)
     NotionClient.create_comment(notion_page_id, text:)
+  end
+
+  private
+
+  # == Helpers
+  sig { returns(T.untyped) }
+  private_class_method def self.credentials
+    Rails.application.credentials.notion_journal_entry!
   end
 end

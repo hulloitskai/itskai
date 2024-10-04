@@ -3,18 +3,17 @@
 
 require "sorbet-runtime"
 
-module Contact
+module Mapbox
   extend T::Sig
 
-  # == Accessors
-  sig { returns(String) }
-  def self.email
-    credentials.email!
+  sig { returns(T.nilable(String)) }
+  def self.access_token
+    credentials.client_id
   end
 
   # == Helpers
   sig { returns(T.untyped) }
   def self.credentials
-    Rails.application.credentials.contact!
+    Rails.application.credentials.mapbox!
   end
 end

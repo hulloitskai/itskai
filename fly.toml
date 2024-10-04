@@ -10,14 +10,6 @@ swap_size_mb = 1024
   release_command = "bin/deploy"
   strategy = "bluegreen"
 
-[env]
-  RAILS_DEFAULT_URL = "https://itskai.me"
-  RAILS_MAILER_FROM = "It's Kai <robot@itskai.me>"
-  RAILS_MAILER_REPLY_TO = "Kai <hullo@itskai.me>"
-  SENTRY_TRACES_SAMPLE_RATE = "0.1"
-  SENTRY_PROFILES_SAMPLE_RATE = "0.1"
-  PENCIEVE_RECEIVER_DISABLED = "true"
-
 [[services]]
   protocol = "tcp"
   internal_port = 3000

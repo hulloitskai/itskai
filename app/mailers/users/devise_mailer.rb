@@ -3,8 +3,6 @@
 
 module Users
   class DeviseMailer < Devise::Mailer
-    protected :default_sender
-
     # == Emails
     sig do
       override

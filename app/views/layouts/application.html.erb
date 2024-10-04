@@ -36,15 +36,15 @@
         <meta name="sentry-dsn" content="<%= dsn %>">
         <meta name="sentry-traces-sample-rate" content="<%= config.traces_sample_rate %>">
       <% end %>
-    <% end %>
+    <% end if Rails.env.production? %>
 
-    <%# == FullStory %>
-    <% if (org_id = ENV["FULLSTORY_ORG_ID"].presence) %>
+    <%# == Fullstory %>
+    <% if Rails.env.production? && (org_id = Fullstory.org_id) %>
       <meta name="fullstory-org-id" content="<%= org_id %>">
     <% end %>
 
     <%# == Clarity %>
-    <% if (project_id = ENV["CLARITY_PROJECT_ID"].presence) %>
+    <% if Rails.env.production? && (project_id = Clarity.project_id) %>
       <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
           c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -56,25 +56,14 @@
 
     <%# == Vite %>
     <%= vite_client_tag %>
-    <%#= vite_typescript_tag "spotlight" if Rails.env.development? %>
+    <%= vite_typescript_tag "spotlight" if Rails.env.development? %>
     <% if local_assigns.include?(:page) %>
       <%= vite_react_refresh_tag %>
       <%= vite_javascript_tag "application.tsx", media: nil %>
     <% end %>
 
-    <%# == Google Analytics %>
-    <% if (measurement_id = ENV["GOOGLE_ANALYTICS_MEASUREMENT_ID"].presence) %>
-      <script src="https://www.googletagmanager.com/gtag/js?id=<%= measurement_id %>" async></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){ dataLayer.push(arguments); }
-        gtag("js", new Date());
-        gtag("config", "<%= measurement_id %>");
-      </script>
-    <% end %>
-
     <% # == Mapbox %>
-    <% if (token = ENV["MAPBOX_ACCESS_TOKEN"].presence) %>
+    <% if (token = Mapbox.access_token) %>
       <meta name="mapbox-access-token" content="<%= token %>">
     <% end %>
 

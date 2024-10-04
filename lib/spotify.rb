@@ -6,33 +6,25 @@ require "sorbet-runtime"
 module Spotify
   extend T::Sig
 
-  sig { returns(T.nilable(String)) }
+  # == Accessors
+  sig { returns(String) }
   def self.client_id
-    ENV["SPOTIFY_CLIENT_ID"]
+    credentials.client_id!
   end
 
   sig { returns(String) }
-  def self.client_id!
-    client_id or raise "Spotify client ID not set"
-  end
-
-  sig { returns(T.nilable(String)) }
   def self.client_secret
-    ENV["SPOTIFY_CLIENT_SECRET"]
+    credentials.client_secret!
   end
 
   sig { returns(String) }
-  def self.client_secret!
-    client_secret or raise "Spotify client secret not set"
-  end
-
-  sig { returns(T.nilable(String)) }
   def self.sp_dc
-    ENV["SPOTIFY_SP_DC"]
+    credentials.sp_dc!
   end
 
-  sig { returns(String) }
-  def self.sp_dc!
-    sp_dc or raise "Spotify SP DC not set"
+  # == Helpers
+  sig { returns(T.untyped) }
+  def self.credentials
+    Rails.application.credentials.spotify!
   end
 end

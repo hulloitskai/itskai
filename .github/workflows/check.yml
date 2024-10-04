@@ -5,18 +5,18 @@ on:
   - pull_request
 
 env:
-  RAILS_ENV: test
   OVERMIND_VERSION: 2.5.1
 
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     services:
       postgres:
         image: postgis/postgis:15-3.3
         env:
           POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: itskai_test
         ports:
           - 5432:5432
         options: >-
@@ -54,13 +54,16 @@ jobs:
       - name: Set up environment
         run: bin/setup
         env:
-          POSTGRES_DATABASE: postgres
+          RAILS_ENV: test
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
       - name: Check lints and formatting
         run: bin/check --all-files
       - name: Run tests
         run: bin/test
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
         if: failure()

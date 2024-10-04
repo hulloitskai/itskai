@@ -7,7 +7,7 @@ class ContactUrlsController < ApplicationController
   def show
     contact_url_params = ContactUrlParameters.new(params)
     contact_url_params.validate!
-    email = Contact.email or raise "Missing contact email"
+    email = Contact.email
     mailto = Addressable::URI.parse("mailto:#{email}")
     mailto.query_values = contact_url_params.to_h.compact_blank
     render(json: { mailto: mailto.to_s })

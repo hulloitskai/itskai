@@ -2,5 +2,7 @@
 # frozen_string_literal: true
 
 Notion.configure do |config|
-  config.token = ENV["NOTION_API_TOKEN"].presence
+  unless ENV["NO_CREDENTIALS"].truthy?
+    config.token = Rails.application.credentials.notion!.api_token!
+  end
 end

@@ -7,18 +7,20 @@ class ApplicationMailer < ActionMailer::Base
   include Routing
 
   # == Configuration
-  default from: :default_sender, reply_to: :default_reply_to
+  default from: :default_from, reply_to: :default_reply_to
   layout "mailer"
+
+  protected
 
   # == Helpers
   sig { returns(String) }
-  def default_sender
-    ENV["RAILS_MAILER_FROM"].presence or raise "Missing default from address"
+  def default_from
+    credentials.from!
   end
 
   sig { returns(T.nilable(String)) }
   def default_reply_to
-    ENV["RAILS_MAILER_REPLY_TO"].presence
+    credentials.reply_to
   end
 
   private
@@ -29,8 +31,9 @@ class ApplicationMailer < ActionMailer::Base
     value.is_a?(Symbol) ? send(value) : super
   end
 
-  sig { returns(T.nilable(String)) }
-  def notifications_email
-    Notifications.email
+  sig { returns(T.untyped) }
+  private_class_method def self.credentials
+    Rails.application.credentials.mailer!
   end
+  delegate :credentials, to: :class
 end

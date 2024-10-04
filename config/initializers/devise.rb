@@ -276,23 +276,25 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
-  # Configure authentication with Spotify.
-  config.omniauth(
-    :spotify,
-    client_id: Spotify.client_id,
-    client_secret: Spotify.client_secret,
-    scope: %w[user-read-email user-read-playback-state].join(", "),
-  )
+  unless ENV["NO_CREDENTIALS"].truthy?
+    # Configure authentication with Spotify.
+    config.omniauth(
+      :spotify,
+      client_id: Spotify.client_id,
+      client_secret: Spotify.client_secret,
+      scope: %w[user-read-email user-read-playback-state].join(", "),
+    )
 
-  # Configure authentication with Google.
-  config.omniauth(
-    :google_oauth2,
-    client_id: Google.client_id,
-    client_secret: Google.client_secret,
-    name: :google,
-    scope: %w[profile email].join(","),
-    prompt: "consent",
-  )
+    # Configure authentication with Google.
+    config.omniauth(
+      :google_oauth2,
+      client_id: Google.client_id,
+      client_secret: Google.client_secret,
+      name: :google,
+      scope: %w[profile email].join(","),
+      prompt: "consent",
+    )
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

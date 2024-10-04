@@ -15,53 +15,24 @@
 # gem "pg"
 #
 default: &default
-  adapter: postgis
-  url: <%= ENV["POSTGRES_URL"] %>
-  host: <%= ENV.fetch("POSTGRES_HOST", "localhost") %>
-  port: <%= ENV.fetch("POSTGRES_PORT", 5432) %>
-  username: <%= ENV.fetch("POSTGRES_USERNAME", "postgres") %>
-  password: <%= ENV.fetch("POSTGRES_PASSWORD", "postgres") %>
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) + 1 %>
+  adapter: &adapter postgis
+  host: localhost
+  port: 5432
+  username: postgres
+  password: postgres
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5).to_i + 1 + 1 + 2 + ENV.fetch("GOOD_JOB_MAX_THREADS", 2).to_i %>
   timeout: 5000
 
 development:
   <<: *default
-  database: <%= ENV.fetch("POSTGRES_DATABASE", "itskai_development") %>
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5).to_i + 1 + 1 + 2 + ENV.fetch("GOOD_JOB_MAX_THREADS", 2).to_i %>
-
-  # The specified database role being used to connect to postgres.
-  # To create additional roles in postgres see `$ createuser --help`.
-  # When left blank, postgres will use the default role. This is
-  # the same name as the operating system user running Rails.
-  #username: itskai
-
-  # The password associated with the postgres role (username).
-  #password:
-
-  # Connect on a TCP socket. Omitted by default since the client uses a
-  # domain socket that doesn't need configuration. Windows does not have
-  # domain sockets, so uncomment these lines.
-  #host: localhost
-
-  # The TCP port the server listens on. Defaults to 5432.
-  # If your server runs on a different port number, change accordingly.
-  #port: 5432
-
-  # Schema search path. The server defaults to $user,public
-  #schema_search_path: myapp,sharedapp,public
-
-  # Minimum log levels, in increasing order:
-  #   debug5, debug4, debug3, debug2, debug1,
-  #   log, notice, warning, error, fatal, and panic
-  # Defaults to warning.
-  #min_messages: notice
+  database: itskai_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: <%= ENV.fetch("POSTGRES_DATABASE", "itskai_test") %>
+  database: itskai_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -84,7 +55,7 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: <%= ENV.fetch("POSTGRES_DATABASE", "itskai_production") %>
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5).to_i + 1 + 1 + 2 + ENV.fetch("GOOD_JOB_MAX_THREADS", 2).to_i %>
+  adapter: *adapter
+  database: itskai_production
+  url: <%= Rails.application.credentials.database&.url %>
   reaping_frequency: 10

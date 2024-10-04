@@ -34,7 +34,7 @@ class ExplorationComment < ApplicationRecord
   # == Callback handlers
   sig { void }
   def send_notification
-    NotificationsBot.send_message(
+    AlertBot.alert(
       "New comment on '#{exploration.label}': #{message}",
     )
   end

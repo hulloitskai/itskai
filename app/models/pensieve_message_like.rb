@@ -38,11 +38,12 @@ class PensieveMessageLike < ApplicationRecord
   # == Methods
   sig { void }
   def send_notification_and_update_reaction
-    PensieveBot.send_message(
-      "Someone liked your message.",
-      reply_to_message_id: message!.telegram_message_id,
-    )
-    PensieveBot.like_message(message!.telegram_message_id)
+    raise NotImplementedError
+    # PensieveBot.send_message(
+    #   "Someone liked your message.",
+    #   reply_to_message_id: message!.telegram_message_id,
+    # )
+    # PensieveBot.like_message(message!.telegram_message_id)
   end
 
   sig { void }

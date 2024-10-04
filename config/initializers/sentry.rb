@@ -2,7 +2,9 @@
 # frozen_string_literal: true
 
 Sentry.init do |config|
-  config.dsn = ENV["SENTRY_DSN"].presence
+  unless ENV["NO_CREDENTIALS"].truthy?
+    config.dsn = Rails.application.credentials.sentry!.dsn
+  end
   config.breadcrumbs_logger = %i[
     sentry_logger
     active_support_logger
@@ -20,10 +22,8 @@ Sentry.init do |config|
   # performance monitoring.
   #
   # We recommend adjusting this value in production.
-  config.traces_sample_rate = ENV.fetch("SENTRY_TRACES_SAMPLE_RATE", 0.0).to_f
-  config.profiles_sample_rate = ENV
-    .fetch("SENTRY_PROFILES_SAMPLE_RATE", 0.0)
-    .to_f
+  config.traces_sample_rate = 0.05
+  config.profiles_sample_rate = 0.05
 
   # Ignore healthcheck route.
   config.before_send_transaction = proc do |event|

@@ -182,7 +182,7 @@ ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true MALLOC_CONF="dirty_decay_ms:10
 
 # Precompile assets
 RUN --mount=type=cache,target=/root/.npm,sharing=locked \
-  SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
+  NO_CREDENTIALS=1 SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 
 # Install Python scripts
 RUN --mount=type=cache,target=/usr/local/share/.cache/pypoetry,sharing=locked \

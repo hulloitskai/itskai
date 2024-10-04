@@ -49,7 +49,7 @@ class LocationAccess < ApplicationRecord
   sig { void }
   def send_notification
     grant = grant!
-    NotificationsBot.send_message(
+    AlertBot.alert(
       "Location accessed by #{grant.recipient} (pw: #{grant.password})",
     )
   end

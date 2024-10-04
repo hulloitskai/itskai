@@ -16,8 +16,8 @@ class Users::DeviseMailer
     end
     def confirmation_instructions(record, token, opts = T.unsafe(nil)); end
 
-    sig { returns(::ActionMailer::MessageDelivery) }
-    def default_reply_to; end
+    sig { params(_arg0: T.untyped, _arg1: T.untyped, _arg2: T.untyped).returns(::ActionMailer::MessageDelivery) }
+    def credentials(*_arg0, **_arg1, &_arg2); end
 
     sig { params(record: ::User, opts: T::Hash[::Symbol, T.untyped]).returns(::ActionMailer::MessageDelivery) }
     def email_changed(record, opts = T.unsafe(nil)); end

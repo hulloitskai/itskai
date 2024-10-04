@@ -8,7 +8,7 @@ class TestMailer < ApplicationMailer
   end
   def test_email(model, current_user: nil)
     mail(
-      to: Contact.email!,
+      to: Contact.email,
       subject: "It's Kai!",
       inertia: "TestEmail",
       props: {

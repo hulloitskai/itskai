@@ -56,6 +56,7 @@ vite.config.ts.timestamp-*.mjs
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/config/credentials/production.key
 
 # == Node
 **/node_modules/

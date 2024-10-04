@@ -8,14 +8,15 @@ require "active_support/core_ext/integer/time"
 # your test database is "scratch space" for the test suite and is wiped
 # and recreated between test runs. Don't rely on the data there!
 
-Rails.application.configure do
-  # == Default URL Options
-  routes.default_url_options = {
-    protocol: "http",
-    host: "localhost",
-    port: 3000,
-  }
+# == Default URL
+Rails.application.default_url_options = {
+  protocol: "http",
+  host: "localhost",
+  port: ENV.fetch("RAILS_PORT") { 3000 }.to_i,
+}
 
+# == Configuration
+Rails.application.configure do
   # == Code loading
   # Settings specified here will take precedence over those in
   # config/application.rb.

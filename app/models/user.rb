@@ -89,14 +89,12 @@ class User < ApplicationRecord
   # == Finders
   sig { returns(T.nilable(User)) }
   def self.owner
-    if (email = Owner.email)
-      User.find_by(email:)
-    end
+    User.find_by(email: Owner.email)
   end
 
   sig { returns(User) }
   def self.owner!
-    User.find_by!(email: Owner.email!)
+    User.find_by!(email: Owner.email)
   end
 
   # == Emails
@@ -108,7 +106,7 @@ class User < ApplicationRecord
   # == Helpers
   sig { returns(T::Boolean) }
   def owner?
-    email == Owner.email!
+    email == Owner.email
   end
 
   sig { returns(T::Boolean) }

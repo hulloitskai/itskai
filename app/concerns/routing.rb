@@ -22,6 +22,6 @@ module Routing
 
   sig { returns(T::Hash[Symbol, T.untyped]) }
   def default_url_options
-    Rails.application.routes.default_url_options
+    Rails.application.default_url_options
   end
 end

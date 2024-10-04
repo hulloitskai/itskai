@@ -3,6 +3,9 @@
 
 Mailjet.configure do |config|
   config.api_version = "v3.1"
-  config.api_key = ENV["MAILJET_API_KEY"]
-  config.secret_key = ENV["MAILJET_SECRET_KEY"]
+  if !ENV["NO_CREDENTIALS"].truthy? && Rails.env.production?
+    credentials = Rails.application.credentials.mailjet!
+    config.api_key = credentials.api_key!
+    config.secret_key = credentials.secret_key!
+  end
 end

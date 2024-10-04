@@ -52,6 +52,12 @@ module GeneratedPathHelpersModule
   def cathendant_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def change_email_user_registration_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def change_password_user_registration_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def coffee_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

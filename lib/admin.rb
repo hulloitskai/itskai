@@ -9,7 +9,7 @@ module Admin
   # == Accessors
   sig { returns(T.nilable(String)) }
   def self.emails_expr
-    ENV["ADMIN_EMAILS"]
+    credentials.emails
   end
 
   sig { returns(T::Array[String]) }
@@ -36,5 +36,11 @@ module Admin
       end,
       T.nilable(T::Array[String]),
     )
+  end
+
+  # == Helpers
+  sig { returns(T.untyped) }
+  def self.credentials
+    Rails.application.credentials.admin!
   end
 end

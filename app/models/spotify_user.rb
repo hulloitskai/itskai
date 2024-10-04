@@ -21,7 +21,7 @@ class SpotifyUser < RSpotify::User
   def self.from_credentials(credentials)
     @users = T.let(@users, T.nilable(T::Hash[OAuthCredentials, SpotifyUser]))
     @users ||= Hash.new do |hash, credentials|
-      RSpotify.authenticate(Spotify.client_id!, Spotify.client_secret!)
+      RSpotify.authenticate(Spotify.client_id, Spotify.client_secret)
       user = new({
         "id" => credentials.uid,
         "credentials" => {

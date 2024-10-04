@@ -6,23 +6,19 @@ require "sorbet-runtime"
 module Google
   extend T::Sig
 
-  sig { returns(T.nilable(String)) }
+  sig { returns(String) }
   def self.client_id
-    ENV["GOOGLE_CLIENT_ID"]
+    credentials.client_id!
   end
 
   sig { returns(String) }
-  def self.client_id!
-    client_id or raise "Google client ID not set"
-  end
-
-  sig { returns(T.nilable(String)) }
   def self.client_secret
-    ENV["GOOGLE_CLIENT_SECRET"]
+    credentials.client_secret!
   end
 
-  sig { returns(String) }
-  def self.client_secret!
-    client_secret or raise "Google client secret not set"
+  # == Helpers
+  sig { returns(T.untyped) }
+  def self.credentials
+    Rails.application.credentials.google!
   end
 end

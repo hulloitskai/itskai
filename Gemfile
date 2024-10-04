@@ -169,7 +169,7 @@ gem "after_party", "~> 1.11"
 # Handle CORS requests
 gem "rack-cors", "~> 2.0"
 
-# Interact with Kai on Telegram
+# Send notifications with Telegram-
 gem "telegram-bot-ruby", "~> 2.0", require: 'telegram/bot'
 
 # Hash passwords with bcrypt
@@ -177,9 +177,6 @@ gem "bcrypt", "~> 3.1"
 
 # Control the browser with Playwright
 gem "playwright-ruby-client", "~> 1.43", require: 'playwright'
-
-# OpenAI client
-gem "ruby-openai", "~> 6.3"
 
 # Analyze image metadata with Exiftool
 gem "exiftool", "~> 1.2"
