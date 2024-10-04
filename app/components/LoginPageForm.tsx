@@ -11,7 +11,6 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
     action: routes.usersSessions.create,
     method: "post",
     descriptor: "sign in",
-    validateInputOnBlur: true,
     initialValues: {
       email: "",
       password: "",
