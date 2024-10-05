@@ -5,9 +5,7 @@ require "test_helper"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   extend T::Sig
-
   include Devise::Test::IntegrationHelpers
-  include Routing
 
   # == Configuration
   driven_by :playwright
