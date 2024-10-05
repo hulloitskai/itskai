@@ -19,7 +19,6 @@ const AccountPagePasswordForm: FC<AccountPagePasswordFormProps> = ({
     descriptor: "change password",
     initialValues: {
       password: "",
-      passwordConfirmation: "",
       currentPassword: "",
     },
     transformValues: values => ({
@@ -34,43 +33,26 @@ const AccountPagePasswordForm: FC<AccountPagePasswordFormProps> = ({
           return "Password is too weak";
         }
       },
-      passwordConfirmation: (value, { password }) => {
-        if (!value) {
-          return "Password confirmation is required";
-        }
-        if (value !== password) {
-          return "Password confirmation does not match password";
-        }
-      },
       currentPassword: isNotEmpty("Current password is required"),
+    },
+    onSuccess: () => {
+      showSuccessNotice({ message: "Password changed successfully." });
     },
   });
   const { getInputProps, isDirty, processing, submit } = form;
   const currentPasswordFilled = useFieldsFilled(form, "currentPassword");
-  const passwordFieldsFilled = useFieldsFilled(
-    form,
-    "password",
-    "passwordConfirmation",
-  );
+  const passwordFieldsFilled = useFieldsFilled(form, "password");
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
         <StrongPasswordInput
           label="New password"
-          placeholder="ultra-secure-password"
+          placeholder="paS$w0rD"
           autoComplete="new-password"
           required
           onStrengthCheck={setPasswordStrength}
           {...getInputProps("password")}
-        />
-        <PasswordInput
-          label="New password (confirm)"
-          placeholder="ultra-secure-password"
-          autoComplete="new-password"
-          required
-          minLength={8}
-          {...getInputProps("passwordConfirmation")}
         />
         <Transition
           transition="fade"

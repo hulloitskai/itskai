@@ -1,5 +1,3 @@
-import { PasswordInput } from "@mantine/core";
-
 import StrongPasswordInput from "./StrongPasswordInput";
 
 export interface ChangePasswordPageFormProps
@@ -33,14 +31,6 @@ const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
           return "Password is too weak";
         }
       },
-      passwordConfirmation: (value, { password }) => {
-        if (!value) {
-          return "Password confirmation is required";
-        }
-        if (value !== password) {
-          return "Password confirmation does not match password";
-        }
-      },
     },
     transformValues: values => ({
       user: {
@@ -56,19 +46,11 @@ const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
         <StrongPasswordInput
           {...getInputProps("password")}
           label="New password"
-          placeholder="ultra-secure-password"
+          placeholder="paS$w0rD"
           autoComplete="new-password"
           required
           minLength={8}
           onStrengthCheck={setPasswordStrength}
-        />
-        <PasswordInput
-          {...getInputProps("passwordConfirmation")}
-          label="New password (confirm)"
-          placeholder="ultra-secure-password"
-          autoComplete="new-password"
-          required
-          minLength={8}
         />
         <Button type="submit" loading={processing}>
           Continue

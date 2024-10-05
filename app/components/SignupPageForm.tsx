@@ -1,4 +1,3 @@
-import { PasswordInput } from "@mantine/core";
 import { isEmail, isNotEmpty } from "@mantine/form";
 
 import StrongPasswordInput from "./StrongPasswordInput";
@@ -18,7 +17,6 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
       name: "",
       email: "",
       password: "",
-      passwordConfirmation: "",
     },
     validate: {
       name: isNotEmpty("Name is required"),
@@ -31,11 +29,6 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
           return "Password is too weak";
         }
       },
-      passwordConfirmation: (value, { password }) => {
-        if (value !== password) {
-          return "Password confirmation does not match password";
-        }
-      },
     },
     transformValues: values => ({
       user: {
@@ -44,7 +37,6 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
     }),
     onError: ({ setFieldValue }) => {
       setFieldValue("password", "");
-      setFieldValue("passwordConfirmation", "");
     },
   });
   return (
@@ -68,17 +60,10 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
         <StrongPasswordInput
           {...getInputProps("password")}
           label="Password"
-          placeholder="secret-passphrase"
+          placeholder="paS$w0rD"
           autoComplete="new-password"
           required
           onStrengthCheck={setPasswordStrength}
-        />
-        <PasswordInput
-          {...getInputProps("passwordConfirmation")}
-          label="Password confirmation"
-          placeholder="secret-passphrase"
-          autoComplete="new-password"
-          required
         />
         <Button type="submit" loading={processing}>
           Sign up

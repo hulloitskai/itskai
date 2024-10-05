@@ -96,9 +96,7 @@ module Users
       resource = resource_class
         .to_adapter
         .get!(public_send(:"current_#{resource_name}").to_key)
-      prev_unconfirmed_email = resource.try(:unconfirmed_email)
       if resource.update_with_password(account_update_params)
-        set_flash_message_for_update(resource, prev_unconfirmed_email)
         if sign_in_after_change_password?
           bypass_sign_in(resource, scope: resource_name)
         end
