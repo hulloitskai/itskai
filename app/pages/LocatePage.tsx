@@ -57,7 +57,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
     }
     if (initialApproximateLocation) {
       return {
-        ...initialApproximateLocation.approximateCoordinates,
+        ...initialApproximateLocation.approximate_coordinates,
         zoom: APPROXIMATE_ZOOM,
       };
     }
@@ -109,7 +109,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
   const regionData = useMemo(() => {
     if (initialApproximateLocation) {
       const { latitude, longitude } =
-        initialApproximateLocation.approximateCoordinates;
+        initialApproximateLocation.approximate_coordinates;
       return circle([longitude, latitude], 1);
     }
   }, [initialApproximateLocation]);
@@ -117,17 +117,17 @@ const LocatePage: PageComponent<LocatePageProps> = ({
 
   // == Trail
   const firstMarkerTimestamp = useMemo<DateTime | undefined>(() => {
-    const firstMarker = first(location?.trailMarkers);
+    const firstMarker = first(location?.trail_markers);
     if (firstMarker) {
       return DateTime.fromISO(firstMarker.timestamp);
     }
-  }, [location?.trailMarkers]);
+  }, [location?.trail_markers]);
   const lastMarkerTimestamp = useMemo<DateTime | undefined>(() => {
-    const lastMarker = last(location?.trailMarkers);
+    const lastMarker = last(location?.trail_markers);
     if (lastMarker) {
       return DateTime.fromISO(lastMarker.timestamp);
     }
-  }, [location?.trailMarkers]);
+  }, [location?.trail_markers]);
   const trailDurationMilliseconds = useMemo<Duration | undefined>(() => {
     if (firstMarkerTimestamp && lastMarkerTimestamp) {
       return lastMarkerTimestamp.diff(firstMarkerTimestamp);
@@ -153,10 +153,10 @@ const LocatePage: PageComponent<LocatePageProps> = ({
   const trailMarkersData = useMemo<
     FeatureCollection<Point, { opacity: number }> | undefined
   >(() => {
-    if (location?.trailMarkers) {
+    if (location?.trail_markers) {
       return {
         type: "FeatureCollection",
-        features: location.trailMarkers.map(marker => {
+        features: location.trail_markers.map(marker => {
           const { latitude, longitude } = marker.coordinates;
           return {
             type: "Feature",
@@ -171,7 +171,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
         }),
       };
     }
-  }, [location?.trailMarkers, deriveTrailMarkerOpacity]);
+  }, [location?.trail_markers, deriveTrailMarkerOpacity]);
   const trailMarkerColor = useMemo(() => {
     const { color } = theme.variantColorResolver({
       theme,
@@ -349,7 +349,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                       </Text>
                       <Text size="xs" c="dimmed">
                         Location access expires{" "}
-                        <TimeAgo inherit>{accessGrant.expiresAt}</TimeAgo>.
+                        <TimeAgo inherit>{accessGrant.expires_at}</TimeAgo>.
                       </Text>
                     </Box>
                   </Stack>

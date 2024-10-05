@@ -11,4 +11,5 @@ TypesFromSerializers.config do |config|
     date: :string,
     datetime: :string,
   )
+  config.transform_keys = ->(key) { key }
 end

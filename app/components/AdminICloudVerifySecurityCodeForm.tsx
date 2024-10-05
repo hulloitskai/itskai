@@ -14,10 +14,10 @@ const AdminICloudVerifySecurityCodeForm: FC<
   AdminICloudVerifySecurityCodeFormProps
 > = ({ onVerified, ...otherProps }) => {
   const initialValues = { code: "" };
-  const { getInputProps, processing, submit } = useFetchForm<
-    { connection: ICloudConnection },
-    typeof initialValues
-  >({
+  interface FormData {
+    connection: ICloudConnection;
+  }
+  const { getInputProps, processing, submit } = useFetchForm({
     action: routes.adminICloudConnections.verifySecurityCode,
     method: "post",
     descriptor: "verify security code",
@@ -33,7 +33,7 @@ const AdminICloudVerifySecurityCodeForm: FC<
     transformValues: values => ({
       verification: values,
     }),
-    onSuccess: ({ connection }) => {
+    onSuccess: ({ connection }: FormData) => {
       closeAllModals();
       showSuccessNotice({ message: "Successfully authenticated with iCloud." });
       onVerified?.(connection);

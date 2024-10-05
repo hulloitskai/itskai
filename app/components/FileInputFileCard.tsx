@@ -22,8 +22,8 @@ const FileInputFileCard: FC<FileInputFileCardProps> = ({
   });
   const { file } = data ?? {};
   const sizeText = useMemo(
-    () => (file?.byteSize ? prettyBytes(file.byteSize) : null),
-    [file?.byteSize],
+    () => (file?.byte_size ? prettyBytes(file.byte_size) : null),
+    [file?.byte_size],
   );
 
   return (

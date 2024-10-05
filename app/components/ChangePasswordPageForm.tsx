@@ -20,7 +20,6 @@ const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
     // mode: "uncontrolled",
     initialValues: {
       password: "",
-      passwordConfirmation: "",
     },
     validate: {
       password: value => {
@@ -32,9 +31,9 @@ const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
         }
       },
     },
-    transformValues: values => ({
+    transformValues: attributes => ({
       user: {
-        ...underscoreKeys(values),
+        ...attributes,
         reset_password_token: resetPasswordToken,
       },
     }),

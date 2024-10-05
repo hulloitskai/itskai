@@ -18,9 +18,7 @@ const RequestPasswordResetPageForm: FC<RequestPasswordResetPageFormProps> = ({
     validate: {
       email: isEmail("Email is not valid"),
     },
-    transformValues: values => ({
-      user: underscoreKeys(values),
-    }),
+    transformValues: attributes => ({ user: attributes }),
   });
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>

@@ -21,7 +21,7 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
       password: isNotEmpty("Password is required"),
     },
     transformValues: values => ({
-      user: underscoreKeys(values),
+      user: values,
     }),
     onError: ({ setFieldValue }) => {
       setFieldValue("password", "");

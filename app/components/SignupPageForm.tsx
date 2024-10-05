@@ -30,11 +30,7 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
         }
       },
     },
-    transformValues: values => ({
-      user: {
-        ...underscoreKeys(values),
-      },
-    }),
+    transformValues: attributes => ({ user: attributes }),
     onError: ({ setFieldValue }) => {
       setFieldValue("password", "");
     },

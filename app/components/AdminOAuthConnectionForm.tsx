@@ -16,23 +16,23 @@ const AdminOAuthConnectionForm: FC<AdminOAuthConnectionFormProps> = ({
   onDisconnected,
   ...otherProps
 }) => {
-  const { authorizeUrl, credentials } = connection;
+  const { credentials } = connection;
   return (
     <Stack gap="xs" {...otherProps}>
       {credentials && (
         <>
           <TextInput label="UID (read-only)" value={credentials.uid} readOnly />
-          {!!credentials.refreshToken && (
+          {!!credentials.refresh_token && (
             <TextInput
               label="Refresh token (read-only)"
-              value={credentials.refreshToken}
+              value={credentials.refresh_token}
               readOnly
             />
           )}
         </>
       )}
       <Stack gap={6}>
-        <form action={authorizeUrl} method="post">
+        <form action={connection.authorize_url} method="post">
           <FormAuthenticityField />
           <Button type="submit" leftSection={<OpenExternalIcon />} fullWidth>
             Authenticate

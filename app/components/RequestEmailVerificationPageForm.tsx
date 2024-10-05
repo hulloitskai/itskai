@@ -19,9 +19,6 @@ const RequestEmailVerificationPageForm: FC<
     validate: {
       email: isEmail("Email is not valid"),
     },
-    transformValues: values => ({
-      user: underscoreKeys(values),
-    }),
   });
 
   return (

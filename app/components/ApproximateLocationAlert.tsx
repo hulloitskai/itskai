@@ -51,13 +51,13 @@ const ApproximateLocationAlert: FC<ApproximateLocationAlertProps> = ({
           <Text inherit>
             I&apos;m currently around{" "}
             <Anchor
-              href={location.googleMapsAreaUrl}
+              href={location.google_maps_area_url}
               target="_blank"
               rel="noopener noreferrer nofollow"
               inherit
               fw={600}
             >
-              {location.approximateAddress}
+              {location.approximate_address}
             </Anchor>
             . If you&apos;re nearby, text me and come say hi!
           </Text>

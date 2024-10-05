@@ -19,25 +19,28 @@ const AccountPageProfileForm: FC<AccountPageProfileFormProps> = ({
     const { avatar, name } = authenticatedUser;
     return {
       name,
-      avatar: avatar ? { signedId: avatar.signedId } : null,
+      avatar: avatar ? { signedId: avatar.signed_id } : null,
     };
   }, [authenticatedUser]);
-  const form = useFetchForm<{ user: User }, typeof initialValues>({
+  interface FormData {
+    user: User;
+  }
+  const form = useFetchForm({
     action: routes.usersRegistrations.update,
     method: "put",
     descriptor: "update profile",
     initialValues,
     transformValues: ({ avatar, ...attributes }) => ({
       user: {
-        ...underscoreKeys(attributes),
+        ...attributes,
         avatar: avatar ? avatar.signedId : "",
       },
     }),
-    onSuccess: ({ user }, { setInitialValues }) => {
+    onSuccess: ({ user }: FormData, { setInitialValues }) => {
       const { name, avatar } = user;
       setInitialValues({
         name,
-        avatar: avatar ? { signedId: avatar.signedId } : null,
+        avatar: avatar ? { signedId: avatar.signed_id } : null,
       });
       showChangesSavedNotice({ to: "your profile" });
       onProfileUpdated();

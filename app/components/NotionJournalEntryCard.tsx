@@ -16,7 +16,7 @@ export interface NotionJournalEntryCardProps
 }
 
 const NotionJournalEntryCard: FC<NotionJournalEntryCardProps> = ({
-  entry: { content, id: entryId, startedAt, title, url },
+  entry,
   ...otherProps
 }) => (
   <Box pos="relative" w="100%" maw={540} {...otherProps}>
@@ -31,20 +31,20 @@ const NotionJournalEntryCard: FC<NotionJournalEntryCardProps> = ({
             lh={1.3}
             className={classes.title}
           >
-            {title}
+            {entry.title}
           </Title>
           <Text size="xs" c="dimmed">
-            written <TimeAgo>{startedAt}</TimeAgo>
+            written <TimeAgo>{entry.started_at}</TimeAgo>
           </Text>
-          <NotionContent {...{ content }} />
+          <NotionContent content={entry.content} />
         </Stack>
       </Stack>
       <Card.Section withBorder inheritPadding mt="sm" py="sm">
-        <JournalEntryCommentsStack {...{ entryId }} />
+        <JournalEntryCommentsStack entryId={entry.id} />
       </Card.Section>
     </Card>
     <Box pos="absolute" top={-10} right={-10}>
-      <CopyButton value={url}>
+      <CopyButton value={entry.url}>
         {({ copied, copy }) => (
           <JournalEntryCardCopyLinkTooltip {...{ copied }}>
             <ActionIcon

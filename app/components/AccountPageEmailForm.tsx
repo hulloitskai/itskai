@@ -18,16 +18,17 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
 
   // == Form
   const initialValues = useMemo(() => {
-    const { email, unconfirmedEmail } = user;
+    const { email, unconfirmed_email } = user;
     return {
-      email: unconfirmedEmail || email,
+      email: unconfirmed_email || email,
       currentPassword: "",
     };
   }, [user]);
-  const form = useFetchForm<
-    { user: User; emailNeedsConfirmation: boolean },
-    typeof initialValues
-  >({
+  interface FormData {
+    user: User;
+    emailNeedsConfirmation: boolean;
+  }
+  const form = useFetchForm({
     action: routes.usersRegistrations.changeEmail,
     method: "put",
     descriptor: "change email",
@@ -36,12 +37,15 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
       email: isEmail("Email is not valid"),
       currentPassword: isNotEmpty("Current password is required"),
     },
-    transformValues: values => ({
-      user: underscoreKeys(values),
+    transformValues: attributes => ({
+      user: attributes,
     }),
-    onSuccess: ({ user, emailNeedsConfirmation }, { setInitialValues }) => {
+    onSuccess: (
+      { user, emailNeedsConfirmation }: FormData,
+      { setInitialValues },
+    ) => {
       setInitialValues({
-        email: user.unconfirmedEmail || user.email,
+        email: user.unconfirmed_email || user.email,
         currentPassword: "",
       });
       if (emailNeedsConfirmation) {
@@ -80,7 +84,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
             label="Email"
             placeholder="jon.snow@example.com"
             required
-            {...(user.unconfirmedEmail
+            {...(user.unconfirmed_email
               ? {
                   rightSectionWidth: 80,
                   rightSection: (
@@ -91,7 +95,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
                 }
               : {})}
           />
-          {user.email && user.unconfirmedEmail && (
+          {user.email && user.unconfirmed_email && (
             <Text size="xs" c="dimmed" mt={4}>
               Last verified email:{" "}
               <Text c="gray" fw={500} span>
@@ -124,7 +128,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
           >
             Change email
           </Button>
-          {user.unconfirmedEmail && (
+          {user.unconfirmed_email && (
             <ResendEmailVerificationInstructionsButton
               variant="outline"
               {...{ user }}

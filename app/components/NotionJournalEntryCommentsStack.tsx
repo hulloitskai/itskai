@@ -71,32 +71,29 @@ const NotionJournalEntryCommentsStack: FC<
   return (
     <Stack gap={6} {...otherProps}>
       {!commentsFetching && comments ? (
-        comments.map(comment => {
-          const { createdAt, id: commentId, richText } = comment;
-          return (
-            <Group
-              key={commentId}
-              align="start"
-              gap={8}
-              fz="sm"
-              className={classes.comment}
-            >
-              <Box component={CommentIcon} mt={2} />
-              <Box style={{ flex: 1 }}>
-                <Stack gap={4} lh={1.5}>
-                  {richText.map((props: any, index: number) => (
-                    <RenderText key={index} {...props} />
-                  ))}
-                </Stack>
-                <Box>
-                  <TimeAgo size="xs" c="dimmed" lh={1.3}>
-                    {createdAt}
-                  </TimeAgo>
-                </Box>
+        comments.map(comment => (
+          <Group
+            key={comment.id}
+            align="start"
+            gap={8}
+            fz="sm"
+            className={classes.comment}
+          >
+            <Box component={CommentIcon} mt={2} />
+            <Box style={{ flex: 1 }}>
+              <Stack gap={4} lh={1.5}>
+                {comment.rich_text.map((props: any, index: number) => (
+                  <RenderText key={index} {...props} />
+                ))}
+              </Stack>
+              <Box>
+                <TimeAgo size="xs" c="dimmed" lh={1.3}>
+                  {comment.created_at}
+                </TimeAgo>
               </Box>
-            </Group>
-          );
-        })
+            </Box>
+          </Group>
+        ))
       ) : (
         <Skeleton h={40} />
       )}

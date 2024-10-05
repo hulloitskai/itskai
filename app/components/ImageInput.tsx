@@ -7,14 +7,10 @@ import { useUncontrolled } from "@mantine/hooks";
 import PhotoIcon from "~icons/heroicons/photo-20-solid";
 
 import { upload } from "~/helpers/upload";
-import { type Image as ImageModel } from "~/types";
+import { type Image as ImageModel, type Upload } from "~/types";
 
 import classes from "./ImageInput.module.css";
 import "@mantine/dropzone/styles.layer.css";
-
-export interface ImageValue {
-  signedId: string;
-}
 
 export interface ImageInputProps
   extends Omit<
@@ -27,9 +23,9 @@ export interface ImageInputProps
       | "onChange"
     >,
     Pick<DropzoneProps, "disabled"> {
-  value?: ImageValue | null;
-  defaultValue?: ImageValue | null;
-  onChange?: (value: ImageValue | null) => void;
+  value?: Upload | null;
+  defaultValue?: Upload | null;
+  onChange?: (value: Upload | null) => void;
   radius?: ImageProps["radius"];
   center?: boolean;
 }
@@ -114,7 +110,7 @@ const ImageInput: FC<ImageInputProps> = ({
             h="100%"
             {...{ radius }}
             src={image?.src}
-            srcSet={image?.srcSet}
+            srcSet={image?.src_set}
           />
           <Dropzone
             accept={["image/png", "image/jpeg"]}
@@ -157,7 +153,12 @@ const ImageInput: FC<ImageInputProps> = ({
           >
             <Stack align="center" gap={8}>
               <Box component={PhotoIcon} className={classes.dropzoneIcon} />
-              <Text size="xs" c="dark.1" lh={1.3} ta="center">
+              <Text
+                size="xs"
+                c="dark.1"
+                lh={1.3}
+                style={{ textAlign: "center" }}
+              >
                 Drag an image or click to upload
               </Text>
             </Stack>

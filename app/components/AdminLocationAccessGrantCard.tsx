@@ -17,21 +17,16 @@ export interface AdminLocationAccessGrantCardProps
 
 const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
   autocopy,
-  grant: {
-    createdAt,
-    expiresAt: expiresAtISO,
-    id: grantId,
-    password,
-    recipient,
-  },
+  grant,
   onGrantDeleted,
   ...otherProps
 }) => {
   const [locateUrl, setLocateUrl] = useState("");
-  const expiresAt = useParseDateTime(expiresAtISO);
   useEffect(
     () => {
-      const path = routes.locations.show.path({ query: { password } });
+      const path = routes.locations.show.path({
+        query: { password: grant.password },
+      });
       const url = new URL(path, window.location.href);
       setLocateUrl(url.toString());
       if (autocopy) {
@@ -41,7 +36,9 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
             <Stack gap={8}>
               <Text inherit>
                 Access granted until{" "}
-                {expiresAt.toLocaleString(DateTime.DATETIME_SHORT)}.
+                <Time inherit format={DateTime.DATETIME_SHORT}>
+                  {grant.expires_at}
+                </Time>
               </Text>
               <Box>
                 <CopyButton value={url.toString()}>
@@ -62,7 +59,7 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
         navigator.clipboard.writeText(url.toString()).then(() => {});
       }
     },
-    [password], // eslint-disable-line react-hooks/exhaustive-deps
+    [grant.password], // eslint-disable-line react-hooks/exhaustive-deps
   );
   return (
     <Card
@@ -76,23 +73,23 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
       <Stack gap="xs">
         <Box style={{ flexGrow: 1 }}>
           <Text fw={600} lh={1.4}>
-            {recipient}
+            {grant.recipient}
           </Text>
           <Text size="sm" c="dimmed" lh={1.4}>
             Created on{" "}
             <Time inherit format={DateTime.DATETIME_MED} c="gray.5" fw={500}>
-              {createdAt}
+              {grant.created_at}
             </Time>
           </Text>
           <Text size="sm" c="dimmed" lh={1.4}>
             Expires{" "}
             <TimeAgo inherit c="gray.5" fw={500}>
-              {expiresAt}
+              {grant.expires_at}
             </TimeAgo>
           </Text>
           <Text size="sm" c="dimmed" lh={1.4}>
             Password is{" "}
-            <CopyButton value={password}>
+            <CopyButton value={grant.password}>
               {({ copied, copy }) => (
                 <Tooltip
                   label={copied ? "Copied!" : "Click to copy"}
@@ -113,7 +110,7 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
                       }).hover,
                     })}
                   >
-                    {password}
+                    {grant.password}
                   </Code>
                 </Tooltip>
               )}
@@ -134,7 +131,8 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
             )}
           </CopyButton>
           <AdminLocationAccessGrantDeleteButton
-            {...{ grantId, onGrantDeleted }}
+            grantId={grant.id}
+            {...{ onGrantDeleted }}
           />
         </Group>
       </Stack>

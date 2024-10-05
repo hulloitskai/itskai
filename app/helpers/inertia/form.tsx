@@ -1,24 +1,25 @@
-import { type Method, type VisitOptions } from "@inertiajs/core";
-import { type PathHelper } from "@js-from-routes/client";
 import {
-  type FormErrors,
-  type UseFormInput,
-  type UseFormReturnType,
-} from "@mantine/form";
+  type Method,
+  type Page,
+  type RequestPayload,
+  type VisitOptions,
+} from "@inertiajs/core";
+import { type PathHelper } from "@js-from-routes/client";
+import { type UseFormInput, type UseFormReturnType } from "@mantine/form";
 import { type FormEvent } from "react";
 
 import { showFormErrorsAlert } from "~/helpers/form";
 import { sentencify } from "~/helpers/inflect";
 
-type InertiaPartialForm<Values> = Omit<
-  UseFormReturnType<Values>,
-  "onSubmit" | "onReset"
->;
+type InertiaPartialForm<
+  Values,
+  TransformValues extends (values: Values) => unknown,
+> = Omit<UseFormReturnType<Values, TransformValues>, "onSubmit" | "onReset">;
 
-type TransformValues<Values> = (values: Values) => any;
-
-export interface InertiaFormOptions<Values>
-  extends UseFormInput<Values, TransformValues<Values>> {
+export interface InertiaFormOptions<
+  Values,
+  TransformValues extends (values: Values) => unknown,
+> extends UseFormInput<Values, TransformValues> {
   action: PathHelper;
   descriptor: string;
   params?: {
@@ -27,46 +28,61 @@ export interface InertiaFormOptions<Values>
   };
   method?: Method;
   failSilently?: boolean;
-  transformErrors?: (errors: Record<string, string>) => FormErrors;
-  onSuccess?: (form: InertiaPartialForm<Values>) => void;
-  onError?: (form: InertiaPartialForm<Values>) => void;
-  onFailure?: (error: Error, form: InertiaPartialForm<Values>) => void;
+  onSubmit?: (
+    transformedValues: ReturnType<TransformValues>,
+    form: InertiaPartialForm<Values, TransformValues>,
+  ) => void;
+  onSuccess?: (
+    page: Page<SharedPageProps>,
+    form: InertiaPartialForm<Values, TransformValues>,
+  ) => void;
+  onError?: (form: InertiaPartialForm<Values, TransformValues>) => void;
+  onFailure?: (
+    error: Error,
+    form: InertiaPartialForm<Values, TransformValues>,
+  ) => void;
 }
 
 type InertiaFormSubmit = (event?: FormEvent<HTMLFormElement>) => void;
 
-export interface InertiaForm<Values>
-  extends Omit<UseFormReturnType<Values, TransformValues<Values>>, "onSubmit"> {
+export interface InertiaForm<
+  Values,
+  TransformValues extends (values: Values) => unknown,
+> extends Omit<UseFormReturnType<Values, TransformValues>, "onSubmit"> {
   processing: boolean;
   submit: InertiaFormSubmit;
 }
 
 export const useInertiaForm = <
   Values extends Record<string, any> = Record<string, any>,
+  TransformValues extends (values: Values) => RequestPayload = (
+    values: Values,
+  ) => Values,
 >(
-  options: InertiaFormOptions<Values>,
-): InertiaForm<Values> => {
+  options: InertiaFormOptions<Values, TransformValues>,
+): InertiaForm<Values, TransformValues> => {
   const {
     action: actionRoute,
     descriptor,
     failSilently,
     method = "get",
+    onSubmit,
     onError,
     onFailure,
     onSuccess,
     params,
-    transformErrors = camelizeKeys,
-    transformValues = underscoreKeys,
+    transformValues,
     ...otherOptions
   } = options;
   const action = useMemo(() => actionRoute.path(params), [actionRoute, params]);
-  const form = useForm<Values, TransformValues<Values>>({
+  const form = useForm<Values, TransformValues>({
     ...otherOptions,
     transformValues,
   });
   const [processing, setProcessing] = useState(false);
   const submit = form.onSubmit(
-    (data: any) => {
+    transformedValues => {
+      onSubmit?.(transformedValues, form);
       let removeInvalidListener: VoidFunction | undefined;
       const options: Partial<VisitOptions> = {
         preserveScroll: true,
@@ -95,23 +111,21 @@ export const useInertiaForm = <
           removeInvalidListener?.();
           setProcessing(false);
         },
-        onSuccess: () => {
-          onSuccess?.(form);
+        onSuccess: page => {
+          onSuccess?.(page as unknown as Page<SharedPageProps>, form);
           form.reset();
         },
         onError: errors => {
-          const formErrors: FormErrors = transformErrors(errors);
-          form.setErrors(formErrors);
-          console.warn(`Couldn't ${descriptor}`, formErrors);
-          const formWithErrors = { ...form, errors: formErrors };
-          showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
+          form.setErrors(errors);
+          console.warn(`Couldn't ${descriptor}`, errors);
+          showFormErrorsAlert(form, `Couldn't ${descriptor}`);
           onError?.(form);
         },
       };
       if (method === "delete") {
         router.delete(action, { ...options });
       } else {
-        router[method](action, data, { ...options });
+        router[method](action, transformedValues, { ...options });
       }
     },
     errors => {

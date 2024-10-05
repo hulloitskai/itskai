@@ -26,7 +26,7 @@ export const useInterpolatedProgressMs = ({
 };
 
 export interface ProgressLyricsIndexMappingParams {
-  lyrics: Pick<LyricLine, "startTimeMs">[] | null | undefined;
+  lyrics: Pick<LyricLine, "start_time_ms">[] | null | undefined;
   durationMs: number;
   interpolationMs: number;
 }
@@ -41,9 +41,9 @@ export const useProgressLyricsIndexMapping = ({
     if (lyrics) {
       requestIdleCallback(() => {
         const mapping: Record<number, number | null> = {};
-        lyrics.forEach(({ startTimeMs }, index) => {
+        lyrics.forEach((lyric, index) => {
           const roundedStartTimeMs =
-            Math.round(startTimeMs / interpolationMs) * interpolationMs;
+            Math.round(lyric.start_time_ms / interpolationMs) * interpolationMs;
           mapping[roundedStartTimeMs] = index;
         });
         for (

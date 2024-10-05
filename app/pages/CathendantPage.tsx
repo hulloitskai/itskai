@@ -24,24 +24,24 @@ const CathendantPage: PageComponent<CathendantPageProps> = ({ memos }) => {
           Wanna add another voice?
         </Anchor>
       </Box>
-      {memos.map(({ from, id: memoId, recordingUrl }) => (
-        <Card key={memoId} withBorder>
+      {memos.map(memo => (
+        <Card key={memo.id} withBorder>
           <Stack gap="xs">
             <Text>
               From:{" "}
               <Text span inherit fw={600}>
-                {from}
+                {memo.from}
               </Text>
             </Text>
             <Button
               size="lg"
-              variant={playingMemoId === memoId ? "outline" : "filled"}
+              variant={playingMemoId === memo.id ? "outline" : "filled"}
               leftSection={
-                playingMemoId === memoId ? <StopIcon /> : <PlayIcon />
+                playingMemoId === memo.id ? <StopIcon /> : <PlayIcon />
               }
               onClick={() => {
-                if (playingMemoId !== memoId) {
-                  player.load(recordingUrl, {
+                if (playingMemoId !== memo.id) {
+                  player.load(memo.recording_url, {
                     autoplay: true,
                     html5: true,
                     onstop: () => {
@@ -51,13 +51,13 @@ const CathendantPage: PageComponent<CathendantPageProps> = ({ memos }) => {
                       setPlayingMemoId(null);
                     },
                   });
-                  setPlayingMemoId(memoId);
+                  setPlayingMemoId(memo.id);
                 } else {
                   player.stop();
                 }
               }}
             >
-              {playingMemoId === memoId ? "Stop playback" : "Play message"}
+              {playingMemoId === memo.id ? "Stop playback" : "Play message"}
             </Button>
           </Stack>
         </Card>

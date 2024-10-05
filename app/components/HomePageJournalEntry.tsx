@@ -25,10 +25,11 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
   const nextEntryPath = useMemo(() => {
     return routes.home.show.path({
       query: {
-        journalEntryId: journalEntry.nextJournalEntryId ?? firstJournalEntryId,
+        journal_entry_id:
+          journalEntry.next_journal_entry_id ?? firstJournalEntryId,
       },
     });
-  }, [journalEntry.nextJournalEntryId, firstJournalEntryId]);
+  }, [journalEntry.next_journal_entry_id, firstJournalEntryId]);
 
   // == Scrolling
   const scrollToContainerTop = useCallback(() => {
@@ -57,11 +58,13 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
         preserveScroll
         only={["journalEntry", "firstJournalEntryId", "journalAutoscroll"]}
         leftSection={
-          journalEntry.nextJournalEntryId ? <NextIcon /> : <ResetIcon />
+          journalEntry.next_journal_entry_id ? <NextIcon /> : <ResetIcon />
         }
         radius="xl"
       >
-        {journalEntry.nextJournalEntryId ? "more words pls" : "from the top!"}
+        {journalEntry.next_journal_entry_id
+          ? "more words pls"
+          : "from the top!"}
       </Button>
     </Stack>
   );

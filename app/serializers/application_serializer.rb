@@ -5,9 +5,6 @@ class ApplicationSerializer < Oj::Serializer
   include TypesFromSerializers::DSL
   include Routing
 
-  # == Configuration
-  transform_keys :camelize
-
   # == Rendering
   def render_as_hash(item, options = nil)
     super.compact

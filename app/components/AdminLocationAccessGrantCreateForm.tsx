@@ -13,31 +13,30 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
   onGrantCreated,
   ...otherProps
 }) => {
-  const initialValues = {
-    recipient: "",
-    password: "",
-    expiresInHours: 12,
-  };
-  const { getInputProps, processing, submit } = useFetchForm<
-    { grant: LocationAccessGrant },
-    typeof initialValues
-  >({
+  interface FormData {
+    grant: LocationAccessGrant;
+  }
+  const { getInputProps, processing, submit } = useFetchForm({
     action: routes.adminLocationAccessGrants.create,
     method: "post",
     descriptor: "create location access grant",
     // mode: "uncontrolled",
-    initialValues,
+    initialValues: {
+      recipient: "",
+      password: "",
+      expires_in_hours: 12,
+    },
     validate: {
       recipient: isNotEmpty("Recipient is required"),
-      expiresInHours: isNotEmpty("Expiration is required"),
+      expires_in_hours: isNotEmpty("Expiration is required"),
     },
-    transformValues: ({ expiresInHours, ...attributes }) => ({
+    transformValues: ({ expires_in_hours, ...attributes }) => ({
       grant: {
-        ...underscoreKeys(attributes),
-        expires_in_seconds: expiresInHours * 60 * 60,
+        ...attributes,
+        expires_in_seconds: expires_in_hours * 60 * 60,
       },
     }),
-    onSuccess: ({ grant }) => {
+    onSuccess: ({ grant }: FormData) => {
       onGrantCreated?.(grant);
     },
   });

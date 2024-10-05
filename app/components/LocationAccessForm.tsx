@@ -17,25 +17,24 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
   size = "md",
   ...otherProps
 }) => {
-  const initialValues = {
-    password: "",
-  };
-  const { getInputProps, processing, setFieldValue, submit } = useFetchForm<
-    { token: string },
-    typeof initialValues
-  >({
+  interface FormData {
+    token: string;
+  }
+  const { getInputProps, processing, setFieldValue, submit } = useFetchForm({
     action: routes.locations.access,
     method: "post",
     descriptor: "access location",
     // mode: "uncontrolled",
-    initialValues,
+    initialValues: {
+      password: "",
+    },
     validate: {
       password: isNotEmpty("Password is required"),
     },
     transformValues: values => ({
       access_request: values,
     }),
-    onSuccess: ({ token }) => {
+    onSuccess: ({ token }: FormData) => {
       onSuccess?.(token);
     },
     onError: ({ setFieldValue }) => {

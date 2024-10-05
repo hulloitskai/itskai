@@ -1,26 +1,21 @@
 import { type Method } from "@inertiajs/core";
 import { type PathHelper, type ResponseError } from "@js-from-routes/client";
-import {
-  type FormErrors,
-  type UseFormInput,
-  type UseFormReturnType,
-} from "@mantine/form";
+import { type UseFormInput, type UseFormReturnType } from "@mantine/form";
 import { type FormEvent } from "react";
 
 import { showFormErrorsAlert } from "~/helpers/form";
 import { sentencify } from "~/helpers/inflect";
 
-type FetchPartialForm<Values> = Omit<
-  UseFormReturnType<Values>,
-  "onSubmit" | "onReset"
->;
-
-type TransformValues<Values> = (values: Values) => any;
+type FetchPartialForm<
+  Values,
+  TransformValues extends (values: Values) => unknown,
+> = Omit<UseFormReturnType<Values, TransformValues>, "onSubmit" | "onReset">;
 
 export interface FetchFormOptions<
   Data extends Record<string, any> & { error?: never },
   Values,
-> extends UseFormInput<Values, TransformValues<Values>> {
+  TransformValues extends (values: Values) => unknown,
+> extends UseFormInput<Values, TransformValues> {
   action: PathHelper;
   descriptor: string;
   params?: {
@@ -29,10 +24,20 @@ export interface FetchFormOptions<
   };
   method?: Method;
   failSilently?: boolean;
-  transformErrors?: (errors: Record<string, string>) => FormErrors;
-  onSuccess?: (data: Data, form: FetchPartialForm<Values>) => void;
-  onFailure?: (error: Error, form: FetchPartialForm<Values>) => void;
-  onError?: (form: FetchPartialForm<Values>) => void;
+  onSubmit?: (
+    transformedValues: ReturnType<TransformValues>,
+    form: FetchPartialForm<Values, TransformValues>,
+    submission: Promise<void>,
+  ) => void;
+  onSuccess?: (
+    data: Data,
+    form: FetchPartialForm<Values, TransformValues>,
+  ) => void;
+  onFailure?: (
+    error: Error,
+    form: FetchPartialForm<Values, TransformValues>,
+  ) => void;
+  onError?: (form: FetchPartialForm<Values, TransformValues>) => void;
 }
 
 type FetchFormSubmit = (event?: FormEvent<HTMLFormElement>) => void;
@@ -40,7 +45,8 @@ type FetchFormSubmit = (event?: FormEvent<HTMLFormElement>) => void;
 export interface FetchForm<
   Data extends Record<string, any> & { error?: never; errors?: never },
   Values,
-> extends Omit<UseFormReturnType<Values, TransformValues<Values>>, "onSubmit"> {
+  TransformValues extends (values: Values) => unknown,
+> extends Omit<UseFormReturnType<Values, TransformValues>, "onSubmit"> {
   data: Data | undefined;
   error: Error | undefined;
   processing: boolean;
@@ -51,23 +57,26 @@ export interface FetchForm<
 export const useFetchForm = <
   Data extends Record<string, any> & { error?: never; errors?: never } = {},
   Values extends Record<string, any> = Record<string, any>,
+  TransformValues extends (values: Values) => unknown = (
+    values: Values,
+  ) => Values,
 >(
-  options: FetchFormOptions<Data, Values>,
-): FetchForm<Data, Values> => {
+  options: FetchFormOptions<Data, Values, TransformValues>,
+): FetchForm<Data, Values, TransformValues> => {
   const {
     action,
     descriptor,
     failSilently,
     method = "get",
+    onSubmit,
     onError,
     onFailure,
     onSuccess,
     params,
-    transformErrors = camelizeKeys,
-    transformValues = underscoreKeys,
+    transformValues,
     ...otherOptions
   } = options;
-  const form = useForm<Values, TransformValues<Values>>({
+  const form = useForm<Values, TransformValues>({
     ...otherOptions,
     transformValues,
   });
@@ -75,12 +84,14 @@ export const useFetchForm = <
   const [error, setError] = useState<Error | undefined>();
   const [processing, setProcessing] = useState(false);
   const submit = form.onSubmit(
-    data => {
+    transformedValues => {
       setProcessing(true);
-      action<Data & { error?: string; errors?: Record<string, string> }>({
+      const submission = action<
+        Data & { error?: string; errors?: Record<string, string> }
+      >({
         params,
         method,
-        data: method === "delete" ? undefined : data,
+        data: method === "delete" ? undefined : transformedValues,
       })
         .then(
           data => {
@@ -106,12 +117,11 @@ export const useFetchForm = <
                 }
                 onFailure?.(e, form);
               } else if (errors) {
-                const formErrors: FormErrors = transformErrors(errors);
-                form.setErrors(formErrors);
+                form.setErrors(errors);
                 console.warn(`Couldn't ${descriptor}`, {
-                  errors: formErrors,
+                  errors,
                 });
-                const formWithErrors = { ...form, errors: formErrors };
+                const formWithErrors = { ...form, errors };
                 if (!failSilently) {
                   showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
                 }
@@ -135,6 +145,7 @@ export const useFetchForm = <
         .finally(() => {
           setProcessing(false);
         });
+      onSubmit?.(transformedValues, form, submission);
     },
     errors => {
       const formWithErrors = { ...form, errors };

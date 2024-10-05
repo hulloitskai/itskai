@@ -53,10 +53,9 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   const { currentlyPlaying: metadata } = subscriptionData ?? {};
   const progressMs = useMemo(() => {
     if (metadata) {
-      const { progressMs, timestamp: timestampISO } = metadata;
-      const timestamp = DateTime.fromISO(timestampISO);
+      const timestamp = DateTime.fromISO(metadata.timestamp);
       const elappsedMs = DateTime.now().diff(timestamp).as("milliseconds");
-      return progressMs + elappsedMs - 1200;
+      return metadata.progress_ms + elappsedMs - 1200;
     }
   }, [metadata]);
 
@@ -69,7 +68,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   const [track, setTrack] = useState<RSpotifyTrack | null>(null);
   useEffect(() => {
     if (online) {
-      if (metadata?.trackId !== track?.id) {
+      if (metadata?.track_id !== track?.id) {
         if (track) {
           setTransitionState({ mounted: false, transitioned: false });
           mutate();
@@ -160,7 +159,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
   transitioned,
   ...otherProps
 }) => {
-  const { album, artists, durationMs, name } = track;
+  const { album, artists } = track;
   const artistNames = useMemo(
     () =>
       artists.map(({ name }: any) => name).join(", ") || "(missing artists)",
@@ -177,12 +176,9 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
   return (
     <CurrentlyPlayingLyricsTooltip
       withinPortal={false}
+      durationMs={track.duration_ms}
       {...(!transitioned && { disabled: true })}
-      {...{
-        track,
-        durationMs,
-        progressMs,
-      }}
+      {...{ track, progressMs }}
     >
       {currentLyricLine => {
         const { words: currentWords } = currentLyricLine ?? {};
@@ -194,7 +190,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
             leftSection={
               <Box pos="relative" p={2} mr={3}>
                 <MotionImage
-                  src={album.imageUrl}
+                  src={album.image_url}
                   w={26}
                   h={26}
                   radius="xl"
@@ -248,7 +244,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
             {...otherProps}
           >
             <MarqueeText size="xs" fw={800} className={classes.trackName}>
-              {name}
+              {track.name}
             </MarqueeText>
             <MarqueeText fz={10} fw={700} className={classes.artistNames}>
               {artistNames}

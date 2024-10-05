@@ -121,7 +121,7 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
             >
               Settings
             </Menu.Item>
-            {currentUser.isOwner && (
+            {currentUser.is_owner && (
               <>
                 <Menu.Item
                   component={Link}

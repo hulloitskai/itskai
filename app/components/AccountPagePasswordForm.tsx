@@ -21,8 +21,8 @@ const AccountPagePasswordForm: FC<AccountPagePasswordFormProps> = ({
       password: "",
       currentPassword: "",
     },
-    transformValues: values => ({
-      user: underscoreKeys(values),
+    transformValues: attributes => ({
+      user: attributes,
     }),
     validate: {
       password: value => {
