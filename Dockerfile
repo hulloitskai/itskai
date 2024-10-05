@@ -169,7 +169,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
 
 # == Application
 FROM deps AS app
-ENV PORT=3000
+ENV RAILS_PORT=3000
 
 # Copy application code
 COPY . ./
@@ -189,11 +189,11 @@ RUN --mount=type=cache,target=/usr/local/share/.cache/pypoetry,sharing=locked \
   poetry install --only-root
 
 # Expose ports
-EXPOSE ${PORT}
+EXPOSE ${RAILS_PORT}
 
 # Configure healthcheck
 HEALTHCHECK --interval=15s --timeout=2s --start-period=10s --retries=3 \
-  CMD curl -f http://127.0.0.1:${PORT}/status
+  CMD curl -f http://127.0.0.1:${RAILS_PORT}/status
 
 # Set entrypoint and default command
 CMD [ "bin/run" ]
