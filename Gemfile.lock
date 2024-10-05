@@ -687,6 +687,7 @@ DEPENDENCIES
   puma (~> 6.4.2)
   rack-cors (~> 2.0)
   rack-mini-profiler
+  rack-test
   rails (~> 7.1.2)
   rails-healthcheck
   rerun (~> 0.14.0)
