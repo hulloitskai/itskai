@@ -57,5 +57,5 @@ test:
 production:
   adapter: *adapter
   database: itskai_production
-  url: <%= Rails.application.credentials.database&.url %>
+  url: <%= Rails.application.credentials.database.url unless ENV["NO_CREDENTIALS"] %>
   reaping_frequency: 10

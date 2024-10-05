@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 Sentry.init do |config|
-  unless ENV["NO_CREDENTIALS"].truthy?
+  unless ENV["NO_CREDENTIALS"]
     config.dsn = Rails.application.credentials.sentry!.dsn
   end
   config.breadcrumbs_logger = %i[
