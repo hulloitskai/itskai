@@ -21,7 +21,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
     const { email, unconfirmed_email } = user;
     return {
       email: unconfirmed_email || email,
-      currentPassword: "",
+      current_password: "",
     };
   }, [user]);
   interface FormData {
@@ -35,7 +35,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
     initialValues,
     validate: {
       email: isEmail("Email is not valid"),
-      currentPassword: isNotEmpty("Current password is required"),
+      current_password: isNotEmpty("Current password is required"),
     },
     transformValues: attributes => ({
       user: attributes,
@@ -46,7 +46,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
     ) => {
       setInitialValues({
         email: user.unconfirmed_email || user.email,
-        currentPassword: "",
+        current_password: "",
       });
       if (emailNeedsConfirmation) {
         showNotice({
@@ -73,7 +73,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
     setInitialValues(initialValues);
     reset();
   }, [user]);
-  const currentPasswordFilled = useFieldsFilled(form, "currentPassword");
+  const currentPasswordFilled = useFieldsFilled(form, "current_password");
   const emailFilled = useFieldsFilled(form, "email");
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
@@ -109,7 +109,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
         <Transition transition="fade" mounted={emailFilled && isDirty("email")}>
           {style => (
             <PasswordInput
-              {...getInputProps("currentPassword")}
+              {...getInputProps("current_password")}
               label="Current password"
               description="Please confirm your current password to make changes."
               placeholder="password"

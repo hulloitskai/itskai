@@ -20,7 +20,6 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
     action: routes.adminLocationAccessGrants.create,
     method: "post",
     descriptor: "create location access grant",
-    // mode: "uncontrolled",
     initialValues: {
       recipient: "",
       password: "",
@@ -60,7 +59,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
           autoComplete="false"
         />
         <NumberInput
-          {...getInputProps("expiresInHours")}
+          {...getInputProps("expires_in_hours")}
           label="Expires in"
           required
           min={1}

@@ -24,7 +24,7 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
   const [popoverOpened, { close: closePopover, open: openPopover }] =
     useDisclosure(false);
   const initialValues = { limit: "" as number | "" };
-  const { getInputProps, processing, submit, values } = useFetchForm<
+  const { getInputProps, processing, submit, watch } = useFetchForm<
     { numLogsBackfilling: number },
     typeof initialValues
   >({
@@ -65,6 +65,10 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
       onBackfilling?.();
     },
   });
+  const [limit, setLimit] = useState<number | "">("");
+  watch("limit", ({ value }) => {
+    setLimit(value);
+  });
 
   return (
     <Group gap={6} wrap="nowrap" {...otherProps}>
@@ -104,7 +108,7 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
               thousandSeparator
             />
             <Button
-              disabled={typeof values.limit !== "number"}
+              disabled={typeof limit !== "number"}
               loading={processing}
               onClick={() => {
                 submit();
@@ -112,8 +116,8 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
             >
               <Text inherit span>
                 Backfill up to{" "}
-                {typeof values.limit === "number" ? (
-                  <NumberFormatter value={values.limit} thousandSeparator />
+                {typeof limit === "number" ? (
+                  <NumberFormatter value={limit} thousandSeparator />
                 ) : (
                   "..."
                 )}{" "}

@@ -14,7 +14,7 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
     initialValues: {
       email: "",
       password: "",
-      rememberMe: true,
+      remember_me: true,
     },
     validate: {
       email: isEmail("Email is invalid"),
@@ -55,7 +55,7 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
           withArrow
         >
           <Checkbox
-            {...getInputProps("rememberMe", { type: "checkbox" })}
+            {...getInputProps("remember_me", { type: "checkbox" })}
             label="Stay signed in"
           />
         </Tooltip>

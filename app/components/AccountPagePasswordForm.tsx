@@ -19,7 +19,7 @@ const AccountPagePasswordForm: FC<AccountPagePasswordFormProps> = ({
     descriptor: "change password",
     initialValues: {
       password: "",
-      currentPassword: "",
+      current_password: "",
     },
     transformValues: attributes => ({
       user: attributes,
@@ -33,14 +33,14 @@ const AccountPagePasswordForm: FC<AccountPagePasswordFormProps> = ({
           return "Password is too weak";
         }
       },
-      currentPassword: isNotEmpty("Current password is required"),
+      current_password: isNotEmpty("Current password is required"),
     },
     onSuccess: () => {
       showSuccessNotice({ message: "Password changed successfully." });
     },
   });
   const { getInputProps, isDirty, processing, submit } = form;
-  const currentPasswordFilled = useFieldsFilled(form, "currentPassword");
+  const currentPasswordFilled = useFieldsFilled(form, "current_password");
   const passwordFieldsFilled = useFieldsFilled(form, "password");
 
   return (
@@ -60,7 +60,7 @@ const AccountPagePasswordForm: FC<AccountPagePasswordFormProps> = ({
         >
           {style => (
             <PasswordInput
-              {...getInputProps("currentPassword")}
+              {...getInputProps("current_password")}
               label="Current password"
               description="Please confirm your current password to make changes."
               placeholder="password"

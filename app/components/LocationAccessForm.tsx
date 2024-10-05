@@ -24,7 +24,6 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
     action: routes.locations.access,
     method: "post",
     descriptor: "access location",
-    // mode: "uncontrolled",
     initialValues: {
       password: "",
     },

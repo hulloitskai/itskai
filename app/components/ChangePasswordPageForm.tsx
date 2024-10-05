@@ -17,7 +17,6 @@ const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
     action: routes.usersPasswords.update,
     method: "put",
     descriptor: "change password",
-    // mode: "uncontrolled",
     initialValues: {
       password: "",
     },

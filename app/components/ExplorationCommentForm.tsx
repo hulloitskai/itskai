@@ -23,11 +23,10 @@ const ExplorationCommentForm: FC<ExplorationCommentFormProps> = ({
     method: "post",
     descriptor: "create comment",
     params: commentParams,
-    // mode: "uncontrolled",
-    initialValues: { message: "", authorContact: "" },
+    initialValues: { message: "", author_contact: "" },
     validate: {
       message: isNotEmpty("Note is required"),
-      authorContact: isNotEmpty("Author contact is required"),
+      author_contact: isNotEmpty("Author contact is required"),
     },
     transformValues: values => ({
       comment: values,
@@ -54,7 +53,7 @@ const ExplorationCommentForm: FC<ExplorationCommentFormProps> = ({
           maxRows={6}
         />
         <TextInput
-          {...getInputProps("authorContact")}
+          {...getInputProps("author_contact")}
           label="Your @ or #"
           description="Your email or phone number, so I can chat with you about your note!"
           placeholder="+1 (123) 456-7890"
