@@ -34,5 +34,8 @@ fi
 EXIT_CODE=0
 ${BASH_SOURCE%/*}/overmind start -f "$PROCFILE" --no-port "$@" || EXIT_CODE=$?
 if [ "$EXIT_CODE" -ne 130 ]; then
-exit $EXIT_CODE
+  echo "One or more tests failed" >&2
+  exit $EXIT_CODE
+else
+  echo "Tests passed" >&2
 fi
