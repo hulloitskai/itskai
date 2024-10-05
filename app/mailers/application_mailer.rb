@@ -4,17 +4,10 @@
 class ApplicationMailer < ActionMailer::Base
   extend T::Sig
   extend T::Helpers
-  include Routing
 
   # == Configuration
   default from: :default_sender, reply_to: :default_reply_to
   layout "mailer"
-
-  # == Helpers
-  sig { returns(T.untyped) }
-  def self.credentials
-    Rails.application.credentials.mailer!
-  end
 
   protected
 
@@ -37,5 +30,8 @@ class ApplicationMailer < ActionMailer::Base
     value.is_a?(Symbol) ? send(value) : super
   end
 
-  delegate :credentials, to: :class
+  sig { returns(T.untyped) }
+  def credentials
+    Rails.application.credentials.mailer!
+  end
 end

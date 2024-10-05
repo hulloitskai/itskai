@@ -7,13 +7,7 @@
 
 class TestMailer
   class << self
-    sig { params(_arg0: T.untyped, _arg1: T.untyped, _arg2: T.untyped).returns(::ActionMailer::MessageDelivery) }
-    def credentials(*_arg0, **_arg1, &_arg2); end
-
     sig { params(model: ::TestModel, current_user: T.nilable(::User)).returns(::ActionMailer::MessageDelivery) }
     def test_email(model, current_user: T.unsafe(nil)); end
-
-    sig { returns(::ActionMailer::MessageDelivery) }
-    def url_helpers; end
   end
 end

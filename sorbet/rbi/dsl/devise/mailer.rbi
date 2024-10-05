@@ -10,9 +10,6 @@ class Devise::Mailer
     sig { params(record: T.untyped, token: T.untyped, opts: T.untyped).returns(::ActionMailer::MessageDelivery) }
     def confirmation_instructions(record, token, opts = T.unsafe(nil)); end
 
-    sig { params(_arg0: T.untyped, _arg1: T.untyped, _arg2: T.untyped).returns(::ActionMailer::MessageDelivery) }
-    def credentials(*_arg0, **_arg1, &_arg2); end
-
     sig { params(record: T.untyped, opts: T.untyped).returns(::ActionMailer::MessageDelivery) }
     def email_changed(record, opts = T.unsafe(nil)); end
 
@@ -24,8 +21,5 @@ class Devise::Mailer
 
     sig { params(record: T.untyped, token: T.untyped, opts: T.untyped).returns(::ActionMailer::MessageDelivery) }
     def unlock_instructions(record, token, opts = T.unsafe(nil)); end
-
-    sig { returns(::ActionMailer::MessageDelivery) }
-    def url_helpers; end
   end
 end

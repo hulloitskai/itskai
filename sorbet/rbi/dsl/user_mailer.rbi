@@ -7,12 +7,6 @@
 
 class UserMailer
   class << self
-    sig { params(_arg0: T.untyped, _arg1: T.untyped, _arg2: T.untyped).returns(::ActionMailer::MessageDelivery) }
-    def credentials(*_arg0, **_arg1, &_arg2); end
-
-    sig { returns(::ActionMailer::MessageDelivery) }
-    def url_helpers; end
-
     sig { params(user: ::User).returns(::ActionMailer::MessageDelivery) }
     def welcome_email(user); end
   end

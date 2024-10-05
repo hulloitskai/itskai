@@ -8,7 +8,6 @@ class ApplicationRecord < ActiveRecord::Base
 
   include RequiresColumn
   include RemovesBlank
-  include Routing
   include Logging
   include FormErrors
 
