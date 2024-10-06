@@ -4,7 +4,7 @@
   background-color: var(--mantine-color-white);
 
   &:not([data-print-mode]) {
-    @media (min-width: em(920px)) {
+    @mixin larger-than 920px {
       margin-top: 48px;
     }
   }
