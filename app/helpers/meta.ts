@@ -16,5 +16,5 @@ export const requireMeta = (name: string): string => {
   return content;
 };
 
-export const environment = (): "development" | "test" | "production" =>
+export const requireEnv = (): "development" | "test" | "production" =>
   requireMeta("env") as "development" | "test" | "production";

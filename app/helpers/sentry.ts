@@ -8,7 +8,7 @@ import {
   replayIntegration,
 } from "@sentry/react";
 
-import { environment, getMeta } from "~/helpers/meta";
+import { getMeta, requireEnv } from "~/helpers/meta";
 
 export const setupSentry = () => {
   const dsn = getMeta("sentry-dsn");
@@ -17,10 +17,12 @@ export const setupSentry = () => {
     ? parseFloat(tracesSampleRateString)
     : undefined;
   if (dsn) {
+    const environment = requireEnv();
     const options: BrowserOptions = {
       dsn,
-      environment: environment(),
+      environment,
       tracesSampleRate,
+      enabled: environment === "production",
       sendDefaultPii: true,
       integrations: [
         contextLinesIntegration(),

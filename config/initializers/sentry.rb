@@ -11,6 +11,7 @@ Sentry.init do |config|
     http_logger
   ]
   config.send_default_pii = true
+  config.enabled_environments = %w[production]
   config.excluded_exceptions += %w[
     ActiveSupport::MessageVerifier::InvalidSignature
     ActionPolicy::Unauthorized
