@@ -20,22 +20,18 @@ fi
 
 set -e
 
-export RAILS_ENV=test NODE_ENV=production INERTIA_PORT=13715
-if [ -n "$CI" ]; then
-  export POSTGRES_PORT=5432
-else
-  export POSTGRES_PORT=5433
-fi
+export RAILS_ENV=test NODE_ENV=production RAILS_TEST_ARGUMENTS="$@" INERTIA_PORT=13715
+export POSTGRES_PORT=5433
 
 PROCFILE=${BASH_SOURCE%/*}/../Procfile.test
 if [ -n "$CI" ]; then
   PROCFILE=${BASH_SOURCE%/*}/../Procfile.ci-test
 fi
 EXIT_CODE=0
-${BASH_SOURCE%/*}/overmind start -f "$PROCFILE" --no-port "$@" || EXIT_CODE=$?
-if [ "$EXIT_CODE" -ne 130 ]; then
+${BASH_SOURCE%/*}/overmind start -f "$PROCFILE" --no-port || EXIT_CODE=$?
+if [ "$EXIT_CODE" -eq 0 ]; then
+  echo "Tests passed" >&2
+else
   echo "One or more tests failed" >&2
   exit $EXIT_CODE
-else
-  echo "Tests passed" >&2
 fi
