@@ -117,7 +117,7 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
             </CopyButton>
           </Text>
         </Box>
-        <Group gap="xs" wrap="nowrap" grow>
+        <Group gap="xs" grow>
           <CopyButton value={locateUrl}>
             {({ copied, copy }) => (
               <Button

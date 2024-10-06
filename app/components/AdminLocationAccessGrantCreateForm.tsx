@@ -64,7 +64,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
           required
           min={1}
           inputContainer={children => (
-            <Group gap="sm" wrap="nowrap">
+            <Group gap="sm">
               {children}
               <Text size="sm">hours</Text>
             </Group>

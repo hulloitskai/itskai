@@ -71,7 +71,7 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
   });
 
   return (
-    <Group gap={6} wrap="nowrap" {...otherProps}>
+    <Group gap={6} {...otherProps}>
       <Button
         variant="default"
         loading={processing}

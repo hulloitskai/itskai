@@ -12,7 +12,7 @@ const Attribution: FC<AttributionProps> = ({ ...otherProps }) => (
   <Center h="100%" {...otherProps}>
     <HoverCard withArrow>
       <HoverCard.Target>
-        <Group justify="center" gap={4} wrap="nowrap">
+        <Group justify="center" gap={4}>
           <Text size="xs" c="gray.6" fw={500}>
             Made by{" "}
             <Text span fw={700}>

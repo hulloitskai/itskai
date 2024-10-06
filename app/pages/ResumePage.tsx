@@ -30,7 +30,7 @@ const ResumePage: PageComponent<ResumePageProps> = ({
     <>
       <ResumeLayout {...{ printMode }}>
         <Box>
-          <Group justify="space-between" gap="xs" wrap="nowrap">
+          <Group justify="space-between" gap="xs">
             {!!basics?.name && (
               <Title size="h3" c="dark">
                 {basics.name}

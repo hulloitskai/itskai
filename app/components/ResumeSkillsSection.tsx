@@ -9,7 +9,7 @@ export interface ResumeSkillsSectionProps {
 const ResumeSkillsSection: FC<ResumeSkillsSectionProps> = ({
   skillInfo: { keywords, name },
 }) => (
-  <Group align="start" wrap="nowrap">
+  <Group align="start">
     <Text size="sm" c="var(--mantine-color-primary-filled)" fw={600} miw={72}>
       {name}
     </Text>

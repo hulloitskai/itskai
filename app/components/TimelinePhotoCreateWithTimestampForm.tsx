@@ -107,7 +107,7 @@ const TimelinePhotoCreateWithTimestampForm: FC<
             label="Timezone"
             // required {...getInputProps("timezone")}
           >
-            <Group gap="md" wrap="nowrap" mt={4}>
+            <Group gap="md" mt={4}>
               <Radio label="PST" value="America/Vancouver" />
               <Radio label="EST" value="America/Toronto" />
             </Group>

@@ -20,7 +20,7 @@ const FileInputUploadCard: FC<FileInputUploadCardProps> = ({
   return (
     <Card withBorder padding="xs" pr={6} pt={6} {...props}>
       <Stack gap={8}>
-        <Group wrap="nowrap" gap="xs">
+        <Group gap="xs">
           <Text size="sm" fw={700} ml={6} mt={6} style={{ flexGrow: 1 }}>
             {file.name}
           </Text>

@@ -89,7 +89,7 @@ const ResumeWorkSection: FC<ResumeWorkSectionProps> = ({
       </Badge>
     </Group>
     {!!summary && (
-      <Group gap="xs" wrap="nowrap" my={4}>
+      <Group gap="xs" my={4}>
         <Divider orientation="vertical" size="md" />
         <Text size="sm" style={{ flexGrow: 1 }}>
           {summary}

@@ -75,6 +75,11 @@ export const THEME = createTheme({
         overlay: classes.overlay,
       },
     }),
+    Group: Group.extend({
+      defaultProps: {
+        wrap: "nowrap",
+      },
+    }),
     Loader: Loader.extend({
       defaultProps: {
         size: "sm",
