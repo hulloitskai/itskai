@@ -1,4 +1,5 @@
-import { Avatar, Loader, Text } from "@mantine/core";
+import { type InertiaLinkProps } from "@inertiajs/react";
+import { Avatar, Loader, type MenuItemProps, Text } from "@mantine/core";
 
 import LocateIcon from "~icons/basil/current-location-solid";
 import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
@@ -7,6 +8,7 @@ import SmileIcon from "~icons/heroicons/face-smile-20-solid";
 import HomeIcon from "~icons/heroicons/home-20-solid";
 import AdminIcon from "~icons/heroicons/key-20-solid";
 import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
+import AccountIcon from "~icons/heroicons/wrench-screwdriver-20-solid";
 
 import { useContact } from "~/helpers/contact";
 
@@ -38,6 +40,14 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
     method: "post",
     descriptor: "sign out",
   });
+
+  // == Components
+  interface MenuLinkProps
+    extends MenuItemProps,
+      Omit<InertiaLinkProps, "color" | "style"> {}
+  const MenuLink: FC<MenuLinkProps> = props => (
+    <Menu.Item component={Link} {...props} />
+  );
 
   return (
     <Menu
@@ -80,20 +90,15 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
         </Badge>
       </Menu.Target>
       <Menu.Dropdown>
-        <Menu.Item
-          component={Link}
-          href={routes.home.show.path()}
-          leftSection={<HomeIcon />}
-        >
+        <MenuLink href={routes.home.show.path()} leftSection={<HomeIcon />}>
           Home
-        </Menu.Item>
-        <Menu.Item
-          component={Link}
+        </MenuLink>
+        <MenuLink
           href={routes.locations.show.path()}
           leftSection={<LocateIcon />}
         >
           Locate Kai
-        </Menu.Item>
+        </MenuLink>
         <Menu.Item
           component="a"
           href="/hangout"
@@ -114,23 +119,19 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
         <Menu.Divider />
         {currentUser ? (
           <>
-            <Menu.Item
-              component={Link}
+            <MenuLink
               href={routes.usersRegistrations.edit.path()}
-              leftSection={<SettingsIcon />}
+              leftSection={<AccountIcon />}
             >
-              Settings
-            </Menu.Item>
+              Account
+            </MenuLink>
             {currentUser.is_owner && (
-              <>
-                <Menu.Item
-                  component={Link}
-                  href={routes.admin.show.path()}
-                  leftSection={<AdminIcon />}
-                >
-                  Admin
-                </Menu.Item>
-              </>
+              <MenuLink
+                href={routes.admin.show.path()}
+                leftSection={<AdminIcon />}
+              >
+                Admin
+              </MenuLink>
             )}
             <Menu.Item
               leftSection={<SignOutIcon />}
