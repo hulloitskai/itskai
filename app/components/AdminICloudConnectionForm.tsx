@@ -86,9 +86,10 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
       password: password ?? "",
     };
   }, [credentials]);
-  const { getInputProps, processing, submit } = useFetchForm<{
+  interface FormData {
     connection: ICloudConnection;
-  }>({
+  }
+  const form = useFetchForm({
     action: routes.adminICloudConnections.create,
     method: "post",
     descriptor: "authenticate with iCloud",
@@ -99,7 +100,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
       password: isNotEmpty("Password is required"),
     },
     transformValues: values => ({ credentials: values }),
-    onSuccess: ({ connection }) => {
+    onSuccess: ({ connection }: FormData) => {
       if (connection.status === "requires_2fa") {
         openVerifySecurityCodeModal();
       } else if (connection.status === "connected") {
@@ -107,6 +108,8 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
       }
     },
   });
+  const { getInputProps, processing, submit, isDirty } = form;
+  const fieldsFilled = useFieldsFilled(form, "email", "password");
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
@@ -129,6 +132,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
           <Button
             type="submit"
             leftSection={<AuthenticateIcon />}
+            disabled={!isDirty() || !fieldsFilled}
             loading={processing}
           >
             {credentials ? "Re-authenticate" : "Authenticate"}

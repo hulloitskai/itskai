@@ -1,8 +1,13 @@
 .button {
   font-weight: 700;
 
-  [data-mantine-color-scheme="dark"] :global(.mantine-Card-root) & {
-    --_disabled-bg: var(--mantine-color-dark-7);
+  [data-mantine-color-scheme="dark"]
+    :global(.mantine-Card-root)
+    &:where(
+      :disabled:not([data-loading]),
+      [data-disabled]:not([data-loading])
+    ) {
+    background-color: var(--mantine-color-dark-7);
   }
 }
 

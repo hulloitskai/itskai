@@ -2,13 +2,13 @@
   &[data-with-src] {
     background-color: transparent;
 
-    > :global(.mantine-Dropzone-inner) {
+    > .dropzoneInner {
       opacity: 0;
     }
 
     &:not([data-loading]):hover {
       background-color: var(--af-dropzone-backdrop);
-      > :global(.mantine-Dropzone-inner) {
+      > .dropzoneInner {
         opacity: 1;
       }
     }

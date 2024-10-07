@@ -73,7 +73,7 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
   return (
     <Group gap={6} {...otherProps}>
       <Button
-        variant="default"
+        color="gray"
         loading={processing}
         leftSection={<QueueingIcon />}
         style={{ flexGrow: 1 }}
@@ -93,7 +93,7 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
         onClose={closePopover}
       >
         <Popover.Target>
-          <ActionIcon variant="default" size="lg" onClick={openPopover}>
+          <ActionIcon color="gray" size="lg" onClick={openPopover}>
             <MoreIcon />
           </ActionIcon>
         </Popover.Target>
