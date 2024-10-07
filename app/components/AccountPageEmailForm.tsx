@@ -28,7 +28,15 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
     user: User;
     emailNeedsConfirmation: boolean;
   }
-  const form = useFetchForm({
+  const {
+    values,
+    getInputProps,
+    isDirty,
+    processing,
+    submit,
+    reset,
+    setInitialValues,
+  } = useFetchForm({
     action: routes.usersRegistrations.changeEmail,
     method: "put",
     descriptor: "change email",
@@ -61,20 +69,12 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
       onEmailChanged();
     },
   });
-  const {
-    getInputProps,
-    isDirty,
-    processing,
-    submit,
-    reset,
-    setInitialValues,
-  } = form;
   useDidUpdate(() => {
     setInitialValues(initialValues);
     reset();
   }, [user]);
-  const currentPasswordFilled = useFieldsFilled(form, "current_password");
-  const emailFilled = useFieldsFilled(form, "email");
+  const currentPasswordFilled = useFieldsFilled(values, "current_password");
+  const emailFilled = useFieldsFilled(values, "email");
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">

@@ -13,35 +13,36 @@ const AccountPagePasswordForm: FC<AccountPagePasswordFormProps> = ({
   const [passwordStrength, setPasswordStrength] = useState(0.0);
 
   // == Form
-  const form = useInertiaForm({
-    action: routes.usersRegistrations.changePassword,
-    method: "put",
-    descriptor: "change password",
-    initialValues: {
-      password: "",
-      current_password: "",
-    },
-    transformValues: attributes => ({
-      user: attributes,
-    }),
-    validate: {
-      password: value => {
-        if (!value) {
-          return "Password is required";
-        }
-        if (passwordStrength < 1.0) {
-          return "Password is too weak";
-        }
+  const { values, getInputProps, isDirty, processing, submit } = useInertiaForm(
+    {
+      action: routes.usersRegistrations.changePassword,
+      method: "put",
+      descriptor: "change password",
+      initialValues: {
+        password: "",
+        current_password: "",
       },
-      current_password: isNotEmpty("Current password is required"),
+      transformValues: attributes => ({
+        user: attributes,
+      }),
+      validate: {
+        password: value => {
+          if (!value) {
+            return "Password is required";
+          }
+          if (passwordStrength < 1.0) {
+            return "Password is too weak";
+          }
+        },
+        current_password: isNotEmpty("Current password is required"),
+      },
+      onSuccess: () => {
+        showSuccessNotice({ message: "Password changed successfully." });
+      },
     },
-    onSuccess: () => {
-      showSuccessNotice({ message: "Password changed successfully." });
-    },
-  });
-  const { getInputProps, isDirty, processing, submit } = form;
-  const currentPasswordFilled = useFieldsFilled(form, "current_password");
-  const passwordFieldsFilled = useFieldsFilled(form, "password");
+  );
+  const currentPasswordFilled = useFieldsFilled(values, "current_password");
+  const passwordFieldsFilled = useFieldsFilled(values, "password");
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>

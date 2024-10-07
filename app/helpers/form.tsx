@@ -39,14 +39,14 @@ const calculateHeaderHeight = (): number => {
   return header ? header.clientHeight : 0;
 };
 
-export const useFieldsFilled = <Values,>(
-  form: Pick<UseFormReturnType<Values>, "watch" | "getValues">,
+export const useFieldsFilled = <Values extends {}>(
+  values: Values,
   ...fields: LooseKeys<Values>[]
-) => {
-  return useMemo(
-    () => fields.every(field => isFilledValue(get(form.getValues(), field))),
-    [form, fields],
-  );
+): boolean => {
+  return useMemo(() => {
+    const fieldsToCheck = isEmpty(fields) ? Object.keys(values) : fields;
+    return fieldsToCheck.every(field => isFilledValue(get(values, field)));
+  }, [values, JSON.stringify(fields)]); // eslint-disable-line react-hooks/exhaustive-deps
 };
 
 export const isFilledValue = (value: any): boolean => {

@@ -20,26 +20,28 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
   interface FormData {
     token: string;
   }
-  const { getInputProps, processing, setFieldValue, submit } = useFetchForm({
-    action: routes.locations.access,
-    method: "post",
-    descriptor: "access location",
-    initialValues: {
-      password: "",
-    },
-    validate: {
-      password: isNotEmpty("Password is required"),
-    },
-    transformValues: values => ({
-      access_request: values,
-    }),
-    onSuccess: ({ token }: FormData) => {
-      onSuccess?.(token);
-    },
-    onError: ({ setFieldValue }) => {
-      setFieldValue("password", "");
-    },
-  });
+  const { values, getInputProps, processing, setFieldValue, submit } =
+    useFetchForm({
+      action: routes.locations.access,
+      method: "post",
+      descriptor: "access location",
+      initialValues: {
+        password: "",
+      },
+      validate: {
+        password: isNotEmpty("Password is required"),
+      },
+      transformValues: values => ({
+        access_request: values,
+      }),
+      onSuccess: ({ token }: FormData) => {
+        onSuccess?.(token);
+      },
+      onError: ({ setFieldValue }) => {
+        setFieldValue("password", "");
+      },
+    });
+  const filled = useFieldsFilled(values);
   useEffect(() => {
     if (autofillPassword) {
       setFieldValue("password", autofillPassword);
@@ -61,14 +63,15 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
             root: {
               flexGrow: 1,
             },
-            wrapper: {
-              "--input-bg": "var(--mantine-color-white)",
-            },
+          }}
+          classNames={{
+            wrapper: classes.passwordInputWrapper,
           }}
         />
         <Button
           type="submit"
           size="sm"
+          disabled={!filled}
           loading={processing}
           className={classes.button}
         >

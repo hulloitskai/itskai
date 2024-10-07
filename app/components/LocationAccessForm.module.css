@@ -6,3 +6,9 @@
     }
   }
 }
+
+.passwordInputWrapper {
+  @mixin light {
+    --input-bg: var(--mantine-color-white);
+  }
+}

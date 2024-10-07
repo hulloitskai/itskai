@@ -7,7 +7,7 @@ export interface RequestPasswordResetPageFormProps
 const RequestPasswordResetPageForm: FC<RequestPasswordResetPageFormProps> = ({
   ...otherProps
 }) => {
-  const { getInputProps, processing, submit } = useInertiaForm({
+  const { values, getInputProps, processing, submit } = useInertiaForm({
     action: routes.usersPasswords.create,
     method: "post",
     descriptor: "request password reset",
@@ -19,6 +19,8 @@ const RequestPasswordResetPageForm: FC<RequestPasswordResetPageFormProps> = ({
     },
     transformValues: attributes => ({ user: attributes }),
   });
+  const filled = useFieldsFilled(values);
+
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
@@ -29,7 +31,7 @@ const RequestPasswordResetPageForm: FC<RequestPasswordResetPageFormProps> = ({
           required
           withAsterisk={false}
         />
-        <Button type="submit" loading={processing}>
+        <Button type="submit" disabled={!filled} loading={processing}>
           Continue
         </Button>
       </Stack>

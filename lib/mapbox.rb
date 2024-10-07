@@ -8,7 +8,7 @@ module Mapbox
 
   sig { returns(T.nilable(String)) }
   def self.access_token
-    credentials.client_id
+    credentials.access_token
   end
 
   # == Helpers

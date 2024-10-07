@@ -14,7 +14,15 @@ const CathendantContributePage: PageComponent<
   CathendantContributePageProps
 > = () => {
   // == Form
-  const form = useFetchForm({
+  const {
+    values,
+    errors,
+    getInputProps,
+    processing,
+    setFieldValue,
+    submit,
+    watch,
+  } = useFetchForm({
     action: routes.cathendantMemos.create,
     method: "post",
     descriptor: "create memo",
@@ -40,9 +48,7 @@ const CathendantContributePage: PageComponent<
       });
     },
   });
-  const { errors, getInputProps, processing, setFieldValue, submit, watch } =
-    form;
-  const filled = useFieldsFilled(form, "from", "recording");
+  const filled = useFieldsFilled(values, "from", "recording");
   const [recordingName, setRecordingName] = useState<string>("");
   watch("recording", ({ value }) => {
     if (value) {

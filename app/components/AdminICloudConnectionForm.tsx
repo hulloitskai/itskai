@@ -89,7 +89,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
   interface FormData {
     connection: ICloudConnection;
   }
-  const form = useFetchForm({
+  const { values, getInputProps, processing, submit, isDirty } = useFetchForm({
     action: routes.adminICloudConnections.create,
     method: "post",
     descriptor: "authenticate with iCloud",
@@ -108,8 +108,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
       }
     },
   });
-  const { getInputProps, processing, submit, isDirty } = form;
-  const fieldsFilled = useFieldsFilled(form, "email", "password");
+  const filled = useFieldsFilled(values);
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
@@ -132,7 +131,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
           <Button
             type="submit"
             leftSection={<AuthenticateIcon />}
-            disabled={!isDirty() || !fieldsFilled}
+            disabled={!isDirty() || !filled}
             loading={processing}
           >
             {credentials ? "Re-authenticate" : "Authenticate"}

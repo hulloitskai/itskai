@@ -8,7 +8,7 @@ export interface SignupPageFormProps
 
 const SignupPageForm: FC<SignupPageFormProps> = props => {
   const [passwordStrength, setPasswordStrength] = useState(0.0);
-  const { getInputProps, processing, submit } = useInertiaForm({
+  const { values, getInputProps, processing, submit } = useInertiaForm({
     action: routes.usersRegistrations.create,
     method: "post",
     descriptor: "sign up",
@@ -34,6 +34,8 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
       setFieldValue("password", "");
     },
   });
+  const filled = useFieldsFilled(values);
+
   return (
     <Box component="form" onSubmit={submit} {...props}>
       <Stack gap="xs">
@@ -60,7 +62,7 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
           required
           onStrengthCheck={setPasswordStrength}
         />
-        <Button type="submit" loading={processing}>
+        <Button type="submit" disabled={!filled} loading={processing}>
           Sign up
         </Button>
       </Stack>

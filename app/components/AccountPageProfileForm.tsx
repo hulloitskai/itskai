@@ -25,7 +25,15 @@ const AccountPageProfileForm: FC<AccountPageProfileFormProps> = ({
   interface FormData {
     user: User;
   }
-  const form = useFetchForm({
+  const {
+    values,
+    getInputProps,
+    isDirty,
+    processing,
+    reset,
+    setInitialValues,
+    submit,
+  } = useFetchForm({
     action: routes.usersRegistrations.update,
     method: "put",
     descriptor: "update profile",
@@ -46,29 +54,16 @@ const AccountPageProfileForm: FC<AccountPageProfileFormProps> = ({
       onProfileUpdated();
     },
   });
-  const {
-    getInputProps,
-    isDirty,
-    processing,
-    reset,
-    setInitialValues,
-    submit,
-  } = form;
   useDidUpdate(() => {
     setInitialValues(initialValues);
     reset();
   }, [authenticatedUser]);
-  const filled = useFieldsFilled(form, "name");
+  const filled = useFieldsFilled(values, "name");
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
-        <TextInput
-          {...getInputProps("name")}
-          label="Name"
-          placeholder="A Friend"
-          required
-        />
+        <TextInput {...getInputProps("name")} label="Name" required />
         <ImageInput
           {...getInputProps("avatar")}
           label="Avatar"

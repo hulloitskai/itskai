@@ -8,7 +8,7 @@ const RequestEmailVerificationPageForm: FC<
   RequestEmailVerificationPageFormProps
 > = ({ ...otherProps }) => {
   // == Form
-  const { getInputProps, processing, submit } = useInertiaForm({
+  const { values, getInputProps, processing, submit } = useInertiaForm({
     action: routes.usersConfirmations.create,
     method: "post",
     descriptor: "send verification email",
@@ -19,6 +19,7 @@ const RequestEmailVerificationPageForm: FC<
       email: isEmail("Email is not valid"),
     },
   });
+  const filled = useFieldsFilled(values);
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
@@ -30,7 +31,7 @@ const RequestEmailVerificationPageForm: FC<
           required
           withAsterisk={false}
         />
-        <Button type="submit" loading={processing}>
+        <Button type="submit" disabled={!filled} loading={processing}>
           Continue
         </Button>
       </Stack>
