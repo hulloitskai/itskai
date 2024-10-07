@@ -67,7 +67,7 @@ const HomePage: PageComponent<HomePageProps> = ({
         <Title order={2} size="h3">
           Some things I&apos;ve been exploring lately:
         </Title>
-        <Group justify="center" gap={8} maw={760}>
+        <Group justify="center" wrap="wrap" gap={8} maw={760}>
           {explorations.map(exploration => (
             <ExplorationBadge key={exploration.id} exploration={exploration} />
           ))}
