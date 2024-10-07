@@ -93,7 +93,12 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
         onClose={closePopover}
       >
         <Popover.Target>
-          <ActionIcon color="gray" size="lg" onClick={openPopover}>
+          <ActionIcon
+            variant="light"
+            color="gray"
+            size="lg"
+            onClick={openPopover}
+          >
             <MoreIcon />
           </ActionIcon>
         </Popover.Target>
