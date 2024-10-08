@@ -35,11 +35,12 @@
       <% if (dsn = config.dsn.presence) %>
         <meta name="sentry-dsn" content="<%= dsn %>">
         <meta name="sentry-traces-sample-rate" content="<%= config.traces_sample_rate %>">
+        <meta name="sentry-profiles-sample-rate" content="<%= config.profiles_sample_rate %>">
       <% end %>
-    <% end if Rails.env.production? %>
+    <% end %>
 
     <%# == Fullstory %>
-    <% if Rails.env.production? && (org_id = Fullstory.org_id) %>
+    <% (org_id = Fullstory.org_id) %>
       <meta name="fullstory-org-id" content="<%= org_id %>">
     <% end %>
 

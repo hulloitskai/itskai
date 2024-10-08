@@ -12,16 +12,15 @@ import { getMeta, requireEnv } from "~/helpers/meta";
 
 export const setupSentry = () => {
   const dsn = getMeta("sentry-dsn");
-  const tracesSampleRateString = getMeta("sentry-traces-sample-rate");
-  const tracesSampleRate = tracesSampleRateString
-    ? parseFloat(tracesSampleRateString)
-    : undefined;
+  const tracesSampleRate = getFloatMeta("sentry-traces-sample-rate");
+  const profilesSampleRate = getFloatMeta("sentry-profiles-sample-rate");
   if (dsn) {
     const environment = requireEnv();
     const options: BrowserOptions = {
       dsn,
       environment,
       tracesSampleRate,
+      profilesSampleRate,
       enabled: environment === "production",
       sendDefaultPii: true,
       integrations: [
@@ -44,4 +43,9 @@ export const setupSentry = () => {
   } else {
     console.warn("Missing Sentry DSN; skipping initialization");
   }
+};
+
+const getFloatMeta = (name: string) => {
+  const value = getMeta(name);
+  return value ? parseFloat(value) : undefined;
 };
