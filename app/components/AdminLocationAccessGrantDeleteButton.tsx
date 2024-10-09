@@ -13,7 +13,6 @@ const AdminLocationAccessGrantDeleteButton: FC<
   const { processing, submit } = useFetchForm({
     action: routes.adminLocationAccessGrants.destroy,
     params: { id: grantId },
-    method: "delete",
     descriptor: "delete grant",
     onSuccess: () => {
       onGrantDeleted?.();

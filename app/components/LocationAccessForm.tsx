@@ -23,7 +23,6 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
   const { values, getInputProps, processing, setFieldValue, submit } =
     useFetchForm({
       action: routes.locations.access,
-      method: "post",
       descriptor: "access location",
       initialValues: {
         password: "",

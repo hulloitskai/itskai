@@ -91,7 +91,6 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
   }
   const { values, getInputProps, processing, submit, isDirty } = useFetchForm({
     action: routes.adminICloudConnections.create,
-    method: "post",
     descriptor: "authenticate with iCloud",
     // mode: "uncontrolled",
     initialValues,

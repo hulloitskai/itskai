@@ -169,7 +169,6 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
   // == Join jam session
   const { processing, submit } = useInertiaForm({
     action: routes.spotifyJamSessions.join,
-    method: "post",
     descriptor: "join Spotify jam session",
   });
 

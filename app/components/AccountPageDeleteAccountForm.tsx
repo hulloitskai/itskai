@@ -7,7 +7,6 @@ const AccountPageDeleteAccountForm: FC<AccountPageDeleteAccountFormProps> = ({
 }) => {
   const { processing, submit } = useInertiaForm({
     action: routes.usersRegistrations.destroy,
-    method: "delete",
     descriptor: "delete account",
   });
   return (

@@ -15,7 +15,6 @@ const AdminNotionJournalEntriesSyncButton: FC<
     syncResults: NotionJournalEntrySyncResults;
   }>({
     action: routes.admin.syncNotionJournalEntries,
-    method: "post",
     descriptor: "sync Notion journal entries",
     onSuccess: ({ syncResults: { added, removed, updated } }) => {
       showSuccessNotice({

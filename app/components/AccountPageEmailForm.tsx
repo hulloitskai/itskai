@@ -38,7 +38,6 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
     setInitialValues,
   } = useFetchForm({
     action: routes.usersRegistrations.changeEmail,
-    method: "put",
     descriptor: "change email",
     initialValues,
     validate: {
@@ -152,7 +151,6 @@ const ResendEmailVerificationInstructionsButton: FC<
 > = ({ user, ...otherProps }) => {
   const { processing, submit } = useInertiaForm({
     action: routes.usersConfirmations.create,
-    method: "post",
     descriptor: "resend verification email",
     initialValues: {
       user: {

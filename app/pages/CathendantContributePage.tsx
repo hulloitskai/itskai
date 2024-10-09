@@ -24,7 +24,6 @@ const CathendantContributePage: PageComponent<
     watch,
   } = useFetchForm({
     action: routes.cathendantMemos.create,
-    method: "post",
     descriptor: "create memo",
     initialValues: {
       from: "",

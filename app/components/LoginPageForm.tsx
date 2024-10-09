@@ -9,7 +9,6 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
   // == Form
   const { values, getInputProps, processing, submit } = useInertiaForm({
     action: routes.usersSessions.create,
-    method: "post",
     descriptor: "sign in",
     initialValues: {
       email: "",

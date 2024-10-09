@@ -9,7 +9,6 @@ const RequestPasswordResetPageForm: FC<RequestPasswordResetPageFormProps> = ({
 }) => {
   const { values, getInputProps, processing, submit } = useInertiaForm({
     action: routes.usersPasswords.create,
-    method: "post",
     descriptor: "request password reset",
     initialValues: {
       email: "",

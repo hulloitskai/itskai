@@ -10,7 +10,6 @@ const RequestEmailVerificationPageForm: FC<
   // == Form
   const { values, getInputProps, processing, submit } = useInertiaForm({
     action: routes.usersConfirmations.create,
-    method: "post",
     descriptor: "send verification email",
     initialValues: {
       email: "",

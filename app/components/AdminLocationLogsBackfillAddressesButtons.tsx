@@ -29,7 +29,6 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
     typeof initialValues
   >({
     action: routes.admin.backfillLocationLogAddresses,
-    method: "post",
     descriptor: "backfill location log addresses",
     initialValues,
     onSuccess: ({ numLogsBackfilling }) => {

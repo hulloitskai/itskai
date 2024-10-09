@@ -17,7 +17,6 @@ const AdminLocationLogsSyncButton: FC<AdminLocationLogsSyncButtonProps> = ({
 }) => {
   const { processing, submit } = useFetchForm<{ location: Location }>({
     action: routes.admin.syncLocationLogs,
-    method: "post",
     descriptor: "sync location logs",
     onSuccess: ({ location }) => {
       showSuccessNotice({

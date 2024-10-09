@@ -10,7 +10,6 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
   const [passwordStrength, setPasswordStrength] = useState(0.0);
   const { values, getInputProps, processing, submit } = useInertiaForm({
     action: routes.usersRegistrations.create,
-    method: "post",
     descriptor: "sign up",
     initialValues: {
       name: "",

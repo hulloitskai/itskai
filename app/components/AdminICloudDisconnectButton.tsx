@@ -12,7 +12,6 @@ const AdminICloudDisconnectButton: FC<AdminICloudDisconnectButtonProps> = ({
 }) => {
   const { processing, submit } = useFetchForm({
     action: routes.adminICloudConnections.destroy,
-    method: "delete",
     descriptor: "remove connection",
     onSuccess: () => {
       onDisconnected?.();

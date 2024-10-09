@@ -30,7 +30,6 @@ const StrongPasswordInput: FC<StrongPasswordInputProps> = ({
   }
   const { data, setFieldValue, submit } = useFetchForm({
     action: routes.passwordStrengthChecks.create,
-    method: "post",
     descriptor: "check password strength",
     initialValues: {
       password: resolvedValue,

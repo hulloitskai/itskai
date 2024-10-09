@@ -19,7 +19,6 @@ const AdminICloudVerifySecurityCodeForm: FC<
   }
   const { getInputProps, processing, submit } = useFetchForm({
     action: routes.adminICloudConnections.verifySecurityCode,
-    method: "post",
     descriptor: "verify security code",
     // mode: "uncontrolled",
     initialValues,

@@ -35,7 +35,6 @@ const AccountPageProfileForm: FC<AccountPageProfileFormProps> = ({
     submit,
   } = useFetchForm({
     action: routes.usersRegistrations.update,
-    method: "put",
     descriptor: "update profile",
     initialValues,
     transformValues: ({ avatar, ...attributes }) => ({

@@ -18,7 +18,6 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
   }
   const { getInputProps, processing, submit } = useFetchForm({
     action: routes.adminLocationAccessGrants.create,
-    method: "post",
     descriptor: "create location access grant",
     initialValues: {
       recipient: "",

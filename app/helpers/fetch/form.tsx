@@ -67,7 +67,7 @@ export const useFetchForm = <
     action,
     descriptor,
     failSilently,
-    method = "get",
+    method = action.httpMethod,
     onSubmit,
     onError,
     onFailure,

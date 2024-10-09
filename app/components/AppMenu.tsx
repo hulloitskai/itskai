@@ -37,7 +37,6 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
   // == Logout
   const { submit: logout } = useInertiaForm({
     action: routes.usersSessions.destroy,
-    method: "post",
     descriptor: "sign out",
   });
 

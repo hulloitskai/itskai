@@ -65,7 +65,7 @@ export const useInertiaForm = <
     action: actionRoute,
     descriptor,
     failSilently,
-    method = "get",
+    method: methodOption,
     onSubmit,
     onError,
     onFailure,
@@ -80,6 +80,16 @@ export const useInertiaForm = <
     transformValues,
   });
   const [processing, setProcessing] = useState(false);
+  let method: Method;
+  if (methodOption) {
+    method = methodOption;
+  } else {
+    if (actionRoute.httpMethod in router) {
+      method = actionRoute.httpMethod as Method;
+    } else {
+      method = "get";
+    }
+  }
   const submit = form.onSubmit(
     transformedValues => {
       onSubmit?.(transformedValues, form);
@@ -125,7 +135,9 @@ export const useInertiaForm = <
       if (method === "delete") {
         router.delete(action, { ...options });
       } else {
-        router[method](action, transformedValues, { ...options });
+        router[method](action, transformedValues, {
+          ...options,
+        });
       }
     },
     errors => {
