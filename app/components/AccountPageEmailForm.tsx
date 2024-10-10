@@ -71,7 +71,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
   useDidUpdate(() => {
     setInitialValues(initialValues);
     reset();
-  }, [initialValues]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [initialValues, reset, setInitialValues]);
   const currentPasswordFilled = useFieldsFilled(values, "current_password");
   const emailFilled = useFieldsFilled(values, "email");
   return (

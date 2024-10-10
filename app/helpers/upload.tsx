@@ -22,7 +22,10 @@ export interface UploadState {
 export const useLazyUpload = (
   params: UseUploadParams = {},
 ): [(file: File) => Promise<Blob>, UploadState] => {
-  const url = requireMeta("active-storage-direct-uploads-url");
+  const url = useMemo(
+    () => requireMeta("active-storage-direct-uploads-url"),
+    [],
+  );
   const [state, setState] = useState<UploadState>(() => ({
     blob: null,
     error: null,
@@ -34,9 +37,14 @@ export const useLazyUpload = (
     const limit = getMeta("active-storage-direct-uploads-size-limit");
     return limit ? parseInt(limit) : null;
   }, []);
+  const paramsRef = useRef(params);
+  useDidUpdate(() => {
+    paramsRef.current = params;
+  }, [params]);
   const upload = useCallback(
     (file: File): Promise<Blob> => {
-      const { onProgress, onCompleted, onError, failSilently } = params;
+      const { onProgress, onCompleted, onError, failSilently } =
+        paramsRef.current;
       if (typeof sizeLimit === "number" && file.size > sizeLimit) {
         showAlert({
           title: <>File "{file.name}" is too large</>,
@@ -115,7 +123,7 @@ export const useLazyUpload = (
         });
       });
     },
-    [] /* eslint-disable-line react-hooks/exhaustive-deps */,
+    [url, sizeLimit],
   );
   return [upload, state];
 };

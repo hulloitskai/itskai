@@ -7,7 +7,7 @@ const FullStoryTracking: FC = () => {
   } = usePage();
 
   // == Current user tracking
-  useEffect(() => {
+  useShallowEffect(() => {
     if (isFsInitialized()) {
       if (currentUser) {
         const { email, id, name } = currentUser;
@@ -20,7 +20,7 @@ const FullStoryTracking: FC = () => {
         void FullStory("setIdentityAsync", { anonymous: true });
       }
     }
-  }, [currentUser?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [currentUser]);
 
   // == Page tracking
   useEffect(() => {

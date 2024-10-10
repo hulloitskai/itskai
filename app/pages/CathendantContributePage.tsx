@@ -94,20 +94,6 @@ const CathendantContributePage: PageComponent<
     recorder?.stop();
   }, [recorder]);
 
-  // == Playback
-  // const player = useGlobalAudioPlayer();
-  // const [playerReady, setPlayerReady] = useState(false);
-  // const [playerPlaying, setPlayerPlaying] = useState(false);
-  // useEffect(() => {
-  //   const { recording } = getValues();
-  //   if (recording) {
-  //     toDataURL(recording).then(url => {
-  //       player.load(url);
-  //       setPlayerReady(true);
-  //     });
-  //   }
-  // }, [recordingFilled]); // eslint-disable-line react-hooks/exhaustive-deps
-
   return (
     <Stack>
       <Title>Contribute to Cathy&apos;s Pendant!</Title>

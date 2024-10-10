@@ -87,7 +87,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
         setTransitionState({ mounted: false, transitioned: false });
       }
     }
-  }, [online, metadata, mounted, track]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [online, metadata, mounted, track, mutate]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Transition

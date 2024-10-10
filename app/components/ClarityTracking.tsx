@@ -5,12 +5,12 @@ const ClarityTracking: FC = () => {
   } = usePage();
 
   // == Current user tracking
-  useEffect(() => {
+  useShallowEffect(() => {
     if (typeof clarity !== "undefined" && currentUser) {
       const { id, name } = currentUser;
       clarity("identify", id, undefined, component, name);
     }
-  }, [currentUser?.id, component]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [currentUser, component]);
 
   return null;
 };

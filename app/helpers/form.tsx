@@ -43,10 +43,23 @@ export const useFieldsFilled = <Values extends {}>(
   values: Values,
   ...fields: LooseKeys<Values>[]
 ): boolean => {
-  return useMemo(() => {
-    const fieldsToCheck = isEmpty(fields) ? Object.keys(values) : fields;
-    return fieldsToCheck.every(field => isFilledValue(get(values, field)));
-  }, [values, JSON.stringify(fields)]); // eslint-disable-line react-hooks/exhaustive-deps
+  const checkFields = useCallback(
+    (values: Values, fields: LooseKeys<Values>[]) => {
+      const fieldsToCheck = isEmpty(fields) ? Object.keys(values) : fields;
+      return fieldsToCheck.every(field => isFilledValue(get(values, field)));
+    },
+    [],
+  );
+  const [filled, setFilled] = useState(() => checkFields(values, fields));
+  const firstRenderRef = useRef(true);
+  useShallowEffect(() => {
+    if (firstRenderRef.current) {
+      firstRenderRef.current = false;
+    } else {
+      setFilled(checkFields(values, fields));
+    }
+  }, [values, fields, checkFields]);
+  return filled;
 };
 
 export const isFilledValue = (value: any): boolean => {

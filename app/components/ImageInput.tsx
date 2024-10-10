@@ -75,7 +75,8 @@ const ImageInput: FC<ImageInputProps> = ({
   });
   useDidUpdate(() => {
     void mutate();
-  }, [resolvedValue]); // eslint-disable-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resolvedValue, mutate]);
   const { image } = data ?? {};
 
   // == Loading

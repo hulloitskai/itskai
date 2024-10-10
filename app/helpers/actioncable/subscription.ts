@@ -37,7 +37,7 @@ export const useSubscription = <
   useDidUpdate(() => {
     onErrorRef.current = onError;
   }, [onError]);
-  useEffect(() => {
+  useShallowEffect(() => {
     if (!cable) {
       return;
     }
@@ -75,7 +75,6 @@ export const useSubscription = <
         subscription.unsubscribe();
       };
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cable, channel, descriptor, failSilently, skip]);
+  }, [cable, channel, descriptor, failSilently, params, skip]);
   return subscription;
 };
