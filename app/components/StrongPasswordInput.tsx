@@ -45,7 +45,8 @@ const StrongPasswordInput: FC<StrongPasswordInputProps> = ({
     if (throttledValue) {
       submit();
     }
-  }, [throttledValue, setFieldValue, submit]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [throttledValue, setFieldValue]);
 
   return (
     <PasswordInput

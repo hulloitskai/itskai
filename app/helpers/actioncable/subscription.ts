@@ -31,12 +31,8 @@ export const useSubscription = <
   );
   const onDataRef = useRef(onData);
   const onErrorRef = useRef(onError);
-  useDidUpdate(() => {
-    onDataRef.current = onData;
-  }, [onData]);
-  useDidUpdate(() => {
-    onErrorRef.current = onError;
-  }, [onError]);
+  onDataRef.current = onData;
+  onErrorRef.current = onError;
   useShallowEffect(() => {
     if (!cable) {
       return;

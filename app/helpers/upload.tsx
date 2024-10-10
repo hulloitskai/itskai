@@ -38,9 +38,7 @@ export const useLazyUpload = (
     return limit ? parseInt(limit) : null;
   }, []);
   const paramsRef = useRef(params);
-  useDidUpdate(() => {
-    paramsRef.current = params;
-  }, [params]);
+  paramsRef.current = params;
   const upload = useCallback(
     (file: File): Promise<Blob> => {
       const { onProgress, onCompleted, onError, failSilently } =
