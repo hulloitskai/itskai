@@ -115,7 +115,7 @@ const deriveTimelineActivityZoom = (
 };
 
 const TimelinePage: PageComponent<TimelinePageProps> = () => {
-  const isClient = useIsClient();
+  const mounted = useMounted();
 
   // == Moment
   const [moment, setMoment] = useState<TimelineMoment>(() => ({
@@ -353,7 +353,7 @@ const TimelinePage: PageComponent<TimelinePageProps> = () => {
         overflow: "hidden",
       }}
     >
-      {isClient && (
+      {mounted && (
         <Map
           ref={mapRef}
           mapStyle="mapbox://styles/mapbox-map-design/ckshxkppe0gge18nz20i0nrwq"

@@ -43,7 +43,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
   location: initialLocation,
   password,
 }) => {
-  const isClient = useIsClient();
+  const mounted = useMounted();
   const theme = useMantineTheme();
 
   // == Map
@@ -221,7 +221,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
       pos="relative"
       style={{ flexGrow: 1, alignItems: "stretch", flexDirection: "column" }}
     >
-      {isClient && (
+      {mounted && (
         <Map
           ref={mapRef}
           mapStyle="mapbox://styles/mapbox-map-design/ck4014y110wt61ctt07egsel6"
