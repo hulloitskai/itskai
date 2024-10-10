@@ -18,16 +18,18 @@ const ignores = readFileSync(".prettierignore", "utf8")
 export default ts.config(
   { ignores },
   js.configs.recommended,
-  ...ts.configs.strict,
-  ...ts.configs.stylistic,
+  ...ts.configs.recommendedTypeChecked,
+  ...ts.configs.stylisticTypeChecked,
   {
-    files: ["**/*.{ts,tsx}"],
     languageOptions: {
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },
+  },
+  {
+    files: ["**/*.{ts,tsx}"],
     rules: {
       "@typescript-eslint/ban-ts-comment": "off",
       "@typescript-eslint/no-explicit-any": "off",
@@ -55,6 +57,10 @@ export default ts.config(
         },
       ],
     },
+  },
+  {
+    files: ["**/*.{js,jsx}"],
+    ...ts.configs.disableTypeChecked,
   },
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
@@ -133,6 +139,14 @@ export default ts.config(
       "react-hooks": reactHooks,
     },
     // @ts-expect-error react-hooks is not typed
-    rules: reactHooks.configs.recommended.rules,
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      "react-hooks/exhaustive-deps": [
+        "warn",
+        {
+          additionalHooks: "(useDidUpdate|useShallowEffect)",
+        },
+      ],
+    },
   },
 );

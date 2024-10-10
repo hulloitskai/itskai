@@ -78,6 +78,8 @@ const FileInput = <Multiple extends boolean = false>(
     defaultValue,
     onChange,
   });
+  type SingleHandleChange = (value: FileValue | null) => void;
+  type MultipleHandleChange = (value: FileValue[]) => void;
   const resolvedValueRef = useRef(resolvedValue);
   useEffect(() => {
     resolvedValueRef.current = resolvedValue;
@@ -112,7 +114,7 @@ const FileInput = <Multiple extends boolean = false>(
           py="lg"
           onDrop={files => {
             if (!multiple && value) {
-              handleChange(null as any);
+              (handleChange as SingleHandleChange)(null);
             }
             setUploadingFiles(prevFiles =>
               uniqBy([...prevFiles, ...files], "name"),
@@ -154,10 +156,10 @@ const FileInput = <Multiple extends boolean = false>(
                       ...(currentValue ?? []),
                       { signedId: blob.signed_id },
                     ];
-                    handleChange(value as any);
+                    (handleChange as MultipleHandleChange)(value);
                   } else {
                     const value = { signedId: blob.signed_id };
-                    handleChange(value as any);
+                    (handleChange as SingleHandleChange)(value);
                   }
                 }}
                 {...{ file }}
@@ -166,12 +168,12 @@ const FileInput = <Multiple extends boolean = false>(
           </Stack>
         </>
       )}
-      {!isEmpty(resolvedValue) && (
+      {!!resolvedValue && !isEmpty(resolvedValue) && (
         <>
           <Divider label="Ready" />
           <Stack gap={8}>
             {Array.isArray(resolvedValue) ? (
-              (resolvedValue as FileValue[]).map(({ signedId }) => (
+              resolvedValue.map(({ signedId }) => (
                 <FileInputFileCard
                   key={signedId}
                   onRemove={() => {
@@ -180,7 +182,7 @@ const FileInput = <Multiple extends boolean = false>(
                     const value = (currentValue ?? []).filter(
                       blob => blob.signedId !== signedId,
                     );
-                    handleChange(value as any);
+                    (handleChange as MultipleHandleChange)(value);
                   }}
                   {...{ signedId }}
                 />
@@ -188,9 +190,9 @@ const FileInput = <Multiple extends boolean = false>(
             ) : (
               <FileInputFileCard
                 onRemove={() => {
-                  handleChange(null as any);
+                  (handleChange as SingleHandleChange)(null);
                 }}
-                signedId={(resolvedValue as FileValue).signedId}
+                signedId={resolvedValue.signedId}
               />
             )}
           </Stack>

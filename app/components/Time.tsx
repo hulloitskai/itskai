@@ -2,6 +2,7 @@ import { type TextProps } from "@mantine/core";
 import { Text } from "@mantine/core";
 import { type DateTimeFormatOptions } from "luxon";
 import { DateTime } from "luxon";
+import { type ElementType } from "react";
 
 import classes from "./Time.module.css";
 
@@ -10,7 +11,7 @@ export interface TimeProps
     Omit<ComponentPropsWithoutRef<"time">, "color" | "style" | "children"> {
   format: DateTimeFormatOptions | ((time: DateTime) => string);
   children: DateTime | string;
-  component?: any;
+  component?: ElementType;
 }
 
 const Time: FC<TimeProps> = ({

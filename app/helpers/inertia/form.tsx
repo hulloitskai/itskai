@@ -100,7 +100,7 @@ export const useInertiaForm = <
           removeInvalidListener = router.on("invalid", (event): void => {
             const { response } = event.detail;
             if (response.status >= 400 && response.data instanceof Object) {
-              const { error } = response.data;
+              const { error } = response.data as Record<string, any>;
               if (typeof error === "string") {
                 event.preventDefault();
                 const e = new Error(error);

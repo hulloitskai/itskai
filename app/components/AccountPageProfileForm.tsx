@@ -56,7 +56,7 @@ const AccountPageProfileForm: FC<AccountPageProfileFormProps> = ({
   useDidUpdate(() => {
     setInitialValues(initialValues);
     reset();
-  }, [authenticatedUser]);
+  }, [initialValues]); // eslint-disable-line react-hooks/exhaustive-deps
   const filled = useFieldsFilled(values, "name");
 
   return (

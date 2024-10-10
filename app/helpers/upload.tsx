@@ -126,7 +126,7 @@ export const useUpload = (
 ): UploadState => {
   const [upload, state] = useLazyUpload(params);
   useEffect(() => {
-    upload(file);
+    void upload(file);
   }, [upload, file]);
   return state;
 };

@@ -1,9 +1,14 @@
-import { type FetchOptions, type HeaderOptions } from "@js-from-routes/client";
+import {
+  type FetchOptions,
+  type HeaderOptions,
+  type ResponseError,
+} from "@js-from-routes/client";
 import { Config } from "@js-from-routes/client";
 
 export const setupFetch = (): void => {
   Config.fetch = (args: FetchOptions): Promise<Response> => {
-    const { data, responseAs, url, ...options } = args;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const { url, data, responseAs, ...options } = args;
     let body: BodyInit | undefined;
     if (data !== undefined) {
       if (data instanceof FormData) {
@@ -23,7 +28,7 @@ export const setupFetch = (): void => {
         if (response.status >= 200 && response.status < 300) return response;
         throw await Config.unwrapResponseError(response, responseAs);
       })
-      .catch(Config.onResponseError);
+      .catch((error: ResponseError) => Config.onResponseError(error));
   };
   Config.headers = (requestInfo: HeaderOptions): any => {
     const csrfToken = Config.getCSRFToken();

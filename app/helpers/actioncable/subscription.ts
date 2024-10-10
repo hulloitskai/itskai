@@ -12,7 +12,9 @@ export interface Subscription<Data> {
   error?: Error;
 }
 
-export const useSubscription = <Data>(
+export const useSubscription = <
+  Data extends Record<string, any> & { error?: never },
+>(
   channel: string,
   {
     descriptor,
@@ -43,8 +45,8 @@ export const useSubscription = <Data>(
       const subscription = cable.subscriptions.create(
         { channel, ...params },
         {
-          received: data => {
-            if (data.error) {
+          received: (data: Data | { error?: string }) => {
+            if ("error" in data) {
               const error = new Error(data.error);
               setSubscription(subscription => ({
                 ...subscription,
@@ -59,11 +61,12 @@ export const useSubscription = <Data>(
               }
               onErrorRef.current?.(error);
             } else {
+              const nonErrorData = data as Data;
               setSubscription(subscription => ({
                 ...subscription,
-                data,
+                data: nonErrorData,
               }));
-              onDataRef.current?.(data);
+              onDataRef.current?.(nonErrorData);
             }
           },
         },

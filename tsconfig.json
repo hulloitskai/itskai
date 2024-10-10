@@ -14,12 +14,12 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
 
     // == Mode
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "noEmit": true,
     "incremental": true,
+    "noEmit": true,
 
     // == Linting
     "strict": true,
@@ -33,6 +33,15 @@
       { "name": "vite-plugin-iso-import" }
     ]
   },
-  "include": ["app/**/*.ts", "app/**/*.tsx", "typings/**/*.d.ts"],
+  "include": [
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "app/**/*.module.css",
+    "typings/**/*.d.ts"
+  ],
+  "exclude": [
+    "app/entrypoints/service-worker.ts",
+    "typings/service-worker.d.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

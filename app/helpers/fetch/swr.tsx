@@ -35,16 +35,27 @@ export const useFetchSWR = <
   }: FetchSWROptions,
 ): FetchSWRResult<Data> => {
   const { isPaused } = swrConfiguration;
-  const key = useMemo(
-    () => (isPaused?.() ? null : route.path(params)),
-    [isPaused, JSON.stringify(params)], // eslint-disable-line react-hooks/exhaustive-deps
+  const computeKey = useCallback(
+    (route: PathHelper, params: FetchSWROptions["params"]): string | null =>
+      isPaused?.() ? null : route.path(params),
+    [isPaused],
   );
+  const [key, setKey] = useState(() => computeKey(route, params));
+  const firstRender = useRef(true);
+  useShallowEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+    } else {
+      setKey(computeKey(route, params));
+    }
+  }, [computeKey, route, params]);
   const { isLoading, isValidating, ...swr } = useSWR<Data, Error>(
     key,
     async (route: string): Promise<Data> =>
       fetchRoute(route, {
         failSilently,
         descriptor,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         data,
         deserializeData,
         fetchOptions,

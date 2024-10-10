@@ -52,7 +52,7 @@ createServer(async page => {
         }
       }
     },
-    resolve: async name => {
+    resolve: name => {
       switch (type) {
         case PageType.Page: {
           const page = pages[name];

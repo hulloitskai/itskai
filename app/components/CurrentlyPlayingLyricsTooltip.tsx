@@ -77,7 +77,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
   return (
     <Tooltip
       {...{ ref }}
-      label={label || prevLabel}
+      label={label ?? prevLabel}
       withArrow
       multiline
       color="primary"

@@ -1,20 +1,21 @@
 {
   "compilerOptions": {
     // == Language
+    "module": "ESNext",
+    "allowSyntheticDefaultImports": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
 
     // == Mode
+    "moduleResolution": "Bundler",
+    "incremental": true,
     "composite": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./dist",
 
     // == Linting
     "strict": true,
-    "noUnusedLocals": true,
-    "noUncheckedIndexedAccess": true,
-    "noFallthroughCasesInSwitch": true
+    "noUncheckedIndexedAccess": true
   },
   "include": ["vite.config.ts", "config/**/*.ts"]
 }

@@ -18,12 +18,14 @@ const AppFlash: FC = () => {
   // Clear flash messages when going back in history
   useWindowEvent("popstate", ({ state }) => {
     if (state instanceof Object && "props" in state) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const { props } = state;
       invariant(
         props instanceof Object,
         "Expected `state.props` to be an Object",
       );
-      if (props && "flash" in props) {
+      if ("flash" in props) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         props.flash = {};
       }
     }

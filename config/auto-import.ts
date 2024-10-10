@@ -95,6 +95,7 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
       "useLogger",
       "useMediaQuery",
       "useMounted",
+      "useShallowEffect",
       "useViewportSize",
       "useWindowEvent",
     ],

@@ -74,8 +74,8 @@ const ImageInput: FC<ImageInputProps> = ({
     isPaused: () => !resolvedValue,
   });
   useDidUpdate(() => {
-    mutate();
-  }, [resolvedValue]);
+    void mutate();
+  }, [resolvedValue]); // eslint-disable-line react-hooks/exhaustive-deps
   const { image } = data ?? {};
 
   // == Loading
@@ -124,10 +124,10 @@ const ImageInput: FC<ImageInputProps> = ({
                     const value = { signedId: blob.signed_id };
                     handleChange(value);
                   })
-                  .catch(error => {
+                  .catch((error: Error) => {
                     showAlert({
                       title: "Failed to upload image",
-                      message: error.message,
+                      message: error.toString(),
                     });
                   })
                   .finally(() => {

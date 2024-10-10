@@ -153,10 +153,6 @@ Rails.application.routes.draw do
     resources :posts, only: :create
   end
 
-  # == Timeline
-  # get "/timeline" => "timeline#show"
-  # get "/timeline/admin" => "timeline_admin#show"
-
   # == Pages
   defaults export: true do
     root "home#show"

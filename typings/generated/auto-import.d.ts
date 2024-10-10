@@ -137,6 +137,7 @@ declare global {
   const usePrevious: typeof import('@uidotdev/usehooks')['usePrevious']
   const useReducer: typeof import('react')['useReducer']
   const useRef: typeof import('react')['useRef']
+  const useShallowEffect: typeof import('@mantine/hooks')['useShallowEffect']
   const useState: typeof import('react')['useState']
   const useSubscription: typeof import('~/helpers/actioncable/subscription')['useSubscription']
   const useSyncExternalStore: typeof import('react')['useSyncExternalStore']

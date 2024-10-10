@@ -71,7 +71,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
       if (metadata?.track_id !== track?.id) {
         if (track) {
           setTransitionState({ mounted: false, transitioned: false });
-          mutate();
+          void mutate();
         } else if (currentlyPlaying) {
           setTrack(currentlyPlaying.track);
           if (!mounted) {
@@ -127,8 +127,8 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
 export default CurrentlyPlayingIsland;
 
 interface TrackCoalescerProps {
-  track?: any | null;
-  children: (track: any) => ReactNode;
+  track?: RSpotifyTrack | null;
+  children: (track: RSpotifyTrack) => ReactNode;
 }
 
 const TrackCoalescer: FC<TrackCoalescerProps> = ({
@@ -161,8 +161,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
 }) => {
   const { album, artists } = track;
   const artistNames = useMemo(
-    () =>
-      artists.map(({ name }: any) => name).join(", ") || "(missing artists)",
+    () => artists.map(({ name }) => name).join(", ") || "(missing artists)",
     [artists],
   );
 

@@ -56,7 +56,7 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
             </Stack>
           ),
         });
-        navigator.clipboard.writeText(url.toString()).then(() => {});
+        void navigator.clipboard.writeText(url.toString());
       }
     },
     [grant.password], // eslint-disable-line react-hooks/exhaustive-deps

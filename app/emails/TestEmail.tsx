@@ -19,7 +19,7 @@ const TestEmail: EmailComponent<TestEmailProps> = ({ model, user }) => {
   const { name } = user ?? {};
   return (
     <>
-      <Text>Hi, {name || "anonymous user"}!</Text>
+      <Text>Hi, {name ?? "anonymous user"}!</Text>
       <Text>This is a test email containing your form submission results:</Text>
       <br />
       <Section className={classes.results}>

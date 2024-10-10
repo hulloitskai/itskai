@@ -1,3 +1,3 @@
 import { init } from "@spotlightjs/spotlight";
 
-init();
+void init();

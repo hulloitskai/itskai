@@ -26,8 +26,8 @@ export interface FetchFormOptions<
   failSilently?: boolean;
   onSubmit?: (
     transformedValues: ReturnType<TransformValues>,
+    submission: Promise<Data>,
     form: FetchPartialForm<Values, TransformValues>,
-    submission: Promise<void>,
   ) => void;
   onSuccess?: (
     data: Data,
@@ -43,7 +43,7 @@ export interface FetchFormOptions<
 type FetchFormSubmit = (event?: FormEvent<HTMLFormElement>) => void;
 
 export interface FetchForm<
-  Data extends Record<string, any> & { error?: never; errors?: never },
+  Data,
   Values,
   TransformValues extends (values: Values) => unknown,
 > extends Omit<UseFormReturnType<Values, TransformValues>, "onSubmit"> {
@@ -56,7 +56,7 @@ export interface FetchForm<
 // TODO: Serialize form data.
 export const useFetchForm = <
   Data extends Record<string, any> & { error?: never; errors?: never } = {},
-  Values extends Record<string, any> = Record<string, any>,
+  Values extends Record<string, any> = {},
   TransformValues extends (values: Values) => unknown = (
     values: Values,
   ) => Values,
@@ -98,6 +98,7 @@ export const useFetchForm = <
             setData(data);
             onSuccess?.(data, form);
             form.reset();
+            return data;
           },
           (responseError: ResponseError) => {
             if (responseError.body) {
@@ -140,12 +141,13 @@ export const useFetchForm = <
               }
               onFailure?.(responseError, form);
             }
+            throw responseError;
           },
         )
         .finally(() => {
           setProcessing(false);
         });
-      onSubmit?.(transformedValues, form, submission);
+      onSubmit?.(transformedValues, submission, form);
     },
     errors => {
       const formWithErrors = { ...form, errors };

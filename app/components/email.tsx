@@ -1,4 +1,9 @@
-import { Button as MantineButton, getRadius } from "@mantine/core";
+import {
+  Button as MantineButton,
+  type ButtonProps as MantineButtonProps,
+  getRadius,
+  useProps,
+} from "@mantine/core";
 import {
   type ButtonProps as _ButtonProps,
   type LinkProps as _LinkProps,
@@ -11,14 +16,21 @@ import {
   Text as _Text,
 } from "@react-email/components";
 
-export interface ButtonProps extends _ButtonProps {}
+export interface ButtonProps
+  extends _ButtonProps,
+    Pick<MantineButtonProps, "radius"> {}
 
 export const Button = forwardRef<HTMLAnchorElement, ButtonProps>(
   ({ children, style, ...props }, ref) => {
     const theme = useMantineTheme();
+    const buttonProps = useProps(
+      "Button",
+      { radius: theme.defaultRadius },
+      props,
+    );
     const borderRadius = useMemo(
-      () => getRadius(theme.components["Button"]?.defaultProps?.radius),
-      [theme],
+      () => getRadius(buttonProps.radius),
+      [buttonProps],
     );
     return (
       <_Button

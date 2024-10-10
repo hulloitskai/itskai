@@ -20,7 +20,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
   const initialValues = useMemo(() => {
     const { email, unconfirmed_email } = user;
     return {
-      email: unconfirmed_email || email,
+      email: unconfirmed_email ?? email,
       current_password: "",
     };
   }, [user]);
@@ -52,7 +52,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
       { setInitialValues },
     ) => {
       setInitialValues({
-        email: user.unconfirmed_email || user.email,
+        email: user.unconfirmed_email ?? user.email,
         current_password: "",
       });
       if (emailNeedsConfirmation) {
@@ -71,7 +71,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
   useDidUpdate(() => {
     setInitialValues(initialValues);
     reset();
-  }, [user]);
+  }, [initialValues]); // eslint-disable-line react-hooks/exhaustive-deps
   const currentPasswordFilled = useFieldsFilled(values, "current_password");
   const emailFilled = useFieldsFilled(values, "email");
   return (

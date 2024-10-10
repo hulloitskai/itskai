@@ -11,13 +11,13 @@ const FullStoryTracking: FC = () => {
     if (isFsInitialized()) {
       if (currentUser) {
         const { email, id, name } = currentUser;
-        FullStory("setIdentityAsync", {
+        void FullStory("setIdentityAsync", {
           uid: id,
           properties: { email, displayName: name },
           anonymous: false,
         });
       } else {
-        FullStory("setIdentityAsync", { anonymous: true });
+        void FullStory("setIdentityAsync", { anonymous: true });
       }
     }
   }, [currentUser?.id]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -25,7 +25,7 @@ const FullStoryTracking: FC = () => {
   // == Page tracking
   useEffect(() => {
     if (isFsInitialized()) {
-      FullStory("setPropertiesAsync", {
+      void FullStory("setPropertiesAsync", {
         type: "page",
         properties: {
           pageName: component,

@@ -38,7 +38,7 @@ const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
               {...{ grant }}
               autocopy={newGrantId === grant.id}
               onGrantDeleted={() => {
-                mutate();
+                void mutate();
                 onGrantDeleted?.();
               }}
             />
@@ -47,6 +47,7 @@ const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
           <EmptyCard itemLabel="grants" />
         )
       ) : (
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         [...new Array(3)].map((value, index) => (
           <Skeleton key={index} h={40} radius="default" />
         ))
@@ -59,7 +60,7 @@ const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
             children: (
               <LocationAccessGrantCreateForm
                 onGrantCreated={grant => {
-                  mutate();
+                  void mutate();
                   closeAllModals();
                   onGrantCreated?.(grant);
                 }}

@@ -12,7 +12,7 @@ check:
       glob: "*.{js,jsx,ts,tsx}"
       tags: js
     check-tsc:
-      run: npx tsc
+      run: npx tsc --build
       glob: "*.{ts,tsx}"
       tags: js
     check-rubocop:
@@ -81,7 +81,7 @@ pre-commit:
       glob: "*.{js,jsx,ts,tsx}"
       tags: js
     check-tsc:
-      run: npx tsc
+      run: npx tsc --build
       glob: "*.{ts,tsx}"
       tags: js
     check-rubocop:

@@ -74,7 +74,7 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
     () =>
       withContainer ? (
         <PageContainer
-          size={containerSize || containerProps?.size}
+          size={containerSize ?? containerProps?.size}
           {...{ withGutter, gutterSize }}
           {...containerProps}
         >

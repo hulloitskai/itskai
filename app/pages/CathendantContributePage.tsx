@@ -32,7 +32,7 @@ const CathendantContributePage: PageComponent<
     transformValues: ({ from, recording }) => {
       const data = new FormData();
       data.append("memo[from]", from);
-      data.append("memo[recording]", recording || "");
+      data.append("memo[recording]", recording ?? "");
       return data;
     },
     onSuccess: (data, { reset }) => {
@@ -61,7 +61,7 @@ const CathendantContributePage: PageComponent<
   const [recorder, setRecorder] = useState<MediaRecorder | null>(null);
   const recordingChunksRef = useRef<Blob[]>([]);
   const startRecording = useCallback(() => {
-    navigator.mediaDevices
+    void navigator.mediaDevices
       .getUserMedia({ audio: { noiseSuppression: true } })
       .then(stream => {
         const mimeType = MediaRecorder.isTypeSupported("audio/webm")

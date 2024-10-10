@@ -3,7 +3,7 @@ export const getMeta = (name: string): string | undefined => {
     const el = document.head.querySelector(`meta[name="${name}"][content]`);
     if (el) {
       const content = el.getAttribute("content");
-      return content === null ? undefined : content;
+      return content ?? undefined;
     }
   }
 };
