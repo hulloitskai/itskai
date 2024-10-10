@@ -70,27 +70,22 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
   }, [breadcrumbsProp, pageProps]);
 
   // == Content
-  const content = useMemo(
-    () =>
-      withContainer ? (
-        <PageContainer
-          size={containerSize ?? containerProps?.size}
-          {...{ withGutter, gutterSize }}
-          {...containerProps}
-        >
-          {children}
-        </PageContainer>
-      ) : (
-        children
-      ),
-    [
-      withContainer,
-      containerSize,
-      withGutter,
-      gutterSize,
-      containerProps,
-      children,
-    ],
+  const { style: containerStyle, ...otherContainerProps } =
+    containerProps ?? {};
+  const content = withContainer ? (
+    <PageContainer
+      size={containerSize ?? containerProps?.size}
+      {...{ withGutter, gutterSize }}
+      style={[
+        { flexGrow: 1, display: "flex", flexDirection: "column" },
+        containerStyle,
+      ]}
+      {...otherContainerProps}
+    >
+      {children}
+    </PageContainer>
+  ) : (
+    children
   );
 
   return (
