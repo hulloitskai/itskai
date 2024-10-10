@@ -40,7 +40,7 @@
     <% end %>
 
     <%# == Fullstory %>
-    <% (org_id = Fullstory.org_id) %>
+    <% if (org_id = Fullstory.org_id) %>
       <meta name="fullstory-org-id" content="<%= org_id %>">
     <% end %>
 
