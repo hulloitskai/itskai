@@ -28,6 +28,8 @@ Healthcheck.configure do |config|
 
   # == Custom response
   config.custom = ->(controller, checker) {
-    controller.render(json: StatusSerializer.render(checker))
+    controller.render(json: {
+      status: StatusSerializer.render(checker),
+    })
   }
 end

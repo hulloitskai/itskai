@@ -11,6 +11,7 @@ import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
 import AccountIcon from "~icons/heroicons/wrench-screwdriver-20-solid";
 
 import { useContact } from "~/helpers/contact";
+import { type Status } from "~/types";
 
 import classes from "./AppMenu.module.css";
 
@@ -26,13 +27,13 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
   const [opened, setOpened] = useState(false);
 
   // == Load server info
-  const { data: statusData } = useFetchSWR(
+  const { data } = useFetchSWR<{ status: Status }>(
     routes.healthcheckHealthchecks.check,
     {
       descriptor: "load server info",
     },
   );
-  const { bootedAt } = statusData ?? {};
+  const { status } = data ?? {};
 
   // == Logout
   const { submit: logout } = useInertiaForm({
@@ -154,8 +155,8 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
         <Menu.Item component="div" disabled pt={4}>
           <Text span size="xs">
             Server booted{" "}
-            {bootedAt ? (
-              <TimeAgo>{bootedAt}</TimeAgo>
+            {status ? (
+              <TimeAgo>{status.booted_at}</TimeAgo>
             ) : (
               <Skeleton
                 display="inline-block"
