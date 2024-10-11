@@ -83,13 +83,14 @@ const ImageInput: FC<ImageInputProps> = ({
   const [uploading, setUploading] = useState(false);
   const loading: boolean = uploading || (!!value && !image);
 
+  const inputId = useId();
   return (
     <Input.Wrapper
+      labelProps={{ htmlFor: inputId, ...labelProps }}
       {...{
         variant,
         labelElement,
         label,
-        labelProps,
         description,
         descriptionProps,
         error,
@@ -128,7 +129,7 @@ const ImageInput: FC<ImageInputProps> = ({
                   .catch((error: Error) => {
                     showAlert({
                       title: "Failed to upload image",
-                      message: error.toString(),
+                      message: error.message,
                     });
                   })
                   .finally(() => {
@@ -143,6 +144,7 @@ const ImageInput: FC<ImageInputProps> = ({
               root: classes.dropzone,
               inner: classes.dropzoneInner,
             }}
+            inputProps={{ id: inputId }}
             style={[
               style,
               ({ colors }) => ({
