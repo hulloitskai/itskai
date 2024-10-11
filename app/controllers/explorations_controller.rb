@@ -9,10 +9,7 @@ class ExplorationsController < ApplicationController
       :message,
       :author_contact,
     )
-    comment = ExplorationComment.new(
-      exploration_id: params[:exploration_id],
-      **comment_params,
-    )
+    comment = ExplorationComment.new(exploration_id, **comment_params)
     if comment.save
       render(json: {})
     else
@@ -21,5 +18,15 @@ class ExplorationsController < ApplicationController
         status: :unprocessable_entity,
       )
     end
+  end
+
+  private
+
+  # == Helpers
+  sig { returns(String) }
+  def exploration_id
+    exploration_id = params.fetch(:exploration_id)
+    raise "Invalid exploration ID" unless exploration_id.is_a?(String)
+    exploration_id
   end
 end

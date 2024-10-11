@@ -6,7 +6,9 @@ module Admin
     # == Actions
     # DELETE /admin/oauth_connections/:provider
     def destroy
-      credentials = OAuthCredentials.find_by!(provider: params[:provider])
+      provider = params.fetch(:provider)
+      raise "Invalid provider" unless provider.is_a?(String)
+      credentials = OAuthCredentials.find_by!(provider:)
       credentials.destroy!
       render(json: {})
     rescue => error

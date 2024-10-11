@@ -34,7 +34,7 @@ module Admin
 
     # DELETE /admin/location_access_grants/:id
     def destroy
-      grant = LocationAccessGrant.find(params[:id])
+      grant = LocationAccessGrant.find(params.fetch(:id))
       grant.destroy!
       render(json: {})
     rescue => error
