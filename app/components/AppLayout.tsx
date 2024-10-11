@@ -182,13 +182,9 @@ export default AppLayout;
 const useResolveDynamicProp = <PageProps extends SharedPageProps, T>(
   prop: T | ((props: PageProps) => T),
   pageProps: PageProps,
-) => {
-  return useMemo(() => resolveDynamicProp(prop, pageProps), [prop, pageProps]);
-};
+) => useMemo(() => resolveDynamicProp(prop, pageProps), [prop, pageProps]);
 
 const resolveDynamicProp = <PageProps extends SharedPageProps, T>(
   prop: T | ((props: PageProps) => T),
   pageProps: PageProps,
-) => {
-  return prop instanceof Function ? prop(pageProps) : prop;
-};
+) => (prop instanceof Function ? prop(pageProps) : prop);

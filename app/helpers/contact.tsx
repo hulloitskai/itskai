@@ -24,7 +24,7 @@ export const useContact = (
     })
       .then(
         ({ mailto }): void => {
-          window.location.href = mailto;
+          location.href = mailto;
         },
         (error: Error) => {
           setResult(result => ({ ...result, error }));

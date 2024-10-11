@@ -27,7 +27,7 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
       const path = routes.locations.show.path({
         query: { password: grant.password },
       });
-      const url = new URL(path, window.location.href);
+      const url = new URL(path, location.href);
       setLocateUrl(url.toString());
       if (autocopy) {
         showSuccessNotice({
