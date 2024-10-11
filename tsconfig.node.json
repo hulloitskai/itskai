@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     // == Language
-    "module": "ESNext",
+    "module": "ES2022",
     "allowSyntheticDefaultImports": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,

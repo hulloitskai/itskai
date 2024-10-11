@@ -14,10 +14,15 @@ module Users
 
     # POST /login
     def create
-      resource = self.resource = warden.authenticate!(auth_options)
-      set_flash_message!(:notice, :signed_in)
+      resource = T.let(self.resource = warden.authenticate!(auth_options), User)
       sign_in(resource_name, resource)
       inertia_location(after_sign_in_path_for(resource))
+    end
+
+    # DELETE /logout
+    def destroy
+      sign_out(resource)
+      inertia_location(after_sign_out_path_for(resource_name))
     end
 
     private
