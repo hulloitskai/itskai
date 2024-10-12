@@ -66,7 +66,7 @@ audit: &audit
       run: npm audit
       tags: js
     audit-gems:
-      run: bundle exec bundle-audit check
+      run: bin/rails bundle:audit
       tags: rb
 
 pre-commit:

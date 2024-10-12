@@ -304,6 +304,62 @@ Bundler::Audit::Database::USER_PATH = T.let(T.unsafe(nil), String)
 # source://bundler-audit//lib/bundler/audit/database.rb#34
 class Bundler::Audit::Database::UpdateFailed < ::RuntimeError; end
 
+# Defines the `bundle:audit` rake tasks.
+#
+# source://bundler-audit//lib/bundler/audit/task.rb#8
+class Bundler::Audit::Task < ::Rake::TaskLib
+  # Initializes the task.
+  #
+  # @return [Task] a new instance of Task
+  #
+  # source://bundler-audit//lib/bundler/audit/task.rb#15
+  def initialize; end
+
+  # Runs the `bundler-audit` command with the additional arguments.
+  #
+  # @api private
+  # @note If the `bundler-audit` command exits with an error, the rake task
+  #   will also exit with the same error code.
+  # @param arguments [Array<String>] Additional command-line arguments for `bundler-audit`.
+  # @raise [CommandNotFound] The `bundler-audit` command could not be executed or was not found.
+  # @return [true] The `bundler-audit` command successfully exited.
+  #
+  # source://bundler-audit//lib/bundler/audit/task.rb#37
+  def bundler_audit(*arguments); end
+
+  # Runs the `bundle-audit check` command.
+  #
+  # @api private
+  # @note If the `bundler-audit` command exits with an error, the rake task
+  #   will also exit with the same error code.
+  # @raise [CommandNotFound] The `bundler-audit` command could not be executed or was not found.
+  # @return [true] The `bundler-audit` command successfully exited.
+  #
+  # source://bundler-audit//lib/bundler/audit/task.rb#63
+  def check; end
+
+  # Runs the `bundle-audit update` command.
+  #
+  # @api private
+  # @note If the `bundler-audit` command exits with an error, the rake task
+  #   will also exit with the same error code.
+  # @raise [CommandNotFound] The `bundler-audit` command could not be executed or was not found.
+  # @return [true] The `bundler-audit` command successfully exited.
+  #
+  # source://bundler-audit//lib/bundler/audit/task.rb#82
+  def update; end
+
+  protected
+
+  # Defines the `bundle:audit` and `bundle:audit:update` task.
+  #
+  # source://bundler-audit//lib/bundler/audit/task.rb#91
+  def define; end
+end
+
+# source://bundler-audit//lib/bundler/audit/task.rb#9
+class Bundler::Audit::Task::CommandNotFound < ::RuntimeError; end
+
 # bundler-audit version
 #
 # source://bundler-audit//lib/bundler/audit/version.rb#21
