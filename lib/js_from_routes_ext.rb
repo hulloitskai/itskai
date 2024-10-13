@@ -14,7 +14,7 @@ module JsFromRoutes
       requires_ancestor { T.class_of(JsFromRoutes) }
 
       def generate!(...)
-        if ENV["ROUTES_HELPERS_FORCE"] &&
+        if ENV["JS_FROM_ROUTES_FORCE"] &&
             (output_folder = config.output_folder.presence)
           FileUtils.rm_rf(Dir.glob("#{output_folder}/*"))
         end

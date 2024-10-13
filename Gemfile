@@ -216,7 +216,7 @@ group :development, :test do
   gem "bullet"
 
   # Generate Typescript path helpers
-  gem "js_from_routes", "~> 3.0"
+  gem "js_from_routes", "~> 4.0"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false

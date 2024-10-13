@@ -7,6 +7,17 @@ require "types_from_serializers"
 require "oj_serializers_ext"
 
 module TypesFromSerializers
+  class << self
+    # Patch the `generate` method to use a custom environment variable for
+    # forcing generation.
+    module RenameForceGenerationEnvironmentVariable
+      def generate(force: ENV["TYPES_FROM_SERIALIZERS_FORCE"])
+        super
+      end
+    end
+    prepend RenameForceGenerationEnvironmentVariable
+  end
+
   module SerializerRefinements
     refine Class do
       def ts_properties
