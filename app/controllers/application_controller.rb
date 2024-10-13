@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   # == Filters
   before_action :set_actor_id
-  before_action :authorize_rack_mini_profiler
+  before_action :authorize_rack_mini_profiler if Rails.env.production?
   around_action :with_error_context
   if !InertiaRails.ssr_enabled? && Rails.env.development?
     around_action :with_ssr
@@ -71,7 +71,9 @@ class ApplicationController < ActionController::Base
 
   sig { void }
   def authorize_rack_mini_profiler
-    Rack::MiniProfiler.authorize_request if current_user&.owner?
+    if params[:profile].truthy? && current_user&.owner?
+      Rack::MiniProfiler.authorize_request
+    end
   end
 
   sig { params(block: T.proc.returns(T.untyped)).void }
@@ -83,7 +85,7 @@ class ApplicationController < ActionController::Base
 
   sig { params(block: T.proc.returns(T.untyped)).void }
   def with_ssr(&block)
-    if params["ssr"].truthy?
+    if params[:ssr].truthy?
       vite_dev_server_enabled = ViteRuby.dev_server_enabled?
       inertia_ssr_enabled = InertiaRails.ssr_enabled?
       begin
