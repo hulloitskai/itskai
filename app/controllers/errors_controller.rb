@@ -2,12 +2,15 @@
 # frozen_string_literal: true
 
 class ErrorsController < ApplicationController
+  # == Configuration
+  respond_to :html, :json, :text
+
   # == Actions
   # GET /404
   def not_found
     render_error_page(
       status: :not_found,
-      title: "Page Not Found",
+      title: "Page not found",
       description: "The page you were looking for doesn't exist!",
     )
   end
@@ -16,7 +19,7 @@ class ErrorsController < ApplicationController
   def internal_server_error
     render_error_page(
       status: :internal_server_error,
-      title: "Internal Error",
+      title: "Internal error",
       description:
         "Sorry about this, but something went wrong while processing this " \
         "request! Our team has been notified.",
@@ -28,7 +31,7 @@ class ErrorsController < ApplicationController
   def unprocessable_entity
     render_error_page(
       status: :unprocessable_entity,
-      title: "Change Rejected",
+      title: "Change rejected",
       description:
         "The change you wanted was rejected. Maybe you tried to change " \
         "something you didn't have access to?",
@@ -59,20 +62,26 @@ class ErrorsController < ApplicationController
   end
   def render_error_page(status:, title:, description:, error: nil)
     code = Rack::Utils.status_code(status)
-    if request.format == :html
-      render(
-        inertia: "ErrorPage",
-        props: {
-          title:,
-          description:,
-          code:,
-          error: error.to_s,
-        },
-        status:,
-      )
-    else
-      message = Rack::Utils::HTTP_STATUS_CODES[code]
-      render(plain: message, status:)
+    respond_with do |format|
+      format.html do
+        render(
+          inertia: "ErrorPage",
+          props: {
+            title:,
+            description:,
+            code:,
+            error: error.to_s,
+          },
+          status:,
+        )
+      end
+      format.json do
+        render(json: { error: error.to_s }, status:)
+      end
+      format.text do
+        message = Rack::Utils::HTTP_STATUS_CODES[code]
+        render(plain: message, status:)
+      end
     end
   end
 

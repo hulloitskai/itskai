@@ -53,13 +53,13 @@ export interface FetchForm<
   submit: FetchFormSubmit;
 }
 
+type _TransformValues<Values> = (values: Values) => unknown;
+
 // TODO: Serialize form data.
 export const useFetchForm = <
   Data extends Record<string, any> & { error?: never; errors?: never } = {},
   Values extends Record<string, any> = {},
-  TransformValues extends (values: Values) => unknown = (
-    values: Values,
-  ) => Values,
+  TransformValues extends _TransformValues<Values> = (values: Values) => Values,
 >(
   options: FetchFormOptions<Data, Values, TransformValues>,
 ): FetchForm<Data, Values, TransformValues> => {

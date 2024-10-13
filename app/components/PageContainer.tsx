@@ -9,35 +9,39 @@ export interface PageContainerProps
 }
 
 const PageContainer: FC<PageContainerProps> = ({
-  children,
+  withGutter,
   gutterSize = "md",
   size = "md",
+  className,
   style,
-  withGutter,
+  children,
   ...otherProps
-}) => (
-  <Container
-    {...{ size }}
-    p="md"
-    w="100%"
-    style={[
-      style,
-      withGutter
-        ? () => {
-            const sizeValue = getSize(size, "container-size");
-            const gutterSizeValue = getSpacing(gutterSize);
-            const margin = `clamp(0px, calc((100vw - ${sizeValue}) / 2), ${gutterSizeValue})`;
-            return {
-              marginTop: margin,
-              marginBottom: margin,
-            };
-          }
-        : undefined,
-    ]}
-    {...otherProps}
-  >
-    {children}
-  </Container>
-);
+}) => {
+  return (
+    <Container
+      {...{ size }}
+      p="md"
+      w="100%"
+      className={cx("PageContainer-root", className)}
+      style={[
+        style,
+        withGutter
+          ? () => {
+              const sizeValue = getSize(size, "container-size");
+              const gutterSizeValue = getSpacing(gutterSize);
+              const margin = `clamp(0px, calc((100vw - ${sizeValue}) / 2), ${gutterSizeValue})`;
+              return {
+                marginTop: margin,
+                marginBottom: margin,
+              };
+            }
+          : undefined,
+      ]}
+      {...otherProps}
+    >
+      {children}
+    </Container>
+  );
+};
 
 export default PageContainer;

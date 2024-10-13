@@ -53,11 +53,11 @@ export interface InertiaForm<
   submit: InertiaFormSubmit;
 }
 
+type _TransformValues<Values> = (values: Values) => RequestPayload;
+
 export const useInertiaForm = <
   Values extends Record<string, any> = Record<string, any>,
-  TransformValues extends (values: Values) => RequestPayload = (
-    values: Values,
-  ) => Values,
+  TransformValues extends _TransformValues<Values> = (values: Values) => Values,
 >(
   options: InertiaFormOptions<Values, TransformValues>,
 ): InertiaForm<Values, TransformValues> => {
