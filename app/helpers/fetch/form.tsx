@@ -24,6 +24,7 @@ export interface FetchFormOptions<
   };
   method?: Method;
   failSilently?: boolean;
+  beforeSubmit?: (form: FetchPartialForm<Values, TransformValues>) => void;
   onSubmit?: (
     transformedValues: ReturnType<TransformValues>,
     submission: Promise<Data>,
@@ -68,6 +69,7 @@ export const useFetchForm = <
     descriptor,
     failSilently,
     method = action.httpMethod,
+    beforeSubmit,
     onSubmit,
     onError,
     onFailure,
@@ -83,7 +85,7 @@ export const useFetchForm = <
   const [data, setData] = useState<Data | undefined>();
   const [error, setError] = useState<Error | undefined>();
   const [processing, setProcessing] = useState(false);
-  const submit = form.onSubmit(
+  const handleSubmit = form.onSubmit(
     transformedValues => {
       setProcessing(true);
       const submission = action<
@@ -106,7 +108,7 @@ export const useFetchForm = <
                 error?: string;
                 errors?: Record<string, string>;
               };
-              if (error) {
+              if (typeof error === "string") {
                 const e = new Error(error);
                 setError(e);
                 console.error(`Failed to ${descriptor}`, error);
@@ -117,7 +119,7 @@ export const useFetchForm = <
                   });
                 }
                 onFailure?.(e, form);
-              } else if (errors) {
+              } else if (typeof errors === "object") {
                 form.setErrors(errors);
                 console.warn(`Couldn't ${descriptor}`, {
                   errors,
@@ -155,6 +157,10 @@ export const useFetchForm = <
       showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
     },
   );
+  const submit = (event?: FormEvent<HTMLFormElement>) => {
+    beforeSubmit?.(form);
+    handleSubmit(event);
+  };
   return {
     ...form,
     processing,

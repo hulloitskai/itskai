@@ -28,6 +28,7 @@ export interface InertiaFormOptions<
   };
   method?: Method;
   failSilently?: boolean;
+  beforeSubmit?: (form: InertiaPartialForm<Values, TransformValues>) => void;
   onSubmit?: (
     transformedValues: ReturnType<TransformValues>,
     form: InertiaPartialForm<Values, TransformValues>,
@@ -66,6 +67,7 @@ export const useInertiaForm = <
     descriptor,
     failSilently,
     method: methodOption,
+    beforeSubmit,
     onSubmit,
     onError,
     onFailure,
@@ -90,7 +92,7 @@ export const useInertiaForm = <
       method = "get";
     }
   }
-  const submit = form.onSubmit(
+  const handleSubmit = form.onSubmit(
     transformedValues => {
       onSubmit?.(transformedValues, form);
       let removeInvalidListener: VoidFunction | undefined;
@@ -146,6 +148,10 @@ export const useInertiaForm = <
       showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
     },
   );
+  const submit = (event?: FormEvent<HTMLFormElement>) => {
+    beforeSubmit?.(form);
+    handleSubmit(event);
+  };
   return {
     ...form,
     processing,
