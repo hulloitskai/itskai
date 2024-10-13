@@ -4,7 +4,7 @@
 class AdminController < ApplicationController
   # == Filters
   before_action :authenticate_user!
-  before_action :authorize_admin!
+  before_action :authorize_user!
 
   # == Actions
   # GET /admin
@@ -62,7 +62,7 @@ class AdminController < ApplicationController
   private
 
   # == Filter handlers
-  def authorize_admin!
-    authorize!(with: AdminPolicy)
+  def authorize_user!
+    authorize!(to: :administrate?, with: ApplicationPolicy)
   end
 end

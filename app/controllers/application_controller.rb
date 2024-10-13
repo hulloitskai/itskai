@@ -71,7 +71,8 @@ class ApplicationController < ActionController::Base
 
   sig { void }
   def authorize_rack_mini_profiler
-    if params[:profile].truthy? && current_user&.owner?
+    if params[:profile].truthy?
+      authorize!(to: :administrate?, with: ApplicationPolicy)
       Rack::MiniProfiler.authorize_request
     end
   end
