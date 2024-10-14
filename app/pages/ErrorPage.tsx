@@ -30,7 +30,7 @@ const ErrorPage: PageComponent<ErrorPageProps> = ({
         Error: {error}
       </Code>
     )}
-    <Button component={Link} href="/" mt={4}>
+    <Button component={Link} href={routes.home.show.path()} mt={4}>
       Back to Home
     </Button>
   </Stack>
