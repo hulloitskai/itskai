@@ -7,6 +7,9 @@ export default interface SharedPageProps extends PageProps {
     param: string;
     token: string;
   };
-  flash: Record<string, string>;
+  flash: {
+    notice?: string;
+    alert?: string;
+  };
   currentUser: User | null;
 }

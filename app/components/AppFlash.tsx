@@ -24,7 +24,7 @@ const AppFlash: FC = () => {
         props instanceof Object,
         "Expected `state.props` to be an Object",
       );
-      if ("flash" in props) {
+      if (props && "flash" in props) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         props.flash = {};
       }
@@ -35,9 +35,12 @@ const AppFlash: FC = () => {
   const { flash } = usePageProps();
   useEffect(() => {
     if (flash) {
-      Object.entries(flash).forEach(([type, message]) => {
-        const props = AppFlashNotificationProps[type];
-        showNotification({ message, ...props });
+      const messages = pick(flash, "notice", "alert");
+      Object.entries(messages).forEach(([type, message]) => {
+        if (message) {
+          const props = AppFlashNotificationProps[type];
+          showNotification({ message, ...props });
+        }
       });
     }
   }, [flash]);
