@@ -22,16 +22,29 @@ export const fetchRoute = async <Data>(
 ): Promise<Data> => {
   const { failSilently, ...otherOptions } = options;
   const handleError = (responseError: ResponseError) => {
-    const { error } = responseError.body as { error: string };
-    console.error(`Failed to ${options.descriptor}`, error);
-    if (!failSilently) {
-      showAlert({
-        title: `Failed to ${options.descriptor}`,
-        message:
-          typeof error === "string" ? error : "An unexpected error occurred.",
-      });
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const { body } = responseError;
+    if (body !== null && typeof body === "object" && "error" in body) {
+      const { error } = body as { error: string };
+      console.error(`Failed to ${options.descriptor}`, error);
+      if (!failSilently) {
+        showAlert({
+          title: `Failed to ${options.descriptor}`,
+          message:
+            typeof error === "string" ? error : "An unknown error occurred.",
+        });
+      }
+      throw new Error(error);
+    } else {
+      console.error(`Failed to ${options.descriptor}`, responseError);
+      if (!failSilently) {
+        showAlert({
+          title: `Failed to ${options.descriptor}`,
+          message: "An unknown error occurred.",
+        });
+      }
+      throw responseError;
     }
-    throw new Error(error);
   };
   if (typeof route === "string") {
     const { method, ...otherOptions } = options;
