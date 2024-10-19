@@ -29,6 +29,7 @@ export default defineConfig(() => {
         "app/models/**/*.rb",
         "app/serializers/**/*.rb",
         "app/views/**/*.{html,html.erb}",
+        "app/controllers/**/*.rb",
       ],
       { delay: 200 },
     ),

@@ -108,6 +108,9 @@ module ItsKai
     config.action_dispatch
       .rescue_responses["ActionPolicy::Unauthorized"] = :unauthorized
 
+    # == Action Controller
+    config.action_controller.action_on_unpermitted_parameters = :raise
+
     # == Action View
     config.action_view.frozen_string_literal = true
 

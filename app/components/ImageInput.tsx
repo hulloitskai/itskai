@@ -33,14 +33,8 @@ export interface ImageInputProps
 const ImageInput: FC<ImageInputProps> = ({
   center,
   defaultValue,
-  description,
-  descriptionProps,
   disabled,
-  error,
-  errorProps,
   h = 140,
-  label,
-  labelElement,
   labelProps,
   onChange,
   p,
@@ -49,14 +43,12 @@ const ImageInput: FC<ImageInputProps> = ({
   pr,
   pt,
   px,
-  py = 2,
+  py = 6,
   radius = "md",
-  required,
   style,
   value,
-  variant,
   w,
-  withAsterisk,
+  ...otherProps
 }) => {
   // == Controlled input
   const [resolvedValue, handleChange] = useUncontrolled({
@@ -87,17 +79,7 @@ const ImageInput: FC<ImageInputProps> = ({
   return (
     <Input.Wrapper
       labelProps={{ htmlFor: inputId, ...labelProps }}
-      {...{
-        variant,
-        labelElement,
-        label,
-        description,
-        descriptionProps,
-        error,
-        errorProps,
-        required,
-        withAsterisk,
-      }}
+      {...otherProps}
     >
       <Stack
         align={w ? "center" : "stretch"}
