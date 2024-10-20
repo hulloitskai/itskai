@@ -6,5 +6,5 @@ class ICloudCredentialsSerializer < ApplicationSerializer
   object_as :credentials, model: "ICloudCredentials"
 
   # == Attributes
-  attributes :cookies, :email, :password, :session
+  attributes :email, :cookies, :session
 end

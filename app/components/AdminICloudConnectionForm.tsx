@@ -80,16 +80,16 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
 
   // == Form
   const initialValues = useMemo(() => {
-    const { email, password } = credentials ?? {};
+    const { email } = credentials ?? {};
     return {
       email: email ?? "",
-      password: password ?? "",
+      password: "",
     };
   }, [credentials]);
   interface FormData {
     connection: ICloudConnection;
   }
-  const { values, getInputProps, processing, submit, isDirty } = useFetchForm({
+  const { values, getInputProps, processing, submit } = useFetchForm({
     action: routes.adminICloudConnections.create,
     descriptor: "authenticate with iCloud",
     // mode: "uncontrolled",
@@ -130,7 +130,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
           <Button
             type="submit"
             leftSection={<AuthenticateIcon />}
-            disabled={!isDirty() || !filled}
+            disabled={!filled}
             loading={processing}
           >
             {credentials ? "Re-authenticate" : "Authenticate"}
