@@ -19,7 +19,7 @@ module Dry
     # @return [Dry::CLI] the new instance
     # @since 0.4.0
     #
-    # source://dry-cli//lib/dry/cli.rb#221
+    # source://dry-cli//lib/dry/cli.rb#224
     def CLI(registry_or_command = T.unsafe(nil), &block); end
 
     # source://dry-core/1.0.1/lib/dry/core.rb#52
@@ -46,7 +46,7 @@ class Dry::CLI
   # @return [Dry::CLI] the new instance
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli.rb#45
+  # source://dry-cli//lib/dry/cli.rb#46
   def initialize(command_or_registry = T.unsafe(nil), &block); end
 
   # Invoke the CLI
@@ -56,7 +56,7 @@ class Dry::CLI
   # @param err [IO] the error output (defaults to `$stderr`)
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli.rb#63
+  # source://dry-cli//lib/dry/cli.rb#64
   def call(arguments: T.unsafe(nil), out: T.unsafe(nil), err: T.unsafe(nil)); end
 
   private
@@ -68,13 +68,13 @@ class Dry::CLI
   # @return [Module] module extended with registry abilities and configured with a block
   # @since 0.4.0
   #
-  # source://dry-cli//lib/dry/cli.rb#202
+  # source://dry-cli//lib/dry/cli.rb#205
   def anonymous_registry(&block); end
 
   # @api private
   # @since 0.6.0
   #
-  # source://dry-cli//lib/dry/cli.rb#146
+  # source://dry-cli//lib/dry/cli.rb#147
   def build_command(command); end
 
   # Check if command
@@ -85,37 +85,37 @@ class Dry::CLI
   # @see .command?
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli.rb#190
+  # source://dry-cli//lib/dry/cli.rb#193
   def command?(command); end
 
   # @api private
   # @since 0.6.0
   #
-  # source://dry-cli//lib/dry/cli.rb#88
+  # source://dry-cli//lib/dry/cli.rb#89
   def err; end
 
   # @api private
   # @since 0.6.0
   #
-  # source://dry-cli//lib/dry/cli.rb#159
+  # source://dry-cli//lib/dry/cli.rb#160
   def error(result); end
 
   # @api private
   # @since 0.6.0
   #
-  # source://dry-cli//lib/dry/cli.rb#152
+  # source://dry-cli//lib/dry/cli.rb#153
   def help(command, prog_name); end
 
   # @api private
   # @since 0.6.0
   #
-  # source://dry-cli//lib/dry/cli.rb#80
+  # source://dry-cli//lib/dry/cli.rb#81
   def kommand; end
 
   # @api private
   # @since 0.6.0
   #
-  # source://dry-cli//lib/dry/cli.rb#84
+  # source://dry-cli//lib/dry/cli.rb#85
   def out; end
 
   # Parse arguments for a command.
@@ -129,7 +129,7 @@ class Dry::CLI
   #   first element is a command and the second one is the list of arguments
   # @since 0.6.0
   #
-  # source://dry-cli//lib/dry/cli.rb#132
+  # source://dry-cli//lib/dry/cli.rb#133
   def parse(command, arguments, names); end
 
   # Invoke the CLI if singular command passed
@@ -139,7 +139,7 @@ class Dry::CLI
   # @param out [IO] the standard output (defaults to `$stdout`)
   # @since 0.6.0
   #
-  # source://dry-cli//lib/dry/cli.rb#97
+  # source://dry-cli//lib/dry/cli.rb#98
   def perform_command(arguments); end
 
   # Invoke the CLI if registry passed
@@ -149,13 +149,13 @@ class Dry::CLI
   # @param out [IO] the standard output (defaults to `$stdout`)
   # @since 0.6.0
   #
-  # source://dry-cli//lib/dry/cli.rb#109
+  # source://dry-cli//lib/dry/cli.rb#110
   def perform_registry(arguments); end
 
   # @api private
   # @since 0.6.0
   #
-  # source://dry-cli//lib/dry/cli.rb#76
+  # source://dry-cli//lib/dry/cli.rb#77
   def registry; end
 
   # Handles Exit codes for signals
@@ -164,14 +164,13 @@ class Dry::CLI
   # @api private
   # @since 0.7.0
   #
-  # source://dry-cli//lib/dry/cli.rb#176
+  # source://dry-cli//lib/dry/cli.rb#179
   def signal_exception(exception); end
 
-  # @api private
-  # @since 0.1.0
+  # @since 1.1.1
   #
   # source://dry-cli//lib/dry/cli.rb#166
-  def usage(result); end
+  def spell_checker(result, arguments); end
 
   class << self
     # Check if command
@@ -181,7 +180,7 @@ class Dry::CLI
     # @return [TrueClass, FalseClass] true if instance of `Dry::CLI::Command`
     # @since 0.1.0
     #
-    # source://dry-cli//lib/dry/cli.rb#28
+    # source://dry-cli//lib/dry/cli.rb#29
     def command?(command); end
   end
 end
@@ -687,14 +686,14 @@ class Dry::CLI::CommandRegistry
   # @api private
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#41
+  # source://dry-cli//lib/dry/cli/command_registry.rb#42
   def get(arguments); end
 
   # @api private
   # @since 0.1.0
   #
   # source://dry-cli//lib/dry/cli/command_registry.rb#21
-  def set(name, command, aliases); end
+  def set(name, command, aliases, hidden); end
 end
 
 # Callbacks chain
@@ -702,31 +701,31 @@ end
 # @api private
 # @since 0.4.0
 #
-# source://dry-cli//lib/dry/cli/command_registry.rb#227
+# source://dry-cli//lib/dry/cli/command_registry.rb#239
 class Dry::CLI::CommandRegistry::Chain
   # @api private
   # @return [Chain] a new instance of Chain
   # @since 0.4.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#234
+  # source://dry-cli//lib/dry/cli/command_registry.rb#246
   def initialize; end
 
   # @api private
   # @since 0.4.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#240
+  # source://dry-cli//lib/dry/cli/command_registry.rb#252
   def append(&callback); end
 
   # @api private
   # @since 0.4.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#230
+  # source://dry-cli//lib/dry/cli/command_registry.rb#242
   def chain; end
 
   # @api private
   # @since 0.4.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#246
+  # source://dry-cli//lib/dry/cli/command_registry.rb#258
   def run(context, *args); end
 end
 
@@ -735,56 +734,56 @@ end
 # @api private
 # @since 0.1.0
 #
-# source://dry-cli//lib/dry/cli/command_registry.rb#174
+# source://dry-cli//lib/dry/cli/command_registry.rb#186
 class Dry::CLI::CommandRegistry::LookupResult
   # @api private
   # @return [LookupResult] a new instance of LookupResult
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#185
+  # source://dry-cli//lib/dry/cli/command_registry.rb#197
   def initialize(node, arguments, names, found); end
 
   # @api private
   # @since 0.2.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#218
+  # source://dry-cli//lib/dry/cli/command_registry.rb#230
   def after_callbacks; end
 
   # @api private
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#181
+  # source://dry-cli//lib/dry/cli/command_registry.rb#193
   def arguments; end
 
   # @api private
   # @since 0.2.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#212
+  # source://dry-cli//lib/dry/cli/command_registry.rb#224
   def before_callbacks; end
 
   # @api private
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#200
+  # source://dry-cli//lib/dry/cli/command_registry.rb#212
   def children; end
 
   # @api private
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#206
+  # source://dry-cli//lib/dry/cli/command_registry.rb#218
   def command; end
 
   # @api private
   # @return [Boolean]
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#194
+  # source://dry-cli//lib/dry/cli/command_registry.rb#206
   def found?; end
 
   # @api private
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#177
+  # source://dry-cli//lib/dry/cli/command_registry.rb#189
   def names; end
 end
 
@@ -793,99 +792,111 @@ end
 # @api private
 # @since 0.1.0
 #
-# source://dry-cli//lib/dry/cli/command_registry.rb#81
+# source://dry-cli//lib/dry/cli/command_registry.rb#82
 class Dry::CLI::CommandRegistry::Node
   # @api private
   # @return [Node] a new instance of Node
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#108
+  # source://dry-cli//lib/dry/cli/command_registry.rb#113
   def initialize(parent = T.unsafe(nil)); end
 
   # @api private
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#104
+  # source://dry-cli//lib/dry/cli/command_registry.rb#109
   def after_callbacks; end
 
   # @api private
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#145
+  # source://dry-cli//lib/dry/cli/command_registry.rb#151
   def alias!(key, child); end
 
   # @api private
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#92
+  # source://dry-cli//lib/dry/cli/command_registry.rb#93
   def aliases; end
 
   # @api private
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#151
+  # source://dry-cli//lib/dry/cli/command_registry.rb#157
   def aliases!(aliases); end
 
   # @api private
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#100
+  # source://dry-cli//lib/dry/cli/command_registry.rb#105
   def before_callbacks; end
 
   # @api private
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#88
+  # source://dry-cli//lib/dry/cli/command_registry.rb#89
   def children; end
 
   # @api private
   # @return [Boolean]
   # @since 0.7.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#165
+  # source://dry-cli//lib/dry/cli/command_registry.rb#177
   def children?; end
 
   # @api private
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#96
+  # source://dry-cli//lib/dry/cli/command_registry.rb#101
   def command; end
+
+  # @api private
+  # @since 1.1.1
+  #
+  # source://dry-cli//lib/dry/cli/command_registry.rb#97
+  def hidden; end
+
+  # @api private
+  # @since 1.1.1
+  #
+  # source://dry-cli//lib/dry/cli/command_registry.rb#165
+  def hidden!(hidden); end
 
   # @api private
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#132
+  # source://dry-cli//lib/dry/cli/command_registry.rb#138
   def leaf!(command); end
 
   # @api private
   # @return [Boolean]
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#159
+  # source://dry-cli//lib/dry/cli/command_registry.rb#171
   def leaf?; end
 
   # @api private
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#126
+  # source://dry-cli//lib/dry/cli/command_registry.rb#132
   def lookup(token); end
 
   # @api private
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#84
+  # source://dry-cli//lib/dry/cli/command_registry.rb#85
   def parent; end
 
   # @api private
   # @since 0.1.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#120
+  # source://dry-cli//lib/dry/cli/command_registry.rb#126
   def put(parent, key); end
 
   # @api private
   # @since 0.7.0
   #
-  # source://dry-cli//lib/dry/cli/command_registry.rb#138
+  # source://dry-cli//lib/dry/cli/command_registry.rb#144
   def subcommands!(command); end
 end
 
@@ -1369,7 +1380,7 @@ module Dry::CLI::Registry
   # @since 0.1.0
   #
   # source://dry-cli//lib/dry/cli/registry.rb#78
-  def register(name, command = T.unsafe(nil), aliases: T.unsafe(nil), &block); end
+  def register(name, command = T.unsafe(nil), aliases: T.unsafe(nil), hidden: T.unsafe(nil), &block); end
 
   private
 
@@ -1410,13 +1421,13 @@ class Dry::CLI::Registry::Prefix
   # @since 0.1.0
   #
   # source://dry-cli//lib/dry/cli/registry.rb#311
-  def initialize(registry, prefix, aliases); end
+  def initialize(registry, prefix, aliases, hidden); end
 
   # @see Dry::CLI::Registry#register
   # @since 0.1.0
   #
   # source://dry-cli//lib/dry/cli/registry.rb#321
-  def register(name, command, aliases: T.unsafe(nil)); end
+  def register(name, command, aliases: T.unsafe(nil), hidden: T.unsafe(nil)); end
 
   private
 
@@ -1431,6 +1442,35 @@ class Dry::CLI::Registry::Prefix
   #
   # source://dry-cli//lib/dry/cli/registry.rb#330
   def registry; end
+end
+
+# Command(s) usage
+#
+# @api private
+# @since 1.1.1
+#
+# source://dry-cli//lib/dry/cli/spell_checker.rb#12
+module Dry::CLI::SpellChecker
+  class << self
+    # @api private
+    # @since 1.1.1
+    #
+    # source://dry-cli//lib/dry/cli/spell_checker.rb#15
+    def call(result, arguments); end
+
+    # @api private
+    # @since 1.1.1
+    #
+    # source://dry-cli//lib/dry/cli/spell_checker.rb#27
+    def cmd_to_spell(arguments, result_names); end
+
+    # @api private
+    # @return [Boolean]
+    # @since 1.1.1
+    #
+    # source://dry-cli//lib/dry/cli/spell_checker.rb#33
+    def ignore?(cmd); end
+  end
 end
 
 # @since 0.2.1
@@ -1456,7 +1496,7 @@ module Dry::CLI::Usage
     # @api private
     # @since 0.1.0
     #
-    # source://dry-cli//lib/dry/cli/usage.rb#52
+    # source://dry-cli//lib/dry/cli/usage.rb#54
     def arguments(command); end
 
     # @api private
@@ -1468,31 +1508,31 @@ module Dry::CLI::Usage
     # @api private
     # @since 0.1.0
     #
-    # source://dry-cli//lib/dry/cli/usage.rb#89
+    # source://dry-cli//lib/dry/cli/usage.rb#91
     def command_name(result, name); end
 
     # @api private
     # @since 0.1.0
     #
-    # source://dry-cli//lib/dry/cli/usage.rb#83
+    # source://dry-cli//lib/dry/cli/usage.rb#85
     def commands(result); end
 
     # @api private
     # @since 0.1.0
     #
-    # source://dry-cli//lib/dry/cli/usage.rb#31
+    # source://dry-cli//lib/dry/cli/usage.rb#33
     def commands_and_arguments(result); end
 
     # @api private
     # @since 0.1.0
     #
-    # source://dry-cli//lib/dry/cli/usage.rb#67
+    # source://dry-cli//lib/dry/cli/usage.rb#69
     def description(command); end
 
     # @api private
     # @since 0.1.0
     #
-    # source://dry-cli//lib/dry/cli/usage.rb#75
+    # source://dry-cli//lib/dry/cli/usage.rb#77
     def justify(string, padding, usage); end
   end
 end
