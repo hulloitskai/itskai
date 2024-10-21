@@ -52,7 +52,7 @@ def login():
             and cause.reason == "Missing apple_id field"
         ):
             return {"error": "Bad login"}, 400
-        raise error
+        return {"error": str(message)}, 500
     except Exception as error:
         return {"error": str(error)}, 500
 

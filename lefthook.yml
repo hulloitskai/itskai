@@ -27,7 +27,7 @@ check:
       tags: py
     check-black:
       files: *modified-files
-      run: poetry run black --check --force-exclude {files}
+      run: poetry run black --check {files}
       glob: "*.py"
       tags: py
 
@@ -55,7 +55,7 @@ fix:
       tags: py
     check-black:
       files: *modified-files
-      run: poetry run black --force-exclude {files}
+      run: poetry run black /node_modules/ {files}
       glob: "*.py"
       tags: py
 
@@ -93,7 +93,7 @@ pre-commit:
       glob: "*.py"
       tags: py
     check-black:
-      run: poetry run black --check --force-exclude {staged_files}
+      run: poetry run black --check {staged_files}
       glob: "*.py"
       tags: py
 
