@@ -45,7 +45,7 @@ class AdminController < ApplicationController
   def sync_location_logs
     log = LocationLog.sync
     render(json: {
-      location: LocationSerializer.one_if(log),
+      "lastSyncedTimestamp" => log&.timestamp&.iso8601,
     })
   end
 

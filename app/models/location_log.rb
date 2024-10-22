@@ -68,7 +68,7 @@ class LocationLog < ApplicationRecord
   # == Scopes
   scope :with_address, -> {
     T.bind(self, PrivateRelation)
-    left_joins(:address).where.not(location_log_addresses: { id: nil })
+    where.associated(:address)
   }
 
   scope :_latest, -> {

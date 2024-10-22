@@ -1,4 +1,4 @@
-import { type BoxProps } from "@mantine/core";
+import { type ActionIconProps, type BoxProps } from "@mantine/core";
 import {
   ActionIcon,
   NumberFormatter,
@@ -13,14 +13,21 @@ import QueueingIcon from "~icons/heroicons/queue-list-20-solid";
 
 export interface AdminLocationLogsBackfillAddressesButtonProps
   extends BoxProps,
-    Omit<ComponentPropsWithoutRef<"div">, "style"> {
+    Omit<ComponentPropsWithoutRef<"div">, "style">,
+    Pick<ActionIconProps, "disabled"> {
   numLogsWithoutAddresses: number;
   onBackfilling?: () => void;
 }
 
 const AdminLocationLogsBackfillAddressesButtons: FC<
   AdminLocationLogsBackfillAddressesButtonProps
-> = ({ children, numLogsWithoutAddresses, onBackfilling, ...otherProps }) => {
+> = ({
+  numLogsWithoutAddresses,
+  disabled,
+  children,
+  onBackfilling,
+  ...otherProps
+}) => {
   const [popoverOpened, { close: closePopover, open: openPopover }] =
     useDisclosure(false);
   const initialValues = { limit: "" as number | "" };
@@ -76,6 +83,7 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
         loading={processing}
         leftSection={<QueueingIcon />}
         style={{ flexGrow: 1 }}
+        {...{ disabled }}
         onClick={() => {
           submit();
         }}
@@ -96,6 +104,7 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
             variant="light"
             color="gray"
             size="lg"
+            {...{ disabled }}
             onClick={openPopover}
           >
             <MoreIcon />

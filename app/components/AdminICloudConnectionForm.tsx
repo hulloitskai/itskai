@@ -27,6 +27,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
   // == Session info
   const openSessionInfoModal = () => {
     openModal({
+      size: "lg",
       title: (
         <Box>
           <Text>Session information</Text>

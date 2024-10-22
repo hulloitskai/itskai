@@ -57,7 +57,7 @@ def login():
         return {"error": str(error)}, 500
 
 
-@app.route("/login", methods=["POST"])
+@app.route("/logout", methods=["POST"])
 def logout():
     global service
     service = None

@@ -23,105 +23,106 @@ const AdminPage: PageComponent<AdminPageProps> = ({
   newLocationAccessGrantId,
   numLogsWithoutAddresses,
   spotifyConnection,
-}) => {
-  return (
-    <Stack>
-      <Card withBorder>
-        <Stack gap="xs">
-          <Stack align="center" gap={0}>
-            <Title order={2} size="h4">
-              Data controls
-            </Title>
-            <Text size="sm" c="dimmed" lh={1.3}>
-              Sync data from your services
-            </Text>
-          </Stack>
-          <Stack gap={6}>
-            <AdminLocationLogsSyncButton />
-            {numLogsWithoutAddresses > 0 && (
-              <AdminLocationLogsBackfillAddressesButtons
-                {...{ numLogsWithoutAddresses }}
-              />
-            )}
-            <AdminJournalEntriesSyncButton />
-          </Stack>
+}) => (
+  <Stack>
+    <Card withBorder>
+      <Stack gap="xs">
+        <Stack align="center" gap={0}>
+          <Title order={2} size="h4">
+            Data controls
+          </Title>
+          <Text size="sm" c="dimmed" lh={1.3}>
+            Sync data from your services
+          </Text>
         </Stack>
-      </Card>
-      <Card withBorder>
-        <Stack gap="xs">
-          <Stack align="center" gap={0}>
-            <Title order={2} size="h4">
-              Location access grants
-            </Title>
-            <Text size="sm" c="dimmed" lh={1.3}>
-              Grant access to your precise location
-            </Text>
-          </Stack>
-          <AdminLocationAccessGrants
-            newGrantId={newLocationAccessGrantId ?? undefined}
+        <Stack gap={6}>
+          <AdminLocationLogsSyncButton
+            disabled={icloudConnection.status !== "connected"}
           />
+          {numLogsWithoutAddresses > 0 && (
+            <AdminLocationLogsBackfillAddressesButtons
+              disabled={icloudConnection.status !== "connected"}
+              {...{ numLogsWithoutAddresses }}
+            />
+          )}
+          <AdminJournalEntriesSyncButton />
         </Stack>
-      </Card>
-      <Card withBorder>
-        <Stack gap="sm">
-          <Stack align="center" gap={0}>
-            <Title order={2} size="h4">
-              iCloud
-            </Title>
-            <Text size="sm" c="dimmed" lh={1.3}>
-              Enables location services
-            </Text>
-          </Stack>
-          <AdminICloudConnectionForm
-            connection={icloudConnection}
-            onConnected={() => {
-              router.reload({ only: ["icloudConnection"] });
-            }}
-            onDisconnected={() => {
-              router.reload({ only: ["icloudConnection"] });
-            }}
-          />
+      </Stack>
+    </Card>
+    <Card withBorder>
+      <Stack gap="xs">
+        <Stack align="center" gap={0}>
+          <Title order={2} size="h4">
+            Location access grants
+          </Title>
+          <Text size="sm" c="dimmed" lh={1.3}>
+            Grant access to your precise location
+          </Text>
         </Stack>
-      </Card>
-      <Card withBorder>
-        <Stack gap="sm">
-          <Stack align="center" gap={0}>
-            <Title order={2} size="h4">
-              Google
-            </Title>
-            <Text size="sm" c="dimmed" lh={1.3}>
-              Enables availability services
-            </Text>
-          </Stack>
-          <AdminOAuthConnectionForm
-            connection={googleConnection}
-            onDisconnected={() => {
-              router.reload({ only: ["googleConnection"] });
-            }}
-          />
+        <AdminLocationAccessGrants
+          newGrantId={newLocationAccessGrantId ?? undefined}
+        />
+      </Stack>
+    </Card>
+    <Card withBorder>
+      <Stack gap="sm">
+        <Stack align="center" gap={0}>
+          <Title order={2} size="h4">
+            iCloud
+          </Title>
+          <Text size="sm" c="dimmed" lh={1.3}>
+            Enables location services
+          </Text>
         </Stack>
-      </Card>
-      <Card withBorder>
-        <Stack gap="sm">
-          <Stack align="center" gap={0}>
-            <Title order={2} size="h4">
-              Spotify
-            </Title>
-            <Text size="sm" c="dimmed" lh={1.3}>
-              Enables currently-playing & lyrics services
-            </Text>
-          </Stack>
-          <AdminOAuthConnectionForm
-            connection={spotifyConnection}
-            onDisconnected={() => {
-              router.reload({ only: ["spotifyConnection"] });
-            }}
-          />
+        <AdminICloudConnectionForm
+          connection={icloudConnection}
+          onConnected={() => {
+            router.reload({ only: ["icloudConnection"] });
+          }}
+          onDisconnected={() => {
+            router.reload({ only: ["icloudConnection"] });
+          }}
+        />
+      </Stack>
+    </Card>
+    <Card withBorder>
+      <Stack gap="sm">
+        <Stack align="center" gap={0}>
+          <Title order={2} size="h4">
+            Google
+          </Title>
+          <Text size="sm" c="dimmed" lh={1.3}>
+            Enables availability services
+          </Text>
         </Stack>
-      </Card>
-    </Stack>
-  );
-};
+        <AdminOAuthConnectionForm
+          connection={googleConnection}
+          onDisconnected={() => {
+            router.reload({ only: ["googleConnection"] });
+          }}
+        />
+      </Stack>
+    </Card>
+    <Card withBorder>
+      <Stack gap="sm">
+        <Stack align="center" gap={0}>
+          <Title order={2} size="h4">
+            Spotify
+          </Title>
+          <Text size="sm" c="dimmed" lh={1.3}>
+            Enables currently-playing & lyrics services
+          </Text>
+        </Stack>
+        <AdminOAuthConnectionForm
+          connection={spotifyConnection}
+          onDisconnected={() => {
+            router.reload({ only: ["spotifyConnection"] });
+          }}
+        />
+      </Stack>
+    </Card>
+  </Stack>
+);
 
 AdminPage.layout = page => (
   <AppLayout
