@@ -57,7 +57,11 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
       width={220}
       withinPortal={false}
       {...{ opened }}
-      onChange={setOpened}
+      onChange={opened => {
+        startTransition(() => {
+          setOpened(opened);
+        });
+      }}
       classNames={{
         item: classes.item,
         itemSection: classes.itemSection,

@@ -37,13 +37,15 @@ const CathendantContributePage: PageComponent<
     },
     onSuccess: (data, { reset }) => {
       reset();
-      router.visit(routes.cathendantHome.show.path(), {
-        onSuccess: () => {
-          showSuccessNotice({
-            title: "Thank you!",
-            message: "Your voice has been added :)",
-          });
-        },
+      startTransition(() => {
+        router.visit(routes.cathendantHome.show.path(), {
+          onSuccess: () => {
+            showSuccessNotice({
+              title: "Thank you!",
+              message: "Your voice has been added :)",
+            });
+          },
+        });
       });
     },
   });

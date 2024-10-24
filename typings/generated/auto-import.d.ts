@@ -96,6 +96,7 @@ declare global {
   const showNotice: typeof import('~/helpers/notifications')['showNotice']
   const showNotification: typeof import('@mantine/notifications')['showNotification']
   const showSuccessNotice: typeof import('~/helpers/notifications')['showSuccessNotice']
+  const startTransition: typeof import('react')['startTransition']
   const take: typeof import('lodash-es')['take']
   const uniqBy: typeof import('lodash-es')['uniqBy']
   const useAuthenticatedUser: typeof import('~/helpers/authentication')['useAuthenticatedUser']

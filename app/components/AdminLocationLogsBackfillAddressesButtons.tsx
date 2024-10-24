@@ -73,7 +73,9 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
   });
   const [limit, setLimit] = useState<number | "">("");
   watch("limit", ({ value }) => {
-    setLimit(value);
+    startTransition(() => {
+      setLimit(value);
+    });
   });
 
   return (

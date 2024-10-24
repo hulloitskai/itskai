@@ -70,38 +70,46 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
     if (online) {
       if (metadata?.track_id !== track?.id) {
         if (track) {
-          setTransitionState({ mounted: false, transitioned: false });
+          startTransition(() => {
+            setTransitionState({ mounted: false, transitioned: false });
+          });
           void mutate();
         } else if (currentlyPlaying) {
-          setTrack(currentlyPlaying.track);
-          if (!mounted) {
-            setTransitionState({
-              mounted: true,
-              transitioned: false,
-            });
-          }
+          startTransition(() => {
+            setTrack(currentlyPlaying.track);
+            if (!mounted) {
+              setTransitionState({
+                mounted: true,
+                transitioned: false,
+              });
+            }
+          });
         }
       }
-    } else {
-      if (mounted) {
+    } else if (mounted) {
+      startTransition(() => {
         setTransitionState({ mounted: false, transitioned: false });
-      }
+      });
     }
-  }, [online, metadata, mounted, track, mutate]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [online, metadata, mounted, track]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Transition
       transition="slide-down"
       onEntered={() =>
-        setTransitionState({ mounted: true, transitioned: true })
+        startTransition(() => {
+          setTransitionState({ mounted: true, transitioned: true });
+        })
       }
       onExited={() => {
-        setTrack(currentlyPlaying?.track ?? null);
-        if (currentlyPlaying && online) {
-          setTransitionState({ mounted: true, transitioned: false });
-        } else {
-          setTransitionState({ mounted: false, transitioned: true });
-        }
+        startTransition(() => {
+          setTrack(currentlyPlaying?.track ?? null);
+          if (currentlyPlaying && online) {
+            setTransitionState({ mounted: true, transitioned: false });
+          } else {
+            setTransitionState({ mounted: false, transitioned: true });
+          }
+        });
       }}
       {...{ mounted }}
     >

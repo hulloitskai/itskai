@@ -68,9 +68,12 @@ const LocatePage: PageComponent<LocatePageProps> = ({
   const [alertPulse, setAlertPulse] = useState(false);
   useEffect(() => {
     if (alertPulse) {
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         setAlertPulse(false);
       }, 500);
+      return () => {
+        clearTimeout(timeout);
+      };
     }
   }, [alertPulse]);
 
@@ -377,11 +380,13 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                 {...(!!password && { autofillPassword: password })}
                 size="sm"
                 onSuccess={token => {
-                  router.visit(
-                    routes.locations.show.path({
-                      query: { access_token: token },
-                    }),
-                  );
+                  startTransition(() => {
+                    router.visit(
+                      routes.locations.show.path({
+                        query: { access_token: token },
+                      }),
+                    );
+                  });
                 }}
               />
             </Alert>

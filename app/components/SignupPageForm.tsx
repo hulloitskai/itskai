@@ -59,7 +59,11 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
           placeholder="paS$w0rD"
           autoComplete="new-password"
           required
-          onStrengthCheck={setPasswordStrength}
+          onStrengthCheck={strength => {
+            startTransition(() => {
+              setPasswordStrength(strength);
+            });
+          }}
         />
         <Button type="submit" disabled={!filled} loading={processing}>
           Sign up

@@ -56,6 +56,10 @@ export interface FetchForm<
 
 type _TransformValues<Values> = (values: Values) => unknown;
 
+// eslint-disable-next-line react-refresh/only-export-components
+const METHODS: Method[] = ["get", "post", "put", "patch", "delete"];
+const NO_BODY_METHODS: Method[] = ["get", "delete"];
+
 // TODO: Serialize form data.
 export const useFetchForm = <
   Data extends Record<string, any> & { error?: never; errors?: never } = {},
@@ -68,7 +72,6 @@ export const useFetchForm = <
     action,
     descriptor,
     failSilently,
-    method = action.httpMethod,
     beforeSubmit,
     onSubmit,
     onError,
@@ -88,43 +91,54 @@ export const useFetchForm = <
   const handleSubmit = form.onSubmit(
     transformedValues => {
       setProcessing(true);
+      let method: Method | undefined = options.method;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      if (!method && METHODS.includes(action.httpMethod as any)) {
+        method = action.httpMethod as Method;
+      } else {
+        method = "get";
+      }
       const submission = action<
         Data & { error?: string; errors?: Record<string, string> }
       >({
         params,
         method,
-        data: method === "delete" ? undefined : transformedValues,
+        data: NO_BODY_METHODS.includes(method) ? undefined : transformedValues,
       })
         .then(
           data => {
-            setData(data);
+            startTransition(() => {
+              setData(data);
+            });
             onSuccess?.(data, form);
             form.reset();
             return data;
           },
           (responseError: ResponseError) => {
             if (responseError.body) {
-              const { error, errors } = responseError.body as {
+              const body = responseError.body as {
                 error?: string;
                 errors?: Record<string, string>;
               };
-              if (typeof error === "string") {
-                const e = new Error(error);
-                setError(e);
+              if (typeof body.error === "string") {
+                const error = new Error(body.error);
+                startTransition(() => {
+                  setError(error);
+                });
                 console.error(`Failed to ${descriptor}`, error);
                 if (!failSilently) {
                   showAlert({
                     title: `Failed to ${descriptor}`,
-                    message: sentencify(error),
+                    message: sentencify(body.error),
                   });
                 }
-                onFailure?.(e, form);
-              } else if (typeof errors === "object") {
-                form.setErrors(errors);
+                onFailure?.(error, form);
+              } else if (typeof body.errors === "object") {
+                form.setErrors(body.errors);
                 console.warn(`Couldn't ${descriptor}`, {
-                  errors,
+                  errors: body.errors,
                 });
-                const formWithErrors = { ...form, errors };
+                const formWithErrors = { ...form, errors: body.errors };
                 if (!failSilently) {
                   showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
                 }

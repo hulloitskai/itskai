@@ -21,7 +21,7 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
   journalEntry,
   ...otherProps
 }) => {
-  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const nextEntryPath = useMemo(() => {
     return routes.home.show.path({
       query: {
@@ -33,30 +33,35 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
 
   // == Scrolling
   const scrollToContainerTop = useCallback(() => {
-    if (containerRef) {
+    const container = containerRef.current;
+    if (container) {
       const headerEl = document.querySelector(".mantine-AppShell-header");
-      scrollIntoView(containerRef, {
+      scrollIntoView(container, {
         align: {
           top: 0,
           topOffset: (headerEl?.clientHeight ?? 0) + 20,
         },
       });
     }
-  }, [containerRef]);
+  }, []);
   useEffect(() => {
     if (autoscroll) {
       scrollToContainerTop();
     }
-  }, [journalEntry.id, autoscroll, scrollToContainerTop]);
+  }, [journalEntry.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Stack ref={setContainerRef} align="center" {...otherProps}>
+    <Stack ref={containerRef} align="center" {...otherProps}>
       <NotionJournalEntryCard {...{ entry: journalEntry }} />
       <Button
         component={Link}
         href={nextEntryPath}
         preserveScroll
-        only={["journalEntry", "firstJournalEntryId", "journalAutoscroll"]}
+        only={[
+          "journalEntry",
+          "journalEntryPermalinked",
+          "firstJournalEntryId",
+        ]}
         leftSection={
           journalEntry.next_journal_entry_id ? <NextIcon /> : <ResetIcon />
         }

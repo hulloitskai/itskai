@@ -82,16 +82,6 @@ export const useInertiaForm = <
     transformValues,
   });
   const [processing, setProcessing] = useState(false);
-  let method: Method;
-  if (methodOption) {
-    method = methodOption;
-  } else {
-    if (actionRoute.httpMethod in router) {
-      method = actionRoute.httpMethod as Method;
-    } else {
-      method = "get";
-    }
-  }
   const handleSubmit = form.onSubmit(
     transformedValues => {
       onSubmit?.(transformedValues, form);
@@ -134,13 +124,25 @@ export const useInertiaForm = <
           onError?.(form);
         },
       };
-      if (method === "delete") {
-        router.delete(action, { ...options });
+      let method: Method;
+      if (methodOption) {
+        method = methodOption;
       } else {
-        router[method](action, transformedValues, {
-          ...options,
-        });
+        if (actionRoute.httpMethod in router) {
+          method = actionRoute.httpMethod as Method;
+        } else {
+          method = "get";
+        }
       }
+      startTransition(() => {
+        if (method === "delete") {
+          router.delete(action, { ...options });
+        } else {
+          router[method](action, transformedValues, {
+            ...options,
+          });
+        }
+      });
     },
     errors => {
       const formWithErrors = { ...form, errors };
