@@ -8,6 +8,11 @@
     ".inputrc": "plaintext"
   },
 
+  // == Terminal
+  "terminal.integrated.env.osx": {
+    "EDITOR": "cursor --wait"
+  },
+
   // == ESLint
   "eslint.probe": [
     "javascript",
