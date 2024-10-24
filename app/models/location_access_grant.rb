@@ -58,10 +58,7 @@ class LocationAccessGrant < ApplicationRecord
   after_validation :set_default_password
 
   # == Scopes
-  scope :valid, -> {
-    T.bind(self, PrivateRelation)
-    where("expires_at > NOW()")
-  }
+  scope :valid, -> { where("expires_at > NOW()") }
 
   private
 

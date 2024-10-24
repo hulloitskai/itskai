@@ -28,10 +28,7 @@ class NotionJournalEntry < ApplicationRecord
   include PgSearch::Model
 
   # == Scopes
-  scope :with_content, -> {
-    T.bind(self, PrivateRelation)
-    where.not(content: nil)
-  }
+  scope :with_content, -> { where.not(content: nil) }
   scope :ordered, -> { order(started_at: :desc) }
 
   # == Search

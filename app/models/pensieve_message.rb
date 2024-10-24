@@ -49,7 +49,6 @@ class PensieveMessage < ApplicationRecord
 
   # == Scopes
   scope :recent, -> {
-    T.bind(self, PrivateRelation)
     where("timestamp > ?", 1.day.ago).order(:timestamp).limit(100)
   }
 

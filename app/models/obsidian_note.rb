@@ -67,10 +67,7 @@ class ObsidianNote < ApplicationRecord
   has_many :referenced_by, through: :incoming_relations, source: :from
 
   # == Scopes
-  scope :for_import, -> {
-    T.bind(self, PrivateRelation)
-    select(:id, :name, :imported_at)
-  }
+  scope :for_import, -> { select(:id, :name, :imported_at) }
 
   # == Normalizations
   removes_blank :blurb

@@ -66,15 +66,8 @@ class LocationLog < ApplicationRecord
   after_create_commit :reverse_geocode_later
 
   # == Scopes
-  scope :with_address, -> {
-    T.bind(self, PrivateRelation)
-    where.associated(:address)
-  }
-
-  scope :_latest, -> {
-    T.bind(self, PrivateRelation)
-    with_address.order(timestamp: :desc).limit(1)
-  }
+  scope :with_address, -> { where.associated(:address) }
+  scope :_latest, -> { with_address.order(timestamp: :desc).limit(1) }
   private_class_method :_latest
 
   # == Geocoding
