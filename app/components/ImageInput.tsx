@@ -3,6 +3,7 @@ import { Image, Input, rgba, Text } from "@mantine/core";
 import { type DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
 import { useUncontrolled } from "@mantine/hooks";
+import { useId } from "react";
 
 import PhotoIcon from "~icons/heroicons/photo-20-solid";
 

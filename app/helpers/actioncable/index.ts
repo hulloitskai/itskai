@@ -1,5 +1,5 @@
 import { type Consumer } from "@rails/actioncable";
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 
 export const ActionCableContext = createContext<Consumer | null>(null);
 

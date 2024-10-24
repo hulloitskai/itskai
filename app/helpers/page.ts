@@ -1,3 +1,5 @@
+import { useSyncExternalStore } from "react";
+
 const useVisibilityChangeSubscribe = (callback: () => void) => {
   document.addEventListener("visibilitychange", callback);
   return () => {

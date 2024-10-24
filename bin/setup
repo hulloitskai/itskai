@@ -60,7 +60,7 @@ FileUtils.chdir APP_ROOT do
   system! "bundle exec lefthook install"
 
   puts "\n=> Installing Playwright"
-  system! "npx playwright install chromium"
+  system! "npx --yes playwright install chromium"
 
   unless File.exist?(".env")
     puts "\n=> Copying .env.example to .env"
@@ -70,7 +70,7 @@ FileUtils.chdir APP_ROOT do
   puts "\n=> Starting database"
   case ENV["CI"]
   when "", nil
-    system! "docker compose up --wait --no-log-prefix postgres-dev"
+    system! "docker compose up --wait postgres-dev postgres-test"
     system! "bin/wait_for_postgres_ready"
   else
     puts "Running on CI; skipping"
@@ -87,4 +87,9 @@ FileUtils.chdir APP_ROOT do
   puts "\n=> Restarting application server"
   system! "bundle exec rails restart"
   puts "Server restarted"
+
+  unless ENV["CI"]
+    puts "\n=> Stopping database"
+    system! "docker compose down"
+  end
 end

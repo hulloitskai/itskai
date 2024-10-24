@@ -3,7 +3,7 @@ services:
     image: postgis/postgis:15-3.4
     volumes:
       - postgres-dev:/var/lib/postgresql/data
-    environment:
+    environment: &postgres-env
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
@@ -13,9 +13,7 @@ services:
     image: postgis/postgis:15-3.4
     volumes:
       - postgres-test:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+    environment: *postgres-env
     ports:
       - 5433:5432
 

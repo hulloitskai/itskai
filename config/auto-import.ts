@@ -2,9 +2,6 @@ import { type InlinePreset } from "unimport";
 import { type ImportsMap, type PresetName } from "unplugin-auto-import/types";
 
 export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
-  // == Presets
-  "react",
-
   // == Exports
   {
     "~/components": [
@@ -92,12 +89,9 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
       "useDebouncedCallback",
       "useDidUpdate",
       "useElementSize",
-      "useLogger",
       "useMediaQuery",
       "useMounted",
       "useShallowEffect",
-      "useViewportSize",
-      "useWindowEvent",
     ],
     "@mantine/notifications": ["showNotification"],
     "@mantine/modals": ["openModal", "closeAllModals"],
@@ -123,6 +117,15 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
     ],
     "@uidotdev/usehooks": ["usePrevious"],
     luxon: ["DateTime", "Duration"],
+    react: [
+      "useState",
+      "useCallback",
+      "useMemo",
+      "useEffect",
+      "useRef",
+      "createRef",
+      "forwardRef",
+    ],
     "tiny-invariant": [["default", "invariant"]],
   },
 

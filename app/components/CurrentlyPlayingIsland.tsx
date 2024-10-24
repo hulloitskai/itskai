@@ -2,7 +2,7 @@ import { type ImageProps, type TextProps } from "@mantine/core";
 import { Image, Text } from "@mantine/core";
 import { useNetwork } from "@mantine/hooks";
 import { motion } from "framer-motion";
-import { type ReactNode } from "react";
+import { type ReactNode, useLayoutEffect } from "react";
 import Marquee from "react-fast-marquee";
 
 import PlayIcon from "~icons/heroicons/play-circle-20-solid";
