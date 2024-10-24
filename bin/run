@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-OVERMIND_SOCKET=${BASH_SOURCE%/*}/../tmp/sockets/overmind.${RAILS_ENV:-development}.sock
+# Operate from root directory
+cd "${BASH_SOURCE%/*}/.."
+
+OVERMIND_SOCKET=./tmp/sockets/overmind.${RAILS_ENV:-development}.sock
 if [ -e "$OVERMIND_SOCKET" ]; then
   rm "$OVERMIND_SOCKET"
 fi
 
-${BASH_SOURCE%/*}/overmind start "$@"
+./bin/overmind start "$@"

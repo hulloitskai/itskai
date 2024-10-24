@@ -59,8 +59,8 @@ declare global {
   const Transition: typeof import('@mantine/core')['Transition']
   const UserIcon: typeof import('~/components/icons')['UserIcon']
   const closeAllModals: typeof import('@mantine/modals')['closeAllModals']
+  const cn: typeof import('clsx')['clsx']
   const createRef: typeof import('react')['createRef']
-  const cx: typeof import('clsx')['clsx']
   const first: typeof import('lodash-es')['first']
   const formatJSON: typeof import('~/helpers/json')['formatJSON']
   const forwardRef: typeof import('react')['forwardRef']
@@ -124,8 +124,6 @@ declare global {
   const useShallowEffect: typeof import('@mantine/hooks')['useShallowEffect']
   const useState: typeof import('react')['useState']
   const useSubscription: typeof import('~/helpers/actioncable/subscription')['useSubscription']
-  const useViewportSize: typeof import('@mantine/hooks')['useViewportSize']
-  const useWindowEvent: typeof import('@mantine/hooks')['useWindowEvent']
 }
 // for type re-export
 declare global {

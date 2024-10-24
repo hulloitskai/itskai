@@ -22,7 +22,7 @@ const PageContainer: FC<PageContainerProps> = ({
       {...{ size }}
       p="md"
       w="100%"
-      className={cx("PageContainer-root", className)}
+      className={cn("PageContainer-root", className)}
       style={[
         style,
         withGutter

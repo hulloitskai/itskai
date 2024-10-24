@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Operate from root directory
+cd "${BASH_SOURCE%/*}/.."
+
 docker info > /dev/null 2>&1
 STATUS="$?"
 
@@ -18,13 +21,13 @@ if [ "$STATUS" != "0" ]; then
   fi
 fi
 
-OVERMIND_SOCKET=${BASH_SOURCE%/*}/../tmp/sockets/overmind.${RAILS_ENV:-development}.sock
+OVERMIND_SOCKET=./tmp/sockets/overmind.${RAILS_ENV:-development}.sock
 if [ -e "$OVERMIND_SOCKET" ]; then
-  if ${BASH_SOURCE%/*}/overmind status > /dev/null; then
-    ${BASH_SOURCE%/*}/overmind echo
+  if ./bin/overmind status > /dev/null; then
+    ./bin/overmind echo
     exit 0
   fi
   rm "$OVERMIND_SOCKET"
 fi
 
-${BASH_SOURCE%/*}/overmind start -f Procfile.dev --no-port "$@"
+./bin/overmind start -f ./Procfile.dev --no-port "$@"

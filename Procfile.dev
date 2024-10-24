@@ -1,5 +1,5 @@
-postgres: docker compose up --no-log-prefix postgres-dev
-mailcatcher: docker compose up --no-log-prefix mailcatcher
+postgres: bin/postgres
+mailcatcher: bin/mailcatcher
 spotlight: npx spotlight-sidecar
 icloudctl: FLASK_SKIP_DOTENV=1 DEBUG=true poetry run icloudctl
 vite-dev: bin/vite dev

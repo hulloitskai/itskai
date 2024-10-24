@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-${BASH_SOURCE%/*}/overmind restart $@
+# Operate from root directory
+cd "${BASH_SOURCE%/*}/.."
+
+./bin/overmind restart $@
+

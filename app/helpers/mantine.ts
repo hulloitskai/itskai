@@ -17,7 +17,6 @@ import {
   TextInput,
   ThemeIcon,
 } from "@mantine/core";
-import cx from "clsx";
 
 import classes from "./mantine.module.css";
 
@@ -50,7 +49,7 @@ export const THEME = createTheme({
       "Manrope Variable, Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, " +
       "Arial, sans-serif",
   },
-  focusClassName: cx("mantine-focus-auto", classes.focus),
+  focusClassName: cn("mantine-focus-auto", classes.focus),
   components: {
     ActionIcon: ActionIcon.extend({
       defaultProps: {

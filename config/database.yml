@@ -22,13 +22,13 @@ default: &default
 local: &local
   <<: *default
   host: localhost
+  port: 5432
   username: postgres
   password: postgres
 
 development:
   <<: *local
   database: itskai_development
-  port: 5432
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -36,7 +36,6 @@ development:
 test:
   <<: *local
   database: itskai_test
-  port: 5433
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is

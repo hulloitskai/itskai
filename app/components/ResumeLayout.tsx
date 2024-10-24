@@ -19,7 +19,7 @@ const ResumeLayout: FC<PropsWithChildren<ResumeLayoutProps>> = ({
       mb={printMode ? 0 : 135}
       bg="white"
       c="black"
-      className={cx("resume-layout", classes.container)}
+      className={cn("resume-layout", classes.container)}
       mod={{ "print-mode": printMode }}
     >
       <Stack gap="xs">{children}</Stack>

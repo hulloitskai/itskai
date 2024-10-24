@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+cd "${BASH_SOURCE%/*}/.."
+
+if [ -f ./tmp/pids/postgres.cid ]; then
+  echo "Postgres is already running; tailing logs..." >&2
+  trap "exit 0" INT
+  docker logs -f $(cat ./tmp/pids/postgres.cid)
+else
+  trap "rm ./tmp/pids/postgres.cid" EXIT
+  docker run --rm --cidfile ./tmp/pids/postgres.cid \
+    -p 5432:5432 \
+    -v ./tmp/postgres:/var/lib/postgresql/data \
+    -e POSTGRES_USER=postgres \
+    -e POSTGRES_PASSWORD=postgres \
+    postgis/postgis:15-3.4
+fi

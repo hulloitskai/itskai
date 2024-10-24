@@ -4,14 +4,7 @@ import { type ImportsMap, type PresetName } from "unplugin-auto-import/types";
 export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
   // == Exports
   {
-    "~/components": [
-      "AnchorContainer",
-      "EmptyCard",
-      "Head",
-      "Time",
-      "TimeAgo",
-      "ColorSchemeButton",
-    ],
+    "~/components": ["AnchorContainer", "EmptyCard", "Head", "Time", "TimeAgo"],
     "~/components/icons": [
       "AddIcon",
       "RemoveIcon",
@@ -95,7 +88,7 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
     ],
     "@mantine/notifications": ["showNotification"],
     "@mantine/modals": ["openModal", "closeAllModals"],
-    clsx: [["clsx", "cx"]],
+    clsx: [["clsx", "cn"]],
     inflection: ["inflect", "humanize"],
     "lodash-es": [
       "first",

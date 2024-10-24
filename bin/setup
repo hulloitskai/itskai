@@ -68,9 +68,10 @@ FileUtils.chdir APP_ROOT do
   end
 
   puts "\n=> Starting database"
+  db_pid = nil
   case ENV["CI"]
   when "", nil
-    system! "docker compose up --wait postgres-dev postgres-test"
+    db_pid = spawn("bin/postgres", pgroup: true)
     system! "bin/wait_for_postgres_ready"
   else
     puts "Running on CI; skipping"
@@ -88,8 +89,10 @@ FileUtils.chdir APP_ROOT do
   system! "bundle exec rails restart"
   puts "Server restarted"
 
-  unless ENV["CI"]
+  if db_pid
     puts "\n=> Stopping database"
-    system! "docker compose down"
+    Process.kill("-INT", Process.getpgid(db_pid))
+    Process.waitpid(db_pid)
+    puts "Database stopped"
   end
 end

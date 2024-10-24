@@ -1,4 +1,5 @@
 import { type NotificationProps } from "@mantine/core";
+import { useWindowEvent } from "@mantine/hooks";
 
 import ExclamationTriangleIcon from "~icons/heroicons/exclamation-triangle-20-solid";
 import InformationCircleIcon from "~icons/heroicons/information-circle-20-solid";
