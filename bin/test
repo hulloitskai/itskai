@@ -21,12 +21,19 @@ if [ "$STATUS" != "0" ]; then
   fi
 fi
 
-export RAILS_ENV=test NODE_ENV=production RAILS_TEST_ARGS="$@" INERTIA_PORT=13715
+export RAILS_ENV=test NODE_ENV=production INERTIA_PORT=13715
+if [ -z "$@" ]; then
+  export RAILS_TEST_CMD=test:all
+else
+  export RAILS_TEST_CMD="test $@"
+fi
 
 PROCFILE=./Procfile.test
 if [ -n "$CI" ]; then
   PROCFILE=./Procfile.ci-test
 fi
+
+trap "exit 0" INT
 EXIT_CODE=0
 ./bin/overmind start -f "$PROCFILE" --no-port || EXIT_CODE=$?
 if [ "$EXIT_CODE" -eq 0 ]; then
