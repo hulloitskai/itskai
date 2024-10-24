@@ -1,5 +1,8 @@
-import { type Method } from "@inertiajs/core";
-import { type PathHelper, type ResponseError } from "@js-from-routes/client";
+import {
+  type Method,
+  type PathHelper,
+  type ResponseError,
+} from "@js-from-routes/client";
 import { type UseFormInput, type UseFormReturnType } from "@mantine/form";
 import { type FormEvent } from "react";
 
@@ -56,9 +59,16 @@ export interface FetchForm<
 
 type _TransformValues<Values> = (values: Values) => unknown;
 
-// eslint-disable-next-line react-refresh/only-export-components
-const METHODS: Method[] = ["get", "post", "put", "patch", "delete"];
-const NO_BODY_METHODS: Method[] = ["get", "delete"];
+const NO_BODY_METHODS: Method[] = [
+  "get",
+  "GET",
+  "delete",
+  "DELETE",
+  "head",
+  "HEAD",
+  "options",
+  "OPTIONS",
+];
 
 // TODO: Serialize form data.
 export const useFetchForm = <
@@ -70,6 +80,7 @@ export const useFetchForm = <
 ): FetchForm<Data, Values, TransformValues> => {
   const {
     action,
+    method = action.httpMethod,
     descriptor,
     failSilently,
     beforeSubmit,
@@ -91,13 +102,6 @@ export const useFetchForm = <
   const handleSubmit = form.onSubmit(
     transformedValues => {
       setProcessing(true);
-      let method: Method | undefined = options.method;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      if (!method && METHODS.includes(action.httpMethod as any)) {
-        method = action.httpMethod as Method;
-      } else {
-        method = "get";
-      }
       const submission = action<
         Data & { error?: string; errors?: Record<string, string> }
       >({

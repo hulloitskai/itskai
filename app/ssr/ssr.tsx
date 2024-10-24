@@ -2,7 +2,7 @@ import { createInertiaApp } from "@inertiajs/react";
 import createServer from "@inertiajs/react/server";
 import { type SetupOptions } from "@inertiajs/react/types/createInertiaApp";
 import { render as renderEmail } from "@react-email/render";
-import { isValidElement } from "react";
+import { isValidElement, StrictMode } from "react";
 import { renderToString as renderPage } from "react-dom/server";
 
 import AppWrapper from "~/components/AppWrapper";
@@ -75,7 +75,11 @@ createServer(async page => {
     setup: ({ App, props }: SetupOptions<null, SharedPageProps>) => {
       const { initialPage } = props;
       const pageType = resolvePageType(initialPage.component);
-      const app = <App {...props} />;
+      const app = (
+        <StrictMode>
+          <App {...props} />
+        </StrictMode>
+      );
       switch (pageType) {
         case PageType.Page:
           return <AppWrapper {...{ initialPage }}>{app}</AppWrapper>;

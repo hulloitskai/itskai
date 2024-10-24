@@ -9,7 +9,10 @@ export interface FetchSWRResult<Data>
   validating: boolean;
 }
 
-export type FetchSWROptions = FetchRouteOptions & SWRConfiguration;
+export type FetchSWROptions = Omit<FetchRouteOptions, "params"> &
+  SWRConfiguration & {
+    params?: FetchRouteOptions["params"] | null;
+  };
 
 export interface FetchSWRParams {
   query?: Record<string, any>;
@@ -34,36 +37,36 @@ export const useFetchSWR = <
     ...swrConfiguration
   }: FetchSWROptions,
 ): FetchSWRResult<Data> => {
-  const { isPaused } = swrConfiguration;
   const computeKey = useCallback(
     (route: PathHelper, params: FetchSWROptions["params"]): string | null =>
-      isPaused?.() ? null : route.path(params),
-    [isPaused],
+      params === null ? null : route.path(params),
+    [],
   );
   const [key, setKey] = useState(() => computeKey(route, params));
-  const firstRender = useRef(true);
+  const firstRenderRef = useRef(true);
   useShallowEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
+    if (firstRenderRef.current) {
+      firstRenderRef.current = false;
     } else {
       setKey(computeKey(route, params));
     }
   }, [computeKey, route, params]);
   const { isLoading, isValidating, ...swr } = useSWR<Data, Error>(
     key,
-    async (route: string): Promise<Data> =>
-      fetchRoute(route, {
+    async (url: string): Promise<Data> => {
+      return fetchRoute(url, {
         failSilently,
         descriptor,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         data,
         deserializeData,
         fetchOptions,
-        method,
+        method: method ?? route.httpMethod,
         serializeData,
         responseAs,
         headers,
-      }),
+      });
+    },
     swrConfiguration,
   );
   return { fetching: isLoading, validating: isValidating, ...swr };

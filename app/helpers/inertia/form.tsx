@@ -128,8 +128,9 @@ export const useInertiaForm = <
       if (methodOption) {
         method = methodOption;
       } else {
-        if (actionRoute.httpMethod in router) {
-          method = actionRoute.httpMethod as Method;
+        const routeMethod = actionRoute.httpMethod.toLowerCase();
+        if (routeMethod in router) {
+          method = routeMethod as Method;
         } else {
           method = "get";
         }

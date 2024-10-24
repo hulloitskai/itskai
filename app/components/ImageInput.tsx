@@ -63,14 +63,12 @@ const ImageInput: FC<ImageInputProps> = ({
     image: ImageModel | null;
   }>(routes.images.show, {
     descriptor: "load preview image",
-    params: resolvedValue ? { signed_id: resolvedValue.signedId } : undefined,
-    isPaused: () => !resolvedValue,
+    params: resolvedValue ? { signed_id: resolvedValue.signedId } : null,
   });
+  const { image } = data ?? {};
   useDidUpdate(() => {
     void mutate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resolvedValue, mutate]);
-  const { image } = data ?? {};
+  }, [resolvedValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // == Loading
   const [uploading, setUploading] = useState(false);

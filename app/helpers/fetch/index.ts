@@ -1,5 +1,5 @@
-import { type Method } from "@inertiajs/core";
 import {
+  type Method,
   type PathHelper,
   request,
   type RequestOptions,
@@ -20,7 +20,7 @@ export const fetchRoute = async <Data>(
   route: PathHelper | string,
   options: FetchRouteOptions,
 ): Promise<Data> => {
-  const { failSilently, ...otherOptions } = options;
+  const { failSilently, ...routeOptions } = options;
   const handleError = (responseError: ResponseError) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { body } = responseError;
@@ -47,10 +47,9 @@ export const fetchRoute = async <Data>(
     }
   };
   if (typeof route === "string") {
-    const { method, ...otherOptions } = options;
-    const requestOptions = omit(otherOptions, "params");
+    const { method, ...requestOptions } = omit(routeOptions, "params");
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return request(method ?? "get", route, requestOptions).catch(handleError);
   }
-  return route<Data>(otherOptions).catch(handleError);
+  return route<Data>(routeOptions).catch(handleError);
 };
