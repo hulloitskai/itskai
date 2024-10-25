@@ -9,28 +9,12 @@ module Admin
   # == Accessors
   sig { returns(T::Array[String]) }
   def self.emails
-    value = credentials.emails or return []
-    case value
-    when String
-      [value]
-    when Array
-      value
-    else
-      raise "Invalid admin emails credential value: #{value.inspect}"
-    end
+    credentials.emails || []
   end
 
   sig { returns(T::Array[String]) }
   def self.email_domains
-    value = credentials.email_domains or return []
-    case value
-    when String
-      [value]
-    when Array
-      value
-    else
-      raise "Invalid admin email domains credential value: #{value.inspect}"
-    end
+    credentials.email_domains || []
   end
 
   # == Helpers
