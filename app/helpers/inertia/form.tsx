@@ -96,17 +96,17 @@ export const useInertiaForm = <
           removeInvalidListener = router.on("invalid", (event): void => {
             const { response } = event.detail;
             if (response.status >= 400 && response.data instanceof Object) {
-              const { error } = response.data as Record<string, any>;
-              if (typeof error === "string") {
+              const data = response.data as Record<string, any>;
+              if (typeof data.error === "string") {
                 event.preventDefault();
-                const e = new Error(error);
-                console.error(`Failed to ${descriptor}`, e);
+                const error = new Error(data.error);
+                console.error(`Failed to ${descriptor}`, error);
                 if (!failSilently) {
                   toast.error(`Failed to ${descriptor}`, {
-                    description: sentencify(error),
+                    description: sentencify(data.error),
                   });
                 }
-                onFailure?.(e, form);
+                onFailure?.(error, form);
               }
             }
           });
