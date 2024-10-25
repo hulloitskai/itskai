@@ -50,9 +50,8 @@ export const useSubscription = <
               }));
               console.error(`Failed to ${descriptor}`, error);
               if (!failSilently) {
-                showAlert({
-                  title: `Failed to ${descriptor}`,
-                  message: data.error,
+                toast.error(`Failed to ${descriptor}`, {
+                  description: data.error,
                 });
               }
               onErrorRef.current?.(error);

@@ -19,9 +19,8 @@ const AdminLocationLogsSyncButton: FC<AdminLocationLogsSyncButtonProps> = ({
     action: routes.admin.syncLocationLogs,
     descriptor: "sync location logs",
     onSuccess: ({ lastSyncedTimestamp }) => {
-      showSuccessNotice({
-        title: "Location logs synced",
-        message: (
+      toast.success("Location logs synced", {
+        description: (
           <>
             Last logged at:{" "}
             <Time format={DateTime.DATETIME_MED} inherit fw={600}>

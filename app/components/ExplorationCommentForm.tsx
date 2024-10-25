@@ -32,9 +32,8 @@ const ExplorationCommentForm: FC<ExplorationCommentFormProps> = ({
     }),
     onSuccess: () => {
       closeAllModals();
-      showSuccessNotice({
-        title: "Note sent!",
-        message: "I'll get back to you soon :)",
+      toast.success("Note sent!", {
+        description: "I'll get back to you soon :)",
       });
       onCommented?.();
     },

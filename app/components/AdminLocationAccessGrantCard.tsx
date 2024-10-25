@@ -30,9 +30,8 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
       const url = new URL(path, location.href);
       setLocateUrl(url.toString());
       if (autocopy) {
-        showSuccessNotice({
-          title: "Location access granted!",
-          message: (
+        toast.success("Location access granted!", {
+          description: (
             <Stack gap={8}>
               <Text inherit>
                 Access granted until{" "}

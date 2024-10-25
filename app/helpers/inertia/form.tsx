@@ -102,9 +102,8 @@ export const useInertiaForm = <
                 const e = new Error(error);
                 console.error(`Failed to ${descriptor}`, e);
                 if (!failSilently) {
-                  showAlert({
-                    title: `Failed to ${descriptor}`,
-                    message: sentencify(error),
+                  toast.error(`Failed to ${descriptor}`, {
+                    description: sentencify(error),
                   });
                 }
                 onFailure?.(e, form);

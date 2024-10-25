@@ -46,26 +46,25 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
       searchParams.set("job_class", "ReverseGeocodeLocationLogJob");
       searchParams.set("poll", "true");
       if (numLogsBackfilling > 0) {
-        showSuccessNotice({
-          title: (
-            <>
-              Started backfilling {numLogsBackfilling}{" "}
-              {inflect("log", numLogsBackfilling)}
-            </>
-          ),
-          message: (
-            <>
-              <Anchor href={goodJobUrl.toString()} target="_blank" inherit>
-                View progress on the GoodJob dashboard
-              </Anchor>
-              .
-            </>
-          ),
-        });
+        toast.success(
+          <>
+            Started backfilling {numLogsBackfilling}{" "}
+            {inflect("log", numLogsBackfilling)}
+          </>,
+          {
+            description: (
+              <>
+                <Anchor href={goodJobUrl.toString()} target="_blank" inherit>
+                  View progress on the GoodJob dashboard
+                </Anchor>
+                .
+              </>
+            ),
+          },
+        );
       } else {
-        showNotice({
-          title: "No logs to backfill",
-          message: "All location logs already have addresses.",
+        toast.info("No logs to backfill", {
+          description: "All location logs already have addresses.",
         });
       }
       onBackfilling?.();

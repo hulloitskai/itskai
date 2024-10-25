@@ -28,9 +28,8 @@ export const fetchRoute = async <Data>(
       const { error } = body as { error: string };
       console.error(`Failed to ${options.descriptor}`, error);
       if (!failSilently) {
-        showAlert({
-          title: `Failed to ${options.descriptor}`,
-          message:
+        toast.error(`Failed to ${options.descriptor}`, {
+          description:
             typeof error === "string" ? error : "An unknown error occurred.",
         });
       }
@@ -38,9 +37,8 @@ export const fetchRoute = async <Data>(
     } else {
       console.error(`Failed to ${options.descriptor}`, responseError);
       if (!failSilently) {
-        showAlert({
-          title: `Failed to ${options.descriptor}`,
-          message: "An unknown error occurred.",
+        toast.error(`Failed to ${options.descriptor}`, {
+          description: "An unknown error occurred.",
         });
       }
       throw responseError;

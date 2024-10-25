@@ -18,7 +18,3 @@
 .focus {
   outline-width: 1px;
 }
-
-.overlay {
-  backdrop-filter: blur(2px);
-}

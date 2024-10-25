@@ -18,9 +18,8 @@ export const showFormErrorsAlert = <
   if (typeof firstErrorMessage === "string") {
     firstErrorMessage = sentencify(firstErrorMessage);
   }
-  showAlert({
-    title,
-    message: firstErrorMessage ?? "An unknown error occurred.",
+  toast.error(title, {
+    description: firstErrorMessage ?? "An unknown error occurred.",
   });
   const firstErrorPath = first(Object.keys(form.errors));
   if (firstErrorPath) {

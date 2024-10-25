@@ -1,8 +1,8 @@
 import {
   type DefaultMantineColor,
-  Drawer,
   type MantineColorsTuple,
   NumberInput,
+  Overlay,
 } from "@mantine/core";
 import {
   ActionIcon,
@@ -69,11 +69,6 @@ export const THEME = createTheme({
         root: classes.button,
       },
     }),
-    Drawer: Drawer.extend({
-      classNames: {
-        overlay: classes.overlay,
-      },
-    }),
     Group: Group.extend({
       defaultProps: {
         wrap: "nowrap",
@@ -95,8 +90,10 @@ export const THEME = createTheme({
           ...style,
         },
       }),
-      classNames: {
-        overlay: classes.overlay,
+    }),
+    Overlay: Overlay.extend({
+      defaultProps: {
+        blur: 2,
       },
     }),
     Notification: Notification.extend({

@@ -49,7 +49,7 @@ const AccountPageProfileForm: FC<AccountPageProfileFormProps> = ({
         name,
         avatar: avatar ? { signedId: avatar.signed_id } : null,
       });
-      showChangesSavedNotice({ to: "your profile" });
+      toastChangesSaved({ to: "your profile" });
       onProfileUpdated();
     },
   });

@@ -17,9 +17,8 @@ const AdminNotionJournalEntriesSyncButton: FC<
     action: routes.admin.syncNotionJournalEntries,
     descriptor: "sync Notion journal entries",
     onSuccess: ({ syncResults: { added, removed, updated } }) => {
-      showSuccessNotice({
-        title: "Notion journal entries synced",
-        message: `${added} added, ${updated} updated, ${removed} removed.`,
+      toast.success("Notion journal entries synced", {
+        description: `${added} added, ${updated} updated, ${removed} removed.`,
       });
     },
   });

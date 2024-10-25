@@ -3,7 +3,6 @@ import { useForm } from "@mantine/form";
 
 import ArrowTopRightOnSquareIcon from "~icons/heroicons/arrow-top-right-on-square-20-solid";
 import BellAlertIcon from "~icons/heroicons/bell-alert-20-solid";
-import ExclamationCircleIcon from "~icons/heroicons/exclamation-circle-20-solid";
 import PencilSquareIcon from "~icons/heroicons/pencil-square-20-solid";
 
 import AppLayout from "~/components/AppLayout";
@@ -35,12 +34,9 @@ const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
       children: <TestPageModalBody name={name} />,
     });
   }, [getValues]);
-  const showAlert = useCallback(() => {
-    showNotification({
-      color: "yellow",
-      icon: <ExclamationCircleIcon />,
-      title: "Graphic design is my passion",
-      message: "I love graphic design.",
+  const showToast = useCallback(() => {
+    toast.info("Graphic design is my passion", {
+      description: "I love graphic design.",
     });
   }, []);
 
@@ -64,7 +60,7 @@ const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
           >
             Open modal
           </Button>
-          <Button leftSection={<BellAlertIcon />} onClick={showAlert}>
+          <Button leftSection={<BellAlertIcon />} onClick={showToast}>
             Notify me
           </Button>
         </Group>

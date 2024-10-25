@@ -44,9 +44,8 @@ export const useLazyUpload = (
       const { onProgress, onCompleted, onError, failSilently } =
         paramsRef.current;
       if (typeof sizeLimit === "number" && file.size > sizeLimit) {
-        showAlert({
-          title: <>File "{file.name}" is too large</>,
-          message: `The maximum file size is ${prettyBytes(sizeLimit)}.`,
+        toast.error(`File '${file.name}' is too large`, {
+          description: `The maximum file size is ${prettyBytes(sizeLimit)}.`,
         });
         const error = fileSizeLimitExceededError(sizeLimit);
         onError?.(error);
@@ -102,9 +101,8 @@ export const useLazyUpload = (
             reject(error);
             onError?.(error);
             if (!failSilently) {
-              showAlert({
-                title: `Failed to upload file "${file.name}"`,
-                message: error.message,
+              toast.error(`Failed to upload file '${file.name}'`, {
+                description: error.message,
               });
             }
           } else {

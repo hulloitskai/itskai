@@ -135,9 +135,8 @@ export const useFetchForm = <
                 });
                 console.error(`Failed to ${descriptor}`, error);
                 if (!failSilently) {
-                  showAlert({
-                    title: `Failed to ${descriptor}`,
-                    message: sentencify(body.error),
+                  toast.error(`Failed to ${descriptor}`, {
+                    description: sentencify(body.error),
                   });
                 }
                 onFailure?.(error, form);
@@ -158,9 +157,8 @@ export const useFetchForm = <
                 responseError,
               );
               if (!failSilently) {
-                showAlert({
-                  title: `Failed to ${descriptor}`,
-                  message: sentencify(responseError.message),
+                toast.error(`Failed to ${descriptor}`, {
+                  description: sentencify(responseError.message),
                 });
               }
               onFailure?.(responseError, form);

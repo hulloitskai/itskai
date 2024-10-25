@@ -56,14 +56,13 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
         current_password: "",
       });
       if (emailNeedsConfirmation) {
-        showNotice({
-          title: "Email verification required",
-          message:
+        toast.info("Email verification required", {
+          description:
             "Please check your email and follow the verification link to " +
             "verify your new email address.",
         });
       } else {
-        showChangesSavedNotice({ to: "your email" });
+        toastChangesSaved({ to: "your email" });
       }
       onEmailChanged();
     },

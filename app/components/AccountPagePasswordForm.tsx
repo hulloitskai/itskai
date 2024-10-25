@@ -36,7 +36,7 @@ const AccountPagePasswordForm: FC<AccountPagePasswordFormProps> = ({
         current_password: isNotEmpty("Current password is required"),
       },
       onSuccess: () => {
-        showSuccessNotice({ message: "Password changed successfully." });
+        toast.success("Password changed successfully.");
       },
     },
   );

@@ -98,6 +98,8 @@ declare global {
   const showSuccessNotice: typeof import('~/helpers/notifications')['showSuccessNotice']
   const startTransition: typeof import('react')['startTransition']
   const take: typeof import('lodash-es')['take']
+  const toast: typeof import('sonner')['toast']
+  const toastChangesSaved: typeof import('~/helpers/notifications')['toastChangesSaved']
   const uniqBy: typeof import('lodash-es')['uniqBy']
   const useAuthenticatedUser: typeof import('~/helpers/authentication')['useAuthenticatedUser']
   const useCable: typeof import('~/helpers/actioncable')['useCable']
