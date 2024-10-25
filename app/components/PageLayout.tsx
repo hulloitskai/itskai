@@ -1,11 +1,11 @@
 import { ModalsProvider } from "@mantine/modals";
 
+import AppFlash from "./AppFlash";
 import ClarityTracking from "./ClarityTracking";
 import FullStoryTracking from "./FullStoryTracking";
 import MiniProfilerPageTracking from "./MiniProfilerPageTracking";
 import PageMeta from "./PageMeta";
 import SentryTracking from "./SentryTracking";
-import Toaster from "./Toaster";
 
 import "@fontsource-variable/jetbrains-mono";
 import "@fontsource-variable/manrope";
@@ -16,8 +16,8 @@ import "@mantine/core/styles.layer.css";
 const PageLayout: FC<PropsWithChildren> = ({ children }) => (
   <>
     <ModalsProvider modalProps={{ size: "md" }}>{children}</ModalsProvider>
-    <Toaster position="top-right" />
     <PageMeta />
+    <AppFlash />
     <SentryTracking />
     <FullStoryTracking />
     <ClarityTracking />

@@ -4,7 +4,6 @@ import { useGlobalAudioPlayer } from "react-use-audio-player";
 import PlayIcon from "~icons/heroicons/play-20-solid";
 import StopIcon from "~icons/heroicons/stop-20-solid";
 
-import AppFlash from "~/components/AppFlash";
 import AppMeta from "~/components/AppMeta";
 import PageContainer from "~/components/PageContainer";
 import PageLayout from "~/components/PageLayout";
@@ -72,7 +71,6 @@ const CathendantHomePage: PageComponent<CathendantHomePageProps> = ({
 CathendantHomePage.layout = page => (
   <>
     <AppMeta siteName="Cathendant" />
-    <AppFlash />
     <PageLayout>
       <PageContainer size="xs" withGutter>
         {page}

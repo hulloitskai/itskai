@@ -9,7 +9,6 @@ import {
 
 import logoSrc from "~/assets/images/logo-circle.png";
 
-import AppFlash from "./AppFlash";
 import AppMenu from "./AppMenu";
 import AppMeta, { type AppMetaProps } from "./AppMeta";
 import Attribution from "./Attribution";
@@ -172,7 +171,6 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
           <Attribution h="100%" style={{ flexShrink: 1 }} />
         </Box>
       </AppShell>
-      <AppFlash />
     </PageLayout>
   );
 };

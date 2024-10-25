@@ -4,7 +4,6 @@ import { useGlobalAudioPlayer } from "react-use-audio-player";
 import PlayIcon from "~icons/heroicons/play-20-solid";
 import StopIcon from "~icons/heroicons/stop-20-solid";
 
-import AppFlash from "~/components/AppFlash";
 import PageContainer from "~/components/PageContainer";
 import PageLayout from "~/components/PageLayout";
 import { type CathendantMemo } from "~/types";
@@ -68,7 +67,6 @@ const CathendantPage: PageComponent<CathendantPageProps> = ({ memos }) => {
 
 CathendantPage.layout = page => (
   <PageLayout>
-    <AppFlash />
     <PageContainer size="xs" withGutter>
       {page}
     </PageContainer>

@@ -3,15 +3,17 @@ import { type Page } from "@inertiajs/core";
 import ActionCableProvider from "./ActionCableProvider";
 import AppMantineProvider from "./AppMantineProvider";
 import AppNavProgress from "./AppNavProgress";
+import Toaster from "./Toaster";
 
-export interface AppWrapperProps {
+export interface AppWrapperProps extends PropsWithChildren {
   initialPage: Page<SharedPageProps>;
 }
 
-const AppWrapper: FC<PropsWithChildren<AppWrapperProps>> = ({ children }) => (
+const AppWrapper: FC<AppWrapperProps> = ({ children }) => (
   <ActionCableProvider>
     <AppMantineProvider>
       <AppNavProgress />
+      <Toaster position="top-right" />
       {children}
     </AppMantineProvider>
   </ActionCableProvider>

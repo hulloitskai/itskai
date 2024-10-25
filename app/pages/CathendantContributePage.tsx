@@ -4,7 +4,6 @@ import UploadIcon from "~icons/heroicons/cloud-arrow-up-20-solid";
 import MicrophoneIcon from "~icons/heroicons/microphone-20-solid";
 import StopIcon from "~icons/heroicons/stop-20-solid";
 
-import AppFlash from "~/components/AppFlash";
 import PageContainer from "~/components/PageContainer";
 import PageLayout from "~/components/PageLayout";
 
@@ -170,7 +169,6 @@ const CathendantContributePage: PageComponent<
 
 CathendantContributePage.layout = page => (
   <PageLayout>
-    <AppFlash />
     <PageContainer size="xs" withGutter>
       {page}
     </PageContainer>
