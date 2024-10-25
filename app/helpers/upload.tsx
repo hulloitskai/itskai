@@ -131,9 +131,14 @@ export const useUpload = (
   params?: UseUploadParams,
 ): UploadState => {
   const [upload, state] = useLazyUpload(params);
+  const uploadStartedRef = useRef(false);
   useEffect(() => {
-    void upload(file);
-  }, [upload, file]);
+    if (!uploadStartedRef.current) {
+      uploadStartedRef.current = true;
+      void upload(file);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return state;
 };
 

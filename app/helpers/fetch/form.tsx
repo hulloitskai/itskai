@@ -3,7 +3,11 @@ import {
   type PathHelper,
   type ResponseError,
 } from "@js-from-routes/client";
-import { type UseFormInput, type UseFormReturnType } from "@mantine/form";
+import {
+  useForm,
+  type UseFormInput,
+  type UseFormReturnType,
+} from "@mantine/form";
 import { type FormEvent } from "react";
 
 import { showFormErrorsAlert } from "~/helpers/form";

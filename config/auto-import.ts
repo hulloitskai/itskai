@@ -76,7 +76,6 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
       "Tooltip",
       "Transition",
     ],
-    "@mantine/form": ["useForm"],
     "@mantine/hooks": [
       "useDebouncedValue",
       "useDebouncedCallback",

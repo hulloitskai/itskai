@@ -111,7 +111,6 @@ declare global {
   const useFetchForm: typeof import('~/helpers/fetch/form')['useFetchForm']
   const useFetchSWR: typeof import('~/helpers/fetch/swr')['useFetchSWR']
   const useFieldsFilled: typeof import('~/helpers/form')['useFieldsFilled']
-  const useForm: typeof import('@mantine/form')['useForm']
   const useInertiaForm: typeof import('~/helpers/inertia/form')['useInertiaForm']
   const useMantineColorScheme: typeof import('@mantine/core')['useMantineColorScheme']
   const useMantineTheme: typeof import('@mantine/core')['useMantineTheme']

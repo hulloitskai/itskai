@@ -8,6 +8,7 @@
 
     // == Language
     "module": "ES2022",
+    "target": "ES2022",
     "types": ["node", "vite/client", "unplugin-icons/types/react"],
     "esModuleInterop": true,
     "skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,
@@ -23,7 +24,6 @@
 
     // == Linting
     "strict": true,
-    "noUnusedLocals": true,
     "noUncheckedIndexedAccess": true,
     "noFallthroughCasesInSwitch": true,
 
@@ -39,9 +39,9 @@
     "app/**/*.module.css",
     "typings/**/*.d.ts"
   ],
-  "exclude": [
-    "app/entrypoints/service-worker.ts",
-    "typings/service-worker.d.ts"
-  ],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  // "exclude": ["app/workers/**/*.ts", "typings/service-worker.d.ts"],
+  "references": [
+    { "path": "./tsconfig.node.json" }
+    // { "path": "./tsconfig.service-worker.json" }
+  ]
 }
