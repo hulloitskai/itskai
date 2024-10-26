@@ -22,10 +22,9 @@ export const fetchRoute = async <Data>(
 ): Promise<Data> => {
   const { failSilently, ...routeOptions } = options;
   const handleError = (responseError: ResponseError) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const { body } = responseError;
+    const { body } = responseError; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
     if (body !== null && typeof body === "object" && "error" in body) {
-      const { error } = body as { error: string };
+      const { error } = body; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
       console.error(`Failed to ${options.descriptor}`, error);
       if (!failSilently) {
         toast.error(`Failed to ${options.descriptor}`, {
@@ -33,12 +32,13 @@ export const fetchRoute = async <Data>(
             typeof error === "string" ? error : "An unknown error occurred.",
         });
       }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       throw new Error(error);
     } else {
       console.error(`Failed to ${options.descriptor}`, responseError);
       if (!failSilently) {
         toast.error(`Failed to ${options.descriptor}`, {
-          description: "An unknown error occurred.",
+          description: responseError.message,
         });
       }
       throw responseError;
