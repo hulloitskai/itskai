@@ -81,6 +81,9 @@ FileUtils.chdir APP_ROOT do
   system! "bundle exec rails db:prepare"
   puts "Database ready"
 
+  puts "\n=> Running deployment tasks"
+  system! "bundle exec rails after_party:run"
+
   puts "\n=> Removing old logs and tempfiles"
   system! "bundle exec rails log:clear tmp:clear"
   puts "Files removed"
