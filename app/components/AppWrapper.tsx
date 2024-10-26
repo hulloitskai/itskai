@@ -13,7 +13,7 @@ const AppWrapper: FC<AppWrapperProps> = ({ children }) => (
   <ActionCableProvider>
     <AppMantineProvider>
       <AppNavProgress />
-      <Toaster position="top-right" />
+      <Toaster />
       {children}
     </AppMantineProvider>
   </ActionCableProvider>
