@@ -45,7 +45,6 @@ module ApplicationCable
 
     sig { params(error: Exception).void }
     def reject_exception(error)
-    rescue StandardError => error
       Rails.error.report(error)
       Sentry.capture_exception(error)
       reject_with(error.message)

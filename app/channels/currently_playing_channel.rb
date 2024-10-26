@@ -9,7 +9,7 @@ class CurrentlyPlayingChannel < ApplicationCable::Channel
     stream_from(channel_name)
   end
 
-  # == Methods
+  # == Helpers
   sig do
     params(currently_playing: T.nilable(CurrentlyPlaying)).returns(T.untyped)
   end

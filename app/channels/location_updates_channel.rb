@@ -17,7 +17,7 @@ class LocationUpdatesChannel < ApplicationCable::Channel
     active_access_ids.delete(access_token!)
   end
 
-  # == Methods
+  # == Helpers
   sig { params(location: LocationLog).void }
   def self.broadcast(location)
     LocationAccess

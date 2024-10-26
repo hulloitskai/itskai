@@ -7,7 +7,7 @@ class ApproximateLocationUpdatesChannel < ApplicationCable::Channel
     stream_from(channel_name)
   end
 
-  # == Methods
+  # == Helpers
   sig { params(location: LocationLog).void }
   def self.broadcast(location)
     message = {
