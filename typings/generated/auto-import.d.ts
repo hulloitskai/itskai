@@ -121,7 +121,7 @@ declare global {
   const useMounted: typeof import('@mantine/hooks')['useMounted']
   const usePage: typeof import('~/helpers/inertia/page')['usePage']
   const usePageProps: typeof import('~/helpers/inertia/page')['usePageProps']
-  const usePrevious: typeof import('@uidotdev/usehooks')['usePrevious']
+  const usePrevious: typeof import('@mantine/hooks')['usePrevious']
   const useRef: typeof import('react')['useRef']
   const useShallowEffect: typeof import('@mantine/hooks')['useShallowEffect']
   const useState: typeof import('react')['useState']

@@ -33,7 +33,6 @@
     "@turf/circle": "^6.5.0",
     "@turf/length": "^6.5.0",
     "@turf/line-slice-along": "^6.5.0",
-    "@uidotdev/usehooks": "^2.4.1",
     "clsx": "^2.0.0",
     "framer-motion": "^10.16.4",
     "humanize-duration": "^3.32.1",

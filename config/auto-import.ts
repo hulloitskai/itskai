@@ -79,6 +79,7 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
       "useMediaQuery",
       "useMounted",
       "useShallowEffect",
+      "usePrevious",
     ],
     "@mantine/modals": ["openModal", "closeAllModals"],
     clsx: [["clsx", "cn"]],
@@ -101,7 +102,6 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
       "take",
       "uniqBy",
     ],
-    "@uidotdev/usehooks": ["usePrevious"],
     luxon: ["DateTime", "Duration"],
     react: [
       "createRef",
