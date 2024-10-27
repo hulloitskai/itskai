@@ -12,11 +12,13 @@ export interface TimeProps
   format: DateTimeFormatOptions | ((time: DateTime) => string);
   children: DateTime | string;
   component?: ElementType;
+  refreshInterval?: number;
 }
 
 const Time: FC<TimeProps> = ({
   children,
   component = "span",
+  refreshInterval,
   format,
   lh,
   m,
@@ -44,7 +46,15 @@ const Time: FC<TimeProps> = ({
     const time =
       typeof children === "string" ? DateTime.fromISO(children) : children;
     setFormattedTime(applyFormat(time));
-  }, [children, applyFormat]);
+    if (refreshInterval) {
+      const interval = setInterval(() => {
+        setFormattedTime(applyFormat(time));
+      }, refreshInterval);
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [children, applyFormat, refreshInterval]);
 
   // == Loading
   const loading = !formattedTime;
@@ -59,7 +69,7 @@ const Time: FC<TimeProps> = ({
       <Text
         component="time"
         span
-        display="inline-block"
+        display="inline-grid"
         lh={loading ? 1 : lh}
         {...otherProps}
       >

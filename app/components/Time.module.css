@@ -3,7 +3,7 @@
   width: fit-content;
 
   &[data-visible] {
-    display: inline-block;
+    display: inline-grid;
     line-height: 1;
     vertical-align: middle;
   }
