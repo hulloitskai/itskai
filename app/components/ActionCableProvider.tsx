@@ -4,7 +4,7 @@ import { createConsumer } from "@rails/actioncable";
 import { ActionCableContext } from "~/helpers/actioncable";
 
 const ActionCableProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [cable, setCable] = useState<Consumer | null>(null);
+  const [cable, setCable] = useState<Consumer>();
   useEffect(() => {
     setCable(createConsumer());
   }, []);
