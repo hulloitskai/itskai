@@ -79,17 +79,12 @@ const LocatePage: PageComponent<LocatePageProps> = ({
 
   // == Subscribe to location changes
   const locationSubscriptionFirstLoadRef = useRef(true);
-  const locationSubscriptionParams = useMemo(
-    () => ({ access_token: accessToken }),
-    [accessToken],
-  );
   const { data: locationData } = useSubscription<{
     location: LocationWithTrail;
     accessGrant: LocationAccessGrant;
   }>("LocationUpdatesChannel", {
     descriptor: "subscribe to location updates",
-    params: locationSubscriptionParams,
-    skip: !accessToken,
+    params: accessToken ? { access_token: accessToken } : null,
     onData: ({ location }) => {
       if (location && mapRef.current) {
         const { latitude, longitude } = location.coordinates;

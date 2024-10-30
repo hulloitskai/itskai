@@ -1,75 +1,65 @@
-export interface SubscriptionOptions<Data> {
+import useSWRSubscription, {
+  type SWRSubscriptionResponse,
+} from "swr/subscription";
+
+export interface UseSubscriptionOptions<Data> {
   descriptor: string;
-  skip?: boolean;
   failSilently?: boolean;
-  params?: Record<string, any>;
+  params?: Record<string, any> | null;
   onData?: (data: Data) => void;
   onError?: (error: Error) => void;
 }
 
-export interface Subscription<Data> {
-  data?: Data;
-  error?: Error;
-}
+export type SubscriptionResponse<Data> = SWRSubscriptionResponse<Data, Error>;
 
 export const useSubscription = <
   Data extends Record<string, any> & { error?: never },
 >(
   channel: string,
-  {
-    descriptor,
-    params,
-    skip,
-    failSilently,
-    onData,
-    onError,
-  }: SubscriptionOptions<Data>,
-): Subscription<Data> => {
+  options?: UseSubscriptionOptions<Data>,
+): SubscriptionResponse<Data> => {
   const cable = useCable();
-  const [subscription, setSubscription] = useState<Subscription<Data>>(
-    () => ({}),
+  const { params, descriptor, failSilently, onData, onError } = options ?? {};
+  const computeKey = useCallback(
+    (
+      channel: string,
+      params: UseSubscriptionOptions<Data>["params"],
+    ): { channel: string; [param: string]: any } | null =>
+      params === null ? null : { channel, ...params },
+    [],
   );
-  const onDataRef = useRef(onData);
-  const onErrorRef = useRef(onError);
-  onDataRef.current = onData;
-  onErrorRef.current = onError;
+  const [key, setKey] = useState(() => computeKey(channel, params));
+  const firstRenderRef = useRef(true);
   useShallowEffect(() => {
-    if (!cable) {
-      return;
+    if (firstRenderRef.current) {
+      firstRenderRef.current = false;
+    } else {
+      setKey(computeKey(channel, params));
     }
-    if (!skip) {
-      const subscription = cable.subscriptions.create(
-        { channel, ...params },
-        {
-          received: (data: Data | { error?: string }) => {
-            if ("error" in data) {
-              const error = new Error(data.error);
-              setSubscription(subscription => ({
-                ...subscription,
-                error,
-              }));
-              console.error(`Failed to ${descriptor}`, error);
-              if (!failSilently) {
-                toast.error(`Failed to ${descriptor}`, {
-                  description: data.error,
-                });
-              }
-              onErrorRef.current?.(error);
-            } else {
-              const nonErrorData = data as Data;
-              setSubscription(subscription => ({
-                ...subscription,
-                data: nonErrorData,
-              }));
-              onDataRef.current?.(nonErrorData);
-            }
-          },
-        },
-      );
-      return () => {
-        subscription.unsubscribe();
-      };
-    }
-  }, [cable, channel, descriptor, failSilently, params, skip]);
-  return subscription;
+  }, [computeKey, channel, params]);
+  return useSWRSubscription(cable ? key : null, (params, { next }) => {
+    invariant(cable);
+    const subscription = cable.subscriptions.create(params, {
+      received: (data: Data | { error?: string }) => {
+        if ("error" in data) {
+          const error = new Error(data.error);
+          console.error(`Failed to ${descriptor}`, error);
+          if (!failSilently) {
+            toast.error(`Failed to ${descriptor}`, {
+              description: data.error,
+            });
+          }
+          onError?.(error);
+          next(error);
+        } else {
+          const nonErrorData = data as Data;
+          onData?.(nonErrorData);
+          next(undefined, nonErrorData);
+        }
+      },
+    });
+    return () => {
+      subscription.unsubscribe();
+    };
+  });
 };

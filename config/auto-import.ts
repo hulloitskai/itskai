@@ -33,7 +33,7 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
     "~/helpers/meta": ["getMeta", "requireMeta"],
     "~/helpers/notifications": ["toastChangesSaved"],
     "~/helpers/routes": [["default", "routes"]],
-    "~/helpers/fetch/swr": ["useFetchSWR"],
+    "~/helpers/fetch": ["fetchRoute", "useFetchRoute"],
     "~/helpers/fetch/form": ["useFetchForm"],
     "~/helpers/form": ["useFieldsFilled"],
     "~/helpers/utils": ["resolve", "isTruthy"],

@@ -27,7 +27,7 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
   const [opened, setOpened] = useState(false);
 
   // == Load server info
-  const { data } = useFetchSWR<{ status: Status }>(
+  const { data } = useFetchRoute<{ status: Status }>(
     routes.healthcheckHealthchecks.check,
     {
       descriptor: "load server info",

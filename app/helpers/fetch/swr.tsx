@@ -19,7 +19,7 @@ export interface FetchSWRParams {
   [key: string]: any;
 }
 
-export const useFetchSWR = <
+export const useFetchRoute = <
   Data extends Record<string, any> & { error?: never },
 >(
   route: PathHelper,
