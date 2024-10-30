@@ -1,4 +1,4 @@
-import { usePageVisibilityChange } from "~/helpers/page";
+import { useDocumentVisibility } from "@mantine/hooks";
 
 const APP_META_SITE_TYPE = "website";
 const APP_META_SITE_NAME = "It's Kai";
@@ -24,7 +24,7 @@ const AppMeta: FC<AppMetaProps> = ({
   siteName = APP_META_SITE_NAME,
   title: titleProp,
 }) => {
-  const pageVisible = usePageVisibilityChange("visible");
+  const pageVisibility = useDocumentVisibility();
   const pageTitle = useMemo<string>(() => {
     const components = Array.isArray(titleProp) ? titleProp : [titleProp];
     return components
@@ -40,13 +40,17 @@ const AppMeta: FC<AppMetaProps> = ({
   );
   const tabTitle = useMemo<string>(() => {
     let title = pageTitle;
-    if (!pageVisible && !title && siteName === APP_META_SITE_NAME) {
+    if (
+      pageVisibility === "hidden" &&
+      !title &&
+      siteName === APP_META_SITE_NAME
+    ) {
       title = "🥺 come back";
     }
     return [title, siteName]
       .filter(component => !!component)
       .join(` ${APP_META_TITLE_SEPARATOR} `);
-  }, [pageTitle, pageVisible, siteName]);
+  }, [pageTitle, pageVisibility, siteName]);
 
   return (
     <Head>

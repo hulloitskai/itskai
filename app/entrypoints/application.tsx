@@ -3,7 +3,6 @@ import "requestidlecallback-polyfill";
 
 import { createInertiaApp } from "@inertiajs/react";
 import { reactErrorHandler } from "@sentry/react";
-import { StrictMode } from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 
 import AppWrapper from "~/components/AppWrapper";
@@ -51,11 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
     setup: ({ App, el, props }) => {
       const { initialPage } = props;
       const app = (
-        <StrictMode>
-          <AppWrapper {...{ initialPage }}>
-            <App {...props} />
-          </AppWrapper>
-        </StrictMode>
+        <AppWrapper {...{ initialPage }}>
+          <App {...props} />
+        </AppWrapper>
       );
       if (el.hasChildNodes()) {
         hydrateRoot(el, app, {

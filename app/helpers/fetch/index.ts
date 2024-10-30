@@ -5,6 +5,7 @@ import {
   type RequestOptions,
   type ResponseError,
 } from "@js-from-routes/client";
+import { useIsFirstRender } from "@mantine/hooks";
 import useSWR, { type SWRConfiguration, type SWRResponse } from "swr";
 
 export { setupFetch } from "./setup";
@@ -68,20 +69,23 @@ export const useFetchRoute = <
   Data extends Record<string, any> & { error?: never },
 >(
   route: PathHelper,
-  {
+  options: UseFetchRouteOptions,
+): FetchRouteResponse<Data> => {
+  const {
     method,
     failSilently,
     descriptor,
     params,
-    data,
+    data, // eslint-disable-line @typescript-eslint/no-unsafe-assignment
     deserializeData,
     fetchOptions,
     serializeData,
     responseAs,
     headers,
     ...swrConfiguration
-  }: UseFetchRouteOptions,
-): FetchRouteResponse<Data> => {
+  } = options;
+
+  // == Key
   const computeKey = useCallback(
     (
       route: PathHelper,
@@ -90,14 +94,14 @@ export const useFetchRoute = <
     [],
   );
   const [key, setKey] = useState(() => computeKey(route, params));
-  const firstRenderRef = useRef(true);
+  const isFirstRender = useIsFirstRender();
   useShallowEffect(() => {
-    if (firstRenderRef.current) {
-      firstRenderRef.current = false;
-    } else {
+    if (!isFirstRender) {
       setKey(computeKey(route, params));
     }
-  }, [computeKey, route, params]);
+  }, [route, params]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // == SWR
   const { isLoading, isValidating, ...swr } = useSWR<Data, Error>(
     key,
     async (url: string): Promise<Data> => {
@@ -116,5 +120,6 @@ export const useFetchRoute = <
     },
     swrConfiguration,
   );
+
   return { fetching: isLoading, validating: isValidating, ...swr };
 };

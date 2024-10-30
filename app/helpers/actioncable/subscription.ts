@@ -1,8 +1,11 @@
+import { useIsFirstRender } from "@mantine/hooks";
+import { type Subscription } from "@rails/actioncable";
+import { type SWRConfiguration } from "swr";
 import useSWRSubscription, {
   type SWRSubscriptionResponse,
 } from "swr/subscription";
 
-export interface UseSubscriptionOptions<Data> {
+export interface UseSubscriptionOptions<Data> extends SWRConfiguration {
   descriptor: string;
   failSilently?: boolean;
   params?: Record<string, any> | null;
@@ -10,7 +13,10 @@ export interface UseSubscriptionOptions<Data> {
   onError?: (error: Error) => void;
 }
 
-export type SubscriptionResponse<Data> = SWRSubscriptionResponse<Data, Error>;
+export interface SubscriptionResponse<Data>
+  extends SWRSubscriptionResponse<Data, Error> {
+  subscription: Subscription | undefined;
+}
 
 export const useSubscription = <
   Data extends Record<string, any> & { error?: never },
@@ -19,7 +25,16 @@ export const useSubscription = <
   options?: UseSubscriptionOptions<Data>,
 ): SubscriptionResponse<Data> => {
   const cable = useCable();
-  const { params, descriptor, failSilently, onData, onError } = options ?? {};
+  const {
+    params,
+    descriptor,
+    failSilently,
+    onData,
+    onError,
+    ...swrConfiguration
+  } = options ?? {};
+
+  // == Key
   const computeKey = useCallback(
     (
       channel: string,
@@ -29,37 +44,64 @@ export const useSubscription = <
     [],
   );
   const [key, setKey] = useState(() => computeKey(channel, params));
-  const firstRenderRef = useRef(true);
+  const isFirstRender = useIsFirstRender();
   useShallowEffect(() => {
-    if (firstRenderRef.current) {
-      firstRenderRef.current = false;
-    } else {
+    if (!isFirstRender) {
       setKey(computeKey(channel, params));
     }
-  }, [computeKey, channel, params]);
-  return useSWRSubscription(cable ? key : null, (params, { next }) => {
-    invariant(cable);
-    const subscription = cable.subscriptions.create(params, {
-      received: (data: Data | { error?: string }) => {
-        if ("error" in data) {
-          const error = new Error(data.error);
-          console.error(`Failed to ${descriptor}`, error);
-          if (!failSilently) {
-            toast.error(`Failed to ${descriptor}`, {
-              description: data.error,
-            });
+  }, [channel, params]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // == SWR
+  const { data: swrData, error } = useSWRSubscription<
+    { subscription: Subscription; data?: Data },
+    Error,
+    typeof key
+  >(
+    cable ? key : null,
+    (params, { next }) => {
+      invariant(cable);
+      const subscription = cable.subscriptions.create(params, {
+        // == Data
+        received: (data: Data | { error?: string }) => {
+          if ("error" in data) {
+            const error = new Error(data.error);
+            console.error(`Failed to ${descriptor}`, error);
+            if (!failSilently) {
+              toast.error(`Failed to ${descriptor}`, {
+                description: data.error,
+              });
+            }
+            next(error, { subscription });
+          } else {
+            const nonErrorData = data as Data;
+            next(undefined, { subscription, data: nonErrorData });
           }
-          onError?.(error);
+        },
+        rejected: () => {
+          const error = new Error(
+            `Failed to ${descriptor}: connection rejected`,
+          );
+          console.error(error);
           next(error);
-        } else {
-          const nonErrorData = data as Data;
-          onData?.(nonErrorData);
-          next(undefined, nonErrorData);
-        }
-      },
-    });
-    return () => {
-      subscription.unsubscribe();
-    };
-  });
+        },
+      });
+      next(undefined, { subscription });
+      return () => {
+        subscription.unsubscribe();
+      };
+    },
+    swrConfiguration,
+  );
+  const { subscription, data } = swrData ?? {};
+  useEffect(() => {
+    if (data) {
+      onData?.(data);
+    }
+  }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (error) {
+      onError?.(error);
+    }
+  }, [error]); // eslint-disable-line react-hooks/exhaustive-deps
+  return { subscription, data, error };
 };
