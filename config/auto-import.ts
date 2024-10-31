@@ -30,7 +30,7 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
     "~/helpers/inertia/page": ["usePage", "usePageProps"],
     "~/helpers/inertia/form": ["useInertiaForm"],
     "~/helpers/json": ["formatJSON"],
-    "~/helpers/meta": ["getMeta", "requireMeta"],
+    "~/helpers/meta": ["env", "getMeta", "requireMeta", "useEnv"],
     "~/helpers/notifications": ["toastChangesSaved"],
     "~/helpers/routes": [["default", "routes"]],
     "~/helpers/fetch": ["fetchRoute", "useFetchRoute"],

@@ -8,14 +8,14 @@ import {
   replayIntegration,
 } from "@sentry/react";
 
-import { getMeta, requireEnv } from "~/helpers/meta";
+import { env, getMeta } from "~/helpers/meta";
 
 export const setupSentry = () => {
   const dsn = getMeta("sentry-dsn");
   const tracesSampleRate = getFloatMeta("sentry-traces-sample-rate");
   const profilesSampleRate = getFloatMeta("sentry-profiles-sample-rate");
   if (dsn) {
-    const environment = requireEnv();
+    const environment = env();
     const options: BrowserOptions = {
       dsn,
       environment,

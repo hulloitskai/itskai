@@ -16,5 +16,8 @@ export const requireMeta = (name: string): string => {
   return content;
 };
 
-export const requireEnv = (): "development" | "test" | "production" =>
+export const env = (): "development" | "test" | "production" =>
   requireMeta("env") as "development" | "test" | "production";
+
+export const useEnv = (): "development" | "test" | "production" =>
+  useMemo(env, []);

@@ -1,15 +1,14 @@
 import { type SnippetOptions } from "@fullstory/browser";
 import { init } from "@fullstory/browser";
 
-import { getMeta, requireEnv } from "~/helpers/meta";
+import { env, getMeta } from "~/helpers/meta";
 
 export const setupFullStory = () => {
-  const env = requireEnv();
   const orgId = getMeta("fullstory-org-id");
   if (orgId) {
     const options: SnippetOptions = {
       orgId,
-      devMode: env === "development",
+      devMode: env() === "development",
       debug: true,
     };
     init(options);
