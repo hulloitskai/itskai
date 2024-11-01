@@ -152,10 +152,7 @@ export const useFetchForm = <
                 onError?.(formWithErrors);
               }
             } else {
-              console.error(
-                "An unknown error response occurred",
-                responseError,
-              );
+              console.error("Unknown error response", responseError);
               if (!failSilently) {
                 toast.error(`Failed to ${descriptor}`, {
                   description: sentencify(responseError.message),

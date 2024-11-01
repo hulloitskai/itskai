@@ -94,6 +94,7 @@ export const useInertiaForm = <
         preserveScroll: true,
         onBefore: () => {
           removeInvalidListener = router.on("invalid", (event): void => {
+            console.log("invalid", event);
             const { response } = event.detail;
             if (response.status >= 400 && response.data instanceof Object) {
               const data = response.data as Record<string, any>;
@@ -123,8 +124,9 @@ export const useInertiaForm = <
         onError: errors => {
           form.setErrors(errors);
           console.warn(`Couldn't ${descriptor}`, errors);
-          showFormErrorsAlert(form, `Couldn't ${descriptor}`);
-          onError?.(form);
+          const formWithErrors = { ...form, errors };
+          showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
+          onError?.(formWithErrors);
         },
       };
       let method: Method;
