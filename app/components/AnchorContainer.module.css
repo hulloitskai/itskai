@@ -1,4 +1,7 @@
 .root {
+  border-radius: var(--mantine-radius-default);
+  text-decoration: none;
+
   > * {
     border: 1px solid
       light-dark(
