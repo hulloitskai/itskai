@@ -21,7 +21,7 @@ if [ "$STATUS" != "0" ]; then
   fi
 fi
 
-export RAILS_ENV=test NODE_ENV=production INERTIA_PORT=13715
+export OVERMIND_ENV=test NODE_ENV=production INERTIA_PORT=13715
 if [ -z "$@" ]; then
   export RAILS_TEST_CMD=test:all
 else

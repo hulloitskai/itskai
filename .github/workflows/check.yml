@@ -4,6 +4,9 @@ on:
   - push
   - pull_request
 
+env:
+  RAILS_ENV: test
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -53,7 +56,6 @@ jobs:
       - name: Set up environment
         run: bin/setup
         env:
-          RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager

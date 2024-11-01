@@ -67,22 +67,21 @@ FileUtils.chdir APP_ROOT do
     FileUtils.cp ".env.example", ".env"
   end
 
-  puts "\n=> Starting database"
   db_pid = nil
-  case ENV["CI"]
-  when "", nil
+  unless ENV["CI"]
+    puts "\n=> Starting database"
     db_pid = spawn("bin/postgres", pgroup: true)
     system! "bin/wait_for_postgres_ready"
-  else
-    puts "Running on CI; skipping"
   end
 
   puts "\n=> Preparing database"
   system! "bundle exec rails db:prepare"
   puts "Database ready"
 
-  puts "\n=> Running deployment tasks"
-  system! "bundle exec rails after_party:run"
+  unless ENV["CI"]
+    puts "\n=> Running deployment tasks"
+    system! "bundle exec rails after_party:run"
+  end
 
   puts "\n=> Removing old logs and tempfiles"
   system! "bundle exec rails log:clear tmp:clear"
