@@ -424,6 +424,9 @@ class ObsidianNote
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def for_import(*args, &blk); end
 
+    sig { returns(PrivateAssociationRelation) }
+    def friendly; end
+
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def from(*args, &blk); end
 
@@ -1603,6 +1606,9 @@ class ObsidianNote
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def for_import(*args, &blk); end
 
+    sig { returns(PrivateRelation) }
+    def friendly; end
+
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def from(*args, &blk); end
 
@@ -1718,9 +1724,6 @@ class ObsidianNote
 
     Elem = type_member { { fixed: ::ObsidianNote } }
 
-    sig { returns(T.self_type) }
-    def friendly; end
-
     sig { returns(T::Array[::ObsidianNote]) }
     def to_a; end
 
@@ -1820,9 +1823,6 @@ class ObsidianNote
     end
     def destroy(*records); end
 
-    sig { returns(T.self_type) }
-    def friendly; end
-
     sig { returns(T::Array[::ObsidianNote]) }
     def load_target; end
 
@@ -1865,9 +1865,6 @@ class ObsidianNote
     include GeneratedRelationMethods
 
     Elem = type_member { { fixed: ::ObsidianNote } }
-
-    sig { returns(T.self_type) }
-    def friendly; end
 
     sig { returns(T::Array[::ObsidianNote]) }
     def to_a; end

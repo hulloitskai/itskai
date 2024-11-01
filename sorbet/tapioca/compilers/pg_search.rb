@@ -35,29 +35,22 @@ module Tapioca
           return if method_names.empty?
 
           root.create_path(constant) do |model|
-            relations_enabled = compiler_enabled?("ActiveRecordRelations")
             relation_methods_module = model
               .create_module(RelationMethodsModuleName)
-            if relations_enabled
-              assoc_relation_methods_mod = model
-                .create_module(AssociationRelationMethodsModuleName)
-            end
-
+            assoc_relation_methods_module = model
+              .create_module(AssociationRelationMethodsModuleName)
             method_names.each do |scope_method|
               generate_scope_method(
                 relation_methods_module,
                 scope_method.to_s,
-                relations_enabled ? RelationClassName : "T.untyped",
+                RelationClassName,
               )
-              next unless relations_enabled
               generate_scope_method(
-                assoc_relation_methods_mod,
+                assoc_relation_methods_module,
                 scope_method.to_s,
                 AssociationRelationClassName,
               )
             end
-
-            model.create_extend(RelationMethodsModuleName)
           end
         end
 
@@ -77,7 +70,7 @@ module Tapioca
               create_rest_param("args", type: "T.untyped"),
               create_kw_rest_param("kwargs", type: "T.untyped"),
             ],
-            return_type: return_type,
+            return_type:,
           )
         end
       end
