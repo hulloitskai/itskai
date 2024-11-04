@@ -94,7 +94,6 @@ export const useInertiaForm = <
         preserveScroll: true,
         onBefore: () => {
           removeInvalidListener = router.on("invalid", (event): void => {
-            console.log("invalid", event);
             const { response } = event.detail;
             if (response.status >= 400 && response.data instanceof Object) {
               const data = response.data as Record<string, any>;

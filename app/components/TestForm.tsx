@@ -5,7 +5,8 @@ import "@mantine/dates/styles.layer.css";
 
 const TestForm: FC = () => {
   // == Form
-  const { data, getInputProps, processing, submit } = useFetchForm({
+  const { data, getInputProps, submit, processing } = useFetchForm({
+    name: "TestForm",
     action: routes.test.submit,
     descriptor: "submit test form",
     initialValues: {

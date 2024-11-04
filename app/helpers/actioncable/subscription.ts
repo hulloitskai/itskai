@@ -9,6 +9,7 @@ export interface UseSubscriptionOptions<Data> extends SWRConfiguration {
   descriptor: string;
   failSilently?: boolean;
   params?: Record<string, any> | null;
+  onConnected?: () => void;
   onData?: (data: Data) => void;
   onError?: (error: Error) => void;
 }
@@ -29,6 +30,7 @@ export const useSubscription = <
     params,
     descriptor,
     failSilently,
+    onConnected,
     onData,
     onError,
     ...swrConfiguration
@@ -61,7 +63,16 @@ export const useSubscription = <
     (params, { next }) => {
       invariant(cable);
       const subscription = cable.subscriptions.create(params, {
-        // == Data
+        connected: () => {
+          next(undefined, { subscription });
+        },
+        rejected: () => {
+          const error = new Error(
+            `Failed to ${descriptor}: connection rejected`,
+          );
+          console.error(error);
+          next(error);
+        },
         received: (data: Data | { error?: string }) => {
           if ("error" in data) {
             const error = new Error(data.error);
@@ -77,15 +88,7 @@ export const useSubscription = <
             next(undefined, { subscription, data: nonErrorData });
           }
         },
-        rejected: () => {
-          const error = new Error(
-            `Failed to ${descriptor}: connection rejected`,
-          );
-          console.error(error);
-          next(error);
-        },
       });
-      next(undefined, { subscription });
       return () => {
         subscription.unsubscribe();
       };
@@ -93,6 +96,11 @@ export const useSubscription = <
     swrConfiguration,
   );
   const { subscription, data } = swrData ?? {};
+  useDidUpdate(() => {
+    if (subscription) {
+      onConnected?.();
+    }
+  }, [subscription]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (data) {
       onData?.(data);

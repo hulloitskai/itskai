@@ -18,7 +18,8 @@ export interface TestPageProps extends SharedPageProps {
 
 const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
   // == Form
-  const { getInputProps, getValues } = useForm({
+  const { getValues, getInputProps } = useForm({
+    name: "TestPage",
     initialValues: { name: initialName },
   });
   const nameDescription = useMemo(() => {
@@ -34,7 +35,7 @@ const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
       children: <TestPageModalBody name={name} />,
     });
   }, [getValues]);
-  const showToast = useCallback(() => {
+  const showAlert = useCallback(() => {
     toast.info("Graphic design is my passion", {
       description: "I love graphic design.",
     });
@@ -60,7 +61,7 @@ const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
           >
             Open modal
           </Button>
-          <Button leftSection={<BellAlertIcon />} onClick={showToast}>
+          <Button leftSection={<BellAlertIcon />} onClick={showAlert}>
             Notify me
           </Button>
         </Group>
