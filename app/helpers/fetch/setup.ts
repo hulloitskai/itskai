@@ -4,8 +4,17 @@ import {
   type ResponseError,
 } from "@js-from-routes/client";
 import { Config } from "@js-from-routes/client";
+import { identity } from "lodash-es";
 
 export const setupFetch = (): void => {
+  Config.getCSRFToken = (): string | undefined => {
+    if (typeof document !== "undefined") {
+      const el = document.querySelector<HTMLMetaElement>(
+        "meta[name=csrf-token]",
+      );
+      return el?.content;
+    }
+  };
   Config.fetch = (args: FetchOptions): Promise<Response> => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { url, data, responseAs, ...options } = args;

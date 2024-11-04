@@ -18,6 +18,19 @@ class ApplicationController < ActionController::Base
     around_action :with_ssr
   end
 
+  # == Devise
+  # Make authenticate_user! compatible with Pretender and fetch requests.
+  sig { override.params(opts: T.untyped).returns(User) }
+  def authenticate_user!(opts = {})
+    if (user = current_user)
+      user
+    elsif request.format.html?
+      super
+    else
+      raise UnauthenticatedError
+    end
+  end
+
   # == Inertia
   inertia_share do
     {
@@ -102,6 +115,11 @@ class ApplicationController < ActionController::Base
     else
       yield
     end
+  end
+
+  sig { params(error: UnauthenticatedError).void }
+  def render_unauthenticated_error(error)
+    render(json: { error: error.message }, status: :unauthorized)
   end
 
   sig { params(exception: Exception).void }
