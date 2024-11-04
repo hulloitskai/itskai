@@ -55,7 +55,7 @@ export const useSubscription = <
 
   // == SWR
   const { data: swrData, error } = useSWRSubscription<
-    { subscription: Subscription; data?: Data },
+    { subscription?: Subscription; data?: Data },
     Error,
     typeof key
   >(
@@ -90,6 +90,7 @@ export const useSubscription = <
         },
       });
       return () => {
+        next(undefined, {});
         subscription.unsubscribe();
       };
     },
