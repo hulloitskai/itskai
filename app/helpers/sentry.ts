@@ -39,7 +39,7 @@ export const setupSentry = () => {
     };
     init(options);
     const info = omitBy(omit(options, "ignoreErrors", "integrations"), isNil);
-    console.info("Initialized Sentry:", info);
+    console.info("Initialized Sentry", info);
   } else {
     console.warn("Missing Sentry DSN; skipping initialization");
   }
