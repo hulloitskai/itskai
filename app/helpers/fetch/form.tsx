@@ -9,6 +9,8 @@ import {
   type UseFormReturnType,
 } from "@mantine/form";
 import { type FormEvent } from "react";
+import { startTransition } from "react";
+import { toast } from "sonner";
 
 import { showFormErrorsAlert } from "~/helpers/form";
 import { sentencify } from "~/helpers/inflect";
@@ -136,7 +138,9 @@ export const useFetchForm = <
                 console.error(`Failed to ${descriptor}`, error);
                 if (!failSilently) {
                   toast.error(`Failed to ${descriptor}`, {
-                    description: sentencify(body.error),
+                    description: sentencify(
+                      body.error || "An unknown error occurred",
+                    ),
                   });
                 }
                 onFailure?.(error, form);
@@ -155,7 +159,9 @@ export const useFetchForm = <
               console.error("Unknown error response", responseError);
               if (!failSilently) {
                 toast.error(`Failed to ${descriptor}`, {
-                  description: sentencify(responseError.message),
+                  description: sentencify(
+                    responseError.message || "An unknown error occurred",
+                  ),
                 });
               }
               onFailure?.(responseError, form);
