@@ -17,6 +17,7 @@ Sentry.init do |config|
     ActionPolicy::Unauthorized
     Notion::Api::Errors::TimeoutError
     Notion::Api::Errors::UnavailableError
+    UnauthenticatedError
   ]
 
   # Set traces_sample_rate to 1.0 to capture 100% of transactions for
