@@ -1,6 +1,6 @@
 import { type Page } from "@inertiajs/core";
 import { usePage as _usePage } from "@inertiajs/react";
-import { type ComponentType, type ReactNode } from "react";
+import { type ComponentType } from "react";
 
 export type PageComponent<Props extends SharedPageProps = SharedPageProps> =
   ComponentType<Props> & {
@@ -18,9 +18,7 @@ export const parsePageImports = <T,>(
 
 export const usePage = <
   Props extends SharedPageProps = SharedPageProps,
->(): Page<Props> => {
-  return _usePage();
-};
+>(): Page<Props> => _usePage();
 
 export const usePageProps = <
   Props extends SharedPageProps = SharedPageProps,

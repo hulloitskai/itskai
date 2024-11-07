@@ -1,4 +1,4 @@
-import { useIsFirstRender } from "@mantine/hooks";
+import { useIsFirstRender, useNetwork } from "@mantine/hooks";
 import { type Subscription } from "@rails/actioncable";
 import { type SWRConfiguration } from "swr";
 import useSWRSubscription, {
@@ -54,6 +54,7 @@ export const useSubscription = <
   }, [channel, params]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // == SWR
+  const { online } = useNetwork();
   const { data: swrData, error } = useSWRSubscription<
     { subscription?: Subscription; data?: Data },
     Error,
@@ -94,7 +95,10 @@ export const useSubscription = <
         subscription.unsubscribe();
       };
     },
-    swrConfiguration,
+    {
+      isOnline: () => online,
+      ...swrConfiguration,
+    },
   );
   const { subscription, data } = swrData ?? {};
   useDidUpdate(() => {

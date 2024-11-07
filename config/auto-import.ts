@@ -120,7 +120,12 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
   // == Types
   {
     from: "react",
-    imports: ["ComponentPropsWithoutRef", "FC", "PropsWithChildren"],
+    imports: [
+      "ComponentPropsWithoutRef",
+      "FC",
+      "PropsWithChildren",
+      "ReactNode",
+    ],
     type: true,
   },
   {

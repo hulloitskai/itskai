@@ -133,7 +133,7 @@ declare global {
 // for type re-export
 declare global {
   // @ts-ignore
-  export type { ComponentPropsWithoutRef, FC, PropsWithChildren } from 'react'
+  export type { ComponentPropsWithoutRef, FC, PropsWithChildren, ReactNode } from 'react'
   import('react')
   // @ts-ignore
   export type { BoxProps } from '@mantine/core'

@@ -5,7 +5,10 @@ import {
   type RequestOptions,
   type ResponseError,
 } from "@js-from-routes/client";
-import { useIsFirstRender } from "@mantine/hooks";
+import { useIsFirstRender, useNetwork, useShallowEffect } from "@mantine/hooks";
+import { omit } from "lodash-es";
+import { useCallback, useState } from "react";
+import { toast } from "sonner";
 import useSWR, { type SWRConfiguration, type SWRResponse } from "swr";
 
 export { setupFetch } from "./setup";
@@ -102,6 +105,7 @@ export const useFetchRoute = <
   }, [route, params]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // == SWR
+  const { online } = useNetwork();
   const { isLoading, isValidating, ...swr } = useSWR<Data, Error>(
     key,
     async (url: string): Promise<Data> => {
@@ -118,7 +122,7 @@ export const useFetchRoute = <
         headers,
       });
     },
-    swrConfiguration,
+    { isOnline: () => online, ...swrConfiguration },
   );
 
   return { fetching: isLoading, validating: isValidating, ...swr };
