@@ -37,6 +37,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
     reset,
     setInitialValues,
   } = useFetchForm({
+    name: "change-email",
     action: routes.usersRegistrations.changeEmail,
     descriptor: "change email",
     initialValues,

@@ -19,6 +19,7 @@ const ExplorationCommentForm: FC<ExplorationCommentFormProps> = ({
     [exploration.id],
   );
   const { getInputProps, processing, submit } = useFetchForm({
+    name: "exploration-comment",
     action: routes.explorations.comment,
     descriptor: "create comment",
     params: commentParams,

@@ -15,6 +15,7 @@ const AccountPagePasswordForm: FC<AccountPagePasswordFormProps> = ({
   // == Form
   const { values, getInputProps, isDirty, processing, submit } = useInertiaForm(
     {
+      name: "change-password",
       action: routes.usersRegistrations.changePassword,
       descriptor: "change password",
       initialValues: {
