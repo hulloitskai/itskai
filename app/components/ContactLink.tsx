@@ -1,10 +1,10 @@
 import { type AnchorProps } from "@mantine/core";
 import { type ReactNode } from "react";
 
-import { type ContactOptions } from "~/helpers/contact";
+import { type UseContactOptions } from "~/helpers/contact";
 import { useContact } from "~/helpers/contact";
 
-export interface ContactLinkProps extends AnchorProps, ContactOptions {
+export interface ContactLinkProps extends AnchorProps, UseContactOptions {
   children: ReactNode;
 }
 

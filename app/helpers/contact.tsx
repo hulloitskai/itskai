@@ -1,19 +1,19 @@
 import { fetchRoute } from "./fetch";
 
-export interface ContactOptions {
+export interface UseContactOptions {
   subject?: string;
   body?: string;
 }
 
-export interface ContactResult {
+export interface UseContactResult {
   loading: boolean;
   error?: Error;
 }
 
 export const useContact = (
-  options?: ContactOptions,
-): [(options?: ContactOptions) => void, ContactResult] => {
-  const [result, setResult] = useState<ContactResult>({
+  options?: UseContactOptions,
+): [(options?: UseContactOptions) => void, UseContactResult] => {
+  const [result, setResult] = useState<UseContactResult>({
     loading: false,
   });
   const contact = useCallback(() => {
