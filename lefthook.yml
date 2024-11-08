@@ -15,6 +15,10 @@ check:
       run: npx tsc --build
       glob: "*.{ts,tsx}"
       tags: js
+    check-sorbet:
+      run: bundle exec srb tc
+      glob: "*.{rb,rbi}"
+      tags: rb
     check-rubocop:
       files: *modified-files
       run: bundle exec rubocop --force-exclusion {files}
@@ -84,6 +88,10 @@ pre-commit:
       run: npx tsc --build
       glob: "*.{ts,tsx}"
       tags: js
+    check-sorbet:
+      run: bundle exec srb tc --cache-dir ./tmp/sorbet
+      glob: "*.{rb,rbi}"
+      tags: rb
     check-rubocop:
       run: bundle exec rubocop --force-exclusion --cache=true {staged_files}
       glob: "*.{rb,rbi}"

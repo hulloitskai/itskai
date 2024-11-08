@@ -38,7 +38,7 @@ module ActiveRecord
       params(
         table_name: T.any(String, Symbol),
         bulk: T::Boolean,
-        blk: T.proc.params(t: ConnectionAdapters::PostGIS::TableDefinition).void,
+        blk: T.proc.params(t: T.untyped).void,
       ).void
     end
     def change_table(table_name, bulk: false, &blk); end
