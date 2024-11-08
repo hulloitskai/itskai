@@ -5,6 +5,7 @@ import autoImportPlugin from "unplugin-auto-import/vite";
 import iconsPlugin from "unplugin-icons/vite";
 import { type PluginOption } from "vite";
 import { defineConfig } from "vite";
+import environmentPlugin from "vite-plugin-environment";
 import fullReloadPlugin from "vite-plugin-full-reload";
 import { isoImport as isomorphicImportPlugin } from "vite-plugin-iso-import";
 import rubyPlugin from "vite-plugin-ruby";
@@ -14,6 +15,10 @@ import { imports } from "./config/auto-import";
 export default defineConfig(() => {
   // == Plugins
   const plugins: PluginOption = [
+    environmentPlugin(
+      { RAILS_ENV: "development" },
+      { defineOn: "import.meta.env" },
+    ),
     isomorphicImportPlugin(),
     autoImportPlugin({
       dts: join(__dirname, "typings/generated/auto-import.d.ts"),
