@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
 
-# Operate from root directory
-cd "${BASH_SOURCE%/*}/.."
-
 docker info > /dev/null 2>&1
 STATUS="$?"
-
 if [ "$STATUS" != "0" ]; then
   if [ "$STATUS" == "1" ]; then
     if [ "$(uname)" == "Darwin" ]; then
@@ -21,10 +17,13 @@ if [ "$STATUS" != "0" ]; then
   fi
 fi
 
-OVERMIND_SOCKET=./tmp/sockets/overmind.${RAILS_ENV:-development}.sock
+# Operate from root directory
+cd "${BASH_SOURCE%/*}/.."
+
+OVERMIND_SOCKET="tmp/sockets/overmind.${RAILS_ENV:-development}.sock"
 if [ -e "$OVERMIND_SOCKET" ]; then
-  if ./bin/overmind status > /dev/null; then
-    ./bin/overmind echo
+  if bin/overmind status > /dev/null; then
+    bin/overmind echo
     exit 0
   fi
   rm "$OVERMIND_SOCKET"

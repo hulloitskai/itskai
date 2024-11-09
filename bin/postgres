@@ -1,7 +1,23 @@
 #!/usr/bin/env bash
 
-cd "${BASH_SOURCE%/*}/.."
+docker info > /dev/null 2>&1
+STATUS="$?"
+if [ "$STATUS" != "0" ]; then
+  if [ "$STATUS" == "1" ]; then
+    if [ "$(uname)" == "Darwin" ]; then
+      echo "Starting Docker..." >&2
+      open -a Docker || exit 1
+      sleep 2 # wait for Docker to boot
+    else
+      echo "Docker isn't running! Please start Docker and try again." >&2
+      exit 1
+    fi
+  else
+    exit 1
+  fi
+fi
 
+cd "${BASH_SOURCE%/*}/.."
 if [ -f ./tmp/pids/postgres.cid ]; then
   echo "Postgres is already running; tailing logs..." >&2
   trap "exit 0" INT
