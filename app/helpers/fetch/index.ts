@@ -88,7 +88,16 @@ export const useFetchRoute = <
     ...swrConfiguration
   } = options;
 
-  // == Key
+  // == SWR Configuration
+  // NOTE: Avoid 'isVisible is not a function', etc.
+  if (!swrConfiguration.isVisible) {
+    delete swrConfiguration.isVisible;
+  }
+  if (!swrConfiguration.isOnline) {
+    delete swrConfiguration.isOnline;
+  }
+
+  // == SWR Key
   const computeKey = useCallback(
     (
       route: PathHelper,
@@ -104,7 +113,7 @@ export const useFetchRoute = <
     }
   }, [route, params]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // == SWR
+  // == SWR Fetch
   const { online } = useNetwork();
   const { isLoading, isValidating, ...swr } = useSWR<Data, Error>(
     key,
