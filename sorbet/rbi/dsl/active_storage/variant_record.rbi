@@ -645,7 +645,7 @@ class ActiveStorage::VariantRecord
     sig { void }
     def blob_id_will_change!; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(::String) }
     def id; end
 
     sig { params(value: ::String).returns(::String) }
@@ -663,10 +663,10 @@ class ActiveStorage::VariantRecord
     sig { returns(T::Boolean) }
     def id_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def id_change; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def id_change_to_be_saved; end
 
     sig { params(from: ::String, to: ::String).returns(T::Boolean) }
@@ -675,7 +675,7 @@ class ActiveStorage::VariantRecord
     sig { returns(T.nilable(::String)) }
     def id_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def id_previous_change; end
 
     sig { params(from: ::String, to: ::String).returns(T::Boolean) }
@@ -684,7 +684,7 @@ class ActiveStorage::VariantRecord
     sig { returns(T.nilable(::String)) }
     def id_previously_was; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(::String) }
     def id_value; end
 
     sig { params(value: ::String).returns(::String) }
@@ -702,10 +702,10 @@ class ActiveStorage::VariantRecord
     sig { returns(T::Boolean) }
     def id_value_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def id_value_change; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def id_value_change_to_be_saved; end
 
     sig { params(from: ::String, to: ::String).returns(T::Boolean) }
@@ -714,7 +714,7 @@ class ActiveStorage::VariantRecord
     sig { returns(T.nilable(::String)) }
     def id_value_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def id_value_previous_change; end
 
     sig { params(from: ::String, to: ::String).returns(T::Boolean) }
@@ -753,13 +753,13 @@ class ActiveStorage::VariantRecord
     sig { returns(T::Boolean) }
     def saved_change_to_blob_id?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_id; end
 
     sig { returns(T::Boolean) }
     def saved_change_to_id?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_id_value; end
 
     sig { returns(T::Boolean) }

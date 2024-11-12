@@ -17,8 +17,8 @@ class DeviseController
   def scope_name; end
 
   # Proxy to devise map class
-  # sig { returns(T::Class[T.anything]) }
-  # def resource_class; end
+  sig { returns(T::Class[T.anything]) }
+  def resource_class; end
 
   # Returns a signed in resource from session (if one exists)
   sig { returns(T.untyped) }

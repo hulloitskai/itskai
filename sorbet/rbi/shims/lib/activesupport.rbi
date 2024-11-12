@@ -174,6 +174,9 @@ class Time
 
   sig { returns(ActiveSupport::TimeZone) }
   def self.zone; end
+
+  sig { returns(ActiveSupport::TimeWithZone) }
+  def self.current; end
 end
 
 module Enumerable

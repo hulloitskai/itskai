@@ -31,6 +31,9 @@ module Phonelib
   end
 
   module PhoneFormatter
+    sig { returns(T.nilable(String)) }
+    def area_code; end
+
     sig { params(formatted: T::Boolean).returns(String) }
     def national(formatted = true); end
 

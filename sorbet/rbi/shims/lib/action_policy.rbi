@@ -23,16 +23,31 @@ class ActionPolicy::Base
 end
 
 module ActionPolicy::ScopeMatchers::ActiveRecord
+  has_attached_class!
+
   sig do
     params(
       args: T.untyped,
       kwargs: T.untyped,
       block: T.proc
         .params(relation: ActiveRecord::Relation)
-        .returns(ActiveRecord::Relation),
+        .returns(ActiveRecord::Relation)
+        .bind(T.attached_class),
     ).void
   end
   def relation_scope(*args, **kwargs, &block); end
+
+  sig do
+    type_parameters(:U).params(
+      args: T.untyped,
+      kwargs: T.untyped,
+      block: T.proc
+        .params(relation: T.untyped)
+        .returns(T.untyped)
+        .bind(T.attached_class),
+    ).void
+  end
+  def scope_for(*args, **kwargs, &block); end
 end
 
 module ActionPolicy::Behaviours::Scoping

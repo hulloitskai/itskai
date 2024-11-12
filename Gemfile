@@ -230,6 +230,7 @@ group :development, :test do
   gem "rubocop-sorbet", require: false
   gem "rubocop-capybara", require: false
   gem "ruby-lsp", require: false
+  gem "rbs", "~> 3.5.3", require: false
   gem "parser", "~> 3.3.0.5", require: false
 end
 
