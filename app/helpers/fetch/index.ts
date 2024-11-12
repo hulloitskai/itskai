@@ -7,9 +7,13 @@ import {
 } from "@js-from-routes/client";
 import { useIsFirstRender, useNetwork, useShallowEffect } from "@mantine/hooks";
 import { omit } from "lodash-es";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import useSWR, { type SWRConfiguration, type SWRResponse } from "swr";
+import useSWRMutation, {
+  type SWRMutationConfiguration,
+  type SWRMutationResponse,
+} from "swr/mutation";
 
 export { setupFetch } from "./setup";
 
@@ -63,8 +67,8 @@ export interface FetchRouteResponse<Data>
   validating: boolean;
 }
 
-export type UseFetchRouteOptions = Omit<FetchRouteOptions, "params"> &
-  SWRConfiguration & {
+export type UseFetchRouteOptions<Data> = Omit<FetchRouteOptions, "params"> &
+  SWRConfiguration<Data, Error> & {
     params?: FetchRouteOptions["params"] | null;
   };
 
@@ -72,7 +76,7 @@ export const useFetchRoute = <
   Data extends Record<string, any> & { error?: never },
 >(
   route: PathHelper,
-  options: UseFetchRouteOptions,
+  options: UseFetchRouteOptions<Data>,
 ): FetchRouteResponse<Data> => {
   const {
     method,
@@ -88,7 +92,6 @@ export const useFetchRoute = <
     ...swrConfiguration
   } = options;
 
-  // == SWR Configuration
   // NOTE: Avoid 'isVisible is not a function', etc.
   if (!swrConfiguration.isVisible) {
     delete swrConfiguration.isVisible;
@@ -97,28 +100,12 @@ export const useFetchRoute = <
     delete swrConfiguration.isOnline;
   }
 
-  // == SWR Key
-  const computeKey = useCallback(
-    (
-      route: PathHelper,
-      params: UseFetchRouteOptions["params"],
-    ): string | null => (params === null ? null : route.path(params)),
-    [],
-  );
-  const [key, setKey] = useState(() => computeKey(route, params));
-  const isFirstRender = useIsFirstRender();
-  useShallowEffect(() => {
-    if (!isFirstRender) {
-      setKey(computeKey(route, params));
-    }
-  }, [route, params]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // == SWR Fetch
+  const key = useRouteKey(route, params);
   const { online } = useNetwork();
   const { isLoading, isValidating, ...swr } = useSWR<Data, Error>(
     key,
-    async (url: string): Promise<Data> => {
-      return fetchRoute(url, {
+    async (url: string): Promise<Data> =>
+      fetchRoute(url, {
         failSilently,
         descriptor,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -129,10 +116,79 @@ export const useFetchRoute = <
         serializeData,
         responseAs,
         headers,
-      });
-    },
+      }),
     { isOnline: () => online, ...swrConfiguration },
   );
 
   return { fetching: isLoading, validating: isValidating, ...swr };
+};
+
+export interface MutateRouteResponse<Data>
+  extends Omit<SWRMutationResponse<Data, Error>, "isMutating"> {
+  mutating: boolean;
+}
+
+export type UseMutateRouteOptions<Data> = Omit<FetchRouteOptions, "params"> &
+  SWRMutationConfiguration<Data, Error, string, never, Data> & {
+    params?: FetchRouteOptions["params"] | null;
+  };
+
+export const useMutateRoute = <
+  Data extends Record<string, any> & { error?: never },
+>(
+  route: PathHelper,
+  options: UseMutateRouteOptions<Data>,
+): MutateRouteResponse<Data> => {
+  const {
+    method,
+    failSilently,
+    descriptor,
+    params,
+    data, // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+    deserializeData,
+    fetchOptions,
+    serializeData,
+    responseAs,
+    headers,
+    ...swrConfiguration
+  } = options;
+  const key = useRouteKey(route, params);
+  const { isMutating: mutating, ...swr } = useSWRMutation<Data, Error>(
+    key,
+    async (url: string): Promise<Data> =>
+      fetchRoute(url, {
+        failSilently,
+        descriptor,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        data,
+        deserializeData,
+        fetchOptions,
+        method: method ?? route.httpMethod,
+        serializeData,
+        responseAs,
+        headers,
+      }),
+    swrConfiguration,
+  );
+
+  return { mutating, ...swr };
+};
+
+const computeRouteKey = (
+  route: PathHelper,
+  params: RequestOptions["params"] | null,
+): string | null => (params === null ? null : route.path(params));
+
+const useRouteKey = (
+  route: PathHelper,
+  params: RequestOptions["params"] | null,
+): string | null => {
+  const [key, setKey] = useState(() => computeRouteKey(route, params));
+  const isFirstRender = useIsFirstRender();
+  useShallowEffect(() => {
+    if (!isFirstRender) {
+      setKey(computeRouteKey(route, params));
+    }
+  }, [route, params]); // eslint-disable-line react-hooks/exhaustive-deps
+  return key;
 };

@@ -25,102 +25,73 @@ export interface CurrentlyPlayingIslandProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {}
 
-interface TransitionState {
-  mounted: boolean;
-  transitioned: boolean;
-}
-
 const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   ...otherProps
 }) => {
+  // == Mounting & transitioning
   const { online } = useNetwork();
+  const [mounted, setMounted] = useState<boolean>(() => !!track && online);
+  const [transitioning, setTransitioning] = useState(false);
+  useDidUpdate(() => {
+    setTransitioning(true);
+  }, [mounted]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // == Load currently playing track
   const { data, mutate } = useFetchRoute<{
-    currentlyPlaying: CurrentlyPlaying;
+    currentlyPlaying: CurrentlyPlaying | null;
   }>(routes.currentlyPlayings.show, {
     descriptor: "load currently playing track",
   });
-  const { currentlyPlaying } = data ?? {};
+  const { track } = data?.currentlyPlaying ?? {};
+  useDidUpdate(() => {
+    if (!transitioning) {
+      setMounted(!!track && online);
+    }
+  }, [track, online, transitioning]);
 
-  // == Watch track metadata
+  // == Subscribe to track progression
   const { data: subscriptionData } = useSubscription<{
-    currentlyPlaying: CurrentlyPlayingMetadata;
+    currentlyPlaying: CurrentlyPlayingMetadata | null;
   }>("CurrentlyPlayingChannel", {
     descriptor: "subscribe to currently playing feed",
     failSilently: true,
-  });
-  const { currentlyPlaying: metadata } = subscriptionData ?? {};
-  const progressMs = useMemo(() => {
-    if (metadata) {
-      const timestamp = DateTime.fromISO(metadata.timestamp);
-      const elappsedMs = DateTime.now().diff(timestamp).as("milliseconds");
-      return metadata.progress_ms + elappsedMs - 1200;
-    }
-  }, [metadata]);
-
-  // == Transition
-  const [{ mounted, transitioned }, setTransitionState] =
-    useState<TransitionState>({
-      mounted: false,
-      transitioned: false,
-    });
-  const [track, setTrack] = useState<RSpotifyTrack | null>(null);
-  useEffect(() => {
-    if (online) {
-      if (metadata?.track_id !== track?.id) {
-        if (track) {
-          startTransition(() => {
-            setTransitionState({ mounted: false, transitioned: false });
-          });
-          void mutate();
-        } else if (currentlyPlaying) {
-          startTransition(() => {
-            setTrack(currentlyPlaying.track);
-            if (!mounted) {
-              setTransitionState({
-                mounted: true,
-                transitioned: false,
-              });
-            }
-          });
-        }
+    onData: ({ currentlyPlaying }) => {
+      if (currentlyPlaying?.track_id !== track?.id) {
+        setMounted(false);
+        void mutate();
       }
-    } else if (mounted) {
-      startTransition(() => {
-        setTransitionState({ mounted: false, transitioned: false });
-      });
+    },
+  });
+
+  // == Calculate progress
+  const progressMs = useMemo(() => {
+    if (subscriptionData?.currentlyPlaying) {
+      const { currentlyPlaying } = subscriptionData;
+      const timestamp = DateTime.fromISO(currentlyPlaying.timestamp);
+      const elappsedMs = DateTime.now().diff(timestamp).as("milliseconds");
+      return currentlyPlaying.progress_ms + elappsedMs - 1200;
     }
-  }, [online, metadata, mounted, track]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [subscriptionData]);
 
   return (
     <Transition
       transition="slide-down"
-      onEntered={() =>
-        startTransition(() => {
-          setTransitionState({ mounted: true, transitioned: true });
-        })
-      }
+      onEntered={() => {
+        setTransitioning(false);
+      }}
       onExited={() => {
-        startTransition(() => {
-          setTrack(currentlyPlaying?.track ?? null);
-          if (currentlyPlaying && online) {
-            setTransitionState({ mounted: true, transitioned: false });
-          } else {
-            setTransitionState({ mounted: false, transitioned: true });
-          }
-        });
+        setTransitioning(false);
       }}
       {...{ mounted }}
     >
       {style => (
         <TrackCoalescer {...{ track }}>
           {track => (
-            <_CurrentlyPlayingIsland
+            <IslandContent
               {...{
                 track,
                 progressMs,
-                transitioned,
+                transitioning,
                 style,
               }}
               {...otherProps}
@@ -154,17 +125,17 @@ const TrackCoalescer: FC<TrackCoalescerProps> = ({
   return <>{!!track && children(track)}</>;
 };
 
-type _CurrentlyPlayingIslandProps = BoxProps & {
+type IslandContentProps = BoxProps & {
   track: RSpotifyTrack;
   progressMs?: number;
-  transitioned: boolean;
+  transitioning: boolean;
 };
 
-const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
+const IslandContent: FC<IslandContentProps> = ({
   progressMs,
   style,
   track,
-  transitioned,
+  transitioning,
   ...otherProps
 }) => {
   const { album, artists } = track;
@@ -183,7 +154,7 @@ const _CurrentlyPlayingIsland: FC<_CurrentlyPlayingIslandProps> = ({
     <CurrentlyPlayingLyricsTooltip
       withinPortal={false}
       durationMs={track.duration_ms}
-      {...(!transitioned && { disabled: true })}
+      {...(transitioning && { disabled: true })}
       {...{ track, progressMs }}
     >
       {currentLyricLine => {

@@ -30,7 +30,14 @@ class ApplicationPolicy < ActionPolicy::Base
   def administrate? = false
 
   # == Scopes
-  relation_scope { |relation| relation }
+  scope_matcher :frozen_record_relation, FrozenRecord::Scope
+  relation_scope do |relation|
+    if allowed_to?(:index?)
+      relation
+    else
+      relation.none
+    end
+  end
 
   private
 
