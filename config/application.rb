@@ -37,6 +37,7 @@ module ItsKai
     require "inflections"
     require "custom_devise_failure_app"
     require "announcement"
+    require "alerts"
     require "logging"
     require "owner"
     require "admin"

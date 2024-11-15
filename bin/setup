@@ -68,7 +68,7 @@ FileUtils.chdir APP_ROOT do
   end
 
   db_pid = nil
-  unless ENV["CI"]
+  unless ENV["CI"] || File.exist?("tmp/pids/postgres.cid")
     puts "\n=> Starting database"
     db_pid = spawn("bin/postgres", pgroup: true)
     system! "bin/wait_for_postgres_ready"

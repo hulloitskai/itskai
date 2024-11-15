@@ -9,7 +9,7 @@ class ExplorationsController < ApplicationController
       :message,
       :author_contact,
     )
-    comment = ExplorationComment.new(exploration_id, **comment_params)
+    comment = ExplorationComment.new(exploration_id:, **comment_params)
     if comment.save
       render(json: {})
     else

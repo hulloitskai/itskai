@@ -28,14 +28,6 @@ export interface CurrentlyPlayingIslandProps
 const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   ...otherProps
 }) => {
-  // == Mounting & transitioning
-  const { online } = useNetwork();
-  const [mounted, setMounted] = useState<boolean>(() => !!track && online);
-  const [transitioning, setTransitioning] = useState(false);
-  useDidUpdate(() => {
-    setTransitioning(true);
-  }, [mounted]); // eslint-disable-line react-hooks/exhaustive-deps
-
   // == Load currently playing track
   const { data, mutate } = useFetchRoute<{
     currentlyPlaying: CurrentlyPlaying | null;
@@ -43,6 +35,14 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
     descriptor: "load currently playing track",
   });
   const { track } = data?.currentlyPlaying ?? {};
+
+  // == Mounting & transitioning
+  const { online } = useNetwork();
+  const [mounted, setMounted] = useState<boolean>(() => !!track && online);
+  const [transitioning, setTransitioning] = useState(false);
+  useDidUpdate(() => {
+    setTransitioning(true);
+  }, [mounted]); // eslint-disable-line react-hooks/exhaustive-deps
   useDidUpdate(() => {
     if (!transitioning) {
       setMounted(!!track && online);
