@@ -28,7 +28,7 @@ class EventEmailsController < ApplicationController
   # == Helpers
   sig { void }
   def authorize_origin!
-    origin = Resolv.getname(client_ip)
+    origin = Reversed.lookup(client_ip)
     unless origin.ends_with?("forwardemail.net")
       with_log_tags do
         logger.error("Unauthorized origin: #{origin}")

@@ -207,6 +207,9 @@ gem "oj_serializers", "~> 2.0"
 # Generate Typescript from serializers
 gem "types_from_serializers", "~> 2.1"
 
+# Reverse DNS / IP Lookup
+gem "reversed", "~> 0.5.0"
+
 group :development, :test do
   # Debug code with debug
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
