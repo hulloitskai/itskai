@@ -595,7 +595,6 @@ GEM
     validate_url (1.0.15)
       activemodel (>= 3.0.0)
       public_suffix
-    vernier (0.6.0)
     version_gem (1.1.4)
     vite_rails (3.0.19)
       railties (>= 5.1, < 9)
@@ -737,7 +736,6 @@ DEPENDENCIES
   types_from_serializers (~> 2.1)
   tzinfo-data
   validate_url (~> 1.0)
-  vernier (~> 0.6.0)
   vite_rails (~> 3.0)
   web-console
   wrapped_print

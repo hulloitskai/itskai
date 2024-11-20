@@ -57,7 +57,7 @@ jobs:
         env:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --no-pager
+        run: bundle exec brakeman --no-pager
       - name: Check lints and formatting
         run: bin/check --all-files
       - name: Run tests
