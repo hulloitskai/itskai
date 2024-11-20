@@ -17,8 +17,6 @@
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class ICloudCredentials < ApplicationRecord
-  include Identifiable
-
   # == Attributes
   self.filter_attributes += %i[password cookies session]
 

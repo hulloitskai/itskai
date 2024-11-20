@@ -23,8 +23,6 @@
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class LocationAccess < ApplicationRecord
-  include Identifiable
-
   # == Attributes
   attribute :token, default: -> { Devise.friendly_token }
   alias_attribute :timestamp, :created_at

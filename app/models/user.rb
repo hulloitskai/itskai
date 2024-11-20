@@ -33,7 +33,6 @@
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class User < ApplicationRecord
-  include Identifiable
   include ::Named
 
   # == Constants

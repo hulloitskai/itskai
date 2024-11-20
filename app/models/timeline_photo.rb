@@ -20,8 +20,6 @@
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class TimelinePhoto < ApplicationRecord
-  include Identifiable
-
   # == Attachment
   has_one_attached :image
 

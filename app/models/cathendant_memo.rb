@@ -16,8 +16,6 @@
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class CathendantMemo < ApplicationRecord
-  include Identifiable
-
   # == Attachments
   has_one_attached :recording
 

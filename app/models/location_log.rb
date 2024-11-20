@@ -22,8 +22,6 @@
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class LocationLog < ApplicationRecord
-  include Identifiable
-
   # == Attributes
   sig { returns(Float) }
   def latitude = coordinates.y

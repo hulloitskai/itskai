@@ -30,8 +30,6 @@
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class LocationLogAddress < ApplicationRecord
-  include Identifiable
-
   # == Associations
   belongs_to :location_log, inverse_of: :address, touch: true
 

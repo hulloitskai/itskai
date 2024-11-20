@@ -24,7 +24,6 @@
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class NotionJournalEntry < ApplicationRecord
-  include Identifiable
   include PgSearch::Model
 
   # == Scopes

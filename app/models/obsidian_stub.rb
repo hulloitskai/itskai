@@ -18,7 +18,6 @@
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class ObsidianStub < ApplicationRecord
-  include Identifiable
   include ObsidianEntry
 
   # == Attributes

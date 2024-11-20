@@ -27,8 +27,6 @@
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class PensieveMessage < ApplicationRecord
-  include Identifiable
-
   # == Attributes
   enumerize :from, in: %i[user bot]
 

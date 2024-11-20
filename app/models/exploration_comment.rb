@@ -15,8 +15,6 @@
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class ExplorationComment < ApplicationRecord
-  include Identifiable
-
   # == Associations
   sig { returns(Exploration) }
   def exploration

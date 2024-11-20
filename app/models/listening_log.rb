@@ -17,5 +17,4 @@
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class ListeningLog < ApplicationRecord
-  include Identifiable
 end

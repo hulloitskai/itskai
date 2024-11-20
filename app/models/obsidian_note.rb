@@ -37,7 +37,6 @@
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class ObsidianNote < ApplicationRecord
   extend FriendlyId
-  include Identifiable
   include Slugged
   include ObsidianEntry
 
