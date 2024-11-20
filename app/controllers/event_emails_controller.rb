@@ -28,7 +28,7 @@ class EventEmailsController < ApplicationController
   # == Helpers
   sig { void }
   def authorize_origin!
-    origin = Resolv.getname(request.remote_ip)
+    origin = Resolv.getname(client_ip)
     unless origin.ends_with?("forwardemail.net")
       with_log_tags do
         logger.error("Unauthorized origin: #{origin}")
@@ -46,5 +46,10 @@ class EventEmailsController < ApplicationController
       end
       raise "Unauthorized sender"
     end
+  end
+
+  sig { returns(String) }
+  def client_ip
+    request.headers["Fly-Client-IP"] || request.remote_ip
   end
 end
