@@ -134,9 +134,6 @@ module ItsKai
     config.active_storage.routes_prefix = "/storage"
     config.active_storage.direct_uploads_size_limit = 25.megabytes
 
-    # == Active Support
-    config.active_support.remove_deprecated_time_with_zone_name = true
-
     # == Server info
     sig { returns(Time) }
     def booted_at = BOOTED_AT

@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby
 
-# typed: true
-# frozen_string_literal: true
-
 require "./config/application"
 
 autoloaded_constants = []

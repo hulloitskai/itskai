@@ -21,7 +21,7 @@ check:
       tags: rb
     check-rubocop:
       files: *modified-files
-      run: bundle exec rubocop --force-exclusion {files}
+      run: bin/rubocop --force-exclusion {files}
       glob: "*.{rb,rbi}"
       tags: rb
     check-mypy:
@@ -49,7 +49,7 @@ fix:
       tags: js
     fix-rubocop:
       files: *modified-files
-      run: bundle exec rubocop --force-exclusion --safe-auto-correct {files}
+      run: bin/rubocop --force-exclusion --safe-auto-correct {files}
       glob: "*.{rb,rbi}"
       tags: rb
     check-mypy:
@@ -93,7 +93,7 @@ pre-commit:
       glob: "*.{rb,rbi}"
       tags: rb
     check-rubocop:
-      run: bundle exec rubocop --force-exclusion --cache=true {staged_files}
+      run: bin/rubocop --force-exclusion --cache=true {staged_files}
       glob: "*.{rb,rbi}"
       tags: rb
     check-mypy:
