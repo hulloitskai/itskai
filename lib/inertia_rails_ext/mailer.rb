@@ -36,7 +36,7 @@ module InertiaRails
         )
         headers[:content_type] = "text/html"
       end
-      super(headers, &block)
+      super
     end
 
     # == Helpers

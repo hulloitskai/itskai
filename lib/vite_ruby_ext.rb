@@ -63,7 +63,7 @@ class ViteRuby
       def perform_request(env)
         if vite_should_handle?(env) && dev_server_running?
           forward_to_vite_dev_server(env)
-          response = super(env)
+          response = super
           if response.first == Rack::Utils::SYMBOL_TO_STATUS_CODE[:not_found]
             @app.call(env)
           else

@@ -19,7 +19,7 @@ module TypesFromSerializers
   end
 
   module SerializerRefinements
-    refine Class do
+    refine Class do # rubocop:disable Sorbet/Refinement
       def ts_properties
         @ts_properties ||= begin
           types_from = try(:_serializer_types_from)
@@ -68,7 +68,7 @@ module TypesFromSerializers
           resolved_name = suppress(NameError) { module_parent.const_get(model_name).name } # rubocop:disable Sorbet/ConstantsFromStrings
           resolved_name || model_name
         end
-        super(name, model:, types_from:)
+        super
         if Rails.env.development?
           define_singleton_method(:_serializer_object_name) { name }
         end
@@ -88,7 +88,7 @@ module TypesFromSerializers
     :column_name,
     keyword_init: true,
   ) do
-    using SerializerRefinements
+    using SerializerRefinements # rubocop:disable Sorbet/Refinement
 
     def inspect
       to_h.inspect

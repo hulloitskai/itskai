@@ -11,7 +11,7 @@ class NotionJournalEntrySerializer < ApplicationSerializer
 
   attribute :next_journal_entry_id, type: :string, nullable: true do
     NotionJournalEntry.with_content
-      .where("started_at < ?", journal_entry.started_at)
+      .where(started_at: ...journal_entry.started_at)
       .order(started_at: :desc)
       .pick(:id)
   end
