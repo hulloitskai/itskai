@@ -88,6 +88,9 @@ module GeneratedUrlHelpersModule
   def edit_user_registration_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def event_emails_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def exploration_comment_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

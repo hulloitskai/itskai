@@ -78,7 +78,6 @@ Rails.application.routes.draw do
   get "/coffee" => "calendly#event", handle: "coffee"
   get "/walk" => "calendly#event", handle: "walk"
   get "/call" => "calendly#event", handle: "call"
-  get "/opencal-intro" => "calendly#event", handle: "opencal-intro"
 
   # == Attachments
   resources :files, only: :show, param: :signed_id, export: true
@@ -146,6 +145,9 @@ Rails.application.routes.draw do
     get "/contribute" => "home#contribute"
     resources :memos, only: :create
   end
+
+  # == Event emails
+  resources :event_emails, only: :create
 
   # == Constellations
   namespace :constellations, export: true do

@@ -53,7 +53,7 @@ class ActionController::Parameters
   sig { params(key: T.any(String, Symbol), block: T.untyped).returns(T.untyped) }
   def delete(key, &block); end
 
-  sig { params(keys: T.any(String, Symbol)).returns(T.untyped) }
+  sig { params(keys: T.any(String, Integer, Symbol)).returns(T.untyped) }
   def dig(*keys); end
 
   sig { params(block: T.untyped).returns(T.untyped) }

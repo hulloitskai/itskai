@@ -88,6 +88,9 @@ module GeneratedPathHelpersModule
   def edit_user_registration_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def event_emails_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def exploration_comment_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
