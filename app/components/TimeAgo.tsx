@@ -1,4 +1,3 @@
-import { type TextProps } from "@mantine/core";
 import { Text } from "@mantine/core";
 import { DateTime } from "luxon";
 import { format as formatTimeAgo } from "timeago.js";

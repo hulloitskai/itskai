@@ -144,6 +144,7 @@ class ObsidianNote < ApplicationRecord
   sig { void }
   private def analyze_blurb
     return if content.blank? || blurb.present?
+
     root = Markly.parse(content)
     node = T.let(root.first, T.nilable(Markly::Node))
     if node.present? && node.type.in?(%i[paragraph quote])

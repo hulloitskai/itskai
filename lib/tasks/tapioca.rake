@@ -34,8 +34,11 @@ end
 
 migration_tasks.each do |task|
   next unless Rake::Task.task_defined?(task)
+
   Rake::Task[task].enhance do
     Rake::Task[Rake.application.top_level_tasks.last].enhance do
+      next if ActiveRecord::Base.connection.migration_context.needs_migration?
+
       system(command_path.to_s, "dsl", exception: true)
     end
   end

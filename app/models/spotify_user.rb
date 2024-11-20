@@ -51,6 +51,7 @@ class SpotifyUser < RSpotify::User
       end
     end
     return unless result&.fetch("is_playing")
+
     track_data = result.fetch("item") or return
     track = RSpotify::Track.new(track_data)
     progress_ms = result.fetch("progress_ms")

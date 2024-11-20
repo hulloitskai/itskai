@@ -3,6 +3,7 @@
 # Operate from root directory
 cd "${BASH_SOURCE%/*}/.."
 
+# Configure socket
 OVERMIND_SOCKET=./tmp/sockets/overmind.${RAILS_ENV:-development}.sock
 if [ -e "$OVERMIND_SOCKET" ]; then
   rm "$OVERMIND_SOCKET"

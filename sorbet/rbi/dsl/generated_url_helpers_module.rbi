@@ -16,6 +16,9 @@ module GeneratedUrlHelpersModule
   def actual_db_schema_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def admin_exploration_comments_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def admin_icloud_connection_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -28,13 +31,16 @@ module GeneratedUrlHelpersModule
   def admin_oauth_connection_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def admin_settings_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def admin_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def atelier_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def backfill_location_log_addresses_admin_url(*args); end
+  def backfill_addresses_admin_location_logs_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def calendly_url(*args); end
@@ -58,6 +64,9 @@ module GeneratedUrlHelpersModule
   def change_password_user_registration_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def change_push_subscriptions_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def coffee_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -76,10 +85,10 @@ module GeneratedUrlHelpersModule
   def currently_playing_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def destroy_user_session_url(*args); end
+  def delivered_notification_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def edit_exploration_url(*args); end
+  def destroy_user_session_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def edit_user_password_url(*args); end
@@ -91,13 +100,7 @@ module GeneratedUrlHelpersModule
   def event_emails_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def exploration_comment_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def exploration_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def explorations_url(*args); end
+  def exploration_comments_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def feed_url(*args); end
@@ -121,16 +124,13 @@ module GeneratedUrlHelpersModule
   def join_spotify_jam_sessions_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def location_access_grants_admin_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def location_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def mailcatcher_url(*args); end
+  def lookup_push_subscriptions_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def new_exploration_url(*args); end
+  def mailcatcher_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_source_url(*args); end
@@ -151,13 +151,16 @@ module GeneratedUrlHelpersModule
   def new_user_session_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def opencal_intro_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def opencal_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def password_strength_checks_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def public_key_push_subscriptions_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def push_subscriptions_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_representation_proxy_url(*args); end
@@ -253,10 +256,13 @@ module GeneratedUrlHelpersModule
   def submit_test_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def sync_location_logs_admin_url(*args); end
+  def sync_admin_location_logs_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def sync_notion_journal_entries_admin_url(*args); end
+  def sync_admin_notion_journal_entries_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def test_push_subscriptions_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def test_url(*args); end
@@ -266,6 +272,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def track_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def unsubscribe_push_subscriptions_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def update_rails_disk_service_url(*args); end

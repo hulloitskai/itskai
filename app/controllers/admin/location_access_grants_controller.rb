@@ -4,6 +4,12 @@
 module Admin
   class LocationAccessGrantsController < AdminController
     # == Actions
+    # GET /admin/location_access_grants
+    def index
+      grants = LocationAccessGrant.valid
+      render(json: { grants: LocationAccessGrantSerializer.many(grants) })
+    end
+
     # POST /admin/location_access_grants
     def create
       grant_attributes = params.require(:grant).permit(

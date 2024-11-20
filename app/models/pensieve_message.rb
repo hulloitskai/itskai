@@ -78,6 +78,7 @@ class PensieveMessage < ApplicationRecord
   def send!
     validate!
     raise "Can't send a message on behalf of a user" if from == :user
+
     raise NotImplementedError
     # telegram_message = PensieveBot.send_message(text)
     # update!(

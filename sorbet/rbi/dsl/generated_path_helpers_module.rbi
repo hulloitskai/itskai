@@ -16,6 +16,9 @@ module GeneratedPathHelpersModule
   def actual_db_schema_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def admin_exploration_comments_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def admin_icloud_connection_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -31,10 +34,13 @@ module GeneratedPathHelpersModule
   def admin_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def admin_settings_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def atelier_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def backfill_location_log_addresses_admin_path(*args); end
+  def backfill_addresses_admin_location_logs_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def calendly_path(*args); end
@@ -58,6 +64,9 @@ module GeneratedPathHelpersModule
   def change_password_user_registration_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def change_push_subscriptions_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def coffee_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -76,10 +85,10 @@ module GeneratedPathHelpersModule
   def currently_playing_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def destroy_user_session_path(*args); end
+  def delivered_notification_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def edit_exploration_path(*args); end
+  def destroy_user_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def edit_user_password_path(*args); end
@@ -91,13 +100,7 @@ module GeneratedPathHelpersModule
   def event_emails_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def exploration_comment_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def exploration_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def explorations_path(*args); end
+  def exploration_comments_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def feed_path(*args); end
@@ -121,16 +124,13 @@ module GeneratedPathHelpersModule
   def join_spotify_jam_sessions_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def location_access_grants_admin_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def location_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def mailcatcher_path(*args); end
+  def lookup_push_subscriptions_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def new_exploration_path(*args); end
+  def mailcatcher_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_rails_conductor_inbound_email_path(*args); end
@@ -151,13 +151,16 @@ module GeneratedPathHelpersModule
   def new_user_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def opencal_intro_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def opencal_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def password_strength_checks_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def public_key_push_subscriptions_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def push_subscriptions_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_path(*args); end
@@ -253,19 +256,25 @@ module GeneratedPathHelpersModule
   def submit_test_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def sync_location_logs_admin_path(*args); end
+  def sync_admin_location_logs_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def sync_notion_journal_entries_admin_path(*args); end
+  def sync_admin_notion_journal_entries_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def test_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def test_push_subscriptions_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def toronto_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def track_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def unsubscribe_push_subscriptions_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def update_rails_disk_service_path(*args); end

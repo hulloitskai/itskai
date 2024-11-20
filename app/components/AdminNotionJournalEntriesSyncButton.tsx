@@ -14,7 +14,7 @@ const AdminNotionJournalEntriesSyncButton: FC<
   const { processing, submit } = useFetchForm<{
     syncResults: NotionJournalEntrySyncResults;
   }>({
-    action: routes.admin.syncNotionJournalEntries,
+    action: routes.adminNotionJournalEntries.sync,
     descriptor: "sync Notion journal entries",
     onSuccess: ({ syncResults: { added, removed, updated } }) => {
       toast.success("Notion journal entries synced", {

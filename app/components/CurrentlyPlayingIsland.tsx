@@ -1,4 +1,4 @@
-import { type ImageProps, type TextProps } from "@mantine/core";
+import { type ImageProps } from "@mantine/core";
 import { Image, Text } from "@mantine/core";
 import { useNetwork } from "@mantine/hooks";
 import { motion } from "framer-motion";

@@ -72,24 +72,30 @@ Rails.application.routes.draw do
     end
   end
 
-  # == Calendly
-  get "/calendly" => "calendly#show"
-  get "/hangout" => "calendly#show"
-  get "/coffee" => "calendly#event", handle: "coffee"
-  get "/walk" => "calendly#event", handle: "walk"
-  get "/call" => "calendly#event", handle: "call"
-
   # == Attachments
   resources :files, only: :show, param: :signed_id, export: true
   resources :images, only: :show, param: :signed_id, export: true
 
+  # == Push subscriptions
+  resources :push_subscriptions, only: :create, export: true do
+    collection do
+      get :public_key
+      post :lookup
+      post :change
+      post :unsubscribe
+      post :test
+    end
+  end
+
+  # == Notifications
+  resources :notifications, only: [], export: true do
+    member do
+      post :delivered
+    end
+  end
+
   # == Password strength checks
   resources :password_strength_checks, only: :create, export: true
-
-  # == Explorations
-  resources :explorations, only: nil, export: true do
-    post :comment
-  end
 
   # == Currently playing
   resource :currently_playing, only: :show, export: true
@@ -119,20 +125,35 @@ Rails.application.routes.draw do
     end
   end
 
+  # == Exploration comments
+  resources :exploration_comments,
+            path: "exploration/:exploration_id/comments",
+            only: :create,
+            export: true
+
   # == Admin
-  resource :admin, controller: "admin", export: true, only: :show do
-    get :location_access_grants
-    post :sync_notion_journal_entries
-    post :sync_location_logs
-    post :backfill_location_log_addresses
-    scope module: "admin" do
-      resources :oauth_connections,
-                only: :destroy,
-                param: :provider
-      resource :icloud_connection, only: %i[create destroy] do
-        post :verify_security_code
+  resource :admin, controller: "admin", only: :show, export: true
+  namespace :admin, export: true do
+    resource :settings, only: :show
+    resources :notifications, only: :index
+    resources :oauth_connections,
+              only: :destroy,
+              param: :provider
+    resource :icloud_connection, only: %i[create destroy] do
+      post :verify_security_code
+    end
+    resources :location_access_grants, only: %i[index create destroy]
+    resources :exploration_comments, only: :index
+    resources :notion_journal_entries, only: [] do
+      collection do
+        post :sync
       end
-      resources :location_access_grants, only: %i[create destroy]
+    end
+    resources :location_logs, only: [] do
+      collection do
+        post :sync
+        post :backfill_addresses
+      end
     end
   end
 
@@ -154,6 +175,13 @@ Rails.application.routes.draw do
     get "/" => "home#show"
     resources :posts, only: :create
   end
+
+  # == Calendly
+  get "/calendly" => "calendly#show"
+  get "/hangout" => "calendly#show"
+  get "/coffee" => "calendly#event", handle: "coffee"
+  get "/walk" => "calendly#event", handle: "walk"
+  get "/call" => "calendly#event", handle: "call"
 
   # == Pages
   defaults export: true do

@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   extend T::Helpers
 
   include ActiveStorage::SetCurrent
+  include Pagy::Backend
   include RemembersUserLocation
   include Logging
   include RendersJsonException
@@ -43,6 +44,17 @@ class ApplicationController < ActionController::Base
     }
   end
 
+  # == Pagy
+  sig do
+    params(pagy: Pagy, absolute: T::Boolean)
+      .returns(T::Hash[Symbol, T.untyped])
+  end
+  def pagy_metadata(pagy, absolute: false)
+    metadata = super
+    metadata.delete(:limit) if params.exclude?(pagy.vars[:limit_param])
+    metadata
+  end
+
   # == Exception handlers
   rescue_from RuntimeError, with: :report_and_render_json_exception
   rescue_from ActionPolicy::Unauthorized,
@@ -78,8 +90,10 @@ class ApplicationController < ActionController::Base
 
   sig { void }
   def set_actor_id
-    return if cookies.key?(:actor_id)
-    cookies.permanent.signed[:actor_id] = current_user&.id || SecureRandom.uuid
+    unless cookies.key?(:actor_id)
+      cookies.permanent.signed[:actor_id] =
+        current_user&.id || SecureRandom.uuid
+    end
   end
 
   sig { void }

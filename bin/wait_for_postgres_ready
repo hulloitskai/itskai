@@ -22,10 +22,10 @@ loop do
     break
   rescue PG::ConnectionBad
     if attempts >= max_attempts
-      puts "Failed to connect to Postgres after #{max_attempts} attempts. Exiting."
+      puts "Failed to connect to Postgres after #{max_attempts} attempts; exiting."
       exit 1
     else
-      puts "Attempt #{attempts}"
+      puts "... (check #{attempts})"
       sleep delay
     end
   end

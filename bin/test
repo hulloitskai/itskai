@@ -1,26 +1,14 @@
 #!/usr/bin/env bash
 
+set -e
+
 # Operate from root directory
 cd "${BASH_SOURCE%/*}/.."
 
-docker info > /dev/null 2>&1
-STATUS="$?"
+# Boot Docker
+bin/boot_docker
 
-if [ "$STATUS" != "0" ]; then
-  if [ "$STATUS" == "1" ]; then
-    if [ "$(uname)" == "Darwin" ] && which open > /dev/null; then
-      echo "Starting Docker..." >&2
-      open -a Docker || exit 1
-      sleep 2 # wait for Docker to boot
-    else
-      echo "Docker isn't running! Please start Docker and try again." >&2
-      exit 1
-    fi
-  else
-    exit 1
-  fi
-fi
-
+# Configure Overmind and Rails test command
 export OVERMIND_ENV=test NODE_ENV=production INERTIA_PORT=13715
 if [ -z "$@" ]; then
   export RAILS_TEST_CMD=test:all
@@ -28,10 +16,13 @@ else
   export RAILS_TEST_CMD="test $@"
 fi
 
+# Select Procfile
 PROCFILE=./Procfile.test
 if [ -n "$CI" ]; then
   PROCFILE=./Procfile.ci-test
 fi
+
+set +e
 
 trap "exit 0" INT
 EXIT_CODE=0

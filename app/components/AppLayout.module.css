@@ -1,9 +1,13 @@
-.logoButton {
-  color: light-dark(var(--mantine-color-gray-8), var(--mantine-color-dark-0));
+.main {
+  flex-grow: 1;
+  background-color: var(--mantine-color-body);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 
-  :global(.mantine-Button-section)[data-position="left"] {
-    margin-right: 8px;
-  }
+  --app-shell-footer-offset: calc(
+    var(--app-shell-footer-height, 0) + env(safe-area-inset-bottom)
+  );
 }
 
 .breadcrumbSeparator {

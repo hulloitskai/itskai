@@ -1,4 +1,3 @@
-import { type TextProps } from "@mantine/core";
 import { Text } from "@mantine/core";
 import { type DateTimeFormatOptions } from "luxon";
 import { DateTime } from "luxon";

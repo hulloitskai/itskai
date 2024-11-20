@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+MAX_ATTEMPTS=50
+
+docker info > /dev/null 2>&1
+STATUS="$?"
+if [ "$STATUS" != "0" ]; then
+  if [ "$STATUS" == "1" ]; then
+    if [ "$(uname)" == "Darwin" ]; then
+      echo "Starting Docker..." >&2
+      open -a Docker || exit $?
+      ATTEMPTS=1
+      while ! docker info > /dev/null 2>&1; do
+        if [ "$ATTEMPTS" -ge "$MAX_ATTEMPTS" ]; then
+          echo "Docker failed to boot; exiting." >&2
+          exit 1
+        fi
+        echo "... (check $ATTEMPTS)"
+        sleep 1
+      done
+    else
+      echo "Docker isn't running! Please start Docker and try again." >&2
+      exit 1
+    fi
+  else
+    exit 1
+  fi
+fi

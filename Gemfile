@@ -169,9 +169,6 @@ gem "after_party", "~> 1.11"
 # Handle CORS requests
 gem "rack-cors", "~> 2.0"
 
-# Send notifications with Telegram-
-gem "telegram-bot-ruby", "~> 2.0", require: 'telegram/bot'
-
 # Hash passwords with bcrypt
 gem "bcrypt", "~> 3.1"
 
@@ -209,6 +206,12 @@ gem "types_from_serializers", "~> 2.1"
 
 # Reverse DNS / IP Lookup
 gem "reversed", "~> 0.5.0"
+
+# Paginate records with Pagy
+gem "pagy", "~> 9.2"
+
+# Send web push notifications
+gem "web-push", "~> 3.0"
 
 group :development, :test do
   # Debug code with debug

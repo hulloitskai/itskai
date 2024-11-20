@@ -13,6 +13,7 @@ class PasswordStrengthChecksController < ApplicationController
         status: :unprocessable_entity,
       ) and return
     end
+
     checker = StrongPassword::StrengthChecker.new(use_dictionary: true)
     entropy = T.let(
       checker.calculate_entropy(check.password!).to_f,

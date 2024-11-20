@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_20_053509) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_20_214924) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -44,18 +44,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_20_053509) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "cathendant_memos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "from", null: false
-    t.text "transcript"
-    t.datetime "transcribed_at", precision: nil
+  create_table "add_event_emails", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "timestamp", precision: nil, null: false
+    t.string "subject"
+    t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "event_emails", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.datetime "timestamp", precision: nil, null: false
-    t.string "subject"
-    t.text "body"
+  create_table "alerts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "body", null: false
+    t.string "title", null: false
+    t.datetime "created_at", precision: nil, null: false
+  end
+
+  create_table "cathendant_memos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "from", null: false
+    t.text "transcript"
+    t.datetime "transcribed_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -212,6 +218,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_20_053509) do
     t.index ["timestamp"], name: "index_location_logs_on_timestamp"
   end
 
+  create_table "notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "delivered_at", precision: nil
+    t.string "delivery_token", null: false
+    t.string "noticeable_type", null: false
+    t.uuid "noticeable_id", null: false
+    t.datetime "pushed_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["noticeable_type", "noticeable_id"], name: "index_notifications_on_noticeable"
+  end
+
   create_table "notion_journal_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "started_at", precision: nil, null: false
     t.datetime "last_edited_at", precision: nil, null: false
@@ -299,13 +316,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_20_053509) do
     t.index ["to"], name: "index_pensieve_messages_on_to"
   end
 
-  create_table "pensieve_recordings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.text "transcription"
-    t.uuid "user_id", null: false
+  create_table "push_subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "auth_key", null: false
+    t.string "endpoint", null: false
+    t.string "p256dh_key", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "transcribed_at", precision: nil
-    t.index ["user_id"], name: "index_pensieve_recordings_on_user_id"
+    t.index ["endpoint"], name: "index_push_subscriptions_on_endpoint", unique: true
   end
 
   create_table "task_records", id: false, force: :cascade do |t|
@@ -363,5 +380,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_20_053509) do
   add_foreign_key "location_log_addresses", "location_logs"
   add_foreign_key "obsidian_relations", "obsidian_notes", column: "from_id"
   add_foreign_key "pensieve_message_likes", "pensieve_messages", column: "message_id"
-  add_foreign_key "pensieve_recordings", "users"
 end

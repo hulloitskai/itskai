@@ -56,6 +56,7 @@ class NotionJournalEntry < ApplicationRecord
   sig { params(force: T::Boolean).void }
   def sync!(force: false)
     return if !force && !sync_required?
+
     sync_attributes(notion_page)
     save!
   end

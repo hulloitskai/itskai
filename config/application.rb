@@ -32,12 +32,12 @@ module ItsKai
     require "premailer_ext"
     require "friendly_id_ext"
     require "email_validator_ext"
+    require "geocoder_ext"
 
     # == Libraries
     require "inflections"
     require "custom_devise_failure_app"
     require "announcement"
-    require "alerts"
     require "logging"
     require "owner"
     require "admin"

@@ -3,4 +3,5 @@
 # Operate from root directory
 cd "${BASH_SOURCE%/*}/.."
 
-./bin/overmind connect rails
+ATTACH_TARGET="${1:-rails}"
+./bin/overmind connect "$ATTACH_TARGET"

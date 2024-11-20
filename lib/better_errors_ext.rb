@@ -21,6 +21,7 @@ class BetterErrors::StackFrame
     sig { returns(T::Boolean) }
     def application?
       return false unless super
+
       root = BetterErrors.application_root
       root.present? &&
         !(filename.start_with?("#{root}/lib") &&

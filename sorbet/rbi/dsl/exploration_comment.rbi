@@ -6,6 +6,7 @@
 
 
 class ExplorationComment
+  include GeneratedAssociationMethods
   include GeneratedAttributeMethods
   extend CommonRelationMethods
   extend GeneratedRelationMethods
@@ -328,6 +329,29 @@ class ExplorationComment
 
     sig { returns(::ExplorationComment) }
     def third_to_last!; end
+  end
+
+  module GeneratedAssociationMethods
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Notification) }
+    def build_notification(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Notification) }
+    def create_notification(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Notification) }
+    def create_notification!(*args, &blk); end
+
+    sig { returns(T.nilable(::Notification)) }
+    def notification; end
+
+    sig { params(value: T.nilable(::Notification)).void }
+    def notification=(value); end
+
+    sig { returns(T.nilable(::Notification)) }
+    def reload_notification; end
+
+    sig { void }
+    def reset_notification; end
   end
 
   module GeneratedAssociationRelationMethods

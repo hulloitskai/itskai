@@ -85,6 +85,7 @@ module Premailer::Adapter::Nokogiri
             @processed_doc.search(selector).each do |el|
               next unless el.elem? &&
                 ((el.name != "head") && (el.parent.name != "head"))
+
               # Add a style attribute or append to the existing one
               block = "[SPEC=#{specificity}[#{declaration}]]"
               el["style"] = (el.attributes["style"].to_s ||= "") + " " + block
@@ -101,12 +102,14 @@ module Premailer::Adapter::Nokogiri
       # Parse CSS variable declarations from unmergeable rules
       unmergeable_rules.each_selector(:all) do |selector, declarations|
         next if selector.match?(Premailer::RE_UNMERGABLE_SELECTORS)
+
         suppress(Nokogiri::SyntaxError) do
           @processed_doc.search(selector).each do |el|
             rules = CssParser::RuleSet.new(nil, declarations)
             css_variables = T.let({}, CssVariables)
             rules.each_declaration do |property, value, important|
               next unless property.start_with?("--")
+
               if important
                 css_variables[property] = value
               else
@@ -144,6 +147,7 @@ module Premailer::Adapter::Nokogiri
         CssParser.merge(declarations).each_declaration do
           |property, value, is_important|
           next unless property.start_with?("--")
+
           if is_important
             css_variables[property] = value
           else
@@ -218,6 +222,7 @@ module Premailer::Adapter::Nokogiri
             end
 
             next if @options[:preserve_style_attribute]
+
             rules.instance_variable_get(:@declarations).tap do |declarations|
               declarations.delete(css_attr)
             end
@@ -298,6 +303,7 @@ module Premailer::Adapter::Nokogiri
           element,
         ) || fallback
         break unless replacement
+
         reference = if fallback_literal
           "var(#{variable_name + fallback_literal})"
         else

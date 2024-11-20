@@ -16,7 +16,7 @@ const AdminLocationLogsSyncButton: FC<AdminLocationLogsSyncButtonProps> = ({
   const { processing, submit } = useFetchForm<{
     lastSyncedTimestamp: string;
   }>({
-    action: routes.admin.syncLocationLogs,
+    action: routes.adminLocationLogs.sync,
     descriptor: "sync location logs",
     onSuccess: ({ lastSyncedTimestamp }) => {
       toast.success("Location logs synced", {

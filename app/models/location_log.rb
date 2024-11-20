@@ -69,7 +69,9 @@ class LocationLog < ApplicationRecord
   private_class_method :_latest
 
   # == Geocoding
-  reverse_geocoded_by :latitude, :longitude do |log, results|
+  reverse_geocoded_by :latitude, :longitude, lookup: ->(_log) {
+    LocationLog.reverse_geocode_lookup
+  } do |log, results|
     result = results.first or next
     result = T.cast(result, Geocoder::Result::Here)
     result_type = T.let(result.data.fetch("resultType"), String)
@@ -157,6 +159,15 @@ class LocationLog < ApplicationRecord
   end
 
   # == Geocoding
+  sig { returns(Symbol) }
+  def self.reverse_geocode_lookup
+    return :here if Rails.application.credentials.here!.alt_api_key.nil?
+
+    lookup = @last_reverse_geocode_lookup == :here ? :here_alt : :here
+    @last_reverse_geocode_lookup = lookup
+    lookup
+  end
+
   sig { params(options: T.untyped).void }
   def reverse_geocode_later(**options)
     ReverseGeocodeLocationLogJob.set(**options).perform_later(self)

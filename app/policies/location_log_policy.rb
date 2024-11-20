@@ -1,7 +1,4 @@
 # typed: true
 # frozen_string_literal: true
 
-class LocationLogPolicy < ApplicationPolicy
-  # == Rules
-  def index? = false
-end
+class LocationLogPolicy < ApplicationPolicy; end

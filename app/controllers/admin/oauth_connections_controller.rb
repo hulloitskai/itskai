@@ -8,6 +8,7 @@ module Admin
     def destroy
       provider = params.fetch(:provider)
       raise "Invalid provider" unless provider.is_a?(String)
+
       credentials = OAuthCredentials.find_by!(provider:)
       credentials.destroy!
       render(json: {})

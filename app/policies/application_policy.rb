@@ -21,17 +21,20 @@ class ApplicationPolicy < ActionPolicy::Base
   undef_method :create?
 
   sig { returns(T::Boolean) }
-  def index? = false
-
-  sig { returns(T::Boolean) }
-  def show? = true
-
-  sig { returns(T::Boolean) }
   def administrate? = false
 
   # == Scopes
   scope_matcher :frozen_record_relation, FrozenRecord::Scope
+
   relation_scope do |relation|
+    if allowed_to?(:index?)
+      relation
+    else
+      relation.none
+    end
+  end
+
+  scope_for :frozen_record_relation do |relation|
     if allowed_to?(:index?)
       relation
     else

@@ -17,6 +17,7 @@ class NotionJournalEntryRedactor
   sig { params(blocks: T::Array[T.untyped]).void }
   def redact_blocks!(blocks)
     return if redacted_phrases.empty?
+
     blocks.each do |block|
       case block.type
       when "paragraph"

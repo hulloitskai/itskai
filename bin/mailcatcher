@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
+set -e
+
 # Operate from root directory
 cd "${BASH_SOURCE%/*}/.."
 
+# Boot Docker
+bin/boot_docker
+
+# Tail logs if Mailcatcher already running; else run Mailcatcher
 if [ -f ./tmp/pids/mailcatcher.cid ]; then
   echo "Mailcatcher is already running; tailing logs..." >&2
   trap "exit 0" INT

@@ -6,7 +6,9 @@
 // biome-ignore lint: disable
 export {}
 declare global {
+  const AccountIcon: typeof import('~/components/icons')['AccountIcon']
   const AddIcon: typeof import('~/components/icons')['AddIcon']
+  const AdminIcon: typeof import('~/components/icons')['AdminIcon']
   const Alert: typeof import('@mantine/core')['Alert']
   const AlertIcon: typeof import('~/components/icons')['AlertIcon']
   const Anchor: typeof import('@mantine/core')['Anchor']
@@ -31,20 +33,25 @@ declare global {
   const Duration: typeof import('luxon')['Duration']
   const EditIcon: typeof import('~/components/icons')['EditIcon']
   const EmptyCard: typeof import('~/components')['EmptyCard']
+  const ExplorationCommentIcon: typeof import('~/components/icons')['ExplorationCommentIcon']
   const Flex: typeof import('@mantine/core')['Flex']
   const FullStory: typeof import('@fullstory/browser')['FullStory']
   const Group: typeof import('@mantine/core')['Group']
   const Head: typeof import('~/components')['Head']
+  const HomeIcon: typeof import('~/components/icons')['HomeIcon']
   const Link: typeof import('@inertiajs/react')['Link']
   const List: typeof import('@mantine/core')['List']
   const LoadingOverlay: typeof import('@mantine/core')['LoadingOverlay']
   const Menu: typeof import('@mantine/core')['Menu']
+  const NotificationIcon: typeof import('~/components/icons')['NotificationIcon']
   const OpenExternalIcon: typeof import('~/components/icons')['OpenExternalIcon']
   const RemoveIcon: typeof import('~/components/icons')['RemoveIcon']
   const SaveIcon: typeof import('~/components/icons')['SaveIcon']
   const SearchIcon: typeof import('~/components/icons')['SearchIcon']
   const SendIcon: typeof import('~/components/icons')['SendIcon']
   const SettingsIcon: typeof import('~/components/icons')['SettingsIcon']
+  const SignInIcon: typeof import('~/components/icons')['SignInIcon']
+  const SignOutIcon: typeof import('~/components/icons')['SignOutIcon']
   const Skeleton: typeof import('@mantine/core')['Skeleton']
   const Space: typeof import('@mantine/core')['Space']
   const Stack: typeof import('@mantine/core')['Stack']
@@ -101,7 +108,7 @@ declare global {
   const startTransition: typeof import('react')['startTransition']
   const take: typeof import('lodash-es')['take']
   const toast: typeof import('sonner')['toast']
-  const toastChangesSaved: typeof import('~/helpers/notifications')['toastChangesSaved']
+  const toastChangesSaved: typeof import('~/helpers/alerts')['toastChangesSaved']
   const uniqBy: typeof import('lodash-es')['uniqBy']
   const useAuthenticatedUser: typeof import('~/helpers/authentication')['useAuthenticatedUser']
   const useCable: typeof import('~/helpers/actioncable')['useCable']
@@ -136,7 +143,7 @@ declare global {
   export type { ComponentPropsWithoutRef, FC, PropsWithChildren, ReactNode } from 'react'
   import('react')
   // @ts-ignore
-  export type { BoxProps } from '@mantine/core'
+  export type { BoxProps, TextProps } from '@mantine/core'
   import('@mantine/core')
   // @ts-ignore
   export type { PageComponent } from '~/helpers/inertia'

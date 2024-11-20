@@ -17,6 +17,7 @@ module Admin
           status: :unprocessable_entity,
         ) and return
       end
+
       result = ICloudctl.login(
         email: credentials.email,
         password: credentials.password,
@@ -55,6 +56,7 @@ module Admin
           status: :unprocessable_entity,
         ) and return
       end
+
       ICloudctl.verify_security_code(verification.code!)
       connection = ICloudConnection.current
       render(json: {

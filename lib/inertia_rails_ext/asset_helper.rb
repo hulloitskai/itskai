@@ -14,6 +14,7 @@ module InertiaRails
     def inertia_assets(type:, **options)
       component = InertiaRails.page&.fetch(:component)
       return unless component.is_a?(String)
+
       name = component + ".tsx"
       path = File.join(type.to_s.pluralize, name)
       vite_javascript_tag(path, **options)

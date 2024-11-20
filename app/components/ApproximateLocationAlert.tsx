@@ -9,27 +9,28 @@ import { type ApproximateLocation } from "~/types";
 export interface ApproximateLocationAlertProps
   extends Omit<AlertProps, "title" | "styles" | "children">,
     Omit<ComponentPropsWithoutRef<"div">, "color" | "style" | "children"> {
-  initialLocation: ApproximateLocation | null;
+  location: ApproximateLocation | null;
   onUpdate: (location: ApproximateLocation) => void;
 }
 
 const ApproximateLocationAlert: FC<ApproximateLocationAlertProps> = ({
-  initialLocation,
+  location: initialLocation,
   onUpdate,
   ...otherProps
 }) => {
   const colorScheme = useColorScheme();
 
   // == Subscription
-  const { data: locationData } = useSubscription<{
+  const { data } = useSubscription<{
     location: ApproximateLocation;
   }>("ApproximateLocationUpdatesChannel", {
     descriptor: "subscribe to approximate location updates",
+    fallbackData: { location: initialLocation },
     onData: ({ location }) => {
       onUpdate(location);
     },
   });
-  const { location = initialLocation } = locationData ?? {};
+  const location = data?.location ?? initialLocation;
 
   return (
     <Alert

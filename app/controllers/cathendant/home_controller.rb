@@ -9,6 +9,7 @@ module Cathendant
       if request.hostname == "cathy.earth" && request.path != "/"
         redirect_to(root_path) and return
       end
+
       memos = Memo.chronological
       render(inertia: "CathendantHomePage", props: {
         memos: MemoSerializer.many(memos),

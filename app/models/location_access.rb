@@ -23,6 +23,8 @@
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class LocationAccess < ApplicationRecord
+  include Noticeable
+
   # == Attributes
   attribute :token, default: -> { Devise.friendly_token }
   alias_attribute :timestamp, :created_at
@@ -39,16 +41,24 @@ class LocationAccess < ApplicationRecord
   scope :valid, -> { joins(:grant).merge(LocationAccessGrant.valid) }
 
   # == Callbacks
-  after_create_commit :send_notification
+  after_create :create_notification!
+
+  # == Noticeable
+  sig { override.returns(String) }
+  def notification_title = "Location accessed"
+
+  sig { override.returns(String) }
+  def notification_body
+    grant = grant!
+    "#{grant.recipient} (pw: #{grant.password}) accessed your location on " \
+      "#{I18n.l(created_at, format: :short)}"
+  end
 
   private
 
   # == Callback handlers
   sig { void }
-  def send_notification
-    grant = grant!
-    AlertBot.alert(
-      "Location accessed by #{grant.recipient} (pw: #{grant.password})",
-    )
+  def create_notification!
+    Notification.create!(noticeable: self)
   end
 end

@@ -2,13 +2,7 @@ import { type InertiaLinkProps } from "@inertiajs/react";
 import { Avatar, Loader, type MenuItemProps, Text } from "@mantine/core";
 
 import LocateIcon from "~icons/basil/current-location-solid";
-import SignOutIcon from "~icons/heroicons/arrow-left-on-rectangle-20-solid";
-import SignInIcon from "~icons/heroicons/arrow-right-on-rectangle-20-solid";
 import SmileIcon from "~icons/heroicons/face-smile-20-solid";
-import HomeIcon from "~icons/heroicons/home-20-solid";
-import AdminIcon from "~icons/heroicons/key-20-solid";
-import SendIcon from "~icons/heroicons/paper-airplane-20-solid";
-import AccountIcon from "~icons/heroicons/wrench-screwdriver-20-solid";
 
 import { useContact } from "~/helpers/contact";
 import { type Status } from "~/types";

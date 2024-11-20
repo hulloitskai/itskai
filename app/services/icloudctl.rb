@@ -122,6 +122,7 @@ class ICloudctl < ApplicationService
     error_class: nil
   )
     return if response.success?
+
     error = response.body["error"] or return
     error_class = ServiceError if error_class.nil?
     raise error_class, error

@@ -82,6 +82,7 @@ class TimelineActivity < ApplicationRecord
     )
     activity = find_or_initialize_by(type:, duration:)
     return activity if activity.persisted?
+
     case activity.type.to_sym
     when :activity_segment
       activity.location = parse_google_activity_segment_location(

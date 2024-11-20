@@ -954,6 +954,35 @@ class Geocoder::Lookup::Base
   def valid_response?(response); end
 end
 
+# source://geocoder//lib/geocoder/lookups/here.rb#5
+class Geocoder::Lookup::Here < ::Geocoder::Lookup::Base
+  # source://geocoder//lib/geocoder/lookups/here.rb#7
+  def name; end
+
+  # source://geocoder//lib/geocoder/lookups/here.rb#11
+  def required_api_key_parts; end
+
+  # source://geocoder//lib/geocoder/lookups/here.rb#15
+  def supported_protocols; end
+
+  private
+
+  # source://geocoder//lib/geocoder/lookups/here.rb#64
+  def api_key_not_string!; end
+
+  # source://geocoder//lib/geocoder/lookups/here.rb#21
+  def base_query_url(query); end
+
+  # source://geocoder//lib/geocoder/lookups/here.rb#38
+  def query_url_here_options(query, reverse_geocode); end
+
+  # source://geocoder//lib/geocoder/lookups/here.rb#52
+  def query_url_params(query); end
+
+  # source://geocoder//lib/geocoder/lookups/here.rb#27
+  def results(query); end
+end
+
 # source://geocoder//lib/geocoder/lookups/test.rb#6
 class Geocoder::Lookup::Test < ::Geocoder::Lookup::Base
   # source://geocoder//lib/geocoder/lookups/test.rb#8
@@ -1365,112 +1394,6 @@ class Geocoder::Result::Here < ::Geocoder::Result::Base
 
   # source://geocoder//lib/geocoder/results/here.rb#73
   def address_data; end
-end
-
-# source://geocoder//lib/geocoder/results/nominatim.rb#4
-class Geocoder::Result::Nominatim < ::Geocoder::Result::Base
-  # source://geocoder//lib/geocoder/results/nominatim.rb#15
-  def address; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#109
-  def boundingbox; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#26
-  def city; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#67
-  def city_district; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#83
-  def coordinates; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#55
-  def country; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#59
-  def country_code; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#51
-  def county; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#109
-  def display_name; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#11
-  def house_number; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#109
-  def license; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#79
-  def municipality; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#75
-  def neighbourhood; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#109
-  def osm_id; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#109
-  def osm_type; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#89
-  def place_class; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#109
-  def place_id; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#93
-  def place_type; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#6
-  def poi; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#109
-  def polygonpoints; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#47
-  def postal_code; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#109
-  def stadium; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#41
-  def state; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#41
-  def state_code; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#71
-  def state_district; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#19
-  def street; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#63
-  def suburb; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#37
-  def town; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#109
-  def type; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#97
-  def viewport; end
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#33
-  def village; end
-
-  private
-
-  # source://geocoder//lib/geocoder/results/nominatim.rb#117
-  def address_data; end
-
-  class << self
-    # source://geocoder//lib/geocoder/results/nominatim.rb#102
-    def response_attributes; end
-  end
 end
 
 # source://geocoder//lib/geocoder/results/test.rb#5

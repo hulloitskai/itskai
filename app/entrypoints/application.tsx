@@ -17,6 +17,7 @@ import {
 import { preparePage } from "~/helpers/inertia/page/client";
 import { setupLuxon } from "~/helpers/luxon";
 import { setupSentry } from "~/helpers/sentry";
+import { registerServiceWorker } from "~/helpers/serviceWorker";
 
 // == Setup
 setupInertia();
@@ -25,6 +26,7 @@ setupLuxon();
 setupActiveStorage();
 setupSentry();
 setupFullStory();
+void registerServiceWorker();
 
 // == Pages
 const pageImports = import.meta.glob("~/pages/*.tsx", {

@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    // == Paths
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["app/*"]
+    },
+
+    // == Language
+    "module": "ES2022",
+    "lib": ["DOM", "WebWorker"],
+    "types": ["node", "vite/client"],
+    "skipDefaultLibCheck": true /* Skip type checking .d.ts files that are included with TypeScript. */,
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+
+    // == Mode
+    "moduleResolution": "Node",
+    "isolatedModules": true,
+    "incremental": true,
+    "composite": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./dist",
+
+    // == Linting
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUncheckedIndexedAccess": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": [
+    "app/types/**/*.ts",
+    "app/helpers/routes/**/*.ts",
+    "app/helpers/fetch/setup.ts",
+    "app/workers/service-worker.ts",
+    "typings/env.d.ts",
+    "typings/service-worker.d.ts"
+  ]
+}

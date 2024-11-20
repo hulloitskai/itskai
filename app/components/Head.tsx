@@ -1,5 +1,5 @@
 import { Head as _Head } from "@inertiajs/react";
-import { type ComponentProps, type FC } from "react";
+import { type ComponentProps } from "react";
 
 export interface HeadProps extends ComponentProps<typeof _Head> {}
 

@@ -10,13 +10,14 @@ class HomeController < ApplicationController
     else
       home_params = HomeParameters.new(params)
       home_params.validate!
+      explorations = authorized_scope(Exploration.all, with: ExplorationPolicy)
       specified_journal_entry = if (id = home_params.journal_entry_id)
         NotionJournalEntry.with_content.find(id)
       end
       first_journal_entry = NotionJournalEntry.with_content.ordered.first
       render(inertia: "HomePage", props: {
         announcement: Announcement.current,
-        explorations: ExplorationSerializer.many(Exploration.all),
+        explorations: ExplorationSerializer.many(explorations),
         "approximateLocation" => ApproximateLocationSerializer
           .one_if(LocationLog.latest_visible),
         "journalEntry" => NotionJournalEntrySerializer

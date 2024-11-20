@@ -15,6 +15,8 @@
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class ExplorationComment < ApplicationRecord
+  include Noticeable
+
   # == Associations
   sig { returns(Exploration) }
   def exploration
@@ -25,15 +27,27 @@ class ExplorationComment < ApplicationRecord
   validates :message, :author_contact, presence: true
 
   # == Callbacks
-  after_create_commit :send_notification
-
-  private
+  after_create :create_notification!
 
   # == Callback handlers
   sig { void }
-  def send_notification
-    AlertBot.alert(
-      "New comment on '#{exploration.label}': #{message}",
-    )
+  def create_notification!
+    Notification.create!(noticeable: self)
+  end
+
+  # == Noticeable
+  sig { override.returns(String) }
+  def notification_title
+    "New comment on \"#{exploration.label}\""
+  end
+
+  sig { override.returns(String) }
+  def notification_body
+    message
+  end
+
+  sig { override.returns(T.nilable(String)) }
+  def notification_action_url
+    Rails.application.routes.url_helpers.admin_exploration_comments_path
   end
 end

@@ -13,11 +13,9 @@ class LocationsController < ApplicationController
     location_params.validate!
     access_token = location_params.access_token
     if access_token
-      access_grant = LocationAccessGrant
-        .valid
-        .joins(:accesses)
-        .find_by(accesses: { token: access_token })
-      raise "Invalid access token" unless access_grant
+      access_grant = LocationAccessGrant.valid
+        .joins(:accesses).find_by(accesses: { token: access_token }) or
+        raise "Invalid access token"
       render(inertia: "LocatePage", props: {
         location: LocationWithTrailSerializer.one_if(location),
         "accessToken" => access_token,
@@ -73,7 +71,7 @@ class LocationsController < ApplicationController
 
   # GET /locate/grant
   def grant
-    authorize!(with: LocatePolicy)
+    authorize!(to: :create?, with: LocationAccessGrantPolicy)
     recipient = l(Time.current, format: :short)
     expires_at = 3.hours.from_now
     grant = LocationAccessGrant.create!(recipient:, expires_at:)

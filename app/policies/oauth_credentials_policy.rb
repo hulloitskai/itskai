@@ -1,7 +1,4 @@
 # typed: true
 # frozen_string_literal: true
 
-class OAuthCredentialsPolicy < ApplicationPolicy
-  # == Rules
-  def show? = false
-end
+class OAuthCredentialsPolicy < ApplicationPolicy; end

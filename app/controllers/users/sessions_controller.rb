@@ -30,9 +30,11 @@ module Users
     # == Filter handlers
     sig { void }
     def store_redirect_location
-      if (url = params[:redirect_url].presence)
-        raise "Redirect URL must be a string" unless url.is_a?(String)
+      url = params[:redirect_url].presence or return
+      if url.is_a?(String)
         store_location_for(:user, url)
+      else
+        raise "Redirect URL must be a string"
       end
     end
   end

@@ -3,18 +3,18 @@ import {
   type AppShellProps,
   Breadcrumbs,
   type ContainerProps,
-  Image,
   type MantineSize,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
-import logoSrc from "~/assets/images/logo-circle.png";
+import { type SidebarControls } from "~/helpers/sidebar";
 
-import AppMenu from "./AppMenu";
+import AppHeader from "./AppHeader";
 import AppMeta, { type AppMetaProps } from "./AppMeta";
 import Attribution from "./Attribution";
-import CurrentlyPlayingIsland from "./CurrentlyPlayingIsland";
 import PageContainer from "./PageContainer";
 import PageLayout from "./PageLayout";
+import { SidebarControlsProvider } from "./SidebarControlsProvider";
 
 import classes from "./AppLayout.module.css";
 
@@ -29,6 +29,7 @@ export interface AppLayoutProps<PageProps extends SharedPageProps>
   containerProps?: ContainerProps;
   withGutter?: boolean;
   gutterSize?: MantineSize | (string & {}) | number;
+  sidebar?: DynamicProp<PageProps, ReactNode>;
 }
 
 export type DynamicProp<PageProps extends SharedPageProps, T> =
@@ -51,6 +52,7 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
   containerProps,
   withGutter,
   gutterSize,
+  sidebar: sidebarProp,
   children,
   padding,
   ...otherProps
@@ -67,6 +69,23 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
       ? resolveDynamicProp(breadcrumbsProp, pageProps).filter(x => !!x)
       : [];
   }, [breadcrumbsProp, pageProps]);
+
+  // == Sidebar
+  const sidebar = useResolveDynamicProp(sidebarProp, pageProps);
+  const [
+    sidebarOpened,
+    { toggle: toggleSidebar, close: closeSidebar, open: openSidebar },
+  ] = useDisclosure();
+  const sidebarControls = useMemo<SidebarControls | null>(() => {
+    return sidebar
+      ? {
+          opened: sidebarOpened,
+          toggle: toggleSidebar,
+          close: closeSidebar,
+          open: openSidebar,
+        }
+      : null;
+  }, [sidebar, sidebarOpened, toggleSidebar, closeSidebar, openSidebar]);
 
   // == Content
   const { style: containerStyle, ...otherContainerProps } =
@@ -87,90 +106,68 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
     children
   );
 
+  const shell = (
+    <AppShell
+      header={{ height: 46 }}
+      {...(sidebar && {
+        navbar: {
+          width: 240,
+          breakpoint: "sm",
+          collapsed: { mobile: !sidebarOpened },
+        },
+      })}
+      footer={{ height: 44 }}
+      padding={padding ?? (withContainer ? undefined : "md")}
+      {...otherProps}
+    >
+      <AppHeader />
+      {sidebar}
+      <AppShell.Main className={classes.main}>
+        {!isEmpty(breadcrumbs) && (
+          <Breadcrumbs
+            mx={10}
+            mt={6}
+            classNames={{
+              separator: classes.breadcrumbSeparator,
+            }}
+            styles={{
+              root: {
+                flexWrap: "wrap",
+                rowGap: rem(4),
+              },
+              separator: {
+                marginLeft: 6,
+                marginRight: 6,
+              },
+            }}
+          >
+            {breadcrumbs.map(({ title, href }, index) => (
+              <Anchor component={Link} href={href} key={index} size="sm">
+                {title}
+              </Anchor>
+            ))}
+          </Breadcrumbs>
+        )}
+        {content}
+      </AppShell.Main>
+      <Box
+        h="var(--app-shell-footer-height)"
+        px={8}
+        style={{
+          overflow: "hidden",
+          borderTop: `${rem(1)} solid var(--app-shell-border-color)`,
+        }}
+      >
+        <Attribution h="100%" style={{ flexShrink: 1 }} />
+      </Box>
+    </AppShell>
+  );
   return (
     <PageLayout>
       <AppMeta {...{ title, description, imageUrl, noIndex }} />
-      <AppShell
-        header={{ height: 46 }}
-        footer={{ height: 44 }}
-        padding={padding ?? (withContainer ? undefined : "md")}
-        styles={{
-          header: {
-            padding: 8,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            columnGap: 6,
-          },
-          main: {
-            flexGrow: 1,
-            minHeight: "calc(100dvh - var(--app-shell-footer-height, 0px))",
-            paddingBottom: 0,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "stretch",
-          },
-        }}
-        {...otherProps}
-      >
-        <AppShell.Header>
-          <Button
-            component={Link}
-            href={routes.home.show.path()}
-            variant="subtle"
-            size="compact-md"
-            leftSection={<Image src={logoSrc} w={24} />}
-            h="unset"
-            py={2}
-            px={4}
-            fw={800}
-            fz="md"
-            className={classes.logoButton}
-          >
-            It&apos;s Kai
-          </Button>
-          <CurrentlyPlayingIsland />
-          <AppMenu style={{ flexShrink: 0 }} />
-        </AppShell.Header>
-        <AppShell.Main>
-          {!isEmpty(breadcrumbs) && (
-            <Breadcrumbs
-              mx={10}
-              mt={6}
-              classNames={{
-                separator: classes.breadcrumbSeparator,
-              }}
-              styles={{
-                root: {
-                  flexWrap: "wrap",
-                  rowGap: rem(4),
-                },
-                separator: {
-                  marginLeft: 6,
-                  marginRight: 6,
-                },
-              }}
-            >
-              {breadcrumbs.map(({ title, href }, index) => (
-                <Anchor component={Link} href={href} key={index} size="sm">
-                  {title}
-                </Anchor>
-              ))}
-            </Breadcrumbs>
-          )}
-          {content}
-        </AppShell.Main>
-        <Box
-          h="var(--app-shell-footer-height)"
-          px={8}
-          style={{
-            overflow: "hidden",
-            borderTop: `${rem(1)} solid var(--app-shell-border-color)`,
-          }}
-        >
-          <Attribution h="100%" style={{ flexShrink: 1 }} />
-        </Box>
-      </AppShell>
+      <SidebarControlsProvider controls={sidebarControls}>
+        {shell}
+      </SidebarControlsProvider>
     </PageLayout>
   );
 };

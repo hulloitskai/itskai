@@ -151,7 +151,7 @@ const HomePage: PageComponent<HomePageProps> = ({
       >
         {style => (
           <ApproximateLocationAlert
-            initialLocation={approximateLocation}
+            location={approximateLocation}
             onUpdate={location => {
               startTransition(() => {
                 setShowLocation(!!location);

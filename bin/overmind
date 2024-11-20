@@ -15,6 +15,7 @@ if ! command -v overmind &> /dev/null; then
   brew install overmind
 fi
 
+# Configure Overmind
 if [ -z "$OVERMIND_ENV" ]; then
   OVERMIND_ENV="${RAILS_ENV:-development}"
 fi
@@ -23,5 +24,6 @@ export OVERMIND_NO_PORT=1
 export OVERMIND_SOCKET=./tmp/sockets/overmind.${OVERMIND_ENV}.sock
 export OVERMIND_SHELL=bash
 
+# Run commands
 unset OVERMIND_ENV
 overmind $@
