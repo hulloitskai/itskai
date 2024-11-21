@@ -69,9 +69,7 @@ class LocationLog < ApplicationRecord
   private_class_method :_latest
 
   # == Geocoding
-  reverse_geocoded_by :latitude, :longitude, lookup: ->(_log) {
-    LocationLog.reverse_geocode_lookup
-  } do |log, results|
+  reverse_geocoded_by :latitude, :longitude do |log, results|
     result = results.first or next
     result = T.cast(result, Geocoder::Result::Here)
     result_type = T.let(result.data.fetch("resultType"), String)
@@ -98,6 +96,7 @@ class LocationLog < ApplicationRecord
   sig { override.returns(T.untyped) }
   def reverse_geocode
     with_log_tags { logger.info("Reverse-geocoding log with id `#{id}'") }
+    alternate_geocoding_api_keys!
     super
   end
 
@@ -159,15 +158,6 @@ class LocationLog < ApplicationRecord
   end
 
   # == Geocoding
-  sig { returns(Symbol) }
-  def self.reverse_geocode_lookup
-    return :here if Rails.application.credentials.here!.alt_api_key.nil?
-
-    lookup = @last_reverse_geocode_lookup == :here ? :here_alt : :here
-    @last_reverse_geocode_lookup = lookup
-    lookup
-  end
-
   sig { params(options: T.untyped).void }
   def reverse_geocode_later(**options)
     ReverseGeocodeLocationLogJob.set(**options).perform_later(self)
@@ -184,5 +174,24 @@ class LocationLog < ApplicationRecord
         count += 1
       end
     count
+  end
+
+  private
+
+  # == Helpers
+  sig { void }
+  def alternate_geocoding_api_keys!
+    api_key = T.let(here_credentials.api_key!, String)
+    alt_api_key = T.let(here_credentials.alt_api_key, T.nilable(String))
+    return if alt_api_key.nil?
+
+    current_api_key = Geocoder.config[:api_key]
+    next_api_key = current_api_key == api_key ? alt_api_key : api_key
+    Geocoder.configure(api_key: next_api_key)
+  end
+
+  sig { returns(T.untyped) }
+  def here_credentials
+    Rails.application.credentials.here!
   end
 end

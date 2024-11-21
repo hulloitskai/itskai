@@ -13,7 +13,4 @@ unless ENV["NO_CREDENTIALS"]
     lookup: :here,
     api_key: Rails.application.credentials.here!.api_key!,
   )
-  if (api_key = Rails.application.credentials.here!.alt_api_key)
-    Geocoder.configure(lookup: :here_alt, api_key:)
-  end
 end
