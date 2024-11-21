@@ -27,12 +27,12 @@ module Admin
       )
       if grant.save
         render(
-          json: { grant: LocationAccessGrantSerializer.one(@grant) },
+          json: { grant: LocationAccessGrantSerializer.one(grant) },
           status: :created,
         )
       else
         render(
-          json: { errors: @grant.form_errors },
+          json: { errors: grant.form_errors },
           status: :unprocessable_entity,
         )
       end
