@@ -28,6 +28,9 @@ module GeneratedPathHelpersModule
   def admin_location_access_grants_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def admin_notifications_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def admin_oauth_connection_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

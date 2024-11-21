@@ -70,6 +70,7 @@ class PushSubscription < ApplicationRecord
         body:
           "This is a test notification. If you are seeing this, then your " \
           "push notifications are working!",
+        action_url: Rails.application.routes.url_helpers.admin_settings_path,
       },
     }
     push_message(message.to_json)

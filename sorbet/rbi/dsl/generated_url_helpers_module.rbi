@@ -28,6 +28,9 @@ module GeneratedUrlHelpersModule
   def admin_location_access_grants_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def admin_notifications_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def admin_oauth_connection_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

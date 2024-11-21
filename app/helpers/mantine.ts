@@ -19,6 +19,7 @@ import {
 } from "@mantine/core";
 
 import classes from "./mantine.module.css";
+import "./mantine.css";
 
 export type CustomColors = "primary" | "accent" | DefaultMantineColor;
 

@@ -319,11 +319,20 @@ class LocationAccess
     sig { params(args: T.untyped, blk: T.untyped).returns(::LocationAccessGrant) }
     def build_grant(*args, &blk); end
 
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Notification) }
+    def build_notification(*args, &blk); end
+
     sig { params(args: T.untyped, blk: T.untyped).returns(::LocationAccessGrant) }
     def create_grant(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::LocationAccessGrant) }
     def create_grant!(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Notification) }
+    def create_notification(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Notification) }
+    def create_notification!(*args, &blk); end
 
     sig { returns(T.nilable(::LocationAccessGrant)) }
     def grant; end
@@ -331,11 +340,23 @@ class LocationAccess
     sig { params(value: T.nilable(::LocationAccessGrant)).void }
     def grant=(value); end
 
+    sig { returns(T.nilable(::Notification)) }
+    def notification; end
+
+    sig { params(value: T.nilable(::Notification)).void }
+    def notification=(value); end
+
     sig { returns(T.nilable(::LocationAccessGrant)) }
     def reload_grant; end
 
+    sig { returns(T.nilable(::Notification)) }
+    def reload_notification; end
+
     sig { void }
     def reset_grant; end
+
+    sig { void }
+    def reset_notification; end
   end
 
   module GeneratedAssociationRelationMethods

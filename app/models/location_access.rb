@@ -54,6 +54,11 @@ class LocationAccess < ApplicationRecord
       "#{I18n.l(created_at, format: :short)}"
   end
 
+  sig { override.returns(String) }
+  def notification_action_url
+    Rails.application.routes.url_helpers.admin_notifications_path
+  end
+
   private
 
   # == Callback handlers

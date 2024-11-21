@@ -10,6 +10,7 @@ class Notification
   include GeneratedAttributeMethods
   extend CommonRelationMethods
   extend GeneratedRelationMethods
+  include GeneratedSecureTokenMethods
 
   private
 
@@ -316,38 +317,17 @@ class Notification
   end
 
   module GeneratedAssociationMethods
-    sig { params(args: T.untyped, blk: T.untyped).returns(::User) }
-    def build_recipient(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(::User) }
-    def create_recipient(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(::User) }
-    def create_recipient!(*args, &blk); end
-
     sig { returns(T.untyped) }
     def noticeable; end
 
     sig { params(value: T.untyped).void }
     def noticeable=(value); end
 
-    sig { returns(T.nilable(::User)) }
-    def recipient; end
-
-    sig { params(value: T.nilable(::User)).void }
-    def recipient=(value); end
-
     sig { returns(T.untyped) }
     def reload_noticeable; end
 
-    sig { returns(T.nilable(::User)) }
-    def reload_recipient; end
-
     sig { void }
     def reset_noticeable; end
-
-    sig { void }
-    def reset_recipient; end
   end
 
   module GeneratedAssociationRelationMethods
@@ -1227,6 +1207,11 @@ class Notification
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end
+  end
+
+  module GeneratedSecureTokenMethods
+    sig { returns(T::Boolean) }
+    def regenerate_delivery_token; end
   end
 
   class PrivateAssociationRelation < ::ActiveRecord::AssociationRelation
