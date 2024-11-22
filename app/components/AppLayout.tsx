@@ -116,8 +116,10 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
           collapsed: { mobile: !sidebarOpened },
         },
       })}
-      footer={{ height: 44 }}
       padding={padding ?? (withContainer ? undefined : "md")}
+      style={{
+        "--app-shell-footer-height": rem(44),
+      }}
       {...otherProps}
     >
       <AppHeader />
@@ -153,6 +155,8 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
       <Box
         h="var(--app-shell-footer-height)"
         px={8}
+        ml="var(--app-shell-navbar-offset, 0px)"
+        mb="env(safe-area-inset-bottom, 0px)"
         style={{
           overflow: "hidden",
           borderTop: `${rem(1)} solid var(--app-shell-border-color)`,

@@ -29,7 +29,6 @@ const AppHeader = forwardRef<HTMLDivElement, AppHeaderProps>(
                 onClick={sidebarControls.toggle}
                 hiddenFrom="sm"
                 size="sm"
-                color="dark"
               />
             )}
             <Button

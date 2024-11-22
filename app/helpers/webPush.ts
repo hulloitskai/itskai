@@ -3,10 +3,10 @@ import { createContext, useContext } from "react";
 import { type PushSubscriptionRegistration } from "~/types";
 
 import { type FetchRouteResponse } from "./fetch";
-import { getServiceWorkerRegistration } from "./serviceWorker";
+import { getOrRegisterServiceWorker } from "./serviceWorker";
 
 const getPushManager = (): Promise<PushManager> =>
-  getServiceWorkerRegistration().then(({ pushManager }) => pushManager);
+  getOrRegisterServiceWorker().then(({ pushManager }) => pushManager);
 
 export const getPushSubscription = (): Promise<PushSubscription | null> =>
   getPushManager().then(pushManager => pushManager.getSubscription());
@@ -203,6 +203,6 @@ const createApplicationServerKey = (publicKey: string): Uint8Array =>
   });
 
 const fetchPublicKey = (): Promise<string> =>
-  fetchRoute<{ public_key: string }>(routes.pushSubscriptions.publicKey, {
+  fetchRoute<{ publicKey: string }>(routes.pushSubscriptions.publicKey, {
     descriptor: "load web push public key",
-  }).then(({ public_key }) => public_key);
+  }).then(({ publicKey }) => publicKey);

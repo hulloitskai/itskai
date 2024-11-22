@@ -55,7 +55,7 @@ class PushSubscriptionsController < ApplicationController
   def public_key
     public_key = Rails.application.credentials.web_push!.public_key!
     render(json: {
-      public_key: encode_public_key(public_key),
+      "publicKey" => encode_public_key(public_key),
     })
   end
 

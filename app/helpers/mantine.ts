@@ -127,6 +127,16 @@ export const THEME = createTheme({
         },
       }),
     }),
+    Textarea: Textarea.extend({
+      defaultProps: {
+        variant: "filled",
+      },
+      styles: ({ fontSizes }) => ({
+        input: {
+          fontSize: fontSizes.md,
+        },
+      }),
+    }),
     ThemeIcon: ThemeIcon.extend({
       defaultProps: {
         variant: "default",

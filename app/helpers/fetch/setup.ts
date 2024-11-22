@@ -35,7 +35,8 @@ export const setupFetch = (): void => {
     return fetch(url, requestInit)
       .then(async response => {
         if (response.status >= 200 && response.status < 300) return response;
-        throw await Config.unwrapResponseError(response, responseAs);
+        const error = await Config.unwrapResponseError(response, responseAs);
+        throw error;
       })
       .catch((error: ResponseError) => Config.onResponseError(error));
   };

@@ -4,9 +4,11 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  min-height: calc(100dvh - var(--app-shell-footer-height, 0px));
+  padding-bottom: 0px;
 
   --app-shell-footer-offset: calc(
-    var(--app-shell-footer-height, 0) + env(safe-area-inset-bottom)
+    var(--app-shell-footer-height, 0px) + env(safe-area-inset-bottom, 0px)
   );
 }
 

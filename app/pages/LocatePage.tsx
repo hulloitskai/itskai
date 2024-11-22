@@ -1,4 +1,4 @@
-import { rgba, Text } from "@mantine/core";
+import { getPrimaryShade, rgba, Text } from "@mantine/core";
 import circle from "@turf/circle";
 import { type Feature, type FeatureCollection, type Point } from "geojson";
 import { DateTime, type Duration } from "luxon";
@@ -170,14 +170,11 @@ const LocatePage: PageComponent<LocatePageProps> = ({
       };
     }
   }, [location?.trail_markers, deriveTrailMarkerOpacity]);
-  const trailMarkerColor = useMemo(() => {
-    const { color } = theme.variantColorResolver({
-      theme,
-      color: "primary",
-      variant: "filled",
-    });
-    return color;
-  }, [theme]);
+  const { colorScheme } = useMantineColorScheme();
+  const trailMarkerColor = useMemo(
+    () => theme.colors.primary[getPrimaryShade(theme, colorScheme)],
+    [theme, colorScheme],
+  );
 
   // == Trail segments
   const trailSegmentColor = theme.colors.primary[4];

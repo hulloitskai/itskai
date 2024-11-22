@@ -89,38 +89,37 @@ self.addEventListener("notificationclick", event => {
   console.debug("Notification clicked", event);
   event.notification.close(); // Android needs explicit close
   const { notification } = event.notification.data as NotificationData;
-  if (notification.action_url) {
-    const url = new URL(notification.action_url, self.location.href).toString();
-    event.waitUntil(
-      // Open the target URL
-      self.clients
-        .matchAll({ type: "window", includeUncontrolled: true })
-        .then(clients => {
-          // Check if there is already a window/tab open with the target URL
-          for (const client of clients) {
-            // If so, just focus it.
-            console.debug("Client URL:", client.url);
-            console.debug("Target URL:", url);
-            if (pathname(client.url) === pathname(url)) {
-              return client.focus().then(client => {
-                if (client.url !== url) {
-                  // NOTE: This doesn't seem to work?
-                  //
-                  // See: https://stackoverflow.com/questions/68949151/how-to-solve-service-worker-navigate-this-service-worker-is-not-the-clients-ac
-                  // return client.navigate(url);
-
-                  // So instead, use postMessage
-                  client.postMessage({ action: "navigate", url });
-                }
-                return client;
-              });
-            }
+  const actionUrl =
+    notification.action_url ?? routes.adminNotifications.index.path();
+  const url = new URL(actionUrl, self.location.href).toString();
+  event.waitUntil(
+    // Open the target URL
+    self.clients
+      .matchAll({ type: "window", includeUncontrolled: true })
+      .then(clients => {
+        // Check if there is already a window/tab open with the target path
+        for (const client of clients) {
+          if (pathname(client.url) !== pathname(url)) {
+            continue;
           }
-          // If not, then open the target URL in a new window/tab.
-          return self.clients.openWindow(url);
-        }),
-    );
-  }
+          // If so, focus it and go to the target URL
+          return client.focus().then(client => {
+            if (client.url !== url) {
+              // NOTE: This doesn't seem to work?
+              //
+              // See: https://stackoverflow.com/questions/68949151/how-to-solve-service-worker-navigate-this-service-worker-is-not-the-clients-ac
+              // return client.navigate(url);
+
+              // So instead, use postMessage to trigger client-side navigation
+              client.postMessage({ action: "navigate", url });
+            }
+            return client;
+          });
+        }
+        // If not, then open the target URL in a new window/tab.
+        return self.clients.openWindow(url);
+      }),
+  );
 });
 
 const pathname = (url: string): string => {
