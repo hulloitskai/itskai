@@ -18,3 +18,7 @@
 .focus {
   outline-width: 1px;
 }
+
+.input {
+  font-size: var(--mantine-font-size-md);
+}

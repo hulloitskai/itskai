@@ -1,5 +1,6 @@
 import {
   type DefaultMantineColor,
+  JsonInput,
   type MantineColorsTuple,
   NumberInput,
   Overlay,
@@ -97,6 +98,14 @@ export const THEME = createTheme({
         blur: 2,
       },
     }),
+    JsonInput: JsonInput.extend({
+      defaultProps: {
+        variant: "filled",
+      },
+      classNames: {
+        input: classes.input,
+      },
+    }),
     Notification: Notification.extend({
       styles: ({ lineHeights, spacing }) => ({
         title: {
@@ -116,26 +125,25 @@ export const THEME = createTheme({
       defaultProps: {
         variant: "filled",
       },
+      classNames: {
+        input: classes.input,
+      },
     }),
     TextInput: TextInput.extend({
       defaultProps: {
         variant: "filled",
       },
-      styles: ({ fontSizes }) => ({
-        input: {
-          fontSize: fontSizes.md,
-        },
-      }),
+      classNames: {
+        input: classes.input,
+      },
     }),
     Textarea: Textarea.extend({
       defaultProps: {
         variant: "filled",
       },
-      styles: ({ fontSizes }) => ({
-        input: {
-          fontSize: fontSizes.md,
-        },
-      }),
+      classNames: {
+        input: classes.input,
+      },
     }),
     ThemeIcon: ThemeIcon.extend({
       defaultProps: {
@@ -146,11 +154,9 @@ export const THEME = createTheme({
       defaultProps: {
         variant: "filled",
       },
-      styles: ({ fontSizes }) => ({
-        input: {
-          fontSize: fontSizes.md,
-        },
-      }),
+      classNames: {
+        input: classes.input,
+      },
     }),
   },
 });
