@@ -9,7 +9,7 @@ export interface ToasterProps extends _ToasterProps {}
 
 const Toaster: FC<ToasterProps> = ({ toastOptions, ...otherProps }) => (
   <_Toaster
-    position="top-right"
+    position="bottom-right"
     closeButton
     toastOptions={{
       ...toastOptions,
