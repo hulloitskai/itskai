@@ -167,8 +167,8 @@ Rails.application.routes.draw do
     resources :memos, only: :create
   end
 
-  # == Event emails
-  resources :event_emails, only: :create
+  # == Adders
+  resources :add_event_emails, path: "/add/event_emails", only: :create
 
   # == Constellations
   namespace :constellations, export: true do
