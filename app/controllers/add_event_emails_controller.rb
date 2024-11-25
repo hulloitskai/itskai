@@ -21,6 +21,7 @@ class AddEventEmailsController < ApplicationController
       email.attachments.attach(io: StringIO.new(data.pack("C*")), filename:)
     end
     email.save!
+    head(:ok)
   end
 
   private
@@ -28,7 +29,7 @@ class AddEventEmailsController < ApplicationController
   # == Helpers
   sig { void }
   def authorize_origin!
-    origin = Reversed.lookup(client_ip)
+    origin = Reversed.lookup(client_ip, nameservers: ["1.1.1.1"])
     unless origin.ends_with?("forwardemail.net")
       with_log_tags do
         logger.error("Unauthorized origin: #{origin}")

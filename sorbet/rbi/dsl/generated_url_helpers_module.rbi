@@ -16,6 +16,9 @@ module GeneratedUrlHelpersModule
   def actual_db_schema_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def add_event_emails_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def admin_exploration_comments_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -98,9 +101,6 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def edit_user_registration_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def event_emails_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def exploration_comments_url(*args); end
