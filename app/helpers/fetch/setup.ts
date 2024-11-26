@@ -1,8 +1,4 @@
-import {
-  type FetchOptions,
-  type HeaderOptions,
-  type ResponseError,
-} from "@js-from-routes/client";
+import { type FetchOptions, type HeaderOptions } from "@js-from-routes/client";
 import { Config } from "@js-from-routes/client";
 import { identity } from "lodash-es";
 
@@ -26,19 +22,21 @@ export const setupFetch = (): void => {
         body = JSON.stringify(data);
       }
     }
-    const requestInit: RequestInit = {
+    return fetch(url, {
       body,
       credentials: "include",
       redirect: "follow",
       ...options,
-    };
-    return fetch(url, requestInit)
-      .then(async response => {
-        if (response.status >= 200 && response.status < 300) return response;
-        const error = await Config.unwrapResponseError(response, responseAs);
-        throw error;
+    })
+      .then(response => {
+        if (response.status >= 200 && response.status < 300) {
+          return response;
+        }
+        return new Promise<never>((resolve, reject) => {
+          Config.unwrapResponseError(response, responseAs).then(reject, reject);
+        });
       })
-      .catch((error: ResponseError) => Config.onResponseError(error));
+      .catch((error: Error) => Config.onResponseError(error));
   };
   Config.headers = (requestInfo: HeaderOptions): any => {
     const csrfToken = Config.getCSRFToken();
