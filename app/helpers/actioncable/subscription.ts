@@ -5,6 +5,8 @@ import useSWRSubscription, {
   type SWRSubscriptionResponse,
 } from "swr/subscription";
 
+import { useCable } from ".";
+
 export interface UseSubscriptionOptions<Data> extends SWRConfiguration {
   descriptor: string;
   failSilently?: boolean;

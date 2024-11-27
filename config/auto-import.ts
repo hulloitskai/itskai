@@ -31,7 +31,6 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
       "ExplorationCommentIcon",
       "NotificationIcon",
     ],
-    "~/helpers/actioncable": ["useCable"],
     "~/helpers/actioncable/subscription": ["useSubscription"],
     "~/helpers/authentication": ["useCurrentUser", "useAuthenticatedUser"],
     "~/helpers/inertia/page": ["usePage", "usePageProps"],
