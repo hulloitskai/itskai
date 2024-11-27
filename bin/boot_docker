@@ -16,6 +16,7 @@ if [ "$STATUS" != "0" ]; then
           exit 1
         fi
         echo "... (check $ATTEMPTS)"
+        ATTEMPTS=$((ATTEMPTS + 1))
         sleep 1
       done
     else
