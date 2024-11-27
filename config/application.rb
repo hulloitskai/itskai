@@ -32,7 +32,6 @@ module ItsKai
     require "premailer_ext"
     require "friendly_id_ext"
     require "email_validator_ext"
-    require "geocoder_ext"
 
     # == Libraries
     require "inflections"
