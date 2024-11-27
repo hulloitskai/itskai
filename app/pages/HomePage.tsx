@@ -49,7 +49,7 @@ const HomePage: PageComponent<HomePageProps> = ({
           <br />
           Please enjoy your stay. if you&apos;re having a good time, let&apos;s{" "}
           <Anchor
-            href="/hangout"
+            href={routes.calendly.show.path()}
             target="_blank"
             rel="noopener noreferrer nofollow"
             fw={600}

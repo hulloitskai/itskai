@@ -76,6 +76,12 @@ Rails.application.routes.draw do
   resources :files, only: :show, param: :signed_id, export: true
   resources :images, only: :show, param: :signed_id, export: true
 
+  # == Password strength checks
+  resources :password_strength_checks, only: :create, export: true
+
+  # == Contact
+  resource :contact_url, only: :show, export: true
+
   # == Push subscriptions
   resources :push_subscriptions, only: :create, export: true do
     collection do
@@ -94,9 +100,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # == Password strength checks
-  resources :password_strength_checks, only: :create, export: true
-
   # == Currently playing
   resource :currently_playing, only: :show, export: true
   resource :spotify_jam_sessions,
@@ -114,9 +117,6 @@ Rails.application.routes.draw do
     get :grant
     post :access
   end
-
-  # == Contact
-  resource :contact_url, only: :show, export: true
 
   # == Notion journal entries
   resources :notion_journal_entries, only: [], export: true do
@@ -178,7 +178,7 @@ Rails.application.routes.draw do
 
   # == Calendly
   get "/calendly" => "calendly#show"
-  get "/hangout" => "calendly#show"
+  get "/hangout" => "calendly#show", export: true
   get "/coffee" => "calendly#event", handle: "coffee"
   get "/walk" => "calendly#event", handle: "walk"
   get "/call" => "calendly#event", handle: "call"

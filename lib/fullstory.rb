@@ -6,13 +6,15 @@ require "sorbet-runtime"
 module Fullstory
   extend T::Sig
 
-  sig { returns(T.nilable(String)) }
-  def self.org_id
-    credentials.org_id
+  class Settings < T::Struct
+    const :org_id, String
   end
 
-  # == Helpers
-  def self.credentials
-    Rails.application.credentials.fullstory!
+  # == Methods
+  sig { returns(T.nilable(Settings)) }
+  def self.settings
+    if (fullstory = Rails.application.credentials.fullstory)
+      Settings.new(org_id: fullstory.org_id!)
+    end
   end
 end

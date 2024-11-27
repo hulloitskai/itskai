@@ -6,18 +6,16 @@ require "sorbet-runtime"
 module Clarity
   extend T::Sig
 
-  sig { returns(T.nilable(String)) }
-  def self.project_id
-    credentials.project_id
+  class Settings < T::Struct
+    # == Properties
+    const :project_id, String
   end
 
-  sig { returns(String) }
-  def self.project_id!
-    credentials.project_id!
-  end
-
-  # == Helpers
-  def self.credentials
-    Rails.application.credentials.clarity!
+  # == Methods
+  sig { returns(T.nilable(Settings)) }
+  def self.settings
+    if (clarity = Rails.application.credentials.clarity)
+      Settings.new(project_id: clarity.project_id!)
+    end
   end
 end
