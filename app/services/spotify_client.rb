@@ -119,11 +119,13 @@ class SpotifyClient < ApplicationService
         { "reason" => "transport", "productType" => "web_player" },
         { "Cookie" => cookie_header },
       )
-      value = T.cast(response.body.fetch("accessToken"), String)
-      expiration_timestamp = T.cast(
-        response.body.fetch("accessTokenExpirationTimestampMs").to_i,
-        Integer,
-      )
+      body = response.body
+      unless response.success? && body.is_a?(Hash)
+        raise "Bad response from Spotify API: #{body || "(empty response)"}"
+      end
+
+      value = body.fetch("accessToken")
+      expiration_timestamp = body.fetch("accessTokenExpirationTimestampMs").to_i
       expires_at = Time.zone.at(expiration_timestamp.to_f / 1000)
       SpotifyAccessToken.new(value:, expires_at: expires_at)
     end
