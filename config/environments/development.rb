@@ -62,7 +62,7 @@ Rails.application.configure do
 
   # == Action Mailer
   config.action_mailer.delivery_method = :smtp
-  config.smtp_settings = { port: 1025 } # Mailcatcher
+  config.action_mailer.smtp_settings = { port: 1025 } # Mailcatcher
   config.action_mailer.perform_caching = false
 
   # Don't care if the mailer can't send.

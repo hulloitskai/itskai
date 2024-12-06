@@ -53,7 +53,11 @@ const EmailLayout: FC<PropsWithChildren<EmailLayoutProps>> = ({
             <Column>
               <Text style={{ color: "var(--mantine-color-dimmed)" }}>
                 Sent by{" "}
-                <Link href="/" target="_blank" style={{ fontWeight: 600 }}>
+                <Link
+                  href={routes.home.show.path()}
+                  target="_blank"
+                  style={{ fontWeight: 600 }}
+                >
                   It&apos;s Kai
                 </Link>
                 . This email loves you.

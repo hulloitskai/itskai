@@ -12,7 +12,12 @@ const SignupPage: PageComponent<SignupPageProps> = () => (
         <Title size="h3">Sign up</Title>
         <Text size="sm" c="dimmed" lh={1.3}>
           Create an account on{" "}
-          <Anchor component={Link} href="/" fw={600} c="primary.4">
+          <Anchor
+            component={Link}
+            href={routes.home.show.path()}
+            fw={600}
+            c="primary.4"
+          >
             It&apos;s Kai
           </Anchor>
         </Text>
