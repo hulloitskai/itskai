@@ -7,6 +7,7 @@ import { createRoot, hydrateRoot } from "react-dom/client";
 
 import AppWrapper from "~/components/AppWrapper";
 import { setupActiveStorage } from "~/helpers/activestorage";
+import { setupClarity } from "~/helpers/clarity";
 import { setupFetch } from "~/helpers/fetch";
 import { setupFullStory } from "~/helpers/fullstory";
 import {
@@ -26,6 +27,7 @@ setupLuxon();
 setupActiveStorage();
 setupSentry();
 setupFullStory();
+setupClarity();
 void registerServiceWorker();
 
 // == Pages

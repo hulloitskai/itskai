@@ -1,3 +1,5 @@
+import Clarity from "@microsoft/clarity";
+
 const ClarityTracking: FC = () => {
   const {
     component,
@@ -6,9 +8,11 @@ const ClarityTracking: FC = () => {
 
   // == Current user tracking
   useShallowEffect(() => {
-    if (typeof clarity !== "undefined" && currentUser) {
+    if (currentUser) {
       const { id, name } = currentUser;
-      clarity("identify", id, undefined, component, name);
+      if ("clarity" in window) {
+        Clarity.identify(id, undefined, component, name);
+      }
     }
   }, [currentUser, component]);
 

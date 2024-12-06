@@ -55,6 +55,9 @@ export default defineConfig(() => {
   return {
     clearScreen: false,
     resolve: { alias: [{ find: "lodash", replacement: "lodash-es" }] },
+    ssr: {
+      noExternal: ["@microsoft/clarity"],
+    },
     plugins,
   };
 });
