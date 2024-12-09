@@ -43,7 +43,6 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
 
 # Install NodeJS
 COPY .node-version ./
-ENV NODE_ENV=production
 RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
   BUILD_DEPS="git curl" set -eux && \
