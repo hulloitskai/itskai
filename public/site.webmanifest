@@ -13,5 +13,6 @@
       "type": "image/png"
     }
   ],
-  "display": "standalone"
+  "display": "standalone",
+  "start_url": "/admin/notifications"
 }
