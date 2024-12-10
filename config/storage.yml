@@ -6,17 +6,17 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
-amazon:
-  service: S3
-  access_key_id: <%= Rails.application.credentials.s3&.access_key_id %>
-  secret_access_key: <%= Rails.application.credentials.s3&.secret_access_key %>
-  region: <%= Rails.application.credentials.s3&.region %>
-  bucket: <%= Rails.application.credentials.s3&.bucket %>
+# amazon:
+#   service: S3
+#   access_key_id: <%= Rails.application.credentials.s3&.access_key_id %>
+#   secret_access_key: <%= Rails.application.credentials.s3&.secret_access_key %>
+#   region: <%= Rails.application.credentials.s3&.region %>
+#   bucket: <%= Rails.application.credentials.s3&.bucket %>
 
 cloudflare:
   service: S3
-  endpoint: <%= Rails.application.credentials.r2.endpoint unless ENV["NO_CREDENTIALS"] %>
-  access_key_id: <%= Rails.application.credentials.r2.access_key_id unless ENV["NO_CREDENTIALS"] %>
-  secret_access_key: <%= Rails.application.credentials.r2.secret_access_key unless ENV["NO_CREDENTIALS"] %>
-  bucket: <%= Rails.application.credentials.r2.bucket unless ENV["NO_CREDENTIALS"] %>
+  endpoint: <%= Rails.application.credentials.r2!.endpoint if Rails.env.production? && !ENV["NO_CREDENTIALS"] %>
+  access_key_id: <%= Rails.application.credentials.r2!.access_key_id if Rails.env.production? && !ENV["NO_CREDENTIALS"] %>
+  secret_access_key: <%= Rails.application.credentials.r2!.secret_access_key if Rails.env.production? && !ENV["NO_CREDENTIALS"] %>
+  bucket: <%= Rails.application.credentials.r2!.bucket if Rails.env.production? && !ENV["NO_CREDENTIALS"] %>
   region: auto
