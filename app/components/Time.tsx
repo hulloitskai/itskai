@@ -8,7 +8,7 @@ import classes from "./Time.module.css";
 export interface TimeProps
   extends Omit<TextProps, "span">,
     Omit<ComponentPropsWithoutRef<"time">, "color" | "style" | "children"> {
-  format: DateTimeFormatOptions | ((time: DateTime) => string);
+  format: DateTimeFormatOptions | ((time: DateTime) => string) | string;
   children: DateTime | string;
   component?: ElementType;
   refreshInterval?: number;
@@ -30,8 +30,16 @@ const Time: FC<TimeProps> = ({
   ...otherProps
 }) => {
   const applyFormat = useCallback(
-    (time: DateTime) =>
-      typeof format === "function" ? format(time) : time.toLocaleString(format),
+    (time: DateTime) => {
+      switch (typeof format) {
+        case "function":
+          return format(time);
+        case "string":
+          return time.toFormat(format);
+        default:
+          return time.toLocaleString(format);
+      }
+    },
     [format],
   );
   const placeholder = useMemo(
