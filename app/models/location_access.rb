@@ -28,6 +28,12 @@ class LocationAccess < ApplicationRecord
   # == Attributes
   attribute :token, default: -> { Devise.friendly_token }
   alias_attribute :timestamp, :created_at
+  delegate :password, to: :grant!
+
+  sig { returns(String) }
+  def accessor
+    grant!.recipient
+  end
 
   # == Associations
   belongs_to :grant, class_name: "LocationAccessGrant", inverse_of: :accesses
@@ -49,12 +55,21 @@ class LocationAccess < ApplicationRecord
 
   sig { override.returns(String) }
   def notification_body
-    grant = grant!
-    "#{grant.recipient} (pw: #{grant.password}) accessed your location on " \
-      "#{I18n.l(created_at, format: :short)}"
+    "#{accessor} (pw: #{password}) accessed your location on " \
+      "#{I18n.l(localized_timestamp, format: :short)}"
   end
 
   private
+
+  # == Helpers
+  sig { returns(ActiveSupport::TimeWithZone) }
+  def localized_timestamp
+    if (tz = Owner.timezone)
+      created_at.in_time_zone(tz)
+    else
+      created_at
+    end
+  end
 
   # == Callback handlers
   sig { void }

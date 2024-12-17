@@ -1,6 +1,7 @@
 import { Avatar, type CardProps, Text } from "@mantine/core";
+import { type ReactNode } from "react";
 
-import { type Noticeable } from "~/types";
+import { type Noticeable, type Notification } from "~/types";
 
 import NotificationActionButton, {
   type NotificationActionButtonProps,
@@ -28,7 +29,7 @@ const NotificationCard: FC<NotificationCardProps> = ({
             {notification.title}
           </Text>
           <Text c="dimmed" lh="xs">
-            {notification.body}
+            <NotificationCardBody {...{ notification }} />
           </Text>
         </Stack>
         <NotificationActionButton
@@ -62,5 +63,28 @@ const NotificationCardImage: FC<NotificationCardImageProps> = ({
           <NotificationIcon />
         </Avatar>
       );
+  }
+};
+
+interface NotificationCardBodyProps {
+  notification: Notification;
+}
+
+const NotificationCardBody: FC<NotificationCardBodyProps> = ({
+  notification,
+}): ReactNode => {
+  const { noticeable } = notification;
+  switch (noticeable.type) {
+    case "LocationAccess": {
+      const { access } = noticeable;
+      return (
+        <>
+          {access.accessor} (pw: {access.password}) accessed your location on{" "}
+          <Time format={DateTime.DATETIME_SHORT}>{access.timestamp}</Time>
+        </>
+      );
+    }
+    default:
+      return notification.body;
   }
 };

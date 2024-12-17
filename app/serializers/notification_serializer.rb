@@ -21,7 +21,9 @@ class NotificationSerializer < ApplicationSerializer
     when ExplorationComment
       { comment_id: noticeable.id }
     when LocationAccess
-      { location_access_id: noticeable.id }
+      {
+        access: LocationAccessSerializer.one(noticeable),
+      }
     else
       raise "Unexpected noticeable type: #{noticeable.model_name}"
     end
