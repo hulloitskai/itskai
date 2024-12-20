@@ -10,7 +10,7 @@ declare global {
 
 const MiniProfilerPageTracking: FC = () => {
   useEffect(() => {
-    return router.on("start", () => {
+    return router.on("before", () => {
       window.MiniProfiler?.pageTransition();
     });
   }, []);
