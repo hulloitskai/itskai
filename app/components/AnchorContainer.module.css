@@ -8,7 +8,8 @@
         var(--ac-inactive-border-color-light),
         var(--ac-inactive-border-color-dark)
       );
-    &:hover {
+
+    @mixin hover {
       border-color: var(--ac-active-border-color);
     }
   }

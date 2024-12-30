@@ -3,7 +3,7 @@
   cursor: pointer;
   color: var(--mantine-color-white);
 
-  &:hover {
+  @mixin hover {
     background-color: var(--lagc-copy-code-bg);
   }
 }

@@ -42,7 +42,7 @@
 }
 
 .item {
-  &:hover {
+  @mixin hover {
     background-color: var(--mantine-color-primary-light);
   }
 }

@@ -7,7 +7,7 @@
     border-color: var(--mantine-color-gray-4);
   }
 
-  &:hover {
+  @mixin hover {
     text-decoration: underline;
   }
 
