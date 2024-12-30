@@ -7,6 +7,11 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
+import {
+  type DynamicProp,
+  resolveDynamicProp,
+  useResolveDynamicProp,
+} from "~/helpers/layout";
 import { type SidebarControls } from "~/helpers/sidebar";
 
 import AppHeader from "./AppHeader";
@@ -31,10 +36,6 @@ export interface AppLayoutProps<PageProps extends SharedPageProps>
   gutterSize?: MantineSize | (string & {}) | number;
   sidebar?: DynamicProp<PageProps, ReactNode>;
 }
-
-export type DynamicProp<PageProps extends SharedPageProps, T> =
-  | T
-  | ((props: PageProps) => T);
 
 export interface AppBreadcrumb {
   title: string;
@@ -177,13 +178,3 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
 };
 
 export default AppLayout;
-
-const useResolveDynamicProp = <PageProps extends SharedPageProps, T>(
-  prop: T | ((props: PageProps) => T),
-  pageProps: PageProps,
-) => useMemo(() => resolveDynamicProp(prop, pageProps), [prop, pageProps]);
-
-const resolveDynamicProp = <PageProps extends SharedPageProps, T>(
-  prop: T | ((props: PageProps) => T),
-  pageProps: PageProps,
-) => (prop instanceof Function ? prop(pageProps) : prop);
