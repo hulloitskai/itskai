@@ -7,7 +7,7 @@ class ViteRuby
   extend T::Sig
 
   # == Attributes
-  class_attribute :dev_server_enabled, default: true
+  class_attribute :email_rendering_mode, default: false
 
   # == Methods
   sig do
@@ -15,18 +15,17 @@ class ViteRuby
       block: T.proc.returns(T.type_parameter(:U)),
     ).returns(T.type_parameter(:U))
   end
-  def self.without_dev_server(&block)
-    prev_enabled = dev_server_enabled
-    self.dev_server_enabled = false
+  def self.configure_for_email_rendering(&block)
+    self.email_rendering_mode = true
     begin
       yield
     ensure
-      self.dev_server_enabled = prev_enabled
+      self.email_rendering_mode = false
     end
   end
 
-  # Enable ViteRuby.without_dev_server { ... }.
-  module WithoutDevServerSupport
+  # Enable ViteRuby.configure_for_email_rendering { ... }.
+  module EmailRenderingSupport
     extend T::Sig
     extend T::Helpers
 
@@ -34,14 +33,14 @@ class ViteRuby
 
     sig { returns(T::Boolean) }
     def dev_server_running?
-      dev_server_enabled? && super
+      !email_rendering_mode? && super
     end
   end
-  prepend WithoutDevServerSupport
+  prepend EmailRenderingSupport
 
   class DevServerProxy
-    # Enable ViteRuby.without_dev_server { ... }.
-    module WithoutDevServerSupport
+    # Enable ViteRuby.configure_for_email_rendering { ... }.
+    module EmailRenderingSupport
       extend T::Sig
       extend T::Helpers
 
@@ -56,7 +55,7 @@ class ViteRuby
       # == Methods
       sig { returns(T::Boolean) }
       def dev_server_running?
-        ViteRuby.dev_server_enabled? && super
+        !ViteRuby.email_rendering_mode? && super
       end
 
       sig { params(env: T::Hash[String, T.untyped]).returns(T.untyped) }
@@ -74,6 +73,23 @@ class ViteRuby
         end
       end
     end
-    prepend WithoutDevServerSupport
+    prepend EmailRenderingSupport
+  end
+
+  class Manifest
+    module EmailRenderingSupport
+      extend T::Sig
+      extend T::Helpers
+
+      requires_ancestor { Manifest }
+
+      private
+
+      sig { returns(T::Boolean) }
+      def should_build?
+        !ViteRuby.email_rendering_mode? && super
+      end
+    end
+    prepend EmailRenderingSupport
   end
 end

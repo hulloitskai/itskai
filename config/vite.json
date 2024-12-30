@@ -12,13 +12,11 @@
   },
   "development": {
     "publicOutputDir": "dist-dev",
-    "port": 3036,
-    "autoBuild": true
+    "port": 3036
   },
   "test": {
     "publicOutputDir": "dist-test",
-    "port": 3037,
-    "autoBuild": true
+    "port": 3037
   },
   "production": {
     "publicOutputDir": "dist"
