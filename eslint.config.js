@@ -29,6 +29,12 @@ export default ts.config(
     },
   },
   {
+    files: ["**/*.{ts,tsx,js,jsx}"],
+    rules: {
+      "no-console": ["warn", { allow: ["debug", "info", "warn", "error"] }],
+    },
+  },
+  {
     files: ["**/*.{ts,tsx}"],
     rules: {
       "@typescript-eslint/ban-ts-comment": "off",
