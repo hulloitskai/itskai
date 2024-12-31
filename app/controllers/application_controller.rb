@@ -114,18 +114,18 @@ class ApplicationController < ActionController::Base
 
   sig { params(block: T.proc.returns(T.untyped)).void }
   def with_ssr(&block)
-    if params[:ssr].truthy?
-      vite_dev_server_enabled = ViteRuby.dev_server_enabled?
+    if params["ssr"].truthy?
+      vite_dev_server_disabled = ViteRuby.dev_server_disabled?
       inertia_ssr_enabled = InertiaRails.ssr_enabled?
       begin
-        ViteRuby.dev_server_enabled = false
+        ViteRuby.dev_server_disabled = true
         InertiaRails.configure { |config| config.ssr_enabled = true }
         yield
       ensure
         InertiaRails.configure do |config|
           config.ssr_enabled = inertia_ssr_enabled
         end
-        ViteRuby.dev_server_enabled = vite_dev_server_enabled
+        ViteRuby.dev_server_disabled = vite_dev_server_disabled
       end
     else
       yield

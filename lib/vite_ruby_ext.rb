@@ -7,7 +7,8 @@ class ViteRuby
   extend T::Sig
 
   # == Attributes
-  class_attribute :email_rendering_mode, default: false
+  class_attribute :dev_server_disabled, default: false
+  class_attribute :auto_build_disabled, default: false
 
   # == Methods
   sig do
@@ -15,17 +16,33 @@ class ViteRuby
       block: T.proc.returns(T.type_parameter(:U)),
     ).returns(T.type_parameter(:U))
   end
-  def self.configure_for_email_rendering(&block)
-    self.email_rendering_mode = true
+  def self.without_dev_server(&block)
+    prev_disabled = dev_server_disabled
+    self.dev_server_disabled = true
     begin
       yield
     ensure
-      self.email_rendering_mode = false
+      self.dev_server_disabled = prev_disabled
     end
   end
 
-  # Enable ViteRuby.configure_for_email_rendering { ... }.
-  module EmailRenderingSupport
+  sig do
+    type_parameters(:U).params(
+      block: T.proc.returns(T.type_parameter(:U)),
+    ).returns(T.type_parameter(:U))
+  end
+  def self.without_auto_build(&block)
+    prev_disabled = auto_build_disabled
+    self.auto_build_disabled = true
+    begin
+      yield
+    ensure
+      self.auto_build_disabled = prev_disabled
+    end
+  end
+
+  # Allows disabling the dev server.
+  module DisableDevServerSupport
     extend T::Sig
     extend T::Helpers
 
@@ -33,14 +50,14 @@ class ViteRuby
 
     sig { returns(T::Boolean) }
     def dev_server_running?
-      !email_rendering_mode? && super
+      !dev_server_disabled? && super
     end
   end
-  prepend EmailRenderingSupport
+  prepend DisableDevServerSupport
 
   class DevServerProxy
-    # Enable ViteRuby.configure_for_email_rendering { ... }.
-    module EmailRenderingSupport
+    # Allows disabling the dev server.
+    module DisableDevServerSupport
       extend T::Sig
       extend T::Helpers
 
@@ -55,7 +72,7 @@ class ViteRuby
       # == Methods
       sig { returns(T::Boolean) }
       def dev_server_running?
-        !ViteRuby.email_rendering_mode? && super
+        !ViteRuby.dev_server_disabled? && super
       end
 
       sig { params(env: T::Hash[String, T.untyped]).returns(T.untyped) }
@@ -73,11 +90,12 @@ class ViteRuby
         end
       end
     end
-    prepend EmailRenderingSupport
+    prepend DisableDevServerSupport
   end
 
   class Manifest
-    module EmailRenderingSupport
+    # Allows disabling auto build.
+    module DisableAutoBuildSupport
       extend T::Sig
       extend T::Helpers
 
@@ -87,9 +105,9 @@ class ViteRuby
 
       sig { returns(T::Boolean) }
       def should_build?
-        !ViteRuby.email_rendering_mode? && super
+        !ViteRuby.auto_build_disabled? && super
       end
     end
-    prepend EmailRenderingSupport
+    prepend DisableAutoBuildSupport
   end
 end
