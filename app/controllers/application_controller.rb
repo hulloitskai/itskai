@@ -56,9 +56,10 @@ class ApplicationController < ActionController::Base
   end
 
   # == Exception handlers
-  rescue_from RuntimeError, with: :report_and_render_json_exception
-  rescue_from ActionPolicy::Unauthorized,
-              with: :redirect_to_login_if_signed_out
+  rescue_from RuntimeError,
+              ActiveRecord::RecordNotSaved,
+              with: :report_and_render_json_exception
+  rescue_from ActionPolicy::Unauthorized, with: :handle_unauthorized
 
   private
 
@@ -149,10 +150,14 @@ class ApplicationController < ActionController::Base
   end
 
   # == Rescue callbacks
-  sig { params(args: T.untyped).void }
-  def redirect_to_login_if_signed_out(*args)
+  sig { params(error: ActionPolicy::Unauthorized).void }
+  def handle_unauthorized(error)
     if signed_in?
-      raise
+      if request.format.json?
+        report_and_render_json_exception(error)
+      else
+        raise
+      end
     else
       authenticate_user!
     end
