@@ -267,10 +267,6 @@ group :development do
   # Display better error pages during development
   gem "better_errors"
 
-  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  gem "spring", require: false
-  gem "spring-commands-rubocop", require: false
-
   # Annotate models and routes
   gem "annotate", require: false
 end
