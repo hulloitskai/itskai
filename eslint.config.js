@@ -123,6 +123,7 @@ export default ts.config(
   },
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
+    // @ts-expect-error react.configs.flat should not be undefined
     ...react.configs.flat.recommended,
     settings: {
       react: {
