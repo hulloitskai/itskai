@@ -543,9 +543,6 @@ GEM
       prism (>= 0.28.0)
       sorbet-static-and-runtime (>= 0.5.10187)
       thor (>= 0.19.2)
-    spring (4.2.1)
-    spring-commands-rubocop (0.4.0)
-      spring (>= 1.0)
     stackprof (0.2.26)
     store_model (1.6.2)
       activerecord (>= 5.2)
@@ -711,8 +708,6 @@ DEPENDENCIES
   sorbet
   sorbet-runtime
   spoom
-  spring
-  spring-commands-rubocop
   stackprof
   store_model (~> 1.6)
   strong_password (~> 0.0.10)
