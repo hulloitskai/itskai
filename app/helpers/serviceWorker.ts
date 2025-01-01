@@ -13,7 +13,7 @@ export const getOrRegisterServiceWorker =
       });
 
 const handleServiceWorkerMessage = (event: MessageEvent<any>): void => {
-  console.log("Received message from service worker", event);
+  console.info("Received message from service worker", event);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { action } = event.data;
   if (!action) {

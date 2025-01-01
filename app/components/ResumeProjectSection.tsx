@@ -18,7 +18,7 @@ const ResumeProjectSection: FC<ResumeProjectSectionProps> = ({
       <Title
         order={3}
         size="h5"
-        style={{ color: "var(--mantine-color-primary-filled)" }}
+        style={{ color: "var(--mantine-primary-color-filled)" }}
       >
         {name}
       </Title>

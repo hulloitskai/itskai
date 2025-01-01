@@ -65,7 +65,7 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
       withBorder
       padding="sm"
       style={{
-        borderColor: "var(--mantine-color-primary-filled)",
+        borderColor: "var(--mantine-primary-color-filled)",
       }}
       {...otherProps}
     >

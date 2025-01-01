@@ -29,8 +29,8 @@
 
 .itemSection {
   color: light-dark(
-    var(--mantine-color-primary-7),
-    var(--mantine-color-primary-4)
+    var(--mantine-primary-color-7),
+    var(--mantine-primary-color-4)
   );
   width: 16px;
   height: 16px;
@@ -43,6 +43,6 @@
 
 .item {
   @mixin hover {
-    background-color: var(--mantine-color-primary-light);
+    background-color: var(--mantine-primary-color-light);
   }
 }

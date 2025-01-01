@@ -26,12 +26,12 @@ const WebsiteBadge: FC<WebsiteBadgeProps> = ({ url, ...otherProps }) => {
           </Center>
         }
         variant="outline"
-        color="var(--mantine-color-primary-filled)"
+        color="var(--mantine-primary-color-filled)"
         px={6}
         styles={{
           root: {
             cursor: "pointer",
-            borderColor: "var(--mantine-color-primary-border)",
+            borderColor: "var(--mantine-primary-color-border)",
           },
           label: {
             textTransform: "none",

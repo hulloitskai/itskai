@@ -227,7 +227,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
           <GeolocateControl />
           {location?.coordinates && (
             <Marker
-              color="var(--mantine-color-primary-6)"
+              color="var(--mantine-primary-color-6)"
               {...location.coordinates}
             />
           )}

@@ -38,7 +38,7 @@ export const Button = forwardRef<HTMLAnchorElement, ButtonProps>(
         className={MantineButton.classes.root}
         style={{
           padding: "8px 14px",
-          backgroundColor: "var(--mantine-color-primary-filled)",
+          backgroundColor: "var(--mantine-primary-color-filled)",
           color: "var(--mantine-color-white)",
           fontWeight: 600,
           borderRadius,

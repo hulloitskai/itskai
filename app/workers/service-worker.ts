@@ -26,7 +26,7 @@ const markAsDelivered = (
         data: { notification: pick(notification, "delivery_token") },
       })
       .then(() => {
-        console.log(`Marked notification '${notification.id}' as delivered`);
+        console.info(`Marked notification '${notification.id}' as delivered`);
       })
       .catch(error => {
         console.error(
@@ -127,6 +127,6 @@ const pathname = (url: string): string => {
   return u.pathname;
 };
 
-console.log("Service worker installed");
+console.info("Service worker installed");
 
 export {};
