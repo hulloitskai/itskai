@@ -4,12 +4,12 @@
 module Users
   class PasswordsController < Devise::PasswordsController
     # == Actions
-    # GET /password/reset
+    # GET /account/password/reset
     def new
       render(inertia: "RequestPasswordResetPage")
     end
 
-    # GET /password/change?reset_password_token=abcdef
+    # GET /account/password/change?reset_password_token=abcdef
     def edit
       reset_password_token = T.let(params.fetch(:reset_password_token), String)
       render(
@@ -18,7 +18,7 @@ module Users
       )
     end
 
-    # POST /password
+    # POST /account/password
     def create
       resource = self.resource = resource_class
         .send_reset_password_instructions(resource_params)
@@ -33,7 +33,7 @@ module Users
       end
     end
 
-    # PUT /password
+    # PUT /account/password
     def update
       resource = self.resource = resource_class
         .reset_password_by_token(resource_params)

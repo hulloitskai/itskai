@@ -101,7 +101,9 @@ module ItsKai
     end
 
     # == Sessions
-    config.session_store :cookie_store, key: "session"
+    config.session_store :cookie_store,
+                         key: "session",
+                         secure: Rails.env.production?
 
     # == Exceptions
     config.exceptions_app = routes

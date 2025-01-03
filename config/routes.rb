@@ -57,18 +57,20 @@ Rails.application.routes.draw do
         put :email, action: :change_email, as: :change_email
         put :password, action: :change_password, as: :change_password
       end
-      resource :confirmation,
-               path: "/email_verification",
-               only: %i[new show create],
-               path_names: {
-                 new: "resend",
-               }
-      resource :password,
-               only: %i[new edit create update],
-               path_names: {
-                 new: "reset",
-                 edit: "change",
-               }
+      scope path: "/account" do
+        resource :confirmation,
+                 path: "/email_verification",
+                 only: %i[new show create],
+                 path_names: {
+                   new: "resend",
+                 }
+        resource :password,
+                 only: %i[new edit create update],
+                 path_names: {
+                   new: "reset",
+                   edit: "change",
+                 }
+      end
     end
   end
 

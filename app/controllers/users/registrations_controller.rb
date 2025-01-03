@@ -15,7 +15,7 @@ module Users
       render(inertia: "SignupPage")
     end
 
-    # GET /settings
+    # GET /account
     def edit
       render(inertia: "AccountPage")
     end

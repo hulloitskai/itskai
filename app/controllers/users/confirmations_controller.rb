@@ -4,7 +4,7 @@
 module Users
   class ConfirmationsController < Devise::ConfirmationsController
     # == Actions
-    # GET /email_verification?confirmation_token=abcdef
+    # GET /account/email_verification?confirmation_token=abcdef
     def show
       confirmation_token = params.fetch(:confirmation_token)
       resource = T.let(
@@ -23,12 +23,12 @@ module Users
       end
     end
 
-    # GET /email_verification/resend
+    # GET /account/email_verification/resend
     def new
       render(inertia: "RequestEmailVerificationPage")
     end
 
-    # POST /email_verification
+    # POST /account/email_verification
     def create
       resource = self.resource = resource_class
         .send_confirmation_instructions(resource_params)
