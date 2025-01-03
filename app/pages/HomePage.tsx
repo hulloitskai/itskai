@@ -180,7 +180,7 @@ HomePage.layout = page => (
       <link
         rel="alternate"
         type="application/atom+xml"
-        href="/feed.atom"
+        href={routes.home.feed.path({ format: "atom" })}
         title="Atom Feed"
       />
     </Head>

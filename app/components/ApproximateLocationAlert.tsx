@@ -71,7 +71,7 @@ const ApproximateLocationAlert: FC<ApproximateLocationAlertProps> = ({
             .{" "}
             <Anchor
               component={Link}
-              href="/locate"
+              href={routes.locations.show.path()}
               style={theme => {
                 const color = parseThemeColor({ theme, color: "primary.4" });
                 return {

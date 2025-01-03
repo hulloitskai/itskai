@@ -160,7 +160,7 @@ Rails.application.routes.draw do
   end
 
   # == Resume
-  resource :resume, only: :show
+  resource :resume, only: :show, export: true
 
   # == Cathendant
   namespace :cathendant, export: true do

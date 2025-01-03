@@ -27,7 +27,7 @@ const LoginPage: PageComponent<LoginPageProps> = () => (
       <LoginPageForm />
       <Text size="xs" c="gray.6">
         Don&apos;t have an account?{" "}
-        <Anchor component={Link} href="/signup">
+        <Anchor component={Link} href={routes.usersRegistrations.new.path()}>
           Sign up instead.
         </Anchor>
       </Text>
@@ -35,14 +35,22 @@ const LoginPage: PageComponent<LoginPageProps> = () => (
       <List listStyleType="none" fz="xs">
         <List.Item>
           <Text span inherit c="gray.6">
-            <Anchor component={Link} href="/password/reset" inherit>
+            <Anchor
+              component={Link}
+              href={routes.usersPasswords.new.path()}
+              inherit
+            >
               Forgot your password?
             </Anchor>
           </Text>
         </List.Item>
         <List.Item>
           <Text span inherit c="gray.6">
-            <Anchor component={Link} href="/email_verification/resend" inherit>
+            <Anchor
+              component={Link}
+              href={routes.usersConfirmations.new.path()}
+              inherit
+            >
               Didn&apos;t get a verification email?
             </Anchor>
           </Text>

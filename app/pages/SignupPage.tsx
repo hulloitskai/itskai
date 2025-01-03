@@ -25,7 +25,7 @@ const SignupPage: PageComponent<SignupPageProps> = () => (
       <SignupPageForm />
       <Text size="xs" c="gray.6">
         Already have an account?{" "}
-        <Anchor component={Link} href="/login">
+        <Anchor component={Link} href={routes.usersSessions.new.path()}>
           Sign in instead.
         </Anchor>
       </Text>
@@ -33,14 +33,22 @@ const SignupPage: PageComponent<SignupPageProps> = () => (
       <List listStyleType="none" fz="xs">
         <List.Item>
           <Text span inherit c="gray.6">
-            <Anchor component={Link} href="/password/reset" inherit>
+            <Anchor
+              component={Link}
+              href={routes.usersPasswords.new.path()}
+              inherit
+            >
               Forgot your password?
             </Anchor>
           </Text>
         </List.Item>
         <List.Item>
           <Text span inherit c="gray.6">
-            <Anchor component={Link} href="/email_verification/resend" inherit>
+            <Anchor
+              component={Link}
+              href={routes.usersConfirmations.new.path()}
+              inherit
+            >
               Didn&apos;t get a verification email?
             </Anchor>
           </Text>

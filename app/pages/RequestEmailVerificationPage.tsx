@@ -24,17 +24,29 @@ const RequestEmailVerificationPage: PageComponent<
       <List listStyleType="none" fz="xs">
         <List.Item>
           <Text span inherit c="gray.6">
-            <Anchor component={Link} href="/login" inherit>
+            <Anchor
+              component={Link}
+              href={routes.usersSessions.new.path()}
+              inherit
+            >
               Sign in
             </Anchor>{" "}
             or{" "}
-            <Anchor component={Link} href="/signup" inherit>
+            <Anchor
+              component={Link}
+              href={routes.usersRegistrations.new.path()}
+              inherit
+            >
               Sign up
             </Anchor>
           </Text>
         </List.Item>
         <List.Item>
-          <Anchor component={Link} href="/password/reset" inherit>
+          <Anchor
+            component={Link}
+            href={routes.usersPasswords.new.path()}
+            inherit
+          >
             Forgot your password?
           </Anchor>
         </List.Item>

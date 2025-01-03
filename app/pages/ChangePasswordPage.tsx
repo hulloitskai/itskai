@@ -26,17 +26,29 @@ const ChangePasswordPage: PageComponent<ChangePasswordPageProps> = ({
       <List listStyleType="none" fz="xs">
         <List.Item>
           <Text span inherit c="gray.6">
-            <Anchor component={Link} href="/login" inherit>
+            <Anchor
+              component={Link}
+              href={routes.usersSessions.new.path()}
+              inherit
+            >
               Sign in
             </Anchor>{" "}
             or{" "}
-            <Anchor component={Link} href="/signup" inherit>
+            <Anchor
+              component={Link}
+              href={routes.usersRegistrations.new.path()}
+              inherit
+            >
               Sign up
             </Anchor>
           </Text>
         </List.Item>
         <List.Item>
-          <Anchor component={Link} href="/email_verification/resend" inherit>
+          <Anchor
+            component={Link}
+            href={routes.usersConfirmations.new.path()}
+            inherit
+          >
             Didn&apos;t get a verification email?
           </Anchor>
         </List.Item>

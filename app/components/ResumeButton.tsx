@@ -9,7 +9,7 @@ export interface ResumeButtonProps
 const ResumeButton: FC = () => (
   <Button
     component="a"
-    href="/resume"
+    href={routes.resumes.show.path()}
     target="_blank"
     leftSection={<DocumentIcon />}
   >
