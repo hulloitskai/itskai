@@ -11,3 +11,8 @@ class User
   include Devise::Models::Omniauthable
   include Devise::Models::Rememberable
 end
+
+module Devise::Controllers::Helpers
+  sig { params(opts: T.untyped).returns(User) }
+  def authenticate_user!(opts = T.unsafe(nil)); end
+end
