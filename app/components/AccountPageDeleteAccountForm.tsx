@@ -5,7 +5,7 @@ export interface AccountPageDeleteAccountFormProps
 const AccountPageDeleteAccountForm: FC<AccountPageDeleteAccountFormProps> = ({
   ...otherProps
 }) => {
-  const { processing, submit } = useInertiaForm({
+  const { submitting, submit } = useInertiaForm({
     action: routes.usersRegistrations.destroy,
     descriptor: "delete account",
   });
@@ -27,7 +27,7 @@ const AccountPageDeleteAccountForm: FC<AccountPageDeleteAccountFormProps> = ({
             variant="subtle"
             color="red"
             leftSection={<DeleteIcon />}
-            loading={processing}
+            loading={submitting}
             fullWidth
           >
             Delete account

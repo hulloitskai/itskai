@@ -32,7 +32,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
     values,
     getInputProps,
     isDirty,
-    processing,
+    submitting,
     submit,
     reset,
     setInitialValues,
@@ -123,7 +123,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
             disabled={
               !isDirty("email") || !emailFilled || !currentPasswordFilled
             }
-            loading={processing}
+            loading={submitting}
           >
             Change email
           </Button>
@@ -149,7 +149,7 @@ interface ResendEmailVerificationInstructionsButtonProps
 const ResendEmailVerificationInstructionsButton: FC<
   ResendEmailVerificationInstructionsButtonProps
 > = ({ user, ...otherProps }) => {
-  const { processing, submit } = useInertiaForm({
+  const { submitting, submit } = useInertiaForm({
     action: routes.usersConfirmations.create,
     descriptor: "resend verification email",
     initialValues: {
@@ -161,7 +161,7 @@ const ResendEmailVerificationInstructionsButton: FC<
   });
   return (
     <Button
-      loading={processing}
+      loading={submitting}
       onClick={() => {
         submit();
       }}

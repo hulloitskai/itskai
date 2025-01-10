@@ -53,8 +53,10 @@ type InertiaFormSubmit = (event?: FormEvent<HTMLFormElement>) => void;
 export interface InertiaForm<
   Values,
   TransformValues extends (values: Values) => unknown,
-> extends Omit<UseFormReturnType<Values, TransformValues>, "onSubmit"> {
-  processing: boolean;
+> extends Omit<
+    UseFormReturnType<Values, TransformValues>,
+    "setSubmitting" | "onSubmit"
+  > {
   submit: InertiaFormSubmit;
 }
 
@@ -85,7 +87,6 @@ export const useInertiaForm = <
     ...otherOptions,
     transformValues,
   });
-  const [processing, setProcessing] = useState(false);
   const handleSubmit = form.onSubmit(
     transformedValues => {
       onSubmit?.(transformedValues, form);
@@ -112,11 +113,11 @@ export const useInertiaForm = <
               }
             }
           });
-          setProcessing(true);
+          form.setSubmitting(true);
         },
         onFinish: () => {
           removeInvalidListener?.();
-          setProcessing(false);
+          form.setSubmitting(false);
         },
         onSuccess: page => {
           onSuccess?.(page as unknown as Page<SharedPageProps>, form);
@@ -163,7 +164,6 @@ export const useInertiaForm = <
   };
   return {
     ...form,
-    processing,
     submit,
   };
 };

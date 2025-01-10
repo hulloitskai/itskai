@@ -16,7 +16,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
   interface FormData {
     grant: LocationAccessGrant;
   }
-  const { getInputProps, processing, submit } = useFetchForm({
+  const { getInputProps, submitting, submit } = useFetchForm({
     action: routes.adminLocationAccessGrants.create,
     descriptor: "create location access grant",
     initialValues: {
@@ -74,7 +74,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
             },
           }}
         />
-        <Button type="submit" loading={processing} leftSection={<AddIcon />}>
+        <Button type="submit" loading={submitting} leftSection={<AddIcon />}>
           Create grant
         </Button>
       </Stack>

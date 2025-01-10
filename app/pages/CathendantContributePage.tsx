@@ -17,7 +17,7 @@ const CathendantContributePage: PageComponent<
     values,
     errors,
     getInputProps,
-    processing,
+    submitting,
     setFieldValue,
     submit,
     watch,
@@ -156,7 +156,7 @@ const CathendantContributePage: PageComponent<
               type="submit"
               variant="outline"
               disabled={!filled}
-              loading={processing}
+              loading={submitting}
             >
               Submit
             </Button>

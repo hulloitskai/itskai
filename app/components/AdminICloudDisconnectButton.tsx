@@ -10,7 +10,7 @@ const AdminICloudDisconnectButton: FC<AdminICloudDisconnectButtonProps> = ({
   onDisconnected: onDisconnected,
   ...otherProps
 }) => {
-  const { processing, submit } = useFetchForm({
+  const { submitting, submit } = useFetchForm({
     action: routes.adminICloudConnections.destroy,
     descriptor: "remove connection",
     onSuccess: () => {
@@ -34,7 +34,7 @@ const AdminICloudDisconnectButton: FC<AdminICloudDisconnectButtonProps> = ({
           variant="subtle"
           color="red"
           leftSection={<DeactivateIcon />}
-          loading={processing}
+          loading={submitting}
           {...otherProps}
         >
           Disconnect

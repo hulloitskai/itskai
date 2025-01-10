@@ -7,7 +7,7 @@ export interface LoginPageFormProps
 
 const LoginPageForm: FC<LoginPageFormProps> = props => {
   // == Form
-  const { values, getInputProps, processing, submit } = useInertiaForm({
+  const { values, getInputProps, submitting, submit } = useInertiaForm({
     action: routes.usersSessions.create,
     descriptor: "sign in",
     initialValues: {
@@ -59,7 +59,7 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
             label="Stay signed in"
           />
         </Tooltip>
-        <Button type="submit" disabled={!filled} loading={processing}>
+        <Button type="submit" disabled={!filled} loading={submitting}>
           Sign in
         </Button>
       </Stack>

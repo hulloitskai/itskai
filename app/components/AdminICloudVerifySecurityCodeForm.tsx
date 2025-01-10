@@ -17,7 +17,7 @@ const AdminICloudVerifySecurityCodeForm: FC<
   interface FormData {
     connection: ICloudConnection;
   }
-  const { getInputProps, processing, submit } = useFetchForm({
+  const { getInputProps, submitting, submit } = useFetchForm({
     name: "icloud-verify",
     action: routes.adminICloudConnections.verifySecurityCode,
     descriptor: "verify security code",
@@ -53,7 +53,7 @@ const AdminICloudVerifySecurityCodeForm: FC<
         </InputWrapper>
         <Button
           type="submit"
-          loading={processing}
+          loading={submitting}
           leftSection={<SecurityCodeIcon />}
         >
           Verify code

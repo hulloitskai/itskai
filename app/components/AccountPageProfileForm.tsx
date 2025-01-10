@@ -29,7 +29,7 @@ const AccountPageProfileForm: FC<AccountPageProfileFormProps> = ({
     values,
     getInputProps,
     isDirty,
-    processing,
+    submitting,
     reset,
     setInitialValues,
     submit,
@@ -75,7 +75,7 @@ const AccountPageProfileForm: FC<AccountPageProfileFormProps> = ({
           type="submit"
           leftSection={<SaveIcon />}
           disabled={!isDirty() || !filled}
-          loading={processing}
+          loading={submitting}
         >
           Save
         </Button>

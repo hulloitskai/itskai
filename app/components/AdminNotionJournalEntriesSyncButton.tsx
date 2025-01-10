@@ -11,7 +11,7 @@ export interface AdminNotionJournalEntriesSyncButtonProps
 const AdminNotionJournalEntriesSyncButton: FC<
   AdminNotionJournalEntriesSyncButtonProps
 > = ({ children, ...otherProps }) => {
-  const { processing, submit } = useFetchForm<{
+  const { submitting, submit } = useFetchForm<{
     syncResults: NotionJournalEntrySyncResults;
   }>({
     action: routes.adminNotionJournalEntries.sync,
@@ -25,7 +25,7 @@ const AdminNotionJournalEntriesSyncButton: FC<
   return (
     <Button
       color="gray"
-      loading={processing}
+      loading={submitting}
       leftSection={<NotionIcon />}
       onClick={() => {
         submit();

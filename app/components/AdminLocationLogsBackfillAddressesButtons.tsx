@@ -31,7 +31,7 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
   const [popoverOpened, { close: closePopover, open: openPopover }] =
     useDisclosure(false);
   const initialValues = { limit: "" as number | "" };
-  const { getInputProps, processing, submit, watch } = useFetchForm<
+  const { getInputProps, submitting, submit, watch } = useFetchForm<
     { numLogsBackfilling: number },
     typeof initialValues
   >({
@@ -81,7 +81,7 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
     <Group gap={6} {...otherProps}>
       <Button
         color="gray"
-        loading={processing}
+        loading={submitting}
         leftSection={<QueueingIcon />}
         style={{ flexGrow: 1 }}
         {...{ disabled }}
@@ -123,7 +123,7 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
             />
             <Button
               disabled={typeof limit !== "number"}
-              loading={processing}
+              loading={submitting}
               onClick={() => {
                 submit();
               }}

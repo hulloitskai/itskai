@@ -18,7 +18,7 @@ const ExplorationCommentForm: FC<ExplorationCommentFormProps> = ({
     () => ({ exploration_id: exploration.id }),
     [exploration.id],
   );
-  const { getInputProps, processing, submit } = useFetchForm({
+  const { getInputProps, submitting, submit } = useFetchForm({
     name: "exploration-comment",
     action: routes.explorationComments.create,
     descriptor: "create comment",
@@ -59,7 +59,7 @@ const ExplorationCommentForm: FC<ExplorationCommentFormProps> = ({
           required
         />
         <Group justify="end">
-          <Button type="submit" leftSection={<SendIcon />} loading={processing}>
+          <Button type="submit" leftSection={<SendIcon />} loading={submitting}>
             Submit
           </Button>
         </Group>

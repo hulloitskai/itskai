@@ -5,7 +5,7 @@ import "@mantine/dates/styles.layer.css";
 
 const TestForm: FC = () => {
   // == Form
-  const { data, getInputProps, submit, processing } = useFetchForm({
+  const { data, getInputProps, submit, submitting } = useFetchForm({
     name: "test-form",
     action: routes.test.submit,
     descriptor: "submit test form",
@@ -37,7 +37,7 @@ const TestForm: FC = () => {
             required
           />
           <DatePickerInput {...getInputProps("birthday")} label="Birthday" />
-          <Button type="submit" loading={processing}>
+          <Button type="submit" loading={submitting}>
             Submit
           </Button>
           {data && (

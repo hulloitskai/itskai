@@ -10,7 +10,7 @@ export interface AdminLocationAccessGrantDeleteButtonProps
 const AdminLocationAccessGrantDeleteButton: FC<
   AdminLocationAccessGrantDeleteButtonProps
 > = ({ grantId, onGrantDeleted, ...otherProps }) => {
-  const { processing, submit } = useFetchForm({
+  const { submitting, submit } = useFetchForm({
     action: routes.adminLocationAccessGrants.destroy,
     params: { id: grantId },
     descriptor: "delete grant",
@@ -20,7 +20,7 @@ const AdminLocationAccessGrantDeleteButton: FC<
   });
   return (
     <DeleteButton
-      loading={processing}
+      loading={submitting}
       onConfirm={() => {
         submit();
       }}

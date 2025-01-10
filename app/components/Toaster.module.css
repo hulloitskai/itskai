@@ -1,12 +1,17 @@
 .toast {
+  pointer-events: auto;
   align-items: start;
   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
-  font-family: var(--mantine-font-family);
-  line-height: var(--mantine-line-height-xs);
   border-radius: var(--mantine-radius-default);
 
   [data-icon] {
     margin-top: 3px;
+  }
+
+  [data-title],
+  [data-description] {
+    font-family: var(--mantine-font-family);
+    line-height: var(--mantine-line-height-xs);
   }
 
   [data-title] {

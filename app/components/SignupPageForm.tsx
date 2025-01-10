@@ -8,7 +8,7 @@ export interface SignupPageFormProps
 
 const SignupPageForm: FC<SignupPageFormProps> = props => {
   const [passwordStrength, setPasswordStrength] = useState(0.0);
-  const { values, getInputProps, processing, submit } = useInertiaForm({
+  const { values, getInputProps, submitting, submit } = useInertiaForm({
     action: routes.usersRegistrations.create,
     descriptor: "sign up",
     initialValues: {
@@ -65,7 +65,7 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
             });
           }}
         />
-        <Button type="submit" disabled={!filled} loading={processing}>
+        <Button type="submit" disabled={!filled} loading={submitting}>
           Sign up
         </Button>
       </Stack>

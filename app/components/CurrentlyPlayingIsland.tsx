@@ -145,7 +145,7 @@ const IslandContent: FC<IslandContentProps> = ({
   );
 
   // == Join jam session
-  const { processing, submit } = useInertiaForm({
+  const { submitting, submit } = useInertiaForm({
     action: routes.spotifyJamSessions.join,
     descriptor: "join Spotify jam session",
   });
@@ -226,7 +226,7 @@ const IslandContent: FC<IslandContentProps> = ({
             <MarqueeText fz={10} fw={700} className={classes.artistNames}>
               {artistNames}
             </MarqueeText>
-            <LoadingOverlay visible={processing} />
+            <LoadingOverlay visible={submitting} />
           </Badge>
         );
       }}

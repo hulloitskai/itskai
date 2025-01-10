@@ -13,7 +13,7 @@ const AccountPagePasswordForm: FC<AccountPagePasswordFormProps> = ({
   const [passwordStrength, setPasswordStrength] = useState(0.0);
 
   // == Form
-  const { values, getInputProps, isDirty, processing, submit } = useInertiaForm(
+  const { values, getInputProps, isDirty, submitting, submit } = useInertiaForm(
     {
       name: "change-password",
       action: routes.usersRegistrations.changePassword,
@@ -78,7 +78,7 @@ const AccountPagePasswordForm: FC<AccountPagePasswordFormProps> = ({
             !passwordFieldsFilled ||
             !currentPasswordFilled
           }
-          loading={processing}
+          loading={submitting}
         >
           Change password
         </Button>

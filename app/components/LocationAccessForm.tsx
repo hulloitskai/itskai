@@ -20,7 +20,7 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
   interface FormData {
     token: string;
   }
-  const { values, getInputProps, processing, setFieldValue, submit } =
+  const { values, getInputProps, submitting, setFieldValue, submit } =
     useFetchForm({
       action: routes.locations.access,
       descriptor: "access location",
@@ -71,7 +71,7 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
           type="submit"
           size="sm"
           disabled={!filled}
-          loading={processing}
+          loading={submitting}
           className={classes.button}
         >
           Nyoom in

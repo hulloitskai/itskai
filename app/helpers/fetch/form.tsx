@@ -36,7 +36,7 @@ export interface FetchFormOptions<
   beforeSubmit?: (form: FetchPartialForm<Values, TransformValues>) => void;
   onSubmit?: (
     transformedValues: ReturnType<TransformValues>,
-    submission: Promise<Data>,
+    // submission: Promise<Data>,
     form: FetchPartialForm<Values, TransformValues>,
   ) => void;
   onSuccess?: (
@@ -56,10 +56,12 @@ export interface FetchForm<
   Data,
   Values,
   TransformValues extends (values: Values) => unknown,
-> extends Omit<UseFormReturnType<Values, TransformValues>, "onSubmit"> {
+> extends Omit<
+    UseFormReturnType<Values, TransformValues>,
+    "setSubmitting" | "onSubmit"
+  > {
   data: Data | undefined;
   error: Error | undefined;
-  processing: boolean;
   submit: FetchFormSubmit;
 }
 
@@ -104,13 +106,10 @@ export const useFetchForm = <
   });
   const [data, setData] = useState<Data | undefined>();
   const [error, setError] = useState<Error | undefined>();
-  const [processing, setProcessing] = useState(false);
   const handleSubmit = form.onSubmit(
     transformedValues => {
-      setProcessing(true);
-      const submission = action<
-        Data & { error?: string; errors?: Record<string, string> }
-      >({
+      form.setSubmitting(true);
+      action<Data & { error?: string; errors?: Record<string, string> }>({
         params,
         method,
         data: NO_BODY_METHODS.includes(method) ? undefined : transformedValues,
@@ -170,9 +169,9 @@ export const useFetchForm = <
           },
         )
         .finally(() => {
-          setProcessing(false);
+          form.setSubmitting(false);
         });
-      onSubmit?.(transformedValues, submission, form);
+      onSubmit?.(transformedValues, form);
     },
     errors => {
       const formWithErrors = { ...form, errors };
@@ -186,7 +185,6 @@ export const useFetchForm = <
   };
   return {
     ...form,
-    processing,
     submit,
     data,
     error,

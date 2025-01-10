@@ -90,7 +90,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
   interface FormData {
     connection: ICloudConnection;
   }
-  const { values, getInputProps, processing, submit } = useFetchForm({
+  const { values, getInputProps, submitting, submit } = useFetchForm({
     name: "icloud-connection",
     action: routes.adminICloudConnections.create,
     descriptor: "authenticate with iCloud",
@@ -133,7 +133,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
             type="submit"
             leftSection={<AuthenticateIcon />}
             disabled={!filled}
-            loading={processing}
+            loading={submitting}
           >
             {credentials ? "Re-authenticate" : "Authenticate"}
           </Button>

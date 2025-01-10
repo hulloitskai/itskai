@@ -14,7 +14,7 @@ const AdminOAuthDisconnectButton: FC<AdminOAuthDisconnectButtonProps> = ({
   onDisconnected: onDisconnected,
   ...otherProps
 }) => {
-  const { processing, submit } = useFetchForm({
+  const { submitting, submit } = useFetchForm({
     action: routes.adminOAuthConnections.destroy,
     params: { provider },
     descriptor: "remove connection",
@@ -39,7 +39,7 @@ const AdminOAuthDisconnectButton: FC<AdminOAuthDisconnectButtonProps> = ({
           variant="subtle"
           color="red"
           leftSection={<DeactivateIcon />}
-          loading={processing}
+          loading={submitting}
           {...otherProps}
         >
           Disconnect
