@@ -9,7 +9,7 @@ export const getOrRegisterServiceWorker =
           console.warn("No service worker registration found; registering...");
           return registerServiceWorker();
         }
-        return registration;
+        return registration.update();
       });
 
 const handleServiceWorkerMessage = (event: MessageEvent<any>): void => {
