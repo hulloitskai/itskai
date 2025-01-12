@@ -6,6 +6,7 @@
 
 
 class PushSubscription
+  include GeneratedAssociationMethods
   include GeneratedAttributeMethods
   extend CommonRelationMethods
   extend GeneratedRelationMethods
@@ -312,6 +313,29 @@ class PushSubscription
 
     sig { returns(::PushSubscription) }
     def third_to_last!; end
+  end
+
+  module GeneratedAssociationMethods
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Friend) }
+    def build_friend(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Friend) }
+    def create_friend(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Friend) }
+    def create_friend!(*args, &blk); end
+
+    sig { returns(T.nilable(::Friend)) }
+    def friend; end
+
+    sig { params(value: T.nilable(::Friend)).void }
+    def friend=(value); end
+
+    sig { returns(T.nilable(::Friend)) }
+    def reload_friend; end
+
+    sig { void }
+    def reset_friend; end
   end
 
   module GeneratedAssociationRelationMethods
@@ -645,6 +669,51 @@ class PushSubscription
     sig { void }
     def endpoint_will_change!; end
 
+    sig { returns(T.nilable(::String)) }
+    def friend_id; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def friend_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def friend_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def friend_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def friend_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def friend_id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def friend_id_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def friend_id_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def friend_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def friend_id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def friend_id_previous_change; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def friend_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def friend_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def friend_id_was; end
+
+    sig { void }
+    def friend_id_will_change!; end
+
     sig { returns(::String) }
     def id; end
 
@@ -790,6 +859,9 @@ class PushSubscription
     def restore_endpoint!; end
 
     sig { void }
+    def restore_friend_id!; end
+
+    sig { void }
     def restore_id!; end
 
     sig { void }
@@ -818,6 +890,12 @@ class PushSubscription
 
     sig { returns(T::Boolean) }
     def saved_change_to_endpoint?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_friend_id; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_friend_id?; end
 
     sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_id; end
@@ -896,6 +974,9 @@ class PushSubscription
 
     sig { returns(T::Boolean) }
     def will_save_change_to_endpoint?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_friend_id?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_id?; end

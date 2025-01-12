@@ -78,12 +78,18 @@ class User < ApplicationRecord
             presence: true,
             length: { maximum: 100 },
             email: true
+  unless ENV["NO_CREDENTIALS"]
+    validates :email, inclusion: { in: [Owner.email] }
+  end
   validates :password,
             password_strength: {
               min_entropy: MIN_PASSWORD_ENTROPY,
               use_dictionary: true,
             },
             allow_nil: true
+
+  # == Scopes
+  scope :owners, -> { where(email: Owner.email) }
 
   # == Finders
   sig { returns(T.nilable(User)) }

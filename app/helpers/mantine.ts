@@ -78,6 +78,7 @@ export const THEME = createTheme({
     }),
     Loader: Loader.extend({
       defaultProps: {
+        type: "dots",
         size: "sm",
         color: "primary.5",
       },

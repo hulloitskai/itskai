@@ -3,7 +3,7 @@
 
 class PushSubscriptionsController < ApplicationController
   # == Filters
-  before_action :authenticate_user!, except: :lookup
+  before_action :authenticate_friend_or_user!, except: :lookup
 
   # == Actions
   # POST /push_subscriptions/lookup
@@ -20,14 +20,14 @@ class PushSubscriptionsController < ApplicationController
     authorize!(with: PushSubscriptionPolicy)
     subscription_params = params.require(:push_subscription)
       .permit(:endpoint, :p256dh_key, :auth_key)
-    PushSubscription.create!(subscription_params)
+    PushSubscription.create!(friend: current_friend, **subscription_params)
     render(json: {})
   end
 
   # PUT /push_subscriptions/unsubscribe
   def unsubscribe
     subscription_params = params.require(:push_subscription).permit(:endpoint)
-    PushSubscription.delete_by(subscription_params)
+    PushSubscription.destroy_by(subscription_params)
     render(json: {})
   end
 
@@ -47,6 +47,7 @@ class PushSubscriptionsController < ApplicationController
     subscription_params = params.require(:push_subscription)
       .permit(:endpoint)
     subscription = PushSubscription.find_by!(subscription_params)
+    authorize!(subscription)
     subscription.send_test_notification
     render(json: {})
   end
@@ -61,6 +62,7 @@ class PushSubscriptionsController < ApplicationController
 
   private
 
+  # == Helpers
   # See: https://fly.io/ruby-dispatch/push-to-subscribe/#user-interface
   sig { params(public_key: String).returns(String) }
   def encode_public_key(public_key)

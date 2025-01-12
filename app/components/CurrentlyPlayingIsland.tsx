@@ -1,7 +1,5 @@
-import { type ImageProps } from "@mantine/core";
 import { Image, Text } from "@mantine/core";
 import { useNetwork } from "@mantine/hooks";
-import { motion } from "framer-motion";
 import { type ReactNode, useLayoutEffect } from "react";
 import Marquee from "react-fast-marquee";
 
@@ -16,10 +14,6 @@ import {
 import CurrentlyPlayingLyricsTooltip from "./CurrentlyPlayingLyricsTooltip";
 
 import classes from "./CurrentlyPlayingIsland.module.css";
-
-const MotionImage = motion<
-  ImageProps & Omit<ComponentPropsWithoutRef<"img">, "style" | "src">
->(Image);
 
 export interface CurrentlyPlayingIslandProps
   extends BoxProps,
@@ -166,17 +160,12 @@ const IslandContent: FC<IslandContentProps> = ({
             size="xl"
             leftSection={
               <Box pos="relative" p={2} mr={3}>
-                <MotionImage
-                  src={album.image_url}
+                <Image
+                  className={classes.albumArt}
+                  src={album.image_url ?? undefined}
                   w={26}
                   h={26}
                   radius="xl"
-                  animate={{ rotate: 360 }}
-                  transition={{
-                    ease: "linear",
-                    duration: 4,
-                    repeat: Infinity,
-                  }}
                 />
                 <Center
                   pos="absolute"
@@ -251,7 +240,14 @@ const MarqueeText: FC<MarqueeTextProps> = ({ children, ...otherProps }) => {
   }, []);
 
   return (
-    <Marquee pauseOnHover pauseOnClick speed={18} delay={1} {...{ play }}>
+    <Marquee
+      className={classes.marquee}
+      pauseOnHover
+      pauseOnClick
+      speed={18}
+      delay={1}
+      {...{ play }}
+    >
       <Text
         ref={textRef}
         lh={1.1}

@@ -9,7 +9,7 @@ import { useIsFirstRender, useNetwork, useShallowEffect } from "@mantine/hooks";
 import { omit } from "lodash-es";
 import { useState } from "react";
 import { toast } from "sonner";
-import useSWR, { type SWRConfiguration, type SWRResponse } from "swr";
+import useSWR, { type Key, type SWRConfiguration, type SWRResponse } from "swr";
 import useSWRMutation, {
   type SWRMutationConfiguration,
   type SWRMutationResponse,
@@ -123,22 +123,26 @@ export const useFetchRoute = <
   return { fetching: isLoading, validating: isValidating, ...swr };
 };
 
-export interface MutateRouteResponse<Data>
-  extends Omit<SWRMutationResponse<Data, Error>, "isMutating"> {
+export interface MutateRouteResponse<Data, ExtraArg>
+  extends Omit<SWRMutationResponse<Data, Error, Key, ExtraArg>, "isMutating"> {
   mutating: boolean;
 }
 
-export type UseMutateRouteOptions<Data> = Omit<FetchRouteOptions, "params"> &
-  SWRMutationConfiguration<Data, Error, string, never, Data> & {
+export type UseMutateRouteOptions<Data, ExtraArg> = Omit<
+  FetchRouteOptions,
+  "params"
+> &
+  SWRMutationConfiguration<Data, Error, Key, ExtraArg, Data> & {
     params?: FetchRouteOptions["params"] | null;
   };
 
 export const useMutateRoute = <
   Data extends Record<string, any> & { error?: never },
+  ExtraArg = any,
 >(
   route: PathHelper,
-  options: UseMutateRouteOptions<Data>,
-): MutateRouteResponse<Data> => {
+  options: UseMutateRouteOptions<Data, ExtraArg>,
+): MutateRouteResponse<Data, ExtraArg> => {
   const {
     method,
     failSilently,
@@ -153,14 +157,19 @@ export const useMutateRoute = <
     ...swrConfiguration
   } = options;
   const key = useRouteKey(route, params);
-  const { isMutating: mutating, ...swr } = useSWRMutation<Data, Error>(
+  const { isMutating: mutating, ...swr } = useSWRMutation<
+    Data,
+    Error,
+    Key,
+    ExtraArg
+  >(
     key,
-    async (url: string): Promise<Data> =>
+    async (url: string, { arg }: { arg: ExtraArg }): Promise<Data> =>
       fetchRoute(url, {
         failSilently,
         descriptor,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        data,
+        data: arg ?? data,
         deserializeData,
         fetchOptions,
         method: method ?? route.httpMethod,

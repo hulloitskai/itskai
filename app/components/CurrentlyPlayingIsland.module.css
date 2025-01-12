@@ -16,6 +16,12 @@
   }
 }
 
+.marquee {
+  :global(.rfm-marquee) {
+    overflow-y: hidden;
+  }
+}
+
 .marqueeText {
   text-overflow: ellipsis;
   text-transform: none;
@@ -28,4 +34,17 @@
 
 .artistNames {
   color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-3));
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.albumArt {
+  animation: rotate 4s linear infinite;
 }

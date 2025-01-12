@@ -40,6 +40,12 @@ module GeneratedUrlHelpersModule
   def admin_settings_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def admin_status_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def admin_statuses_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def admin_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -79,12 +85,6 @@ module GeneratedUrlHelpersModule
   def comments_notion_journal_entry_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def constellations_posts_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def constellations_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def contact_url_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -112,6 +112,12 @@ module GeneratedUrlHelpersModule
   def file_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def friend_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def friends_statuses_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def good_job_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -119,6 +125,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def hangout_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def healthcheck_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def image_url(*args); end
@@ -251,9 +260,6 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def src_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def status_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def submit_test_url(*args); end

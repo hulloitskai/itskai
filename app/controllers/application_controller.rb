@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   include RemembersUserLocation
   include Logging
   include RendersJsonException
+  include AuthenticatesFriends
 
   # == Filters
   before_action :set_actor_id
@@ -147,6 +148,15 @@ class ApplicationController < ActionController::Base
   def report_exception(exception)
     Rails.error.report(exception)
     Sentry.capture_exception(exception)
+  end
+
+  sig { returns(T.any(Friend, User)) }
+  def authenticate_friend_or_user!
+    if params.include?(:friend_token)
+      authenticate_friend!
+    else
+      authenticate_user!
+    end
   end
 
   # == Rescue callbacks

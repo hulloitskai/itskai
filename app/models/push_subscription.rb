@@ -13,13 +13,22 @@
 #  p256dh_key :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  friend_id  :uuid
 #
 # Indexes
 #
-#  index_push_subscriptions_on_endpoint  (endpoint) UNIQUE
+#  index_push_subscriptions_on_endpoint   (endpoint) UNIQUE
+#  index_push_subscriptions_on_friend_id  (friend_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (friend_id => friends.id)
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class PushSubscription < ApplicationRecord
+  # == Associations
+  belongs_to :friend, optional: true
+
   # == Validations
   validates :endpoint,
             presence: true,

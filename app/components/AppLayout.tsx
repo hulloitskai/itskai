@@ -24,10 +24,11 @@ import { SidebarControlsProvider } from "./SidebarControlsProvider";
 import classes from "./AppLayout.module.css";
 
 export interface AppLayoutProps<PageProps extends SharedPageProps>
-  extends Omit<AppMetaProps, "title" | "description">,
+  extends Omit<AppMetaProps, "title" | "description" | "manifestUrl">,
     Omit<AppShellProps, "title"> {
   title?: DynamicProp<PageProps, AppMetaProps["title"]>;
   description?: DynamicProp<PageProps, AppMetaProps["description"]>;
+  manifestUrl?: DynamicProp<PageProps, AppMetaProps["manifestUrl"]>;
   breadcrumbs?: DynamicProp<PageProps, (AppBreadcrumb | null | false)[]>;
   withContainer?: boolean;
   containerSize?: MantineSize | (string & {}) | number;
@@ -45,6 +46,7 @@ export interface AppBreadcrumb {
 const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
   title: titleProp,
   description: descriptionProp,
+  manifestUrl: manifestUrlProp,
   imageUrl,
   noIndex,
   breadcrumbs: breadcrumbsProp,
@@ -63,6 +65,7 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
   // == Meta
   const title = useResolveDynamicProp(titleProp, pageProps);
   const description = useResolveDynamicProp(descriptionProp, pageProps);
+  const manifestUrl = useResolveDynamicProp(manifestUrlProp, pageProps);
 
   // == Breadcrumbs
   const breadcrumbs = useMemo<AppBreadcrumb[]>(() => {
@@ -169,7 +172,7 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
   );
   return (
     <PageLayout>
-      <AppMeta {...{ title, description, imageUrl, noIndex }} />
+      <AppMeta {...{ title, description, manifestUrl, imageUrl, noIndex }} />
       <SidebarControlsProvider controls={sidebarControls}>
         {shell}
       </SidebarControlsProvider>

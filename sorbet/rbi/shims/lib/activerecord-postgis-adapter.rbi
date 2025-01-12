@@ -38,7 +38,9 @@ module ActiveRecord
       params(
         table_name: T.any(String, Symbol),
         bulk: T::Boolean,
-        blk: T.proc.params(t: T.untyped).void,
+        blk: T.proc.params(
+          t: ActiveRecord::ConnectionAdapters::PostgreSQL::Table,
+        ).void,
       ).void
     end
     def change_table(table_name, bulk: false, &blk); end
@@ -54,9 +56,9 @@ module ActiveRecord
         table_name: T.any(String, Symbol),
         force: T.any(T::Boolean, Symbol),
         if_exists: T::Boolean,
-        blk: T.nilable(
-          T.proc.params(t: ConnectionAdapters::PostGIS::TableDefinition).void,
-        ),
+        blk: T.nilable(T.proc.params(
+          t: ActiveRecord::ConnectionAdapters::PostgreSQL::Table,
+        ).void),
       ).void
     end
     def drop_table(table_name, force: false, if_exists: false, &blk); end
@@ -70,9 +72,9 @@ module ActiveRecord
         table_name: T.any(String, Symbol),
         temporary: T.untyped,
         force: T::Boolean,
-        blk: T.nilable(
-          T.proc.params(t: ConnectionAdapters::PostGIS::TableDefinition).void,
-        ),
+        blk: T.nilable(T.proc.params(
+          t: ActiveRecord::ConnectionAdapters::PostgreSQL::Table,
+        ).void),
       ).void
     end
     def create_join_table(
@@ -90,9 +92,9 @@ module ActiveRecord
         table_1: T.any(String, Symbol),
         table_2: T.any(String, Symbol),
         options: T.untyped,
-        blk: T.nilable(
-          T.proc.params(t: ConnectionAdapters::PostGIS::TableDefinition).void,
-        ),
+        blk: T.nilable(T.proc.params(
+          t: ActiveRecord::ConnectionAdapters::PostgreSQL::Table,
+        ).void),
       ).void
     end
     def drop_join_table(table_1, table_2, options = {}, &blk); end

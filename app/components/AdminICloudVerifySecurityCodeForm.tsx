@@ -1,4 +1,4 @@
-import { InputWrapper, PinInput } from "@mantine/core";
+import { PinInput } from "@mantine/core";
 
 import SecurityCodeIcon from "~icons/heroicons/key-20-solid";
 
@@ -41,16 +41,14 @@ const AdminICloudVerifySecurityCodeForm: FC<
   });
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
-      <Stack gap="xs">
-        <InputWrapper label="Security code">
-          <PinInput
-            {...getInputProps("code")}
-            type="number"
-            length={6}
-            oneTimeCode
-            mt={4}
-          />
-        </InputWrapper>
+      <Stack gap="xs" align="center" pt={4}>
+        <PinInput
+          {...getInputProps("code")}
+          type="number"
+          length={6}
+          oneTimeCode
+          autoFocus
+        />
         <Button
           type="submit"
           loading={submitting}

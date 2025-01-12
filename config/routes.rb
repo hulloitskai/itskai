@@ -146,6 +146,8 @@ Rails.application.routes.draw do
     end
     resources :location_access_grants, only: %i[index create destroy]
     resources :exploration_comments, only: :index
+    resources :friends, only: %i[index create]
+    resources :statuses, only: %i[index create destroy]
     resources :notion_journal_entries, only: [] do
       collection do
         post :sync
@@ -172,10 +174,9 @@ Rails.application.routes.draw do
   # == Adders
   resources :add_event_emails, path: "/add/event_emails", only: :create
 
-  # == Constellations
-  namespace :constellations, export: true do
-    get "/" => "home#show"
-    resources :posts, only: :create
+  # == Friends
+  resource :friend, only: :show, export: true do
+    get "manifest.webmanifest" => :manifest, constraints: { format: "" }
   end
 
   # == Calendly

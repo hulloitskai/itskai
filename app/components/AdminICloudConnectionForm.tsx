@@ -126,7 +126,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
           label="Password"
           placeholder="applesauce"
           required
-          autoComplete="off"
+          autoComplete="new-password"
         />
         <Stack gap={8}>
           <Button

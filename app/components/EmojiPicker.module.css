@@ -1,0 +1,45 @@
+.picker {
+  :global(.epr-header) {
+    > :first-of-type {
+      padding-bottom: 8px;
+    }
+  }
+
+  :global(.epr-search-container) input {
+    font-size: var(--mantine-font-size-md);
+    font-family: var(--mantine-font-family);
+    --epr-search-border-color: var(--mantine-primary-color-outline);
+  }
+
+  :global(.epr-category-nav) {
+    padding-block: 2px;
+  }
+
+  :global(.epr-emoji-category) {
+    margin-bottom: 6px;
+  }
+
+  :global(.epr-emoji-category-label) {
+    height: unset;
+    padding-block: 4px;
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+    font-size: var(--mantine-font-size-xs);
+    font-family: var(--mantine-font-family);
+  }
+
+  :global(.epr-emoji-category-content) {
+    --epr-emoji-gap: 2px;
+  }
+
+  :global(.epr-emoji) {
+    --epr-emoji-size: 24px;
+    --epr-emoji-padding: 4px;
+    --epr-emoji-fullsize: calc(
+      var(--epr-emoji-size) + var(--epr-emoji-padding) * 2
+    );
+  }
+
+  :global(.epr-body) {
+    overflow-y: auto;
+  }
+}

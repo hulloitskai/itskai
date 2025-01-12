@@ -1,6 +1,7 @@
 import SubscribeIcon from "~icons/heroicons/bell-20-solid";
 import UnsubscribeIcon from "~icons/heroicons/bell-slash-20-solid";
 
+import { useMutateRoute } from "~/helpers/fetch";
 import { useWebPush } from "~/helpers/webPush";
 
 export interface AdminPushSubscriptionFormProps
@@ -28,20 +29,22 @@ const AdminPushSubscriptionForm: FC<AdminPushSubscriptionFormProps> = ({
       }, 1000);
     }
   }, [testNotificationSent]);
-  const [sendingTestNotification, setSendingTestNotification] = useState(false);
-  const sendTestNotification = useCallback((subscription: PushSubscription) => {
-    setSendingTestNotification(true);
-    void fetchRoute(routes.pushSubscriptions.test, {
-      descriptor: "send test notification",
-      data: {
+  const {
+    trigger: triggerSendTestNotification,
+    mutating: sendingTestNotification,
+  } = useMutateRoute(routes.pushSubscriptions.test, {
+    descriptor: "send test notification",
+  });
+  const sendTestNotification = useCallback(
+    (subscription: PushSubscription) => {
+      void triggerSendTestNotification({
         push_subscription: {
           endpoint: subscription.endpoint,
         },
-      },
-    }).finally(() => {
-      setSendingTestNotification(false);
-    });
-  }, []);
+      });
+    },
+    [triggerSendTestNotification],
+  );
 
   return (
     <Stack gap={8} {...otherProps}>

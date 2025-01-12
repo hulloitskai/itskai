@@ -192,7 +192,7 @@ EXPOSE ${RAILS_PORT}
 
 # Configure healthcheck
 HEALTHCHECK --interval=15s --timeout=2s --start-period=10s --retries=3 \
-  CMD curl -f http://127.0.0.1:${RAILS_PORT}/status
+  CMD curl -f http://127.0.0.1:${RAILS_PORT}/healthcheck
 
 # Set entrypoint and default command
 CMD [ "bin/run" ]

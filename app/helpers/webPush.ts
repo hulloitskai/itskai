@@ -16,7 +16,7 @@ export interface UseWebPushResult {
   subscription: PushSubscription | undefined | null;
   registration: PushSubscriptionRegistration | undefined | null;
   subscribed: boolean;
-  subscribe: () => Promise<void>;
+  subscribe: (friendToken?: string) => Promise<void>;
   subscribing: boolean;
   subscribeError: Error | null;
   unsubscribe: () => Promise<void>;
@@ -89,64 +89,69 @@ export const useWebPushSubscribe = ({
 ] => {
   const [subscribing, setSubscribing] = useState(false);
   const [subscribeError, setSubscribeError] = useState<Error | null>(null);
-  const subscribe = useCallback((): Promise<void> => {
-    const registerAndSubscribe = (): Promise<void> =>
-      Promise.all<[Promise<PushManager>, Promise<string>]>([
-        getPushManager(),
-        fetchPublicKey(),
-      ])
-        .then(([pushManager, publicKey]) =>
-          pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: createApplicationServerKey(publicKey),
-          }),
-        )
-        .then(
-          subscription => {
-            const { endpoint, keys } = pick(
-              subscription.toJSON(),
-              "endpoint",
-              "keys.auth",
-              "keys.p256dh",
-            );
-            if (!keys?.auth) {
-              throw new Error("Missing auth key");
-            }
-            if (!keys?.p256dh) {
-              throw new Error("Missing p256dh key");
-            }
-            return fetchRoute(routes.pushSubscriptions.create, {
-              descriptor: "subscribe to push notifications",
-              data: {
-                push_subscription: {
-                  endpoint,
-                  auth_key: keys.auth,
-                  p256dh_key: keys.p256dh,
+  const subscribe = useCallback(
+    (friendToken?: string): Promise<void> => {
+      const registerAndSubscribe = (): Promise<void> =>
+        Promise.all<[Promise<PushManager>, Promise<string>]>([
+          getPushManager(),
+          fetchPublicKey(friendToken),
+        ])
+          .then(([pushManager, publicKey]) =>
+            pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: createApplicationServerKey(publicKey),
+            }),
+          )
+          .then(
+            subscription => {
+              const { endpoint, keys } = pick(
+                subscription.toJSON(),
+                "endpoint",
+                "keys.auth",
+                "keys.p256dh",
+              );
+              if (!keys?.auth) {
+                throw new Error("Missing auth key");
+              }
+              if (!keys?.p256dh) {
+                throw new Error("Missing p256dh key");
+              }
+              const query = friendToken ? { friend_token: friendToken } : {};
+              return fetchRoute(routes.pushSubscriptions.create, {
+                descriptor: "subscribe to push notifications",
+                params: { query },
+                data: {
+                  push_subscription: {
+                    endpoint,
+                    auth_key: keys.auth,
+                    p256dh_key: keys.p256dh,
+                  },
                 },
-              },
-            }).then(() => {
-              onSubscribed(subscription);
-            });
-          },
-          (error: Error) => {
-            setSubscribeError(error);
-            throw error;
-          },
-        )
-        .finally(() => {
-          setSubscribing(false);
+              }).then(() => {
+                onSubscribed(subscription);
+              });
+            },
+            (error: Error) => {
+              setSubscribeError(error);
+              throw error;
+            },
+          )
+          .finally(() => {
+            setSubscribing(false);
+          });
+      setSubscribing(true);
+      if (Notification.permission === "granted") {
+        return registerAndSubscribe();
+      } else {
+        return Notification.requestPermission().then(permission => {
+          if (permission === "granted") {
+            return registerAndSubscribe();
+          }
         });
-    setSubscribing(true);
-    if (Notification.permission === "granted") {
-      return registerAndSubscribe();
-    } else {
-      return Notification.requestPermission().then(permission => {
-        if (permission === "granted") {
-          return registerAndSubscribe();
-        }
-      });
-    }
-  }, [onSubscribed]);
+      }
+    },
+    [onSubscribed],
+  );
   return [subscribe, { subscribing, subscribeError }];
 };
 
@@ -202,7 +207,10 @@ const createApplicationServerKey = (publicKey: string): Uint8Array =>
     return value;
   });
 
-const fetchPublicKey = (): Promise<string> =>
-  fetchRoute<{ publicKey: string }>(routes.pushSubscriptions.publicKey, {
+const fetchPublicKey = (friendToken?: string): Promise<string> => {
+  const query = friendToken ? { friend_token: friendToken } : {};
+  return fetchRoute<{ publicKey: string }>(routes.pushSubscriptions.publicKey, {
     descriptor: "load web push public key",
+    params: { query },
   }).then(({ publicKey }) => publicKey);
+};

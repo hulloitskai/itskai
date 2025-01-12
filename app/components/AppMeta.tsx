@@ -12,6 +12,7 @@ export interface AppMetaProps {
   title?: string | string[];
   description?: string | null;
   imageUrl?: string | null;
+  manifestUrl?: string | null;
   noIndex?: boolean;
 }
 
@@ -20,6 +21,7 @@ const transformMeta = (value: string): string => value.toLocaleLowerCase();
 const AppMeta: FC<AppMetaProps> = ({
   description = APP_META_SITE_DESCRIPTION,
   imageUrl = APP_META_SITE_IMAGE,
+  manifestUrl = "/site.webmanifest",
   noIndex,
   siteName = APP_META_SITE_NAME,
   title: titleProp,
@@ -28,6 +30,7 @@ const AppMeta: FC<AppMetaProps> = ({
   const pageTitle = useMemo<string>(() => {
     const components = Array.isArray(titleProp) ? titleProp : [titleProp];
     return components
+      .reverse()
       .filter(component => !!component)
       .join(` ${APP_META_TITLE_SEPARATOR} `);
   }, [titleProp]);
@@ -55,6 +58,7 @@ const AppMeta: FC<AppMetaProps> = ({
   return (
     <Head>
       <title>{transformMeta(tabTitle)}</title>
+      {!!manifestUrl && <link rel="manifest" href={manifestUrl} />}
       {!!description && (
         <meta name="description" content={transformMeta(description)} />
       )}

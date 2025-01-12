@@ -43,6 +43,12 @@ module GeneratedPathHelpersModule
   def admin_settings_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def admin_status_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def admin_statuses_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def atelier_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -79,12 +85,6 @@ module GeneratedPathHelpersModule
   def comments_notion_journal_entry_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def constellations_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def constellations_posts_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def contact_url_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -112,6 +112,12 @@ module GeneratedPathHelpersModule
   def file_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def friend_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def friends_statuses_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def good_job_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -119,6 +125,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def hangout_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def healthcheck_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def image_path(*args); end
@@ -251,9 +260,6 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def src_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def status_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def submit_test_path(*args); end

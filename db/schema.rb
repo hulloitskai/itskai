@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_20_214924) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_12_063716) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -71,6 +71,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_20_214924) do
     t.text "message", null: false
     t.string "author_contact", null: false
     t.datetime "created_at", precision: nil, null: false
+  end
+
+  create_table "friends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "emoji", null: false
+    t.string "token", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_friends_on_name", unique: true
+    t.index ["token"], name: "index_friends_on_token", unique: true
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -322,7 +332,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_20_214924) do
     t.string "p256dh_key", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "friend_id"
     t.index ["endpoint"], name: "index_push_subscriptions_on_endpoint", unique: true
+    t.index ["friend_id"], name: "index_push_subscriptions_on_friend_id"
+  end
+
+  create_table "statuses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "emoji"
+    t.text "text", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.index ["created_at"], name: "index_statuses_on_created_at"
   end
 
   create_table "task_records", id: false, force: :cascade do |t|
@@ -380,4 +399,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_20_214924) do
   add_foreign_key "location_log_addresses", "location_logs"
   add_foreign_key "obsidian_relations", "obsidian_notes", column: "from_id"
   add_foreign_key "pensieve_message_likes", "pensieve_messages", column: "message_id"
+  add_foreign_key "push_subscriptions", "friends"
 end

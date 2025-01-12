@@ -5,7 +5,7 @@ Healthcheck.configure do |config|
   config.success = 200
   config.error = 503
   config.verbose = true
-  config.route = "/status"
+  config.route = "/healthcheck"
   config.method = :get
 
   # == Checks
@@ -29,7 +29,8 @@ Healthcheck.configure do |config|
   # == Custom response
   config.custom = ->(controller, checker) {
     controller.render(json: {
-      status: StatusSerializer.render(checker),
+      healthcheck: HealthcheckSerializer.render(checker),
+      "bootedAt" => ItsKai.application.booted_at,
     })
   }
 end

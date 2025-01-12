@@ -6,6 +6,6 @@
 
 
 class StatusSerializer
-  sig { returns(Healthcheck::Checker) }
-  def checker; end
+  sig { returns(Status) }
+  def status; end
 end

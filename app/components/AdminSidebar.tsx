@@ -20,6 +20,13 @@ const AdminSidebar: FC<AdminSidebarProps> = props => {
         />
         <SidebarNavLink
           component={Link}
+          href={routes.adminNotifications.index.path()}
+          leftSection={<NotificationIcon />}
+          label="Notifications"
+          active={url.startsWith(routes.adminNotifications.index.path())}
+        />
+        <SidebarNavLink
+          component={Link}
           href={routes.adminExplorationComments.index.path()}
           leftSection={<ExplorationCommentIcon />}
           label="Exploration comments"
@@ -27,10 +34,17 @@ const AdminSidebar: FC<AdminSidebarProps> = props => {
         />
         <SidebarNavLink
           component={Link}
-          href={routes.adminNotifications.index.path()}
-          leftSection={<NotificationIcon />}
-          label="Notifications"
-          active={url.startsWith(routes.adminNotifications.index.path())}
+          href={routes.adminFriends.index.path()}
+          leftSection={<FriendsIcon />}
+          label="Friends"
+          active={url.startsWith(routes.adminFriends.index.path())}
+        />
+        <SidebarNavLink
+          component={Link}
+          href={routes.adminStatuses.index.path()}
+          leftSection={<EmojiIcon />}
+          label="Statuses"
+          active={url.startsWith(routes.adminStatuses.index.path())}
         />
       </AppShell.Section>
     </AppSidebar>

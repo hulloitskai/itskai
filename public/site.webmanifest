@@ -1,6 +1,6 @@
 {
-  "name": "It's Kai",
-  "short_name": "It's Kai",
+  "name": "it's kai",
+  "description": "welcome to my little corner of the internet :)",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -12,7 +12,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "display": "standalone",
-  "start_url": "/admin/notifications"
+  ]
 }

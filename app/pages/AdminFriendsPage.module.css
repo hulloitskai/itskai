@@ -1,0 +1,8 @@
+.friendBadge {
+  cursor: pointer;
+
+  @mixin hover {
+    transition: border-color 0.2s ease-in-out;
+    border-color: var(--mantine-color-primary-outline);
+  }
+}

@@ -30,6 +30,8 @@ export const imports: (ImportsMap | PresetName | InlinePreset)[] = [
       "AccountIcon",
       "ExplorationCommentIcon",
       "NotificationIcon",
+      "EmojiIcon",
+      "FriendsIcon",
     ],
     "~/helpers/actioncable/subscription": ["useSubscription"],
     "~/helpers/authentication": ["useCurrentUser", "useAuthenticatedUser"],

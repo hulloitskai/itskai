@@ -15,7 +15,7 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
 
     // == Mode
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",

@@ -1,11 +1,11 @@
 import { type InertiaLinkProps } from "@inertiajs/react";
-import { Avatar, Loader, type MenuItemProps, Text } from "@mantine/core";
+import { Loader, type MenuItemProps, Text } from "@mantine/core";
 
 import LocateIcon from "~icons/basil/current-location-solid";
+import MenuIcon from "~icons/heroicons/bars-3-20-solid";
 import SmileIcon from "~icons/heroicons/face-smile-20-solid";
 
 import { useContact } from "~/helpers/contact";
-import { type Status } from "~/types";
 
 import classes from "./AppMenu.module.css";
 
@@ -21,13 +21,13 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
   const [opened, setOpened] = useState(false);
 
   // == Load server info
-  const { data } = useFetchRoute<{ status: Status }>(
+  const { data } = useFetchRoute<{ bootedAt: string }>(
     routes.healthcheckHealthchecks.check,
     {
       descriptor: "load server info",
     },
   );
-  const { status } = data ?? {};
+  const { bootedAt } = data ?? {};
 
   // == Logout
   const { submit: logout } = useInertiaForm({
@@ -67,24 +67,15 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
         <Badge
           variant="default"
           size="lg"
-          leftSection={
-            currentUser ? (
-              <Avatar src={currentUser.avatar?.src} size={21} />
-            ) : (
-              <UserIcon />
-            )
-          }
+          leftSection={<MenuIcon />}
+          pl={8}
           styles={{
             label: {
               fontWeight: 500,
-              maxWidth: 96,
-            },
-            root: {
-              paddingLeft: currentUser ? 2 : 8,
             },
           }}
         >
-          {currentUser?.name ?? "Sign in & more"}
+          Menu
         </Badge>
       </Menu.Target>
       <Menu.Dropdown>
@@ -153,8 +144,8 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
         <Menu.Item component="div" disabled pt={4}>
           <Text span size="xs">
             Server booted{" "}
-            {status ? (
-              <TimeAgo>{status.booted_at}</TimeAgo>
+            {bootedAt ? (
+              <TimeAgo>{bootedAt}</TimeAgo>
             ) : (
               <Skeleton
                 display="inline-block"

@@ -8,8 +8,7 @@ module Admin
     def index
       scope = authorized_scope(Notification.all)
       pagy, notifications = pagy(
-        Notification
-          .from(scope, "notifications")
+        Notification.from(scope, Notification.table_name)
           .includes(:noticeable)
           .order(created_at: :desc, id: :asc),
       )

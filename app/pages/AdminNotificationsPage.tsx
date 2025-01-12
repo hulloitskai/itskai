@@ -68,6 +68,7 @@ const AdminNotificationsPage: PageComponent<AdminNotificationsPageProps> = ({
 AdminNotificationsPage.layout = page => (
   <AppLayout
     title={["Admin", "Notifications"]}
+    manifestUrl="/admin-notifications.webmanifest"
     breadcrumbs={[
       { title: "Home", href: routes.home.show.path() },
       { title: "Admin", href: routes.admin.show.path() },
