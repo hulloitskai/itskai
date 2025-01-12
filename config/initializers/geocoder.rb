@@ -8,7 +8,7 @@ Geocoder.configure(
 )
 
 # == Here Maps
-unless ENV["NO_CREDENTIALS"]
+if Rails.application.credentials_available?
   Geocoder.configure(
     lookup: :here,
     api_key: Rails.application.credentials.here!.api_key!,

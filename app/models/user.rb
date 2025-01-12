@@ -78,7 +78,7 @@ class User < ApplicationRecord
             presence: true,
             length: { maximum: 100 },
             email: true
-  unless ENV["NO_CREDENTIALS"]
+  if Rails.application.credentials_available?
     validates :email, inclusion: { in: [Owner.email] }
   end
   validates :password,

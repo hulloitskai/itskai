@@ -278,7 +278,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
-  unless ENV["NO_CREDENTIALS"]
+  if Rails.application.credentials_available?
     # Configure authentication with Spotify.
     config.omniauth(
       :spotify,

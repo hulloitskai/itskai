@@ -138,9 +138,11 @@ module ItsKai
     # == Server info
     sig { returns(Time) }
     def booted_at = BOOTED_AT
-  end
 
-  # == Methods
-  sig { returns(ItsKai::Application) }
-  def self.application = T.cast(Rails.application, ItsKai::Application)
+    # == Methods
+    sig { returns(T::Boolean) }
+    def credentials_available?
+      !ENV["NO_CREDENTIALS"].truthy?
+    end
+  end
 end

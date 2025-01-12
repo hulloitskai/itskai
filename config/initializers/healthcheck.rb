@@ -29,8 +29,8 @@ Healthcheck.configure do |config|
   # == Custom response
   config.custom = ->(controller, checker) {
     controller.render(json: {
-      healthcheck: HealthcheckSerializer.render(checker),
-      "bootedAt" => ItsKai.application.booted_at,
+      health: HealthcheckSerializer.render(checker),
+      "bootedAt" => Rails.application.booted_at,
     })
   }
 end
