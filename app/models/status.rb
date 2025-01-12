@@ -47,7 +47,7 @@ class Status < ApplicationRecord
     if with_notification
       # Friend.find_each { |friend| notifications.create!(friend:) }
       # NOTE: Temporary, for testing purposes :)
-      Friend.where("name ILIKE 'kai'").find_each do |friend|
+      Friend.where("name ILIKE '%kai%'").find_each do |friend|
         notifications.create!(friend:)
       end
     else

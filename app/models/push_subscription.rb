@@ -37,10 +37,11 @@ class PushSubscription < ApplicationRecord
   # == Methods
   sig { params(notification: T.nilable(Notification)).void }
   def push(notification = nil)
-    notification = PushNotificationSerializer.one_if(notification)
-    message = { notification: }
+    message = {
+      notification: PushNotificationSerializer.one_if(notification),
+    }
     push_message(message.to_json)
-    notification.mark_as_pushed
+    notification.mark_as_pushed if notification.present?
   end
 
   sig { params(message: String).void }
