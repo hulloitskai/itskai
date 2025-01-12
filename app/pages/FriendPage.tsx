@@ -7,8 +7,7 @@ import TextingIcon from "~icons/heroicons/chat-bubble-left-right-20-solid";
 import PhoneIcon from "~icons/heroicons/device-phone-mobile-20-solid";
 
 import AppLayout from "~/components/AppLayout";
-import FriendAutoPushRegistration from "~/components/FriendAutoPushRegistration";
-import FriendTestPushNotificationButton from "~/components/FriendTestPushNotificationButton";
+import FriendPushNotificationsButton from "~/components/FriendPushNotificationsButton";
 import FriendTimeline from "~/components/FriendTimeline";
 import { useInstallPromptEvent, useIsStandaloneMode } from "~/helpers/pwa";
 import { type Friend, type Status } from "~/types";
@@ -49,7 +48,7 @@ const FriendPage: PageComponent<FriendPageProps> = ({
                 Welcome to the experiment. And thanks for being my friend 🫶
               </Text>
               <Group gap="xs" justify="center">
-                <FriendTestPushNotificationButton
+                <FriendPushNotificationsButton
                   size="compact-sm"
                   {...{ friendToken }}
                   style={{ alignSelf: "center" }}
@@ -122,30 +121,24 @@ const FriendPage: PageComponent<FriendPageProps> = ({
           </>
         )}
       </Stack>
-      {standaloneMode ? (
-        <FriendAutoPushRegistration {...{ friendToken }} />
-      ) : (
-        <>
-          {mounted && (
-            <PWAInstall
-              manifestUrl={routes.friends.manifest.path({
-                query: {
-                  friend_token: friendToken,
-                },
-              })}
-              manualApple
-              manualChrome
-              disableClose
-              useLocalStorage={false}
-              disableDescription
-              externalPromptEvent={installPromptEvent}
-              onPwaInstallAvailableEvent={(event: Event) => {
-                event.preventDefault();
-                setPWAInstall(event.target as PWAInstallElement);
-              }}
-            />
-          )}
-        </>
+      {mounted && !standaloneMode && (
+        <PWAInstall
+          manifestUrl={routes.friends.manifest.path({
+            query: {
+              friend_token: friendToken,
+            },
+          })}
+          manualApple
+          manualChrome
+          disableClose
+          useLocalStorage={false}
+          disableDescription
+          externalPromptEvent={installPromptEvent}
+          onPwaInstallAvailableEvent={(event: Event) => {
+            event.preventDefault();
+            setPWAInstall(event.target as PWAInstallElement);
+          }}
+        />
       )}
     </>
   );

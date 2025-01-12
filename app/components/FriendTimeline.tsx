@@ -34,21 +34,23 @@ const FriendTimeline: FC<FriendTimelineProps> = ({
           </span>
         }
       >
-        <Text lh="xs" style={{ whiteSpace: "pre-line" }}>
-          {status.text}
-        </Text>
-        <Group gap="xs">
-          <Time
-            format={DateTime.DATETIME_MED}
-            size="xs"
-            c="dimmed"
-            display="block"
-          >
-            {status.created_at}
-          </Time>
-          <Divider orientation="vertical" my={1} />
-          <RespondAnchor {...{ contactPhone, status }} size="xs" c="dark.0" />
-        </Group>
+        <Stack gap={2}>
+          <Text lh="xs" style={{ whiteSpace: "pre-line" }}>
+            {status.text}
+          </Text>
+          <Group gap="xs">
+            <Time
+              format={DateTime.DATETIME_MED}
+              size="xs"
+              c="dimmed"
+              display="block"
+            >
+              {status.created_at}
+            </Time>
+            <Divider orientation="vertical" my={1} />
+            <RespondAnchor {...{ contactPhone, status }} size="xs" c="dark.0" />
+          </Group>
+        </Stack>
       </Timeline.Item>
     ))}
   </Timeline>
@@ -73,7 +75,7 @@ const RespondAnchor: FC<RespondAnchorProps> = ({
       status.text
         .split("\n")
         .map(line => `> ${line}`)
-        .join("\n") + "\n";
+        .join("\n") + "\n\n";
     return `sms:${contactPhone}?body=${encodeURIComponent(quotedText)}`;
   }, [contactPhone, status.text]);
   return (
