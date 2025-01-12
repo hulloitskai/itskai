@@ -22,6 +22,9 @@ module GeneratedUrlHelpersModule
   def admin_exploration_comments_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def admin_friends_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def admin_icloud_connection_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -113,9 +116,6 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def friend_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def friends_statuses_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def good_job_url(*args); end

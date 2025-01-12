@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_12_063716) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_12_165726) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -236,6 +236,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_12_063716) do
     t.datetime "pushed_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "friend_id"
+    t.index ["friend_id"], name: "index_notifications_on_friend_id"
     t.index ["noticeable_type", "noticeable_id"], name: "index_notifications_on_noticeable"
   end
 
@@ -397,6 +399,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_12_063716) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "location_accesses", "location_access_grants", column: "grant_id"
   add_foreign_key "location_log_addresses", "location_logs"
+  add_foreign_key "notifications", "friends"
   add_foreign_key "obsidian_relations", "obsidian_notes", column: "from_id"
   add_foreign_key "pensieve_message_likes", "pensieve_messages", column: "message_id"
   add_foreign_key "push_subscriptions", "friends"

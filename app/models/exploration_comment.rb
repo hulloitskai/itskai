@@ -18,6 +18,8 @@ class ExplorationComment < ApplicationRecord
   include Noticeable
 
   # == Associations
+  has_one :notification, as: :noticeable, dependent: :destroy
+
   sig { returns(Exploration) }
   def exploration
     Exploration.find(exploration_id)
@@ -28,12 +30,6 @@ class ExplorationComment < ApplicationRecord
 
   # == Callbacks
   after_create :create_notification!
-
-  # == Callback handlers
-  sig { void }
-  def create_notification!
-    Notification.create!(noticeable: self)
-  end
 
   # == Noticeable
   sig { override.returns(String) }

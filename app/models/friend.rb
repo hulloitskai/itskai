@@ -26,8 +26,24 @@ class Friend < ApplicationRecord
 
   # == Validations
   validates :name, presence: true, uniqueness: true
-  validates :emoji, presence: true
+  validate :validate_emoji
 
   # == Associations
   has_many :push_subscriptions, dependent: :destroy
+
+  private
+
+  # == Validators
+  # Validate that `emoji' is a single valid emoji.
+  sig { void }
+  def validate_emoji
+    emoji = T.let(self[:emoji], T.nilable(String))
+    unless emoji &&
+        (matches = emoji.match(Unicode::Emoji::REGEX)) &&
+        (matches.length == 1) &&
+        (only_match = matches[0]) &&
+        (only_match.length == emoji.length)
+      errors.add(:emoji, :invalid)
+    end
+  end
 end

@@ -147,7 +147,11 @@ Rails.application.routes.draw do
     resources :location_access_grants, only: %i[index create destroy]
     resources :exploration_comments, only: :index
     resources :friends, only: %i[index create]
-    resources :statuses, only: %i[index create destroy]
+    resources :statuses, only: %i[index create destroy] do
+      member do
+        post :notify_friends
+      end
+    end
     resources :notion_journal_entries, only: [] do
       collection do
         post :sync

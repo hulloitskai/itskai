@@ -37,6 +37,7 @@ class LocationAccess < ApplicationRecord
 
   # == Associations
   belongs_to :grant, class_name: "LocationAccessGrant", inverse_of: :accesses
+  has_one :notification, as: :noticeable, dependent: :destroy
 
   sig { returns(LocationAccessGrant) }
   def grant!
@@ -69,11 +70,5 @@ class LocationAccess < ApplicationRecord
     else
       created_at
     end
-  end
-
-  # == Callback handlers
-  sig { void }
-  def create_notification!
-    Notification.create!(noticeable: self)
   end
 end

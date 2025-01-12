@@ -50,20 +50,30 @@ self.addEventListener("push", event => {
     console.debug("Push event", data);
   }
   const { notification } = data;
+  const actions: Promise<void>[] = [];
+  // Set app badge if no window is currently visible.
+  if (navigator.setAppBadge) {
+    actions.push(
+      self.clients.matchAll({ type: "window" }).then(clients => {
+        if (!clients.some(client => client.visibilityState === "visible")) {
+          return navigator.setAppBadge();
+        }
+        return Promise.resolve();
+      }),
+    );
+  }
   if (notification) {
-    const actions: Promise<void>[] = [
+    actions.push(
       self.registration.showNotification(notification.title, {
         body: notification.body,
         icon: notification.icon_src ?? logoSrc,
         data,
         badge: logoSrc,
       }),
-      markAsDelivered(notification),
-    ];
-    event.waitUntil(Promise.all(actions));
-  } else if ("setAppBadge" in navigator) {
-    event.waitUntil(navigator.setAppBadge());
+    );
+    actions.push(markAsDelivered(notification));
   }
+  event.waitUntil(Promise.all(actions));
 });
 
 self.addEventListener("pushsubscriptionchange", event => {

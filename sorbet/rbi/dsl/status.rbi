@@ -6,6 +6,7 @@
 
 
 class Status
+  include GeneratedAssociationMethods
   include GeneratedAttributeMethods
   extend CommonRelationMethods
   extend GeneratedRelationMethods
@@ -262,6 +263,43 @@ class Status
 
     sig { returns(::Status) }
     def third_to_last!; end
+  end
+
+  module GeneratedAssociationMethods
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Notification) }
+    def build_notification(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Notification) }
+    def create_notification(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Notification) }
+    def create_notification!(*args, &blk); end
+
+    sig { returns(T.nilable(::Notification)) }
+    def notification; end
+
+    sig { params(value: T.nilable(::Notification)).void }
+    def notification=(value); end
+
+    sig { returns(T::Array[T.untyped]) }
+    def notification_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def notification_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `Status` class because it declared `has_many :notifications`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::Notification::PrivateCollectionProxy) }
+    def notifications; end
+
+    sig { params(value: T::Enumerable[::Notification]).void }
+    def notifications=(value); end
+
+    sig { returns(T.nilable(::Notification)) }
+    def reload_notification; end
+
+    sig { void }
+    def reset_notification; end
   end
 
   module GeneratedAssociationRelationMethods

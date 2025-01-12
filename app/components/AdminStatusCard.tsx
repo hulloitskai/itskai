@@ -1,13 +1,14 @@
-import { type CardProps, Text } from "@mantine/core";
+import { type ButtonProps, type CardProps, Text } from "@mantine/core";
 
 import { useMutateRoute } from "~/helpers/fetch";
 import { type Status } from "~/types";
 
-import DeleteButton from "./DeleteButton";
+import DeleteButton, { type DeleteButtonProps } from "./DeleteButton";
 
-export interface AdminStatusCardProps extends CardProps {
+export interface AdminStatusCardProps
+  extends CardProps,
+    Pick<DeleteStatusButtonProps, "onStatusDeleted"> {
   status: Status;
-  onStatusDeleted: () => void;
 }
 
 const AdminStatusCard: FC<AdminStatusCardProps> = ({
@@ -15,21 +16,10 @@ const AdminStatusCard: FC<AdminStatusCardProps> = ({
   onStatusDeleted,
   ...otherProps
 }) => {
-  const { trigger: triggerDelete, mutating: deleting } = useMutateRoute(
-    routes.adminStatuses.destroy,
-    {
-      params: { id: status.id },
-      descriptor: "delete status",
-      onSuccess: () => {
-        onStatusDeleted();
-      },
-    },
-  );
-
   return (
     <Card withBorder {...otherProps}>
       <Card.Section withBorder inheritPadding pr="xs" py="xs">
-        <Group justify="space-between">
+        <Group justify="space-between" gap="xs">
           <Time
             format={DateTime.DATETIME_MED}
             size="xs"
@@ -38,20 +28,19 @@ const AdminStatusCard: FC<AdminStatusCardProps> = ({
           >
             {status.created_at}
           </Time>
-          <DeleteButton
-            size="compact-xs"
-            loading={deleting}
-            onConfirm={() => {
-              void triggerDelete();
-            }}
-          />
+          <Group gap={6}>
+            <NotifyFriendsButton statusId={status.id} />
+            <DeleteStatusButton statusId={status.id} {...{ onStatusDeleted }} />
+          </Group>
         </Group>
       </Card.Section>
       <Card.Section withBorder p="xs">
         <Group align="start" gap="xs">
-          <Text w={22} ta="end" display="block" lh="xs">
-            {status.emoji}
-          </Text>
+          {!!status.emoji && (
+            <Text w={22} ta="end" display="block" lh="xs">
+              {status.emoji}
+            </Text>
+          )}
           <Text lh="xs" style={{ whiteSpace: "pre-line" }}>
             {status.text}
           </Text>
@@ -62,3 +51,68 @@ const AdminStatusCard: FC<AdminStatusCardProps> = ({
 };
 
 export default AdminStatusCard;
+
+interface NotifyFriendsButtonProps
+  extends Omit<ButtonProps, "loading" | "onClick"> {
+  statusId: string;
+}
+
+const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
+  statusId,
+  ...otherProps
+}) => {
+  const { trigger, mutating } = useMutateRoute(
+    routes.adminStatuses.notifyFriends,
+    {
+      params: { id: statusId },
+      descriptor: "notify friends",
+      onSuccess: () => {
+        toast.success("Your friends were notified!");
+      },
+    },
+  );
+  return (
+    <Button
+      leftSection={<NotificationIcon />}
+      variant="default"
+      size="compact-sm"
+      loading={mutating}
+      onClick={() => {
+        void trigger();
+      }}
+      {...otherProps}
+    >
+      Notify
+    </Button>
+  );
+};
+
+interface DeleteStatusButtonProps
+  extends Omit<DeleteButtonProps, "loading" | "onConfirm"> {
+  statusId: string;
+  onStatusDeleted: () => void;
+}
+
+const DeleteStatusButton: FC<DeleteStatusButtonProps> = ({
+  statusId,
+  onStatusDeleted,
+  ...otherProps
+}) => {
+  const { trigger, mutating } = useMutateRoute(routes.adminStatuses.destroy, {
+    params: { id: statusId },
+    descriptor: "delete status",
+    onSuccess: () => {
+      onStatusDeleted();
+    },
+  });
+  return (
+    <DeleteButton
+      size="compact-xs"
+      loading={mutating}
+      onConfirm={() => {
+        void trigger();
+      }}
+      {...otherProps}
+    />
+  );
+};

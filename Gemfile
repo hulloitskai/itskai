@@ -213,6 +213,9 @@ gem "pagy", "~> 9.2"
 # Send web push notifications
 gem "web-push", "~> 3.0"
 
+# Up-to-date Emoji Regex
+gem "unicode-emoji", "~> 3.7", require: "unicode/emoji"
+
 group :development, :test do
   # Debug code with debug
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

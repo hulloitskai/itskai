@@ -22,6 +22,9 @@ module GeneratedPathHelpersModule
   def admin_exploration_comments_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def admin_friends_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def admin_icloud_connection_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -113,9 +116,6 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def friend_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def friends_statuses_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def good_job_path(*args); end

@@ -31,6 +31,13 @@ module Admin
       end
     end
 
+    # POST /admin/statuses/:id/notify_friends
+    def notify_friends
+      status = Status.find(params.fetch(:id))
+      status.notify_friends(with_notification: true)
+      render(json: {})
+    end
+
     # DELETE /admin/statuses/:id
     def destroy
       status = Status.find(params.fetch(:id))

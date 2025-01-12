@@ -18,7 +18,10 @@ import {
 import { preparePage } from "~/helpers/inertia/page/client";
 import { setupLuxon } from "~/helpers/luxon";
 import { setupSentry } from "~/helpers/sentry";
-import { registerServiceWorker } from "~/helpers/serviceWorker";
+import {
+  handleServiceWorkerNavigation,
+  registerAndUpdateServiceWorker,
+} from "~/helpers/serviceWorker";
 
 // == Setup
 setupInertia();
@@ -28,7 +31,10 @@ setupActiveStorage();
 setupSentry();
 setupFullStory();
 setupClarity();
-void registerServiceWorker();
+
+// == Service worker
+void registerAndUpdateServiceWorker();
+void handleServiceWorkerNavigation();
 
 // == Pages
 const pageImports = import.meta.glob("~/pages/*.tsx", {

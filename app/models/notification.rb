@@ -14,11 +14,17 @@
 #  pushed_at       :datetime
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  friend_id       :uuid
 #  noticeable_id   :uuid             not null
 #
 # Indexes
 #
+#  index_notifications_on_friend_id   (friend_id)
 #  index_notifications_on_noticeable  (noticeable_type,noticeable_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (friend_id => friends.id)
 #
 # rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class Notification < ApplicationRecord
@@ -33,6 +39,7 @@ class Notification < ApplicationRecord
 
   # == Associations
   belongs_to :noticeable, polymorphic: true
+  belongs_to :friend, optional: true
 
   # == Callbacks
   after_create_commit :push_later
@@ -77,7 +84,7 @@ class Notification < ApplicationRecord
   # == Methods
   sig { void }
   def push
-    PushSubscription.find_each do |subscription|
+    PushSubscription.where(friend:).find_each do |subscription|
       subscription.push(self)
     end
   end
