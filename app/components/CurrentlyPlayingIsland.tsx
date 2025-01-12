@@ -197,7 +197,7 @@ const IslandContent: FC<IslandContentProps> = ({
                 margin: 0,
               },
               label: {
-                maxWidth: 200,
+                maxWidth: rem(200),
                 textTransform: "none",
               },
             }}

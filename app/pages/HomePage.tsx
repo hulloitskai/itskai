@@ -143,7 +143,7 @@ const HomePage: PageComponent<HomePageProps> = ({
           transitionProperty: "transform, opacity, max-height",
           common: { transformOrigin: "top" },
           out: { opacity: 0, transform: "scale(0)", maxHeight: 0 },
-          in: { opacity: 1, transform: "scale(1)", maxHeight: 140 },
+          in: { opacity: 1, transform: "scale(1)", maxHeight: rem(140) },
         }}
         duration={320}
         mounted={showLocation}

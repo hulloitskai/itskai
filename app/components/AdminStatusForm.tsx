@@ -33,7 +33,7 @@ const AdminStatusForm: FC<AdminStatusFormProps> = ({
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Group align="start" gap="xs">
-        <TextInput
+        <Textarea
           {...getInputProps("text")}
           placeholder="new update??!"
           leftSection={
@@ -76,7 +76,13 @@ const AdminStatusForm: FC<AdminStatusFormProps> = ({
           }
           required
           withAsterisk={false}
-          style={{ flexGrow: 1 }}
+          autosize
+          minRows={1}
+          maxRows={4}
+          styles={{
+            root: { flexGrow: 1 },
+            section: { alignItems: "start", paddingTop: rem(7) },
+          }}
         />
         <ActionIcon
           variant="light"
