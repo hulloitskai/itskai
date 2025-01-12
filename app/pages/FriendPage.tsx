@@ -1,5 +1,4 @@
 import { type PWAInstallElement } from "@khmyznikov/pwa-install";
-// @ts-expect-error Require 'bundler' module resolution for proper type checking
 import PWAInstall from "@khmyznikov/pwa-install/react-legacy";
 import { Text } from "@mantine/core";
 
@@ -29,15 +28,16 @@ const FriendPage: PageComponent<FriendPageProps> = ({
   emulateStandalone,
   statuses,
 }) => {
-  const standaloneMode = useIsStandaloneMode();
-  const standalone = emulateStandalone || standaloneMode;
+  const isStandalone = useIsStandaloneMode();
+  const standaloneMode = emulateStandalone || isStandalone;
   const mounted = useMounted();
   const installPromptEvent = useInstallPromptEvent();
   const [pwaInstall, setPWAInstall] = useState<PWAInstallElement | null>(null);
+  const [pwaInstalled, setPWAInstalled] = useState(false);
   return (
     <>
       <Stack mt="sm" gap="xl" style={{ flexGrow: 1 }}>
-        {standalone ? (
+        {standaloneMode ? (
           <>
             <Stack gap={6} lh="xs" ta="center">
               <Text inherit fw={700}>
@@ -97,28 +97,37 @@ const FriendPage: PageComponent<FriendPageProps> = ({
                 to see what&apos;s new :)
               </Text>
             </Stack>
-            <Button
-              loading={!pwaInstall}
-              style={{ alignSelf: "center" }}
-              leftSection={<PhoneIcon />}
-              onClick={() => {
-                if (pwaInstall) {
-                  pwaInstall.install();
-                  if (
-                    pwaInstall.isAppleDesktopPlatform ||
-                    pwaInstall.isAppleMobilePlatform
-                  ) {
-                    pwaInstall.showDialog();
+            <Stack gap={6} align="center">
+              <Button
+                loading={!pwaInstall}
+                disabled={pwaInstalled}
+                leftSection={<PhoneIcon />}
+                onClick={() => {
+                  if (pwaInstall) {
+                    pwaInstall.install();
+                    if (
+                      pwaInstall.isAppleDesktopPlatform ||
+                      pwaInstall.isAppleMobilePlatform
+                    ) {
+                      pwaInstall.showDialog();
+                    }
                   }
-                }
-              }}
-            >
-              Add to home screen
-            </Button>
+                }}
+              >
+                {pwaInstalled
+                  ? "Find me on your home screen"
+                  : "Add to home screen"}
+              </Button>
+              {pwaInstalled && (
+                <Text size="xs" c="dimmed" lh="xs">
+                  On Android, you&apos;ll find me in your app drawer.
+                </Text>
+              )}
+            </Stack>
           </>
         )}
       </Stack>
-      {mounted && !standaloneMode && (
+      {mounted && !isStandalone && (
         <PWAInstall
           manifestUrl={routes.friends.manifest.path({
             query: {
@@ -134,6 +143,11 @@ const FriendPage: PageComponent<FriendPageProps> = ({
           onPwaInstallAvailableEvent={(event: Event) => {
             event.preventDefault();
             setPWAInstall(event.target as PWAInstallElement);
+          }}
+          onPwaInstallSuccessEvent={event => {
+            const pwaInstall = event.target as PWAInstallElement;
+            pwaInstall.hideDialog();
+            setPWAInstalled(true);
           }}
         />
       )}
