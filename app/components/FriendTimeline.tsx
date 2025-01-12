@@ -19,9 +19,14 @@ export interface FriendTimelineProps extends Omit<TimelineProps, "children"> {
 const FriendTimeline: FC<FriendTimelineProps> = ({
   statuses,
   contactPhone,
+  className,
   ...otherProps
 }) => (
-  <Timeline bulletSize={24} {...otherProps}>
+  <Timeline
+    bulletSize={36}
+    className={cn("FriendTimeline", classes.timeline, className)}
+    {...otherProps}
+  >
     {statuses.map(status => (
       <Timeline.Item
         key={status.id}

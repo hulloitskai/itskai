@@ -29,11 +29,18 @@ const FriendPage: PageComponent<FriendPageProps> = ({
   statuses,
 }) => {
   const isStandalone = useIsStandaloneMode();
+  useEffect(() => {
+    if (isStandalone) {
+      void navigator.clearAppBadge();
+    }
+  }, [isStandalone]);
+
   const standaloneMode = emulateStandalone || isStandalone;
   const mounted = useMounted();
   const installPromptEvent = useInstallPromptEvent();
   const [pwaInstall, setPWAInstall] = useState<PWAInstallElement | null>(null);
   const [pwaInstalled, setPWAInstalled] = useState(false);
+
   return (
     <>
       <Stack mt="sm" gap="xl" style={{ flexGrow: 1 }}>

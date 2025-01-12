@@ -1,3 +1,9 @@
 .respondAnchor {
   color: light-dark(var(--mantine-color-gray-8), var(--mantine-color-dark-0));
 }
+
+.timeline {
+  :global(.mantine-Timeline-itemBullet) {
+    background-color: var(--mantine-color-body);
+  }
+}

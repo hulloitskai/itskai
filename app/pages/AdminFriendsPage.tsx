@@ -23,22 +23,69 @@ const AdminFriendsPage: PageComponent<AdminFriendsPageProps> = ({
         }}
       />
       {!isEmpty(friends) ? (
-        <Group wrap="wrap" gap="xs">
+        <List
+          listStyleType="none"
+          styles={{
+            root: {
+              display: "flex",
+              flexDirection: "column",
+              gap: rem(6),
+            },
+            item: {
+              display: "flex",
+              flexDirection: "column",
+            },
+            itemWrapper: {
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "stretch",
+            },
+          }}
+        >
           {friends.map(friend => (
-            <Badge
-              component={Link}
-              variant="default"
-              size="lg"
-              href={routes.friends.show.path({
-                query: { friend_token: friend.token },
-              })}
-              leftSection={friend.emoji}
-              className={classes.friendBadge}
-            >
-              {friend.name}
-            </Badge>
+            <List.Item key={friend.token}>
+              <Group gap={8} align="center" justify="space-between">
+                <Badge
+                  variant="default"
+                  size="lg"
+                  leftSection={friend.emoji}
+                  className={classes.friendBadge}
+                  style={{ flexShrink: 1 }}
+                >
+                  {friend.name}
+                </Badge>
+                <Group
+                  gap={8}
+                  justify="end"
+                  style={{ rowGap: 0, flexShrink: 0 }}
+                  lh="xs"
+                >
+                  <Anchor
+                    href={routes.friends.show.path({
+                      query: { friend_token: friend.token },
+                    })}
+                    inherit
+                    fz="xs"
+                  >
+                    Installer
+                  </Anchor>
+                  <Anchor
+                    href={routes.friends.show.path({
+                      query: {
+                        friend_token: friend.token,
+                        emulate_standalone: true,
+                      },
+                    })}
+                    inherit
+                    fz="xs"
+                  >
+                    Emulate
+                  </Anchor>
+                </Group>
+              </Group>
+            </List.Item>
           ))}
-        </Group>
+        </List>
       ) : (
         <EmptyCard itemLabel="friends" />
       )}

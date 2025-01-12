@@ -35,9 +35,9 @@ class PushSubscription < ApplicationRecord
             uniqueness: { message: "already registered" }
 
   # == Methods
-  sig { params(notification: Notification).void }
-  def push(notification)
-    notification = PushNotificationSerializer.one(notification)
+  sig { params(notification: T.nilable(Notification)).void }
+  def push(notification = nil)
+    notification = PushNotificationSerializer.one_if(notification)
     message = { notification: }
     push_message(message.to_json)
     notification.mark_as_pushed

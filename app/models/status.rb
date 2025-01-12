@@ -20,4 +20,18 @@
 class Status < ApplicationRecord
   # == Validations
   validates :text, presence: true
+
+  # == Callbacks
+  after_create_commit :notify_friends_later
+
+  # == Methods
+  sig { void }
+  def notify_friends
+    PushSubscription.where.associated(:friend).find_each(&:push)
+  end
+
+  sig { void }
+  def notify_friends_later
+    NotifyFriendsOfStatusJob.perform_later(self)
+  end
 end

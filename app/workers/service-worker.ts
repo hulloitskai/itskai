@@ -9,17 +9,17 @@ import { type PushNotification } from "~/types";
 declare const self: ServiceWorkerGlobalScope;
 
 interface NotificationData {
-  notification: PushNotification;
+  notification: PushNotification | null;
 }
 
 // == Setup
 setupFetch();
 
 // == Helpers
-const markAsDelivered = (
-  notification: PushNotification,
-): Promise<void> | undefined => {
+const markAsDelivered = (notification: PushNotification): Promise<void> => {
   if (notification.delivery_token === "test") {
+    return Promise.resolve();
+  } else {
     return routes.notifications
       .delivered<{}>({
         params: { id: notification.id },
@@ -50,8 +50,8 @@ self.addEventListener("push", event => {
     console.debug("Push event", data);
   }
   const { notification } = data;
-  event.waitUntil(
-    Promise.all([
+  if (notification) {
+    const actions: Promise<void>[] = [
       self.registration.showNotification(notification.title, {
         body: notification.body,
         icon: notification.icon_src ?? logoSrc,
@@ -59,8 +59,11 @@ self.addEventListener("push", event => {
         badge: logoSrc,
       }),
       markAsDelivered(notification),
-    ]),
-  );
+    ];
+    event.waitUntil(Promise.all(actions));
+  } else if ("setAppBadge" in navigator) {
+    event.waitUntil(navigator.setAppBadge());
+  }
 });
 
 self.addEventListener("pushsubscriptionchange", event => {
@@ -89,6 +92,9 @@ self.addEventListener("notificationclick", event => {
   console.debug("Notification clicked", event);
   event.notification.close(); // Android needs explicit close
   const { notification } = event.notification.data as NotificationData;
+  if (!notification) {
+    return;
+  }
   const actionUrl =
     notification.action_url ?? routes.adminNotifications.index.path();
   const url = new URL(actionUrl, self.location.href).toString();
