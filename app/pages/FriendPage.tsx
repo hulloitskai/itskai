@@ -18,6 +18,7 @@ export interface FriendPageProps extends SharedPageProps {
   friend: Friend;
   friendToken: string;
   contactPhone: string;
+  emulateStandalone: boolean;
   statuses: Status[];
 }
 
@@ -25,24 +26,23 @@ const FriendPage: PageComponent<FriendPageProps> = ({
   friend,
   friendToken,
   contactPhone,
+  emulateStandalone,
   statuses,
 }) => {
   const standaloneMode = useIsStandaloneMode();
+  const standalone = emulateStandalone || standaloneMode;
   const mounted = useMounted();
   const installPromptEvent = useInstallPromptEvent();
   const [pwaInstall, setPWAInstall] = useState<PWAInstallElement | null>(null);
   return (
     <>
       <Stack mt="sm" gap="xl" style={{ flexGrow: 1 }}>
-        {standaloneMode ? (
+        {standalone ? (
           <>
             <Stack gap={6} lh="xs" ta="center">
               <Text inherit fw={700}>
                 Hi, {friend.emoji}{" "}
-                <span style={{ color: "var(--mantine-color-white)" }}>
-                  {friend.name}
-                </span>
-                !
+                <span className={classes.name}>{friend.name}</span>!
               </Text>
               <Text inherit>
                 Welcome to the experiment. And thanks for being my friend 🫶
@@ -72,10 +72,7 @@ const FriendPage: PageComponent<FriendPageProps> = ({
             <Stack gap={6} lh="xs">
               <Text inherit fw={700}>
                 Hi, {friend.emoji}{" "}
-                <span style={{ color: "var(--mantine-color-white)" }}>
-                  {friend.name}
-                </span>
-                !
+                <span className={classes.name}>{friend.name}</span>!
               </Text>
               <Text inherit>
                 I&apos;m running an experiment to see how I can{" "}

@@ -13,10 +13,12 @@ class FriendsController < ApplicationController
       .reverse_chronological
       .limit(5)
     contact_phone = Contact.phone
+    emulate_standalone = params[:emulate_standalone].truthy?
     render(inertia: "FriendPage", props: {
       friend: FriendSerializer.one(friend),
       "friendToken" => friend.token,
       "contactPhone" => contact_phone,
+      "emulateStandalone" => emulate_standalone,
       statuses: StatusSerializer.many(statuses),
     })
   end

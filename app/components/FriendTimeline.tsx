@@ -9,6 +9,8 @@ import RespondIcon from "~icons/heroicons/arrow-uturn-left-20-solid";
 
 import { type Status } from "~/types";
 
+import classes from "./FriendTimeline.module.css";
+
 export interface FriendTimelineProps extends Omit<TimelineProps, "children"> {
   statuses: Status[];
   contactPhone: string;
@@ -48,7 +50,7 @@ const FriendTimeline: FC<FriendTimelineProps> = ({
               {status.created_at}
             </Time>
             <Divider orientation="vertical" my={1} />
-            <RespondAnchor {...{ contactPhone, status }} size="xs" c="dark.0" />
+            <RespondAnchor {...{ contactPhone, status }} size="xs" />
           </Group>
         </Stack>
       </Timeline.Item>
@@ -68,6 +70,7 @@ interface RespondAnchorProps
 const RespondAnchor: FC<RespondAnchorProps> = ({
   contactPhone,
   status,
+  className,
   ...otherProps
 }) => {
   const href = useMemo(() => {
@@ -79,7 +82,11 @@ const RespondAnchor: FC<RespondAnchorProps> = ({
     return `sms:${contactPhone}?body=${encodeURIComponent(quotedText)}`;
   }, [contactPhone, status.text]);
   return (
-    <Anchor {...{ href }} {...otherProps}>
+    <Anchor
+      {...{ href }}
+      className={cn(classes.respondAnchor, className)}
+      {...otherProps}
+    >
       <Box component={RespondIcon} fz={9} mr={4} />
       Respond
     </Anchor>

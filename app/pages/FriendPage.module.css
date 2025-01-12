@@ -1,4 +1,13 @@
+.name {
+  @mixin dark {
+    color: var(--mantine-color-white);
+  }
+}
+
 .highlight {
   font-weight: 500;
-  color: var(--mantine-color-white);
+
+  @mixin dark {
+    color: var(--mantine-color-white);
+  }
 }

@@ -1,0 +1,3 @@
+.respondAnchor {
+  color: light-dark(var(--mantine-color-gray-8), var(--mantine-color-dark-0));
+}
