@@ -5,6 +5,8 @@ import { type Status } from "~/types";
 
 import DeleteButton, { type DeleteButtonProps } from "./DeleteButton";
 
+import classes from "./AdminStatusCard.module.css";
+
 export interface AdminStatusCardProps
   extends CardProps,
     Pick<DeleteStatusButtonProps, "onStatusDeleted"> {
@@ -77,6 +79,7 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
       variant="default"
       size="compact-sm"
       loading={mutating}
+      classNames={{ section: classes.buttonSection }}
       onClick={() => {
         void trigger();
       }}
@@ -109,6 +112,7 @@ const DeleteStatusButton: FC<DeleteStatusButtonProps> = ({
     <DeleteButton
       size="compact-xs"
       loading={mutating}
+      classNames={{ section: classes.buttonSection }}
       onConfirm={() => {
         void trigger();
       }}

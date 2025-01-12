@@ -1,0 +1,5 @@
+.buttonSection {
+  &[data-position="left"] {
+    margin-right: 6px;
+  }
+}
