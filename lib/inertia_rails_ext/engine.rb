@@ -5,10 +5,22 @@ require "inertia_rails"
 
 module InertiaRails
   class Engine
-    initializer "inertia_rails.action_mailer" do
-      ActiveSupport.on_load(:action_mailer) do
-        prepend Mailer
+    module InitializeMailer
+      extend ActiveSupport::Concern
+      extend T::Helpers
+
+      requires_ancestor { InertiaRails::Engine }
+
+      included do
+        T.bind(self, T.class_of(InertiaRails::Engine))
+
+        initializer "inertia_rails.action_mailer" do
+          ActiveSupport.on_load(:action_mailer) do
+            prepend Mailer
+          end
+        end
       end
     end
+    include InitializeMailer
   end
 end

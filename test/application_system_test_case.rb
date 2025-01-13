@@ -22,7 +22,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   # == Helpers
   sig { returns(T::Boolean) }
   def inertia_ssr_running?
-    url = Addressable::URI.parse(InertiaRails.ssr_url)
+    url = Addressable::URI.parse(InertiaRails.configuration.ssr_url)
     Socket.tcp(url.hostname, url.port, connect_timeout: 0.5) do
       true
     end rescue false

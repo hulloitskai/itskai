@@ -18,3 +18,10 @@
 .input {
   font-size: var(--mantine-font-size-md);
 }
+
+.modalInner {
+  padding-top: calc(
+    var(--modal-inner-y-offset, var(--modal-y-offset)) +
+      env(safe-area-inset-top, 0px)
+  );
+}

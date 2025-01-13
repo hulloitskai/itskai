@@ -93,6 +93,9 @@ export const THEME = createTheme({
       },
     }),
     Modal: Modal.extend({
+      classNames: {
+        inner: classes.modalInner,
+      },
       styles: ({ headings: { sizes, ...style } }) => ({
         header: {
           alignItems: "start",

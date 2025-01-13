@@ -1750,7 +1750,6 @@ class ActionController::Base < ::ActionController::Metal
   include ::ActionController::Rescue
   include ::ActionController::Instrumentation
   include ::ActionController::ParamsWrapper
-  include ::InertiaRails::Controller::FlattenInertiaErrors
   include ::InertiaRails::Controller
   include ::ActionController::RespondWith
   include ::ActionDispatch::Routing::RouteSet::MountedHelpers
@@ -2405,6 +2404,7 @@ end
 module ActionController::Base::HelperMethods
   include ::ActionText::ContentHelper
   include ::ActionText::TagHelper
+  include ::InertiaRails::Helper
   include ::InertiaRails::AssetHelper
   include ::ViteRails::TagHelpers
 
@@ -2437,8 +2437,6 @@ module ActionController::Base::HelperMethods
 
   # source://actionpack//lib/action_controller/metal/request_forgery_protection.rb#101
   def form_authenticity_token(*args, **_arg1, &block); end
-
-  def inertia_headers(*args, **_arg1, &block); end
 
   # source://actionpack//lib/action_controller/metal/flash.rb#39
   def notice(*args, **_arg1, &block); end
@@ -6750,7 +6748,7 @@ module ActionController::Renderers
   # source://actionpack//lib/action_controller/metal/renderers.rb#144
   def _render_to_body_with_renderer(options); end
 
-  # source://inertia_rails/3.2.0/lib/inertia_rails.rb#9
+  # source://inertia_rails/3.6.0/lib/inertia_rails.rb#9
   def _render_with_renderer_inertia(component, options); end
 
   # source://actionpack//lib/action_controller/metal/renderers.rb#170
@@ -9823,7 +9821,7 @@ class ActionDispatch::DebugExceptions
   # source://actionpack//lib/action_dispatch/middleware/debug_exceptions.rb#28
   def call(env); end
 
-  # source://inertia_rails/3.2.0/lib/patches/debug_exceptions/patch-5-1.rb#11
+  # source://inertia_rails/3.6.0/lib/patches/debug_exceptions/patch-5-1.rb#11
   def render_for_browser_request(request, wrapper); end
 
   private
@@ -14600,12 +14598,6 @@ class ActionDispatch::Request
   # source://actionpack//lib/action_dispatch/http/mime_negotiation.rb#18
   def ignore_accept_header=(val); end
 
-  # source://inertia_rails/3.2.0/lib/patches/request.rb#2
-  def inertia?; end
-
-  # source://inertia_rails/3.2.0/lib/patches/request.rb#6
-  def inertia_partial?; end
-
   # source://actionpack//lib/action_dispatch/http/request.rb#444
   def inspect; end
 
@@ -16337,9 +16329,6 @@ class ActionDispatch::Routing::Mapper
 
   # source://devise/4.9.4/lib/devise/rails/routes.rb#363
   def devise_scope(scope); end
-
-  # source://inertia_rails/3.2.0/lib/patches/mapper.rb#2
-  def inertia(args, &block); end
 
   # source://devise/4.9.4/lib/devise/rails/routes.rb#331
   def unauthenticated(scope = T.unsafe(nil)); end

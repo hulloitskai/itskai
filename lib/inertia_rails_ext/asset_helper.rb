@@ -10,10 +10,18 @@ module InertiaRails
     requires_ancestor { ActionView::Base }
 
     # == Methods
-    sig { params(type: Symbol, options: T.untyped).returns(T.nilable(String)) }
-    def inertia_assets(type:, **options)
-      component = InertiaRails.page&.fetch(:component)
-      return unless component.is_a?(String)
+    sig do
+      params(
+        page: T::Hash[Symbol, T.untyped],
+        type: Symbol,
+        options: T.untyped,
+      ).returns(T.nilable(String))
+    end
+    def inertia_assets(page, type:, **options)
+      component = page.fetch(:component)
+      unless component.is_a?(String)
+        raise "Invalid component: #{component}"
+      end
 
       name = component + ".tsx"
       path = File.join(type.to_s.pluralize, name)

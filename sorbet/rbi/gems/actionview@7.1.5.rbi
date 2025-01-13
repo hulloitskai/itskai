@@ -11,7 +11,6 @@ class ActionController::Base < ::ActionController::Metal
   include ::ActionController::Head
   include ::AbstractController::Caching::ConfigMethods
   include ::ActionController::BasicImplicitRender
-  include ::InertiaRails::Controller::FlattenInertiaErrors
   include ::ActionPolicy::Behaviours::PolicyFor
   include ::ActionPolicy::Behaviours::Scoping
   include ::ActionPolicy::Behaviour
@@ -15865,6 +15864,7 @@ end
 module ActionView::TestCase::TestController::HelperMethods
   include ::ActionText::ContentHelper
   include ::ActionText::TagHelper
+  include ::InertiaRails::Helper
   include ::InertiaRails::AssetHelper
   include ::ViteRails::TagHelpers
   include ::ActionController::Base::HelperMethods

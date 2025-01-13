@@ -1,6 +1,5 @@
 postgres: bin/postgres
 mailcatcher: bin/mailcatcher
-spotlight: npx spotlight-sidecar
 icloudctl: FLASK_SKIP_DOTENV=1 DEBUG=true poetry run icloudctl
 vite-dev: bin/vite dev
 vite-build_ssr: bin/vite build --ssr -m dev --watch --force

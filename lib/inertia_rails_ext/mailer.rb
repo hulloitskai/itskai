@@ -1,24 +1,28 @@
 # typed: true
 # frozen_string_literal: true
 
+require "core_ext"
 require "inertia_rails"
 require_relative "asset_helper"
-require_relative "mailer/renderer"
 
 module InertiaRails
   module Mailer
+    class Renderer < ::InertiaRails::Renderer
+      def render = render_ssr
+    end
+
+    extend ActiveSupport::Concern
     extend T::Sig
     extend T::Helpers
-    extend ActiveSupport::Concern
+    T.unsafe(self).include(InertiaRailsExt::ControllerWithoutIncludedBlock)
 
     requires_ancestor { ActionMailer::Base }
 
     prepended do
       T.bind(self, T.class_of(ActionMailer::Base))
 
-      helper_method :inertia_headers
+      helper Helper
       helper AssetHelper
-      before_action :prepare_instance_variables
     end
 
     # == Methods
@@ -30,27 +34,19 @@ module InertiaRails
     end
     def mail(headers = {}, &block)
       if headers.include?(:inertia)
-        headers[:body] = inertia_render(
-          headers[:inertia],
-          **headers.slice(:props),
-        )
+        headers[:body] =
+          inertia_render(headers[:inertia], **headers.slice(:props))
         headers[:content_type] = "text/html"
       end
       super
     end
 
-    # == Helpers
-    def inertia_headers
-      @_inertia_html_headers.join.html_safe # rubocop:disable Rails/OutputSafety
-    end
-
-    def inertia_headers=(value)
-      @_inertia_html_headers = value
-    end
+    # == Inertia helpers
+    def session = {}
 
     private
 
-    # == Helpers
+    # == Rendering helpers
     sig do
       params(
         component: String,
@@ -83,7 +79,7 @@ module InertiaRails
       attempts = 0
       begin
         attempts += 1
-        Faraday.head(InertiaRails.ssr_url)
+        Faraday.head(InertiaRails.configuration.ssr_url)
       rescue Errno::ECONNREFUSED
         sleep(0.5)
         if attempts < 6
@@ -92,14 +88,6 @@ module InertiaRails
           raise "Inertia SSR server cannot be reached"
         end
       end
-    end
-
-    sig { returns(String) }
-    def inertia_layout = "mailer"
-
-    sig { void }
-    def prepare_instance_variables
-      @_inertia_html_headers ||= []
     end
   end
 end

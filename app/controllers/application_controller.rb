@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   # == Filters
   before_action :set_actor_id
   around_action :with_error_context
-  if !InertiaRails.ssr_enabled? && Rails.env.development?
+  if !InertiaRails.configuration.ssr_enabled && Rails.env.development?
     around_action :with_ssr
   end
 
@@ -60,6 +60,8 @@ class ApplicationController < ActionController::Base
               ActiveRecord::RecordNotSaved,
               with: :report_and_render_json_exception
   rescue_from ActionPolicy::Unauthorized, with: :handle_unauthorized
+  rescue_from ActionController::InvalidAuthenticityToken,
+              with: :handle_invalid_authenticity_token
 
   private
 
@@ -108,15 +110,13 @@ class ApplicationController < ActionController::Base
   def with_ssr(&block)
     if params["ssr"].truthy?
       vite_dev_server_disabled = ViteRuby.dev_server_disabled?
-      inertia_ssr_enabled = InertiaRails.ssr_enabled?
+      inertia_ssr_enabled = InertiaRails.configuration.ssr_enabled
       begin
         ViteRuby.dev_server_disabled = true
-        InertiaRails.configure { |config| config.ssr_enabled = true }
+        InertiaRails.configuration.ssr_enabled = true
         yield
       ensure
-        InertiaRails.configure do |config|
-          config.ssr_enabled = inertia_ssr_enabled
-        end
+        InertiaRails.configuration.ssr_enabled = inertia_ssr_enabled
         ViteRuby.dev_server_disabled = vite_dev_server_disabled
       end
     else
@@ -161,6 +161,17 @@ class ApplicationController < ActionController::Base
       end
     else
       authenticate_user!
+    end
+  end
+
+  sig { params(exception: ActionController::InvalidAuthenticityToken).void }
+  def handle_invalid_authenticity_token(exception)
+    if request.inertia?
+      redirect_back_or_to("/", notice: "The page expired, please try again.")
+    elsif request.format.json?
+      report_and_render_json_exception(exception)
+    else
+      raise
     end
   end
 end

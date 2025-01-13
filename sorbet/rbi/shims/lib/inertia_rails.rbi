@@ -18,3 +18,8 @@ class InertiaRails::Renderer
   sig { returns (T::Hash[T.any(Symbol, String), T.untyped]) }
   def view_data; end
 end
+
+module InertiaRails
+  sig { returns(Configuration) }
+  def self.configuration; end
+end
