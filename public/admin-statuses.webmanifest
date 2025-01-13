@@ -1,0 +1,19 @@
+{
+  "name": "it's kai - statuses",
+  "short_name": "it's kai",
+  "description": "create statuses on it's kai",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "display": "standalone",
+  "start_url": "/admin/statuses"
+}

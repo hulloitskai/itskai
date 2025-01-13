@@ -1,0 +1,28 @@
+.header {
+  row-gap: 4px;
+  align-items: start;
+
+  @mixin smaller-than $mantine-breakpoint-xs {
+    flex-direction: column;
+  }
+}
+
+.body {
+  gap: 2px;
+
+  @mixin smaller-than $mantine-breakpoint-xs {
+    gap: 6px;
+  }
+}
+
+.title {
+  @mixin dark {
+    color: var(--mantine-color-white);
+  }
+}
+
+.timestamp {
+  @mixin light {
+    color: var(--mantine-color-gray-8);
+  }
+}

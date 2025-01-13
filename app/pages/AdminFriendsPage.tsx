@@ -11,87 +11,85 @@ export interface AdminFriendsPageProps extends SharedPageProps {
 
 const AdminFriendsPage: PageComponent<AdminFriendsPageProps> = ({
   friends,
-}) => {
-  return (
-    <Stack gap="sm">
-      <Title order={1} size="h2" ta="center">
-        Friends
-      </Title>
-      <AdminFriendForm
-        onFriendCreated={() => {
-          router.reload({ only: ["friends"] });
+}) => (
+  <Stack gap="sm">
+    <Title order={1} size="h2" ta="center">
+      Friends
+    </Title>
+    <AdminFriendForm
+      onFriendCreated={() => {
+        router.reload({ only: ["friends"] });
+      }}
+    />
+    {!isEmpty(friends) ? (
+      <List
+        listStyleType="none"
+        styles={{
+          root: {
+            display: "flex",
+            flexDirection: "column",
+            gap: rem(6),
+          },
+          item: {
+            display: "flex",
+            flexDirection: "column",
+          },
+          itemWrapper: {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "stretch",
+          },
         }}
-      />
-      {!isEmpty(friends) ? (
-        <List
-          listStyleType="none"
-          styles={{
-            root: {
-              display: "flex",
-              flexDirection: "column",
-              gap: rem(6),
-            },
-            item: {
-              display: "flex",
-              flexDirection: "column",
-            },
-            itemWrapper: {
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "stretch",
-            },
-          }}
-        >
-          {friends.map(friend => (
-            <List.Item key={friend.token}>
-              <Group gap={8} align="center" justify="space-between">
-                <Badge
-                  variant="default"
-                  size="lg"
-                  leftSection={friend.emoji}
-                  className={classes.friendBadge}
-                  style={{ flexShrink: 1 }}
+      >
+        {friends.map(friend => (
+          <List.Item key={friend.token}>
+            <Group gap={8} align="center" justify="space-between">
+              <Badge
+                variant="default"
+                size="lg"
+                leftSection={friend.emoji}
+                className={classes.friendBadge}
+                style={{ flexShrink: 1 }}
+              >
+                {friend.name}
+              </Badge>
+              <Group
+                gap={8}
+                justify="end"
+                style={{ rowGap: 0, flexShrink: 0 }}
+                lh="xs"
+              >
+                <Anchor
+                  href={routes.friends.show.path({
+                    query: { friend_token: friend.token },
+                  })}
+                  inherit
+                  fz="xs"
                 >
-                  {friend.name}
-                </Badge>
-                <Group
-                  gap={8}
-                  justify="end"
-                  style={{ rowGap: 0, flexShrink: 0 }}
-                  lh="xs"
+                  Installer
+                </Anchor>
+                <Anchor
+                  href={routes.friends.show.path({
+                    query: {
+                      friend_token: friend.token,
+                      emulate_standalone: true,
+                    },
+                  })}
+                  inherit
+                  fz="xs"
                 >
-                  <Anchor
-                    href={routes.friends.show.path({
-                      query: { friend_token: friend.token },
-                    })}
-                    inherit
-                    fz="xs"
-                  >
-                    Installer
-                  </Anchor>
-                  <Anchor
-                    href={routes.friends.show.path({
-                      query: {
-                        friend_token: friend.token,
-                        emulate_standalone: true,
-                      },
-                    })}
-                    inherit
-                    fz="xs"
-                  >
-                    Emulate
-                  </Anchor>
-                </Group>
+                  Emulate
+                </Anchor>
               </Group>
-            </List.Item>
-          ))}
-        </List>
-      ) : (
-        <EmptyCard itemLabel="friends" />
-      )}
-    </Stack>
-  );
-};
+            </Group>
+          </List.Item>
+        ))}
+      </List>
+    ) : (
+      <EmptyCard itemLabel="friends" />
+    )}
+  </Stack>
+);
 
 AdminFriendsPage.layout = page => (
   <AppLayout
