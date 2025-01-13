@@ -6,7 +6,8 @@ class NotificationSerializer < ApplicationSerializer
   identifier
   attributes title: { type: :string },
              body: { type: :string },
-             action_url: { type: :string, nullable: true }
+             action_url: { type: :string, nullable: true },
+             created_at: { as: :timestamp }
   attribute :noticeable, type: "Noticeable" do
     serialize_noticeable(notification.noticeable!)
   end

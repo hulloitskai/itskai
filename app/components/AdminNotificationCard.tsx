@@ -1,11 +1,15 @@
 import { Avatar, type CardProps, Text } from "@mantine/core";
 import { type ReactNode } from "react";
 
+import ClockIcon from "~icons/heroicons/clock-20-solid";
+
 import { type Noticeable, type Notification } from "~/types";
 
 import AdminNotificationActionButton, {
   type AdminNotificationActionButtonProps,
 } from "./AdminNotificationActionButton";
+
+import classes from "./AdminNotificationCard.module.css";
 
 export interface AdminNotificationCardProps
   extends CardProps,
@@ -24,11 +28,35 @@ const AdminNotificationCard: FC<AdminNotificationCardProps> = ({
     <Group gap="xs" align="start">
       <AdminNotificationCardImage noticeable={notification.noticeable} />
       <Stack align="start" gap={8} miw={0} style={{ flexGrow: 1 }}>
-        <Stack gap={1} style={{ alignSelf: "stretch" }}>
-          <Text size="sm" fw={500} lh="xs" style={{ flexGrow: 1 }}>
-            {notification.title}
-          </Text>
-          <Text c="dimmed" lh="xs">
+        <Stack style={{ alignSelf: "stretch" }} className={classes.body}>
+          <Group gap="xs" className={classes.header}>
+            <Text
+              size="sm"
+              fw={600}
+              lh={1.2}
+              miw={0}
+              style={{ flexGrow: 1 }}
+              className={classes.title}
+            >
+              {notification.title}
+            </Text>
+            <Group
+              gap={6}
+              style={{ flexShrink: 0 }}
+              className={classes.timestamp}
+            >
+              <Box component={ClockIcon} fz="xs" />
+              <Time
+                format={DateTime.DATETIME_MED}
+                size="sm"
+                display="block"
+                inline
+              >
+                {notification.timestamp}
+              </Time>
+            </Group>
+          </Group>
+          <Text c="dimmed" lh={1.2}>
             <AdminNotificationCardBody {...{ notification }} />
           </Text>
         </Stack>
