@@ -11,6 +11,7 @@ import FriendPushNotificationsButton from "~/components/FriendPushNotificationsB
 import FriendTimeline from "~/components/FriendTimeline";
 import FriendVibecheckModal from "~/components/FriendVibecheckModal";
 import { useInstallPromptEvent, useIsStandaloneMode } from "~/helpers/pwa";
+import { useWebPush } from "~/helpers/webPush";
 import { type Friend, type Status } from "~/types";
 
 import classes from "./FriendPage.module.css";
@@ -39,6 +40,7 @@ const FriendPage: PageComponent<FriendPageProps> = ({
     }
   }, [isStandalone]);
 
+  const { registration } = useWebPush();
   const standaloneMode = emulateStandalone || isStandalone;
   const mounted = useMounted();
   const installPromptEvent = useInstallPromptEvent();
@@ -76,7 +78,13 @@ const FriendPage: PageComponent<FriendPageProps> = ({
                 </Button>
               </Group>
             </Stack>
-            <FriendTimeline {...{ statuses, contactPhone }} />
+            {registration ? (
+              <FriendTimeline {...{ statuses, contactPhone }} />
+            ) : (
+              <Text size="sm" c="dimmed" ta="center">
+                Please enable push notifications to continue...
+              </Text>
+            )}
           </>
         ) : (
           <>

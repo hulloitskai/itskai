@@ -96,11 +96,19 @@ export const useWebPushSubscribe = ({
           getPushManager(),
           fetchPublicKey(friendToken),
         ])
-          .then(([pushManager, publicKey]) =>
-            pushManager.subscribe({
-              userVisibleOnly: true,
-              applicationServerKey: createApplicationServerKey(publicKey),
-            }),
+          .then(
+            ([pushManager, publicKey]) =>
+              pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: createApplicationServerKey(publicKey),
+              }),
+            (error: Error) => {
+              setSubscribeError(error);
+              toast.error("Something went wrong", {
+                description: error.message,
+              });
+              throw error;
+            },
           )
           .then(
             subscription => {
@@ -133,6 +141,9 @@ export const useWebPushSubscribe = ({
             },
             (error: Error) => {
               setSubscribeError(error);
+              toast.error("Couldn't subscribe to push notifications", {
+                description: error.message,
+              });
               throw error;
             },
           )
@@ -146,6 +157,8 @@ export const useWebPushSubscribe = ({
         return Notification.requestPermission().then(permission => {
           if (permission === "granted") {
             return registerAndSubscribe();
+          } else {
+            setSubscribing(false);
           }
         });
       }

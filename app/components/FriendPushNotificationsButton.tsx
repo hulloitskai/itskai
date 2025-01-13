@@ -11,7 +11,8 @@ const FriendPushNotificationsButton: FC<FriendPushNotificationsButtonProps> = ({
   friendToken,
   ...otherProps
 }) => {
-  const { subscription, registration, subscribe, supported } = useWebPush();
+  const { subscription, registration, subscribe, subscribing, supported } =
+    useWebPush();
   useEffect(
     () => {
       if (registration === null) {
@@ -33,11 +34,11 @@ const FriendPushNotificationsButton: FC<FriendPushNotificationsButtonProps> = ({
   return (
     <Button
       variant="subtle"
-      loading={mutating}
+      loading={subscribing || mutating}
       disabled={!supported}
       leftSection={<NotificationIcon />}
       onClick={() => {
-        if (subscription) {
+        if (registration && subscription) {
           void trigger({
             push_subscription: {
               endpoint: subscription.endpoint,
@@ -49,7 +50,7 @@ const FriendPushNotificationsButton: FC<FriendPushNotificationsButtonProps> = ({
       }}
       {...otherProps}
     >
-      {subscription === null
+      {registration === null
         ? "Enable push notifications"
         : "Send test notification"}
     </Button>
