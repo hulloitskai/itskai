@@ -8,6 +8,7 @@ class PushNotificationSerializer < ApplicationSerializer
   # == Attributes
   identifier
   attributes :delivery_token,
+             :friend_id,
              title: { type: :string },
              body: { type: :string },
              action_url: { type: :string, nullable: true }

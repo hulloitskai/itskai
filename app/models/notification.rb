@@ -82,7 +82,15 @@ class Notification < ApplicationRecord
 
   sig { returns(T.nilable(String)) }
   def action_url
-    noticeable!.notification_action_url
+    noticeable!.notification_action_url || friend_url
+  end
+
+  sig { returns(T.nilable(String)) }
+  def friend_url
+    if (friend = self.friend)
+      Rails.application.routes.url_helpers
+        .friend_path(friend_token: friend.token)
+    end
   end
 
   # == Methods
