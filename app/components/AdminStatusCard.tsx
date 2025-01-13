@@ -155,7 +155,7 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
         onClose={closeDrawer}
       >
         <form onSubmit={submit}>
-          <Stack gap="xs">
+          <Stack gap="sm">
             <InputWrapper error={errors.friend_ids_to_alert}>
               {friends && allFriendIds ? (
                 <Stack gap={6} align="center">
@@ -229,7 +229,7 @@ const DeleteStatusButton: FC<DeleteStatusButtonProps> = ({
   });
   return (
     <DeleteButton
-      size="compact-xs"
+      size="compact-sm"
       loading={mutating}
       classNames={{ section: classes.buttonSection }}
       onConfirm={() => {
