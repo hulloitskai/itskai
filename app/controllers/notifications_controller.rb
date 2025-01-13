@@ -21,7 +21,7 @@ class NotificationsController < ApplicationController
       authenticate_user!
       authorize!(notification, to: :manage?)
     end
-    notification.mark_as_delivered
+    notification.mark_as_delivered!
     render(json: {})
   end
 

@@ -41,7 +41,7 @@ class PushSubscription < ApplicationRecord
       notification: PushNotificationSerializer.one_if(notification),
     }
     push_message(message.to_json)
-    notification.mark_as_pushed if notification.present?
+    notification.mark_as_pushed! if notification.present?
   end
 
   sig { params(message: String).void }

@@ -99,12 +99,12 @@ class Notification < ApplicationRecord
   end
 
   sig { void }
-  def mark_as_pushed
+  def mark_as_pushed!
     update!(pushed_at: Time.current) unless pushed?
   end
 
   sig { void }
-  def mark_as_delivered
+  def mark_as_delivered!
     update!(delivered_at: Time.current) unless delivered?
   end
 end

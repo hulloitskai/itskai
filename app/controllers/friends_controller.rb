@@ -14,11 +14,13 @@ class FriendsController < ApplicationController
       .limit(5)
     contact_phone = Contact.phone
     emulate_standalone = params[:emulate_standalone].truthy?
+    vibe_last_checked_at = friend.vibechecks.chronological.last&.created_at
     render(inertia: "FriendPage", props: {
       friend: FriendSerializer.one(friend),
       "friendToken" => friend.token,
       "contactPhone" => contact_phone,
       "emulateStandalone" => emulate_standalone,
+      "vibeLastCheckedAt" => vibe_last_checked_at,
       statuses: StatusSerializer.many(statuses),
     })
   end
@@ -45,5 +47,20 @@ class FriendsController < ApplicationController
       display: "standalone",
       start_url: friend_path(friend_token: friend.token),
     })
+  end
+
+  # POST /friend/vibecheck?friend_token=...
+  def vibecheck
+    friend = authenticate_friend!
+    vibecheck_params = params.require(:vibecheck).permit(:vibe)
+    vibecheck = friend.vibechecks.build(vibecheck_params)
+    if vibecheck.save
+      render(json: {}, status: :created)
+    else
+      render(
+        json: { errors: vibecheck.form_errors },
+        status: :unprocessable_entity,
+      )
+    end
   end
 end

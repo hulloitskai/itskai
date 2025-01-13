@@ -57,6 +57,12 @@ const AdminNotificationCardImage: FC<AdminNotificationCardImageProps> = ({
           <ExplorationCommentIcon />
         </Avatar>
       );
+    case "FriendVibecheck":
+      return (
+        <Avatar>
+          <FriendsIcon />
+        </Avatar>
+      );
     default:
       return (
         <Avatar>

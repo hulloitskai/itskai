@@ -24,8 +24,11 @@ class NotificationSerializer < ApplicationSerializer
       {
         access: LocationAccessSerializer.one(noticeable),
       }
-    when Status
-      { status_id: noticeable.id }
+    when FriendVibecheck
+      {
+        friend: FriendSerializer.one(noticeable.friend!),
+        vibe: noticeable.vibe,
+      }
     else
       raise "Unexpected noticeable type: #{noticeable.model_name}"
     end

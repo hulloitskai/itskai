@@ -319,5 +319,8 @@ module GeneratedUrlHelpersModule
   def verify_security_code_admin_icloud_connection_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def vibecheck_friend_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def walk_url(*args); end
 end

@@ -319,5 +319,8 @@ module GeneratedPathHelpersModule
   def verify_security_code_admin_icloud_connection_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def vibecheck_friend_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def walk_path(*args); end
 end

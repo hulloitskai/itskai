@@ -2,12 +2,14 @@ import { type PWAInstallElement } from "@khmyznikov/pwa-install";
 import PWAInstall from "@khmyznikov/pwa-install/react-legacy";
 import { Text } from "@mantine/core";
 
-import TextingIcon from "~icons/heroicons/chat-bubble-left-right-20-solid";
 import PhoneIcon from "~icons/heroicons/device-phone-mobile-20-solid";
+// import TextingIcon from "~icons/heroicons/chat-bubble-left-right-20-solid";
+import FeedbackIcon from "~icons/heroicons/hand-raised-20-solid";
 
 import AppLayout from "~/components/AppLayout";
 import FriendPushNotificationsButton from "~/components/FriendPushNotificationsButton";
 import FriendTimeline from "~/components/FriendTimeline";
+import FriendVibecheckModal from "~/components/FriendVibecheckModal";
 import { useInstallPromptEvent, useIsStandaloneMode } from "~/helpers/pwa";
 import { type Friend, type Status } from "~/types";
 
@@ -18,6 +20,7 @@ export interface FriendPageProps extends SharedPageProps {
   friendToken: string;
   contactPhone: string;
   emulateStandalone: boolean;
+  vibeLastCheckedAt: string | null;
   statuses: Status[];
 }
 
@@ -26,6 +29,7 @@ const FriendPage: PageComponent<FriendPageProps> = ({
   friendToken,
   contactPhone,
   emulateStandalone,
+  vibeLastCheckedAt,
   statuses,
 }) => {
   const isStandalone = useIsStandaloneMode();
@@ -65,10 +69,10 @@ const FriendPage: PageComponent<FriendPageProps> = ({
                   color="gray"
                   size="compact-sm"
                   component="a"
-                  href={`sms:${contactPhone}`}
-                  leftSection={<TextingIcon />}
+                  href={`sms:${contactPhone}?body=${encodeURIComponent("I have feedback for you: ")}`}
+                  leftSection={<FeedbackIcon />}
                 >
-                  Text kai
+                  Give feedback
                 </Button>
               </Group>
             </Stack>
@@ -155,6 +159,14 @@ const FriendPage: PageComponent<FriendPageProps> = ({
             const pwaInstall = event.target as PWAInstallElement;
             pwaInstall.hideDialog();
             setPWAInstalled(true);
+          }}
+        />
+      )}
+      {standaloneMode && (
+        <FriendVibecheckModal
+          {...{ friendToken, vibeLastCheckedAt }}
+          onVibeChecked={() => {
+            router.reload({ only: ["vibeLastCheckedAt"] });
           }}
         />
       )}

@@ -181,6 +181,7 @@ Rails.application.routes.draw do
   # == Friends
   resource :friend, only: :show, export: true do
     get "manifest.webmanifest" => :manifest, constraints: { format: "" }
+    post :vibecheck
   end
 
   # == Calendly

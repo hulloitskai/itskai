@@ -25,7 +25,7 @@ class Status < ApplicationRecord
 
   # == Validations
   validates :text, presence: true
-  validate :validate_emoji
+  validates :emoji, emoji: true, allow_nil: true
 
   # == Callbacks
   after_create_commit :notify_friends_later
@@ -56,22 +56,5 @@ class Status < ApplicationRecord
   sig { void }
   def notify_friends_later
     NotifyFriendsOfStatusJob.perform_later(self)
-  end
-
-  private
-
-  # == Validators
-  # Validate that `emoji' is either nil, or a single valid emoji.
-  sig { void }
-  def validate_emoji
-    emoji = T.let(self[:emoji], T.nilable(String))
-    if emoji
-      unless (matches = emoji.match(Unicode::Emoji::REGEX)) &&
-          (matches.length == 1) &&
-          (only_match = matches[0]) &&
-          (only_match.length == emoji.length)
-        errors.add(:emoji, :invalid)
-      end
-    end
   end
 end

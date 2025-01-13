@@ -1,0 +1,7 @@
+.radioCard {
+  border-radius: var(--mantine-radius-xl);
+
+  &[data-checked] {
+    border-color: var(--mantine-color-primary-outline);
+  }
+}
