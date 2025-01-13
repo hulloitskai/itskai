@@ -121,9 +121,8 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
         },
       })}
       padding={padding ?? (withContainer ? undefined : "md")}
-      style={{
-        "--app-shell-footer-height": rem(44),
-      }}
+      style={{ "--app-shell-footer-height": rem(44) }}
+      classNames={{ header: classes.header, navbar: classes.navbar }}
       {...otherProps}
     >
       <AppHeader />

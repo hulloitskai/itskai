@@ -1,17 +1,33 @@
+.header {
+  height: calc(var(--app-shell-header-height) + env(safe-area-inset-top, 0px));
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
 .main {
   flex-grow: 1;
   background-color: var(--mantine-color-body);
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  margin-top: env(safe-area-inset-top, 0px);
   min-height: calc(
-    100dvh - var(--app-shell-footer-height, 0px) -
-      env(safe-area-inset-bottom, 0px)
+    100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) -
+      var(--app-shell-footer-height, 0px)
   );
   padding-bottom: 0px;
 
   --app-shell-footer-offset: calc(
     var(--app-shell-footer-height, 0px) + env(safe-area-inset-bottom, 0px)
+  );
+}
+
+.navbar {
+  top: calc(
+    var(--app-shell-header-offset, 0rem) + env(safe-area-inset-top, 0px)
+  );
+  height: calc(
+    100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) -
+      var(--app-shell-header-offset, 0px) - var(--app-shell-footer-offset, 0px)
   );
 }
 

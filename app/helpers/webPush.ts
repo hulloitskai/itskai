@@ -102,12 +102,9 @@ export const useWebPushSubscribe = ({
                 userVisibleOnly: true,
                 applicationServerKey: createApplicationServerKey(publicKey),
               }),
-            (error: Error) => {
+            (error: Error): never => {
               setSubscribeError(error);
-              toast.error("Something went wrong", {
-                description: error.message,
-              });
-              throw error;
+              return reportProblem(error.message);
             },
           )
           .then(
@@ -118,16 +115,11 @@ export const useWebPushSubscribe = ({
                 "keys.auth",
                 "keys.p256dh",
               );
-              try {
-                if (!keys?.auth) {
-                  throw new Error("Missing auth key");
-                }
-                if (!keys?.p256dh) {
-                  throw new Error("Missing p256dh key");
-                }
-              } catch (error) {
-                console.error(error);
-                throw error;
+              if (!keys?.auth) {
+                return reportProblem("Missing auth key");
+              }
+              if (!keys?.p256dh) {
+                return reportProblem("Missing p256dh key");
               }
               const query = friendToken ? { friend_token: friendToken } : {};
               return fetchRoute(routes.pushSubscriptions.create, {
@@ -171,6 +163,14 @@ export const useWebPushSubscribe = ({
     [onSubscribed],
   );
   return [subscribe, { subscribing, subscribeError }];
+};
+
+const reportProblem = (message: string): never => {
+  toast.error("Something went wrong", {
+    description: message,
+  });
+  console.error(message);
+  throw new Error(message);
 };
 
 export interface UseWebPushUnsubscribeOptions {
