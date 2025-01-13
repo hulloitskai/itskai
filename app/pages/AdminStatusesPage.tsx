@@ -45,7 +45,7 @@ const AdminStatusesPage: PageComponent<AdminStatusesPageProps> = ({
         total={pagination.last}
         getItemProps={page => ({
           component: Link,
-          href: routes.adminExplorationComments.index.path({
+          href: routes.adminStatuses.index.path({
             query: {
               limit: pagination.limit,
               page: page > 1 ? page : null,
@@ -61,7 +61,7 @@ const AdminStatusesPage: PageComponent<AdminStatusesPageProps> = ({
           }[control];
           return {
             component: Link,
-            href: routes.adminExplorationComments.index.path({
+            href: routes.adminStatuses.index.path({
               query: {
                 limit: pagination.limit,
                 page: nextPage > 1 ? nextPage : null,
