@@ -1,3 +1,3 @@
 postgres: bin/postgres
 vite-ssr: bin/vite build --ssr && bin/vite ssr
-rails: bin/vite build --no-ssr && bin/wait_for_postgres_ready && bin/rails db:prepare && bin/rails $RAILS_TEST_CMD || exit -1
+rails: bin/vite build --no-ssr && bin/wait_for_postgres_ready && bin/rails $RAILS_TEST_CMD || exit -1
