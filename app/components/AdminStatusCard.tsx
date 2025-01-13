@@ -86,6 +86,8 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
     routes.adminFriends.index,
     {
       descriptor: "load friends",
+      params: drawerOpened ? {} : null,
+      isVisible: () => drawerOpened,
     },
   );
   const { friends } = data ?? {};
@@ -96,19 +98,39 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
   }, [friends]);
 
   // == Form
-  const { submit, submitting, getInputProps, setFieldValue, values, errors } =
-    useFetchForm({
-      action: routes.adminStatuses.notifyFriends,
-      params: { id: statusId },
-      descriptor: "notify friends",
-      initialValues: {
-        friend_ids_to_alert: [] as string[],
-      },
-      onSuccess: () => {
-        closeDrawer();
-        toast.success("Your friends were notified!");
-      },
-    });
+  const initialValues = useMemo(
+    () => ({ friend_ids_to_alert: allFriendIds ?? [] }),
+    [allFriendIds],
+  );
+  const {
+    submit,
+    submitting,
+    getInputProps,
+    setFieldValue,
+    values,
+    errors,
+    isTouched,
+    setInitialValues,
+    reset,
+  } = useFetchForm({
+    action: routes.adminStatuses.notifyFriends,
+    params: { id: statusId },
+    descriptor: "notify friends",
+    initialValues,
+    onSuccess: () => {
+      closeDrawer();
+      toast.success("Your friends were notified!");
+    },
+  });
+  useDidUpdate(
+    () => {
+      if (!isTouched()) {
+        setInitialValues(initialValues);
+        reset();
+      }
+    },
+    [initialValues], // eslint-disable-line react-hooks/exhaustive-deps
+  );
   const allFriendsSelected = useMemo(() => {
     if (allFriendIds) {
       return isEqual(allFriendIds, values.friend_ids_to_alert);
@@ -144,7 +166,11 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
                   >
                     <Group wrap="wrap" gap={6} justify="center">
                       {friends.map(friend => (
-                        <Chip variant="outline" value={friend.id}>
+                        <Chip
+                          key={friend.id}
+                          variant="outline"
+                          value={friend.id}
+                        >
                           <span style={{ marginRight: rem(2) }}>
                             {friend.emoji}
                           </span>{" "}
