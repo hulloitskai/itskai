@@ -7,6 +7,7 @@ import {
   useMatches,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import Linkify from "linkify-react";
 import { filter, map } from "lodash-es";
 
 import { useMutateRoute } from "~/helpers/fetch";
@@ -53,7 +54,15 @@ const AdminStatusCard: FC<AdminStatusCardProps> = ({
             </Text>
           )}
           <Text lh="xs" style={{ whiteSpace: "pre-line" }}>
-            {status.text}
+            <Linkify
+              options={{
+                target: "_blank",
+                rel: "noopener noreferrer nofollow",
+                className: cn(Anchor.classes.root, classes.statusLink),
+              }}
+            >
+              {status.text}
+            </Linkify>
           </Text>
         </Group>
       </Card.Section>

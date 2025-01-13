@@ -4,6 +4,7 @@ import {
   Timeline,
   type TimelineProps,
 } from "@mantine/core";
+import Linkify from "linkify-react";
 
 import RespondIcon from "~icons/heroicons/arrow-uturn-left-20-solid";
 
@@ -43,7 +44,15 @@ const FriendTimeline: FC<FriendTimelineProps> = ({
       >
         <Stack gap={2}>
           <Text lh="xs" style={{ whiteSpace: "pre-line" }}>
-            {status.text}
+            <Linkify
+              options={{
+                target: "_blank",
+                rel: "noopener noreferrer nofollow",
+                className: cn(Anchor.classes.root, classes.statusLink),
+              }}
+            >
+              {status.text}
+            </Linkify>
           </Text>
           <Group gap="xs">
             <Time

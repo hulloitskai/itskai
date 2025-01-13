@@ -3,3 +3,9 @@
     margin-right: 6px;
   }
 }
+
+.statusLink {
+  &:hover {
+    text-decoration: underline;
+  }
+}

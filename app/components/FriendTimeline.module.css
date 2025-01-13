@@ -7,3 +7,9 @@
     background-color: var(--mantine-color-body);
   }
 }
+
+.statusLink {
+  &:hover {
+    text-decoration: underline;
+  }
+}
