@@ -14,7 +14,11 @@ module InertiaRails
     extend ActiveSupport::Concern
     extend T::Sig
     extend T::Helpers
-    T.unsafe(self).include(InertiaRailsExt::ControllerWithoutIncludedBlock)
+    send(:included, scoped do
+      controller = InertiaRails::Controller.clone
+      controller.remove_instance_variable(:@_included_block)
+      controller
+    end)
 
     requires_ancestor { ActionMailer::Base }
 
