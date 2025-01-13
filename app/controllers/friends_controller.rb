@@ -9,9 +9,8 @@ class FriendsController < ApplicationController
   # GET /friend?friend_token=...
   def show
     friend = authenticate_friend!
-    statuses = authorized_scope(Status.all)
+    statuses = authorized_scope(Status.where("created_at > ?", 2.days.ago))
       .reverse_chronological
-      .limit(5)
     contact_phone = Contact.phone
     emulate_standalone = params[:emulate_standalone].truthy?
     vibe_last_checked_at = friend.vibechecks.chronological.last&.created_at
