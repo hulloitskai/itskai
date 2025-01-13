@@ -118,11 +118,16 @@ export const useWebPushSubscribe = ({
                 "keys.auth",
                 "keys.p256dh",
               );
-              if (!keys?.auth) {
-                throw new Error("Missing auth key");
-              }
-              if (!keys?.p256dh) {
-                throw new Error("Missing p256dh key");
+              try {
+                if (!keys?.auth) {
+                  throw new Error("Missing auth key");
+                }
+                if (!keys?.p256dh) {
+                  throw new Error("Missing p256dh key");
+                }
+              } catch (error) {
+                console.error(error);
+                throw error;
               }
               const query = friendToken ? { friend_token: friendToken } : {};
               return fetchRoute(routes.pushSubscriptions.create, {
