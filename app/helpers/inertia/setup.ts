@@ -18,6 +18,12 @@ export const setupInertia = (): void => {
       console.error("Invalid Inertia response", event.detail.response.data);
     }
   });
+  router.on("exception", event => {
+    console.error(
+      "An unexpected error occurred during an Inertia visit",
+      event.detail.exception,
+    );
+  });
   router.on("navigate", () => {
     closeAllModals();
   });

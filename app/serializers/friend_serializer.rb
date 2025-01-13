@@ -4,5 +4,5 @@
 class FriendSerializer < ApplicationSerializer
   # == Attributes
   identifier
-  attributes :name, :emoji
+  attributes :name, :emoji, notifiable?: { as: :notifiable, type: :boolean }
 end

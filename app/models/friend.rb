@@ -31,4 +31,10 @@ class Friend < ApplicationRecord
   # == Associations
   has_many :push_subscriptions, dependent: :destroy
   has_many :vibechecks, class_name: "FriendVibecheck", dependent: :destroy
+
+  # == Methods
+  sig { returns(T::Boolean) }
+  def notifiable?
+    push_subscriptions.any?
+  end
 end

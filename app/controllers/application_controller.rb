@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
 
   # == Filters
   before_action :set_actor_id
-  before_action :authorize_rack_mini_profiler if Rails.env.production?
   around_action :with_error_context
   if !InertiaRails.ssr_enabled? && Rails.env.development?
     around_action :with_ssr
@@ -95,14 +94,6 @@ class ApplicationController < ActionController::Base
     unless cookies.key?(:actor_id)
       cookies.permanent.signed[:actor_id] =
         current_user&.id || SecureRandom.uuid
-    end
-  end
-
-  sig { void }
-  def authorize_rack_mini_profiler
-    if params[:profile].truthy?
-      authorize!(to: :administrate?, with: ApplicationPolicy)
-      Rack::MiniProfiler.authorize_request
     end
   end
 

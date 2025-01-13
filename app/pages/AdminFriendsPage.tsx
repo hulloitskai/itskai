@@ -45,11 +45,11 @@ const AdminFriendsPage: PageComponent<AdminFriendsPageProps> = ({
           <List.Item key={friend.token}>
             <Group gap={8} align="center" justify="space-between">
               <Badge
-                variant="default"
+                variant="light"
                 size="lg"
                 leftSection={friend.emoji}
-                className={classes.friendBadge}
                 style={{ flexShrink: 1 }}
+                className={classes.friendBadge}
               >
                 {friend.name}
               </Badge>

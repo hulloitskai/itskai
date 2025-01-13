@@ -56,8 +56,7 @@ class LocationAccess < ApplicationRecord
 
   sig { override.returns(String) }
   def notification_body
-    "#{accessor} (pw: #{password}) accessed your location on " \
-      "#{I18n.l(localized_timestamp, format: :short)}"
+    "#{accessor} (pw: #{password}) accessed your location)"
   end
 
   private

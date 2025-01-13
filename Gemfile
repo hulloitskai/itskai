@@ -181,11 +181,6 @@ gem "exiftool", "~> 1.2"
 # Find timezones by coordinate with TimezoneFinder
 gem "timezone_finder", "~> 1.5"
 
-# Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-gem "rack-mini-profiler"
-gem "memory_profiler"
-gem "stackprof"
-
 # Cache counts in models with CounterCulture
 gem "counter_culture", "~> 3.5"
 
@@ -272,6 +267,11 @@ group :development do
 
   # Annotate models and routes
   gem "annotate", require: false
+
+  # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
+  gem "rack-mini-profiler"
+  gem "memory_profiler"
+  gem "stackprof"
 end
 
 group :test do

@@ -12,4 +12,7 @@ TypesFromSerializers.config do |config|
     datetime: :string,
   )
   config.transform_keys = ->(key) { key }
+  config.skip_serializer_if = ->(serializer) {
+    serializer.name == "HealthcheckSerializer"
+  }
 end

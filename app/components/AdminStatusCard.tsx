@@ -7,7 +7,7 @@ import {
   useMatches,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { map } from "lodash-es";
+import { filter, map } from "lodash-es";
 
 import { useMutateRoute } from "~/helpers/fetch";
 import { type AdminFriend, type Status } from "~/types";
@@ -90,16 +90,16 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
     },
   );
   const { friends } = data ?? {};
-  const allFriendIds = useMemo(() => {
+  const allNotifiableFriendIds = useMemo(() => {
     if (friends) {
-      return map(friends, "id");
+      return map(filter(friends, "notifiable"), "id");
     }
   }, [friends]);
 
   // == Form
   const initialValues = useMemo(
-    () => ({ friend_ids: allFriendIds ?? [] }),
-    [allFriendIds],
+    () => ({ friend_ids: allNotifiableFriendIds ?? [] }),
+    [allNotifiableFriendIds],
   );
   const {
     submit,
@@ -130,11 +130,11 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
     },
     [initialValues], // eslint-disable-line react-hooks/exhaustive-deps
   );
-  const allFriendsSelected = useMemo(() => {
-    if (allFriendIds) {
-      return isEqual(allFriendIds, values.friend_ids);
+  const allNotifiableFriendsSelected = useMemo(() => {
+    if (allNotifiableFriendIds) {
+      return isEqual(allNotifiableFriendIds, values.friend_ids);
     }
-  }, [allFriendIds, values.friend_ids]);
+  }, [allNotifiableFriendIds, values.friend_ids]);
 
   return (
     <>
@@ -157,21 +157,30 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
         <form onSubmit={submit}>
           <Stack gap="sm">
             <InputWrapper error={errors.friend_ids}>
-              {friends && allFriendIds ? (
+              {friends && allNotifiableFriendIds ? (
                 <Stack gap={6} align="center">
                   <Chip.Group {...getInputProps("friend_ids")} multiple>
                     <Group wrap="wrap" gap={6} justify="center">
                       {friends.map(friend => (
-                        <Chip
+                        <Tooltip
                           key={friend.id}
-                          variant="outline"
-                          value={friend.id}
+                          withArrow
+                          label="This friend has not subscribed to push notifications"
+                          disabled={friend.notifiable}
                         >
-                          <span style={{ marginRight: rem(2) }}>
-                            {friend.emoji}
-                          </span>{" "}
-                          {friend.name}
-                        </Chip>
+                          <div>
+                            <Chip
+                              variant="outline"
+                              value={friend.id}
+                              disabled={!friend.notifiable}
+                            >
+                              <span style={{ marginRight: rem(2) }}>
+                                {friend.emoji}
+                              </span>{" "}
+                              {friend.name}
+                            </Chip>
+                          </div>
+                        </Tooltip>
                       ))}
                     </Group>
                   </Chip.Group>
@@ -180,11 +189,15 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
                     type="button"
                     size="sm"
                     onClick={() => {
-                      const nextIds = allFriendsSelected ? [] : allFriendIds;
+                      const nextIds = allNotifiableFriendsSelected
+                        ? []
+                        : allNotifiableFriendIds;
                       setFieldValue("friend_ids", nextIds);
                     }}
                   >
-                    {allFriendsSelected ? "Unselect all" : "Select all"}
+                    {allNotifiableFriendsSelected
+                      ? "Unselect all"
+                      : "Select all"}
                   </Anchor>
                 </Stack>
               ) : (

@@ -1,9 +1,8 @@
 import { Avatar, type CardProps, Text } from "@mantine/core";
-import { type ReactNode } from "react";
 
 import ClockIcon from "~icons/heroicons/clock-20-solid";
 
-import { type Noticeable, type Notification } from "~/types";
+import { type Noticeable } from "~/types";
 
 import AdminNotificationActionButton, {
   type AdminNotificationActionButtonProps,
@@ -57,7 +56,7 @@ const AdminNotificationCard: FC<AdminNotificationCardProps> = ({
             </Group>
           </Group>
           <Text c="dimmed" lh={1.2}>
-            <AdminNotificationCardBody {...{ notification }} />
+            {notification.body}
           </Text>
         </Stack>
         <AdminNotificationActionButton
@@ -97,28 +96,5 @@ const AdminNotificationCardImage: FC<AdminNotificationCardImageProps> = ({
           <NotificationIcon />
         </Avatar>
       );
-  }
-};
-
-interface AdminNotificationCardBodyProps {
-  notification: Notification;
-}
-
-const AdminNotificationCardBody: FC<AdminNotificationCardBodyProps> = ({
-  notification,
-}): ReactNode => {
-  const { noticeable } = notification;
-  switch (noticeable.type) {
-    case "LocationAccess": {
-      const { access } = noticeable;
-      return (
-        <>
-          {access.accessor} (pw: {access.password}) accessed your location on{" "}
-          <Time format={DateTime.DATETIME_SHORT}>{access.timestamp}</Time>
-        </>
-      );
-    }
-    default:
-      return notification.body;
   }
 };
