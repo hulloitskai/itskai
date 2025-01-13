@@ -2,7 +2,6 @@ import {
   type ButtonProps,
   type CardProps,
   Drawer,
-  type DrawerProps,
   InputWrapper,
   Text,
   useMatches,

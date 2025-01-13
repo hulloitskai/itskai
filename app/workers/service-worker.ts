@@ -56,7 +56,7 @@ self.addEventListener("push", event => {
     actions.push(
       self.clients.matchAll({ type: "window" }).then(clients => {
         if (!clients.some(client => client.visibilityState === "visible")) {
-          return navigator.setAppBadge();
+          return navigator.setAppBadge(1);
         }
         return Promise.resolve();
       }),
