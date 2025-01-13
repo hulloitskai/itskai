@@ -12,6 +12,7 @@ import {
   resolveDynamicProp,
   useResolveDynamicProp,
 } from "~/helpers/layout";
+import { useClearAppBadge } from "~/helpers/pwa";
 import { type SidebarControls } from "~/helpers/sidebar";
 
 import AppHeader from "./AppHeader";
@@ -60,6 +61,7 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
   padding,
   ...otherProps
 }: AppLayoutProps<PageProps>) => {
+  useClearAppBadge();
   const pageProps = usePageProps<PageProps>();
 
   // == Meta

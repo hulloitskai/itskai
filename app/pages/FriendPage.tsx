@@ -34,12 +34,6 @@ const FriendPage: PageComponent<FriendPageProps> = ({
   statuses,
 }) => {
   const isStandalone = useIsStandaloneMode();
-  useEffect(() => {
-    if (isStandalone) {
-      void navigator.clearAppBadge();
-    }
-  }, [isStandalone]);
-
   const { registration } = useWebPush();
   const standaloneMode = emulateStandalone || isStandalone;
   const mounted = useMounted();
