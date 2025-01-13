@@ -3,5 +3,5 @@
 
 class StatusNotifyFriendsParameters < ApplicationParameters
   # == Attributes
-  attribute :friend_ids_to_alert, array: true, default: -> { [] }
+  attribute :friend_ids, array: true, default: -> { [] }
 end

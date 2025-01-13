@@ -1,11 +1,11 @@
 # typed: strict
 # frozen_string_literal: true
 
-class NotifyFriendsOfStatusJob < ApplicationJob
+class NudgeFriendsAboutStatusJob < ApplicationJob
   # == Configuration
   good_job_control_concurrency_with(
     key: -> {
-      T.bind(self, NotifyFriendsOfStatusJob)
+      T.bind(self, NudgeFriendsAboutStatusJob)
       status, = arguments
       "#{self.class.name}(#{status.to_gid})"
     },
@@ -15,6 +15,6 @@ class NotifyFriendsOfStatusJob < ApplicationJob
   # == Job
   sig { params(status: Status).void }
   def perform(status)
-    status.notify_friends
+    status.nudge_friends
   end
 end

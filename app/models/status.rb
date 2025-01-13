@@ -28,7 +28,7 @@ class Status < ApplicationRecord
   validates :emoji, emoji: true, allow_nil: true
 
   # == Callbacks
-  after_create_commit :notify_friends_later
+  after_create_commit :nudge_friends_later
 
   # == Noticeable
   sig { override.returns(String) }
@@ -42,19 +42,22 @@ class Status < ApplicationRecord
   end
 
   # == Notify
-  sig { params(friend_ids_to_alert: T::Array[String]).void }
-  def notify_friends(friend_ids_to_alert: [])
-    Friend.where(id: friend_ids_to_alert).select(:id).find_each do |friend|
-      notifications.create!(friend:)
+  sig { params(friend_ids: T::Array[String]).void }
+  def notify_friends(friend_ids: [])
+    transaction do
+      Friend.where(id: friend_ids).select(:id).find_each do |friend|
+        notifications.create!(friend:)
+      end
     end
-    PushSubscription
-      .where.associated(:friend)
-      .where.not(friend_id: friend_ids_to_alert)
-      .find_each(&:push)
   end
 
   sig { void }
-  def notify_friends_later
-    NotifyFriendsOfStatusJob.perform_later(self)
+  def nudge_friends
+    PushSubscription.where.associated(:friend).find_each(&:push)
+  end
+
+  sig { void }
+  def nudge_friends_later
+    NudgeFriendsAboutStatusJob.perform_later(self)
   end
 end

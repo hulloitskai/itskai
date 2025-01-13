@@ -7,8 +7,8 @@
 
 class StatusNotifyFriendsParameters
   sig { returns(T.untyped) }
-  def friend_ids_to_alert; end
+  def friend_ids; end
 
   sig { params(value: T.untyped).returns(T.untyped) }
-  def friend_ids_to_alert=(value); end
+  def friend_ids=(value); end
 end

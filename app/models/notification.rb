@@ -42,7 +42,7 @@ class Notification < ApplicationRecord
   belongs_to :friend, optional: true
 
   # == Callbacks
-  after_create_commit :push_later
+  after_create_commit :push_later, unless: :pushed?
 
   # == Scopes
   scope :for_owner, -> { where(friend: nil) }

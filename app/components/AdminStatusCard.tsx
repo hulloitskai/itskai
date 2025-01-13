@@ -98,7 +98,7 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
 
   // == Form
   const initialValues = useMemo(
-    () => ({ friend_ids_to_alert: allFriendIds ?? [] }),
+    () => ({ friend_ids: allFriendIds ?? [] }),
     [allFriendIds],
   );
   const {
@@ -132,9 +132,9 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
   );
   const allFriendsSelected = useMemo(() => {
     if (allFriendIds) {
-      return isEqual(allFriendIds, values.friend_ids_to_alert);
+      return isEqual(allFriendIds, values.friend_ids);
     }
-  }, [allFriendIds, values.friend_ids_to_alert]);
+  }, [allFriendIds, values.friend_ids]);
 
   return (
     <>
@@ -156,13 +156,10 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
       >
         <form onSubmit={submit}>
           <Stack gap="sm">
-            <InputWrapper error={errors.friend_ids_to_alert}>
+            <InputWrapper error={errors.friend_ids}>
               {friends && allFriendIds ? (
                 <Stack gap={6} align="center">
-                  <Chip.Group
-                    {...getInputProps("friend_ids_to_alert")}
-                    multiple
-                  >
+                  <Chip.Group {...getInputProps("friend_ids")} multiple>
                     <Group wrap="wrap" gap={6} justify="center">
                       {friends.map(friend => (
                         <Chip
@@ -184,7 +181,7 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
                     size="sm"
                     onClick={() => {
                       const nextIds = allFriendsSelected ? [] : allFriendIds;
-                      setFieldValue("friend_ids_to_alert", nextIds);
+                      setFieldValue("friend_ids", nextIds);
                     }}
                   >
                     {allFriendsSelected ? "Unselect all" : "Select all"}
@@ -198,7 +195,7 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
               type="submit"
               leftSection={<NotificationIcon />}
               loading={submitting}
-              disabled={isEmpty(values.friend_ids_to_alert)}
+              disabled={isEmpty(values.friend_ids)}
             >
               Notify
             </Button>
