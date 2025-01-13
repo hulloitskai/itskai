@@ -10,13 +10,12 @@ class NotifyFriendsOfStatusJob
     sig do
       params(
         status: ::Status,
-        with_notification: T::Boolean,
         block: T.nilable(T.proc.params(job: NotifyFriendsOfStatusJob).void)
       ).returns(T.any(NotifyFriendsOfStatusJob, FalseClass))
     end
-    def perform_later(status, with_notification: T.unsafe(nil), &block); end
+    def perform_later(status, &block); end
 
-    sig { params(status: ::Status, with_notification: T::Boolean).void }
-    def perform_now(status, with_notification: T.unsafe(nil)); end
+    sig { params(status: ::Status).void }
+    def perform_now(status); end
   end
 end

@@ -3,13 +3,25 @@
 
 module Admin
   class FriendsController < AdminController
+    # == Configuration
+    respond_to :html, :json
+
     # == Actions
     # GET /admin/friends
     def index
       friends = authorized_scope(Friend.all)
-      render(inertia: "AdminFriendsPage", props: {
-        friends: AdminFriendSerializer.many(friends),
-      })
+      respond_to do |format|
+        format.html do
+          render(inertia: "AdminFriendsPage", props: {
+            friends: AdminFriendSerializer.many(friends),
+          })
+        end
+        format.json do
+          render(json: {
+            friends: AdminFriendSerializer.many(friends),
+          })
+        end
+      end
     end
 
     # POST /admin/friends

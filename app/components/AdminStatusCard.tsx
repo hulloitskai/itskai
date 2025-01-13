@@ -1,7 +1,17 @@
-import { type ButtonProps, type CardProps, Text } from "@mantine/core";
+import {
+  type ButtonProps,
+  type CardProps,
+  Drawer,
+  type DrawerProps,
+  InputWrapper,
+  Text,
+  useMatches,
+} from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { map } from "lodash-es";
 
 import { useMutateRoute } from "~/helpers/fetch";
-import { type Status } from "~/types";
+import { type AdminFriend, type Status } from "~/types";
 
 import DeleteButton, { type DeleteButtonProps } from "./DeleteButton";
 
@@ -63,30 +73,114 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
   statusId,
   ...otherProps
 }) => {
-  const { trigger, mutating } = useMutateRoute(
-    routes.adminStatuses.notifyFriends,
+  // == Drawer
+  const drawerPosition = useMatches({
+    base: "bottom" as const,
+    xs: "right" as const,
+  });
+  const [drawerOpened, { open: openDrawer, close: closeDrawer }] =
+    useDisclosure();
+
+  // == Load friends
+  const { data } = useFetchRoute<{ friends: AdminFriend[] }>(
+    routes.adminFriends.index,
     {
-      params: { id: statusId },
-      descriptor: "notify friends",
-      onSuccess: () => {
-        toast.success("Your friends were notified!");
-      },
+      descriptor: "load friends",
     },
   );
+  const { friends } = data ?? {};
+  const allFriendIds = useMemo(() => {
+    if (friends) {
+      return map(friends, "id");
+    }
+  }, [friends]);
+
+  // == Form
+  const { submit, submitting, getInputProps, setFieldValue, values, errors } =
+    useFetchForm({
+      action: routes.adminStatuses.notifyFriends,
+      params: { id: statusId },
+      descriptor: "notify friends",
+      initialValues: {
+        friend_ids_to_alert: [] as string[],
+      },
+      onSuccess: () => {
+        closeDrawer();
+        toast.success("Your friends were notified!");
+      },
+    });
+  const allFriendsSelected = useMemo(() => {
+    if (allFriendIds) {
+      return isEqual(allFriendIds, values.friend_ids_to_alert);
+    }
+  }, [allFriendIds, values.friend_ids_to_alert]);
+
   return (
-    <Button
-      leftSection={<NotificationIcon />}
-      variant="default"
-      size="compact-sm"
-      loading={mutating}
-      classNames={{ section: classes.buttonSection }}
-      onClick={() => {
-        void trigger();
-      }}
-      {...otherProps}
-    >
-      Notify
-    </Button>
+    <>
+      <Button
+        leftSection={<NotificationIcon />}
+        variant="default"
+        size="compact-sm"
+        classNames={{ section: classes.buttonSection }}
+        onClick={openDrawer}
+        {...otherProps}
+      >
+        Notify
+      </Button>
+      <Drawer
+        title="Notify friends"
+        position={drawerPosition}
+        opened={drawerOpened}
+        onClose={closeDrawer}
+      >
+        <form onSubmit={submit}>
+          <Stack gap="xs">
+            <InputWrapper error={errors.friend_ids_to_alert}>
+              {friends && allFriendIds ? (
+                <Stack gap={6} align="center">
+                  <Chip.Group
+                    {...getInputProps("friend_ids_to_alert")}
+                    multiple
+                  >
+                    <Group wrap="wrap" gap={6} justify="center">
+                      {friends.map(friend => (
+                        <Chip variant="outline" value={friend.id}>
+                          <span style={{ marginRight: rem(2) }}>
+                            {friend.emoji}
+                          </span>{" "}
+                          {friend.name}
+                        </Chip>
+                      ))}
+                    </Group>
+                  </Chip.Group>
+                  <Anchor
+                    component="button"
+                    type="button"
+                    size="sm"
+                    onClick={() => {
+                      const nextIds = allFriendsSelected ? [] : allFriendIds;
+                      setFieldValue("friend_ids_to_alert", nextIds);
+                    }}
+                  >
+                    {allFriendsSelected ? "Unselect all" : "Select all"}
+                  </Anchor>
+                </Stack>
+              ) : (
+                <Skeleton h={54} />
+              )}
+            </InputWrapper>
+            <Button
+              type="submit"
+              leftSection={<NotificationIcon />}
+              loading={submitting}
+              disabled={isEmpty(values.friend_ids_to_alert)}
+            >
+              Notify
+            </Button>
+          </Stack>
+        </form>
+      </Drawer>
+    </>
   );
 };
 

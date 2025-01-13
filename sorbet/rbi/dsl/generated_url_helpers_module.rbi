@@ -163,6 +163,9 @@ module GeneratedUrlHelpersModule
   def new_user_session_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def notify_friends_admin_status_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def opencal_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

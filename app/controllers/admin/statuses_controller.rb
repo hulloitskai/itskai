@@ -34,7 +34,11 @@ module Admin
     # POST /admin/statuses/:id/notify_friends
     def notify_friends
       status = Status.find(params.fetch(:id))
-      status.notify_friends(with_notification: true)
+      notify_friends_params = StatusNotifyFriendsParameters.new(params)
+      notify_friends_params.validate!
+      status.notify_friends(
+        friend_ids_to_alert: notify_friends_params.friend_ids_to_alert,
+      )
       render(json: {})
     end
 

@@ -44,6 +44,10 @@ class Notification < ApplicationRecord
   # == Callbacks
   after_create_commit :push_later
 
+  # == Scopes
+  scope :for_owner, -> { where(friend: nil) }
+  scope :for_friends, -> { where.not(friend: nil) }
+
   # == Testing
   sig { returns(Notification) }
   def self.test

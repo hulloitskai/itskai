@@ -42,17 +42,15 @@ class Status < ApplicationRecord
   end
 
   # == Notify
-  sig { params(with_notification: T::Boolean).void }
-  def notify_friends(with_notification: false)
-    if with_notification
-      # Friend.find_each { |friend| notifications.create!(friend:) }
-      # NOTE: Temporary, for testing purposes :)
-      Friend.where("name ILIKE '%kai%'").find_each do |friend|
-        notifications.create!(friend:)
-      end
-    else
-      PushSubscription.where.associated(:friend).find_each(&:push)
+  sig { params(friend_ids_to_alert: T::Array[String]).void }
+  def notify_friends(friend_ids_to_alert: [])
+    Friend.where(id: friend_ids_to_alert).select(:id).find_each do |friend|
+      notifications.create!(friend:)
     end
+    PushSubscription
+      .where.associated(:friend)
+      .where.not(friend_id: friend_ids_to_alert)
+      .find_each(&:push)
   end
 
   sig { void }

@@ -1,5 +1,6 @@
 import {
   type DefaultMantineColor,
+  Drawer,
   JsonInput,
   type MantineColorsTuple,
   NumberInput,
@@ -70,6 +71,14 @@ export const THEME = createTheme({
       classNames: {
         root: classes.button,
       },
+    }),
+    Drawer: Drawer.extend({
+      styles: ({ headings: { sizes, ...style } }) => ({
+        title: {
+          ...sizes.h4,
+          ...style,
+        },
+      }),
     }),
     Group: Group.extend({
       defaultProps: {

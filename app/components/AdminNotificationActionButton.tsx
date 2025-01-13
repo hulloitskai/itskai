@@ -4,12 +4,12 @@ import GoIcon from "~icons/heroicons/arrow-right-circle-20-solid";
 
 import { type Notification } from "~/types";
 
-export interface NotificationActionButtonProps
-  extends Pick<NotificationActionButtonBaseProps, "actionUrl"> {
+export interface AdminNotificationActionButtonProps
+  extends Pick<AdminNotificationActionButtonBaseProps, "actionUrl"> {
   notification: Notification;
 }
 
-const NotificationActionButton: FC<NotificationActionButtonProps> = ({
+const AdminNotificationActionButton: FC<AdminNotificationActionButtonProps> = ({
   notification,
   ...otherProps
 }) => {
@@ -21,13 +21,13 @@ const NotificationActionButton: FC<NotificationActionButtonProps> = ({
       break;
   }
   return (
-    <NotificationActionButtonBase {...otherProps}>
+    <AdminNotificationActionButtonBase {...otherProps}>
       {label}
-    </NotificationActionButtonBase>
+    </AdminNotificationActionButtonBase>
   );
 };
 
-interface NotificationActionButtonBaseProps
+interface AdminNotificationActionButtonBaseProps
   extends ButtonProps,
     Omit<
       ComponentPropsWithoutRef<typeof Link>,
@@ -36,11 +36,9 @@ interface NotificationActionButtonBaseProps
   actionUrl: string | null;
 }
 
-const NotificationActionButtonBase: FC<NotificationActionButtonBaseProps> = ({
-  actionUrl,
-  children,
-  ...otherProps
-}) => (
+const AdminNotificationActionButtonBase: FC<
+  AdminNotificationActionButtonBaseProps
+> = ({ actionUrl, children, ...otherProps }) => (
   <>
     {!!actionUrl && (
       <Button
@@ -57,4 +55,4 @@ const NotificationActionButtonBase: FC<NotificationActionButtonBaseProps> = ({
   </>
 );
 
-export default NotificationActionButton;
+export default AdminNotificationActionButton;

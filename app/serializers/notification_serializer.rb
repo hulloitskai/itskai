@@ -24,6 +24,8 @@ class NotificationSerializer < ApplicationSerializer
       {
         access: LocationAccessSerializer.one(noticeable),
       }
+    when Status
+      { status_id: noticeable.id }
     else
       raise "Unexpected noticeable type: #{noticeable.model_name}"
     end

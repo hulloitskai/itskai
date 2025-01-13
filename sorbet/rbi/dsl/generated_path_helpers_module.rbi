@@ -163,6 +163,9 @@ module GeneratedPathHelpersModule
   def new_user_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def notify_friends_admin_status_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def opencal_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

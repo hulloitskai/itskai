@@ -3,36 +3,36 @@ import { type ReactNode } from "react";
 
 import { type Noticeable, type Notification } from "~/types";
 
-import NotificationActionButton, {
-  type NotificationActionButtonProps,
-} from "./NotificationActionButton";
+import AdminNotificationActionButton, {
+  type AdminNotificationActionButtonProps,
+} from "./AdminNotificationActionButton";
 
-export interface NotificationCardProps
+export interface AdminNotificationCardProps
   extends CardProps,
-    Pick<NotificationActionButtonProps, "notification"> {}
+    Pick<AdminNotificationActionButtonProps, "notification"> {}
 
-const NotificationCard: FC<NotificationCardProps> = ({
+const AdminNotificationCard: FC<AdminNotificationCardProps> = ({
   notification,
   className,
   ...otherProps
 }) => (
   <Card
     withBorder
-    className={cn("NotificationCard-root", className)}
+    className={cn("AdminNotificationCard", className)}
     {...otherProps}
   >
     <Group gap="xs" align="start">
-      <NotificationCardImage noticeable={notification.noticeable} />
+      <AdminNotificationCardImage noticeable={notification.noticeable} />
       <Stack align="start" gap={8} miw={0} style={{ flexGrow: 1 }}>
         <Stack gap={1} style={{ alignSelf: "stretch" }}>
           <Text size="sm" fw={500} lh="xs" style={{ flexGrow: 1 }}>
             {notification.title}
           </Text>
           <Text c="dimmed" lh="xs">
-            <NotificationCardBody {...{ notification }} />
+            <AdminNotificationCardBody {...{ notification }} />
           </Text>
         </Stack>
-        <NotificationActionButton
+        <AdminNotificationActionButton
           {...{ notification }}
           actionUrl={notification.action_url}
         />
@@ -41,13 +41,13 @@ const NotificationCard: FC<NotificationCardProps> = ({
   </Card>
 );
 
-export default NotificationCard;
+export default AdminNotificationCard;
 
-interface NotificationCardImageProps {
+interface AdminNotificationCardImageProps {
   noticeable: Noticeable;
 }
 
-const NotificationCardImage: FC<NotificationCardImageProps> = ({
+const AdminNotificationCardImage: FC<AdminNotificationCardImageProps> = ({
   noticeable,
 }) => {
   switch (noticeable?.type) {
@@ -66,11 +66,11 @@ const NotificationCardImage: FC<NotificationCardImageProps> = ({
   }
 };
 
-interface NotificationCardBodyProps {
+interface AdminNotificationCardBodyProps {
   notification: Notification;
 }
 
-const NotificationCardBody: FC<NotificationCardBodyProps> = ({
+const AdminNotificationCardBody: FC<AdminNotificationCardBodyProps> = ({
   notification,
 }): ReactNode => {
   const { noticeable } = notification;
