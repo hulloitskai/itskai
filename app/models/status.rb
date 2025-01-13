@@ -33,7 +33,7 @@ class Status < ApplicationRecord
   # == Noticeable
   sig { override.returns(String) }
   def notification_title
-    "Kai shared a note"
+    "Kai shared with you"
   end
 
   sig { override.returns(String) }
