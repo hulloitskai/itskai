@@ -50,11 +50,7 @@ const AppHeader = forwardRef<HTMLDivElement, AppHeaderProps>(
             </Button>
           </Group>
           <CurrentlyPlayingIsland />
-          {standaloneMode ? (
-            <Box w={78} />
-          ) : (
-            <AppMenu style={{ flexShrink: 0 }} />
-          )}
+          {!standaloneMode && <AppMenu style={{ flexShrink: 0 }} />}
         </Group>
       </AppShell.Header>
     );
