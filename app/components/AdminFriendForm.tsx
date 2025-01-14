@@ -1,6 +1,4 @@
-import { ActionIcon, Popover, RemoveScroll } from "@mantine/core";
-
-import EmojiPicker from "./EmojiPicker";
+import EmojiPopover from "./EmojiPopover";
 
 export interface AdminFriendFormProps extends BoxProps {
   onFriendCreated: () => void;
@@ -10,7 +8,7 @@ const AdminFriendForm: FC<AdminFriendFormProps> = ({
   onFriendCreated,
   ...otherProps
 }) => {
-  const [emojiPickerOpened, setEmojiPickerOpened] = useState(false);
+  // == Form
   const { submit, getInputProps, setFieldValue, values, submitting } =
     useFetchForm({
       action: routes.adminFriends.create,
@@ -24,52 +22,42 @@ const AdminFriendForm: FC<AdminFriendFormProps> = ({
         onFriendCreated();
       },
     });
+  const filled = useFieldsFilled(values, "emoji", "name");
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Group align="start" gap="xs">
+        <EmojiPopover
+          middlewares={{ flip: { fallbackAxisSideDirection: "end" } }}
+          onEmojiClick={({ emoji }) => {
+            setFieldValue("emoji", emoji);
+          }}
+        >
+          {({ open }) => (
+            <Button variant="default" onClick={open}>
+              {values.emoji ? (
+                <span style={{ fontSize: "var(--mantine-font-size-lg)" }}>
+                  {values.emoji}
+                </span>
+              ) : (
+                <EmojiIcon />
+              )}
+            </Button>
+          )}
+        </EmojiPopover>
         <TextInput
           {...getInputProps("name")}
           placeholder="(friend's name)"
-          leftSection={
-            <Popover
-              middlewares={{ flip: { fallbackAxisSideDirection: "end" } }}
-              withArrow
-              trapFocus
-              styles={{ dropdown: { padding: 0, border: "none" } }}
-              opened={emojiPickerOpened}
-              onChange={setEmojiPickerOpened}
-            >
-              <Popover.Target>
-                <ActionIcon
-                  type="button"
-                  size="sm"
-                  radius="xl"
-                  onClick={() => {
-                    setEmojiPickerOpened(true);
-                  }}
-                  {...otherProps}
-                >
-                  {values.emoji || <EmojiIcon />}
-                </ActionIcon>
-              </Popover.Target>
-              <Popover.Dropdown>
-                <RemoveScroll removeScrollBar={false}>
-                  <EmojiPicker
-                    onEmojiClick={({ emoji }) => {
-                      setFieldValue("emoji", emoji);
-                      setEmojiPickerOpened(false);
-                    }}
-                  />
-                </RemoveScroll>
-              </Popover.Dropdown>
-            </Popover>
-          }
           required
           withAsterisk={false}
           style={{ flexGrow: 1 }}
         />
-        <Button variant="light" type="submit" loading={submitting}>
+        <Button
+          variant="light"
+          type="submit"
+          disabled={!filled}
+          loading={submitting}
+        >
           Register
         </Button>
       </Group>

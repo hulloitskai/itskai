@@ -1,57 +1,62 @@
-import { Modal, Radio } from "@mantine/core";
+import { ActionIcon, Modal, Radio } from "@mantine/core";
+
+import { type FriendVibecheck } from "~/types";
+
+import EmojiPopover from "./EmojiPopover";
 
 import classes from "./FriendVibecheckModal.module.css";
 
 export interface FriendVibecheckModalProps {
   friendToken: string;
-  vibeLastCheckedAt: string | null;
+  lastVibecheck: FriendVibecheck | null;
   onVibeChecked: () => void;
 }
 
-const VIBES = ["✨", "🥺", "☺️", "😎", "🤷"];
+const PRESELECTED_VIBES = ["✨", "🥺", "☺️", "😎", "🤷"];
 
 const FriendVibecheckModal: FC<FriendVibecheckModalProps> = ({
   friendToken,
-  vibeLastCheckedAt,
+  lastVibecheck,
   onVibeChecked,
 }) => {
-  const requiresVibeCheck = useMemo(() => {
-    if (vibeLastCheckedAt) {
-      const lastCheckedAtDate = DateTime.fromISO(vibeLastCheckedAt)
+  const requiresVibecheck = useMemo(() => {
+    if (lastVibecheck) {
+      const lastCheckedAtDate = DateTime.fromISO(lastVibecheck.created_at)
         .toLocal()
         .toISODate();
       const todayDate = DateTime.now().toLocal().toISODate();
       return lastCheckedAtDate !== todayDate;
     }
     return true;
-  }, [vibeLastCheckedAt]);
+  }, [lastVibecheck]);
 
-  const { getInputProps, values, submit, submitting } = useFetchForm({
-    action: routes.friends.vibecheck,
-    params: {
-      query: {
-        friend_token: friendToken,
+  const { getInputProps, values, submit, submitting, setFieldValue } =
+    useFetchForm({
+      action: routes.friends.vibecheck,
+      params: {
+        query: {
+          friend_token: friendToken,
+        },
       },
-    },
-    descriptor: "submit vibe check",
-    initialValues: { vibe: "" },
-    transformValues: values => ({ vibecheck: values }),
-    onSuccess: () => {
-      toast("Thanks for checking in!", {
-        icon: (
-          <span style={{ fontSize: "var(--mantine-font-size-lg)" }}>🫶</span>
-        ),
-      });
-      onVibeChecked();
-    },
-  });
+      descriptor: "submit vibe check",
+      initialValues: { vibe: "" },
+      transformValues: values => ({ vibecheck: values }),
+      onSuccess: () => {
+        toast("Thanks for checking in!", {
+          icon: (
+            <span style={{ fontSize: "var(--mantine-font-size-lg)" }}>🫶</span>
+          ),
+        });
+        onVibeChecked();
+      },
+    });
 
   return (
     <Modal
       withCloseButton={false}
       closeOnClickOutside={false}
       closeOnEscape={false}
-      opened={requiresVibeCheck}
+      opened={requiresVibecheck}
       onClose={() => {}}
       title="What's your vibe today?"
       styles={{
@@ -66,11 +71,10 @@ const FriendVibecheckModal: FC<FriendVibecheckModalProps> = ({
         <Stack gap="sm">
           <Radio.Group pt={3} {...getInputProps("vibe")}>
             <Group gap={6} wrap="wrap" justify="center">
-              {VIBES.map(vibe => (
+              {PRESELECTED_VIBES.map(vibe => (
                 <Radio.Card
                   key={vibe}
                   value={vibe}
-                  w="unset"
                   className={classes.radioCard}
                 >
                   <Center w={36} h={36} fz="xl">
@@ -78,6 +82,35 @@ const FriendVibecheckModal: FC<FriendVibecheckModalProps> = ({
                   </Center>
                 </Radio.Card>
               ))}
+              <EmojiPopover
+                onEmojiClick={({ emoji }) => {
+                  setFieldValue("vibe", emoji);
+                }}
+              >
+                {({ open }) => (
+                  <ActionIcon
+                    variant="default"
+                    radius="xl"
+                    onClick={open}
+                    w={36}
+                    h={36}
+                    bg="transparent"
+                    c="var(--mantine-color-primary-light-color)"
+                    className={classes.customEmojiActionIcon}
+                    mod={{
+                      selected:
+                        !!values.vibe &&
+                        !PRESELECTED_VIBES.includes(values.vibe),
+                    }}
+                  >
+                    {!values.vibe || PRESELECTED_VIBES.includes(values.vibe) ? (
+                      <EmojiIcon />
+                    ) : (
+                      values.vibe
+                    )}
+                  </ActionIcon>
+                )}
+              </EmojiPopover>
             </Group>
           </Radio.Group>
           <Button

@@ -1,6 +1,6 @@
-import { ActionIcon, Popover, RemoveScroll } from "@mantine/core";
+import { ActionIcon, Box, Group, Textarea } from "@mantine/core";
 
-import EmojiPicker from "./EmojiPicker";
+import EmojiPopover from "./EmojiPopover";
 
 export interface AdminStatusFormProps extends BoxProps {
   onStatusCreated: () => void;
@@ -10,7 +10,7 @@ const AdminStatusForm: FC<AdminStatusFormProps> = ({
   onStatusCreated,
   ...otherProps
 }) => {
-  const [emojiPickerOpened, setEmojiPickerOpened] = useState(false);
+  // == Form
   const { submit, getInputProps, setFieldValue, values, submitting } =
     useFetchForm({
       action: routes.adminStatuses.create,
@@ -29,6 +29,7 @@ const AdminStatusForm: FC<AdminStatusFormProps> = ({
         onStatusCreated();
       },
     });
+  const filled = useFieldsFilled(values, "text");
 
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
@@ -37,15 +38,13 @@ const AdminStatusForm: FC<AdminStatusFormProps> = ({
           {...getInputProps("text")}
           placeholder="new update??!"
           leftSection={
-            <Popover
+            <EmojiPopover
               middlewares={{ flip: { fallbackAxisSideDirection: "end" } }}
-              withArrow
-              trapFocus
-              styles={{ dropdown: { padding: 0, border: "none" } }}
-              opened={emojiPickerOpened}
-              onChange={setEmojiPickerOpened}
+              onEmojiClick={({ emoji }) => {
+                setFieldValue("emoji", emoji);
+              }}
             >
-              <Popover.Target>
+              {({ open }) => (
                 <ActionIcon
                   type="button"
                   size="sm"
@@ -54,31 +53,19 @@ const AdminStatusForm: FC<AdminStatusFormProps> = ({
                     if (values.emoji) {
                       setFieldValue("emoji", "");
                     } else {
-                      setEmojiPickerOpened(true);
+                      open();
                     }
                   }}
-                  {...otherProps}
                 >
                   {values.emoji || <EmojiIcon />}
                 </ActionIcon>
-              </Popover.Target>
-              <Popover.Dropdown>
-                <RemoveScroll removeScrollBar={false}>
-                  <EmojiPicker
-                    onEmojiClick={({ emoji }) => {
-                      setFieldValue("emoji", emoji);
-                      setEmojiPickerOpened(false);
-                    }}
-                  />
-                </RemoveScroll>
-              </Popover.Dropdown>
-            </Popover>
+              )}
+            </EmojiPopover>
           }
           required
           withAsterisk={false}
           autosize
           minRows={1}
-          maxRows={4}
           styles={{
             root: { flexGrow: 1 },
             section: { alignItems: "start", paddingTop: rem(7) },
@@ -87,9 +74,9 @@ const AdminStatusForm: FC<AdminStatusFormProps> = ({
         <ActionIcon
           variant="light"
           type="submit"
-          size="lg"
+          size={38}
+          disabled={!filled}
           loading={submitting}
-          mt={1}
         >
           <SendIcon />
         </ActionIcon>

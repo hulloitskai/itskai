@@ -1,7 +1,14 @@
 .radioCard {
+  width: unset;
   border-radius: var(--mantine-radius-xl);
 
   &[data-checked] {
+    border-color: var(--mantine-color-primary-outline);
+  }
+}
+
+.customEmojiActionIcon {
+  &[data-selected] {
     border-color: var(--mantine-color-primary-outline);
   }
 }

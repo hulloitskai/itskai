@@ -12,7 +12,7 @@ import FriendTimeline from "~/components/FriendTimeline";
 import FriendVibecheckModal from "~/components/FriendVibecheckModal";
 import { useInstallPromptEvent, useIsStandaloneMode } from "~/helpers/pwa";
 import { useWebPush } from "~/helpers/webPush";
-import { type Friend, type Status } from "~/types";
+import { type Friend, type FriendVibecheck, type Status } from "~/types";
 
 import classes from "./FriendPage.module.css";
 
@@ -21,7 +21,7 @@ export interface FriendPageProps extends SharedPageProps {
   friendToken: string;
   contactPhone: string;
   emulateStandalone: boolean;
-  vibeLastCheckedAt: string | null;
+  lastVibecheck: FriendVibecheck;
   statuses: Status[];
 }
 
@@ -30,7 +30,7 @@ const FriendPage: PageComponent<FriendPageProps> = ({
   friendToken,
   contactPhone,
   emulateStandalone,
-  vibeLastCheckedAt,
+  lastVibecheck,
   statuses,
 }) => {
   const isStandalone = useIsStandaloneMode();
@@ -52,7 +52,19 @@ const FriendPage: PageComponent<FriendPageProps> = ({
                 <span className={classes.name}>{friend.name}</span>!
               </Text>
               <Text inherit>
-                Welcome to the experiment. And thanks for being my friend 🫶
+                {lastVibecheck ? (
+                  <>
+                    Today, you&apos;re feelin' kinda{" "}
+                    <span style={{ marginLeft: rem(2) }}>
+                      {lastVibecheck.vibe}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    Welcome to the experiment. And thanks for being my friend 🫶
+                  </>
+                )}
               </Text>
               <Group gap="xs" justify="center">
                 <FriendPushNotificationsButton
@@ -166,9 +178,9 @@ const FriendPage: PageComponent<FriendPageProps> = ({
       )}
       {standaloneMode && (
         <FriendVibecheckModal
-          {...{ friendToken, vibeLastCheckedAt }}
+          {...{ friendToken, lastVibecheck }}
           onVibeChecked={() => {
-            router.reload({ only: ["vibeLastCheckedAt"] });
+            router.reload({ only: ["lastVibecheck"] });
           }}
         />
       )}

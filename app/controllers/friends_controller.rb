@@ -13,13 +13,13 @@ class FriendsController < ApplicationController
       .reverse_chronological
     contact_phone = Contact.phone
     emulate_standalone = params[:emulate_standalone].truthy?
-    vibe_last_checked_at = friend.vibechecks.chronological.last&.created_at
+    last_vibecheck = friend.vibechecks.chronological.last
     render(inertia: "FriendPage", props: {
       friend: FriendSerializer.one(friend),
       "friendToken" => friend.token,
       "contactPhone" => contact_phone,
       "emulateStandalone" => emulate_standalone,
-      "vibeLastCheckedAt" => vibe_last_checked_at,
+      "lastVibecheck" => FriendVibecheckSerializer.one_if(last_vibecheck),
       statuses: StatusSerializer.many(statuses),
     })
   end
