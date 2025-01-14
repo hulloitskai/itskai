@@ -7,7 +7,11 @@
   height: calc(
     var(--app-shell-footer-height) + env(safe-area-inset-bottom, 0px)
   );
+  padding-inline: 8px;
   padding-bottom: env(safe-area-inset-bottom, 0px);
+  margin-left: var(--app-shell-navbar-offset, 0px);
+  overflow: hidden;
+  border-top: 1px solid var(--app-shell-border-color);
 }
 
 .main {
@@ -31,9 +35,9 @@
     var(--app-shell-header-offset, 0rem) + env(safe-area-inset-top, 0px)
   );
   height: calc(
-    100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) -
-      var(--app-shell-header-offset, 0px) - var(--app-shell-footer-offset, 0px)
+    100vh - env(safe-area-inset-top, 0px) - var(--app-shell-header-offset, 0px)
   );
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .breadcrumbSeparator {

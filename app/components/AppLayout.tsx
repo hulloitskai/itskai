@@ -127,7 +127,6 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
       classNames={{
         header: classes.header,
         navbar: classes.navbar,
-        footer: classes.footer,
       }}
       {...otherProps}
     >
@@ -161,15 +160,7 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
         )}
         {content}
       </AppShell.Main>
-      <Box
-        h="var(--app-shell-footer-height)"
-        px={8}
-        ml="var(--app-shell-navbar-offset, 0px)"
-        style={{
-          overflow: "hidden",
-          borderTop: `${rem(1)} solid var(--app-shell-border-color)`,
-        }}
-      >
+      <Box className={classes.footer}>
         <Attribution h="100%" style={{ flexShrink: 1 }} />
       </Box>
     </AppShell>
