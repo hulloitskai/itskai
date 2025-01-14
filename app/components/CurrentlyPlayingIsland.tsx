@@ -147,6 +147,7 @@ const IslandContent: FC<IslandContentProps> = ({
   return (
     <CurrentlyPlayingLyricsTooltip
       withinPortal={false}
+      position="bottom"
       durationMs={track.duration_ms}
       {...(transitioning && { disabled: true })}
       {...{ track, progressMs }}
