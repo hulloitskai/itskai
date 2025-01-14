@@ -152,6 +152,7 @@ gem "markly", "~> 0.7.0"
 
 # Use Sentry for error reporting
 gem "sentry-rails", "~> 5.9"
+gem "stackprof"
 
 # Query Notion with Notion Ruby Client
 gem "notion-ruby-client", "~> 1.2"
@@ -271,7 +272,6 @@ group :development do
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   gem "rack-mini-profiler"
   gem "memory_profiler"
-  gem "stackprof"
 end
 
 group :test do
