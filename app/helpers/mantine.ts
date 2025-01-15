@@ -73,6 +73,9 @@ export const THEME = createTheme({
       },
     }),
     Drawer: Drawer.extend({
+      classNames: {
+        content: classes.drawerContent,
+      },
       styles: ({ headings: { sizes, ...style } }) => ({
         title: {
           ...sizes.h4,
