@@ -14,7 +14,15 @@ const WebPushProvider: FC<PropsWithChildren> = ({ children }) => {
   >();
   useEffect(() => {
     if (supported) {
-      void getPushSubscription().then(setSubscription);
+      void getPushSubscription().then(setSubscription, (error: Error) => {
+        setSubscription(null);
+        console.error(error);
+        toast.error("Failed to get current push subscription", {
+          description: error.message,
+        });
+      });
+    } else {
+      setSubscription(null);
     }
   }, [supported]);
   const { registration } = useLookupPushSubscriptionRegistration(subscription);

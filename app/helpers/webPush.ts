@@ -71,8 +71,9 @@ export const useLookupPushSubscriptionRegistration = (
           params: null,
         }),
   });
+  const { registration } = data ?? {};
   return {
-    registration: subscription === null ? null : data?.registration,
+    registration: subscription === null ? null : registration,
     ...response,
   };
 };
