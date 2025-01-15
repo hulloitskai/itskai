@@ -9,7 +9,15 @@ module Admin
     # == Actions
     # GET /admin/friends
     def index
-      friends = authorized_scope(Friend.all)
+      friends = authorized_scope(Friend.all).includes(:push_subscriptions)
+      latest_vibecheck_by_friend_id = FriendVibecheck
+        .select("DISTINCT ON (friend_id) #{FriendVibecheck.table_name}.*")
+        .order(:friend_id, created_at: :desc)
+        .index_by(&:friend_id)
+      friends = friends.map do |friend|
+        latest_vibecheck = latest_vibecheck_by_friend_id.fetch(friend.id, nil)
+        AdminFriend.new(friend:, latest_vibecheck:)
+      end
       respond_to do |format|
         format.html do
           render(inertia: "AdminFriendsPage", props: {

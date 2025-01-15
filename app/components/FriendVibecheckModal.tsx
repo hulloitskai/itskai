@@ -21,15 +21,15 @@ const FriendVibecheckModal: FC<FriendVibecheckModalProps> = ({
 }) => {
   const requiresVibecheck = useMemo(() => {
     if (lastVibecheck) {
-      const lastCheckedAtDate = DateTime.fromISO(lastVibecheck.created_at)
-        .toLocal()
-        .toISODate();
-      const todayDate = DateTime.now().toLocal().toISODate();
-      return lastCheckedAtDate !== todayDate;
+      const lastCreatedAt = DateTime.fromISO(
+        lastVibecheck.created_at,
+      ).toLocal();
+      return !lastCreatedAt.hasSame(DateTime.now(), "day");
     }
     return true;
   }, [lastVibecheck]);
 
+  // == Form
   const { getInputProps, values, submit, submitting, setFieldValue } =
     useFetchForm({
       action: routes.friends.vibecheck,

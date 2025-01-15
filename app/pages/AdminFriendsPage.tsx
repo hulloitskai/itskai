@@ -1,7 +1,7 @@
 import AdminFriendForm from "~/components/AdminFriendForm";
 import AdminSidebar from "~/components/AdminSidebar";
 import AppLayout from "~/components/AppLayout";
-import { type AdminFriend } from "~/types";
+import { type AdminFriend, type FriendVibecheck } from "~/types";
 
 import classes from "./AdminFriendsPage.module.css";
 
@@ -44,15 +44,20 @@ const AdminFriendsPage: PageComponent<AdminFriendsPageProps> = ({
         {friends.map(friend => (
           <List.Item key={friend.token}>
             <Group gap={8} align="center" justify="space-between">
-              <Badge
-                variant="light"
-                size="lg"
-                leftSection={friend.emoji}
-                style={{ flexShrink: 1 }}
-                className={classes.friendBadge}
-              >
-                {friend.name}
-              </Badge>
+              <Group gap={8}>
+                <Badge
+                  variant="light"
+                  size="lg"
+                  leftSection={friend.emoji}
+                  style={{ flexShrink: 1 }}
+                  className={classes.friendBadge}
+                >
+                  {friend.name}
+                </Badge>
+                {friend.latest_vibecheck && (
+                  <LatestVibecheck vibecheck={friend.latest_vibecheck} />
+                )}
+              </Group>
               <Group
                 gap={8}
                 justify="end"
@@ -112,3 +117,34 @@ AdminFriendsPage.layout = page => (
 );
 
 export default AdminFriendsPage;
+
+interface LatestVibecheckProps {
+  vibecheck: FriendVibecheck;
+}
+
+const LatestVibecheck: React.FC<LatestVibecheckProps> = ({ vibecheck }) => {
+  const createdAt = useMemo(
+    () => DateTime.fromISO(vibecheck.created_at).toLocal(),
+    [vibecheck],
+  );
+  const createdToday = useMemo(
+    () => createdAt.hasSame(DateTime.now(), "day"),
+    [createdAt],
+  );
+  return createdToday ? (
+    <Group justify="center" gap={4}>
+      {vibecheck.vibe}
+      <Time
+        inherit
+        display="block"
+        format={DateTime.TIME_SIMPLE}
+        fz="xs"
+        c="dimmed"
+        fw={600}
+        style={{ verticalAlign: "middle" }}
+      >
+        {createdAt}
+      </Time>
+    </Group>
+  ) : null;
+};
