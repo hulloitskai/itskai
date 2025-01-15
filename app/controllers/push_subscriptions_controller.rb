@@ -20,7 +20,9 @@ class PushSubscriptionsController < ApplicationController
     authorize!(with: PushSubscriptionPolicy)
     subscription_params = params.require(:push_subscription)
       .permit(:endpoint, :p256dh_key, :auth_key)
-    PushSubscription.create!(friend: current_friend, **subscription_params)
+    endpoint = subscription_params.delete(:endpoint)
+    subscription = PushSubscription.find_or_initialize_by(endpoint:)
+    subscription.update!(friend: current_friend, **subscription_params)
     render(json: {})
   end
 
