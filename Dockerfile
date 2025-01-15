@@ -57,6 +57,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
 
 # Install Python and Poetry
 COPY .python-version ./
+ENV POETRY_VIRTUALENVS_CREATE=false
 RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
   BUILD_DEPS="git curl build-essential zlib1g-dev libssl-dev" set -eux && \
