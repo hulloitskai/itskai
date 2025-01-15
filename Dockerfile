@@ -68,7 +68,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   mv ./pyenv/plugins/python-build ./python-build && rm -r ./pyenv && \
   PREFIX=/tmp ./python-build/install.sh && \
   PYTHON_CONFIGURE_OPTS=--enable-shared /tmp/bin/python-build "$(cat .python-version)" /usr/local && \
-  pip3 install --no-cache-dir poetry setuptools && \
+  pip3 install --no-cache-dir poetry && \
   echo $BUILD_DEPS | xargs apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
   rm -r ./python-build /tmp/* /var/log/* && \
   find /usr/local -depth \( \( -type d -a \( -name test -o -name tests -o -name idle_test \) \) -o \( -type f -a \( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \) \) \) -exec rm -rf '{}' + && \
