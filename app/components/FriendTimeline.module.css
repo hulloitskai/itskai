@@ -8,8 +8,34 @@
   }
 }
 
+.timelineItemBullet {
+  .timelineItem[data-small-bullet] & {
+    --tl-bullet-size: 20px;
+    top: 1px;
+  }
+}
+
 .statusLink {
   &:hover {
     text-decoration: underline;
+  }
+}
+
+.spoilerControl {
+  font-size: var(--mantine-font-size-sm);
+}
+
+.spoilerBottom {
+  .spoiler[data-has-spoiler] &:not([data-expanded]) {
+    height: 60px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--mantine-color-body)
+    );
   }
 }

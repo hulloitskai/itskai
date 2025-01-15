@@ -70,6 +70,12 @@ const AdminStatusForm: FC<AdminStatusFormProps> = ({
             root: { flexGrow: 1 },
             section: { alignItems: "start", paddingTop: rem(7) },
           }}
+          onKeyDown={event => {
+            if (event.metaKey && event.key === "Enter") {
+              event.preventDefault();
+              submit();
+            }
+          }}
         />
         <ActionIcon
           variant="light"
