@@ -9,33 +9,35 @@ import { type PushNotification } from "~/types";
 declare const self: ServiceWorkerGlobalScope;
 
 interface NotificationData {
-  notification: PushNotification | null;
+  notification?: PushNotification;
+  message?: PushMessage;
+  badge?: { count: number };
+}
+
+interface PushMessage {
+  title: string;
+  body?: string;
 }
 
 // == Setup
 setupFetch();
 
 // == Helpers
-const markAsDelivered = (notification: PushNotification): Promise<void> => {
-  if (notification.delivery_token === "test") {
-    return Promise.resolve();
-  } else {
-    return routes.notifications
-      .delivered<{}>({
-        params: { id: notification.id },
-        data: { notification: pick(notification, "delivery_token") },
-      })
-      .then(() => {
-        console.info(`Marked notification '${notification.id}' as delivered`);
-      })
-      .catch(error => {
-        console.error(
-          `Failed to mark notification '${notification.id}' as delivered`,
-          error,
-        );
-      });
-  }
-};
+const markAsDelivered = (notification: PushNotification): Promise<void> =>
+  routes.notifications
+    .delivered<{}>({
+      params: { id: notification.id },
+      data: { notification: pick(notification, "delivery_token") },
+    })
+    .then(() => {
+      console.info(`Marked notification '${notification.id}' as delivered`);
+    })
+    .catch(error => {
+      console.error(
+        `Failed to mark notification '${notification.id}' as delivered`,
+        error,
+      );
+    });
 
 // == Claim clients
 self.addEventListener("activate", event => {
@@ -49,16 +51,26 @@ self.addEventListener("push", event => {
   if (import.meta.env.RAILS_ENV === "development") {
     console.debug("Push event", data);
   }
-  const { notification } = data;
+  const { notification, message, badge } = data;
   const actions: Promise<void>[] = [];
   // Set app badge if no window is currently visible.
-  if (navigator.setAppBadge) {
+  if (badge && navigator.setAppBadge) {
     actions.push(
       self.clients.matchAll({ type: "window" }).then(clients => {
         if (!clients.some(client => client.visibilityState === "visible")) {
-          return navigator.setAppBadge(1);
+          return navigator.setAppBadge(badge.count);
         }
         return Promise.resolve();
+      }),
+    );
+  }
+  if (message) {
+    actions.push(
+      self.registration.showNotification(message.title, {
+        body: message.body,
+        icon: logoSrc,
+        data,
+        badge: logoSrc,
       }),
     );
   }

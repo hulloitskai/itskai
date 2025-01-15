@@ -53,7 +53,14 @@ class Status < ApplicationRecord
 
   sig { void }
   def nudge_friends
-    PushSubscription.where.associated(:friend).find_each(&:push)
+    PushSubscription.where.associated(:friend).find_each do |subscription|
+      payload = {
+        badge: {
+          count: 1,
+        },
+      }
+      subscription.push_payload(payload)
+    end
   end
 
   sig { void }

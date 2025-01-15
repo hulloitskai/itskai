@@ -37,10 +37,9 @@ class PushSubscription < ApplicationRecord
   # == Methods
   sig { params(notification: T.nilable(Notification)).void }
   def push(notification = nil)
-    message = {
+    push_payload({
       notification: PushNotificationSerializer.one_if(notification),
-    }
-    push_message(message.to_json)
+    })
     notification.mark_as_pushed! if notification.present?
   end
 
@@ -57,33 +56,39 @@ class PushSubscription < ApplicationRecord
       logger.info("Sent web push: #{response.inspect}")
     end
   rescue WebPush::ExpiredSubscription, WebPush::InvalidSubscription => error
-    message = error.response.body
+    message = T.let(error.response.body, String)
     with_log_tags do
       logger.warn("Bad subscription: #{message}")
     end
-    destroy or with_log_tags do
-      logger.error("Failed to destroy expired or invalid subscription")
+    destroy or with_log_tags do |; message| # rubocop:disable Layout/SpaceAroundBlockParameters
+      message = "Failed to destroy expired or invalid subscription"
+      logger.error(message)
+      Sentry.capture_message(message)
     end
   rescue WebPush::ResponseError => error
     message = error.response.body
     with_log_tags do
-      logger.error("Web push error: #{message}")
+      error_message = "Web push error: #{message}"
+      logger.error(error_message)
+      Sentry.capture_message(error_message)
     end
+  end
+
+  sig { params(payload: T::Hash[T.any(Symbol, String), T.untyped]).void }
+  def push_payload(payload)
+    push_message(payload.to_json)
   end
 
   sig { void }
   def send_test_notification
-    message = {
-      notification: {
-        delivery_token: "test",
+    push_payload({
+      message: {
         title: "Test notification",
         body:
           "This is a test notification. If you are seeing this, then your " \
           "push notifications are working!",
-        action_url: Rails.application.routes.url_helpers.admin_settings_path,
       },
-    }
-    push_message(message.to_json)
+    })
   end
 
   private
