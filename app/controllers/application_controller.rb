@@ -13,7 +13,6 @@ class ApplicationController < ActionController::Base
   include AuthenticatesFriends
 
   # == Filters
-  before_action :set_actor_id
   around_action :with_error_context
   if !InertiaRails.configuration.ssr_enabled && Rails.env.development?
     around_action :with_ssr
@@ -76,11 +75,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  sig { returns(String) }
-  def actor_id
-    cookies.signed[:actor_id] or raise "Missing actor ID"
-  end
-
   # == Filter handlers
   # sig { void }
   # def debug_action
@@ -90,14 +84,6 @@ class ApplicationController < ActionController::Base
   #     binding.break(do: "break #{target} pre: delete 0")
   #   end
   # end
-
-  sig { void }
-  def set_actor_id
-    unless cookies.key?(:actor_id)
-      cookies.permanent.signed[:actor_id] =
-        current_user&.id || SecureRandom.uuid
-    end
-  end
 
   sig { params(block: T.proc.returns(T.untyped)).void }
   def with_error_context(&block)

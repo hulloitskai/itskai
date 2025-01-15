@@ -33,7 +33,7 @@ const EmojiPopover: FC<EmojiPopoverProps> = ({
           <EmojiPicker
             onEmojiClick={(...args) => {
               onEmojiClick(...args);
-              close();
+              setOpened(false);
             }}
           />
         </RemoveScroll>
