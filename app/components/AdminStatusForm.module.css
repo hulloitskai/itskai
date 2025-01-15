@@ -1,0 +1,6 @@
+.image {
+  width: auto;
+  max-height: 200px;
+  border-radius: var(--mantine-radius-default);
+  background-color: var(--mantine-color-gray-1);
+}

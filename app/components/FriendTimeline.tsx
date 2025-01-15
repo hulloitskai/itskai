@@ -1,6 +1,7 @@
 import {
   type AnchorProps,
   type BoxProps,
+  Image,
   Spoiler,
   Text,
   Timeline,
@@ -80,17 +81,28 @@ const TimelineItemContent: FC<TimelineItemContentProps> = ({
         }}
         onExpandedChange={setSpoilerExpanded}
       >
-        <Text lh="xs" style={{ whiteSpace: "pre-line" }}>
-          <Linkify
-            options={{
-              target: "_blank",
-              rel: "noopener noreferrer nofollow",
-              className: cn(Anchor.classes.root, classes.statusLink),
-            }}
-          >
-            {status.text}
-          </Linkify>
-        </Text>
+        <Stack gap={8} align="start">
+          <Text lh="xs" style={{ whiteSpace: "pre-line" }}>
+            <Linkify
+              options={{
+                target: "_blank",
+                rel: "noopener noreferrer nofollow",
+                className: cn(Anchor.classes.root, classes.statusLink),
+              }}
+            >
+              {status.text}
+            </Linkify>
+          </Text>
+          {status.image && (
+            <Image
+              srcSet={status.image.src_set}
+              src={status.image.src}
+              mah={200}
+              w="auto"
+              fit="contain"
+            />
+          )}
+        </Stack>
         <Box
           className={classes.spoilerBottom}
           mod={{ expanded: spoilerExpanded }}

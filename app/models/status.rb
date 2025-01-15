@@ -23,6 +23,9 @@ class Status < ApplicationRecord
   # == Associations
   has_many :notifications, as: :noticeable, dependent: :destroy
 
+  # == Attachments
+  has_one_attached :image
+
   # == Validations
   validates :text, presence: true
   validates :emoji, emoji: true, allow_nil: true

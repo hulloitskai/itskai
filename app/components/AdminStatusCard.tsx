@@ -2,6 +2,7 @@ import {
   type ButtonProps,
   type CardProps,
   Drawer,
+  Image,
   InputWrapper,
   Text,
   useMatches,
@@ -66,6 +67,16 @@ const AdminStatusCard: FC<AdminStatusCardProps> = ({
           </Text>
         </Group>
       </Card.Section>
+      {status.image && (
+        <Card.Section withBorder bg="gray.1">
+          <Image
+            srcSet={status.image.src_set}
+            src={status.image.src}
+            mah={200}
+            fit="contain"
+          />
+        </Card.Section>
+      )}
     </Card>
   );
 };
