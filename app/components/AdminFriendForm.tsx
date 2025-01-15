@@ -34,7 +34,7 @@ const AdminFriendForm: FC<AdminFriendFormProps> = ({
           }}
         >
           {({ open }) => (
-            <Button variant="default" onClick={open}>
+            <Button variant="light" color="gray" onClick={open}>
               {values.emoji ? (
                 <span style={{ fontSize: "var(--mantine-font-size-lg)" }}>
                   {values.emoji}
