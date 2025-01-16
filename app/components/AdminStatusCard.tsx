@@ -110,16 +110,21 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
     },
   );
   const { friends } = data ?? {};
-  const allNotifiableFriendIds = useMemo(() => {
+  const notifiableFriends = useMemo(() => {
     if (friends) {
-      return map(filter(friends, "notifiable"), "id");
+      return filter(friends, "notifiable");
     }
   }, [friends]);
+  const notifiableFriendIds = useMemo(() => {
+    if (notifiableFriends) {
+      return map(notifiableFriends, "id");
+    }
+  }, [notifiableFriends]);
 
   // == Form
   const initialValues = useMemo(
-    () => ({ friend_ids: allNotifiableFriendIds ?? [] }),
-    [allNotifiableFriendIds],
+    () => ({ friend_ids: notifiableFriendIds ?? [] }),
+    [notifiableFriendIds],
   );
   const {
     submit,
@@ -151,10 +156,10 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
     [initialValues], // eslint-disable-line react-hooks/exhaustive-deps
   );
   const allNotifiableFriendsSelected = useMemo(() => {
-    if (allNotifiableFriendIds) {
-      return isEqual(allNotifiableFriendIds, values.friend_ids);
+    if (notifiableFriendIds) {
+      return isEqual(notifiableFriendIds, values.friend_ids);
     }
-  }, [allNotifiableFriendIds, values.friend_ids]);
+  }, [notifiableFriendIds, values.friend_ids]);
 
   return (
     <>
@@ -178,11 +183,11 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
         <form onSubmit={submit}>
           <Stack gap="sm">
             <InputWrapper error={errors.friend_ids}>
-              {friends && allNotifiableFriendIds ? (
+              {notifiableFriends && notifiableFriendIds ? (
                 <Stack gap={6} align="center">
                   <Chip.Group {...getInputProps("friend_ids")} multiple>
                     <Group wrap="wrap" gap={6} justify="center">
-                      {friends.map(friend => (
+                      {notifiableFriends.map(friend => (
                         <Tooltip
                           key={friend.id}
                           withArrow
@@ -212,7 +217,7 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
                     onClick={() => {
                       const nextIds = allNotifiableFriendsSelected
                         ? []
-                        : allNotifiableFriendIds;
+                        : notifiableFriendIds;
                       setFieldValue("friend_ids", nextIds);
                     }}
                   >
