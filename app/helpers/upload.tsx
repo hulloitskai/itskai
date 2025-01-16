@@ -22,10 +22,6 @@ export interface UploadState {
 export const useLazyUpload = (
   params: UseUploadParams = {},
 ): [(file: File) => Promise<Blob>, UploadState] => {
-  const url = useMemo(
-    () => requireMeta("active-storage-direct-uploads-url"),
-    [],
-  );
   const [state, setState] = useState<UploadState>(() => ({
     blob: null,
     error: null,
@@ -33,94 +29,90 @@ export const useLazyUpload = (
     uploading: false,
     cancel: () => {},
   }));
-  const sizeLimit = useMemo(() => {
-    const limit = getMeta("active-storage-direct-uploads-size-limit");
-    return limit ? parseInt(limit) : null;
-  }, []);
   const paramsRef = useRef(params);
   paramsRef.current = params;
-  const upload = useCallback(
-    (file: File): Promise<Blob> => {
-      const { onProgress, onCompleted, onError, failSilently } =
-        paramsRef.current;
-      if (typeof sizeLimit === "number" && file.size > sizeLimit) {
-        toast.error(`File '${file.name}' is too large`, {
-          description: `The maximum file size is ${prettyBytes(sizeLimit)}.`,
-        });
-        const error = fileSizeLimitExceededError(sizeLimit);
-        onError?.(error);
-        return Promise.reject(error);
+  const upload = useCallback((file: File): Promise<Blob> => {
+    const { onProgress, onCompleted, onError, failSilently } =
+      paramsRef.current;
+    const sizeLimitValue = getMeta("active-storage-direct-uploads-size-limit");
+    const sizeLimit = sizeLimitValue ? parseInt(sizeLimitValue) : null;
+    if (typeof sizeLimit === "number" && file.size > sizeLimit) {
+      toast.error(`File '${file.name}' is too large`, {
+        description: `The maximum file size is ${prettyBytes(sizeLimit)}.`,
+      });
+      const error = fileSizeLimitExceededError(sizeLimit);
+      onError?.(error);
+      return Promise.reject(error);
+    }
+    setState(prevState => {
+      if (prevState.uploading) {
+        prevState.cancel();
       }
-      setState(prevState => {
-        if (prevState.uploading) {
-          prevState.cancel();
-        }
-        return {
-          blob: null,
-          error: null,
-          progress: 0,
-          uploading: true,
-          cancel: () => {},
-        };
-      });
-      const upload = new DirectUpload(file, url, {
-        directUploadWillStoreFileWithXHR: request => {
-          request.upload.addEventListener("progress", event => {
-            const { loaded, total } = event;
-            const progress = (loaded / total) * 100;
-            setState(prevState => ({
-              ...prevState,
-              progress,
-              cancel: () => {
-                request.abort();
-                setState({
-                  blob: null,
-                  error: null,
-                  progress: 0,
-                  uploading: false,
-                  cancel: () => {},
-                });
-              },
-            }));
-            onProgress?.(progress);
-          });
-        },
-      });
-      return new Promise((resolve, reject) => {
-        upload.create((error, blob) => {
-          if (error) {
-            console.error(`Error uploading file "${file.name}"`, error);
-            setState(prevState => ({
-              ...prevState,
-              error,
-              blob: null,
-              uploading: false,
-              progress: 0,
-              cancel: () => {},
-            }));
-            reject(error);
-            onError?.(error);
-            if (!failSilently) {
-              toast.error(`Failed to upload file '${file.name}'`, {
-                description: error.message,
+      return {
+        blob: null,
+        error: null,
+        progress: 0,
+        uploading: true,
+        cancel: () => {},
+      };
+    });
+    const url = requireMeta("active-storage-direct-uploads-url");
+    const upload = new DirectUpload(file, url, {
+      directUploadWillStoreFileWithXHR: request => {
+        request.upload.addEventListener("progress", event => {
+          const { loaded, total } = event;
+          const progress = (loaded / total) * 100;
+          setState(prevState => ({
+            ...prevState,
+            progress,
+            cancel: () => {
+              request.abort();
+              setState({
+                blob: null,
+                error: null,
+                progress: 0,
+                uploading: false,
+                cancel: () => {},
               });
-            }
-          } else {
-            setState({
-              blob,
-              error: null,
-              uploading: false,
-              progress: 100,
-              cancel: () => {},
-            });
-            resolve(error);
-            onCompleted?.(blob);
-          }
+            },
+          }));
+          onProgress?.(progress);
         });
+      },
+    });
+    return new Promise((resolve, reject) => {
+      upload.create((error, blob) => {
+        if (error) {
+          console.error(`Error uploading file "${file.name}"`, error);
+          setState(prevState => ({
+            ...prevState,
+            error,
+            blob: null,
+            uploading: false,
+            progress: 0,
+            cancel: () => {},
+          }));
+          reject(error);
+          onError?.(error);
+          if (!failSilently) {
+            toast.error(`Failed to upload file '${file.name}'`, {
+              description: error.message,
+            });
+          }
+        } else {
+          setState({
+            blob,
+            error: null,
+            uploading: false,
+            progress: 100,
+            cancel: () => {},
+          });
+          resolve(error);
+          onCompleted?.(blob);
+        }
       });
-    },
-    [url, sizeLimit],
-  );
+    });
+  }, []);
   return [upload, state];
 };
 
