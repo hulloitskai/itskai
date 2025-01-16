@@ -18,6 +18,10 @@ module Admin
         latest_vibecheck = latest_vibecheck_by_friend_id.fetch(friend.id, nil)
         AdminFriend.new(friend:, latest_vibecheck:)
       end
+      friends.sort_by! do |friend|
+        time = friend.latest_vibecheck&.created_at || friend.created_at
+        -time.to_i
+      end
       respond_to do |format|
         format.html do
           render(inertia: "AdminFriendsPage", props: {

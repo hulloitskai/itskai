@@ -68,7 +68,7 @@ const AdminStatusCard: FC<AdminStatusCardProps> = ({
         </Group>
       </Card.Section>
       {status.image && (
-        <Card.Section withBorder bg="gray.1">
+        <Card.Section withBorder className={classes.imageSection}>
           <Image
             srcSet={status.image.src_set}
             src={status.image.src}
@@ -169,6 +169,7 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
         Notify
       </Button>
       <Drawer
+        classNames={{ content: classes.notifyFriendsDrawerContent }}
         title="Notify friends"
         position={drawerPosition}
         opened={drawerOpened}

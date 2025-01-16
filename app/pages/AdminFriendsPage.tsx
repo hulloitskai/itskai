@@ -1,6 +1,7 @@
 import AdminFriendForm from "~/components/AdminFriendForm";
 import AdminSidebar from "~/components/AdminSidebar";
 import AppLayout from "~/components/AppLayout";
+import { isTodayIsh } from "~/helpers/time";
 import { type AdminFriend, type FriendVibecheck } from "~/types";
 
 import classes from "./AdminFriendsPage.module.css";
@@ -43,7 +44,7 @@ const AdminFriendsPage: PageComponent<AdminFriendsPageProps> = ({
       >
         {friends.map(friend => (
           <List.Item key={friend.token}>
-            <Group gap={8} align="center" justify="space-between">
+            <Group align="center" justify="space-between">
               <Group gap={8}>
                 <Badge
                   variant="light"
@@ -55,7 +56,10 @@ const AdminFriendsPage: PageComponent<AdminFriendsPageProps> = ({
                   {friend.name}
                 </Badge>
                 {friend.latest_vibecheck && (
-                  <LatestVibecheck vibecheck={friend.latest_vibecheck} />
+                  <LatestVibecheck
+                    vibecheck={friend.latest_vibecheck}
+                    style={{ flexShrink: 0 }}
+                  />
                 )}
               </Group>
               <Group
@@ -83,7 +87,7 @@ const AdminFriendsPage: PageComponent<AdminFriendsPageProps> = ({
                   inherit
                   fz="xs"
                 >
-                  Emulate
+                  Emulator
                 </Anchor>
               </Group>
             </Group>
@@ -118,21 +122,21 @@ AdminFriendsPage.layout = page => (
 
 export default AdminFriendsPage;
 
-interface LatestVibecheckProps {
+interface LatestVibecheckProps extends BoxProps {
   vibecheck: FriendVibecheck;
 }
 
-const LatestVibecheck: React.FC<LatestVibecheckProps> = ({ vibecheck }) => {
+const LatestVibecheck: React.FC<LatestVibecheckProps> = ({
+  vibecheck,
+  ...otherProps
+}) => {
   const createdAt = useMemo(
     () => DateTime.fromISO(vibecheck.created_at).toLocal(),
     [vibecheck],
   );
-  const createdToday = useMemo(
-    () => createdAt.hasSame(DateTime.now(), "day"),
-    [createdAt],
-  );
-  return createdToday ? (
-    <Group justify="center" gap={4}>
+  const createdTodayIsh = useMemo(() => isTodayIsh(createdAt), [createdAt]);
+  return createdTodayIsh ? (
+    <Group justify="center" gap={4} {...otherProps}>
       {vibecheck.vibe}
       <Time
         inherit

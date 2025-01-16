@@ -1,9 +1,10 @@
 import { MantineProvider } from "@mantine/core";
 
-import { THEME } from "~/helpers/mantine";
+import { useTheme } from "~/helpers/mantine";
 
-const EmailMantineProvider: FC<PropsWithChildren> = ({ children }) => (
-  <MantineProvider theme={THEME}>{children}</MantineProvider>
-);
+const EmailMantineProvider: FC<PropsWithChildren> = ({ children }) => {
+  const theme = useTheme();
+  return <MantineProvider {...{ theme }}>{children}</MantineProvider>;
+};
 
 export default EmailMantineProvider;

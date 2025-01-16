@@ -1,5 +1,6 @@
 import { ActionIcon, Modal, Radio } from "@mantine/core";
 
+import { isTodayIsh } from "~/helpers/time";
 import { type FriendVibecheck } from "~/types";
 
 import EmojiPopover from "./EmojiPopover";
@@ -24,7 +25,7 @@ const FriendVibecheckModal: FC<FriendVibecheckModalProps> = ({
       const lastCreatedAt = DateTime.fromISO(
         lastVibecheck.created_at,
       ).toLocal();
-      return !lastCreatedAt.hasSame(DateTime.now(), "day");
+      return !isTodayIsh(lastCreatedAt);
     }
     return true;
   }, [lastVibecheck]);

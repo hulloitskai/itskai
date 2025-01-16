@@ -6,5 +6,5 @@ class AdminFriend < T::Struct
   const :friend, Friend
   const :latest_vibecheck, T.nilable(FriendVibecheck)
 
-  delegate :token, to: :friend
+  delegate :created_at, :token, to: :friend
 end

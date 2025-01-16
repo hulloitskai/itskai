@@ -1,14 +1,17 @@
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 
-import { THEME } from "~/helpers/mantine";
+import { useTheme } from "~/helpers/mantine";
 
-const AppMantineProvider: FC<PropsWithChildren> = ({ children }) => (
-  <>
-    <ColorSchemeScript defaultColorScheme="auto" />
-    <MantineProvider theme={THEME} defaultColorScheme="auto">
-      {children}
-    </MantineProvider>
-  </>
-);
+const AppMantineProvider: FC<PropsWithChildren> = ({ children }) => {
+  const theme = useTheme();
+  return (
+    <>
+      <ColorSchemeScript defaultColorScheme="auto" />
+      <MantineProvider {...{ theme }} defaultColorScheme="auto">
+        {children}
+      </MantineProvider>
+    </>
+  );
+};
 
 export default AppMantineProvider;
