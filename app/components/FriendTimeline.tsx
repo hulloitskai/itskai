@@ -82,7 +82,10 @@ const TimelineItemContent: FC<TimelineItemContentProps> = ({
         onExpandedChange={setSpoilerExpanded}
       >
         <Stack gap={8} align="start">
-          <Text lh="xs" style={{ whiteSpace: "pre-line" }}>
+          <Text
+            lh="xs"
+            style={{ whiteSpace: "pre-line", whiteSpaceCollapse: "preserve" }}
+          >
             <Linkify
               options={{
                 target: "_blank",

@@ -46,7 +46,13 @@ const AdminExplorationCommentsPage: PageComponent<
                   </Time>
                 </Card.Section>
                 <Card.Section withBorder inheritPadding py="xs">
-                  <Text inherit style={{ whiteSpace: "pre-line" }}>
+                  <Text
+                    inherit
+                    style={{
+                      whiteSpace: "pre-line",
+                      whiteSpaceCollapse: "preserve",
+                    }}
+                  >
                     {comment.message}
                   </Text>
                   <Text inherit fz="xs" ta="end">

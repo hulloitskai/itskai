@@ -54,7 +54,10 @@ const AdminStatusCard: FC<AdminStatusCardProps> = ({
               {status.emoji}
             </Text>
           )}
-          <Text lh="xs" style={{ whiteSpace: "pre-line" }}>
+          <Text
+            lh="xs"
+            style={{ whiteSpace: "pre-line", whiteSpaceCollapse: "preserve" }}
+          >
             <Linkify
               options={{
                 target: "_blank",
