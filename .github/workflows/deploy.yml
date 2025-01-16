@@ -27,7 +27,7 @@ jobs:
       - name: Set up Flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy
-        run: flyctl deploy --remote-only --ha=false --memory=512 --strategy=canary
+        run: flyctl deploy --remote-only --ha=false --memory=768
       - name: Revert deployment on failure
         if: failure() || cancelled()
         run: flyctl scale count 1 --yes
