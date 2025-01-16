@@ -1,9 +1,10 @@
 # typed: true
 # frozen_string_literal: true
 
-return unless Rails.env.development?
+require "action_controller/log_subscriber"
+ActionController::LogSubscriber::INTERNAL_PARAMS << "export"
 
-ADDITIONAL_CONTROLLERS = %w[users/sessions]
+return unless Rails.env.development?
 
 JsFromRoutes.config do |config|
   config.file_suffix = "Routes.ts"
@@ -12,8 +13,7 @@ JsFromRoutes.config do |config|
     route = T.let(route, ActionDispatch::Journey::Route)
     export = T.let(route.defaults[:export], T.nilable(T::Boolean))
     controller = T.let(route.requirements[:controller], T.nilable(String))
-    export ||
-      controller&.in?(ADDITIONAL_CONTROLLERS) ||
+    export || controller == "users/sessions" ||
       controller&.start_with?("active_storage")
   end
 end
