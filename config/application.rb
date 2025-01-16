@@ -103,6 +103,7 @@ module ItsKai
     # == Sessions
     config.session_store :cookie_store,
                          key: "session",
+                         same_site: nil,
                          secure: Rails.env.production?
 
     # == Exceptions
