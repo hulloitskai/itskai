@@ -176,7 +176,7 @@ const FriendPage: PageComponent<FriendPageProps> = ({
           }}
         />
       )}
-      {standaloneMode && (
+      {standaloneMode && registration && (
         <FriendVibecheckModal
           {...{ friendToken, lastVibecheck }}
           onVibeChecked={() => {
