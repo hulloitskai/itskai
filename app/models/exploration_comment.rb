@@ -42,8 +42,8 @@ class ExplorationComment < ApplicationRecord
     message
   end
 
-  sig { override.returns(T.nilable(String)) }
-  def notification_action_url
+  sig { override.params(notification: Notification).returns(T.nilable(String)) }
+  def notification_action_url(notification)
     Rails.application.routes.url_helpers.admin_exploration_comments_path
   end
 end

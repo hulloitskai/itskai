@@ -14,6 +14,10 @@ class FriendsController < ApplicationController
     contact_phone = Contact.phone
     emulate_standalone = params[:emulate_standalone].truthy?
     last_vibecheck = friend.vibechecks.chronological.last
+    status_id = if (status_param = params[:status_id]) &&
+        status_param.is_a?(String)
+      status_param
+    end
     render(inertia: "FriendPage", props: {
       friend: FriendSerializer.one(friend),
       "friendToken" => friend.token,
@@ -21,6 +25,7 @@ class FriendsController < ApplicationController
       "emulateStandalone" => emulate_standalone,
       "lastVibecheck" => FriendVibecheckSerializer.one_if(last_vibecheck),
       statuses: StatusSerializer.many(statuses),
+      "statusId" => status_id,
     })
   end
 

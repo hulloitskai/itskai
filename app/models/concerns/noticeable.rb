@@ -25,6 +25,9 @@ module Noticeable
   sig { overridable.returns(T.nilable(ActiveStorage::Blob)) }
   def notification_icon_blob; end
 
-  sig { overridable.returns(T.nilable(String)) }
-  def notification_action_url; end
+  sig do
+    overridable.params(notification: Notification)
+      .returns(T.nilable(String))
+  end
+  def notification_action_url(notification); end
 end

@@ -23,6 +23,7 @@ export interface FriendPageProps extends SharedPageProps {
   emulateStandalone: boolean;
   lastVibecheck: FriendVibecheck;
   statuses: Status[];
+  statusId: string | null;
 }
 
 const FriendPage: PageComponent<FriendPageProps> = ({
@@ -32,6 +33,7 @@ const FriendPage: PageComponent<FriendPageProps> = ({
   emulateStandalone,
   lastVibecheck,
   statuses,
+  statusId,
 }) => {
   const isStandalone = useIsStandaloneMode();
   const { registration } = useWebPush();
@@ -85,7 +87,7 @@ const FriendPage: PageComponent<FriendPageProps> = ({
               </Group>
             </Stack>
             {registration ? (
-              <FriendTimeline {...{ statuses, contactPhone }} />
+              <FriendTimeline {...{ statuses, contactPhone, statusId }} />
             ) : (
               <Text size="sm" c="dimmed" ta="center">
                 Please enable push notifications to continue...

@@ -8,6 +8,7 @@ import {
   type TimelineProps,
 } from "@mantine/core";
 import Linkify from "linkify-react";
+import scrollIntoView from "scroll-into-view";
 
 import RespondIcon from "~icons/heroicons/arrow-uturn-left-20-solid";
 
@@ -18,11 +19,13 @@ import classes from "./FriendTimeline.module.css";
 export interface FriendTimelineProps extends Omit<TimelineProps, "children"> {
   statuses: Status[];
   contactPhone: string;
+  statusId: string | null;
 }
 
 const FriendTimeline: FC<FriendTimelineProps> = ({
   statuses,
   contactPhone,
+  statusId,
   className,
   ...otherProps
 }) => (
@@ -50,7 +53,10 @@ const FriendTimeline: FC<FriendTimelineProps> = ({
         }
         mod={{ "small-bullet": !status.emoji }}
       >
-        <TimelineItemContent {...{ status, contactPhone }} />
+        <TimelineItemContent
+          {...{ status, contactPhone }}
+          focused={status.id === statusId}
+        />
       </Timeline.Item>
     ))}
   </Timeline>
@@ -61,16 +67,34 @@ export default FriendTimeline;
 interface TimelineItemContentProps extends BoxProps {
   status: Status;
   contactPhone: string;
+  focused: boolean;
 }
 
 const TimelineItemContent: FC<TimelineItemContentProps> = ({
   status,
   contactPhone,
+  focused,
   ...otherProps
 }) => {
-  const [spoilerExpanded, setSpoilerExpanded] = useState(false);
+  const [spoilerExpanded, setSpoilerExpanded] = useState(focused);
+
+  // == Auto-scroll
+  const containerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const container = containerRef.current;
+    const headerEl = document.querySelector(".mantine-AppShell-header");
+    if (focused && container) {
+      scrollIntoView(container, {
+        align: {
+          top: 0,
+          topOffset: (headerEl?.clientHeight ?? 0) + 20,
+        },
+      });
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
-    <Stack gap={2} {...otherProps}>
+    <Stack ref={containerRef} gap={2} {...otherProps}>
       <Spoiler
         maxHeight={120}
         showLabel="Show more"
@@ -79,6 +103,7 @@ const TimelineItemContent: FC<TimelineItemContentProps> = ({
           root: classes.spoiler,
           control: classes.spoilerControl,
         }}
+        expanded={spoilerExpanded}
         onExpandedChange={setSpoilerExpanded}
       >
         <Stack gap={8} align="start">

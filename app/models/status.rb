@@ -44,6 +44,18 @@ class Status < ApplicationRecord
     [emoji, text].compact.join(" ").truncate(240)
   end
 
+  sig { override.params(notification: Notification).returns(T.nilable(String)) }
+  def notification_action_url(notification)
+    if (friend_token = Friend.where(id: notification.friend_id).pick(:token))
+      Rails.application.routes.url_helpers.friend_url(
+        friend_token:,
+        status_id: id,
+      )
+    else
+      Rails.application.routes.url_helpers.admin_statuses_url
+    end
+  end
+
   # == Notify
   sig { params(friend_ids: T::Array[String]).void }
   def notify_friends(friend_ids: [])
