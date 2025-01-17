@@ -1,9 +1,8 @@
 import { type PWAInstallElement } from "@khmyznikov/pwa-install";
 import PWAInstall from "@khmyznikov/pwa-install/react-legacy";
-import { Text } from "@mantine/core";
+import { Loader, Text } from "@mantine/core";
 
 import PhoneIcon from "~icons/heroicons/device-phone-mobile-20-solid";
-// import TextingIcon from "~icons/heroicons/chat-bubble-left-right-20-solid";
 import FeedbackIcon from "~icons/heroicons/hand-raised-20-solid";
 
 import AppLayout from "~/components/AppLayout";
@@ -38,7 +37,6 @@ const FriendPage: PageComponent<FriendPageProps> = ({
   const isStandalone = useIsStandaloneMode();
   const { registration } = useWebPush();
   const standaloneMode = emulateStandalone || isStandalone;
-  const mounted = useMounted();
   const installPromptEvent = useInstallPromptEvent();
   const [pwaInstall, setPWAInstall] = useState<PWAInstallElement | null>(null);
   const [pwaInstalled, setPWAInstalled] = useState(false);
@@ -46,7 +44,12 @@ const FriendPage: PageComponent<FriendPageProps> = ({
   return (
     <>
       <Stack mt="sm" gap="xl" style={{ flexGrow: 1 }}>
-        {standaloneMode ? (
+        {standaloneMode === undefined && (
+          <Center style={{ flexGrow: 1 }}>
+            <Loader />
+          </Center>
+        )}
+        {standaloneMode === true && (
           <>
             <Stack gap={6} lh="xs" ta="center">
               <Text inherit fw={700}>
@@ -94,7 +97,8 @@ const FriendPage: PageComponent<FriendPageProps> = ({
               </Text>
             )}
           </>
-        ) : (
+        )}
+        {standaloneMode === false && (
           <>
             <Stack gap={6} lh="xs">
               <Text inherit fw={700}>
@@ -154,7 +158,7 @@ const FriendPage: PageComponent<FriendPageProps> = ({
           </>
         )}
       </Stack>
-      {mounted && !isStandalone && (
+      {isStandalone === false && (
         <PWAInstall
           manifestUrl={routes.friends.manifest.path({
             query: {
@@ -167,7 +171,7 @@ const FriendPage: PageComponent<FriendPageProps> = ({
           useLocalStorage={false}
           disableDescription
           externalPromptEvent={installPromptEvent}
-          onPwaInstallAvailableEvent={(event: Event) => {
+          onPwaInstallAvailableEvent={event => {
             event.preventDefault();
             setPWAInstall(event.target as PWAInstallElement);
           }}
