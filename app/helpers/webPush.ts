@@ -78,6 +78,23 @@ export const useLookupPushSubscriptionRegistration = (
   };
 };
 
+// export const subscribeAndRegister = (friendToken?: string): Promise<void> => {
+//   return Promise.all<[Promise<PushManager>, Promise<string>]>([
+//     getPushManager(),
+//     fetchPublicKey(friendToken),
+//   ])
+//     .then(([pushManager, publicKey]) =>
+//       pushManager.subscribe({
+//         userVisibleOnly: true,
+//         applicationServerKey: createApplicationServerKey(publicKey),
+//       }),
+//     )
+//     .then(subscription => registerSubscription(subscription, friendToken))
+//     .catch(error => {
+//       console.error(error);
+//     });
+// };
+
 export interface UseWebPushSubscribeOptions {
   onSubscribed: (subscription: PushSubscription) => void;
 }
@@ -92,7 +109,7 @@ export const useWebPushSubscribe = ({
   const [subscribeError, setSubscribeError] = useState<Error | null>(null);
   const subscribe = useCallback(
     (friendToken?: string): Promise<void> => {
-      const registerAndSubscribe = (): Promise<void> =>
+      const subscribeAndRegister = (): Promise<void> =>
         Promise.all<[Promise<PushManager>, Promise<string>]>([
           getPushManager(),
           fetchPublicKey(friendToken),
@@ -109,34 +126,15 @@ export const useWebPushSubscribe = ({
             },
           )
           .then(
-            subscription => {
-              const { endpoint, keys } = pick(
-                subscription.toJSON(),
-                "endpoint",
-                "keys.auth",
-                "keys.p256dh",
-              );
-              if (!keys?.auth) {
-                return reportProblem("Missing auth key");
-              }
-              if (!keys?.p256dh) {
-                return reportProblem("Missing p256dh key");
-              }
-              const query = friendToken ? { friend_token: friendToken } : {};
-              return fetchRoute(routes.pushSubscriptions.create, {
-                descriptor: "subscribe to push notifications",
-                params: { query },
-                data: {
-                  push_subscription: {
-                    endpoint,
-                    auth_key: keys.auth,
-                    p256dh_key: keys.p256dh,
-                  },
+            subscription =>
+              registerSubscription(subscription, friendToken).then(
+                () => {
+                  onSubscribed(subscription);
                 },
-              }).then(() => {
-                onSubscribed(subscription);
-              });
-            },
+                (error: Error) => {
+                  reportProblem(error.message);
+                },
+              ),
             (error: Error) => {
               setSubscribeError(error);
               toast.error("Couldn't subscribe to push notifications", {
@@ -150,11 +148,11 @@ export const useWebPushSubscribe = ({
           });
       setSubscribing(true);
       if (Notification.permission === "granted") {
-        return registerAndSubscribe();
+        return subscribeAndRegister();
       } else {
         return Notification.requestPermission().then(permission => {
           if (permission === "granted") {
-            return registerAndSubscribe();
+            return subscribeAndRegister();
           } else {
             setSubscribing(false);
           }
@@ -164,6 +162,36 @@ export const useWebPushSubscribe = ({
     [onSubscribed],
   );
   return [subscribe, { subscribing, subscribeError }];
+};
+
+const registerSubscription = (
+  subscription: PushSubscription,
+  friendToken?: string,
+): Promise<void> => {
+  const { endpoint, keys } = pick(
+    subscription.toJSON(),
+    "endpoint",
+    "keys.auth",
+    "keys.p256dh",
+  );
+  if (!keys?.auth) {
+    throw new Error("Missing auth key");
+  }
+  if (!keys?.p256dh) {
+    throw new Error("Missing p256dh key");
+  }
+  const query = friendToken ? { friend_token: friendToken } : {};
+  return fetchRoute<void>(routes.pushSubscriptions.create, {
+    descriptor: "subscribe to push notifications",
+    params: { query },
+    data: {
+      push_subscription: {
+        endpoint,
+        auth_key: keys.auth,
+        p256dh_key: keys.p256dh,
+      },
+    },
+  });
 };
 
 const reportProblem = (message: string): never => {
