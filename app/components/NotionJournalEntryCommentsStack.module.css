@@ -2,11 +2,21 @@
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
 }
 
-.input {
+.textInputInput {
+  margin-top: 2px;
+
   &:focus {
     border-color: light-dark(
       var(--mantine-color-gray-4),
       var(--mantine-color-dark-3)
     );
+  }
+}
+
+.textInputSection {
+  width: unset;
+
+  &[data-position="right"] {
+    margin-right: 3px;
   }
 }

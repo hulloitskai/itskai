@@ -5,6 +5,8 @@
 }
 
 .statusLink {
+  text-transform: none;
+
   &:hover {
     text-decoration: underline;
   }

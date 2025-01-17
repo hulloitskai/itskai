@@ -120,12 +120,11 @@ Rails.application.routes.draw do
     post :access
   end
 
-  # == Notion journal entries
-  resources :notion_journal_entries, only: [], export: true do
-    member do
-      get :comments
-    end
-  end
+  # == Notion journal entry comments
+  resources :notion_journal_entry_comments,
+            path: "notion_journal_entries/:entry_id/comments",
+            only: %i[index create],
+            export: true
 
   # == Exploration comments
   resources :exploration_comments,

@@ -10,26 +10,25 @@ import NotionJournalEntryCard from "./NotionJournalEntryCard";
 export interface HomePageJournalEntryProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {
-  journalEntry: NotionJournalEntry;
-  firstJournalEntryId: string;
+  entry: NotionJournalEntry;
+  firstEntryId: string;
   autoscroll: boolean;
 }
 
 const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
+  entry,
+  firstEntryId,
   autoscroll,
-  firstJournalEntryId,
-  journalEntry,
   ...otherProps
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const nextEntryPath = useMemo(() => {
     return routes.home.show.path({
       query: {
-        journal_entry_id:
-          journalEntry.next_journal_entry_id ?? firstJournalEntryId,
+        journal_entry_id: entry.next_entry_id ?? firstEntryId,
       },
     });
-  }, [journalEntry.next_journal_entry_id, firstJournalEntryId]);
+  }, [entry.next_entry_id, firstEntryId]);
 
   // == Scrolling
   const scrollToContainerTop = useCallback(() => {
@@ -48,11 +47,11 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
     if (autoscroll) {
       scrollToContainerTop();
     }
-  }, [journalEntry.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [entry.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Stack ref={containerRef} align="center" {...otherProps}>
-      <NotionJournalEntryCard {...{ entry: journalEntry }} />
+      <NotionJournalEntryCard {...{ entry }} onCopy={scrollToContainerTop} />
       <Button
         component={Link}
         href={nextEntryPath}
@@ -62,14 +61,10 @@ const HomePageJournalEntry: FC<HomePageJournalEntryProps> = ({
           "journalEntryPermalinked",
           "firstJournalEntryId",
         ]}
-        leftSection={
-          journalEntry.next_journal_entry_id ? <NextIcon /> : <ResetIcon />
-        }
+        leftSection={entry.next_entry_id ? <NextIcon /> : <ResetIcon />}
         radius="xl"
       >
-        {journalEntry.next_journal_entry_id
-          ? "more words pls"
-          : "from the top!"}
+        {entry.next_entry_id ? "more words pls" : "from the top!"}
       </Button>
     </Stack>
   );

@@ -13,10 +13,12 @@ export interface NotionJournalEntryCardProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {
   entry: NotionJournalEntry;
+  onCopy?: () => void;
 }
 
 const NotionJournalEntryCard: FC<NotionJournalEntryCardProps> = ({
   entry,
+  onCopy,
   ...otherProps
 }) => (
   <Box pos="relative" w="100%" maw={540} {...otherProps}>
@@ -53,7 +55,10 @@ const NotionJournalEntryCard: FC<NotionJournalEntryCardProps> = ({
               color="primary"
               bg="var(--mantine-color-body)"
               radius="xl"
-              onClick={copy}
+              onClick={() => {
+                copy();
+                onCopy?.();
+              }}
             >
               <Text component={LinkIcon} fz={11} />
             </ActionIcon>

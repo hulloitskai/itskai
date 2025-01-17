@@ -17,56 +17,34 @@ export interface NotionJournalEntryCommentsStackProps
 const NotionJournalEntryCommentsStack: FC<
   NotionJournalEntryCommentsStackProps
 > = ({ entryId, ...otherProps }) => {
-  // == Input
-  const [commentText, setCommentText] = useState("");
-
-  // == Comments
+  // == Load comments
   const {
     data: commentsData,
     fetching: commentsFetching,
-    // mutate: mutateComments,
+    mutate: mutateComments,
   } = useFetchRoute<{
     comments: NotionComment[];
-  }>(routes.notionJournalEntries.comments, {
+  }>(routes.notionJournalEntryComments.index, {
     descriptor: "load comments",
     params: {
-      id: entryId,
+      entry_id: entryId,
     },
   });
   const { comments } = commentsData ?? {};
 
-  // == Adding Comment
-  // const addCommentErrorContext = useMemo(
-  //   () => ({ entryId, comment: commentText }),
-  //   [commentText, entryId],
-  // );
-  // const onAddCommentError = useApolloAlertCallback(
-  //   "Failed to add comment",
-  //   addCommentErrorContext,
-  // );
-  // const [addComment, { loading: commenting }] = useMutation(
-  //   AddJournalEntryCommentMutationDocument,
-  //   {
-  //     onCompleted: () => {
-  //       mutateComments(/* ({ comments }) => new comments? */);
-  //     },
-  //     onError: onAddCommentError,
-  //   },
-  // );
-
-  // == Commenting
-  const createComment = () => {
-    // addComment({
-    //   variables: {
-    //     input: {
-    //       entryId,
-    //       text: commentText,
-    //     },
-    //   },
-    // }).then(() => {
-    //   setCommentText("");
-    // });
-  };
+  // == Create comment
+  const { getInputProps, submit, submitting } = useFetchForm({
+    action: routes.notionJournalEntryComments.create,
+    params: {
+      entry_id: entryId,
+    },
+    descriptor: "create comment",
+    initialValues: { text: "" },
+    transformValues: values => ({ comment: values }),
+    onSuccess: () => {
+      void mutateComments();
+    },
+  });
 
   return (
     <Stack gap={6} {...otherProps}>
@@ -97,41 +75,34 @@ const NotionJournalEntryCommentsStack: FC<
       ) : (
         <Skeleton h={40} />
       )}
-      <TextInput
-        variant="filled"
-        rightSection={
-          <ActionIcon
-            color="primary.6"
-            radius="xl"
-            // loading={commenting}
-            onClick={createComment}
-          >
-            <Text component={SendIcon} fz={12} />
-          </ActionIcon>
-        }
-        radius="xl"
-        placeholder="Write a comment..."
-        value={commentText}
-        // readOnly={commenting}
-        onChange={({ currentTarget }) => {
-          setCommentText(currentTarget.value);
-        }}
-        onKeyUp={({ key }) => {
-          if (key === "Enter") {
-            createComment();
+      <form onSubmit={submit}>
+        <TextInput
+          {...getInputProps("text")}
+          variant="filled"
+          rightSection={
+            <ActionIcon
+              color="primary.6"
+              radius="xl"
+              type="submit"
+              loading={submitting}
+            >
+              <Text component={SendIcon} fz={12} />
+            </ActionIcon>
           }
-        }}
-        mt={2}
-        classNames={{
-          input: classes.input,
-        }}
-        styles={{
-          section: {
-            width: "unset",
-            marginRight: 3,
-          },
-        }}
-      />
+          radius="xl"
+          placeholder="Write a comment..."
+          readOnly={submitting}
+          onKeyDown={({ key }) => {
+            if (key === "Enter") {
+              submit();
+            }
+          }}
+          classNames={{
+            input: classes.textInputInput,
+            section: classes.textInputSection,
+          }}
+        />
+      </form>
     </Stack>
   );
 };
