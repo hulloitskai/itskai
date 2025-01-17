@@ -134,6 +134,8 @@ interface RespondAnchorProps
   status: Status;
 }
 
+const SNIPPED_TEXT_MAX_LENGTH = 240;
+
 const RespondAnchor: FC<RespondAnchorProps> = ({
   contactPhone,
   status,
@@ -141,8 +143,16 @@ const RespondAnchor: FC<RespondAnchorProps> = ({
   ...otherProps
 }) => {
   const href = useMemo(() => {
+    let snippedText = status.text;
+    if (snippedText.length > SNIPPED_TEXT_MAX_LENGTH) {
+      snippedText = snippedText.substring(0, SNIPPED_TEXT_MAX_LENGTH);
+      if (snippedText.endsWith(" ") || snippedText.endsWith("\n")) {
+        snippedText = snippedText.slice(0, -1);
+      }
+      snippedText += "...";
+    }
     const quotedText =
-      status.text
+      snippedText
         .split("\n")
         .map(line => `> ${line}`)
         .join("\n") + "\n\n";

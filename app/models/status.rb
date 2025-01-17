@@ -41,7 +41,7 @@ class Status < ApplicationRecord
 
   sig { override.returns(String) }
   def notification_body
-    [emoji, text].compact.join(" ")
+    [emoji, text].compact.join(" ").truncate(240)
   end
 
   # == Notify
