@@ -35,6 +35,7 @@ const FriendPage: PageComponent<FriendPageProps> = ({
   statusId,
 }) => {
   const isStandalone = useIsStandaloneMode();
+  const isMobile = useMediaQuery("(pointer: coarse");
   const { registration } = useWebPush();
   const standaloneMode = emulateStandalone || isStandalone;
   const installPromptEvent = useInstallPromptEvent();
@@ -100,8 +101,8 @@ const FriendPage: PageComponent<FriendPageProps> = ({
         )}
         {standaloneMode === false && (
           <>
-            <Stack gap={6} lh="xs">
-              <Text inherit fw={700}>
+            <Stack gap={6} className={classes.landingStack}>
+              <Text inherit fw={700} className={classes.landingHeadline}>
                 Hi, {friend.emoji}{" "}
                 <span className={classes.name}>{friend.name}</span>!
               </Text>
@@ -131,7 +132,7 @@ const FriendPage: PageComponent<FriendPageProps> = ({
             <Stack gap={6} align="center">
               <Button
                 loading={!pwaInstall}
-                disabled={pwaInstalled}
+                disabled={pwaInstalled || !isMobile}
                 leftSection={<PhoneIcon />}
                 onClick={() => {
                   if (pwaInstall) {
@@ -152,6 +153,11 @@ const FriendPage: PageComponent<FriendPageProps> = ({
               {pwaInstalled && (
                 <Text size="xs" c="dimmed" lh="xs">
                   On Android, you&apos;ll find me in your app drawer.
+                </Text>
+              )}
+              {!isMobile && (
+                <Text size="xs" c="dimmed" lh="xs">
+                  Open this page on your phone to continue.
                 </Text>
               )}
             </Stack>
