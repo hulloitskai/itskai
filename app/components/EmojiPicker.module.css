@@ -8,7 +8,7 @@
   :global(.epr-search-container) input {
     font-size: var(--mantine-font-size-md);
     font-family: var(--mantine-font-family);
-    --epr-search-border-color: var(--mantine-primary-color-outline);
+    --epr-search-border-color: var(--mantine-color-primary-outline);
   }
 
   :global(.epr-category-nav) {

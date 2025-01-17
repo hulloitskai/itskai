@@ -21,19 +21,19 @@
       color: var(--mantine-color-gray-6);
     }
   }
+
+  :global(.mantine-Dropzone-inner) {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 150ms ease;
+  }
 }
 
 .dropzoneIcon {
   color: var(--mantine-primary-color-light-color);
-}
-
-.dropzoneInner {
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 150ms ease;
 }

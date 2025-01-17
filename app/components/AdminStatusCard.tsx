@@ -93,6 +93,7 @@ interface NotifyFriendsButtonProps
 
 const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
   statusId,
+  className,
   ...otherProps
 }) => {
   // == Drawer
@@ -167,10 +168,10 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
   return (
     <>
       <Button
+        className={cn(classes.button, className)}
         leftSection={<NotificationIcon />}
         variant="default"
         size="compact-sm"
-        classNames={{ section: classes.buttonSection }}
         onClick={openDrawer}
         {...otherProps}
       >
@@ -257,6 +258,7 @@ interface DeleteStatusButtonProps
 const DeleteStatusButton: FC<DeleteStatusButtonProps> = ({
   statusId,
   onStatusDeleted,
+  className,
   ...otherProps
 }) => {
   const { trigger, mutating } = useMutateRoute(routes.adminStatuses.destroy, {
@@ -268,9 +270,9 @@ const DeleteStatusButton: FC<DeleteStatusButtonProps> = ({
   });
   return (
     <DeleteButton
+      className={cn(classes.button, className)}
       size="compact-sm"
       loading={mutating}
-      classNames={{ section: classes.buttonSection }}
       onConfirm={() => {
         void trigger();
       }}

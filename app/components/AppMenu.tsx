@@ -56,24 +56,15 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
           setOpened(opened);
         });
       }}
-      classNames={{
-        item: classes.item,
-        itemSection: classes.itemSection,
-        itemLabel: classes.itemLabel,
-      }}
+      classNames={{ item: classes.item }}
       {...otherProps}
     >
       <Menu.Target>
         <Badge
+          className={classes.target}
           variant="default"
           size="lg"
           leftSection={<MenuIcon />}
-          pl={8}
-          styles={{
-            label: {
-              fontWeight: 500,
-            },
-          }}
         >
           Menu
         </Badge>

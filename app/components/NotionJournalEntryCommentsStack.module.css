@@ -2,21 +2,23 @@
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
 }
 
-.textInputInput {
-  margin-top: 2px;
+.textInput {
+  :global(.mantine-TextInput-input) {
+    margin-top: 2px;
 
-  &:focus {
-    border-color: light-dark(
-      var(--mantine-color-gray-4),
-      var(--mantine-color-dark-3)
-    );
+    &:focus {
+      border-color: light-dark(
+        var(--mantine-color-gray-4),
+        var(--mantine-color-dark-3)
+      );
+    }
   }
-}
 
-.textInputSection {
-  width: unset;
+  :global(.mantine-TextInput-section) {
+    width: unset;
 
-  &[data-position="right"] {
-    margin-right: 3px;
+    &[data-position="right"] {
+      margin-right: 3px;
+    }
   }
 }

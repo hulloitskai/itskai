@@ -53,26 +53,19 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
       <Group gap={8} align="start">
         <TextInput
           {...getInputProps("password")}
+          className={classes.passwordInput}
           {...{ size }}
           placeholder="porcupine"
           autoCapitalize="false"
           autoCorrect="false"
           autoComplete="false"
-          styles={{
-            root: {
-              flexGrow: 1,
-            },
-          }}
-          classNames={{
-            wrapper: classes.passwordInputWrapper,
-          }}
         />
         <Button
+          className={classes.button}
           type="submit"
           size="sm"
           disabled={!filled}
           loading={submitting}
-          className={classes.button}
         >
           Nyoom in
         </Button>

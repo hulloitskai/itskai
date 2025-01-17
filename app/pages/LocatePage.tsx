@@ -300,6 +300,7 @@ const LocatePage: PageComponent<LocatePageProps> = ({
               const { address, timestamp } = location;
               return (
                 <Alert
+                  className={classes.alert}
                   title={
                     <Group justify="space-between">
                       <Text span inherit>
@@ -315,17 +316,9 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                       </Badge>
                     </Group>
                   }
-                  classNames={{
-                    root: classes.alert,
-                    title: classes.alertTitle,
-                    message: classes.alertMessage,
-                  }}
                   styles={{
                     root: {
                       transition: "border 250ms ease",
-                    },
-                    body: {
-                      rowGap: rem(2),
                     },
                     label: {
                       width: "100%",
@@ -353,17 +346,8 @@ const LocatePage: PageComponent<LocatePageProps> = ({
             })
           ) : initialApproximateLocation ? (
             <Alert
+              className={classes.alert}
               title="Kai's somewhere around here..."
-              classNames={{
-                root: classes.alert,
-                title: classes.alertTitle,
-                message: classes.alertMessage,
-              }}
-              styles={{
-                body: {
-                  rowGap: rem(2),
-                },
-              }}
             >
               <Text inherit mb={8}>
                 Got a password? Enter it here to find out where Kai is.
@@ -384,18 +368,9 @@ const LocatePage: PageComponent<LocatePageProps> = ({
             </Alert>
           ) : (
             <Alert
+              className={classes.alert}
               title="We couldn't locate Kai :("
               color="red"
-              classNames={{
-                root: classes.alert,
-                title: classes.alertTitle,
-                message: classes.alertMessage,
-              }}
-              styles={{
-                body: {
-                  rowGap: rem(2),
-                },
-              }}
             >
               Our radars aren&apos;t detecting anything! Where&apos;d this mans
               go?

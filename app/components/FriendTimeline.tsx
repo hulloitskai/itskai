@@ -30,12 +30,9 @@ const FriendTimeline: FC<FriendTimelineProps> = ({
   ...otherProps
 }) => (
   <Timeline
+    className={cn("FriendTimeline", className)}
     bulletSize={36}
-    classNames={{
-      root: cn("FriendTimeline", classes.timeline, className),
-      item: classes.timelineItem,
-      itemBullet: classes.timelineItemBullet,
-    }}
+    classNames={{ item: classes.timelineItem }}
     {...otherProps}
   >
     {statuses.map(status => (
@@ -96,13 +93,10 @@ const TimelineItemContent: FC<TimelineItemContentProps> = ({
   return (
     <Stack ref={containerRef} gap={2} {...otherProps}>
       <Spoiler
+        className={classes.spoiler}
         maxHeight={120}
         showLabel="Show more"
         hideLabel="Collapse"
-        classNames={{
-          root: classes.spoiler,
-          control: classes.spoilerControl,
-        }}
         expanded={spoilerExpanded}
         onExpandedChange={setSpoilerExpanded}
       >

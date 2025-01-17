@@ -96,6 +96,7 @@ const ImageInput: FC<ImageInputProps> = ({
             srcSet={image?.src_set}
           />
           <Dropzone
+            className={classes.dropzone}
             accept={["image/png", "image/jpeg"]}
             multiple={false}
             onDrop={files => {
@@ -120,10 +121,6 @@ const ImageInput: FC<ImageInputProps> = ({
             radius={radius}
             pos="absolute"
             inset={0}
-            classNames={{
-              root: classes.dropzone,
-              inner: classes.dropzoneInner,
-            }}
             inputProps={{ id: inputId }}
             style={[
               style,

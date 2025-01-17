@@ -78,6 +78,7 @@ const NotionJournalEntryCommentsStack: FC<
       <form onSubmit={submit}>
         <TextInput
           {...getInputProps("text")}
+          className={classes.textInput}
           variant="filled"
           rightSection={
             <ActionIcon
@@ -96,10 +97,6 @@ const NotionJournalEntryCommentsStack: FC<
             if (key === "Enter") {
               submit();
             }
-          }}
-          classNames={{
-            input: classes.textInputInput,
-            section: classes.textInputSection,
           }}
         />
       </form>

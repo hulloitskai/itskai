@@ -9,14 +9,18 @@
   &[data-pulse] {
     border-color: var(--mantine-primary-color-4);
   }
-}
 
-.alertTitle {
-  color: light-dark(#4e6a5b, #b9f4d7);
-}
+  :global(.mantine-Alert-title) {
+    color: light-dark(#4e6a5b, #b9f4d7);
+  }
 
-.alertMessage {
-  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
+  :global(.mantine-Alert-message) {
+    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
+  }
+
+  :global(.mantine-Alert-body) {
+    row-gap: 2px;
+  }
 }
 
 .source {

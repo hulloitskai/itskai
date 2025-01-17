@@ -2,6 +2,6 @@
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-white));
 
   @mixin hover {
-    border-color: var(--mantine-primary-color-outline);
+    border-color: var(--mantine-color-primary-outline);
   }
 }

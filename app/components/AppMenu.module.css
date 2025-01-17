@@ -1,15 +1,10 @@
 .target {
-  --badge-dot-size: calc(var(--badge-height) / 2.7);
-
+  font-weight: 500;
   cursor: pointer;
-  padding-left: var(--badge-padding-x-sm);
+  padding-left: 8px;
 
-  border-color: light-dark(
-    var(--mantine-color-gray-3),
-    var(--mantine-color-dark-4)
-  );
   &[data-expanded] {
-    border-color: var(--mantine-primary-color-outline-hover);
+    border-color: var(--mantine-color-primary-outline);
   }
 }
 
@@ -27,22 +22,22 @@
   }
 }
 
-.itemSection {
-  color: light-dark(
-    var(--mantine-primary-color-7),
-    var(--mantine-primary-color-4)
-  );
-  width: 16px;
-  height: 16px;
-}
-
-.itemLabel {
-  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-gray-5));
-  font-weight: 500;
-}
-
 .item {
   @mixin hover {
     background-color: var(--mantine-primary-color-light);
+  }
+
+  :global(.mantine-Menu-itemSection) {
+    color: light-dark(
+      var(--mantine-primary-color-7),
+      var(--mantine-primary-color-4)
+    );
+    width: 16px;
+    height: 16px;
+  }
+
+  :global(.mantine-Menu-itemLabel) {
+    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-gray-5));
+    font-weight: 500;
   }
 }

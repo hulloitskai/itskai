@@ -7,8 +7,12 @@
   }
 }
 
-.passwordInputWrapper {
-  @mixin light {
-    --input-bg: var(--mantine-color-white);
+.passwordInput {
+  flex-grow: 1;
+
+  :global(.mantine-TextInput-wrapper) {
+    @mixin light {
+      --input-bg: var(--mantine-color-white);
+    }
   }
 }
