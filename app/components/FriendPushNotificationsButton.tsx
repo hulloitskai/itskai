@@ -21,11 +21,11 @@ const FriendPushNotificationsButton: FC<FriendPushNotificationsButtonProps> = ({
   } = useWebPush();
   useEffect(
     () => {
-      if (registration === null) {
+      if (supported) {
         void subscribe(friendToken);
       }
     },
-    [registration], // eslint-disable-line react-hooks/exhaustive-deps
+    [supported], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   const { trigger, mutating } = useMutateRoute(routes.pushSubscriptions.test, {
