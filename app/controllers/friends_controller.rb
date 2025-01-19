@@ -9,7 +9,7 @@ class FriendsController < ApplicationController
   # GET /friend?friend_token=...
   def show
     friend = authenticate_friend!
-    statuses = authorized_scope(Status.where("created_at > ?", 2.days.ago))
+    statuses = authorized_scope(Status.where("created_at > ?", 1.week.ago))
       .reverse_chronological
     contact_phone = Contact.phone
     emulate_standalone = params[:emulate_standalone].truthy?
