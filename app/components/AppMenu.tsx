@@ -80,7 +80,7 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
           Locate Kai
         </MenuLink>
         <Menu.Item
-          component={Link}
+          component="a"
           href={routes.calendly.show.path()}
           target="_blank"
           rel="noopener noreferrer nofollow"
