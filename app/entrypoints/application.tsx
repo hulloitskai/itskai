@@ -33,8 +33,10 @@ setupFullStory();
 setupClarity();
 
 // == Service worker
-void registerAndUpdateServiceWorker();
-void handleServiceWorkerNavigation();
+if ("serviceWorker" in navigator) {
+  void registerAndUpdateServiceWorker();
+  void handleServiceWorkerNavigation();
+}
 
 // == Pages
 const pageImports = import.meta.glob("~/pages/*.tsx", {
