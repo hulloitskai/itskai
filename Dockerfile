@@ -1,8 +1,8 @@
 # syntax = docker/dockerfile:1.2
-
+# check=error=true
 
 # == System
-FROM debian:bookworm-slim AS sys
+FROM debian:bookworm-slim AS base
 ENV OVERMIND_VERSION=2.5.1
 ENV STARSHIP_VERSION=1.20.1
 ENV DEVTOOLS="vim less"
@@ -26,7 +26,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
 # Install Ruby and Bundler
 COPY .ruby-version ./
 ENV LANG=C.UTF-8 GEM_HOME=/usr/local/bundle
-ENV BUNDLE_SILENCE_ROOT_WARNING=1 BUNDLE_APP_CONFIG="$GEM_HOME" PATH="$GEM_HOME/bin:$PATH"
+ENV BUNDLE_SILENCE_ROOT_WARNING=1 BUNDLE_APP_CONFIG="$GEM_HOME" BUNDLE_PATH="/usr/local/bundle" BUNDLE_DEPLOYMENT="1" PATH="$GEM_HOME/bin:$PATH"
 RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
   BUILD_DEPS="git curl build-essential zlib1g-dev libssl-dev libgmp-dev libyaml-dev libjemalloc-dev" set -eux && \
@@ -102,14 +102,8 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
 COPY .bash_profile .inputrc /root/
 COPY starship.toml /root/.config/starship.toml
 
-# Install Thruster
-RUN gem install --no-document thruster && \
-  rm -r /usr/local/bundle/cache/*.gem && \
-  find /usr/local/bundle/gems/ -name "*.c" -delete && \
-  find /usr/local/bundle/gems/ -name "*.o" -delete
-
 # == System (Playwright)
-FROM sys AS sys-playwright
+FROM base AS base-playwright
 ENV PLAYWRIGHT_VERSION=1.45
 
 # Install Playwright
@@ -125,7 +119,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
 
 
 # == Dependencies
-FROM sys-playwright AS deps
+FROM base-playwright AS deps
 
 # Install Ruby dependencies
 COPY Gemfile Gemfile.lock ./
@@ -139,9 +133,10 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   BUNDLE_IGNORE_MESSAGES=1 bundle install && \
   echo $BUILD_DEPS | xargs apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
   rm -r /var/log/* && \
-  rm -r /usr/local/bundle/cache/*.gem && \
-  find /usr/local/bundle/gems/ -name "*.c" -delete && \
-  find /usr/local/bundle/gems/ -name "*.o" -delete
+  rm -r /root/.bundle/ "${BUNDLE_PATH}"/cache/*.gem "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
+  find "${BUNDLE_PATH}"/gems/ -name "*.c" -delete && \
+  find "${BUNDLE_PATH}"/gems/ -name "*.o" -delete && \
+  bundle exec bootsnap precompile --gemfile
 
 # Install NodeJS dependencies
 COPY package.json package-lock.json ./
@@ -175,14 +170,14 @@ ENV RAILS_PORT=3000
 COPY . ./
 
 # Precompile bootsnap code for faster boot times
-RUN bundle exec bootsnap precompile --gemfile app/ lib/
+RUN bundle exec bootsnap precompile app/ lib/
 
 # Configure application environment
 ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true"
 
 # Precompile assets
 RUN --mount=type=cache,target=/root/.npm,sharing=locked \
-  NO_CREDENTIALS=1 SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
+  SECRET_KEY_BASE_DUMMY=1 bin/rails assets:precompile
 
 # Install Python scripts
 RUN --mount=type=cache,target=/usr/local/share/.cache/pypoetry,sharing=locked \
@@ -193,7 +188,7 @@ EXPOSE ${RAILS_PORT}
 
 # Configure healthcheck
 HEALTHCHECK --interval=15s --timeout=2s --start-period=10s --retries=3 \
-  CMD curl -f http://127.0.0.1:${RAILS_PORT}/healthcheck
+  CMD curl -f http://127.0.0.1:${RAILS_PORT}/up
 
 # Set entrypoint and default command
 CMD [ "bin/run" ]

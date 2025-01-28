@@ -9,6 +9,6 @@ Rails.application.configure do
     Silencer::Logger,
     config.log_tags,
     enable_header: false,
-    silence: ["/status"],
+    silence: ["/up"],
   )
 end

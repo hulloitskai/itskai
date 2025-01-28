@@ -1,6 +1,10 @@
 # == GitHub Actions
 .github/
 
+# == Git
+/.git/
+/.gitignore
+
 # == Dotenv
 .env
 
@@ -25,6 +29,7 @@ vite.config.ts.timestamp-*.mjs
 .ruby-lsp/
 
 # == Rails
+# Ignore assets and sitemap.
 /public/assets/
 /public/sitemap*.xml.gz
 
@@ -33,7 +38,11 @@ vite.config.ts.timestamp-*.mjs
 !/app/assets/builds/.keep
 
 # Ignore bundler config.
-/.bundle/
+/.bundle
+
+# Ignore all default key files.
+/config/master.key
+/config/credentials/*.key
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -41,24 +50,26 @@ vite.config.ts.timestamp-*.mjs
 
 # Ignore all logfiles and tempfiles.
 /log/*
-!/log/.keep
 /tmp/*
+!/log/.keep
 !/tmp/.keep
 
 # Ignore pidfiles and sockets.
 /tmp/pids/*
-!/tmp/pids/
-!/tmp/pids/.keep
 /tmp/sockets/*
-!/tmp/sockets/
+!/tmp/pids/.keep
 !/tmp/sockets/.keep
 
 # Ignore uploaded files in development.
 /storage/*
-!/storage/.keep
 /tmp/storage/*
+!/storage/.keep
 !/tmp/storage
 !/tmp/storage/.keep
+
+# Ignore Kamal files
+/config/deploy*.yml
+/.kamal
 
 # == Node
 node_modules/
@@ -90,6 +101,13 @@ jspm_packages/
 **/.npm
 **/.eslintcache
 **/*.tsbuildinfo
+
+# == Devcontainers
+/.devcontainer
+
+# == Docker
+/.dockerignore
+/Dockerfile*
 
 # == IDE
 .vscode/

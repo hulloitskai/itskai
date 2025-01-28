@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.3.1"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.2"
+gem "rails", "~> 8.0.1"
 
 # JSON-backed, nestable models
 gem "store_model", "~> 1.6"
@@ -17,14 +17,14 @@ gem "pg_search", "~> 2.3"
 
 # Use RGeo geometry types
 gem "rgeo", "~> 3.0"
-gem "rgeo-geojson", "~> 2.1"
-gem "rgeo-activerecord", "~> 7.0"
+gem "rgeo-geojson", "~> 2.2"
+gem "rgeo-activerecord", "~> 8.0"
 
 # Use PostGIS extensions for PostgreSQL
-gem "activerecord-postgis-adapter", "~> 9.0"
+gem "activerecord-postgis-adapter", github: "rgeo/activerecord-postgis-adapter", ref: "32d58f3d3df94779acabba3a2e510de56a2bce63"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 6.4.2"
+gem "puma", "~> 6.6.0"
 
 # Use enhanced PostgreSQL adapter for Action Cable
 gem "actioncable-enhanced-postgresql-adapter", "~> 1.0"
@@ -39,10 +39,13 @@ gem "actioncable-enhanced-postgresql-adapter", "~> 1.0"
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
+gem "tzinfo-data", platforms: %i[windows jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
+
+# Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
+gem "thruster", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.12"
@@ -145,7 +148,7 @@ gem "rspotify", "~> 2.12"
 gem "wrapped_print"
 
 # Enable additional operators and utilities for Active Record with PostgreSQL
-gem "active_record_extended", "~> 3.2"
+gem "active_record_extended", github: "GeorgeKaraszi/ActiveRecordExtended", branch: "feature/rails80"
 
 # Parse Markdown with Markly
 gem "markly", "~> 0.7.0"
@@ -215,16 +218,16 @@ gem "unicode-emoji", "~> 3.7", require: "unicode/emoji"
 group :development, :test do
   # Debug code with debug
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[mri mingw x64_mingw]
+  gem "debug", platforms: %i[mri windows], require: 'debug/prelude'
+
+  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  gem "brakeman", require: false
 
   # Auto-detect and warn about N+1 queries
   gem "bullet"
 
   # Generate Typescript path helpers
   gem "js_from_routes", "~> 4.0"
-
-  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
-  gem "brakeman", require: false
 
   # Use Rubocop to lint code
   gem "rubocop", "~> 1.62", require: false

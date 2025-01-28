@@ -143,7 +143,7 @@ module ItsKai
     # == Methods
     sig { returns(T::Boolean) }
     def credentials_available?
-      !ENV["NO_CREDENTIALS"].truthy?
+      ENV.exclude?("SECRET_KEY_BASE_DUMMY")
     end
   end
 end

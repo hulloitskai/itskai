@@ -5,7 +5,7 @@ Healthcheck.configure do |config|
   config.success = 200
   config.error = 503
   config.verbose = true
-  config.route = "/healthcheck"
+  config.route = "/up"
   config.method = :get
 
   # == Checks

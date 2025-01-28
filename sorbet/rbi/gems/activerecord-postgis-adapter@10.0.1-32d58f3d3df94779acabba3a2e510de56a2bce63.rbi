@@ -10,253 +10,267 @@
 # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis/version.rb#3
 module ActiveRecord
   class << self
-    # source://activerecord/7.1.3.2/lib/active_record.rb#342
+    # source://activerecord/8.0.1/lib/active_record.rb#361
     def action_on_strict_loading_violation; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#342
+    # source://activerecord/8.0.1/lib/active_record.rb#361
     def action_on_strict_loading_violation=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#422
-    def allow_deprecated_singular_associations_name; end
+    # source://activerecord/8.0.1/lib/active_record.rb#527
+    def after_all_transactions_commit(&block); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#422
-    def allow_deprecated_singular_associations_name=(_arg0); end
+    # source://activerecord/8.0.1/lib/active_record.rb#547
+    def all_open_transactions; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#335
+    # source://activerecord/8.0.1/lib/active_record.rb#354
     def application_record_class; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#335
+    # source://activerecord/8.0.1/lib/active_record.rb#354
     def application_record_class=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#263
+    # source://activerecord/8.0.1/lib/active_record.rb#283
     def async_query_executor; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#263
+    # source://activerecord/8.0.1/lib/active_record.rb#283
     def async_query_executor=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#317
+    # source://activerecord/8.0.1/lib/active_record.rb#348
     def before_committed_on_all_records; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#317
+    # source://activerecord/8.0.1/lib/active_record.rb#348
     def before_committed_on_all_records=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#314
+    # source://activerecord/8.0.1/lib/active_record.rb#345
     def belongs_to_required_validates_foreign_key; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#314
+    # source://activerecord/8.0.1/lib/active_record.rb#345
     def belongs_to_required_validates_foreign_key=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#323
-    def commit_transaction_on_non_local_return; end
+    # source://activerecord/8.0.1/lib/active_record.rb#211
+    def database_cli; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#323
-    def commit_transaction_on_non_local_return=(_arg0); end
+    # source://activerecord/8.0.1/lib/active_record.rb#211
+    def database_cli=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#209
+    # source://activerecord/8.0.1/lib/active_record.rb#233
     def db_warnings_action; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#211
+    # source://activerecord/8.0.1/lib/active_record.rb#235
     def db_warnings_action=(action); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#236
+    # source://activerecord/8.0.1/lib/active_record.rb#262
     def db_warnings_ignore; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#236
+    # source://activerecord/8.0.1/lib/active_record.rb#262
     def db_warnings_ignore=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#192
+    # source://activerecord/8.0.1/lib/active_record.rb#214
     def default_timezone; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#196
+    # source://activerecord/8.0.1/lib/active_record.rb#218
     def default_timezone=(default_timezone); end
 
-    # source://activerecord/7.1.3.2/lib/active_record/deprecator.rb#4
+    # source://activerecord/8.0.1/lib/active_record/deprecator.rb#4
     def deprecator; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#177
+    # source://activerecord/8.0.1/lib/active_record.rb#182
     def disable_prepared_statements; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#177
+    # source://activerecord/8.0.1/lib/active_record.rb#182
     def disable_prepared_statements=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#476
+    # source://activerecord/8.0.1/lib/active_record.rb#510
     def disconnect_all!; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#382
+    # source://activerecord/8.0.1/lib/active_record.rb#409
     def dump_schema_after_migration; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#382
+    # source://activerecord/8.0.1/lib/active_record.rb#409
     def dump_schema_after_migration=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#392
+    # source://activerecord/8.0.1/lib/active_record.rb#419
     def dump_schemas; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#392
+    # source://activerecord/8.0.1/lib/active_record.rb#419
     def dump_schemas=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#465
+    # source://activerecord/8.0.1/lib/active_record.rb#499
     def eager_load!; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#361
+    # source://activerecord/8.0.1/lib/active_record.rb#380
     def error_on_ignored_order; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#361
+    # source://activerecord/8.0.1/lib/active_record.rb#380
     def error_on_ignored_order=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record/gem_version.rb#5
+    # source://activerecord/8.0.1/lib/active_record/gem_version.rb#5
     def gem_version; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#454
+    # source://activerecord/8.0.1/lib/active_record.rb#460
     def generate_secure_token_on; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#454
+    # source://activerecord/8.0.1/lib/active_record.rb#460
     def generate_secure_token_on=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#286
+    # source://activerecord/8.0.1/lib/active_record.rb#306
     def global_executor_concurrency; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#278
+    # source://activerecord/8.0.1/lib/active_record.rb#298
     def global_executor_concurrency=(global_executor_concurrency); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#266
+    # source://activerecord/8.0.1/lib/active_record.rb#286
     def global_thread_pool_async_query_executor; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#290
+    # source://activerecord/8.0.1/lib/active_record.rb#321
     def index_nested_attribute_errors; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#290
+    # source://activerecord/8.0.1/lib/active_record.rb#321
     def index_nested_attribute_errors=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#183
+    # source://activerecord/8.0.1/lib/active_record.rb#189
     def lazily_load_schema_cache; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#183
+    # source://activerecord/8.0.1/lib/active_record.rb#189
     def lazily_load_schema_cache=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#245
-    def legacy_connection_handling=(_); end
-
-    # source://activerecord/7.1.3.2/lib/active_record.rb#308
+    # source://activerecord/8.0.1/lib/active_record.rb#339
     def maintain_test_schema; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#308
+    # source://activerecord/8.0.1/lib/active_record.rb#339
     def maintain_test_schema=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#457
+    # source://activerecord/8.0.1/lib/active_record.rb#463
     def marshalling_format_version; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#461
+    # source://activerecord/8.0.1/lib/active_record.rb#467
     def marshalling_format_version=(value); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#373
+    # source://activerecord/8.0.1/lib/active_record.rb#400
     def migration_strategy; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#373
+    # source://activerecord/8.0.1/lib/active_record.rb#400
     def migration_strategy=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#425
+    # source://activerecord/8.0.1/lib/active_record.rb#311
+    def permanent_connection_checkout; end
+
+    # source://activerecord/8.0.1/lib/active_record.rb#314
+    def permanent_connection_checkout=(value); end
+
+    # source://activerecord/8.0.1/lib/active_record.rb#490
+    def protocol_adapters; end
+
+    # source://activerecord/8.0.1/lib/active_record.rb#490
+    def protocol_adapters=(_arg0); end
+
+    # source://activerecord/8.0.1/lib/active_record.rb#431
     def query_transformers; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#425
+    # source://activerecord/8.0.1/lib/active_record.rb#431
     def query_transformers=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#305
+    # source://activerecord/8.0.1/lib/active_record.rb#336
     def queues; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#305
+    # source://activerecord/8.0.1/lib/active_record.rb#336
     def queues=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#440
+    # source://activerecord/8.0.1/lib/active_record.rb#446
     def raise_int_wider_than_64bit; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#440
+    # source://activerecord/8.0.1/lib/active_record.rb#446
     def raise_int_wider_than_64bit=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#311
+    # source://activerecord/8.0.1/lib/active_record.rb#342
     def raise_on_assign_to_attr_readonly; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#311
+    # source://activerecord/8.0.1/lib/active_record.rb#342
     def raise_on_assign_to_attr_readonly=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#242
+    # source://activerecord/8.0.1/lib/active_record.rb#268
     def reading_role; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#242
+    # source://activerecord/8.0.1/lib/active_record.rb#268
     def reading_role=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#320
+    # source://activerecord/8.0.1/lib/active_record.rb#351
     def run_after_transaction_callbacks_in_order_defined; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#320
+    # source://activerecord/8.0.1/lib/active_record.rb#351
     def run_after_transaction_callbacks_in_order_defined=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#189
+    # source://activerecord/8.0.1/lib/active_record.rb#205
+    def schema_cache_ignored_table?(table_name); end
+
+    # source://activerecord/8.0.1/lib/active_record.rb#197
     def schema_cache_ignored_tables; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#189
+    # source://activerecord/8.0.1/lib/active_record.rb#197
     def schema_cache_ignored_tables=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#353
+    # source://activerecord/8.0.1/lib/active_record.rb#372
     def schema_format; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#353
+    # source://activerecord/8.0.1/lib/active_record.rb#372
     def schema_format=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#395
-    def suppress_multiple_database_warning; end
-
-    # source://activerecord/7.1.3.2/lib/active_record.rb#402
-    def suppress_multiple_database_warning=(value); end
-
-    # source://activerecord/7.1.3.2/lib/active_record.rb#367
+    # source://activerecord/8.0.1/lib/active_record.rb#386
     def timestamped_migrations; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#367
+    # source://activerecord/8.0.1/lib/active_record.rb#386
     def timestamped_migrations=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#432
+    # source://activerecord/8.0.1/lib/active_record.rb#438
     def use_yaml_unsafe_load; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#432
+    # source://activerecord/8.0.1/lib/active_record.rb#438
     def use_yaml_unsafe_load=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#298
+    # source://activerecord/8.0.1/lib/active_record.rb#394
+    def validate_migration_timestamps; end
+
+    # source://activerecord/8.0.1/lib/active_record.rb#394
+    def validate_migration_timestamps=(_arg0); end
+
+    # source://activerecord/8.0.1/lib/active_record.rb#329
     def verbose_query_logs; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#298
+    # source://activerecord/8.0.1/lib/active_record.rb#329
     def verbose_query_logs=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#415
+    # source://activerecord/8.0.1/lib/active_record.rb#428
     def verify_foreign_keys_for_fixtures; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#415
+    # source://activerecord/8.0.1/lib/active_record.rb#428
     def verify_foreign_keys_for_fixtures=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record/version.rb#7
+    # source://activerecord/8.0.1/lib/active_record/version.rb#7
     def version; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#332
-    def warn_on_records_fetched_greater_than; end
-
-    # source://activerecord/7.1.3.2/lib/active_record.rb#332
-    def warn_on_records_fetched_greater_than=(_arg0); end
-
-    # source://activerecord/7.1.3.2/lib/active_record.rb#239
+    # source://activerecord/8.0.1/lib/active_record.rb#265
     def writing_role; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#239
+    # source://activerecord/8.0.1/lib/active_record.rb#265
     def writing_role=(_arg0); end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#447
+    # source://activerecord/8.0.1/lib/active_record.rb#453
     def yaml_column_permitted_classes; end
 
-    # source://activerecord/7.1.3.2/lib/active_record.rb#447
+    # source://activerecord/8.0.1/lib/active_record.rb#453
     def yaml_column_permitted_classes=(_arg0); end
   end
 end
 
 # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis/version.rb#4
-module ActiveRecord::ConnectionAdapters; end
+module ActiveRecord::ConnectionAdapters
+  class << self
+    # source://activerecord/8.0.1/lib/active_record/connection_adapters.rb#22
+    def register(name, class_name, path = T.unsafe(nil)); end
+
+    # source://activerecord/8.0.1/lib/active_record/connection_adapters.rb#26
+    def resolve(adapter_name); end
+  end
+end
 
 # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis/version.rb#5
 module ActiveRecord::ConnectionAdapters::PostGIS; end
@@ -395,6 +409,12 @@ class ActiveRecord::ConnectionAdapters::PostGIS::OID::Spatial < ::ActiveModel::T
   end
 end
 
+# source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis/quoting.rb#6
+module ActiveRecord::ConnectionAdapters::PostGIS::Quoting
+  # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis/quoting.rb#7
+  def type_cast(value); end
+end
+
 # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis/schema_statements.rb#6
 module ActiveRecord::ConnectionAdapters::PostGIS::SchemaStatements
   # override
@@ -526,50 +546,51 @@ end
 # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis/version.rb#6
 ActiveRecord::ConnectionAdapters::PostGIS::VERSION = T.let(T.unsafe(nil), String)
 
-# source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#38
+# source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#26
 class ActiveRecord::ConnectionAdapters::PostGISAdapter < ::ActiveRecord::ConnectionAdapters::PostgreSQLAdapter
+  include ::ActiveRecord::ConnectionAdapters::PostGIS::Quoting
   include ::ActiveRecord::ConnectionAdapters::PostGIS::SchemaStatements
   include ::ActiveRecord::ConnectionAdapters::PostGIS::DatabaseStatements
 
-  # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#61
+  # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#50
   def arel_visitor; end
 
-  # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#73
+  # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#62
   def default_srid; end
 
-  # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#69
+  # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#58
   def postgis_lib_version; end
 
-  # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#133
+  # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#122
   def quote(value); end
 
-  # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#143
+  # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#132
   def quote_default_expression(value, column); end
 
-  # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#124
+  # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#113
   def srs_database_columns; end
 
   class << self
-    # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#78
+    # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#67
     def initialize_type_map(map = T.unsafe(nil)); end
 
-    # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#105
+    # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#94
     def native_database_types; end
 
-    # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#65
+    # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#54
     def spatial_column_options(key); end
   end
 end
 
-# source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#39
+# source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#27
 ActiveRecord::ConnectionAdapters::PostGISAdapter::ADAPTER_NAME = T.let(T.unsafe(nil), String)
 
 # http://postgis.17.x6.nabble.com/Default-SRID-td5001115.html
 #
-# source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#56
+# source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#44
 ActiveRecord::ConnectionAdapters::PostGISAdapter::DEFAULT_SRID = T.let(T.unsafe(nil), Integer)
 
-# source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#41
+# source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#29
 ActiveRecord::ConnectionAdapters::PostGISAdapter::SPATIAL_COLUMN_OPTIONS = T.let(T.unsafe(nil), Hash)
 
 module ActiveRecord::ConnectionAdapters::PostgreSQL; end
@@ -583,139 +604,34 @@ class ActiveRecord::ConnectionAdapters::PostgreSQL::Table < ::ActiveRecord::Conn
   include ::ActiveRecord::ConnectionAdapters::PostGIS::ColumnMethods
 end
 
-# source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis/create_connection.rb#10
-module ActiveRecord::ConnectionHandling
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#319
-  def clear_active_connections!(role = T.unsafe(nil)); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#329
-  def clear_all_connections!(role = T.unsafe(nil)); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#315
-  def clear_cache!; end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#244
-  def clear_query_caches_for_current_thread; end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#324
-  def clear_reloadable_connections!(role = T.unsafe(nil)); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#291
-  def connected?; end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#134
-  def connected_to(role: T.unsafe(nil), shard: T.unsafe(nil), prevent_writes: T.unsafe(nil), &blk); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#239
-  def connected_to?(role:, shard: T.unsafe(nil)); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#163
-  def connected_to_many(*classes, role:, shard: T.unsafe(nil), prevent_writes: T.unsafe(nil)); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#185
-  def connecting_to(role: T.unsafe(nil), shard: T.unsafe(nil), prevent_writes: T.unsafe(nil)); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#253
-  def connection; end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#278
-  def connection_db_config; end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#282
-  def connection_pool; end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#260
-  def connection_specification_name; end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#257
-  def connection_specification_name=(_arg0); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#81
-  def connects_to(database: T.unsafe(nil), shards: T.unsafe(nil)); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#50
-  def establish_connection(config_or_env = T.unsafe(nil)); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#334
-  def flush_idle_connections!(role = T.unsafe(nil)); end
-
-  # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#28
-  def postgis_adapter_class; end
-
-  # Based on the default <tt>postgresql_connection</tt> definition from ActiveRecord.
-  # https://github.com/rails/rails/blob/master/activerecord/lib/active_record/connection_adapters/postgresql_adapter.rb
-  # FULL REPLACEMENT because we need to create a different class.
-  #
-  # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis_adapter.rb#32
-  def postgis_connection(config); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_adapters/postgresql_adapter.rb#24
-  def postgresql_adapter_class; end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_adapters/postgresql_adapter.rb#29
-  def postgresql_connection(config); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#267
-  def primary_class?; end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#197
-  def prohibit_shard_swapping(enabled = T.unsafe(nil)); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#295
-  def remove_connection(name = T.unsafe(nil)); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#286
-  def retrieve_connection; end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#206
-  def shard_swapping_prohibited?; end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#221
-  def while_preventing_writes(enabled = T.unsafe(nil), &block); end
-
-  private
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#368
-  def append_to_connected_to_stack(entry); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#340
-  def deprecation_for_delegation(method); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#348
-  def resolve_config_for_connection(config_or_env); end
-
-  # source://activerecord/7.1.3.2/lib/active_record/connection_handling.rb#357
-  def with_role_and_shard(role, shard, prevent_writes); end
-end
-
 module ActiveRecord::Type
   extend ::ActiveRecord::ConnectionAdapters::PostGIS::Type
 
   class << self
-    # source://activerecord/7.1.3.2/lib/active_record/type.rb#49
+    # source://activerecord/8.0.1/lib/active_record/type.rb#49
     def adapter_name_from(model); end
 
-    # source://activerecord/7.1.3.2/lib/active_record/type.rb#27
+    # source://activerecord/8.0.1/lib/active_record/type.rb#27
     def add_modifier(*_arg0, **_arg1, &_arg2); end
 
-    # source://activerecord/7.1.3.2/lib/active_record/type.rb#45
+    # source://activerecord/8.0.1/lib/active_record/type.rb#45
     def default_value; end
 
     # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis/type.rb#9
     def lookup(*args, adapter: T.unsafe(nil), **kwargs); end
 
-    # source://activerecord/7.1.3.2/lib/active_record/type.rb#37
+    # source://activerecord/8.0.1/lib/active_record/type.rb#37
     def register(type_name, klass = T.unsafe(nil), **options, &block); end
 
-    # source://activerecord/7.1.3.2/lib/active_record/type.rb#26
+    # source://activerecord/8.0.1/lib/active_record/type.rb#26
     def registry; end
 
-    # source://activerecord/7.1.3.2/lib/active_record/type.rb#26
+    # source://activerecord/8.0.1/lib/active_record/type.rb#26
     def registry=(_arg0); end
 
     private
 
-    # source://activerecord/7.1.3.2/lib/active_record/type.rb#54
+    # source://activerecord/8.0.1/lib/active_record/type.rb#54
     def current_adapter_name; end
   end
 end
@@ -723,19 +639,19 @@ end
 # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis/arel_tosql.rb#21
 module Arel
   class << self
-    # source://activerecord/7.1.3.2/lib/arel.rb#60
+    # source://activerecord/8.0.1/lib/arel.rb#64
     def arel_node?(value); end
 
-    # source://activerecord/7.1.3.2/lib/arel.rb#64
+    # source://activerecord/8.0.1/lib/arel.rb#68
     def fetch_attribute(value, &block); end
 
-    # source://rgeo-activerecord/7.0.1/lib/rgeo/active_record/spatial_expressions.rb#253
+    # source://rgeo-activerecord/8.0.0/lib/rgeo/active_record/spatial_expressions.rb#253
     def spatial(arg); end
 
-    # source://activerecord/7.1.3.2/lib/arel.rb#48
-    def sql(sql_string, *positional_binds, **named_binds); end
+    # source://activerecord/8.0.1/lib/arel.rb#52
+    def sql(sql_string, *positional_binds, retryable: T.unsafe(nil), **named_binds); end
 
-    # source://activerecord/7.1.3.2/lib/arel.rb#56
+    # source://activerecord/8.0.1/lib/arel.rb#60
     def star; end
   end
 end
@@ -760,10 +676,10 @@ module RGeo; end
 # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis/arel_tosql.rb#4
 module RGeo::ActiveRecord
   class << self
-    # source://rgeo-activerecord/7.0.1/lib/rgeo/active_record/common_adapter_elements.rb#6
+    # source://rgeo-activerecord/8.0.0/lib/rgeo/active_record/common_adapter_elements.rb#6
     def geometric_type_from_name(name); end
 
-    # source://rgeo-activerecord/7.0.1/lib/rgeo/active_record/spatial_expressions.rb#7
+    # source://rgeo-activerecord/8.0.0/lib/rgeo/active_record/spatial_expressions.rb#7
     def spatial_expressions_supported?; end
   end
 end
@@ -779,10 +695,10 @@ end
 module RGeo::ActiveRecord::SpatialToSql
   include ::RGeo::ActiveRecord::SpatialToPostGISSql
 
-  # source://rgeo-activerecord/7.0.1/lib/rgeo/active_record/arel_spatial_queries.rb#16
+  # source://rgeo-activerecord/8.0.0/lib/rgeo/active_record/arel_spatial_queries.rb#16
   def st_func(standard_name); end
 
-  # source://rgeo-activerecord/7.0.1/lib/rgeo/active_record/arel_spatial_queries.rb#25
+  # source://rgeo-activerecord/8.0.0/lib/rgeo/active_record/arel_spatial_queries.rb#25
   def visit_RGeo_ActiveRecord_SpatialNamedFunction(node, collector); end
 
   # source://activerecord-postgis-adapter//lib/active_record/connection_adapters/postgis/arel_tosql.rb#8
