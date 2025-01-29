@@ -53,7 +53,7 @@ jobs:
           sudo chmod u+x /usr/bin/overmind
           sudo chown $(whoami) /usr/bin/overmind
       - name: Set up environment
-        run: bin/setup
+        run: bin/setup --skip-server
         env:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       - name: Scan for common Rails security vulnerabilities using static analysis
