@@ -51,25 +51,14 @@ module ItsKai
     require "location"
     require "resume"
 
-    # == Constants
-    BOOTED_AT = T.let(Time.current, Time)
-
-    # == Defaults
+    # == Configuration
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults(7.1)
+    config.load_defaults(8.0)
 
-    # == Code loading
+    # == Autoloading
     # Only autoload workers, interceptors once.
     Rails.autoloaders.main.ignore "app/workers", "app/interceptors"
     config.autoload_once_paths += ["app/workers", "app/interceptors"]
-
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
 
     # == Generators
     config.generators do |g|
@@ -91,34 +80,8 @@ module ItsKai
       g.assets false
     end
 
-    # == Logging
-    if ENV["RAILS_LOG_TO_STDOUT"].truthy?
-      config.logger = scoped do
-        logger = ActiveSupport::Logger.new($stdout)
-        logger.formatter = config.log_formatter
-        ActiveSupport::TaggedLogging.new(logger)
-      end
-    end
-
-    # == Sessions
-    config.session_store :cookie_store,
-                         key: "session",
-                         same_site: nil,
-                         secure: Rails.env.production?
-
-    # == Exceptions
-    config.exceptions_app = routes
-    config.action_dispatch
-      .rescue_responses["ActionPolicy::Unauthorized"] = :unauthorized
-
-    # == Action Controller
-    config.action_controller.action_on_unpermitted_parameters = :raise
-
-    # == Action View
-    config.action_view.frozen_string_literal = true
-
     # == Active Record
-    # config.active_record.destroy_association_async_batch_size = 1000
+    config.active_record.destroy_association_async_batch_size = 1000
     config.active_record.internal_metadata_table_name =
       "active_record_internal_metadata"
     config.active_record.schema_migrations_table_name =
@@ -126,7 +89,7 @@ module ItsKai
     config.active_record.index_nested_attribute_errors = true
 
     # == Action Cable
-    # config.action_cable.mount_path = "/cable"
+    config.action_cable.mount_path = "/cable"
 
     # == Active Job
     config.active_job.queue_adapter = :good_job
@@ -136,14 +99,16 @@ module ItsKai
     config.active_storage.routes_prefix = "/storage"
     config.active_storage.direct_uploads_size_limit = 25.megabytes
 
-    # == Server info
-    sig { returns(Time) }
-    def booted_at = BOOTED_AT
-
-    # == Methods
+    # == Credentials
     sig { returns(T::Boolean) }
     def credentials_available?
       ENV.exclude?("SECRET_KEY_BASE_DUMMY")
     end
+
+    # == Boot time
+    BOOTED_AT = T.let(Time.current, Time)
+
+    sig { returns(Time) }
+    def booted_at = BOOTED_AT
   end
 end
