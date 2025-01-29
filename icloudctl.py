@@ -88,9 +88,12 @@ def device():
         return {"error": "Missing `id' param"}, 400
     if not service:
         return {"error": "Service not connected"}, 400
-    device = service.devices.get(id)
-    data = {"device": dict(device)}
-    return {"data": data}
+    try:
+        device = service.devices.get(id)
+        data = {"device": dict(device)}
+        return {"data": data}
+    except Exception as error:
+        return {"error": str(error)}, 500
 
 
 def main():
