@@ -126,16 +126,16 @@ COPY Gemfile Gemfile.lock ./
 ENV BUNDLE_WITHOUT="development test"
 RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
-  BUILD_DEPS="build-essential libreadline-dev libyaml-dev libjemalloc-dev libpq-dev" \
+  BUILD_DEPS="build-essential libreadline-dev libyaml-dev libjemalloc-dev libpq-dev git" \
   RUNTIME_DEPS="libpq5" set -eux && \
   apt-get update -yq && \
   echo $BUILD_DEPS $RUNTIME_DEPS | xargs apt-get install -yq --no-install-recommends; \
   BUNDLE_IGNORE_MESSAGES=1 bundle install && \
   echo $BUILD_DEPS | xargs apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
   rm -r /var/log/* && \
-  rm -r /root/.bundle/ "${BUNDLE_PATH}"/cache/*.gem "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
-  find "${BUNDLE_PATH}"/gems/ -name "*.c" -delete && \
-  find "${BUNDLE_PATH}"/gems/ -name "*.o" -delete && \
+  rm -r /root/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
+  find "${BUNDLE_PATH}"/ruby/*/bundler/gems/ -name "*.c" -delete && \
+  find "${BUNDLE_PATH}"/ruby/*/bundler/gems/ -name "*.o" -delete && \
   bundle exec bootsnap precompile --gemfile
 
 # Install NodeJS dependencies

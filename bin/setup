@@ -85,7 +85,7 @@ FileUtils.chdir APP_ROOT do
   system! "bin/rails log:clear tmp:clear"
   puts "Files removed"
 
-  if ARGV.exclude("--skip-server")
+  if !ARGV.include?("--skip-server")
     puts "\n=> Starting development server"
     STDOUT.flush # flush the output before exec(2) so that it displays
     exec "bin/dev"
