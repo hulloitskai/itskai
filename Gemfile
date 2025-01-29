@@ -270,7 +270,7 @@ group :development do
   gem "better_errors"
 
   # Annotate models and routes
-  gem "annotate", require: false
+  gem "annotaterb", require: false
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   gem "rack-mini-profiler"

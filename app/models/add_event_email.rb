@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 # rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective
-#
 # == Schema Information
 #
 # Table name: add_event_emails
