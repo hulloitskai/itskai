@@ -64,7 +64,7 @@ class User < ApplicationRecord
 
   sig { returns(String) }
   def email_domain
-    _, domain = T.cast(email.split("@"), [String, String])
+    _username, domain = T.cast(email.split("@"), [String, String])
     domain
   end
 

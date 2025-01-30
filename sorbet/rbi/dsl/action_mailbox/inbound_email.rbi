@@ -23,6 +23,14 @@ class ActionMailbox::InboundEmail
   def to_ary; end
 
   class << self
+    sig do
+      params(
+        attributes: T.untyped,
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(::ActionMailbox::InboundEmail)
+    end
+    def new(attributes = nil, &block); end
+
     sig { returns(T::Hash[T.any(String, Symbol), Integer]) }
     def statuses; end
   end
@@ -38,6 +46,17 @@ class ActionMailbox::InboundEmail
     sig { params(column_name: T.any(String, Symbol)).returns(T.any(Integer, Float, BigDecimal)) }
     def average(column_name); end
 
+    sig do
+      params(
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(::ActionMailbox::InboundEmail)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -60,12 +79,34 @@ class ActionMailbox::InboundEmail
 
     sig do
       params(
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(::ActionMailbox::InboundEmail)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
       ).returns(::ActionMailbox::InboundEmail)
     end
     def create(attributes = nil, &block); end
 
+    sig do
+      params(
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(::ActionMailbox::InboundEmail)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -76,12 +117,24 @@ class ActionMailbox::InboundEmail
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
       ).returns(::ActionMailbox::InboundEmail)
     end
     def create_or_find_by(attributes, &block); end
 
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -170,6 +223,12 @@ class ActionMailbox::InboundEmail
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
       ).returns(::ActionMailbox::InboundEmail)
@@ -178,12 +237,24 @@ class ActionMailbox::InboundEmail
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
       ).returns(::ActionMailbox::InboundEmail)
     end
     def find_or_create_by!(attributes, &block); end
 
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -201,7 +272,7 @@ class ActionMailbox::InboundEmail
     sig { params(arg: T.untyped, args: T.untyped).returns(::ActionMailbox::InboundEmail) }
     def find_sole_by(arg, *args); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::ActionMailbox::InboundEmail)) }
+    sig { returns(T.nilable(::ActionMailbox::InboundEmail)) }
     sig { params(limit: Integer).returns(T::Array[::ActionMailbox::InboundEmail]) }
     def first(limit = nil); end
 
@@ -251,7 +322,7 @@ class ActionMailbox::InboundEmail
     sig { params(record: T.untyped).returns(T::Boolean) }
     def include?(record); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::ActionMailbox::InboundEmail)) }
+    sig { returns(T.nilable(::ActionMailbox::InboundEmail)) }
     sig { params(limit: Integer).returns(T::Array[::ActionMailbox::InboundEmail]) }
     def last(limit = nil); end
 
@@ -274,6 +345,17 @@ class ActionMailbox::InboundEmail
     sig { params(column_name: T.any(String, Symbol)).returns(T.untyped) }
     def minimum(column_name); end
 
+    sig do
+      params(
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(::ActionMailbox::InboundEmail)
+    end
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ActionMailbox::InboundEmail).void)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -327,7 +409,7 @@ class ActionMailbox::InboundEmail
     end
     def sum(initial_value_or_column = nil, &block); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::ActionMailbox::InboundEmail)) }
+    sig { returns(T.nilable(::ActionMailbox::InboundEmail)) }
     sig { params(limit: Integer).returns(T::Array[::ActionMailbox::InboundEmail]) }
     def take(limit = nil); end
 
@@ -434,6 +516,9 @@ class ActionMailbox::InboundEmail
     def annotate(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def arel_columns(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def bounced(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -477,40 +562,6 @@ class ActionMailbox::InboundEmail
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def includes(*args, &blk); end
-
-    sig do
-      params(
-        attributes: Hash,
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass)),
-        unique_by: T.nilable(T.any(T::Array[Symbol], Symbol))
-      ).returns(ActiveRecord::Result)
-    end
-    def insert(attributes, returning: nil, unique_by: nil); end
-
-    sig do
-      params(
-        attributes: Hash,
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass))
-      ).returns(ActiveRecord::Result)
-    end
-    def insert!(attributes, returning: nil); end
-
-    sig do
-      params(
-        attributes: T::Array[Hash],
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass)),
-        unique_by: T.nilable(T.any(T::Array[Symbol], Symbol))
-      ).returns(ActiveRecord::Result)
-    end
-    def insert_all(attributes, returning: nil, unique_by: nil); end
-
-    sig do
-      params(
-        attributes: T::Array[Hash],
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass))
-      ).returns(ActiveRecord::Result)
-    end
-    def insert_all!(attributes, returning: nil); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def invert_where(*args, &blk); end
@@ -599,7 +650,12 @@ class ActionMailbox::InboundEmail
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def rewhere(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    sig { params(args: T.untyped).returns(PrivateAssociationRelation) }
+    sig do
+      params(
+        blk: T.proc.params(record: ::ActionMailbox::InboundEmail).returns(BasicObject)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
     def select(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -614,32 +670,18 @@ class ActionMailbox::InboundEmail
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def unscope(*args, &blk); end
 
-    sig do
-      params(
-        attributes: Hash,
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass)),
-        unique_by: T.nilable(T.any(T::Array[Symbol], Symbol))
-      ).returns(ActiveRecord::Result)
-    end
-    def upsert(attributes, returning: nil, unique_by: nil); end
-
-    sig do
-      params(
-        attributes: T::Array[Hash],
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass)),
-        unique_by: T.nilable(T.any(T::Array[Symbol], Symbol))
-      ).returns(ActiveRecord::Result)
-    end
-    def upsert_all(attributes, returning: nil, unique_by: nil); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelationWhereChain) }
-    def where(*args, &blk); end
+    sig { returns(PrivateAssociationRelationWhereChain) }
+    sig { params(args: T.untyped).returns(PrivateAssociationRelation) }
+    def where(*args); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def with(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def with_attached_raw_email(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def with_recursive(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
@@ -654,6 +696,9 @@ class ActionMailbox::InboundEmail
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def annotate(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def arel_columns(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def bounced(*args, &blk); end
@@ -787,7 +832,12 @@ class ActionMailbox::InboundEmail
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def rewhere(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    sig { params(args: T.untyped).returns(PrivateRelation) }
+    sig do
+      params(
+        blk: T.proc.params(record: ::ActionMailbox::InboundEmail).returns(BasicObject)
+      ).returns(T::Array[::ActionMailbox::InboundEmail])
+    end
     def select(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -802,14 +852,18 @@ class ActionMailbox::InboundEmail
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def unscope(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelationWhereChain) }
-    def where(*args, &blk); end
+    sig { returns(PrivateRelationWhereChain) }
+    sig { params(args: T.untyped).returns(PrivateRelation) }
+    def where(*args); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def with(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def with_attached_raw_email(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def with_recursive(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end
@@ -854,6 +908,9 @@ class ActionMailbox::InboundEmail
     sig { params(column_name: T.any(String, Symbol)).returns(T::Hash[T.untyped, T.untyped]) }
     def minimum(column_name); end
 
+    sig { returns(Integer) }
+    def size; end
+
     sig do
       params(
         column_name: T.nilable(T.any(String, Symbol)),
@@ -863,7 +920,7 @@ class ActionMailbox::InboundEmail
     def sum(column_name = nil, &block); end
   end
 
-  class PrivateAssociationRelationWhereChain < PrivateAssociationRelation
+  class PrivateAssociationRelationWhereChain
     Elem = type_member { { fixed: ::ActionMailbox::InboundEmail } }
 
     sig { params(args: T.untyped).returns(PrivateAssociationRelation) }
@@ -905,20 +962,6 @@ class ActionMailbox::InboundEmail
       ).returns(PrivateCollectionProxy)
     end
     def concat(*records); end
-
-    sig do
-      params(
-        records: T.any(::ActionMailbox::InboundEmail, Integer, String, T::Enumerable[T.any(::ActionMailbox::InboundEmail, Integer, String, T::Enumerable[::ActionMailbox::InboundEmail])])
-      ).returns(T::Array[::ActionMailbox::InboundEmail])
-    end
-    def delete(*records); end
-
-    sig do
-      params(
-        records: T.any(::ActionMailbox::InboundEmail, Integer, String, T::Enumerable[T.any(::ActionMailbox::InboundEmail, Integer, String, T::Enumerable[::ActionMailbox::InboundEmail])])
-      ).returns(T::Array[::ActionMailbox::InboundEmail])
-    end
-    def destroy(*records); end
 
     sig { returns(T::Array[::ActionMailbox::InboundEmail]) }
     def load_target; end
@@ -996,6 +1039,9 @@ class ActionMailbox::InboundEmail
     sig { params(column_name: T.any(String, Symbol)).returns(T::Hash[T.untyped, T.untyped]) }
     def minimum(column_name); end
 
+    sig { returns(Integer) }
+    def size; end
+
     sig do
       params(
         column_name: T.nilable(T.any(String, Symbol)),
@@ -1005,7 +1051,7 @@ class ActionMailbox::InboundEmail
     def sum(column_name = nil, &block); end
   end
 
-  class PrivateRelationWhereChain < PrivateRelation
+  class PrivateRelationWhereChain
     Elem = type_member { { fixed: ::ActionMailbox::InboundEmail } }
 
     sig { params(args: T.untyped).returns(PrivateRelation) }

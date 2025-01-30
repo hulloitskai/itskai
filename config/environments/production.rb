@@ -35,7 +35,9 @@ Rails.application.configure do
   # config.asset_host = "http://assets.example.com"
 
   # Store uploaded files on Cloudflare R2
-  config.active_storage.service = :cloudflare
+  if Rails.application.credentials_available?
+    config.active_storage.service = :cloudflare
+  end
 
   # Send mail using Mailjet
   config.action_mailer.delivery_method = :mailjet_api

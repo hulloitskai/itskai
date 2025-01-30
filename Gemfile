@@ -261,7 +261,7 @@ group :development do
   # Typecheck code
   gem "sorbet", require: false
   gem "spoom", require: false
-  gem "tapioca", "~> 0.14.1", require: false
+  gem "tapioca", "~> 0.16.8", require: false
 
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"

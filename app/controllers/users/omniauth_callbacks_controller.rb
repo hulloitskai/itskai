@@ -13,9 +13,8 @@ module Users
     # GET /auth/spotify/callback
     def spotify
       authorize!(to: :administrate?, with: ApplicationPolicy)
-      credentials = OAuthCredentials.find_or_initialize_by(
-        auth.slice(:provider).to_h,
-      )
+      provider = auth.fetch(:provider)
+      credentials = OAuthCredentials.find_or_initialize_by(provider:)
       credentials.update!(
         **auth.slice(:uid),
         **auth.fetch(:credentials).slice(:refresh_token),
@@ -37,9 +36,8 @@ module Users
     # GET /auth/google/callback
     def google
       authorize!(to: :administrate?, with: ApplicationPolicy)
-      credentials = OAuthCredentials.find_or_initialize_by(
-        auth.slice(:provider).to_h,
-      )
+      provider = auth.fetch(:provider)
+      credentials = OAuthCredentials.find_or_initialize_by(provider:)
       credentials.update!(
         **auth.slice(:uid),
         **auth.fetch(:credentials).slice(:refresh_token),

@@ -85,9 +85,6 @@ module GeneratedUrlHelpersModule
   def coffee_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def comments_notion_journal_entry_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def contact_url_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -127,9 +124,6 @@ module GeneratedUrlHelpersModule
   def hangout_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def healthcheck_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def image_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -164,6 +158,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def notify_friends_admin_status_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def notion_journal_entry_comments_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def opencal_url(*args); end
@@ -206,6 +203,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def rails_disk_service_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def rails_info_notes_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_info_properties_url(*args); end
@@ -287,6 +287,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def unsubscribe_push_subscriptions_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def up_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def update_rails_disk_service_url(*args); end

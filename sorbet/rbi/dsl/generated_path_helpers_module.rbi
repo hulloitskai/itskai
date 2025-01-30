@@ -85,9 +85,6 @@ module GeneratedPathHelpersModule
   def coffee_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def comments_notion_journal_entry_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def contact_url_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -127,9 +124,6 @@ module GeneratedPathHelpersModule
   def hangout_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def healthcheck_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def image_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -164,6 +158,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def notify_friends_admin_status_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def notion_journal_entry_comments_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def opencal_path(*args); end
@@ -206,6 +203,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def rails_disk_service_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def rails_info_notes_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_info_path(*args); end
@@ -287,6 +287,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def unsubscribe_push_subscriptions_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def up_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def update_rails_disk_service_path(*args); end

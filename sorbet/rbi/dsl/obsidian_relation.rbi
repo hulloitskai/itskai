@@ -16,6 +16,16 @@ class ObsidianRelation
   sig { returns(NilClass) }
   def to_ary; end
 
+  class << self
+    sig do
+      params(
+        attributes: T.untyped,
+        block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)
+      ).returns(::ObsidianRelation)
+    end
+    def new(attributes = nil, &block); end
+  end
+
   module CommonRelationMethods
     sig { params(block: T.nilable(T.proc.params(record: ::ObsidianRelation).returns(T.untyped))).returns(T::Boolean) }
     def any?(&block); end
@@ -23,6 +33,13 @@ class ObsidianRelation
     sig { params(column_name: T.any(String, Symbol)).returns(T.any(Integer, Float, BigDecimal)) }
     def average(column_name); end
 
+    sig { params(block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)).returns(::ObsidianRelation) }
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)
+      ).returns(T::Array[::ObsidianRelation])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -38,6 +55,13 @@ class ObsidianRelation
     sig { params(column_name: NilClass, block: T.proc.params(object: ::ObsidianRelation).void).returns(Integer) }
     def count(column_name = nil, &block); end
 
+    sig { params(block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)).returns(::ObsidianRelation) }
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)
+      ).returns(T::Array[::ObsidianRelation])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -46,6 +70,13 @@ class ObsidianRelation
     end
     def create(attributes = nil, &block); end
 
+    sig { params(block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)).returns(::ObsidianRelation) }
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)
+      ).returns(T::Array[::ObsidianRelation])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -56,12 +87,24 @@ class ObsidianRelation
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)
+      ).returns(T::Array[::ObsidianRelation])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)
       ).returns(::ObsidianRelation)
     end
     def create_or_find_by(attributes, &block); end
 
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)
+      ).returns(T::Array[::ObsidianRelation])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -150,6 +193,12 @@ class ObsidianRelation
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)
+      ).returns(T::Array[::ObsidianRelation])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)
       ).returns(::ObsidianRelation)
@@ -158,12 +207,24 @@ class ObsidianRelation
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)
+      ).returns(T::Array[::ObsidianRelation])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)
       ).returns(::ObsidianRelation)
     end
     def find_or_create_by!(attributes, &block); end
 
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)
+      ).returns(T::Array[::ObsidianRelation])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -181,7 +242,7 @@ class ObsidianRelation
     sig { params(arg: T.untyped, args: T.untyped).returns(::ObsidianRelation) }
     def find_sole_by(arg, *args); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::ObsidianRelation)) }
+    sig { returns(T.nilable(::ObsidianRelation)) }
     sig { params(limit: Integer).returns(T::Array[::ObsidianRelation]) }
     def first(limit = nil); end
 
@@ -231,7 +292,7 @@ class ObsidianRelation
     sig { params(record: T.untyped).returns(T::Boolean) }
     def include?(record); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::ObsidianRelation)) }
+    sig { returns(T.nilable(::ObsidianRelation)) }
     sig { params(limit: Integer).returns(T::Array[::ObsidianRelation]) }
     def last(limit = nil); end
 
@@ -250,6 +311,13 @@ class ObsidianRelation
     sig { params(column_name: T.any(String, Symbol)).returns(T.untyped) }
     def minimum(column_name); end
 
+    sig { params(block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)).returns(::ObsidianRelation) }
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::ObsidianRelation).void)
+      ).returns(T::Array[::ObsidianRelation])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -295,7 +363,7 @@ class ObsidianRelation
     end
     def sum(initial_value_or_column = nil, &block); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::ObsidianRelation)) }
+    sig { returns(T.nilable(::ObsidianRelation)) }
     sig { params(limit: Integer).returns(T::Array[::ObsidianRelation]) }
     def take(limit = nil); end
 
@@ -331,6 +399,12 @@ class ObsidianRelation
     sig { params(value: T.nilable(::ObsidianNote)).void }
     def from=(value); end
 
+    sig { returns(T::Boolean) }
+    def from_changed?; end
+
+    sig { returns(T::Boolean) }
+    def from_previously_changed?; end
+
     sig { returns(T.nilable(::ObsidianNote)) }
     def reload_from; end
 
@@ -348,6 +422,12 @@ class ObsidianRelation
 
     sig { params(value: T.untyped).void }
     def to=(value); end
+
+    sig { returns(T::Boolean) }
+    def to_changed?; end
+
+    sig { returns(T::Boolean) }
+    def to_previously_changed?; end
   end
 
   module GeneratedAssociationRelationMethods
@@ -359,6 +439,9 @@ class ObsidianRelation
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def annotate(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def arel_columns(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def chronological(*args, &blk); end
@@ -398,40 +481,6 @@ class ObsidianRelation
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def includes(*args, &blk); end
-
-    sig do
-      params(
-        attributes: Hash,
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass)),
-        unique_by: T.nilable(T.any(T::Array[Symbol], Symbol))
-      ).returns(ActiveRecord::Result)
-    end
-    def insert(attributes, returning: nil, unique_by: nil); end
-
-    sig do
-      params(
-        attributes: Hash,
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass))
-      ).returns(ActiveRecord::Result)
-    end
-    def insert!(attributes, returning: nil); end
-
-    sig do
-      params(
-        attributes: T::Array[Hash],
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass)),
-        unique_by: T.nilable(T.any(T::Array[Symbol], Symbol))
-      ).returns(ActiveRecord::Result)
-    end
-    def insert_all(attributes, returning: nil, unique_by: nil); end
-
-    sig do
-      params(
-        attributes: T::Array[Hash],
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass))
-      ).returns(ActiveRecord::Result)
-    end
-    def insert_all!(attributes, returning: nil); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def invert_where(*args, &blk); end
@@ -502,7 +551,12 @@ class ObsidianRelation
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def rewhere(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    sig { params(args: T.untyped).returns(PrivateAssociationRelation) }
+    sig do
+      params(
+        blk: T.proc.params(record: ::ObsidianRelation).returns(BasicObject)
+      ).returns(T::Array[::ObsidianRelation])
+    end
     def select(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -517,29 +571,15 @@ class ObsidianRelation
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def unscope(*args, &blk); end
 
-    sig do
-      params(
-        attributes: Hash,
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass)),
-        unique_by: T.nilable(T.any(T::Array[Symbol], Symbol))
-      ).returns(ActiveRecord::Result)
-    end
-    def upsert(attributes, returning: nil, unique_by: nil); end
-
-    sig do
-      params(
-        attributes: T::Array[Hash],
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass)),
-        unique_by: T.nilable(T.any(T::Array[Symbol], Symbol))
-      ).returns(ActiveRecord::Result)
-    end
-    def upsert_all(attributes, returning: nil, unique_by: nil); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelationWhereChain) }
-    def where(*args, &blk); end
+    sig { returns(PrivateAssociationRelationWhereChain) }
+    sig { params(args: T.untyped).returns(PrivateAssociationRelation) }
+    def where(*args); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def with_recursive(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
@@ -843,6 +883,9 @@ class ObsidianRelation
     def annotate(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def arel_columns(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def chronological(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -950,7 +993,12 @@ class ObsidianRelation
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def rewhere(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    sig { params(args: T.untyped).returns(PrivateRelation) }
+    sig do
+      params(
+        blk: T.proc.params(record: ::ObsidianRelation).returns(BasicObject)
+      ).returns(T::Array[::ObsidianRelation])
+    end
     def select(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -965,11 +1013,15 @@ class ObsidianRelation
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def unscope(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelationWhereChain) }
-    def where(*args, &blk); end
+    sig { returns(PrivateRelationWhereChain) }
+    sig { params(args: T.untyped).returns(PrivateRelation) }
+    def where(*args); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def with_recursive(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end
@@ -1014,6 +1066,9 @@ class ObsidianRelation
     sig { params(column_name: T.any(String, Symbol)).returns(T::Hash[T.untyped, T.untyped]) }
     def minimum(column_name); end
 
+    sig { returns(Integer) }
+    def size; end
+
     sig do
       params(
         column_name: T.nilable(T.any(String, Symbol)),
@@ -1023,7 +1078,7 @@ class ObsidianRelation
     def sum(column_name = nil, &block); end
   end
 
-  class PrivateAssociationRelationWhereChain < PrivateAssociationRelation
+  class PrivateAssociationRelationWhereChain
     Elem = type_member { { fixed: ::ObsidianRelation } }
 
     sig { params(args: T.untyped).returns(PrivateAssociationRelation) }
@@ -1065,20 +1120,6 @@ class ObsidianRelation
       ).returns(PrivateCollectionProxy)
     end
     def concat(*records); end
-
-    sig do
-      params(
-        records: T.any(::ObsidianRelation, Integer, String, T::Enumerable[T.any(::ObsidianRelation, Integer, String, T::Enumerable[::ObsidianRelation])])
-      ).returns(T::Array[::ObsidianRelation])
-    end
-    def delete(*records); end
-
-    sig do
-      params(
-        records: T.any(::ObsidianRelation, Integer, String, T::Enumerable[T.any(::ObsidianRelation, Integer, String, T::Enumerable[::ObsidianRelation])])
-      ).returns(T::Array[::ObsidianRelation])
-    end
-    def destroy(*records); end
 
     sig { returns(T::Array[::ObsidianRelation]) }
     def load_target; end
@@ -1156,6 +1197,9 @@ class ObsidianRelation
     sig { params(column_name: T.any(String, Symbol)).returns(T::Hash[T.untyped, T.untyped]) }
     def minimum(column_name); end
 
+    sig { returns(Integer) }
+    def size; end
+
     sig do
       params(
         column_name: T.nilable(T.any(String, Symbol)),
@@ -1165,7 +1209,7 @@ class ObsidianRelation
     def sum(column_name = nil, &block); end
   end
 
-  class PrivateRelationWhereChain < PrivateRelation
+  class PrivateRelationWhereChain
     Elem = type_member { { fixed: ::ObsidianRelation } }
 
     sig { params(args: T.untyped).returns(PrivateRelation) }

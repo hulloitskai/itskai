@@ -6,6 +6,6 @@
 
 
 class AdminFriendSerializer
-  sig { returns(Friend) }
-  def friend; end
+  sig { returns(AdminFriend) }
+  def admin_friend; end
 end

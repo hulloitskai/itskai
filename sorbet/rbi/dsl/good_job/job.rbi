@@ -20,6 +20,14 @@ class GoodJob::Job
   class << self
     sig { returns(T::Hash[T.any(String, Symbol), Integer]) }
     def error_events; end
+
+    sig do
+      params(
+        attributes: T.untyped,
+        block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)
+      ).returns(::GoodJob::Job)
+    end
+    def new(attributes = nil, &block); end
   end
 
   module CommonRelationMethods
@@ -29,6 +37,13 @@ class GoodJob::Job
     sig { params(column_name: T.any(String, Symbol)).returns(T.any(Integer, Float, BigDecimal)) }
     def average(column_name); end
 
+    sig { params(block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)).returns(::GoodJob::Job) }
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)
+      ).returns(T::Array[::GoodJob::Job])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -44,6 +59,13 @@ class GoodJob::Job
     sig { params(column_name: NilClass, block: T.proc.params(object: ::GoodJob::Job).void).returns(Integer) }
     def count(column_name = nil, &block); end
 
+    sig { params(block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)).returns(::GoodJob::Job) }
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)
+      ).returns(T::Array[::GoodJob::Job])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -52,6 +74,13 @@ class GoodJob::Job
     end
     def create(attributes = nil, &block); end
 
+    sig { params(block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)).returns(::GoodJob::Job) }
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)
+      ).returns(T::Array[::GoodJob::Job])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -62,12 +91,24 @@ class GoodJob::Job
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)
+      ).returns(T::Array[::GoodJob::Job])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)
       ).returns(::GoodJob::Job)
     end
     def create_or_find_by(attributes, &block); end
 
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)
+      ).returns(T::Array[::GoodJob::Job])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -156,6 +197,12 @@ class GoodJob::Job
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)
+      ).returns(T::Array[::GoodJob::Job])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)
       ).returns(::GoodJob::Job)
@@ -164,12 +211,24 @@ class GoodJob::Job
 
     sig do
       params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)
+      ).returns(T::Array[::GoodJob::Job])
+    end
+    sig do
+      params(
         attributes: T.untyped,
         block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)
       ).returns(::GoodJob::Job)
     end
     def find_or_create_by!(attributes, &block); end
 
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)
+      ).returns(T::Array[::GoodJob::Job])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -187,7 +246,7 @@ class GoodJob::Job
     sig { params(arg: T.untyped, args: T.untyped).returns(::GoodJob::Job) }
     def find_sole_by(arg, *args); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::GoodJob::Job)) }
+    sig { returns(T.nilable(::GoodJob::Job)) }
     sig { params(limit: Integer).returns(T::Array[::GoodJob::Job]) }
     def first(limit = nil); end
 
@@ -237,7 +296,7 @@ class GoodJob::Job
     sig { params(record: T.untyped).returns(T::Boolean) }
     def include?(record); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::GoodJob::Job)) }
+    sig { returns(T.nilable(::GoodJob::Job)) }
     sig { params(limit: Integer).returns(T::Array[::GoodJob::Job]) }
     def last(limit = nil); end
 
@@ -256,6 +315,13 @@ class GoodJob::Job
     sig { params(column_name: T.any(String, Symbol)).returns(T.untyped) }
     def minimum(column_name); end
 
+    sig { params(block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)).returns(::GoodJob::Job) }
+    sig do
+      params(
+        attributes: T::Array[T.untyped],
+        block: T.nilable(T.proc.params(object: ::GoodJob::Job).void)
+      ).returns(T::Array[::GoodJob::Job])
+    end
     sig do
       params(
         attributes: T.untyped,
@@ -301,7 +367,7 @@ class GoodJob::Job
     end
     def sum(initial_value_or_column = nil, &block); end
 
-    sig { params(limit: NilClass).returns(T.nilable(::GoodJob::Job)) }
+    sig { returns(T.nilable(::GoodJob::Job)) }
     sig { params(limit: Integer).returns(T::Array[::GoodJob::Job]) }
     def take(limit = nil); end
 
@@ -366,17 +432,44 @@ class GoodJob::Job
     sig { params(value: T.nilable(::GoodJob::BatchRecord)).void }
     def batch=(value); end
 
+    sig { returns(T::Boolean) }
+    def batch_changed?; end
+
+    sig { returns(T::Boolean) }
+    def batch_previously_changed?; end
+
     sig { params(args: T.untyped, blk: T.untyped).returns(::GoodJob::BatchRecord) }
     def build_batch(*args, &blk); end
 
+    sig { params(args: T.untyped, blk: T.untyped).returns(::GoodJob::BatchRecord) }
+    def build_callback_batch(*args, &blk); end
+
     sig { params(args: T.untyped, blk: T.untyped).returns(::GoodJob::Process) }
     def build_locked_by_process(*args, &blk); end
+
+    sig { returns(T.nilable(::GoodJob::BatchRecord)) }
+    def callback_batch; end
+
+    sig { params(value: T.nilable(::GoodJob::BatchRecord)).void }
+    def callback_batch=(value); end
+
+    sig { returns(T::Boolean) }
+    def callback_batch_changed?; end
+
+    sig { returns(T::Boolean) }
+    def callback_batch_previously_changed?; end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::GoodJob::BatchRecord) }
     def create_batch(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::GoodJob::BatchRecord) }
     def create_batch!(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::GoodJob::BatchRecord) }
+    def create_callback_batch(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::GoodJob::BatchRecord) }
+    def create_callback_batch!(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::GoodJob::Process) }
     def create_locked_by_process(*args, &blk); end
@@ -404,14 +497,26 @@ class GoodJob::Job
     sig { params(value: T.nilable(::GoodJob::Process)).void }
     def locked_by_process=(value); end
 
+    sig { returns(T::Boolean) }
+    def locked_by_process_changed?; end
+
+    sig { returns(T::Boolean) }
+    def locked_by_process_previously_changed?; end
+
     sig { returns(T.nilable(::GoodJob::BatchRecord)) }
     def reload_batch; end
+
+    sig { returns(T.nilable(::GoodJob::BatchRecord)) }
+    def reload_callback_batch; end
 
     sig { returns(T.nilable(::GoodJob::Process)) }
     def reload_locked_by_process; end
 
     sig { void }
     def reset_batch; end
+
+    sig { void }
+    def reset_callback_batch; end
 
     sig { void }
     def reset_locked_by_process; end
@@ -438,6 +543,9 @@ class GoodJob::Job
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def annotate(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def arel_columns(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def create_with(*args, &blk); end
@@ -495,40 +603,6 @@ class GoodJob::Job
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def includes_advisory_locks(*args, &blk); end
-
-    sig do
-      params(
-        attributes: Hash,
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass)),
-        unique_by: T.nilable(T.any(T::Array[Symbol], Symbol))
-      ).returns(ActiveRecord::Result)
-    end
-    def insert(attributes, returning: nil, unique_by: nil); end
-
-    sig do
-      params(
-        attributes: Hash,
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass))
-      ).returns(ActiveRecord::Result)
-    end
-    def insert!(attributes, returning: nil); end
-
-    sig do
-      params(
-        attributes: T::Array[Hash],
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass)),
-        unique_by: T.nilable(T.any(T::Array[Symbol], Symbol))
-      ).returns(ActiveRecord::Result)
-    end
-    def insert_all(attributes, returning: nil, unique_by: nil); end
-
-    sig do
-      params(
-        attributes: T::Array[Hash],
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass))
-      ).returns(ActiveRecord::Result)
-    end
-    def insert_all!(attributes, returning: nil); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def invert_where(*args, &blk); end
@@ -635,7 +709,8 @@ class GoodJob::Job
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def search_text(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    sig { params(args: T.untyped).returns(PrivateAssociationRelation) }
+    sig { params(blk: T.proc.params(record: ::GoodJob::Job).returns(BasicObject)).returns(T::Array[::GoodJob::Job]) }
     def select(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -656,29 +731,15 @@ class GoodJob::Job
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def unscope(*args, &blk); end
 
-    sig do
-      params(
-        attributes: Hash,
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass)),
-        unique_by: T.nilable(T.any(T::Array[Symbol], Symbol))
-      ).returns(ActiveRecord::Result)
-    end
-    def upsert(attributes, returning: nil, unique_by: nil); end
-
-    sig do
-      params(
-        attributes: T::Array[Hash],
-        returning: T.nilable(T.any(T::Array[Symbol], FalseClass)),
-        unique_by: T.nilable(T.any(T::Array[Symbol], Symbol))
-      ).returns(ActiveRecord::Result)
-    end
-    def upsert_all(attributes, returning: nil, unique_by: nil); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelationWhereChain) }
-    def where(*args, &blk); end
+    sig { returns(PrivateAssociationRelationWhereChain) }
+    sig { params(args: T.untyped).returns(PrivateAssociationRelation) }
+    def where(*args); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def with_recursive(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
@@ -2084,6 +2145,9 @@ class GoodJob::Job
     def annotate(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def arel_columns(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def create_with(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -2245,7 +2309,8 @@ class GoodJob::Job
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def search_text(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    sig { params(args: T.untyped).returns(PrivateRelation) }
+    sig { params(blk: T.proc.params(record: ::GoodJob::Job).returns(BasicObject)).returns(T::Array[::GoodJob::Job]) }
     def select(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -2266,11 +2331,15 @@ class GoodJob::Job
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def unscope(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelationWhereChain) }
-    def where(*args, &blk); end
+    sig { returns(PrivateRelationWhereChain) }
+    sig { params(args: T.untyped).returns(PrivateRelation) }
+    def where(*args); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def with_recursive(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end
@@ -2315,6 +2384,9 @@ class GoodJob::Job
     sig { params(column_name: T.any(String, Symbol)).returns(T::Hash[T.untyped, T.untyped]) }
     def minimum(column_name); end
 
+    sig { returns(Integer) }
+    def size; end
+
     sig do
       params(
         column_name: T.nilable(T.any(String, Symbol)),
@@ -2324,7 +2396,7 @@ class GoodJob::Job
     def sum(column_name = nil, &block); end
   end
 
-  class PrivateAssociationRelationWhereChain < PrivateAssociationRelation
+  class PrivateAssociationRelationWhereChain
     Elem = type_member { { fixed: ::GoodJob::Job } }
 
     sig { params(args: T.untyped).returns(PrivateAssociationRelation) }
@@ -2366,20 +2438,6 @@ class GoodJob::Job
       ).returns(PrivateCollectionProxy)
     end
     def concat(*records); end
-
-    sig do
-      params(
-        records: T.any(::GoodJob::Job, Integer, String, T::Enumerable[T.any(::GoodJob::Job, Integer, String, T::Enumerable[::GoodJob::Job])])
-      ).returns(T::Array[::GoodJob::Job])
-    end
-    def delete(*records); end
-
-    sig do
-      params(
-        records: T.any(::GoodJob::Job, Integer, String, T::Enumerable[T.any(::GoodJob::Job, Integer, String, T::Enumerable[::GoodJob::Job])])
-      ).returns(T::Array[::GoodJob::Job])
-    end
-    def destroy(*records); end
 
     sig { returns(T::Array[::GoodJob::Job]) }
     def load_target; end
@@ -2457,6 +2515,9 @@ class GoodJob::Job
     sig { params(column_name: T.any(String, Symbol)).returns(T::Hash[T.untyped, T.untyped]) }
     def minimum(column_name); end
 
+    sig { returns(Integer) }
+    def size; end
+
     sig do
       params(
         column_name: T.nilable(T.any(String, Symbol)),
@@ -2466,7 +2527,7 @@ class GoodJob::Job
     def sum(column_name = nil, &block); end
   end
 
-  class PrivateRelationWhereChain < PrivateRelation
+  class PrivateRelationWhereChain
     Elem = type_member { { fixed: ::GoodJob::Job } }
 
     sig { params(args: T.untyped).returns(PrivateRelation) }
