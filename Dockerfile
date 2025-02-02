@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1.2
 # check=error=true
 
-# == System
+# == Base
 FROM debian:bookworm-slim AS base
 ENV OVERMIND_VERSION=2.5.1
 ENV STARSHIP_VERSION=1.20.1

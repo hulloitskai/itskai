@@ -6,8 +6,8 @@
 
 module Rails
   class << self
-    # sig { returns(Rails::Application) }
-    # def application; end
+    sig { returns(Rails::Application) }
+    def application; end
 
     sig { returns(ActiveSupport::BacktraceCleaner) }
     def backtrace_cleaner; end
