@@ -19,7 +19,6 @@ module ItsKai
     # == Extensions
     require "core_ext"
     require "rails_ext"
-    require "actionview_ext"
     require "oj_serializers_ext"
     require "types_from_serializers_ext"
     require "js_from_routes_ext"

@@ -20,14 +20,17 @@ gem "rgeo", "~> 3.0"
 gem "rgeo-geojson", "~> 2.2"
 gem "rgeo-activerecord", "~> 8.0"
 
+# Enable additional operators and utilities for Active Record with PostgreSQL
+gem "active_record_extended", github: "GeorgeKaraszi/ActiveRecordExtended", branch: "feature/rails80"
+
 # Use PostGIS extensions for PostgreSQL
 gem "activerecord-postgis-adapter", github: "rgeo/activerecord-postgis-adapter", ref: "32d58f3d3df94779acabba3a2e510de56a2bce63"
 
-# Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 6.6.0"
-
 # Use enhanced PostgreSQL adapter for Action Cable
 gem "actioncable-enhanced-postgresql-adapter", "~> 1.0"
+
+# Use the Puma web server [https://github.com/puma/puma]
+gem "puma", "~> 6.6.0"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
@@ -143,12 +146,6 @@ gem "omniauth-google-oauth2", "~> 1.1"
 
 # Use RSpotify to read currently playing data from Spotify
 gem "rspotify", "~> 2.12"
-
-# Print objects with text wrappers for debugging
-gem "wrapped_print"
-
-# Enable additional operators and utilities for Active Record with PostgreSQL
-gem "active_record_extended", github: "GeorgeKaraszi/ActiveRecordExtended", branch: "feature/rails80"
 
 # Parse Markdown with Markly
 gem "markly", "~> 0.7.0"

@@ -10582,6 +10582,7 @@ class ActionView::Helpers::TagHelper::TagBuilder
   # source://actionview//lib/action_view/helpers/tag_helper.rb#122
   def body(content = T.unsafe(nil), escape: T.unsafe(nil), **options, &block); end
 
+  # source://actionview//lib/action_view/helpers/tag_helper.rb#290
   def boolean_tag_option(key); end
 
   # source://actionview//lib/action_view/helpers/tag_helper.rb#86
