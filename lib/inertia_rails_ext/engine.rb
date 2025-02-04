@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 require "inertia_rails"
+require "rails"
+require_relative "mailer"
 
 module InertiaRails
   class Engine

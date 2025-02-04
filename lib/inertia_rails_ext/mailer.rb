@@ -14,7 +14,7 @@ module InertiaRails
     extend ActiveSupport::Concern
     extend T::Sig
     extend T::Helpers
-    send(:included, scoped do
+    public_send(:include, scoped do # rubocop:disable Style/SendWithLiteralMethodName
       controller = InertiaRails::Controller.clone
       controller.remove_instance_variable(:@_included_block)
       controller
