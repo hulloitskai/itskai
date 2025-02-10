@@ -54,8 +54,8 @@ Rails.application.routes.draw do
         only: %i[edit update],
         path_names: { edit: "" },
       ) do
-        put :email, action: :change_email, as: :change_email
-        put :password, action: :change_password, as: :change_password
+        post :change_email
+        post :change_password
       end
       scope path: "/account" do
         resource :confirmation,

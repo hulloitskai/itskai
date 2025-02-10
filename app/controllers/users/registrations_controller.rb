@@ -46,7 +46,7 @@ module Users
       end
     end
 
-    # PUT /settings
+    # PUT/PATCH /account
     def update
       resource = self.resource = resource_class
         .to_adapter
@@ -66,7 +66,7 @@ module Users
       end
     end
 
-    # PUT /settings/email
+    # POST /account/change_email
     def change_email
       resource = resource_class
         .to_adapter
@@ -91,7 +91,7 @@ module Users
       end
     end
 
-    # PUT /settings/password
+    # POST /account/change_password
     def change_password
       resource = resource_class
         .to_adapter

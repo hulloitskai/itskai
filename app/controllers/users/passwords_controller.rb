@@ -33,7 +33,7 @@ module Users
       end
     end
 
-    # PUT /account/password
+    # PUT/PATCH /account/password
     def update
       resource = self.resource = resource_class
         .reset_password_by_token(resource_params)
