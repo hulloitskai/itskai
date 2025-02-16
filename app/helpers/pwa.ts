@@ -1,10 +1,11 @@
-import { useDocumentVisibility } from "@mantine/hooks";
+import { useDocumentVisibility, useMediaQuery } from "@mantine/hooks";
+import { useMounted } from "@mantine/hooks";
 
-export const useIsStandaloneMode = (): boolean | undefined => {
+export const useIsStandalone = (): boolean | undefined => {
   const mounted = useMounted();
-  const standalone = useMediaQuery("(display-mode: standalone)");
+  const isStandalone = useMediaQuery("(display-mode: standalone)");
   if (mounted) {
-    return standalone;
+    return isStandalone;
   }
 };
 
@@ -27,7 +28,7 @@ export const useInstallPromptEvent = (): Event | null => {
 };
 
 export const useClearAppBadge = () => {
-  const isStandalone = useIsStandaloneMode();
+  const isStandalone = useIsStandalone();
   const visibility = useDocumentVisibility();
   useEffect(() => {
     if (

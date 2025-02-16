@@ -9,7 +9,7 @@ import AppLayout from "~/components/AppLayout";
 import FriendPushNotificationsButton from "~/components/FriendPushNotificationsButton";
 import FriendTimeline from "~/components/FriendTimeline";
 import FriendVibecheckModal from "~/components/FriendVibecheckModal";
-import { useInstallPromptEvent, useIsStandaloneMode } from "~/helpers/pwa";
+import { useInstallPromptEvent, useIsStandalone } from "~/helpers/pwa";
 import { useWebPush } from "~/helpers/webPush";
 import { type Friend, type FriendVibecheck, type Status } from "~/types";
 
@@ -34,7 +34,7 @@ const FriendPage: PageComponent<FriendPageProps> = ({
   statuses,
   statusId,
 }) => {
-  const isStandalone = useIsStandaloneMode();
+  const isStandalone = useIsStandalone();
   const isMobile = useMediaQuery("(pointer: coarse");
   const { registration } = useWebPush();
   const standaloneMode = emulateStandalone || isStandalone;

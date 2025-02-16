@@ -2,7 +2,7 @@ import { AppShell, type AppShellHeaderProps, Burger } from "@mantine/core";
 import { Image } from "@mantine/core";
 
 import logoSrc from "~/assets/images/logo-circle.png";
-import { useIsStandaloneMode } from "~/helpers/pwa";
+import { useIsStandalone } from "~/helpers/pwa";
 import { useSidebarControls } from "~/helpers/sidebar";
 
 import AppMenu from "./AppMenu";
@@ -14,7 +14,7 @@ export interface AppHeaderProps extends Omit<AppShellHeaderProps, "children"> {}
 
 const AppHeader = forwardRef<HTMLDivElement, AppHeaderProps>(
   ({ className, ...otherProps }, ref) => {
-    const standaloneMode = useIsStandaloneMode();
+    const isStandalone = useIsStandalone();
     const sidebarControls = useSidebarControls();
     return (
       <AppShell.Header
@@ -50,7 +50,7 @@ const AppHeader = forwardRef<HTMLDivElement, AppHeaderProps>(
             </Button>
           </Group>
           <CurrentlyPlayingIsland />
-          {!standaloneMode && <AppMenu style={{ flexShrink: 0 }} />}
+          {!isStandalone && <AppMenu style={{ flexShrink: 0 }} />}
         </Group>
       </AppShell.Header>
     );
