@@ -13,6 +13,9 @@ Rails.application.default_url_options = {
 # Settings specified here will take precedence over those in
 # config/application.rb.
 Rails.application.configure do
+  # Run Good Job in async mode.
+  config.good_job.execution_mode = :async
+
   # Code is not reloaded between requests.
   config.enable_reloading = false
 
