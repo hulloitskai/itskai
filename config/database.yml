@@ -23,7 +23,7 @@ local: &local
   <<: *default
   host: localhost
   port: 5432
-  username: postgres
+  username: supabase_admin
   password: postgres
 
 development:

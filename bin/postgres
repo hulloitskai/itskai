@@ -18,7 +18,7 @@ else
   docker run --rm --cidfile ./tmp/pids/postgres.cid \
     -p 5432:5432 \
     -v ./tmp/postgres:/var/lib/postgresql/data \
-    -e POSTGRES_USER=postgres \
+    -e POSTGRES_USER=supabase_admin \
     -e POSTGRES_PASSWORD=postgres \
     supabase/postgres:15.6.1.139
 fi
