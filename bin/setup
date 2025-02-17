@@ -95,4 +95,11 @@ FileUtils.chdir APP_ROOT do
     Process.waitpid(db_pid)
     puts "Database stopped"
   end
+rescue
+  if db_pid
+    puts "\n=> Stopping database"
+    Process.kill("-INT", Process.getpgid(db_pid))
+    Process.waitpid(db_pid)
+    puts "Database stopped"
+  end
 end
