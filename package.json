@@ -56,8 +56,7 @@
     "sonner": "^1.5.0",
     "swr": "^2.2.5",
     "timeago.js": "^4.0.2",
-    "tiny-invariant": "^1.3.3",
-    "vite-plugin-environment": "^1.1.3"
+    "tiny-invariant": "^1.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
@@ -81,7 +80,7 @@
     "@types/react-dom": "^18.2.6",
     "@types/scroll-into-view": "^1.16.0",
     "@typescript-eslint/parser": "^8.6.0",
-    "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react": "^1.3.2",
     "eslint": "^8.57.0",
     "eslint-plugin-import": "^2.30.0",
     "eslint-plugin-react": "^7.37.3",
@@ -100,9 +99,10 @@
     "typescript-plugin-css-modules": "^5.1.0",
     "unplugin-auto-import": "^0.18.3",
     "unplugin-icons": "^0.19.3",
-    "vite": "^5.4.9",
+    "vite": "^5.4.14",
+    "vite-plugin-environment": "^1.1.3",
     "vite-plugin-full-reload": "^1.1.0",
-    "vite-plugin-iso-import": "^1.1.0",
-    "vite-plugin-ruby": "^5.1.0"
+    "vite-plugin-iso-import": "^0.1.3",
+    "vite-plugin-ruby": "^1.0.14"
   }
 }
