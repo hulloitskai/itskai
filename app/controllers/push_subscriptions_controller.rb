@@ -8,7 +8,7 @@ class PushSubscriptionsController < ApplicationController
   # == Actions
   # POST /push_subscriptions/lookup
   def lookup
-    endpoint = T.let(params.expect(push_subscription: :endpoint), String)
+    endpoint = T.let(params.dig(:push_subscription, :endpoint), String)
     registration = PushSubscription.find_by(endpoint:)
     render(json: {
       registration: PushSubscriptionRegistrationSerializer.one_if(registration),

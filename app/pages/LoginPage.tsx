@@ -3,9 +3,7 @@ import { Text } from "@mantine/core";
 import AppLayout from "~/components/AppLayout";
 import LoginPageForm from "~/components/LoginPageForm";
 
-export interface LoginPageProps extends SharedPageProps {
-  failed: boolean;
-}
+export interface LoginPageProps extends SharedPageProps {}
 
 const LoginPage: PageComponent<LoginPageProps> = () => (
   <Card w={380} withBorder>

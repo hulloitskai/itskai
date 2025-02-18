@@ -44,6 +44,7 @@ export const visitRoute = (
   return new Promise((resolve, reject) => {
     const visitOptions: Partial<VisitOptions> = {
       preserveScroll: true,
+      preserveState: true,
       onBefore: visit => {
         removeInvalidListenerRef.current = router.on(
           "invalid",

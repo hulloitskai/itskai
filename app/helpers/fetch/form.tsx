@@ -1,5 +1,8 @@
-import { type Errors } from "@inertiajs/core";
-import { type Method, type PathHelper } from "@js-from-routes/client";
+import {
+  type Method,
+  type PathHelper,
+  type ResponseError,
+} from "@js-from-routes/client";
 import {
   useForm,
   type UseFormInput,
@@ -9,7 +12,7 @@ import { type FormEvent } from "react";
 
 import { showFormErrorsAlert } from "~/helpers/form";
 
-import { fetchRoute } from ".";
+import { fetchRoute, getResponseErrors } from ".";
 
 type FetchPartialForm<
   Values,
@@ -116,16 +119,9 @@ export const useFetchForm = <
             form.reset();
             return data;
           },
-          (error: Error) => {
-            if (
-              "body" in error &&
-              typeof error.body === "object" &&
-              !!error.body &&
-              "errors" in error.body
-            ) {
-              const { errors } = error.body as {
-                errors: Errors;
-              };
+          (error: Error | ResponseError) => {
+            const errors = getResponseErrors(error);
+            if (errors) {
               form.setErrors(errors);
               console.warn(`Couldn't ${descriptor}`, { errors });
               const formWithErrors = { ...form, errors };

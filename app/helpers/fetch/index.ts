@@ -1,3 +1,4 @@
+import { type Errors } from "@inertiajs/core";
 import {
   type Method,
   type PathHelper,
@@ -200,4 +201,16 @@ const useRouteKey = (
     }
   }, [route, params]); // eslint-disable-line react-hooks/exhaustive-deps
   return key;
+};
+
+export const getResponseErrors = (
+  responseError: ResponseError,
+): Errors | undefined => {
+  if ("body" in responseError && typeof responseError.body === "object") {
+    const { body } = responseError; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+    if (!!body && "errors" in body) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
+      return body.errors;
+    }
+  }
 };
