@@ -131,6 +131,7 @@ declare global {
   const useShallowEffect: typeof import('@mantine/hooks')['useShallowEffect']
   const useState: typeof import('react')['useState']
   const useSubscription: typeof import('~/helpers/actioncable/subscription')['useSubscription']
+  const visitRoute: typeof import('~/helpers/inertia')['visitRoute']
 }
 // for type re-export
 declare global {
