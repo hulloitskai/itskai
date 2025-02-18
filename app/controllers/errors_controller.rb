@@ -62,7 +62,7 @@ class ErrorsController < ApplicationController
   end
   def render_error_page(status:, title:, description:, error: nil)
     code = Rack::Utils.status_code(status)
-    respond_with do |format|
+    respond_to do |format|
       format.html do
         render(
           inertia: "ErrorPage",

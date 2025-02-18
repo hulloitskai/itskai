@@ -52,7 +52,7 @@ class ApplicationPolicy < ActionPolicy::Base
   end
 
   sig { returns(User) }
-  def authenticate!
+  def user!
     user or deny!
   end
 end

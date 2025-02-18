@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_16_180752) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_16_180752) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
-  enable_extension "plpgsql"
   enable_extension "postgis"
 
   create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -226,7 +226,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_16_180752) do
   end
 
   create_table "location_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.geography "coordinates", limit: {:srid=>4326, :type=>"st_point", :has_z=>true, :geographic=>true}, null: false
+    t.geography "coordinates", limit: {srid: 4326, type: "st_point", has_z: true, geographic: true}, null: false
     t.integer "floor_level", null: false
     t.float "horizontal_accuracy", null: false
     t.float "vertical_accuracy", null: false
@@ -360,7 +360,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_16_180752) do
 
   create_table "timeline_activities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "type", null: false
-    t.geography "location", limit: {:srid=>4326, :type=>"geometry", :geographic=>true}, null: false
+    t.geography "location", limit: {srid: 4326, type: "geometry", geographic: true}, null: false
     t.string "name"
     t.string "address"
     t.integer "confidence", limit: 2, null: false

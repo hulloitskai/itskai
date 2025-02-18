@@ -1,6 +1,7 @@
 # typed: true
 # frozen_string_literal: true
 
+# rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective
 # == Schema Information
 #
 # Table name: users
@@ -29,6 +30,7 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective
 class UserSerializer < ApplicationSerializer
   # == Attributes
   identifier

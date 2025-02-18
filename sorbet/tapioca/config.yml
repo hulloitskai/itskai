@@ -16,3 +16,7 @@ gem:
     - web-console
     - yard
     - yard-sorbet
+
+dsl:
+  skip_constant:
+    - InertiaRails::Mailer

@@ -4,7 +4,6 @@
 class UserPolicy < ApplicationPolicy
   # == Rules
   def manage?
-    user = T.cast(record, User)
-    authenticate! == user
+    user! == record
   end
 end
