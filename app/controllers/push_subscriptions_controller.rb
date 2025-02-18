@@ -8,8 +8,8 @@ class PushSubscriptionsController < ApplicationController
   # == Actions
   # POST /push_subscriptions/lookup
   def lookup
-    subscription_params = params.expect(push_subscription: [:endpoint])
-    registration = PushSubscription.find_by(subscription_params)
+    endpoint = T.let(params.expect(push_subscription: :endpoint), String)
+    registration = PushSubscription.find_by(endpoint:)
     render(json: {
       registration: PushSubscriptionRegistrationSerializer.one_if(registration),
     })
@@ -23,7 +23,7 @@ class PushSubscriptionsController < ApplicationController
       p256dh_key
       auth_key
     ])
-    endpoint = subscription_params.delete(:endpoint)
+    endpoint = T.let(subscription_params.delete(:endpoint), String)
     subscription = PushSubscription.find_or_initialize_by(endpoint:)
     subscription.update!(friend: current_friend, **subscription_params)
     render(json: {})
@@ -31,28 +31,28 @@ class PushSubscriptionsController < ApplicationController
 
   # PUT /push_subscriptions/unsubscribe
   def unsubscribe
-    subscription_params = params.expect(push_subscription: [:endpoint])
-    PushSubscription.destroy_by(subscription_params)
+    endpoint = T.let(params.dig(:push_subscription, :endpoint), String)
+    PushSubscription.destroy_by(endpoint:)
     render(json: {})
   end
 
   # POST /push_subscriptions/change
   def change
-    old_subscription_params = params.expect(old_subscription: [:endpoint])
+    endpoint = T.let(params.dig(:old_subscription, :endpoint), String)
     new_subscription_params = params.expect(new_subscription: %i[
       endpoint
       p256dh_key
       auth_key
     ])
-    subscription = PushSubscription.find_by!(old_subscription_params)
+    subscription = PushSubscription.find_by!(endpoint:)
     subscription.update!(new_subscription_params)
     render(json: {})
   end
 
   # POST /push_subscriptions/test
   def test
-    subscription_params = params.expect(push_subscription: [:endpoint])
-    subscription = PushSubscription.find_by!(subscription_params)
+    endpoint = T.let(params.dig(:push_subscription, :endpoint), String)
+    subscription = PushSubscription.find_by!(endpoint:)
     authorize!(subscription)
     subscription.send_test_notification
     render(json: {})
