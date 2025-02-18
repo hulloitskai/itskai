@@ -38,7 +38,7 @@ module Admin
 
     # POST /admin/friends
     def create
-      friend_params = params.require(:friend).permit(:name, :emoji)
+      friend_params = params.expect(friend: %i[name emoji])
       friend = Friend.new(friend_params)
       if friend.save
         render(json: {}, status: :created)

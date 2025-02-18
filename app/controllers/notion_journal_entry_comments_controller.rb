@@ -15,8 +15,7 @@ class NotionJournalEntryCommentsController < ApplicationController
   # POST /notion_journal_entries/:entry_id/comments
   def create
     entry = NotionJournalEntry.find(params.fetch(:entry_id))
-    comment_params = params.require(:comment).permit(:text)
-    text = T.let(comment_params.fetch(:text), String)
+    text = params.dig(:comment, :text).presence or raise "Missing comment text"
     entry.create_notion_comment(text)
     render(json: {}, status: :created)
   end

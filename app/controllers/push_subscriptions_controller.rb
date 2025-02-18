@@ -8,7 +8,7 @@ class PushSubscriptionsController < ApplicationController
   # == Actions
   # POST /push_subscriptions/lookup
   def lookup
-    subscription_params = params.require(:push_subscription).permit(:endpoint)
+    subscription_params = params.expect(push_subscription: [:endpoint])
     registration = PushSubscription.find_by(subscription_params)
     render(json: {
       registration: PushSubscriptionRegistrationSerializer.one_if(registration),
@@ -18,8 +18,11 @@ class PushSubscriptionsController < ApplicationController
   # POST /push_subscriptions
   def create
     authorize!(with: PushSubscriptionPolicy)
-    subscription_params = params.require(:push_subscription)
-      .permit(:endpoint, :p256dh_key, :auth_key)
+    subscription_params = params.expect(push_subscription: %i[
+      endpoint
+      p256dh_key
+      auth_key
+    ])
     endpoint = subscription_params.delete(:endpoint)
     subscription = PushSubscription.find_or_initialize_by(endpoint:)
     subscription.update!(friend: current_friend, **subscription_params)
@@ -28,17 +31,19 @@ class PushSubscriptionsController < ApplicationController
 
   # PUT /push_subscriptions/unsubscribe
   def unsubscribe
-    subscription_params = params.require(:push_subscription).permit(:endpoint)
+    subscription_params = params.expect(push_subscription: [:endpoint])
     PushSubscription.destroy_by(subscription_params)
     render(json: {})
   end
 
   # POST /push_subscriptions/change
   def change
-    old_subscription_params = params.require(:old_subscription)
-      .permit(:endpoint)
-    new_subscription_params = params.require(:new_subscription)
-      .permit(:endpoint, :p256dh_key, :auth_key)
+    old_subscription_params = params.expect(old_subscription: [:endpoint])
+    new_subscription_params = params.expect(new_subscription: %i[
+      endpoint
+      p256dh_key
+      auth_key
+    ])
     subscription = PushSubscription.find_by!(old_subscription_params)
     subscription.update!(new_subscription_params)
     render(json: {})
@@ -46,8 +51,7 @@ class PushSubscriptionsController < ApplicationController
 
   # POST /push_subscriptions/test
   def test
-    subscription_params = params.require(:push_subscription)
-      .permit(:endpoint)
+    subscription_params = params.expect(push_subscription: [:endpoint])
     subscription = PushSubscription.find_by!(subscription_params)
     authorize!(subscription)
     subscription.send_test_notification

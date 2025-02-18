@@ -6,18 +6,12 @@ module Cathendant
     # == Actions
     # POST /cathendant/memos
     def create
+      memo_params = params.expect(memo: %i[from recording])
       Memo.create!(memo_params)
       render(json: {}, status: :created)
     rescue => error
       logger.error("Failed to create Cathendant memo: #{error}")
       raise
-    end
-
-    private
-
-    sig { returns(ActionController::Parameters) }
-    def memo_params
-      params.require(:memo).permit(:from, :recording)
     end
   end
 end

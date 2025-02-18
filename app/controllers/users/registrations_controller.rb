@@ -51,8 +51,7 @@ module Users
       resource = self.resource = resource_class
         .to_adapter
         .get!(public_send(:"current_#{resource_name}").to_key)
-      update_params = params.require(resource_name)
-        .permit(:name, :avatar)
+      update_params = params.expect(resource_name => %i[name avatar])
       if update_resource(resource, update_params)
         resource_param = resource_name.to_s.camelize(:lower)
         render(json: {
@@ -71,8 +70,7 @@ module Users
       resource = resource_class
         .to_adapter
         .get!(public_send(:"current_#{resource_name}").to_key)
-      update_params = params.require(resource_name)
-        .permit(:email, :current_password)
+      update_params = params.expect(resource_name => %i[email current_password])
       if resource.email == update_params[:email]
         update_params[:unconfirmed_email] = nil
       end

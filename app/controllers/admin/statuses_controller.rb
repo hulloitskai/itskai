@@ -19,7 +19,7 @@ module Admin
 
     # POST /admin/statuses
     def create
-      status_params = params.require(:status).permit(:emoji, :text, :image)
+      status_params = params.expect(status: %i[emoji text image])
       status = Status.new(status_params)
       if status.save
         render(json: {}, status: :created)

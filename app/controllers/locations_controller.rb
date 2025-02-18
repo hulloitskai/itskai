@@ -40,7 +40,7 @@ class LocationsController < ApplicationController
 
   # POST /locate/access
   def access
-    access_request_params = params.require(:access_request).permit(:password)
+    access_request_params = params.expect(access_request: [:password])
     access_request = LocationAccessRequest.new(access_request_params)
     unless access_request.valid?
       render(

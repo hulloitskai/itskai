@@ -11,6 +11,7 @@ class TestController < ApplicationController
 
   # POST /test/submit
   def submit
+    model_params = params.expect(model: %i[name birthday])
     model = TestModel.new(model_params)
     if model.valid?
       render(json: { model: })
@@ -20,13 +21,5 @@ class TestController < ApplicationController
         status: :unprocessable_entity,
       )
     end
-  end
-
-  private
-
-  # == Helpers
-  sig { returns(ActionController::Parameters) }
-  def model_params
-    params.require(:model).permit(:name, :birthday)
   end
 end

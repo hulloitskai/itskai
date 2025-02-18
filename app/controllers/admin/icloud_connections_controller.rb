@@ -48,7 +48,7 @@ module Admin
 
     # POST /admin/icloud_connections/verify_security_code
     def verify_security_code
-      verification_params = params.require(:verification).permit(:code)
+      verification_params = params.expect(verification: [:code])
       verification = ICloudSecurityCodeVerification.new(verification_params)
       unless verification.valid?
         render(

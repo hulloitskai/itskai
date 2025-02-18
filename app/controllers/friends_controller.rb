@@ -56,7 +56,10 @@ class FriendsController < ApplicationController
   # POST /friend/vibecheck?friend_token=...
   def vibecheck
     friend = authenticate_friend!
-    vibecheck_params = params.require(:vibecheck).permit(:vibe)
+    vibecheck_params = T.let(
+      params.expect(vibecheck: [:vibe]),
+      ActionController::Parameters,
+    )
     vibecheck = friend.vibechecks.build(vibecheck_params)
     if vibecheck.save
       render(json: {}, status: :created)
