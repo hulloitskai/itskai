@@ -22,7 +22,6 @@ AllCops:
   NewCops: enable
   Exclude:
     - .github/**/*
-    - .husky/**/*
     - .vscode/**/*
     - db/schema.rb
     - bin/**/*

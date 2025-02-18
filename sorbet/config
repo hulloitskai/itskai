@@ -1,7 +1,6 @@
 --enable-experimental-requires-ancestor
 --dir
 .
---ignore=/.husky
 --ignore=/.github
 --ignore=/.vscode
 --ignore=/app/assets

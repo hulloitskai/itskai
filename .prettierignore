@@ -1,5 +1,4 @@
 .ruby-lsp/
-.husky/_/
 .venv/
 app/assets/
 bin/

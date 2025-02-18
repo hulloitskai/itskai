@@ -8,9 +8,6 @@
 # == Dotenv
 .env
 
-# == Husky
-.husky/
-
 # == Python
 __pycache__/
 *.py[cod]

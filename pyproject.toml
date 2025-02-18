@@ -27,7 +27,7 @@
 
 [tool.mypy]
   check_untyped_defs = true
-  exclude = "(__pycache__|node_modules|^vendor|^.husky|^tmp|^storage|^public/dist-\\w+)"
+  exclude = "(__pycache__|node_modules|^vendor|^tmp|^storage|^public/dist-\\w+)"
 
 [tool.black]
   extend-exclude = "(__pycache__|node_modules|^/vendor|^/tmp|^/storage|^/public/dist-\\w+)"

@@ -9,6 +9,7 @@ import { type PluginOption } from "vite";
 import { defineConfig } from "vite";
 import environmentPlugin from "vite-plugin-environment";
 import fullReloadPlugin from "vite-plugin-full-reload";
+// @ts-expect-error Package does not provide types.
 import { isoImport as isomorphicImportPlugin } from "vite-plugin-iso-import";
 import rubyPlugin from "vite-plugin-ruby";
 
@@ -21,6 +22,7 @@ export default defineConfig(() => {
       { RAILS_ENV: "development" },
       { defineOn: "import.meta.env" },
     ),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     isomorphicImportPlugin(),
     autoImportPlugin({
       dts: join(__dirname, "typings/generated/auto-import.d.ts"),
@@ -58,7 +60,14 @@ export default defineConfig(() => {
   // == Config
   return {
     clearScreen: false,
-    resolve: { alias: [{ find: "lodash", replacement: "lodash-es" }] },
+    resolve: {
+      alias: [
+        {
+          find: "lodash",
+          replacement: "lodash-es",
+        },
+      ],
+    },
     ssr: {
       noExternal: ["@microsoft/clarity"],
     },
