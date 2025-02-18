@@ -1,9 +1,4 @@
-import {
-  type Method,
-  type Page,
-  type RequestPayload,
-  type VisitOptions,
-} from "@inertiajs/core";
+import { type Method, type Page, type RequestPayload } from "@inertiajs/core";
 import { type PathHelper } from "@js-from-routes/client";
 import {
   useForm,
@@ -13,7 +8,8 @@ import {
 import { type FormEvent } from "react";
 
 import { showFormErrorsAlert } from "~/helpers/form";
-import { sentencify } from "~/helpers/inflect";
+
+import { visitRoute } from ".";
 
 type InertiaPartialForm<
   Values,
@@ -32,13 +28,12 @@ export interface InertiaFormOptions<
   };
   method?: Method;
   failSilently?: boolean;
-  beforeSubmit?: (form: InertiaPartialForm<Values, TransformValues>) => void;
   onSubmit?: (
     transformedValues: ReturnType<TransformValues>,
     form: InertiaPartialForm<Values, TransformValues>,
   ) => void;
   onSuccess?: (
-    page: Page<SharedPageProps>,
+    page: Page,
     form: InertiaPartialForm<Values, TransformValues>,
   ) => void;
   onError?: (form: InertiaPartialForm<Values, TransformValues>) => void;
@@ -58,9 +53,12 @@ export interface InertiaForm<
     "setSubmitting" | "onSubmit"
   > {
   submit: InertiaFormSubmit;
+  error: Error | undefined;
 }
 
 type _TransformValues<Values> = (values: Values) => RequestPayload;
+
+const NO_BODY_METHODS: Method[] = ["get", "delete"];
 
 export const useInertiaForm = <
   Values extends Record<string, any> = Record<string, any>,
@@ -69,59 +67,39 @@ export const useInertiaForm = <
   options: InertiaFormOptions<Values, TransformValues>,
 ): InertiaForm<Values, TransformValues> => {
   const {
-    action: actionRoute,
+    action,
     descriptor,
+    method,
+    params,
     failSilently,
-    method: methodOption,
-    beforeSubmit,
     onSubmit,
+    onSuccess,
     onError,
     onFailure,
-    onSuccess,
-    params,
-    transformValues,
-    ...otherOptions
+    ...formOptions
   } = options;
-  const action = useMemo(() => actionRoute.path(params), [actionRoute, params]);
-  const form = useForm<Values, TransformValues>({
-    ...otherOptions,
-    transformValues,
-  });
-  const handleSubmit = form.onSubmit(
-    transformedValues => {
-      onSubmit?.(transformedValues, form);
-      let removeInvalidListener: VoidFunction | undefined;
-      const options: Partial<VisitOptions> = {
-        preserveScroll: true,
-        onBefore: () => {
-          removeInvalidListener = router.on("invalid", (event): void => {
-            const { response } = event.detail;
-            if (response.status >= 400 && response.data instanceof Object) {
-              const data = response.data as Record<string, any>;
-              if (typeof data.error === "string") {
-                event.preventDefault();
-                const error = new Error(data.error);
-                console.error(`Failed to ${descriptor}`, error);
-                if (!failSilently) {
-                  toast.error(`Failed to ${descriptor}`, {
-                    description: sentencify(
-                      data.error || "An unknown error occurred",
-                    ),
-                  });
-                }
-                onFailure?.(error, form);
-              }
-            }
-          });
-          form.setSubmitting(true);
-        },
+  const form = useForm<Values, TransformValues>(formOptions);
+  const [error, setError] = useState<Error | undefined>();
+  const submit = form.onSubmit(
+    values => {
+      form.setSubmitting(true);
+      onSubmit?.(values, form);
+      return visitRoute(action, {
+        descriptor,
+        method,
+        params,
+        failSilently,
+        data: method && NO_BODY_METHODS.includes(method) ? undefined : values,
         onFinish: () => {
-          removeInvalidListener?.();
           form.setSubmitting(false);
         },
         onSuccess: page => {
-          onSuccess?.(page as unknown as Page<SharedPageProps>, form);
+          onSuccess?.(page, form);
           form.reset();
+        },
+        onFailure: error => {
+          setError(error);
+          onFailure?.(error, form);
         },
         onError: errors => {
           form.setErrors(errors);
@@ -130,26 +108,6 @@ export const useInertiaForm = <
           showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
           onError?.(formWithErrors);
         },
-      };
-      let method: Method;
-      if (methodOption) {
-        method = methodOption;
-      } else {
-        const routeMethod = actionRoute.httpMethod.toLowerCase();
-        if (routeMethod in router) {
-          method = routeMethod as Method;
-        } else {
-          method = "get";
-        }
-      }
-      startTransition(() => {
-        if (method === "delete") {
-          router.delete(action, { ...options });
-        } else {
-          router[method](action, transformedValues, {
-            ...options,
-          });
-        }
       });
     },
     errors => {
@@ -158,12 +116,9 @@ export const useInertiaForm = <
       showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
     },
   );
-  const submit = (event?: FormEvent<HTMLFormElement>) => {
-    beforeSubmit?.(form);
-    handleSubmit(event);
-  };
   return {
     ...form,
     submit,
+    error,
   };
 };

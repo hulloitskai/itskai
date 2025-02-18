@@ -1,19 +1,13 @@
-import {
-  type Method,
-  type PathHelper,
-  type ResponseError,
-} from "@js-from-routes/client";
+import { type Errors } from "@inertiajs/core";
+import { type Method, type PathHelper } from "@js-from-routes/client";
 import {
   useForm,
   type UseFormInput,
   type UseFormReturnType,
 } from "@mantine/form";
 import { type FormEvent } from "react";
-import { startTransition } from "react";
-import { toast } from "sonner";
 
 import { showFormErrorsAlert } from "~/helpers/form";
-import { sentencify } from "~/helpers/inflect";
 
 type FetchPartialForm<
   Values,
@@ -33,7 +27,6 @@ export interface FetchFormOptions<
   };
   method?: Method;
   failSilently?: boolean;
-  beforeSubmit?: (form: FetchPartialForm<Values, TransformValues>) => void;
   onSubmit?: (
     transformedValues: ReturnType<TransformValues>,
     // submission: Promise<Data>,
@@ -88,90 +81,66 @@ export const useFetchForm = <
 ): FetchForm<Data, Values, TransformValues> => {
   const {
     action,
-    method = action.httpMethod,
     descriptor,
+    method,
+    params,
     failSilently,
-    beforeSubmit,
     onSubmit,
+    onSuccess,
     onError,
     onFailure,
-    onSuccess,
-    params,
-    transformValues,
-    ...otherOptions
+    ...formOptions
   } = options;
-  const form = useForm<Values, TransformValues>({
-    ...otherOptions,
-    transformValues,
-  });
+  const form = useForm<Values, TransformValues>(formOptions);
   const [data, setData] = useState<Data | undefined>();
   const [error, setError] = useState<Error | undefined>();
-  const handleSubmit = form.onSubmit(
-    transformedValues => {
+  const submit = form.onSubmit(
+    values => {
       form.setSubmitting(true);
-      action<Data & { error?: string; errors?: Record<string, string> }>({
-        params,
+      onSubmit?.(values, form);
+      return fetchRoute<
+        Data & { error?: string; errors?: Record<string, string> }
+      >(action, {
+        descriptor,
         method,
-        data: NO_BODY_METHODS.includes(method) ? undefined : transformedValues,
+        params,
+        failSilently,
+        data: method && NO_BODY_METHODS.includes(method) ? undefined : values,
       })
         .then(
           data => {
-            startTransition(() => {
-              setData(data);
-            });
+            setData(data);
             onSuccess?.(data, form);
             form.reset();
             return data;
           },
-          (responseError: ResponseError) => {
-            if (responseError.body) {
-              const body = responseError.body as {
-                error?: string;
-                errors?: Record<string, string>;
+          (error: Error) => {
+            if (
+              "body" in error &&
+              typeof error.body === "object" &&
+              !!error.body &&
+              "errors" in error.body
+            ) {
+              const { errors } = error.body as {
+                errors: Errors;
               };
-              if (typeof body.error === "string") {
-                const error = new Error(body.error);
-                startTransition(() => {
-                  setError(error);
-                });
-                console.error(`Failed to ${descriptor}`, error);
-                if (!failSilently) {
-                  toast.error(`Failed to ${descriptor}`, {
-                    description: sentencify(
-                      body.error || "An unknown error occurred",
-                    ),
-                  });
-                }
-                onFailure?.(error, form);
-              } else if (typeof body.errors === "object") {
-                form.setErrors(body.errors);
-                console.warn(`Couldn't ${descriptor}`, {
-                  errors: body.errors,
-                });
-                const formWithErrors = { ...form, errors: body.errors };
-                if (!failSilently) {
-                  showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
-                }
-                onError?.(formWithErrors);
-              }
-            } else {
-              console.error("Unknown error response", responseError);
+              form.setErrors(errors);
+              console.warn(`Couldn't ${descriptor}`, { errors });
+              const formWithErrors = { ...form, errors };
               if (!failSilently) {
-                toast.error(`Failed to ${descriptor}`, {
-                  description: sentencify(
-                    responseError.message || "An unknown error occurred",
-                  ),
-                });
+                showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
               }
-              onFailure?.(responseError, form);
+              onError?.(formWithErrors);
+            } else {
+              setError(error);
+              onFailure?.(error, form);
             }
-            throw responseError;
+            return error;
           },
         )
         .finally(() => {
           form.setSubmitting(false);
         });
-      onSubmit?.(transformedValues, form);
     },
     errors => {
       const formWithErrors = { ...form, errors };
@@ -179,10 +148,6 @@ export const useFetchForm = <
       showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
     },
   );
-  const submit = (event?: FormEvent<HTMLFormElement>) => {
-    beforeSubmit?.(form);
-    handleSubmit(event);
-  };
   return {
     ...form,
     submit,
