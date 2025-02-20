@@ -67,7 +67,7 @@ audit: &audit
   parallel: true
   commands:
     audit-packages:
-      run: npm audit
+      run: npm audit --audit-level high
       tags: js
     audit-gems:
       run: bin/rails bundle:audit
