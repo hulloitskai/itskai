@@ -122,7 +122,6 @@ const ImageInput: FC<ImageInputProps> = ({
             pos="absolute"
             inset={0}
             inputProps={{ id: inputId }}
-            classNames={{ inner: classes.dropzoneInner }}
             style={[
               style,
               ({ colors }) => ({
