@@ -41,7 +41,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
     () => ({ spotify_track_id: track.id }),
     [track.id],
   );
-  const { data } = useFetchRoute<{ lyrics: LyricLine[] }>(
+  const { data } = useRouteSWR<{ lyrics: LyricLine[] }>(
     routes.spotifyTracks.lyrics,
     {
       params: lyricsParams,

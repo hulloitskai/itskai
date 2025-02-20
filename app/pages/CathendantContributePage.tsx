@@ -21,7 +21,7 @@ const CathendantContributePage: PageComponent<
     setFieldValue,
     submit,
     watch,
-  } = useFetchForm({
+  } = useForm({
     action: routes.cathendantMemos.create,
     descriptor: "create memo",
     initialValues: {

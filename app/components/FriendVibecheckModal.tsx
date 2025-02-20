@@ -31,26 +31,25 @@ const FriendVibecheckModal: FC<FriendVibecheckModalProps> = ({
   }, [lastVibecheck]);
 
   // == Form
-  const { getInputProps, values, submit, submitting, setFieldValue } =
-    useFetchForm({
-      action: routes.friends.vibecheck,
-      params: {
-        query: {
-          friend_token: friendToken,
-        },
+  const { getInputProps, values, submit, submitting, setFieldValue } = useForm({
+    action: routes.friends.vibecheck,
+    params: {
+      query: {
+        friend_token: friendToken,
       },
-      descriptor: "submit vibe check",
-      initialValues: { vibe: "" },
-      transformValues: values => ({ vibecheck: values }),
-      onSuccess: () => {
-        toast("Thanks for checking in!", {
-          icon: (
-            <span style={{ fontSize: "var(--mantine-font-size-lg)" }}>🫶</span>
-          ),
-        });
-        onVibeChecked();
-      },
-    });
+    },
+    descriptor: "submit vibe check",
+    initialValues: { vibe: "" },
+    transformValues: values => ({ vibecheck: values }),
+    onSuccess: () => {
+      toast("Thanks for checking in!", {
+        icon: (
+          <span style={{ fontSize: "var(--mantine-font-size-lg)" }}>🫶</span>
+        ),
+      });
+      onVibeChecked();
+    },
+  });
 
   return (
     <Modal

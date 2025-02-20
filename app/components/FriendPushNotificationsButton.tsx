@@ -1,6 +1,5 @@
 import { type ButtonProps } from "@mantine/core";
 
-import { useMutateRoute } from "~/helpers/fetch";
 import { useWebPush } from "~/helpers/webPush";
 
 export interface FriendPushNotificationsButtonProps extends ButtonProps {
@@ -28,14 +27,17 @@ const FriendPushNotificationsButton: FC<FriendPushNotificationsButtonProps> = ({
     [supported], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
-  const { trigger, mutating } = useMutateRoute(routes.pushSubscriptions.test, {
-    descriptor: "send test notification",
-    params: {
-      query: {
-        friend_token: friendToken,
+  const { trigger, mutating } = useRouteMutation(
+    routes.pushSubscriptions.test,
+    {
+      descriptor: "send test notification",
+      params: {
+        query: {
+          friend_token: friendToken,
+        },
       },
     },
-  });
+  );
 
   return (
     <Button

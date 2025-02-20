@@ -59,7 +59,7 @@ const ImageInput: FC<ImageInputProps> = ({
   });
 
   // == Load preview image
-  const { data, mutate } = useFetchRoute<{
+  const { data, mutate } = useRouteSWR<{
     image: ImageModel | null;
   }>(routes.images.show, {
     descriptor: "load preview image",
@@ -122,6 +122,7 @@ const ImageInput: FC<ImageInputProps> = ({
             pos="absolute"
             inset={0}
             inputProps={{ id: inputId }}
+            classNames={{ inner: classes.dropzoneInner }}
             style={[
               style,
               ({ colors }) => ({

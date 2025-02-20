@@ -28,21 +28,23 @@ module Users
       end
       if resource.save
         if resource.active_for_authentication?
-          set_flash_message!(:notice, :signed_up)
+          # set_flash_message!(:notice, :signed_up)
           sign_up(resource_name, resource)
-          redirect_to(after_sign_up_path_for(resource))
+          # redirect_to(after_sign_up_path_for(resource))
         else
           set_flash_message!(
             :notice,
             :"signed_up_but_#{resource.inactive_message}",
           )
           expire_data_after_sign_in!
-          redirect_to(after_inactive_sign_up_path_for(resource))
+          # redirect_to(after_inactive_sign_up_path_for(resource))
         end
+        render(json: { user: UserSerializer.one(resource) })
       else
-        redirect_to(new_registration_path(resource_name), inertia: {
-          errors: resource.form_errors,
-        })
+        render(
+          json: { errors: resource.form_errors },
+          status: :unprocessable_entity,
+        )
       end
     end
 
@@ -98,12 +100,28 @@ module Users
         if sign_in_after_change_password?
           bypass_sign_in(resource, scope: resource_name)
         end
-        redirect_to(after_update_path_for(resource))
+        render(json: {})
       else
         clean_up_passwords(resource)
-        redirect_to(edit_registration_path(resource), inertia: {
-          errors: resource.form_errors,
-        })
+        render(
+          json: { errors: resource.form_errors },
+          status: :unprocessable_entity,
+        )
+      end
+    end
+
+    # DELETE /account
+    def destroy
+      resource = resource_class
+        .to_adapter
+        .get!(public_send(:"current_#{resource_name}").to_key)
+      if resource.destroy
+        render(json: {})
+      else
+        render(
+          json: { errors: resource.form_errors },
+          status: :unprocessable_entity,
+        )
       end
     end
 

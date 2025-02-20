@@ -11,7 +11,6 @@ import { useDisclosure } from "@mantine/hooks";
 import Linkify from "linkify-react";
 import { filter, map } from "lodash-es";
 
-import { useMutateRoute } from "~/helpers/fetch";
 import { type AdminFriend, type Status } from "~/types";
 
 import DeleteButton, { type DeleteButtonProps } from "./DeleteButton";
@@ -105,7 +104,7 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
     useDisclosure();
 
   // == Load friends
-  const { data } = useFetchRoute<{ friends: AdminFriend[] }>(
+  const { data } = useRouteSWR<{ friends: AdminFriend[] }>(
     routes.adminFriends.index,
     {
       descriptor: "load friends",
@@ -140,7 +139,7 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
     isTouched,
     setInitialValues,
     reset,
-  } = useFetchForm({
+  } = useForm({
     action: routes.adminStatuses.notifyFriends,
     params: { id: statusId },
     descriptor: "notify friends",
@@ -261,7 +260,7 @@ const DeleteStatusButton: FC<DeleteStatusButtonProps> = ({
   className,
   ...otherProps
 }) => {
-  const { trigger, mutating } = useMutateRoute(routes.adminStatuses.destroy, {
+  const { trigger, mutating } = useRouteMutation(routes.adminStatuses.destroy, {
     params: { id: statusId },
     descriptor: "delete status",
     onSuccess: () => {

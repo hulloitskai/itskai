@@ -17,7 +17,7 @@ const AdminICloudVerifySecurityCodeForm: FC<
   interface FormData {
     connection: ICloudConnection;
   }
-  const { getInputProps, submitting, submit } = useFetchForm({
+  const { getInputProps, submitting, submit } = useForm({
     name: "icloud-verify",
     action: routes.adminICloudConnections.verifySecurityCode,
     descriptor: "verify security code",

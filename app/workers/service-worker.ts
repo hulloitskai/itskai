@@ -2,8 +2,7 @@ import { pick } from "lodash-es";
 import invariant from "tiny-invariant";
 
 import logoSrc from "~/assets/images/logo.png";
-import { setupFetch } from "~/helpers/fetch/setup";
-import routes from "~/helpers/routes";
+import routes, { setupRoutes } from "~/helpers/routes";
 import { type PushNotification } from "~/types";
 
 declare const self: ServiceWorkerGlobalScope;
@@ -20,7 +19,7 @@ interface PushMessage {
 }
 
 // == Setup
-setupFetch();
+setupRoutes();
 
 // == Helpers
 const markAsDelivered = (notification: PushNotification): Promise<void> =>

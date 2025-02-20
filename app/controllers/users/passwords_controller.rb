@@ -23,13 +23,12 @@ module Users
       resource = self.resource = resource_class
         .send_reset_password_instructions(resource_params)
       if successfully_sent?(resource)
-        redirect_to(
-          after_sending_reset_password_instructions_path_for(resource_name),
-        )
+        render(json: {})
       else
-        redirect_to(new_password_path(resource_name), inertia: {
-          errors: resource.form_errors,
-        })
+        render(
+          json: { errors: resource.form_errors },
+          status: :unprocessable_entity,
+        )
       end
     end
 
@@ -51,13 +50,12 @@ module Users
         else
           set_flash_message!(:notice, :updated_not_active)
         end
-        redirect_to(after_resetting_password_path_for(resource))
+        render(json: { user: UserSerializer.one(resource) })
       else
-        set_minimum_password_length
-        redirect_to(edit_password_path(
-          resource_name,
-          resource_params.permit("reset_password_token"),
-        ))
+        render(
+          json: { errors: resource.form_errors },
+          status: :unprocessable_entity,
+        )
       end
     end
   end

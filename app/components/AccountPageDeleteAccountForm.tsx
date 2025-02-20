@@ -5,10 +5,15 @@ export interface AccountPageDeleteAccountFormProps
 const AccountPageDeleteAccountForm: FC<AccountPageDeleteAccountFormProps> = ({
   ...otherProps
 }) => {
-  const { submitting, submit } = useInertiaForm({
+  // == Form
+  const { submitting, submit } = useForm({
     action: routes.usersRegistrations.destroy,
     descriptor: "delete account",
+    onSuccess: () => {
+      router.visit(routes.home.show.path());
+    },
   });
+
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Menu

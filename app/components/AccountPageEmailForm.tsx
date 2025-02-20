@@ -36,13 +36,13 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
     submit,
     reset,
     setInitialValues,
-  } = useFetchForm({
+  } = useForm({
     name: "change-email",
     action: routes.usersRegistrations.changeEmail,
     descriptor: "change email",
     initialValues,
     validate: {
-      email: isEmail("Email is not valid"),
+      email: isEmail("Invalid email address"),
       current_password: isNotEmpty("Current password is required"),
     },
     transformValues: attributes => ({
@@ -129,7 +129,8 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
           </Button>
           {user.unconfirmed_email && (
             <ResendEmailVerificationInstructionsButton
-              variant="outline"
+              leftSection={<SendIcon />}
+              variant="subtle"
               {...{ user }}
             />
           )}
@@ -149,21 +150,25 @@ interface ResendEmailVerificationInstructionsButtonProps
 const ResendEmailVerificationInstructionsButton: FC<
   ResendEmailVerificationInstructionsButtonProps
 > = ({ user, ...otherProps }) => {
-  const { submitting, submit } = useInertiaForm({
-    action: routes.usersConfirmations.create,
-    descriptor: "resend verification email",
-    initialValues: {
-      user: {
-        email: user.email,
+  // == Mutation
+  const { trigger, mutating } = useRouteMutation(
+    routes.usersConfirmations.create,
+    {
+      descriptor: "resend verification email",
+      data: { user: pick(user, "email") },
+      onSuccess: () => {
+        toast.success("Check your inbox!", {
+          description: "Verification link was re-sent to your email.",
+        });
       },
-      redirect_url: routes.usersRegistrations.edit.path(),
     },
-  });
+  );
+
   return (
     <Button
-      loading={submitting}
+      loading={mutating}
       onClick={() => {
-        submit();
+        void trigger();
       }}
       {...otherProps}
     >

@@ -2,7 +2,7 @@ import { type FetchOptions, type HeaderOptions } from "@js-from-routes/client";
 import { Config } from "@js-from-routes/client";
 import { identity } from "lodash-es";
 
-export const setupFetch = (): void => {
+export const setupRoutes = (): void => {
   Config.getCSRFToken = (): string | undefined => {
     if (typeof document !== "undefined") {
       const el = document.querySelector<HTMLMetaElement>(

@@ -13,7 +13,7 @@ const AdminLocationLogsSyncButton: FC<AdminLocationLogsSyncButtonProps> = ({
   onSynced,
   ...otherProps
 }) => {
-  const { submitting, submit } = useFetchForm<{
+  const { submitting, submit } = useForm<{
     lastSyncedTimestamp: string;
   }>({
     action: routes.adminLocationLogs.sync,

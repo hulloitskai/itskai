@@ -1,84 +1,31 @@
-import { type Errors } from "@inertiajs/core";
-import {
-  type Method,
-  type PathHelper,
-  request,
-  type RequestOptions,
-  type ResponseError,
-} from "@js-from-routes/client";
+import { type PathHelper, type RequestOptions } from "@js-from-routes/client";
 import { useIsFirstRender, useNetwork, useShallowEffect } from "@mantine/hooks";
-import { omit } from "lodash-es";
 import { useState } from "react";
-import { toast } from "sonner";
 import useSWR, { type Key, type SWRConfiguration, type SWRResponse } from "swr";
 import useSWRMutation, {
   type SWRMutationConfiguration,
   type SWRMutationResponse,
 } from "swr/mutation";
 
-export { setupFetch } from "./setup";
+import { type FetchRouteOptions } from "./fetch";
 
-export type FetchRouteOptions = Partial<
-  Omit<RequestOptions, "method" | "fetch">
-> & {
-  descriptor: string;
-  method?: Method;
-  failSilently?: boolean;
-};
-
-export const fetchRoute = async <Data>(
-  route: PathHelper | string,
-  options: FetchRouteOptions,
-): Promise<Data> => {
-  const { descriptor, failSilently, ...routeOptions } = options;
-  const handleError = (responseError: ResponseError) => {
-    const { body } = responseError; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
-    if (body !== null && typeof body === "object" && "error" in body) {
-      const { error } = body; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
-      console.error(`Failed to ${descriptor}`, error);
-      if (!failSilently) {
-        toast.error(`Failed to ${descriptor}`, {
-          description:
-            typeof error === "string" ? error : "An unknown error occurred.",
-        });
-      }
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      throw new Error(error);
-    } else {
-      console.error(`Failed to ${descriptor}`, responseError);
-      if (!failSilently) {
-        toast.error(`Failed to ${descriptor}`, {
-          description: responseError.message,
-        });
-      }
-      throw responseError;
-    }
-  };
-  if (typeof route === "string") {
-    const { method, ...requestOptions } = omit(routeOptions, "params");
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return request(method ?? "get", route, requestOptions).catch(handleError);
-  }
-  return route<Data>(routeOptions).catch(handleError);
-};
-
-export interface FetchRouteResponse<Data>
+export interface RouteSWRResponse<Data>
   extends Omit<SWRResponse<Data, Error>, "isLoading" | "isValidating"> {
   fetching: boolean;
   validating: boolean;
 }
 
-export type UseFetchRouteOptions<Data> = Omit<FetchRouteOptions, "params"> &
+export type RouteSWROptions<Data> = Omit<FetchRouteOptions, "params"> &
   SWRConfiguration<Data, Error> & {
     params?: FetchRouteOptions["params"] | null;
   };
 
-export const useFetchRoute = <
+export const useRouteSWR = <
   Data extends Record<string, any> & { error?: never },
 >(
   route: PathHelper,
-  options: UseFetchRouteOptions<Data>,
-): FetchRouteResponse<Data> => {
+  options: RouteSWROptions<Data>,
+): RouteSWRResponse<Data> => {
   const {
     method,
     failSilently,
@@ -124,12 +71,12 @@ export const useFetchRoute = <
   return { fetching: isLoading, validating: isValidating, ...swr };
 };
 
-export interface MutateRouteResponse<Data, ExtraArg>
+export interface RouteMutationResponse<Data, ExtraArg>
   extends Omit<SWRMutationResponse<Data, Error, Key, ExtraArg>, "isMutating"> {
   mutating: boolean;
 }
 
-export type UseMutateRouteOptions<Data, ExtraArg> = Omit<
+export type RouteMutationOptions<Data, ExtraArg> = Omit<
   FetchRouteOptions,
   "params"
 > &
@@ -137,13 +84,13 @@ export type UseMutateRouteOptions<Data, ExtraArg> = Omit<
     params?: FetchRouteOptions["params"] | null;
   };
 
-export const useMutateRoute = <
+export const useRouteMutation = <
   Data extends Record<string, any> & { error?: never },
   ExtraArg = any,
 >(
   route: PathHelper,
-  options: UseMutateRouteOptions<Data, ExtraArg>,
-): MutateRouteResponse<Data, ExtraArg> => {
+  options: RouteMutationOptions<Data, ExtraArg>,
+): RouteMutationResponse<Data, ExtraArg> => {
   const {
     method,
     failSilently,
@@ -201,16 +148,4 @@ const useRouteKey = (
     }
   }, [route, params]); // eslint-disable-line react-hooks/exhaustive-deps
   return key;
-};
-
-export const getResponseErrors = (
-  responseError: ResponseError,
-): Errors | undefined => {
-  if ("body" in responseError && typeof responseError.body === "object") {
-    const { body } = responseError; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
-    if (!!body && "errors" in body) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
-      return body.errors;
-    }
-  }
 };

@@ -8,7 +8,6 @@ import { createRoot, hydrateRoot } from "react-dom/client";
 import AppWrapper from "~/components/AppWrapper";
 import { setupActiveStorage } from "~/helpers/activestorage";
 import { setupClarity } from "~/helpers/clarity";
-import { setupFetch } from "~/helpers/fetch";
 import { setupFullStory } from "~/helpers/fullstory";
 import {
   type PageComponent,
@@ -17,6 +16,7 @@ import {
 } from "~/helpers/inertia";
 import { preparePage } from "~/helpers/inertia/page/client";
 import { setupLuxon } from "~/helpers/luxon";
+import { setupRoutes } from "~/helpers/routes";
 import { setupSentry } from "~/helpers/sentry";
 import {
   handleServiceWorkerNavigation,
@@ -25,7 +25,7 @@ import {
 
 // == Setup
 setupInertia();
-setupFetch();
+setupRoutes();
 setupLuxon();
 setupActiveStorage();
 setupSentry();

@@ -33,12 +33,12 @@ module Users
       resource = self.resource = resource_class
         .send_confirmation_instructions(resource_params)
       if successfully_sent?(resource)
-        redirect_url = params[:redirect_url] || root_path
-        redirect_to(redirect_url)
+        render(json: {})
       else
-        redirect_to(new_confirmation_path(resource), inertia: {
-          errors: resource.form_errors,
-        })
+        render(
+          json: { errors: resource.form_errors },
+          status: :unprocessable_entity,
+        )
       end
     end
   end

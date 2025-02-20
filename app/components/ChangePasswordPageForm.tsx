@@ -1,3 +1,6 @@
+import { afterSignInRoute } from "~/helpers/routes";
+import { type User } from "~/types";
+
 import StrongPasswordInput from "./StrongPasswordInput";
 
 export interface ChangePasswordPageFormProps
@@ -13,7 +16,7 @@ const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
   const [passwordStrength, setPasswordStrength] = useState(0.0);
 
   // == Form
-  const { getInputProps, submitting, submit } = useInertiaForm({
+  const { getInputProps, submitting, submit } = useForm({
     action: routes.usersPasswords.update,
     descriptor: "change password",
     initialValues: {
@@ -29,12 +32,19 @@ const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
         }
       },
     },
-    transformValues: attributes => ({
+    transformValues: values => ({
       user: {
-        ...attributes,
+        ...values,
         reset_password_token: resetPasswordToken,
       },
     }),
+    onSuccess: ({ user }: { user: User }) => {
+      toast.success("Password changed successfully!", {
+        description: "You are now signed in.",
+      });
+      const path = afterSignInRoute(user).path();
+      router.visit(path);
+    },
   });
 
   return (

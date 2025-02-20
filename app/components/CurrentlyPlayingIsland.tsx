@@ -23,7 +23,7 @@ const CurrentlyPlayingIsland: FC<CurrentlyPlayingIslandProps> = ({
   ...otherProps
 }) => {
   // == Load currently playing track
-  const { data, mutate } = useFetchRoute<{
+  const { data, mutate } = useRouteSWR<{
     currentlyPlaying: CurrentlyPlaying | null;
   }>(routes.currentlyPlayings.show, {
     descriptor: "load currently playing track",
@@ -139,10 +139,12 @@ const IslandContent: FC<IslandContentProps> = ({
   );
 
   // == Join jam session
-  const { submitting, submit } = useInertiaForm({
-    action: routes.spotifyJamSessions.join,
-    descriptor: "join Spotify jam session",
-  });
+  const { trigger: joinJam, mutating: joiningJam } = useRouteMutation(
+    routes.spotifyJamSessions.join,
+    {
+      descriptor: "join Spotify jam session",
+    },
+  );
 
   return (
     <CurrentlyPlayingLyricsTooltip
@@ -206,7 +208,7 @@ const IslandContent: FC<IslandContentProps> = ({
               "with-lyrics": hasLyrics,
             }}
             onClick={() => {
-              submit();
+              void joinJam();
             }}
             {...otherProps}
           >
@@ -216,7 +218,7 @@ const IslandContent: FC<IslandContentProps> = ({
             <MarqueeText fz={10} fw={700} className={classes.artistNames}>
               {artistNames}
             </MarqueeText>
-            <LoadingOverlay visible={submitting} />
+            <LoadingOverlay visible={joiningJam} />
           </Badge>
         );
       }}

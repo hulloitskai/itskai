@@ -7,16 +7,25 @@ export interface RequestPasswordResetPageFormProps
 const RequestPasswordResetPageForm: FC<RequestPasswordResetPageFormProps> = ({
   ...otherProps
 }) => {
-  const { values, getInputProps, submitting, submit } = useInertiaForm({
+  const [linkSent, setLinkSent] = useState(false);
+
+  // == Form
+  const { values, getInputProps, submitting, submit } = useForm({
     action: routes.usersPasswords.create,
     descriptor: "request password reset",
     initialValues: {
       email: "",
     },
     validate: {
-      email: isEmail("Email is not valid"),
+      email: isEmail("Invalid email address"),
     },
     transformValues: attributes => ({ user: attributes }),
+    onSuccess: () => {
+      toast.success("Check your inbox!", {
+        description: "Password reset link was sent to your email.",
+      });
+      setLinkSent(true);
+    },
   });
   const filled = useFieldsFilled(values);
 
@@ -30,7 +39,11 @@ const RequestPasswordResetPageForm: FC<RequestPasswordResetPageFormProps> = ({
           required
           withAsterisk={false}
         />
-        <Button type="submit" disabled={!filled} loading={submitting}>
+        <Button
+          type="submit"
+          disabled={linkSent || !filled}
+          loading={submitting}
+        >
           Continue
         </Button>
       </Stack>

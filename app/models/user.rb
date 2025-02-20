@@ -77,9 +77,6 @@ class User < ApplicationRecord
             presence: true,
             length: { maximum: 100 },
             email: true
-  if Rails.application.credentials_available?
-    validates :email, inclusion: { in: [Owner.email] }
-  end
   validates :password,
             password_strength: {
               min_entropy: MIN_PASSWORD_ENTROPY,

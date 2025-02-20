@@ -1,7 +1,6 @@
 import SubscribeIcon from "~icons/heroicons/bell-20-solid";
 import UnsubscribeIcon from "~icons/heroicons/bell-slash-20-solid";
 
-import { useMutateRoute } from "~/helpers/fetch";
 import { useWebPush } from "~/helpers/webPush";
 
 export interface AdminPushSubscriptionFormProps
@@ -32,7 +31,7 @@ const AdminPushSubscriptionForm: FC<AdminPushSubscriptionFormProps> = ({
   const {
     trigger: triggerSendTestNotification,
     mutating: sendingTestNotification,
-  } = useMutateRoute(routes.pushSubscriptions.test, {
+  } = useRouteMutation(routes.pushSubscriptions.test, {
     descriptor: "send test notification",
   });
   const sendTestNotification = useCallback(

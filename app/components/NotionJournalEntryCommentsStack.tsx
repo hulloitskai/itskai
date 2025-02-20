@@ -22,7 +22,7 @@ const NotionJournalEntryCommentsStack: FC<
     data: commentsData,
     fetching: commentsFetching,
     mutate: mutateComments,
-  } = useFetchRoute<{
+  } = useRouteSWR<{
     comments: NotionComment[];
   }>(routes.notionJournalEntryComments.index, {
     descriptor: "load comments",
@@ -33,7 +33,7 @@ const NotionJournalEntryCommentsStack: FC<
   const { comments } = commentsData ?? {};
 
   // == Create comment
-  const { getInputProps, submit, submitting } = useFetchForm({
+  const { getInputProps, submit, submitting } = useForm({
     action: routes.notionJournalEntryComments.create,
     params: {
       entry_id: entryId,

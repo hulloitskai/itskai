@@ -21,7 +21,7 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
   const [opened, setOpened] = useState(false);
 
   // == Load server info
-  const { data } = useFetchRoute<{ bootedAt: string }>(
+  const { data } = useRouteSWR<{ bootedAt: string }>(
     routes.healthcheckHealthchecks.check,
     {
       descriptor: "load server info",
@@ -30,9 +30,12 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
   const { bootedAt } = data ?? {};
 
   // == Logout
-  const { submit: logout } = useInertiaForm({
-    action: routes.usersSessions.destroy,
+  const { trigger: logout } = useRouteMutation(routes.usersSessions.destroy, {
     descriptor: "sign out",
+    onSuccess: () => {
+      toast.success("Signed out successfully");
+      router.visit(routes.home.show.path());
+    },
   });
 
   // == Components
@@ -116,7 +119,7 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
             <Menu.Item
               leftSection={<SignOutIcon />}
               onClick={() => {
-                logout();
+                void logout();
               }}
             >
               Sign out

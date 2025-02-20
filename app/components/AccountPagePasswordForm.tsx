@@ -13,34 +13,33 @@ const AccountPagePasswordForm: FC<AccountPagePasswordFormProps> = ({
   const [passwordStrength, setPasswordStrength] = useState(0.0);
 
   // == Form
-  const { values, getInputProps, isDirty, submitting, submit } = useInertiaForm(
-    {
-      name: "change-password",
-      action: routes.usersRegistrations.changePassword,
-      descriptor: "change password",
-      initialValues: {
-        password: "",
-        current_password: "",
-      },
-      transformValues: attributes => ({
-        user: attributes,
-      }),
-      validate: {
-        password: value => {
-          if (!value) {
-            return "Password is required";
-          }
-          if (passwordStrength < 1.0) {
-            return "Password is too weak";
-          }
-        },
-        current_password: isNotEmpty("Current password is required"),
-      },
-      onSuccess: () => {
-        toast.success("Password changed successfully.");
-      },
+  const { values, getInputProps, isDirty, submitting, submit } = useForm({
+    name: "change-password",
+    action: routes.usersRegistrations.changePassword,
+    descriptor: "change password",
+    initialValues: {
+      password: "",
+      current_password: "",
     },
-  );
+    transformValues: attributes => ({
+      user: attributes,
+    }),
+    validate: {
+      password: value => {
+        if (!value) {
+          return "Password is required";
+        }
+        if (passwordStrength < 1.0) {
+          return "Password is too weak";
+        }
+      },
+      current_password: isNotEmpty("Current password is required"),
+    },
+    onSuccess: () => {
+      toast.success("Password changed successfully.");
+      router.reload({ only: ["currentUser"] });
+    },
+  });
   const currentPasswordFilled = useFieldsFilled(values, "current_password");
   const passwordFieldsFilled = useFieldsFilled(values, "password");
 

@@ -16,7 +16,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
   interface FormData {
     grant: LocationAccessGrant;
   }
-  const { getInputProps, submitting, submit } = useFetchForm({
+  const { getInputProps, submitting, submit } = useForm({
     action: routes.adminLocationAccessGrants.create,
     descriptor: "create location access grant",
     initialValues: {

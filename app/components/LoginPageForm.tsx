@@ -1,13 +1,16 @@
 import { PasswordInput } from "@mantine/core";
 import { isEmail, isNotEmpty } from "@mantine/form";
 
+import { afterSignInRoute } from "~/helpers/routes";
+import { type User } from "~/types";
+
 export interface LoginPageFormProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {}
 
 const LoginPageForm: FC<LoginPageFormProps> = props => {
   // == Form
-  const { values, getInputProps, submitting, submit } = useInertiaForm({
+  const { values, getInputProps, submitting, submit } = useForm({
     action: routes.usersSessions.create,
     descriptor: "sign in",
     initialValues: {
@@ -24,6 +27,11 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
     }),
     onError: ({ setFieldValue }) => {
       setFieldValue("password", "");
+    },
+    onSuccess: ({ user }: { user: User }) => {
+      toast.success(<>Welcome back, {user.name} :)</>);
+      const path = afterSignInRoute(user).path();
+      router.visit(path);
     },
   });
   const filled = useFieldsFilled(values, "email", "password");

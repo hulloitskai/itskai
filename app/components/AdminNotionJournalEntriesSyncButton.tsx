@@ -11,7 +11,7 @@ export interface AdminNotionJournalEntriesSyncButtonProps
 const AdminNotionJournalEntriesSyncButton: FC<
   AdminNotionJournalEntriesSyncButtonProps
 > = ({ children, ...otherProps }) => {
-  const { submitting, submit } = useFetchForm<{
+  const { submitting, submit } = useForm<{
     syncResults: NotionJournalEntrySyncResults;
   }>({
     action: routes.adminNotionJournalEntries.sync,

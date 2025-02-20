@@ -31,7 +31,7 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
   const [popoverOpened, { close: closePopover, open: openPopover }] =
     useDisclosure(false);
   const initialValues = { limit: "" as number | "" };
-  const { getInputProps, submitting, submit, watch } = useFetchForm<
+  const { getInputProps, submitting, submit, watch } = useForm<
     { numLogsBackfilling: number },
     typeof initialValues
   >({

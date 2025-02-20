@@ -9,19 +9,18 @@ const AdminFriendForm: FC<AdminFriendFormProps> = ({
   ...otherProps
 }) => {
   // == Form
-  const { submit, getInputProps, setFieldValue, values, submitting } =
-    useFetchForm({
-      action: routes.adminFriends.create,
-      descriptor: "register friend",
-      initialValues: {
-        emoji: "",
-        name: "",
-      },
-      transformValues: values => ({ friend: values }),
-      onSuccess: () => {
-        onFriendCreated();
-      },
-    });
+  const { submit, getInputProps, setFieldValue, values, submitting } = useForm({
+    action: routes.adminFriends.create,
+    descriptor: "register friend",
+    initialValues: {
+      emoji: "",
+      name: "",
+    },
+    transformValues: values => ({ friend: values }),
+    onSuccess: () => {
+      onFriendCreated();
+    },
+  });
   const filled = useFieldsFilled(values, "emoji", "name");
 
   return (

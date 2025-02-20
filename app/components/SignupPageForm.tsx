@@ -1,5 +1,8 @@
 import { isEmail, isNotEmpty } from "@mantine/form";
 
+import { afterSignInRoute } from "~/helpers/routes";
+import { type User } from "~/types";
+
 import StrongPasswordInput from "./StrongPasswordInput";
 
 export interface SignupPageFormProps
@@ -8,7 +11,9 @@ export interface SignupPageFormProps
 
 const SignupPageForm: FC<SignupPageFormProps> = props => {
   const [passwordStrength, setPasswordStrength] = useState(0.0);
-  const { values, getInputProps, submitting, submit } = useInertiaForm({
+
+  // == Form
+  const { values, getInputProps, submitting, submit } = useForm({
     action: routes.usersRegistrations.create,
     descriptor: "sign up",
     initialValues: {
@@ -18,7 +23,7 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
     },
     validate: {
       name: isNotEmpty("Name is required"),
-      email: isEmail("Email is not valid"),
+      email: isEmail("Invalid email address"),
       password: value => {
         if (!value) {
           return "Password is required";
@@ -31,6 +36,9 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
     transformValues: attributes => ({ user: attributes }),
     onError: ({ setFieldValue }) => {
       setFieldValue("password", "");
+    },
+    onSuccess: ({ user }: { user: User }) => {
+      router.visit(afterSignInRoute(user).path());
     },
   });
   const filled = useFieldsFilled(values);

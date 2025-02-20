@@ -24,26 +24,25 @@ const AdminStatusForm: FC<AdminStatusFormProps> = ({
   ...otherProps
 }) => {
   // == Form
-  const { submit, getInputProps, setFieldValue, values, submitting } =
-    useFetchForm({
-      action: routes.adminStatuses.create,
-      descriptor: "create status",
-      initialValues: {
-        emoji: "",
-        text: "",
-        image: null as { signed_id: string } | null,
+  const { submit, getInputProps, setFieldValue, values, submitting } = useForm({
+    action: routes.adminStatuses.create,
+    descriptor: "create status",
+    initialValues: {
+      emoji: "",
+      text: "",
+      image: null as { signed_id: string } | null,
+    },
+    transformValues: ({ emoji, image, ...values }) => ({
+      status: {
+        emoji: emoji || null,
+        image: image?.signed_id ?? "",
+        ...values,
       },
-      transformValues: ({ emoji, image, ...values }) => ({
-        status: {
-          emoji: emoji || null,
-          image: image?.signed_id ?? "",
-          ...values,
-        },
-      }),
-      onSuccess: () => {
-        onStatusCreated();
-      },
-    });
+    }),
+    onSuccess: () => {
+      onStatusCreated();
+    },
+  });
   const filled = useFieldsFilled(values, "text");
 
   // == Image upload
@@ -58,7 +57,7 @@ const AdminStatusForm: FC<AdminStatusFormProps> = ({
       void uploadImage(imageFile);
     }
   }, [imageFile, uploadImage]);
-  const { data: imageData } = useFetchRoute<{ image: Image }>(
+  const { data: imageData } = useRouteSWR<{ image: Image }>(
     routes.images.show,
     {
       descriptor: "load image",

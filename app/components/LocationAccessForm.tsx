@@ -20,26 +20,25 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
   interface FormData {
     token: string;
   }
-  const { values, getInputProps, submitting, setFieldValue, submit } =
-    useFetchForm({
-      action: routes.locations.access,
-      descriptor: "access location",
-      initialValues: {
-        password: "",
-      },
-      validate: {
-        password: isNotEmpty("Password is required"),
-      },
-      transformValues: values => ({
-        access_request: values,
-      }),
-      onSuccess: ({ token }: FormData) => {
-        onSuccess?.(token);
-      },
-      onError: ({ setFieldValue }) => {
-        setFieldValue("password", "");
-      },
-    });
+  const { values, getInputProps, submitting, setFieldValue, submit } = useForm({
+    action: routes.locations.access,
+    descriptor: "access location",
+    initialValues: {
+      password: "",
+    },
+    validate: {
+      password: isNotEmpty("Password is required"),
+    },
+    transformValues: values => ({
+      access_request: values,
+    }),
+    onSuccess: ({ token }: FormData) => {
+      onSuccess?.(token);
+    },
+    onError: ({ setFieldValue }) => {
+      setFieldValue("password", "");
+    },
+  });
   const filled = useFieldsFilled(values);
   useEffect(() => {
     if (autofillPassword) {

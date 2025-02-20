@@ -33,7 +33,7 @@ const AccountPageProfileForm: FC<AccountPageProfileFormProps> = ({
     reset,
     setInitialValues,
     submit,
-  } = useFetchForm({
+  } = useForm({
     name: "profile",
     action: routes.usersRegistrations.update,
     descriptor: "update profile",

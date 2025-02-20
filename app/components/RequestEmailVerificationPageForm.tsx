@@ -7,15 +7,24 @@ export interface RequestEmailVerificationPageFormProps
 const RequestEmailVerificationPageForm: FC<
   RequestEmailVerificationPageFormProps
 > = ({ ...otherProps }) => {
+  const [linkSent, setLinkSent] = useState(false);
+
   // == Form
-  const { values, getInputProps, submitting, submit } = useInertiaForm({
+  const { values, getInputProps, submitting, submit } = useForm({
     action: routes.usersConfirmations.create,
     descriptor: "send verification email",
     initialValues: {
       email: "",
     },
+    transformValues: values => ({ user: values }),
     validate: {
-      email: isEmail("Email is not valid"),
+      email: isEmail("Invalid email address"),
+    },
+    onSuccess: () => {
+      toast.success("Check your inbox!", {
+        description: "Verification link was sent to your email.",
+      });
+      setLinkSent(true);
     },
   });
   const filled = useFieldsFilled(values);
@@ -30,7 +39,11 @@ const RequestEmailVerificationPageForm: FC<
           required
           withAsterisk={false}
         />
-        <Button type="submit" disabled={!filled} loading={submitting}>
+        <Button
+          type="submit"
+          disabled={linkSent || !filled}
+          loading={submitting}
+        >
           Continue
         </Button>
       </Stack>
