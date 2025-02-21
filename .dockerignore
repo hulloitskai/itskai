@@ -61,7 +61,6 @@ vite.config.ts.timestamp-*.mjs
 /storage/*
 /tmp/storage/*
 !/storage/.keep
-!/tmp/storage
 !/tmp/storage/.keep
 
 # Ignore Kamal files

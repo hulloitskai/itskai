@@ -6,7 +6,7 @@ set -e
 cd "${BASH_SOURCE%/*}/.."
 
 # Boot Docker
-bin/boot_docker
+./bin/boot_docker
 
 # Tail logs if Mailcatcher already running; else run Mailcatcher
 if [ -f ./tmp/pids/mailcatcher.cid ]; then

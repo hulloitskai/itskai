@@ -6,13 +6,13 @@ set -e
 cd "${BASH_SOURCE%/*}/.."
 
 # Boot Docker
-bin/boot_docker
+./bin/boot_docker
 
 # Configure Overmind
 OVERMIND_SOCKET="tmp/sockets/overmind.${RAILS_ENV:-development}.sock"
 if [ -e "$OVERMIND_SOCKET" ]; then
-  if bin/overmind status > /dev/null; then
-    bin/overmind echo
+  if ./bin/overmind status > /dev/null; then
+    ./bin/overmind echo
     exit 0
   fi
   rm "$OVERMIND_SOCKET"

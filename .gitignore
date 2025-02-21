@@ -42,21 +42,13 @@ vite.config.ts.timestamp-*.mjs
 
 # Ignore all logfiles and tempfiles.
 /log/*
-!/log/.keep
 /tmp/*
+!/log/.keep
 !/tmp/.keep
-
-# Ignore pidfiles and sockets.
-/tmp/pids/*
-/tmp/sockets/*
-!/tmp/pids/.keep
-!/tmp/sockets/.keep
 
 # Ignore storage (uploaded files in development and any SQLite databases).
 /storage/*
 /tmp/storage/*
-!/storage/.keep
-!/tmp/storage/.keep
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key

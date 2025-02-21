@@ -6,7 +6,7 @@ set -e
 cd "${BASH_SOURCE%/*}/.."
 
 # Boot Docker
-bin/boot_docker
+./bin/boot_docker
 
 # Tail logs if Postgres already running; else run Postgres
 if [ -f ./tmp/pids/postgres.cid ]; then

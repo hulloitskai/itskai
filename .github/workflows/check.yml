@@ -42,7 +42,7 @@ jobs:
           cache: poetry
       - name: Install Overmind
         env:
-          OVERMIND_VERSION: 2.5.1
+          OVERMIND_VERSION: "2.5.1"
         run: |
           sudo apt-get install tmux
           sudo curl -Lo /usr/bin/overmind.gz https://github.com/DarthSim/overmind/releases/download/v${{ env.OVERMIND_VERSION }}/overmind-v${{ env.OVERMIND_VERSION }}-linux-amd64.gz
