@@ -1,11 +1,13 @@
 import {
   type DefaultMantineColor,
   Drawer,
+  InputBase,
   JsonInput,
   type MantineColorsTuple,
   type MantineThemeOverride,
   NumberInput,
   Overlay,
+  PinInput,
   Popover,
 } from "@mantine/core";
 import {
@@ -16,7 +18,6 @@ import {
   DEFAULT_THEME,
   Loader,
   Modal,
-  Notification,
   PasswordInput,
   TextInput,
   ThemeIcon,
@@ -135,21 +136,6 @@ const createTheme = (
           input: classes.input,
         },
       }),
-      Notification: Notification.extend({
-        styles: ({ lineHeights, spacing }) => ({
-          title: {
-            marginBottom: 0,
-          },
-          description: {
-            lineHeight: lineHeights.xs,
-          },
-          icon: {
-            backgroundColor: "transparent",
-            color: "var(--notification-color)",
-            marginInlineEnd: spacing.xs,
-          },
-        }),
-      }),
       NumberInput: NumberInput.extend({
         defaultProps: {
           variant: "filled",
@@ -195,6 +181,19 @@ const createTheme = (
       Tooltip: Tooltip.extend({
         defaultProps: {
           middlewares: floatingMiddlewares,
+        },
+      }),
+      InputBase: InputBase.extend({
+        defaultProps: {
+          variant: "filled",
+        },
+        classNames: {
+          input: classes.input,
+        },
+      }),
+      PinInput: PinInput.extend({
+        classNames: {
+          input: classes.input,
         },
       }),
     },
