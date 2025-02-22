@@ -50,12 +50,13 @@ class LocationAccess < ApplicationRecord
   after_create :create_notification!
 
   # == Noticeable
-  sig { override.returns(String) }
-  def notification_title = "Location accessed"
-
-  sig { override.returns(String) }
-  def notification_body
-    "#{accessor} (pw: #{password}) accessed your location)"
+  sig do
+    override
+      .params(recipient: T.nilable(Friend))
+      .returns(T::Hash[String, T.untyped])
+  end
+  def notification_payload(recipient)
+    LocationAccessNotificationPayloadSerializer.one(self)
   end
 
   private

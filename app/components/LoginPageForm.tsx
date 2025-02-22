@@ -25,7 +25,7 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
     transformValues: values => ({
       user: values,
     }),
-    onError: ({ setFieldValue }) => {
+    onFailure: (error, { setFieldValue }) => {
       setFieldValue("password", "");
     },
     onSuccess: ({ user }: { user: User }) => {

@@ -31,6 +31,7 @@
     "app/types/**/*.ts",
     "app/helpers/routes/**/*.ts",
     "app/helpers/fetch/setup.ts",
+    "app/helpers/notifications.ts",
     "app/workers/service-worker.ts",
     "typings/env.d.ts",
     "typings/service-worker.d.ts"

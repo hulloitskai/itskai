@@ -40,6 +40,11 @@ class Notification < ApplicationRecord
   belongs_to :noticeable, polymorphic: true
   belongs_to :friend, optional: true
 
+  sig { returns(Noticeable) }
+  def noticeable!
+    noticeable or raise ActiveRecord::RecordNotFound, "Missing noticeable"
+  end
+
   # == Callbacks
   after_create_commit :push_later, unless: :pushed?
 
@@ -47,44 +52,12 @@ class Notification < ApplicationRecord
   scope :for_owner, -> { where(friend: nil) }
   scope :for_friends, -> { where.not(friend: nil) }
 
-  # == Testing
-  sig { returns(Notification) }
-  def self.test
-    new(noticeable: Alert.test)
-  end
-
-  # == Noticeable
-  sig { returns(T.nilable(Noticeable)) }
-  def noticeable
-    super
-  end
-
-  sig { returns(Noticeable) }
-  def noticeable!
-    noticeable or raise ActiveRecord::RecordNotFound, "Missing noticeable"
-  end
-
-  sig { returns(String) }
-  def title
-    noticeable!.notification_title
-  end
-
-  sig { returns(T.nilable(String)) }
-  def body
-    noticeable!.notification_body
-  end
-
-  sig { returns(T.nilable(ActiveStorage::Blob)) }
-  def icon_blob
-    noticeable!.notification_icon_blob
-  end
-
-  sig { returns(T.nilable(String)) }
-  def action_url
-    noticeable!.notification_action_url(self)
-  end
-
   # == Methods
+  sig { returns(T::Hash[String, T.untyped]) }
+  def payload
+    noticeable!.notification_payload(friend)
+  end
+
   sig { void }
   def push
     PushSubscription.where(friend:).find_each do |subscription|

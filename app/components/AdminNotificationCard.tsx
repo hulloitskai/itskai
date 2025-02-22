@@ -2,7 +2,8 @@ import { Avatar, type CardProps, Text } from "@mantine/core";
 
 import ClockIcon from "~icons/heroicons/clock-20-solid";
 
-import { type Noticeable } from "~/types";
+import { renderNotification } from "~/helpers/notifications";
+import { type Notification } from "~/types";
 
 import AdminNotificationActionButton, {
   type AdminNotificationActionButtonProps,
@@ -18,66 +19,71 @@ const AdminNotificationCard: FC<AdminNotificationCardProps> = ({
   notification,
   className,
   ...otherProps
-}) => (
-  <Card
-    withBorder
-    className={cn("AdminNotificationCard", className)}
-    {...otherProps}
-  >
-    <Group gap="xs" align="start">
-      <AdminNotificationCardImage noticeable={notification.noticeable} />
-      <Stack align="start" gap={8} miw={0} style={{ flexGrow: 1 }}>
-        <Stack style={{ alignSelf: "stretch" }} className={classes.body}>
-          <Group gap="xs" className={classes.header}>
-            <Text
-              size="sm"
-              fw={600}
-              lh={1.2}
-              miw={0}
-              style={{ flexGrow: 1 }}
-              className={classes.title}
-            >
-              {notification.title}
-            </Text>
-            <Group
-              gap={6}
-              style={{ flexShrink: 0 }}
-              className={classes.timestamp}
-            >
-              <Box component={ClockIcon} fz="xs" />
-              <Time
-                format={DateTime.DATETIME_MED}
+}) => {
+  const { title, body } = useMemo(
+    () => renderNotification(notification),
+    [notification],
+  );
+  return (
+    <Card
+      withBorder
+      className={cn("AdminNotificationCard", className)}
+      {...otherProps}
+    >
+      <Group gap="xs" align="start">
+        <AdminNotificationCardImage {...{ notification }} />
+        <Stack align="start" gap={8} miw={0} style={{ flexGrow: 1 }}>
+          <Stack style={{ alignSelf: "stretch" }} className={classes.body}>
+            <Group gap="xs" className={classes.header}>
+              <Text
                 size="sm"
-                display="block"
-                inline
+                fw={600}
+                lh={1.2}
+                miw={0}
+                style={{ flexGrow: 1 }}
+                className={classes.title}
               >
-                {notification.timestamp}
-              </Time>
+                {title}
+              </Text>
+              <Group
+                gap={6}
+                style={{ flexShrink: 0 }}
+                className={classes.timestamp}
+              >
+                <Box component={ClockIcon} fz="xs" />
+                <Time
+                  format={DateTime.DATETIME_MED}
+                  size="sm"
+                  display="block"
+                  inline
+                >
+                  {notification.timestamp}
+                </Time>
+              </Group>
             </Group>
-          </Group>
-          <Text c="dimmed" lh={1.2}>
-            {notification.body}
-          </Text>
+            {!!body && (
+              <Text c="dimmed" lh={1.2}>
+                {body}
+              </Text>
+            )}
+          </Stack>
+          <AdminNotificationActionButton {...{ notification }} />
         </Stack>
-        <AdminNotificationActionButton
-          {...{ notification }}
-          actionUrl={notification.action_url}
-        />
-      </Stack>
-    </Group>
-  </Card>
-);
+      </Group>
+    </Card>
+  );
+};
 
 export default AdminNotificationCard;
 
 interface AdminNotificationCardImageProps {
-  noticeable: Noticeable;
+  notification: Notification;
 }
 
 const AdminNotificationCardImage: FC<AdminNotificationCardImageProps> = ({
-  noticeable,
+  notification,
 }) => {
-  switch (noticeable?.type) {
+  switch (notification.type) {
     case "ExplorationComment":
       return (
         <Avatar>
