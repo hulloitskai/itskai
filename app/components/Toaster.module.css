@@ -23,4 +23,12 @@
     color: alpha(var(--mantine-color-black), 0.75);
     font-size: var(--mantine-font-size-sm);
   }
+
+  &[data-y-position="bottom"] {
+    bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  &[data-y-position="top"] {
+    top: env(safe-area-inset-top, 0px);
+  }
 }

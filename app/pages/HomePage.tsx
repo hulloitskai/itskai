@@ -32,7 +32,6 @@ const HomePage: PageComponent<HomePageProps> = ({
   journalEntry,
   journalEntryPermalinked,
 }) => {
-  // const [showPensieve, setShowPensieve] = useState(false);
   const [showLocation, setShowLocation] = useState(!!approximateLocation);
 
   return (
