@@ -19,6 +19,12 @@
 class Status < ApplicationRecord
   include Noticeable
 
+  # == Attributes
+  sig { returns(String) }
+  def text_snippet
+    text.truncate(240)
+  end
+
   # == Associations
   has_many :notifications, as: :noticeable, dependent: :destroy
 
@@ -33,26 +39,15 @@ class Status < ApplicationRecord
   after_create_commit :nudge_friends_later
 
   # == Noticeable
-  sig { override.returns(String) }
-  def notification_title
-    "Kai shared with you"
+  sig do
+    override
+      .params(recipient: T.nilable(Friend))
+      .returns(T::Hash[String, T.untyped])
   end
-
-  sig { override.returns(String) }
-  def notification_body
-    [emoji, text].compact.join(" ").truncate(240)
-  end
-
-  sig { override.params(notification: Notification).returns(T.nilable(String)) }
-  def notification_action_url(notification)
-    if (friend_token = Friend.where(id: notification.friend_id).pick(:token))
-      Rails.application.routes.url_helpers.friend_url(
-        friend_token:,
-        status_id: id,
-      )
-    else
-      Rails.application.routes.url_helpers.admin_statuses_url
-    end
+  def notification_payload(recipient)
+    friend = recipient or raise "Missing recipient"
+    payload = StatusNotificationPayload.new(status: self, friend:)
+    StatusNotificationPayloadSerializer.one(payload)
   end
 
   # == Notify

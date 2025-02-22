@@ -72,8 +72,10 @@ module ActiveSupport
     def strftime(format); end
 
     sig { returns(Time) }
-    def to_time
-    end
+    def to_time; end
+
+    sig { params(zone: T.untyped).returns(ActiveSupport::TimeWithZone) }
+    def in_time_zone(zone = T.unsafe(nil)); end
   end
 
   class TimeZone

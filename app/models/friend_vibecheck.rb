@@ -25,6 +25,8 @@ class FriendVibecheck < ApplicationRecord
 
   # == Associations
   belongs_to :friend
+  delegate :name, :emoji, to: :friend, prefix: true
+
   has_one :notification, as: :noticeable, dependent: :destroy
 
   sig { returns(Friend) }
@@ -39,15 +41,12 @@ class FriendVibecheck < ApplicationRecord
   after_create :create_notification!
 
   # == Noticeable
-  sig { override.returns(String) }
-  def notification_title
-    friend = friend!
-    "#{friend.emoji} #{friend.name} sent their vibe"
+  sig do
+    override
+      .params(recipient: T.nilable(Friend))
+      .returns(T::Hash[String, T.untyped])
   end
-
-  sig { override.returns(String) }
-  def notification_body
-    friend = friend!
-    "#{friend.name} is feelin' #{vibe}"
+  def notification_payload(recipient)
+    FriendVibecheckNotificationPayloadSerializer.one(self)
   end
 end

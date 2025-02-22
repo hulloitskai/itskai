@@ -16,18 +16,10 @@ module Noticeable
   end
 
   # == Interface
-  sig { abstract.returns(String) }
-  def notification_title; end
-
-  sig { abstract.returns(String) }
-  def notification_body; end
-
-  sig { overridable.returns(T.nilable(ActiveStorage::Blob)) }
-  def notification_icon_blob; end
-
   sig do
-    overridable.params(notification: Notification)
-      .returns(T.nilable(String))
+    abstract
+      .params(recipient: T.nilable(Friend))
+      .returns(T::Hash[String, T.untyped])
   end
-  def notification_action_url(notification); end
+  def notification_payload(recipient); end
 end

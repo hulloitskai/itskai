@@ -80,14 +80,7 @@ class PushSubscription < ApplicationRecord
 
   sig { void }
   def send_test_notification
-    push_payload({
-      message: {
-        title: "Test notification",
-        body:
-          "This is a test notification. If you are seeing this, then your " \
-          "push notifications are working!",
-      },
-    })
+    push_payload({ test: true })
   end
 
   private

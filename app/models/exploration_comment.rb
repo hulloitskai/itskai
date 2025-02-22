@@ -16,6 +16,12 @@
 class ExplorationComment < ApplicationRecord
   include Noticeable
 
+  # == Attributes
+  sig { returns(String) }
+  def message_snippet
+    message.truncate(240)
+  end
+
   # == Associations
   has_one :notification, as: :noticeable, dependent: :destroy
 
@@ -23,6 +29,7 @@ class ExplorationComment < ApplicationRecord
   def exploration
     Exploration.find(exploration_id)
   end
+  delegate :label, to: :exploration, prefix: true
 
   # == Validations
   validates :message, :author_contact, presence: true
@@ -31,18 +38,12 @@ class ExplorationComment < ApplicationRecord
   after_create :create_notification!
 
   # == Noticeable
-  sig { override.returns(String) }
-  def notification_title
-    "New comment on \"#{exploration.label}\""
+  sig do
+    override
+      .params(recipient: T.nilable(Friend))
+      .returns(T::Hash[String, T.untyped])
   end
-
-  sig { override.returns(String) }
-  def notification_body
-    message
-  end
-
-  sig { override.params(notification: Notification).returns(T.nilable(String)) }
-  def notification_action_url(notification)
-    Rails.application.routes.url_helpers.admin_exploration_comments_path
+  def notification_payload(recipient)
+    ExplorationCommentNotificationPayloadSerializer.one(self)
   end
 end

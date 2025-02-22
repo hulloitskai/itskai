@@ -1,7 +1,11 @@
 import { pick } from "lodash-es";
 import invariant from "tiny-invariant";
 
-import logoSrc from "~/assets/images/logo.png";
+import {
+  DEFAULT_NOTIFICATION_ICON_URL,
+  notificationActionUrl,
+  renderNotification,
+} from "~/helpers/notifications";
 import routes, { setupRoutes } from "~/helpers/routes";
 import { type PushNotification } from "~/types";
 
@@ -9,13 +13,8 @@ declare const self: ServiceWorkerGlobalScope;
 
 interface NotificationData {
   notification?: PushNotification;
-  message?: PushMessage;
+  test?: true;
   badge?: { count: number };
-}
-
-interface PushMessage {
-  title: string;
-  body?: string;
 }
 
 // == Setup
@@ -50,7 +49,7 @@ self.addEventListener("push", event => {
   if (import.meta.env.RAILS_ENV === "development") {
     console.debug("Push event", data);
   }
-  const { notification, message, badge } = data;
+  const { notification, test, badge } = data;
   const actions: Promise<void>[] = [];
   // Set app badge if no window is currently visible.
   if (badge && navigator.setAppBadge) {
@@ -63,26 +62,20 @@ self.addEventListener("push", event => {
       }),
     );
   }
-  if (message) {
-    actions.push(
-      self.registration.showNotification(message.title, {
-        body: message.body,
-        icon: logoSrc,
-        data,
-        badge: logoSrc,
-      }),
-    );
-  }
   if (notification) {
+    const { title, ...options } = renderNotification(notification);
     actions.push(
-      self.registration.showNotification(notification.title, {
-        body: notification.body,
-        icon: notification.icon_src ?? logoSrc,
-        data,
-        badge: logoSrc,
+      self.registration
+        .showNotification(title, { ...options, data })
+        .then(() => markAsDelivered(notification)),
+    );
+  } else if (test) {
+    actions.push(
+      self.registration.showNotification("Test notification", {
+        body: "This is a test notification. If you are seeing this, then your push notifications are working!",
+        icon: DEFAULT_NOTIFICATION_ICON_URL,
       }),
     );
-    actions.push(markAsDelivered(notification));
   }
   event.waitUntil(Promise.all(actions));
 });
@@ -112,13 +105,14 @@ self.addEventListener("pushsubscriptionchange", event => {
 self.addEventListener("notificationclick", event => {
   console.debug("Notification clicked", event);
   event.notification.close(); // Android needs explicit close
+  invariant(event.notification.data, "Missing notification data");
   const { notification } = event.notification.data as NotificationData;
   if (!notification) {
     return;
   }
-  const actionUrl =
-    notification.action_url ?? routes.adminNotifications.index.path();
+  const actionUrl = notificationActionUrl(notification);
   const url = new URL(actionUrl, self.location.href).toString();
+  console.debug("Directing user to", url);
   event.waitUntil(
     // Open the target URL
     self.clients

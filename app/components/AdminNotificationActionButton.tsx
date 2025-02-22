@@ -2,29 +2,25 @@ import { type ButtonProps } from "@mantine/core";
 
 import GoIcon from "~icons/heroicons/arrow-right-circle-20-solid";
 
+import { notificationActionUrl } from "~/helpers/notifications";
 import { type Notification } from "~/types";
 
 export interface AdminNotificationActionButtonProps
-  extends Pick<AdminNotificationActionButtonBaseProps, "actionUrl"> {
-  notification: Notification;
-}
+  extends Omit<AdminNotificationActionButtonBaseProps, "children"> {}
 
-const AdminNotificationActionButton: FC<AdminNotificationActionButtonProps> = ({
-  notification,
-  ...otherProps
-}) => {
-  let label: string | undefined;
-  const { noticeable } = notification;
-  switch (noticeable.type) {
+const AdminNotificationActionButton: FC<
+  AdminNotificationActionButtonProps
+> = props => {
+  switch (props.notification.type) {
     case "ExplorationComment":
-      label = "Go to comments";
-      break;
+      return (
+        <AdminNotificationActionButtonBase {...props}>
+          Go to comments
+        </AdminNotificationActionButtonBase>
+      );
+    default:
+      return null;
   }
-  return (
-    <AdminNotificationActionButtonBase {...otherProps}>
-      {label}
-    </AdminNotificationActionButtonBase>
-  );
 };
 
 interface AdminNotificationActionButtonBaseProps
@@ -33,26 +29,32 @@ interface AdminNotificationActionButtonBaseProps
       ComponentPropsWithoutRef<typeof Link>,
       "href" | "color" | "size" | "style"
     > {
-  actionUrl: string | null;
+  notification: Notification;
 }
 
 const AdminNotificationActionButtonBase: FC<
   AdminNotificationActionButtonBaseProps
-> = ({ actionUrl, children, ...otherProps }) => (
-  <>
-    {!!actionUrl && (
-      <Button
-        component={Link}
-        href={actionUrl}
-        size="compact-sm"
-        variant="light"
-        leftSection={<GoIcon />}
-        {...otherProps}
-      >
-        {children}
-      </Button>
-    )}
-  </>
-);
+> = ({ notification, children, ...otherProps }) => {
+  const actionUrl = useMemo(
+    () => notificationActionUrl(notification),
+    [notification],
+  );
+  return (
+    <>
+      {!!actionUrl && (
+        <Button
+          component={Link}
+          href={actionUrl}
+          size="compact-sm"
+          variant="light"
+          leftSection={<GoIcon />}
+          {...otherProps}
+        >
+          {children}
+        </Button>
+      )}
+    </>
+  );
+};
 
 export default AdminNotificationActionButton;

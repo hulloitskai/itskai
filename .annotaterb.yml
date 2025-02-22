@@ -13,7 +13,7 @@
 :exclude_fixtures: false
 :exclude_helpers: true
 :exclude_scaffolds: true
-:exclude_serializers: false
+:exclude_serializers: true
 :exclude_sti_subclasses: false
 :exclude_tests: false
 :force: false
