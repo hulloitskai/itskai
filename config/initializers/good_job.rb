@@ -36,3 +36,7 @@ Rails.application.configure do
     end
   end
 end
+
+ActiveSupport.on_load(:good_job_application_controller) do
+  include AdminsOnly unless Rails.env.development?
+end

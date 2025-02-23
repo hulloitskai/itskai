@@ -22,13 +22,7 @@ Rails.application.routes.draw do
   end
 
   # == Good Job
-  if Rails.env.development?
-    mount GoodJob::Engine => "/good_job"
-  else
-    authenticate :user, ->(user) { user.owner? } do
-      mount GoodJob::Engine => "/good_job"
-    end
-  end
+  mount GoodJob::Engine => "/good_job"
 
   # == Devise
   devise_for :users,
