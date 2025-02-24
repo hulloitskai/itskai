@@ -1,7 +1,7 @@
 import { PasswordInput } from "@mantine/core";
 import { isEmail, isNotEmpty } from "@mantine/form";
 
-import { afterSignInRoute } from "~/helpers/routes";
+import { handleNonInertiaDocumentResponse } from "~/helpers/inertia";
 import { type User } from "~/types";
 
 export interface LoginPageFormProps
@@ -28,10 +28,14 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
     onFailure: (error, { setFieldValue }) => {
       setFieldValue("password", "");
     },
-    onSuccess: ({ user }: { user: User }) => {
+    onSuccess: ({ user, redirectUrl }: { user: User; redirectUrl: string }) => {
       toast.success(<>Welcome back, {user.name} :)</>);
-      const path = afterSignInRoute(user).path();
-      router.visit(path);
+      const removeHandler = handleNonInertiaDocumentResponse();
+      router.visit(redirectUrl, {
+        onFinish: () => {
+          removeHandler();
+        },
+      });
     },
   });
   const filled = useFieldsFilled(values, "email", "password");

@@ -13,7 +13,7 @@ class ApplicationPolicy < ActionPolicy::Base
   #
   # Read more about authorization context: https://actionpolicy.evilmartians.io/#/authorization_context
   authorize :user, allow_nil: true
-  authorize :friend, allow_nil: true
+  authorize :friend, optional: true
 
   # == Pre-checks
   pre_check :allow_owners!

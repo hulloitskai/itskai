@@ -1,8 +1,5 @@
 import { isEmail, isNotEmpty } from "@mantine/form";
 
-import { afterSignInRoute } from "~/helpers/routes";
-import { type User } from "~/types";
-
 import StrongPasswordInput from "./StrongPasswordInput";
 
 export interface SignupPageFormProps
@@ -37,8 +34,8 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
     onError: ({ setFieldValue }) => {
       setFieldValue("password", "");
     },
-    onSuccess: ({ user }: { user: User }) => {
-      router.visit(afterSignInRoute(user).path());
+    onSuccess: () => {
+      router.visit(routes.home.show.path());
     },
   });
   const filled = useFieldsFilled(values);

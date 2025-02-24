@@ -38,5 +38,6 @@ Rails.application.configure do
 end
 
 ActiveSupport.on_load(:good_job_application_controller) do
+  include RemembersUserLocation
   include AdminsOnly unless Rails.env.development?
 end

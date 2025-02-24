@@ -16,7 +16,11 @@ module Users
     def create
       resource = T.let(self.resource = warden.authenticate!(auth_options), User)
       sign_in(resource_name, resource)
-      render(json: { user: UserSerializer.one(resource) })
+      redirect_url = after_sign_in_path_for(resource)
+      render(json: {
+        resource_name => UserSerializer.one(resource),
+        "redirectUrl" => redirect_url,
+      })
     end
 
     # DELETE /logout

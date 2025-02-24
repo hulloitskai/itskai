@@ -1,6 +1,3 @@
-import { afterSignInRoute } from "~/helpers/routes";
-import { type User } from "~/types";
-
 import StrongPasswordInput from "./StrongPasswordInput";
 
 export interface ChangePasswordPageFormProps
@@ -38,12 +35,11 @@ const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
         reset_password_token: resetPasswordToken,
       },
     }),
-    onSuccess: ({ user }: { user: User }) => {
+    onSuccess: () => {
       toast.success("Password changed successfully!", {
         description: "You are now signed in.",
       });
-      const path = afterSignInRoute(user).path();
-      router.visit(path);
+      router.visit(routes.home.show.path());
     },
   });
 

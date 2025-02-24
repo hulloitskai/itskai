@@ -7,5 +7,5 @@ import routes from "./generated";
 export default routes;
 export { setupRoutes } from "./setup";
 
-export const afterSignInRoute = (user: User): PathHelper =>
+export const homeRoute = (user: User): PathHelper =>
   user.is_owner ? routes.admin.show : routes.home.show;

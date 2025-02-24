@@ -9,16 +9,7 @@ export const setupInertia = (): void => {
     }
   });
   router.on("invalid", event => {
-    const { response } = event.detail;
-    const contentType = response.headers["Content-Type"];
-    if (
-      response.data &&
-      typeof contentType === "string" &&
-      contentType.startsWith("text/html")
-    ) {
-      event.preventDefault();
-      console.error("Invalid Inertia response", event.detail.response.data);
-    }
+    console.warn("Invalid Inertia response", event.detail.response.data);
   });
   router.on("exception", event => {
     console.error(

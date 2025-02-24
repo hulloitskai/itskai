@@ -50,7 +50,7 @@ module Users
         else
           set_flash_message!(:notice, :updated_not_active)
         end
-        render(json: { user: UserSerializer.one(resource) })
+        render(json: {})
       else
         render(
           json: { errors: resource.form_errors },

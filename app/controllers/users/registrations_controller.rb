@@ -39,7 +39,7 @@ module Users
           expire_data_after_sign_in!
           # redirect_to(after_inactive_sign_up_path_for(resource))
         end
-        render(json: { user: UserSerializer.one(resource) })
+        render(json: { resource_name => UserSerializer.one(resource) })
       else
         render(
           json: { errors: resource.form_errors },

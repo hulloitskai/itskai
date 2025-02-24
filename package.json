@@ -35,6 +35,7 @@
     "@turf/circle": "^6.5.0",
     "@turf/length": "^6.5.0",
     "@turf/line-slice-along": "^6.5.0",
+    "axios": "^1.7.9",
     "clsx": "^2.0.0",
     "emoji-picker-react": "^4.12.0",
     "humanize-duration": "^3.32.1",
