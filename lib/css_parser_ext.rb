@@ -1,6 +1,8 @@
 # typed: true
 # frozen_string_literal: true
 
+require "css_parser"
+
 module CssParser
   class << self
     # Don't mutate original rule sets when merging.

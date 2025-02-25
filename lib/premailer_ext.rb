@@ -2,11 +2,12 @@
 # frozen_string_literal: true
 
 require "rails"
+require "sorbet-runtime"
 require "premailer"
 require "nokogiri"
 require "css_parser"
 require "css_parser_ext"
-require "sorbet-runtime"
+require "core_ext"
 
 module Premailer::Adapter::Nokogiri
   # Add support for CSS variables.
