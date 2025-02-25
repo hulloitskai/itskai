@@ -1,9 +1,7 @@
 import { createInertiaApp } from "@inertiajs/react";
 import createServer from "@inertiajs/react/server";
 import { type SetupOptions } from "@inertiajs/react/types/createInertiaApp";
-import { render as renderEmail } from "@react-email/render";
-import { isValidElement } from "react";
-import { renderToString as renderPage } from "react-dom/server";
+import { renderToString } from "react-dom/server";
 
 import AppWrapper from "~/components/AppWrapper";
 import EmailWrapper from "~/components/EmailWrapper";
@@ -41,17 +39,7 @@ createServer(async page => {
   const type = resolvePageType(page.component);
   return createInertiaApp({
     page,
-    render: (page): string => {
-      switch (type) {
-        case PageType.Page: {
-          return renderPage(page);
-        }
-        case PageType.Email: {
-          invariant(isValidElement(page), "Page is not a valid element");
-          return renderEmail(page);
-        }
-      }
-    },
+    render: renderToString,
     resolve: name => {
       switch (type) {
         case PageType.Page: {

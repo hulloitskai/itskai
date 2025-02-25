@@ -12,7 +12,10 @@ module CssParser
       end
       def merge(*rule_sets)
         rule_sets = rule_sets.flatten.map do |rule_set|
-          RuleSet.new(nil, rule_set.declarations_to_s, rule_set.specificity)
+          RuleSet.new(
+            block: rule_set.declarations_to_s,
+            specificity: rule_set.specificity,
+          )
         end
         super(rule_sets)
       end

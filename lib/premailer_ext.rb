@@ -48,29 +48,29 @@ module Premailer::Adapter::Nokogiri
 
       # Iterate through the rules and merge them into the HTML
       @css_parser.each_selector(:all) do
-        |selector, declaration, specificity, media_types|
+        |selectors, declaration, specificity, media_types|
         # Save un-mergable rules separately
-        selector.gsub!(/:link([\s]*)+/i) { Regexp.last_match(1) }
+        selectors.gsub!(/:link([\s]*)+/i) { Regexp.last_match(1) }
 
         # Convert element names to lower case
-        selector.gsub!(/([\s]|^)([\w]+)/) do
+        selectors.gsub!(/([\s]|^)([\w]+)/) do
           Regexp.last_match(1).to_s + Regexp.last_match(2).to_s.downcase
         end
 
         if Premailer.is_media_query?(media_types) ||
-            selector =~ Premailer::RE_UNMERGABLE_SELECTORS
-          rules = CssParser::RuleSet.new(selector, declaration)
+            selectors =~ Premailer::RE_UNMERGABLE_SELECTORS
+          rules = CssParser::RuleSet.new(selectors:, block: declaration)
           unless @options[:preserve_styles]
             unmergeable_rules.add_rule_set!(rules, media_types)
           end
         else
           begin
-            if Premailer::RE_RESET_SELECTORS.match?(selector)
+            if Premailer::RE_RESET_SELECTORS.match?(selectors)
               # This is in place to preserve the MailChimp CSS reset:
               # http://github.com/mailchimp/Email-Blueprints/
               #
               # however, this doesn't mean for testing pur
-              rules = CssParser::RuleSet.new(selector, declaration)
+              rules = CssParser::RuleSet.new(selectors:, block: declaration)
               if @options[:preserve_reset]
                 unmergeable_rules.add_rule_set!(rules)
               end
@@ -80,9 +80,9 @@ module Premailer::Adapter::Nokogiri
             # more than one element.
             #
             # Added to work around dodgy generated code.
-            selector.gsub!(/\A\#([\w_\-]+)\Z/, '*[@id=\1]')
+            selectors.gsub!(/\A\#([\w_\-]+)\Z/, '*[@id=\1]')
 
-            @processed_doc.search(selector).each do |el|
+            @processed_doc.search(selectors).each do |el|
               next unless el.elem? &&
                 ((el.name != "head") && (el.parent.name != "head"))
 
@@ -92,7 +92,7 @@ module Premailer::Adapter::Nokogiri
             end
           rescue Nokogiri::SyntaxError, RuntimeError, ArgumentError
             if @options[:verbose]
-              $stderr.puts "CSS syntax error with selector: #{selector}"
+              $stderr.puts "CSS syntax error with selector: #{selectors}"
             end
             next
           end
@@ -105,7 +105,7 @@ module Premailer::Adapter::Nokogiri
 
         suppress(Nokogiri::SyntaxError) do
           @processed_doc.search(selector).each do |el|
-            rules = CssParser::RuleSet.new(nil, declarations)
+            rules = CssParser::RuleSet.new(block: declarations)
             css_variables = T.let({}, CssVariables)
             rules.each_declaration do |property, value, important|
               next unless property.start_with?("--")
@@ -136,7 +136,10 @@ module Premailer::Adapter::Nokogiri
         declarations = T.let([], T::Array[CssParser::RuleSet])
         style.scan(/\[SPEC\=([\d]+)\[(.[^\]\]]*)\]\]/).each do |declaration|
           specificity, block = declaration
-          rules = CssParser::RuleSet.new(nil, block.to_s, specificity.to_i)
+          rules = CssParser::RuleSet.new(
+            block: block.to_s,
+            specificity: specificity.to_i,
+          )
           declarations << rules
         rescue ArgumentError => e
           raise e if @options[:rule_set_exceptions]
@@ -192,7 +195,7 @@ module Premailer::Adapter::Nokogiri
       # Inline CSS variables and duplicate CSS attributes as HTML attributes
       @processed_doc.search("*[@style]").each do |el|
         style = el.attributes["style"].to_s
-        rules = CssParser::RuleSet.new(nil, style)
+        rules = CssParser::RuleSet.new(block: style)
 
         # Duplicate CSS attributes as HTML attributes
         if Premailer::RELATED_ATTRIBUTES.key?(el.name) &&
