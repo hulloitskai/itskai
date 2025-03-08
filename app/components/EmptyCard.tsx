@@ -3,6 +3,8 @@ import { Text } from "@mantine/core";
 
 import EmptyIcon from "~icons/heroicons/inbox-20-solid";
 
+import classes from "./EmptyCard.module.css";
+
 export interface EmptyCardProps
   extends CardProps,
     Omit<ComponentPropsWithoutRef<"div">, "style"> {
@@ -14,9 +16,9 @@ const EmptyCard: FC<EmptyCardProps> = ({
   itemLabel,
   ...otherProps
 }) => (
-  <Card withBorder py="lg" style={{ borderStyle: "dashed" }} {...otherProps}>
+  <Card className={cn("EmptyCard", classes.card)} withBorder {...otherProps}>
     <Flex direction="column" align="center">
-      <Box c="gray.6" lh={1.1}>
+      <Box c="dimmed" lh={1.1}>
         <EmptyIcon />
       </Box>
       <Text size="sm" c="dimmed">

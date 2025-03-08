@@ -91,12 +91,7 @@ const JournalEntryCardCopyLinkTooltip: FC<
   }, [copied]);
 
   return (
-    <Tooltip
-      withArrow
-      color="primary"
-      {...{ label }}
-      {...(copied && { opened: true })}
-    >
+    <Tooltip color="primary" {...{ label }} {...(copied && { opened: true })}>
       {children}
     </Tooltip>
   );

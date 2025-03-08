@@ -7,7 +7,13 @@ const AppMantineProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       <ColorSchemeScript defaultColorScheme="auto" />
-      <MantineProvider {...{ theme }} defaultColorScheme="auto">
+      <MantineProvider
+        {...{ theme }}
+        defaultColorScheme="auto"
+        {...(import.meta.env.RAILS_ENV === "test" && {
+          env: "test",
+        })}
+      >
         {children}
       </MantineProvider>
     </>

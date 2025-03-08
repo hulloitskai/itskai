@@ -193,7 +193,6 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
                       {notifiableFriends.map(friend => (
                         <Tooltip
                           key={friend.id}
-                          withArrow
                           label="This friend has not subscribed to push notifications"
                           disabled={friend.notifiable}
                         >

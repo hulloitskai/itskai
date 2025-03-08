@@ -92,7 +92,6 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
         {children ?? "Backfill location log addresses"}
       </Button>
       <Popover
-        withArrow
         position="left"
         width={275}
         shadow="lg"

@@ -1,6 +1,31 @@
+.shell {
+  --app-shell-footer-height: 44px;
+
+  @mixin dark {
+    --app-shell-border-color: var(--mantine-color-dark-6);
+  }
+}
+
 .header {
   height: calc(var(--app-shell-header-height) + env(safe-area-inset-top, 0px));
   padding-top: env(safe-area-inset-top, 0px);
+  background-color: transparent;
+
+  &::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    content: "";
+    backdrop-filter: blur(4px);
+    mask: linear-gradient(black, black, transparent);
+    /* -webkit-mask: -webkit-gradient(
+      linear,
+      left 70%,
+      left 0%,
+      from(rgba(0, 0, 0, 1)),
+      to(rgba(0, 0, 0, 0))
+    ); */
+  }
 }
 
 .footer {
@@ -11,7 +36,10 @@
   padding-bottom: env(safe-area-inset-bottom, 0px);
   margin-left: var(--app-shell-navbar-offset, 0px);
   overflow: hidden;
-  border-top: 1px solid var(--app-shell-border-color);
+
+  &[data-with-border] {
+    border-top: rem(1px) solid var(--app-shell-border-color);
+  }
 }
 
 .main {

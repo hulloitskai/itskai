@@ -17,7 +17,6 @@ const AccountPageDeleteAccountForm: FC<AccountPageDeleteAccountFormProps> = ({
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Menu
-        withArrow
         styles={{
           dropdown: {
             borderColor: "var(--mantine-color-red-outline)",

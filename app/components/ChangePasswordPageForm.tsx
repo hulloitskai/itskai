@@ -20,7 +20,7 @@ const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
       password: "",
     },
     validate: {
-      password: value => {
+      password: (value: string) => {
         if (!value) {
           return "Password is required";
         }

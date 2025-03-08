@@ -24,7 +24,6 @@ const AdminOAuthDisconnectButton: FC<AdminOAuthDisconnectButtonProps> = ({
   });
   return (
     <Menu
-      withArrow
       styles={{
         dropdown: {
           borderColor: "var(--mantine-color-red-outline)",

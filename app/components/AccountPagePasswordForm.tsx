@@ -25,7 +25,7 @@ const AccountPagePasswordForm: FC<AccountPagePasswordFormProps> = ({
       user: attributes,
     }),
     validate: {
-      password: value => {
+      password: (value: string) => {
         if (!value) {
           return "Password is required";
         }

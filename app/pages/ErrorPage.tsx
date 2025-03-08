@@ -1,5 +1,7 @@
 import { Code, Text } from "@mantine/core";
 
+import BackIcon from "~icons/heroicons/arrow-uturn-left-20-solid";
+
 import AppLayout from "~/components/AppLayout";
 
 export interface ErrorPageProps extends SharedPageProps {
@@ -30,8 +32,12 @@ const ErrorPage: PageComponent<ErrorPageProps> = ({
         Error: {error}
       </Code>
     )}
-    <Button component={Link} href={routes.home.show.path()} mt={4}>
-      Back to Home
+    <Button
+      component={Link}
+      href={routes.home.show.path()}
+      leftSection={<BackIcon />}
+    >
+      Back to home
     </Button>
   </Stack>
 );

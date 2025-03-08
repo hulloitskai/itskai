@@ -79,6 +79,9 @@ module ItsKai
       g.assets false
     end
 
+    # == Routing
+    config.exceptions_app = routes
+
     # == Active Record
     config.active_record.destroy_association_async_batch_size = 1000
     config.active_record.internal_metadata_table_name =

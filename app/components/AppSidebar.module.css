@@ -1,10 +1,17 @@
-.root {
+.sidebar {
   :global(.mantine-NavLink-root) {
     &:not([data-active]) {
       color: light-dark(
-        var(--mantine-color-gray-8),
+        var(--mantine-color-gray-6),
         var(--mantine-color-dark-2)
       );
+
+      @mixin hover {
+        color: light-dark(
+          var(--mantine-color-gray-7),
+          var(--mantine-color-dark-1)
+        );
+      }
     }
   }
 }

@@ -93,7 +93,6 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
                 <Tooltip
                   label={copied ? "Copied!" : "Click to copy"}
                   color="primary"
-                  withArrow
                   {...(copied && { opened: true })}
                 >
                   <Code

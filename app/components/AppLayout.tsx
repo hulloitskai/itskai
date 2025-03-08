@@ -44,6 +44,8 @@ export interface AppBreadcrumb {
   href: string;
 }
 
+const LAYOUT_WITH_BORDER = false;
+
 const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
   title: titleProp,
   description: descriptionProp,
@@ -112,64 +114,66 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
     children
   );
 
-  const shell = (
-    <AppShell
-      header={{ height: 46 }}
-      {...(sidebar && {
-        navbar: {
-          width: 240,
-          breakpoint: "sm",
-          collapsed: { mobile: !sidebarOpened },
-        },
-      })}
-      padding={padding ?? (withContainer ? undefined : "md")}
-      style={{ "--app-shell-footer-height": rem(44) }}
-      classNames={{
-        header: classes.header,
-        navbar: classes.navbar,
-      }}
-      {...otherProps}
-    >
-      <AppHeader />
-      {sidebar}
-      <AppShell.Main className={classes.main}>
-        {!isEmpty(breadcrumbs) && (
-          <Breadcrumbs
-            mx={10}
-            mt={6}
-            classNames={{
-              separator: classes.breadcrumbSeparator,
-            }}
-            styles={{
-              root: {
-                flexWrap: "wrap",
-                rowGap: rem(4),
-              },
-              separator: {
-                marginLeft: 6,
-                marginRight: 6,
-              },
-            }}
-          >
-            {breadcrumbs.map(({ title, href }, index) => (
-              <Anchor component={Link} href={href} key={index} size="sm">
-                {title}
-              </Anchor>
-            ))}
-          </Breadcrumbs>
-        )}
-        {content}
-      </AppShell.Main>
-      <Box className={classes.footer}>
-        <Attribution h="100%" style={{ flexShrink: 1 }} />
-      </Box>
-    </AppShell>
-  );
   return (
     <PageLayout>
       <AppMeta {...{ title, description, manifestUrl, imageUrl, noIndex }} />
       <SidebarControlsProvider controls={sidebarControls}>
-        {shell}
+        <AppShell
+          withBorder={LAYOUT_WITH_BORDER}
+          header={{ height: 46 }}
+          {...(sidebar && {
+            navbar: {
+              width: 240,
+              breakpoint: "sm",
+              collapsed: { mobile: !sidebarOpened },
+            },
+          })}
+          padding={padding ?? (withContainer ? undefined : "md")}
+          classNames={{
+            root: classes.shell,
+            header: classes.header,
+            navbar: classes.navbar,
+          }}
+          {...otherProps}
+        >
+          <AppHeader />
+          {sidebar}
+          <AppShell.Main className={classes.main}>
+            {!isEmpty(breadcrumbs) && (
+              <Breadcrumbs
+                mx={10}
+                mt={6}
+                classNames={{
+                  separator: classes.breadcrumbSeparator,
+                }}
+                styles={{
+                  root: {
+                    flexWrap: "wrap",
+                    rowGap: rem(4),
+                  },
+                  separator: {
+                    marginLeft: 6,
+                    marginRight: 6,
+                  },
+                }}
+              >
+                {breadcrumbs.map(({ title, href }, index) => (
+                  <Anchor component={Link} href={href} key={index} size="sm">
+                    {title}
+                  </Anchor>
+                ))}
+              </Breadcrumbs>
+            )}
+            {content}
+          </AppShell.Main>
+          <Center
+            component="footer"
+            className={classes.footer}
+            mod={{ "with-border": LAYOUT_WITH_BORDER }}
+          >
+            <Attribution />
+          </Center>
+        </AppShell>
       </SidebarControlsProvider>
     </PageLayout>
   );

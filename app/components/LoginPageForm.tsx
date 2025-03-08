@@ -64,7 +64,6 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
         <Tooltip
           label="Uncheck this if you're signing in from a shared device."
           position="top-start"
-          withArrow
         >
           <Checkbox
             {...getInputProps("remember_me", { type: "checkbox" })}

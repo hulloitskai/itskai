@@ -21,7 +21,7 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
     validate: {
       name: isNotEmpty("Name is required"),
       email: isEmail("Invalid email address"),
-      password: value => {
+      password: (value: string) => {
         if (!value) {
           return "Password is required";
         }

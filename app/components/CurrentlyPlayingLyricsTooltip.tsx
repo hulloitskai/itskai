@@ -78,7 +78,6 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
     <Tooltip
       {...{ ref }}
       label={label ?? prevLabel}
-      withArrow
       multiline
       color="primary"
       transitionProps={{ duration: transitionDuration }}

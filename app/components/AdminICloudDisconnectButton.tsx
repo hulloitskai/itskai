@@ -19,7 +19,6 @@ const AdminICloudDisconnectButton: FC<AdminICloudDisconnectButtonProps> = ({
   });
   return (
     <Menu
-      withArrow
       styles={{
         dropdown: {
           borderColor: "var(--mantine-color-red-outline)",

@@ -1,24 +1,25 @@
 import {
-  type DefaultMantineColor,
-  Drawer,
-  InputBase,
-  JsonInput,
-  type MantineColorsTuple,
-  type MantineThemeOverride,
-  NumberInput,
-  Overlay,
-  PinInput,
-  Popover,
-} from "@mantine/core";
-import {
   ActionIcon,
   Alert,
   Button,
   createTheme as createMantineTheme,
   DEFAULT_THEME,
+  type DefaultMantineColor,
+  Drawer,
+  HoverCard,
+  InputBase,
+  JsonInput,
   Loader,
+  type MantineColorsTuple,
+  type MantineThemeOverride,
+  Menu,
   Modal,
+  NavLink,
+  NumberInput,
+  Overlay,
   PasswordInput,
+  PinInput,
+  Popover,
   TextInput,
   ThemeIcon,
 } from "@mantine/core";
@@ -29,13 +30,26 @@ import { type Rect, useSafeViewportRect } from "./safeArea";
 import classes from "./mantine.module.css";
 import "./mantine.css";
 
-export type CustomColors = "primary" | "accent" | DefaultMantineColor;
+export type CustomColors = "primary" | "accent" | "rose" | DefaultMantineColor;
 
 declare module "@mantine/core" {
   export interface MantineThemeColorsOverride {
     colors: Record<CustomColors, MantineColorsTuple>;
   }
 }
+
+const ROSE_COLORS: MantineColorsTuple = [
+  "oklch(0.969 0.015 12.422)",
+  "oklch(0.941 0.03 12.58)",
+  "oklch(0.892 0.058 10.001)",
+  "oklch(0.81 0.117 11.638)",
+  "oklch(0.712 0.194 13.428)",
+  "oklch(0.645 0.246 16.439)",
+  "oklch(0.586 0.253 17.585)",
+  "oklch(0.514 0.222 16.935)",
+  "oklch(0.455 0.188 13.697)",
+  "oklch(0.41 0.159 10.272)",
+];
 
 const createTheme = (
   safeViewportRect: Rect | undefined,
@@ -52,7 +66,8 @@ const createTheme = (
     autoContrast: true,
     cursorType: "pointer",
     colors: {
-      primary: DEFAULT_THEME.colors.pink,
+      rose: ROSE_COLORS,
+      primary: ROSE_COLORS,
       accent: DEFAULT_THEME.colors.teal,
       resumeAccent: DEFAULT_THEME.colors.indigo,
     },
@@ -89,6 +104,11 @@ const createTheme = (
           root: classes.button,
         },
       }),
+      Card: Card.extend({
+        classNames: {
+          root: classes.card,
+        },
+      }),
       Drawer: Drawer.extend({
         styles: ({ headings: { sizes, ...style } }) => ({
           title: {
@@ -100,6 +120,11 @@ const createTheme = (
       Group: Group.extend({
         defaultProps: {
           wrap: "nowrap",
+        },
+      }),
+      HoverCard: HoverCard.extend({
+        classNames: {
+          dropdown: classes.dropdown,
         },
       }),
       Loader: Loader.extend({
@@ -123,11 +148,6 @@ const createTheme = (
           },
         }),
       }),
-      Overlay: Overlay.extend({
-        defaultProps: {
-          blur: 2,
-        },
-      }),
       JsonInput: JsonInput.extend({
         defaultProps: {
           variant: "filled",
@@ -136,12 +156,30 @@ const createTheme = (
           input: classes.input,
         },
       }),
+      Menu: Menu.extend({
+        defaultProps: {
+          withArrow: true,
+        },
+        classNames: {
+          dropdown: classes.dropdown,
+        },
+      }),
+      NavLink: NavLink.extend({
+        classNames: {
+          root: classes.navLink,
+        },
+      }),
       NumberInput: NumberInput.extend({
         defaultProps: {
           variant: "filled",
         },
         classNames: {
           input: classes.input,
+        },
+      }),
+      Overlay: Overlay.extend({
+        defaultProps: {
+          blur: 2,
         },
       }),
       TextInput: TextInput.extend({
@@ -175,11 +213,13 @@ const createTheme = (
       }),
       Popover: Popover.extend({
         defaultProps: {
+          withArrow: true,
           middlewares: floatingMiddlewares,
         },
       }),
       Tooltip: Tooltip.extend({
         defaultProps: {
+          withArrow: true,
           middlewares: floatingMiddlewares,
         },
       }),

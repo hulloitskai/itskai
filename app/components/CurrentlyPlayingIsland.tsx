@@ -179,9 +179,7 @@ const IslandContent: FC<IslandContentProps> = ({
                 </Center>
               </Box>
             }
-            variant="outline"
-            color="dark.3"
-            pl={0}
+            variant="default"
             className={classes.badge}
             style={[
               style,

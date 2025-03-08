@@ -34,7 +34,6 @@ const ExplorationBadge: FC<ExplorationBadgeProps> = ({
       <Tooltip
         label="Have some thoughts to share?"
         color="primary"
-        withArrow
         openDelay={200}
       >
         <Badge

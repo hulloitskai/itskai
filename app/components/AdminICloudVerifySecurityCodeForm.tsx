@@ -21,10 +21,9 @@ const AdminICloudVerifySecurityCodeForm: FC<
     name: "icloud-verify",
     action: routes.adminICloudConnections.verifySecurityCode,
     descriptor: "verify security code",
-    // mode: "uncontrolled",
     initialValues,
     validate: {
-      code: value => {
+      code: (value: string) => {
         if (value.length !== 6) {
           return "Must be 6 digits";
         }

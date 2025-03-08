@@ -1,27 +1,54 @@
-.button {
-  font-weight: 700;
+@layer mantine {
+  body {
+    .button {
+      :global(.mantine-Button-label) {
+        font-weight: 700;
+      }
 
-  [data-mantine-color-scheme="dark"]
-    :global(.mantine-Card-root)
-    &:where(
-      :disabled:not([data-loading]),
-      [data-disabled]:not([data-loading])
-    ) {
-    background-color: var(--mantine-color-dark-7);
+      [data-mantine-color-scheme="dark"]
+        :global(.mantine-Card-root)
+        &:where(
+          :disabled:not([data-loading]),
+          [data-disabled]:not([data-loading])
+        ) {
+        background-color: var(--mantine-color-dark-7);
+      }
+    }
+
+    .focus {
+      outline-width: 1px;
+    }
+
+    .input {
+      font-size: var(--mantine-font-size-md);
+    }
+
+    .modalInner {
+      padding-top: calc(
+        var(--modal-inner-y-offset, var(--modal-y-offset)) +
+          env(safe-area-inset-top, 0px)
+      );
+    }
+
+    .card {
+      @mixin dark {
+        background-color: var(--mantine-color-dark-8);
+        border-color: var(--mantine-color-dark-6);
+      }
+    }
+
+    .dropdown {
+      @mixin dark {
+        background-color: var(--mantine-color-dark-8);
+      }
+    }
+
+    .navLink {
+      background-color: transparent;
+
+      @mixin hover {
+        background-color: transparent;
+      }
+    }
   }
-}
-
-.focus {
-  outline-width: 1px;
-}
-
-.input {
-  font-size: var(--mantine-font-size-md);
-}
-
-.modalInner {
-  padding-top: calc(
-    var(--modal-inner-y-offset, var(--modal-y-offset)) +
-      env(safe-area-inset-top, 0px)
-  );
 }

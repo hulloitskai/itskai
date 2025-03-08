@@ -6,3 +6,11 @@
   --container-size-xl: 1320px;
   --container-size: var(--container-size-md);
 }
+
+body {
+  @mixin dark {
+    --mantine-color-body: var(--mantine-color-dark-9);
+    --mantine-color-default: var(--mantine-color-dark-8);
+    --mantine-color-default-border: var(--mantine-color-dark-6);
+  }
+}

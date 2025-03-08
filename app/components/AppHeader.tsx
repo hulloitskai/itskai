@@ -24,7 +24,7 @@ const AppHeader = forwardRef<HTMLDivElement, AppHeaderProps>(
         {...otherProps}
       >
         <Group justify="space-between" gap={8} h="100%">
-          <Group gap={8}>
+          <Group gap={4}>
             {sidebarControls && (
               <Burger
                 opened={sidebarControls.opened}
@@ -39,11 +39,6 @@ const AppHeader = forwardRef<HTMLDivElement, AppHeaderProps>(
               variant="subtle"
               size="compact-md"
               leftSection={<Image src={logoSrc} w={24} />}
-              h="unset"
-              py={2}
-              px={4}
-              fw={800}
-              fz="md"
               className={classes.logoButton}
             >
               It&apos;s Kai
