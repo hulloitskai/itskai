@@ -2,6 +2,7 @@ import { getPrimaryShade, rgba, Text } from "@mantine/core";
 import circle from "@turf/circle";
 import { type Feature, type FeatureCollection, type Point } from "geojson";
 import { DateTime, type Duration } from "luxon";
+import { lazy, Suspense } from "react";
 import { type MapRef, type ViewState } from "react-map-gl";
 import { GeolocateControl, Layer, Marker, Source } from "react-map-gl";
 
@@ -9,7 +10,6 @@ import ClockIcon from "~icons/heroicons/clock-20-solid";
 
 import AppLayout from "~/components/AppLayout";
 import LocationAccessForm from "~/components/LocationAccessForm";
-import Map from "~/components/Map";
 import {
   type ApproximateLocation,
   type Coordinates,
@@ -28,6 +28,8 @@ const TORONTO_COORDINATES: Readonly<Coordinates> = {
 const APPROXIMATE_ZOOM = 11.5;
 const PRECISE_ZOOM = 14.5;
 
+const LazyMap = lazy(() => import("~/components/Map"));
+
 export interface LocatePageProps extends SharedPageProps {
   approximateLocation: ApproximateLocation | null;
   location: LocationWithTrail | null;
@@ -43,7 +45,6 @@ const LocatePage: PageComponent<LocatePageProps> = ({
   location: initialLocation,
   password,
 }) => {
-  const mounted = useMounted();
   const theme = useMantineTheme();
 
   // == Map
@@ -216,8 +217,8 @@ const LocatePage: PageComponent<LocatePageProps> = ({
       pos="relative"
       style={{ flexGrow: 1, alignItems: "stretch", flexDirection: "column" }}
     >
-      {mounted && (
-        <Map
+      <Suspense fallback={<Skeleton radius={0} style={{ flexGrow: 1 }} />}>
+        <LazyMap
           ref={mapRef}
           mapStyle="mapbox://styles/mapbox-map-design/ck4014y110wt61ctt07egsel6"
           scrollZoom
@@ -284,8 +285,8 @@ const LocatePage: PageComponent<LocatePageProps> = ({
               />
             </Source>
           )}
-        </Map>
-      )}
+        </LazyMap>
+      </Suspense>
       <Center
         pos="absolute"
         style={({ spacing }) => ({

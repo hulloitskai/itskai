@@ -39,16 +39,16 @@ declare module "@mantine/core" {
 }
 
 const ROSE_COLORS: MantineColorsTuple = [
-  "oklch(0.969 0.015 12.422)",
-  "oklch(0.941 0.03 12.58)",
-  "oklch(0.892 0.058 10.001)",
-  "oklch(0.81 0.117 11.638)",
-  "oklch(0.712 0.194 13.428)",
-  "oklch(0.645 0.246 16.439)",
-  "oklch(0.586 0.253 17.585)",
-  "oklch(0.514 0.222 16.935)",
-  "oklch(0.455 0.188 13.697)",
-  "oklch(0.41 0.159 10.272)",
+  "#fff1f2",
+  "#ffe4e6",
+  "#fecdd3",
+  "#fda4af",
+  "#fb7185",
+  "#f43f5e",
+  "#e11d48",
+  "#be123c",
+  "#9f1239",
+  "#881337",
 ];
 
 const createTheme = (
