@@ -126,9 +126,6 @@ gem "premailer-rails", "~> 1.12"
 # Parse YAML files with Psych
 gem "psych", "~> 4.0"
 
-# Parse front matter from text files.
-gem "front_matter_parser", "~> 1.0"
-
 # Authenticate users with Devise
 gem "devise", "~> 4.9"
 
