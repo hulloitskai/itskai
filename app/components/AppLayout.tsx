@@ -15,7 +15,7 @@ import {
 import { useClearAppBadge } from "~/helpers/pwa";
 import { type SidebarControls } from "~/helpers/sidebar";
 
-import AppHeader from "./AppHeader";
+import AppHeader, { type AppHeaderProps } from "./AppHeader";
 import AppMeta, { type AppMetaProps } from "./AppMeta";
 import Attribution from "./Attribution";
 import PageContainer from "./PageContainer";
@@ -37,6 +37,7 @@ export interface AppLayoutProps<PageProps extends SharedPageProps>
   withGutter?: boolean;
   gutterSize?: MantineSize | (string & {}) | number;
   sidebar?: DynamicProp<PageProps, ReactNode>;
+  logoHref?: DynamicProp<PageProps, AppHeaderProps["logoHref"]>;
 }
 
 export interface AppBreadcrumb {
@@ -59,6 +60,7 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
   withGutter,
   gutterSize,
   sidebar: sidebarProp,
+  logoHref: logoHrefProp,
   children,
   padding,
   ...otherProps
@@ -80,6 +82,7 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
 
   // == Sidebar
   const sidebar = useResolveDynamicProp(sidebarProp, pageProps);
+  const logoHref = useResolveDynamicProp(logoHrefProp, pageProps);
   const [
     sidebarOpened,
     { toggle: toggleSidebar, close: closeSidebar, open: openSidebar },
@@ -136,7 +139,7 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
           }}
           {...otherProps}
         >
-          <AppHeader />
+          <AppHeader {...{ logoHref }} />
           {sidebar}
           <AppShell.Main className={classes.main}>
             {!isEmpty(breadcrumbs) && (

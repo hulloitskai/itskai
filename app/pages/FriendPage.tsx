@@ -203,6 +203,9 @@ const FriendPage: PageComponent<FriendPageProps> = ({
 FriendPage.layout = page => (
   <AppLayout<FriendPageProps>
     title="Friendship Portal"
+    logoHref={({ friendToken }) =>
+      routes.friends.show.path({ query: { friend_token: friendToken } })
+    }
     manifestUrl={({ friendToken }) =>
       routes.friends.manifest.path({
         query: {

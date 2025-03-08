@@ -10,10 +10,12 @@ import CurrentlyPlayingIsland from "./CurrentlyPlayingIsland";
 
 import classes from "./AppHeader.module.css";
 
-export interface AppHeaderProps extends Omit<AppShellHeaderProps, "children"> {}
+export interface AppHeaderProps extends Omit<AppShellHeaderProps, "children"> {
+  logoHref?: string;
+}
 
 const AppHeader = forwardRef<HTMLDivElement, AppHeaderProps>(
-  ({ className, ...otherProps }, ref) => {
+  ({ className, logoHref, ...otherProps }, ref) => {
     const isStandalone = useIsStandalone();
     const sidebarControls = useSidebarControls();
     return (
@@ -35,7 +37,7 @@ const AppHeader = forwardRef<HTMLDivElement, AppHeaderProps>(
             )}
             <Button
               component={Link}
-              href={routes.home.show.path()}
+              href={logoHref ?? routes.home.show.path()}
               variant="subtle"
               size="compact-md"
               leftSection={<Image src={logoSrc} w={24} />}
