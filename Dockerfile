@@ -1,12 +1,14 @@
 # syntax = docker/dockerfile:1.2
 # check=error=true
 
-# == Base
-FROM debian:bookworm-slim AS base
+# == System
+# NOTE: We separate system dependencies from application dependencies (see
+# base layer) to speed up builds when only application dependencies change.
+FROM debian:bookworm-slim AS system
 ENV OVERMIND_VERSION=2.5.1
 ENV STARSHIP_VERSION=1.20.1
 ENV DEVTOOLS="vim less"
-ENV APPLICATION_DEPS="libimage-exiftool-perl libvips"
+ENV LIBRARIES="libimage-exiftool-perl libvips"
 
 # Configure workdir
 WORKDIR /app
@@ -18,7 +20,7 @@ RUN rm /etc/apt/apt.conf.d/docker-clean
 RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
   apt-get update -yq && \
-  echo "ca-certificates tmux $DEVTOOLS $APPLICATION_DEPS" | xargs apt-get install -yq --no-install-recommends && \
+  echo "ca-certificates tmux $DEVTOOLS $LIBRARIES" | xargs apt-get install -yq --no-install-recommends && \
   apt-get purge -yq --auto-remove -o APT::AutoRemove::RecommendsImportant=false llvm && \
   rm -r /var/log/* && \
   tmux -V
@@ -43,6 +45,7 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
 
 # Install NodeJS
 COPY .node-version ./
+ENV NODE_ENV=production
 RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
   BUILD_DEPS="git curl" set -eux && \
@@ -102,8 +105,8 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
 COPY .bash_profile .inputrc /root/
 COPY starship.toml /root/.config/starship.toml
 
-# == System (Playwright)
-FROM base AS base-playwright
+# == System with Playwright
+FROM system AS system-with-playwright
 ENV PLAYWRIGHT_VERSION=1.45
 
 # Install Playwright
@@ -118,8 +121,8 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   playwright --version
 
 
-# == Dependencies
-FROM base-playwright AS deps
+# == Base (without built assets)
+FROM system-with-playwright AS base
 
 # Install Ruby dependencies
 COPY Gemfile Gemfile.lock ./
@@ -138,17 +141,6 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   find "${BUNDLE_PATH}"/ruby/*/bundler/gems/ -name "*.o" -delete && \
   bundle exec bootsnap precompile --gemfile
 
-# Install NodeJS dependencies
-COPY package.json package-lock.json ./
-ENV NODE_ENV=production
-RUN --mount=type=cache,target=/root/.npm,sharing=locked \
-  npm install && \
-  npx clean-modules && \
-  # Remove unnecessary large files
-  rm node_modules/mapbox-gl/dist/mapbox-gl-* && \
-  rm node_modules/@react-email/tailwind/dist/index.mjs && \
-  rm -r node_modules/@maplibre/maplibre-gl-style-spec/docs
-
 # Install Python dependencies
 COPY pyproject.toml poetry.toml poetry.lock ./
 RUN --mount=type=cache,target=/var/cache,sharing=locked \
@@ -162,22 +154,37 @@ RUN --mount=type=cache,target=/var/cache,sharing=locked \
   rm -r /var/log/*
 
 
+# == Builder
+FROM base AS builder
+
+# Install NodeJS dependencies
+COPY package.json package-lock.json ./
+RUN --mount=type=cache,target=/root/.npm,sharing=locked npm install
+
+# Copy application code
+COPY . ./
+
+# Build assets
+RUN --mount=type=cache,target=/root/.npm,sharing=locked \
+  SECRET_KEY_BASE_DUMMY=1 RAILS_ENV=production bin/rails assets:precompile
+
+
 # == Application
-FROM deps AS app
+FROM base AS app
 ENV RAILS_PORT=3000
 
 # Copy application code
 COPY . ./
+
+# Copy built assets
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/public/dist ./public/dist
 
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Configure application environment
 ENV RAILS_ENV=production RAILS_LOG_TO_STDOUT=true MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true"
-
-# Precompile assets
-RUN --mount=type=cache,target=/root/.npm,sharing=locked \
-  SECRET_KEY_BASE_DUMMY=1 bin/rails assets:precompile
 
 # Install Python scripts
 RUN --mount=type=cache,target=/usr/local/share/.cache/pypoetry,sharing=locked \

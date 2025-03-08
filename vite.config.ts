@@ -9,6 +9,7 @@ import { type PluginOption } from "vite";
 import { defineConfig } from "vite";
 import environmentPlugin from "vite-plugin-environment";
 import fullReloadPlugin from "vite-plugin-full-reload";
+import { ViteImageOptimizer as imageOptimizerPlugin } from "vite-plugin-image-optimizer";
 // @ts-expect-error Package does not provide types.
 import { isoImport as isomorphicImportPlugin } from "vite-plugin-iso-import";
 import rubyPlugin from "vite-plugin-ruby";
@@ -29,6 +30,7 @@ export default defineConfig(() => {
       imports,
     }),
     iconsPlugin({ compiler: "jsx", jsx: "react" }),
+    imageOptimizerPlugin(),
     reactPlugin(),
     rubyPlugin(),
     fullReloadPlugin(
@@ -81,7 +83,8 @@ export default defineConfig(() => {
       },
     },
     ssr: {
-      noExternal: ["@microsoft/clarity"],
+      noExternal:
+        process.env.RAILS_ENV === "production" ? true : ["@microsoft/clarity"],
     },
     plugins,
   };
