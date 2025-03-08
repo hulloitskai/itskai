@@ -16,15 +16,9 @@
     z-index: -1;
     inset: 0;
     content: "";
-    backdrop-filter: blur(4px);
-    mask: linear-gradient(black, black, transparent);
-    /* -webkit-mask: -webkit-gradient(
-      linear,
-      left 70%,
-      left 0%,
-      from(rgba(0, 0, 0, 1)),
-      to(rgba(0, 0, 0, 0))
-    ); */
+    backdrop-filter: blur(3px);
+    background-color: alpha(var(--mantine-color-body), 0.5);
+    mask: linear-gradient(to top, transparent, black 24px);
   }
 }
 
