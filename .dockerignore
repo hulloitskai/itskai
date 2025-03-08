@@ -1,12 +1,19 @@
 # == GitHub Actions
 .github/
 
+
 # == Git
-/.git/
-/.gitignore
+.git/
+.gitignore
+.gitattributes
+/README*
+/LICENSE*
+
 
 # == Dotenv
 .env
+.env.example
+
 
 # == Python
 __pycache__/
@@ -15,15 +22,22 @@ __pycache__/
 .mypy_cache/
 .venv
 
+
 # == Vite
 vite.config.ts.timestamp-*.mjs
+
 
 # == Vite Ruby
 /dist/
 /public/dist*/
 
+
 # == Ruby LSP
 .ruby-lsp/
+
+
+# == Sorbet
+sorbet/
 
 # == Rails
 # Ignore assets and sitemap.
@@ -66,6 +80,11 @@ vite.config.ts.timestamp-*.mjs
 # Ignore Kamal files
 /config/deploy*.yml
 /.kamal
+
+
+# == Typescript
+/typings/
+
 
 # == Node
 node_modules/
