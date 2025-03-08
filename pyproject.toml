@@ -1,12 +1,10 @@
-[tool.poetry]
+[project]
   name = "itskai"
   version = "0"
-  description = ""
-  authors = []
-  license = "UNLICENSED"
-  readme = "README.md"
+  requires-python = ">=3.11"
+  dynamic = ["dependencies"]
 
-[tool.poetry.scripts]
+[project.scripts]
   icloudctl = "icloudctl:main"
 
 [tool.poetry.dependencies]
