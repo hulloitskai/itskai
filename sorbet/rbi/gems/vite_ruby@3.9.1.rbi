@@ -12,6 +12,10 @@ class ViteRuby
   # source://vite_ruby//lib/vite_ruby.rb#70
   def initialize(**config_options); end
 
+  def auto_build_disabled; end
+  def auto_build_disabled=(_arg0); end
+  def auto_build_disabled?; end
+
   # Public: Keeps track of watched files and triggers builds as needed.
   #
   # source://vite_ruby//lib/vite_ruby.rb#122
@@ -32,9 +36,9 @@ class ViteRuby
   # source://vite_ruby//lib/vite_ruby.rb#142
   def configure(**options); end
 
-  def dev_server_enabled; end
-  def dev_server_enabled=(_arg0); end
-  def dev_server_enabled?; end
+  def dev_server_disabled; end
+  def dev_server_disabled=(_arg0); end
+  def dev_server_disabled?; end
 
   # Public: Returns true if the Vite development server is currently running.
   # NOTE: Checks only once every second since every lookup calls this method.
@@ -83,6 +87,10 @@ class ViteRuby
   def run_proxy?; end
 
   class << self
+    def auto_build_disabled; end
+    def auto_build_disabled=(value); end
+    def auto_build_disabled?; end
+
     # Internal: Refreshes the manifest.
     #
     # source://vite_ruby//lib/vite_ruby.rb#43
@@ -97,9 +105,9 @@ class ViteRuby
     # source://forwardable/1.3.3/forwardable.rb#231
     def configure(*args, **_arg1, &block); end
 
-    def dev_server_enabled; end
-    def dev_server_enabled=(value); end
-    def dev_server_enabled?; end
+    def dev_server_disabled; end
+    def dev_server_disabled=(value); end
+    def dev_server_disabled?; end
 
     # source://forwardable/1.3.3/forwardable.rb#231
     def digest(*args, **_arg1, &block); end
@@ -136,7 +144,24 @@ class ViteRuby
     def run_proxy?(*args, **_arg1, &block); end
 
     sig { type_parameters(:U).params(block: T.proc.returns(T.type_parameter(:U))).returns(T.type_parameter(:U)) }
+    def without_auto_build(&block); end
+
+    sig { type_parameters(:U).params(block: T.proc.returns(T.type_parameter(:U))).returns(T.type_parameter(:U)) }
     def without_dev_server(&block); end
+
+    private
+
+    # source://activesupport/8.0.1/lib/active_support/class_attribute.rb#15
+    def __class_attr_auto_build_disabled; end
+
+    # source://activesupport/8.0.1/lib/active_support/class_attribute.rb#17
+    def __class_attr_auto_build_disabled=(new_value); end
+
+    # source://activesupport/8.0.1/lib/active_support/class_attribute.rb#15
+    def __class_attr_dev_server_disabled; end
+
+    # source://activesupport/8.0.1/lib/active_support/class_attribute.rb#17
+    def __class_attr_dev_server_disabled=(new_value); end
   end
 end
 
@@ -278,7 +303,7 @@ end
 
 # source://vite_ruby//lib/vite_ruby/cli/build.rb#3
 class ViteRuby::CLI::Build < ::ViteRuby::CLI::Vite
-  # source://vite_rails/3.0.17/lib/vite_rails/cli.rb#9
+  # source://vite_rails/3.0.19/lib/vite_rails/cli.rb#9
   def call(**options); end
 end
 
@@ -417,12 +442,12 @@ class ViteRuby::CLI::Install < ::Dry::CLI::Command
 
   # Internal: Create a sample JS file and attempt to inject it in an HTML template.
   #
-  # source://vite_rails/3.0.17/lib/vite_rails/cli.rb#60
+  # source://vite_rails/3.0.19/lib/vite_rails/cli.rb#60
   def install_sample_files; end
 
   # Internal: Setup for a plain Rack application.
   #
-  # source://vite_rails/3.0.17/lib/vite_rails/cli.rb#28
+  # source://vite_rails/3.0.19/lib/vite_rails/cli.rb#28
   def setup_app_files; end
 
   protected
@@ -684,25 +709,25 @@ class ViteRuby::Config
 
   # @return [Config] a new instance of Config
   #
-  # source://vite_ruby//lib/vite_ruby/config.rb#116
+  # source://vite_ruby//lib/vite_ruby/config.rb#117
   def initialize(attrs); end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def additional_entrypoints; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def asset_host; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def assets_dir; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def auto_build; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def base; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def build_cache_dir; end
 
   # Public: The directory where Vite will store the built assets.
@@ -710,25 +735,25 @@ class ViteRuby::Config
   # source://vite_ruby//lib/vite_ruby/config.rb#37
   def build_output_dir; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def config_path; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def dev_server_connect_timeout; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def entrypoints_dir; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def hide_build_console_output; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def host; end
 
   # source://vite_ruby//lib/vite_ruby/config.rb#16
   def host_with_port; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def https; end
 
   # Internal: Path to the manifest files generated by Vite and vite-plugin-ruby.
@@ -746,25 +771,25 @@ class ViteRuby::Config
   # source://vite_ruby//lib/vite_ruby/config.rb#32
   def manifest_paths; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def mode; end
 
   # source://vite_ruby//lib/vite_ruby/config.rb#8
   def origin; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def package_manager; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def port; end
 
   # source://vite_ruby//lib/vite_ruby/config.rb#12
   def protocol; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def public_dir; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def public_output_dir; end
 
   # Public: The directory where the entries are located.
@@ -772,25 +797,25 @@ class ViteRuby::Config
   # source://vite_ruby//lib/vite_ruby/config.rb#42
   def resolved_entrypoints_dir; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def root; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def skip_compatibility_check; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def skip_proxy; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def source_code_dir; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def ssr_build_enabled; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def ssr_entrypoint; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def ssr_output_dir; end
 
   # Public: Sets additional environment variables for vite-plugin-ruby.
@@ -798,7 +823,7 @@ class ViteRuby::Config
   # source://vite_ruby//lib/vite_ruby/config.rb#63
   def to_env(env_vars = T.unsafe(nil)); end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def vite_bin_path; end
 
   # Internal: The directory where Vite stores its processing cache.
@@ -811,7 +836,7 @@ class ViteRuby::Config
   # source://vite_ruby//lib/vite_ruby/config.rb#52
   def vite_root_dir; end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#216
+  # source://vite_ruby//lib/vite_ruby/config.rb#217
   def watch_additional_paths; end
 
   # Internal: Files and directories that should be watched for changes.
@@ -837,64 +862,64 @@ class ViteRuby::Config
   # source://vite_ruby//lib/vite_ruby/config.rb#92
   def coerce_values(config); end
 
-  # source://vite_ruby//lib/vite_ruby/config.rb#107
+  # source://vite_ruby//lib/vite_ruby/config.rb#108
   def detect_package_manager(root); end
 
   class << self
     # Public: Returns the project configuration for Vite.
     #
-    # source://vite_ruby//lib/vite_ruby/config.rb#125
+    # source://vite_ruby//lib/vite_ruby/config.rb#126
     def resolve_config(**attrs); end
 
     private
 
     # Internal: Default values for a Ruby application.
     #
-    # source://vite_rails/3.0.17/lib/vite_rails/config.rb#7
+    # source://vite_rails/3.0.19/lib/vite_rails/config.rb#7
     def config_defaults; end
 
     # Internal: Extracts the configuration options provided as env vars.
     #
-    # source://vite_ruby//lib/vite_ruby/config.rb#168
+    # source://vite_ruby//lib/vite_ruby/config.rb#169
     def config_from_env; end
 
     # Internal: Loads the configuration options provided in a JSON file.
     #
-    # source://vite_ruby//lib/vite_ruby/config.rb#177
+    # source://vite_ruby//lib/vite_ruby/config.rb#178
     def config_from_file(path, mode:); end
 
     # Internal: Used to load a JSON file from the specified path.
     #
-    # source://vite_ruby//lib/vite_ruby/config.rb#154
+    # source://vite_ruby//lib/vite_ruby/config.rb#155
     def load_json(path); end
 
     def new(*_arg0); end
 
     # Internal: Retrieves a configuration option from environment variables.
     #
-    # source://vite_ruby//lib/vite_ruby/config.rb#163
+    # source://vite_ruby//lib/vite_ruby/config.rb#164
     def option_from_env(name); end
   end
 end
 
 # Internal: Configuration options that can be provided as env vars.
 #
-# source://vite_ruby//lib/vite_ruby/config.rb#194
+# source://vite_ruby//lib/vite_ruby/config.rb#195
 ViteRuby::Config::CONFIGURABLE_WITH_ENV = T.let(T.unsafe(nil), Array)
 
 # Internal: Shared configuration with the Vite plugin for Ruby.
 #
-# source://vite_ruby//lib/vite_ruby/config.rb#188
+# source://vite_ruby//lib/vite_ruby/config.rb#189
 ViteRuby::Config::DEFAULT_CONFIG = T.let(T.unsafe(nil), Hash)
 
 # Internal: If any of these files is modified the build won't be skipped.
 #
-# source://vite_ruby//lib/vite_ruby/config.rb#197
+# source://vite_ruby//lib/vite_ruby/config.rb#198
 ViteRuby::Config::DEFAULT_WATCHED_PATHS = T.let(T.unsafe(nil), Array)
 
 # Internal: Configuration options that can not be provided as env vars.
 #
-# source://vite_ruby//lib/vite_ruby/config.rb#191
+# source://vite_ruby//lib/vite_ruby/config.rb#192
 ViteRuby::Config::NOT_CONFIGURABLE_WITH_ENV = T.let(T.unsafe(nil), Array)
 
 # source://vite_ruby//lib/vite_ruby/version.rb#8
@@ -931,7 +956,7 @@ class ViteRuby::DevServerProxy < ::Rack::Proxy
   #
   # @return [Boolean]
   #
-  # source://vite_ruby//lib/vite_ruby/dev_server_proxy.rb#63
+  # source://vite_ruby//lib/vite_ruby/dev_server_proxy.rb#64
   def file_in_vite_root?(path); end
 
   # source://vite_ruby//lib/vite_ruby/dev_server_proxy.rb#44
@@ -953,7 +978,7 @@ class ViteRuby::DevServerProxy < ::Rack::Proxy
   #
   # If the path starts with that prefix, it will be redirected to Vite.
   #
-  # source://vite_ruby//lib/vite_ruby/dev_server_proxy.rb#72
+  # source://vite_ruby//lib/vite_ruby/dev_server_proxy.rb#73
   def vite_url_prefix; end
 end
 
@@ -1079,7 +1104,7 @@ class ViteRuby::Manifest
 
   # Internal: Allows to receive :javascript and :stylesheet as :type in helpers.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#204
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#206
   def extension_for_type(entry_type); end
 
   # Internal: Finds the specified entry in the manifest.
@@ -1104,59 +1129,56 @@ class ViteRuby::Manifest
   #
   # @raise [ViteRuby::MissingEntrypointError]
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#214
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#216
   def missing_entry_error(name, **options); end
 
   # Internal: Prefixes an asset with the `asset_host` for tags that do not use
   # the framework tag helpers.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#142
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#144
   def prefix_asset_with_host(path); end
 
   # Internal: Scopes an asset to the output folder in public, as a path.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#136
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#138
   def prefix_vite_asset(path); end
 
   # Internal: Entry names in the manifest are relative to the Vite.js.
   # During develoment, files outside the root must be requested explicitly.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#181
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#183
   def resolve_absolute_entry(name); end
 
   # Internal: Resolves the manifest entry name for the specified resource.
   #
   # @raise [ArgumentError]
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#163
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#165
   def resolve_entry_name(name, type: T.unsafe(nil)); end
 
   # Internal: Resolves the paths that reference a manifest entry.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#152
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#154
   def resolve_references(manifest); end
 
   # Internal: Resolves a virtual entry by walking all the manifest keys.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#190
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#192
   def resolve_virtual_entry(name); end
 
   # NOTE: Auto compilation is convenient when running tests, when the developer
   # won't focus on the frontend, or when running the Vite server is not desired.
-  #
-  # @return [Boolean]
-  #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#106
+  sig { returns(T::Boolean) }
   def should_build?; end
 
   # Internal: The origin of assets managed by Vite.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#147
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#149
   def vite_asset_origin; end
 
   # Internal: Adds a file extension to the file name, unless it already has one.
   #
-  # source://vite_ruby//lib/vite_ruby/manifest.rb#195
+  # source://vite_ruby//lib/vite_ruby/manifest.rb#197
   def with_file_extension(name, entry_type); end
 end
 
