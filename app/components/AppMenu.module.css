@@ -1,5 +1,5 @@
 .target {
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   padding-left: 8px;
 
@@ -23,8 +23,14 @@
 }
 
 .item {
-  @mixin hover {
-    background-color: var(--mantine-primary-color-light);
+  &:not([data-disabled]) {
+    @mixin hover {
+      background-color: var(--mantine-primary-color-light);
+    }
+  }
+
+  &[data-info] {
+    cursor: default;
   }
 }
 
@@ -38,4 +44,12 @@
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
   font-weight: 500;
   font-family: var(--mantine-font-family-headings);
+}
+
+.dropdown {
+  pointer-events: auto;
+
+  .target:not([data-expanded]) + & {
+    pointer-events: none;
+  }
 }

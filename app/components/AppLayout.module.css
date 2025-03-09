@@ -10,7 +10,6 @@
   height: calc(var(--app-shell-header-height) + env(safe-area-inset-top, 0px));
   padding-top: env(safe-area-inset-top, 0px);
   background-color: transparent;
-  pointer-events: none;
 
   &::before {
     position: absolute;
@@ -27,12 +26,6 @@
       alpha(var(--mantine-color-body), 0.8)
     );
     mask: linear-gradient(to top, transparent, black rem(24px));
-  }
-
-  a,
-  button,
-  [aria-haspopup] {
-    pointer-events: auto;
   }
 }
 

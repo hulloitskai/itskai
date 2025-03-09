@@ -5,6 +5,7 @@ import { fetchRoute } from "./routes/fetch";
 export interface UseContactOptions {
   subject?: string;
   body?: string;
+  onTriggered?: () => void;
 }
 
 export interface UseContactResult {
@@ -20,13 +21,15 @@ export const useContact = (
   });
   const contact = useCallback(() => {
     setResult(result => ({ ...result, loading: true }));
+    const { onTriggered, ...params } = options ?? {};
     fetchRoute<{ mailto: string }>(routes.contactUrls.show, {
       descriptor: "load contact email",
-      params: options,
+      params,
     })
       .then(
         ({ mailto }): void => {
           location.href = mailto;
+          onTriggered?.();
         },
         (error: Error) => {
           setResult(result => ({ ...result, error }));

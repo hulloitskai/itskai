@@ -1,8 +1,17 @@
+.header {
+  pointer-events: none;
+}
+
+.clickable {
+  pointer-events: auto;
+}
+
 .logoButton {
   height: unset;
   padding-block: 2px;
   padding-left: 2px;
   border-radius: var(--mantine-radius-xl);
+  pointer-events: auto;
 
   :global(.mantine-Button-label) {
     font-weight: 900;
@@ -13,4 +22,9 @@
   :global(.mantine-Button-section)[data-position="left"] {
     margin-right: 8px;
   }
+}
+
+.menu {
+  pointer-events: auto;
+  flex-shrink: 0;
 }

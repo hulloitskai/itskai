@@ -22,13 +22,14 @@ const AppHeader = forwardRef<HTMLDivElement, AppHeaderProps>(
       <AppShell.Header
         {...{ ref }}
         px={8}
-        className={cn("AppHeader", className)}
+        className={cn("AppHeader", classes.header, className)}
         {...otherProps}
       >
         <Group justify="space-between" gap={8} h="100%">
           <Group gap={4}>
             {sidebarControls && (
               <Burger
+                className={classes.clickable}
                 opened={sidebarControls.opened}
                 onClick={sidebarControls.toggle}
                 hiddenFrom="sm"
@@ -46,8 +47,8 @@ const AppHeader = forwardRef<HTMLDivElement, AppHeaderProps>(
               It&apos;s Kai
             </Button>
           </Group>
-          <CurrentlyPlayingIsland />
-          {!isStandalone && <AppMenu style={{ flexShrink: 0 }} />}
+          <CurrentlyPlayingIsland className={classes.clickable} />
+          {!isStandalone && <AppMenu className={classes.menu} />}
         </Group>
       </AppShell.Header>
     );
