@@ -1,18 +1,19 @@
 @layer mantine {
   body {
     .button {
-      :global(.mantine-Button-label) {
-        font-weight: 700;
-      }
-
       [data-mantine-color-scheme="dark"]
-        :global(.mantine-Card-root)
+        .card
         &:where(
           :disabled:not([data-loading]),
           [data-disabled]:not([data-loading])
         ) {
         background-color: var(--mantine-color-dark-7);
       }
+    }
+
+    .buttonLabel {
+      font-family: var(--mantine-font-family-headings);
+      font-weight: var(--button-fw);
     }
 
     .focus {
@@ -30,6 +31,10 @@
       );
     }
 
+    .badgeLabel {
+      font-family: var(--mantine-font-family-headings);
+    }
+
     .card {
       @mixin dark {
         background-color: var(--mantine-color-dark-8);
@@ -44,11 +49,31 @@
     }
 
     .navLink {
+      font-family: var(--mantine-font-family-headings);
+      font-weight: 500;
       background-color: transparent;
 
       @mixin hover {
         background-color: transparent;
       }
+    }
+
+    .alertBody {
+      row-gap: 0px;
+    }
+
+    .alertTitle {
+      font-family: var(--mantine-font-family-headings);
+    }
+
+    .text {
+      &:not([data-inherit]) {
+        line-height: var(--mantine-line-height);
+      }
+    }
+
+    .title {
+      line-height: var(--mantine-line-height);
     }
   }
 }

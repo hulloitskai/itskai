@@ -62,17 +62,11 @@ const AdminFriendsPage: PageComponent<AdminFriendsPageProps> = ({
                   />
                 )}
               </Group>
-              <Group
-                gap={8}
-                justify="end"
-                style={{ rowGap: 0, flexShrink: 0 }}
-                lh="xs"
-              >
+              <Group gap={8} justify="end" style={{ rowGap: 0, flexShrink: 0 }}>
                 <Anchor
                   href={routes.friends.show.path({
                     query: { friend_token: friend.token },
                   })}
-                  inherit
                   fz="xs"
                 >
                   Installer
@@ -84,7 +78,6 @@ const AdminFriendsPage: PageComponent<AdminFriendsPageProps> = ({
                       emulate_standalone: true,
                     },
                   })}
-                  inherit
                   fz="xs"
                 >
                   Emulator

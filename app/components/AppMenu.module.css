@@ -1,10 +1,10 @@
 .target {
-  font-weight: 500;
+  font-weight: 700;
   cursor: pointer;
   padding-left: 8px;
 
   &[data-expanded] {
-    border-color: var(--mantine-color-primary-outline);
+    border-color: var(--mantine-color-primary-filled);
   }
 }
 
@@ -26,18 +26,16 @@
   @mixin hover {
     background-color: var(--mantine-primary-color-light);
   }
+}
 
-  :global(.mantine-Menu-itemSection) {
-    color: light-dark(
-      var(--mantine-primary-color-7),
-      var(--mantine-primary-color-4)
-    );
-    width: 16px;
-    height: 16px;
-  }
+.itemSection {
+  color: var(--mantine-color-primary-text);
+  width: 16px;
+  height: 16px;
+}
 
-  :global(.mantine-Menu-itemLabel) {
-    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-gray-5));
-    font-weight: 500;
-  }
+.itemLabel {
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
+  font-weight: 500;
+  font-family: var(--mantine-font-family-headings);
 }

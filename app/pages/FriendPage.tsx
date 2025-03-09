@@ -52,12 +52,12 @@ const FriendPage: PageComponent<FriendPageProps> = ({
         )}
         {standaloneMode === true && (
           <>
-            <Stack gap={6} lh="xs" ta="center">
-              <Text inherit fw={700}>
+            <Stack gap={6} ta="center">
+              <Text fw={700}>
                 Hi, {friend.emoji}{" "}
                 <span className={classes.name}>{friend.name}</span>!
               </Text>
-              <Text inherit>
+              <Text>
                 {lastVibecheck ? (
                   <>
                     Today, you&apos;re feelin' kinda{" "}
@@ -151,12 +151,12 @@ const FriendPage: PageComponent<FriendPageProps> = ({
                   : "Add to home screen"}
               </Button>
               {pwaInstalled && (
-                <Text size="xs" c="dimmed" lh="xs">
+                <Text size="xs" c="dimmed">
                   On Android, you&apos;ll find me in your app drawer.
                 </Text>
               )}
               {!isMobile && (
-                <Text size="xs" c="dimmed" lh="xs">
+                <Text size="xs" c="dimmed">
                   Open this page on your phone to continue.
                 </Text>
               )}

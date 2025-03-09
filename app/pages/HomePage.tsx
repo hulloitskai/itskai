@@ -157,9 +157,9 @@ const HomePage: PageComponent<HomePageProps> = ({
               });
             }}
             my="xl"
-            w="100%"
+            // w="100%"
             maw={540}
-            {...{ style }}
+            style={[style, { alignSelf: "center" }]}
           />
         )}
       </Transition>

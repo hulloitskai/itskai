@@ -102,7 +102,6 @@ const TimelineItemContent: FC<TimelineItemContentProps> = ({
       >
         <Stack gap={8} align="start">
           <Text
-            lh="xs"
             style={{ whiteSpace: "pre-line", whiteSpaceCollapse: "preserve" }}
           >
             <Linkify

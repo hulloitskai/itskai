@@ -57,10 +57,10 @@ const AdminSettingsPage: PageComponent<AdminSettingsPageProps> = ({
     <Card withBorder>
       <Stack gap="sm">
         <Stack align="center" gap={0}>
-          <Title order={2} size="h4" lh="xs">
+          <Title order={2} size="h4">
             Notifications
           </Title>
-          <Text size="sm" c="dimmed" lh="xs">
+          <Text size="sm" c="dimmed">
             Update your push notification settings
           </Text>
         </Stack>
@@ -141,7 +141,6 @@ const AdminSettingsPage: PageComponent<AdminSettingsPageProps> = ({
     </Card>
   </Stack>
 );
-
 AdminSettingsPage.layout = page => (
   <AppLayout
     title={["Admin", "Settings"]}

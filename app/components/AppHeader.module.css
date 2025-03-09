@@ -1,6 +1,8 @@
 .logoButton {
   height: unset;
   padding-block: 2px;
+  padding-left: 2px;
+  border-radius: var(--mantine-radius-xl);
 
   :global(.mantine-Button-label) {
     font-weight: 900;

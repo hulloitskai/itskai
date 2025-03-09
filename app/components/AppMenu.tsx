@@ -38,7 +38,7 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
     },
   });
 
-  // == Components
+  // == Link items
   interface MenuLinkProps
     extends MenuItemProps,
       Omit<InertiaLinkProps, "color" | "style"> {}
@@ -59,7 +59,11 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
           setOpened(opened);
         });
       }}
-      classNames={{ item: classes.item }}
+      classNames={{
+        item: classes.item,
+        itemSection: classes.itemSection,
+        itemLabel: classes.itemLabel,
+      }}
       {...otherProps}
     >
       <Menu.Target>

@@ -127,7 +127,6 @@ type IslandContentProps = BoxProps & {
 
 const IslandContent: FC<IslandContentProps> = ({
   progressMs,
-  style,
   track,
   transitioning,
   ...otherProps
@@ -139,12 +138,14 @@ const IslandContent: FC<IslandContentProps> = ({
   );
 
   // == Join jam session
-  const { trigger: joinJam, mutating: joiningJam } = useRouteMutation(
-    routes.spotifyJamSessions.join,
-    {
-      descriptor: "join Spotify jam session",
+  const { trigger: joinJam, mutating: joiningJam } = useRouteMutation<{
+    joinUrl: string;
+  }>(routes.spotifyJamSessions.join, {
+    descriptor: "join Spotify jam session",
+    onSuccess: ({ joinUrl }) => {
+      open(joinUrl, "_blank");
     },
-  );
+  });
 
   return (
     <CurrentlyPlayingLyricsTooltip
@@ -181,18 +182,6 @@ const IslandContent: FC<IslandContentProps> = ({
             }
             variant="default"
             className={classes.badge}
-            style={[
-              style,
-              theme => {
-                const borderColor = parseThemeColor({
-                  theme,
-                  color: theme.primaryColor,
-                }).value;
-                return {
-                  "--cpi-border-color-active": borderColor,
-                };
-              },
-            ]}
             styles={{
               section: {
                 margin: 0,

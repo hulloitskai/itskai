@@ -33,7 +33,7 @@ const AdminExplorationCommentsPage: PageComponent<
             return (
               <Card key={comment.id} withBorder>
                 <Card.Section withBorder inheritPadding py="xs">
-                  <Text inherit fz="sm" fw={700} lh="xs">
+                  <Text inherit fz="sm" fw={700}>
                     Re: "{exploration.label}"
                   </Text>
                   <Time

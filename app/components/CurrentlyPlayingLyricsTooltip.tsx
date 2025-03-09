@@ -70,7 +70,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
 
   const hasWords = !!currentLyric?.words;
   const label = useMemo(
-    () => (hovered ? "Click to jam with me :)" : currentLyric?.words),
+    () => (hovered ? "Click to join listening session!" : currentLyric?.words),
     [currentLyric, hovered],
   );
   const prevLabel = usePrevious(label);
@@ -83,9 +83,8 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
       transitionProps={{ duration: transitionDuration }}
       disabled={disabled ?? (!hasWords && !hovered)}
       opened={!disabled && (hasWords || hovered)}
-      maw={350}
-      fz="xs"
       classNames={{ tooltip: classes.tooltip }}
+      mod={{ hovered }}
       {...otherProps}
     >
       {children(currentLyric)}

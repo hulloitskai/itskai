@@ -1,5 +1,5 @@
 .badge {
-  transition-property: transform, opacity, border !important;
+  transition-property: transform, opacity, border, box-shadow !important;
   padding-left: 0px;
   cursor: pointer;
   position: relative;
@@ -10,10 +10,17 @@
 
   @mixin hover {
     text-decoration: underline;
+    border-color: var(--mantine-color-primary-filled);
+
+    --shadow-color: light-dark(
+      alpha(var(--mantine-color-primary-filled), 0.5),
+      var(--mantine-color-primary-filled)
+    );
+    box-shadow: 0px 0px 8px var(--shadow-color);
   }
 
   &[data-with-lyrics] {
-    border-color: var(--cpi-border-color-active);
+    border-color: var(--mantine-color-primary-filled);
   }
 }
 
@@ -34,7 +41,8 @@
 }
 
 .artistNames {
-  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-3));
+  font-family: var(--mantine-font-family);
+  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
 }
 
 @keyframes rotate {

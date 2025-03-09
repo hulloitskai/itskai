@@ -36,14 +36,6 @@ const ApproximateLocationAlert: FC<ApproximateLocationAlertProps> = ({
     <Alert
       icon={<LocationIcon />}
       title="In the area?"
-      styles={{
-        root: {
-          alignSelf: "center",
-        },
-        body: {
-          rowGap: rem(2),
-        },
-      }}
       {...(location && { pb: "sm" })}
       {...otherProps}
     >

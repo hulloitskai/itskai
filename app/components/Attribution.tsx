@@ -4,6 +4,8 @@ import CodeIcon from "~icons/heroicons/code-bracket-20-solid";
 
 import heartSrc from "~/assets/images/heart.png";
 
+import classes from "./Attribution.module.css";
+
 export interface AttributionProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {}
@@ -12,7 +14,7 @@ const Attribution: FC<AttributionProps> = ({ ...otherProps }) => (
   <HoverCard>
     <HoverCard.Target>
       <Group justify="center" gap={4} {...otherProps}>
-        <Text size="xs" c="gray.6" fw={500}>
+        <Text size="xs" className={classes.label}>
           Made by{" "}
           <Text span fw={700}>
             Kai

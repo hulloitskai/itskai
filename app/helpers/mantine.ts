@@ -20,6 +20,7 @@ import {
   PasswordInput,
   PinInput,
   Popover,
+  Text,
   TextInput,
   ThemeIcon,
 } from "@mantine/core";
@@ -81,7 +82,7 @@ const createTheme = (
       "Liberation Mono, Courier New, monospace",
     headings: {
       fontFamily:
-        "Manrope Variable, Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, " +
+        "Bricolage Grotesque Variable, Manrope Variable, Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, " +
         "Arial, sans-serif",
     },
     focusClassName: cn("mantine-focus-auto", classes.focus),
@@ -97,12 +98,31 @@ const createTheme = (
             fontWeight: 800,
           },
         },
+        classNames: {
+          title: classes.alertTitle,
+          body: classes.alertBody,
+        },
+      }),
+      Badge: Badge.extend({
+        classNames: {
+          label: classes.badgeLabel,
+        },
       }),
       Button: Button.extend({
-        defaultProps: { variant: "light" },
+        defaultProps: {
+          variant: "light",
+        },
         classNames: {
           root: classes.button,
+          label: classes.buttonLabel,
         },
+        styles: (_theme, { size = "sm" }) => ({
+          root: {
+            ...(!["xs", "compact-xs", "compact-sm"].includes(size) && {
+              "--button-fw": 700,
+            }),
+          },
+        }),
       }),
       Card: Card.extend({
         classNames: {
@@ -182,6 +202,11 @@ const createTheme = (
           blur: 2,
         },
       }),
+      Text: Text.extend({
+        classNames: {
+          root: classes.text,
+        },
+      }),
       TextInput: TextInput.extend({
         defaultProps: {
           variant: "filled",
@@ -201,6 +226,11 @@ const createTheme = (
       ThemeIcon: ThemeIcon.extend({
         defaultProps: {
           variant: "default",
+        },
+      }),
+      Title: Title.extend({
+        classNames: {
+          root: classes.title,
         },
       }),
       PasswordInput: PasswordInput.extend({

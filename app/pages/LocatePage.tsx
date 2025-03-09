@@ -317,20 +317,10 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                       </Badge>
                     </Group>
                   }
-                  styles={{
-                    root: {
-                      transition: "border 250ms ease",
-                    },
-                    label: {
-                      width: "100%",
-                    },
-                  }}
                   mod={{ pulse: alertPulse }}
                 >
                   <Stack gap={4}>
-                    <Text span fw={700} lh={1.3}>
-                      {address}
-                    </Text>
+                    <Text fw={700}>{address}</Text>
                     <Box>
                       <Text size="xs" fw={500} className={classes.source}>
                         From Find My iPhone,{" "}

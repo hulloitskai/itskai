@@ -5,6 +5,7 @@
     var(--mantine-color-dark-7)
   );
   border: rem(1px) solid light-dark(#1d2822, #5a7b6a);
+  transition: border 250ms ease;
 
   &[data-pulse] {
     border-color: var(--mantine-primary-color-4);
@@ -15,11 +16,15 @@
   }
 
   :global(.mantine-Alert-message) {
-    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
+    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+  }
+
+  :global(.mantine-Alert-label) {
+    width: 100%;
   }
 
   :global(.mantine-Alert-body) {
-    row-gap: 2px;
+    row-gap: rem(3);
   }
 }
 

@@ -49,12 +49,12 @@ const AdminStatusCard: FC<AdminStatusCardProps> = ({
       <Card.Section withBorder p="xs">
         <Group align="start" gap="xs">
           {!!status.emoji && (
-            <Text w={22} ta="end" display="block" lh="xs">
+            <Text w={22} ta="end" display="block">
               {status.emoji}
             </Text>
           )}
           <Text
-            lh="xs"
+            lh="md"
             style={{ whiteSpace: "pre-line", whiteSpaceCollapse: "preserve" }}
           >
             <Linkify

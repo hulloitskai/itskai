@@ -1,4 +1,10 @@
 .tooltip {
   text-transform: none;
   line-height: 1.3;
+  max-width: 350px;
+  font-size: var(--mantine-font-size-xs);
+
+  &[data-hovered] {
+    font-weight: 600;
+  }
 }

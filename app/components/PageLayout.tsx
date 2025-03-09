@@ -10,6 +10,7 @@ import WebPushProvider from "./WebPushProvider";
 
 import "@fontsource-variable/jetbrains-mono";
 import "@fontsource-variable/manrope";
+import "@fontsource-variable/bricolage-grotesque";
 
 import "./PageLayout-lowercasing.css"; // lowercasing
 import "@mantine/core/styles.layer.css";
