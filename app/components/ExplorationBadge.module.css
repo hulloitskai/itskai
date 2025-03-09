@@ -1,5 +1,15 @@
 .badge {
+  height: unset;
+  padding-block: 4px;
+  cursor: pointer;
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-white));
+
+  :global(.mantine-Badge-label) {
+    font-weight: 600;
+    white-space: unset;
+    line-height: 1.4;
+    font-family: var(--mantine-font-family);
+  }
 
   @mixin hover {
     border-color: var(--mantine-color-primary-outline);

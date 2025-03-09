@@ -39,19 +39,7 @@ const ExplorationBadge: FC<ExplorationBadgeProps> = ({
         <Badge
           variant="default"
           size="lg"
-          fw={600}
           className={classes.badge}
-          h="unset"
-          py={4}
-          styles={{
-            root: {
-              cursor: "pointer",
-            },
-            label: {
-              whiteSpace: "unset",
-              lineHeight: 1.4,
-            },
-          }}
           onClick={openCommentModal}
         >
           {exploration.label}
