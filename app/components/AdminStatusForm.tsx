@@ -39,7 +39,8 @@ const AdminStatusForm: FC<AdminStatusFormProps> = ({
         ...values,
       },
     }),
-    onSuccess: () => {
+    onSuccess: (data, { reset }) => {
+      reset();
       onStatusCreated();
     },
   });

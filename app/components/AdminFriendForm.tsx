@@ -17,7 +17,8 @@ const AdminFriendForm: FC<AdminFriendFormProps> = ({
       name: "",
     },
     transformValues: values => ({ friend: values }),
-    onSuccess: () => {
+    onSuccess: (data, { reset }) => {
+      reset();
       onFriendCreated();
     },
   });
