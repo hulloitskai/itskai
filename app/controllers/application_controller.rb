@@ -67,9 +67,8 @@ class ApplicationController < ActionController::Base
   # == Helpers
   sig { returns(T::Hash[Symbol, T.untyped]) }
   def error_context
-    case current_user
-    in { id:, email: }
-      { user_id: id, user_email: email }
+    if (user = current_user)
+      { user_id: user.id, user_email: user.email }
     else
       {}
     end

@@ -5,8 +5,10 @@
 # == Direnv
 .envrc
 
+
 # == Dotenv
 .env
+
 
 # == Python
 __pycache__/
@@ -15,15 +17,19 @@ __pycache__/
 *$py.class
 .mypy_cache/
 
+
 # == Vite
 vite.config.ts.timestamp-*.mjs
+
 
 # == Vite Ruby
 /dist/
 /public/dist*/
 
+
 # == Ruby LSP
 .ruby-lsp/
+
 
 # == Rails
 /public/assets/
@@ -53,6 +59,7 @@ vite.config.ts.timestamp-*.mjs
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /config/credentials/production.key
+
 
 # == Node
 **/node_modules/
@@ -90,6 +97,7 @@ vite.config.ts.timestamp-*.mjs
 # **/*.pid
 # **/*.seed
 # **/*.pid.lock
+
 
 # == IDE
 # VSCode (keeping workspace configurations):

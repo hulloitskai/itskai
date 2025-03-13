@@ -11,7 +11,6 @@ import {
 } from "@mantine/form";
 import { type _TransformValues, type LooseKeys } from "@mantine/form/lib/types";
 import { type FormEvent } from "react";
-import { startTransition } from "react";
 import scrollIntoView from "scroll-into-view";
 import { toast } from "sonner";
 
@@ -195,9 +194,7 @@ export const useForm = <
       })
         .then(
           data => {
-            startTransition(() => {
-              setData(data);
-            });
+            setData(data);
             onSuccess?.(data, form);
             return data;
           },
@@ -209,9 +206,7 @@ export const useForm = <
               };
               if (typeof body.error === "string") {
                 const error = new Error(body.error);
-                startTransition(() => {
-                  setError(error);
-                });
+                setError(error);
                 console.error(`Failed to ${descriptor}`, error);
                 if (!failSilently) {
                   toast.error(`Failed to ${descriptor}`, {

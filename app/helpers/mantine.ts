@@ -130,6 +130,9 @@ const createTheme = (
         },
       }),
       Drawer: Drawer.extend({
+        classNames: {
+          header: classes.drawerHeader,
+        },
         styles: ({ headings: { sizes, ...style } }) => ({
           title: {
             ...sizes.h4,
@@ -156,12 +159,10 @@ const createTheme = (
       }),
       Modal: Modal.extend({
         classNames: {
+          header: classes.modalHeader,
           inner: classes.modalInner,
         },
         styles: ({ headings: { sizes, ...style } }) => ({
-          header: {
-            alignItems: "start",
-          },
           title: {
             ...sizes.h4,
             ...style,

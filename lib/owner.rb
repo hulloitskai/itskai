@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require "sorbet-runtime"
+require "rails"
 
 module Owner
   extend T::Sig

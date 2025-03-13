@@ -24,6 +24,15 @@
       font-size: var(--mantine-font-size-md);
     }
 
+    .drawerHeader {
+      padding-bottom: 6px;
+    }
+
+    .modalHeader {
+      align-items: start;
+      padding-bottom: 6px;
+    }
+
     .modalInner {
       padding-top: calc(
         var(--modal-inner-y-offset, var(--modal-y-offset)) +

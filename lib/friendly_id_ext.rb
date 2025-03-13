@@ -34,7 +34,7 @@ module FriendlyId::Slugged
 
     sig { params(candidates: T::Enumerable[String]).returns(String) }
     def resolve_friendly_id_conflict(candidates)
-      tail = Devise.friendly_token(10)
+      tail = SecureRandom.base58(10)
       [apply_slug_limit(candidates.first, tail), tail]
         .compact
         .join(friendly_id_config.sequence_separator)
