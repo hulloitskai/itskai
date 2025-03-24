@@ -22,7 +22,7 @@ const EmojiPopover: FC<EmojiPopoverProps> = ({
   return (
     <Popover
       trapFocus
-      styles={{ dropdown: { padding: 0, border: "none" } }}
+      styles={{ dropdown: { padding: 0 } }}
       opened={opened}
       onChange={setOpened}
       {...otherProps}

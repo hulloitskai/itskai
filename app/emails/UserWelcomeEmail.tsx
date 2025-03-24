@@ -11,11 +11,11 @@ const UserWelcomeEmail: EmailComponent<UserWelcomeEmailProps> = ({ user }) => {
   const { name } = user;
   return (
     <>
-      <Text>Hi, {name}!</Text>
+      <Text>hi, {name}!</Text>
       <Text>
-        Thanks for registering for an account on my website.
+        thanks for registering for an account on my website.
         <br />
-        I&apos;ll keep you posted when there&apos;s more stuff you can do on
+        i&apos;ll keep you posted when there&apos;s more stuff you can do on
         here :)
       </Text>
     </>
@@ -23,7 +23,7 @@ const UserWelcomeEmail: EmailComponent<UserWelcomeEmailProps> = ({ user }) => {
 };
 
 UserWelcomeEmail.layout = page => (
-  <EmailLayout header="Welcome!!!">{page}</EmailLayout>
+  <EmailLayout header="welcome!!!">{page}</EmailLayout>
 );
 
 export default UserWelcomeEmail;

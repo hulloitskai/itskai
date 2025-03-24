@@ -1,5 +1,5 @@
 import { type InertiaLinkProps } from "@inertiajs/react";
-import { type BoxProps, Loader, type MenuItemProps, Text } from "@mantine/core";
+import { Loader, type MenuItemProps, Text } from "@mantine/core";
 
 import LocateIcon from "~icons/basil/current-location-solid";
 import MenuIcon from "~icons/heroicons/bars-3-20-solid";
@@ -52,18 +52,18 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
           size="lg"
           leftSection={<MenuIcon />}
         >
-          Menu
+          menu
         </Badge>
       </Menu.Target>
       <Menu.Dropdown>
         <MenuLink href={routes.home.show.path()} leftSection={<HomeIcon />}>
-          Home
+          home
         </MenuLink>
         <MenuLink
           href={routes.locations.show.path()}
           leftSection={<LocateIcon />}
         >
-          Locate Kai
+          locate kai
         </MenuLink>
         <Menu.Item
           component="a"
@@ -72,7 +72,7 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
           rel="noopener noreferrer nofollow"
           leftSection={<SmileIcon />}
         >
-          Hang out w/ Kai
+          hang out w/ kai
         </Menu.Item>
         <ContactItem
           onClose={() => {
@@ -86,14 +86,14 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
               href={routes.usersRegistrations.edit.path()}
               leftSection={<AccountIcon />}
             >
-              Account
+              account
             </MenuLink>
             {currentUser.is_owner && (
               <MenuLink
                 href={routes.admin.show.path()}
                 leftSection={<AdminIcon />}
               >
-                Admin
+                admin
               </MenuLink>
             )}
             <LogoutItem
@@ -108,7 +108,7 @@ const AppMenu: FC<AppMenuProps> = ({ ...otherProps }) => {
             component={Link}
             href={routes.usersSessions.new.path()}
           >
-            Sign in
+            sign in
           </Menu.Item>
         )}
         <Menu.Divider />
@@ -129,7 +129,7 @@ const LogoutItem: FC<LogoutItemProps> = ({ onClose, ...otherProps }) => {
     descriptor: "sign out",
     onSuccess: () => {
       onClose();
-      toast.success("Signed out successfully");
+      toast.success("signed out successfully");
       router.visit(routes.home.show.path(), { preserveScroll: true });
     },
   });
@@ -144,7 +144,7 @@ const LogoutItem: FC<LogoutItemProps> = ({ onClose, ...otherProps }) => {
       }}
       {...otherProps}
     >
-      Sign out
+      sign out
     </Menu.Item>
   );
 };
@@ -167,7 +167,7 @@ const ContactItem: FC<ContactItemProps> = ({ onClose, ...otherProps }) => {
       }}
       {...otherProps}
     >
-      Shoot Kai a msg
+      shoot kai a msg
     </Menu.Item>
   );
 };
@@ -183,9 +183,11 @@ const ServerInfoItem: FC<BoxProps> = props => {
 
   return (
     <Menu.Item component="div" disabled fz="xs" mod={{ info: true }} {...props}>
-      Server booted{" "}
+      server booted{" "}
       {bootedAt ? (
-        <TimeAgo inherit>{bootedAt}</TimeAgo>
+        <TimeAgo inherit style={{ textTransform: "lowercase" }}>
+          {bootedAt}
+        </TimeAgo>
       ) : (
         <Skeleton
           display="inline-block"

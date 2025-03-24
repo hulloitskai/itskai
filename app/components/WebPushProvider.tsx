@@ -12,16 +12,16 @@ const WebPushProvider: FC<PropsWithChildren> = ({ children }) => {
   const [subscription, setSubscription] = useState<
     PushSubscription | undefined | null
   >();
-  useEffect(() => {
+  useDidUpdate(() => {
     if (supported) {
       void getPushSubscription().then(setSubscription, (error: Error) => {
         setSubscription(null);
         console.error(error);
-        toast.error("Failed to get current push subscription", {
+        toast.error("failed to get current push subscription", {
           description: error.message,
         });
       });
-    } else {
+    } else if (supported === false) {
       setSubscription(null);
     }
   }, [supported]);

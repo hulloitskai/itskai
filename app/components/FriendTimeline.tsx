@@ -95,8 +95,8 @@ const TimelineItemContent: FC<TimelineItemContentProps> = ({
       <Spoiler
         className={classes.spoiler}
         maxHeight={120}
-        showLabel="Show more"
-        hideLabel="Collapse"
+        showLabel="show more"
+        hideLabel="collapse"
         expanded={spoilerExpanded}
         onExpandedChange={setSpoilerExpanded}
       >
@@ -183,7 +183,7 @@ const RespondAnchor: FC<RespondAnchorProps> = ({
       {...otherProps}
     >
       <Box component={RespondIcon} fz={9} mr={4} />
-      Respond
+      respond
     </Anchor>
   );
 };

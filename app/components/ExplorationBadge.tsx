@@ -17,7 +17,7 @@ const ExplorationBadge: FC<ExplorationBadgeProps> = ({
   // == Comment modal
   const openCommentModal = useCallback(() => {
     openModal({
-      title: <>Your thoughts on: {exploration.label}</>,
+      title: <>your thoughts on: {exploration.label}</>,
       children: (
         <ExplorationCommentForm
           {...{ exploration }}
@@ -32,7 +32,7 @@ const ExplorationBadge: FC<ExplorationBadgeProps> = ({
   return (
     <Box pos="relative" {...otherProps}>
       <Tooltip
-        label="Have some thoughts to share?"
+        label="have some thoughts to share?"
         color="primary"
         openDelay={200}
       >

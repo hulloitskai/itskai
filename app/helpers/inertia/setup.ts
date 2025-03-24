@@ -9,11 +9,11 @@ export const setupInertia = (): void => {
     }
   });
   router.on("invalid", event => {
-    console.warn("Invalid Inertia response", event.detail.response.data);
+    console.warn("invalid Inertia response", event.detail.response.data);
   });
   router.on("exception", event => {
     console.error(
-      "An unexpected error occurred during an Inertia visit",
+      "an unexpected error occurred during an Inertia visit",
       event.detail.exception,
     );
   });

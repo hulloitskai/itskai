@@ -36,7 +36,7 @@ const AdminICloudDisconnectButton: FC<AdminICloudDisconnectButtonProps> = ({
           loading={submitting}
           {...otherProps}
         >
-          Disconnect
+          disconnect
         </Button>
       </Menu.Target>
       <Menu.Dropdown>
@@ -47,7 +47,7 @@ const AdminICloudDisconnectButton: FC<AdminICloudDisconnectButtonProps> = ({
             submit();
           }}
         >
-          Really disconnect?
+          really disconnect?
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>

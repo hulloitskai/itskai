@@ -15,7 +15,7 @@ const AdminFriendsPage: PageComponent<AdminFriendsPageProps> = ({
 }) => (
   <Stack gap="sm">
     <Title order={1} size="h2" ta="center">
-      Friends
+      friends
     </Title>
     <AdminFriendForm
       onFriendCreated={() => {
@@ -69,7 +69,7 @@ const AdminFriendsPage: PageComponent<AdminFriendsPageProps> = ({
                   })}
                   fz="xs"
                 >
-                  Installer
+                  installer
                 </Anchor>
                 <Anchor
                   href={routes.friends.show.path({
@@ -80,7 +80,7 @@ const AdminFriendsPage: PageComponent<AdminFriendsPageProps> = ({
                   })}
                   fz="xs"
                 >
-                  Emulator
+                  emulator
                 </Anchor>
               </Group>
             </Group>
@@ -95,12 +95,12 @@ const AdminFriendsPage: PageComponent<AdminFriendsPageProps> = ({
 
 AdminFriendsPage.layout = page => (
   <AppLayout
-    title={["Admin", "Friends"]}
+    title={["admin", "friends"]}
     breadcrumbs={[
-      { title: "Home", href: routes.home.show.path() },
-      { title: "Admin", href: routes.admin.show.path() },
+      { title: "home", href: routes.home.show.path() },
+      { title: "admin", href: routes.admin.show.path() },
       {
-        title: "Friends",
+        title: "friends",
         href: routes.adminFriends.index.path(),
       },
     ]}
@@ -138,7 +138,7 @@ const LatestVibecheck: React.FC<LatestVibecheckProps> = ({
         fz="xs"
         c="dimmed"
         fw={600}
-        style={{ verticalAlign: "middle" }}
+        style={{ verticalAlign: "middle", textTransform: "lowercase" }}
       >
         {createdAt}
       </Time>

@@ -18,11 +18,11 @@ const RequestEmailVerificationPageForm: FC<
     },
     transformValues: values => ({ user: values }),
     validate: {
-      email: isEmail("Invalid email address"),
+      email: isEmail("invalid email address"),
     },
     onSuccess: () => {
-      toast.success("Check your inbox!", {
-        description: "Verification link was sent to your email.",
+      toast.success("check your inbox!", {
+        description: "verification link was sent to your email.",
       });
       setLinkSent(true);
     },
@@ -34,7 +34,7 @@ const RequestEmailVerificationPageForm: FC<
       <Stack gap="xs">
         <TextInput
           {...getInputProps("email")}
-          label="Email"
+          label="email"
           placeholder="jon.snow@example.com"
           required
           withAsterisk={false}
@@ -44,7 +44,7 @@ const RequestEmailVerificationPageForm: FC<
           disabled={linkSent || !filled}
           loading={submitting}
         >
-          Continue
+          continue
         </Button>
       </Stack>
     </Box>

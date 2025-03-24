@@ -12,10 +12,10 @@ const RequestEmailVerificationPage: PageComponent<
     <Stack gap="xs">
       <Stack gap={4}>
         <Title size="h3" ta="center">
-          Re-send verification email
+          re-send verification email
         </Title>
         <Text size="sm" c="dimmed" style={{ lineHeight: 1.4 }}>
-          Enter the email address associated with your account and we&apos;ll
+          enter the email address associated with your account and we&apos;ll
           send you a link to verify your account.
         </Text>
       </Stack>
@@ -29,7 +29,7 @@ const RequestEmailVerificationPage: PageComponent<
               href={routes.usersSessions.new.path()}
               inherit
             >
-              Sign in
+              sign in
             </Anchor>{" "}
             or{" "}
             <Anchor
@@ -37,7 +37,7 @@ const RequestEmailVerificationPage: PageComponent<
               href={routes.usersRegistrations.new.path()}
               inherit
             >
-              Sign up
+              sign up
             </Anchor>
           </Text>
         </List.Item>
@@ -47,7 +47,7 @@ const RequestEmailVerificationPage: PageComponent<
             href={routes.usersPasswords.new.path()}
             inherit
           >
-            Forgot your password?
+            forgot your password?
           </Anchor>
         </List.Item>
       </List>
@@ -56,7 +56,7 @@ const RequestEmailVerificationPage: PageComponent<
 );
 
 RequestEmailVerificationPage.layout = page => (
-  <AppLayout title="Request email verification">
+  <AppLayout title="request email verification">
     <Center style={{ flexGrow: 1 }}>{page}</Center>
   </AppLayout>
 );

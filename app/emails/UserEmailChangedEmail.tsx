@@ -14,9 +14,9 @@ const UserEmailChangedEmail: EmailComponent<UserEmailChangedEmailProps> = ({
   const { email, name } = user;
   return (
     <>
-      <Text>Hi, {name}!</Text>
+      <Text>hi, {name}!</Text>
       <Text>
-        We&apos;re contacting you to let you know that your email has been
+        we&apos;re contacting you to let you know that your email has been
         changed to <Anchor href={`mailto:${name}%20<${email}>`}>{email}</Anchor>
         .
       </Text>
@@ -25,7 +25,7 @@ const UserEmailChangedEmail: EmailComponent<UserEmailChangedEmailProps> = ({
 };
 
 UserEmailChangedEmail.layout = page => (
-  <EmailLayout header="Email changed">{page}</EmailLayout>
+  <EmailLayout header="email changed">{page}</EmailLayout>
 );
 
 export default UserEmailChangedEmail;

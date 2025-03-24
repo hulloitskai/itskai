@@ -19,8 +19,8 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
       remember_me: true,
     },
     validate: {
-      email: isEmail("Email is invalid"),
-      password: isNotEmpty("Password is required"),
+      email: isEmail("email is invalid"),
+      password: isNotEmpty("password is required"),
     },
     transformValues: values => ({
       user: values,
@@ -29,7 +29,7 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
       setFieldValue("password", "");
     },
     onSuccess: ({ user, redirectUrl }: { user: User; redirectUrl: string }) => {
-      toast.success(<>Welcome back, {user.name} :)</>);
+      toast.success(<>welcome back, {user.name} :)</>);
       const removeHandler = handleNonInertiaDocumentResponse();
       router.visit(redirectUrl, {
         onFinish: () => {
@@ -71,7 +71,7 @@ const LoginPageForm: FC<LoginPageFormProps> = props => {
           />
         </Tooltip>
         <Button type="submit" disabled={!filled} loading={submitting}>
-          Sign in
+          sign in
         </Button>
       </Stack>
     </Box>

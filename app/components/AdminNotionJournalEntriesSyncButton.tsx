@@ -32,7 +32,7 @@ const AdminNotionJournalEntriesSyncButton: FC<
       }}
       {...otherProps}
     >
-      {children ?? "Sync Notion journal entries"}
+      {children ?? "sync Notion journal entries"}
     </Button>
   );
 };

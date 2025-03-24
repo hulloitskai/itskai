@@ -99,6 +99,7 @@ export default ts.config(
             // == Absolute imports and other imports such as Vue-style `@/foo`
             // Anything not matched in another group.
             ["^~icons"],
+            ["^~/assets"],
             ["^"],
 
             // == Relative imports

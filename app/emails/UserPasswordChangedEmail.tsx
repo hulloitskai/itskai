@@ -13,9 +13,9 @@ const UserPasswordChangedEmail: EmailComponent<
   const { name } = user;
   return (
     <>
-      <Text>Hi, {name}!</Text>
+      <Text>hi, {name}!</Text>
       <Text>
-        We&apos;re contacting you to let you know that your password has been
+        we&apos;re contacting you to let you know that your password has been
         changed.
       </Text>
     </>
@@ -23,7 +23,7 @@ const UserPasswordChangedEmail: EmailComponent<
 };
 
 UserPasswordChangedEmail.layout = page => (
-  <EmailLayout header="Password changed">{page}</EmailLayout>
+  <EmailLayout header="password changed">{page}</EmailLayout>
 );
 
 export default UserPasswordChangedEmail;

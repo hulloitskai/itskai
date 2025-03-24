@@ -32,16 +32,15 @@ export const setupSentry = () => {
       ignoreErrors: [
         "ResizeObserver loop completed with undelivered notifications.",
         /^Failed to load lyrics.*/,
-        "Error loading edge.fullstory.com/s/fs.js",
         "Invalid email or password.",
         /^Error loading edge\.fullstory\.com/,
       ],
     };
     init(options);
     const info = omitBy(omit(options, "ignoreErrors", "integrations"), isNil);
-    console.info("Initialized Sentry", info);
+    console.info("initialized Sentry", info);
   } else {
-    console.warn("Missing Sentry DSN; skipping initialization");
+    console.warn("missing Sentry DSN; skipping initialization");
   }
 };
 

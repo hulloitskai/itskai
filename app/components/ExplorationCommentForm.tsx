@@ -25,16 +25,16 @@ const ExplorationCommentForm: FC<ExplorationCommentFormProps> = ({
     params: commentParams,
     initialValues: { message: "", author_contact: "" },
     validate: {
-      message: isNotEmpty("Note is required"),
-      author_contact: isNotEmpty("Author contact is required"),
+      message: isNotEmpty("note is required"),
+      author_contact: isNotEmpty("author contact is required"),
     },
     transformValues: values => ({
       comment: values,
     }),
     onSuccess: () => {
       closeAllModals();
-      toast.success("Note sent!", {
-        description: "I'll get back to you soon :)",
+      toast.success("note sent!", {
+        description: "i'll get back to you soon :)",
       });
       onCommented?.();
     },
@@ -44,8 +44,8 @@ const ExplorationCommentForm: FC<ExplorationCommentFormProps> = ({
       <Stack gap="xs">
         <Textarea
           {...getInputProps("message")}
-          label="Note"
-          placeholder="What is your experience with this like?"
+          label="note"
+          placeholder="what is your experience with this like?"
           required
           autosize
           minRows={3}
@@ -53,14 +53,14 @@ const ExplorationCommentForm: FC<ExplorationCommentFormProps> = ({
         />
         <TextInput
           {...getInputProps("author_contact")}
-          label="Your @ or #"
-          description="Your email or phone number, so I can chat with you about your note!"
+          label="your @ or #"
+          description="your email or phone number, so i can chat with you about your note!"
           placeholder="+1 (123) 456-7890"
           required
         />
         <Group justify="end">
           <Button type="submit" leftSection={<SendIcon />} loading={submitting}>
-            Submit
+            submit
           </Button>
         </Group>
       </Stack>

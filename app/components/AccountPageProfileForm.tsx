@@ -63,10 +63,10 @@ const AccountPageProfileForm: FC<AccountPageProfileFormProps> = ({
   return (
     <Box component="form" onSubmit={submit} {...otherProps}>
       <Stack gap="xs">
-        <TextInput {...getInputProps("name")} label="Name" required />
+        <TextInput {...getInputProps("name")} label="name" required />
         <ImageInput
           {...getInputProps("avatar")}
-          label="Avatar"
+          label="avatar"
           w={140}
           radius={1000}
           center
@@ -77,7 +77,7 @@ const AccountPageProfileForm: FC<AccountPageProfileFormProps> = ({
           disabled={!isDirty() || !filled}
           loading={submitting}
         >
-          Save
+          save
         </Button>
       </Stack>
     </Box>

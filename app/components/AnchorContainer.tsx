@@ -15,7 +15,7 @@ const AnchorContainer = createPolymorphicComponent<"a", AnchorContainerProps>(
     ({ borderColor, style, className, children, ...otherProps }, ref) => (
       <Anchor
         {...{ ref }}
-        className={cn("AnchorContainer-root", classes.root, className)}
+        className={cn("AnchorContainer", classes.container, className)}
         unstyled
         style={[
           style,

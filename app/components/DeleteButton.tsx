@@ -1,5 +1,7 @@
 import { type ButtonProps } from "@mantine/core";
 
+import classes from "./DeleteButton.module.css";
+
 export interface DeleteButtonProps
   extends ButtonProps,
     Omit<ComponentPropsWithoutRef<"button">, "color" | "style"> {
@@ -12,23 +14,20 @@ const DeleteButton: FC<DeleteButtonProps> = ({
   ...otherProps
 }) => (
   <Menu
-    styles={{
-      dropdown: {
-        borderColor: "var(--mantine-color-red-outline)",
-      },
-      arrow: {
-        borderColor: "var(--mantine-color-red-outline)",
-      },
+    classNames={{
+      dropdown: classes.menuDropdown,
+      arrow: classes.menuArrow,
+      itemLabel: classes.menuItemLabel,
     }}
   >
     <Menu.Target>
       <Button variant="default" leftSection={<DeleteIcon />} {...otherProps}>
-        {children ?? "Delete"}
+        {children ?? "delete"}
       </Button>
     </Menu.Target>
     <Menu.Dropdown>
       <Menu.Item color="red" leftSection={<AlertIcon />} onClick={onConfirm}>
-        Really delete?
+        really delete?
       </Menu.Item>
     </Menu.Dropdown>
   </Menu>

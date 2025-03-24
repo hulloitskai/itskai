@@ -17,7 +17,7 @@ const AdminStatusesPage: PageComponent<AdminStatusesPageProps> = ({
 }) => (
   <Stack gap="sm">
     <Title order={1} size="h2" ta="center">
-      Statuses
+      statuses
     </Title>
     <AdminStatusForm
       onStatusCreated={() => {
@@ -77,13 +77,13 @@ const AdminStatusesPage: PageComponent<AdminStatusesPageProps> = ({
 
 AdminStatusesPage.layout = page => (
   <AppLayout
-    title={["Admin", "Statuses"]}
+    title={["admin", "statuses"]}
     manifestUrl="/admin-statuses.webmanifest"
     breadcrumbs={[
-      { title: "Home", href: routes.home.show.path() },
-      { title: "Admin", href: routes.admin.show.path() },
+      { title: "home", href: routes.home.show.path() },
+      { title: "admin", href: routes.admin.show.path() },
       {
-        title: "Statuses",
+        title: "statuses",
         href: routes.adminStatuses.index.path(),
       },
     ]}

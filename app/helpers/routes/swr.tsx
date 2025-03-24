@@ -1,7 +1,12 @@
 import { type PathHelper, type RequestOptions } from "@js-from-routes/client";
 import { useIsFirstRender, useNetwork, useShallowEffect } from "@mantine/hooks";
 import { useState } from "react";
-import useSWR, { type Key, type SWRConfiguration, type SWRResponse } from "swr";
+import useSWR, {
+  type Key,
+  mutate,
+  type SWRConfiguration,
+  type SWRResponse,
+} from "swr";
 import useSWRMutation, {
   type SWRMutationConfiguration,
   type SWRMutationResponse,
@@ -50,7 +55,7 @@ export const useRouteSWR = <
 
   const key = useRouteKey(route, params);
   const { online } = useNetwork();
-  const { isLoading, isValidating, ...swr } = useSWR<Data, Error>(
+  const { isLoading, isValidating, ...swrResponse } = useSWR<Data, Error>(
     key,
     async (url: string): Promise<Data> =>
       fetchRoute(url, {
@@ -68,7 +73,7 @@ export const useRouteSWR = <
     { isOnline: () => online, ...swrConfiguration },
   );
 
-  return { fetching: isLoading, validating: isValidating, ...swr };
+  return { fetching: isLoading, validating: isValidating, ...swrResponse };
 };
 
 export interface RouteMutationResponse<Data, ExtraArg>
@@ -131,7 +136,7 @@ export const useRouteMutation = <
   return { mutating, ...swr };
 };
 
-const computeRouteKey = (
+export const computeRouteKey = (
   route: PathHelper,
   params: RequestOptions["params"] | null,
 ): string | null => (params === null ? null : route.path(params));
@@ -149,3 +154,8 @@ const useRouteKey = (
   }, [route, params]); // eslint-disable-line react-hooks/exhaustive-deps
   return key;
 };
+
+export const mutateRoute = <Data, T = Data>(
+  route: PathHelper,
+  params: RequestOptions["params"] = {},
+) => mutate<Data, T>(route.path(params));

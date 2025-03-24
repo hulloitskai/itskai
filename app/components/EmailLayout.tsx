@@ -12,7 +12,6 @@ import {
 import { Heading, Link, Text } from "~/components/email";
 import { type DynamicProp, useResolveDynamicProp } from "~/helpers/layout";
 
-import "./EmailLayout-lowercasing.css";
 import "@mantine/core/styles.css";
 
 export interface EmailLayoutProps<EmailProps extends SharedPageProps>
@@ -21,24 +20,16 @@ export interface EmailLayoutProps<EmailProps extends SharedPageProps>
   preview?: DynamicProp<EmailProps, PreviewProps["children"]>;
 }
 
-const transformPreview = (preview: string | string[]): string | string[] => {
-  if (Array.isArray(preview)) {
-    return preview.map(preview => preview.toLocaleLowerCase());
-  }
-  return preview.toLocaleLowerCase();
-};
-
 const EmailLayout = <EmailProps extends SharedPageProps>({
   header: headerProps,
   preview: previewProp,
   children,
 }: EmailLayoutProps<EmailProps>) => {
-  const pageProps = usePageProps<EmailProps>();
-  const preview = useResolveDynamicProp(previewProp, pageProps);
-  const header = useResolveDynamicProp(headerProps, pageProps);
+  const preview = useResolveDynamicProp(previewProp);
+  const header = useResolveDynamicProp(headerProps);
   return (
     <>
-      {!!preview && <Preview>{transformPreview(preview)}</Preview>}
+      {!!preview && <Preview>{preview}</Preview>}
       <Body
         style={{
           color: "var(--mantine-color-text)",
@@ -58,15 +49,15 @@ const EmailLayout = <EmailProps extends SharedPageProps>({
               </Column>
               <Column>
                 <Text style={{ color: "var(--mantine-color-dimmed)" }}>
-                  Sent by{" "}
+                  sent by{" "}
                   <Link
                     href={routes.home.show.path()}
                     target="_blank"
                     style={{ fontWeight: 600 }}
                   >
-                    It&apos;s Kai
+                    it&apos;s kai
                   </Link>
-                  . This email loves you.
+                  . this email loves you.
                 </Text>
               </Column>
             </Row>

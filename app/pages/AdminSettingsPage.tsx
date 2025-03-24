@@ -28,16 +28,16 @@ const AdminSettingsPage: PageComponent<AdminSettingsPageProps> = ({
 }) => (
   <Stack>
     <Title order={1} size="h2" ta="center">
-      Settings
+      settings
     </Title>
     <Card withBorder>
       <Stack gap="xs">
         <Stack align="center" gap={0}>
           <Title order={2} size="h4">
-            Data controls
+            data controls
           </Title>
           <Text size="sm" c="dimmed" lh={1.3}>
-            Sync data from your services
+            sync data from your services
           </Text>
         </Stack>
         <Stack gap={6}>
@@ -58,10 +58,10 @@ const AdminSettingsPage: PageComponent<AdminSettingsPageProps> = ({
       <Stack gap="sm">
         <Stack align="center" gap={0}>
           <Title order={2} size="h4">
-            Notifications
+            notifications
           </Title>
           <Text size="sm" c="dimmed">
-            Update your push notification settings
+            update your push notification settings
           </Text>
         </Stack>
         <AdminPushSubscriptionForm />
@@ -71,10 +71,10 @@ const AdminSettingsPage: PageComponent<AdminSettingsPageProps> = ({
       <Stack gap="xs">
         <Stack align="center" gap={0}>
           <Title order={2} size="h4">
-            Location access grants
+            location access grants
           </Title>
           <Text size="sm" c="dimmed" lh={1.3}>
-            Grant access to your precise location
+            grant access to your precise location
           </Text>
         </Stack>
         <AdminLocationAccessGrants
@@ -89,7 +89,7 @@ const AdminSettingsPage: PageComponent<AdminSettingsPageProps> = ({
             iCloud
           </Title>
           <Text size="sm" c="dimmed" lh={1.3}>
-            Enables location services
+            enables location services
           </Text>
         </Stack>
         <AdminICloudConnectionForm
@@ -110,7 +110,7 @@ const AdminSettingsPage: PageComponent<AdminSettingsPageProps> = ({
             Google
           </Title>
           <Text size="sm" c="dimmed" lh={1.3}>
-            Enables availability services
+            enables availability services
           </Text>
         </Stack>
         <AdminOAuthConnectionForm
@@ -128,7 +128,7 @@ const AdminSettingsPage: PageComponent<AdminSettingsPageProps> = ({
             Spotify
           </Title>
           <Text size="sm" c="dimmed" lh={1.3}>
-            Enables currently-playing & lyrics services
+            enables currently-playing & lyrics services
           </Text>
         </Stack>
         <AdminOAuthConnectionForm
@@ -143,11 +143,11 @@ const AdminSettingsPage: PageComponent<AdminSettingsPageProps> = ({
 );
 AdminSettingsPage.layout = page => (
   <AppLayout
-    title={["Admin", "Settings"]}
+    title={["admin", "settings"]}
     breadcrumbs={[
-      { title: "Home", href: routes.home.show.path() },
-      { title: "Admin", href: routes.admin.show.path() },
-      { title: "Settings", href: routes.adminSettings.show.path() },
+      { title: "home", href: routes.home.show.path() },
+      { title: "admin", href: routes.admin.show.path() },
+      { title: "settings", href: routes.adminSettings.show.path() },
     ]}
     withContainer
     containerSize="xs"

@@ -25,8 +25,8 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
       expires_in_hours: 12,
     },
     validate: {
-      recipient: isNotEmpty("Recipient is required"),
-      expires_in_hours: isNotEmpty("Expiration is required"),
+      recipient: isNotEmpty("recipient is required"),
+      expires_in_hours: isNotEmpty("expiration is required"),
     },
     transformValues: ({ expires_in_hours, ...attributes }) => ({
       grant: {
@@ -35,6 +35,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
       },
     }),
     onSuccess: ({ grant }: FormData) => {
+      void mutateRoute(routes.adminLocationAccessGrants.index);
       onGrantCreated?.(grant);
     },
   });
@@ -43,15 +44,15 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
       <Stack gap="xs">
         <TextInput
           {...getInputProps("recipient")}
-          label="Recipient"
+          label="recipient"
           placeholder="Jon Snow"
           required
           autoComplete="off"
         />
         <TextInput
           {...getInputProps("password")}
-          label="Password"
-          description="Will be randomly generated if not set."
+          label="password"
+          description="will be randomly generated if not set."
           placeholder="porcupine"
           autoCapitalize="false"
           autoCorrect="false"
@@ -59,7 +60,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
         />
         <NumberInput
           {...getInputProps("expires_in_hours")}
-          label="Expires in"
+          label="expires in"
           required
           min={1}
           inputContainer={children => (
@@ -75,7 +76,7 @@ const LocationAccessGrantCreateForm: FC<LocationAccessGrantCreateFormProps> = ({
           }}
         />
         <Button type="submit" loading={submitting} leftSection={<AddIcon />}>
-          Create grant
+          create grant
         </Button>
       </Stack>
     </Box>

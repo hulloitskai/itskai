@@ -305,13 +305,14 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                   title={
                     <Group justify="space-between">
                       <Text span inherit>
-                        Kai was last seen at
+                        kai was last seen at
                       </Text>
                       <Badge
                         variant="outline"
                         size="xs"
                         pl={2}
                         leftSection={<ClockIcon />}
+                        styles={{ label: { textTransform: "none" } }}
                       >
                         <TimeAgo inherit>{timestamp}</TimeAgo>
                       </Badge>
@@ -323,11 +324,11 @@ const LocatePage: PageComponent<LocatePageProps> = ({
                     <Text fw={700}>{address}</Text>
                     <Box>
                       <Text size="xs" fw={500} className={classes.source}>
-                        From Find My iPhone,{" "}
+                        from Find My iPhone,{" "}
                         <TimeAgo inherit>{timestamp}</TimeAgo>.
                       </Text>
                       <Text size="xs" c="dimmed">
-                        Location access expires{" "}
+                        location access expires{" "}
                         <TimeAgo inherit>{accessGrant.expires_at}</TimeAgo>.
                       </Text>
                     </Box>
@@ -338,10 +339,10 @@ const LocatePage: PageComponent<LocatePageProps> = ({
           ) : initialApproximateLocation ? (
             <Alert
               className={classes.alert}
-              title="Kai's somewhere around here..."
+              title="kai's somewhere around here..."
             >
               <Text inherit mb={8}>
-                Got a password? Enter it here to find out where Kai is.
+                got a password? enter it here to find out where kai is.
               </Text>
               <LocationAccessForm
                 {...(!!password && { autofillPassword: password })}
@@ -360,10 +361,10 @@ const LocatePage: PageComponent<LocatePageProps> = ({
           ) : (
             <Alert
               className={classes.alert}
-              title="We couldn't locate Kai :("
+              title="we couldn't locate kai :("
               color="red"
             >
-              Our radars aren&apos;t detecting anything! Where&apos;d this mans
+              our radars aren&apos;t detecting anything! where&apos;d this mans
               go?
             </Alert>
           )}
@@ -383,8 +384,8 @@ const LocatePage: PageComponent<LocatePageProps> = ({
 
 LocatePage.layout = page => (
   <AppLayout
-    title="Track"
-    description="The ultimate Kai-stalking toolkit."
+    title="track"
+    description="the ultimate kai-stalking toolkit."
     noIndex
     padding={0}
   >

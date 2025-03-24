@@ -15,5 +15,6 @@
     }
   ],
   "display": "standalone",
-  "start_url": "/admin/statuses"
+  "start_url": "/admin/statuses",
+  "scope": "/admin/statuses"
 }

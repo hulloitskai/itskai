@@ -41,12 +41,12 @@ const HomePage: PageComponent<HomePageProps> = ({
       </Box>
       <Stack align="center">
         <Title fw={900} fz={rem(44)} className={classes.headline}>
-          Hi, it&apos;s Kai
+          hi, it&apos;s kai
         </Title>
         <Text maw={400} className={classes.subheadline}>
-          Welcome to my little corner of the internet :)
+          welcome to my little corner of the internet :)
           <br />
-          Please enjoy your stay. if you&apos;re having a good time, let&apos;s{" "}
+          please enjoy your stay. if you&apos;re having a good time, let&apos;s{" "}
           <Anchor
             href={routes.calendly.show.path()}
             target="_blank"
@@ -64,7 +64,7 @@ const HomePage: PageComponent<HomePageProps> = ({
       </Stack>
       <Stack align="center" gap="xs">
         <Title order={2} size="h3">
-          Some things I&apos;ve been exploring lately:
+          some things i&apos;ve been exploring lately:
         </Title>
         <Group justify="center" wrap="wrap" gap={8} maw={760}>
           {explorations.map(exploration => (
@@ -77,7 +77,7 @@ const HomePage: PageComponent<HomePageProps> = ({
           opacity={0.8}
           className={classes.explorationsCallout}
         >
-          Do any of these resonate with you?{" "}
+          do any of these resonate with you?{" "}
           <Anchor
             inherit
             href="/walk"
@@ -85,7 +85,7 @@ const HomePage: PageComponent<HomePageProps> = ({
             rel="noopener noreferrer nofollow"
             fw={500}
           >
-            Let&apos;s go for a walk and talk about it :)
+            let&apos;s go for a walk and talk about it :)
           </Anchor>
         </Text>
       </Stack>
@@ -128,7 +128,7 @@ const HomePage: PageComponent<HomePageProps> = ({
       {journalEntry && !!firstJournalEntryId && (
         <Stack align="center" gap="xs">
           <Title order={2} size="h3">
-            Sometimes, Kai writes.
+            sometimes, kai writes.
           </Title>
           <HomePageJournalEntry
             {...{ entry: journalEntry, firstEntryId: firstJournalEntryId }}

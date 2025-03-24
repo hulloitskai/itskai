@@ -27,7 +27,7 @@ const LocationAccessForm: FC<LocationAccessFormProps> = ({
       password: "",
     },
     validate: {
-      password: isNotEmpty("Password is required"),
+      password: isNotEmpty("password is required"),
     },
     transformValues: values => ({
       access_request: values,

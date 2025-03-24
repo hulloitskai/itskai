@@ -16,7 +16,7 @@ const AdminNotificationsPage: PageComponent<AdminNotificationsPageProps> = ({
 }) => (
   <Stack gap="sm">
     <Title order={2} size="h2" ta="center">
-      Notifications
+      notifications
     </Title>
     {!isEmpty(notifications) ? (
       <>
@@ -65,13 +65,13 @@ const AdminNotificationsPage: PageComponent<AdminNotificationsPageProps> = ({
 
 AdminNotificationsPage.layout = page => (
   <AppLayout
-    title={["Admin", "Notifications"]}
+    title={["admin", "notifications"]}
     manifestUrl="/admin-notifications.webmanifest"
     breadcrumbs={[
-      { title: "Home", href: routes.home.show.path() },
-      { title: "Admin", href: routes.admin.show.path() },
+      { title: "home", href: routes.home.show.path() },
+      { title: "admin", href: routes.admin.show.path() },
       {
-        title: "Notifications",
+        title: "notifications",
         href: routes.adminNotifications.index.path(),
       },
     ]}

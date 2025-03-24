@@ -15,9 +15,9 @@ const Attribution: FC<AttributionProps> = ({ ...otherProps }) => (
     <HoverCard.Target>
       <Group justify="center" gap={4} {...otherProps}>
         <Text size="xs" className={classes.label}>
-          Made by{" "}
+          made by{" "}
           <Text span fw={700}>
-            Kai
+            kai
           </Text>{" "}
           with
         </Text>
@@ -27,7 +27,7 @@ const Attribution: FC<AttributionProps> = ({ ...otherProps }) => (
     <HoverCard.Dropdown style={({ radius }) => ({ borderRadius: radius.md })}>
       <Stack gap={6} align="center">
         <Text size="sm" lh={1.4}>
-          Did you know this website is{" "}
+          did you know this website is{" "}
           <Text span inherit fw={700}>
             open source
           </Text>
@@ -43,7 +43,7 @@ const Attribution: FC<AttributionProps> = ({ ...otherProps }) => (
           px={8}
           py={4}
         >
-          Take me to the code!
+          take me to the code!
         </Button>
       </Stack>
     </HoverCard.Dropdown>

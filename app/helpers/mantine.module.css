@@ -29,15 +29,13 @@
     }
 
     .modalHeader {
+      min-height: 0px;
       align-items: start;
       padding-bottom: 6px;
     }
 
-    .modalInner {
-      padding-top: calc(
-        var(--modal-inner-y-offset, var(--modal-y-offset)) +
-          env(safe-area-inset-top, 0px)
-      );
+    .modalContent {
+      padding-top: env(safe-area-inset-top, 0px);
     }
 
     .badgeLabel {
@@ -76,7 +74,7 @@
     }
 
     .text {
-      &:not([data-inherit]) {
+      &:not([data-inherit]):not([data-inline]) {
         line-height: var(--mantine-line-height);
       }
     }

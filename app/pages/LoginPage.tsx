@@ -9,24 +9,24 @@ const LoginPage: PageComponent<LoginPageProps> = () => (
   <Card w={380} withBorder>
     <Stack gap="xs">
       <Stack align="center" gap={2}>
-        <Title size="h3">Sign in</Title>
+        <Title size="h3">sign in</Title>
         <Text size="sm" c="dimmed" lh={1.3}>
-          Welcome back to{" "}
+          welcome back to{" "}
           <Anchor
             component={Link}
             href={routes.home.show.path()}
             fw={600}
             c="primary.4"
           >
-            It&apos;s Kai
+            it&apos;s kai
           </Anchor>
         </Text>
       </Stack>
       <LoginPageForm />
       <Text size="xs" c="gray.6">
-        Don&apos;t have an account?{" "}
+        don&apos;t have an account?{" "}
         <Anchor component={Link} href={routes.usersRegistrations.new.path()}>
-          Sign up instead.
+          sign up instead.
         </Anchor>
       </Text>
       <Divider />
@@ -38,7 +38,7 @@ const LoginPage: PageComponent<LoginPageProps> = () => (
               href={routes.usersPasswords.new.path()}
               inherit
             >
-              Forgot your password?
+              forgot your password?
             </Anchor>
           </Text>
         </List.Item>
@@ -49,7 +49,7 @@ const LoginPage: PageComponent<LoginPageProps> = () => (
               href={routes.usersConfirmations.new.path()}
               inherit
             >
-              Didn&apos;t get a verification email?
+              didn&apos;t get a verification email?
             </Anchor>
           </Text>
         </List.Item>
@@ -59,7 +59,7 @@ const LoginPage: PageComponent<LoginPageProps> = () => (
 );
 
 LoginPage.layout = page => (
-  <AppLayout title="Sign in">
+  <AppLayout title="sign in">
     <Center style={{ flexGrow: 1 }}>{page}</Center>
   </AppLayout>
 );

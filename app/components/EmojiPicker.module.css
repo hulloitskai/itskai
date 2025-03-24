@@ -1,4 +1,8 @@
 .picker {
+  body & {
+    border: none;
+  }
+
   :global(.epr-header) {
     > :first-of-type {
       padding-bottom: 8px;
@@ -9,6 +13,10 @@
     font-size: var(--mantine-font-size-md);
     font-family: var(--mantine-font-family);
     --epr-search-border-color: var(--mantine-color-primary-outline);
+
+    &::placeholder {
+      text-transform: lowercase;
+    }
   }
 
   :global(.epr-category-nav) {

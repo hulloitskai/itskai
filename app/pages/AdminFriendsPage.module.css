@@ -4,4 +4,8 @@
     var(--mantine-color-gray-light),
     var(--mantine-color-dark-5)
   );
+
+  :global(.mantine-Badge-label) {
+    text-transform: none;
+  }
 }

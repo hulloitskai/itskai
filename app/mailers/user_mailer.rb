@@ -10,7 +10,7 @@ class UserMailer < ApplicationMailer
         user: UserSerializer.render(user),
       },
       to: user.email_with_name,
-      subject: "Welcome to my website :)",
+      subject: "welcome to my website :)",
     )
   end
 end

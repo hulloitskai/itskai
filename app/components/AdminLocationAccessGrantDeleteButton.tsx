@@ -4,18 +4,17 @@ import DeleteButton from "./DeleteButton";
 export interface AdminLocationAccessGrantDeleteButtonProps
   extends Omit<DeleteButtonProps, "onConfirm" | "children"> {
   grantId: string;
-  onGrantDeleted?: () => void;
 }
 
 const AdminLocationAccessGrantDeleteButton: FC<
   AdminLocationAccessGrantDeleteButtonProps
-> = ({ grantId, onGrantDeleted, ...otherProps }) => {
+> = ({ grantId, ...otherProps }) => {
   const { submitting, submit } = useForm({
     action: routes.adminLocationAccessGrants.destroy,
     params: { id: grantId },
     descriptor: "delete grant",
     onSuccess: () => {
-      onGrantDeleted?.();
+      void mutateRoute(routes.adminLocationAccessGrants.index);
     },
   });
   return (

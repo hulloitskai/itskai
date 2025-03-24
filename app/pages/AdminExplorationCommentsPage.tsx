@@ -20,7 +20,7 @@ const AdminExplorationCommentsPage: PageComponent<
   return (
     <Stack gap="sm">
       <Title order={1} size="h2" ta="center">
-        Exploration comments
+        exploration comments
       </Title>
       {!isEmpty(comments) ? (
         <>
@@ -28,19 +28,20 @@ const AdminExplorationCommentsPage: PageComponent<
             const exploration = explorationsById[comment.exploration_id];
             invariant(
               exploration,
-              `Exploration with ID '${comment.exploration_id}' not found`,
+              `exploration with ID '${comment.exploration_id}' not found`,
             );
             return (
               <Card key={comment.id} withBorder>
                 <Card.Section withBorder inheritPadding py="xs">
                   <Text inherit fz="sm" fw={700}>
-                    Re: "{exploration.label}"
+                    re: "{exploration.label}"
                   </Text>
                   <Time
                     format={DateTime.DATETIME_MED}
                     size="xs"
                     c="dimmed"
                     display="block"
+                    style={{ textTransform: "lowercase" }}
                   >
                     {comment.created_at}
                   </Time>
@@ -105,12 +106,12 @@ const AdminExplorationCommentsPage: PageComponent<
 
 AdminExplorationCommentsPage.layout = page => (
   <AppLayout
-    title={["Admin", "Exploration comments"]}
+    title={["admin", "exploration comments"]}
     breadcrumbs={[
-      { title: "Home", href: routes.home.show.path() },
-      { title: "Admin", href: routes.admin.show.path() },
+      { title: "home", href: routes.home.show.path() },
+      { title: "admin", href: routes.admin.show.path() },
       {
-        title: "Exploration comments",
+        title: "exploration comments",
         href: routes.adminExplorationComments.index.path(),
       },
     ]}

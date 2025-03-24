@@ -23,7 +23,7 @@ export const renderNotification = (
       const { exploration_label, message_snippet } =
         notification.payload as ExplorationCommentNotificationPayload;
       return {
-        title: `New comment on "${exploration_label}"`,
+        title: `new comment on "${exploration_label}"`,
         body: message_snippet,
         icon: DEFAULT_NOTIFICATION_ICON_URL,
       };
@@ -41,7 +41,7 @@ export const renderNotification = (
       const { accessor, password } =
         notification.payload as LocationAccessNotificationPayload;
       return {
-        title: "Your location was accessed",
+        title: "your location was accessed",
         body: `${accessor} (pw: ${password}) accessed your location`,
         icon: DEFAULT_NOTIFICATION_ICON_URL,
       };
@@ -50,13 +50,13 @@ export const renderNotification = (
       const { emoji, text_snippet } =
         notification.payload as StatusNotificationPayload;
       return {
-        title: "Kai shared with you",
+        title: "kai shared with you",
         body: [emoji, text_snippet].filter(Boolean).join(" "),
         icon: DEFAULT_NOTIFICATION_ICON_URL,
       };
     }
     default:
-      throw new Error(`Unknown notification type: ${notification.type}`);
+      throw new Error(`unknown notification type: ${notification.type}`);
   }
 };
 

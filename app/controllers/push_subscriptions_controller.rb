@@ -3,7 +3,7 @@
 
 class PushSubscriptionsController < ApplicationController
   # == Filters
-  before_action :authenticate_friend_or_user!, except: :lookup
+  before_action :authenticate_friend_or_user!, only: %i[create test]
 
   # == Actions
   # POST /push_subscriptions/lookup

@@ -15,16 +15,16 @@ const UserPasswordResetEmail: EmailComponent<UserPasswordResetEmailProps> = ({
   const { name } = user;
   return (
     <>
-      <Text>Hi, {name}!</Text>
+      <Text>hi, {name}!</Text>
       <Text>
-        A password change has been requested for your account. If this was you,
+        a password change has been requested for your account. if this was you,
         please click the button below to reset your password:
       </Text>
       <Button href={resetUrl} target="_blank">
-        Reset password
+        reset password
       </Button>
       <Text style={{ marginTop: 14 }}>
-        Or copy and paste this URL into a new tab of your browser:
+        or copy and paste this URL into a new tab of your browser:
       </Text>
       <Link href={resetUrl} target="_blank" style={{ textTransform: "none" }}>
         {resetUrl}
@@ -34,7 +34,7 @@ const UserPasswordResetEmail: EmailComponent<UserPasswordResetEmailProps> = ({
 };
 
 UserPasswordResetEmail.layout = page => (
-  <EmailLayout header="Reset password">{page}</EmailLayout>
+  <EmailLayout header="reset password">{page}</EmailLayout>
 );
 
 export default UserPasswordResetEmail;

@@ -58,7 +58,7 @@ const AdminFriendForm: FC<AdminFriendFormProps> = ({
           disabled={!filled}
           loading={submitting}
         >
-          Register
+          register
         </Button>
       </Group>
     </Box>

@@ -22,7 +22,7 @@ const EmptyCard: FC<EmptyCardProps> = ({
         <EmptyIcon />
       </Box>
       <Text size="sm" c="dimmed">
-        {children ?? <>No {itemLabel} to show</>}
+        {children ?? <>no {itemLabel} to show</>}
       </Text>
     </Flex>
   </Card>

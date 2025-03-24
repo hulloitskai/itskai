@@ -8,8 +8,8 @@ export const toastChangesSaved = ({
   to,
   ...options
 }: ToastChangesSavedProps): void => {
-  toast.success("Changes saved", {
-    description: `Updated ${to}.`,
+  toast.success("changes saved", {
+    description: `updated ${to}.`,
     ...options,
   });
 };

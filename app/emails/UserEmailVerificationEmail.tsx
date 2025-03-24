@@ -14,11 +14,11 @@ const UserVerificationEmail: EmailComponent<
   const { name } = user;
   return (
     <>
-      <Text>Hi, {name}!</Text>
-      <Text>To verify your email address, please click the button below:</Text>
-      <Button href={verificationUrl}>Verify email</Button>
+      <Text>hi, {name}!</Text>
+      <Text>to verify your email address, please click the button below:</Text>
+      <Button href={verificationUrl}>verify email</Button>
       <Text style={{ marginTop: 14 }}>
-        Or copy and paste this URL into a new tab of your browser:
+        or copy and paste this URL into a new tab of your browser:
       </Text>
       <Link
         className="link"
@@ -32,7 +32,7 @@ const UserVerificationEmail: EmailComponent<
 };
 
 UserVerificationEmail.layout = page => (
-  <EmailLayout header="Verify email">{page}</EmailLayout>
+  <EmailLayout header="verify email">{page}</EmailLayout>
 );
 
 export default UserVerificationEmail;

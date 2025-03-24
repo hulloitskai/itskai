@@ -19,8 +19,8 @@ const TestEmail: EmailComponent<TestEmailProps> = ({ model, user }) => {
   const { name } = user ?? {};
   return (
     <>
-      <Text>Hi, {name ?? "anonymous user"}!</Text>
-      <Text>This is a test email containing your form submission results:</Text>
+      <Text>hi, {name ?? "anonymous user"}!</Text>
+      <Text>this is a test email containing your form submission results:</Text>
       <br />
       <Section className={classes.results}>
         <Row>
@@ -39,7 +39,7 @@ const TestEmail: EmailComponent<TestEmailProps> = ({ model, user }) => {
 };
 
 TestEmail.layout = page => (
-  <EmailLayout header="Test form submission">{page}</EmailLayout>
+  <EmailLayout header="test form submission">{page}</EmailLayout>
 );
 
 export default TestEmail;

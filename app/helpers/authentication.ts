@@ -8,7 +8,7 @@ export const useCurrentUser = (): User | null => {
 export const useAuthenticatedUser = (): User => {
   const currentUser = useCurrentUser();
   if (!currentUser) {
-    throw new Error("Missing current user");
+    throw new Error("missing current user");
   }
   return currentUser;
 };

@@ -38,7 +38,6 @@ const AdminNotificationCard: FC<AdminNotificationCardProps> = ({
               <Text
                 size="sm"
                 fw={600}
-                lh={1.2}
                 miw={0}
                 style={{ flexGrow: 1 }}
                 className={classes.title}

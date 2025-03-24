@@ -128,7 +128,7 @@ export const useWebPushSubscribe = ({
               ),
             (error: Error) => {
               setSubscribeError(error);
-              toast.error("Couldn't subscribe to push notifications", {
+              toast.error("couldn't subscribe to push notifications", {
                 description: error.message,
               });
               throw error;
@@ -166,10 +166,10 @@ const registerSubscription = (
     "keys.p256dh",
   );
   if (!keys?.auth) {
-    throw new Error("Missing auth key");
+    throw new Error("missing auth key");
   }
   if (!keys?.p256dh) {
-    throw new Error("Missing p256dh key");
+    throw new Error("missing p256dh key");
   }
   const query = friendToken ? { friend_token: friendToken } : {};
   return fetchRoute<void>(routes.pushSubscriptions.create, {
@@ -182,11 +182,13 @@ const registerSubscription = (
         p256dh_key: keys.p256dh,
       },
     },
+  }).then(() => {
+    void mutateRoute(routes.pushSubscriptions.lookup, { query });
   });
 };
 
 const reportProblem = (message: string): never => {
-  toast.error("Something went wrong", {
+  toast.error("something went wrong", {
     description: message,
   });
   console.error(message);

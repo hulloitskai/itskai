@@ -71,7 +71,7 @@ export const useSubscription = <
         },
         rejected: () => {
           const error = new Error(
-            `Failed to ${descriptor}: connection rejected`,
+            `failed to ${descriptor}: connection rejected`,
           );
           console.error(error);
           next(error);
@@ -79,9 +79,9 @@ export const useSubscription = <
         received: (data: Data | { error?: string }) => {
           if ("error" in data) {
             const error = new Error(data.error);
-            console.error(`Failed to ${descriptor}`, error);
+            console.error(`failed to ${descriptor}`, error);
             if (!failSilently) {
-              toast.error(`Failed to ${descriptor}`, {
+              toast.error(`failed to ${descriptor}`, {
                 description: data.error,
               });
             }

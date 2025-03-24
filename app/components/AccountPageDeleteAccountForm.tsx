@@ -28,18 +28,18 @@ const AccountPageDeleteAccountForm: FC<AccountPageDeleteAccountFormProps> = ({
       >
         <Menu.Target>
           <Button
-            variant="subtle"
+            variant="outline"
             color="red"
             leftSection={<DeleteIcon />}
             loading={submitting}
             fullWidth
           >
-            Delete account
+            delete account
           </Button>
         </Menu.Target>
         <Menu.Dropdown>
           <Menu.Item type="submit" color="red" leftSection={<AlertIcon />}>
-            Really delete?
+            really delete?
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>

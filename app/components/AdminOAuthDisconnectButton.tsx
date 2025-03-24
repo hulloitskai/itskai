@@ -41,7 +41,7 @@ const AdminOAuthDisconnectButton: FC<AdminOAuthDisconnectButtonProps> = ({
           loading={submitting}
           {...otherProps}
         >
-          Disconnect
+          disconnect
         </Button>
       </Menu.Target>
       <Menu.Dropdown>
@@ -52,7 +52,7 @@ const AdminOAuthDisconnectButton: FC<AdminOAuthDisconnectButtonProps> = ({
             submit();
           }}
         >
-          Really disconnect?
+          really disconnect?
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>

@@ -24,7 +24,7 @@ const AdminOAuthConnectionForm: FC<AdminOAuthConnectionFormProps> = ({
           <TextInput label="UID (read-only)" value={credentials.uid} readOnly />
           {!!credentials.refresh_token && (
             <TextInput
-              label="Refresh token (read-only)"
+              label="refresh token (read-only)"
               value={credentials.refresh_token}
               readOnly
             />
@@ -35,7 +35,7 @@ const AdminOAuthConnectionForm: FC<AdminOAuthConnectionFormProps> = ({
         <form action={connection.authorize_url} method="post">
           <FormAuthenticityField />
           <Button type="submit" leftSection={<OpenExternalIcon />} fullWidth>
-            Authenticate
+            authenticate
           </Button>
         </form>
         {credentials && (

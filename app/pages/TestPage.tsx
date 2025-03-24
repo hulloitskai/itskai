@@ -24,20 +24,20 @@ const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
   });
   const nameDescription = useMemo(() => {
     const { name } = getValues();
-    return `Your name is: ${name}`;
+    return `your name is: ${name}`;
   }, [getValues]);
 
   // == Callbacks
   const showModal = useCallback(() => {
     const { name } = getValues();
     openModal({
-      title: "I'm a modal!",
+      title: "i'm a modal!",
       children: <TestPageModalBody name={name} />,
     });
   }, [getValues]);
   const showAlert = useCallback(() => {
-    toast.info("Graphic design is my passion", {
-      description: "I love graphic design.",
+    toast.info("graphic design is my passion", {
+      description: "i love graphic design.",
     });
   }, []);
 
@@ -48,21 +48,21 @@ const TestPage: PageComponent<TestPageProps> = ({ name: initialName }) => {
         <Title order={3}>Test component</Title>
         <TextInput
           {...getInputProps("name")}
-          label="Name"
+          label="name"
           description={nameDescription}
-          placeholder="Some input"
+          placeholder="some input"
           leftSection={<PencilSquareIcon />}
         />
-        <FileInput {...getInputProps("files")} label="Files" multiple />
+        <FileInput {...getInputProps("files")} label="files" multiple />
         <Group gap="xs" grow>
           <Button
             leftSection={<ArrowTopRightOnSquareIcon />}
             onClick={showModal}
           >
-            Open modal
+            open modal
           </Button>
           <Button leftSection={<BellAlertIcon />} onClick={showAlert}>
-            Notify me
+            notify me
           </Button>
         </Group>
       </Stack>

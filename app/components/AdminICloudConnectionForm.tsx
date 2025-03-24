@@ -30,9 +30,9 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
       size: "lg",
       title: (
         <Box>
-          <Text>Session information</Text>
+          <Text>session information</Text>
           <Text size="sm" c="dimmed" fw="normal" lh={1.3}>
-            Details about the current iCloud login session.
+            details about the current iCloud login session.
           </Text>
         </Box>
       ),
@@ -40,7 +40,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
         <Stack gap={6}>
           {!!credentials?.cookies && (
             <Textarea
-              label="Cookies"
+              label="cookies"
               value={credentials.cookies}
               readOnly
               autosize
@@ -49,7 +49,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
           )}
           {!!credentials?.session && (
             <JsonInput
-              label="Session"
+              label="session"
               value={formatJSON(credentials.session)}
               readOnly
               autosize
@@ -66,9 +66,9 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
     openModal({
       title: (
         <Box>
-          <Text>Verify security code</Text>
+          <Text>verify security code</Text>
           <Text size="sm" c="dimmed" fw="normal" style={{ lineHeight: 1.3 }}>
-            Enter the security code you received on your device to complete
+            enter the security code you received on your device to complete
             iCloud authentication.
           </Text>
         </Box>
@@ -97,8 +97,8 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
     // mode: "uncontrolled",
     initialValues,
     validate: {
-      email: isNotEmpty("Email is required"),
-      password: isNotEmpty("Password is required"),
+      email: isNotEmpty("email is required"),
+      password: isNotEmpty("password is required"),
     },
     transformValues: values => ({ credentials: values }),
     onSuccess: ({ connection }: FormData) => {
@@ -146,7 +146,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
                     leftSection={<SecurityCodeIcon />}
                     onClick={openVerifySecurityCodeModal}
                   >
-                    Verify security code
+                    verify security code
                   </Button>
                 )}
                 {!!credentials && (
@@ -155,7 +155,7 @@ const AdminICloudCredentialsForm: FC<AdminICloudConnectionFormProps> = ({
                     leftSection={<SessionIcon />}
                     onClick={openSessionInfoModal}
                   >
-                    Session information
+                    session information
                   </Button>
                 )}
               </Group>

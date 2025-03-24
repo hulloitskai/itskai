@@ -63,8 +63,8 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
           },
         );
       } else {
-        toast.info("No logs to backfill", {
-          description: "All location logs already have addresses.",
+        toast.info("no logs to backfill", {
+          description: "all location logs already have addresses.",
         });
       }
       onBackfilling?.();
@@ -89,7 +89,7 @@ const AdminLocationLogsBackfillAddressesButtons: FC<
           submit();
         }}
       >
-        {children ?? "Backfill location log addresses"}
+        {children ?? "backfill location log addresses"}
       </Button>
       <Popover
         position="left"

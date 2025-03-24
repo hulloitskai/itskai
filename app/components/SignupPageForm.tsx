@@ -19,14 +19,14 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
       password: "",
     },
     validate: {
-      name: isNotEmpty("Name is required"),
-      email: isEmail("Invalid email address"),
+      name: isNotEmpty("name is required"),
+      email: isEmail("invalid email address"),
       password: (value: string) => {
         if (!value) {
-          return "Password is required";
+          return "password is required";
         }
         if (passwordStrength < 1.0) {
-          return "Password is too weak";
+          return "password is too weak";
         }
       },
     },
@@ -45,7 +45,7 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
       <Stack gap="xs">
         <TextInput
           {...getInputProps("name")}
-          label="Name"
+          label="name"
           placeholder="Jon Snow"
           autoComplete="name"
           required
@@ -53,14 +53,14 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
         <TextInput
           {...getInputProps("email")}
           type="email"
-          label="Email"
+          label="email"
           placeholder="jon.snow@example.com"
           autoComplete="email"
           required
         />
         <StrongPasswordInput
           {...getInputProps("password")}
-          label="Password"
+          label="password"
           placeholder="paS$w0rD"
           autoComplete="new-password"
           required
@@ -71,7 +71,7 @@ const SignupPageForm: FC<SignupPageFormProps> = props => {
           }}
         />
         <Button type="submit" disabled={!filled} loading={submitting}>
-          Sign up
+          sign up
         </Button>
       </Stack>
     </Box>

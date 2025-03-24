@@ -207,11 +207,11 @@ export const useForm = <
               if (typeof body.error === "string") {
                 const error = new Error(body.error);
                 setError(error);
-                console.error(`Failed to ${descriptor}`, error);
+                console.error(`failed to ${descriptor}`, error);
                 if (!failSilently) {
-                  toast.error(`Failed to ${descriptor}`, {
+                  toast.error(`failed to ${descriptor}`, {
                     description: sentencify(
-                      error.message || "An unknown error occurred",
+                      error.message || "an unknown error occurred",
                     ),
                   });
                 }
@@ -219,19 +219,19 @@ export const useForm = <
               } else if (typeof body.errors === "object") {
                 const { errors } = body;
                 form.setErrors(errors);
-                console.warn(`Couldn't ${descriptor}`, errors);
+                console.warn(`couldn't ${descriptor}`, errors);
                 const formWithErrors = { ...form, errors };
                 if (!failSilently) {
-                  showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
+                  showFormErrorsAlert(formWithErrors, `couldn't ${descriptor}`);
                 }
                 onError?.(formWithErrors);
               }
             } else {
-              console.error("Unknown error response", responseError);
+              console.error("unknown error response", responseError);
               if (!failSilently) {
-                toast.error(`Failed to ${descriptor}`, {
+                toast.error(`failed to ${descriptor}`, {
                   description: sentencify(
-                    responseError.message || "An unknown error occurred",
+                    responseError.message || "an unknown error occurred",
                   ),
                 });
               }
@@ -247,7 +247,7 @@ export const useForm = <
     errors => {
       const formWithErrors = { ...form, errors };
       onError?.(formWithErrors);
-      showFormErrorsAlert(formWithErrors, `Couldn't ${descriptor}`);
+      showFormErrorsAlert(formWithErrors, `couldn't ${descriptor}`);
     },
   );
   return {

@@ -6,8 +6,8 @@ export const setupClarity = () => {
   const projectId = getMeta("clarity-project-id");
   if (projectId) {
     Clarity.init(projectId);
-    console.info("Initialized Clarity", projectId);
+    console.info("initialized Clarity", projectId);
   } else {
-    console.warn("Missing Clarity project ID; skipping initialization");
+    console.warn("missing Clarity project ID; skipping initialization");
   }
 };

@@ -17,12 +17,12 @@ const RequestPasswordResetPageForm: FC<RequestPasswordResetPageFormProps> = ({
       email: "",
     },
     validate: {
-      email: isEmail("Invalid email address"),
+      email: isEmail("invalid email address"),
     },
     transformValues: attributes => ({ user: attributes }),
     onSuccess: () => {
-      toast.success("Check your inbox!", {
-        description: "Password reset link was sent to your email.",
+      toast.success("check your inbox!", {
+        description: "password reset link was sent to your email.",
       });
       setLinkSent(true);
     },
@@ -34,7 +34,7 @@ const RequestPasswordResetPageForm: FC<RequestPasswordResetPageFormProps> = ({
       <Stack gap="xs">
         <TextInput
           {...getInputProps("email")}
-          label="Email"
+          label="email"
           placeholder="jon.snow@example.com"
           required
           withAsterisk={false}
@@ -44,7 +44,7 @@ const RequestPasswordResetPageForm: FC<RequestPasswordResetPageFormProps> = ({
           disabled={linkSent || !filled}
           loading={submitting}
         >
-          Continue
+          continue
         </Button>
       </Stack>
     </Box>

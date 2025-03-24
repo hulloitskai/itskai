@@ -3,6 +3,10 @@
   cursor: pointer;
   padding-left: 8px;
 
+  :global(.mantine-Badge-label) {
+    text-transform: none;
+  }
+
   &[data-expanded] {
     border-color: var(--mantine-color-primary-filled);
   }

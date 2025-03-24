@@ -3,7 +3,7 @@ import { Image, Input, rgba, Text } from "@mantine/core";
 import { type DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
 import { useUncontrolled } from "@mantine/hooks";
-import { useId } from "react";
+import { type CSSProperties, useId } from "react";
 
 import PhotoIcon from "~icons/heroicons/photo-20-solid";
 
@@ -26,7 +26,9 @@ export interface ImageInputProps
     Pick<DropzoneProps, "disabled"> {
   value?: Upload | null;
   defaultValue?: Upload | null;
+  previewFit?: CSSProperties["objectFit"];
   onChange?: (value: Upload | null) => void;
+  onPreviewChange?: (image: ImageModel | null) => void;
   radius?: ImageProps["radius"];
   center?: boolean;
 }
@@ -34,18 +36,21 @@ export interface ImageInputProps
 const ImageInput: FC<ImageInputProps> = ({
   center,
   defaultValue,
+  previewFit,
   disabled,
   h = 140,
+  label,
   labelProps,
   onChange,
+  onPreviewChange,
   p,
   pb,
   pl,
   pr,
   pt,
   px,
-  py = 6,
-  radius = "md",
+  py = label ? 6 : undefined,
+  radius,
   style,
   value,
   w,
@@ -66,6 +71,9 @@ const ImageInput: FC<ImageInputProps> = ({
     params: resolvedValue ? { signed_id: resolvedValue.signedId } : null,
   });
   const { image } = data ?? {};
+  useDidUpdate(() => {
+    onPreviewChange?.(image ?? null);
+  }, [image]); // eslint-disable-line react-hooks/exhaustive-deps
   useDidUpdate(() => {
     void mutate();
   }, [resolvedValue]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -91,13 +99,14 @@ const ImageInput: FC<ImageInputProps> = ({
           <Image
             w="100%"
             h="100%"
-            {...{ radius }}
+            fit={previewFit}
+            radius={radius ?? "var(--mantine-radius-default)"}
             src={image?.src}
             srcSet={image?.src_set}
           />
           <Dropzone
             className={classes.dropzone}
-            accept={["image/png", "image/jpeg"]}
+            accept={["image/png", "image/jpeg", "image/webp", "image/gif"]}
             multiple={false}
             onDrop={files => {
               const file = first(files);
@@ -109,7 +118,7 @@ const ImageInput: FC<ImageInputProps> = ({
                     handleChange(value);
                   })
                   .catch((error: Error) => {
-                    toast.error("Failed to upload image", {
+                    toast.error("failed to upload image", {
                       description: error.message,
                     });
                   })
@@ -118,7 +127,7 @@ const ImageInput: FC<ImageInputProps> = ({
                   });
               }
             }}
-            radius={radius}
+            {...{ radius }}
             pos="absolute"
             inset={0}
             inputProps={{ id: inputId }}
@@ -137,9 +146,10 @@ const ImageInput: FC<ImageInputProps> = ({
                 size="xs"
                 c="dark.1"
                 lh={1.3}
+                fw={500}
                 style={{ textAlign: "center" }}
               >
-                Drag an image or click to upload
+                drag an image or click to upload
               </Text>
             </Stack>
           </Dropzone>
@@ -149,14 +159,13 @@ const ImageInput: FC<ImageInputProps> = ({
             component="button"
             type="button"
             size="xs"
+            fw={500}
             disabled={loading}
             onClick={() => {
-              if (onChange) {
-                onChange(null);
-              }
+              handleChange(null);
             }}
           >
-            Clear
+            clear
           </Anchor>
         )}
       </Stack>

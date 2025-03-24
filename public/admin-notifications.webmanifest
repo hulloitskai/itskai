@@ -15,5 +15,6 @@
     }
   ],
   "display": "standalone",
-  "start_url": "/admin/notifications"
+  "start_url": "/admin/notifications",
+  "scope": "/admin/notifications"
 }

@@ -2,7 +2,7 @@ import { AppShell, type AppShellHeaderProps, Burger } from "@mantine/core";
 import { Image } from "@mantine/core";
 
 import logoSrc from "~/assets/images/logo-circle.png";
-import { useIsStandalone } from "~/helpers/pwa";
+
 import { useSidebarControls } from "~/helpers/sidebar";
 
 import AppMenu from "./AppMenu";
@@ -44,7 +44,7 @@ const AppHeader = forwardRef<HTMLDivElement, AppHeaderProps>(
               leftSection={<Image src={logoSrc} w={24} />}
               className={classes.logoButton}
             >
-              It&apos;s Kai
+              it&apos;s kai
             </Button>
           </Group>
           <CurrentlyPlayingIsland className={classes.clickable} />

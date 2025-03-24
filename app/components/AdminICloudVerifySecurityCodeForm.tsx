@@ -25,7 +25,7 @@ const AdminICloudVerifySecurityCodeForm: FC<
     validate: {
       code: (value: string) => {
         if (value.length !== 6) {
-          return "Must be 6 digits";
+          return "must be 6 digits";
         }
       },
     },
@@ -34,7 +34,7 @@ const AdminICloudVerifySecurityCodeForm: FC<
     }),
     onSuccess: ({ connection }: FormData) => {
       closeAllModals();
-      toast.success("Authenticated successfully with iCloud.");
+      toast.success("authenticated successfully with iCloud.");
       onVerified?.(connection);
     },
   });
@@ -53,7 +53,7 @@ const AdminICloudVerifySecurityCodeForm: FC<
           loading={submitting}
           leftSection={<SecurityCodeIcon />}
         >
-          Verify code
+          verify code
         </Button>
       </Stack>
     </Box>

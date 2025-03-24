@@ -42,7 +42,7 @@ const FriendVibecheckModal: FC<FriendVibecheckModalProps> = ({
     initialValues: { vibe: "" },
     transformValues: values => ({ vibecheck: values }),
     onSuccess: () => {
-      toast("Thanks for checking in!", {
+      toast("thanks for checking in!", {
         icon: (
           <span style={{ fontSize: "var(--mantine-font-size-lg)" }}>🫶</span>
         ),
@@ -58,7 +58,7 @@ const FriendVibecheckModal: FC<FriendVibecheckModalProps> = ({
       closeOnEscape={false}
       opened={requiresVibecheck}
       onClose={() => {}}
-      title="What's your vibe today?"
+      title="what's your vibe today?"
       styles={{
         header: {
           justifyContent: "center",
@@ -119,7 +119,7 @@ const FriendVibecheckModal: FC<FriendVibecheckModalProps> = ({
             disabled={!values.vibe}
             style={{ alignSelf: "center" }}
           >
-            And that&apos;s just how I feel
+            and that&apos;s just how i feel
           </Button>
         </Stack>
       </form>

@@ -91,7 +91,7 @@ const NotionJournalEntryCommentsStack: FC<
             </ActionIcon>
           }
           radius="xl"
-          placeholder="Write a comment..."
+          placeholder="write a comment..."
           readOnly={submitting}
           onKeyDown={({ key }) => {
             if (key === "Enter") {

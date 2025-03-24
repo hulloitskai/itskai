@@ -37,6 +37,7 @@ const AdminStatusCard: FC<AdminStatusCardProps> = ({
             size="xs"
             c="dimmed"
             display="block"
+            style={{ textTransform: "lowercase" }}
           >
             {status.created_at}
           </Time>
@@ -146,7 +147,7 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
     initialValues,
     onSuccess: () => {
       closeDrawer();
-      toast.success("Your friends were notified!");
+      toast.success("your friends were notified!");
     },
   });
   useDidUpdate(
@@ -174,11 +175,11 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
         onClick={openDrawer}
         {...otherProps}
       >
-        Notify
+        notify
       </Button>
       <Drawer
         classNames={{ content: classes.notifyFriendsDrawerContent }}
-        title="Notify friends"
+        title="notify friends"
         position={drawerPosition}
         opened={drawerOpened}
         onClose={closeDrawer}
@@ -193,7 +194,7 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
                       {notifiableFriends.map(friend => (
                         <Tooltip
                           key={friend.id}
-                          label="This friend has not subscribed to push notifications"
+                          label="this friend has not subscribed to push notifications"
                           disabled={friend.notifiable}
                         >
                           <div>
@@ -224,8 +225,8 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
                     }}
                   >
                     {allNotifiableFriendsSelected
-                      ? "Unselect all"
-                      : "Select all"}
+                      ? "unselect all"
+                      : "select all"}
                   </Anchor>
                 </Stack>
               ) : (
@@ -238,7 +239,7 @@ const NotifyFriendsButton: FC<NotifyFriendsButtonProps> = ({
               loading={submitting}
               disabled={isEmpty(values.friend_ids)}
             >
-              Notify
+              notify
             </Button>
           </Stack>
         </form>

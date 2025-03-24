@@ -12,7 +12,7 @@ const AccountPage: PageComponent = () => (
       <Stack gap="sm">
         <Center>
           <Title order={2} size="h4">
-            Your profile
+            your profile
           </Title>
         </Center>
         <AccountPageProfileForm
@@ -26,10 +26,10 @@ const AccountPage: PageComponent = () => (
       <Stack gap="sm">
         <Stack align="center" gap={0}>
           <Title order={2} size="h4">
-            Email address
+            email address
           </Title>
           <Text size="sm" c="dimmed">
-            Change your account email address
+            change your account email address
           </Text>
         </Stack>
         <AccountPageEmailForm
@@ -43,10 +43,10 @@ const AccountPage: PageComponent = () => (
       <Stack gap="sm">
         <Stack align="center" gap={0}>
           <Title order={2} size="h4">
-            Password
+            password
           </Title>
           <Text size="sm" c="dimmed">
-            Change your login password
+            change your login password
           </Text>
         </Stack>
         <AccountPagePasswordForm />
@@ -56,10 +56,10 @@ const AccountPage: PageComponent = () => (
       <Stack gap="sm">
         <Stack align="center" gap={0}>
           <Title order={2} size="h4">
-            Danger zone
+            danger zone
           </Title>
           <Text size="sm" c="dimmed">
-            Destructive actions, and the like.
+            destructive actions, and the like.
           </Text>
         </Stack>
         <AccountPageDeleteAccountForm />
@@ -70,10 +70,10 @@ const AccountPage: PageComponent = () => (
 
 AccountPage.layout = page => (
   <AppLayout
-    title="Account"
+    title="account"
     breadcrumbs={[
-      { title: "Home", href: routes.home.show.path() },
-      { title: "Account", href: routes.usersRegistrations.edit.path() },
+      { title: "home", href: routes.home.show.path() },
+      { title: "account", href: routes.usersRegistrations.edit.path() },
     ]}
     withContainer
     withGutter

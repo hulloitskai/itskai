@@ -19,11 +19,16 @@ const AdminLocationLogsSyncButton: FC<AdminLocationLogsSyncButtonProps> = ({
     action: routes.adminLocationLogs.sync,
     descriptor: "sync location logs",
     onSuccess: ({ lastSyncedTimestamp }) => {
-      toast.success("Location logs synced", {
+      toast.success("location logs synced", {
         description: (
           <>
-            Last logged at:{" "}
-            <Time format={DateTime.DATETIME_MED} inherit fw={600}>
+            last logged at:{" "}
+            <Time
+              format={DateTime.DATETIME_MED}
+              inherit
+              fw={600}
+              style={{ textTransform: "lowercase" }}
+            >
               {lastSyncedTimestamp}
             </Time>
             .
@@ -43,7 +48,7 @@ const AdminLocationLogsSyncButton: FC<AdminLocationLogsSyncButtonProps> = ({
       }}
       {...otherProps}
     >
-      {children ?? "Sync location logs"}
+      {children ?? "sync location logs"}
     </Button>
   );
 };

@@ -12,10 +12,10 @@ const RequestPasswordResetPage: PageComponent<
     <Stack gap="xs">
       <Stack gap={4}>
         <Title size="h3" ta="center">
-          Reset your password
+          reset your password
         </Title>
         <Text size="sm" c="dimmed" style={{ lineHeight: 1.4 }}>
-          Enter the email address associated with your account and we&apos;ll
+          enter the email address associated with your account and we&apos;ll
           send you a link to reset your password.
         </Text>
       </Stack>
@@ -29,7 +29,7 @@ const RequestPasswordResetPage: PageComponent<
               href={routes.usersSessions.new.path()}
               inherit
             >
-              Sign in
+              sign in
             </Anchor>{" "}
             or{" "}
             <Anchor
@@ -37,7 +37,7 @@ const RequestPasswordResetPage: PageComponent<
               href={routes.usersRegistrations.new.path()}
               inherit
             >
-              Sign up
+              sign up
             </Anchor>
           </Text>
         </List.Item>
@@ -47,7 +47,7 @@ const RequestPasswordResetPage: PageComponent<
             href={routes.usersConfirmations.new.path()}
             inherit
           >
-            Didn&apos;t get a verification email?
+            didn&apos;t get a verification email?
           </Anchor>
         </List.Item>
       </List>

@@ -82,10 +82,10 @@ const JournalEntryCardCopyLinkTooltip: FC<
   const [label, setLabel] = useState("");
   useEffect(() => {
     if (copied) {
-      setLabel("Copied!");
+      setLabel("copied!");
     } else {
       setTimeout(() => {
-        setLabel("Copy permalink");
+        setLabel("copy permalink");
       }, 100);
     }
   }, [copied]);

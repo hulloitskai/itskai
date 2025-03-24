@@ -15,10 +15,10 @@ const ChangePasswordPage: PageComponent<ChangePasswordPageProps> = ({
     <Stack gap="xs">
       <Stack gap={4}>
         <Title size="h3" ta="center">
-          Change password
+          change password
         </Title>
         <Text size="sm" c="dimmed" style={{ lineHeight: 1.4 }}>
-          Enter a new password that you will use to sign into your account.
+          enter a new password that you will use to sign into your account.
         </Text>
       </Stack>
       <ChangePasswordPageForm {...{ resetPasswordToken }} />
@@ -31,7 +31,7 @@ const ChangePasswordPage: PageComponent<ChangePasswordPageProps> = ({
               href={routes.usersSessions.new.path()}
               inherit
             >
-              Sign in
+              sign in
             </Anchor>{" "}
             or{" "}
             <Anchor
@@ -39,7 +39,7 @@ const ChangePasswordPage: PageComponent<ChangePasswordPageProps> = ({
               href={routes.usersRegistrations.new.path()}
               inherit
             >
-              Sign up
+              sign up
             </Anchor>
           </Text>
         </List.Item>
@@ -49,7 +49,7 @@ const ChangePasswordPage: PageComponent<ChangePasswordPageProps> = ({
             href={routes.usersConfirmations.new.path()}
             inherit
           >
-            Didn&apos;t get a verification email?
+            didn&apos;t get a verification email?
           </Anchor>
         </List.Item>
       </List>
@@ -58,7 +58,7 @@ const ChangePasswordPage: PageComponent<ChangePasswordPageProps> = ({
 );
 
 ChangePasswordPage.layout = page => (
-  <AppLayout title="Change password">
+  <AppLayout title="change password">
     <Center style={{ flexGrow: 1 }}>{page}</Center>
   </AppLayout>
 );

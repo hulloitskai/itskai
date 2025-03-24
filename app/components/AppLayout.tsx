@@ -66,23 +66,23 @@ const AppLayout = <PageProps extends SharedPageProps = SharedPageProps>({
   ...otherProps
 }: AppLayoutProps<PageProps>) => {
   useClearAppBadge();
-  const pageProps = usePageProps<PageProps>();
 
   // == Meta
-  const title = useResolveDynamicProp(titleProp, pageProps);
-  const description = useResolveDynamicProp(descriptionProp, pageProps);
-  const manifestUrl = useResolveDynamicProp(manifestUrlProp, pageProps);
+  const title = useResolveDynamicProp(titleProp);
+  const description = useResolveDynamicProp(descriptionProp);
+  const manifestUrl = useResolveDynamicProp(manifestUrlProp);
 
   // == Breadcrumbs
+  const page = usePage<PageProps>();
   const breadcrumbs = useMemo<AppBreadcrumb[]>(() => {
     return breadcrumbsProp
-      ? resolveDynamicProp(breadcrumbsProp, pageProps).filter(x => !!x)
+      ? resolveDynamicProp(breadcrumbsProp, page).filter(x => !!x)
       : [];
-  }, [breadcrumbsProp, pageProps]);
+  }, [breadcrumbsProp, page]);
 
   // == Sidebar
-  const sidebar = useResolveDynamicProp(sidebarProp, pageProps);
-  const logoHref = useResolveDynamicProp(logoHrefProp, pageProps);
+  const sidebar = useResolveDynamicProp(sidebarProp);
+  const logoHref = useResolveDynamicProp(logoHrefProp);
   const [
     sidebarOpened,
     { toggle: toggleSidebar, close: closeSidebar, open: openSidebar },

@@ -42,7 +42,7 @@ const ApproximateLocationAlert: FC<ApproximateLocationAlertProps> = ({
       <Stack gap={4}>
         {location ? (
           <Text inherit>
-            I&apos;m currently around{" "}
+            i&apos;m currently around{" "}
             <Anchor
               href={location.google_maps_area_url}
               target="_blank"
@@ -52,10 +52,10 @@ const ApproximateLocationAlert: FC<ApproximateLocationAlertProps> = ({
             >
               {location.approximate_address}
             </Anchor>
-            . If you&apos;re nearby, text me and come say hi!
+            . if you&apos;re nearby, text me and come say hi!
           </Text>
         ) : (
-          <Text>My location could not be detected :(</Text>
+          <Text>my location could not be detected :(</Text>
         )}
         {location && (
           <Text size="xs" c="dimmed">
@@ -71,7 +71,7 @@ const ApproximateLocationAlert: FC<ApproximateLocationAlertProps> = ({
                 };
               }}
             >
-              Need to find me?
+              need to find me?
             </Anchor>
           </Text>
         )}

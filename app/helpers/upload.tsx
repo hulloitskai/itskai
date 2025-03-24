@@ -37,8 +37,8 @@ export const useLazyUpload = (
     const sizeLimitValue = getMeta("active-storage-direct-uploads-size-limit");
     const sizeLimit = sizeLimitValue ? parseInt(sizeLimitValue) : null;
     if (typeof sizeLimit === "number" && file.size > sizeLimit) {
-      toast.error(`File '${file.name}' is too large`, {
-        description: `The maximum file size is ${prettyBytes(sizeLimit)}.`,
+      toast.error(`file '${file.name}' is too large`, {
+        description: `the maximum file size is ${prettyBytes(sizeLimit)}.`,
       });
       const error = fileSizeLimitExceededError(sizeLimit);
       onError?.(error);
@@ -83,7 +83,7 @@ export const useLazyUpload = (
     return new Promise((resolve, reject) => {
       upload.create((error, blob) => {
         if (error) {
-          console.error(`Error uploading file "${file.name}"`, error);
+          console.error(`error uploading file "${file.name}"`, error);
           setState(prevState => ({
             ...prevState,
             error,
@@ -95,7 +95,7 @@ export const useLazyUpload = (
           reject(error);
           onError?.(error);
           if (!failSilently) {
-            toast.error(`Failed to upload file '${file.name}'`, {
+            toast.error(`failed to upload file '${file.name}'`, {
               description: error.message,
             });
           }
@@ -145,7 +145,7 @@ export const upload = async (file: File): Promise<Blob> => {
     const upload = new DirectUpload(file, url);
     upload.create((error, blob) => {
       if (error) {
-        console.error(`Error uploading file '${file.name}'`, error);
+        console.error(`error uploading file '${file.name}'`, error);
         reject(error);
       } else {
         resolve(blob);
@@ -155,4 +155,4 @@ export const upload = async (file: File): Promise<Blob> => {
 };
 
 const fileSizeLimitExceededError = (limit: number): Error =>
-  new Error(`File size exceeds limit of ${prettyBytes(limit)}`);
+  new Error(`file size exceeds limit of ${prettyBytes(limit)}`);

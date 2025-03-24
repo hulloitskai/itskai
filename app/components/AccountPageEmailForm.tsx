@@ -42,8 +42,8 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
     descriptor: "change email",
     initialValues,
     validate: {
-      email: isEmail("Invalid email address"),
-      current_password: isNotEmpty("Current password is required"),
+      email: isEmail("invalid email address"),
+      current_password: isNotEmpty("current password is required"),
     },
     transformValues: attributes => ({
       user: attributes,
@@ -57,9 +57,9 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
         current_password: "",
       });
       if (emailNeedsConfirmation) {
-        toast.info("Email verification required", {
+        toast.info("email verification required", {
           description:
-            "Please check your email and follow the verification link to " +
+            "please check your email and follow the verification link to " +
             "verify your new email address.",
         });
       } else {
@@ -80,7 +80,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
         <Box>
           <TextInput
             {...getInputProps("email")}
-            label="Email"
+            label="email"
             placeholder="jon.snow@example.com"
             required
             {...(user.unconfirmed_email
@@ -88,7 +88,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
                   rightSectionWidth: 80,
                   rightSection: (
                     <Badge size="xs" variant="outline" color="orange">
-                      Unverified
+                      unverified
                     </Badge>
                   ),
                 }
@@ -96,12 +96,12 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
           />
           {user.email && user.unconfirmed_email && (
             <Text size="xs" c="dimmed" mt={4}>
-              Last verified email:{" "}
+              last verified email:{" "}
               <Text c="gray" fw={500} span>
                 {user.email}
               </Text>
               <br />
-              Check your inbox for a link to verify your new email address.
+              check your inbox for a link to verify your new email address.
             </Text>
           )}
         </Box>
@@ -125,7 +125,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
             }
             loading={submitting}
           >
-            Change email
+            change email
           </Button>
           {user.unconfirmed_email && (
             <ResendEmailVerificationInstructionsButton
@@ -157,8 +157,8 @@ const ResendEmailVerificationInstructionsButton: FC<
       descriptor: "resend verification email",
       data: { user: pick(user, "email") },
       onSuccess: () => {
-        toast.success("Check your inbox!", {
-          description: "Verification link was re-sent to your email.",
+        toast.success("check your inbox!", {
+          description: "verification link was re-sent to your email.",
         });
       },
     },
@@ -172,7 +172,7 @@ const ResendEmailVerificationInstructionsButton: FC<
       }}
       {...otherProps}
     >
-      Resend verification email
+      resend verification email
     </Button>
   );
 };

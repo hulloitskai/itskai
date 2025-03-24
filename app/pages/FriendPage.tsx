@@ -9,7 +9,7 @@ import AppLayout from "~/components/AppLayout";
 import FriendPushNotificationsButton from "~/components/FriendPushNotificationsButton";
 import FriendTimeline from "~/components/FriendTimeline";
 import FriendVibecheckModal from "~/components/FriendVibecheckModal";
-import { useInstallPromptEvent, useIsStandalone } from "~/helpers/pwa";
+import { useInstallPromptEvent } from "~/helpers/pwa";
 import { useWebPush } from "~/helpers/webPush";
 import { type Friend, type FriendVibecheck, type Status } from "~/types";
 
@@ -54,21 +54,20 @@ const FriendPage: PageComponent<FriendPageProps> = ({
           <>
             <Stack gap={6} ta="center">
               <Text fw={700}>
-                Hi, {friend.emoji}{" "}
+                hi, {friend.emoji}{" "}
                 <span className={classes.name}>{friend.name}</span>!
               </Text>
               <Text>
                 {lastVibecheck ? (
                   <>
-                    Today, you&apos;re feelin' kinda{" "}
+                    today, you&apos;re feelin' kinda{" "}
                     <span style={{ marginLeft: rem(2) }}>
                       {lastVibecheck.vibe}
                     </span>
                   </>
                 ) : (
                   <>
-                    {" "}
-                    Welcome to the experiment. And thanks for being my friend 🫶
+                    welcome to the experiment. and thanks for being my friend 🫶
                   </>
                 )}
               </Text>
@@ -83,10 +82,10 @@ const FriendPage: PageComponent<FriendPageProps> = ({
                   color="gray"
                   size="compact-sm"
                   component="a"
-                  href={`sms:${contactPhone}?body=${encodeURIComponent("I have feedback for you: ")}`}
+                  href={`sms:${contactPhone}?body=${encodeURIComponent("i have feedback for you: ")}`}
                   leftSection={<FeedbackIcon />}
                 >
-                  Give feedback
+                  give feedback
                 </Button>
               </Group>
             </Stack>
@@ -94,7 +93,7 @@ const FriendPage: PageComponent<FriendPageProps> = ({
               <FriendTimeline {...{ statuses, contactPhone, statusId }} />
             ) : (
               <Text size="sm" c="dimmed" ta="center">
-                Please enable push notifications to continue...
+                please enable push notifications to continue...
               </Text>
             )}
           </>
@@ -103,18 +102,18 @@ const FriendPage: PageComponent<FriendPageProps> = ({
           <>
             <Stack gap={6} className={classes.landingStack}>
               <Text inherit fw={700} className={classes.landingHeadline}>
-                Hi, {friend.emoji}{" "}
+                hi, {friend.emoji}{" "}
                 <span className={classes.name}>{friend.name}</span>!
               </Text>
               <Text inherit>
-                I&apos;m running an experiment to see how I can{" "}
+                i&apos;m running an experiment to see how i can{" "}
                 <span className={classes.highlight}>
                   experience more connection
                 </span>{" "}
                 with people in my life.
               </Text>
               <Text inherit>
-                The basic idea is that you get to{" "}
+                the basic idea is that you get to{" "}
                 <span className={classes.highlight}>
                   pin this page to your home screen
                 </span>{" "}
@@ -123,8 +122,8 @@ const FriendPage: PageComponent<FriendPageProps> = ({
                 me.
               </Text>
               <Text inherit>
-                As this experiment evolves, you&apos;ll be able to do more with
-                this page. Feel free to{" "}
+                as this experiment evolves, you&apos;ll be able to do more with
+                this page. feel free to{" "}
                 <span className={classes.highlight}>randomly check back</span>{" "}
                 to see what&apos;s new :)
               </Text>
@@ -147,17 +146,17 @@ const FriendPage: PageComponent<FriendPageProps> = ({
                 }}
               >
                 {pwaInstalled
-                  ? "Find me on your home screen"
-                  : "Add to home screen"}
+                  ? "find me on your home screen"
+                  : "add to home screen"}
               </Button>
               {pwaInstalled && (
                 <Text size="xs" c="dimmed">
-                  On Android, you&apos;ll find me in your app drawer.
+                  on android, you&apos;ll find me in your app drawer.
                 </Text>
               )}
               {!isMobile && (
                 <Text size="xs" c="dimmed">
-                  Open this page on your phone to continue.
+                  open this page on your phone to continue.
                 </Text>
               )}
             </Stack>
@@ -202,7 +201,7 @@ const FriendPage: PageComponent<FriendPageProps> = ({
 
 FriendPage.layout = page => (
   <AppLayout<FriendPageProps>
-    title="Friendship Portal"
+    title="friendship portal"
     logoHref={({ friendToken }) =>
       routes.friends.show.path({ query: { friend_token: friendToken } })
     }

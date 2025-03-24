@@ -1,26 +1,20 @@
 import { type LocationAccessGrant } from "~/types";
 
-import { type AdminLocationAccessGrantCardProps } from "./AdminLocationAccessGrantCard";
 import AdminLocationAccessGrantCard from "./AdminLocationAccessGrantCard";
-import { type LocationAccessGrantCreateFormProps } from "./AdminLocationAccessGrantCreateForm";
 import LocationAccessGrantCreateForm from "./AdminLocationAccessGrantCreateForm";
 
 export interface AdminLocationAccessGrantsProps
   extends BoxProps,
-    Omit<ComponentPropsWithoutRef<"div">, "style" | "children">,
-    Pick<LocationAccessGrantCreateFormProps, "onGrantCreated">,
-    Pick<AdminLocationAccessGrantCardProps, "onGrantDeleted"> {
+    Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {
   newGrantId?: string;
 }
 
 const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
   newGrantId,
-  onGrantCreated,
-  onGrantDeleted,
   ...otherProps
 }) => {
   // == Load grants
-  const { data, mutate } = useRouteSWR<{ grants: LocationAccessGrant[] }>(
+  const { data } = useRouteSWR<{ grants: LocationAccessGrant[] }>(
     routes.adminLocationAccessGrants.index,
     {
       descriptor: "load location access grants",
@@ -36,11 +30,7 @@ const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
             <AdminLocationAccessGrantCard
               key={grant.id}
               {...{ grant }}
-              autocopy={newGrantId === grant.id}
-              onGrantDeleted={() => {
-                void mutate();
-                onGrantDeleted?.();
-              }}
+              autoCopy={newGrantId === grant.id}
             />
           ))
         ) : (
@@ -56,20 +46,18 @@ const AdminLocationAccessGrants: FC<AdminLocationAccessGrantsProps> = ({
         leftSection={<AddIcon />}
         onClick={() => {
           openModal({
-            title: "Create grant",
+            title: "create grant",
             children: (
               <LocationAccessGrantCreateForm
-                onGrantCreated={grant => {
-                  void mutate();
+                onGrantCreated={() => {
                   closeAllModals();
-                  onGrantCreated?.(grant);
                 }}
               />
             ),
           });
         }}
       >
-        New grant
+        new grant
       </Button>
     </Stack>
   );

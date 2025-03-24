@@ -2,23 +2,20 @@ import { Code, CopyButton, Text } from "@mantine/core";
 
 import { type LocationAccessGrant } from "~/types";
 
-import { type AdminLocationAccessGrantDeleteButtonProps } from "./AdminLocationAccessGrantDeleteButton";
 import AdminLocationAccessGrantDeleteButton from "./AdminLocationAccessGrantDeleteButton";
 
 import classes from "./AdminLocationAccessGrantCard.module.css";
 
 export interface AdminLocationAccessGrantCardProps
   extends BoxProps,
-    Omit<ComponentPropsWithoutRef<"div">, "style" | "children">,
-    Pick<AdminLocationAccessGrantDeleteButtonProps, "onGrantDeleted"> {
+    Omit<ComponentPropsWithoutRef<"div">, "style" | "children"> {
   grant: LocationAccessGrant;
-  autocopy?: boolean;
+  autoCopy?: boolean;
 }
 
 const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
-  autocopy,
+  autoCopy,
   grant,
-  onGrantDeleted,
   ...otherProps
 }) => {
   const [locateUrl, setLocateUrl] = useState("");
@@ -29,13 +26,17 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
       });
       const url = new URL(path, location.href);
       setLocateUrl(url.toString());
-      if (autocopy) {
-        toast.success("Location access granted!", {
+      if (autoCopy) {
+        toast.success("location access granted!", {
           description: (
             <Stack gap={8}>
               <Text inherit>
-                Access granted until{" "}
-                <Time inherit format={DateTime.DATETIME_SHORT}>
+                access granted until{" "}
+                <Time
+                  inherit
+                  format={DateTime.DATETIME_SHORT}
+                  style={{ textTransform: "lowercase" }}
+                >
                   {grant.expires_at}
                 </Time>
               </Text>
@@ -75,23 +76,29 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
             {grant.recipient}
           </Text>
           <Text size="sm" c="dimmed" lh={1.4}>
-            Created on{" "}
-            <Time inherit format={DateTime.DATETIME_MED} c="gray.5" fw={500}>
+            created on{" "}
+            <Time
+              inherit
+              format={DateTime.DATETIME_MED}
+              c="gray.5"
+              fw={500}
+              style={{ textTransform: "lowercase" }}
+            >
               {grant.created_at}
             </Time>
           </Text>
           <Text size="sm" c="dimmed" lh={1.4}>
-            Expires{" "}
+            expires{" "}
             <TimeAgo inherit c="gray.5" fw={500}>
               {grant.expires_at}
             </TimeAgo>
           </Text>
           <Text size="sm" c="dimmed" lh={1.4}>
-            Password is{" "}
+            password is{" "}
             <CopyButton value={grant.password}>
               {({ copied, copy }) => (
                 <Tooltip
-                  label={copied ? "Copied!" : "Click to copy"}
+                  label={copied ? "copied!" : "click to copy"}
                   color="primary"
                   {...(copied && { opened: true })}
                 >
@@ -124,14 +131,11 @@ const AdminLocationAccessGrantCard: FC<AdminLocationAccessGrantCardProps> = ({
                 disabled={!locateUrl}
                 onClick={copy}
               >
-                {copied ? "Copied!" : "Copy locate URL"}
+                {copied ? "copied!" : "copy locate URL"}
               </Button>
             )}
           </CopyButton>
-          <AdminLocationAccessGrantDeleteButton
-            grantId={grant.id}
-            {...{ onGrantDeleted }}
-          />
+          <AdminLocationAccessGrantDeleteButton grantId={grant.id} />
         </Group>
       </Stack>
     </Card>

@@ -6,6 +6,7 @@
 
   :global(.mantine-Badge-label) {
     font-weight: 600;
+    text-transform: none;
     white-space: unset;
     line-height: 1.4;
     font-family: var(--mantine-font-family);

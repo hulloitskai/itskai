@@ -160,7 +160,7 @@ const createTheme = (
       Modal: Modal.extend({
         classNames: {
           header: classes.modalHeader,
-          inner: classes.modalInner,
+          content: classes.modalContent,
         },
         styles: ({ headings: { sizes, ...style } }) => ({
           title: {

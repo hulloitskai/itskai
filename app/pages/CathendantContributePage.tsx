@@ -39,8 +39,8 @@ const CathendantContributePage: PageComponent<
       startTransition(() => {
         router.visit(routes.cathendantHome.show.path(), {
           onSuccess: () => {
-            toast("Thank you!", {
-              description: "Your voice has been added :)",
+            toast("thank you!", {
+              description: "your voice has been added :)",
             });
           },
         });

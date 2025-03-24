@@ -9,12 +9,13 @@ export interface ContactLinkProps extends AnchorProps, UseContactOptions {
 }
 
 const ContactLink: FC<ContactLinkProps> = ({
+  type,
   body,
   children,
   subject,
   ...otherProps
 }) => {
-  const [contact] = useContact({ subject, body });
+  const [contact] = useContact({ type, subject, body });
   return (
     <Anchor
       component="button"

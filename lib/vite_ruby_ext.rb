@@ -63,31 +63,10 @@ class ViteRuby
 
       requires_ancestor { DevServerProxy }
 
-      # == Initializer
-      def initialize(...)
-        super
-        @app = T.let(@app, T.untyped)
-      end
-
       # == Methods
       sig { returns(T::Boolean) }
       def dev_server_running?
         !ViteRuby.dev_server_disabled? && super
-      end
-
-      sig { params(env: T::Hash[String, T.untyped]).returns(T.untyped) }
-      def perform_request(env)
-        if vite_should_handle?(env) && dev_server_running?
-          forward_to_vite_dev_server(env)
-          response = super
-          if response.first == Rack::Utils::SYMBOL_TO_STATUS_CODE[:not_found]
-            @app.call(env)
-          else
-            response
-          end
-        else
-          @app.call(env)
-        end
       end
     end
     prepend DisableDevServerSupport

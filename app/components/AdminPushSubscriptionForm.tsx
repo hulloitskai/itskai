@@ -23,9 +23,12 @@ const AdminPushSubscriptionForm: FC<AdminPushSubscriptionFormProps> = ({
   const [testNotificationSent, setTestNotificationSent] = useState(false);
   useDidUpdate(() => {
     if (testNotificationSent) {
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         setTestNotificationSent(false);
       }, 1000);
+      return () => {
+        clearTimeout(timeout);
+      };
     }
   }, [testNotificationSent]);
   const {
@@ -40,6 +43,8 @@ const AdminPushSubscriptionForm: FC<AdminPushSubscriptionFormProps> = ({
         push_subscription: {
           endpoint: subscription.endpoint,
         },
+      }).then(() => {
+        setTestNotificationSent(true);
       });
     },
     [triggerSendTestNotification],
@@ -63,9 +68,9 @@ const AdminPushSubscriptionForm: FC<AdminPushSubscriptionFormProps> = ({
       >
         {supported
           ? registration
-            ? "Disable push notifications"
-            : "Enable push notifications"
-          : "Push notifications not supported on this browser"}
+            ? "disable push notifications"
+            : "enable push notifications"
+          : "push notifications not supported on this browser"}
       </Button>
       {subscription && registration && (
         <Anchor
@@ -78,10 +83,10 @@ const AdminPushSubscriptionForm: FC<AdminPushSubscriptionFormProps> = ({
           style={{ alignSelf: "center" }}
         >
           {testNotificationSent
-            ? "Sent!"
+            ? "sent!"
             : sendingTestNotification
-              ? "Sending..."
-              : "Send me a test notification"}
+              ? "sending..."
+              : "send me a test notification"}
         </Anchor>
       )}
     </Stack>

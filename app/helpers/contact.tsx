@@ -3,6 +3,7 @@ import { useCallback, useState } from "react";
 import { fetchRoute } from "./routes/fetch";
 
 export interface UseContactOptions {
+  type?: "email" | "sms";
   subject?: string;
   body?: string;
   onTriggered?: () => void;
@@ -22,13 +23,13 @@ export const useContact = (
   const contact = useCallback(() => {
     setResult(result => ({ ...result, loading: true }));
     const { onTriggered, ...params } = options ?? {};
-    fetchRoute<{ mailto: string }>(routes.contactUrls.show, {
-      descriptor: "load contact email",
-      params,
+    fetchRoute<{ mailto: string; sms: string }>(routes.contactUrls.show, {
+      descriptor: "load contact info",
+      params: { query: params },
     })
       .then(
-        ({ mailto }): void => {
-          location.href = mailto;
+        ({ mailto, sms }): void => {
+          location.href = params.type === "sms" ? sms : mailto;
           onTriggered?.();
         },
         (error: Error) => {

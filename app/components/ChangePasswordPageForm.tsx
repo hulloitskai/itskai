@@ -36,8 +36,8 @@ const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
       },
     }),
     onSuccess: () => {
-      toast.success("Password changed successfully!", {
-        description: "You are now signed in.",
+      toast.success("password changed successfully!", {
+        description: "you are now signed in.",
       });
       router.visit(routes.home.show.path());
     },
@@ -56,7 +56,7 @@ const ChangePasswordPageForm: FC<ChangePasswordPageFormProps> = ({
           onStrengthCheck={setPasswordStrength}
         />
         <Button type="submit" loading={submitting}>
-          Continue
+          continue
         </Button>
       </Stack>
     </Box>
