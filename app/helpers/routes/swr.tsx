@@ -12,6 +12,8 @@ import useSWRMutation, {
   type SWRMutationResponse,
 } from "swr/mutation";
 
+import { isCSRFError } from "~/helpers/csrf";
+
 import { type FetchRouteOptions } from "./fetch";
 
 export interface RouteSWRResponse<Data>
@@ -107,6 +109,7 @@ export const useRouteMutation = <
     serializeData,
     responseAs,
     headers,
+    onError,
     ...swrConfiguration
   } = options;
   const key = useRouteKey(route, params);
@@ -130,7 +133,21 @@ export const useRouteMutation = <
         responseAs,
         headers,
       }),
-    swrConfiguration,
+    {
+      ...swrConfiguration,
+      onError: (error, key, config) => {
+        if (isCSRFError(error)) {
+          router.reload({
+            only: ["csrf"],
+            onSuccess: () => {
+              void mutate(key);
+            },
+          });
+        } else {
+          onError?.(error, key, config);
+        }
+      },
+    },
   );
 
   return { mutating, ...swr };

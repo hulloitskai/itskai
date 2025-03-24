@@ -8,6 +8,8 @@ import {
 import { omit } from "lodash-es";
 import { toast } from "sonner";
 
+import { isCSRFError } from "~/helpers/csrf";
+
 export type FetchRouteOptions = Partial<
   Omit<RequestOptions, "method" | "fetch">
 > & {
@@ -26,7 +28,7 @@ export const fetchRoute = async <Data>(
     if (body !== null && typeof body === "object" && "error" in body) {
       const { error } = body; // eslint-disable-line @typescript-eslint/no-unsafe-assignment
       console.error(`failed to ${descriptor}`, error);
-      if (!failSilently) {
+      if (!failSilently && !isCSRFError(error)) {
         toast.error(`failed to ${descriptor}`, {
           description:
             typeof error === "string" ? error : "an unknown error occurred.",
