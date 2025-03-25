@@ -31,3 +31,11 @@ jobs:
       - name: Revert deployment on failure
         if: failure() || cancelled()
         run: flyctl scale count 1 --yes
+      - name: Create Sentry release
+        uses: getsentry/action-release@v3
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: itskai
+        with:
+          environment: production
+          projects: itskai
