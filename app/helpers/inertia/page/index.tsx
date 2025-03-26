@@ -2,6 +2,8 @@ import { type Page } from "@inertiajs/core";
 import { usePage as _usePage } from "@inertiajs/react";
 import { type ComponentType } from "react";
 
+import { type User } from "~/types";
+
 export type PageComponent<Props extends SharedPageProps = SharedPageProps> =
   ComponentType<Props> & {
     layout?: ((page: ReactNode) => ReactNode) | null;
@@ -25,6 +27,11 @@ export const usePageProps = <
 >(): Props => {
   const { props } = usePage<Props>();
   return props;
+};
+
+export const useCurrentUser = (): User | null => {
+  const { currentUser } = usePageProps();
+  return currentUser;
 };
 
 export enum PageType {

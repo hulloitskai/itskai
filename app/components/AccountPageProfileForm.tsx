@@ -5,23 +5,23 @@ import ImageInput from "./ImageInput";
 export interface AccountPageProfileFormProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {
+  currentUser: User;
   onProfileUpdated: () => void;
 }
 
 const AccountPageProfileForm: FC<AccountPageProfileFormProps> = ({
+  currentUser,
   onProfileUpdated,
   ...otherProps
 }) => {
-  const authenticatedUser = useAuthenticatedUser();
-
   // == Form
   const initialValues = useMemo(() => {
-    const { avatar, name } = authenticatedUser;
+    const { avatar, name } = currentUser;
     return {
       name,
       avatar: avatar ? { signedId: avatar.signed_id } : null,
     };
-  }, [authenticatedUser]);
+  }, [currentUser]);
   interface FormData {
     user: User;
   }

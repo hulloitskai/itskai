@@ -5,8 +5,13 @@ import AccountPageEmailForm from "~/components/AccountPageEmailForm";
 import AccountPagePasswordForm from "~/components/AccountPagePasswordForm";
 import AccountPageProfileForm from "~/components/AccountPageProfileForm";
 import AppLayout from "~/components/AppLayout";
+import { type User } from "~/types";
 
-const AccountPage: PageComponent = () => (
+interface AccountPageProps extends SharedPageProps {
+  currentUser: User;
+}
+
+const AccountPage: PageComponent<AccountPageProps> = ({ currentUser }) => (
   <Stack>
     <Card withBorder>
       <Stack gap="sm">
@@ -16,6 +21,7 @@ const AccountPage: PageComponent = () => (
           </Title>
         </Center>
         <AccountPageProfileForm
+          {...{ currentUser }}
           onProfileUpdated={() => {
             router.reload({ only: ["currentUser"] });
           }}
@@ -33,6 +39,7 @@ const AccountPage: PageComponent = () => (
           </Text>
         </Stack>
         <AccountPageEmailForm
+          {...{ currentUser }}
           onEmailChanged={() => {
             router.reload({ only: ["currentUser"] });
           }}

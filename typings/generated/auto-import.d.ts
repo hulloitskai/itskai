@@ -107,9 +107,8 @@ declare global {
   const toast: typeof import('sonner')['toast']
   const toastChangesSaved: typeof import('~/helpers/alerts')['toastChangesSaved']
   const uniqBy: typeof import('lodash-es')['uniqBy']
-  const useAuthenticatedUser: typeof import('~/helpers/authentication')['useAuthenticatedUser']
   const useCallback: typeof import('react')['useCallback']
-  const useCurrentUser: typeof import('~/helpers/authentication')['useCurrentUser']
+  const useCurrentUser: typeof import('~/helpers/inertia/page')['useCurrentUser']
   const useDebouncedCallback: typeof import('@mantine/hooks')['useDebouncedCallback']
   const useDebouncedValue: typeof import('@mantine/hooks')['useDebouncedValue']
   const useDidUpdate: typeof import('@mantine/hooks')['useDidUpdate']
@@ -133,7 +132,6 @@ declare global {
   const useShallowEffect: typeof import('@mantine/hooks')['useShallowEffect']
   const useState: typeof import('react')['useState']
   const useSubscription: typeof import('~/helpers/actioncable/subscription')['useSubscription']
-  const visitRoute: typeof import('~/helpers/inertia')['visitRoute']
 }
 // for type re-export
 declare global {

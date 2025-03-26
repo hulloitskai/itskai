@@ -7,23 +7,23 @@ import { type User } from "~/types";
 export interface AccountPageEmailFormProps
   extends BoxProps,
     Omit<ComponentPropsWithoutRef<"form">, "style" | "children" | "onSubmit"> {
+  currentUser: User;
   onEmailChanged: () => void;
 }
 
 const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
+  currentUser,
   onEmailChanged,
   ...otherProps
 }) => {
-  const user = useAuthenticatedUser();
-
   // == Form
   const initialValues = useMemo(() => {
-    const { email, unconfirmed_email } = user;
+    const { email, unconfirmed_email } = currentUser;
     return {
       email: unconfirmed_email ?? email,
       current_password: "",
     };
-  }, [user]);
+  }, [currentUser]);
   interface FormData {
     user: User;
     emailNeedsConfirmation: boolean;
@@ -83,7 +83,7 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
             label="email"
             placeholder="jon.snow@example.com"
             required
-            {...(user.unconfirmed_email
+            {...(currentUser.unconfirmed_email
               ? {
                   rightSectionWidth: 80,
                   rightSection: (
@@ -94,11 +94,11 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
                 }
               : {})}
           />
-          {user.email && user.unconfirmed_email && (
+          {currentUser.email && currentUser.unconfirmed_email && (
             <Text size="xs" c="dimmed" mt={4}>
               last verified email:{" "}
               <Text c="gray" fw={500} span>
-                {user.email}
+                {currentUser.email}
               </Text>
               <br />
               check your inbox for a link to verify your new email address.
@@ -127,11 +127,11 @@ const AccountPageEmailForm: FC<AccountPageEmailFormProps> = ({
           >
             change email
           </Button>
-          {user.unconfirmed_email && (
+          {currentUser.unconfirmed_email && (
             <ResendEmailVerificationInstructionsButton
               leftSection={<SendIcon />}
               variant="subtle"
-              {...{ user }}
+              {...{ user: currentUser }}
             />
           )}
         </Stack>
