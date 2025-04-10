@@ -3,6 +3,15 @@
   padding-left: 0px;
   cursor: pointer;
   position: relative;
+  padding-inline: 0px;
+
+  :global(.mantine-Badge-section) {
+    margin: 0px;
+  }
+
+  :global(.mantine-Badge-label) {
+    max-width: 200px;
+  }
 
   @mixin light {
     border-color: var(--mantine-color-gray-4);
@@ -45,15 +54,15 @@
   color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
 }
 
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .albumArt {
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
   animation: rotate 4s linear infinite;
 }

@@ -129,6 +129,7 @@ const IslandContent: FC<IslandContentProps> = ({
   progressMs,
   track,
   transitioning,
+  className,
   ...otherProps
 }) => {
   const { album, artists } = track;
@@ -181,16 +182,7 @@ const IslandContent: FC<IslandContentProps> = ({
               </Box>
             }
             variant="default"
-            className={classes.badge}
-            styles={{
-              section: {
-                margin: 0,
-              },
-              label: {
-                maxWidth: rem(200),
-                textTransform: "none",
-              },
-            }}
+            className={cn(classes.badge, className)}
             mod={{
               "with-lyrics": hasLyrics,
             }}
