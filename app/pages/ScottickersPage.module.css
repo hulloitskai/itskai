@@ -1,11 +1,8 @@
 .sticker {
   object-fit: contain;
+  cursor: not-allowed;
 
-  &[src] {
+  &[data-copiable] {
     cursor: copy;
-  }
-
-  &:not([src]) {
-    cursor: not-allowed;
   }
 }

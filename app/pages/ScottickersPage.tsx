@@ -122,6 +122,7 @@ interface StickerImageProps extends BoxProps {
 
 const StickerImage: FC<StickerImageProps> = ({ image, ...otherProps }) => {
   const [src, setSrc] = useState<string>();
+  const [blob, setBlob] = useState<Blob>();
   useEffect(() => {
     const img = new Image();
     img.srcset = image.srcset;
@@ -131,6 +132,9 @@ const StickerImage: FC<StickerImageProps> = ({ image, ...otherProps }) => {
       const thickness = (avgDimension / 100) * 3;
       const src = stickerify(img, thickness, "white").toDataURL();
       setSrc(src);
+      void fetch(src)
+        .then(res => res.blob())
+        .then(setBlob);
     };
   }, [image]);
   return (
@@ -141,24 +145,26 @@ const StickerImage: FC<StickerImageProps> = ({ image, ...otherProps }) => {
       h={STICKER_SIZE}
       maw={STICKER_SIZE}
       mah={STICKER_SIZE}
+      mod={{ copiable: !!blob }}
       onClick={() => {
-        if (!src) {
+        if (!blob) {
           return;
         }
-
-        // Create an image from the data URI
-        void fetch(src)
-          .then(res => res.blob())
-          .then(blob => {
-            const item = new ClipboardItem({ [blob.type]: blob });
-            navigator.clipboard
-              .write([item])
-              .then(() => {
-                toast.success("Sticker copied :)");
-              })
-              .catch(err => {
-                console.error("Failed to copy image: ", err);
+        const item = new ClipboardItem({ [blob.type]: blob });
+        navigator.clipboard
+          .write([item])
+          .then(() => {
+            toast.success("Sticker copied :)");
+          })
+          .catch(error => {
+            console.error("Failed to copy image: ", error);
+            if (error instanceof Error) {
+              toast.error("Failed to copy image", {
+                description: error.message,
               });
+            } else {
+              toast.error("Failed to copy image");
+            }
           });
       }}
       {...otherProps}
