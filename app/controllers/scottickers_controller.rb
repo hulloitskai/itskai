@@ -4,7 +4,7 @@
 class ScottickersController < ApplicationController
   # GET /scottickers
   def index
-    scottickers = Scotticker.all
+    scottickers = Scotticker.order(:name)
     render(inertia: "ScottickersPage", props: {
       scottickers: ScottickerSerializer.many(scottickers),
     })
