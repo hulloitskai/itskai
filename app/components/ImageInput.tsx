@@ -103,7 +103,7 @@ const ImageInput: FC<ImageInputProps> = ({
             fit={previewFit}
             radius={radius ?? "var(--mantine-radius-default)"}
             src={image?.src}
-            srcSet={image?.src_set}
+            srcSet={image?.srcset}
           />
           <Dropzone
             className={classes.dropzone}

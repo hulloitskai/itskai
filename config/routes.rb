@@ -177,6 +177,9 @@ Rails.application.routes.draw do
     post :vibecheck
   end
 
+  # == Scottickers
+  resources :scottickers, only: %i[index create], export: true
+
   # == Calendly
   get "/calendly" => "calendly#show"
   get "/hangout" => "calendly#show", export: true

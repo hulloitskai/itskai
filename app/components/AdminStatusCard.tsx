@@ -73,7 +73,7 @@ const AdminStatusCard: FC<AdminStatusCardProps> = ({
       {status.image && (
         <Card.Section withBorder className={classes.imageSection}>
           <Image
-            srcSet={status.image.src_set}
+            srcSet={status.image.srcset}
             src={status.image.src}
             mah={200}
             fit="contain"

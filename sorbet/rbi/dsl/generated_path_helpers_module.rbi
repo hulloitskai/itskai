@@ -259,10 +259,16 @@ module GeneratedPathHelpersModule
   def root_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def scotticker_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def spotify_track_lyrics_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def src_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def stickers_scotticker_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def submit_test_path(*args); end

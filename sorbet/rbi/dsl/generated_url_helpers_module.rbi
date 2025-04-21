@@ -259,10 +259,16 @@ module GeneratedUrlHelpersModule
   def root_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def scotticker_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def spotify_track_lyrics_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def src_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def stickers_scotticker_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def submit_test_url(*args); end

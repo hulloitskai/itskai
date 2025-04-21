@@ -20,7 +20,7 @@ export interface CurrentlyPlayingLyricsTooltipProps
 
 const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
   children,
-  disabled,
+  disabled: _disabled,
   durationMs,
   progressMs = 0,
   track,
@@ -68,7 +68,7 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
     }
   }, [lyrics, progressLyricsIndexMapping, interpolatedProgressMs]);
 
-  const hasWords = !!currentLyric?.words;
+  const _hasWords = !!currentLyric?.words;
   const label = useMemo(
     () => (hovered ? "Click to join listening session!" : currentLyric?.words),
     [currentLyric, hovered],
@@ -81,8 +81,9 @@ const CurrentlyPlayingLyricsTooltip: FC<CurrentlyPlayingLyricsTooltipProps> = ({
       multiline
       color="primary"
       transitionProps={{ duration: transitionDuration }}
-      disabled={disabled ?? (!hasWords && !hovered)}
-      opened={!disabled && (hasWords || hovered)}
+      // disabled={disabled ?? (!hasWords && !hovered)}
+      // opened={!disabled && (hasWords || hovered)}
+      disabled
       classNames={{ tooltip: classes.tooltip }}
       mod={{ hovered }}
       {...otherProps}

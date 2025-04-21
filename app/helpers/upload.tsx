@@ -6,7 +6,7 @@ import { requireMeta } from "./meta";
 
 export interface UseUploadParams {
   onProgress?: (progress: number) => void;
-  onCompleted?: (blob: Blob) => void;
+  onCompleted?: (blob: Blob, file: File) => void;
   onError?: (error: Error) => void;
   failSilently?: boolean;
 }
@@ -108,7 +108,7 @@ export const useLazyUpload = (
             cancel: () => {},
           });
           resolve(error);
-          onCompleted?.(blob);
+          onCompleted?.(blob, file);
         }
       });
     });

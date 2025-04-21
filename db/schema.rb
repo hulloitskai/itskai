@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_22_170138) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_20_223117) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -339,6 +339,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_22_170138) do
     t.uuid "friend_id"
     t.index ["endpoint"], name: "index_push_subscriptions_on_endpoint", unique: true
     t.index ["friend_id"], name: "index_push_subscriptions_on_friend_id"
+  end
+
+  create_table "scottickers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_scottickers_on_name", unique: true
   end
 
   create_table "statuses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

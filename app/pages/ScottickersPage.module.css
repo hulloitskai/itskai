@@ -1,0 +1,11 @@
+.sticker {
+  object-fit: contain;
+
+  &[src] {
+    cursor: copy;
+  }
+
+  &:not([src]) {
+    cursor: not-allowed;
+  }
+}

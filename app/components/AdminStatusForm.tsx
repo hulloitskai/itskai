@@ -141,7 +141,7 @@ const AdminStatusForm: FC<AdminStatusFormProps> = ({
       {image && (
         <MantineImage
           className={classes.image}
-          srcSet={image.src_set}
+          srcSet={image.srcset}
           src={image.src}
           fit="contain"
         />

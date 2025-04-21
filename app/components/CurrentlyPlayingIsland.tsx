@@ -139,7 +139,7 @@ const IslandContent: FC<IslandContentProps> = ({
   );
 
   // == Join jam session
-  const { trigger: joinJam, mutating: joiningJam } = useRouteMutation<{
+  const { /* trigger: joinJam, */ mutating: joiningJam } = useRouteMutation<{
     joinUrl: string;
   }>(routes.spotifyJamSessions.join, {
     descriptor: "join Spotify jam session",
@@ -186,9 +186,9 @@ const IslandContent: FC<IslandContentProps> = ({
             mod={{
               "with-lyrics": hasLyrics,
             }}
-            onClick={() => {
-              void joinJam();
-            }}
+            // onClick={() => {
+            //   void joinJam();
+            // }}
             {...otherProps}
           >
             <MarqueeText size="xs" fw={800} className={classes.trackName}>

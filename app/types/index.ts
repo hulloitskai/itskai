@@ -1,3 +1,4 @@
+export type { default as Dimensions } from "./Dimensions";
 export type * from "./generated";
 export type { default as Resume } from "./Resume";
 export type * from "./Resume";

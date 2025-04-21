@@ -116,7 +116,7 @@ const TimelineItemContent: FC<TimelineItemContentProps> = ({
           </Text>
           {status.image && (
             <Image
-              srcSet={status.image.src_set}
+              srcSet={status.image.srcset}
               src={status.image.src}
               mah={200}
               w="auto"

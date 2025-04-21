@@ -13,11 +13,23 @@ class ImageSerializer < FileSerializer
     rails_representation_path(blob)
   end
 
-  attribute :src_set, type: :string do
-    sources = SIZES.map do |size|
-      representation = blob.representation(resize_to_limit: [size, size])
-      "#{rails_representation_path(representation)} #{size}w"
+  attribute :srcset, type: :string do
+    if blob.content_type&.start_with?("image/gif")
+      rails_representation_path(blob)
+    else
+      sources = SIZES.map do |size|
+        representation = blob.representation(resize_to_limit: [size, size])
+        "#{rails_representation_path(representation)} #{size}w"
+      end
+      sources.join(", ")
     end
-    sources.join(", ")
+  end
+
+  attribute :dimensions, type: "Dimensions", nullable: true do
+    blob.analyze unless blob.analyzed?
+    width, height = blob.metadata.values_at("width", "height")
+    if width.present? && height.present?
+      { width:, height: }
+    end
   end
 end
