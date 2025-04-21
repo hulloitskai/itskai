@@ -133,11 +133,18 @@ const StickerImage: FC<StickerImageProps> = ({ image, ...otherProps }) => {
     img.onload = () => {
       const avgDimension = (img.width + img.height) / 2;
       const thickness = (avgDimension / 100) * 3;
-      const src = stickerify(img, thickness, "white").toDataURL();
-      setSrc(src);
-      void fetch(src)
-        .then(res => res.blob())
-        .then(setBlob);
+      const withWhiteBorder = stickerify(img, thickness, "white");
+      const sticker = stickerify(
+        withWhiteBorder as any, // eslint-disable-line @typescript-eslint/no-unsafe-argument
+        thickness / 6,
+        "rgba(0, 0, 0, 0.15)",
+      );
+      setSrc(sticker.toDataURL());
+      sticker.toBlob(blob => {
+        if (blob) {
+          setBlob(blob);
+        }
+      });
     };
   }, [image]);
   return (
