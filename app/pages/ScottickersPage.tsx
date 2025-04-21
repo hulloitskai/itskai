@@ -4,6 +4,7 @@ import {
   Image as MantineImage,
   Text,
 } from "@mantine/core";
+import { useColorScheme } from "@mantine/hooks";
 
 import UploadIcon from "~icons/heroicons/arrow-up-tray-20-solid";
 
@@ -24,6 +25,7 @@ const STICKER_SIZE = 200;
 const ScottickersPage: PageComponent<ScottickersPageProps> = ({
   scottickers,
 }) => {
+  useColorScheme("dark");
   const [creating, setCreating] = useState(false);
   const [upload, { uploading }] = useLazyUpload({
     onCompleted: (blob, file) => {

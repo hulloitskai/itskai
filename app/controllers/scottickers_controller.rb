@@ -2,8 +2,6 @@
 # frozen_string_literal: true
 
 class ScottickersController < ApplicationController
-  before_action :authenticate_user!
-
   # GET /scottickers
   def index
     scottickers = Scotticker.all
