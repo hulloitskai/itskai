@@ -61,9 +61,17 @@ const ScottickersPage: PageComponent<ScottickersPageProps> = ({
     <Stack gap="xl">
       <Container size="xs" w="100%">
         <Stack align="center">
-          <Box>
+          <Box ta="center">
             <Title>scottickers</Title>
             <Text size="sm">click a scotticker to copy it :)</Text>
+            <Anchor
+              size="sm"
+              href="https://signal.art/addstickers/#pack_id=71f81f7c8b2c7a0140cbef828832d7f7&pack_key=c267c4022d6e08200f5bcab75d91904024b6edf61577b75479b5cd4d6cd6dc59"
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+            >
+              add to Signal
+            </Anchor>
           </Box>
           <FileButton
             accept="image/png,image/jpeg,image/heic"
