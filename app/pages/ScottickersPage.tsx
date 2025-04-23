@@ -60,8 +60,11 @@ const ScottickersPage: PageComponent<ScottickersPageProps> = ({
   return (
     <Stack gap="xl">
       <Container size="xs" w="100%">
-        <Stack align="center" gap={6}>
-          <Title>scottickers</Title>
+        <Stack align="center">
+          <Box>
+            <Title>scottickers</Title>
+            <Text size="sm">click a scotticker to copy it :)</Text>
+          </Box>
           <FileButton
             accept="image/png,image/jpeg,image/heic"
             onChange={file => {
