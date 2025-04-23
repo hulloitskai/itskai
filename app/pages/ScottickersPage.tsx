@@ -71,14 +71,21 @@ const ScottickersPage: PageComponent<ScottickersPageProps> = ({
             }}
           >
             {props => (
-              <Button
-                leftSection={<UploadIcon />}
-                loading={uploading || creating}
-                radius="xl"
-                {...props}
+              <Tooltip
+                label="Upload a transparent, well-named PNG, i.e. 'happy scott.png'"
+                multiline
+                maw={280}
+                position="bottom"
               >
-                new sticker
-              </Button>
+                <Button
+                  leftSection={<UploadIcon />}
+                  loading={uploading || creating}
+                  radius="xl"
+                  {...props}
+                >
+                  new sticker
+                </Button>
+              </Tooltip>
             )}
           </FileButton>
         </Stack>
