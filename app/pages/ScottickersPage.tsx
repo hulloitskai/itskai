@@ -87,6 +87,7 @@ const ScottickersPage: PageComponent<ScottickersPageProps> = ({
                 multiline
                 maw={280}
                 position="bottom"
+                events={{ hover: true, focus: true, touch: true }}
               >
                 <Button
                   leftSection={<UploadIcon />}
