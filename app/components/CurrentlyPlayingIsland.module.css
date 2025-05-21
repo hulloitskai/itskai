@@ -1,7 +1,7 @@
 .badge {
   transition-property: transform, opacity, border, box-shadow !important;
   padding-left: 0px;
-  /* cursor: pointer; */
+  cursor: pointer;
   position: relative;
   padding-inline: 0px;
 

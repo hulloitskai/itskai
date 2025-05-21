@@ -161,7 +161,8 @@ const IslandContent: FC<IslandContentProps> = ({
         const hasLyrics = !!currentWords;
         return (
           <Badge
-            component="button"
+            component="a"
+            href={track.spotify_url}
             size="xl"
             leftSection={
               <Box pos="relative" p={2} mr={3}>
