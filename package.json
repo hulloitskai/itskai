@@ -46,6 +46,7 @@
     "luxon": "^3.4.4",
     "mapbox-gl": "^2.15.0",
     "motion": "^11.17.0",
+    "playwright": "1.52.0",
     "pretty-bytes": "^6.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

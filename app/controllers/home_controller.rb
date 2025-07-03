@@ -30,6 +30,6 @@ class HomeController < ApplicationController
 
   # GET /feed.atom
   def feed
-    @entries = NotionJournalEntry.reverse_chronological
+    @entries = NotionJournalEntry.with_content.ordered
   end
 end

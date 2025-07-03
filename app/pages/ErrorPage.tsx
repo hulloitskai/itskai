@@ -18,8 +18,12 @@ const ErrorPage: PageComponent<ErrorPageProps> = ({
   title,
 }) => (
   <Stack align="center">
-    <Badge variant="outline" color="red">
-      Status {code}
+    <Badge
+      variant="outline"
+      color="red"
+      styles={{ label: { textTransform: "none" } }}
+    >
+      status {code}
     </Badge>
     <Stack align="center" gap={2}>
       <Title size="h2">{title}</Title>
@@ -29,7 +33,7 @@ const ErrorPage: PageComponent<ErrorPageProps> = ({
     </Stack>
     {!!error && (
       <Code block style={{ alignSelf: "stretch", textTransform: "none" }}>
-        Error: {error}
+        error: {error}
       </Code>
     )}
     <Button
@@ -37,7 +41,7 @@ const ErrorPage: PageComponent<ErrorPageProps> = ({
       href={routes.home.show.path()}
       leftSection={<BackIcon />}
     >
-      Back to home
+      back to home
     </Button>
   </Stack>
 );

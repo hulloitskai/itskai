@@ -58,7 +58,7 @@ FileUtils.chdir APP_ROOT do
   system! "bin/lefthook install"
 
   puts "\n=> Installing Playwright"
-  system! "npx --yes playwright install chromium"
+  system! "npx --yes playwright@1.52 install chromium"
 
   unless File.exist?(".env")
     puts "\n=> Copying .env.example to .env"
