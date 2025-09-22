@@ -146,16 +146,18 @@ class ICloudctl < ApplicationService
 
   # == Helpers
   sig { params(credentials: ICloudCredentials).returns(String) }
+  def credentials_basepath(credentials)
+    File.join(ICloud::CREDENTIALS_DIR, credentials.email.gsub(/[^0-9a-z]/i, ""))
+  end
+
+  sig { params(credentials: ICloudCredentials).returns(String) }
   def cookies_filename(credentials)
-    File.join(
-      ICloud::CREDENTIALS_DIR,
-      credentials.email.gsub(/[^0-9a-z]/i, ""),
-    )
+    "#{credentials_basepath(credentials)}.cookiejar"
   end
 
   sig { params(credentials: ICloudCredentials).returns(String) }
   def session_filename(credentials)
-    "#{cookies_filename(credentials)}.session"
+    "#{credentials_basepath(credentials)}.session"
   end
 
   sig { returns(T.nilable(LoginResult)) }

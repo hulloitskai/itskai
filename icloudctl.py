@@ -2,7 +2,7 @@ from flask import Flask, request
 import fastwsgi  # type: ignore
 from os import environ
 
-from pyicloud import PyiCloudService  # type: ignore
+from pyicloud import PyiCloudService, AppleDevice  # type: ignore
 from pyicloud.exceptions import (  # type: ignore
     PyiCloudFailedLoginException,
     PyiCloudAPIResponseException,
@@ -42,7 +42,9 @@ def login():
     credentials_dir = payload.get("credentials_dir")
     try:
         global service
-        service = PyiCloudService(email, password, cookie_directory=credentials_dir)
+        service = PyiCloudService(
+            email, password, cookie_directory=credentials_dir, accept_terms=True
+        )
         data = {"success": True, "requires_2fa": service.requires_2fa}
         return {"data": data}
     except PyiCloudFailedLoginException as error:
@@ -89,8 +91,8 @@ def device():
     if not service:
         return {"error": "Service not connected"}, 400
     try:
-        device = service.devices.get(id)
-        data = {"device": dict(device)}
+        device: AppleDevice = service.devices.get(id)
+        data = {"device": device.data}
         return {"data": data}
     except Exception as error:
         return {"error": str(error)}, 500
