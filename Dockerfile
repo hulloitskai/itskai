@@ -146,7 +146,7 @@ COPY pyproject.toml poetry.toml poetry.lock ./
 RUN --mount=type=cache,target=/var/cache,sharing=locked \
   --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
   --mount=type=cache,target=/root/.cache/pypoetry,sharing=locked \
-  BUILD_DEPS="build-essential" set -eux && \
+  BUILD_DEPS="git build-essential" set -eux && \
   apt-get update -yq && \
   echo $BUILD_DEPS | xargs apt-get install -yq --no-install-recommends; \
   poetry install --no-cache --no-root --no-directory --without=dev && \

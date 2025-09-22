@@ -56,5 +56,6 @@
   },
   "[ignore]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "python.languageServer": "None"
 }
