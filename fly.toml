@@ -3,6 +3,9 @@ primary_region = "den"
 kill_signal = "SIGINT"
 swap_size_mb = 1024
 
+[env]
+  CURRENTLY_PLAYING_POLLER_DISABLED=true
+
 [experimental]
   auto_rollback = true
 

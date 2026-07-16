@@ -26,7 +26,7 @@ class ApplicationWorker
   sig { returns(String) }
   private_class_method def self.env_prefix
     @env_key ||= T.let(
-      T.must(self.class.name).underscore.upcase,
+      T.must(name).underscore.upcase,
       T.nilable(String),
     )
   end
